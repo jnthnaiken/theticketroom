@@ -493,7 +493,7 @@ D.meta.date = D.meta.date || "2026-06-15";
   function el(){var d=document.getElementById('livectl');if(d)return d;
     d=document.createElement('div');d.id='livectl';
     d.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;background:#0e1726;border:1px solid #29405e;border-radius:10px;padding:8px 10px;font:12px/1.4 system-ui,sans-serif;color:#cfe0f5;box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:320px';
-    d.innerHTML='<button id="livebtn" style="cursor:pointer;background:#1c5;border:0;color:#04210f;font-weight:700;border-radius:7px;padding:6px 10px">\u21bb Update from MLB</button><div id="livemsg" style="margin-top:6px;opacity:.85">ready</div>';
+    d.innerHTML='<button id="livebtn" style="cursor:pointer;background:#1c5;border:0;color:#04210f;font-weight:700;border-radius:7px;padding:6px 10px">\u21bb Update from MLB</button><div id="livemsg" style="margin-top:6px;opacity:.85">ready · lineups v3</div>';
     document.body.appendChild(d);
     d.querySelector('#livebtn').onclick=function(){pull(false);};
     return d;}
@@ -524,29 +524,29 @@ D.meta.date = D.meta.date || "2026-06-15";
         var st=(g.status&&(g.status.abstractGameState||g.status.detailedState))||"";
         var isFin=/final|completed|over/i.test(st);
 
-        // lineups + results both read from the boxscore (reliable fullName + battingOrder)
         var bs=null; try{bs=await J(MLB+"/game/"+g.gamePk+"/boxscore");}catch(e){bs=null;}
 
-        // (1) confirm / scratch — PER TEAM, only once that team's own lineup is actually posted
-        if(gi!=null && bs && bs.teams){
-          var ps={}, teamPosted={};
-          ['away','home'].forEach(function(side){
-            var tm=bs.teams[side]; if(!tm||!tm.players)return;
-            var tname=((tm.team&&tm.team.name)||"").toLowerCase(), cnt=0;
-            Object.keys(tm.players).forEach(function(k){
-              var pl=tm.players[k];
-              if(pl&&pl.battingOrder && pl.person && pl.person.fullName){ ps[NM(pl.person.fullName)]=1; cnt++; }
-            });
-            if(cnt>=8){ Object.keys(gmap[gi]||{}).forEach(function(t){ if(tname.indexOf(t)>=0) teamPosted[t]=1; }); }
+        // (1) confirm / scratch — PER TEAM. A bat is only touched once ITS OWN side's lineup is posted.
+        if(gi!=null){
+          var lu=g.lineups||{};
+          function nmset(arr){var s={};(arr||[]).forEach(function(p){var fn=p&&(p.fullName||p.name);if(fn)s[NM(fn)]=1;});return s;}
+          var psAway=nmset(lu.awayPlayers), psHome=nmset(lu.homePlayers);
+          // supplement with boxscore battingOrder (post-lineup / in-game), kept on the correct side
+          if(bs&&bs.teams){['away','home'].forEach(function(side){
+            var tm=bs.teams[side]; if(!tm||!tm.players)return; var dest=(side==='away')?psAway:psHome;
+            Object.keys(tm.players).forEach(function(k){var pl=tm.players[k];
+              if(pl&&pl.battingOrder&&pl.person&&pl.person.fullName)dest[NM(pl.person.fullName)]=1;});
+          });}
+          var awayNk=(awayName||'').toLowerCase(), homeNk=(homeName||'').toLowerCase();
+          var awayN=Object.keys(psAway).length, homeN=Object.keys(psHome).length;
+          Object.keys(D.players).forEach(function(n){
+            var pl=D.players[n]; if(pl.game!==gi)return;
+            var t=pl.team.toLowerCase(), ps=null, have=0;
+            if(awayNk.indexOf(t)>=0){ps=psAway;have=awayN;} else if(homeNk.indexOf(t)>=0){ps=psHome;have=homeN;}
+            if(!ps || !have) return;                  // this bat's team lineup isn't posted yet -> leave projected
+            if(matchPosted(ps,pl.nm)){ if(pl.status!=='confirmed'){pl.status='confirmed';confirmed++;} pl.out=false; }
+            else { pl.out=true; }
           });
-          if(Object.keys(teamPosted).length){
-            Object.keys(D.players).forEach(function(n){
-              var pl=D.players[n]; if(pl.game!==gi)return;
-              if(!teamPosted[pl.team.toLowerCase()])return;   // this bat's team card isn't in yet -> leave projected
-              if(matchPosted(ps,pl.nm)){ if(pl.status!=='confirmed'){pl.status='confirmed';confirmed++;} pl.out=false; }
-              else { pl.out=true; }                            // posted, but not in own team's lineup -> scratched
-            });
-          }
         }
 
         // (2a) final-team flags so losing legs settle
