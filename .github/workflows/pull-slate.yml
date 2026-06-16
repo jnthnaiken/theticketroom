@@ -1,20 +1,22 @@
 name: Pull MLB slate
 
 # Runs the free MLB data pull (slate, pitchers, lineups, ISO, HR/9) and commits
-# the resulting slate_auto_<date>.json into the repo.
-#
-# - "Run workflow" button = manual trigger (use this to test).
-# - schedule = optional daily auto-run. Cron is in UTC. 15:00 UTC ~= 11am ET.
-#   Lineups post 1-3 hrs before first pitch, so for confirmed bats run later in
-#   the day; season ISO / HR9 are available any time.
+# slate_auto_<date>.json into the repo.
+#   "Run workflow" = manual trigger (use this to test).
+#   schedule = optional daily auto-run (UTC). Lineups post 1-3 hrs before first
+#   pitch, so for confirmed bats run later in the day; ISO/HR9 work any time.
 
 on:
-  workflow_dispatch:        # manual "Run workflow" button
+  workflow_dispatch:
   schedule:
-    - cron: "0 15 * * *"    # 11am ET daily (adjust or delete as you like)
+    - cron: "0 21 * * *"    # 5pm ET daily (~lineups up for early games); adjust/delete
 
 permissions:
-  contents: write           # lets the Action commit the output file back
+  contents: write
+
+concurrency:
+  group: pull-slate          # never let two runs race the push
+  cancel-in-progress: false
 
 jobs:
   pull:
@@ -36,7 +38,7 @@ jobs:
           echo "---- files ----"
           ls -1 slate_auto_*.json || true
           echo "---- summary (head) ----"
-          for f in slate_auto_*.json; do echo "== $f =="; head -c 1200 "$f"; echo; done
+          for f in slate_auto_*.json; do echo "== $f =="; head -c 1400 "$f"; echo; done
 
       - name: Commit the slate file
         run: |
@@ -47,5 +49,8 @@ jobs:
             echo "no changes to commit"
           else
             git commit -m "Auto slate pull $(date -u +%Y-%m-%d)"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; break; }
+              echo "push attempt $i failed, retrying"; sleep 4
+            done
           fi
