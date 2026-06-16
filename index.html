@@ -427,7 +427,8 @@ function pruneScratches(){(D.tickets||[]).forEach(function(t){
   if(t.nlegs===0){t.result='void';} else if(t.result==='void'){t.result=undefined;}
 });}
 function priceTicket(t){t.players.forEach(l=>{if(D.players[l.name])l.odds=D.players[l.name].odds;});if(t.singles){t.priced=t.players.filter(l=>l.odds).length;t.parlay_am=null;t.payout10=null;return;}const pr=t.players.filter(l=>l.odds);t.priced=pr.length;if(pr.length===t.nlegs&&pr.length){let d;if(pr.length===2&&pr[0].game===pr[1].game){let q1=1/a2d(pr[0].odds),q2=1/a2d(pr[1].odds),rho=(pr[0].team===pr[1].team?0.12:0.06),j=q1*q2+rho*Math.sqrt(q1*(1-q1)*q2*(1-q2));d=1/j;}else{d=1;pr.forEach(l=>d*=a2d(l.odds));}t.parlay_am=d2a(d);t.payout10=+(10*d).toFixed(2);}else{t.parlay_am=null;t.payout10=null;}}
-function refreshAll(){pruneScratches();D.tickets.forEach(priceTicket);drawStats();drawTickets();drawPool();drawPlayers();drawTracker();if(!$('#v-b').hidden)buildCombos();const s=$('#rstamp');if(s)s.textContent='rendered '+nowStr();}
+function syncLegs(){(D.tickets||[]).forEach(function(t){(t.players||[]).forEach(function(l){var lp=D.players[l.name];if(lp){l.status=lp.status;l.out=lp.out;l.hr=lp.hr;l.void=lp.void;}});});}
+function refreshAll(){pruneScratches();syncLegs();D.tickets.forEach(priceTicket);drawStats();drawTickets();drawPool();drawPlayers();drawTracker();if(!$('#v-b').hidden)buildCombos();const s=$('#rstamp');if(s)s.textContent='rendered '+nowStr();}
 function applyOdds(){const lines=$('#oddsin').value.split(/\n+/);let ap=0,miss=[];
  lines.forEach(line=>{const m=line.match(/([+\-]\d{3,4})/);if(!m)return;const am=parseInt(m[1],10);let nm=line.slice(0,m.index).replace(/\(.*$/,'').replace(/[:|].*$/,'').trim();if(!nm)return;const key=NM(nm);let hit=IDX[key];if(!hit){const c=Object.keys(IDX).find(k=>k===key||k.includes(key)||key.includes(k));if(c)hit=IDX[c];}if(hit){D.players[hit].odds=am;ap++;}else miss.push(nm);});
  refreshAll();const msg=$('#pbmsg');msg.textContent='applied '+ap+(miss.length?(' \u00b7 no match: '+miss.slice(0,5).join(', ')+(miss.length>5?'\u2026':'')):'');msg.style.color=ap?'var(--lime)':'var(--amber)';}
@@ -493,7 +494,7 @@ D.meta.date = D.meta.date || "2026-06-15";
   function el(){var d=document.getElementById('livectl');if(d)return d;
     d=document.createElement('div');d.id='livectl';
     d.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;background:#0e1726;border:1px solid #29405e;border-radius:10px;padding:8px 10px;font:12px/1.4 system-ui,sans-serif;color:#cfe0f5;box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:320px';
-    d.innerHTML='<button id="livebtn" style="cursor:pointer;background:#1c5;border:0;color:#04210f;font-weight:700;border-radius:7px;padding:6px 10px">\u21bb Update from MLB</button><div id="livemsg" style="margin-top:6px;opacity:.85">ready · lineups v5</div>';
+    d.innerHTML='<button id="livebtn" style="cursor:pointer;background:#1c5;border:0;color:#04210f;font-weight:700;border-radius:7px;padding:6px 10px">\u21bb Update from MLB</button><div id="livemsg" style="margin-top:6px;opacity:.85">ready · lineups v6</div>';
     document.body.appendChild(d);
     d.querySelector('#livebtn').onclick=function(){pull(false);};
     return d;}
