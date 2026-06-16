@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="120">
-<title>HR Prop Ticket Room — June 10 (confirmed-lineup build)</title>
+<title>HR Props The Ticket Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -237,7 +237,7 @@ header{position:relative}
 @media(max-width:900px){.head-row{flex-direction:column;gap:0}.tracker{width:auto;margin-top:18px}.tk-graph{width:120px}}
 .slip.lunchwide.nightcap{border-color:var(--line)}.slip.lunchwide.nightcap .top{background:var(--surf2)}.losspill{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--pink);border-radius:20px;padding:3px 9px}.slip.lost{opacity:.82;border-color:#f0564e;box-shadow:inset 0 0 0 1px #f0564e66,inset 0 0 22px #f0564e24}.slip.lost:hover{border-color:#f0564e;box-shadow:inset 0 0 0 1px #f0564e88,inset 0 0 22px #f0564e30}.slip.lost .dot,.slip.lost .meter{filter:grayscale(1)}.lst.dead{color:var(--pink)}.st.dead{color:#fff;background:#7a1f1f;border:1px solid #c25b5b;font-weight:700}.rrpill{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#2a1d10;background:var(--amber);border-radius:20px;padding:3px 9px}.voidpill{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--txt);background:var(--raise);border:1px solid var(--line2);border-radius:20px;padding:3px 9px}.slip.voided{opacity:.72}.slip.voided .dot,.slip.voided .meter{filter:grayscale(1)}.lst.void{color:var(--mut)}.st.void{color:var(--txt);background:var(--raise);border:1px solid var(--line2);font-weight:600}.owarn.twarn{color:var(--amber);background:#241a0e;border-color:#5a4422}.st.soft{color:var(--amber);background:#241a0e;border:1px solid #5a4422;font-weight:600}.sbadge{color:var(--amber);font-size:10px;margin:0 3px;font-weight:700}.salamiwide{grid-column:1/-1}.slip.nightcap.cashed,.slip.lunchwide.cashed{border-color:#4ef08a!important;box-shadow:inset 0 0 0 1px #4ef08a66,inset 0 0 22px #4ef08a24!important}.slip.nightcap.lost,.slip.lunchwide.lost{border-color:#f0564e!important;box-shadow:inset 0 0 0 1px #f0564e66,inset 0 0 22px #f0564e24!important;opacity:.82}</style></head><body><div class="wrap">
 <header>
- <div class="eyebrow">Home-Run Props · June 15, 2026 · Kasper blend + matchup</div>
+ <div class="eyebrow">Home-Run Props · <span id="hdrdate">June 15, 2026</span> · Kasper blend + matchup</div>
  <h1>The Ticket Room</h1>
  <div class="tagline">“Every strike brings me closer to the next home run.”<span class="cite">— Babe Ruth</span></div>
  <div class="head-row">
@@ -450,4 +450,76 @@ function clearSaved(){try{localStorage.removeItem(ODDS_KEY);}catch(e){}location.
 $('#btn-oclear').onclick=clearSaved;
 const _ld=loadOdds();D.tickets.forEach(priceTicket);if(_ld){const s=$('#osaved');if(s)s.textContent='restored '+_ld;}
 drawTickets();drawPlayers();drawTracker();
+
+/* ===== Live HR result grader (MLB StatsAPI, free, no key) =====
+   Marks homered bats as wins, and when a game goes final it flags that game
+   so the board's RR/parlay rules settle the non-homering legs as losses.
+   "Max Muncy" is disambiguated by team (two active MLB players share the name).
+   The slate date drives the query and the header. Silent no-op on any failure. */
+D.meta.date = D.meta.date || "2026-06-15";
+(function(){
+  var MLB="https://statsapi.mlb.com/api/v1", busy=false;
+  var AMBIG={ "maxmuncy":1 };
+  function fmtDate(s){var p=(s||"").split("-");if(p.length!==3)return s;var d=new Date(+p[0],+p[1]-1,+p[2]);return d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});}
+  var hd=document.getElementById('hdrdate'); if(hd) hd.textContent=fmtDate(D.meta.date);
+  function el(){var d=document.getElementById('livectl');if(d)return d;
+    d=document.createElement('div');d.id='livectl';
+    d.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;background:#0e1726;border:1px solid #29405e;border-radius:10px;padding:8px 10px;font:12px/1.4 system-ui,sans-serif;color:#cfe0f5;box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:300px';
+    d.innerHTML='<button id="livebtn" style="cursor:pointer;background:#1c5;border:0;color:#04210f;font-weight:700;border-radius:7px;padding:6px 10px">\u21bb Pull live results</button><div id="livemsg" style="margin-top:6px;opacity:.85">ready</div>';
+    document.body.appendChild(d);
+    d.querySelector('#livebtn').onclick=function(){pull(false);};
+    return d;}
+  function msg(t,c){var m=el().querySelector('#livemsg');m.textContent=t;if(c)m.style.color=c;}
+  async function J(u){var r=await fetch(u);if(!r.ok)throw 0;return r.json();}
+  async function pull(silent){
+    if(busy)return;busy=true;if(!silent)msg('checking games\u2026');
+    try{
+      var sch=await J(MLB+"/schedule?sportId=1&date="+D.meta.date);
+      var games=(sch.dates&&sch.dates[0]&&sch.dates[0].games)||[];
+      var ourTeams={}; Object.keys(D.players).forEach(function(n){ourTeams[D.players[n].team.toLowerCase()]=1;});
+      var finalTeams={}, homered=[];
+      for(var i=0;i<games.length;i++){
+        var g=games[i];
+        var st=(g.status&&(g.status.abstractGameState||g.status.detailedState))||"";
+        var isFin=/final|completed|over/i.test(st);
+        if(isFin && g.teams){ ['away','home'].forEach(function(side){
+          var nm=((g.teams[side]&&g.teams[side].team&&g.teams[side].team.name)||"").toLowerCase();
+          Object.keys(ourTeams).forEach(function(t){ if(nm.indexOf(t)>=0) finalTeams[t]=1; });
+        }); }
+        var bs;try{bs=await J(MLB+"/game/"+g.gamePk+"/boxscore");}catch(e){continue;}
+        ['away','home'].forEach(function(side){
+          var tm=bs.teams&&bs.teams[side];if(!tm||!tm.players)return;
+          var tname=((tm.team&&tm.team.name)||"").toLowerCase();
+          Object.keys(tm.players).forEach(function(k){
+            var pl=tm.players[k],hr=pl.stats&&pl.stats.batting&&pl.stats.batting.homeRuns;
+            if(hr&&hr>0&&pl.person&&pl.person.fullName)homered.push({fn:pl.person.fullName,tm:tname});
+          });
+        });
+      }
+      var applied=[],review=[];
+      homered.forEach(function(h){
+        var key=NM(h.fn),hit=IDX[key];
+        if(hit){
+          if(AMBIG[key] && h.tm.indexOf(D.players[hit].team.toLowerCase())<0){review.push(h.fn+" (other team \u2014 skipped)");return;}
+          D.players[hit].hr=true; applied.push(hit); return;
+        }
+        var c=Object.keys(IDX).find(function(k){return k!==key&&(k.indexOf(key)>=0||key.indexOf(k)>=0);});
+        if(c)review.push(h.fn+" \u2248 "+IDX[c]);
+      });
+      var gTeams={}; Object.keys(D.players).forEach(function(n){var p=D.players[n];(gTeams[p.game]=gTeams[p.game]||{})[p.team.toLowerCase()]=1;});
+      var fin=(D.meta.finals||[]).slice(), addf=0;
+      Object.keys(gTeams).forEach(function(g){
+        var ts=Object.keys(gTeams[g]); if(ts.length&&ts.every(function(t){return finalTeams[t];})){ if(fin.indexOf(+g)<0){fin.push(+g);addf++;} }
+      });
+      D.meta.finals=fin;
+      refreshAll();
+      var t='graded '+games.length+' games \u00b7 '+(applied.length?('\u2714 '+Array.from(new Set(applied)).join(', ')):'no board HRs yet');
+      if(addf)t+=' \u00b7 '+addf+' final';
+      if(review.length)t+=' \u00b7 review: '+review.slice(0,4).join('; ');
+      msg(t, applied.length?'#1c5':'#cfe0f5');
+    }catch(e){ if(!silent)msg('couldn\u2019t reach MLB feed \u2014 board unchanged','#e9b949'); }
+    busy=false;
+  }
+  if(document.readyState!=='loading')pull(true);else document.addEventListener('DOMContentLoaded',function(){pull(true);});
+})();
 </script></body></html>
