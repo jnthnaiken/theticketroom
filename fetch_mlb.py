@@ -40,7 +40,7 @@ def get(url):
 
 def eastern_today():
     # Approximate US/Eastern without external tz libs: UTC-4 (DST) during the season.
-    return (datetime.datetime.utcnow() - datetime.timedelta(hours=4)).strftime("%Y-%m-%d")
+    return (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).strftime("%Y-%m-%d")
 
 
 def to_float(x):
@@ -173,7 +173,7 @@ def main():
             if sp.get("id"):
                 sp["hr9"] = hr9.get(sp["id"])
 
-    out = {"date": date, "season": season, "pulled_at": datetime.datetime.utcnow().isoformat() + "Z",
+    out = {"date": date, "season": season, "pulled_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
            "games": games}
     fname = f"slate_auto_{date}.json"
     with open(fname, "w") as f:
