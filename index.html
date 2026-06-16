@@ -524,26 +524,27 @@ D.meta.date = D.meta.date || "2026-06-15";
         var st=(g.status&&(g.status.abstractGameState||g.status.detailedState))||"";
         var isFin=/final|completed|over/i.test(st);
 
-        // (1) lineups + (2) results both read from the boxscore (reliable fullName + battingOrder)
+        // lineups + results both read from the boxscore (reliable fullName + battingOrder)
         var bs=null; try{bs=await J(MLB+"/game/"+g.gamePk+"/boxscore");}catch(e){bs=null;}
 
-        // confirm / scratch off the posted starting lineup
+        // (1) confirm / scratch — PER TEAM, only once that team's own lineup is actually posted
         if(gi!=null && bs && bs.teams){
-          var ps={}, postedN=0;
+          var ps={}, teamPosted={};
           ['away','home'].forEach(function(side){
             var tm=bs.teams[side]; if(!tm||!tm.players)return;
+            var tname=((tm.team&&tm.team.name)||"").toLowerCase(), cnt=0;
             Object.keys(tm.players).forEach(function(k){
               var pl=tm.players[k];
-              if(pl&&pl.battingOrder && pl.person && pl.person.fullName){ ps[NM(pl.person.fullName)]=1; postedN++; }
+              if(pl&&pl.battingOrder && pl.person && pl.person.fullName){ ps[NM(pl.person.fullName)]=1; cnt++; }
             });
+            if(cnt>=8){ Object.keys(gmap[gi]||{}).forEach(function(t){ if(tname.indexOf(t)>=0) teamPosted[t]=1; }); }
           });
-          // supplement with the schedule hydrate if it carried names
-          var lu=g.lineups||{}; (lu.awayPlayers||[]).concat(lu.homePlayers||[]).forEach(function(p){var fn=p&&(p.fullName||p.name);if(fn){ps[NM(fn)]=1;postedN++;}});
-          if(postedN){                       // only touch statuses once a lineup is actually posted
+          if(Object.keys(teamPosted).length){
             Object.keys(D.players).forEach(function(n){
               var pl=D.players[n]; if(pl.game!==gi)return;
+              if(!teamPosted[pl.team.toLowerCase()])return;   // this bat's team card isn't in yet -> leave projected
               if(matchPosted(ps,pl.nm)){ if(pl.status!=='confirmed'){pl.status='confirmed';confirmed++;} pl.out=false; }
-              else { pl.out=true; }
+              else { pl.out=true; }                            // posted, but not in own team's lineup -> scratched
             });
           }
         }
