@@ -382,11 +382,17 @@ function sortedNames(){const m=$('#psort').value,P=D.players,n=Object.keys(P),T=
  if(m==='lift')return n.sort((a,b)=>P[b].wf-P[a].wf||T(b)-T(a));
  if(m==='form')return n.sort((a,b)=>nz(P[b].form)-nz(P[a].form)||T(b)-T(a));
  return n.sort((a,b)=>T(b)-T(a));}
-function drawPlayers(){const q=$('#psearch').value.trim().toLowerCase();let names=sortedNames();
+// the gated pool the tickets are built from: priced + in-lineup, ban the 8 shortest odds, then the next 33 by odds (+ties)
+function poolSet(){const CHALK_N=8,GATE_N=33;const P=D.players;const elig=Object.keys(P).filter(function(n){var p=P[n];return p.odds&&!p.out&&!p.void;}).sort(function(a,b){return P[a].odds-P[b].odds;});
+ if(elig.length<=CHALK_N)return new Set(elig);
+ var chalk=elig.slice(0,CHALK_N),rest=elig.slice(CHALK_N),nonchalk;
+ if(rest.length>GATE_N){var cut=P[rest[GATE_N-1]].odds;nonchalk=rest.filter(function(n){return P[n].odds<=cut;});}else nonchalk=rest.slice();
+ return new Set(chalk.concat(nonchalk));}
+function drawPlayers(){const q=$('#psearch').value.trim().toLowerCase(),pool=poolSet();let names=sortedNames().filter(n=>pool.has(n));   // Players shows only the gated pool; the full field lives in the Builder tab
  if(q)names=names.filter(n=>n.toLowerCase().includes(q)||D.players[n].team.toLowerCase().includes(q)||D.players[n].opp[0].toLowerCase().includes(q));
  $('#players').innerHTML=names.length?names.map(pCard).join(''):'<div class="empty">No players match “'+q+'”.</div>';
- $('#pcount').textContent='Showing '+names.length+' of '+D.meta.pool;}
-const pjump=$('#pjump');pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');
+ $('#pcount').textContent=q?('Showing '+names.length+' of '+pool.size):(pool.size+' bats in play · full field in Builder');}
+const pjump=$('#pjump');{const _pp=poolSet();pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).filter(n=>_pp.has(n)).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');}
 $('#psort').addEventListener('change',drawPlayers);$('#psearch').addEventListener('input',drawPlayers);
 function flashTo(id){const el=document.getElementById('p-'+id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
 pjump.addEventListener('change',()=>{if(pjump.value)flashTo(pjump.value);});
