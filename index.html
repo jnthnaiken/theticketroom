@@ -497,11 +497,13 @@ drawTickets();drawPlayers();drawTracker();
     if(h==='24')h='00'; if(h.length<2)h='0'+h;
     var s=d.toLocaleString('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
     var m=s.match(/(\d+)\/(\d+)\/(\d+)/); return m?{date:m[3]+'-'+m[1]+'-'+m[2],hour:h}:{date:null,hour:h};}
-  function stamp(t){var e=document.getElementById('livestamp');
-    if(!e){e=document.createElement('div');e.id='livestamp';
-      e.style.cssText='position:fixed;right:10px;bottom:8px;z-index:50;font:600 10px/1 \'Roboto Mono\',monospace;color:var(--mut);background:var(--surf2);border:1px solid var(--line2);border-radius:20px;padding:5px 10px;opacity:.9';
-      document.body.appendChild(e);}
-    e.textContent=t;}
+  function stamp(t,c){var d=document.getElementById('livectl');
+    if(!d){d=document.createElement('div');d.id='livectl';
+      d.style.cssText='position:fixed;right:12px;bottom:12px;z-index:9999;background:var(--surf2,#0e1726);border:1px solid var(--line2,#29405e);border-radius:10px;padding:8px 10px;font:600 11px/1.4 \'Roboto Mono\',monospace;color:var(--mut,#cfe0f5);box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:320px';
+      d.innerHTML='<button id="livebtn" style="cursor:pointer;background:#1c5;border:0;color:#04210f;font-weight:700;border-radius:7px;padding:6px 10px">\u21bb Update from MLB</button><div id="livemsg" style="margin-top:6px;opacity:.85">ready</div>';
+      document.body.appendChild(d);
+      d.querySelector('#livebtn').onclick=function(){liveUpdate();};}
+    var m=d.querySelector('#livemsg'); if(m){m.textContent=t; if(c)m.style.color=c;}}
 
   // ---------- the gate + snake draft, on the LIVE scores ----------
   function assembleClient(D){
@@ -695,6 +697,46 @@ drawTickets();drawPlayers();drawTracker();
   }
   if(typeof window!=='undefined'){ window.__foldPrior=foldPrior; window.__priorGrade=priorGrade; }
 
+  // ---------- posted lineups -> confirm/scratch; boxscores -> HR + finals + game-state ----------
+  function confirmResults(){
+    var date=D.meta.date, g2i={}, IDX={};
+    Object.keys(D.players).forEach(function(n){var p=D.players[n]; if(p.gmatch&&g2i[p.gmatch]==null)g2i[p.gmatch]=p.game; IDX[norm(n)]=n;});
+    var AMBIG={maxmuncy:1};
+    return getJSON(SA+'/schedule?sportId=1&date='+date+'&hydrate=lineups,team').then(function(sch){
+      var games=(sch.dates&&sch.dates[0]?sch.dates[0].games:[])||[]; D.meta.gs=D.meta.gs||{};
+      var homered=[], finals=(D.meta.finals||[]).slice();
+      return Promise.all(games.map(function(g){
+        var aA=code(g.teams.away.team.abbreviation), hA=code(g.teams.home.team.abbreviation), gm=aA+'@'+hA, gi=g2i[gm];
+        var st=(g.status&&(g.status.abstractGameState||g.status.detailedState))||'', isFin=/final|completed|over/i.test(st);
+        if(gi!=null) D.meta.gs[gi]=isFin?'final':(/suspend|resume|delay/i.test(st)?'susp':(/live|in progress|in-progress/i.test(st)?'live':'pre'));
+        if(gi!=null && isFin && finals.indexOf(gi)<0) finals.push(gi);
+        if(gi!=null && g.gameDate){try{var et=new Date(g.gameDate).toLocaleString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',hour12:true}).replace(/\u202f/g,' ');
+          Object.keys(D.players).forEach(function(n){if(D.players[n].game===gi)D.players[n].gtime=et;});}catch(e){}}
+        // (1) posted lineups -> confirm / scratch (suspended bats left alone)
+        var lu=g.lineups||{}, aw=(lu.awayPlayers||[]), hm=(lu.homePlayers||[]);
+        if(gi!=null && (aw.length||hm.length)){
+          var mk=function(arr){var o={};arr.forEach(function(p){var fn=p.fullName||p.name; if(fn)o[norm(fn)]=1;});return o;};
+          var psA=mk(aw),psH=mk(hm),okA=aw.length>=8,okH=hm.length>=8;
+          Object.keys(D.players).forEach(function(n){var pl=D.players[n]; if(pl.game!==gi||pl.status==='susp')return;
+            var isA=pl.team===aA, isH=pl.team===hA, posted=isA?okA:(isH?okH:false), set=isA?psA:psH; if(!posted)return;
+            var k=norm(pl.nm||n), inLU=set[k]||Object.keys(set).some(function(x){return x===k||x.indexOf(k)>=0||k.indexOf(x)>=0;});
+            if(inLU){pl.status='confirmed'; pl.out=false;} else {pl.out=true;}
+          });
+        }
+        // (2) results -> boxscore home runs
+        return getJSON(SA+'/game/'+g.gamePk+'/boxscore').then(function(bx){
+          ['away','home'].forEach(function(side){var tm=bx.teams&&bx.teams[side]; if(!tm||!tm.players)return;
+            var tn=(tm.team&&tm.team.abbreviation)?code(tm.team.abbreviation):'';
+            Object.keys(tm.players).forEach(function(k){var p=tm.players[k],hr=p.stats&&p.stats.batting&&p.stats.batting.homeRuns;
+              if(hr>0&&p.person&&p.person.fullName)homered.push({fn:norm(p.person.fullName),tm:tn});});});
+        }).catch(function(){});
+      })).then(function(){
+        homered.forEach(function(h){var key=IDX[h.fn]; if(key){ if(AMBIG[h.fn]&&h.tm&&D.players[key].team!==h.tm)return; D.players[key].hr=true; }});
+        D.meta.finals=finals;
+      });
+    }).catch(function(){});
+  }
+
   function liveUpdate(){
     var date=D.meta&&D.meta.date; if(!date){stamp('no slate date'); return Promise.resolve();}
     stamp(CACHE?'refreshing weather\u2026':'updating\u2026');
@@ -720,16 +762,18 @@ drawTickets();drawPlayers();drawTracker();
         });
         Object.keys(D.players).forEach(function(nm){var p=D.players[nm], gm=p.gmatch, w=wxByGm[gm], W=D.meta.wx[String(p.game)];
           if(w&&W){ if(wfByGm[gm]!=null)W.factor=wfByGm[gm]; if(w.emoji)W.emoji=w.emoji; if(w.lean)W.lean=w.lean; if(w.cond)W.cond=w.cond; }});
-        assembleClient(D);                       // <-- gate + draft (incl. 75 floor) on LIVE scores
-        return gradePrior().then(function(){     // <-- roll yesterday's graded net into the season (once)
-          refreshAll();
-          stamp('live \u2713 '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+        return confirmResults().then(function(){  // posted lineups -> confirm/scratch; results -> HR + finals + game-state
+          assembleClient(D);                       // gate + draft (incl. 75 floor) on LIVE scores
+          return gradePrior().then(function(){     // roll yesterday's graded net into the season (once)
+            refreshAll();
+            stamp('live \u2713 '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+          });
         });
       });
     }).catch(function(e){stamp('live data unavailable ('+e.message+') \u2014 showing base board');});
   }
   if(typeof D!=='undefined'){ liveUpdate(); setInterval(liveUpdate, 6*60*1000); }   // timer refreshes WEATHER only (HR/9 cached)
-  if(typeof window!=='undefined'){ window.__assembleClient=assembleClient; window.__liveUpdate=liveUpdate; }
+  if(typeof window!=='undefined'){ window.__assembleClient=assembleClient; window.__liveUpdate=liveUpdate; window.__confirmResults=confirmResults; }
 })();
 
 </script></body></html>
