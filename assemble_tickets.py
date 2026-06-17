@@ -113,6 +113,9 @@ def assemble(D):
     P  = D['players']
     gs = D.get('meta', {}).get('gs', {})            # live game-state map
     susp = lambda n: gs.get(str(P[n]['game'])) == 'susp'
+    # pending = a bat carried from a still-resuming suspended game -> SINGLES ONLY until that game is final.
+    # Set per-bat by carryover() on only the bats we actually had on the suspended board (never a whole game).
+    pend = lambda n: bool(P[n].get('pending'))
 
     elig = [n for n, p in P.items()
             if p.get('odds') and not p.get('out') and not p.get('void')]
@@ -138,11 +141,11 @@ def assemble(D):
     lunch_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
     night_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) == latest}
 
-    # anchors: best non-chalk by TOTAL, one per game, never a suspended game, never below the floor
+    # anchors: best non-chalk by TOTAL, one per game, never a pending (resuming) bat, never below the floor
     anchors, seen = [], set()
     for n in byT(nonchalk):
         g = P[n]['game']
-        if g in seen or susp(n) or P[n]['TOTAL'] < FLOOR:
+        if g in seen or pend(n) or P[n]['TOTAL'] < FLOOR:
             continue
         anchors.append(n); seen.add(g)
         if len(anchors) >= 4:
@@ -163,7 +166,7 @@ def assemble(D):
     def min_span_fill(a, need, pref):
         at = tmin(a); g0 = P[a]['game']
         cands = [n for n in pref if n not in used and n not in anchors
-                 and P[n]['game'] != g0 and P[n]['TOTAL'] >= FLOOR and not susp(n)]
+                 and P[n]['game'] != g0 and P[n]['TOTAL'] >= FLOOR and not pend(n)]
         times = sorted(set([at] + [tmin(n) for n in cands]))
         best, bestkey = [], (-1, 1)
         for lo in times:
@@ -320,24 +323,33 @@ def assemble(D):
     return tickets
 
 
-# ---------- update (3): suspended-game carryover ----------
+# ---------- update (3): suspended-game carryover (per-bat, auto-lifting) ----------
 def carryover(D_today, D_prev):
-    """Roll any game left suspended/resuming on the previous slate into today.
+    """Carry only the bats we actually had on a suspended prior board, as SINGLES-ONLY 'pending'.
 
-    Call once, before assemble(D_today): it pulls every player from a prior
-    game whose state was 'susp' and merges them into today's field (and marks
-    the game suspended) so the resuming legs stay live on the new board.
+    Call once, before assemble(D_today). For each prior game left 'susp', take only the
+    bats that were on our prior tickets (e.g. the 3 we bet, not the whole roster) and tag
+    them pending={gmatch,date} on today's field. We do NOT suspend today's fresh game, so
+    everyone else in tonight's matchup stays fully parlay-eligible. The client lifts the
+    pending tag automatically once that resumed game posts final in the live feed.
     """
-    prev_gs = D_prev.get('meta', {}).get('gs', {})
+    prev_gs   = D_prev.get('meta', {}).get('gs', {})
     susp_games = {g for g, st in prev_gs.items() if st == 'susp'}
     if not susp_games:
         return D_today
-    carried = {n: p for n, p in D_prev['players'].items()
-               if str(p['game']) in susp_games}
-    D_today['players'].update(carried)
-    D_today.setdefault('meta', {}).setdefault('gs', {})
-    for g in susp_games:
-        D_today['meta']['gs'][g] = 'susp'
+    prev_P    = D_prev.get('players', {})
+    prev_date = D_prev.get('meta', {}).get('date')
+    bet = {l.get('name') for t in D_prev.get('tickets', []) for l in t.get('players', [])}
+    for n in bet:
+        p = prev_P.get(n)
+        if not p or str(p.get('game')) not in susp_games:
+            continue
+        info = {'gmatch': p.get('gmatch'), 'date': prev_date}   # the resuming game to watch
+        if n in D_today.get('players', {}):
+            D_today['players'][n]['pending'] = info             # already in tonight's field -> just tag
+        else:
+            carried = dict(p); carried['pending'] = info         # not playing tonight -> carry the leg so it grades
+            D_today.setdefault('players', {})[n] = carried
     return D_today
 
 
