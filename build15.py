@@ -57,11 +57,15 @@ def load_slate(date):
         return {}
     out={}
     for g in s.get('games',[]):
-        sp={}
+        sp={}; lu={}
         for side in ('away','home'):
-            spd=g.get(side,{}).get('sp',{}) or {}
+            sd=g.get(side,{}) or {}
+            spd=sd.get('sp',{}) or {}
             if spd.get('name'): sp[norm(spd['name'])]=spd.get('hr9')
-        out[g.get('matchup','')]={'wf':g.get('wf'),'weather':g.get('weather',{}),'sp':sp}
+            ab=sd.get('abbrev')
+            nset={norm(b.get('name','')) for b in (sd.get('lineup') or []) if b.get('name')}
+            if ab and nset: lu[ab]=nset                 # this team's card is POSTED -> confirmed
+        out[g.get('matchup','')]={'wf':g.get('wf'),'weather':g.get('weather',{}),'sp':sp,'lu':lu}
     return out
 DATE=os.environ.get('SLATE_DATE') or (datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%Y-%m-%d')
 SLATE=load_slate(DATE)
@@ -125,9 +129,14 @@ for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
             key=nm; n=norm(nm)
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=pb*hh*la_window(la); lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
+            _lu=_sl.get('lu',{}).get(code)              # posted lineup for this team (None until it posts)
+            if _lu:                                      # card POSTED -> status/out from the real lineup
+                _in=(n in _lu); _status='confirmed' if _in else 'projected'; _out=(not _in)
+            else:                                        # not posted yet -> hardcoded RotoWire reconciliation
+                _status='confirmed' if code in CONFIRMED else 'projected'; _out=(n in OUTN)
             players[key]=dict(nm=key,code=code,team=FULL[code],aT=aT,zonev=z,form=form,pb=pb,hh=hh,la=la,
                 iso=(f".{str(iso).split('.')[1]}" if iso is not None else '\u2014'),iso_used=iso_used,powraw=powraw,
-                hr9=opp_hr9,wf=wf,game=gn,gmatch=gm,gtime=gt,late=(gn==10),rain=False,out=(n in OUTN),status=('confirmed' if code in CONFIRMED else 'projected'),
+                hr9=opp_hr9,wf=wf,game=gn,gmatch=gm,gtime=gt,late=(gn==10),rain=False,out=_out,status=_status,
                 opp=[opp_name,opp_hand],oppERA=None,ftrend=FT.get(n,'flat'),odds=ODDS.get(n),soft=(opp_hr9 is None),why=f"{gm.replace('@',' @ ')} ({lean}). Faces {opp_name} ({opp_hand}).")
 # ---- percentile/median normalization across the FULL in-lineup pool ----
 pool=list(players.values()); raws=sorted(r['powraw'] for r in pool); N=len(raws)
