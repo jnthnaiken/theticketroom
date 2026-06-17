@@ -239,38 +239,65 @@ def assemble(D):
         sfx = {'jr', 'jr.', 'sr', 'sr.', 'ii', 'iii'}
         t = [w for w in s.split(' ') if w.lower() not in sfx]
         return t[-1] if t else s
-    def _micro(p):
-        hr9 = p.get('hr9'); hh = p.get('hh') or 0; la = p.get('la') or 0
+    def _opp(p):
+        o = p.get('opp'); return (o[0] if (o and o[0]) else 'the arm')
+    def _phrases(p):
+        opp = _opp(p); hr9 = p.get('hr9'); hh = p.get('hh') or 0; la = p.get('la') or 0
         wf = 1.0 if p.get('wf') is None else p.get('wf'); iso = _isostr(p); iv = _isoval(p)
         o = []
-        if hr9 is not None and hr9 >= 1.6:   o.append((9, 'mtx', 'soft arm'))
-        elif hr9 is not None and hr9 >= 1.35: o.append((6, 'mtx', 'beatable arm'))
-        if wf >= 1.05:   o.append((8, 'park', 'wind out'))
-        elif wf >= 1.02: o.append((4, 'park', 'park boost'))
-        if hh >= 52:   o.append((7, 'hh', f"{_jsround(hh)}% hard-hit"))
-        elif hh >= 46: o.append((3.5, 'hh', f"{_jsround(hh)}% hard-hit"))
-        if 16 <= la <= 23: o.append((5, 'la', f"{_jsround(la)}\u00b0 ideal"))
-        if iso and iv >= 0.20: o.append((4.5, 'iso', f"{iso} ISO"))
-        if hr9 is not None and hr9 < 1.0 and not o: o.append((1, 'mtx', 'tough arm'))
-        if not o: o.append((0.5, 'x', 'live spot'))
+        if hr9 is not None and hr9 >= 1.6:
+            o.append((9, 'mtx', f"gets {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)"))
+        elif hr9 is not None and hr9 >= 1.35:
+            o.append((6, 'mtx', f"draws a beatable {opp} ({hr9:.2f} HR/9)"))
+        elif hr9 is not None and hr9 < 1.0:
+            o.append((1, 'mtx', f"has to solve a stingy {opp} ({hr9:.2f}/9)"))
+        if wf >= 1.05:   o.append((8, 'park', "has the wind blowing out behind him"))
+        elif wf >= 1.02: o.append((4, 'park', "catches a small park boost"))
+        elif wf <= 0.95: o.append((1.5, 'park', "fights a ball-killing yard"))
+        if hh >= 52:   o.append((7, 'hh', f"is scorching the ball ({_jsround(hh)}% hard-hit)"))
+        elif hh >= 46: o.append((3.5, 'hh', f"squares it up ({_jsround(hh)}% hard-hit)"))
+        if 16 <= la <= 23: o.append((5, 'la', f"swings dead in the launch window ({_jsround(la)}\u00b0)"))
+        if iso and iv >= 0.24:   o.append((6.5, 'iso', f"packs {iso} isolated power"))
+        elif iso and iv >= 0.20: o.append((4.5, 'iso', f"brings {iso} ISO juice"))
+        if not o: o.append((0.5, 'x', f"takes on {opp}"))
         o.sort(key=lambda r: r[0], reverse=True)
         return o
-    def _micropick(p, used):
-        for w, dim, lab in _micro(p):
+    def _edges(p, n):
+        out, seen = [], set()
+        for w, dim, ph in _phrases(p):
+            if dim in seen: continue
+            seen.add(dim); out.append(ph)
+            if len(out) >= n: break
+        return out
+    def _richpick(p, used):
+        for w, dim, ph in _phrases(p):
             if dim not in used:
-                used.add(dim); return lab
-        first = _micro(p)[0]; used.add(first[1]); return first[2]
+                used.add(dim); return ph
+        first = _phrases(p)[0]; used.add(first[1]); return first[2]
+    def _join(parts):
+        if len(parts) <= 1: return parts[0] if parts else ""
+        if len(parts) == 2: return parts[0] + " and " + parts[1]
+        return ", ".join(parts[:-1]) + ", and " + parts[-1]
+    _HOOKS = {
+        'moon': ["A three-bat moon shot, round-robin'd by 2s and the full three so a single miss still pays:",
+                 "Three swings with real over-the-fence juice, banded so one whiff doesn't sink it:",
+                 "Our power trio for the night \u2014 round-robin'd to survive a miss:"],
+        'biggest': ["The whole spread \u2014 longshots round-robin'd by 2s, 3s and the full ticket, so combos cash even when a couple don't:",
+                    "Every combo covered: a round-robin of longshots built to pay through a miss or two:"],
+    }
+    _CLOSE = {'builder': "A clean single to build your own card around.",
+              'late':    "The nightcap to put the slate to bed.",
+              'lunch':   "First-pitch value before the board fills in."}
     def cwnote(kind, names):
         if len(names) == 1:
-            a = P[names[0]]; r = _micro(a); e = [r[0][2]]
-            if len(r) > 1:
-                e.append(r[1][2])
-            lead = 'Last call' if kind == 'late' else ('Midday' if kind == 'lunch' else 'Single')
-            tail = (", " + e[1]) if len(e) > 1 else ""
-            return f"{lead}: {a.get('nm', names[0])} \u2014 {e[0]}{tail}."
+            a = P[names[0]]
+            body = a.get('nm', names[0]) + " " + _join(_edges(a, 3)) + "."
+            return body + " " + _CLOSE.get(kind, _CLOSE['builder'])
+        hooks = _HOOKS.get(kind, _HOOKS['moon'])
+        idx = (len(names) + len(_lastnm(P[names[0]].get('nm', names[0])))) % len(hooks)
         used = set()
-        bits = " \u00b7 ".join(_lastnm(P[n].get('nm', n)) + " " + _micropick(P[n], used) for n in names)
-        return ("Round-robin \u00b7 " + bits) if kind == 'biggest' else bits
+        bits = ", ".join(_lastnm(P[n].get('nm', n)) + " " + _richpick(P[n], used) for n in names)
+        return hooks[idx] + " " + bits + "."
 
     # update (2): A4 leads the salami. DRAFT the salami first so it keeps its own tight window
     # (4 longest shots, distinct games, chalk-free); then the 5 moons (2/2/1) by TOTAL.
