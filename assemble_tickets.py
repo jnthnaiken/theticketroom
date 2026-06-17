@@ -27,11 +27,68 @@ THE THREE UPDATES
   (3) CARRYOVER      — games still suspended/resuming are rolled to the next
       slate (see carryover()).
 """
-import re
+import re, datetime
 
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
-CHALK_N       = 8                # the ban8: 8 shortest-odds bats
+CHALK_N       = 8                # the ban8: 8 shortest-odds bats (nightcap/lunch ONLY)
+GATE_N        = 33               # parlay/builder pool = the 33 by odds BELOW the ban8
 MOON_PLAN     = (0, 0, 1, 1, 2)  # anchor indices per moon -> A1,A1,A2,A2,A3 (2/2/1)
+
+# ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
+# Big, curated, theme-tight pools. Assigned without replacement and rotated by day-of-year,
+# so a slate never repeats a name and the set shifts day to day. No near-synonyms.
+NAME_POOLS = {
+    "moon": [  # launch / flight / going deep
+        "Escape Velocity", "Past the Event Horizon", "Shot Into Orbit", "Sky High",
+        "Defying Gravity", "Through the Stratosphere", "Catching a Vapor Trail",
+        "Into the Clouds", "Full Afterburner", "Breaking the Sound Barrier",
+        "Reaching for the Stars", "Slipping the Surly Bonds", "Cleared for Launch",
+        "Booster Ignition", "Hitting Apogee", "Mach Breaker", "Punching Through the Ceiling",
+        "Riding the Jet Stream", "Upper Deck Bound", "Off the Scoreboard", "To the Heavens",
+        "Liftoff Sequence", "Second Stage", "Leaving the Atmosphere", "Out of the Solar System",
+        "Zero Gravity", "Trajectory Locked", "Sonic Boom", "The Long Bomb", "Moon Landing",
+        "Rocket Fuel", "Thrust Vector", "Crossing the Karman Line", "No Doubter",
+        "Tape Measure Job", "Onto the Concourse", "Splash Hit", "The Way Back Machine",
+        "Goodbye Baseball", "Touch 'Em All", "Climbing the Ladder", "Ballistic Arc",
+        "Orbital Insertion", "Star Sailor", "Going Supersonic", "The Slingshot",
+        "Heat Shield Off", "Beyond the Bleachers", "Into the Upper Air", "The Apollo",
+        "Terminal Climb", "Past Low Earth Orbit",
+    ],
+    "biggest": [  # the feast / the spread
+        "The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats",
+        "The Grand Buffet", "Family Style", "The Tasting Menu", "Surf and Turf",
+        "The Sampler Platter", "All You Can Eat", "The Combo Platter", "Second Helpings",
+        "The Smorgasbord", "The Whole Hog", "The Deli Case", "Loaded Plate", "The Feast",
+        "The Cold Cuts", "Heaping Plate", "The Potluck", "The Tailgate Spread",
+        "The Whole Enchilada", "The Big Platter", "Seconds and Thirds",
+    ],
+    "late": [  # closing time / after dark
+        "The Nightcap", "Last Call", "Closing Time", "After Hours", "One for the Road",
+        "Lights Out", "Final Pour", "The Closer", "Last Ring of the Bell", "Midnight Special",
+        "Last Train Home", "The Curfew", "Burning the Midnight Oil", "The Late Show",
+        "Bar's Last Round", "Nightfall", "The Witching Hour", "Last Orders", "The Final Bell",
+        "Under the Lights",
+    ],
+    "lunch": [  # midday
+        "The Power Lunch", "Midday Meal", "High Noon", "The Blue Plate", "Lunch Rush",
+        "The Noon Whistle", "Brown Bag Special", "The Midday Mash", "Sunshine Special",
+        "Half-Day Hammer", "The Lunch Break", "Noon Special", "The Matinee", "Daylight Special",
+        "The Early Bird", "Midday Money", "The Lunch Counter", "First-Pitch Feast",
+    ],
+    "builder": [  # bankroll / getting paid
+        "Cash Is King", "Paid in Full", "Bag Secured", "The Sure Thing", "Easy Money",
+        "Stack It High", "Mailbox Money", "Bread Winner", "Walk-Off Wallet", "Petty Cash",
+        "Pay the Rent", "Cha-Ching", "Money in the Bank", "The Day Job", "Clock In, Cash Out",
+        "Grocery Money", "The Side Hustle", "Beer Money", "Coffee's on Me", "The Tip Jar",
+        "Found Money", "Gas Money", "The Piggy Bank", "Padding the Bankroll", "The Lunch Tab",
+        "The Down Payment", "Spare Change", "The Nest Egg", "Payday", "House Money",
+        "Keep the Change", "Cover Charge", "The Cushion", "Quick Buck", "In the Black",
+        "The Float", "Walking-Around Money", "The Cookie Jar", "Pocket Money", "The Allowance",
+        "Cashing Out", "The Slow Grind", "Steady Drip", "Singles Add Up", "Chip Stack",
+        "The Vig Killer", "Free Roll", "Direct Deposit", "Rainy Day Fund", "The ATM",
+        "Milk Money", "Tab Settled",
+    ],
+}
 
 
 # ---------- odds / time helpers ----------
@@ -59,9 +116,21 @@ def assemble(D):
             if p.get('odds') and not p.get('out') and not p.get('void')]
     byT  = lambda names: sorted(names, key=lambda n: P[n]['TOTAL'], reverse=True)
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
+    tmin = lambda n: gmin(P[n]['gtime']) or 0
 
-    chalk    = set(byO(elig)[:CHALK_N])             # update (1): the ban8
-    nonchalk = [n for n in elig if n not in chalk]
+    # update (1): ban8 = 8 shortest odds (nightcap/lunch only). The PARLAY/BUILDER pool is the
+    # NEXT GATE_N=33 by odds below the ban8 (+ties); `extra` = #42+ reached only if the 33
+    # cannot field a distinct game. Parlays/builders never touch the ban8.
+    ranked   = byO(elig)
+    chalk    = set(ranked[:CHALK_N])
+    rest     = ranked[CHALK_N:]
+    if len(rest) > GATE_N:
+        cut      = P[rest[GATE_N - 1]]['odds']
+        nonchalk = [n for n in rest if P[n]['odds'] <= cut]
+    else:
+        nonchalk = rest[:]
+    _ncset = set(nonchalk)
+    extra  = [n for n in rest if n not in _ncset]
 
     latest      = max((gmin(P[n]['gtime']) or 0) for n in elig)
     lunch_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
@@ -86,15 +155,39 @@ def assemble(D):
                 "game": p['game'], "late": bool(p.get('late')), "odds": p['odds'],
                 "status": p['status']}
 
-    def duo(anchor_game):
-        out = []
-        for n in byT([x for x in nonchalk if x not in anchors and x not in used]):
-            if P[n]['game'] == anchor_game or any(P[n]['game'] == P[d]['game'] for d in out):
-                continue
-            out.append(n); used.add(n)
-            if len(out) == 2:
+    # Tightest distinct-game set of `need` partners around the anchor (min time-span), drawn in
+    # preference order from the 33, then #42+. No cross-day reach: a wide span just trips the
+    # renderer's lineup-timing flag; we never grab a far leg when a tighter one exists.
+    def min_span_fill(a, need, pref):
+        at = tmin(a); g0 = P[a]['game']
+        cands = [n for n in pref if n not in used and n not in anchors and P[n]['game'] != g0]
+        times = sorted(set([at] + [tmin(n) for n in cands]))
+        best, bestkey = [], (-1, 1)
+        for lo in times:
+            if lo > at:
                 break
-        return out
+            for hi in times:
+                if hi < at or hi < lo:
+                    continue
+                legs, games = [], {g0}
+                for n in cands:
+                    tn = tmin(n)
+                    if lo <= tn <= hi and P[n]['game'] not in games:
+                        legs.append(n); games.add(P[n]['game'])
+                        if len(legs) >= need:
+                            break
+                key = (len(legs), -(hi - lo))
+                if key > bestkey:
+                    bestkey, best = key, legs
+        return best
+
+    def best_partners(a, need, msort):
+        legs = min_span_fill(a, need, msort(nonchalk))          # the 33 first
+        if len(legs) < need:                                    # widen to #42+ only if forced
+            legs = min_span_fill(a, need, msort(nonchalk) + msort(extra))
+        for n in legs:
+            used.add(n)
+        return legs
 
     def add(name, kind, badge, names, rr=None):
         legs = [leg(n) for n in names]
@@ -104,37 +197,50 @@ def assemble(D):
              "final": False, "rr": rr}
         tickets.append(t)
 
-    # update (2): 5 moons, 2/2/1
-    for ai in MOON_PLAN:
-        if ai < len(anchors):
-            a = anchors[ai]
-            add("Moonshot", "moon", "\U0001f680", [a] + duo(P[a]['game']),
-                rr={"struct": "by 2s & 3", "risk": 4.0})
+    # ---- ticket naming: date-rotated, no repeats within a slate ----
+    try:
+        _doy = datetime.date.fromisoformat(D.get('meta', {}).get('date', '')).timetuple().tm_yday
+    except Exception:
+        _doy = 0
+    _name_used, _name_ctr = set(), {}
+    def name_for(kind):
+        pool = NAME_POOLS.get(kind) or ["Ticket"]
+        i = _name_ctr.get(kind, 0); _name_ctr[kind] = i + 1
+        L = len(pool)
+        for k in range(L):                       # rotate by date, skip any already taken
+            cand = pool[(_doy + i + k) % L]
+            if cand not in _name_used:
+                _name_used.add(cand); return cand
+        base, s = pool[(_doy + i) % L], 2         # pool exhausted (shouldn't happen): suffix
+        while f"{base} {s}" in _name_used:
+            s += 1
+        nm = f"{base} {s}"; _name_used.add(nm); return nm
 
-    # update (2): A4 leads the salami (4 longest shots, distinct games, chalk-free)
+    # update (2): A4 leads the salami. DRAFT the salami first so it keeps its own tight window
+    # (4 longest shots, distinct games, chalk-free); then the 5 moons (2/2/1) by TOTAL.
+    byOdesc = lambda ns: sorted(ns, key=lambda n: P[n]['odds'], reverse=True)
+    sal_legs = best_partners(anchors[3], 3, byOdesc) if len(anchors) >= 4 else []
+    moon_duos = [(anchors[ai], best_partners(anchors[ai], 2, byT))
+                 for ai in MOON_PLAN if ai < len(anchors)]
+    for a, d in moon_duos:                                      # emit moons first (display order)
+        add(name_for("moon"), "moon", "\U0001f680", [a] + d,
+            rr={"struct": "by 2s & 3", "risk": 4.0})
     if len(anchors) >= 4:
-        sal, segg = [anchors[3]], {P[anchors[3]]['game']}
-        for n in byO([x for x in nonchalk if x not in anchors and x not in used])[::-1]:
-            if P[n]['game'] in segg:
-                continue
-            sal.append(n); segg.add(P[n]['game']); used.add(n)
-            if len(sal) == 4:
-                break
-        add("Grand Salami", "biggest", "\U0001f96a", sal,
+        add(name_for("biggest"), "biggest", "\U0001f96a", [anchors[3]] + sal_legs,
             rr={"struct": "by 2s, 3s & 4", "risk": 11.0})
 
     # update (1): chalk only here — nightcap (late game) + lunch special (day games)
     ncap = byO([n for n in chalk if P[n]['game'] in night_games])
     if ncap:
-        add("The Nightcap", "late", "\U0001f303", [ncap[0]])
+        add(name_for("late"), "late", "\U0001f303", [ncap[0]])
     lunchc = byO([n for n in chalk if P[n]['game'] in lunch_games])
     if lunchc:
-        add("Lunch Special", "lunch", "\U0001f371", [lunchc[0]])
+        add(name_for("lunch"), "lunch", "\U0001f371", [lunchc[0]])
 
     # builders: leftover non-chalk singles
     spent = set(anchors) | used | {t['anchor'] for t in tickets}
-    for n in byT([x for x in nonchalk if x not in spent])[:6]:
-        add("Bank-Roll Builder", "builder", "\U0001f4b0", [n])
+    for n in byT([x for x in nonchalk if x not in spent]):       # use the whole 33
+        add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
     for i, t in enumerate(tickets, 1):
