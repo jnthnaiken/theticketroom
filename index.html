@@ -523,12 +523,12 @@ drawTickets();drawPlayers();drawTracker();
     function aliveP(n){var p=P[n]; return !!(p && !p.out && !p.void);}
     function byO(a){return a.slice().sort(function(x,y){return P[x].odds-P[y].odds;});}
     function byT(a){return a.slice().sort(function(x,y){return P[y].TOTAL-P[x].TOTAL;});}
-    function ge75(a){return a.filter(function(n){return P[n].TOTAL>=FLOOR;});}   // OUR-picks floor; pool itself stays inclusive
+    function ge75(a){return a.filter(function(n){return P[n].TOTAL>=FLOOR && !susp(n);});}   // OUR parlay picks: floor + no suspended games (pool stays inclusive)
     function spanOk(ns){var ts=ns.map(tmin).filter(function(x){return x!=null;}); return ts.length?(Math.max.apply(null,ts)-Math.min.apply(null,ts))<=WIN:true;}
     var susp=function(n){return gs[String(P[n].game)]==='susp' || P[n].status==='susp';};
 
     // ---- re-gate the pool on live scores: model floor first, then top-N by odds (+ties), ban-8, exclude suspended ----
-    var elig=names.filter(function(n){var p=P[n]; return p.odds && !p.out && !p.void && !susp(n);}); // gate by ODDS; sub-floor stays eligible
+    var elig=names.filter(function(n){var p=P[n]; return p.odds && !p.out && !p.void;}); // pool: priced & in-lineup; suspended stay (singles only), sub-floor stays
     var ranked=byO(elig);
     var chalk={}; ranked.slice(0,CHALK_N).forEach(function(n){chalk[n]=1;});   // top 8 -> nightcap/lunch only
     var rest=ranked.slice(CHALK_N), nonchalk;                                   // below the ban-8
@@ -604,6 +604,7 @@ drawTickets();drawPlayers();drawTracker();
         var need=t.nlegs||(t.players?t.players.length:1), kept=[], gUsed={};
         t.players.forEach(function(l){var n=l.name, isA=(n===t.anchor);
           if(pinnedP(n) || (aliveP(n) && inPool[n])){
+            if(need>1 && susp(n)) return;                   // suspended games can only be singles -> drop from parlays, refill later
             if(need>1 && gUsed[P[n].game]) return;          // distinct game within ticket
             if(usedG[n] && !isA) return;                    // already taken elsewhere (non-anchor) -> drop, refill later
             kept.push(n); gUsed[P[n].game]=1; usedG[n]=1; }
@@ -645,7 +646,7 @@ drawTickets();drawPlayers();drawTracker();
       var used={}, slots=[];
       MOON_PLAN.forEach(function(ai){ if(ai<anchors.length) slots.push({a:anchors[ai],kind:'moon',need:2,legs:[]}); });
       if(anchors.length>=4) slots.push({a:anchors[3],kind:'biggest',need:3,legs:[]});
-      var draftpool=byT(nonchalk.filter(function(n){return anchors.indexOf(n)<0 && P[n].TOTAL>=FLOOR;}));
+      var draftpool=byT(nonchalk.filter(function(n){return anchors.indexOf(n)<0 && P[n].TOTAL>=FLOOR && !susp(n);}));
       function minSpanFill(a,need,pref){var at=tmin(a),g0=P[a].game,cands=pref.filter(function(n){return !used[n]&&P[n].game!==g0;});
         var times=[at];cands.forEach(function(n){times.push(tmin(n));});times=times.filter(function(v,i,arr){return arr.indexOf(v)===i;}).sort(function(x,y){return x-y;});
         var best=[],bk=[-1,1];

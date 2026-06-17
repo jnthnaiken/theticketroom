@@ -163,7 +163,7 @@ def assemble(D):
     def min_span_fill(a, need, pref):
         at = tmin(a); g0 = P[a]['game']
         cands = [n for n in pref if n not in used and n not in anchors
-                 and P[n]['game'] != g0 and P[n]['TOTAL'] >= FLOOR]
+                 and P[n]['game'] != g0 and P[n]['TOTAL'] >= FLOOR and not susp(n)]
         times = sorted(set([at] + [tmin(n) for n in cands]))
         best, bestkey = [], (-1, 1)
         for lo in times:
