@@ -106,17 +106,12 @@ ROWS={
 'SD':[("Rodolfo Duran",74.3,0.033,42,14.2,44.5,20.3),("Jase Bowen",62.4,0.095,45,5.1,41.0,16.3),("Jackson Merrill",57.9,0.086,59,5.8,51.6,20.1),("Manny Machado",56.9,0.069,65,6.7,55.6,21.3),("Gavin Sheets",56.4,0.078,39,6.2,53.1,19.3),("Fernando Tatis Jr.",54.6,0.084,71,6.7,56.8,13.1),("Ty France",49.8,0.084,31,4.2,46.6,16.3),("Xander Bogaerts",49.3,0.066,59,4.6,43.4,11.8)],
 'STL':[("Lars Nootbaar",72.4,0.500,50,6.6,50.4,16.4),("Nelson Velazquez",72.2,0.500,50,9.5,47.0,16.5),("Ivan Herrera",68.8,0.500,41,5.7,55.2,11.8),("JJ Wetherholt",66.6,0.500,48,4.9,51.4,21.6),("Alec Burleson",64.8,0.500,62,4.5,48.8,16.2),("Jimmy Crooks",61.5,0.500,51,0.0,41.4,18.9),("Jordan Walker",61.7,0.500,64,6.5,54.0,13.9),("Nathan Church",59.2,0.500,37,4.5,38.7,20.4),("Masyn Winn",55.6,0.500,57,2.8,39.1,19.9)],
 }
-# ---- RotoWire lineup reconciliation (June 15) ----
-CONFIRMED={'KC','CIN','STL','COL'}        # teams with confirmed (vs expected) cards posted
-SCRATCHED=[ # projected bats who did NOT make the posted lineup -> benched/out
- "Edouard Julien","Brett Sullivan","Troy Johnston","Michael Confranco","Alex Call",
- "Christopher Morel","Connor Norby","Rafael Marchan","Edmundo Sosa","Esmerlyn Valdez",
- "Marcell Ozuna","Henry Davis","Colby Thomas","Max Muncy (ATH)","Jonah Heim",
- "Jahmai Jones","James Outman","Jake Rogers","Wenceel Perez","Brice Matthews","Taylor Trammell",
- "Mark Vientos","Will Benson","Nathaniel Lowe","Dane Myers","Kody Clemens","Trevor Larnach",
- "Tristan Gray","Victor Caratini","Justin Foscue","Trey Mancini","Nick Madrigal",
- "Adrian Del Castillo","Ryan Waldschmidt","Michael Massey","Andres Chaparro","Jose Tena",
- "Ty France","Nelson Velazquez"]
+# ---- lineup status ----
+# A bat is 'confirmed' ONLY when a posted lineup (slate_auto 'lu') actually contains it.
+# Until that team's card posts, everyone on it is 'projected' (never blanket-confirmed).
+# SCRATCHED is an optional same-day hand list for known scratches BEFORE lineups post
+# (injury/rest); leave it empty otherwise — it must be re-curated each slate, never reused.
+SCRATCHED=[]                              # e.g. ["Some Hitter"] for a known same-day scratch
 OUTN={norm(x) for x in SCRATCHED}
 players={}
 for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
@@ -132,8 +127,8 @@ for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
             _lu=_sl.get('lu',{}).get(code)              # posted lineup for this team (None until it posts)
             if _lu:                                      # card POSTED -> status/out from the real lineup
                 _in=(n in _lu); _status='confirmed' if _in else 'projected'; _out=(not _in)
-            else:                                        # not posted yet -> hardcoded RotoWire reconciliation
-                _status='confirmed' if code in CONFIRMED else 'projected'; _out=(n in OUTN)
+            else:                                        # card NOT posted yet -> projected; only explicit hand-scratches sit out
+                _status='projected'; _out=(n in OUTN)
             players[key]=dict(nm=key,code=code,team=FULL[code],aT=aT,zonev=z,form=form,pb=pb,hh=hh,la=la,
                 iso=(f".{str(iso).split('.')[1]}" if iso is not None else '\u2014'),iso_used=iso_used,powraw=powraw,
                 hr9=opp_hr9,wf=wf,game=gn,gmatch=gm,gtime=gt,late=(gn==10),rain=False,out=_out,status=_status,
@@ -188,7 +183,7 @@ except Exception as e:
         season={'since':DATE,'stake':1,'cats':{},'history':[0.0]}
         print(f"  (no season carryover available [{e}] — starting neutral ledger)")
 maxAT=round(max(r['aT'] for r in pool),1)
-meta={'wx':wx,'face':{},'maxAT':maxAT,'season':season}
+meta={'wx':wx,'face':{},'maxAT':maxAT,'season':season,'date':DATE}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"maxAT={maxAT}")
 # report

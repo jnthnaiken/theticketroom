@@ -1,33 +1,45 @@
-import json, re, time
-SHELL="/home/claude/slate0615/shell_0614.html"
-OUT="/mnt/user-data/outputs/ticket_room.html"
-src=open(SHELL).read()
-D=json.load(open('/home/claude/slate0615/D_0615.json'))
-def rep(old,new,n=1):
-    global src
-    assert src.count(old)==n, f"count {src.count(old)} (want {n}) for: {old[:55]!r}"
-    src=src.replace(old,new)
+"""
+The Ticket Room — assemble + inject step.
 
-# 1) data swap (first match only; 2nd is the in-page download fn template)
-dj='const D='+json.dumps(D,ensure_ascii=True)+',WX=D.meta.wx;'
-src,n=re.subn(r'const D=[\s\S]*?,WX=D\.meta\.wx;',(lambda m:dj),src,count=1); assert n==1,"D block"
-# 2) date roll
-src=src.replace("June 14, 2026","June 15, 2026")
-# 3) salami renders horizontal (lunchwide); full pool tab stays unfiltered (people build their own)
-rep("${t.kind==='lunch'?' lunchwide':''}","${t.kind==='lunch'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}")
-# 4) colored leg bars measure TOTAL (the model score) against the field max, not aT
-rep("const maxAT=D.meta.maxAT;","const maxAT=D.meta.maxAT,maxT=(Math.max.apply(null,Object.values(D.players).map(function(p){return p.TOTAL||0;}))||1);")
-rep("w=Math.max(5,p.aT/maxAT*100)","w=Math.max(5,(p.total||0)/maxT*100)")
-# 5) moonshots show the round-robin badge in the top-right, like the salami
-rep("const od=(t.kind==='biggest'&&t.rr)?","const od=(t.rr)?")
-rep("pay=(t.kind==='biggest'&&t.rr)?","pay=(t.rr)?")
-# 6) only the dome badge was jammed against its count; space it (boost/suppress were fine)
-rep("'&#127967;'+ws.dome","'&#127967; '+ws.dome")
-# write with retry (transient Errno5 on this volume)
-for attempt in range(5):
+Runs AFTER the scorer (build15.py) has written D_0615.json = {players, meta}.
+1) builds D['tickets'] via assemble_tickets.assemble() (pool gating, refill, names,
+   notes — the brain), carrying over any game left suspended on the prior board,
+2) injects the freshly assembled D into the published board's `const D=...` block.
+
+The published index.html doubles as its own shell/template: we read it, swap the
+data block, and write it back. All paths are repo-relative so it runs on the Action.
+"""
+import json, re, time
+import assemble_tickets
+
+BOARD = "index.html"       # published board == its own shell/template
+DJSON = "D_0615.json"      # scorer output; assembled in place, then injected
+
+D = json.load(open(DJSON))
+for p in D.get('players', {}).values():        # assembler reads these flags
+    p.setdefault('void', False); p.setdefault('out', False)
+
+# carry any suspended game from the previously published board into today, then assemble
+try:
+    m = re.search(r'const D=(\{.*?\}),WX=D\.meta\.wx;', open(BOARD).read(), re.S)
+    if m:
+        assemble_tickets.carryover(D, json.loads(m.group(1)))
+except Exception as e:
+    print(f"  (carryover skipped: {e})")
+
+assemble_tickets.assemble(D)                   # builds D['tickets']
+json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data
+
+src = open(BOARD).read()
+dj = 'const D=' + json.dumps(D, ensure_ascii=True) + ',WX=D.meta.wx;'
+src, n = re.subn(r'const D=[\s\S]*?,WX=D\.meta\.wx;', (lambda mm: dj), src, count=1)
+assert n == 1, f"could not find the `const D=...,WX=D.meta.wx;` block in {BOARD}"
+
+for attempt in range(5):                       # transient Errno5 retry on this volume
     try:
-        open(OUT,'w').write(src); break
+        open(BOARD, 'w').write(src); break
     except OSError:
-        if attempt==4: raise
+        if attempt == 4:
+            raise
         time.sleep(0.4)
-print(f"injected OK -> {len(src)} bytes; tickets {len(D['tickets'])}; players {len(D['players'])}")
+print(f"assembled {len(D['tickets'])} tickets; injected -> {len(src)} bytes; players {len(D['players'])}")
