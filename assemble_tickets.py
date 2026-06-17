@@ -320,9 +320,9 @@ def assemble(D):
     if lunchc:
         add(name_for("lunch"), "lunch", "\U0001f371", [lunchc[0]])
 
-    # builders: leftover non-chalk singles
+    # builders: leftover non-chalk singles that ALSO clear the floor (no sub-75 featured picks)
     spent = set(anchors) | used | {t['anchor'] for t in tickets}
-    for n in byT([x for x in nonchalk if x not in spent]):       # use the whole 33
+    for n in byT([x for x in nonchalk if x not in spent and P[x]['TOTAL'] >= FLOOR]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
