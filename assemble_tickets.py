@@ -32,6 +32,8 @@ import re, datetime
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
 CHALK_N       = 8                # the ban8: 8 shortest-odds bats (nightcap/lunch ONLY)
 GATE_N        = 33               # parlay/builder pool = the 33 by odds BELOW the ban8
+FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
+                                 # Sub-floor bats stay in the pool as builder singles for visitors.
 MOON_PLAN     = (0, 0, 1, 1, 2)  # anchor indices per moon -> A1,A1,A2,A2,A3 (2/2/1)
 
 # ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
@@ -136,11 +138,11 @@ def assemble(D):
     lunch_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
     night_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) == latest}
 
-    # anchors: best non-chalk by TOTAL, one per game, never a suspended game
+    # anchors: best non-chalk by TOTAL, one per game, never a suspended game, never below the floor
     anchors, seen = [], set()
     for n in byT(nonchalk):
         g = P[n]['game']
-        if g in seen or susp(n):
+        if g in seen or susp(n) or P[n]['TOTAL'] < FLOOR:
             continue
         anchors.append(n); seen.add(g)
         if len(anchors) >= 4:
@@ -160,7 +162,8 @@ def assemble(D):
     # renderer's lineup-timing flag; we never grab a far leg when a tighter one exists.
     def min_span_fill(a, need, pref):
         at = tmin(a); g0 = P[a]['game']
-        cands = [n for n in pref if n not in used and n not in anchors and P[n]['game'] != g0]
+        cands = [n for n in pref if n not in used and n not in anchors
+                 and P[n]['game'] != g0 and P[n]['TOTAL'] >= FLOOR]
         times = sorted(set([at] + [tmin(n) for n in cands]))
         best, bestkey = [], (-1, 1)
         for lo in times:
@@ -191,7 +194,7 @@ def assemble(D):
 
     def add(name, kind, badge, names, rr=None):
         legs = [leg(n) for n in names]
-        t = {"name": name, "kind": kind, "badge": badge, "note": "",
+        t = {"name": name, "kind": kind, "badge": badge, "note": cwnote(kind, names),
              "players": legs, "nlegs": len(legs), "anchor": names[0],
              "lock": min(l['gtime'] for l in legs), "has_late": any(l['late'] for l in legs),
              "final": False, "rr": rr}
@@ -215,6 +218,56 @@ def assemble(D):
         while f"{base} {s}" in _name_used:
             s += 1
         nm = f"{base} {s}"; _name_used.add(nm); return nm
+
+    # ---- ticket notes (ported from the client micro-note generator; the html only renders) ----
+    import math
+    def _jsround(x):
+        return int(math.floor(x + 0.5))
+    def _isostr(p):
+        s = p.get('iso')
+        return s if (isinstance(s, str) and s.startswith('.')) else None
+    def _isoval(p):
+        s = _isostr(p)
+        try:
+            return float('0' + s) if s else 0.0
+        except Exception:
+            return 0.0
+    def _lastnm(s):
+        sfx = {'jr', 'jr.', 'sr', 'sr.', 'ii', 'iii'}
+        t = [w for w in s.split(' ') if w.lower() not in sfx]
+        return t[-1] if t else s
+    def _micro(p):
+        hr9 = p.get('hr9'); hh = p.get('hh') or 0; la = p.get('la') or 0
+        wf = 1.0 if p.get('wf') is None else p.get('wf'); iso = _isostr(p); iv = _isoval(p)
+        o = []
+        if hr9 is not None and hr9 >= 1.6:   o.append((9, 'mtx', 'soft arm'))
+        elif hr9 is not None and hr9 >= 1.35: o.append((6, 'mtx', 'beatable arm'))
+        if wf >= 1.05:   o.append((8, 'park', 'wind out'))
+        elif wf >= 1.02: o.append((4, 'park', 'park boost'))
+        if hh >= 52:   o.append((7, 'hh', f"{_jsround(hh)}% hard-hit"))
+        elif hh >= 46: o.append((3.5, 'hh', f"{_jsround(hh)}% hard-hit"))
+        if 16 <= la <= 23: o.append((5, 'la', f"{_jsround(la)}\u00b0 ideal"))
+        if iso and iv >= 0.20: o.append((4.5, 'iso', f"{iso} ISO"))
+        if hr9 is not None and hr9 < 1.0 and not o: o.append((1, 'mtx', 'tough arm'))
+        if not o: o.append((0.5, 'x', 'live spot'))
+        o.sort(key=lambda r: r[0], reverse=True)
+        return o
+    def _micropick(p, used):
+        for w, dim, lab in _micro(p):
+            if dim not in used:
+                used.add(dim); return lab
+        first = _micro(p)[0]; used.add(first[1]); return first[2]
+    def cwnote(kind, names):
+        if len(names) == 1:
+            a = P[names[0]]; r = _micro(a); e = [r[0][2]]
+            if len(r) > 1:
+                e.append(r[1][2])
+            lead = 'Last call' if kind == 'late' else ('Midday' if kind == 'lunch' else 'Single')
+            tail = (", " + e[1]) if len(e) > 1 else ""
+            return f"{lead}: {a.get('nm', names[0])} \u2014 {e[0]}{tail}."
+        used = set()
+        bits = " \u00b7 ".join(_lastnm(P[n].get('nm', n)) + " " + _micropick(P[n], used) for n in names)
+        return ("Round-robin \u00b7 " + bits) if kind == 'biggest' else bits
 
     # update (2): A4 leads the salami. DRAFT the salami first so it keeps its own tight window
     # (4 longest shots, distinct games, chalk-free); then the 5 moons (2/2/1) by TOTAL.

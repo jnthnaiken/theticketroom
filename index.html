@@ -519,10 +519,11 @@ drawTickets();drawPlayers();drawTracker();
     var tmin=function(n){return gmin(P[n].gtime);};
     function nowMin(){var s=new Date().toLocaleString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit'});var pp=s.split(':');var H=+pp[0],M=+pp[1];if(H===24)H=0;return H*60+M;}
     function started(n){var m=tmin(n); return m!=null && nowMin()>=m;}
-    function pinnedP(n){var p=P[n]; return !!(p && (p.status==='confirmed' || started(n)));}
+    function pinnedP(n){var p=P[n]; return !!(p && !p.out && !p.void && (p.status==='confirmed' || started(n)));}
     function aliveP(n){var p=P[n]; return !!(p && !p.out && !p.void);}
     function byO(a){return a.slice().sort(function(x,y){return P[x].odds-P[y].odds;});}
     function byT(a){return a.slice().sort(function(x,y){return P[y].TOTAL-P[x].TOTAL;});}
+    function ge75(a){return a.filter(function(n){return P[n].TOTAL>=FLOOR;});}   // OUR-picks floor; pool itself stays inclusive
     function spanOk(ns){var ts=ns.map(tmin).filter(function(x){return x!=null;}); return ts.length?(Math.max.apply(null,ts)-Math.min.apply(null,ts))<=WIN:true;}
     var susp=function(n){return gs[String(P[n].game)]==='susp' || P[n].status==='susp';};
 
@@ -615,15 +616,15 @@ drawTickets();drawPlayers();drawTracker();
         if(kind==='builder') cand=byT(nonchalk);
         else if(kind==='late') cand=byO(Object.keys(chalk).filter(function(n){return nightG[P[n].game];}));
         else if(kind==='lunch') cand=byO(Object.keys(chalk).filter(function(n){return lunchG[P[n].game];}));
-        else if(kind==='biggest') cand=byO(nonchalk).reverse();
-        else cand=byT(nonchalk);
+        else if(kind==='biggest') cand=ge75(byO(nonchalk).reverse());
+        else cand=ge75(byT(nonchalk));
         for(var i=0;i<cand.length && legNames.length<need;i++){var n=cand[i];
           if(usedG[n])continue;
           if(need>1 && gUsed[P[n].game])continue;
           if(need>1 && !spanOk(legNames.concat([n])))continue;
           legNames.push(n); gUsed[P[n].game]=1; usedG[n]=1; }
         if(need>1 && legNames.length<need){ // top-up: the 33 (minus ban-8), then #34+, NEVER the ban-8
-          var widerA=byT(nonchalk).filter(function(n){return !usedG[n];}).concat(byT(extra).filter(function(n){return !usedG[n];}));
+          var widerA=ge75(byT(nonchalk)).filter(function(n){return !usedG[n];}).concat(ge75(byT(extra)).filter(function(n){return !usedG[n];}));
           for(var j=0;j<widerA.length && legNames.length<need;j++){var m=widerA[j]; // tightest in-window first
             if(gUsed[P[m].game])continue; if(!spanOk(legNames.concat([m])))continue;
             legNames.push(m); gUsed[P[m].game]=1; usedG[m]=1; }
@@ -640,11 +641,11 @@ drawTickets();drawPlayers();drawTracker();
     } else {
       // ---- FRESH full assembly (fallback when no baked tickets) ----
       var anchors=[], seen={};
-      byT(nonchalk).forEach(function(n){ if(anchors.length>=4)return; var g=P[n].game; if(seen[g]||susp(n))return; anchors.push(n); seen[g]=1; });
+      byT(nonchalk).forEach(function(n){ if(anchors.length>=4)return; var g=P[n].game; if(seen[g]||susp(n)||P[n].TOTAL<FLOOR)return; anchors.push(n); seen[g]=1; });
       var used={}, slots=[];
       MOON_PLAN.forEach(function(ai){ if(ai<anchors.length) slots.push({a:anchors[ai],kind:'moon',need:2,legs:[]}); });
       if(anchors.length>=4) slots.push({a:anchors[3],kind:'biggest',need:3,legs:[]});
-      var draftpool=byT(nonchalk.filter(function(n){return anchors.indexOf(n)<0;}));
+      var draftpool=byT(nonchalk.filter(function(n){return anchors.indexOf(n)<0 && P[n].TOTAL>=FLOOR;}));
       function minSpanFill(a,need,pref){var at=tmin(a),g0=P[a].game,cands=pref.filter(function(n){return !used[n]&&P[n].game!==g0;});
         var times=[at];cands.forEach(function(n){times.push(tmin(n));});times=times.filter(function(v,i,arr){return arr.indexOf(v)===i;}).sort(function(x,y){return x-y;});
         var best=[],bk=[-1,1];
@@ -655,7 +656,7 @@ drawTickets();drawPlayers();drawTracker();
             if(legs.length>bk[0]||(legs.length===bk[0]&&-(hi-lo)>bk[1])){bk=[legs.length,-(hi-lo)];best=legs;}}}
         return best;}
       function bestPartners(a,need,msort){var t1=msort(draftpool),legs=minSpanFill(a,need,t1);
-        if(legs.length<need)legs=minSpanFill(a,need,t1.concat(msort(extra))); return legs;}
+        if(legs.length<need)legs=minSpanFill(a,need,t1.concat(msort(ge75(extra)))); return legs;}
       function capacity(a){var at=tmin(a),g0=P[a].game,gs={}; draftpool.forEach(function(n){if(used[n]||P[n].game===g0)return; if(Math.abs(tmin(n)-at)<=WIN)gs[P[n].game]=1;}); return Object.keys(gs).length;}
       // scarcest window first (salami before moons on ties); the 33 first, then #34+; never the ban-8; no drop
       slots.slice().sort(function(s1,s2){var b1=(s1.kind==='biggest'?0:1),b2=(s2.kind==='biggest'?0:1); if(b1!==b2)return b1-b2; return capacity(s1.a)-capacity(s2.a);}).forEach(function(s){
