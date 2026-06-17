@@ -718,7 +718,7 @@ drawTickets();drawPlayers();drawTracker();
           var mk=function(arr){var o={};arr.forEach(function(p){var fn=p.fullName||p.name; if(fn)o[norm(fn)]=1;});return o;};
           var psA=mk(aw),psH=mk(hm),okA=aw.length>=8,okH=hm.length>=8;
           Object.keys(D.players).forEach(function(n){var pl=D.players[n]; if(pl.game!==gi||pl.status==='susp')return;
-            var isA=pl.team===aA, isH=pl.team===hA, posted=isA?okA:(isH?okH:false), set=isA?psA:psH; if(!posted)return;
+            var isA=pl.code===aA, isH=pl.code===hA, posted=isA?okA:(isH?okH:false), set=isA?psA:psH; if(!posted)return;
             var k=norm(pl.nm||n), inLU=set[k]||Object.keys(set).some(function(x){return x===k||x.indexOf(k)>=0||k.indexOf(x)>=0;});
             if(inLU){pl.status='confirmed'; pl.out=false;} else {pl.out=true;}
           });
@@ -731,7 +731,7 @@ drawTickets();drawPlayers();drawTracker();
               if(hr>0&&p.person&&p.person.fullName)homered.push({fn:norm(p.person.fullName),tm:tn});});});
         }).catch(function(){});
       })).then(function(){
-        homered.forEach(function(h){var key=IDX[h.fn]; if(key){ if(AMBIG[h.fn]&&h.tm&&D.players[key].team!==h.tm)return; D.players[key].hr=true; }});
+        homered.forEach(function(h){var key=IDX[h.fn]; if(key){ if(AMBIG[h.fn]&&h.tm&&D.players[key].code!==h.tm)return; D.players[key].hr=true; }});
         D.meta.finals=finals;
       });
     }).catch(function(){});
