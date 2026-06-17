@@ -326,10 +326,28 @@ def assemble(D):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
+    wx = D.get('meta', {}).get('wx', {})
+    def _rrmax(legs, risk):                              # round-robin max profit, mirrors client rrmax()
+        dec = [a2d(l['odds']) for l in legs]; L = len(dec); s = -risk
+        for a in range(L):
+            for b in range(a + 1, L):
+                s += dec[a] * dec[b]
+        for a in range(L):
+            for b in range(a + 1, L):
+                for c in range(b + 1, L):
+                    s += dec[a] * dec[b] * dec[c]
+        if L >= 4:
+            for a in range(L):
+                for b in range(a + 1, L):
+                    for c in range(b + 1, L):
+                        for e in range(c + 1, L):
+                            s += dec[a] * dec[b] * dec[c] * dec[e]
+        return _jsround(s * 10) / 10
     for i, t in enumerate(tickets, 1):
         t['n'] = i
         pr = [l for l in t['players'] if l['odds']]
-        t['priced'] = t['confleg'] = len(pr)
+        t['priced']  = len(pr)
+        t['confleg'] = sum(1 for l in t['players'] if l.get('status') == 'confirmed')   # confirmed legs (matches client)
         t['sum']  = round(sum(l['aT'] for l in t['players']), 1)
         t['msum'] = round(sum(l['total'] for l in t['players']), 1)
         if len(pr) == t['nlegs'] and pr:
@@ -344,6 +362,18 @@ def assemble(D):
             t['parlay_am'], t['payout10'] = d2a(d), round(10 * d, 2)
         else:
             t['parlay_am'] = t['payout10'] = None
+        # ---- mirror the client post-process so the baked board renders without a redraft ----
+        ws = {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0}
+        for l in t['players']:
+            w = wx.get(str(l['game'])) or {}
+            if   w.get('cond') == 'Dome':     ws['dome']  += 1
+            elif w.get('lean') == 'Boost':    ws['boost'] += 1
+            elif w.get('lean') == 'Suppress': ws['supp']  += 1
+            else:                             ws['neu']   += 1
+        t['wxsum'] = ws
+        if t['rr']:
+            t['rr']['maxprofit'] = _rrmax(pr, t['rr']['risk'])
+            t['rr']['bytwos'] = False
 
     D['tickets'] = tickets
     D.setdefault('meta', {})['tickets'] = len(tickets)
