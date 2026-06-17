@@ -65,19 +65,25 @@ jobs:
       - name: Inject / render the board
         run: python3 inject15.py
 
+      # 5) publish to the site root: index.html is what Pages serves at theticketroom.live
+      - name: Publish to site root (index.html)
+        run: |
+          cp -f outputs/ticket_room.html index.html
+          echo "promoted outputs/ticket_room.html -> index.html"
+
       - name: Show what was produced
         run: |
           echo "---- files ----"
-          ls -1 slate_auto_*.json D_*.json outputs/ticket_room.html 2>/dev/null || true
+          ls -1 slate_auto_*.json D_*.json outputs/ticket_room.html index.html 2>/dev/null || true
           echo "---- slate summary (head) ----"
           for f in slate_auto_${SLATE_DATE}.json; do echo "== $f =="; head -c 1200 "$f"; echo; done
 
-      # 5) commit the refreshed inputs + regenerated board (publishes via Pages)
+      # 6) commit the refreshed inputs + regenerated board, incl. the published index.html
       - name: Commit the board
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
-          git add slate_auto_*.json D_*.json outputs/ticket_room.html
+          git add slate_auto_*.json D_*.json outputs/ticket_room.html index.html
           if git diff --staged --quiet; then
             echo "no changes to commit"
           else
