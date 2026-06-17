@@ -35,6 +35,7 @@ GATE_N        = 33               # parlay/builder pool = the 33 by odds BELOW th
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOON_PLAN     = (0, 0, 1, 1, 2)  # anchor indices per moon -> A1,A1,A2,A2,A3 (2/2/1)
+WIN           = 165              # max minutes between a parlay's earliest & latest leg (lineup-timing cap; mirrors client)
 
 # ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
 # Big, curated, theme-tight pools. Assigned without replacement and rotated by day-of-year,
@@ -48,8 +49,7 @@ NAME_POOLS = {
         "Booster Ignition", "Hitting Apogee", "Mach Breaker", "Punching Through the Ceiling",
         "Riding the Jet Stream", "Upper Deck Bound", "Off the Scoreboard", "To the Heavens",
         "Liftoff Sequence", "Second Stage", "Leaving the Atmosphere", "Out of the Solar System",
-        "Zero Gravity", "Trajectory Locked", "Sonic Boom", "The Long Bomb", "Moon Landing",
-        "Rocket Fuel", "Thrust Vector", "Crossing the Karman Line", "No Doubter",
+        "Zero Gravity", "Trajectory Locked", "Sonic Boom", "The Long Bomb", "Rocket Fuel", "Thrust Vector", "Crossing the Karman Line", "No Doubter",
         "Tape Measure Job", "Onto the Concourse", "Splash Hit", "The Way Back Machine",
         "Goodbye Baseball", "Touch 'Em All", "Climbing the Ladder", "Ballistic Arc",
         "Orbital Insertion", "Star Sailor", "Going Supersonic", "The Slingshot",
@@ -58,36 +58,33 @@ NAME_POOLS = {
     ],
     "biggest": [  # the feast / the spread
         "The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats",
-        "The Grand Buffet", "Family Style", "The Tasting Menu", "Surf and Turf",
+        "Family Style", "The Tasting Menu", "Surf and Turf",
         "The Sampler Platter", "All You Can Eat", "The Combo Platter", "Second Helpings",
         "The Smorgasbord", "The Whole Hog", "The Deli Case", "Loaded Plate", "The Feast",
         "The Cold Cuts", "Heaping Plate", "The Potluck", "The Tailgate Spread",
         "The Whole Enchilada", "The Big Platter", "Seconds and Thirds",
     ],
     "late": [  # closing time / after dark
-        "The Nightcap", "Last Call", "Closing Time", "After Hours", "One for the Road",
+        "Last Call", "Closing Time", "After Hours", "One for the Road",
         "Lights Out", "Final Pour", "The Closer", "Last Ring of the Bell", "Midnight Special",
-        "Last Train Home", "The Curfew", "Burning the Midnight Oil", "The Late Show",
-        "Bar's Last Round", "Nightfall", "The Witching Hour", "Last Orders", "The Final Bell",
+        "Last Train Home", "The Curfew", "Burning the Midnight Oil", "Bar's Last Round", "Nightfall", "The Witching Hour", "Last Orders", "The Final Bell",
         "Under the Lights",
     ],
-    "lunch": [  # midday
-        "The Power Lunch", "Midday Meal", "High Noon", "The Blue Plate", "Lunch Rush",
-        "The Noon Whistle", "Brown Bag Special", "The Midday Mash", "Sunshine Special",
-        "Half-Day Hammer", "The Lunch Break", "Noon Special", "The Matinee", "Daylight Special",
-        "The Early Bird", "Midday Money", "The Lunch Counter", "First-Pitch Feast",
+    "lunch": [  # midday  (no 'Lunch'/'Special' — those are the section-header words)
+        "Midday Meal", "High Noon", "The Blue Plate", "The Noon Whistle", "The Midday Mash",
+        "Half-Day Hammer", "The Matinee", "The Early Bird", "Midday Money", "First-Pitch Feast",
     ],
     "builder": [  # bankroll / getting paid
         "Cash Is King", "Paid in Full", "Bag Secured", "The Sure Thing", "Easy Money",
         "Stack It High", "Mailbox Money", "Bread Winner", "Walk-Off Wallet", "Petty Cash",
-        "Pay the Rent", "Cha-Ching", "Money in the Bank", "The Day Job", "Clock In, Cash Out",
+        "Pay the Rent", "Cha-Ching", "The Day Job", "Clock In, Cash Out",
         "Grocery Money", "The Side Hustle", "Beer Money", "Coffee's on Me", "The Tip Jar",
-        "Found Money", "Gas Money", "The Piggy Bank", "Padding the Bankroll", "The Lunch Tab",
+        "Found Money", "Gas Money", "Padding the Bankroll", "The Lunch Tab",
         "The Down Payment", "Spare Change", "The Nest Egg", "Payday", "House Money",
         "Keep the Change", "Cover Charge", "The Cushion", "Quick Buck", "In the Black",
         "The Float", "Walking-Around Money", "The Cookie Jar", "Pocket Money", "The Allowance",
         "Cashing Out", "The Slow Grind", "Steady Drip", "Singles Add Up", "Chip Stack",
-        "The Vig Killer", "Free Roll", "Direct Deposit", "Rainy Day Fund", "The ATM",
+        "The Vig Killer", "Direct Deposit", "Rainy Day Fund", "The ATM",
         "Milk Money", "Tab Settled",
     ],
 }
@@ -174,6 +171,8 @@ def assemble(D):
                 break
             for hi in times:
                 if hi < at or hi < lo:
+                    continue
+                if hi - lo > WIN:                     # never bridge a lineup-timing gap wider than WIN
                     continue
                 legs, games = [], {g0}
                 for n in cands:
