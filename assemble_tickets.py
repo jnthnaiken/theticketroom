@@ -153,42 +153,6 @@ def assemble(D):
                 "game": p['game'], "late": bool(p.get('late')), "odds": p['odds'],
                 "status": p['status']}
 
-    # Tightest distinct-game set of `need` partners around the anchor (min time-span), drawn in
-    # preference order from the 33, then #42+. No cross-day reach: a wide span just trips the
-    # renderer's lineup-timing flag; we never grab a far leg when a tighter one exists.
-    def min_span_fill(a, need, pref):
-        at = tmin(a); g0 = P[a]['game']
-        cands = [n for n in pref if n not in used and n not in anchors
-                 and P[n]['game'] != g0 and P[n]['TOTAL'] >= FLOOR and not pend(n)]
-        times = sorted(set([at] + [tmin(n) for n in cands]))
-        best, bestkey = [], (-1, 1)
-        for lo in times:
-            if lo > at:
-                break
-            for hi in times:
-                if hi < at or hi < lo:
-                    continue
-                if hi - lo > WIN:                     # never bridge a lineup-timing gap wider than WIN
-                    continue
-                legs, games = [], {g0}
-                for n in cands:
-                    tn = tmin(n)
-                    if lo <= tn <= hi and P[n]['game'] not in games:
-                        legs.append(n); games.add(P[n]['game'])
-                        if len(legs) >= need:
-                            break
-                key = (len(legs), -(hi - lo))
-                if key > bestkey:
-                    bestkey, best = key, legs
-        return best
-
-    def best_partners(a, need, msort):
-        legs = min_span_fill(a, need, msort(nonchalk))          # the 33 first
-        if len(legs) < need:                                    # widen to #42+ only if forced
-            legs = min_span_fill(a, need, msort(nonchalk) + msort(extra))
-        for n in legs:
-            used.add(n)
-        return legs
 
     def add(name, kind, badge, names, rr=None):
         legs = [leg(n) for n in names]
@@ -288,18 +252,67 @@ def assemble(D):
         parts = [_lastnm(P[n].get('nm', n)) + " " + _pick(P[n], used, seed) for n in names]
         return _join(parts) + "."
 
-    # update (2): A4 leads the salami. DRAFT the salami first so it keeps its own tight window
-    # (4 longest shots, distinct games, chalk-free); then the 5 moons (2/2/1) by TOTAL.
-    byOdesc = lambda ns: sorted(ns, key=lambda n: P[n]['odds'], reverse=True)
-    sal_legs = best_partners(anchors[3], 3, byOdesc) if len(anchors) >= 4 else []
-    moon_duos = [(anchors[ai], best_partners(anchors[ai], 2, byT))
-                 for ai in MOON_PLAN if ai < len(anchors)]
-    for a, d in moon_duos:                                      # emit moons first (display order)
-        add(name_for("moon"), "moon", "\U0001f680", [a] + d,
-            rr={"struct": "by 2s & 3", "risk": 4.0})
+    # ---- SNAKE DRAFT of parlay partners, by TOTAL (update 3) ----
+    # A0>A1>A2>A3 are the anchors by TOTAL: A0 & A1 each carry two moons, A2 one moon, A3 the salami.
+    # Partners are drafted from the remaining nonchalk (then #42+ only if forced) HIGHEST TOTAL FIRST, in
+    # a snake whose WEAKEST anchor picks first -> salami, A2, A1, A0 / A0, A1, A2, A3 / salami, A2, ...
+    # So the strongest leftover bats always land in a parlay: no builder single can outscore a parlay leg.
+    # The reverse-snake start also tilts help toward the shakier anchors. Each pick takes the best TOTAL
+    # that keeps the ticket inside one distinct-game lineup window (span <= WIN).
+    parlays = []
+    for ai in MOON_PLAN:
+        if ai < len(anchors):
+            parlays.append({'rank': ai, 'kind': 'moon', 'badge': "\U0001f680",
+                            'rr': {"struct": "by 2s & 3", "risk": 4.0},
+                            'legs': [anchors[ai]], 'need': 2, 'games': {P[anchors[ai]]['game']}})
     if len(anchors) >= 4:
-        add(name_for("biggest"), "biggest", "\U0001f96a", [anchors[3]] + sal_legs,
-            rr={"struct": "by 2s, 3s & 4", "risk": 11.0})
+        parlays.append({'rank': 3, 'kind': 'biggest', 'badge': "\U0001f96a",
+                        'rr': {"struct": "by 2s, 3s & 4", "risk": 11.0},
+                        'legs': [anchors[3]], 'need': 3, 'games': {P[anchors[3]]['game']}})
+
+    by_rank = {}
+    for t in parlays:
+        by_rank.setdefault(t['rank'], []).append(t)
+
+    pool_av = [n for n in byT(nonchalk) if n not in anchors and n not in used
+               and P[n]['TOTAL'] >= FLOOR and not pend(n)]
+    pool_av += [n for n in byT(extra) if n not in anchors and n not in used
+                and P[n]['TOTAL'] >= FLOOR and not pend(n)]
+
+    def fits(t, n):
+        if P[n]['game'] in t['games']:
+            return False
+        ts = [tmin(x) for x in t['legs']] + [tmin(n)]
+        return (max(ts) - min(ts)) <= WIN
+
+    def needy(t):
+        return (len(t['legs']) - 1) < t['need']
+
+    ranks_fwd = sorted(by_rank.keys(), reverse=True)        # weakest (3) -> strongest (0)
+    rnd = 0
+    while any(needy(t) for t in parlays):
+        order = ranks_fwd if (rnd % 2 == 0) else list(reversed(ranks_fwd))
+        progressed = False
+        for r in order:
+            cands = [t for t in by_rank[r] if needy(t)]
+            if not cands:
+                continue
+            t = min(cands, key=lambda x: len(x['legs']))    # spread an anchor's picks across its moons
+            pick = next((n for n in pool_av if fits(t, n)), None)
+            if pick is None:
+                continue
+            t['legs'].append(pick); t['games'].add(P[pick]['game'])
+            used.add(pick); pool_av.remove(pick); progressed = True
+        rnd += 1
+        if not progressed:
+            break
+
+    for t in parlays:                                       # emit moons first (display order)
+        if t['kind'] == 'moon':
+            add(name_for("moon"), "moon", t['badge'], t['legs'], rr=t['rr'])
+    for t in parlays:                                       # then the salami
+        if t['kind'] == 'biggest':
+            add(name_for("biggest"), "biggest", t['badge'], t['legs'], rr=t['rr'])
 
     # lunch special + nightcap come from the 8-ban chalk (the favorites), always
     ncap = byO([n for n in chalk if P[n]['game'] in night_games])
