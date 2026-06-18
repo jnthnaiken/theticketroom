@@ -162,7 +162,7 @@ def assemble(D):
     cand_anchors, seen = [], set()
     for n in byS(nonchalk):
         g = P[n]['game']
-        if g in seen or pend(n) or P[n]['TOTAL'] < FLOOR:
+        if g in seen or pend(n):
             continue
         cand_anchors.append(n); seen.add(g)
 
@@ -313,7 +313,7 @@ def assemble(D):
     def _draft(anchor_list):
         al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
         pool_av = [n for n in byS(nonchalk) if n not in al
-                   and P[n]['TOTAL'] >= FLOOR and not pend(n)]           # the 33 only; never reach into #42+ extra
+                   and not pend(n)]           # the 33 only; never reach into #42+ extra
         def _fitpool(a):                                                # STRENGTH of the 3 legs this anchor can fill a 4-leg salami with -- span-aware: anchor + its 3 partners must ALL fit one WIN window (mirrors fits()); an anchor that can't reach 3 distinct games inside the window can't ship a salami and is ranked unusable so the salami routes to a cluster that CAN fill
             reach, seen, legs, times = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), [], [tmin(a)]
             for n in reach:                                             # one bat per distinct game -- a ticket can't repeat a game (same rule the draft enforces)
@@ -414,7 +414,7 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     spent = {n for t in parlays for n in t['legs']}        # only bats in KEPT parlays; dropped-parlay anchors/legs become builders
-    for n in byS([x for x in nonchalk if x not in spent and P[x]['TOTAL'] >= FLOOR]):
+    for n in byS([x for x in nonchalk if x not in spent]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
