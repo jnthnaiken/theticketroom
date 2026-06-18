@@ -128,6 +128,7 @@ def assemble(D):
     chalk    = set(ranked[:CHALK_N])
     nonchalk = ranked[CHALK_N:]
     extra    = byT(elig)[GATE_N + CHALK_N:]
+    D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
 
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]
     latest      = max(cand_t) if cand_t else 0
@@ -156,7 +157,7 @@ def assemble(D):
 
     def add(name, kind, badge, names, rr=None):
         legs = [leg(n) for n in names]
-        t = {"name": name, "kind": kind, "badge": badge, "note": cwnote(kind, names),
+        t = {"name": name, "kind": kind, "badge": badge, "note": "",
              "players": legs, "nlegs": len(legs), "anchor": names[0],
              "lock": min(l['gtime'] for l in legs), "has_late": any(l['late'] for l in legs),
              "final": False, "rr": rr}
@@ -203,29 +204,43 @@ def assemble(D):
     def _phrases(p):
         opp = _opp(p); hr9 = p.get('hr9'); hh = p.get('hh') or 0; la = p.get('la') or 0
         wf = 1.0 if p.get('wf') is None else p.get('wf'); iso = _isostr(p); iv = _isoval(p)
+        H = _jsround(hh); L = _jsround(la)
         o = []
         if hr9 is not None and hr9 >= 1.6:
-            o.append((9, 'mtx', [f"draws {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)", f"gets to feast on {opp} \u2014 batting-practice stuff at {hr9:.2f} HR/9", f"faces {opp}, who's been serving up souvenirs all year ({hr9:.2f}/9)", f"catches {opp} on a night the ball flies ({hr9:.2f} HR/9)"]))
+            o.append((9, 'mtx', [f"draws {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)", f"gets to feast on {opp} \u2014 batting-practice stuff at {hr9:.2f} HR/9", f"faces {opp}, who's been serving up souvenirs all year ({hr9:.2f}/9)", f"catches {opp} on a night the ball flies ({hr9:.2f} HR/9)", f"squares off with {opp}, a meatball machine at {hr9:.2f}/9", f"draws {opp} and his {hr9:.2f} HR/9 mistakes", f"gets {opp}, who can't keep it in the yard ({hr9:.2f} HR/9)"]))
         elif hr9 is not None and hr9 >= 1.35:
-            o.append((6, 'mtx', [f"draws a beatable {opp} ({hr9:.2f} HR/9)", f"gets {opp}, who leaves a few up in the zone ({hr9:.2f}/9)", f"has a hittable {opp} on the mound ({hr9:.2f} HR/9)"]))
+            o.append((6, 'mtx', [f"draws a beatable {opp} ({hr9:.2f} HR/9)", f"gets {opp}, who leaves a few up in the zone ({hr9:.2f}/9)", f"has a hittable {opp} on the mound ({hr9:.2f} HR/9)", f"faces a homer-prone {opp} ({hr9:.2f}/9)", f"draws {opp}, good for a mistake or two ({hr9:.2f} HR/9)"]))
         elif hr9 is not None and hr9 < 1.0:
-            o.append((1, 'mtx', [f"has to solve a stingy {opp} ({hr9:.2f}/9)"]))
-        if wf >= 1.05:   o.append((8, 'park', ["has the wind howling out behind him", "gets a yard playing like a launchpad tonight", "has the jet stream pushing toward the seats"]))
-        elif wf >= 1.02: o.append((4, 'park', ["catches a small park boost", "has the yard tilting his way", "gets a sliver of help from the park"]))
-        elif wf <= 0.95: o.append((1.5, 'park', ["fights a ball-killing yard"]))
-        if hh >= 52:   o.append((7, 'hh', [f"is scorching the ball ({_jsround(hh)}% hard-hit)", f"is barreling everything in sight ({_jsround(hh)}% hard-hit)", f"is denting outfield walls ({_jsround(hh)}% hard-hit)", f"is hitting absolute lasers ({_jsround(hh)}% hard-hit)"]))
-        elif hh >= 46: o.append((3.5, 'hh', [f"is squaring it up ({_jsround(hh)}% hard-hit)", f"is making loud contact ({_jsround(hh)}% hard-hit)", f"is stinging the ball ({_jsround(hh)}% hard-hit)"]))
-        if 16 <= la <= 23: o.append((5, 'la', [f"lives in the launch window ({_jsround(la)}\u00b0)", f"has the swing plane dialed for liftoff ({_jsround(la)}\u00b0)", f"is lifting everything ({_jsround(la)}\u00b0)", f"puts the ball in the air on a homer plane ({_jsround(la)}\u00b0)"]))
-        if iso and iv >= 0.24:   o.append((6.5, 'iso', [f"packs {iso} of isolated thump", f"carries tape-measure power ({iso} ISO)", f"brings elite raw pop ({iso} ISO)", f"has light-tower power ({iso} ISO)"]))
-        elif iso and iv >= 0.20: o.append((4.5, 'iso', [f"brings {iso} ISO juice", f"has legit pop behind it ({iso} ISO)", f"carries {iso} of real ISO"]))
-        if not o: o.append((0.5, 'x', [f"takes on {opp}"]))
+            o.append((1, 'mtx', [f"has to solve a stingy {opp} ({hr9:.2f}/9)", f"runs into a tough {opp} ({hr9:.2f}/9)", f"faces {opp}, who limits the long ball ({hr9:.2f}/9)"]))
+        if wf >= 1.05:   o.append((8, 'park', ["has the wind howling out behind him", "gets a yard playing like a launchpad tonight", "has the jet stream pushing toward the seats", "swings with the wind at his back", "gets a park that's launching everything tonight", "has gusts carrying balls over the wall", "plays in a wind tunnel pointed at the seats"]))
+        elif wf >= 1.02: o.append((4, 'park', ["catches a small park boost", "has the yard tilting his way", "gets a sliver of help from the park", "plays in a slightly friendly yard", "gets a touch of carry tonight"]))
+        elif wf <= 0.95: o.append((1.5, 'park', ["fights a ball-killing yard", "battles heavy, homer-suppressing air", "plays in a park that swallows fly balls"]))
+        if hh >= 52:   o.append((7, 'hh', [f"is scorching the ball ({H}% hard-hit)", f"is barreling everything in sight ({H}% hard-hit)", f"is denting outfield walls ({H}% hard-hit)", f"is hitting absolute lasers ({H}% hard-hit)", f"is squaring up everything ({H}% hard-hit)", f"is crushing the baseball ({H}% hard-hit)", f"is leaving scorch marks ({H}% hard-hit)", f"is teeing off ({H}% hard-hit)", f"is rocketing line drives ({H}% hard-hit)", f"is punishing the baseball ({H}% hard-hit)", f"is making elite contact ({H}% hard-hit)", f"is stinging it on a rope ({H}% hard-hit)", f"is tattooing the baseball ({H}% hard-hit)", f"is hammering the ball ({H}% hard-hit)", f"is lighting up the radar gun ({H}% hard-hit)", f"is blistering line drives ({H}% hard-hit)", f"is putting a charge into everything ({H}% hard-hit)", f"is crushing it to all fields ({H}% hard-hit)", f"is squaring up rockets ({H}% hard-hit)", f"is impacting the ball at an elite clip ({H}% hard-hit)", f"is mashing the ball ({H}% hard-hit)", f"is hitting frozen ropes ({H}% hard-hit)", f"is generating elite exit velo ({H}% hard-hit)", f"is hitting bullets ({H}% hard-hit)", f"is making thunderous contact ({H}% hard-hit)", f"is squaring up premium contact ({H}% hard-hit)", f"is barreling balls at will ({H}% hard-hit)", f"is hitting it on the screws ({H}% hard-hit)", f"is crushing contact at an elite rate ({H}% hard-hit)", f"is launching rockets ({H}% hard-hit)", f"is consistently barreling up ({H}% hard-hit)", f"is striking it clean and hard ({H}% hard-hit)"]))
+        elif hh >= 46: o.append((3.5, 'hh', [f"is squaring it up ({H}% hard-hit)", f"is making loud contact ({H}% hard-hit)", f"is stinging the ball ({H}% hard-hit)", f"is finding the barrel ({H}% hard-hit)", f"is driving the ball ({H}% hard-hit)", f"is putting good wood on it ({H}% hard-hit)", f"is centering the ball ({H}% hard-hit)", f"is connecting solidly ({H}% hard-hit)", f"is hitting it hard enough ({H}% hard-hit)", f"is barreling a fair share ({H}% hard-hit)", f"is making consistent contact ({H}% hard-hit)", f"is catching it flush ({H}% hard-hit)", f"is hitting line drives ({H}% hard-hit)", f"is squaring up a good chunk ({H}% hard-hit)", f"is driving it with authority ({H}% hard-hit)", f"is putting a charge into it ({H}% hard-hit)", f"is making solid contact ({H}% hard-hit)", f"is making quality contact ({H}% hard-hit)", f"is driving balls into the gaps ({H}% hard-hit)", f"is barreling up enough ({H}% hard-hit)", f"is putting the bat on it well ({H}% hard-hit)", f"is squaring up its share ({H}% hard-hit)"]))
+        if 16 <= la <= 23: o.append((5, 'la', [f"lives in the launch window ({L}\u00b0)", f"has the swing plane dialed for liftoff ({L}\u00b0)", f"is lifting everything ({L}\u00b0)", f"puts the ball in the air on a homer plane ({L}\u00b0)", f"sits in the ideal launch angle ({L}\u00b0)", f"gets under it just right ({L}\u00b0)", f"swings on a clean uppercut ({L}\u00b0)", f"elevates with ease ({L}\u00b0)", f"has a swing built for the seats ({L}\u00b0)", f"stays in the sweet-spot angle ({L}\u00b0)", f"sends it skyward ({L}\u00b0)", f"has loft to spare ({L}\u00b0)", f"hits it on the perfect plane ({L}\u00b0)", f"launches it at the right angle ({L}\u00b0)", f"keeps the ball in the air ({L}\u00b0)", f"swings with natural lift ({L}\u00b0)", f"finds the home-run trajectory ({L}\u00b0)", f"gets ideal loft ({L}\u00b0)", f"drives the ball into the air ({L}\u00b0)", f"tilts the bat for distance ({L}\u00b0)", f"swings with home-run loft ({L}\u00b0)", f"stays in the launch zone ({L}\u00b0)", f"puts air under the ball ({L}\u00b0)", f"has textbook lift ({L}\u00b0)"]))
+        if iso and iv >= 0.24:   o.append((6.5, 'iso', [f"packs {iso} of isolated thump", f"carries tape-measure power ({iso} ISO)", f"brings elite raw pop ({iso} ISO)", f"has light-tower power ({iso} ISO)", f"swings a {iso}-ISO sledgehammer", f"brings prodigious pop ({iso} ISO)", f"carries game-changing power ({iso} ISO)", f"has rare thump ({iso} ISO)", f"brings middle-of-the-order slug ({iso} ISO)", f"hits for serious power ({iso} ISO)", f"brings 30-homer pop ({iso} ISO)", f"carries elite slug ({iso} ISO)", f"has monster raw power ({iso} ISO)", f"brings the loudest pop on the ticket ({iso} ISO)", f"swings a thunderstick ({iso} ISO)", f"brings cleanup-spot power ({iso} ISO)", f"carries premium thump ({iso} ISO)", f"has elite extra-base juice ({iso} ISO)"]))
+        elif iso and iv >= 0.20: o.append((4.5, 'iso', [f"brings {iso} ISO juice", f"has legit pop behind it ({iso} ISO)", f"carries {iso} of real ISO", f"packs above-average pop ({iso} ISO)", f"has honest thump ({iso} ISO)", f"swings with pop ({iso} ISO)", f"brings useful power ({iso} ISO)", f"carries solid slug ({iso} ISO)", f"has real extra-base pop ({iso} ISO)", f"brings dependable power ({iso} ISO)"]))
+        if not o: o.append((0.5, 'x', [f"takes on {opp}", f"steps in against {opp}", f"gets his cuts at {opp}"]))
         o.sort(key=lambda r: r[0], reverse=True)
         return o
+    # Global phrase de-dup across the WHOLE board: _choose picks the least-used variant in a bank
+    # (tie -> the one nearest the note's seed), so a phrase never repeats until its bank is exhausted.
+    # Notes are generated in one final pass below (in ticket order) so _gseen accumulates deterministically;
+    # the client mirrors this exactly.
+    _gseen = {}
+    def _choose(dim, phs, seed):
+        n = len(phs); best, bk = 0, None
+        for i in range(n):
+            key = (_gseen.get(dim + '#' + str(i), 0), (i - seed) % n)
+            if bk is None or key < bk:
+                bk = key; best = i
+        _gseen[dim + '#' + str(best)] = _gseen.get(dim + '#' + str(best), 0) + 1
+        return phs[best]
     def _edges(p, n, seed):
         out, seen = [], set()
         for w, dim, phs in _phrases(p):
             if dim in seen: continue
-            seen.add(dim); out.append(phs[seed % len(phs)])
+            seen.add(dim); out.append(_choose(dim, phs, seed))
             if len(out) >= n: break
         return out
     def _pick(p, used, seed):
@@ -233,18 +248,16 @@ def assemble(D):
         for row in r:
             if row[1] not in used: ch = row; break
         if ch is None: ch = r[0]
-        dim, phs = ch[1], ch[2]; c = used.get(dim, 0); used[dim] = c + 1
-        return phs[(seed + c) % len(phs)]
+        dim, phs = ch[1], ch[2]; used[dim] = used.get(dim, 0) + 1
+        return _choose(dim, phs, seed)
     def _join(parts):
         if len(parts) <= 1: return parts[0] if parts else ""
         if len(parts) == 2: return parts[0] + " and " + parts[1]
         return ", ".join(parts[:-1]) + ", and " + parts[-1]
     def cwnote(kind, names):
-        # Substance only: why each bat can leave the yard. No structural preamble
-        # ('three-bat moon', 'power trio') and no 'a clean single' filler. A per-note
-        # seed rotates phrase variants so tickets don't read the same, and forces a
-        # different wording when a dimension has to repeat within a ticket.
-        seed = sum(len(_lastnm(P[n].get('nm', n))) for n in names)
+        # Substance only: why each bat can leave the yard. A char-code seed varies each note's starting
+        # phrase; _choose then guarantees board-wide variety. No structural preamble, no filler.
+        seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
         if len(names) == 1:
             a = P[names[0]]
             return a.get('nm', names[0]) + " " + _join(_edges(a, 2, seed)) + "."
@@ -377,6 +390,11 @@ def assemble(D):
         if t['rr']:
             t['rr']['maxprofit'] = _rrmax(pr, t['rr']['risk'])
             t['rr']['bytwos'] = False
+
+    # final note pass: generate all notes in ticket order so the board-wide phrase de-dup is deterministic
+    _gseen.clear()
+    for t in tickets:
+        t['note'] = cwnote(t['kind'], [l['name'] for l in t['players']])
 
     D['tickets'] = tickets
     D.setdefault('meta', {})['tickets'] = len(tickets)
