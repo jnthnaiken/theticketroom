@@ -109,10 +109,13 @@ def assemble(D):
     P  = D['players']
     gs = D.get('meta', {}).get('gs', {})            # live game-state map
     susp = lambda n: gs.get(str(P[n]['game'])) == 'susp'
-    # pending = a bat carried from a still-resuming suspended game -> SINGLES ONLY until that game is final.
+    # pending / carryover = a bat carried from a still-resuming suspended game (or named in the carryover
+    # strip). It stays in the pool and CAN be a single (builder), but is barred from every parlay leg --
+    # anchor, moon partner, or salami -- until its suspended game finalizes and the tag lifts.
     # Set per-bat by carryover() on only the bats we actually had on the suspended board (never a whole game).
-    pend = lambda n: bool(P[n].get('pending'))
-
+    _co = D.get('meta', {}).get('carryover') or {}
+    carry_names = {b.get('name') for b in _co.get('bats', []) if b.get('name')}   # carryover trio -> singles only
+    pend = lambda n: bool(P[n].get('pending')) or n in carry_names
     elig = [n for n, p in P.items()
             if p.get('odds') and not p.get('out') and not p.get('void')]
     byT  = lambda names: sorted(names, key=lambda n: P[n]['TOTAL'], reverse=True)
