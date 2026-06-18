@@ -223,6 +223,14 @@ def assemble(D):
         if 16 <= la <= 23: o.append((5, 'la', [f"lives in the launch window ({L}\u00b0)", f"has the swing plane dialed for liftoff ({L}\u00b0)", f"is lifting everything ({L}\u00b0)", f"puts the ball in the air on a homer plane ({L}\u00b0)", f"sits in the ideal launch angle ({L}\u00b0)", f"gets under it just right ({L}\u00b0)", f"swings on a clean uppercut ({L}\u00b0)", f"elevates with ease ({L}\u00b0)", f"has a swing built for the seats ({L}\u00b0)", f"stays in the sweet-spot angle ({L}\u00b0)", f"sends it skyward ({L}\u00b0)", f"has loft to spare ({L}\u00b0)", f"hits it on the perfect plane ({L}\u00b0)", f"launches it at the right angle ({L}\u00b0)", f"keeps the ball in the air ({L}\u00b0)", f"swings with natural lift ({L}\u00b0)", f"finds the home-run trajectory ({L}\u00b0)", f"gets ideal loft ({L}\u00b0)", f"drives the ball into the air ({L}\u00b0)", f"tilts the bat for distance ({L}\u00b0)", f"swings with home-run loft ({L}\u00b0)", f"stays in the launch zone ({L}\u00b0)", f"puts air under the ball ({L}\u00b0)", f"has textbook lift ({L}\u00b0)"]))
         if iso and iv >= 0.24:   o.append((6.5, 'iso', [f"packs {iso} of isolated thump", f"carries tape-measure power ({iso} ISO)", f"brings elite raw pop ({iso} ISO)", f"has light-tower power ({iso} ISO)", f"swings a {iso}-ISO sledgehammer", f"brings prodigious pop ({iso} ISO)", f"carries game-changing power ({iso} ISO)", f"has rare thump ({iso} ISO)", f"brings middle-of-the-order slug ({iso} ISO)", f"hits for serious power ({iso} ISO)", f"brings 30-homer pop ({iso} ISO)", f"carries elite slug ({iso} ISO)", f"has monster raw power ({iso} ISO)", f"brings the loudest pop on the ticket ({iso} ISO)", f"swings a thunderstick ({iso} ISO)", f"brings cleanup-spot power ({iso} ISO)", f"carries premium thump ({iso} ISO)", f"has elite extra-base juice ({iso} ISO)"]))
         elif iso and iv >= 0.20: o.append((4.5, 'iso', [f"brings {iso} ISO juice", f"has legit pop behind it ({iso} ISO)", f"carries {iso} of real ISO", f"packs above-average pop ({iso} ISO)", f"has honest thump ({iso} ISO)", f"swings with pop ({iso} ISO)", f"brings useful power ({iso} ISO)", f"carries solid slug ({iso} ISO)", f"has real extra-base pop ({iso} ISO)", f"brings dependable power ({iso} ISO)"]))
+        ft = p.get('ftrend')
+        if ft == 'up':
+            o.append((3, 'form_up', ["the bat's heating up", "the swing's trending up", "he's locked in at the plate lately", "riding a hot stretch", "the timing has come around", "recent form points up", "he's squaring more up lately", "on a clear upswing", "the bat speed looks back", "the momentum's with him"]))
+        elif ft == 'down':
+            o.append((2, 'form_down', ["due for a get-right night", "positive regression overdue", "a bounce-back feels close", "ready to break a quiet stretch", "the underlying contact still grades out", "due to run into one", "the process ahead of the results lately", "a slump-buster could be near"]))
+        else:
+            o.append((2, 'form_flat', ["steady form behind it", "holding his level", "in a steady groove", "the bat ticking along", "keeping an even keel", "on stable footing lately", "no real cold streak to speak of", "running at his usual clip"]))
+        o.append((1.2, 'spot', [f"facing {opp}", f"drawing {opp}", f"matched up with {opp}", f"up against {opp}", f"taking on {opp}", f"staring down {opp}", f"in against {opp}", f"set against {opp}", f"opposite {opp}", f"with {opp} on the bump", f"across from {opp}", f"tested by {opp}"]))
         if not o: o.append((0.5, 'x', [f"takes on {opp}", f"steps in against {opp}", f"gets his cuts at {opp}"]))
         o.sort(key=lambda r: r[0], reverse=True)
         return o
@@ -263,9 +271,15 @@ def assemble(D):
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
         if len(names) == 1:
             a = P[names[0]]
-            return a.get('nm', names[0]) + " " + _join(_edges(a, 2, seed)) + "."
+            return a.get('nm', names[0]) + " " + _join(_edges(a, 3, seed)) + "."
         used = {}
-        parts = [_lastnm(P[n].get('nm', n)) + " " + _pick(P[n], used, seed) for n in names]
+        parts = []
+        for i, n in enumerate(names):
+            ln = _lastnm(P[n].get('nm', n))
+            if i == 0:
+                parts.append(ln + " " + _join(_edges(P[n], 2, seed)))   # anchor gets two clauses
+            else:
+                parts.append(ln + " " + _pick(P[n], used, seed))
         return _join(parts) + "."
 
     # ---- SNAKE DRAFT of parlay partners, by TOTAL (update 3) ----
