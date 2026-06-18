@@ -124,7 +124,26 @@ powT=lambda P:clamp(1+0.15*(P-medP)/40,0.85,1.15)
 isoT=lambda I:clamp(1+0.08*(I-medI)/0.06,0.92,1.08)
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*mM(r['hr9'])*pM(r['wf']),1)
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*pM(r['wf']),1)   # matchup (mM) intentionally NOT in the score; HR/9 feeds the copy only
+
+# ---- HR/9 coverage guard ----------------------------------------------------------------------------
+# A manually-built slate (e.g. pulled_at="manual-from-rotowire") or a failed StatsAPI fetch leaves every
+# starter's HR/9 null. HR/9 is NOT in the TOTAL formula, but it feeds the opposing-pitcher matchup context
+# in every player write-up and ticket note -- so a null-HR/9 board ships with all that copy stripped out.
+# That must never slip through to game time unnoticed -- flag it loudly at build time.
+_hr_have = sum(1 for r in pool if r.get('hr9') is not None)
+_hr_miss = len(pool) - _hr_have
+if _hr_have == 0:
+    print("\n" + "!"*92)
+    print(f"!! HR/9 MISSING FOR ALL {len(pool)} BATS -> no opposing-pitcher matchup context in any write-up/note.")
+    print(f"!! Today's slate_auto_{DATE}.json was almost certainly NOT pulled by fetch_mlb.py")
+    print(f"!! (check its \"pulled_at\" -- a manual/RotoWire slate carries names but no HR/9).")
+    print(f"!! FIX: run  python3 fetch_mlb.py {DATE}  to repopulate HR/9 (and lineups), then rebuild.")
+    print("!"*92 + "\n")
+elif _hr_miss:
+    print(f"\n!! HR/9 missing for {_hr_miss}/{len(pool)} bats -> those lose their opposing-pitcher matchup callouts. "
+          f"Check slate_auto_{DATE}.json coverage.\n")
+
 
 # ---- rich per-player why blurbs (restored copy generator from 2026-06-17 build) ----
 def _isostr(p):

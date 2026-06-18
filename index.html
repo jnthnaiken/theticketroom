@@ -364,7 +364,7 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  $('#tcount').textContent=q?(n+' matching'):(n+' tickets');drawPool();}
 
 function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.game),c=isConf(p.status),av=avail(p);
- const chips=[['ISO',p.iso||'—'],['POWER',(p.powidx!=null?p.powidx:'—')],['Match',fmt(p.matchv)],['Zone',fmt(p.zonev)],['Park','×'+p.wf]];
+ const chips=[['ISO',(p.iso&&p.iso!=='—')?p.iso:(p.iso_used!=null?('.'+String(+p.iso_used).split('.')[1]):'—')],['POWER',(p.powidx!=null?p.powidx:'—')],['Match',p.aT!=null?p.aT.toFixed(1):'—'],['Zone',fmt(p.zonev)],['Park','×'+p.wf]];
  const fi=formInfo(p),formChip=fi?`<span class="fchip ${fi.cls}">FORM ${fi.f}% <span class="${fi.acl}">${fi.ar}</span>${fi.emo?' '+fi.emo:''}</span>`:`<span class="fchip f-na">FORM —</span>`;
  const lc=liftCls(p.wf),lift=lc?`<span class="${p.wf>=1?'u':'d'}">${liftStr(p.wf)}</span>`:`${liftStr(p.wf)}`;
  return `<div class="pc t-${tier}" id="p-${cssid(name)}"><div class="ph"><div>
@@ -490,7 +490,7 @@ drawTickets();drawPlayers();drawTracker();
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=8, FLOOR=75, WIN=155, MOONS_PER_ANC=2, LUNCH_CUT=16*60;
 
-  function baseTotal(p){ if(p._base==null) p._base=p.TOTAL/(mMult(p.hr9)*pMult(p.wf)); return p._base; }
+  function baseTotal(p){ if(p._base==null) p._base=p.TOTAL/pMult(p.wf); return p._base; }   // matchup (mMult) no longer in TOTAL
   function gmin(gt){var m=/(\d+):(\d+)\s*(AM|PM)/.exec(gt||''); if(!m)return 0; var h=(+m[1])%12+(m[3]=='PM'?12:0); return h*60+(+m[2]);}
 
   function wfFor(c,temp,wind,dirFrom){
@@ -937,7 +937,7 @@ drawTickets();drawPlayers();drawTracker();
           var oppId=(p.code===s.away)?s.hspId:s.aspId, b=baseTotal(p);
           if(oppId!=null && (oppId in hr9)){p.hr9=hr9[oppId]; p.soft=(p.hr9==null);}
           if(wfByGm[p.gmatch]!=null) p.wf=wfByGm[p.gmatch];
-          p.TOTAL=Math.round(b*mMult(p.hr9)*pMult(p.wf)*10)/10;
+          p.TOTAL=Math.round(b*pMult(p.wf)*10)/10;
           if(s.susp){ D.meta.gs[String(p.game)]='susp'; }      // game-state only; per-bat carry uses pending, not a blanket bat-susp
         });
         Object.keys(D.players).forEach(function(nm){var p=D.players[nm], gm=p.gmatch, w=wxByGm[gm], W=D.meta.wx[String(p.game)];

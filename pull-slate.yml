@@ -1,30 +1,51 @@
 name: Build Ticket Room
 
 # Full daily pipeline: pull free inputs (StatsAPI + Open-Meteo) -> score -> assemble
-# tickets -> inject into the shell -> commit the regenerated board. Because HR/9,
-# lineups and weather are re-pulled each run, the published board updates through
-# the day. The day's hand inputs (Kasper card metrics, multi-book odds, ISO sheet)
-# live in the scorer's data block and are committed by hand before/at first pitch.
+# tickets -> inject into the shell -> commit the regenerated board. HR/9, lineups and
+# weather are re-pulled each run, so the published board sharpens through the day.
+#
+# !! KEEPING THE SCHEDULE ALIVE (this is what silently broke the board) !!
+#   GitHub AUTO-DISABLES scheduled workflows after 60 days with no repository activity,
+#   and commits pushed with the built-in GITHUB_TOKEN do NOT count as activity. A board
+#   whose only commits come from the bot will therefore have its cron silently turned off
+#   after 60 days -- it runs for weeks, then one day nothing fires (a stale hand-built
+#   slate just sits there all day). To prevent recurrence this workflow commits with a
+#   Personal Access Token (repo secret GH_PAT): PAT-authored pushes DO count as activity
+#   and keep the schedule alive. Create a fine-grained PAT with "Contents: read and write"
+#   on this repo, save it as the GH_PAT secret. If you ever see the "disabled due to
+#   inactivity" banner on the workflow, click "Enable workflow" once; with the PAT it
+#   won't happen again.
 #
 #   "Run workflow" = manual trigger (optionally pass a date to backfill/test).
-#   schedule       = every 30 min across the game window (UTC). Trim to taste.
 
 on:
+  # RELIABLE TRIGGER (use this). GitHub's own scheduler is best-effort and drops/delays
+  # most frequent runs -- the run history showed ~1-2 fires/day, not ~24, and none during
+  # the game window. So drive it from an EXTERNAL cron instead: a free service like
+  # cron-job.org hits the repo's dispatch endpoint every 30 min and the run fires on time.
+  #   POST https://api.github.com/repos/jnthnaiken/theticketroom/dispatches
+  #   headers: Authorization: Bearer <GH_PAT>,  Accept: application/vnd.github+json
+  #   body:    {"event_type":"build-board"}
+  # Point the external cron at ~9:00 AM - 1:00 AM ET, every 30 min.
+  repository_dispatch:
+    types: [build-board]
+
   workflow_dispatch:
     inputs:
       date:
         description: "Slate date YYYY-MM-DD (blank = today, US/Eastern)"
         required: false
         default: ""
+
+  # BACKUP only -- GitHub may drop/delay these. Offset off :00/:30 (the throttled minutes).
   schedule:
-    # ~12:00 PM ET through ~1:00 AM ET. GitHub may delay scheduled runs a few min.
-    - cron: "*/30 16-23,0-5 * * *"
+    - cron: "7,37 16-23,0-5 * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: ticket-room          # never let two runs race the push
+  group: ticket-room
   cancel-in-progress: false
 
 jobs:
@@ -33,6 +54,12 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
+        with:
+          # PAT so commits count as repo activity (keeps the schedule from auto-disabling).
+          # Falls back to the bot token if GH_PAT isn't set yet -- but then ADD it (see header),
+          # or the 60-day auto-disable will keep happening.
+          token: ${{ secrets.GH_PAT || github.token }}
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -49,20 +76,37 @@ jobs:
           echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
           echo "Building slate for $D"
 
-      # 1) fold any finished, ungraded prior night into season.json (grades the dated
-      #    archived board against StatsAPI results; idempotent via season.graded_nights)
       - name: Grade finished nights
         run: python3 grade_night.py
 
-      # 2) free auto-pull: games, SP (+hand) & HR/9, lineups, ISO (StatsAPI) + weather->wf (Open-Meteo)
       - name: Pull slate (StatsAPI + Open-Meteo)
         run: python3 fetch_mlb.py "$SLATE_DATE"
 
-      # 3) score the field (reads slate_auto_<date>.json for wf + HR/9; season.json = ledger base)
+      # FRESHNESS GATE -- refuse to build/commit on a stale or manual slate. If the pull
+      # didn't land (StatsAPI hiccup, soft-failed fetch, or a leftover manual RotoWire
+      # slate), fail the run RED in the Actions tab instead of silently shipping a board
+      # with no HR/9 -- the exact failure that went unnoticed until first pitch.
+      - name: Verify the slate was pulled fresh
+        run: |
+          python3 - "$SLATE_DATE" <<'PY'
+          import json, sys
+          d = sys.argv[1]; f = f"slate_auto_{d}.json"
+          s = json.load(open(f))
+          pa = str(s.get("pulled_at", ""))
+          games = s.get("games", []) or []
+          hr = [((g.get(side) or {}).get("sp") or {}).get("hr9")
+                for g in games for side in ("away", "home")]
+          have = sum(1 for x in hr if x is not None)
+          print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
+          if pa.startswith("manual") or "T" not in pa or have == 0:
+              print("::error::slate_auto is not a fresh StatsAPI pull (manual/stale or zero "
+                    "HR/9). Refusing to build a stale board -- check the 'Pull slate' step.")
+              sys.exit(1)
+          PY
+
       - name: Score the field
         run: python3 build15.py
 
-      # 4) assemble all tickets into D, inject into the board, archive D_<date>.json
       - name: Assemble + inject the board
         run: python3 regen15.py
 
@@ -70,10 +114,7 @@ jobs:
         run: |
           echo "---- files ----"
           ls -1 slate_auto_*.json D_*.json index.html 2>/dev/null || true
-          echo "---- slate summary (head) ----"
-          for f in slate_auto_${SLATE_DATE}.json; do echo "== $f =="; head -c 1200 "$f"; echo; done
 
-      # 6) commit the refreshed inputs + regenerated board, incl. the published index.html
       - name: Commit the board
         run: |
           git config user.name  "kasper-bot"
@@ -83,8 +124,11 @@ jobs:
             echo "no changes to commit"
           else
             git commit -m "Auto board build ${SLATE_DATE} ($(date -u +%H:%MZ))"
+            ok=0
             for i in 1 2 3; do
-              git pull --rebase --autostash origin main && git push && { echo "pushed"; break; }
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; ok=1; break; }
               echo "push attempt $i failed, retrying"; sleep 4
             done
+            # never let a failed push masquerade as a green run
+            [ "$ok" = 1 ] || { echo "::error::push failed after 3 attempts -- board NOT updated"; exit 1; }
           fi
