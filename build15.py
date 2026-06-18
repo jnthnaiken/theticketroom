@@ -34,15 +34,17 @@ def load_slate(date):
         return {}
     out={}
     for g in s.get('games',[]):
-        sp={}; lu={}
+        sp={}; lu={}; conf=set()
         for side in ('away','home'):
             sd=g.get(side,{}) or {}
             spd=sd.get('sp',{}) or {}
             if spd.get('name'): sp[norm(spd['name'])]=spd.get('hr9')
             ab=sd.get('abbrev')
             nset={norm(b.get('name','')) for b in (sd.get('lineup') or []) if b.get('name')}
-            if ab and nset: lu[ab]=nset                 # this team's card is POSTED -> confirmed
-        out[g.get('matchup','')]={'wf':g.get('wf'),'weather':g.get('weather',{}),'sp':sp,'lu':lu}
+            if ab and nset:
+                lu[ab]=nset                              # this team's card is POSTED
+                if sd.get('confirmed'): conf.add(ab)     # ...and OFFICIAL (not just a projected/expected lineup)
+        out[g.get('matchup','')]={'wf':g.get('wf'),'weather':g.get('weather',{}),'sp':sp,'lu':lu,'conf':conf}
     return out
 DATE=os.environ.get('SLATE_DATE') or (datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%Y-%m-%d')
 SLATE=load_slate(DATE)
@@ -102,8 +104,9 @@ for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=pb*hh*la_window(la); lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             _lu=_sl.get('lu',{}).get(code)              # posted lineup for this team (None until it posts)
-            if _lu:                                      # card POSTED -> status/out from the real lineup
-                _in=(n in _lu); _status='confirmed' if _in else 'projected'; _out=(not _in)
+            if _lu:                                      # card POSTED -> in/out from the lineup; 'confirmed' ONLY if it's the official (not projected) lineup
+                _in=(n in _lu); _out=(not _in)
+                _status=('confirmed' if code in _sl.get('conf',set()) else 'projected') if _in else 'projected'
             else:                                        # card NOT posted yet -> projected; only explicit hand-scratches sit out
                 _status='projected'; _out=(n in OUTN)
             players[key]=dict(nm=key,code=code,team=FULL[code],aT=aT,zonev=z,form=form,pb=pb,hh=hh,la=la,
@@ -133,30 +136,36 @@ for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
 # ---- season ledger: carry forward prior state + fold the last graded night ----
 # Paths/dates are env-overridable; if the carryover files aren't present (e.g. CI),
 # carry a committed season if available, else start a neutral ledger. No day-specific assert.
-PRIOR_D = os.environ.get('PRIOR_D','/home/claude/slate0614/D_0614.json')
-NIGHT_LOG = os.environ.get('NIGHT_LOG','/home/claude/slate0614/sample_log_0614.json')
-NIGHT_DATE = os.environ.get('NIGHT_DATE','2026-06-14')
-try:
-    prior=json.load(open(PRIOR_D))['meta']['season']
-    night=json.load(open(NIGHT_LOG))['nights'][NIGHT_DATE]['tickets']
-    cats={k:dict(v) for k,v in prior['cats'].items()}
-    for t in night:
-        c=cats.setdefault(t['kind'],{'graded':0,'won':0,'units':0.0,'staked':0.0})
-        c['graded']+=1; c['won']+=1 if t['won'] else 0
-        c['units']=round(c['units']+t['net'],2); c['staked']=round(c['staked']+t['stake'],2)
-    hist=list(prior['history']); run=hist[-1]
-    for t in night:
-        run=round(run+t['net'],2); hist.append(run)
-    season={'since':prior['since'],'stake':prior['stake'],'cats':cats,'history':hist}
-    _tot=round(sum(c['units'] for c in cats.values()),2)
-    print(f"season folded {NIGHT_DATE}: {_tot:+.2f}u")
-except Exception as e:
+# ---- season ledger ----
+# season.json is the AUTHORITATIVE cumulative ledger. grade_night.py advances it each night
+# (grades the prior dated board against StatsAPI results and folds it in, idempotently). build15
+# just loads it. An explicit env-driven fold stays available for manual backfills only.
+season=None
+_pd, _nl, _nd = os.environ.get('PRIOR_D'), os.environ.get('NIGHT_LOG'), os.environ.get('NIGHT_DATE')
+if _pd and _nl and _nd and os.path.exists(_pd) and os.path.exists(_nl):
+    try:
+        prior=json.load(open(_pd))['meta']['season']
+        night=json.load(open(_nl))['nights'][_nd]['tickets']
+        cats={k:dict(v) for k,v in prior['cats'].items()}
+        for t in night:
+            c=cats.setdefault(t['kind'],{'graded':0,'won':0,'units':0.0,'staked':0.0})
+            c['graded']+=1; c['won']+=1 if t['won'] else 0
+            c['units']=round(c['units']+t['net'],2); c['staked']=round(c['staked']+t['stake'],2)
+        hist=list(prior['history']); run=hist[-1]
+        for t in night:
+            run=round(run+t['net'],2); hist.append(run)
+        season={'since':prior['since'],'stake':prior['stake'],'cats':cats,'history':hist,
+                'graded_nights':sorted(set(prior.get('graded_nights',[]))|{_nd})}
+        print(f"season folded {_nd}: {round(sum(c['units'] for c in cats.values()),2):+.2f}u")
+    except Exception as e:
+        print(f"  (explicit fold failed [{e}]; falling back to season.json)")
+if season is None:
     try:
         season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
-        print(f"  (carryover files absent; carried committed season.json)")
+        print(f"  (loaded season.json: {round(sum(c.get('units',0) for c in season.get('cats',{}).values()),2):+.2f}u, graded_nights={season.get('graded_nights',[])})")
     except Exception:
-        season={'since':DATE,'stake':1,'cats':{},'history':[0.0]}
-        print(f"  (no season carryover available [{e}] — starting neutral ledger)")
+        season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
+        print(f"  (no season.json — starting neutral ledger)")
 maxAT=round(max(r['aT'] for r in pool),1)
 meta={'wx':wx,'face':{},'maxAT':maxAT,'season':season,'date':DATE}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)

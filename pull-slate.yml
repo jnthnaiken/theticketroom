@@ -49,15 +49,20 @@ jobs:
           echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
           echo "Building slate for $D"
 
-      # 1) free auto-pull: games, SP (+hand) & HR/9, lineups, ISO (StatsAPI) + weather->wf (Open-Meteo)
+      # 1) fold any finished, ungraded prior night into season.json (grades the dated
+      #    archived board against StatsAPI results; idempotent via season.graded_nights)
+      - name: Grade finished nights
+        run: python3 grade_night.py
+
+      # 2) free auto-pull: games, SP (+hand) & HR/9, lineups, ISO (StatsAPI) + weather->wf (Open-Meteo)
       - name: Pull slate (StatsAPI + Open-Meteo)
         run: python3 fetch_mlb.py "$SLATE_DATE"
 
-      # 2) score the field (reads slate_auto_<date>.json for wf + HR/9; hand data block already committed)
+      # 3) score the field (reads slate_auto_<date>.json for wf + HR/9; season.json = ledger base)
       - name: Score the field
         run: python3 build15.py
 
-      # 3) assemble all tickets into D, then inject D into the published board (index.html)
+      # 4) assemble all tickets into D, inject into the board, archive D_<date>.json
       - name: Assemble + inject the board
         run: python3 regen15.py
 
@@ -73,7 +78,7 @@ jobs:
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
-          git add slate_auto_*.json D_*.json index.html
+          git add slate_auto_*.json D_*.json season.json index.html
           if git diff --staged --quiet; then
             echo "no changes to commit"
           else

@@ -23,12 +23,25 @@ for p in D.get('players', {}).values():        # assembler reads these flags
 try:
     m = re.search(r'const D=(\{.*?\}),WX=D\.meta\.wx;', open(BOARD).read(), re.S)
     if m:
-        assemble_tickets.carryover(D, json.loads(m.group(1)))
+        prevD = json.loads(m.group(1))
+        assemble_tickets.carryover(D, prevD)
+        # The published board is the running ledger. If the scorer couldn't fold the night
+        # (offline: no PRIOR_D/NIGHT_LOG and no season.json), it leaves a NEUTRAL season.
+        # In that case only, carry the prior board's real season so the tracker isn't wiped.
+        cur = (D.get('meta') or {}).get('season') or {}
+        neutral = (not cur.get('cats')) and (cur.get('history') in (None, [0.0], [0], []))
+        ps = (prevD.get('meta') or {}).get('season')
+        if neutral and ps and (ps.get('cats') or (ps.get('history') and ps['history'] != [0.0])):
+            D.setdefault('meta', {})['season'] = ps
+            print(f"  (carried prior season ledger: {len(ps.get('cats',{}))} cats, history {len(ps.get('history',[]))})")
 except Exception as e:
     print(f"  (carryover skipped: {e})")
 
 assemble_tickets.assemble(D)                   # builds D['tickets']
-json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data
+json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
+_dt = (D.get('meta') or {}).get('date')
+if _dt:
+    json.dump(D, open(f"D_{_dt}.json", 'w'), indent=1)   # dated archive (with tickets) -> grade_night folds it next morning
 
 src = open(BOARD).read()
 dj = 'const D=' + json.dumps(D, ensure_ascii=True) + ',WX=D.meta.wx;'

@@ -209,9 +209,9 @@ def main():
             "gamePk": g.get("gamePk"), "status": status, "gameTime": g.get("gameDate"),
             "matchup": f"{a_code}@{h_code}",
             "away": {"abbrev": a_code, "sp": {"id": app.get("id"), "name": app.get("fullName")},
-                     "lineup": names(al)},
+                     "lineup": names(al), "confirmed": bool(al)},
             "home": {"abbrev": h_code, "sp": {"id": hpp.get("id"), "name": hpp.get("fullName")},
-                     "lineup": names(hl)},
+                     "lineup": names(hl), "confirmed": bool(hl)},
             "lineups_posted": bool(al or hl)})
 
     print(f"hitters listed: {len(hitter_ids)} | probable pitchers: {len(pitcher_ids)}")
