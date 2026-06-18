@@ -132,6 +132,7 @@ def assemble(D):
     nonchalk = ranked[CHALK_N:]
     extra    = byT(elig)[GATE_N + CHALK_N:]
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
+    D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
     # STRENGTH = how good a bat really is for OUR purposes: 65% model projection (TOTAL) + 35% market
     # likelihood (implied prob from the HR odds), each min-max normalized across the 33. This is the single
@@ -344,6 +345,13 @@ def assemble(D):
             return (max(ts) - min(ts)) <= WIN
         def needy(t):
             return (len(t['legs']) - 1) < t['need']
+        for t in pls:                                                   # PREMIUM FIRST: fill the salami to a full 4 before the moons compete for legs (salami ships at exactly 4 or not at all)
+            if t['kind'] == 'biggest':
+                while needy(t):
+                    pick = next((n for n in pool_av if fits(t, n)), None)
+                    if pick is None:
+                        break
+                    t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick)
         ranks_fwd = sorted(byr.keys(), reverse=True)                    # weakest anchor (highest TOTAL-index) picks first
         rnd = 0
         while any(needy(t) for t in pls):
@@ -382,7 +390,7 @@ def assemble(D):
     else:
         _, anchors, parlays = best
 
-    parlays = [t for t in parlays if (len(t['legs']) - 1) >= 2]   # never ship a parlay with <2 partners (no short moons); dropped bats fall to builders via spent
+    parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship a parlay ONLY if fully filled: moons exactly 3 legs, salami exactly 4; dropped bats fall to builders via spent
 
     for t in parlays:                                       # emit moons first (display order)
         if t['kind'] == 'moon':
