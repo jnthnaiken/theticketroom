@@ -115,9 +115,11 @@ def assemble(D):
     # Set per-bat by carryover() on only the bats we actually had on the suspended board (never a whole game).
     _co = D.get('meta', {}).get('carryover') or {}
     carry_names = {b.get('name') for b in _co.get('bats', []) if b.get('name')}   # carryover trio -> singles only
-    pend = lambda n: bool(P[n].get('pending')) or n in carry_names
+    _wx = D.get('meta', {}).get('wx', {})
+    _precip = lambda n: ((_wx.get(str(P[n]['game']), {}) or {}).get('precip', 0)) or 0   # rain%% at first pitch
+    pend = lambda n: bool(P[n].get('pending')) or n in carry_names or (50 <= _precip(n) < 70)   # 50-69%% rain -> singles(builder) only, never a parlay leg
     elig = [n for n, p in P.items()
-            if p.get('odds') and not p.get('out') and not p.get('void')]
+            if p.get('odds') and not p.get('out') and not p.get('void') and _precip(n) < 70]   # >=70%% rain -> game out of the pool entirely
     byT  = lambda names: sorted(names, key=lambda n: P[n]['TOTAL'], reverse=True)
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0

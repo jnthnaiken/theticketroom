@@ -125,6 +125,52 @@ isoT=lambda I:clamp(1+0.08*(I-medI)/0.06,0.92,1.08)
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
     r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*mM(r['hr9'])*pM(r['wf']),1)
+
+# ---- rich per-player why blurbs (restored copy generator from 2026-06-17 build) ----
+def _isostr(p):
+    iso = p.get('iso')
+    return iso if (iso and iso != '\u2014') else None
+
+
+def why(p):
+    nm = p['nm']; pw = p.get('powidx', 0) or 0; hh = p.get('hh', 0) or 0; la = p.get('la', 0) or 0
+    hr9 = p.get('hr9'); wf = p.get('wf', 1.0); opp = (p.get('opp') or ['the starter'])[0]
+    # power tier
+    if pw >= 80:
+        s = f"{nm} is one of the slate's loudest bats \u2014 a {pw:.0f}/100 power grade with {hh:.0f}% of contact hit hard."
+    elif pw >= 58:
+        s = f"{nm} carries real pop \u2014 {pw:.0f}/100 power and {hh:.0f}% hard contact."
+    elif pw >= 40:
+        s = f"{nm} grades mid-tier for power ({pw:.0f}/100), {hh:.0f}% hard contact \u2014 more ceiling than floor."
+    else:
+        s = f"{nm} is a contact-first bat ({pw:.0f}/100 power), squarely a longshot dart."
+    # launch
+    if la >= 14 and la <= 26:
+        s += f" His {la:.0f}\u00b0 average launch sits right in the home-run window."
+    elif la < 14:
+        s += f" The {la:.0f}\u00b0 launch runs a bit flat, so he has to get under one."
+    else:
+        s += f" A steep {la:.0f}\u00b0 stroke \u2014 he needs to stay through it."
+    # iso
+    iso = _isostr(p)
+    if iso and float('0' + iso) >= 0.20:
+        s += f" That {iso} ISO is real extra-base juice."
+    # matchup
+    if hr9 is None:
+        s += f" {opp} is the matchup."
+    elif hr9 >= 1.5:
+        s += f" {opp} ({hr9:.2f} HR/9) has been homer-prone \u2014 that's the draw."
+    else:
+        s += f" {opp} ({hr9:.2f} HR/9) is a tougher assignment, though."
+    # park
+    if wf is not None and wf > 1.02:
+        s += " The yard's playing as a launch pad tonight."
+    elif wf is not None and wf < 0.98:
+        s += " The park's knocking balls down tonight."
+    s += f" Model lands him at {p.get('TOTAL', 0):.0f}."
+    return s
+
+for r in pool: r['why'] = why(r)
 wx={}
 WXEMО={'TOR@BOS': ('☀️', 'wind out 21mph, 75°'), 'CLE@MIL': ('🏟', 'Dome'), 'MIN@TEX': ('🏟', 'Dome'), 'BAL@SEA': ('🏟', 'Dome'), 'NYM@PHI': ('☀️', 'wind out 17mph, 89°'), 'CWS@NYY': ('☀️', 'wind out 16mph, 88°'), 'SF@ATL': ('🌧️', 'wind out 10mph, 75°, rain'), 'STL@KC': ('⛅', 'L-R 6mph, 78°'), 'LAA@ATH': ('⛅', 'wind 13mph, 82°, Sacramento')}
 for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
@@ -132,7 +178,7 @@ for (gm,gn,gt,wf,away,home,asp,hsp) in GAMES:
     _sl=SLATE.get(gm,{}); _w=_sl.get('weather',{}); _wf=_sl['wf'] if _sl.get('wf') is not None else wf
     lean=_w.get('lean') or ('Boost' if _wf>1.02 else ('Suppress' if _wf<0.98 else 'Neutral'))
     wx[str(gn)]={'emoji':_w.get('emoji',em),'lean':lean,'factor':_wf,'park':gm,
-        'cond':_w.get('cond',cond),'rain':(f"{_w.get('precip')}% rain" if _w.get('precip') is not None else '0% rain')}
+        'cond':_w.get('cond',cond),'rain':(f"{_w.get('precip')}% rain" if _w.get('precip') is not None else '0% rain'),'precip':(_w.get('precip') if _w.get('precip') is not None else 0)}
 # ---- season ledger: carry forward prior state + fold the last graded night ----
 # Paths/dates are env-overridable; if the carryover files aren't present (e.g. CI),
 # carry a committed season if available, else start a neutral ledger. No day-specific assert.
