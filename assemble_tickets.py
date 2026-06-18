@@ -244,19 +244,19 @@ def assemble(D):
         wf = 1.0 if p.get('wf') is None else p.get('wf'); iso = _isostr(p); iv = _isoval(p)
         o = []
         if hr9 is not None and hr9 >= 1.6:
-            o.append((9, 'mtx', [f"gets {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)", f"draws {opp}, as hittable deep as anyone going ({hr9:.2f} HR/9)"]))
+            o.append((9, 'mtx', [f"draws {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)", f"gets to feast on {opp} \u2014 batting-practice stuff at {hr9:.2f} HR/9", f"faces {opp}, who's been serving up souvenirs all year ({hr9:.2f}/9)", f"catches {opp} on a night the ball flies ({hr9:.2f} HR/9)"]))
         elif hr9 is not None and hr9 >= 1.35:
-            o.append((6, 'mtx', [f"draws a beatable {opp} ({hr9:.2f} HR/9)", f"gets {opp}, who leaves a few up ({hr9:.2f}/9)"]))
+            o.append((6, 'mtx', [f"draws a beatable {opp} ({hr9:.2f} HR/9)", f"gets {opp}, who leaves a few up in the zone ({hr9:.2f}/9)", f"has a hittable {opp} on the mound ({hr9:.2f} HR/9)"]))
         elif hr9 is not None and hr9 < 1.0:
             o.append((1, 'mtx', [f"has to solve a stingy {opp} ({hr9:.2f}/9)"]))
-        if wf >= 1.05:   o.append((8, 'park', ["has the wind blowing out behind him", "gets a yard playing big tonight"]))
-        elif wf >= 1.02: o.append((4, 'park', ["catches a small park boost", "has the yard tilting his way"]))
+        if wf >= 1.05:   o.append((8, 'park', ["has the wind howling out behind him", "gets a yard playing like a launchpad tonight", "has the jet stream pushing toward the seats"]))
+        elif wf >= 1.02: o.append((4, 'park', ["catches a small park boost", "has the yard tilting his way", "gets a sliver of help from the park"]))
         elif wf <= 0.95: o.append((1.5, 'park', ["fights a ball-killing yard"]))
-        if hh >= 52:   o.append((7, 'hh', [f"is scorching the ball ({_jsround(hh)}% hard-hit)", f"crushes it at a {_jsround(hh)}% hard-hit clip", f"barrels nearly everything ({_jsround(hh)}%)"]))
-        elif hh >= 46: o.append((3.5, 'hh', [f"squares it up ({_jsround(hh)}% hard-hit)", f"makes loud contact ({_jsround(hh)}%)"]))
-        if 16 <= la <= 23: o.append((5, 'la', [f"swings dead in the launch window ({_jsround(la)}\u00b0)", f"lifts it at an ideal {_jsround(la)}\u00b0"]))
-        if iso and iv >= 0.24:   o.append((6.5, 'iso', [f"packs {iso} isolated power", f"carries {iso} of raw pop"]))
-        elif iso and iv >= 0.20: o.append((4.5, 'iso', [f"brings {iso} ISO juice", f"has {iso} ISO behind it"]))
+        if hh >= 52:   o.append((7, 'hh', [f"is scorching the ball ({_jsround(hh)}% hard-hit)", f"is barreling everything in sight ({_jsround(hh)}% hard-hit)", f"is denting outfield walls ({_jsround(hh)}% hard-hit)", f"is hitting absolute lasers ({_jsround(hh)}% hard-hit)"]))
+        elif hh >= 46: o.append((3.5, 'hh', [f"is squaring it up ({_jsround(hh)}% hard-hit)", f"is making loud contact ({_jsround(hh)}% hard-hit)", f"is stinging the ball ({_jsround(hh)}% hard-hit)"]))
+        if 16 <= la <= 23: o.append((5, 'la', [f"lives in the launch window ({_jsround(la)}\u00b0)", f"has the swing plane dialed for liftoff ({_jsround(la)}\u00b0)", f"is lifting everything ({_jsround(la)}\u00b0)", f"puts the ball in the air on a homer plane ({_jsround(la)}\u00b0)"]))
+        if iso and iv >= 0.24:   o.append((6.5, 'iso', [f"packs {iso} of isolated thump", f"carries tape-measure power ({iso} ISO)", f"brings elite raw pop ({iso} ISO)", f"has light-tower power ({iso} ISO)"]))
+        elif iso and iv >= 0.20: o.append((4.5, 'iso', [f"brings {iso} ISO juice", f"has legit pop behind it ({iso} ISO)", f"carries {iso} of real ISO"]))
         if not o: o.append((0.5, 'x', [f"takes on {opp}"]))
         o.sort(key=lambda r: r[0], reverse=True)
         return o
