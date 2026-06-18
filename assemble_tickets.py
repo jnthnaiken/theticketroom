@@ -35,7 +35,7 @@ GATE_N        = 33               # buildable pool = 33; we take top (33+8) by TO
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
-WIN           = 165              # max minutes between a parlay's earliest & latest leg (lineup-timing cap; mirrors client)
+WIN           = 150              # max minutes between a parlay's earliest & latest leg (lineup-timing cap; mirrors client)
 
 # ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
 # Big, curated, theme-tight pools. Assigned without replacement and rotated by day-of-year,
@@ -314,15 +314,18 @@ def assemble(D):
         al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
         pool_av = [n for n in byS(nonchalk) if n not in al
                    and P[n]['TOTAL'] >= FLOOR and not pend(n)]           # the 33 only; never reach into #42+ extra
-        def _fitpool(a):                                                # combined STRENGTH of the 3 strongest legs this anchor can REALLY pair with
-            reach, seen, legs = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), []
+        def _fitpool(a):                                                # STRENGTH of the 3 legs this anchor can fill a 4-leg salami with -- span-aware: anchor + its 3 partners must ALL fit one WIN window (mirrors fits()); an anchor that can't reach 3 distinct games inside the window can't ship a salami and is ranked unusable so the salami routes to a cluster that CAN fill
+            reach, seen, legs, times = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), [], [tmin(a)]
             for n in reach:                                             # one bat per distinct game -- a ticket can't repeat a game (same rule the draft enforces)
                 if P[n]['game'] in seen:
                     continue
-                seen.add(P[n]['game']); legs.append(n)
+                t2 = times + [tmin(n)]
+                if max(t2) - min(t2) > WIN:                             # adding this leg blows the earliest->latest span -> can't sit in the salami together
+                    continue
+                seen.add(P[n]['game']); legs.append(n); times.append(tmin(n))
                 if len(legs) == 3:
                     break
-            return sum(strength(n) for n in legs)
+            return sum(strength(n) for n in legs) if len(legs) == 3 else -1e9   # must reach a full 3 partners inside the window or it can't anchor the salami
         sidx = max(range(len(al)), key=lambda i: _fitpool(al[i])) if len(al) >= 4 else None
         mids = [i for i in range(len(al)) if i != sidx]
         pls = []
@@ -382,7 +385,8 @@ def assemble(D):
             for ic in range(ib + 1, N):
                 for idd in range(ic + 1, N):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
-                    score = (-miss, round(sum(strength(a) for a in al), 4))
+                    sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)  # PREMIUM-FIRST across sets too: a set that ships the full 4-leg salami beats one that starves it, then fewest shorts, then strength
+                    score = (1 if sal_ok else 0, -miss, round(sum(strength(a) for a in al), 4))
                     if best is None or score > best[0]:
                         best = (score, al, pls)
     if best is None:                                        # fewer than 4 candidates (degenerate slate)
