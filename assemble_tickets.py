@@ -34,7 +34,7 @@ CHALK_N       = 8                # the ban8: 8 shortest-odds bats among the feat
 GATE_N        = 33               # buildable pool = 33; we take top (33+8) by TOTAL so the ban8 leaves 33
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
-MOON_PLAN     = (0, 0, 1, 1, 2)  # anchor indices per moon -> A1,A1,A2,A2,A3 (2/2/1)
+MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
 WIN           = 165              # max minutes between a parlay's earliest & latest leg (lineup-timing cap; mirrors client)
 
 # ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
@@ -282,32 +282,39 @@ def assemble(D):
                 parts.append(ln + " " + _pick(P[n], used, seed))
         return _join(parts) + "."
 
-    # ---- SNAKE DRAFT of parlay partners, by TOTAL (update 3) ----
-    # A0>A1>A2>A3 are the anchors by TOTAL: A0 & A1 each carry two moons, A2 one moon, A3 the salami.
-    # Partners are drafted from the remaining nonchalk (then #42+ only if forced) HIGHEST TOTAL FIRST, in
-    # a snake whose WEAKEST anchor picks first -> salami, A2, A1, A0 / A0, A1, A2, A3 / salami, A2, ...
-    # So the strongest leftover bats always land in a parlay: no builder single can outscore a parlay leg.
-    # The reverse-snake start also tilts help toward the shakier anchors. Each pick takes the best TOTAL
-    # that keeps the ticket inside one distinct-game lineup window (span <= WIN).
-    parlays = []
-    for ai in MOON_PLAN:
-        if ai < len(anchors):
-            parlays.append({'rank': ai, 'kind': 'moon', 'badge': "\U0001f680",
-                            'rr': {"struct": "by 2s & 3", "risk": 4.0},
-                            'legs': [anchors[ai]], 'need': 2, 'games': {P[anchors[ai]]['game']}})
-    if len(anchors) >= 4:
-        parlays.append({'rank': 3, 'kind': 'biggest', 'badge': "\U0001f96a",
-                        'rr': {"struct": "by 2s, 3s & 4", "risk": 11.0},
-                        'legs': [anchors[3]], 'need': 3, 'games': {P[anchors[3]]['game']}})
-
-    by_rank = {}
-    for t in parlays:
-        by_rank.setdefault(t['rank'], []).append(t)
-
+    # ---- SNAKE DRAFT of parlay partners, by TOTAL (update 4) ----
+    # The anchors are the top nonchalk bats by TOTAL. The SALAMI is anchored by whichever of them can reach the
+    # strongest legs inside the lineup-timing window (so it isn't stranded in a thin time slot, e.g. a lone
+    # afternoon anchor); each of the OTHER anchors carries two moons. Partners are drafted HIGHEST TOTAL FIRST in
+    # a snake where the SALAMI picks first, then the moons weakest-anchor-first -> the strongest leftover bats
+    # always land in a parlay and the salami gets first crack. Each pick keeps the ticket inside one distinct-game
+    # lineup window (span <= WIN).
     pool_av = [n for n in byT(nonchalk) if n not in anchors and n not in used
                and P[n]['TOTAL'] >= FLOOR and not pend(n)]
     pool_av += [n for n in byT(extra) if n not in anchors and n not in used
                 and P[n]['TOTAL'] >= FLOOR and not pend(n)]
+
+    def _fitpool(a):                                        # combined TOTAL of the 3 strongest legs this anchor can legally reach (the salami needs 3)
+        fit = [n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]
+        return sum(P[n]['TOTAL'] for n in fit[:3])
+
+    sal_idx  = max(range(len(anchors)), key=lambda i: _fitpool(anchors[i])) if len(anchors) >= 4 else None
+    moon_ids = [i for i in range(len(anchors)) if i != sal_idx]
+
+    parlays = []
+    for i in moon_ids:                                      # two moons per non-salami anchor
+        for _ in range(MOONS_PER_ANC):
+            parlays.append({'rank': i, 'kind': 'moon', 'badge': "\U0001f680",
+                            'rr': {"struct": "by 2s & 3", "risk": 4.0},
+                            'legs': [anchors[i]], 'need': 2, 'games': {P[anchors[i]]['game']}})
+    if sal_idx is not None:                                 # the salami drafts at its anchor's own snake position -- not first just for being the salami
+        parlays.append({'rank': sal_idx, 'kind': 'biggest', 'badge': "\U0001f96a",
+                        'rr': {"struct": "by 2s, 3s & 4", "risk": 11.0},
+                        'legs': [anchors[sal_idx]], 'need': 3, 'games': {P[anchors[sal_idx]]['game']}})
+
+    by_rank = {}
+    for t in parlays:
+        by_rank.setdefault(t['rank'], []).append(t)
 
     def fits(t, n):
         if P[n]['game'] in t['games']:
@@ -318,21 +325,20 @@ def assemble(D):
     def needy(t):
         return (len(t['legs']) - 1) < t['need']
 
-    ranks_fwd = sorted(by_rank.keys(), reverse=True)        # weakest (3) -> strongest (0)
+    ranks_fwd = sorted(by_rank.keys(), reverse=True)        # weakest anchor (highest TOTAL-index) picks first
     rnd = 0
     while any(needy(t) for t in parlays):
         order = ranks_fwd if (rnd % 2 == 0) else list(reversed(ranks_fwd))
         progressed = False
         for r in order:
-            cands = [t for t in by_rank[r] if needy(t)]
-            if not cands:
-                continue
-            t = min(cands, key=lambda x: len(x['legs']))    # spread an anchor's picks across its moons
-            pick = next((n for n in pool_av if fits(t, n)), None)
-            if pick is None:
-                continue
-            t['legs'].append(pick); t['games'].add(P[pick]['game'])
-            used.add(pick); pool_av.remove(pick); progressed = True
+            for t in sorted(by_rank[r], key=lambda x: len(x['legs'])):   # fill BOTH of this anchor's tickets before moving to the next anchor
+                if not needy(t):
+                    continue
+                pick = next((n for n in pool_av if fits(t, n)), None)
+                if pick is None:
+                    continue
+                t['legs'].append(pick); t['games'].add(P[pick]['game'])
+                used.add(pick); pool_av.remove(pick); progressed = True
         rnd += 1
         if not progressed:
             break
