@@ -62,6 +62,26 @@ def get(url):
         return None
 
 
+def appeared_ids(game_pk):
+    """Player IDs who actually appeared in a STARTED game (have a batting order or a recorded at-bat).
+    Used to drop scratches from that game's posted lineup at build time -- the build-time twin of the
+    client's boxscore scratch backstop. Returns None when the box isn't trustworthy yet (< 8 hitters),
+    so a not-yet-started or empty box leaves the posted lineup untouched."""
+    bx = get(f"{API}/game/{game_pk}/boxscore")
+    if not bx:
+        return None
+    ids = set()
+    for side in ("away", "home"):
+        players = (((bx.get("teams") or {}).get(side) or {}).get("players")) or {}
+        for _, p in players.items():
+            pid = (p.get("person") or {}).get("id")
+            bo  = p.get("battingOrder")
+            ab  = (((p.get("stats") or {}).get("batting")) or {}).get("atBats")
+            if pid and (bo or ab is not None):
+                ids.add(pid)
+    return ids if len(ids) >= 8 else None
+
+
 def eastern_today():
     return (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).strftime("%Y-%m-%d")
 
@@ -162,6 +182,17 @@ def main():
         status = (g.get("status", {}) or {}).get("detailedState", "")
         lu = g.get("lineups", {}) or {}
         al = lu.get("awayPlayers", []) or []; hl = lu.get("homePlayers", []) or []
+
+        # Build-time scratch backstop: once a game has started, the posted-lineup hydrate can be stale or
+        # empty, so a confirmed bat who was actually scratched would slip into the slate (and the 33).
+        # Trim each side's lineup to who truly appeared in the box, so scratches never reach assembly.
+        started = any(w in status.lower() for w in
+                      ("progress", "final", "completed", "live", "game over", "suspended"))
+        if started and g.get("gamePk"):
+            seen = appeared_ids(g.get("gamePk"))
+            if seen is not None:                                    # box is populated -> trust it
+                al = [p for p in al if p.get("id") in seen]
+                hl = [p for p in hl if p.get("id") in seen]
 
         def names(players):
             o = []
