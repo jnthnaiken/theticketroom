@@ -59,7 +59,7 @@ NAME_POOLS = {
     "biggest": [  # the feast / the spread
         "The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats",
         "Family Style", "The Tasting Menu", "Surf and Turf",
-        "The Sampler Platter", "All You Can Eat", "The Combo Platter", "Second Helpings",
+        "All You Can Eat", "The Combo Platter", "Second Helpings",
         "The Smorgasbord", "The Whole Hog", "The Deli Case", "Loaded Plate", "The Feast",
         "The Cold Cuts", "Heaping Plate", "The Potluck", "The Tailgate Spread",
         "The Whole Enchilada", "The Big Platter", "Seconds and Thirds",
@@ -79,8 +79,7 @@ NAME_POOLS = {
         "Stack It High", "Mailbox Money", "Bread Winner", "Walk-Off Wallet", "Petty Cash",
         "Pay the Rent", "Cha-Ching", "The Day Job", "Clock In, Cash Out",
         "Grocery Money", "The Side Hustle", "Beer Money", "Coffee's on Me", "The Tip Jar",
-        "Found Money", "Gas Money", "Padding the Bankroll", "The Lunch Tab",
-        "The Down Payment", "Spare Change", "The Nest Egg", "Payday", "House Money",
+        "Found Money", "Gas Money", "The Down Payment", "Spare Change", "The Nest Egg", "Payday", "House Money",
         "Keep the Change", "Cover Charge", "The Cushion", "Quick Buck", "In the Black",
         "The Float", "Walking-Around Money", "The Cookie Jar", "Pocket Money", "The Allowance",
         "Cashing Out", "The Slow Grind", "Steady Drip", "Singles Add Up", "Chip Stack",
@@ -245,58 +244,52 @@ def assemble(D):
         wf = 1.0 if p.get('wf') is None else p.get('wf'); iso = _isostr(p); iv = _isoval(p)
         o = []
         if hr9 is not None and hr9 >= 1.6:
-            o.append((9, 'mtx', f"gets {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)"))
+            o.append((9, 'mtx', [f"gets {opp}, one of the most homer-prone arms on the slate ({hr9:.2f}/9)", f"draws {opp}, as hittable deep as anyone going ({hr9:.2f} HR/9)"]))
         elif hr9 is not None and hr9 >= 1.35:
-            o.append((6, 'mtx', f"draws a beatable {opp} ({hr9:.2f} HR/9)"))
+            o.append((6, 'mtx', [f"draws a beatable {opp} ({hr9:.2f} HR/9)", f"gets {opp}, who leaves a few up ({hr9:.2f}/9)"]))
         elif hr9 is not None and hr9 < 1.0:
-            o.append((1, 'mtx', f"has to solve a stingy {opp} ({hr9:.2f}/9)"))
-        if wf >= 1.05:   o.append((8, 'park', "has the wind blowing out behind him"))
-        elif wf >= 1.02: o.append((4, 'park', "catches a small park boost"))
-        elif wf <= 0.95: o.append((1.5, 'park', "fights a ball-killing yard"))
-        if hh >= 52:   o.append((7, 'hh', f"is scorching the ball ({_jsround(hh)}% hard-hit)"))
-        elif hh >= 46: o.append((3.5, 'hh', f"squares it up ({_jsround(hh)}% hard-hit)"))
-        if 16 <= la <= 23: o.append((5, 'la', f"swings dead in the launch window ({_jsround(la)}\u00b0)"))
-        if iso and iv >= 0.24:   o.append((6.5, 'iso', f"packs {iso} isolated power"))
-        elif iso and iv >= 0.20: o.append((4.5, 'iso', f"brings {iso} ISO juice"))
-        if not o: o.append((0.5, 'x', f"takes on {opp}"))
+            o.append((1, 'mtx', [f"has to solve a stingy {opp} ({hr9:.2f}/9)"]))
+        if wf >= 1.05:   o.append((8, 'park', ["has the wind blowing out behind him", "gets a yard playing big tonight"]))
+        elif wf >= 1.02: o.append((4, 'park', ["catches a small park boost", "has the yard tilting his way"]))
+        elif wf <= 0.95: o.append((1.5, 'park', ["fights a ball-killing yard"]))
+        if hh >= 52:   o.append((7, 'hh', [f"is scorching the ball ({_jsround(hh)}% hard-hit)", f"crushes it at a {_jsround(hh)}% hard-hit clip", f"barrels nearly everything ({_jsround(hh)}%)"]))
+        elif hh >= 46: o.append((3.5, 'hh', [f"squares it up ({_jsround(hh)}% hard-hit)", f"makes loud contact ({_jsround(hh)}%)"]))
+        if 16 <= la <= 23: o.append((5, 'la', [f"swings dead in the launch window ({_jsround(la)}\u00b0)", f"lifts it at an ideal {_jsround(la)}\u00b0"]))
+        if iso and iv >= 0.24:   o.append((6.5, 'iso', [f"packs {iso} isolated power", f"carries {iso} of raw pop"]))
+        elif iso and iv >= 0.20: o.append((4.5, 'iso', [f"brings {iso} ISO juice", f"has {iso} ISO behind it"]))
+        if not o: o.append((0.5, 'x', [f"takes on {opp}"]))
         o.sort(key=lambda r: r[0], reverse=True)
         return o
-    def _edges(p, n):
+    def _edges(p, n, seed):
         out, seen = [], set()
-        for w, dim, ph in _phrases(p):
+        for w, dim, phs in _phrases(p):
             if dim in seen: continue
-            seen.add(dim); out.append(ph)
+            seen.add(dim); out.append(phs[seed % len(phs)])
             if len(out) >= n: break
         return out
-    def _richpick(p, used):
-        for w, dim, ph in _phrases(p):
-            if dim not in used:
-                used.add(dim); return ph
-        first = _phrases(p)[0]; used.add(first[1]); return first[2]
+    def _pick(p, used, seed):
+        r = _phrases(p); ch = None
+        for row in r:
+            if row[1] not in used: ch = row; break
+        if ch is None: ch = r[0]
+        dim, phs = ch[1], ch[2]; c = used.get(dim, 0); used[dim] = c + 1
+        return phs[(seed + c) % len(phs)]
     def _join(parts):
         if len(parts) <= 1: return parts[0] if parts else ""
         if len(parts) == 2: return parts[0] + " and " + parts[1]
         return ", ".join(parts[:-1]) + ", and " + parts[-1]
-    _HOOKS = {
-        'moon': ["A three-bat moon shot, round-robin'd by 2s and the full three so a single miss still pays:",
-                 "Three swings with real over-the-fence juice, banded so one whiff doesn't sink it:",
-                 "Our power trio for the night \u2014 round-robin'd to survive a miss:"],
-        'biggest': ["The whole spread \u2014 longshots round-robin'd by 2s, 3s and the full ticket, so combos cash even when a couple don't:",
-                    "Every combo covered: a round-robin of longshots built to pay through a miss or two:"],
-    }
-    _CLOSE = {'builder': "A clean single to build your own card around.",
-              'late':    "The nightcap to put the slate to bed.",
-              'lunch':   "First-pitch value before the board fills in."}
     def cwnote(kind, names):
+        # Substance only: why each bat can leave the yard. No structural preamble
+        # ('three-bat moon', 'power trio') and no 'a clean single' filler. A per-note
+        # seed rotates phrase variants so tickets don't read the same, and forces a
+        # different wording when a dimension has to repeat within a ticket.
+        seed = sum(len(_lastnm(P[n].get('nm', n))) for n in names)
         if len(names) == 1:
             a = P[names[0]]
-            body = a.get('nm', names[0]) + " " + _join(_edges(a, 3)) + "."
-            return body + " " + _CLOSE.get(kind, _CLOSE['builder'])
-        hooks = _HOOKS.get(kind, _HOOKS['moon'])
-        idx = (len(names) + len(_lastnm(P[names[0]].get('nm', names[0])))) % len(hooks)
-        used = set()
-        bits = ", ".join(_lastnm(P[n].get('nm', n)) + " " + _richpick(P[n], used) for n in names)
-        return hooks[idx] + " " + bits + "."
+            return a.get('nm', names[0]) + " " + _join(_edges(a, 2, seed)) + "."
+        used = {}
+        parts = [_lastnm(P[n].get('nm', n)) + " " + _pick(P[n], used, seed) for n in names]
+        return _join(parts) + "."
 
     # update (2): A4 leads the salami. DRAFT the salami first so it keeps its own tight window
     # (4 longest shots, distinct games, chalk-free); then the 5 moons (2/2/1) by TOTAL.
@@ -395,17 +388,25 @@ def carryover(D_today, D_prev):
         return D_today
     prev_P    = D_prev.get('players', {})
     prev_date = D_prev.get('meta', {}).get('date')
-    bet = {l.get('name') for t in D_prev.get('tickets', []) for l in t.get('players', [])}
-    for n in bet:
+    bet_ticket = {}
+    for t in D_prev.get('tickets', []):
+        for l in t.get('players', []):
+            bet_ticket.setdefault(l.get('name'), t.get('name'))
+    carry_meta = []
+    for n in set(bet_ticket):
         p = prev_P.get(n)
         if not p or str(p.get('game')) not in susp_games:
             continue
         info = {'gmatch': p.get('gmatch'), 'date': prev_date}   # the resuming game to watch
+        carry_meta.append({'name': n, 'ticket': bet_ticket.get(n), 'gmatch': p.get('gmatch')})
         if n in D_today.get('players', {}):
             D_today['players'][n]['pending'] = info             # already in tonight's field -> just tag
         else:
             carried = dict(p); carried['pending'] = info         # not playing tonight -> carry the leg so it grades
             D_today.setdefault('players', {})[n] = carried
+    if carry_meta:                                               # subtle settled-carryover strip data
+        D_today.setdefault('meta', {})['carryover'] = {'date': prev_date,
+            'gmatch': carry_meta[0]['gmatch'], 'bats': carry_meta}
     return D_today
 
 
