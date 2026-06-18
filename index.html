@@ -854,6 +854,8 @@ drawTickets();drawPlayers();drawTracker();
         var aA=code(g.teams.away.team.abbreviation), hA=code(g.teams.home.team.abbreviation), gm=aA+'@'+hA, gi=g2i[gm];
         var awName=(g.teams.away.team.name||'').toLowerCase(), hmName=(g.teams.home.team.name||'').toLowerCase();
         var as=(g.status&&g.status.abstractGameState)||'', ds=(g.status&&g.status.detailedState)||'', st=ds||as, isFin=/final|completed|over/i.test(ds)||/^final$/i.test(as);
+        var _gdate=g.gameDate?new Date(g.gameDate).toLocaleDateString('en-CA',{timeZone:'America/New_York'}):null;
+        if(_gdate && _gdate!==date) return Promise.resolve();   // feed game from a different date (e.g. prior-day suspended/DH game sharing matchup+time) is NOT tonight's slot -> never let it set gs/finals/HR
         if(gi!=null && gmCount[gm]>1){var _want=(expectGt[gm]||'').replace(/[\u202f\s]+/g,' ').trim(),_got=etOf(g); if(_want&&_got&&_got!==_want)return Promise.resolve();}  // 2nd same-matchup feed game (resumed/DH) is not our slot -> skip so it can't bleed final/HR onto tonight's game
         if(gi!=null) D.meta.gs[gi]=isFin?'final':(/suspend|resume|delay/i.test(st)?'susp':(/live|in progress|in-progress/i.test(st)?'live':'pre'));
         if(gi!=null && isFin && finals.indexOf(gi)<0) finals.push(gi);
