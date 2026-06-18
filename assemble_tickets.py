@@ -250,6 +250,20 @@ def assemble(D):
             o.append((2, 'form_down', ["due for a get-right night", "positive regression overdue", "a bounce-back feels close", "ready to break a quiet stretch", "the underlying contact still grades out", "due to run into one", "the process ahead of the results lately", "a slump-buster could be near"]))
         else:
             o.append((2, 'form_flat', ["steady form behind it", "holding his level", "in a steady groove", "the bat ticking along", "keeping an even keel", "on stable footing lately", "no real cold streak to speak of", "running at his usual clip"]))
+        pw = p.get('powidx')
+        if pw is not None:
+            if pw >= 90:   o.append((3.2, 'pow', [f"packs elite raw power, a {pw}/100 grade", f"swings one of the biggest sticks on the board ({pw}/100 power)", f"carries top-shelf pop ({pw}/100 power grade)", f"brings light-tower raw power ({pw}/100)", f"grades near the top of the slate for power ({pw}/100)", f"has the raw juice to clear any wall ({pw}/100 power)", f"sits in the elite power tier ({pw}/100)"]))
+            elif pw >= 70: o.append((3.2, 'pow', [f"brings well-above-average pop ({pw}/100 power)", f"carries serious thump ({pw}/100 grade)", f"swings a heavy stick ({pw}/100 power)", f"has plenty of raw power ({pw}/100)", f"grades out strong for power ({pw}/100)", f"packs a big-league power grade ({pw}/100)", f"has the pop to go deep ({pw}/100 power)"]))
+            elif pw >= 50: o.append((3.2, 'pow', [f"carries a solid power grade ({pw}/100)", f"has enough pop to clear it ({pw}/100 power)", f"brings average-plus thump ({pw}/100)", f"packs respectable power ({pw}/100 grade)", f"has real over-the-fence pop ({pw}/100)", f"swings with usable power ({pw}/100)"]))
+            elif pw >= 30: o.append((3.2, 'pow', [f"gets there more on timing than thump ({pw}/100 power)", f"leans on contact with sneaky pop ({pw}/100)", f"needs to square one up to leave ({pw}/100 power)", f"plays a touch under the power tier ({pw}/100)", f"brings fringe-average pop ({pw}/100)"]))
+            else:          o.append((3.2, 'pow', [f"is a contact-first bat hunting one good swing ({pw}/100 power)", f"wins with bat-to-ball over raw pop ({pw}/100)", f"needs everything to click for one to leave ({pw}/100 power)", f"is more table-setter than slugger ({pw}/100)", f"banks on a mistake pitch to clear it ({pw}/100 power)"]))
+        T = p.get('TOTAL')
+        if T is not None:
+            Ti = _jsround(T)
+            o.append((2.6, 'model', [f"the model still lands him at {Ti}", f"our number on him is {Ti} tonight", f"the projection backs him at {Ti}", f"grades to {Ti} on our board", f"the model bumps him to {Ti}", f"lands at {Ti} in our model", f"the model has him at {Ti} for the night", f"our projection sits at {Ti}"]))
+        od = p.get('odds')
+        if od:
+            o.append((1.4, 'price', [f"at a fair +{od}", f"priced at +{od}", f"you're getting +{od} on it", f"the +{od} tag plays", f"+{od} is a number worth taking", f"+{od} carries value", f"a tidy +{od} price"]))
         o.append((1.2, 'spot', [f"facing {opp}", f"drawing {opp}", f"matched up with {opp}", f"up against {opp}", f"taking on {opp}", f"staring down {opp}", f"in against {opp}", f"set against {opp}", f"opposite {opp}", f"with {opp} on the bump", f"across from {opp}", f"tested by {opp}"]))
         if not o: o.append((0.5, 'x', [f"takes on {opp}", f"steps in against {opp}", f"gets his cuts at {opp}"]))
         o.sort(key=lambda r: r[0], reverse=True)
@@ -274,6 +288,14 @@ def assemble(D):
             seen.add(dim); out.append(_choose(dim, phs, seed))
             if len(out) >= n: break
         return out
+    def _edges_fill(p, seed, target=120, lo=3, hi=5):   # add clauses until the note actually fills ~2 lines
+        out, seen = [], set()
+        for w, dim, phs in _phrases(p):
+            if dim in seen: continue
+            seen.add(dim); out.append(_choose(dim, phs, seed))
+            if len(out) >= hi: break
+            if len(out) >= lo and len(_join(out)) >= target: break
+        return out
     def _pick(p, used, seed):
         r = _phrases(p); ch = None
         for row in r:
@@ -291,7 +313,7 @@ def assemble(D):
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
         if len(names) == 1:
             a = P[names[0]]
-            return a.get('nm', names[0]) + " " + _join(_edges(a, 3, seed)) + "."
+            return a.get('nm', names[0]) + " " + _join(_edges_fill(a, seed)) + "."
         used = {}
         parts = []
         for i, n in enumerate(names):
