@@ -30,8 +30,8 @@ THE THREE UPDATES
 import re, datetime
 
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
-CHALK_N       = 8                # the ban8: 8 shortest-odds bats (nightcap/lunch ONLY)
-GATE_N        = 33               # parlay/builder pool = the 33 by odds BELOW the ban8
+CHALK_N       = 8                # the ban8: 8 shortest-odds bats among the featured pool (nightcap/lunch ONLY)
+GATE_N        = 33               # buildable pool = 33; we take top (33+8) by TOTAL so the ban8 leaves 33
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOON_PLAN     = (0, 0, 1, 1, 2)  # anchor indices per moon -> A1,A1,A2,A2,A3 (2/2/1)
@@ -119,25 +119,22 @@ def assemble(D):
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
-    # update (1): ban8 = 8 shortest odds (nightcap/lunch only). The PARLAY/BUILDER pool is the
-    # NEXT GATE_N=33 by odds below the ban8 (+ties); `extra` = #42+ reached only if the 33
-    # cannot field a distinct game. Parlays/builders never touch the ban8.
-    ranked   = byO(elig)
+    # POOL: take the model's top (33 + 8) by TOTAL, then re-sort by odds. The 8 shortest-odds bats are
+    # the chalk -> lunch/nightcap ONLY (never builders). The remaining 33 are the parlay/builder pool.
+    # Taking 41 up front IS the backfill: pulling the 8 chalk never shrinks the buildable 33 (same idea
+    # as replacing a scratched bat with the next one).
+    cand     = byT(elig)[:GATE_N + CHALK_N]
+    ranked   = byO(cand)
     chalk    = set(ranked[:CHALK_N])
-    rest     = ranked[CHALK_N:]
-    if len(rest) > GATE_N:
-        cut      = P[rest[GATE_N - 1]]['odds']
-        nonchalk = [n for n in rest if P[n]['odds'] <= cut]
-    else:
-        nonchalk = rest[:]
-    _ncset = set(nonchalk)
-    extra  = [n for n in rest if n not in _ncset]
+    nonchalk = ranked[CHALK_N:]
+    extra    = byT(elig)[GATE_N + CHALK_N:]
 
-    latest      = max((gmin(P[n]['gtime']) or 0) for n in elig)
-    lunch_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
-    night_games = {P[n]['game'] for n in elig if (gmin(P[n]['gtime']) or 0) == latest}
+    cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]
+    latest      = max(cand_t) if cand_t else 0
+    lunch_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
+    night_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) == latest}
 
-    # anchors: best non-chalk by TOTAL, one per game, never a pending (resuming) bat, never below the floor
+    # anchors: best nonchalk by TOTAL, one per game, never pending/below-floor
     anchors, seen = [], set()
     for n in byT(nonchalk):
         g = P[n]['game']
@@ -304,7 +301,7 @@ def assemble(D):
         add(name_for("biggest"), "biggest", "\U0001f96a", [anchors[3]] + sal_legs,
             rr={"struct": "by 2s, 3s & 4", "risk": 11.0})
 
-    # update (1): chalk only here — nightcap (late game) + lunch special (day games)
+    # lunch special + nightcap come from the 8-ban chalk (the favorites), always
     ncap = byO([n for n in chalk if P[n]['game'] in night_games])
     if ncap:
         add(name_for("late"), "late", "\U0001f303", [ncap[0]])
@@ -312,7 +309,8 @@ def assemble(D):
     if lunchc:
         add(name_for("lunch"), "lunch", "\U0001f371", [lunchc[0]])
 
-    # builders: leftover non-chalk singles that ALSO clear the floor (no sub-75 featured picks)
+    # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
+    # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     spent = set(anchors) | used | {t['anchor'] for t in tickets}
     for n in byT([x for x in nonchalk if x not in spent and P[x]['TOTAL'] >= FLOOR]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
