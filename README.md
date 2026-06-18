@@ -35,17 +35,17 @@ Role assignment runs on a second number — **strength** — that blends `TOTAL`
 
 ## Pool gating
 
-Eligible bats are the priced, in-lineup hitters that aren't voided or scratched. From those, ranked by odds (shortest first):
+Eligible bats are the priced, in-lineup hitters that aren't voided or scratched. **Rain gate first:** a game whose first-pitch precip is **≥70%** is dropped from the pool entirely (none of its bats appear in the field, any ticket, or the counts); a game at **50–69%** keeps its bats in the pool but bars them from every parlay leg — they can only surface as builder singles; **<50%** is normal. From the surviving bats, ranked by odds (shortest first):
 
 - **The ban-8** — the 8 shortest-odds bats (`CHALK_N`). These are reserved for the **nightcap and lunch special only**; they never appear in moons, the salami, or builders.
 - **The pool** — the next `GATE_N` (33) by odds *below* the ban-8, plus any bats tied on the cut line. This is the field every parlay and builder draws from.
 - **Extra** — bats at #42 and beyond, used only as a last resort when the 33 can't supply a distinct game for a parlay leg.
 
-The pool cut (which 33 bats make the board) is still by model `TOTAL`; **strength** decides roles within it. There is no implied-probability *floor*, but implied probability is folded into anchor selection through strength. Anchors are drawn from the *non-chalk* pool by strength, one per game, never a suspended game — and the final four are the set whose draft actually fills every parlay (see **Ticket types**), not simply the four strongest on paper.
+The pool cut (which 33 bats make the board) is still by model `TOTAL`; **strength** decides roles within it. There is no `TOTAL` *floor* on any pick and no implied-probability *floor* — anchors, moon/salami legs, and builders all backfill uniformly from the top 33 (a low-`TOTAL` bat is replaced like a scratch, not blocked). Implied probability is folded into anchor selection through strength. Anchors are drawn from the *non-chalk* pool by strength, one per game, never a suspended game — and the final four are the set whose draft actually fills every parlay (see **Ticket types**), not simply the four strongest on paper.
 
 ## Window / timing
 
-Parlay legs are kept close in start time. `WIN` (165 minutes) is the span past which a ticket trips the lineup-timing flag, and no parlay's legs may straddle more than that. Within the window, legs are drafted by **strength** (one bat per distinct game) — the window is a hard constraint, not the sort key. The live client re-draft will reach past the 33 to #42+ only as a last resort when it otherwise can't field enough distinct games; the baked board never does.
+Parlay legs are kept close in start time. `WIN` (150 minutes) is the span past which a ticket trips the lineup-timing flag, and no parlay's legs may straddle more than that. Within the window, legs are drafted by **strength** (one bat per distinct game) — the window is a hard constraint, not the sort key. The live client re-draft will reach past the 33 to #42+ only as a last resort when it otherwise can't field enough distinct games; the baked board never does.
 
 ## Ticket types
 
@@ -111,10 +111,10 @@ In `assemble_tickets.py`:
 - `CHALK_N` — size of the ban-8 reserved for nightcap/lunch (default 8).
 - `GATE_N` — parlay/builder pool size below the ban-8, before tie expansion (default 33).
 - `MOONS_PER_ANC` — moons built on each non-salami anchor (default 2).
-- `FLOOR` — minimum `TOTAL` for any of our picks: moon anchors/partners, salami legs, builders (default 75).
+- `FLOOR` — retained as a constant (75) but **no longer gates any pick**; the pool backfills uniformly from the top 33, so a low-`TOTAL` bat is replaced rather than floored out.
 - `LUNCH_CUT_MIN` — the lunch/night cutoff in minutes (default `16*60`, i.e. 4:00 PM).
 - The strength blend (0.65 `TOTAL` / 0.35 implied-prob) lives in the `strength()` helper in both engines; change the 0.65 there to retune projection-vs-market.
 
-In the `index.html` client engine: the same `CHALK_N` / `GATE_N` / `MOONS_PER_ANC` / `FLOOR` / `WIN`, plus its own `strength()` blend. The server assembler and the client engine must keep these rules — and the strength weight — in sync so a baked ticket and its live re-draft agree.
+In the `index.html` client engine: the same `CHALK_N` / `GATE_N` / `MOONS_PER_ANC` / `WIN`, the rain thresholds (≥70 out of pool, 50–69 parlay-barred), plus its own `strength()` blend. The server assembler and the client engine must keep these rules — and the strength weight — in sync so a baked ticket and its live re-draft agree.
 
 > There is no implied-probability *floor* and no separate top-N-chalk lever: the ban-8 reservation *is* the chalk exclusion (it lives in the gating step of `assemble_tickets.py`, mirrored in `index.html`), and implied probability enters role selection through the 35% term in `strength()`, not a hard cutoff.
