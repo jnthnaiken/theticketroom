@@ -45,12 +45,12 @@ The pool cut (which 33 bats make the board) is still by model `TOTAL`; **strengt
 
 ## Window / timing
 
-Parlay legs are kept close in start time. `WIN` (150 minutes) is the span past which a ticket trips the lineup-timing flag, and no parlay's legs may straddle more than that. Within the window, legs are drafted by **strength** (one bat per distinct game) — the window is a hard constraint, not the sort key. The live client re-draft will reach past the 33 to #42+ only as a last resort when it otherwise can't field enough distinct games; the baked board never does.
+Parlay legs are kept close in start time. `WIN` (155 minutes) is the span past which a ticket trips the lineup-timing flag, and no parlay's legs may straddle more than that. Within the window, legs are drafted by **strength** (one bat per distinct game) — the window is a hard constraint, not the sort key. The live client re-draft will reach past the 33 to #42+ only as a last resort when it otherwise can't field enough distinct games; the baked board never does.
 
 ## Ticket types
 
 - **Salami** — a four-leg round robin (by 2s, 3s & 4s). It goes to whichever anchor can reach the strongest three partners it can legally pair with: the strongest reachable bat **per distinct game**, inside one `WIN` window (`fitpool`). Legs are the strongest reachable bats by strength, not longshots. (The dedup-by-game matters — without it an anchor sitting next to a same-game cluster looks artificially well-supported.)
-- **Moons** — clean three-leg parlays at 1u each: **two per non-salami anchor** (`MOONS_PER_ANC`, default 2), so three moon anchors yield six moons. Each is an anchor plus two distinct-game partners drafted from the pool by strength (weakest-anchor-first snake). The four anchors are chosen as the set whose moons + salami all fill; if none can fill cleanly, unfillable parlays dissolve to builders rather than ship short.
+- **Moons** — clean three-leg parlays at 1u each: **two per non-salami anchor** (`MOONS_PER_ANC`, default 2), so three moon anchors yield six moons. Each is an anchor plus two distinct-game partners drafted from the pool by strength (weakest-anchor-first snake). The four anchors are chosen as the set whose moons + salami all fill. If the **salami** can't fill (e.g. no 4-game `WIN` window after a rain-out), its anchor is re-tasked as a moon anchor rather than left to drop — the strongest bat still leads a parlay. An unfillable **moon** dissolves to builders rather than ship short.
 - **Builders** — every remaining non-chalk bat as a single-leg bankroll play, 1u each (not capped).
 - **Nightcap** — the shortest-odds ban-8 bat in the latest game.
 - **Lunch special** — the shortest-odds ban-8 bat in a pre-4pm game.

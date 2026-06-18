@@ -35,7 +35,7 @@ GATE_N        = 33               # buildable pool = 33; we take top (33+8) by TO
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
-WIN           = 150              # max minutes between a parlay's earliest & latest leg (lineup-timing cap; mirrors client)
+WIN           = 155              # max minutes between a parlay's earliest & latest leg (lineup-timing cap; mirrors client)
 
 # ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
 # Big, curated, theme-tight pools. Assigned without replacement and rotated by day-of-year,
@@ -357,6 +357,22 @@ def assemble(D):
                     if pick is None:
                         break
                     t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick)
+        # If the salami can't structurally fill (e.g. no 4-game WIN window after a rain-out), don't strand
+        # its anchor as a builder -- hand back its borrowed legs and re-task that anchor as a moon anchor,
+        # so the slate's strongest bat still leads a parlay instead of dropping to a single.
+        for t in list(pls):
+            if t['kind'] == 'biggest' and needy(t):
+                for n in t['legs'][1:]:
+                    if n not in pool_av: pool_av.append(n)
+                pool_av[:] = byS(pool_av)
+                r = t['rank']; pls.remove(t)
+                for _ in range(MOONS_PER_ANC):
+                    pls.append({'rank': r, 'kind': 'moon', 'badge': "\U0001f680",
+                                'rr': {"struct": "by 2s & 3", "risk": 4.0},
+                                'legs': [al[r]], 'need': 2, 'games': {P[al[r]]['game']}})
+        byr = {}
+        for t in pls:
+            byr.setdefault(t['rank'], []).append(t)
         ranks_fwd = sorted(byr.keys(), reverse=True)                    # weakest anchor (highest TOTAL-index) picks first
         rnd = 0
         while any(needy(t) for t in pls):
