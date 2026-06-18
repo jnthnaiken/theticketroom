@@ -116,6 +116,14 @@ def fetch_results(date, board_codes):
             a = g["teams"]["away"]["team"]["abbreviation"]; h = g["teams"]["home"]["team"]["abbreviation"]
         except Exception:
             continue
+        gd = g.get("gameDate")
+        if gd:
+            try:
+                et = (datetime.datetime.fromisoformat(gd.replace("Z", "+00:00")) - datetime.timedelta(hours=4)).strftime("%Y-%m-%d")
+                if et != date:
+                    continue   # feed game from another date (resumed/DH sharing this matchup) -> not this slate's game
+            except Exception:
+                pass
         acand = {a.upper(), alias(a)}; hcand = {h.upper(), alias(h)}
         if (acand & board_codes) and (hcand & board_codes):       # game is part of our slate
             st = (g.get("status", {}) or {})
