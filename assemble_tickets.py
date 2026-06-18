@@ -133,16 +133,33 @@ def assemble(D):
     extra    = byT(elig)[GATE_N + CHALK_N:]
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
 
+    # STRENGTH = how good a bat really is for OUR purposes: 65% model projection (TOTAL) + 35% market
+    # likelihood (implied prob from the HR odds), each min-max normalized across the 33. This is the single
+    # key that decides roles board-wide -- anchors, salami, moon legs, builder order -- so a long-odds bat the
+    # model loves (e.g. a Coors flier at +680) no longer anchors over a likelier, nearly-as-strong bat. We
+    # don't out-predict the market, so likelihood gets a real vote; projection still leads so a short-odds
+    # weak-projection bat can't float to the top. TOTAL is unchanged and still shown; this only drives picks.
+    _ip   = lambda o: (100.0/(o+100) if o > 0 else abs(o)/(abs(o)+100.0)) if o else 0.0
+    _Ts   = [P[n]['TOTAL'] for n in nonchalk] or [0]
+    _Is   = [_ip(P[n]['odds']) for n in nonchalk] or [0]
+    _tmn, _tmx = min(_Ts), max(_Ts)
+    _imn, _imx = min(_Is), max(_Is)
+    def strength(n):
+        nt = (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
+        ni = (_ip(P[n]['odds']) - _imn) / (_imx - _imn) if _imx > _imn else 0.5
+        return 0.65 * nt + 0.35 * ni
+    byS = lambda names: sorted(names, key=strength, reverse=True)   # board-wide role/order key
+
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]
     latest      = max(cand_t) if cand_t else 0
     lunch_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
     night_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) == latest}
 
-    # anchor CANDIDATES: best nonchalk by TOTAL, one per game, never pending/below-floor.
+    # anchor CANDIDATES: strongest nonchalk by STRENGTH, one per game, never pending/below-floor.
     # The final 4 anchors are chosen from these for the best fittable schedule (see the draft below), so
     # every moon fills three legs -- we never ship a 2-leg moon.
     cand_anchors, seen = [], set()
-    for n in byT(nonchalk):
+    for n in byS(nonchalk):
         g = P[n]['game']
         if g in seen or pend(n) or P[n]['TOTAL'] < FLOOR:
             continue
@@ -293,12 +310,18 @@ def assemble(D):
     # anchor's tickets before the next anchor. The strongest leftover bats always land in a parlay; never #42+.
 
     def _draft(anchor_list):
-        al = sorted(anchor_list, key=lambda n: -P[n]['TOTAL'])          # A0..A3 by TOTAL (weakest = highest index)
-        pool_av = [n for n in byT(nonchalk) if n not in al
+        al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
+        pool_av = [n for n in byS(nonchalk) if n not in al
                    and P[n]['TOTAL'] >= FLOOR and not pend(n)]           # the 33 only; never reach into #42+ extra
-        def _fitpool(a):                                                # combined TOTAL of the 3 strongest legs this anchor can legally reach
-            fit = [n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]
-            return sum(P[n]['TOTAL'] for n in fit[:3])
+        def _fitpool(a):                                                # combined STRENGTH of the 3 strongest legs this anchor can REALLY pair with
+            reach, seen, legs = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), []
+            for n in reach:                                             # one bat per distinct game -- a ticket can't repeat a game (same rule the draft enforces)
+                if P[n]['game'] in seen:
+                    continue
+                seen.add(P[n]['game']); legs.append(n)
+                if len(legs) == 3:
+                    break
+            return sum(strength(n) for n in legs)
         sidx = max(range(len(al)), key=lambda i: _fitpool(al[i])) if len(al) >= 4 else None
         mids = [i for i in range(len(al)) if i != sidx]
         pls = []
@@ -351,7 +374,7 @@ def assemble(D):
             for ic in range(ib + 1, N):
                 for idd in range(ic + 1, N):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
-                    score = (-miss, round(sum(P[a]['TOTAL'] for a in al), 1))
+                    score = (-miss, round(sum(strength(a) for a in al), 4))
                     if best is None or score > best[0]:
                         best = (score, al, pls)
     if best is None:                                        # fewer than 4 candidates (degenerate slate)
@@ -378,7 +401,7 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     spent = {n for t in parlays for n in t['legs']}        # only bats in KEPT parlays; dropped-parlay anchors/legs become builders
-    for n in byT([x for x in nonchalk if x not in spent and P[x]['TOTAL'] >= FLOOR]):
+    for n in byS([x for x in nonchalk if x not in spent and P[x]['TOTAL'] >= FLOOR]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
