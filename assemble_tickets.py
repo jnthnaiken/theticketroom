@@ -382,6 +382,7 @@ def assemble(D):
     else:
         _, anchors, parlays = best
 
+    parlays = [t for t in parlays if (len(t['legs']) - 1) >= 2]   # never ship a parlay with <2 partners (no short moons); dropped bats fall to builders via spent
 
     for t in parlays:                                       # emit moons first (display order)
         if t['kind'] == 'moon':
