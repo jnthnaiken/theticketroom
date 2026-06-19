@@ -1,15 +1,31 @@
+# ====================================================================================
+# Build Ticket Room -- daily MLB HR-prop board pipeline.
+#
+# Pipeline: grade prior night -> pull StatsAPI/weather -> verify the pull is fresh ->
+# score -> assemble+inject the board -> commit. regen15.py does BOTH the assemble and
+# the inject into index.html. Do not add any other inject/score step.
+#
+# TRIGGERS:
+#   repository_dispatch (event_type "build-board")  <- your external cron hits this
+#   workflow_dispatch                               <- the "Run workflow" button
+#   schedule                                        <- backup; GitHub often drops these
+#
+# EXTERNAL CRON (the reliable trigger), every 30 min:
+#   POST https://api.github.com/repos/jnthnaiken/theticketroom/dispatches
+#   Headers: Authorization: Bearer <GH_PAT>
+#            Accept: application/vnd.github+json
+#            Content-Type: application/json
+#   Body:    {"event_type":"build-board"}
+#
+# SECRET: add a fine-grained PAT (Contents: read and write) as repo secret GH_PAT.
+#   Committing with a PAT (not the bot token) keeps the schedule from auto-disabling.
+# ====================================================================================
+
 name: Build Ticket Room
 
-# Full daily pipeline: pull free inputs (StatsAPI + Open-Meteo) -> score -> assemble
-# tickets -> inject into the shell -> commit the regenerated board. Because HR/9,
-# lineups and weather are re-pulled each run, the published board updates through
-# the day. The day's hand inputs (Kasper card metrics, multi-book odds, ISO sheet)
-# live in the scorer's data block and are committed by hand before/at first pitch.
-#
-#   "Run workflow" = manual trigger (optionally pass a date to backfill/test).
-#   schedule       = every 30 min across the game window (UTC). Trim to taste.
-
 on:
+  repository_dispatch:
+    types: [build-board]
   workflow_dispatch:
     inputs:
       date:
@@ -17,14 +33,13 @@ on:
         required: false
         default: ""
   schedule:
-    # ~12:00 PM ET through ~1:00 AM ET. GitHub may delay scheduled runs a few min.
-    - cron: "*/30 16-23,0-5 * * *"
+    - cron: "7,37 16-23,0-5 * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: ticket-room          # never let two runs race the push
+  group: ticket-room
   cancel-in-progress: false
 
 jobs:
@@ -33,13 +48,16 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Resolve slate date (shared by every step)
+      - name: Resolve slate date
         run: |
           if [ -n "${{ github.event.inputs.date }}" ]; then
             D="${{ github.event.inputs.date }}"
@@ -49,47 +67,50 @@ jobs:
           echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
           echo "Building slate for $D"
 
-      # 1) free auto-pull: games, SP (+hand) & HR/9, lineups, ISO (StatsAPI) + weather->wf (Open-Meteo)
+      - name: Grade finished nights
+        run: python3 grade_night.py
+
       - name: Pull slate (StatsAPI + Open-Meteo)
         run: python3 fetch_mlb.py "$SLATE_DATE"
 
-      # 2) score the field (reads slate_auto_<date>.json for wf + HR/9; hand data block already committed)
+      - name: Verify the slate was pulled fresh
+        run: |
+          python3 - "$SLATE_DATE" <<'PY'
+          import json, sys
+          d = sys.argv[1]; f = f"slate_auto_{d}.json"
+          s = json.load(open(f))
+          pa = str(s.get("pulled_at", ""))
+          games = s.get("games", []) or []
+          hr = [((g.get(side) or {}).get("sp") or {}).get("hr9")
+                for g in games for side in ("away", "home")]
+          have = sum(1 for x in hr if x is not None)
+          print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
+          if pa.startswith("manual") or "T" not in pa or have == 0:
+              print("::error::slate_auto is not a fresh StatsAPI pull (manual/stale or zero "
+                    "HR/9). Refusing to build a stale board. A red run here just means no HR/9 "
+                    "is available yet (e.g. before starters post / after games end) -- harmless.")
+              sys.exit(1)
+          PY
+
       - name: Score the field
         run: python3 build15.py
 
-      # 3) gate the pool + assemble all tickets back into D
-      - name: Assemble tickets
+      - name: Assemble + inject the board
         run: python3 regen15.py
 
-      # 4) render D into the shell -> outputs/ticket_room.html
-      - name: Inject / render the board
-        run: python3 inject15.py
-
-      # 5) publish to the site root: index.html is what Pages serves at theticketroom.live
-      - name: Publish to site root (index.html)
-        run: |
-          cp -f outputs/ticket_room.html index.html
-          echo "promoted outputs/ticket_room.html -> index.html"
-
-      - name: Show what was produced
-        run: |
-          echo "---- files ----"
-          ls -1 slate_auto_*.json D_*.json outputs/ticket_room.html index.html 2>/dev/null || true
-          echo "---- slate summary (head) ----"
-          for f in slate_auto_${SLATE_DATE}.json; do echo "== $f =="; head -c 1200 "$f"; echo; done
-
-      # 6) commit the refreshed inputs + regenerated board, incl. the published index.html
       - name: Commit the board
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
-          git add slate_auto_*.json D_*.json outputs/ticket_room.html index.html
+          git add slate_auto_*.json D_*.json season.json index.html
           if git diff --staged --quiet; then
             echo "no changes to commit"
           else
             git commit -m "Auto board build ${SLATE_DATE} ($(date -u +%H:%MZ))"
+            ok=0
             for i in 1 2 3; do
-              git pull --rebase --autostash origin main && git push && { echo "pushed"; break; }
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; ok=1; break; }
               echo "push attempt $i failed, retrying"; sleep 4
             done
+            [ "$ok" = 1 ] || { echo "::error::push failed after 3 attempts -- board NOT updated"; exit 1; }
           fi
