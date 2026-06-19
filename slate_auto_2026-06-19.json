@@ -1,11 +1,11 @@
 {
   "date": "2026-06-19",
   "season": "2026",
-  "pulled_at": "2026-06-19T15:00:31Z",
+  "pulled_at": "2026-06-19T15:30:26Z",
   "games": [
     {
       "gamePk": 824663,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-19T18:20:00Z",
       "matchup": "TOR@CHC",
       "away": {
@@ -27,10 +27,56 @@
           "hr9": 0.15,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.229
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.103
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.154
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.179
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.246
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.174
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.092
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.093
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -364,7 +410,7 @@
         "wind_mph": 9.0,
         "wind_dir": 63,
         "tail_mph": -8.6,
-        "precip": 2
+        "precip": 3
       },
       "wf": 0.977
     },
