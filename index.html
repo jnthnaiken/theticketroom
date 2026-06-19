@@ -893,24 +893,18 @@ drawTickets();drawPlayers();drawTracker();
             var tm=(pl.team||'').toLowerCase();
             var isA=!!(tm&&awName.indexOf(tm)>=0), isH=!!(tm&&hmName.indexOf(tm)>=0), posted=isA?okA:(isH?okH:false), set=isA?psA:psH; if(!posted)return;
             var k=norm(pl.nm||n), inLU=set[k]||Object.keys(set).some(function(x){return x===k||x.indexOf(k)>=0||k.indexOf(x)>=0;});
-            if(inLU){pl.status='confirmed'; pl.out=false;} else {pl.out=true;}
+            if(inLU){pl.status='confirmed'; pl.out=false;}   // CONFIRM-ONLY: a posted lineup can only clear out (promotes a projected-out bat once confirmed in). Absence is ambiguous (name/format) and must never re-gate a bat out of the pool.
           });
         }
-        // (2) results -> boxscore home runs (+ scratch backstop: a "confirmed" bat with no box
-        //     batting-order entry in a started game DID NOT play -> out, so the re-gate drops him)
+        // (2) results -> boxscore: GRADE ONLY (home runs + finals). The box never sets the pool-gating
+        //     flag: a started/final game is locked, so live data must not re-gate a bat in or out. Whether
+        //     a confirmed starter truly didn't play is a settlement question (server, vs the complete box),
+        //     not something to infer live off a name match -- which is what shuffled bats post-game.
         return getJSON(SA+'/game/'+g.gamePk+'/boxscore').then(function(bx){
-          var played={};
           ['away','home'].forEach(function(side){var tm=bx.teams&&bx.teams[side]; if(!tm||!tm.players)return;
             var tn=(tm.team&&tm.team.name)?tm.team.name.toLowerCase():'';
             Object.keys(tm.players).forEach(function(k){var p=tm.players[k],hr=p.stats&&p.stats.batting&&p.stats.batting.homeRuns;
-              if(hr>0&&p.person&&p.person.fullName)homered.push({fn:norm(p.person.fullName),tm:tn});
-              if(p.person&&p.person.fullName&&(p.battingOrder||(p.stats&&p.stats.batting&&p.stats.batting.atBats!=null)))played[norm(p.person.fullName)]=1;});});
-          var live=/live|in progress|in-progress/i.test(st);
-          if(gi!=null && (isFin||live) && Object.keys(played).length>=8){
-            Object.keys(D.players).forEach(function(n){var pl=D.players[n]; if(pl.game!==gi||pl.pending)return;
-              var k=norm(pl.nm||n), inBox=played[k]||Object.keys(played).some(function(x){return x===k||x.indexOf(k)>=0||k.indexOf(x)>=0;});
-              if(!inBox) pl.out=true;});   // never played a started game -> scratched
-          }
+              if(hr>0&&p.person&&p.person.fullName)homered.push({fn:norm(p.person.fullName),tm:tn});});});
         }).catch(function(){});
       })).then(function(){
         homered.forEach(function(h){var key=IDX[h.fn]; if(key){ if(AMBIG[h.fn]&&h.tm&&h.tm.indexOf((D.players[key].team||'').toLowerCase())<0)return; D.players[key].hr=true; }});
