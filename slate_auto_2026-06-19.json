@@ -1,7 +1,7 @@
 {
   "date": "2026-06-19",
   "season": "2026",
-  "pulled_at": "2026-06-19T22:00:27Z",
+  "pulled_at": "2026-06-19T22:30:24Z",
   "games": [
     {
       "gamePk": 824663,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824264,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-19T22:40:00Z",
       "matchup": "CWS@DET",
       "away": {
@@ -398,7 +398,7 @@
         "wind_mph": 5.8,
         "wind_dir": 293,
         "tail_mph": -0.8,
-        "precip": 1
+        "precip": 0
       },
       "wf": 0.995
     },
@@ -795,7 +795,7 @@
         "wind_mph": 2.0,
         "wind_dir": 270,
         "tail_mph": 1.5,
-        "precip": 1
+        "precip": 2
       },
       "wf": 1.015
     },
@@ -1192,7 +1192,7 @@
         "wind_mph": 8.7,
         "wind_dir": 29,
         "tail_mph": -8.4,
-        "precip": 3
+        "precip": 4
       },
       "wf": 0.97
     },
@@ -1342,8 +1342,54 @@
           "hr9": 0.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.218
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.112
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.142
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.162
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.0
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.056
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.109
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.152
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.231
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1418,7 +1464,7 @@
     },
     {
       "gamePk": 825069,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-20T01:45:00Z",
       "matchup": "MIN@ARI",
       "away": {
@@ -1429,8 +1475,54 @@
           "hr9": 0.91,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.144
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.319
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.236
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.143
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.157
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.185
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.101
+          },
+          {
+            "id": 656484,
+            "name": "Tristan Gray",
+            "iso": 0.124
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.081
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -1440,10 +1532,56 @@
           "hr9": 0.67,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.184
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.115
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.265
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.181
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.07
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.154
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.148
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.147
+          },
+          {
+            "id": 694410,
+            "name": "LuJames Groover",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1499,7 +1637,7 @@
     },
     {
       "gamePk": 823124,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-20T02:10:00Z",
       "matchup": "BOS@SEA",
       "away": {
@@ -1521,10 +1659,56 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 608701,
+            "name": "Rob Refsnyder",
+            "iso": 0.099
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.146
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.18
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.117
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.277
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.113
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.038
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.294
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.102
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",

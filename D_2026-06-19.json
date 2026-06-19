@@ -5060,7 +5060,7 @@
    "gtime": "9:40 PM",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "opp": [
     "Gage Jump",
@@ -5096,7 +5096,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "opp": [
     "Gage Jump",
     "LHP"
@@ -5130,7 +5130,7 @@
    "gtime": "9:40 PM",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "opp": [
     "Gage Jump",
@@ -5166,7 +5166,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "opp": [
     "Gage Jump",
     "LHP"
@@ -5201,7 +5201,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "opp": [
     "Gage Jump",
     "LHP"
@@ -5235,7 +5235,7 @@
    "gtime": "9:40 PM",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "opp": [
     "Gage Jump",
@@ -5271,7 +5271,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "opp": [
     "Gage Jump",
     "LHP"
@@ -5305,7 +5305,7 @@
    "gtime": "9:40 PM",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "opp": [
     "Gage Jump",
@@ -5341,7 +5341,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "opp": [
     "Gage Jump",
     "LHP"
@@ -5742,8 +5742,8 @@
     "factor": 0.97,
     "park": "STL@KC",
     "cond": "wind in 8mph, 70\u00b0",
-    "rain": "3% rain",
-    "precip": 3
+    "rain": "4% rain",
+    "precip": 4
    },
    "9": {
     "emoji": "\u2600\ufe0f",
@@ -5806,10 +5806,9 @@
   },
   "date": "2026-06-19",
   "pool": 162,
-  "tickets": 23
+  "tickets": 24
  },
  "pool": [
-  "Colson Montgomery",
   "Kody Clemens",
   "Pete Alonso",
   "Joc Pederson",
@@ -5833,6 +5832,7 @@
   "Matt Chapman",
   "Colton Cowser",
   "Rafael Devers",
+  "Michael Harris",
   "Wyatt Langford",
   "Taylor Ward",
   "Bryce Eldridge",
@@ -5846,77 +5846,6 @@
  "tickets": [
   {
    "name": "Riding the Jet Stream",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Pederson is squaring up rockets (59% hard-hit) and sends it skyward (21\u00b0), Sanchez is impacting the ball at an elite clip (53% hard-hit), and Henderson has real over-the-fence pop (51/100).",
-   "players": [
-    {
-     "name": "Joc Pederson",
-     "team": "Rangers",
-     "total": 110.0,
-     "aT": 85.4,
-     "wf": 1.0,
-     "gmatch": "MIN@TEX",
-     "gtime": "2:35 PM",
-     "game": 3,
-     "late": false,
-     "odds": 395,
-     "status": "projected"
-    },
-    {
-     "name": "Gary Sanchez",
-     "team": "Brewers",
-     "total": 81.3,
-     "aT": 70.3,
-     "wf": 1.0,
-     "gmatch": "CLE@MIL",
-     "gtime": "2:10 PM",
-     "game": 2,
-     "late": false,
-     "odds": 483,
-     "status": "projected"
-    },
-    {
-     "name": "Gunnar Henderson",
-     "team": "Orioles",
-     "total": 71.2,
-     "aT": 62.0,
-     "wf": 1.0,
-     "gmatch": "BAL@SEA",
-     "gtime": "4:10 PM",
-     "game": 4,
-     "late": false,
-     "odds": 405,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Joc Pederson",
-   "lock": "2:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 4.0,
-    "maxprofit": 225.0,
-    "bytwos": false
-   },
-   "n": 1,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 217.7,
-   "msum": 262.5,
-   "parlay_am": 14474,
-   "payout10": 1457.35,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 3,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Upper Deck Bound",
    "kind": "moon",
    "badge": "\ud83d\ude80",
    "note": "Pederson is making elite contact (59% hard-hit) and drives the ball into the air (21\u00b0), Ward tilts the bat for distance (20\u00b0), and Manzardo is hitting line drives (51% hard-hit).",
@@ -5972,7 +5901,7 @@
     "maxprofit": 291.0,
     "bytwos": false
    },
-   "n": 2,
+   "n": 1,
    "priced": 3,
    "confleg": 0,
    "sum": 220.2,
@@ -5987,7 +5916,149 @@
    }
   },
   {
+   "name": "Upper Deck Bound",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Pederson is crushing it to all fields (59% hard-hit) and gets ideal loft (21\u00b0), Henderson is squaring up rockets (57% hard-hit), and Guerrero has gusts carrying balls over the wall.",
+   "players": [
+    {
+     "name": "Joc Pederson",
+     "team": "Rangers",
+     "total": 110.0,
+     "aT": 85.4,
+     "wf": 1.0,
+     "gmatch": "MIN@TEX",
+     "gtime": "2:35 PM",
+     "game": 3,
+     "late": false,
+     "odds": 395,
+     "status": "projected"
+    },
+    {
+     "name": "Gunnar Henderson",
+     "team": "Orioles",
+     "total": 71.2,
+     "aT": 62.0,
+     "wf": 1.0,
+     "gmatch": "BAL@SEA",
+     "gtime": "4:10 PM",
+     "game": 4,
+     "late": false,
+     "odds": 405,
+     "status": "projected"
+    },
+    {
+     "name": "Vladimir Guerrero Jr.",
+     "team": "Blue Jays",
+     "total": 72.4,
+     "aT": 73.0,
+     "wf": 1.08,
+     "gmatch": "TOR@BOS",
+     "gtime": "1:35 PM",
+     "game": 1,
+     "late": false,
+     "odds": 533,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Joc Pederson",
+   "lock": "1:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 4.0,
+    "maxprofit": 242.5,
+    "bytwos": false
+   },
+   "n": 2,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 220.4,
+   "msum": 253.6,
+   "parlay_am": 15723,
+   "payout10": 1582.34,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 2,
+    "neu": 0
+   }
+  },
+  {
    "name": "Off the Scoreboard",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alonso is striking it clean and hard (58% hard-hit) and elevates with ease (20\u00b0), Clemens is scorching the ball (53% hard-hit), and Pinango swings with the wind at his back.",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 100.7,
+     "aT": 81.1,
+     "wf": 1.0,
+     "gmatch": "BAL@SEA",
+     "gtime": "4:10 PM",
+     "game": 4,
+     "late": false,
+     "odds": 368,
+     "status": "projected"
+    },
+    {
+     "name": "Kody Clemens",
+     "team": "Twins",
+     "total": 72.6,
+     "aT": 58.7,
+     "wf": 1.0,
+     "gmatch": "MIN@TEX",
+     "gtime": "2:35 PM",
+     "game": 3,
+     "late": false,
+     "odds": 345,
+     "status": "projected"
+    },
+    {
+     "name": "Yohendrick Pinango",
+     "team": "Blue Jays",
+     "total": 70.3,
+     "aT": 67.2,
+     "wf": 1.08,
+     "gmatch": "TOR@BOS",
+     "gtime": "1:35 PM",
+     "game": 1,
+     "late": false,
+     "odds": 640,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Pete Alonso",
+   "lock": "1:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 4.0,
+    "maxprofit": 238.5,
+    "bytwos": false
+   },
+   "n": 3,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 207.0,
+   "msum": 243.6,
+   "parlay_am": 15311,
+   "payout10": 1541.12,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 2,
+    "neu": 0
+   }
+  },
+  {
+   "name": "To the Heavens",
    "kind": "moon",
    "badge": "\ud83d\ude80",
    "note": "Abreu gets a yard playing like a launchpad tonight and is punishing the baseball (53% hard-hit), Burger is stinging it on a rope (56% hard-hit), and Cowser packs respectable power (52/100 grade).",
@@ -6043,7 +6114,7 @@
     "maxprofit": 277.4,
     "bytwos": false
    },
-   "n": 3,
+   "n": 4,
    "priced": 3,
    "confleg": 0,
    "sum": 209.3,
@@ -6058,10 +6129,10 @@
    }
   },
   {
-   "name": "To the Heavens",
+   "name": "Liftoff Sequence",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Abreu plays in a wind tunnel pointed at the seats and is squaring up everything (53% hard-hit), Canzone is crushing the baseball (53% hard-hit), and Clemens carries premium thump (.242 ISO).",
+   "note": "Abreu has the jet stream pushing toward the seats and is impacting the ball at an elite clip (53% hard-hit), Sanchez is mashing the ball (53% hard-hit), and Higashioka swings with home-run loft (19\u00b0).",
    "players": [
     {
      "name": "Wilyer Abreu",
@@ -6077,29 +6148,29 @@
      "status": "projected"
     },
     {
-     "name": "Dominic Canzone",
-     "team": "Mariners",
-     "total": 81.5,
-     "aT": 70.5,
+     "name": "Gary Sanchez",
+     "team": "Brewers",
+     "total": 81.3,
+     "aT": 70.3,
      "wf": 1.0,
-     "gmatch": "BAL@SEA",
-     "gtime": "4:10 PM",
-     "game": 4,
+     "gmatch": "CLE@MIL",
+     "gtime": "2:10 PM",
+     "game": 2,
      "late": false,
-     "odds": 438,
+     "odds": 483,
      "status": "projected"
     },
     {
-     "name": "Kody Clemens",
-     "team": "Twins",
-     "total": 72.6,
-     "aT": 58.7,
+     "name": "Kyle Higashioka",
+     "team": "Rangers",
+     "total": 86.1,
+     "aT": 80.9,
      "wf": 1.0,
      "gmatch": "MIN@TEX",
      "gtime": "2:35 PM",
      "game": 3,
      "late": false,
-     "odds": 345,
+     "odds": 690,
      "status": "projected"
     }
    ],
@@ -6111,16 +6182,16 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 4.0,
-    "maxprofit": 187.1,
+    "maxprofit": 338.0,
     "bytwos": false
    },
-   "n": 4,
+   "n": 5,
    "priced": 3,
    "confleg": 0,
-   "sum": 192.1,
-   "msum": 233.9,
-   "parlay_am": 11751,
-   "payout10": 1185.08,
+   "sum": 214.1,
+   "msum": 247.2,
+   "parlay_am": 22698,
+   "payout10": 2279.82,
    "wxsum": {
     "boost": 1,
     "supp": 0,
@@ -6129,152 +6200,10 @@
    }
   },
   {
-   "name": "Liftoff Sequence",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Montgomery has gusts carrying balls over the wall and is lighting up the radar gun (60% hard-hit), Olson is blistering line drives (62% hard-hit), and Young has the wind howling out behind him.",
-   "players": [
-    {
-     "name": "Colson Montgomery",
-     "team": "White Sox",
-     "total": 72.3,
-     "aT": 57.5,
-     "wf": 1.08,
-     "gmatch": "CWS@NYY",
-     "gtime": "7:05 PM",
-     "game": 6,
-     "late": false,
-     "odds": 335,
-     "status": "projected"
-    },
-    {
-     "name": "Matt Olson",
-     "team": "Braves",
-     "total": 109.1,
-     "aT": 82.4,
-     "wf": 1.043,
-     "gmatch": "SF@ATL",
-     "gtime": "7:15 PM",
-     "game": 7,
-     "late": false,
-     "odds": 460,
-     "status": "projected"
-    },
-    {
-     "name": "Jared Young",
-     "team": "Mets",
-     "total": 83.3,
-     "aT": 71.7,
-     "wf": 1.08,
-     "gmatch": "NYM@PHI",
-     "gtime": "6:40 PM",
-     "game": 5,
-     "late": false,
-     "odds": 460,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Colson Montgomery",
-   "lock": "6:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 4.0,
-    "maxprofit": 212.5,
-    "bytwos": false
-   },
-   "n": 5,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 211.6,
-   "msum": 264.7,
-   "parlay_am": 13542,
-   "payout10": 1364.16,
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Second Stage",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Montgomery has the jet stream pushing toward the seats and is leaving scorch marks (60% hard-hit), Baldwin is teeing off (58% hard-hit), and Melendez swings with the wind at his back.",
-   "players": [
-    {
-     "name": "Colson Montgomery",
-     "team": "White Sox",
-     "total": 72.3,
-     "aT": 57.5,
-     "wf": 1.08,
-     "gmatch": "CWS@NYY",
-     "gtime": "7:05 PM",
-     "game": 6,
-     "late": false,
-     "odds": 335,
-     "status": "projected"
-    },
-    {
-     "name": "Drake Baldwin",
-     "team": "Braves",
-     "total": 106.7,
-     "aT": 79.3,
-     "wf": 1.043,
-     "gmatch": "SF@ATL",
-     "gtime": "7:15 PM",
-     "game": 7,
-     "late": false,
-     "odds": 533,
-     "status": "projected"
-    },
-    {
-     "name": "MJ Melendez",
-     "team": "Mets",
-     "total": 73.5,
-     "aT": 59.1,
-     "wf": 1.08,
-     "gmatch": "NYM@PHI",
-     "gtime": "6:40 PM",
-     "game": 5,
-     "late": false,
-     "odds": 440,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Colson Montgomery",
-   "lock": "6:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 4.0,
-    "maxprofit": 229.9,
-    "bytwos": false
-   },
-   "n": 6,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 195.9,
-   "msum": 252.5,
-   "parlay_am": 14769,
-   "payout10": 1486.92,
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
    "name": "Heaping Plate",
    "kind": "biggest",
    "badge": "\ud83e\udd6a",
-   "note": "Hoskins is mashing the ball (54% hard-hit) and swings with home-run loft (22\u00b0), Alonso is hitting frozen ropes (58% hard-hit), Langford stays in the launch zone (21\u00b0), and Okamoto gets a park that's launching everything tonight.",
+   "note": "Hoskins is hitting frozen ropes (54% hard-hit) and stays in the launch zone (22\u00b0), Langford is generating elite exit velo (54% hard-hit), Canzone brings average-plus thump (61/100), and Okamoto has the wind howling out behind him.",
    "players": [
     {
      "name": "Rhys Hoskins",
@@ -6290,19 +6219,6 @@
      "status": "projected"
     },
     {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 100.7,
-     "aT": 81.1,
-     "wf": 1.0,
-     "gmatch": "BAL@SEA",
-     "gtime": "4:10 PM",
-     "game": 4,
-     "late": false,
-     "odds": 368,
-     "status": "projected"
-    },
-    {
      "name": "Wyatt Langford",
      "team": "Rangers",
      "total": 96.1,
@@ -6313,6 +6229,19 @@
      "game": 3,
      "late": false,
      "odds": 548,
+     "status": "projected"
+    },
+    {
+     "name": "Dominic Canzone",
+     "team": "Mariners",
+     "total": 81.5,
+     "aT": 70.5,
+     "wf": 1.0,
+     "gmatch": "BAL@SEA",
+     "gtime": "4:10 PM",
+     "game": 4,
+     "late": false,
+     "odds": 438,
      "status": "projected"
     },
     {
@@ -6337,16 +6266,16 @@
    "rr": {
     "struct": "by 2s, 3s & 4",
     "risk": 11.0,
-    "maxprofit": 1947.1,
+    "maxprofit": 2190.7,
     "bytwos": false
    },
-   "n": 7,
+   "n": 6,
    "priced": 4,
    "confleg": 0,
-   "sum": 315.1,
-   "msum": 363.5,
-   "parlay_am": 102976,
-   "payout10": 10307.61,
+   "sum": 304.5,
+   "msum": 344.3,
+   "parlay_am": 118393,
+   "payout10": 11849.35,
    "wxsum": {
     "boost": 1,
     "supp": 0,
@@ -6358,7 +6287,7 @@
    "name": "Midnight Special",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Nick Kurtz is scorching the ball (66% hard-hit), swings a .261-ISO sledgehammer, finds the home-run trajectory (18\u00b0), and gets a touch of carry tonight.",
+   "note": "Nick Kurtz is barreling everything in sight (66% hard-hit), swings a .261-ISO sledgehammer, and finds the home-run trajectory (18\u00b0).",
    "players": [
     {
      "name": "Nick Kurtz",
@@ -6380,7 +6309,7 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 8,
+   "n": 7,
    "priced": 1,
    "confleg": 1,
    "sum": 90.6,
@@ -6398,7 +6327,7 @@
    "name": "Midday Meal",
    "kind": "lunch",
    "badge": "\ud83c\udf71",
-   "note": "Kazuma Okamoto has the jet stream pushing toward the seats, is barreling balls at will (58% hard-hit), has loft to spare (20\u00b0), and swings a heavy stick (88/100 power).",
+   "note": "Kazuma Okamoto gets a park that's launching everything tonight, is barreling balls at will (58% hard-hit), sends it skyward (20\u00b0), and grades out strong for power (88/100).",
    "players": [
     {
      "name": "Kazuma Okamoto",
@@ -6420,7 +6349,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 9,
+   "n": 8,
    "priced": 1,
    "confleg": 0,
    "sum": 75.2,
@@ -6438,7 +6367,87 @@
    "name": "Quick Buck",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Rafael Devers is hammering the ball (61% hard-hit), gets ideal loft (20\u00b0), plays in a slightly friendly yard, and swings one of the biggest sticks on the board (93/100 power).",
+   "note": "Matt Olson is hammering the ball (62% hard-hit), carries tape-measure power (.276 ISO), puts air under the ball (22\u00b0), and plays in a slightly friendly yard.",
+   "players": [
+    {
+     "name": "Matt Olson",
+     "team": "Braves",
+     "total": 109.1,
+     "aT": 82.4,
+     "wf": 1.043,
+     "gmatch": "SF@ATL",
+     "gtime": "7:15 PM",
+     "game": 7,
+     "late": false,
+     "odds": 460,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Matt Olson",
+   "lock": "7:15 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 9,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 82.4,
+   "msum": 109.1,
+   "parlay_am": 460,
+   "payout10": 56.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "In the Black",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Drake Baldwin is denting outfield walls (58% hard-hit), has light-tower power (.242 ISO), stays in the sweet-spot angle (16\u00b0), and catches a small park boost.",
+   "players": [
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 106.7,
+     "aT": 79.3,
+     "wf": 1.043,
+     "gmatch": "SF@ATL",
+     "gtime": "7:15 PM",
+     "game": 7,
+     "late": false,
+     "odds": 533,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Drake Baldwin",
+   "lock": "7:15 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 10,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 79.3,
+   "msum": 106.7,
+   "parlay_am": 533,
+   "payout10": 63.3,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "The Float",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Rafael Devers is lighting up the radar gun (61% hard-hit), has textbook lift (20\u00b0), gets a sliver of help from the park, and swings one of the biggest sticks on the board (93/100 power).",
    "players": [
     {
      "name": "Rafael Devers",
@@ -6460,7 +6469,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 10,
+   "n": 11,
    "priced": 1,
    "confleg": 0,
    "sum": 76.3,
@@ -6475,10 +6484,50 @@
    }
   },
   {
-   "name": "In the Black",
+   "name": "Walking-Around Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Matt Chapman is making thunderous contact (55% hard-hit), lives in the launch window (22\u00b0), has the yard tilting his way, and packs a big-league power grade (77/100).",
+   "note": "Jared Young plays in a wind tunnel pointed at the seats, is lifting everything (16\u00b0), swings with usable power (67/100), and the projection backs him at 83.",
+   "players": [
+    {
+     "name": "Jared Young",
+     "team": "Mets",
+     "total": 83.3,
+     "aT": 71.7,
+     "wf": 1.08,
+     "gmatch": "NYM@PHI",
+     "gtime": "6:40 PM",
+     "game": 5,
+     "late": false,
+     "odds": 460,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Jared Young",
+   "lock": "6:40 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 12,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 71.7,
+   "msum": 83.3,
+   "parlay_am": 460,
+   "payout10": 56.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "The Cookie Jar",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Matt Chapman is making thunderous contact (55% hard-hit), lives in the launch window (22\u00b0), has the yard tilting his way, and has the pop to go deep (77/100 power).",
    "players": [
     {
      "name": "Matt Chapman",
@@ -6500,7 +6549,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 11,
+   "n": 13,
    "priced": 1,
    "confleg": 0,
    "sum": 71.9,
@@ -6515,10 +6564,10 @@
    }
   },
   {
-   "name": "The Float",
+   "name": "Pocket Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Casey Schmitt hits it on the perfect plane (21\u00b0), carries .226 of real ISO, catches a small park boost, and is hitting it hard enough (48% hard-hit).",
+   "note": "Casey Schmitt hits it on the perfect plane (21\u00b0), carries .226 of real ISO, gets a touch of carry tonight, and is centering the ball (48% hard-hit).",
    "players": [
     {
      "name": "Casey Schmitt",
@@ -6540,7 +6589,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 12,
+   "n": 14,
    "priced": 1,
    "confleg": 0,
    "sum": 68.1,
@@ -6555,10 +6604,10 @@
    }
   },
   {
-   "name": "Walking-Around Money",
+   "name": "The Allowance",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Austin Riley is putting a charge into everything (57% hard-hit), launches it at the right angle (19\u00b0), and gets a sliver of help from the park.",
+   "note": "Austin Riley is crushing the baseball (57% hard-hit), launches it at the right angle (19\u00b0), gets a sliver of help from the park, and packs elite raw power, a 98/100 grade.",
    "players": [
     {
      "name": "Austin Riley",
@@ -6580,7 +6629,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 13,
+   "n": 15,
    "priced": 1,
    "confleg": 0,
    "sum": 78.6,
@@ -6595,10 +6644,10 @@
    }
   },
   {
-   "name": "The Cookie Jar",
+   "name": "Cashing Out",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Willy Adames keeps the ball in the air (20\u00b0), carries solid slug (.205 ISO), plays in a slightly friendly yard, and is making quality contact (48% hard-hit).",
+   "note": "Willy Adames has loft to spare (20\u00b0), carries solid slug (.205 ISO), plays in a slightly friendly yard, and is putting a charge into it (48% hard-hit).",
    "players": [
     {
      "name": "Willy Adames",
@@ -6620,7 +6669,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 14,
+   "n": 16,
    "priced": 1,
    "confleg": 0,
    "sum": 70.7,
@@ -6635,50 +6684,10 @@
    }
   },
   {
-   "name": "Pocket Money",
+   "name": "The Slow Grind",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Kyle Higashioka has a swing built for the seats (19\u00b0), is making loud contact (51% hard-hit), carries a solid power grade (65/100), and he's squaring more up lately.",
-   "players": [
-    {
-     "name": "Kyle Higashioka",
-     "team": "Rangers",
-     "total": 86.1,
-     "aT": 80.9,
-     "wf": 1.0,
-     "gmatch": "MIN@TEX",
-     "gtime": "2:35 PM",
-     "game": 3,
-     "late": false,
-     "odds": 690,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Kyle Higashioka",
-   "lock": "2:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 15,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 80.9,
-   "msum": 86.1,
-   "parlay_am": 690,
-   "payout10": 79.0,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
-  },
-  {
-   "name": "The Allowance",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Brandon Nimmo is denting outfield walls (55% hard-hit), stays in the sweet-spot angle (18\u00b0), brings average-plus thump (52/100), and the model still lands him at 72.",
+   "note": "Brandon Nimmo is hitting absolute lasers (55% hard-hit), has a swing built for the seats (18\u00b0), and brings average-plus thump (52/100).",
    "players": [
     {
      "name": "Brandon Nimmo",
@@ -6700,7 +6709,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 16,
+   "n": 17,
    "priced": 1,
    "confleg": 0,
    "sum": 71.9,
@@ -6715,10 +6724,50 @@
    }
   },
   {
-   "name": "Cashing Out",
+   "name": "Steady Drip",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Bryce Eldridge is hitting absolute lasers (64% hard-hit), swings with natural lift (18\u00b0), catches a small park boost, and packs respectable power (65/100 grade).",
+   "note": "MJ Melendez has gusts carrying balls over the wall, is hitting bullets (54% hard-hit), sits in the ideal launch angle (22\u00b0), and has real over-the-fence pop (66/100).",
+   "players": [
+    {
+     "name": "MJ Melendez",
+     "team": "Mets",
+     "total": 73.5,
+     "aT": 59.1,
+     "wf": 1.08,
+     "gmatch": "NYM@PHI",
+     "gtime": "6:40 PM",
+     "game": 5,
+     "late": false,
+     "odds": 440,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "MJ Melendez",
+   "lock": "6:40 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 18,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 59.1,
+   "msum": 73.5,
+   "parlay_am": 440,
+   "payout10": 54.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Singles Add Up",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Bryce Eldridge is squaring up everything (64% hard-hit), keeps the ball in the air (18\u00b0), catches a small park boost, and packs respectable power (65/100 grade).",
    "players": [
     {
      "name": "Bryce Eldridge",
@@ -6740,7 +6789,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 17,
+   "n": 19,
    "priced": 1,
    "confleg": 0,
    "sum": 72.4,
@@ -6755,10 +6804,10 @@
    }
   },
   {
-   "name": "The Slow Grind",
+   "name": "Chip Stack",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Tyler Soderstrom swings with pop (.227 ISO), gets a touch of carry tonight, is driving balls into the gaps (52% hard-hit), and brings fringe-average pop (44/100).",
+   "note": "Tyler Soderstrom swings with pop (.227 ISO), gets a touch of carry tonight, is connecting solidly (52% hard-hit), and gets there more on timing than thump (44/100 power).",
    "players": [
     {
      "name": "Tyler Soderstrom",
@@ -6780,7 +6829,7 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 18,
+   "n": 20,
    "priced": 1,
    "confleg": 1,
    "sum": 74.5,
@@ -6795,50 +6844,10 @@
    }
   },
   {
-   "name": "Steady Drip",
+   "name": "The Vig Killer",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Vladimir Guerrero Jr. has gusts carrying balls over the wall, is generating elite exit velo (57% hard-hit), and gets there more on timing than thump (39/100 power).",
-   "players": [
-    {
-     "name": "Vladimir Guerrero Jr.",
-     "team": "Blue Jays",
-     "total": 72.4,
-     "aT": 73.0,
-     "wf": 1.08,
-     "gmatch": "TOR@BOS",
-     "gtime": "1:35 PM",
-     "game": 1,
-     "late": false,
-     "odds": 533,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Vladimir Guerrero Jr.",
-   "lock": "1:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 19,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 73.0,
-   "msum": 72.4,
-   "parlay_am": 533,
-   "payout10": 63.3,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Singles Add Up",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Mitch Garver puts air under the ball (22\u00b0), is squaring up its share (50% hard-hit), has the pop to go deep (80/100 power), and our projection sits at 77.",
+   "note": "Mitch Garver swings with natural lift (22\u00b0), is hitting it hard enough (50% hard-hit), has the pop to go deep (80/100 power), and our projection sits at 77.",
    "players": [
     {
      "name": "Mitch Garver",
@@ -6860,7 +6869,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 20,
+   "n": 21,
    "priced": 1,
    "confleg": 0,
    "sum": 67.6,
@@ -6875,38 +6884,38 @@
    }
   },
   {
-   "name": "Chip Stack",
+   "name": "Direct Deposit",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Yohendrick Pinango plays in a wind tunnel pointed at the seats, is hitting bullets (54% hard-hit), has textbook lift (17\u00b0), and swings with usable power (55/100).",
+   "note": "Michael Harris is putting a charge into everything (53% hard-hit), has real extra-base pop (.208 ISO), and has the yard tilting his way.",
    "players": [
     {
-     "name": "Yohendrick Pinango",
-     "team": "Blue Jays",
+     "name": "Michael Harris",
+     "team": "Braves",
      "total": 70.3,
-     "aT": 67.2,
-     "wf": 1.08,
-     "gmatch": "TOR@BOS",
-     "gtime": "1:35 PM",
-     "game": 1,
+     "aT": 66.1,
+     "wf": 1.043,
+     "gmatch": "SF@ATL",
+     "gtime": "7:15 PM",
+     "game": 7,
      "late": false,
-     "odds": 640,
+     "odds": 540,
      "status": "projected"
     }
    ],
    "nlegs": 1,
-   "anchor": "Yohendrick Pinango",
-   "lock": "1:35 PM",
+   "anchor": "Michael Harris",
+   "lock": "7:15 PM",
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 21,
+   "n": 22,
    "priced": 1,
    "confleg": 0,
-   "sum": 67.2,
+   "sum": 66.1,
    "msum": 70.3,
-   "parlay_am": 640,
-   "payout10": 74.0,
+   "parlay_am": 540,
+   "payout10": 64.0,
    "wxsum": {
     "boost": 1,
     "supp": 0,
@@ -6915,10 +6924,10 @@
    }
   },
   {
-   "name": "The Vig Killer",
+   "name": "Rainy Day Fund",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Brandon Valenzuela has gusts carrying balls over the wall, has the swing plane dialed for liftoff (21\u00b0), and has enough pop to clear it (64/100 power).",
+   "note": "Brandon Valenzuela plays in a wind tunnel pointed at the seats, has the swing plane dialed for liftoff (21\u00b0), and swings with usable power (64/100).",
    "players": [
     {
      "name": "Brandon Valenzuela",
@@ -6940,7 +6949,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 22,
+   "n": 23,
    "priced": 1,
    "confleg": 0,
    "sum": 66.4,
@@ -6955,10 +6964,10 @@
    }
   },
   {
-   "name": "Direct Deposit",
+   "name": "The ATM",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Mike Yastrzemski is lifting everything (22\u00b0), has the yard tilting his way, is stinging the ball (50% hard-hit), and brings average-plus thump (66/100).",
+   "note": "Mike Yastrzemski puts the ball in the air on a homer plane (22\u00b0), catches a small park boost, is stinging the ball (50% hard-hit), and has enough pop to clear it (66/100 power).",
    "players": [
     {
      "name": "Mike Yastrzemski",
@@ -6980,7 +6989,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 23,
+   "n": 24,
    "priced": 1,
    "confleg": 0,
    "sum": 70.9,
