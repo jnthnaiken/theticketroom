@@ -1,622 +1,1063 @@
 {
- "date": "2026-06-18",
- "season": "2026",
- "pulled_at": "manual-from-rotowire",
- "games": [
-  {
-   "matchup": "TOR@BOS",
-   "wf": 1.08,
-   "weather": {
-    "emoji": "\u2600\ufe0f",
-    "cond": "wind out 21mph, 75\u00b0",
-    "lean": "Boost",
-    "precip": 28
-   },
-   "away": {
-    "abbrev": "TOR",
-    "sp": {
-     "name": "Trey Yesavage",
-     "hr9": null
+  "date": "2026-06-18",
+  "season": "2026",
+  "pulled_at": "2026-06-19T00:34:48Z",
+  "games": [
+    {
+      "gamePk": 824748,
+      "status": "Final",
+      "gameTime": "2026-06-18T17:35:00Z",
+      "matchup": "TOR@BOS",
+      "away": {
+        "abbrev": "TOR",
+        "sp": {
+          "id": 702056,
+          "name": "Trey Yesavage",
+          "hr9": 0.82,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.158
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.093
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.173
+          },
+          {
+            "id": 682818,
+            "name": "Yohendrick Pi\u00f1ango",
+            "iso": 0.154
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.149
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.101
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.208
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.202
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.14
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "BOS",
+        "sp": {
+          "id": 543243,
+          "name": "Sonny Gray",
+          "hr9": 1.04,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.075
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.163
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.152
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.253
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.18
+          },
+          {
+            "id": 643396,
+            "name": "Isiah Kiner-Falefa",
+            "iso": 0.084
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.13
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.101
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.144
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 14mph, 79\u00b0",
+        "lean": "Boost",
+        "temp": 79.2,
+        "wind_mph": 19.5,
+        "wind_dir": 179,
+        "tail_mph": 13.5,
+        "precip": 11
+      },
+      "wf": 1.061
     },
-    "lineup": [
-     {
-      "name": "George Springer"
-     },
-     {
-      "name": "Vladimir Guerrero Jr."
-     },
-     {
-      "name": "Jesus Sanchez"
-     },
-     {
-      "name": "Yohendrick Pinango"
-     },
-     {
-      "name": "Kazuma Okamoto"
-     },
-     {
-      "name": "Brandon Valenzuela"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "BOS",
-    "sp": {
-     "name": "Sonny Gray",
-     "hr9": null
+    {
+      "gamePk": 823772,
+      "status": "Final",
+      "gameTime": "2026-06-18T18:10:00Z",
+      "matchup": "CLE@MIL",
+      "away": {
+        "abbrev": "CLE",
+        "sp": {
+          "id": 800048,
+          "name": "Parker Messick",
+          "hr9": 0.83,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.169
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.16
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.124
+          },
+          {
+            "id": 656555,
+            "name": "Rhys Hoskins",
+            "iso": 0.177
+          },
+          {
+            "id": 700932,
+            "name": "Kyle Manzardo",
+            "iso": 0.167
+          },
+          {
+            "id": 672356,
+            "name": "Gabriel Arias",
+            "iso": 0.179
+          },
+          {
+            "id": 656413,
+            "name": "Stuart Fairchild",
+            "iso": 0.0
+          },
+          {
+            "id": 696135,
+            "name": "Kahlil Watson",
+            "iso": 0.0
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.09
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "MIL",
+        "sp": {
+          "id": 675660,
+          "name": "Shane Drohan",
+          "hr9": 0.76,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.156
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.251
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.203
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.178
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.233
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.237
+          },
+          {
+            "id": 663368,
+            "name": "Blake Perkins",
+            "iso": 0.103
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.0
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.054
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
     },
-    "lineup": [
-     {
-      "name": "Mickey Gasper"
-     },
-     {
-      "name": "Wilyer Abreu"
-     },
-     {
-      "name": "Willson Contreras"
-     },
-     {
-      "name": "Jarren Duran"
-     },
-     {
-      "name": "Caleb Durbin"
-     },
-     {
-      "name": "Andruw Monasterio"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "CLE@MIL",
-   "wf": 1.0,
-   "weather": {
-    "emoji": "\ud83c\udfdf",
-    "cond": "Dome",
-    "lean": "Neutral",
-    "precip": null
-   },
-   "away": {
-    "abbrev": "CLE",
-    "sp": {
-     "name": "Parker Messick",
-     "hr9": null
+    {
+      "gamePk": 822889,
+      "status": "Final",
+      "gameTime": "2026-06-18T18:35:00Z",
+      "matchup": "MIN@TEX",
+      "away": {
+        "abbrev": "MIN",
+        "sp": {
+          "id": 657746,
+          "name": "Joe Ryan",
+          "hr9": 0.82,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.144
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.319
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.236
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.157
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.143
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.185
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.101
+          },
+          {
+            "id": 656484,
+            "name": "Tristan Gray",
+            "iso": 0.124
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.081
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "TEX",
+        "sp": {
+          "id": 683004,
+          "name": "Jack Leiter",
+          "hr9": 1.58,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.204
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.15
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.165
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.148
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.157
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.03
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.184
+          },
+          {
+            "id": 696030,
+            "name": "Alejandro Osuna",
+            "iso": 0.02
+          },
+          {
+            "id": 543309,
+            "name": "Kyle Higashioka",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
     },
-    "lineup": [
-     {
-      "name": "Travis Bazzana"
-     },
-     {
-      "name": "Rhys Hoskins"
-     },
-     {
-      "name": "David Fry"
-     },
-     {
-      "name": "Kyle Manzardo"
-     },
-     {
-      "name": "Stuart Fairchild"
-     },
-     {
-      "name": "Steven Kwan"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "MIL",
-    "sp": {
-     "name": "Shane Drohan",
-     "hr9": null
+    {
+      "gamePk": 823125,
+      "status": "Final",
+      "gameTime": "2026-06-18T20:10:00Z",
+      "matchup": "BAL@SEA",
+      "away": {
+        "abbrev": "BAL",
+        "sp": {
+          "id": 669358,
+          "name": "Shane Baz",
+          "hr9": 0.81,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.094
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.193
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.204
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.213
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.2
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.117
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.157
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.112
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.2
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "SEA",
+        "sp": {
+          "id": 693433,
+          "name": "Bryan Woo",
+          "hr9": 0.91,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.172
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.146
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.117
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.277
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.113
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.294
+          },
+          {
+            "id": 641598,
+            "name": "Mitch Garver",
+            "iso": 0.118
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.038
+          },
+          {
+            "id": 670156,
+            "name": "Miles Mastrobuoni",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
     },
-    "lineup": [
-     {
-      "name": "Jackson Chourio"
-     },
-     {
-      "name": "Brice Turang"
-     },
-     {
-      "name": "William Contreras"
-     },
-     {
-      "name": "Andrew Vaughn"
-     },
-     {
-      "name": "Gary Sanchez"
-     },
-     {
-      "name": "Garrett Mitchell"
-     },
-     {
-      "name": "Joey Ortiz"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "MIN@TEX",
-   "wf": 1.0,
-   "weather": {
-    "emoji": "\ud83c\udfdf",
-    "cond": "Dome",
-    "lean": "Neutral",
-    "precip": null
-   },
-   "away": {
-    "abbrev": "MIN",
-    "sp": {
-     "name": "Joe Ryan",
-     "hr9": null
+    {
+      "gamePk": 823448,
+      "status": "In Progress",
+      "gameTime": "2026-06-18T22:40:00Z",
+      "matchup": "NYM@PHI",
+      "away": {
+        "abbrev": "NYM",
+        "sp": {
+          "id": 640455,
+          "name": "Sean Manaea",
+          "hr9": 0.99,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.129
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.122
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.285
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.189
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.117
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.13
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.091
+          },
+          {
+            "id": 669004,
+            "name": "MJ Melendez",
+            "iso": 0.174
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.143
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "PHI",
+        "sp": {
+          "id": 605400,
+          "name": "Aaron Nola",
+          "hr9": 1.78,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.111
+          },
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.317
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.23
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.143
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.175
+          },
+          {
+            "id": 624641,
+            "name": "Edmundo Sosa",
+            "iso": 0.159
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.157
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.113
+          },
+          {
+            "id": 656537,
+            "name": "Derek Hill",
+            "iso": 0.143
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 77.6,
+        "wind_mph": 9.2,
+        "wind_dir": 227,
+        "tail_mph": 7.8,
+        "precip": 0
+      },
+      "wf": 1.039
     },
-    "lineup": [
-     {
-      "name": "Trevor Larnach"
-     },
-     {
-      "name": "Byron Buxton"
-     },
-     {
-      "name": "Kody Clemens"
-     },
-     {
-      "name": "Royce Lewis"
-     },
-     {
-      "name": "Josh Bell"
-     },
-     {
-      "name": "Victor Caratini"
-     },
-     {
-      "name": "Brooks Lee"
-     },
-     {
-      "name": "Tristan Gray"
-     },
-     {
-      "name": "Luke Keaschall"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "TEX",
-    "sp": {
-     "name": "Jack Leiter",
-     "hr9": null
+    {
+      "gamePk": 823533,
+      "status": "In Progress",
+      "gameTime": "2026-06-18T23:05:00Z",
+      "matchup": "CWS@NYY",
+      "away": {
+        "abbrev": "CWS",
+        "sp": {
+          "id": 663542,
+          "name": "Bryan Hudson",
+          "hr9": 0.26,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.121
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.253
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.239
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.287
+          },
+          {
+            "id": 700337,
+            "name": "Edgar Quero",
+            "iso": 0.051
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.172
+          },
+          {
+            "id": 682668,
+            "name": "Luisangel Acu\u00f1a",
+            "iso": 0.016
+          },
+          {
+            "id": 678577,
+            "name": "Junior Perez",
+            "iso": 0.0
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "NYY",
+        "sp": {
+          "id": 677960,
+          "name": "Ryan Weathers",
+          "hr9": 1.81,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.317
+          },
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.256
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.205
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.222
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.167
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.153
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.157
+          },
+          {
+            "id": 641555,
+            "name": "J.C. Escarra",
+            "iso": 0.09
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 76.7,
+        "wind_mph": 11.9,
+        "wind_dir": 240,
+        "tail_mph": 8.4,
+        "precip": 0
+      },
+      "wf": 1.04
     },
-    "lineup": [
-     {
-      "name": "Joc Pederson"
-     },
-     {
-      "name": "Josh Jung"
-     },
-     {
-      "name": "Brandon Nimmo"
-     },
-     {
-      "name": "Wyatt Langford"
-     },
-     {
-      "name": "Jake Burger"
-     },
-     {
-      "name": "Josh Smith"
-     },
-     {
-      "name": "Kyle Higashioka"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "BAL@SEA",
-   "wf": 1.0,
-   "weather": {
-    "emoji": "\ud83c\udfdf",
-    "cond": "Dome",
-    "lean": "Neutral",
-    "precip": null
-   },
-   "away": {
-    "abbrev": "BAL",
-    "sp": {
-     "name": "Shane Baz",
-     "hr9": null
+    {
+      "gamePk": 824098,
+      "status": "In Progress",
+      "gameTime": "2026-06-18T23:40:00Z",
+      "matchup": "STL@KC",
+      "away": {
+        "abbrev": "STL",
+        "sp": {
+          "id": 669461,
+          "name": "Matthew Liberatore",
+          "hr9": 1.87,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.144
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.159
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.248
+          },
+          {
+            "id": 676369,
+            "name": "Nelson Vel\u00e1zquez",
+            "iso": 0.286
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.202
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.079
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.272
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.111
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.145
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "KC",
+        "sp": {
+          "id": 702070,
+          "name": "Noah Cameron",
+          "hr9": 0.99,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.135
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.171
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.162
+          },
+          {
+            "id": 516782,
+            "name": "Starling Marte",
+            "iso": 0.087
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.125
+          },
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.185
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.141
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.088
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.204
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 68.1,
+        "wind_mph": 3.8,
+        "wind_dir": 208,
+        "tail_mph": 3.6,
+        "precip": 0
+      },
+      "wf": 1.01
     },
-    "lineup": [
-     {
-      "name": "Taylor Ward"
-     },
-     {
-      "name": "Gunnar Henderson"
-     },
-     {
-      "name": "Adley Rutschman"
-     },
-     {
-      "name": "Pete Alonso"
-     },
-     {
-      "name": "Samuel Basallo"
-     },
-     {
-      "name": "Colton Cowser"
-     },
-     {
-      "name": "Jackson Holliday"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "SEA",
-    "sp": {
-     "name": "Bryan Woo",
-     "hr9": null
+    {
+      "gamePk": 824989,
+      "status": "Pre-Game",
+      "gameTime": "2026-06-19T01:40:00Z",
+      "matchup": "LAA@ATH",
+      "away": {
+        "abbrev": "LAA",
+        "sp": {
+          "id": 696270,
+          "name": "Ryan Johnson",
+          "hr9": 3.24,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "ATH",
+        "sp": {
+          "id": 695611,
+          "name": "Gage Jump",
+          "hr9": 0.0,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.224
+          },
+          {
+            "id": 701762,
+            "name": "Nick Kurtz",
+            "iso": 0.261
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.247
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.227
+          },
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.1
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.242
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.168
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.11
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.084
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 64\u00b0",
+        "lean": "Boost",
+        "temp": 64.0,
+        "wind_mph": 10.4,
+        "wind_dir": 227,
+        "tail_mph": 10.1,
+        "precip": 1
+      },
+      "wf": 1.026
     },
-    "lineup": [
-     {
-      "name": "J.P. Crawford"
-     },
-     {
-      "name": "Cal Raleigh"
-     },
-     {
-      "name": "Julio Rodriguez"
-     },
-     {
-      "name": "Luke Raley"
-     },
-     {
-      "name": "Dominic Canzone"
-     },
-     {
-      "name": "Cole Young"
-     },
-     {
-      "name": "Colt Emerson"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "NYM@PHI",
-   "wf": 1.08,
-   "weather": {
-    "emoji": "\u2600\ufe0f",
-    "cond": "wind out 17mph, 89\u00b0",
-    "lean": "Boost",
-    "precip": 18
-   },
-   "away": {
-    "abbrev": "NYM",
-    "sp": {
-     "name": "Sean Manaea",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Carson Benge"
-     },
-     {
-      "name": "Bo Bichette"
-     },
-     {
-      "name": "Juan Soto"
-     },
-     {
-      "name": "Jared Young"
-     },
-     {
-      "name": "Marcus Semien"
-     },
-     {
-      "name": "Brett Baty"
-     },
-     {
-      "name": "MJ Melendez"
-     },
-     {
-      "name": "Francisco Alvarez"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "PHI",
-    "sp": {
-     "name": "Aaron Nola",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Kyle Schwarber"
-     },
-     {
-      "name": "Bryce Harper"
-     },
-     {
-      "name": "Brandon Marsh"
-     },
-     {
-      "name": "Alec Bohm"
-     },
-     {
-      "name": "J.T. Realmuto"
-     },
-     {
-      "name": "Bryson Stott"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "CWS@NYY",
-   "wf": 1.08,
-   "weather": {
-    "emoji": "\u2600\ufe0f",
-    "cond": "wind out 16mph, 88\u00b0",
-    "lean": "Boost",
-    "precip": 16
-   },
-   "away": {
-    "abbrev": "CWS",
-    "sp": {
-     "name": "Sean Burke",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Chase Meidroth"
-     },
-     {
-      "name": "Randal Grichuk"
-     },
-     {
-      "name": "Miguel Vargas"
-     },
-     {
-      "name": "Colson Montgomery"
-     },
-     {
-      "name": "Braden Montgomery"
-     },
-     {
-      "name": "Sam Antonacci"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "NYY",
-    "sp": {
-     "name": "Ryan Weathers",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Ben Rice"
-     },
-     {
-      "name": "Jasson Dominguez"
-     },
-     {
-      "name": "Cody Bellinger"
-     },
-     {
-      "name": "Paul Goldschmidt"
-     },
-     {
-      "name": "Jazz Chisholm"
-     },
-     {
-      "name": "Spencer Jones"
-     },
-     {
-      "name": "Ryan McMahon"
-     },
-     {
-      "name": "J.C. Escarra"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "SF@ATL",
-   "wf": 1.043,
-   "weather": {
-    "emoji": "\ud83c\udf27\ufe0f",
-    "cond": "wind out 10mph, 75\u00b0, rain",
-    "lean": "Boost",
-    "precip": 93
-   },
-   "away": {
-    "abbrev": "SF",
-    "sp": {
-     "name": "Landen Roupp",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Casey Schmitt"
-     },
-     {
-      "name": "Rafael Devers"
-     },
-     {
-      "name": "Willy Adames"
-     },
-     {
-      "name": "Bryce Eldridge"
-     },
-     {
-      "name": "Matt Chapman"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "ATL",
-    "sp": {
-     "name": "Martin Perez",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Drake Baldwin"
-     },
-     {
-      "name": "Michael Harris"
-     },
-     {
-      "name": "Matt Olson"
-     },
-     {
-      "name": "Ozzie Albies"
-     },
-     {
-      "name": "Dominic Smith"
-     },
-     {
-      "name": "Austin Riley"
-     },
-     {
-      "name": "Mike Yastrzemski"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "STL@KC",
-   "wf": 1.012,
-   "weather": {
-    "emoji": "\u26c5",
-    "cond": "L-R 6mph, 78\u00b0",
-    "lean": "Neutral",
-    "precip": 2
-   },
-   "away": {
-    "abbrev": "STL",
-    "sp": {
-     "name": "Matthew Liberatore",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "JJ Wetherholt"
-     },
-     {
-      "name": "Ivan Herrera"
-     },
-     {
-      "name": "Jordan Walker"
-     },
-     {
-      "name": "Nelson Velazquez"
-     },
-     {
-      "name": "Alec Burleson"
-     },
-     {
-      "name": "Masyn Winn"
-     },
-     {
-      "name": "Nathan Church"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "KC",
-    "sp": {
-     "name": "Noah Cameron",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Lane Thomas"
-     },
-     {
-      "name": "Bobby Witt"
-     },
-     {
-      "name": "Jac Caglianone"
-     },
-     {
-      "name": "Maikel Garcia"
-     },
-     {
-      "name": "Salvador Perez"
-     },
-     {
-      "name": "Nick Loftin"
-     },
-     {
-      "name": "Isaac Collins"
-     }
-    ]
-   }
-  },
-  {
-   "matchup": "LAA@ATH",
-   "wf": 1.018,
-   "weather": {
-    "emoji": "\u26c5",
-    "cond": "wind 13mph, 82\u00b0, Sacramento",
-    "lean": "Neutral",
-    "precip": 1
-   },
-   "away": {
-    "abbrev": "LAA",
-    "sp": {
-     "name": "Jose Soriano",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Zach Neto"
-     },
-     {
-      "name": "Mike Trout"
-     },
-     {
-      "name": "Jo Adell"
-     },
-     {
-      "name": "Vaughn Grissom"
-     },
-     {
-      "name": "Logan O'Hoppe"
-     },
-     {
-      "name": "Jose Siri"
-     }
-    ]
-   },
-   "home": {
-    "abbrev": "ATH",
-    "sp": {
-     "name": "Gage Jump",
-     "hr9": null
-    },
-    "lineup": [
-     {
-      "name": "Nick Kurtz"
-     },
-     {
-      "name": "Tyler Soderstrom"
-     },
-     {
-      "name": "Shea Langeliers"
-     },
-     {
-      "name": "Carlos Cortes"
-     },
-     {
-      "name": "Zack Gelof"
-     },
-     {
-      "name": "Lawrence Butler"
-     }
-    ]
-   }
-  }
- ]
+    {
+      "gamePk": 824911,
+      "status": "Postponed",
+      "gameTime": "2026-06-18T23:15:00Z",
+      "matchup": "SF@ATL",
+      "away": {
+        "abbrev": "SF",
+        "sp": {
+          "id": 694738,
+          "name": "Landen Roupp",
+          "hr9": 0.48,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "ATL",
+        "sp": {
+          "id": 527048,
+          "name": "Mart\u00edn P\u00e9rez",
+          "hr9": 0.87,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\ud83c\udf27\ufe0f",
+        "cond": "wind out 10mph, 72\u00b0",
+        "lean": "Boost",
+        "temp": 72.0,
+        "wind_mph": 11.9,
+        "wind_dir": 196,
+        "tail_mph": 9.9,
+        "precip": 83
+      },
+      "wf": 1.038
+    }
+  ]
 }
