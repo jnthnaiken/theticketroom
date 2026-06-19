@@ -456,9 +456,6 @@ def assemble(D):
     spent = {n for t in parlays for n in t['legs']}        # only bats in KEPT parlays; dropped-parlay anchors/legs become builders
     for n in byS([x for x in nonchalk if x not in spent]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
-    _shown = {l['name'] for t in tickets for l in t['players']}        # SAFETY: every nonchalk (33) pool bat must surface on a ticket
-    for n in byS([x for x in nonchalk if x not in _shown]):
-        add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
     wx = D.get('meta', {}).get('wx', {})

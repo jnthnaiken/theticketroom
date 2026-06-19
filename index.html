@@ -740,8 +740,6 @@ drawTickets();drawPlayers();drawTracker();
       var lunchc=byO(Object.keys(chalk).filter(function(n){return lunchG[P[n].game];})); if(lunchc.length) mkF('lunch','\uD83C\uDF71',[lunchc[0]]);
       var spent={}; parlays.forEach(function(t){ t.legs.forEach(function(n){spent[n]=1;}); });   // only KEPT-parlay bats; dropped anchors/legs become builders
       byS(nonchalk.filter(function(n){return !spent[n];})).forEach(function(n){ mkF('builder','\uD83D\uDCB0',[n]); });
-      var _shown={}; out.forEach(function(t){t.players.forEach(function(l){_shown[l.name]=1;});});   // SAFETY: every nonchalk (33) pool bat must surface
-      byS(nonchalk.filter(function(n){return !_shown[n];})).forEach(function(n){ mkF('builder','\uD83D\uDCB0',[n]); });
     }
 
     // ---- post-process: wxsum / confleg / rr.maxprofit ----
