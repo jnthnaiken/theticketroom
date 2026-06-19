@@ -169,11 +169,12 @@ def fold(season, date, night_grades):
         c["won"]    += 1 if g["won"] else 0
         c["units"]  = round(c["units"]  + g["net"],   2)
         c["staked"] = round(c["staked"] + g["stake"], 2)
+    # one history point per graded NIGHT (matches index.html and the original seed),
+    # not one per ticket -- a per-ticket fold corrupts the sparkline granularity.
     hist = list(season.get("history", [0.0])) or [0.0]
-    run = hist[-1]
-    for g in night_grades:
-        run = round(run + g["net"], 2)
-        hist.append(run)
+    night_net = round(sum(g["net"] for g in night_grades), 2)
+    if abs(night_net) > 1e-9:
+        hist.append(round(hist[-1] + night_net, 2))
     season["cats"] = cats
     season["history"] = hist
     gn = set(season.get("graded_nights", []))

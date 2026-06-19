@@ -216,9 +216,9 @@ if _pd and _nl and _nd and os.path.exists(_pd) and os.path.exists(_nl):
             c=cats.setdefault(t['kind'],{'graded':0,'won':0,'units':0.0,'staked':0.0})
             c['graded']+=1; c['won']+=1 if t['won'] else 0
             c['units']=round(c['units']+t['net'],2); c['staked']=round(c['staked']+t['stake'],2)
-        hist=list(prior['history']); run=hist[-1]
-        for t in night:
-            run=round(run+t['net'],2); hist.append(run)
+        hist=list(prior['history'])
+        night_net=round(sum(t['net'] for t in night),2)
+        if abs(night_net)>1e-9: hist.append(round(hist[-1]+night_net,2))
         season={'since':prior['since'],'stake':prior['stake'],'cats':cats,'history':hist,
                 'graded_nights':sorted(set(prior.get('graded_nights',[]))|{_nd})}
         print(f"season folded {_nd}: {round(sum(c['units'] for c in cats.values()),2):+.2f}u")
