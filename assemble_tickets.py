@@ -443,17 +443,27 @@ def assemble(D):
         if t['kind'] == 'biggest':
             add(name_for("biggest"), "biggest", t['badge'], t['legs'], rr=t['rr'])
 
-    # lunch special + nightcap come from the 8-ban chalk (the favorites), always
-    ncap = byO([n for n in chalk if P[n]['game'] in night_games])
-    if ncap:
-        add(name_for("late"), "late", "\U0001f303", [ncap[0]])
-    lunchc = byO([n for n in chalk if P[n]['game'] in lunch_games])
-    if lunchc:
-        add(name_for("lunch"), "lunch", "\U0001f371", [lunchc[0]])
+    # lunch special + nightcap = the BEST bat (highest TOTAL) in the earliest / latest game, period.
+    # Any eligible bat -- no longer limited to the ban-8 and no longer ordered by odds -- so neither
+    # slot comes up empty when no favorite happens to be in that game. Rain gate still applies: a
+    # >=70% game isn't in `elig`, so it can't host the nightcap/lunch.
+    featured = set()
+    egames   = {P[n]['game'] for n in elig}
+    gstart   = {g: min((gmin(P[n]['gtime']) or 0) for n in elig if P[n]['game'] == g) for g in egames}
+    if egames:
+        night_g = max(egames, key=lambda g: gstart[g])             # latest game with an eligible bat
+        ncap    = byT([n for n in elig if P[n]['game'] == night_g])
+        if ncap:
+            add(name_for("late"), "late", "\U0001f303", [ncap[0]]); featured.add(ncap[0])
+        early_g = min(egames, key=lambda g: gstart[g])             # earliest game with an eligible bat
+        if gstart[early_g] < LUNCH_CUT_MIN:                        # lunch stays a genuine midday play
+            lunchc = byT([n for n in elig if P[n]['game'] == early_g])
+            if lunchc:
+                add(name_for("lunch"), "lunch", "\U0001f371", [lunchc[0]]); featured.add(lunchc[0])
 
-    # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
-    # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
-    spent = {n for t in parlays for n in t['legs']}        # only bats in KEPT parlays; dropped-parlay anchors/legs become builders
+    # builders: every remaining NONCHALK bat as a single, minus anything already shown as lunch/nightcap.
+    # (Chalk is never a builder; the buildable 33 land on tickets, the rest sit in lunch/nightcap.)
+    spent = {n for t in parlays for n in t['legs']} | featured     # KEPT-parlay bats + the lunch/nightcap picks
     for n in byS([x for x in nonchalk if x not in spent]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
