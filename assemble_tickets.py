@@ -120,7 +120,7 @@ def assemble(D):
     pend = lambda n: bool(P[n].get('pending')) or n in carry_names or (50 <= _precip(n) < 70)   # 50-69%% rain -> singles(builder) only, never a parlay leg
     elig = [n for n, p in P.items()
             if p.get('odds') and not p.get('out') and not p.get('void') and _precip(n) < 70]   # >=70%% rain -> game out of the pool entirely
-    byT  = lambda names: sorted(names, key=lambda n: P[n]['TOTAL'], reverse=True)
+    byT  = lambda names: sorted(names, key=lambda n: (P[n]['TOTAL'], P[n]['aT']), reverse=True)   # TOTAL desc; ties broken by aT (base) so the hard 33-cut is deterministic
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
