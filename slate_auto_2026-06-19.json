@@ -1,11 +1,11 @@
 {
   "date": "2026-06-19",
   "season": "2026",
-  "pulled_at": "2026-06-19T18:00:29Z",
+  "pulled_at": "2026-06-19T18:30:27Z",
   "games": [
     {
       "gamePk": 824663,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-06-19T18:20:00Z",
       "matchup": "TOR@CHC",
       "away": {
@@ -20,7 +20,7 @@
           {
             "id": 543807,
             "name": "George Springer",
-            "iso": 0.158
+            "iso": 0.157
           },
           {
             "id": 665489,
@@ -30,7 +30,7 @@
           {
             "id": 660821,
             "name": "Jes\u00fas S\u00e1nchez",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 682818,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 676962,
           "name": "Ben Brown",
-          "hr9": 0.15,
+          "hr9": 0.14,
           "hand": "RHP"
         },
         "lineup": [
@@ -462,7 +462,7 @@
     },
     {
       "gamePk": 824345,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-20T00:40:00Z",
       "matchup": "PIT@COL",
       "away": {
@@ -484,10 +484,56 @@
           "hr9": 2.15,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.155
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.125
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.285
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.188
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.101
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.333
+          },
+          {
+            "id": 694514,
+            "name": "Sterlin Thompson",
+            "iso": 0.161
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.117
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.124
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
