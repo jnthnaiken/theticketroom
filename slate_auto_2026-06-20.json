@@ -1,7 +1,7 @@
 {
   "date": "2026-06-20",
   "season": "2026",
-  "pulled_at": "2026-06-20T15:00:28Z",
+  "pulled_at": "2026-06-20T15:30:28Z",
   "games": [
     {
       "gamePk": 824263,
@@ -132,7 +132,7 @@
         "wind_mph": 11.0,
         "wind_dir": 283,
         "tail_mph": 3.2,
-        "precip": 5
+        "precip": 4
       },
       "wf": 1.022
     },
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824665,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-20T18:20:00Z",
       "matchup": "TOR@CHC",
       "away": {
@@ -293,10 +293,56 @@
           "hr9": 1.46,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.227
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.094
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.179
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.152
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.101
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.243
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.167
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.142
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.139
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
