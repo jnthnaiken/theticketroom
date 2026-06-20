@@ -26,12 +26,23 @@ FULL={'TOR':'Blue Jays','BOS':'Red Sox','CLE':'Guardians','MIL':'Brewers','MIN':
 # ---- auto-pulled inputs from fetch_mlb.py: weather->wf and pitcher HR/9, per matchup ----
 # slate_auto_<DATE>.json is produced/refreshed by the GitHub Action; the scorer reads
 # it at score time so wf and HR/9 reflect the latest pull (and update through the day).
+def _read_slate(date):
+    return json.load(open(f'slate_auto_{date}.json'))
+
 def load_slate(date):
+    # Primary: today's auto-pull. If it's missing, fall back to the PRIOR DAY's
+    # pull (so a missed/late fetch still gives a real schedule + weather/HR9 to
+    # build on) before giving up to the hardcoded foundation.
     try:
-        s=json.load(open(f'slate_auto_{date}.json'))
+        s=_read_slate(date)
     except Exception as e:
-        print(f"  (no slate_auto_{date}.json — wf/HR9 fall back to hardcoded: {e})")
-        return {}
+        prior=(datetime.datetime.strptime(date,'%Y-%m-%d')-datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+        try:
+            s=_read_slate(prior)
+            print(f"  (no slate_auto_{date}.json — falling back to prior day {prior})")
+        except Exception as e2:
+            print(f"  (no slate_auto_{date}.json or prior-day pull — wf/HR9 fall back to hardcoded: {e2})")
+            return {}
     out={}
     for g in s.get('games',[]):
         sp={}; lu={}; conf=set()
