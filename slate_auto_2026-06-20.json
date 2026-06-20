@@ -1,7 +1,7 @@
 {
   "date": "2026-06-20",
   "season": "2026",
-  "pulled_at": "2026-06-20T16:00:32Z",
+  "pulled_at": "2026-06-20T16:30:29Z",
   "games": [
     {
       "gamePk": 824263,
@@ -358,7 +358,7 @@
     },
     {
       "gamePk": 822885,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-20T20:05:00Z",
       "matchup": "SD@TEX",
       "away": {
@@ -375,15 +375,61 @@
       "home": {
         "abbrev": "TEX",
         "sp": {
-          "id": 543135,
-          "name": "Nathan Eovaldi",
-          "hr9": 1.75,
-          "hand": "RHP"
+          "id": 669022,
+          "name": "MacKenzie Gore",
+          "hr9": 0.92,
+          "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.2
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.148
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.189
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.152
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.156
+          },
+          {
+            "id": 672284,
+            "name": "Jarred Kelenic",
+            "iso": 0.093
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.185
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.07
+          },
+          {
+            "id": 543309,
+            "name": "Kyle Higashioka",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -398,7 +444,7 @@
     },
     {
       "gamePk": 822967,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-20T20:10:00Z",
       "matchup": "WSH@TB",
       "away": {
@@ -420,10 +466,56 @@
           "hr9": 1.41,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.184
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.178
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.111
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.209
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.088
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.046
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.143
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.071
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.061
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -635,7 +727,7 @@
         "wind_mph": 14.4,
         "wind_dir": 16,
         "tail_mph": -13.8,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.949
     },
