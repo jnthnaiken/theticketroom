@@ -16,6 +16,7 @@ still builds on real data). ISO falls back to the legacy ISO sheet, then to the 
 season.json is the authoritative ledger (grade_night advances it); we just load it.
 """
 import math, statistics as st, json, unicodedata, re, ast, os, datetime
+import cardnotes
 
 DATE = os.environ.get('SLATE_DATE') or (datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%Y-%m-%d')
 def _prior(d): return (datetime.datetime.strptime(d,'%Y-%m-%d')-datetime.timedelta(days=1)).strftime('%Y-%m-%d')
@@ -78,7 +79,7 @@ for g in lin['games']:
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,
                 hr9=None,wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,ftrend=c.get('form_arrow','flat'),
-                odds=ODDS.get(n),soft=True,why=(gm.replace('@',' @ ')+" ("+lean+"). Faces "+opp_sp[0]+" ("+opp_sp[1]+")."))
+                odds=ODDS.get(n),soft=True,why="")
 
 pool=list(players.values()); raws=sorted(r['powraw'] for r in pool); N=len(raws)
 def pct(p):
@@ -92,6 +93,10 @@ isoT=lambda I:clamp(1+0.08*(I-medI)/0.06,0.92,1.08)
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
     r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*pM(r['wf']),1)
+
+# descriptive per-player write-ups (same phrase engine as the ticket notes)
+for r in pool:
+    r['why']=cardnotes.card_why(r)
 
 wx={}
 for gn,g in gamemeta.items():
