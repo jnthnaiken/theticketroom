@@ -50,6 +50,10 @@ ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO el
 
 cards=load_dated('cards'); lin=load_dated('lineups')
 ODDS={norm(k):v for k,v in load_dated('odds').items()}
+def pnorm(x):
+    x=''.join(c for c in unicodedata.normalize('NFD',x or '') if not unicodedata.combining(c)).lower()
+    return re.sub(r'[^a-z ]','',x).strip()
+HR9={pnorm(k):v for k,v in load_dated('hr9',required=False).items()}
 
 def wf_of(g):
     if g.get('dome'): return 1.00
@@ -77,7 +81,7 @@ for g in lin['games']:
             lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=c['test'],zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,
-                hr9=None,wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
+                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
