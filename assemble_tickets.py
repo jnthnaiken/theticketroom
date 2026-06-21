@@ -307,22 +307,33 @@ def assemble(D):
         if len(parts) <= 1: return parts[0] if parts else ""
         if len(parts) == 2: return parts[0] + " and " + parts[1]
         return ", ".join(parts[:-1]) + ", and " + parts[-1]
+    def _shortc(p, used, seed):
+        SK={'price','spot','x','form_up','form_down','form_flat'}
+        rows=[r for r in _phrases(p) if r[1] not in SK] or _phrases(p)
+        if not rows: return 'takes his cuts'
+        avail=[r for r in rows if r[1] not in used] or rows
+        best=min(avail, key=lambda r: min(len(v) for v in r[2]))
+        used[best[1]]=1
+        return min(best[2], key=len)
+    def _clmp(s, B=116):
+        if not s or len(s)<=B: return s
+        t=s[:B]; i=max(t.rfind(", "), t.rfind(" and "))
+        if i<50: i=t.rfind(" ")
+        return s[:i].rstrip(" ,").rstrip(".")+"."
     def cwnote(kind, names):
         # Substance only: why each bat can leave the yard. A char-code seed varies each note's starting
         # phrase; _choose then guarantees board-wide variety. No structural preamble, no filler.
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
         if len(names) == 1:
             a = P[names[0]]
-            return a.get('nm', names[0]) + " " + _join(_edges_fill(a, seed)) + "."
+            return _clmp(a.get('nm', names[0]) + " " + _join(_edges_fill(a, seed)) + ".")
         used = {}
-        parts = []
-        for i, n in enumerate(names):
-            ln = _lastnm(P[n].get('nm', n))
-            if i == 0:
-                parts.append(ln + " " + _join(_edges(P[n], 2, seed)))   # anchor gets two clauses
-            else:
-                parts.append(ln + " " + _pick(P[n], used, seed))
-        return _join(parts) + "."
+        parts = [ _lastnm(P[n].get('nm', n)) + " " + _shortc(P[n], used, seed) for n in names ]
+        full = _join(parts) + "."
+        if len(full) <= 116: return full
+        anc = _lastnm(P[names[0]].get('nm', names[0])) + " " + _shortc(P[names[0]], {}, seed)
+        rest = [_lastnm(P[n].get('nm', n)) for n in names[1:]]
+        return _clmp(anc + ", with " + _join(rest) + ".")
 
     # ---- ANCHOR SELECTION + SNAKE DRAFT (update 5) ----
     # We want the 4 strongest anchors whose lineup-timing schedule can actually FEED the board. A moon needs its
