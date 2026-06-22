@@ -30,6 +30,7 @@ THE THREE UPDATES
 import re, datetime
 
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
+NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
 CHALK_N       = 8                # the ban8: 8 shortest-odds bats among the featured pool (nightcap/lunch ONLY)
 GATE_N        = 33               # buildable pool = 33; we take top (33+8) by TOTAL so the ban8 leaves 33
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
@@ -169,7 +170,7 @@ def assemble(D):
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]
     latest      = max(cand_t) if cand_t else 0
     lunch_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
-    night_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) == latest}
+    night_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) >= latest - NIGHT_WIN}
 
     # anchor CANDIDATES: strongest nonchalk by STRENGTH, one per game, never pending/below-floor.
     # The final 4 anchors are chosen from these for the best fittable schedule (see the draft below), so
