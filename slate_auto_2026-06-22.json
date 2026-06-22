@@ -1,7 +1,7 @@
 {
   "date": "2026-06-22",
   "season": "2026",
-  "pulled_at": "2026-06-22T22:26:46Z",
+  "pulled_at": "2026-06-22T22:30:30Z",
   "games": [
     {
       "gamePk": 824261,
@@ -92,7 +92,7 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.144
+            "iso": 0.143
           },
           {
             "id": 679529,
@@ -664,139 +664,6 @@
         "precip": null
       },
       "wf": 1.0
-    },
-    {
-      "gamePk": 823613,
-      "status": "Pre-Game",
-      "gameTime": "2026-06-22T23:10:00Z",
-      "matchup": "CHC@NYM",
-      "away": {
-        "abbrev": "CHC",
-        "sp": {
-          "id": 684007,
-          "name": "Shota Imanaga",
-          "hr9": 1.77,
-          "hand": "LHP"
-        },
-        "lineup": [
-          {
-            "id": 691718,
-            "name": "Pete Crow-Armstrong",
-            "iso": 0.235
-          },
-          {
-            "id": 608324,
-            "name": "Alex Bregman",
-            "iso": 0.1
-          },
-          {
-            "id": 683737,
-            "name": "Michael Busch",
-            "iso": 0.149
-          },
-          {
-            "id": 673548,
-            "name": "Seiya Suzuki",
-            "iso": 0.176
-          },
-          {
-            "id": 664023,
-            "name": "Ian Happ",
-            "iso": 0.239
-          },
-          {
-            "id": 807713,
-            "name": "Matt Shaw",
-            "iso": 0.185
-          },
-          {
-            "id": 663538,
-            "name": "Nico Hoerner",
-            "iso": 0.093
-          },
-          {
-            "id": 608348,
-            "name": "Carson Kelly",
-            "iso": 0.108
-          },
-          {
-            "id": 621020,
-            "name": "Dansby Swanson",
-            "iso": 0.142
-          }
-        ],
-        "confirmed": true
-      },
-      "home": {
-        "abbrev": "NYM",
-        "sp": {
-          "id": 673540,
-          "name": "Kodai Senga",
-          "hr9": 2.63,
-          "hand": "RHP"
-        },
-        "lineup": [
-          {
-            "id": 701807,
-            "name": "Carson Benge",
-            "iso": 0.147
-          },
-          {
-            "id": 666182,
-            "name": "Bo Bichette",
-            "iso": 0.119
-          },
-          {
-            "id": 665742,
-            "name": "Juan Soto",
-            "iso": 0.274
-          },
-          {
-            "id": 543760,
-            "name": "Marcus Semien",
-            "iso": 0.132
-          },
-          {
-            "id": 668901,
-            "name": "Mark Vientos",
-            "iso": 0.17
-          },
-          {
-            "id": 676572,
-            "name": "Eric Wagaman",
-            "iso": 0.231
-          },
-          {
-            "id": 682626,
-            "name": "Francisco Alvarez",
-            "iso": 0.135
-          },
-          {
-            "id": 805999,
-            "name": "A.J. Ewing",
-            "iso": 0.113
-          },
-          {
-            "id": 670097,
-            "name": "Zack Short",
-            "iso": 0.046
-          }
-        ],
-        "confirmed": true
-      },
-      "lineups_posted": true,
-      "weather": {
-        "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 71\u00b0",
-        "lean": "Boost",
-        "temp": 70.8,
-        "wind_mph": 8.1,
-        "wind_dir": 166,
-        "tail_mph": 6.3,
-        "precip": 33
-      },
-      "wf": 1.023
     },
     {
       "gamePk": 824502,
@@ -1728,6 +1595,47 @@
         "precip": 0
       },
       "wf": 0.988
+    },
+    {
+      "gamePk": 823613,
+      "status": "Postponed",
+      "gameTime": "2026-06-22T23:10:00Z",
+      "matchup": "CHC@NYM",
+      "away": {
+        "abbrev": "CHC",
+        "sp": {
+          "id": 684007,
+          "name": "Shota Imanaga",
+          "hr9": 1.77,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "NYM",
+        "sp": {
+          "id": 673540,
+          "name": "Kodai Senga",
+          "hr9": 2.63,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 71\u00b0",
+        "lean": "Boost",
+        "temp": 70.8,
+        "wind_mph": 8.1,
+        "wind_dir": 166,
+        "tail_mph": 6.3,
+        "precip": 33
+      },
+      "wf": 1.023
     }
   ]
 }
