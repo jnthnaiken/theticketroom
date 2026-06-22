@@ -1,7 +1,7 @@
 {
   "date": "2026-06-22",
   "season": "2026",
-  "pulled_at": "2026-06-22T18:00:34Z",
+  "pulled_at": "2026-06-22T18:30:30Z",
   "games": [
     {
       "gamePk": 824261,
@@ -92,7 +92,7 @@
     },
     {
       "gamePk": 822964,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-22T22:40:00Z",
       "matchup": "KC@TB",
       "away": {
@@ -103,8 +103,54 @@
           "hr9": 0.96,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.193
+          },
+          {
+            "id": 672580,
+            "name": "Maikel Garcia",
+            "iso": 0.11
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.205
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.135
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.191
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.132
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.857
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.171
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.092
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
@@ -117,7 +163,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -205,7 +251,7 @@
         "wind_mph": 3.7,
         "wind_dir": 142,
         "tail_mph": 1.4,
-        "precip": 23
+        "precip": 20
       },
       "wf": 1.013
     },
@@ -331,7 +377,7 @@
     },
     {
       "gamePk": 823692,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-22T23:40:00Z",
       "matchup": "LAD@MIN",
       "away": {
@@ -353,10 +399,56 @@
           "hr9": 1.66,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.146
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.316
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.221
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.152
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.17
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.121
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.187
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.077
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.243
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -489,7 +581,7 @@
         "wind_mph": 5.0,
         "wind_dir": 198,
         "tail_mph": 4.8,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.024
     },
