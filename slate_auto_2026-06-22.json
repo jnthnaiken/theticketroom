@@ -1,7 +1,7 @@
 {
   "date": "2026-06-22",
   "season": "2026",
-  "pulled_at": "2026-06-22T21:00:30Z",
+  "pulled_at": "2026-06-22T21:30:29Z",
   "games": [
     {
       "gamePk": 824261,
@@ -529,7 +529,7 @@
         "wind_mph": 2.5,
         "wind_dir": 185,
         "tail_mph": 2.3,
-        "precip": 22
+        "precip": 24
       },
       "wf": 1.012
     },
@@ -794,7 +794,7 @@
         "wind_mph": 1.7,
         "wind_dir": 130,
         "tail_mph": 0.4,
-        "precip": 28
+        "precip": 29
       },
       "wf": 1.001
     },
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 824344,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-23T00:40:00Z",
       "matchup": "BOS@COL",
       "away": {
@@ -1343,8 +1343,54 @@
           "hr9": 0.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.07
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.162
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.158
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.243
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.173
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.146
+          },
+          {
+            "id": 807799,
+            "name": "Masataka Yoshida",
+            "iso": 0.082
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.091
+          },
+          {
+            "id": 691785,
+            "name": "Marcelo Mayer",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -1354,10 +1400,56 @@
           "hr9": 1.54,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.122
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.098
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.204
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.275
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.3
+          },
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.17
+          },
+          {
+            "id": 690924,
+            "name": "Braxton Fulford",
+            "iso": 0.177
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.114
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
