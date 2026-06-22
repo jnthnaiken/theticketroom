@@ -1,11 +1,11 @@
 {
   "date": "2026-06-22",
   "season": "2026",
-  "pulled_at": "2026-06-22T22:00:35Z",
+  "pulled_at": "2026-06-22T22:26:46Z",
   "games": [
     {
       "gamePk": 824261,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-06-22T22:10:00Z",
       "matchup": "NYY@DET",
       "away": {
@@ -13,24 +13,24 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.29,
+          "hr9": 1.26,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 642708,
             "name": "Amed Rosario",
-            "iso": 0.214
+            "iso": 0.212
           },
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.323
+            "iso": 0.322
           },
           {
             "id": 502671,
             "name": "Paul Goldschmidt",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 641355,
@@ -40,7 +40,7 @@
           {
             "id": 683011,
             "name": "Anthony Volpe",
-            "iso": 0.113
+            "iso": 0.111
           },
           {
             "id": 665862,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 664285,
           "name": "Framber Valdez",
-          "hr9": 0.97,
+          "hr9": 0.96,
           "hand": "LHP"
         },
         "lineup": [
@@ -82,12 +82,12 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.277
+            "iso": 0.276
           },
           {
             "id": 681481,
             "name": "Kerry Carpenter",
-            "iso": 0.252
+            "iso": 0.25
           },
           {
             "id": 682985,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822964,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-22T22:40:00Z",
       "matchup": "KC@TB",
       "away": {
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823851,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-22T22:40:00Z",
       "matchup": "TEX@MIA",
       "away": {
@@ -794,7 +794,7 @@
         "wind_mph": 8.1,
         "wind_dir": 166,
         "tail_mph": 6.3,
-        "precip": 29
+        "precip": 33
       },
       "wf": 1.023
     },
@@ -1476,8 +1476,54 @@
           "hr9": 1.22,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.1
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.198
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.226
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.178
+          },
+          {
+            "id": 641933,
+            "name": "Tyler O'Neill",
+            "iso": 0.088
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.135
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.164
+          },
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.158
+          },
+          {
+            "id": 669087,
+            "name": "Sam Huff",
+            "iso": 0.105
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
