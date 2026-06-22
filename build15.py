@@ -33,8 +33,21 @@ def load_dated(stem, required=True):
 norm=lambda s:''.join(c for c in unicodedata.normalize('NFKD',s) if not unicodedata.combining(c)).lower().replace('.','').strip()
 clamp=lambda x,a,b:max(a,min(b,x))
 fF=lambda f:1.0 if f is None else clamp(1+0.006*(f-50),0.85,1.15)
-pM=lambda w:1.0 if w is None else 1+(0.25 if w<1 else 0.30)*(w-1)
+pM=lambda w:1.0 if w is None else 1+W_WEATHER*(w-1)
 la_window=lambda la:math.exp(-((la-25.0)/14.0)**2)
+
+# ---- weather / park knobs (tunable; symmetric) ----
+W_WIND   = 0.0035   # wf per mph of tailwind toward CF
+W_TEMP   = 0.0015   # wf per F above 70 (cold subtracts the same)
+W_ELEV   = 0.025    # wf per 1000 ft of park elevation (thin-air carry; Coors ~+13%)
+W_WEATHER= 0.30     # how hard wf pushes TOTAL via pM (same up and down)
+WX_CLAMP = 0.10     # symmetric cap on the wind+temp part (+/-10%)
+PARK_ELEV= {'COL':5200,'ATH':2000,'ATL':1050,'MIN':815,'KC':750,'PIT':730,'CLE':660,'CHC':600,'DET':600,
+            'CIN':490,'STL':465,'LAD':522,'LAA':160,'SD':62,'SF':13,'NYY':55,'NYM':36,'PHI':39,'BOS':20,
+            'BAL':36,'WSH':30,'ARI':1100,'SEA':134,'HOU':80,'MIA':10,'TB':44,'TOR':250,'TEX':545,'MIL':635}
+CF_AZ    = {'ARI':0,'ATL':50,'BAL':30,'BOS':45,'CHC':30,'CWS':38,'CIN':40,'CLE':0,'COL':0,'DET':30,'HOU':20,
+            'KC':45,'LAA':40,'LAD':25,'MIA':35,'MIL':30,'MIN':7,'NYM':25,'NYY':15,'ATH':62,'PHI':15,'PIT':70,
+            'SD':0,'SF':85,'SEA':60,'STL':30,'TB':50,'TEX':40,'TOR':0,'WSH':30}   # plate->CF bearing (deg); ATH=Vegas placeholder
 FULL={'TOR':'Blue Jays','BOS':'Red Sox','CLE':'Guardians','MIL':'Brewers','MIN':'Twins','TEX':'Rangers','BAL':'Orioles','SEA':'Mariners','NYM':'Mets','PHI':'Phillies','CWS':'White Sox','NYY':'Yankees','SF':'Giants','ATL':'Braves','STL':'Cardinals','KC':'Royals','LAA':'Angels','ATH':'Athletics','COL':'Rockies','CHC':'Cubs','TB':'Rays','LAD':'Dodgers','MIA':'Marlins','PIT':'Pirates','DET':'Tigers','HOU':'Astros','CIN':'Reds','AZ':'Diamondbacks','ARI':'Diamondbacks','WSH':'Nationals','SD':'Padres'}
 
 # ---- ISO: today's sheet primary, legacy build15 sheet as fallback, then floor ----
@@ -54,13 +67,25 @@ def pnorm(x):
     x=''.join(c for c in unicodedata.normalize('NFD',x or '') if not unicodedata.combining(c)).lower()
     return re.sub(r'[^a-z ]','',x).strip()
 HR9={pnorm(k):v for k,v in load_dated('hr9',required=False).items()}
+SLATE={(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
 
 def wf_of(g):
+    # park factor = symmetric weather (tailwind + temp, capped +/-WX_CLAMP) * elevation. Domes -> 1.0.
+    # Tailwind is the wind vector PROJECTED onto the plate->CF axis (handles crosswinds / any angle):
+    #   tail = speed * cos(wind_toward - CF_azimuth).  Needs wind direction in DEGREES (Open-Meteo).
+    # RotoWire only gives Out/In/L-R, so without degrees we fall back to a coarse +1/-1/0 bucket.
     if g.get('dome'): return 1.00
-    w=(g.get('wind') or '')
-    if 'Out' in w: return 1.05
-    if 'In' in w and 'mph' in w: return 0.95
-    return 1.00
+    w=(g.get('wind') or ''); m=re.search(r'(\d+)\s*mph',w); spd=int(m.group(1)) if m else 0
+    deg=g.get('wind_deg')
+    if deg is not None:                                   # real bearing -> continuous projection
+        toward=(deg+180)%360
+        tail=spd*math.cos(math.radians(toward-CF_AZ.get(g.get('home'),0)))
+    else:                                                 # bucket fallback (lossy; can't resolve angle)
+        sign=1 if 'Out' in w else (-1 if re.search(r'\bIn\b',w) else 0); tail=spd*sign
+    temp=(g.get('temp') or 70)
+    wx_w=clamp(1.0+W_WIND*tail+W_TEMP*(temp-70), 1-WX_CLAMP, 1+WX_CLAMP)
+    wx_e=1.0+W_ELEV*(PARK_ELEV.get(g.get('home'),0)/1000.0)
+    return round(wx_w*wx_e, 3)
 def gmin(gt):
     m=re.match(r'(\d+):(\d+)\s*(AM|PM)',gt or '')
     return (int(m.group(1))%12+(12 if m.group(3)=='PM' else 0))*60+int(m.group(2)) if m else 0
@@ -68,7 +93,16 @@ is_late=lambda gt: gmin(gt)>=21*60
 
 players={}; gamemeta={}
 for g in lin['games']:
-    gn=g['gn']; gm=g['matchup']; gt=g['time']; wf=wf_of(g); gamemeta[gn]=g
+    gn=g['gn']; gm=g['matchup']; gt=g['time']
+    _sa=SLATE.get(gm)                                   # auto-pull (Open-Meteo) weather -> real wind bearing
+    if _sa:
+        _wx=_sa.get('weather') or {}
+        if _wx.get('wind_dir') is not None: g['wind_deg']=_wx['wind_dir']        # degrees -> cos-projection
+        if _wx.get('wind_mph') is not None: g['wind']=str(round(_wx['wind_mph']))+' mph'
+        if _wx.get('temp') is not None: g['temp']=_wx['temp']
+        if 'dome' in _wx: g['dome']=_wx['dome']
+        if _wx.get('precip') is not None: g['precip']=_wx['precip']
+    wf=wf_of(g); gamemeta[gn]=g
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
         posted={norm(x) for x in g[side+'_bats']}

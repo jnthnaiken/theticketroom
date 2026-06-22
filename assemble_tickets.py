@@ -124,15 +124,28 @@ def assemble(D):
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
-    # POOL: take the model's top (33 + 8) by TOTAL, then re-sort by odds. The 8 shortest-odds bats are
-    # the chalk -> lunch/nightcap ONLY (never builders). The remaining 33 are the parlay/builder pool.
-    # Taking 41 up front IS the backfill: pulling the 8 chalk never shrinks the buildable 33 (same idea
-    # as replacing a scratched bat with the next one).
-    cand     = byT(elig)[:GATE_N + CHALK_N]
-    ranked   = byO(cand)
-    chalk    = set(ranked[:CHALK_N])
-    nonchalk = ranked[CHALK_N:]
-    extra    = byT(elig)[GATE_N + CHALK_N:]
+    # POOL (top-3-per-team): rank the whole field by model TOTAL (kept full so replacements exist),
+    # take the top 41, re-sort by odds and ban the 8 shortest (chalk -> lunch/nightcap ONLY). From the
+    # remaining 33, keep at most a TOP-3 per team (best-by-model), trimming teams with more than 3. If
+    # the team cap drops us under GATE_N, backfill with the next bats by model (still <=3/team) until 33.
+    TEAM_CAP = 3
+    fullrank = byT(elig)                              # everyone ranked by model -> replacement order
+    cand     = fullrank[:GATE_N + CHALK_N]            # top 41 by model
+    ranked   = byO(cand)                              # re-sort those 41 by odds
+    chalk    = set(ranked[:CHALK_N])                  # ban-8 (lunch/nightcap only)
+    nonchalk, _tc = [], {}
+    for n in byT([x for x in cand if x not in chalk]):   # the 33, model order, trimmed to <=3/team
+        t = P[n]['code']
+        if _tc.get(t, 0) >= TEAM_CAP: continue
+        nonchalk.append(n); _tc[t] = _tc.get(t, 0) + 1
+    _have = set(nonchalk)
+    for n in fullrank:                                   # backfill to GATE_N with replacements, <=3/team
+        if len(nonchalk) >= GATE_N: break
+        if n in chalk or n in _have: continue
+        t = P[n]['code']
+        if _tc.get(t, 0) >= TEAM_CAP: continue
+        nonchalk.append(n); _have.add(n); _tc[t] = _tc.get(t, 0) + 1
+    extra    = [n for n in fullrank if n not in chalk and n not in _have]   # ranked replacements (#34+)
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
@@ -556,23 +569,4 @@ def carryover(D_today, D_prev):
         info = {'gmatch': p.get('gmatch'), 'date': prev_date}   # the resuming game to watch
         carry_meta.append({'name': n, 'ticket': bet_ticket.get(n), 'gmatch': p.get('gmatch')})
         if n in D_today.get('players', {}):
-            D_today['players'][n]['pending'] = info             # already in tonight's field -> just tag
-        else:
-            carried = dict(p); carried['pending'] = info         # not playing tonight -> carry the leg so it grades
-            D_today.setdefault('players', {})[n] = carried
-    if carry_meta:                                               # subtle settled-carryover strip data
-        D_today.setdefault('meta', {})['carryover'] = {'date': prev_date,
-            'gmatch': carry_meta[0]['gmatch'], 'bats': carry_meta}
-    return D_today
-
-
-if __name__ == "__main__":
-    import json
-    s = open('/mnt/user-data/outputs/index.html').read()
-    D = json.loads(re.search(r'const D=(\{.*?\}),WX=D\.meta\.wx;', s, re.S).group(1))
-    ts = assemble(D)
-    print(f"{len(ts)} tickets built\n")
-    for t in ts:
-        legs = " + ".join(f"{l['name']}(+{l['odds']})" for l in t['players'])
-        pay  = f"  $10->${t['payout10']}" if t['payout10'] else ""
-        print(f"  [{t['kind']:8}] {legs}{pay}")
+            D_today['players'][n]['pending'] = info             # already in
