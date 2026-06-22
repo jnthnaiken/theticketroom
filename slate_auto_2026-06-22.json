@@ -1,7 +1,7 @@
 {
   "date": "2026-06-22",
   "season": "2026",
-  "pulled_at": "2026-06-22T19:30:33Z",
+  "pulled_at": "2026-06-22T20:00:35Z",
   "games": [
     {
       "gamePk": 824261,
@@ -529,7 +529,7 @@
         "wind_mph": 2.5,
         "wind_dir": 153,
         "tail_mph": 1.4,
-        "precip": 20
+        "precip": 29
       },
       "wf": 1.013
     },
@@ -621,7 +621,7 @@
     },
     {
       "gamePk": 823613,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-22T23:10:00Z",
       "matchup": "CHC@NYM",
       "away": {
@@ -643,10 +643,56 @@
           "hr9": 2.63,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.147
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.119
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.274
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.132
+          },
+          {
+            "id": 668901,
+            "name": "Mark Vientos",
+            "iso": 0.17
+          },
+          {
+            "id": 676572,
+            "name": "Eric Wagaman",
+            "iso": 0.231
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.135
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.113
+          },
+          {
+            "id": 670097,
+            "name": "Zack Short",
+            "iso": 0.046
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -656,7 +702,7 @@
         "wind_mph": 10.8,
         "wind_dir": 159,
         "tail_mph": 7.5,
-        "precip": 32
+        "precip": 28
       },
       "wf": 1.027
     },
@@ -668,11 +714,59 @@
       "away": {
         "abbrev": "MIL",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 605540,
+          "name": "Brandon Woodruff",
+          "hr9": 1.2,
+          "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.148
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.239
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.193
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.118
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.226
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.16
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.086
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.052
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.09
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
@@ -989,8 +1083,54 @@
           "hr9": 1.06,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.16
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.164
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.204
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.24
+          },
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.18
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.095
+          },
+          {
+            "id": 699625,
+            "name": "Jimmy Crooks",
+            "iso": 0.125
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.2
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.145
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1043,7 +1183,7 @@
         "wind_mph": 6.3,
         "wind_dir": 188,
         "tail_mph": 6.2,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.027
     },
