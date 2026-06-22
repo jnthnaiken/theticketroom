@@ -334,20 +334,38 @@ def assemble(D):
         t=s[:B]; i=max(t.rfind(", "), t.rfind(" and "))
         if i<50: i=t.rfind(" ")
         return s[:i].rstrip(" ,").rstrip(".")+"."
+    def _edgesU(p, k, used, seed):
+        out = []
+        for w, dim, phs in _phrases(p):
+            if dim in used: continue
+            used[dim] = used.get(dim, 0) + 1
+            out.append(_choose(dim, phs, seed))
+            if len(out) >= k: break
+        if not out:
+            r = _phrases(p); out = [_choose(r[0][1], r[0][2], seed)]
+        return out
     def cwnote(kind, names):
-        # Substance only: why each bat can leave the yard. A char-code seed varies each note's starting
-        # phrase; _choose then guarantees board-wide variety. No structural preamble, no filler.
+        # Substance only: why each bat can leave the yard. Full-width cards (salami/nightcap/lunch) carry
+        # richer two-line notes since they have the room; grid cards (moons/builders) fill two normal lines.
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
+        WIDE = kind in ('biggest', 'late', 'lunch')
+        B = 210 if WIDE else 150
         if len(names) == 1:
             a = P[names[0]]
-            return _clmp(a.get('nm', names[0]) + " " + _join(_edges_fill(a, seed)) + ".")
+            cl = _edges_fill(a, seed, target=(190 if WIDE else 140), lo=4, hi=(9 if WIDE else 7))
+            return _clmp(a.get('nm', names[0]) + " " + _join(cl) + ".", B)
+        per = 2 if WIDE else 1
         used = {}
-        parts = [ _lastnm(P[n].get('nm', n)) + " " + _shortc(P[n], used, seed) for n in names ]
+        parts = [_lastnm(P[n].get('nm', n)) + " " + _join(_edgesU(P[n], per, used, seed)) for n in names]
         full = _join(parts) + "."
-        if len(full) <= 116: return full
+        if len(full) <= B: return full
+        used = {}
+        parts = [_lastnm(P[n].get('nm', n)) + " " + _shortc(P[n], used, seed) for n in names]
+        full = _join(parts) + "."
+        if len(full) <= B: return full
         anc = _lastnm(P[names[0]].get('nm', names[0])) + " " + _shortc(P[names[0]], {}, seed)
         rest = [_lastnm(P[n].get('nm', n)) for n in names[1:]]
-        return _clmp(anc + ", with " + _join(rest) + ".")
+        return _clmp(anc + ", with " + _join(rest) + ".", B)
 
     # ---- ANCHOR SELECTION + SNAKE DRAFT (update 5) ----
     # We want the 4 strongest anchors whose lineup-timing schedule can actually FEED the board. A moon needs its
