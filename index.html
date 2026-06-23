@@ -637,15 +637,14 @@ drawTickets();drawPlayers();drawTracker();
 
     var prior=(D.tickets||[]), out=[], kc={};
     function nextIdx(kind){kc[kind]=(kc[kind]==null?-1:kc[kind])+1;return kc[kind];}
-    function frozenT(t){var anyStart=t.players.some(function(l){var p=P[l.name];return started(l.name)&&p&&!p.out&&!p.void;});var allPin=t.players.length&&t.players.every(function(l){return pinnedP(l.name);});return anyStart||allPin;}   // a started game only locks legs that actually PLAY; a scratched bat gets replaced, not frozen
+    function frozenT(t){return !!(t.players.length && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
 
     if(prior.length){
       // ---- PIN-AWARE REFILL (two-pass): reserve kept legs globally, then fill gaps. ----
       // Pass 1 reserves every kept leg so a moon's fill can't steal the salami's anchor (Ben Rice bug).
       // A ticket's OWN anchor may recur across its own moons; non-anchor legs are globally unique.
-      var _lk=loadLock(), _prevLk={}; _lk.forEach(function(e){ if(e&&e.sig)_prevLk[e.sig]=1; });   // sigs PLACED on a prior refresh of THIS board
       var lmap={};
-      prior.forEach(function(t){ var sg=tsig(t); var hasOut=(t.players||[]).some(function(l){var p=P[l.name];return p&&p.out;}); if(!hasOut && (_prevLk[sg] || (frozenT(t)&&validT(t)))) lmap[sg]={sig:sg,t:t}; });   // a scratched (out) leg releases the lock -> the slip refills; ppd-void legs (not out) stay locked & refund   // locked = placed-before OR just-confirmed, but ONLY for tickets in the CURRENT board
+      prior.forEach(function(t){ if(frozenT(t)&&validT(t)) lmap[tsig(t)]={sig:tsig(t),t:t}; });   // LOCK = whole ticket confirmed, computed fresh from the live lineup each pass. A scratched leg makes a ticket no longer fully-confirmed -> it unlocks, and the redraft replaces ONLY that leg while keeping the confirmed legs (they're pinned). Net: a confirmed slip never moves, and no board ever shows a scratched leg.
       function isLocked(t){return !!lmap[tsig(t)];}
       saveLock(Object.keys(lmap).map(function(k){return lmap[k];}));   // OVERWRITE with only this board's locks -> stale/multi-version locks self-prune every load, can never pile up
       var usedG={};
