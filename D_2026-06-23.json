@@ -8416,8 +8416,8 @@
     "factor": 1.005,
     "park": "PHI@WSH",
     "cond": "2 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "0% rain",
+    "precip": 0
    },
    "7": {
     "emoji": "\u2600\ufe0f",
@@ -8434,8 +8434,8 @@
     "factor": 1.0,
     "park": "CHC@NYM",
     "cond": "3 mph",
-    "rain": "2% rain",
-    "precip": 2
+    "rain": "1% rain",
+    "precip": 1
    },
    "9": {
     "emoji": "\u2600\ufe0f",
@@ -8452,8 +8452,8 @@
     "factor": 1.025,
     "park": "LAD@MIN",
     "cond": "5 mph",
-    "rain": "50% rain",
-    "precip": 50
+    "rain": "46% rain",
+    "precip": 46
    },
    "11": {
     "emoji": "\u2600\ufe0f",
@@ -8470,8 +8470,8 @@
     "factor": 1.119,
     "park": "BOS@COL",
     "cond": "7 mph",
-    "rain": "7% rain",
-    "precip": 7
+    "rain": "6% rain",
+    "precip": 6
    },
    "13": {
     "emoji": "\u2600\ufe0f",
@@ -8501,7 +8501,7 @@
     "precip": 1
    }
   },
-  "build": "6/23 5:00pm",
+  "build": "6/23 5:30pm",
   "face": {},
   "maxAT": 90.3,
   "season": {
@@ -8675,7 +8675,7 @@
    "name": "Second Stage",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Olson is making elite contact (62% hard-hit), Marte plays a touch under the power tier (42/100), and Langeliers carries game-changing power (.25 ISO).",
+   "note": "Olson gets ideal loft (22\u00b0), Marte lands at 96 in our model, and Muncy has rare thump (.248 ISO).",
    "players": [
     {
      "name": "Matt Olson",
@@ -8704,49 +8704,49 @@
      "status": "projected"
     },
     {
-     "name": "Shea Langeliers",
-     "team": "Athletics",
-     "total": 87.9,
-     "aT": 73.6,
-     "wf": 1.017,
-     "gmatch": "ATH@SF",
-     "gtime": "9:45 PM",
-     "game": 15,
-     "late": true,
-     "odds": 350,
+     "name": "Max Muncy",
+     "team": "Dodgers",
+     "total": 92.5,
+     "aT": 68.9,
+     "wf": 1.025,
+     "gmatch": "LAD@MIN",
+     "gtime": "7:40 PM",
+     "game": 10,
+     "late": false,
+     "odds": 425,
      "status": "projected"
     }
    ],
    "nlegs": 3,
    "anchor": "Matt Olson",
-   "lock": "7:45 PM",
+   "lock": "7:40 PM",
    "has_late": true,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 4.0,
-    "maxprofit": 182.4,
+    "maxprofit": 209.2,
     "bytwos": false
    },
    "n": 2,
    "priced": 3,
    "confleg": 0,
-   "sum": 247.1,
-   "msum": 300.2,
-   "parlay_am": 11375,
-   "payout10": 1147.5,
+   "sum": 242.4,
+   "msum": 304.8,
+   "parlay_am": 13288,
+   "payout10": 1338.75,
    "wxsum": {
-    "boost": 0,
+    "boost": 1,
     "supp": 0,
     "dome": 0,
-    "neu": 3
+    "neu": 2
    }
   },
   {
    "name": "Leaving the Atmosphere",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Soto is striking it clean and hard (59% hard-hit), Pederson swings with natural lift (21\u00b0), and Suarez has real over-the-fence pop (57/100).",
+   "note": "Soto is striking it clean and hard (59% hard-hit), Pederson swings with natural lift (21\u00b0), and Suarez packs respectable power (57/100 grade).",
    "players": [
     {
      "name": "Juan Soto",
@@ -8959,7 +8959,7 @@
    "name": "Trajectory Locked",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Raleigh is mashing the ball (62% hard-hit), Rice swings a .318-ISO sledgehammer, and Busch sits in the ideal launch angle (18\u00b0).",
+   "note": "Raleigh is mashing the ball (62% hard-hit), Rice brings prodigious pop (.318 ISO), and Busch sits in the ideal launch angle (18\u00b0).",
    "players": [
     {
      "name": "Cal Raleigh",
@@ -9154,40 +9154,40 @@
    "name": "Pocket Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Max Muncy is tattooing the baseball (55% hard-hit), brings elite raw pop (.248 ISO), stays in the launch zone (20\u00b0).",
+   "note": "Shea Langeliers is leaving scorch marks (52% hard-hit), carries game-changing power (.25 ISO), puts air under the ball (21\u00b0).",
    "players": [
     {
-     "name": "Max Muncy",
-     "team": "Dodgers",
-     "total": 92.5,
-     "aT": 68.9,
-     "wf": 1.025,
-     "gmatch": "LAD@MIN",
-     "gtime": "7:40 PM",
-     "game": 10,
-     "late": false,
-     "odds": 425,
+     "name": "Shea Langeliers",
+     "team": "Athletics",
+     "total": 87.9,
+     "aT": 73.6,
+     "wf": 1.017,
+     "gmatch": "ATH@SF",
+     "gtime": "9:45 PM",
+     "game": 15,
+     "late": true,
+     "odds": 350,
      "status": "projected"
     }
    ],
    "nlegs": 1,
-   "anchor": "Max Muncy",
-   "lock": "7:40 PM",
-   "has_late": false,
+   "anchor": "Shea Langeliers",
+   "lock": "9:45 PM",
+   "has_late": true,
    "final": false,
    "rr": null,
    "n": 9,
    "priced": 1,
    "confleg": 0,
-   "sum": 68.9,
-   "msum": 92.5,
-   "parlay_am": 425,
-   "payout10": 52.5,
+   "sum": 73.6,
+   "msum": 87.9,
+   "parlay_am": 350,
+   "payout10": 45.0,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    }
   },
   {
@@ -9234,7 +9234,7 @@
    "name": "Cashing Out",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Christian Walker is leaving scorch marks (54% hard-hit), keeps the ball in the air (21\u00b0), swings with pop (.238 ISO).",
+   "note": "Christian Walker is teeing off (54% hard-hit), keeps the ball in the air (21\u00b0), carries solid slug (.238 ISO).",
    "players": [
     {
      "name": "Christian Walker",
@@ -9274,7 +9274,7 @@
    "name": "The Slow Grind",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Kazuma Okamoto is barreling balls at will (58% hard-hit), sends it skyward (20\u00b0), has enough pop to clear it (67/100 power).",
+   "note": "Kazuma Okamoto is barreling balls at will (58% hard-hit), sends it skyward (20\u00b0), has real over-the-fence pop (67/100).",
    "players": [
     {
      "name": "Kazuma Okamoto",
@@ -9394,7 +9394,7 @@
    "name": "Chip Stack",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Hunter Goodman swings with the wind at his back, is teeing off (57% hard-hit), has rare thump (.272 ISO), gets ideal loft (22\u00b0).",
+   "note": "Hunter Goodman swings with the wind at his back, is rocketing line drives (57% hard-hit), brings 30-homer pop (.272 ISO), gets ideal loft (22\u00b0).",
    "players": [
     {
      "name": "Hunter Goodman",
@@ -9434,7 +9434,7 @@
    "name": "The Vig Killer",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Gunnar Henderson is rocketing line drives (57% hard-hit), brings .202 ISO juice, brings fringe-average pop (40/100).",
+   "note": "Gunnar Henderson is punishing the baseball (57% hard-hit), brings .202 ISO juice, leans on contact with sneaky pop (40/100).",
    "players": [
     {
      "name": "Gunnar Henderson",
@@ -9474,7 +9474,7 @@
    "name": "Direct Deposit",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Wyatt Langford is hammering the ball (54% hard-hit), puts air under the ball (21\u00b0), carries serious thump (79/100 grade).",
+   "note": "Wyatt Langford is hammering the ball (54% hard-hit), stays in the launch zone (21\u00b0), packs a big-league power grade (79/100).",
    "players": [
     {
      "name": "Wyatt Langford",
@@ -9514,7 +9514,7 @@
    "name": "Rainy Day Fund",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Jake Burger is punishing the baseball (56% hard-hit), has textbook lift (16\u00b0), swings with usable power (51/100), recent form points up.",
+   "note": "Jake Burger is making elite contact (56% hard-hit), has textbook lift (16\u00b0), packs respectable power (51/100 grade), recent form points up.",
    "players": [
     {
      "name": "Jake Burger",
@@ -9554,7 +9554,7 @@
    "name": "The ATM",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Jared Young is lifting everything (16\u00b0), brings average-plus thump (55/100), the projection backs him at 80, ready to break a quiet stretch.",
+   "note": "Jared Young is lifting everything (16\u00b0), brings average-plus thump (55/100), the projection backs him at 80, due to run into one, a tidy +575 price.",
    "players": [
     {
      "name": "Jared Young",
@@ -9634,7 +9634,7 @@
    "name": "Tab Settled",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Rodolfo Duran swings on a clean uppercut (19\u00b0), brings light-tower raw power (100/100), grades to 80 on our board, in a steady groove.",
+   "note": "Rodolfo Duran swings on a clean uppercut (19\u00b0), grades near the top of the slate for power (100/100), grades to 80 on our board, in a steady groove.",
    "players": [
     {
      "name": "Rodolfo Duran",
