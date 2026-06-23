@@ -1,257 +1,166 @@
 #!/usr/bin/env python3
 """
-grade_night.py  --  the nightly fold that makes the season ledger self-advance.
+Auto-grader  ->  keeps season.json current with ZERO daily input.
 
-For every archived board D_<YYYY-MM-DD>.json whose games are FINAL and which has
-not been graded yet, this:
-  1. pulls that date's StatsAPI boxscores and marks who homered,
-  2. grades every ticket with the SAME math the live board uses (gradeTicket),
-  3. folds the night into season.json (cats + history), and records the date in
-     season['graded_nights'] so it can never be double-counted.
+Run as STEP 1 of the morning pipeline, before build15:
+    python grade_night.py && python build15.py && python regen15.py
 
-build15.py reads season.json as the authoritative base, so the next morning's
-board carries the advanced ledger automatically. Idempotent: safe to run on every
-Action tick. Never corrupts season.json -- a date is only folded once its games
-are all final and its results fetch succeeds; any failure skips that date.
+What it does:
+  - Reads season.json to find the last graded night.
+  - For every night AFTER it, up to yesterday, that is FULLY FINAL in the MLB
+    feed, it grades that night's board (D_<date>.json) leg-by-leg off real
+    play-by-play home runs and folds the net into season.json (history, cats,
+    graded_nights). Postponed games void their legs (refund). It never grades a
+    night that isn't final yet (so a lagged feed just means it folds that night
+    the next morning instead), and never double-grades a night already in the
+    ledger. Net result: the tracker is always current before the new slate builds.
 
-Usage:
-  python3 grade_night.py                 # auto: grade every finished, ungraded prior date
-  python3 grade_night.py 2026-06-18      # grade a specific date (must be final)
+Grading mirrors the published board's gradeTicket() exactly (round-robin moons/
+salami, single-leg builders/lunch/nightcap, american->decimal payouts).
 """
-import sys, os, re, json, glob, time, datetime, unicodedata, urllib.request
+import json, os, re, sys, unicodedata, datetime, itertools, urllib.request
 
-SA = "https://statsapi.mlb.com/api/v1"
-SEASON_JSON = os.environ.get("SEASON_JSON", "season.json")
-ALIAS = {'CHW':'CWS','AZ':'ARI','OAK':'ATH','SAC':'ATH','WAS':'WSH','SD':'SD',
-         'SDP':'SD','TBR':'TB','KCR':'KC','SFG':'SF'}
-AMBIG = {'maxmuncy'}                      # same normalized name, two players -> needs team check
+SA   = "https://statsapi.mlb.com/api/v1"
+ROOT = os.path.dirname(os.path.abspath(__file__))
+# our team-code -> StatsAPI abbreviation aliases (only the ones that differ)
+ALIAS = {"AZ":"AZ","ARI":"AZ","CWS":"CWS","CHW":"CWS","ATH":"ATH","SF":"SF","SD":"SD","TB":"TB","KC":"KC","WSH":"WSH"}
 
-def eastern_today():
-    return (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).strftime("%Y-%m-%d")
-
-def get(url, tries=3):
-    for i in range(tries):
-        try:
-            with urllib.request.urlopen(url, timeout=30) as r:
-                return json.load(r)
-        except Exception as e:
-            if i == tries - 1:
-                print(f"  ! fetch failed {url}: {e}")
-                return None
-            time.sleep(2)
-
-# --- name normalizer: identical to the client's norm() (strips accents, punctuation, Jr/Sr/II/III/IV) ---
 def norm(s):
-    s = (s or "").lower()
-    s = unicodedata.normalize("NFD", s)
-    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
-    s = re.sub(r"[^a-z ]", "", s)
-    s = re.sub(r" (jr|sr|ii|iii|iv)$", "", s)
-    return s.strip()
+    s = unicodedata.normalize('NFKD', s or '')
+    return ''.join(c for c in s if not unicodedata.combining(c)).lower().replace('.', '').replace(' ', '').strip()
 
-def alias(ab):
-    ab = (ab or "").upper()
-    return ALIAS.get(ab, ab)
+def getj(u):
+    with urllib.request.urlopen(u, timeout=30) as r:
+        return json.load(r)
 
-# --- decimal odds + the live board's exact grading (port of gradeTicket; all legs final here) ---
-def _dec(a):
+def dec(a):  # american -> decimal
     return 1 + a/100.0 if a > 0 else 1 + 100.0/abs(a)
 
-def grade_ticket(t, hrflag, stake_base=1):
-    legs = t.get("players", [])
-    L = len(legs)
-    if not L:
-        return None
-    hr = [bool(hrflag.get(l["name"])) for l in legs]
-    cashed = all(hr)
-    rr = t.get("rr")
-    if rr:
-        dec = [_dec(l["odds"]) for l in legs]
-        risk = rr["risk"]
-        def rrnet(m):
-            s = -risk
-            for a in range(L):
-                for b in range(a+1, L):
-                    if m[a] and m[b]:
-                        s += dec[a]*dec[b]
-            for a in range(L):
-                for b in range(a+1, L):
-                    for c in range(b+1, L):
-                        if m[a] and m[b] and m[c]:
-                            s += dec[a]*dec[b]*dec[c]
-            if L >= 4:
-                for a in range(L):
-                    for b in range(a+1, L):
-                        for c in range(b+1, L):
-                            for d in range(c+1, L):
-                                if m[a] and m[b] and m[c] and m[d]:
-                                    s += dec[a]*dec[b]*dec[c]*dec[d]
-            return s
-        net = rrnet(hr)
-        if net <= 0:                                   # no profitable sub-parlay -> whole risk lost
-            return {"kind": t["kind"], "stake": float(risk), "net": float(-risk), "won": False}
-        return {"kind": t["kind"], "stake": float(risk), "net": float(net), "won": net > 0}
-    # straight (single / flat parlay)
-    sb = stake_base
-    p10 = t.get("payout10")
-    if not p10:
-        p10 = 10.0
-        for l in legs:
-            p10 *= _dec(l["odds"])
-    if cashed:
-        return {"kind": t["kind"], "stake": float(sb), "net": float(sb*(p10/10.0 - 1)), "won": True}
-    return {"kind": t["kind"], "stake": float(sb), "net": float(-sb), "won": False}
-
-# --- pull a date's results: returns (all_final, hr_list[(normname, teamname_lower)]) restricted to slate games ---
-def fetch_results(date, board_codes):
-    sch = get(f"{SA}/schedule?sportId=1&date={date}&hydrate=team")
-    if not sch or not sch.get("dates"):
-        return None
-    games = sch["dates"][0].get("games", []) if sch["dates"] else []
+# ---------- pull a night's outcomes from the feed ----------
+def results_for(date):
+    """(homered:set[norm name], all_final:bool, ppd_codes:set[abbr]) for `date`."""
+    try:
+        sch = getj(f"{SA}/schedule?sportId=1&date={date}&hydrate=team")
+    except Exception:
+        return set(), False, set()
+    dates = sch.get('dates') or []
+    games = dates[0].get('games', []) if dates else []
     if not games:
-        return None
-    slate_pks, all_final = [], True
+        return set(), False, set()
+    homered, ppd, all_final = set(), set(), True
     for g in games:
-        try:
-            a = g["teams"]["away"]["team"]["abbreviation"]; h = g["teams"]["home"]["team"]["abbreviation"]
-        except Exception:
+        st = g.get('status') or {}
+        ds, ab = (st.get('detailedState') or ''), (st.get('abstractGameState') or '')
+        if re.search('postpon', ds, re.I):
+            for sd in ('away', 'home'):
+                try: ppd.add(g['teams'][sd]['team']['abbreviation'])
+                except Exception: pass
             continue
-        gd = g.get("gameDate")
-        if gd:
-            try:
-                et = (datetime.datetime.fromisoformat(gd.replace("Z", "+00:00")) - datetime.timedelta(hours=4)).strftime("%Y-%m-%d")
-                if et != date:
-                    continue   # feed game from another date (resumed/DH sharing this matchup) -> not this slate's game
-            except Exception:
-                pass
-        acand = {a.upper(), alias(a)}; hcand = {h.upper(), alias(h)}
-        if (acand & board_codes) and (hcand & board_codes):       # game is part of our slate
-            st = (g.get("status", {}) or {})
-            state = (st.get("abstractGameState") or st.get("detailedState") or "")
-            if not re.search(r"final|completed|over", state, re.I):
-                all_final = False
-            slate_pks.append(g.get("gamePk"))
-    if not slate_pks:
-        return None
-    hr_list = []
-    for pk in slate_pks:
-        bx = get(f"{SA}/game/{pk}/boxscore")
-        if not bx:
+        if not (re.search('final|completed|over', ds, re.I) or ab.lower() == 'final'):
             all_final = False
             continue
-        for side in ("away", "home"):
-            tm = (bx.get("teams", {}) or {}).get(side, {}) or {}
-            tn = ((tm.get("team", {}) or {}).get("name", "") or "").lower()
-            for p in (tm.get("players", {}) or {}).values():
-                bat = (((p.get("stats", {}) or {}).get("batting", {}) or {}).get("homeRuns"))
-                fn = (p.get("person", {}) or {}).get("fullName")
-                if bat and bat > 0 and fn:
-                    hr_list.append((norm(fn), tn))
-    return {"all_final": all_final, "hr": hr_list}
-
-def mark_hr(players, hr_list):
-    idx = {norm(k): k for k in players}
-    flag = {k: False for k in players}
-    for hn, tn in hr_list:
-        key = idx.get(hn)
-        if not key:
+        try:
+            pbp = getj(f"{SA}/game/{g['gamePk']}/playByPlay"
+                       f"?fields=allPlays,result,eventType,matchup,batter,fullName")
+        except Exception:
+            all_final = False
             continue
-        if hn in AMBIG and tn and (players[key].get("team", "").lower() not in tn):
+        for p in pbp.get('allPlays', []):
+            if (p.get('result') or {}).get('eventType') == 'home_run':
+                nm = ((p.get('matchup') or {}).get('batter') or {}).get('fullName')
+                if nm: homered.add(norm(nm))
+    return homered, all_final, ppd
+
+# ---------- grade one ticket (faithful port of the board's gradeTicket) ----------
+def grade_ticket(t, homered, ppd_codes, stake):
+    legs = t.get('players') or []
+    if not legs:
+        return None
+    def voided(l):
+        code = (l.get('team') or l.get('code') or '')[:3].upper()
+        return code in ppd_codes
+    # leg state: True=HR, False=miss, None=void(ppd, refund)
+    kept = []
+    for l in legs:
+        if voided(l):
             continue
-        flag[key] = True
-    return flag
+        kept.append((l, norm(l.get('name')) in homered))
+    if not kept:
+        return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': None}   # whole ticket voided
+    if t.get('rr'):
+        risk = float(t['rr'].get('risk') or 0)
+        d  = [dec(l['odds']) for l, _ in kept]
+        hh = [h for _, h in kept]
+        K  = len(kept)
+        sizes = [2, 3] + ([4] if K >= 4 else [])
+        net = -risk
+        for sz in sizes:
+            for combo in itertools.combinations(range(K), sz):
+                if all(hh[i] for i in combo):
+                    p = 1.0
+                    for i in combo: p *= d[i]
+                    net += p
+        return {'kind': t['kind'], 'stake': risk, 'net': round(net, 2), 'won': net > 0}
+    # single leg / straight (payout10 path)
+    cashed = all(h for _, h in kept)
+    pay10 = t.get('payout10')
+    if pay10 is None:
+        dd = 1.0
+        for l, _ in kept: dd *= dec(l['odds'])
+        pay10 = 10 * dd
+    if cashed:
+        return {'kind': t['kind'], 'stake': stake, 'net': round(stake*(pay10/10.0 - 1), 2), 'won': True}
+    return {'kind': t['kind'], 'stake': stake, 'net': -float(stake), 'won': False}
 
-def fold(season, date, night_grades):
-    cats = {k: dict(v) for k, v in season.get("cats", {}).items()}
-    for g in night_grades:
-        c = cats.setdefault(g["kind"], {"graded": 0, "won": 0, "units": 0.0, "staked": 0.0})
-        c["graded"] += 1
-        c["won"]    += 1 if g["won"] else 0
-        c["units"]  = round(c["units"]  + g["net"],   2)
-        c["staked"] = round(c["staked"] + g["stake"], 2)
-    # one history point per graded NIGHT (matches index.html and the original seed),
-    # not one per ticket -- a per-ticket fold corrupts the sparkline granularity.
-    hist = list(season.get("history", [0.0])) or [0.0]
-    night_net = round(sum(g["net"] for g in night_grades), 2)
-    if abs(night_net) > 1e-9:
-        hist.append(round(hist[-1] + night_net, 2))
-    season["cats"] = cats
-    season["history"] = hist
-    gn = set(season.get("graded_nights", []))
-    gn.add(date)
-    season["graded_nights"] = sorted(gn)
-    return season
-
-def load_season():
-    try:
-        s = json.load(open(SEASON_JSON))
-    except Exception:
-        s = {"since": eastern_today(), "stake": 1, "cats": {}, "history": [0.0]}
-    s.setdefault("cats", {}); s.setdefault("history", [0.0]); s.setdefault("graded_nights", [])
-    s.setdefault("stake", 1)
-    return s
-
-def save_season(s):
-    tmp = SEASON_JSON + ".tmp"
-    json.dump(s, open(tmp, "w"), indent=1)
-    os.replace(tmp, SEASON_JSON)
-
-def board_for(date):
-    f = f"D_{date}.json"
-    if not os.path.exists(f):
-        return None
-    try:
-        return json.load(open(f))
-    except Exception:
-        return None
+# ---------- fold one graded night into the season ledger ----------
+def fold(season, date, graded):
+    cats = season.setdefault('cats', {})
+    net_total = 0.0
+    for g in graded:
+        if not g or g.get('won') is None:
+            continue
+        c = cats.setdefault(g['kind'], {'graded': 0, 'won': 0, 'units': 0.0, 'staked': 0.0})
+        c['graded'] += 1
+        if g['won']: c['won'] += 1
+        c['units']  = round(c['units']  + g['net'],   2)
+        c['staked'] = round(c['staked'] + g['stake'], 2)
+        net_total  += g['net']
+    hist = season.setdefault('history', [0.0])
+    hist.append(round(hist[-1] + net_total, 2))
+    season.setdefault('graded_nights', []).append(date)
+    return round(net_total, 2)
 
 def main():
-    today = eastern_today()
-    season = load_season()
-    graded = set(season.get("graded_nights", []))
-    if len(sys.argv) > 1:
-        targets = [d for d in sys.argv[1:]]
+    spath = os.path.join(ROOT, 'season.json')
+    season = json.load(open(spath))
+    stake = season.get('stake', 1)
+    graded = set(season.get('graded_nights', []))
+    today = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).date()
+    # candidate nights: any dated board we have that isn't graded yet, up to yesterday
+    nights = sorted(re.match(r'D_(\d{4}-\d{2}-\d{2})\.json$', f).group(1)
+                    for f in os.listdir(ROOT) if re.match(r'D_\d{4}-\d{2}-\d{2}\.json$', f))
+    folded = []
+    for date in nights:
+        if date in graded:                     continue
+        if datetime.date.fromisoformat(date) >= today:  # never grade today/future
+            continue
+        homered, all_final, ppd = results_for(date)
+        if not all_final:
+            print(f"{date}: not final in the feed yet -> will fold next run")
+            break                              # keep nights in order; stop at first unsettled
+        D = json.load(open(os.path.join(ROOT, f'D_{date}.json')))
+        gr = [grade_ticket(t, homered, ppd, stake) for t in D.get('tickets', [])]
+        net = fold(season, date, gr)
+        cashed = sum(1 for g in gr if g and g.get('won'))
+        print(f"{date}: graded {len(gr)} tickets, {cashed} cashed, net {net:+.2f}u "
+              f"-> season {season['history'][-1]:.2f}u")
+        folded.append(date)
+    if folded:
+        json.dump(season, open(spath, 'w'), indent=1)
+        print(f"folded {len(folded)} night(s); ledger now {season['history'][-1]:.2f}u through {folded[-1]}")
     else:
-        targets = []
-        for f in glob.glob("D_*.json"):
-            m = re.match(r"D_(\d{4}-\d{2}-\d{2})\.json$", os.path.basename(f))
-            if m and m.group(1) < today and m.group(1) not in graded:
-                targets.append(m.group(1))
-        targets.sort()
-    if not targets:
-        print("grade_night: nothing to grade."); return
-    changed = False
-    for date in targets:
-        if date in graded:
-            print(f"grade_night: {date} already folded -- skip."); continue
-        D = board_for(date)
-        if not D:
-            print(f"grade_night: no archived board D_{date}.json -- skip."); continue
-        players = D.get("players", {}); tickets = D.get("tickets", [])
-        if not tickets:
-            print(f"grade_night: {date} board has no tickets -- skip."); continue
-        board_codes = {p.get("code") for p in players.values() if p.get("code")}
-        res = fetch_results(date, board_codes)
-        if not res:
-            print(f"grade_night: {date} results unavailable -- skip (will retry)."); continue
-        if not res["all_final"]:
-            print(f"grade_night: {date} not all games final -- skip (will retry)."); continue
-        stake_base = (D.get("meta", {}).get("season", {}) or {}).get("stake", season.get("stake", 1)) or 1
-        flag = mark_hr(players, res["hr"])
-        grades = [g for g in (grade_ticket(t, flag, stake_base) for t in tickets) if g]
-        season = fold(season, date, grades)
-        graded.add(date)
-        changed = True
-        tot = round(sum(c["units"] for c in season["cats"].values()), 2)
-        w = sum(c["won"] for c in season["cats"].values()); g = sum(c["graded"] for c in season["cats"].values())
-        nl = sum(1 for x in flag.values() if x)
-        print(f"grade_night: folded {date} -- {len(grades)} tickets graded, {nl} HR bats "
-              f"-> season {tot:+.1f}u, overall {w}-{g-w}")
-    if changed:
-        save_season(season)
-        print(f"grade_night: wrote {SEASON_JSON} (graded_nights={season['graded_nights']})")
-    else:
-        print("grade_night: no changes.")
+        print("nothing new to grade; ledger unchanged at "
+              f"{season.get('history',[0])[-1]:.2f}u")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
