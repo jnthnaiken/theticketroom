@@ -349,10 +349,10 @@ def assemble(D):
         # richer two-line notes since they have the room; grid cards (moons/builders) fill two normal lines.
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
         WIDE = kind in ('biggest', 'late', 'lunch')
-        B = 210 if WIDE else 150
+        B = 168 if WIDE else 150
         if len(names) == 1:
             a = P[names[0]]
-            cl = _edges_fill(a, seed, target=(190 if WIDE else 140), lo=4, hi=(9 if WIDE else 7))
+            cl = _edges_fill(a, seed, target=(150 if WIDE else 140), lo=3, hi=(6 if WIDE else 7))
             return _clmp(a.get('nm', names[0]) + " " + _join(cl) + ".", B)
         per = 2 if WIDE else 1
         used = {}
