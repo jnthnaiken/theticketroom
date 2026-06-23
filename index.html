@@ -643,10 +643,11 @@ drawTickets();drawPlayers();drawTracker();
       // ---- PIN-AWARE REFILL (two-pass): reserve kept legs globally, then fill gaps. ----
       // Pass 1 reserves every kept leg so a moon's fill can't steal the salami's anchor (Ben Rice bug).
       // A ticket's OWN anchor may recur across its own moons; non-anchor legs are globally unique.
-      var _lk=loadLock(), lmap={}; _lk.forEach(function(e){lmap[e.sig]=e;}); var _lkDirty=false;
-      prior.forEach(function(t){ var sg=tsig(t); if(frozenT(t) && validT(t) && !lmap[sg]){ lmap[sg]={sig:sg,t:t}; _lkDirty=true; } });   // all legs confirmed (or game started) -> PLACED; remembered for the whole slate
+      var _lk=loadLock(), _prevLk={}; _lk.forEach(function(e){ if(e&&e.sig)_prevLk[e.sig]=1; });   // sigs PLACED on a prior refresh of THIS board
+      var lmap={};
+      prior.forEach(function(t){ var sg=tsig(t); if(_prevLk[sg] || (frozenT(t)&&validT(t))) lmap[sg]={sig:sg,t:t}; });   // locked = placed-before OR just-confirmed, but ONLY for tickets in the CURRENT board
       function isLocked(t){return !!lmap[tsig(t)];}
-      if(_lkDirty)saveLock(Object.keys(lmap).map(function(k){return lmap[k];}));
+      saveLock(Object.keys(lmap).map(function(k){return lmap[k];}));   // OVERWRITE with only this board's locks -> stale/multi-version locks self-prune every load, can never pile up
       var usedG={};
       prior.forEach(function(t){ if(isLocked(t)) t.players.forEach(function(l){usedG[l.name]=1;}); });   // placed legs reserved -> projected tickets can't poach them
       var plan=[];
@@ -1004,7 +1005,7 @@ drawTickets();drawPlayers();drawTracker();
   function setSlateDate(){ if(typeof D==='undefined'||!D.meta) return; var s=fmtSlate(D.meta.date);
     var e=document.getElementById('slateDate'); if(e&&s)e.textContent=s;
     var pb=document.getElementById('pubDate'); if(pb&&s)pb.textContent=s; }
-  if(typeof D!=='undefined'){ try{var _RL=loadLock(); if(_RL&&_RL.length&&D.tickets){var _hv={}; D.tickets.forEach(function(t){_hv[tsig(t)]=1;}); _RL.forEach(function(e){ if(e&&e.sig&&e.t&&!_hv[e.sig]) D.tickets.push(e.t); });}}catch(e){}  setSlateDate(); liveUpdate(); setInterval(liveUpdate, 6*60*1000); }   // timer refreshes WEATHER only (HR/9 cached)
+  if(typeof D!=='undefined'){ setSlateDate(); liveUpdate(); setInterval(liveUpdate, 6*60*1000); }   // (no reload re-insert: placed slips already live in the baked board, so the lock survives reload via sig-match -- re-inserting duplicated tickets across board rebakes)   // timer refreshes WEATHER only (HR/9 cached)
   if(typeof window!=='undefined'){ window.__assembleClient=assembleClient; window.__liveUpdate=liveUpdate; window.__confirmResults=confirmResults; }
 })();
 
