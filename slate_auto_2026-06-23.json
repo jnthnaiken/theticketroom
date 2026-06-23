@@ -1,7 +1,7 @@
 {
   "date": "2026-06-23",
   "season": "2026",
-  "pulled_at": "2026-06-23T09:30:53Z",
+  "pulled_at": "2026-06-23T10:00:55Z",
   "games": [
     {
       "gamePk": 822799,
@@ -77,9 +77,9 @@
         "cond": "calm 1mph, 62\u00b0",
         "lean": "Neutral",
         "temp": 61.7,
-        "wind_mph": 5.4,
-        "wind_dir": 330,
-        "tail_mph": 0.9,
+        "wind_mph": 5.0,
+        "wind_dir": 328,
+        "tail_mph": 1.0,
         "precip": 0
       },
       "wf": 0.991
@@ -197,13 +197,13 @@
         "emoji": "\u26c5",
         "cond": "wind in 4mph, 65\u00b0",
         "lean": "Suppress",
-        "temp": 65.1,
-        "wind_mph": 4.4,
-        "wind_dir": 41,
-        "tail_mph": -4.3,
+        "temp": 65.2,
+        "wind_mph": 4.8,
+        "wind_dir": 53,
+        "tail_mph": -4.4,
         "precip": 0
       },
-      "wf": 0.978
+      "wf": 0.977
     },
     {
       "gamePk": 822718,
@@ -236,15 +236,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 68\u00b0",
+        "cond": "calm 1mph, 69\u00b0",
         "lean": "Neutral",
-        "temp": 68.2,
-        "wind_mph": 2.1,
-        "wind_dir": 193,
-        "tail_mph": 2.0,
+        "temp": 69.0,
+        "wind_mph": 1.9,
+        "wind_dir": 159,
+        "tail_mph": 1.2,
         "precip": 1
       },
-      "wf": 1.004
+      "wf": 1.003
     },
     {
       "gamePk": 823614,
@@ -561,9 +561,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 65\u00b0",
+        "lean": "Neutral",
+        "temp": 65.1,
+        "wind_mph": 3.5,
+        "wind_dir": 325,
+        "tail_mph": -2.9,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 0.983
     },
     {
       "gamePk": 823210,
@@ -595,16 +602,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 55\u00b0",
-        "lean": "Neutral",
-        "temp": 55.2,
-        "wind_mph": 10.5,
-        "wind_dir": 270,
-        "tail_mph": 10.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.014
+      "wf": 1.0
     }
   ]
 }
