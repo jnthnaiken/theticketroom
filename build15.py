@@ -32,7 +32,7 @@ def load_dated(stem, required=True):
 
 norm=lambda s:''.join(c for c in unicodedata.normalize('NFKD',s) if not unicodedata.combining(c)).lower().replace('.','').strip()
 clamp=lambda x,a,b:max(a,min(b,x))
-fF=lambda f:1.0 if f is None else clamp(1+0.006*(f-50),0.85,1.15)
+fF=lambda f:1.0 if f is None else clamp(1+0.003*(f-50),0.92,1.08)   # form trimmed: HRs track power/matchup, not recent hot/cold
 pM=lambda w:1.0 if w is None else 1+W_WEATHER*(w-1)
 la_window=lambda la:math.exp(-((la-25.0)/14.0)**2)
 
@@ -41,6 +41,14 @@ W_WIND   = 0.0035   # wf per mph of tailwind toward CF
 W_TEMP   = 0.0015   # wf per F above 70 (cold subtracts the same)
 W_ELEV   = 0.025    # wf per 1000 ft of park elevation (thin-air carry; Coors ~+13%)
 W_WEATHER= 0.30     # how hard wf pushes TOTAL via pM (same up and down)
+W_HR9    = 0.16     # opposing-pitcher HR/9: TOTAL multiplier per HR/9 vs baseline (symmetric)
+HR9_BASE = 1.15     # league-ish HR/9 (neutral matchup); above -> boost, below -> penalty
+HR9_CLAMP= 0.15     # cap the pitcher-matchup swing at +-15%
+PARK_HR  = {'NYY':1.10,'CIN':1.10,'PHI':1.06,'BAL':1.05,'MIL':1.04,'HOU':1.04,'TOR':1.03,'BOS':1.02,'CHC':1.00,
+            'NYM':1.00,'WSH':1.00,'ATL':1.00,'TEX':1.00,'LAD':1.00,'MIN':1.00,'COL':1.00,'ARI':1.00,'CWS':1.00,'CHW':1.00,
+            'CLE':0.98,'STL':0.97,'LAA':0.97,'SD':0.96,'TB':0.96,'ATH':0.95,'KC':0.94,'PIT':0.93,'DET':0.93,'SEA':0.92,'SF':0.91,'MIA':0.90}
+pHR9 = lambda h: 1.0 if h is None else clamp(1+W_HR9*(h-HR9_BASE), 1-HR9_CLAMP, 1+HR9_CLAMP)   # pitcher HR-vulnerability (notes-only before; now scored)
+parkT= lambda code: clamp(PARK_HR.get(code,1.0), 0.90, 1.12)                                   # static park HR factor (dimensions/short-porch; elevation stays in weather)
 WX_CLAMP = 0.10     # symmetric cap on the wind+temp part (+/-10%)
 PARK_ELEV= {'COL':5200,'ATH':2000,'ATL':1050,'MIN':815,'KC':750,'PIT':730,'CLE':660,'CHC':600,'DET':600,
             'CIN':490,'STL':465,'LAD':522,'LAA':160,'SD':62,'SF':13,'NYY':55,'NYM':36,'PHI':39,'BOS':20,
@@ -126,11 +134,12 @@ p5,p95=pct(5),pct(95)
 for r in pool: r['powidx']=round(clamp(100*(r['powraw']-p5)/(p95-p5),0,100)) if p95>p5 else 50
 medP=st.median([r['powidx'] for r in pool]); medI=st.median([r['iso_used'] for r in pool])
 zs=[r['zonev'] for r in pool if abs(r['zonev']-0.5)>1e-9]; medZ=st.median(zs) if zs else 0.06
-powT=lambda P:clamp(1+0.15*(P-medP)/40,0.85,1.15)
-isoT=lambda I:clamp(1+0.08*(I-medI)/0.06,0.92,1.08)
+powT=lambda P:clamp(1+0.18*(P-medP)/40,0.82,1.18)   # power widened (true HR driver)
+isoT=lambda I:clamp(1+0.12*(I-medI)/0.06,0.88,1.12)   # ISO widened (cleanest power stat)
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*pM(r['wf']),1)
+    r['phr9']=pHR9(r.get('hr9')); _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkT(_hm)
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf']),1)
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:

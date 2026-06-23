@@ -31,8 +31,8 @@ import re, datetime
 
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
 NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
-CHALK_N       = 8                # the ban8: 8 shortest-odds bats among the featured pool (nightcap/lunch ONLY)
-GATE_N        = 33               # buildable pool = 33; we take top (33+8) by TOTAL so the ban8 leaves 33
+CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
+GATE_N        = 33               # buildable pool = 33; we take top (33+CHALK_N) by TOTAL so the ban leaves 33
 FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
