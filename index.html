@@ -645,7 +645,7 @@ drawTickets();drawPlayers();drawTracker();
       // A ticket's OWN anchor may recur across its own moons; non-anchor legs are globally unique.
       var _lk=loadLock(), _prevLk={}; _lk.forEach(function(e){ if(e&&e.sig)_prevLk[e.sig]=1; });   // sigs PLACED on a prior refresh of THIS board
       var lmap={};
-      prior.forEach(function(t){ var sg=tsig(t); if(_prevLk[sg] || (frozenT(t)&&validT(t))) lmap[sg]={sig:sg,t:t}; });   // locked = placed-before OR just-confirmed, but ONLY for tickets in the CURRENT board
+      prior.forEach(function(t){ var sg=tsig(t); var hasOut=(t.players||[]).some(function(l){var p=P[l.name];return p&&p.out;}); if(!hasOut && (_prevLk[sg] || (frozenT(t)&&validT(t)))) lmap[sg]={sig:sg,t:t}; });   // a scratched (out) leg releases the lock -> the slip refills; ppd-void legs (not out) stay locked & refund   // locked = placed-before OR just-confirmed, but ONLY for tickets in the CURRENT board
       function isLocked(t){return !!lmap[tsig(t)];}
       saveLock(Object.keys(lmap).map(function(k){return lmap[k];}));   // OVERWRITE with only this board's locks -> stale/multi-version locks self-prune every load, can never pile up
       var usedG={};
