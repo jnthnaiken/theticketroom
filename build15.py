@@ -44,11 +44,17 @@ W_WEATHER= 0.30     # how hard wf pushes TOTAL via pM (same up and down)
 W_HR9    = 0.16     # opposing-pitcher HR/9: TOTAL multiplier per HR/9 vs baseline (symmetric)
 HR9_BASE = 1.15     # league-ish HR/9 (neutral matchup); above -> boost, below -> penalty
 HR9_CLAMP= 0.15     # cap the pitcher-matchup swing at +-15%
+W_BRL     = 0.018   # opposing-pitcher barrel-against -> TOTAL mult per pt of (Brl/BIP% + 0.5*PulledBrl%) deviation
+BRL_BASE  = 7.5     # league-ish Brl/BIP% allowed (neutral)
+PBRL_BASE = 5.0     # league-ish PulledBrl% allowed
+BRL_SHRINK= 0.6     # regress toward mean -- export has no batted-ball counts, so guard small samples (e.g. a rookie at 0.000)
+BRL_CLAMP = 0.15
 PARK_HR  = {'NYY':1.10,'CIN':1.10,'PHI':1.06,'BAL':1.05,'MIL':1.04,'HOU':1.04,'TOR':1.03,'BOS':1.02,'CHC':1.00,
             'NYM':1.00,'WSH':1.00,'ATL':1.00,'TEX':1.00,'LAD':1.00,'MIN':1.00,'COL':1.00,'ARI':1.00,'CWS':1.00,'CHW':1.00,
             'CLE':0.98,'STL':0.97,'LAA':0.97,'SD':0.96,'TB':0.96,'ATH':0.95,'KC':0.94,'PIT':0.93,'DET':0.93,'SEA':0.92,'SF':0.91,'MIA':0.90}
 pHR9 = lambda h: 1.0 if h is None else clamp(1+W_HR9*(h-HR9_BASE), 1-HR9_CLAMP, 1+HR9_CLAMP)   # pitcher HR-vulnerability (notes-only before; now scored)
 parkT= lambda code: clamp(PARK_HR.get(code,1.0), 0.90, 1.12)                                   # static park HR factor (dimensions/short-porch; elevation stays in weather)
+pbrl_mult= lambda d: clamp(1 + W_BRL*BRL_SHRINK*(((d.get('brl') if d.get('brl') is not None else BRL_BASE)-BRL_BASE)+0.5*((d.get('pbrl') if d.get('pbrl') is not None else PBRL_BASE)-PBRL_BASE)), 1-BRL_CLAMP, 1+BRL_CLAMP)   # listed pitchers: barrel-against -> hitter HR mult
 WX_CLAMP = 0.10     # symmetric cap on the wind+temp part (+/-10%)
 PARK_ELEV= {'COL':5200,'ATH':2000,'ATL':1050,'MIN':815,'KC':750,'PIT':730,'CLE':660,'CHC':600,'DET':600,
             'CIN':490,'STL':465,'LAD':522,'LAA':160,'SD':62,'SF':13,'NYY':55,'NYM':36,'PHI':39,'BOS':20,
@@ -75,6 +81,7 @@ def pnorm(x):
     x=''.join(c for c in unicodedata.normalize('NFD',x or '') if not unicodedata.combining(c)).lower()
     return re.sub(r'[^a-z ]','',x).strip()
 HR9={pnorm(k):v for k,v in load_dated('hr9',required=False).items()}
+PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # Kasper Top-Pitchers barrel-against export (partial -> HR/9 fallback)
 SLATE={(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
 
 def wf_of(g):
@@ -138,7 +145,10 @@ powT=lambda P:clamp(1+0.18*(P-medP)/40,0.82,1.18)   # power widened (true HR dri
 isoT=lambda I:clamp(1+0.12*(I-medI)/0.06,0.88,1.12)   # ISO widened (cleanest power stat)
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
-    r['phr9']=pHR9(r.get('hr9')); _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkT(_hm)
+    _opn=pnorm((r.get('opp') or ['',''])[0])
+    if _opn in PBRL: r['phr9']=pbrl_mult(PBRL[_opn]); r['psrc']='brl'   # listed top arm -> barrel-against (better signal)
+    else:            r['phr9']=1.0; r['psrc']='hr9'                     # unlisted -> neutral here; live engine applies HR/9
+    _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkT(_hm)
     r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf']),1)
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
