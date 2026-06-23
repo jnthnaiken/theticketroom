@@ -6336,8 +6336,8 @@
     "factor": 1.009,
     "park": "PHI@WSH",
     "cond": "4 mph",
-    "rain": "22% rain",
-    "precip": 22
+    "rain": "18% rain",
+    "precip": 18
    },
    "5": {
     "emoji": "\ud83c\udfdf",
@@ -6363,8 +6363,8 @@
     "factor": 1.013,
     "park": "CHC@NYM",
     "cond": "4 mph",
-    "rain": "50% rain",
-    "precip": 50
+    "rain": "46% rain",
+    "precip": 46
    },
    "8": {
     "emoji": "\u2600\ufe0f",
@@ -6399,8 +6399,8 @@
     "factor": 1.191,
     "park": "BOS@COL",
     "cond": "14 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "0% rain",
+    "precip": 0
    },
    "12": {
     "emoji": "\u2600\ufe0f",
@@ -6521,146 +6521,75 @@
    "name": "To the Heavens",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Alvarez is tattooing the baseball (60% hard-hit), Langford sits in the ideal launch angle (21\u00b0), and Stewart has honest thump (.203 ISO).",
+   "note": "Olson is hitting absolute lasers (62% hard-hit), Hoskins has loft to spare (22\u00b0), and Marte plays a touch under the power tier (43/100).",
    "players": [
     {
-     "name": "Yordan Alvarez",
-     "team": "Astros",
+     "name": "Matt Olson",
+     "team": "Braves",
      "total": 116.5,
-     "aT": 90.0,
-     "wf": 1.0,
-     "gmatch": "HOU@TOR",
-     "gtime": "7:07 PM",
-     "game": 5,
-     "late": false,
-     "odds": 325,
+     "aT": 90.3,
+     "wf": 0.989,
+     "gmatch": "ATL@SD",
+     "gtime": "10:10 PM",
+     "game": 13,
+     "late": true,
+     "odds": 425,
      "status": "projected"
     },
     {
-     "name": "Wyatt Langford",
-     "team": "Rangers",
-     "total": 96.0,
-     "aT": 84.1,
-     "wf": 1.0,
-     "gmatch": "TEX@MIA",
-     "gtime": "6:40 PM",
-     "game": 2,
-     "late": false,
-     "odds": 475,
-     "status": "projected"
-    },
-    {
-     "name": "Sal Stewart",
-     "team": "Reds",
-     "total": 84.9,
-     "aT": 83.5,
-     "wf": 0.988,
-     "gmatch": "MIL@CIN",
-     "gtime": "7:10 PM",
-     "game": 6,
+     "name": "Rhys Hoskins",
+     "team": "Guardians",
+     "total": 85.2,
+     "aT": 74.8,
+     "wf": 0.973,
+     "gmatch": "CLE@CWS",
+     "gtime": "7:40 PM",
+     "game": 8,
      "late": false,
      "odds": 350,
+     "status": "projected"
+    },
+    {
+     "name": "Ketel Marte",
+     "team": "Diamondbacks",
+     "total": 98.0,
+     "aT": 83.2,
+     "wf": 0.989,
+     "gmatch": "AZ@STL",
+     "gtime": "7:45 PM",
+     "game": 10,
+     "late": false,
+     "odds": 625,
      "status": "projected"
     }
    ],
    "nlegs": 3,
-   "anchor": "Yordan Alvarez",
-   "lock": "6:40 PM",
-   "has_late": false,
+   "anchor": "Matt Olson",
+   "lock": "10:10 PM",
+   "has_late": true,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 4.0,
-    "maxprofit": 175.4,
+    "maxprofit": 261.6,
     "bytwos": false
    },
    "n": 1,
    "priced": 3,
    "confleg": 0,
-   "sum": 257.6,
-   "msum": 297.4,
-   "parlay_am": 10897,
-   "payout10": 1099.69,
+   "sum": 248.3,
+   "msum": 299.7,
+   "parlay_am": 17028,
+   "payout10": 1712.81,
    "wxsum": {
     "boost": 0,
-    "supp": 0,
-    "dome": 2,
-    "neu": 1
-   }
-  },
-  {
-   "name": "Liftoff Sequence",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Alvarez is teeing off (60% hard-hit), Torkelson has textbook lift (21\u00b0), and Bleday swings with usable power (50/100).",
-   "players": [
-    {
-     "name": "Yordan Alvarez",
-     "team": "Astros",
-     "total": 116.5,
-     "aT": 90.0,
-     "wf": 1.0,
-     "gmatch": "HOU@TOR",
-     "gtime": "7:07 PM",
-     "game": 5,
-     "late": false,
-     "odds": 325,
-     "status": "projected"
-    },
-    {
-     "name": "Spencer Torkelson",
-     "team": "Tigers",
-     "total": 90.5,
-     "aT": 77.2,
-     "wf": 0.988,
-     "gmatch": "NYY@DET",
-     "gtime": "6:10 PM",
-     "game": 1,
-     "late": false,
-     "odds": 425,
-     "status": "projected"
-    },
-    {
-     "name": "JJ Bleday",
-     "team": "Reds",
-     "total": 76.6,
-     "aT": 73.0,
-     "wf": 0.988,
-     "gmatch": "MIL@CIN",
-     "gtime": "7:10 PM",
-     "game": 6,
-     "late": false,
-     "odds": 325,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Yordan Alvarez",
-   "lock": "6:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 4.0,
-    "maxprofit": 153.5,
-    "bytwos": false
-   },
-   "n": 2,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 240.2,
-   "msum": 283.6,
-   "parlay_am": 9383,
-   "payout10": 948.28,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
+    "supp": 1,
+    "dome": 0,
     "neu": 2
    }
   },
   {
-   "name": "Second Stage",
+   "name": "Liftoff Sequence",
    "kind": "moon",
    "badge": "\ud83d\ude80",
    "note": "Olson is rocketing line drives (62% hard-hit), Abreu has the jet stream pushing toward the seats, and Ward lives in the launch window (20\u00b0).",
@@ -6716,7 +6645,7 @@
     "maxprofit": 174.2,
     "bytwos": false
    },
-   "n": 3,
+   "n": 2,
    "priced": 3,
    "confleg": 0,
    "sum": 226.9,
@@ -6731,81 +6660,152 @@
    }
   },
   {
-   "name": "Leaving the Atmosphere",
+   "name": "Second Stage",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Olson is scorching the ball (62% hard-hit), Marte leans on contact with sneaky pop (43/100), and Manzardo has a swing built for the seats (23\u00b0).",
+   "note": "Soto has rare thump (.274 ISO), Langford gets ideal loft (21\u00b0), and Torkelson lands at 91 in our model.",
    "players": [
     {
-     "name": "Matt Olson",
-     "team": "Braves",
-     "total": 116.5,
-     "aT": 90.3,
-     "wf": 0.989,
-     "gmatch": "ATL@SD",
-     "gtime": "10:10 PM",
-     "game": 13,
-     "late": true,
-     "odds": 425,
-     "status": "projected"
-    },
-    {
-     "name": "Ketel Marte",
-     "team": "Diamondbacks",
-     "total": 98.0,
-     "aT": 83.2,
-     "wf": 0.989,
-     "gmatch": "AZ@STL",
-     "gtime": "7:45 PM",
-     "game": 10,
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 102.7,
+     "aT": 80.9,
+     "wf": 1.013,
+     "gmatch": "CHC@NYM",
+     "gtime": "7:10 PM",
+     "game": 7,
      "late": false,
-     "odds": 625,
+     "odds": 350,
      "status": "projected"
     },
     {
-     "name": "Kyle Manzardo",
-     "team": "Guardians",
-     "total": 73.6,
-     "aT": 64.5,
-     "wf": 0.973,
-     "gmatch": "CLE@CWS",
-     "gtime": "7:40 PM",
-     "game": 8,
+     "name": "Wyatt Langford",
+     "team": "Rangers",
+     "total": 96.0,
+     "aT": 84.1,
+     "wf": 1.0,
+     "gmatch": "TEX@MIA",
+     "gtime": "6:40 PM",
+     "game": 2,
+     "late": false,
+     "odds": 475,
+     "status": "projected"
+    },
+    {
+     "name": "Spencer Torkelson",
+     "team": "Tigers",
+     "total": 90.5,
+     "aT": 77.2,
+     "wf": 0.988,
+     "gmatch": "NYY@DET",
+     "gtime": "6:10 PM",
+     "game": 1,
      "late": false,
      "odds": 425,
      "status": "projected"
     }
    ],
    "nlegs": 3,
-   "anchor": "Matt Olson",
-   "lock": "10:10 PM",
+   "anchor": "Juan Soto",
+   "lock": "6:10 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 4.0,
+    "maxprofit": 211.5,
+    "bytwos": false
+   },
+   "n": 3,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 242.2,
+   "msum": 289.2,
+   "parlay_am": 13484,
+   "payout10": 1358.44,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 2
+   }
+  },
+  {
+   "name": "Leaving the Atmosphere",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Soto has rare thump (.274 ISO), O'Neill gets ideal loft (21\u00b0), and Stewart lands at 85 in our model.",
+   "players": [
+    {
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 102.7,
+     "aT": 80.9,
+     "wf": 1.013,
+     "gmatch": "CHC@NYM",
+     "gtime": "7:10 PM",
+     "game": 7,
+     "late": false,
+     "odds": 350,
+     "status": "projected"
+    },
+    {
+     "name": "Tyler O'Neill",
+     "team": "Orioles",
+     "total": 88.7,
+     "aT": 74.0,
+     "wf": 1.008,
+     "gmatch": "BAL@LAA",
+     "gtime": "9:38 PM",
+     "game": 12,
+     "late": true,
+     "odds": 375,
+     "status": "projected"
+    },
+    {
+     "name": "Sal Stewart",
+     "team": "Reds",
+     "total": 84.9,
+     "aT": 83.5,
+     "wf": 0.988,
+     "gmatch": "MIL@CIN",
+     "gtime": "7:10 PM",
+     "game": 6,
+     "late": false,
+     "odds": 350,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Juan Soto",
+   "lock": "7:10 PM",
    "has_late": true,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 4.0,
-    "maxprofit": 299.5,
+    "maxprofit": 155.2,
     "bytwos": false
    },
    "n": 4,
    "priced": 3,
    "confleg": 0,
-   "sum": 238.0,
-   "msum": 288.1,
-   "parlay_am": 19883,
-   "payout10": 1998.28,
+   "sum": 238.4,
+   "msum": 276.3,
+   "parlay_am": 9519,
+   "payout10": 961.88,
    "wxsum": {
     "boost": 0,
-    "supp": 1,
+    "supp": 0,
     "dome": 0,
-    "neu": 2
+    "neu": 3
    }
   },
   {
    "name": "Out of the Solar System",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Pederson is barreling everything in sight (59% hard-hit), Suarez finds the home-run trajectory (18\u00b0), and Walker brings 30-homer pop (.241 ISO).",
+   "note": "Pederson is crushing the baseball (59% hard-hit), Carrigg has the wind howling out behind him, and Walker has rare thump (.241 ISO).",
    "players": [
     {
      "name": "Joc Pederson",
@@ -6821,16 +6821,16 @@
      "status": "projected"
     },
     {
-     "name": "Eugenio Suarez",
-     "team": "Reds",
-     "total": 91.7,
-     "aT": 81.5,
-     "wf": 0.988,
-     "gmatch": "MIL@CIN",
-     "gtime": "7:10 PM",
-     "game": 6,
+     "name": "Cole Carrigg",
+     "team": "Rockies",
+     "total": 101.8,
+     "aT": 82.7,
+     "wf": 1.191,
+     "gmatch": "BOS@COL",
+     "gtime": "8:40 PM",
+     "game": 11,
      "late": false,
-     "odds": 375,
+     "odds": 600,
      "status": "projected"
     },
     {
@@ -6855,28 +6855,28 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 4.0,
-    "maxprofit": 269.1,
+    "maxprofit": 380.8,
     "bytwos": false
    },
    "n": 5,
    "priced": 3,
    "confleg": 0,
-   "sum": 238.7,
-   "msum": 293.2,
-   "parlay_am": 17653,
-   "payout10": 1775.31,
+   "sum": 239.9,
+   "msum": 303.3,
+   "parlay_am": 26062,
+   "payout10": 2616.25,
    "wxsum": {
-    "boost": 0,
+    "boost": 1,
     "supp": 0,
     "dome": 2,
-    "neu": 1
+    "neu": 0
    }
   },
   {
    "name": "Zero Gravity",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Pederson gets ideal loft (21\u00b0), Hoskins lands at 85 in our model, and Carpenter is teeing off (53% hard-hit).",
+   "note": "Pederson is leaving scorch marks (59% hard-hit), Busch swings on a clean uppercut (18\u00b0), and Bleday carries a solid power grade (50/100).",
    "players": [
     {
      "name": "Joc Pederson",
@@ -6892,63 +6892,89 @@
      "status": "projected"
     },
     {
-     "name": "Rhys Hoskins",
-     "team": "Guardians",
-     "total": 85.2,
-     "aT": 74.8,
-     "wf": 0.973,
-     "gmatch": "CLE@CWS",
-     "gtime": "7:40 PM",
-     "game": 8,
+     "name": "Michael Busch",
+     "team": "Cubs",
+     "total": 96.3,
+     "aT": 78.2,
+     "wf": 1.013,
+     "gmatch": "CHC@NYM",
+     "gtime": "7:10 PM",
+     "game": 7,
      "late": false,
-     "odds": 350,
+     "odds": 500,
      "status": "projected"
     },
     {
-     "name": "Kerry Carpenter",
-     "team": "Tigers",
-     "total": 81.5,
-     "aT": 75.2,
+     "name": "JJ Bleday",
+     "team": "Reds",
+     "total": 76.6,
+     "aT": 73.0,
      "wf": 0.988,
-     "gmatch": "NYY@DET",
-     "gtime": "6:10 PM",
-     "game": 1,
+     "gmatch": "MIL@CIN",
+     "gtime": "7:10 PM",
+     "game": 6,
      "late": false,
-     "odds": 400,
+     "odds": 325,
      "status": "projected"
     }
    ],
    "nlegs": 3,
    "anchor": "Joc Pederson",
-   "lock": "6:10 PM",
+   "lock": "6:40 PM",
    "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 4.0,
-    "maxprofit": 202.5,
+    "maxprofit": 227.1,
     "bytwos": false
    },
    "n": 6,
    "priced": 3,
    "confleg": 0,
-   "sum": 235.4,
-   "msum": 276.9,
-   "parlay_am": 12838,
-   "payout10": 1293.75,
+   "sum": 236.6,
+   "msum": 283.1,
+   "parlay_am": 14562,
+   "payout10": 1466.25,
    "wxsum": {
     "boost": 0,
-    "supp": 1,
+    "supp": 0,
     "dome": 1,
-    "neu": 1
+    "neu": 2
    }
   },
   {
    "name": "The Whole Enchilada",
    "kind": "biggest",
    "badge": "\ud83e\udd6a",
-   "note": "Carroll gets ideal loft (17\u00b0), Baldwin brings .229 ISO juice, Carrigg lands at 102 in our model, and O'Neill is squaring it up (51% hard-hit).",
+   "note": "Alvarez gets ideal loft (22\u00b0), Crow-Armstrong brings .235 ISO juice, Carroll lands at 101 in our model, and Suarez is squaring it up (49% hard-hit).",
    "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 116.5,
+     "aT": 90.0,
+     "wf": 1.0,
+     "gmatch": "HOU@TOR",
+     "gtime": "7:07 PM",
+     "game": 5,
+     "late": false,
+     "odds": 325,
+     "status": "projected"
+    },
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 102.7,
+     "aT": 72.0,
+     "wf": 1.013,
+     "gmatch": "CHC@NYM",
+     "gtime": "7:10 PM",
+     "game": 7,
+     "late": false,
+     "odds": 375,
+     "status": "projected"
+    },
     {
      "name": "Corbin Carroll",
      "team": "Diamondbacks",
@@ -6963,67 +6989,41 @@
      "status": "projected"
     },
     {
-     "name": "Drake Baldwin",
-     "team": "Braves",
-     "total": 113.4,
-     "aT": 88.0,
-     "wf": 0.989,
-     "gmatch": "ATL@SD",
-     "gtime": "10:10 PM",
-     "game": 13,
-     "late": true,
-     "odds": 475,
-     "status": "projected"
-    },
-    {
-     "name": "Cole Carrigg",
-     "team": "Rockies",
-     "total": 101.8,
-     "aT": 82.7,
-     "wf": 1.191,
-     "gmatch": "BOS@COL",
-     "gtime": "8:40 PM",
-     "game": 11,
+     "name": "Eugenio Suarez",
+     "team": "Reds",
+     "total": 91.7,
+     "aT": 81.5,
+     "wf": 0.988,
+     "gmatch": "MIL@CIN",
+     "gtime": "7:10 PM",
+     "game": 6,
      "late": false,
-     "odds": 600,
-     "status": "projected"
-    },
-    {
-     "name": "Tyler O'Neill",
-     "team": "Orioles",
-     "total": 88.7,
-     "aT": 74.0,
-     "wf": 1.008,
-     "gmatch": "BAL@LAA",
-     "gtime": "9:38 PM",
-     "game": 12,
-     "late": true,
      "odds": 375,
      "status": "projected"
     }
    ],
    "nlegs": 4,
-   "anchor": "Corbin Carroll",
-   "lock": "10:10 PM",
-   "has_late": true,
+   "anchor": "Yordan Alvarez",
+   "lock": "7:07 PM",
+   "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s, 3s & 4",
     "risk": 11.0,
-    "maxprofit": 2138.0,
+    "maxprofit": 1183.3,
     "bytwos": false
    },
    "n": 7,
    "priced": 4,
    "confleg": 0,
-   "sum": 323.3,
-   "msum": 404.8,
-   "parlay_am": 114612,
-   "payout10": 11471.25,
+   "sum": 322.1,
+   "msum": 411.8,
+   "parlay_am": 57434,
+   "payout10": 5753.44,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
-    "dome": 0,
+    "dome": 1,
     "neu": 3
    }
   },
@@ -7031,7 +7031,7 @@
    "name": "Burning the Midnight Oil",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Pete Alonso is hammering the ball (58% hard-hit), swings with home-run loft (20\u00b0), brings .226 ISO juice, grades out strong for power (89/100), the model bumps him to 101.",
+   "note": "Pete Alonso is tattooing the baseball (58% hard-hit), swings with home-run loft (20\u00b0), brings .226 ISO juice, grades out strong for power (89/100), the model bumps him to 101.",
    "players": [
     {
      "name": "Pete Alonso",
@@ -7071,35 +7071,35 @@
    "name": "Walking-Around Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Juan Soto gets to feast on Shota Imanaga \u2014 batting-practice stuff at 1.77 HR/9, is crushing the baseball (59% hard-hit), has rare thump (.274 ISO).",
+   "note": "Drake Baldwin is barreling everything in sight (58% hard-hit), sends it skyward (16\u00b0), brings useful power (.229 ISO).",
    "players": [
     {
-     "name": "Juan Soto",
-     "team": "Mets",
-     "total": 102.7,
-     "aT": 80.9,
-     "wf": 1.013,
-     "gmatch": "CHC@NYM",
-     "gtime": "7:10 PM",
-     "game": 7,
-     "late": false,
-     "odds": 350,
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 113.4,
+     "aT": 88.0,
+     "wf": 0.989,
+     "gmatch": "ATL@SD",
+     "gtime": "10:10 PM",
+     "game": 13,
+     "late": true,
+     "odds": 475,
      "status": "projected"
     }
    ],
    "nlegs": 1,
-   "anchor": "Juan Soto",
-   "lock": "7:10 PM",
-   "has_late": false,
+   "anchor": "Drake Baldwin",
+   "lock": "10:10 PM",
+   "has_late": true,
    "final": false,
    "rr": null,
    "n": 9,
    "priced": 1,
    "confleg": 0,
-   "sum": 80.9,
-   "msum": 102.7,
-   "parlay_am": 350,
-   "payout10": 45.0,
+   "sum": 88.0,
+   "msum": 113.4,
+   "parlay_am": 475,
+   "payout10": 57.5,
    "wxsum": {
     "boost": 0,
     "supp": 0,
@@ -7111,87 +7111,7 @@
    "name": "The Cookie Jar",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Pete Crow-Armstrong is leaving scorch marks (53% hard-hit), stays in the launch zone (21\u00b0), packs above-average pop (.235 ISO).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 102.7,
-     "aT": 72.0,
-     "wf": 1.013,
-     "gmatch": "CHC@NYM",
-     "gtime": "7:10 PM",
-     "game": 7,
-     "late": false,
-     "odds": 375,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "7:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 10,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 72.0,
-   "msum": 102.7,
-   "parlay_am": 375,
-   "payout10": 47.5,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   }
-  },
-  {
-   "name": "Pocket Money",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Michael Busch puts air under the ball (18\u00b0), is making quality contact (49% hard-hit), packs respectable power (68/100 grade).",
-   "players": [
-    {
-     "name": "Michael Busch",
-     "team": "Cubs",
-     "total": 96.3,
-     "aT": 78.2,
-     "wf": 1.013,
-     "gmatch": "CHC@NYM",
-     "gtime": "7:10 PM",
-     "game": 7,
-     "late": false,
-     "odds": 500,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Michael Busch",
-   "lock": "7:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 11,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 78.2,
-   "msum": 96.3,
-   "parlay_am": 500,
-   "payout10": 60.0,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   }
-  },
-  {
-   "name": "The Allowance",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Austin Riley is punishing the baseball (57% hard-hit), launches it at the right angle (19\u00b0), has the pop to go deep (86/100 power).",
+   "note": "Austin Riley is teeing off (57% hard-hit), keeps the ball in the air (19\u00b0), has the pop to go deep (86/100 power), lands at 94 in our model.",
    "players": [
     {
      "name": "Austin Riley",
@@ -7213,7 +7133,7 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 12,
+   "n": 10,
    "priced": 1,
    "confleg": 0,
    "sum": 86.9,
@@ -7228,10 +7148,50 @@
    }
   },
   {
-   "name": "Cashing Out",
+   "name": "Pocket Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Dillon Dingler is making elite contact (54% hard-hit), brings middle-of-the-order slug (.277 ISO), keeps the ball in the air (16\u00b0).",
+   "note": "Kerry Carpenter is punishing the baseball (53% hard-hit), stays in the launch zone (20\u00b0), swings a heavy stick (79/100 power).",
+   "players": [
+    {
+     "name": "Kerry Carpenter",
+     "team": "Tigers",
+     "total": 81.5,
+     "aT": 75.2,
+     "wf": 0.988,
+     "gmatch": "NYY@DET",
+     "gtime": "6:10 PM",
+     "game": 1,
+     "late": false,
+     "odds": 400,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kerry Carpenter",
+   "lock": "6:10 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 11,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 75.2,
+   "msum": 81.5,
+   "parlay_am": 400,
+   "payout10": 50.0,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   }
+  },
+  {
+   "name": "The Allowance",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Dillon Dingler is making elite contact (54% hard-hit), brings middle-of-the-order slug (.277 ISO), swings with natural lift (16\u00b0).",
    "players": [
     {
      "name": "Dillon Dingler",
@@ -7253,7 +7213,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 13,
+   "n": 12,
    "priced": 1,
    "confleg": 0,
    "sum": 66.3,
@@ -7268,10 +7228,10 @@
    }
   },
   {
-   "name": "The Slow Grind",
+   "name": "Cashing Out",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Ian Happ sends it skyward (19\u00b0), swings with pop (.239 ISO), is barreling up enough (50% hard-hit), swings with usable power (60/100).",
+   "note": "Ian Happ finds the home-run trajectory (19\u00b0), packs above-average pop (.239 ISO), is putting the bat on it well (50% hard-hit).",
    "players": [
     {
      "name": "Ian Happ",
@@ -7293,7 +7253,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 14,
+   "n": 13,
    "priced": 1,
    "confleg": 0,
    "sum": 72.2,
@@ -7308,10 +7268,10 @@
    }
   },
   {
-   "name": "Steady Drip",
+   "name": "The Slow Grind",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Ben Rice is squaring up everything (61% hard-hit), carries elite slug (.323 ISO), swings a heavy stick (85/100 power), grades to 87 on our board.",
+   "note": "Ben Rice is stinging it on a rope (61% hard-hit), hits for serious power (.323 ISO), swings a heavy stick (85/100 power).",
    "players": [
     {
      "name": "Ben Rice",
@@ -7333,7 +7293,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 15,
+   "n": 14,
    "priced": 1,
    "confleg": 0,
    "sum": 74.5,
@@ -7348,10 +7308,10 @@
    }
   },
   {
-   "name": "Singles Add Up",
+   "name": "Steady Drip",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Jake Burger is stinging it on a rope (56% hard-hit), swings with natural lift (16\u00b0), carries a solid power grade (52/100), recent form points up.",
+   "note": "Jake Burger is hammering the ball (56% hard-hit), gets ideal loft (16\u00b0), swings with usable power (52/100), recent form points up.",
    "players": [
     {
      "name": "Jake Burger",
@@ -7373,7 +7333,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 16,
+   "n": 15,
    "priced": 1,
    "confleg": 0,
    "sum": 80.8,
@@ -7388,10 +7348,10 @@
    }
   },
   {
-   "name": "Chip Stack",
+   "name": "Singles Add Up",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Kazuma Okamoto is barreling balls at will (58% hard-hit), has loft to spare (20\u00b0), has enough pop to clear it (68/100 power).",
+   "note": "Kazuma Okamoto is barreling balls at will (58% hard-hit), drives the ball into the air (20\u00b0), carries a solid power grade (68/100).",
    "players": [
     {
      "name": "Kazuma Okamoto",
@@ -7413,7 +7373,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 17,
+   "n": 16,
    "priced": 1,
    "confleg": 0,
    "sum": 75.0,
@@ -7428,10 +7388,10 @@
    }
   },
   {
-   "name": "The Vig Killer",
+   "name": "Chip Stack",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "CJ Abrams carries game-changing power (.247 ISO), has the swing plane dialed for liftoff (18\u00b0), is more table-setter than slugger (28/100).",
+   "note": "CJ Abrams swings a .247-ISO sledgehammer, puts air under the ball (18\u00b0), wins with bat-to-ball over raw pop (28/100), the bat speed looks back.",
    "players": [
     {
      "name": "CJ Abrams",
@@ -7453,7 +7413,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 18,
+   "n": 17,
    "priced": 1,
    "confleg": 0,
    "sum": 64.8,
@@ -7468,10 +7428,50 @@
    }
   },
   {
+   "name": "The Vig Killer",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Kyle Manzardo is crushing contact at an elite rate (61% hard-hit), tilts the bat for distance (23\u00b0), sits in the elite power tier (100/100).",
+   "players": [
+    {
+     "name": "Kyle Manzardo",
+     "team": "Guardians",
+     "total": 73.6,
+     "aT": 64.5,
+     "wf": 0.973,
+     "gmatch": "CLE@CWS",
+     "gtime": "7:40 PM",
+     "game": 8,
+     "late": false,
+     "odds": 425,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kyle Manzardo",
+   "lock": "7:40 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 18,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 64.5,
+   "msum": 73.6,
+   "parlay_am": 425,
+   "payout10": 52.5,
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
    "name": "Direct Deposit",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Isaac Paredes hits it on the perfect plane (22\u00b0), is driving it with authority (52% hard-hit), brings fringe-average pop (41/100).",
+   "note": "Isaac Paredes has textbook lift (22\u00b0), is driving it with authority (52% hard-hit), plays a touch under the power tier (41/100).",
    "players": [
     {
      "name": "Isaac Paredes",
@@ -7551,7 +7551,7 @@
    "name": "The ATM",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Pavin Smith is putting a charge into it (48% hard-hit), is a contact-first bat hunting one good swing (25/100 power), lands at 76 in our model.",
+   "note": "Pavin Smith is putting a charge into it (48% hard-hit), banks on a mistake pitch to clear it (25/100 power), the model has him at 76 for the night.",
    "players": [
     {
      "name": "Pavin Smith",
@@ -7591,7 +7591,7 @@
    "name": "Milk Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Vladimir Guerrero Jr. is putting a charge into everything (57% hard-hit), wins with bat-to-ball over raw pop (29/100), grades to 71 on our board.",
+   "note": "Vladimir Guerrero Jr. is putting a charge into everything (57% hard-hit), is a contact-first bat hunting one good swing (29/100 power).",
    "players": [
     {
      "name": "Vladimir Guerrero Jr.",
