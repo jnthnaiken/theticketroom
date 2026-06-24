@@ -1,7 +1,7 @@
 {
   "date": "2026-06-24",
   "season": "2026",
-  "pulled_at": "2026-06-24T08:30:48Z",
+  "pulled_at": "2026-06-24T09:00:55Z",
   "games": [
     {
       "gamePk": 823850,
@@ -75,12 +75,12 @@
         "cond": "calm 1mph, 84\u00b0",
         "lean": "Neutral",
         "temp": 84.1,
-        "wind_mph": 9.4,
-        "wind_dir": 303,
-        "tail_mph": -1.3,
+        "wind_mph": 9.9,
+        "wind_dir": 298,
+        "tail_mph": -0.5,
         "precip": 0
       },
-      "wf": 1.017
+      "wf": 1.019
     },
     {
       "gamePk": 823611,
@@ -152,15 +152,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 69\u00b0",
+        "cond": "calm 2mph, 70\u00b0",
         "lean": "Neutral",
-        "temp": 69.4,
-        "wind_mph": 6.5,
-        "wind_dir": 124,
-        "tail_mph": -0.5,
-        "precip": 41
+        "temp": 69.9,
+        "wind_mph": 5.5,
+        "wind_dir": 148,
+        "tail_mph": 1.9,
+        "precip": 45
       },
-      "wf": 0.998
+      "wf": 1.006
     },
     {
       "gamePk": 824341,
@@ -192,16 +192,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 85\u00b0",
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 85.3,
-        "wind_mph": 12.5,
-        "wind_dir": 111,
-        "tail_mph": 4.5,
+        "temp": 85.0,
+        "wind_mph": 14.4,
+        "wind_dir": 134,
+        "tail_mph": 10.0,
         "precip": 7
       },
-      "wf": 1.039
+      "wf": 1.058
     },
     {
       "gamePk": 824018,
@@ -234,15 +234,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 76\u00b0",
+        "cond": "wind out 9mph, 75\u00b0",
         "lean": "Boost",
-        "temp": 75.7,
-        "wind_mph": 8.7,
-        "wind_dir": 228,
-        "tail_mph": 8.6,
+        "temp": 75.1,
+        "wind_mph": 8.9,
+        "wind_dir": 229,
+        "tail_mph": 8.8,
         "precip": 1
       },
-      "wf": 1.039
+      "wf": 1.038
     },
     {
       "gamePk": 823367,
@@ -600,9 +600,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 4mph, 65\u00b0",
+        "lean": "Suppress",
+        "temp": 65.3,
+        "wind_mph": 5.4,
+        "wind_dir": 322,
+        "tail_mph": -4.3,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 0.978
     },
     {
       "gamePk": 823208,
@@ -634,16 +641,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 54\u00b0",
-        "lean": "Neutral",
-        "temp": 54.5,
-        "wind_mph": 10.6,
-        "wind_dir": 262,
-        "tail_mph": 10.6,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.014
+      "wf": 1.0
     }
   ]
 }
