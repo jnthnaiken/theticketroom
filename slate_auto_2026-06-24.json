@@ -1,11 +1,11 @@
 {
   "date": "2026-06-24",
   "season": "2026",
-  "pulled_at": "2026-06-24T16:00:31Z",
+  "pulled_at": "2026-06-24T16:30:49Z",
   "games": [
     {
       "gamePk": 823850,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-06-24T16:10:00Z",
       "matchup": "TEX@MIA",
       "away": {
@@ -13,7 +13,7 @@
         "sp": {
           "id": 594798,
           "name": "Jacob deGrom",
-          "hr9": 1.63,
+          "hr9": 1.61,
           "hand": "RHP"
         },
         "lineup": [
@@ -25,17 +25,17 @@
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 673962,
             "name": "Josh Jung",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 669394,
@@ -70,14 +70,14 @@
         "sp": {
           "id": 691587,
           "name": "Eury P\u00e9rez",
-          "hr9": 1.58,
+          "hr9": 1.55,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 669364,
             "name": "Xavier Edwards",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 672640,
@@ -87,12 +87,12 @@
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.194
+            "iso": 0.193
           },
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.19
+            "iso": 0.188
           },
           {
             "id": 665052,
@@ -117,7 +117,7 @@
           {
             "id": 640459,
             "name": "Brian Navarreto",
-            "iso": null
+            "iso": 0.0
           }
         ],
         "confirmed": true
@@ -276,8 +276,10 @@
       "away": {
         "abbrev": "CHC",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 684007,
+          "name": "Shota Imanaga",
+          "hr9": 1.77,
+          "hand": "LHP"
         },
         "lineup": [],
         "confirmed": false
@@ -436,13 +438,13 @@
         "wind_mph": 6.9,
         "wind_dir": 126,
         "tail_mph": -0.2,
-        "precip": 20
+        "precip": 19
       },
       "wf": 1.003
     },
     {
       "gamePk": 824341,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-24T19:10:00Z",
       "matchup": "BOS@COL",
       "away": {
@@ -453,8 +455,54 @@
           "hr9": 0.47,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 681987,
+            "name": "Nate Eaton",
+            "iso": 0.417
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.157
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.173
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.24
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.146
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.063
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.132
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.094
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.086
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -464,10 +512,56 @@
           "hr9": 1.91,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.132
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.093
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.198
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.268
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.273
+          },
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.173
+          },
+          {
+            "id": 690924,
+            "name": "Braxton Fulford",
+            "iso": 0.167
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.123
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.124
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -640,7 +734,7 @@
         "wind_mph": 4.0,
         "wind_dir": 218,
         "tail_mph": 4.0,
-        "precip": 15
+        "precip": 19
       },
       "wf": 1.013
     },
@@ -844,7 +938,7 @@
         "wind_mph": 4.7,
         "wind_dir": 180,
         "tail_mph": 4.1,
-        "precip": 13
+        "precip": 15
       },
       "wf": 1.023
     },
@@ -878,16 +972,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 5mph, 67\u00b0",
-        "lean": "Suppress",
-        "temp": 66.6,
-        "wind_mph": 6.1,
-        "wind_dir": 324,
-        "tail_mph": -4.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.978
+      "wf": 1.0
     },
     {
       "gamePk": 823208,
