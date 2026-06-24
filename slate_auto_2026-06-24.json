@@ -1,7 +1,7 @@
 {
   "date": "2026-06-24",
   "season": "2026",
-  "pulled_at": "2026-06-24T21:14:29Z",
+  "pulled_at": "2026-06-24T21:30:31Z",
   "games": [
     {
       "gamePk": 823850,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823611,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-24T23:10:00Z",
       "matchup": "CHC@NYM",
       "away": {
@@ -281,8 +281,54 @@
           "hr9": 1.77,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.239
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.18
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.17
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.098
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.156
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.097
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.112
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.125
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.178
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYM",
@@ -292,10 +338,56 @@
           "hr9": 0.99,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.146
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.129
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.125
+          },
+          {
+            "id": 668901,
+            "name": "Mark Vientos",
+            "iso": 0.168
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.13
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.167
+          },
+          {
+            "id": 676572,
+            "name": "Eric Wagaman",
+            "iso": 0.187
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.107
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -319,7 +411,7 @@
         "sp": {
           "id": 676440,
           "name": "Tanner Bibee",
-          "hr9": 1.59,
+          "hr9": 1.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -356,7 +448,7 @@
           {
             "id": 682177,
             "name": "Daniel Schneemann",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 672275,
@@ -376,7 +468,7 @@
         "sp": {
           "id": 607200,
           "name": "Erick Fedde",
-          "hr9": 1.78,
+          "hr9": 1.77,
           "hand": "RHP"
         },
         "lineup": [
@@ -413,7 +505,7 @@
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.182
+            "iso": 0.178
           },
           {
             "id": 671976,
@@ -438,7 +530,7 @@
         "wind_mph": 5.0,
         "wind_dir": 100,
         "tail_mph": -2.3,
-        "precip": 31
+        "precip": 14
       },
       "wf": 0.99
     },
@@ -484,17 +576,17 @@
           {
             "id": 678011,
             "name": "Anthony Seigler",
-            "iso": 0.105
+            "iso": 0.1
           },
           {
             "id": 655316,
             "name": "Andruw Monasterio",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 657136,
             "name": "Connor Wong",
-            "iso": 0.125
+            "iso": 0.123
           },
           {
             "id": 665966,
@@ -536,7 +628,7 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.261
+            "iso": 0.256
           },
           {
             "id": 664983,
@@ -577,7 +669,7 @@
     },
     {
       "gamePk": 824018,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-06-24T20:07:00Z",
       "matchup": "BAL@LAA",
       "away": {
@@ -585,14 +677,14 @@
         "sp": {
           "id": 694346,
           "name": "Trey Gibson",
-          "hr9": 1.53,
+          "hr9": 1.48,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 621493,
             "name": "Taylor Ward",
-            "iso": 0.107
+            "iso": 0.109
           },
           {
             "id": 683002,
@@ -602,7 +694,7 @@
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 624413,
@@ -679,7 +771,7 @@
           {
             "id": 672724,
             "name": "Oswald Peraza",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 666139,
@@ -689,7 +781,7 @@
           {
             "id": 623168,
             "name": "Tyler Heineman",
-            "iso": 0.061
+            "iso": 0.06
           }
         ],
         "confirmed": true
@@ -1633,7 +1725,7 @@
         "wind_mph": 4.0,
         "wind_dir": 341,
         "tail_mph": -3.6,
-        "precip": 2
+        "precip": 3
       },
       "wf": 0.978
     },
@@ -1766,7 +1858,7 @@
         "wind_mph": 2.9,
         "wind_dir": 189,
         "tail_mph": 2.7,
-        "precip": 5
+        "precip": 4
       },
       "wf": 1.019
     },
