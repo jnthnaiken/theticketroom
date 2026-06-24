@@ -1,7 +1,7 @@
 {
   "date": "2026-06-24",
   "season": "2026",
-  "pulled_at": "2026-06-24T22:00:55Z",
+  "pulled_at": "2026-06-24T22:30:48Z",
   "games": [
     {
       "gamePk": 823850,
@@ -411,24 +411,24 @@
         "sp": {
           "id": 676440,
           "name": "Tanner Bibee",
-          "hr9": 1.54,
+          "hr9": 1.53,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 681807,
             "name": "David Fry",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 700932,
@@ -443,12 +443,12 @@
           {
             "id": 696135,
             "name": "Kahlil Watson",
-            "iso": 0.166
+            "iso": 0.157
           },
           {
             "id": 682177,
             "name": "Daniel Schneemann",
-            "iso": 0.133
+            "iso": 0.131
           },
           {
             "id": 672275,
@@ -468,7 +468,7 @@
         "sp": {
           "id": 607200,
           "name": "Erick Fedde",
-          "hr9": 1.72,
+          "hr9": 1.69,
           "hand": "RHP"
         },
         "lineup": [
@@ -505,17 +505,17 @@
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.178
+            "iso": 0.174
           },
           {
             "id": 671976,
             "name": "Tristan Peters",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 694378,
             "name": "Jacob Gonzalez",
-            "iso": 0.06
+            "iso": 0.059
           }
         ],
         "confirmed": true
@@ -530,13 +530,13 @@
         "wind_mph": 8.4,
         "wind_dir": 101,
         "tail_mph": -3.8,
-        "precip": 14
+        "precip": 17
       },
       "wf": 0.98
     },
     {
       "gamePk": 824341,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-06-24T19:10:00Z",
       "matchup": "BOS@COL",
       "away": {
@@ -689,12 +689,12 @@
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.12
+            "iso": 0.119
           },
           {
             "id": 624413,
@@ -746,12 +746,12 @@
           {
             "id": 694203,
             "name": "Denzer Guzman",
-            "iso": 0.203
+            "iso": 0.2
           },
           {
             "id": 685133,
             "name": "Wade Meckler",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 624585,
@@ -781,7 +781,7 @@
           {
             "id": 623168,
             "name": "Tyler Heineman",
-            "iso": 0.06
+            "iso": 0.059
           }
         ],
         "confirmed": true
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823367,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-24T22:40:00Z",
       "matchup": "SEA@PIT",
       "away": {
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 822965,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-24T22:40:00Z",
       "matchup": "KC@TB",
       "away": {
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824259,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-24T22:40:00Z",
       "matchup": "NYY@DET",
       "away": {
@@ -1194,13 +1194,13 @@
         "wind_mph": 2.6,
         "wind_dir": 239,
         "tail_mph": 2.3,
-        "precip": 18
+        "precip": 12
       },
       "wf": 1.004
     },
     {
       "gamePk": 822719,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-24T22:45:00Z",
       "matchup": "PHI@WSH",
       "away": {
@@ -1725,7 +1725,7 @@
         "wind_mph": 4.2,
         "wind_dir": 342,
         "tail_mph": -3.8,
-        "precip": 3
+        "precip": 5
       },
       "wf": 0.98
     },
@@ -1858,7 +1858,7 @@
         "wind_mph": 4.8,
         "wind_dir": 217,
         "tail_mph": 4.8,
-        "precip": 4
+        "precip": 5
       },
       "wf": 1.026
     },
@@ -1984,13 +1984,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 67\u00b0",
+        "lean": "Suppress",
+        "temp": 66.9,
+        "wind_mph": 6.0,
+        "wind_dir": 326,
+        "tail_mph": -5.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.978
     },
     {
       "gamePk": 823208,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-25T01:45:00Z",
       "matchup": "ATH@SF",
       "away": {
@@ -2012,22 +2019,61 @@
           "hr9": 1.75,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656305,
+            "name": "Matt Chapman",
+            "iso": 0.141
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.213
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.231
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.192
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.197
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.139
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.166
+          },
+          {
+            "id": 606992,
+            "name": "Eric Haase",
+            "iso": 0.268
+          },
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.353
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 56\u00b0",
-        "lean": "Neutral",
-        "temp": 55.8,
-        "wind_mph": 9.9,
-        "wind_dir": 262,
-        "tail_mph": 9.9,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.013
+      "wf": 1.0
     }
   ]
 }
