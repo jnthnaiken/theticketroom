@@ -1,7 +1,7 @@
 {
   "date": "2026-06-24",
   "season": "2026",
-  "pulled_at": "2026-06-24T18:00:49Z",
+  "pulled_at": "2026-06-24T18:30:52Z",
   "games": [
     {
       "gamePk": 823850,
@@ -35,7 +35,7 @@
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 669394,
@@ -45,17 +45,17 @@
           {
             "id": 677649,
             "name": "Ezequiel Duran",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 696030,
             "name": "Alejandro Osuna",
-            "iso": 0.034
+            "iso": 0.033
           },
           {
             "id": 553869,
             "name": "Elias D\u00edaz",
-            "iso": 0.204
+            "iso": 0.2
           },
           {
             "id": 670032,
@@ -77,22 +77,22 @@
           {
             "id": 669364,
             "name": "Xavier Edwards",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 672640,
             "name": "Otto Lopez",
-            "iso": 0.133
+            "iso": 0.143
           },
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.191
+            "iso": 0.2
           },
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 665052,
@@ -145,7 +145,7 @@
         "sp": {
           "id": 665871,
           "name": "Javier Assad",
-          "hr9": 1.15,
+          "hr9": 1.5,
           "hand": "RHP"
         },
         "lineup": [
@@ -157,17 +157,17 @@
           {
             "id": 624424,
             "name": "Michael Conforto",
-            "iso": 0.208
+            "iso": 0.216
           },
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.147
+            "iso": 0.158
           },
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 664023,
@@ -182,12 +182,12 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.132
+            "iso": 0.129
           },
           {
             "id": 665804,
             "name": "Miguel Amaya",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 621020,
@@ -202,7 +202,7 @@
         "sp": {
           "id": 690997,
           "name": "Nolan McLean",
-          "hr9": 0.83,
+          "hr9": 0.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -224,12 +224,12 @@
           {
             "id": 676724,
             "name": "Jared Young",
-            "iso": 0.174
+            "iso": 0.204
           },
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.151
+            "iso": 0.17
           },
           {
             "id": 683146,
@@ -244,12 +244,12 @@
           {
             "id": 669004,
             "name": "MJ Melendez",
-            "iso": 0.165
+            "iso": 0.163
           },
           {
             "id": 620443,
             "name": "Luis Torrens",
-            "iso": 0.091
+            "iso": 0.09
           }
         ],
         "confirmed": true
@@ -438,7 +438,7 @@
         "wind_mph": 6.5,
         "wind_dir": 174,
         "tail_mph": 4.7,
-        "precip": 18
+        "precip": 33
       },
       "wf": 1.022
     },
@@ -571,7 +571,7 @@
         "wind_mph": 6.8,
         "wind_dir": 9,
         "tail_mph": -6.7,
-        "precip": 12
+        "precip": 11
       },
       "wf": 1.008
     },
@@ -588,8 +588,54 @@
           "hr9": 1.37,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.107
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.199
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.121
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.22
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.186
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.158
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.187
+          },
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.151
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.134
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
@@ -780,7 +826,7 @@
         "wind_mph": 2.5,
         "wind_dir": 207,
         "tail_mph": 2.5,
-        "precip": 17
+        "precip": 19
       },
       "wf": 1.003
     },
@@ -977,16 +1023,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 4mph, 77\u00b0",
-        "lean": "Neutral",
-        "temp": 77.4,
-        "wind_mph": 3.8,
-        "wind_dir": 28,
-        "tail_mph": -3.8,
-        "precip": 9
+        "note": "weather fetch failed"
       },
-      "wf": 0.998
+      "wf": 1.0
     },
     {
       "gamePk": 823284,
@@ -1059,9 +1098,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 56\u00b0",
+        "lean": "Neutral",
+        "temp": 55.7,
+        "wind_mph": 10.2,
+        "wind_dir": 262,
+        "tail_mph": 10.2,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.014
     }
   ]
 }
