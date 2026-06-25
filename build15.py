@@ -18,7 +18,13 @@ season.json is the authoritative ledger (grade_night advances it); we just load 
 import math, statistics as st, json, unicodedata, re, ast, os, datetime
 import cardnotes
 
-DATE = os.environ.get('SLATE_DATE') or (datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%Y-%m-%d')
+def _latest_slate():
+    import glob
+    base=os.path.dirname(os.path.abspath(__file__))
+    ds=sorted(re.findall(r'cards_(\d{4}-\d{2}-\d{2})\.json','\n'.join(glob.glob(os.path.join(base,'cards_*.json')))))
+    return ds[-1] if ds else (datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%Y-%m-%d')
+# date = pinned SLATE_DATE, else the most recent slate that actually has input files (never roll forward to an empty calendar day)
+DATE = os.environ.get('SLATE_DATE') or _latest_slate()
 def _prior(d): return (datetime.datetime.strptime(d,'%Y-%m-%d')-datetime.timedelta(days=1)).strftime('%Y-%m-%d')
 
 def load_dated(stem, required=True):
