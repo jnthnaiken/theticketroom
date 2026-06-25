@@ -1,7 +1,7 @@
 {
   "date": "2026-06-25",
   "season": "2026",
-  "pulled_at": "2026-06-25T19:30:25Z",
+  "pulled_at": "2026-06-25T20:00:27Z",
   "games": [
     {
       "gamePk": 822961,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823209,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-06-25T19:45:00Z",
       "matchup": "ATH@SF",
       "away": {
@@ -278,7 +278,7 @@
         "sp": {
           "id": 605488,
           "name": "Jeffrey Springs",
-          "hr9": 2.29,
+          "hr9": 2.26,
           "hand": "LHP"
         },
         "lineup": [
@@ -290,12 +290,12 @@
           {
             "id": 701762,
             "name": "Nick Kurtz",
-            "iso": 0.258
+            "iso": 0.257
           },
           {
             "id": 669127,
             "name": "Shea Langeliers",
-            "iso": 0.245
+            "iso": 0.244
           },
           {
             "id": 691016,
@@ -335,14 +335,14 @@
         "sp": {
           "id": 694738,
           "name": "Landen Roupp",
-          "hr9": 0.56,
+          "hr9": 0.55,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 656305,
             "name": "Matt Chapman",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 805811,
@@ -352,12 +352,12 @@
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 646240,
             "name": "Rafael Devers",
-            "iso": 0.199
+            "iso": 0.198
           },
           {
             "id": 642715,
@@ -490,7 +490,7 @@
     },
     {
       "gamePk": 822717,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-25T22:45:00Z",
       "matchup": "PHI@WSH",
       "away": {
@@ -501,8 +501,54 @@
           "hr9": 0.6,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.106
+          },
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.342
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.247
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.186
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.133
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.164
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.121
+          },
+          {
+            "id": 687282,
+            "name": "Gabriel Rincones Jr.",
+            "iso": 0.107
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -512,10 +558,56 @@
           "hr9": 0.7,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.254
+          },
+          {
+            "id": 678554,
+            "name": "Curtis Mead",
+            "iso": 0.244
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.086
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.161
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.149
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.15
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.044
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.114
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.203
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -542,8 +634,54 @@
           "hr9": 0.86,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.208
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.21
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.187
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.162
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.188
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.156
+          },
+          {
+            "id": 696030,
+            "name": "Alejandro Osuna",
+            "iso": 0.033
+          },
+          {
+            "id": 543309,
+            "name": "Kyle Higashioka",
+            "iso": 0.139
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.057
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
