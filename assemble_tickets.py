@@ -479,9 +479,17 @@ def assemble(D):
 
     parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship a parlay ONLY if fully filled: moons exactly 3 legs, salami exactly 4; dropped bats fall to builders via spent
 
-    for t in parlays:                                       # emit moons first (display order)
-        if t['kind'] == 'moon':
-            add(name_for("moon"), "moon", t['badge'], t['legs'], rr=t['rr'])
+    # CANONICAL NAMING: a moon's name is tied to its LEG SET, not its output position.
+    # Without this, two moons sharing an anchor can swap names on a rebuild (the partner pairs
+    # come out in the opposite order) even though the legs are intact -> looks like legs "moved".
+    # We assign names in a deterministic leg-set order, then emit in display order, so the same
+    # three legs always carry the same slip name across rebuilds.
+    _moons = [t for t in parlays if t['kind'] == 'moon']
+    _nm = {}
+    for t in sorted(_moons, key=lambda t: tuple(sorted(t['legs']))):
+        _nm[id(t)] = name_for("moon")
+    for t in _moons:                                        # emit moons first (display order), canonical name
+        add(_nm[id(t)], "moon", t['badge'], t['legs'], rr=t['rr'])
     for t in parlays:                                       # then the salami
         if t['kind'] == 'biggest':
             add(name_for("biggest"), "biggest", t['badge'], t['legs'], rr=t['rr'])
