@@ -1,11 +1,11 @@
 {
   "date": "2026-06-25",
   "season": "2026",
-  "pulled_at": "2026-06-25T16:00:32Z",
+  "pulled_at": "2026-06-25T16:30:26Z",
   "games": [
     {
       "gamePk": 822961,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-06-25T16:10:00Z",
       "matchup": "KC@TB",
       "away": {
@@ -13,24 +13,24 @@
         "sp": {
           "id": 607625,
           "name": "Seth Lugo",
-          "hr9": 0.74,
+          "hr9": 0.83,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 695600,
             "name": "Carter Jensen",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 679845,
             "name": "Nick Loftin",
-            "iso": 0.178
+            "iso": 0.177
           },
           {
             "id": 695506,
             "name": "Jac Caglianone",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 657041,
@@ -40,12 +40,12 @@
           {
             "id": 668942,
             "name": "Josh Rojas",
-            "iso": 0.571
+            "iso": 0.5
           },
           {
             "id": 521692,
             "name": "Salvador Perez",
-            "iso": 0.133
+            "iso": 0.131
           },
           {
             "id": 686555,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 668984,
           "name": "Casey Legumina",
-          "hr9": 0.57,
+          "hr9": 0.55,
           "hand": "RHP"
         },
         "lineup": [
@@ -87,7 +87,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.207
+            "iso": 0.216
           },
           {
             "id": 680700,
@@ -305,7 +305,7 @@
         "wind_mph": 18.1,
         "wind_dir": 283,
         "tail_mph": 17.2,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.049
     },
@@ -346,7 +346,7 @@
         "wind_mph": 5.7,
         "wind_dir": 342,
         "tail_mph": -3.8,
-        "precip": 0
+        "precip": 1
       },
       "wf": 0.983
     },
@@ -550,7 +550,7 @@
         "wind_mph": 2.4,
         "wind_dir": 68,
         "tail_mph": -1.9,
-        "precip": 21
+        "precip": 23
       },
       "wf": 1.002
     }
