@@ -9,7 +9,7 @@ Runs AFTER the scorer (build15.py) has written D_0615.json = {players, meta}.
 The published index.html doubles as its own shell/template: we read it, swap the
 data block, and write it back. All paths are repo-relative so it runs on the Action.
 """
-import json, re, time
+import json, re, time, os
 import assemble_tickets
 
 BOARD = "index.html"       # published board == its own shell/template
@@ -27,11 +27,12 @@ try:
         assemble_tickets.carryover(D, prevD)
         # The published board is the running ledger. If the scorer couldn't fold the night
         # (offline: no PRIOR_D/NIGHT_LOG and no season.json), it leaves a NEUTRAL season.
-        # In that case only, carry the prior board's real season so the tracker isn't wiped.
+        # In that case only (season.json ALSO absent), carry the prior board's real season. A present
+        # season.json -- even a deliberate reset to 0.0 -- is authoritative and must NOT be overwritten.
         cur = (D.get('meta') or {}).get('season') or {}
         neutral = (not cur.get('cats')) and (cur.get('history') in (None, [0.0], [0], []))
         ps = (prevD.get('meta') or {}).get('season')
-        if neutral and ps and (ps.get('cats') or (ps.get('history') and ps['history'] != [0.0])):
+        if neutral and not os.path.exists('season.json') and ps and (ps.get('cats') or (ps.get('history') and ps['history'] != [0.0])):
             D.setdefault('meta', {})['season'] = ps
             print(f"  (carried prior season ledger: {len(ps.get('cats',{}))} cats, history {len(ps.get('history',[]))})")
 except Exception as e:
