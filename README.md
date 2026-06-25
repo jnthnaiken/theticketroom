@@ -42,6 +42,11 @@ Then open `index.html`. It runs live on its own from there — no server needed.
 
 Missing a given day's file falls back to the prior day's automatically.
 
+`build15` also pulls **live weather (Open-Meteo) and opposing-pitcher HR/9 (StatsAPI)**
+at build time and bakes them into TOTAL, so the shipped board matches the browser's
+live re-draft. Both fetches fail gracefully — no network just falls back to the
+lineup's wind/temp and a neutral pitcher term, exactly as before.
+
 ## Outputs
 
 | File | What it is |

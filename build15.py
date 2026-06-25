@@ -86,6 +86,88 @@ CF_AZ    = {'ARI':0,'ATL':50,'BAL':30,'BOS':45,'CHC':30,'CWS':38,'CIN':40,'CLE':
             'SD':0,'SF':85,'SEA':60,'STL':30,'TB':50,'TEX':40,'TOR':0,'WSH':30}   # plate->CF bearing (deg); ATH=Vegas placeholder
 FULL={'TOR':'Blue Jays','BOS':'Red Sox','CLE':'Guardians','MIL':'Brewers','MIN':'Twins','TEX':'Rangers','BAL':'Orioles','SEA':'Mariners','NYM':'Mets','PHI':'Phillies','CWS':'White Sox','NYY':'Yankees','SF':'Giants','ATL':'Braves','STL':'Cardinals','KC':'Royals','LAA':'Angels','ATH':'Athletics','COL':'Rockies','CHC':'Cubs','TB':'Rays','LAD':'Dodgers','MIA':'Marlins','PIT':'Pirates','DET':'Tigers','HOU':'Astros','CIN':'Reds','AZ':'Diamondbacks','ARI':'Diamondbacks','WSH':'Nationals','SD':'Padres'}
 
+# ---- LIVE data at build time (Open-Meteo weather + StatsAPI HR/9) so the shipped seed == the browser re-draft ----
+import urllib.request
+PARK_LL={'ARI':(33.4455,-112.0667),'AZ':(33.4455,-112.0667),'ATL':(33.8907,-84.4677),'BAL':(39.2839,-76.6217),
+'BOS':(42.3467,-71.0972),'CHC':(41.9484,-87.6553),'CWS':(41.8300,-87.6339),'CIN':(39.0975,-84.5069),
+'CLE':(41.4962,-81.6852),'COL':(39.7559,-104.9942),'DET':(42.3390,-83.0485),'HOU':(29.7572,-95.3556),
+'KC':(39.0517,-94.4803),'LAA':(33.8003,-117.8827),'LAD':(34.0739,-118.2400),'MIA':(25.7780,-80.2197),
+'MIL':(43.0280,-87.9712),'MIN':(44.9817,-93.2776),'NYM':(40.7571,-73.8458),'NYY':(40.8296,-73.9262),
+'ATH':(38.5800,-121.5160),'PHI':(39.9061,-75.1665),'PIT':(40.4469,-80.0057),'SD':(32.7073,-117.1566),
+'SF':(37.7786,-122.3893),'SEA':(47.5914,-122.3325),'STL':(38.6226,-90.1928),'TB':(27.7683,-82.6534),
+'TEX':(32.7473,-97.0833),'TOR':(43.6414,-79.3894),'WSH':(38.8730,-77.0074)}
+def _getj(u):
+    with urllib.request.urlopen(u, timeout=20) as _r: return json.load(_r)
+def fetch_weather(games, date):
+    homes=[]
+    for g in games:
+        h=g.get('home')
+        if not g.get('dome') and h in PARK_LL and h not in homes: homes.append(h)
+    if not homes: return {}, 'no open parks'
+    la=','.join(str(PARK_LL[c][0]) for c in homes); lo=','.join(str(PARK_LL[c][1]) for c in homes)
+    try:
+        u=('https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s'
+           '&hourly=temperature_2m,wind_speed_10m,wind_direction_10m'
+           '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%%2FNew_York'
+           '&start_date=%s&end_date=%s')%(la,lo,date,date)
+        d=_getj(u)
+    except Exception as e:
+        return {}, 'fallback (%s)'%str(e)[:40]
+    locs=d if isinstance(d,list) else [d]; out={}
+    for c,loc in zip(homes,locs):
+        hh=loc.get('hourly') or {}
+        out[c]={'time':hh.get('time') or [],'t':hh.get('temperature_2m') or [],'ws':hh.get('wind_speed_10m') or [],'wd':hh.get('wind_direction_10m') or []}
+    return out, 'OK (%d parks)'%len(out)
+def apply_weather(g, wx, date):
+    w=wx.get(g.get('home'))
+    if not w or not w.get('time'): return False
+    m=re.match(r'(\d+):(\d+)\s*(AM|PM)', g.get('time') or '')
+    if not m: return False
+    hr=(int(m.group(1))%12)+(12 if m.group(3)=='PM' else 0); key='%sT%02d:00'%(date,hr)
+    try: i=w['time'].index(key)
+    except ValueError: i=min(18,len(w['time'])-1)
+    if i<0: return False
+    if i<len(w['t']) and w['t'][i] is not None: g['temp']=round(w['t'][i])
+    if i<len(w['ws']) and w['ws'][i] is not None: g['wind']=str(round(w['ws'][i]))+' mph'
+    if i<len(w['wd']) and w['wd'][i] is not None: g['wind_deg']=w['wd'][i]
+    return True
+def fetch_hr9(date):
+    try:
+        sch=_getj('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=%s&hydrate=probablePitcher'%date)
+    except Exception as e:
+        return {}, 'fallback (%s)'%str(e)[:40]
+    dates=sch.get('dates') or []; games=dates[0].get('games',[]) if dates else []
+    A={'ARI':'AZ','CHW':'CWS'}; cc=lambda a:A.get((a or '').upper(),(a or '').upper())
+    mm={}; ids=[]
+    for g in games:
+        try:
+            a=cc(g['teams']['away']['team']['abbreviation']); h=cc(g['teams']['home']['team']['abbreviation'])
+            ap=g['teams']['away'].get('probablePitcher') or {}; hp=g['teams']['home'].get('probablePitcher') or {}
+            mm[a+'@'+h]={'away':ap.get('id'),'home':hp.get('id')}
+            for pid in (ap.get('id'),hp.get('id')):
+                if pid and pid not in ids: ids.append(pid)
+        except Exception: pass
+    id2={}
+    if ids:
+        try:
+            pe=_getj('https://statsapi.mlb.com/api/v1/people?personIds=%s&hydrate=stats(group=[pitching],type=[season],season=%s)'%(','.join(map(str,ids)),date[:4]))
+            for pr in pe.get('people',[]):
+                v=None
+                for st_ in pr.get('stats',[]):
+                    sps=st_.get('splits') or []; x=(sps[0].get('stat') if sps else {}) or {}
+                    if x.get('homeRunsPer9') is not None:
+                        try: v=float(x['homeRunsPer9'])
+                        except Exception: pass
+                    elif x.get('homeRuns') is not None and x.get('inningsPitched'):
+                        try: v=round(float(x['homeRuns'])/float(x['inningsPitched'])*9,2)
+                        except Exception: pass
+                id2[pr.get('id')]=v
+        except Exception as e:
+            return {}, 'people fallback (%s)'%str(e)[:40]
+    out={gm:{'away':id2.get(v['away']),'home':id2.get(v['home'])} for gm,v in mm.items()}
+    n=sum(1 for v in out.values() for x in v.values() if x is not None)
+    return out, 'OK (%d arms)'%n
+
 # ---- ISO: today's sheet primary, legacy build15 sheet as fallback, then floor ----
 ISO_OLD={}
 try:
@@ -98,6 +180,8 @@ ISO=dict(ISO_OLD); ISO.update(ISO_TODAY)
 ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO else 0.10)
 
 cards=load_dated('cards'); lin=load_dated('lineups')
+WX_LIVE,_wxs=fetch_weather(lin['games'], DATE); HR9_LIVE,_h9s=fetch_hr9(DATE)
+print(f'  (live weather: {_wxs} | live HR/9: {_h9s})')
 ODDS={norm(k):v for k,v in load_dated('odds').items()}
 def pnorm(x):
     x=''.join(c for c in unicodedata.normalize('NFD',x or '') if not unicodedata.combining(c)).lower()
@@ -139,6 +223,7 @@ for g in lin['games']:
         if _wx.get('temp') is not None: g['temp']=_wx['temp']
         if 'dome' in _wx: g['dome']=_wx['dome']
         if _wx.get('precip') is not None: g['precip']=_wx['precip']
+    apply_weather(g, WX_LIVE, DATE)                     # live Open-Meteo overrides lineup wind/temp/dir
     wf=wf_of(g); gamemeta[gn]=g
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
@@ -173,7 +258,10 @@ zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
     _opn=pnorm((r.get('opp') or ['',''])[0])
     if _opn in PBRL: r['phr9']=pbrl_mult(PBRL[_opn]); r['psrc']='brl'   # listed top arm -> barrel-against (better signal)
-    else:            r['phr9']=1.0; r['psrc']='hr9'                     # unlisted -> neutral here; live engine applies HR/9
+    else:                                                              # unlisted arm -> bake the live opp HR/9 here too (was deferred to the browser)
+        _gm=r.get('gmatch') or '@'; _oh=(HR9_LIVE.get(_gm) or {}).get('home' if r.get('code')==_gm.split('@')[0] else 'away')
+        if _oh is not None: r['hr9']=_oh
+        r['phr9']=pHR9(r.get('hr9')); r['psrc']='hr9'
     _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkHandT(_hm, r.get('bhand'))
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
     r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT'],1)
