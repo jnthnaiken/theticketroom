@@ -1,7 +1,7 @@
 {
   "date": "2026-06-25",
   "season": "2026",
-  "pulled_at": "2026-06-25T13:30:23Z",
+  "pulled_at": "2026-06-25T14:00:31Z",
   "games": [
     {
       "gamePk": 822961,
@@ -16,8 +16,54 @@
           "hr9": 0.74,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.184
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.178
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.218
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.129
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.571
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.133
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.089
+          },
+          {
+            "id": 516782,
+            "name": "Starling Marte",
+            "iso": 0.081
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
@@ -91,7 +137,7 @@
     },
     {
       "gamePk": 823366,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-25T16:35:00Z",
       "matchup": "SEA@PIT",
       "away": {
@@ -102,8 +148,54 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.16
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.15
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.178
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.116
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.153
+          },
+          {
+            "id": 670042,
+            "name": "Luke Raley",
+            "iso": 0.255
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.121
+          },
+          {
+            "id": 641598,
+            "name": "Mitch Garver",
+            "iso": 0.116
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.253
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PIT",
@@ -116,7 +208,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
