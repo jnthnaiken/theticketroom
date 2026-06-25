@@ -1,11 +1,11 @@
 {
   "date": "2026-06-25",
   "season": "2026",
-  "pulled_at": "2026-06-25T18:30:25Z",
+  "pulled_at": "2026-06-25T19:00:27Z",
   "games": [
     {
       "gamePk": 822961,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-06-25T16:10:00Z",
       "matchup": "KC@TB",
       "away": {
@@ -182,17 +182,17 @@
           {
             "id": 702284,
             "name": "Cole Young",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 641598,
             "name": "Mitch Garver",
-            "iso": 0.114
+            "iso": 0.113
           },
           {
             "id": 806068,
             "name": "Colt Emerson",
-            "iso": 0.247
+            "iso": 0.245
           }
         ],
         "confirmed": true
@@ -209,12 +209,12 @@
           {
             "id": 663968,
             "name": "Jake Mangum",
-            "iso": 0.059
+            "iso": 0.058
           },
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.267
+            "iso": 0.266
           },
           {
             "id": 668804,
@@ -234,22 +234,22 @@
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.25
+            "iso": 0.242
           },
           {
             "id": 682997,
             "name": "Tyler Callihan",
-            "iso": 0.261
+            "iso": 0.256
           },
           {
             "id": 669707,
             "name": "Jared Triolo",
-            "iso": 0.042
+            "iso": 0.041
           },
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.164
+            "iso": 0.171
           }
         ],
         "confirmed": true
@@ -258,15 +258,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 80\u00b0",
+        "cond": "wind out 8mph, 78\u00b0",
         "lean": "Boost",
-        "temp": 79.9,
-        "wind_mph": 10.4,
-        "wind_dir": 233,
-        "tail_mph": 9.9,
+        "temp": 77.8,
+        "wind_mph": 9.5,
+        "wind_dir": 219,
+        "tail_mph": 8.1,
         "precip": 12
       },
-      "wf": 1.05
+      "wf": 1.04
     },
     {
       "gamePk": 823209,
@@ -393,17 +393,17 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 16mph, 63\u00b0",
         "lean": "Boost",
-        "temp": 62.8,
-        "wind_mph": 17.0,
-        "wind_dir": 283,
-        "tail_mph": 16.2,
+        "temp": 62.7,
+        "wind_mph": 17.1,
+        "wind_dir": 285,
+        "tail_mph": 16.1,
         "precip": 0
       },
-      "wf": 1.046
+      "wf": 1.045
     },
     {
       "gamePk": 824258,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-25T22:40:00Z",
       "matchup": "HOU@DET",
       "away": {
@@ -425,22 +425,68 @@
           "hr9": 1.71,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.145
+          },
+          {
+            "id": 681481,
+            "name": "Kerry Carpenter",
+            "iso": 0.244
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.268
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.15
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.114
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.2
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.088
+          },
+          {
+            "id": 681546,
+            "name": "James Outman",
+            "iso": 0.112
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.116
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 3mph, 68\u00b0",
+        "cond": "wind out 4mph, 69\u00b0",
         "lean": "Neutral",
-        "temp": 67.8,
-        "wind_mph": 4.0,
-        "wind_dir": 360,
-        "tail_mph": -3.5,
+        "temp": 68.9,
+        "wind_mph": 5.4,
+        "wind_dir": 246,
+        "tail_mph": 4.4,
         "precip": 1
       },
-      "wf": 0.985
+      "wf": 1.014
     },
     {
       "gamePk": 822717,
@@ -473,15 +519,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 77\u00b0",
+        "cond": "wind out 6mph, 77\u00b0",
         "lean": "Boost",
-        "temp": 76.6,
-        "wind_mph": 10.1,
-        "wind_dir": 145,
-        "tail_mph": 4.3,
+        "temp": 77.1,
+        "wind_mph": 10.4,
+        "wind_dir": 152,
+        "tail_mph": 5.5,
         "precip": 1
       },
-      "wf": 1.025
+      "wf": 1.03
     },
     {
       "gamePk": 822797,
@@ -557,8 +603,8 @@
         "cond": "wind out 10mph, 70\u00b0",
         "lean": "Boost",
         "temp": 69.9,
-        "wind_mph": 11.5,
-        "wind_dir": 171,
+        "wind_mph": 11.6,
+        "wind_dir": 170,
         "tail_mph": 9.5,
         "precip": 2
       },
@@ -595,15 +641,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 71\u00b0",
+        "cond": "wind out 5mph, 71\u00b0",
         "lean": "Neutral",
-        "temp": 71.0,
-        "wind_mph": 5.8,
-        "wind_dir": 178,
-        "tail_mph": 4.0,
+        "temp": 70.8,
+        "wind_mph": 6.3,
+        "wind_dir": 182,
+        "tail_mph": 4.6,
         "precip": 1
       },
-      "wf": 1.015
+      "wf": 1.017
     },
     {
       "gamePk": 823042,
@@ -636,15 +682,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 75\u00b0",
+        "cond": "calm 2mph, 78\u00b0",
         "lean": "Neutral",
-        "temp": 75.1,
-        "wind_mph": 8.1,
-        "wind_dir": 104,
-        "tail_mph": -2.2,
+        "temp": 78.5,
+        "wind_mph": 4.5,
+        "wind_dir": 93,
+        "tail_mph": -2.0,
         "precip": 30
       },
-      "wf": 1.0
+      "wf": 1.006
     }
   ]
 }
