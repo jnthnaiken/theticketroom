@@ -347,6 +347,7 @@ function drawTickets(){
  const q=(($('#tsearch')||{}).value||'').trim().toLowerCase(),ty=ticketType;
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
  const closed='<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>';
+ const noSalami='<div class="closed">\uD83E\uDD6A Not enough meat on the slate to stack a Grand Salami tonight \u2014 the deli came up a few legs short. Back at the slicer tomorrow.</div>';
  const lunchLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match);
  const builder=D.tickets.filter(t=>t.kind==='builder').filter(match),moon=D.tickets.filter(t=>t.kind==='moon').filter(match),big=D.tickets.filter(t=>t.kind==='biggest').filter(match).sort((a,b)=>a.nlegs-b.nlegs);
  const sec=(cls,label,arr)=>arr.length?('<div class="tsec '+cls+'"><span class="tsech">'+label+'</span><span class="tline"></span></div>'+arr.map(ticketCard).join('')):'';
@@ -355,7 +356,7 @@ function drawTickets(){
  if(ty==='all'&&!q)html+='<details class="pool"><summary><span class="tag">Late slate</span> Nightcap<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>';
  if(ty==='all'||ty==='builder')html+=sec('sug','Bank-Roll Builders',builder);
  if(ty==='all'||ty==='moon')html+=sec('lot','Moonshots',moon);
- if(ty==='all'||ty==='biggest')html+=sec('big','Grand Salami',big);
+ if((ty==='all'||ty==='biggest')&&(big.length||!q))html+='<div class="tsec big"><span class="tsech">Grand Salami</span><span class="tline"></span></div>'+(big.length?big.map(ticketCard).join(''):noSalami);
 function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co.bats.length)return '';
  var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr">⚾ homered</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
