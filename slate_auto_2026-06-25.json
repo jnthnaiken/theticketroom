@@ -1,7 +1,7 @@
 {
   "date": "2026-06-25",
   "season": "2026",
-  "pulled_at": "2026-06-25T21:30:24Z",
+  "pulled_at": "2026-06-25T21:57:24Z",
   "games": [
     {
       "gamePk": 822961,
@@ -257,16 +257,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 79.5,
-        "wind_mph": 10.7,
-        "wind_dir": 213,
-        "tail_mph": 8.5,
-        "precip": 13
+        "note": "weather fetch failed"
       },
-      "wf": 1.044
+      "wf": 1.0
     },
     {
       "gamePk": 823209,
@@ -285,7 +278,7 @@
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.1
+            "iso": 0.099
           },
           {
             "id": 701762,
@@ -295,12 +288,12 @@
           {
             "id": 669127,
             "name": "Shea Langeliers",
-            "iso": 0.243
+            "iso": 0.242
           },
           {
             "id": 691016,
             "name": "Tyler Soderstrom",
-            "iso": 0.222
+            "iso": 0.221
           },
           {
             "id": 641680,
@@ -315,17 +308,17 @@
           {
             "id": 691777,
             "name": "Max Muncy",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 643446,
             "name": "Jeff McNeil",
-            "iso": 0.083
+            "iso": 0.082
           },
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.191
+            "iso": 0.187
           }
         ],
         "confirmed": true
@@ -347,12 +340,12 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.205
+            "iso": 0.203
           },
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.226
+            "iso": 0.225
           },
           {
             "id": 646240,
@@ -372,7 +365,7 @@
           {
             "id": 682674,
             "name": "Victor Bericoto",
-            "iso": 0.25
+            "iso": 0.36
           },
           {
             "id": 691740,
@@ -382,7 +375,7 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.286
+            "iso": 0.273
           }
         ],
         "confirmed": true
@@ -390,16 +383,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 16mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 62.3,
-        "wind_mph": 16.5,
-        "wind_dir": 282,
-        "tail_mph": 15.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.044
+      "wf": 1.0
     },
     {
       "gamePk": 824258,
@@ -414,8 +400,54 @@
           "hr9": 1.32,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.163
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.312
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.167
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.234
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.159
+          },
+          {
+            "id": 694388,
+            "name": "Joey Loperfido",
+            "iso": 0.138
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.142
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.125
+          },
+          {
+            "id": 543877,
+            "name": "Christian V\u00e1zquez",
+            "iso": 0.119
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -477,14 +509,7 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 66\u00b0",
-        "lean": "Neutral",
-        "temp": 66.4,
-        "wind_mph": 6.5,
-        "wind_dir": 286,
-        "tail_mph": 1.6,
-        "precip": 1
+        "note": "weather fetch failed"
       },
       "wf": 1.0
     },
@@ -610,16 +635,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 77\u00b0",
-        "lean": "Boost",
-        "temp": 76.9,
-        "wind_mph": 10.2,
-        "wind_dir": 147,
-        "tail_mph": 4.6,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.027
+      "wf": 1.0
     },
     {
       "gamePk": 822797,
@@ -823,22 +841,61 @@
           "hr9": 1.26,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.144
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.136
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.271
+          },
+          {
+            "id": 668901,
+            "name": "Mark Vientos",
+            "iso": 0.179
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.183
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.135
+          },
+          {
+            "id": 677595,
+            "name": "Ronny Mauricio",
+            "iso": 0.094
+          },
+          {
+            "id": 669004,
+            "name": "MJ Melendez",
+            "iso": 0.161
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 70\u00b0",
-        "lean": "Boost",
-        "temp": 70.0,
-        "wind_mph": 10.9,
-        "wind_dir": 171,
-        "tail_mph": 9.0,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.032
+      "wf": 1.0
     },
     {
       "gamePk": 824747,
