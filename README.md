@@ -34,7 +34,7 @@ Then open `index.html`. It runs live on its own from there — no server needed.
 | File | What it holds |
 |---|---|
 | `cards_<date>.json` | Kasper matchup cards (zone, form, barrels, hard-hit, launch, etc.) |
-| `lineups_<date>.json` | projected lineups + schedule (times, starters, park, weather) |
+| `lineups_<date>.json` | projected lineups + schedule (times, starters, park, weather, batter hands) |
 | `odds_<date>.json` | consensus HR odds, `{name: american}` |
 | `iso_<date>.json` | ISO sheet, `{name: iso}` |
 | `pitchers_<date>.json` | top-pitcher barrel data `{name:{brl, pbrl}}` — optional |
@@ -80,9 +80,16 @@ TOTAL = aT
       × zoneT(zone)      # zone/contact
       × fF(form)         # recent form     (clamp 0.92–1.08)
       × pitcher-term     # barrel-against (listed arms) OR live HR/9
-      × parkT(home)      # park HR factor
+      × parkT(home,hand) # park HR factor, handedness-aware (pull-side tilt)
       × pM(weather)      # wind/temp/dome
+      × mktT(odds)       # market implied prob     (±14%) — independent info, not just drafting
+      × slotT(order)     # lineup slot / PA volume (±8%, top of order up)
+      × platT(hand)      # platoon vs opposing SP  (same −8% / opposite +5.6% / switch +2.4%)
 ```
+
+The last three multipliers are baked into TOTAL server-side, so the client's live
+re-draft inherits them automatically via `baseTotal = TOTAL / (weather × pitcher)`.
+Batter handedness comes from the lineups (`away_hands`/`home_hands`, one L/R/S per bat).
 
 The pitcher term uses **barrel-against** (`Brl/BIP%` + `PulledBrl%`) for arms
 listed in `pitchers_<date>.json` (`psrc='brl'`); for everyone else the client

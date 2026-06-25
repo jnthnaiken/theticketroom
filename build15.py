@@ -60,6 +60,22 @@ PARK_HR  = {'NYY':1.10,'CIN':1.10,'PHI':1.06,'BAL':1.05,'MIL':1.04,'HOU':1.04,'T
             'CLE':0.98,'STL':0.97,'LAA':0.97,'SD':0.96,'TB':0.96,'ATH':0.95,'KC':0.94,'PIT':0.93,'DET':0.93,'SEA':0.92,'SF':0.91,'MIA':0.90}
 pHR9 = lambda h: 1.0 if h is None else clamp(1+W_HR9*(h-HR9_BASE), 1-HR9_CLAMP, 1+HR9_CLAMP)   # pitcher HR-vulnerability (notes-only before; now scored)
 parkT= lambda code: clamp(PARK_HR.get(code,1.0), 0.90, 1.12)                                   # static park HR factor (dimensions/short-porch; elevation stays in weather)
+# ---- new HR-signal knobs (1 market, 2 lineup slot, 3 platoon, 4 handed park) ----
+W_MKT=0.12; MKT_CLAMP=0.14        # market implied-prob -> TOTAL (independent info; previously used only for drafting)
+W_SLOT=0.08                       # lineup slot / PA volume: top of order up, bottom down (centered at #5)
+W_PLAT=0.08                       # platoon: same-hand suppress, opposite-hand boost, switch slight boost
+PARK_HAND={'NYY':(1.05,0.97),'BOS':(0.97,1.05),'SF':(0.95,1.02),'CIN':(1.03,1.00),'PHI':(1.02,1.00),
+           'BAL':(0.99,1.03),'HOU':(0.99,1.03),'DET':(0.98,1.00),'KC':(0.99,1.00),'TEX':(1.00,1.01)}  # (LHB_mult,RHB_mult) pull-side tilt on top of PARK_HR
+slotT=lambda srank: 1.0 if not srank else clamp(1+W_SLOT*(5-srank)/4.0, 1-W_SLOT, 1+W_SLOT)
+def platT(bh, sph):
+    if not bh or not sph: return 1.0
+    ph='L' if 'L' in sph else 'R'
+    if bh=='S': return 1+W_PLAT*0.3
+    return (1-W_PLAT) if bh==ph else (1+W_PLAT*0.7)
+def parkHandT(code, bh):
+    fac=PARK_HR.get(code,1.0)
+    if bh in ('L','R') and code in PARK_HAND: fac*=PARK_HAND[code][0 if bh=='L' else 1]
+    return clamp(fac, 0.88, 1.16)
 pbrl_mult= lambda d: clamp(1 + W_BRL*BRL_SHRINK*(((d.get('brl') if d.get('brl') is not None else BRL_BASE)-BRL_BASE)+0.5*((d.get('pbrl') if d.get('pbrl') is not None else PBRL_BASE)-PBRL_BASE)), 1-BRL_CLAMP, 1+BRL_CLAMP)   # listed pitchers: barrel-against -> hitter HR mult
 WX_CLAMP = 0.10     # symmetric cap on the wind+temp part (+/-10%)
 PARK_ELEV= {'COL':5200,'ATH':2000,'ATL':1050,'MIN':815,'KC':750,'PIT':730,'CLE':660,'CHC':600,'DET':600,
@@ -127,6 +143,8 @@ for g in lin['games']:
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
         posted={norm(x) for x in g[side+'_bats']}
+        _bhand={norm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None for i,b in enumerate(g[side+'_bats'])}
+        _slot={norm(b):i+1 for i,b in enumerate(g[side+'_bats'])}
         for c in cards[gm][code]:
             nm=c['name']; n=norm(nm); in_lu=n in posted
             status=('confirmed' if g.get('status')=='confirmed' else 'projected') if in_lu else 'projected'
@@ -135,7 +153,7 @@ for g in lin['games']:
             powraw=c['pb']*c['hh']*la_window(c['la'])
             lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=c['test'],zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
-                iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,
+                iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
                 hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
@@ -147,6 +165,8 @@ p5,p95=pct(5),pct(95)
 for r in pool: r['powidx']=round(clamp(100*(r['powraw']-p5)/(p95-p5),0,100)) if p95>p5 else 50
 medP=st.median([r['powidx'] for r in pool]); medI=st.median([r['iso_used'] for r in pool])
 zs=[r['zonev'] for r in pool if abs(r['zonev']-0.5)>1e-9]; medZ=st.median(zs) if zs else 0.06
+_imps=[100.0/(r['odds']+100) for r in pool if r.get('odds')]; medImp=st.median(_imps) if _imps else 0.13
+mktT=lambda o: 1.0 if not o else clamp(1+W_MKT*((100.0/(o+100))-medImp)/0.06, 1-MKT_CLAMP, 1+MKT_CLAMP)
 powT=lambda P:clamp(1+0.18*(P-medP)/40,0.82,1.18)   # power widened (true HR driver)
 isoT=lambda I:clamp(1+0.12*(I-medI)/0.06,0.88,1.12)   # ISO widened (cleanest power stat)
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
@@ -154,8 +174,9 @@ for r in pool:
     _opn=pnorm((r.get('opp') or ['',''])[0])
     if _opn in PBRL: r['phr9']=pbrl_mult(PBRL[_opn]); r['psrc']='brl'   # listed top arm -> barrel-against (better signal)
     else:            r['phr9']=1.0; r['psrc']='hr9'                     # unlisted -> neutral here; live engine applies HR/9
-    _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkT(_hm)
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf']),1)
+    _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkHandT(_hm, r.get('bhand'))
+    r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT'],1)
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
