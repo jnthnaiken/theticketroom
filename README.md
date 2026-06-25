@@ -94,20 +94,27 @@ applies the opposing-pitcher **HR/9** live (`psrc='hr9'`).
 
 - **Eligible field** = priced bats in the posted lineup, not scratched/voided,
   under 70% rain.
-- **Pool gate** — take the top `GATE_N + CHALK_N` (33 + 4) by `TOTAL`, re-sort by
-  odds, and **ban the 4 shortest-odds** ("chalk"). The remaining **33** are the
-  buildable pool, trimmed to **at most 3 bats per team** (best by model).
+- **Pool gate** — the pool is **every eligible bat whose model `TOTAL` clears
+  `FLOOR` (85)** — one pool for the whole draft. Re-sort it by odds, **ban the 4
+  shortest-odds** ("chalk") to the lunch/nightcap, and trim the rest to **at most 3
+  per team** (best by model). No fixed size and no backfill: a thin slate just makes
+  a smaller board.
 - **Chalk** (the 4 banned favorites) are eligible **only** in the lunch special
   and the nightcap, in their time windows. Never in moons, salami, or builders.
-- **Moons** — 5 parlays in a 2/2/1 anchor split (A1×2, A2×2, A3×1). Each = an
-  anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min).
+- **Moons** — **2 per anchor** across 3 anchors = up to **6** moons. Each = an
+  anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
+  ships **both** its moons or **none**: if the slate is too thin to fill them, the
+  **weakest anchor** (moon *or* salami) and its stranded legs demote to builders
+  rather than ship a lopsided 2/2/1.
 - **Salami** ("biggest") — the 4th anchor leads four longest shots, full
-  round-robin.
+  round-robin. It's a demotion candidate too — if it's the weakest anchor on a
+  thin slate, it drops and its legs free up for the moons.
 - **Builders** — every remaining pool bat as a single.
 - **75 TOTAL floor** on our parlay picks (anchors, partners, salami legs).
 
-Key knobs: `CHALK_N=4`, `GATE_N=33`, `FLOOR=75`, `WIN=120`, `NIGHT_WIN=60`,
-`TEAM_CAP=3`, `MOONS_PER_ANC=2`.
+Key knobs: `CHALK_N=4`, `FLOOR=85` (pool gate), `WIN=120`, `NIGHT_WIN=60`,
+`TEAM_CAP=3`, `MOONS_PER_ANC=2`. Parlay stakes: moon round-robin `risk=2.0u`,
+salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 
 ---
 

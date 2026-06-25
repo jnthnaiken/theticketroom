@@ -32,8 +32,8 @@ import re, datetime
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
 NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
 CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
-GATE_N        = 33               # buildable pool = 33; we take top (33+CHALK_N) by TOTAL so the ban leaves 33
-FLOOR         = 75               # TOTAL floor for OUR picks (moon anchors/partners + salami legs).
+GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
+FLOOR         = 85               # the pool gate: a bat must clear this model TOTAL to make the board at all
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
 WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay
@@ -125,13 +125,13 @@ def assemble(D):
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
-    # POOL (top-3-per-team): rank the whole field by model TOTAL (kept full so replacements exist),
-    # take the top 41, re-sort by odds and ban the 8 shortest (chalk -> lunch/nightcap ONLY). From the
-    # remaining 33, keep at most a TOP-3 per team (best-by-model), trimming teams with more than 3. If
-    # the team cap drops us under GATE_N, backfill with the next bats by model (still <=3/team) until 33.
+    # POOL (one draft, top-3-per-team): the pool is EVERY eligible bat whose model TOTAL clears FLOOR.
+    # Re-sort that pool by odds and pull the CHALK_N shortest (chalk -> lunch/nightcap ONLY); from the rest
+    # keep at most TOP-3 per team (best-by-model). No fixed size and no backfill -- the floor is the only
+    # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
     TEAM_CAP = 3
     fullrank = byT(elig)                              # everyone ranked by model -> replacement order
-    cand     = fullrank[:GATE_N + CHALK_N]            # top 41 by model
+    cand     = [n for n in fullrank if P[n]['TOTAL'] >= FLOOR]   # the pool: every eligible bat clearing the FLOOR (one draft for moons/salami/builders)
     ranked   = byO(cand)                              # re-sort those 41 by odds
     chalk    = set(ranked[:CHALK_N])                  # ban-8 (lunch/nightcap only)
     nonchalk, _tc = [], {}
@@ -140,13 +140,7 @@ def assemble(D):
         if _tc.get(t, 0) >= TEAM_CAP: continue
         nonchalk.append(n); _tc[t] = _tc.get(t, 0) + 1
     _have = set(nonchalk)
-    for n in fullrank:                                   # backfill to GATE_N with replacements, <=3/team
-        if len(nonchalk) >= GATE_N: break
-        if n in chalk or n in _have: continue
-        t = P[n]['code']
-        if _tc.get(t, 0) >= TEAM_CAP: continue
-        nonchalk.append(n); _have.add(n); _tc[t] = _tc.get(t, 0) + 1
-    extra    = [n for n in fullrank if n not in chalk and n not in _have]   # ranked replacements (#34+)
+    extra = []                                           # FLOOR is the only gate -> no fixed pool size, no backfill, no sub-floor tier
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
@@ -399,11 +393,11 @@ def assemble(D):
         for i in mids:                                                  # two moons per non-salami anchor
             for _ in range(MOONS_PER_ANC):
                 pls.append({'rank': i, 'kind': 'moon', 'badge': "\U0001f680",
-                            'rr': {"struct": "by 2s & 3", "risk": 4.0},
+                            'rr': {"struct": "by 2s & 3", "risk": 2.0},
                             'legs': [al[i]], 'need': 2, 'games': {P[al[i]]['game']}})
         if sidx is not None:                                            # salami drafts at its anchor's own snake position
             pls.append({'rank': sidx, 'kind': 'biggest', 'badge': "\U0001f96a",
-                        'rr': {"struct": "by 2s, 3s & 4", "risk": 11.0},
+                        'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
                         'legs': [al[sidx]], 'need': 3, 'games': {P[al[sidx]]['game']}})
         byr = {}
         for t in pls:
@@ -433,28 +427,43 @@ def assemble(D):
                 r = t['rank']; pls.remove(t)
                 for _ in range(MOONS_PER_ANC):
                     pls.append({'rank': r, 'kind': 'moon', 'badge': "\U0001f680",
-                                'rr': {"struct": "by 2s & 3", "risk": 4.0},
+                                'rr': {"struct": "by 2s & 3", "risk": 2.0},
                                 'legs': [al[r]], 'need': 2, 'games': {P[al[r]]['game']}})
         byr = {}
         for t in pls:
             byr.setdefault(t['rank'], []).append(t)
-        ranks_fwd = sorted(byr.keys(), reverse=True)                    # weakest anchor (highest TOTAL-index) picks first
-        rnd = 0
-        while any(needy(t) for t in pls):
-            order = ranks_fwd if (rnd % 2 == 0) else list(reversed(ranks_fwd))
-            progressed = False
-            for r in order:
-                for t in sorted(byr[r], key=lambda x: len(x['legs'])):  # fill BOTH of this anchor's tickets before the next anchor
-                    if not needy(t):
-                        continue
-                    pick = next((n for n in pool_av if fits(t, n)), None)
-                    if pick is None:
-                        continue
-                    t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick); progressed = True
-            rnd += 1
-            if not progressed:
-                break
-        miss = sum(t['need'] - (len(t['legs']) - 1) for t in pls)       # total legs still short across all parlays
+        def _fill_round():                                             # round-robin: weakest anchor picks first, fills BOTH its tickets before the next
+            rnd = 0
+            while any(needy(t) for t in pls):
+                ranks = sorted({t['rank'] for t in pls}, reverse=True)
+                order = ranks if (rnd % 2 == 0) else list(reversed(ranks))
+                progressed = False
+                for r in order:
+                    for t in sorted([x for x in pls if x['rank'] == r], key=lambda x: len(x['legs'])):
+                        if not needy(t):
+                            continue
+                        pick = next((n for n in pool_av if fits(t, n)), None)
+                        if pick is None:
+                            continue
+                        t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick); progressed = True
+                rnd += 1
+                if not progressed:
+                    break
+        _fill_round()
+        # CLEAN 2-PER-ANCHOR MOONS: an anchor ships ALL its parlays full or none at all. If the slate is too thin
+        # to fill the whole board, demote the WEAKEST anchor (highest strength-index -- a moon anchor OR the salami)
+        # to a builder, hand its legs back, and re-fill the survivors. Repeat until everything left fills cleanly,
+        # so we never ship a lopsided 2/2/1. Demoted anchors + any still-stranded legs aren't 'spent' -> builders.
+        _full = lambda t: (len(t['legs']) - 1) >= t['need']
+        while pls and not all(_full(t) for t in pls):
+            drop = max(t['rank'] for t in pls)                          # weakest anchor by strength-index
+            for t in [x for x in pls if x['rank'] == drop]:
+                for n in t['legs'][1:]:
+                    if n not in pool_av: pool_av.append(n)
+            pls[:] = [t for t in pls if t['rank'] != drop]
+            pool_av[:] = byS(pool_av)
+            _fill_round()
+        miss = 0                                                       # every kept parlay is full by construction
         return al, pls, miss
 
     # choose the 4 candidate anchors (one per game) that maximize combined TOTAL among ALL sets whose draft
@@ -469,7 +478,8 @@ def assemble(D):
                 for idd in range(ic + 1, N):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
                     sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)  # PREMIUM-FIRST across sets too: a set that ships the full 4-leg salami beats one that starves it, then fewest shorts, then strength
-                    score = (1 if sal_ok else 0, -miss, round(sum(strength(a) for a in al), 4))
+                    n_moons = sum(1 for t in pls if t['kind'] == 'moon')
+                    score = (n_moons, 1 if sal_ok else 0, round(sum(strength(a) for a in al), 4))   # most clean 2-per-anchor moons first, then salami, then strength
                     if best is None or score > best[0]:
                         best = (score, al, pls)
     if best is None:                                        # fewer than 4 candidates (degenerate slate)
