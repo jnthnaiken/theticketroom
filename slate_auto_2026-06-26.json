@@ -1,7 +1,7 @@
 {
   "date": "2026-06-26",
   "season": "2026",
-  "pulled_at": "2026-06-26T21:30:51Z",
+  "pulled_at": "2026-06-26T22:00:28Z",
   "games": [
     {
       "gamePk": 824255,
@@ -1002,8 +1002,54 @@
           "hr9": 0.84,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.068
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.163
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.168
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.237
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.166
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.155
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.125
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.123
+          },
+          {
+            "id": 691907,
+            "name": "Tsung-Che Cheng",
+            "iso": null
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1650,8 +1696,54 @@
           "hr9": 1.72,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.254
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.208
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.204
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.185
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.242
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.14
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.045
+          },
+          {
+            "id": 687221,
+            "name": "Dalton Rushing",
+            "iso": 0.223
+          },
+          {
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.099
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1713,9 +1805,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 64\u00b0",
+        "lean": "Neutral",
+        "temp": 63.9,
+        "wind_mph": 0.7,
+        "wind_dir": 360,
+        "tail_mph": -0.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.988
     },
     {
       "gamePk": 823206,
