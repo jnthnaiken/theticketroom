@@ -62,7 +62,9 @@ jobs:
           if [ -n "${{ github.event.inputs.date }}" ]; then
             D="${{ github.event.inputs.date }}"
           else
-            D="$(TZ=America/New_York date +%F)"
+            # Hold until built: newest slate that actually has Kasper cards; never roll to an empty today.
+            D="$(ls cards_*.json 2>/dev/null | sed -E 's/.*cards_([0-9]{4}-[0-9]{2}-[0-9]{2})\.json/\1/' | sort | tail -n1)"
+            [ -z "$D" ] && D="$(TZ=America/New_York date +%F)"
           fi
           echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
           echo "Building slate for $D"
