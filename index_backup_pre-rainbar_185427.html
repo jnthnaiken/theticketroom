@@ -671,7 +671,7 @@ drawTickets();drawPlayers();drawTracker();
       var moonAnchors=[]; prior.forEach(function(t){ if(t.kind==='moon'&&!isLocked(t)&&moonAnchors.indexOf(t.anchor)<0)moonAnchors.push(t.anchor); });
       var anchRepl={}, _usedAnch={}; moonAnchors.forEach(function(a){ if(anchorAlive(a))_usedAnch[a]=1; });
       moonAnchors.forEach(function(a){ if(anchorAlive(a))return; var p2=byS(nonchalk);
-        for(var i=0;i<p2.length;i++){var c=p2[i]; if(_usedAnch[c]||usedG[c]||pending(c)||precipOf(P[c].game)>=40)continue; anchRepl[a]=c; _usedAnch[c]=1; break;} });
+        for(var i=0;i<p2.length;i++){var c=p2[i]; if(_usedAnch[c]||usedG[c]||pending(c))continue; anchRepl[a]=c; _usedAnch[c]=1; break;} });
       plan.forEach(function(pl){
         if(pl.frozen){ pl.t.locked=true; out.push(pl.t); return; }
         var kind=pl.kind, need=pl.need, legNames=pl.kept.slice(), gUsed=pl.gUsed, cand;
@@ -709,7 +709,7 @@ drawTickets();drawPlayers();drawTracker();
       // ---- ANCHOR SELECTION + SNAKE DRAFT: pick the 4 candidate anchors (one per game) that
       // maximize combined STRENGTH among ALL sets whose draft fills every parlay -- never a short moon, never #42+.
       var candA=[], seenG={};
-      byS(nonchalk).forEach(function(n){ var g=P[n].game; if(seenG[g]||pending(n)||precipOf(P[n].game)>=40)return; candA.push(n); seenG[g]=1; }); // >=40% rain barred from anchoring (still ok as parlay leg/builder)
+      byS(nonchalk).forEach(function(n){ var g=P[n].game; if(seenG[g]||pending(n)||precipOf(P[n].game)>=50)return; candA.push(n); seenG[g]=1; }); // 50-69% rain barred from parlay anchors
       function draftF(anchorList){
         var al=anchorList.slice().sort(function(a,b){return strength(b)-strength(a);});
         var pa=byS(nonchalk).filter(function(n){return al.indexOf(n)<0 && !pending(n) && precipOf(P[n].game)<50;}); // 50-69% rain barred from parlay legs

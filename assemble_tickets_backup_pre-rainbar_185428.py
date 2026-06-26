@@ -172,7 +172,7 @@ def assemble(D):
     cand_anchors, seen = [], set()
     for n in byS(nonchalk):
         g = P[n]['game']
-        if g in seen or pend(n) or _precip(n) >= 40:   # 40-49% rain -> still a parlay leg/builder, but never an anchor
+        if g in seen or pend(n):
             continue
         cand_anchors.append(n); seen.add(g)
 

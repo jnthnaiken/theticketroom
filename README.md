@@ -106,6 +106,9 @@ applies the opposing-pitcher **HR/9** live (`psrc='hr9'`).
 
 - **Eligible field** = priced bats in the posted lineup, not scratched/voided,
   under 70% rain.
+- **Rain bands** — `<40%` full eligibility (can anchor); **`40–49%` barred from
+  anchoring** but still usable as a parlay leg or builder; `50–69%` builders only
+  (no parlay legs at all); `70%+` out of the pool entirely.
 - **Pool gate** — the pool is **every eligible bat whose model `TOTAL` clears
   `FLOOR` (85)** — one pool for the whole draft. Re-sort it by odds, **ban the 4
   shortest-odds** ("chalk") to the lunch/nightcap, and trim the rest to **at most 3
