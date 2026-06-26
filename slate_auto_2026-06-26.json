@@ -1,7 +1,7 @@
 {
   "date": "2026-06-26",
   "season": "2026",
-  "pulled_at": "2026-06-26T21:10:13Z",
+  "pulled_at": "2026-06-26T21:30:51Z",
   "games": [
     {
       "gamePk": 824255,
@@ -265,7 +265,7 @@
         "wind_mph": 2.2,
         "wind_dir": 217,
         "tail_mph": 1.8,
-        "precip": 9
+        "precip": 7
       },
       "wf": 1.008
     },
@@ -398,7 +398,7 @@
         "wind_mph": 1.6,
         "wind_dir": 196,
         "tail_mph": 1.6,
-        "precip": 11
+        "precip": 8
       },
       "wf": 1.017
     },
@@ -663,7 +663,7 @@
         "wind_mph": 2.7,
         "wind_dir": 35,
         "tail_mph": -2.2,
-        "precip": 9
+        "precip": 4
       },
       "wf": 0.987
     },
@@ -928,7 +928,7 @@
         "wind_mph": 5.0,
         "wind_dir": 167,
         "tail_mph": 3.9,
-        "precip": 3
+        "precip": 4
       },
       "wf": 1.017
     },
@@ -1015,7 +1015,7 @@
         "wind_mph": 0.7,
         "wind_dir": 72,
         "tail_mph": -0.6,
-        "precip": 22
+        "precip": 18
       },
       "wf": 0.996
     },
@@ -1546,7 +1546,7 @@
         "wind_mph": 0.5,
         "wind_dir": 333,
         "tail_mph": -0.3,
-        "precip": 9
+        "precip": 10
       },
       "wf": 1.002
     },
@@ -1639,7 +1639,7 @@
     },
     {
       "gamePk": 823285,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-27T01:45:00Z",
       "matchup": "LAD@SD",
       "away": {
@@ -1661,22 +1661,61 @@
           "hr9": 0.62,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.084
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.069
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.14
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.194
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.215
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.107
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.233
+          },
+          {
+            "id": 695238,
+            "name": "Will Wagner",
+            "iso": 0.034
+          },
+          {
+            "id": 660710,
+            "name": "Rodolfo Dur\u00e1n",
+            "iso": 0.203
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 64\u00b0",
-        "lean": "Neutral",
-        "temp": 63.9,
-        "wind_mph": 0.7,
-        "wind_dir": 360,
-        "tail_mph": -0.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.988
+      "wf": 1.0
     },
     {
       "gamePk": 823206,
