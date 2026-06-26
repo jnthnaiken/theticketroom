@@ -639,7 +639,7 @@ drawTickets();drawPlayers();drawTracker();
 
     var prior=(D.tickets||[]), out=[], kc={};
     function nextIdx(kind){kc[kind]=(kc[kind]==null?-1:kc[kind])+1;return kc[kind];}
-    function frozenT(t){try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(D.meta&&D.meta.date&&_td>D.meta.date)return !!(t.players&&t.players.length);}catch(e){}return !!(t.players.length && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
+    function frozenT(t){return !!(t.players.length && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
 
     if(prior.length){
       // ---- PIN-AWARE REFILL (two-pass): reserve kept legs globally, then fill gaps. ----
