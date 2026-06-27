@@ -9,6 +9,10 @@ we never had -- after ~2-3 weeks it's enough to FIT the weights (logistic
 regression on hr ~ powidx + iso + zone + form + hr9 + parkhr + wf) instead of
 guessing at multipliers. Bats are matched to real HRs by normalized name (the
 same convention the live grader uses), so run it once the real slate is final.
+
+Each row also carries the full Kasper stat set (k_* columns) when a
+kasper_extras_<date>.json sidecar is present, so fly-ball%, sample size,
+xwOBAcon, etc. are captured for fitting WITHOUT touching the live scorer.
 """
 import json, sys, os, re, unicodedata, urllib.request
 
@@ -47,10 +51,31 @@ def homers_and_finals(date):
                     homered.add(norm(pl['person']['fullName']))
     return homered, n_final, len(games)
 
-def build_rows(D, homered):
-    """Pure (testable): turn a scored board + HR set into per-bat rows."""
+def load_extras(date):
+    """Load the kasper_extras_<date>.json sidecar (full Kasper stat set), or {} if absent.
+    Looks in cwd first, then alongside this script (so grade_night on the Action finds it too)."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for p in (f"kasper_extras_{date}.json", os.path.join(here, f"kasper_extras_{date}.json")):
+        try:
+            return json.load(open(p))
+        except Exception:
+            continue
+    return {}
+
+def build_rows(D, homered, extras=None):
+    """Pure (testable): turn a scored board + HR set into per-bat rows.
+
+    `extras` (optional) is the kasper_extras_<date>.json sidecar -- the full Kasper
+    stat set per hitter (fly-ball%, sample size, xwOBAcon, etc.), keyed by norm(name).
+    Its fields are merged onto each row under `k_*` columns so we can fit them in
+    later WITHOUT touching the live scorer (build15). Missing/unmatched bats just
+    leave those columns null -- the row is still logged.
+    """
     P    = D['players']
     pool = set(D.get('pool', []))
+    extras = extras or {}
+    KX = ("fb", "sweet", "xwobacon", "xwoba", "brl_bip", "swstr",
+          "kstrk", "bip", "pitch", "ceiling", "khr", "likely")   # Kasper-extra columns
     onkind = {}
     for t in D.get('tickets', []):
         for l in t.get('players', []):
@@ -59,7 +84,7 @@ def build_rows(D, homered):
     for n, p in P.items():
         if p.get('out') or p.get('void'):
             continue                                   # didn't play / postponed -> no outcome
-        rows.append({
+        row = {
             "date": D.get('meta', {}).get('date'), "name": n, "code": p.get('code'),
             "hr": 1 if norm(p.get('nm', n)) in homered else 0,
             "pool": n in pool, "kind": onkind.get(n),
@@ -67,7 +92,11 @@ def build_rows(D, homered):
             "zone": p.get('zonev'), "form": p.get('form'), "hh": p.get('hh'), "la": p.get('la'),
             "pb": p.get('pb'), "hr9": p.get('hr9'), "phr9": p.get('phr9'), "parkhr": p.get('parkhr'),
             "wf": p.get('wf'), "odds": p.get('odds'), "total": p.get('TOTAL'),
-        })
+        }
+        ex = extras.get(norm(p.get('nm', n))) or {}
+        for k in KX:
+            row["k_" + k] = ex.get(k)
+        rows.append(row)
     return rows
 
 def main(date):
@@ -78,14 +107,16 @@ def main(date):
     homered, n_final, n_games = homers_and_finals(date)
     if n_final == 0:
         sys.exit(f"{date}: no final games yet -- run again once the slate is complete")
-    rows = build_rows(D, homered)
+    extras = load_extras(date)
+    rows = build_rows(D, homered, extras)
     with open(OUT, 'a') as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")
     hrs = sum(r['hr'] for r in rows)
     poolhrs = sum(r['hr'] for r in rows if r['pool'])
+    kmatched = sum(1 for r in rows if r.get('k_fb') is not None)
     print(f"{date}: logged {len(rows)} bats | {hrs} HR overall, {poolhrs} in our 33-pool "
-          f"| {n_final}/{n_games} games final -> appended to {OUT}")
+          f"| {kmatched} with Kasper extras | {n_final}/{n_games} games final -> appended to {OUT}")
     if n_final < n_games:
         print(f"  note: {n_games - n_final} game(s) not final yet -- re-run later to capture them cleanly")
 

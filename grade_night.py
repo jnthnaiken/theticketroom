@@ -19,7 +19,7 @@ Grading mirrors the published board's gradeTicket() exactly (round-robin moons/
 salami, single-leg builders/lunch/nightcap, american->decimal payouts).
 """
 import json, os, re, sys, unicodedata, datetime, itertools, urllib.request
-from calibrate import build_rows   # reuse the pure row-builder so each graded night also logs to calibration.jsonl
+from calibrate import build_rows, load_extras   # reuse the pure row-builder so each graded night also logs to calibration.jsonl (+ full Kasper stat sidecar)
 
 SA   = "https://statsapi.mlb.com/api/v1"
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -153,8 +153,9 @@ def main():
         gr = [grade_ticket(t, homered, ppd, stake) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
         try:                                                 # auto-append per-bat calibration rows for this night (same homered set)
+            _ex = load_extras(date)                          # full Kasper stat sidecar for this slate (k_* cols); {} if absent
             with open(os.path.join(ROOT, 'calibration.jsonl'), 'a') as _cf:
-                for _r in build_rows(D, homered): _cf.write(json.dumps(_r) + '\n')
+                for _r in build_rows(D, homered, _ex): _cf.write(json.dumps(_r) + '\n')
         except Exception as _e:
             print(f'  (calibration log skipped: {_e})')
         cashed = sum(1 for g in gr if g and g.get('won'))
