@@ -47,13 +47,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GH_PAT || github.token }}
           persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -62,9 +62,7 @@ jobs:
           if [ -n "${{ github.event.inputs.date }}" ]; then
             D="${{ github.event.inputs.date }}"
           else
-            # Hold until built: newest slate that actually has Kasper cards; never roll to an empty today.
-            D="$(ls cards_*.json 2>/dev/null | sed -E 's/.*cards_([0-9]{4}-[0-9]{2}-[0-9]{2})\.json/\1/' | sort | tail -n1)"
-            [ -z "$D" ] && D="$(TZ=America/New_York date +%F)"
+            D="$(TZ=America/New_York date +%F)"
           fi
           echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
           echo "Building slate for $D"
