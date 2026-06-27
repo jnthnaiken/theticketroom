@@ -20,6 +20,7 @@ for p in D.get('players', {}).values():        # assembler reads these flags
     p.setdefault('void', False); p.setdefault('out', False)
 
 # carry any suspended game from the previously published board into today, then assemble
+prevD = None
 try:
     m = re.search(r'const D=(\{.*?\}),WX=D\.meta\.wx;', open(BOARD).read(), re.S)
     if m:
@@ -38,7 +39,17 @@ try:
 except Exception as e:
     print(f"  (carryover skipped: {e})")
 
-assemble_tickets.assemble(D)                   # builds D['tickets']
+# PRESERVE the prior board across same-slate rebuilds. A fresh assemble() each rebuild
+# re-picks anchors as weather/strength drift and reshuffles confirmed/locked tickets.
+# The live client engine (index.html) already does the prior-aware refill — keep locked
+# tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
+# already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
+_same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
+if _same_slate:
+    D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
+    print(f"  (same slate -> preserved {len(D['tickets'])} prior tickets; no re-draft)")
+else:
+    assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
