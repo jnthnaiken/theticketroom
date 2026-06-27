@@ -1,7 +1,7 @@
 {
   "date": "2026-06-26",
   "season": "2026",
-  "pulled_at": "2026-06-27T04:00:57Z",
+  "pulled_at": "2026-06-27T04:30:27Z",
   "games": [
     {
       "gamePk": 824255,
@@ -265,7 +265,7 @@
         "wind_mph": 2.9,
         "wind_dir": 141,
         "tail_mph": -0.9,
-        "precip": 8
+        "precip": 7
       },
       "wf": 0.994
     },
@@ -928,7 +928,7 @@
         "wind_mph": 3.7,
         "wind_dir": 256,
         "tail_mph": 2.3,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.014
     },
@@ -1061,7 +1061,7 @@
         "wind_mph": 3.5,
         "wind_dir": 165,
         "tail_mph": 1.8,
-        "precip": 1
+        "precip": 4
       },
       "wf": 1.003
     },
@@ -1459,7 +1459,7 @@
         "wind_mph": 4.6,
         "wind_dir": 133,
         "tail_mph": 2.7,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.005
     },
@@ -1592,7 +1592,7 @@
         "wind_mph": 4.9,
         "wind_dir": 185,
         "tail_mph": 4.4,
-        "precip": 24
+        "precip": 16
       },
       "wf": 1.02
     },
@@ -1618,12 +1618,12 @@
           {
             "id": 701762,
             "name": "Nick Kurtz",
-            "iso": 0.251
+            "iso": 0.25
           },
           {
             "id": 669127,
             "name": "Shea Langeliers",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 691016,
@@ -1653,7 +1653,7 @@
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.173
+            "iso": 0.17
           }
         ],
         "confirmed": true
@@ -1695,7 +1695,7 @@
           {
             "id": 694203,
             "name": "Denzer Guzman",
-            "iso": 0.189
+            "iso": 0.187
           },
           {
             "id": 622268,
@@ -1718,13 +1718,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 64\u00b0",
+        "lean": "Neutral",
+        "temp": 64.5,
+        "wind_mph": 5.3,
+        "wind_dir": 237,
+        "tail_mph": 5.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.009
     },
     {
       "gamePk": 823285,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-06-27T01:45:00Z",
       "matchup": "LAD@SD",
       "away": {
@@ -1769,7 +1776,7 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.042
+            "iso": 0.04
           },
           {
             "id": 687221,
@@ -1801,7 +1808,7 @@
           {
             "id": 669392,
             "name": "Samad Taylor",
-            "iso": 0.066
+            "iso": 0.065
           },
           {
             "id": 701538,
@@ -1811,12 +1818,12 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.197
+            "iso": 0.196
           },
           {
             "id": 657757,
             "name": "Gavin Sheets",
-            "iso": 0.213
+            "iso": 0.212
           },
           {
             "id": 593428,
@@ -1836,7 +1843,7 @@
           {
             "id": 660710,
             "name": "Rodolfo Dur\u00e1n",
-            "iso": 0.194
+            "iso": 0.206
           }
         ],
         "confirmed": true
@@ -1872,7 +1879,7 @@
           {
             "id": 671739,
             "name": "Michael Harris II",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 643289,
@@ -1887,17 +1894,17 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.216
+            "iso": 0.215
           },
           {
             "id": 663586,
             "name": "Austin Riley",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 642086,
@@ -1934,17 +1941,17 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.206
+            "iso": 0.205
           },
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.223
+            "iso": 0.222
           },
           {
             "id": 646240,
             "name": "Rafael Devers",
-            "iso": 0.199
+            "iso": 0.197
           },
           {
             "id": 808982,
@@ -1969,7 +1976,7 @@
           {
             "id": 682674,
             "name": "Victor Bericoto",
-            "iso": 0.334
+            "iso": 0.321
           }
         ],
         "confirmed": true
@@ -1984,7 +1991,7 @@
         "wind_mph": 8.5,
         "wind_dir": 288,
         "tail_mph": 7.8,
-        "precip": 1
+        "precip": 2
       },
       "wf": 1.009
     }
