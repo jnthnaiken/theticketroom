@@ -74,9 +74,10 @@ jobs:
         run: python3 fetch_mlb.py "$SLATE_DATE"
 
       - name: Verify the slate was pulled fresh
+        id: verify
         run: |
           python3 - "$SLATE_DATE" <<'PY'
-          import json, sys
+          import json, os, sys
           d = sys.argv[1]; f = f"slate_auto_{d}.json"
           s = json.load(open(f))
           pa = str(s.get("pulled_at", ""))
@@ -85,20 +86,27 @@ jobs:
                 for g in games for side in ("away", "home")]
           have = sum(1 for x in hr if x is not None)
           print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
-          if pa.startswith("manual") or "T" not in pa or have == 0:
-              print("::error::slate_auto is not a fresh StatsAPI pull (manual/stale or zero "
-                    "HR/9). Refusing to build a stale board. A red run here just means no HR/9 "
-                    "is available yet (e.g. before starters post / after games end) -- harmless.")
-              sys.exit(1)
+          fresh = not (pa.startswith("manual") or "T" not in pa or have == 0)
+          if not fresh:
+              # NOT an error -- just nothing to build yet (no HR/9 because starters haven't
+              # posted, or games are over). Flag it so score/assemble/commit skip cleanly and
+              # the run stays GREEN. A later run folds the slate in once a fresh pull lands.
+              print("::notice::No fresh StatsAPI pull yet (manual/stale or zero HR/9). Skipping "
+                    "score+assemble+commit this run -- harmless; a later run builds it.")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"fresh={'true' if fresh else 'false'}\n")
           PY
 
       - name: Score the field
+        if: success() && steps.verify.outputs.fresh == 'true'
         run: python3 build15.py
 
       - name: Assemble + inject the board
+        if: success() && steps.verify.outputs.fresh == 'true'
         run: python3 regen15.py
 
       - name: Commit the board
+        if: success() && steps.verify.outputs.fresh == 'true'
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
