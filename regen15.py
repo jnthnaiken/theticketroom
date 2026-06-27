@@ -47,6 +47,7 @@ except Exception as e:
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 if _same_slate:
     D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
+    D.setdefault('meta', {})['tickets'] = len(D['tickets'])
     print(f"  (same slate -> preserved {len(D['tickets'])} prior tickets; no re-draft)")
 else:
     assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
