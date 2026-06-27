@@ -1,7 +1,7 @@
 {
   "date": "2026-06-27",
   "season": "2026",
-  "pulled_at": "2026-06-27T20:18:20Z",
+  "pulled_at": "2026-06-27T20:30:28Z",
   "games": [
     {
       "gamePk": 824257,
@@ -286,7 +286,7 @@
           {
             "id": 592626,
             "name": "Joc Pederson",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 673962,
@@ -296,7 +296,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 607043,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823364,
-      "status": "Delayed Start",
+      "status": "Warmup",
       "gameTime": "2026-06-27T20:05:00Z",
       "matchup": "CIN@PIT",
       "away": {
@@ -677,7 +677,7 @@
         "sp": {
           "id": 608379,
           "name": "Michael Wacha",
-          "hr9": 0.89,
+          "hr9": 0.88,
           "hand": "RHP"
         },
         "lineup": [
@@ -699,22 +699,22 @@
           {
             "id": 657041,
             "name": "Lane Thomas",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 686681,
             "name": "Michael Massey",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 521692,
             "name": "Salvador Perez",
-            "iso": 0.13
+            "iso": 0.132
           },
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.538
+            "iso": 0.5
           },
           {
             "id": 679845,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 663436,
           "name": "Davis Martin",
-          "hr9": 0.61,
+          "hr9": 0.6,
           "hand": "RHP"
         },
         "lineup": [
@@ -751,7 +751,7 @@
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.201
+            "iso": 0.2
           },
           {
             "id": 695657,
@@ -1575,9 +1575,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 57\u00b0",
+        "lean": "Neutral",
+        "temp": 56.8,
+        "wind_mph": 10.2,
+        "wind_dir": 296,
+        "tail_mph": 8.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.011
     },
     {
       "gamePk": 824015,
