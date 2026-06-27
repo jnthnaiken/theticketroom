@@ -1,7 +1,7 @@
 {
   "date": "2026-06-27",
   "season": "2026",
-  "pulled_at": "2026-06-27T16:00:50Z",
+  "pulled_at": "2026-06-27T16:30:26Z",
   "games": [
     {
       "gamePk": 824257,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822794,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-27T19:07:00Z",
       "matchup": "TEX@TOR",
       "away": {
@@ -282,8 +282,54 @@
           "hr9": 1.15,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.219
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.222
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.184
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.16
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.139
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.195
+          },
+          {
+            "id": 672284,
+            "name": "Jarred Kelenic",
+            "iso": 0.083
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.2
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.051
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
@@ -296,7 +342,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -393,7 +439,7 @@
     },
     {
       "gamePk": 824581,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-27T20:10:00Z",
       "matchup": "KC@CWS",
       "away": {
@@ -415,10 +461,56 @@
           "hr9": 0.62,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.123
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.238
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.201
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.263
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.108
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.208
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.164
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.123
+          },
+          {
+            "id": 691011,
+            "name": "Drew Romo",
+            "iso": 0.204
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -747,9 +839,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 57\u00b0",
+        "lean": "Neutral",
+        "temp": 56.8,
+        "wind_mph": 11.2,
+        "wind_dir": 296,
+        "tail_mph": 9.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.014
     },
     {
       "gamePk": 824015,
