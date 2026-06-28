@@ -66,7 +66,9 @@ lineup's wind/temp and a neutral pitcher term, exactly as before.
   the new slate builds.
 - **`build15.py`** — the scorer. Turns the carded field into a `TOTAL` per bat.
 - **`regen15.py`** — assembles the tickets (via `assemble_tickets.py`) and
-  injects `const D = …` into `index.html`.
+  injects `const D = …` into `index.html`. Preserves the prior draft across
+  same-input rebuilds (an input signature, independent of live weather/HR9), and
+  re-drafts when the inputs change or a new slate posts.
 - **`assemble_tickets.py`** — the ticket rules engine (pool gate, chalk routing,
   moons/salami/builders, lunch/nightcap, pricing).
 - **`calibrate.py`** — nightly per-bat outcome logger → `calibration.jsonl`. The
@@ -112,8 +114,9 @@ applies the opposing-pitcher **HR/9** live (`psrc='hr9'`).
 - **Pool gate** — the pool is **every eligible bat whose model `TOTAL` clears
   `FLOOR` (85)** — one pool for the whole draft. Re-sort it by odds, **ban the 4
   shortest-odds** ("chalk") to the lunch/nightcap, and trim the rest to **at most 3
-  per team** (best by model). No fixed size and no backfill: a thin slate just makes
-  a smaller board.
+  per game** (best by model, both teams combined — per-team would allow 6 in one
+  game, which implies six different homers in a single game). No fixed size and no
+  backfill: a thin slate just makes a smaller board.
 - **Chalk** (the 4 banned favorites) are eligible **only** in the lunch special
   and the nightcap, in their time windows. Never in moons, salami, or builders.
 - **Moons** — **2 per anchor** across 3 anchors = up to **6** moons. Each = an
@@ -128,7 +131,7 @@ applies the opposing-pitcher **HR/9** live (`psrc='hr9'`).
 - **75 TOTAL floor** on our parlay picks (anchors, partners, salami legs).
 
 Key knobs: `CHALK_N=4`, `FLOOR=85` (pool gate), `WIN=120`, `NIGHT_WIN=60`,
-`TEAM_CAP=3`, `MOONS_PER_ANC=2`. Parlay stakes: moon round-robin `risk=2.0u`,
+`GAME_CAP=3`, `MOONS_PER_ANC=2`. Parlay stakes: moon round-robin `risk=2.0u`,
 salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 
 ---
@@ -146,11 +149,12 @@ Behavior that's load-bearing:
   and parlays alike. A locked ticket is emitted verbatim and never moves. A leg
   that scratches drops the ticket out of "confirmed," and the re-draft replaces
   just that leg while the confirmed legs stay pinned. So a confirmed slip never
-  moves, and no board ever shows a scratched leg.
-- **Top-3 per team holds everywhere.** The 3-per-team cap applies to the pool
-  *and* the #42+ span-fill fallback that fills short parlays, so a team can never
+  moves, and no board ever shows a scratched leg. A scratched single with no
+  available replacement is dropped (never re-shown), not held.
+- **Top-3 per game holds everywhere.** The 3-per-game cap applies to the pool
+  *and* the #42+ span-fill fallback that fills short parlays, so a game can never
   put a 4th bat on the regular board. (Chalk in the lunch/nightcap is exempt —
-  a favorite there can sit on top of a team's 3.)
+  a favorite there can sit on top of a game's 3.)
 - **Badges** read one way: 🔒 *confirmed* (locked) · `N/M confirmed` (partial) ·
   *projected*. A full count always shows the lock.
 - **No midnight rollover.** Once the calendar passes the slate date, the whole

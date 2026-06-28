@@ -125,20 +125,20 @@ def assemble(D):
     byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
-    # POOL (one draft, top-3-per-team): the pool is EVERY eligible bat whose model TOTAL clears FLOOR.
+    # POOL (one draft, top-3-per-GAME): the pool is EVERY eligible bat whose model TOTAL clears FLOOR.
     # Re-sort that pool by odds and pull the CHALK_N shortest (chalk -> lunch/nightcap ONLY); from the rest
-    # keep at most TOP-3 per team (best-by-model). No fixed size and no backfill -- the floor is the only
+    # keep at most TOP-3 per GAME (best-by-model, both teams combined). No fixed size and no backfill -- the floor is the only
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
-    TEAM_CAP = 3
+    GAME_CAP = 3   # at most 3 bats per GAME (both lineups combined); per-team would allow 6/game (3 each side) -> implies 6 different HRs in one game, unrealistic
     fullrank = byT(elig)                              # everyone ranked by model -> replacement order
     cand     = [n for n in fullrank if P[n]['TOTAL'] >= FLOOR]   # the pool: every eligible bat clearing the FLOOR (one draft for moons/salami/builders)
     ranked   = byO(cand)                              # re-sort those 41 by odds
     chalk    = set(ranked[:CHALK_N])                  # ban-8 (lunch/nightcap only)
     nonchalk, _tc = [], {}
-    for n in byT([x for x in cand if x not in chalk]):   # the 33, model order, trimmed to <=3/team
-        t = P[n]['code']
-        if _tc.get(t, 0) >= TEAM_CAP: continue
-        nonchalk.append(n); _tc[t] = _tc.get(t, 0) + 1
+    for n in byT([x for x in cand if x not in chalk]):   # the pool, model order, trimmed to <=3 per GAME (both teams combined)
+        g = P[n]['game']
+        if _tc.get(g, 0) >= GAME_CAP: continue
+        nonchalk.append(n); _tc[g] = _tc.get(g, 0) + 1
     _have = set(nonchalk)
     extra = []                                           # FLOOR is the only gate -> no fixed pool size, no backfill, no sub-floor tier
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)

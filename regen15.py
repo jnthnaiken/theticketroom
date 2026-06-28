@@ -12,6 +12,11 @@ data block, and write it back. All paths are repo-relative so it runs on the Act
 import json, re, time, os, hashlib
 import assemble_tickets
 
+# Bump when the DRAFT RULES change (pool gate, caps, anchor logic). Folding this into the
+# input signature forces exactly one re-draft on the next build so a rules change actually
+# takes effect, then same-input rebuilds preserve as usual.
+RULES_VERSION = "2026-06-28-gamecap"
+
 BOARD = "index.html"       # published board == its own shell/template
 DJSON = "D_0615.json"      # scorer output; assembled in place, then injected
 
@@ -25,7 +30,7 @@ def _input_sig(Dd):
     same sig -> preserve the prior draft (no reshuffle of locked tickets). New inputs
     committed (a fresh slate, corrected cards, updated odds) -> sig changes -> re-draft."""
     P = Dd.get('players', {})
-    rows = []
+    rows = [RULES_VERSION]
     for n in sorted(P):
         p = P[n]
         rows.append('|'.join(str(x) for x in (
