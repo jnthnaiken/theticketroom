@@ -1,11 +1,11 @@
 {
   "date": "2026-06-28",
   "season": "2026",
-  "pulled_at": "2026-06-28T17:00:51Z",
+  "pulled_at": "2026-06-28T17:30:51Z",
   "games": [
     {
       "gamePk": 824821,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:35:00Z",
       "matchup": "WSH@BAL",
       "away": {
@@ -132,13 +132,13 @@
         "wind_mph": 2.4,
         "wind_dir": 139,
         "tail_mph": 0.8,
-        "precip": 8
+        "precip": 5
       },
       "wf": 1.016
     },
     {
       "gamePk": 823362,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:35:00Z",
       "matchup": "CIN@PIT",
       "away": {
@@ -265,13 +265,13 @@
         "wind_mph": 4.1,
         "wind_dir": 29,
         "tail_mph": -3.1,
-        "precip": 33
+        "precip": 30
       },
       "wf": 1.0
     },
     {
       "gamePk": 822795,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:37:00Z",
       "matchup": "TEX@TOR",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824256,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:40:00Z",
       "matchup": "HOU@DET",
       "away": {
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824422,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:40:00Z",
       "matchup": "SEA@CLE",
       "away": {
@@ -663,13 +663,13 @@
         "wind_mph": 9.6,
         "wind_dir": 4,
         "tail_mph": -9.6,
-        "precip": 3
+        "precip": 2
       },
       "wf": 0.98
     },
     {
       "gamePk": 822959,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:40:00Z",
       "matchup": "ARI@TB",
       "away": {
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 823608,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-28T17:40:00Z",
       "matchup": "PHI@NYM",
       "away": {
@@ -1061,7 +1061,7 @@
         "wind_mph": 7.9,
         "wind_dir": 151,
         "tail_mph": 6.4,
-        "precip": 18
+        "precip": 8
       },
       "wf": 1.032
     },
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 823204,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-28T20:05:00Z",
       "matchup": "ATL@SF",
       "away": {
@@ -1620,10 +1620,56 @@
           "hr9": 1.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656305,
+            "name": "Matt Chapman",
+            "iso": 0.136
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.124
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.218
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.214
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.202
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.157
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.142
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.321
+          },
+          {
+            "id": 606992,
+            "name": "Eric Haase",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1650,8 +1696,54 @@
           "hr9": 1.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.246
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.206
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.206
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.21
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.242
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.138
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.146
+          },
+          {
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.094
+          },
+          {
+            "id": 642020,
+            "name": "Chuckie Robinson",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1713,16 +1805,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 68\u00b0",
-        "lean": "Neutral",
-        "temp": 67.8,
-        "wind_mph": 8.3,
-        "wind_dir": 246,
-        "tail_mph": 3.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.009
+      "wf": 1.0
     },
     {
       "gamePk": 824744,
@@ -1754,9 +1839,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 66\u00b0",
+        "lean": "Neutral",
+        "temp": 66.5,
+        "wind_mph": 4.2,
+        "wind_dir": 212,
+        "tail_mph": 4.1,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.009
     }
   ]
 }
