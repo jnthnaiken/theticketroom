@@ -1,7 +1,7 @@
 {
   "date": "2026-06-28",
   "season": "2026",
-  "pulled_at": "2026-06-28T23:00:30Z",
+  "pulled_at": "2026-06-28T23:30:52Z",
   "games": [
     {
       "gamePk": 824821,
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823281,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-06-28T20:10:00Z",
       "matchup": "LAD@SD",
       "away": {
@@ -1838,7 +1838,7 @@
           {
             "id": 823550,
             "name": "Sung-Mun Song",
-            "iso": 0.037
+            "iso": 0.036
           },
           {
             "id": 660710,
@@ -1851,20 +1851,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 67\u00b0",
-        "lean": "Neutral",
-        "temp": 67.3,
-        "wind_mph": 8.0,
-        "wind_dir": 247,
-        "tail_mph": 3.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.007
+      "wf": 1.0
     },
     {
       "gamePk": 824744,
-      "status": "Pre-Game",
+      "status": "In Progress",
       "gameTime": "2026-06-28T23:20:00Z",
       "matchup": "NYY@BOS",
       "away": {
@@ -1879,17 +1872,17 @@
           {
             "id": 665862,
             "name": "Jazz Chisholm Jr.",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.297
+            "iso": 0.296
           },
           {
             "id": 691176,
             "name": "Jasson Dom\u00ednguez",
-            "iso": 0.198
+            "iso": 0.195
           },
           {
             "id": 641355,
@@ -1929,7 +1922,7 @@
         "sp": {
           "id": 543243,
           "name": "Sonny Gray",
-          "hr9": 1.06,
+          "hr9": 1.05,
           "hand": "RHP"
         },
         "lineup": [
