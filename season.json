@@ -3,16 +3,16 @@
  "stake": 1,
  "cats": {
   "moon": {
-   "graded": 12,
-   "won": 0,
-   "units": -24.0,
-   "staked": 24.0
+   "graded": 18,
+   "won": 1,
+   "units": -9.38,
+   "staked": 36.0
   },
   "late": {
-   "graded": 2,
+   "graded": 3,
    "won": 0,
-   "units": -2.0,
-   "staked": 2.0
+   "units": -3.0,
+   "staked": 3.0
   },
   "lunch": {
    "graded": 1,
@@ -21,22 +21,23 @@
    "staked": 1.0
   },
   "builder": {
-   "graded": 19,
-   "won": 5,
-   "units": 6.37,
-   "staked": 19.0
+   "graded": 46,
+   "won": 8,
+   "units": -4.12,
+   "staked": 46.0
   },
   "biggest": {
-   "graded": 1,
+   "graded": 2,
    "won": 0,
-   "units": -5.5,
-   "staked": 5.5
+   "units": -11.0,
+   "staked": 11.0
   }
  },
  "history": [
   0.0,
   -6.5,
-  -26.13
+  -26.13,
+  -28.5
  ],
  "graded_nights": [
   "2026-06-16",
@@ -49,7 +50,8 @@
   "2026-06-23",
   "2026-06-24",
   "2026-06-25",
-  "2026-06-26"
+  "2026-06-26",
+  "2026-06-27"
  ],
  "reset_note": "ledger reset 2026-06-25 after model changes (one-pool>=85, 2-per-anchor moon demotion, halved parlay stakes); pre-reset record in season_pre-reset_2026-06-25.json"
 }
