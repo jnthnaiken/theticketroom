@@ -1,7 +1,7 @@
 {
   "date": "2026-06-28",
   "season": "2026",
-  "pulled_at": "2026-06-28T07:30:49Z",
+  "pulled_at": "2026-06-28T08:00:26Z",
   "games": [
     {
       "gamePk": 824821,
@@ -34,15 +34,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 80\u00b0",
+        "cond": "wind in 3mph, 80\u00b0",
         "lean": "Neutral",
         "temp": 79.9,
-        "wind_mph": 4.5,
-        "wind_dir": 323,
-        "tail_mph": -1.8,
+        "wind_mph": 3.6,
+        "wind_dir": 11,
+        "tail_mph": -3.4,
         "precip": 16
       },
-      "wf": 1.009
+      "wf": 1.003
     },
     {
       "gamePk": 823362,
@@ -75,15 +75,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 4mph, 75\u00b0",
-        "lean": "Neutral",
+        "cond": "wind out 5mph, 75\u00b0",
+        "lean": "Boost",
         "temp": 74.9,
-        "wind_mph": 4.5,
-        "wind_dir": 93,
-        "tail_mph": -4.1,
+        "wind_mph": 4.9,
+        "wind_dir": 267,
+        "tail_mph": 4.7,
         "precip": 18
       },
-      "wf": 0.993
+      "wf": 1.024
     },
     {
       "gamePk": 822795,
@@ -156,15 +156,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 84\u00b0",
+        "cond": "wind in 4mph, 84\u00b0",
         "lean": "Neutral",
         "temp": 83.9,
-        "wind_mph": 4.7,
-        "wind_dir": 85,
-        "tail_mph": -2.7,
+        "wind_mph": 6.3,
+        "wind_dir": 86,
+        "tail_mph": -3.5,
         "precip": 2
       },
-      "wf": 1.011
+      "wf": 1.009
     },
     {
       "gamePk": 824422,
@@ -197,11 +197,11 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 10mph, 80\u00b0",
+        "cond": "wind in 11mph, 80\u00b0",
         "lean": "Suppress",
         "temp": 80.0,
-        "wind_mph": 11.1,
-        "wind_dir": 19,
+        "wind_mph": 10.7,
+        "wind_dir": 11,
         "tail_mph": -10.5,
         "precip": 2
       },
@@ -277,16 +277,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
+        "emoji": "\u26c5",
         "cond": "wind out 6mph, 82\u00b0",
         "lean": "Boost",
         "temp": 82.1,
-        "wind_mph": 8.1,
-        "wind_dir": 164,
-        "tail_mph": 6.1,
+        "wind_mph": 8.6,
+        "wind_dir": 155,
+        "tail_mph": 5.5,
         "precip": 2
       },
-      "wf": 1.04
+      "wf": 1.037
     },
     {
       "gamePk": 823686,
@@ -322,8 +322,8 @@
         "cond": "calm 3mph, 74\u00b0",
         "lean": "Neutral",
         "temp": 73.7,
-        "wind_mph": 6.3,
-        "wind_dir": 122,
+        "wind_mph": 6.1,
+        "wind_dir": 123,
         "tail_mph": 2.7,
         "precip": 26
       },
@@ -360,15 +360,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 75\u00b0",
+        "cond": "wind in 4mph, 75\u00b0",
         "lean": "Neutral",
         "temp": 75.1,
-        "wind_mph": 17.0,
-        "wind_dir": 125,
-        "tail_mph": -0.9,
+        "wind_mph": 21.2,
+        "wind_dir": 118,
+        "tail_mph": -3.7,
         "precip": 2
       },
-      "wf": 1.005
+      "wf": 0.995
     },
     {
       "gamePk": 823769,
@@ -485,12 +485,12 @@
         "cond": "wind out 9mph, 72\u00b0",
         "lean": "Boost",
         "temp": 72.4,
-        "wind_mph": 9.0,
-        "wind_dir": 210,
-        "tail_mph": 8.9,
+        "wind_mph": 9.4,
+        "wind_dir": 213,
+        "tail_mph": 9.3,
         "precip": 0
       },
-      "wf": 1.035
+      "wf": 1.036
     },
     {
       "gamePk": 823204,
@@ -563,9 +563,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 68.2,
+        "wind_mph": 8.8,
+        "wind_dir": 243,
+        "tail_mph": 4.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.011
     },
     {
       "gamePk": 824744,
