@@ -1,11 +1,11 @@
 {
   "date": "2026-06-28",
   "season": "2026",
-  "pulled_at": "2026-06-28T20:30:51Z",
+  "pulled_at": "2026-06-28T20:39:40Z",
   "games": [
     {
       "gamePk": 824821,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-06-28T17:35:00Z",
       "matchup": "WSH@BAL",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822795,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-06-28T17:37:00Z",
       "matchup": "TEX@TOR",
       "away": {
@@ -893,7 +893,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 668901,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 823686,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-06-28T18:10:00Z",
       "matchup": "COL@MIN",
       "away": {
@@ -949,7 +949,7 @@
           {
             "id": 650489,
             "name": "Willi Castro",
-            "iso": 0.121
+            "iso": 0.122
           },
           {
             "id": 671289,
@@ -1149,12 +1149,12 @@
           {
             "id": 691019,
             "name": "Kyle Teel",
-            "iso": 0.188
+            "iso": 0.177
           },
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 695657,
@@ -1230,7 +1230,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 664023,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 823037,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-06-28T18:15:00Z",
       "matchup": "MIA@STL",
       "away": {
@@ -1367,7 +1367,7 @@
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 665052,
@@ -1473,14 +1473,14 @@
         "sp": {
           "id": 650644,
           "name": "Aaron Civale",
-          "hr9": 1.91,
+          "hr9": 1.89,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 608841,
@@ -1515,12 +1515,12 @@
           {
             "id": 643446,
             "name": "Jeff McNeil",
-            "iso": 0.079
+            "iso": 0.078
           },
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.158
+            "iso": 0.155
           }
         ],
         "confirmed": true
@@ -1530,7 +1530,7 @@
         "sp": {
           "id": 691951,
           "name": "Sam Aldegheri",
-          "hr9": 1.26,
+          "hr9": 1.23,
           "hand": "LHP"
         },
         "lineup": [
@@ -1643,12 +1643,12 @@
           {
             "id": 663698,
             "name": "Joey Bart",
-            "iso": 0.145
+            "iso": 0.143
           },
           {
             "id": 642201,
             "name": "Eli White",
-            "iso": 0.147
+            "iso": 0.145
           },
           {
             "id": 673490,
@@ -1663,14 +1663,14 @@
         "sp": {
           "id": 592662,
           "name": "Robbie Ray",
-          "hr9": 1.41,
+          "hr9": 1.39,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 656305,
             "name": "Matt Chapman",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 650333,
@@ -1710,7 +1710,7 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.273
+            "iso": 0.261
           }
         ],
         "confirmed": true
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 686218,
           "name": "Emmet Sheehan",
-          "hr9": 1.83,
+          "hr9": 1.81,
           "hand": "RHP"
         },
         "lineup": [
@@ -1776,7 +1776,7 @@
           {
             "id": 663656,
             "name": "Kyle Tucker",
-            "iso": 0.146
+            "iso": 0.145
           },
           {
             "id": 690976,
@@ -1818,17 +1818,17 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.194
+            "iso": 0.193
           },
           {
             "id": 657757,
             "name": "Gavin Sheets",
-            "iso": 0.221
+            "iso": 0.22
           },
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.105
+            "iso": 0.104
           },
           {
             "id": 609280,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 68.4,
+        "wind_mph": 8.7,
+        "wind_dir": 258,
+        "tail_mph": 1.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.004
     },
     {
       "gamePk": 824744,
