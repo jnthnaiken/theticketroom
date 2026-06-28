@@ -1,7 +1,7 @@
 {
   "date": "2026-06-28",
   "season": "2026",
-  "pulled_at": "2026-06-28T16:02:22Z",
+  "pulled_at": "2026-06-28T16:30:49Z",
   "games": [
     {
       "gamePk": 824821,
@@ -132,7 +132,7 @@
         "wind_mph": 1.8,
         "wind_dir": 120,
         "tail_mph": -0.0,
-        "precip": 10
+        "precip": 8
       },
       "wf": 1.013
     },
@@ -265,7 +265,7 @@
         "wind_mph": 5.7,
         "wind_dir": 48,
         "tail_mph": -5.3,
-        "precip": 44
+        "precip": 33
       },
       "wf": 0.992
     },
@@ -1061,7 +1061,7 @@
         "wind_mph": 11.4,
         "wind_dir": 145,
         "tail_mph": 8.5,
-        "precip": 24
+        "precip": 18
       },
       "wf": 1.042
     },
@@ -1534,16 +1534,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 74\u00b0",
-        "lean": "Boost",
-        "temp": 73.8,
-        "wind_mph": 15.2,
-        "wind_dir": 294,
-        "tail_mph": 13.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.052
+      "wf": 1.0
     },
     {
       "gamePk": 823281,
@@ -1616,9 +1609,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 67\u00b0",
+        "lean": "Neutral",
+        "temp": 67.0,
+        "wind_mph": 4.2,
+        "wind_dir": 216,
+        "tail_mph": 4.1,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.01
     }
   ]
 }
