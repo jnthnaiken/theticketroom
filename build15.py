@@ -38,7 +38,7 @@ def load_dated(stem, required=True):
 
 norm=lambda s:''.join(c for c in unicodedata.normalize('NFKD',s) if not unicodedata.combining(c)).lower().replace('.','').strip()
 clamp=lambda x,a,b:max(a,min(b,x))
-fF=lambda f:1.0 if f is None else clamp(1+0.002*(f-50),0.94,1.06)   # form trimmed: HRs track power/matchup, not recent hot/cold
+fF=lambda f:1.0 if f is None else clamp(1+0.001*(f-50),0.97,1.03)   # form: near-zero token -- coin-flip AUC (0.499), no real HR signal
 pM=lambda w:1.0 if w is None else 1+W_WEATHER*(w-1)
 la_window=lambda la:math.exp(-((la-25.0)/14.0)**2)
 
