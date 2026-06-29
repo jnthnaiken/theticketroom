@@ -86,9 +86,11 @@ if _nps:
 # NO base score -> the base chip now shows OUR model score (TOTAL). Relabel Match/khr -> Model. Idempotent.
 src, _nlab = re.subn(r"\['(?:Match|khr)',p\.aT!=null\?p\.aT\.toFixed\(1\):'—'\]",
                      "['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—']", src, count=1)
-# the brick "base" badge(s) also showed aT (flat 100 now) -> show the Model score (TOTAL).
-# Runs AFTER the chip relabel so it only catches the remaining badge displays. Idempotent.
-src, _nbb = re.subn(r"p\.aT\.toFixed\(1\)", "Math.round(p.TOTAL)", src)
+# the brick "base" badge shows the (display-only) khr score, looked up live from D.players by
+# the leg name (legs carry .total/.aT but not khr). Matches the original aT form OR the prior
+# TOTAL form. Idempotent.
+src, _nbb = re.subn(r"🧱 \$\{(?:Math\.round\(p\.TOTAL\)|p\.aT\.toFixed\(1\))\}",
+                    "🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr:'—'}", src)
 # no base -> retune the client pool gate to the new TOTAL scale; repoint UI sorts off the flat aT
 src, _nfl = re.subn(r"FLOOR=85,", "FLOOR=130,", src, count=1)
 src, _nsrt = re.subn(r"D\.players\[b\]\.aT-D\.players\[a\]\.aT", "D.players[b].TOTAL-D.players[a].TOTAL", src)
