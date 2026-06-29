@@ -84,6 +84,18 @@ src, _nb = re.subn(_B, "", src)
 if _na or _nb:
     print(f"  (display: stripped {_na+_nb} client-side ISO note bank(s))")
 
+# footer: ISO no longer used anywhere -> drop it from the data-source credit (idempotent)
+src, _nf = re.subn(r"TeamRankings \(ISO &amp; HR/9\)", "TeamRankings (HR/9)", src, count=1)
+# builder cap: singles can't beat the market (35% odds weight already concedes this), so the
+# client emitted EVERY pool bat as a builder. Cap to the top 8 strongest at <=+600 -- damage
+# control on a -EV category, ranked by TOTAL (which carries the market term). Idempotent.
+src, _ncap = re.subn(
+    r"byS\(nonchalk\.filter\(function\(n\)\{return !spent\[n\];\}\)\)\.forEach",
+    "byS(nonchalk.filter(function(n){return !spent[n]&&P[n].odds!=null&&P[n].odds<=600;})).slice(0,8).forEach",
+    src, count=1)
+if _nf or _ncap:
+    print(f"  (display: footer credit fixed={bool(_nf)}; client builder cap applied={bool(_ncap)})")
+
 dj = 'const D=' + json.dumps(D, ensure_ascii=True) + ',WX=D.meta.wx;'
 src, n = re.subn(r'const D=[\s\S]*?,WX=D\.meta\.wx;', (lambda mm: dj), src, count=1)
 assert n == 1, f"could not find the `const D=...,WX=D.meta.wx;` block in {BOARD}"

@@ -517,7 +517,7 @@ def assemble(D):
     # bats that anchor/leg the parlays. A strong bat is both a moon anchor AND a straight single, because
     # a straight bet on a high-conviction bat is the highest-EV, lowest-variance play (that's the whole
     # point of "builders / getting paid"). We no longer relegate builders to the unused longshot dregs.
-    BUILDER_N = 12   # ship only the top-N STRONGEST singles -- the high-conviction bats, not the whole pool
+    BUILDER_N = 8    # cap builders: singles are -EV vs the market at any selection (tested), so few = less bleed
     for n in byS([x for x in nonchalk if (x_odds := P[x].get('odds')) is not None and x_odds <= BUILDER_MAX_ODDS])[:BUILDER_N]:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
