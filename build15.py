@@ -38,7 +38,7 @@ def load_dated(stem, required=True):
 
 norm=lambda s:''.join(c for c in unicodedata.normalize('NFKD',s) if not unicodedata.combining(c)).lower().replace('.','').strip()
 clamp=lambda x,a,b:max(a,min(b,x))
-fF=lambda f:1.0 if f is None else clamp(1+0.003*(f-50),0.92,1.08)   # form trimmed: HRs track power/matchup, not recent hot/cold
+fF=lambda f:1.0 if f is None else clamp(1+0.002*(f-50),0.94,1.06)   # form trimmed: HRs track power/matchup, not recent hot/cold
 pM=lambda w:1.0 if w is None else 1+W_WEATHER*(w-1)
 la_window=lambda la:math.exp(-((la-25.0)/14.0)**2)
 
@@ -46,7 +46,7 @@ la_window=lambda la:math.exp(-((la-25.0)/14.0)**2)
 W_WIND   = 0.0035   # wf per mph of tailwind toward CF
 W_TEMP   = 0.0015   # wf per F above 70 (cold subtracts the same)
 W_ELEV   = 0.025    # wf per 1000 ft of park elevation (thin-air carry; Coors ~+13%)
-W_WEATHER= 0.30     # how hard wf pushes TOTAL via pM (same up and down)
+W_WEATHER= 0.18     # how hard wf pushes TOTAL via pM (same up and down)
 W_HR9    = 0.16     # opposing-pitcher HR/9: TOTAL multiplier per HR/9 vs baseline (symmetric)
 HR9_BASE = 1.15     # league-ish HR/9 (neutral matchup); above -> boost, below -> penalty
 HR9_CLAMP= 0.15     # cap the pitcher-matchup swing at +-15%
@@ -61,7 +61,7 @@ PARK_HR  = {'NYY':1.10,'CIN':1.10,'PHI':1.06,'BAL':1.05,'MIL':1.04,'HOU':1.04,'T
 pHR9 = lambda h: 1.0 if h is None else clamp(1+W_HR9*(h-HR9_BASE), 1-HR9_CLAMP, 1+HR9_CLAMP)   # pitcher HR-vulnerability (notes-only before; now scored)
 parkT= lambda code: clamp(PARK_HR.get(code,1.0), 0.90, 1.12)                                   # static park HR factor (dimensions/short-porch; elevation stays in weather)
 # ---- new HR-signal knobs (1 market, 2 lineup slot, 3 platoon, 4 handed park) ----
-W_MKT=0.12; MKT_CLAMP=0.14        # market implied-prob -> TOTAL (independent info; previously used only for drafting)
+W_MKT=0.18; MKT_CLAMP=0.22        # market implied-prob -> TOTAL (independent info; previously used only for drafting)
 W_SLOT=0.08                       # lineup slot / PA volume: top of order up, bottom down (centered at #5)
 W_PLAT=0.08                       # platoon: same-hand suppress, opposite-hand boost, switch slight boost
 PARK_HAND={'NYY':(1.05,0.97),'BOS':(0.97,1.05),'SF':(0.95,1.02),'CIN':(1.03,1.00),'PHI':(1.02,1.00),
@@ -192,7 +192,7 @@ PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # K
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
-W_PIT=0.30   # equal weight with batter power (+/-30%); per-request parity of pitcher & batter stats
+W_PIT=0.25   # equal weight with batter power (+/-30%); per-request parity of pitcher & batter stats
 _PKS=('pbrl','hh','fb')
 def _pmed(k):
     vs=[d[k] for d in PBRL.values() if isinstance(d,dict) and d.get(k) is not None]
@@ -265,7 +265,7 @@ medP=st.median([r['powidx'] for r in pool]); medI=st.median([r['iso_used'] for r
 zs=[r['zonev'] for r in pool if abs(r['zonev']-0.5)>1e-9]; medZ=st.median(zs) if zs else 0.06
 _imps=[100.0/(r['odds']+100) for r in pool if r.get('odds')]; medImp=st.median(_imps) if _imps else 0.13
 mktT=lambda o: 1.0 if not o else clamp(1+W_MKT*((100.0/(o+100))-medImp)/0.06, 1-MKT_CLAMP, 1+MKT_CLAMP)
-powT=lambda P:clamp(1+0.30*(P-medP)/40,0.70,1.30)   # power is THE driver -> widened to absorb dropped ISO (data: power AUC ~0.66, ISO ~0.55 & 0.88-redundant w/ power; pb x hh x launch)
+powT=lambda P:clamp(1+0.25*(P-medP)/40,0.75,1.25)   # power is THE driver -> widened to absorb dropped ISO (data: power AUC ~0.66, ISO ~0.55 & 0.88-redundant w/ power; pb x hh x launch)
 # ISO term REMOVED from TOTAL -- weak (AUC ~0.55) and 0.88-redundant with the power index; iso still loaded for display
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
@@ -275,7 +275,7 @@ for r in pool:
         _gm=r.get('gmatch') or '@'; _oh=(HR9_LIVE.get(_gm) or {}).get('home' if r.get('code')==_gm.split('@')[0] else 'away')
         if _oh is not None: r['hr9']=_oh
         r['phr9']=pHR9(r.get('hr9')); r['psrc']='hr9'
-    _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkHandT(_hm, r.get('bhand'))
+    _hm=(r.get('gmatch') or '@').split('@')[-1]; _ph0=parkHandT(_hm, r.get('bhand')); r['parkhr']=1+0.6*((_ph0 if _ph0 is not None else 1)-1)
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
     r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT'],1)   # ISO dropped; park/weather/zone kept
 
