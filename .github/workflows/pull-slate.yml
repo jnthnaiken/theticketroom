@@ -10,15 +10,10 @@
 #   workflow_dispatch                               <- the "Run workflow" button
 #   schedule                                        <- backup; GitHub often drops these
 #
-# EXTERNAL CRON (the reliable trigger), every 30 min:
-#   POST https://api.github.com/repos/jnthnaiken/theticketroom/dispatches
-#   Headers: Authorization: Bearer <GH_PAT>
-#            Accept: application/vnd.github+json
-#            Content-Type: application/json
-#   Body:    {"event_type":"build-board"}
-#
-# SECRET: add a fine-grained PAT (Contents: read and write) as repo secret GH_PAT.
-#   Committing with a PAT (not the bot token) keeps the schedule from auto-disabling.
+# SLATE DATE = the latest committed cards_<date>.json, NOT the calendar day. This HOLDS the
+# last slate you actually built (graded) until you commit a new day's cards -- so the board
+# never rolls onto a fresh, ungraded slate built from yesterday's fallback data overnight.
+# (A manual workflow_dispatch with an explicit date still overrides.)
 # ====================================================================================
 
 name: Build Ticket Room
@@ -29,7 +24,7 @@ on:
   workflow_dispatch:
     inputs:
       date:
-        description: "Slate date YYYY-MM-DD (blank = today, US/Eastern)"
+        description: "Slate date YYYY-MM-DD (blank = latest committed cards)"
         required: false
         default: ""
   schedule:
@@ -62,7 +57,9 @@ jobs:
           if [ -n "${{ github.event.inputs.date }}" ]; then
             D="${{ github.event.inputs.date }}"
           else
-            D="$(TZ=America/New_York date +%F)"
+            # latest committed cards_<date>.json -> HOLD the last real slate until new cards land
+            D="$(ls cards_*.json 2>/dev/null | sed -E 's/.*cards_([0-9]{4}-[0-9]{2}-[0-9]{2})\.json/\1/' | sort | tail -n1)"
+            [ -z "$D" ] && D="$(TZ=America/New_York date +%F)"
           fi
           echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
           echo "Building slate for $D"
@@ -88,9 +85,6 @@ jobs:
           print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
           fresh = not (pa.startswith("manual") or "T" not in pa or have == 0)
           if not fresh:
-              # NOT an error -- just nothing to build yet (no HR/9 because starters haven't
-              # posted, or games are over). Flag it so score/assemble/commit skip cleanly and
-              # the run stays GREEN. A later run folds the slate in once a fresh pull lands.
               print("::notice::No fresh StatsAPI pull yet (manual/stale or zero HR/9). Skipping "
                     "score+assemble+commit this run -- harmless; a later run builds it.")
           with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
