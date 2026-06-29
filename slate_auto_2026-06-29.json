@@ -1,7 +1,7 @@
 {
   "date": "2026-06-29",
   "season": "2026",
-  "pulled_at": "2026-06-29T19:20:36Z",
+  "pulled_at": "2026-06-29T19:29:56Z",
   "games": [
     {
       "gamePk": 824822,
@@ -225,7 +225,7 @@
     },
     {
       "gamePk": 823529,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-29T23:05:00Z",
       "matchup": "DET@NYY",
       "away": {
@@ -247,10 +247,56 @@
           "hr9": 1.66,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.294
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.184
+          },
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.26
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.191
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.099
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.123
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.084
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.145
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -363,8 +409,54 @@
           "hr9": 1.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.245
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.074
+          },
+          {
+            "id": 678554,
+            "name": "Curtis Mead",
+            "iso": 0.246
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.232
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.15
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.148
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.264
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.043
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.191
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
