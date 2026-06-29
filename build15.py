@@ -189,12 +189,13 @@ def bullpen_games(date):
     -> opener. Best-effort: {} on any failure -> no boost, build never breaks."""
     out={}
     try:
+        _tj=_getj('https://statsapi.mlb.com/api/v1/teams?sportId=1'); _idAb={t['id']:_talias(t.get('abbreviation')) for t in (_tj.get('teams') or [])}
         sch=_getj('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=%s&hydrate=probablePitcher'%date)
         named={}
         for gd in (sch.get('dates') or []):
             for g in gd.get('games',[]):
                 for side in ('away','home'):
-                    tm=g['teams'][side]; ab=_talias((tm.get('team') or {}).get('abbreviation'))
+                    tm=g['teams'][side]; ab=_idAb.get((tm.get('team') or {}).get('id'))
                     pp=tm.get('probablePitcher')
                     if not pp or not pp.get('id'):
                         if ab: out[ab]=True
@@ -207,7 +208,7 @@ def bullpen_games(date):
                 try:
                     stt=person['stats'][0]['splits'][0]['stat']
                     gs=int(stt.get('gamesStarted') or 0); gp=int(stt.get('gamesPlayed') or 0); ip=float(stt.get('inningsPitched') or 0)
-                    if ab and gp>0 and gs<=3 and ip/gp<3.5:
+                    if ab and gp>0 and gs<=3 and ip/gp<3.0:
                         out[ab]=True
                 except Exception: pass
     except Exception as e:
