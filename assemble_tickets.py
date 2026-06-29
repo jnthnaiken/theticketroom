@@ -169,12 +169,18 @@ def assemble(D):
     # anchor CANDIDATES: strongest nonchalk by STRENGTH, one per game, never pending/below-floor.
     # The final 4 anchors are chosen from these for the best fittable schedule (see the draft below), so
     # every moon fills three legs -- we never ship a 2-leg moon.
-    cand_anchors, seen = [], set()
+    # MULTIPLE ANCHORS PER GAME allowed: two bats from one game can both anchor (each leads its own
+    # tickets with legs from OTHER games -- a ticket still never repeats a game). The <=3/game POOL cap
+    # already bounds how many of a game's bats reach the board, so a game can put at most 3 bats total
+    # (anchors + legs) on the slate. Cap the candidate list so the O(N^4) anchor-set search stays cheap.
+    ANCHOR_CAND_MAX = 12
+    cand_anchors = []
     for n in byS(nonchalk):
-        g = P[n]['game']
-        if g in seen or pend(n) or _precip(n) >= 40:   # 40-49% rain -> still a parlay leg/builder, but never an anchor
+        if pend(n) or _precip(n) >= 40:   # 40-49% rain -> still a parlay leg/builder, but never an anchor
             continue
-        cand_anchors.append(n); seen.add(g)
+        cand_anchors.append(n)
+        if len(cand_anchors) >= ANCHOR_CAND_MAX:
+            break
 
     tickets, used = [], set()
 
@@ -385,7 +391,7 @@ def assemble(D):
                 if len(legs) == 3:
                     break
             return sum(strength(n) for n in legs) if len(legs) == 3 else -1e9   # must reach a full 3 partners inside the window or it can't anchor the salami
-        sidx = max(range(len(al)), key=lambda i: _fitpool(al[i])) if len(al) >= 4 else None
+        sidx = 0 if len(al) >= 4 else None     # salami led by the BEST anchor (al is sorted by -strength); it drafts in the snake, no premium pick
         mids = [i for i in range(len(al)) if i != sidx]
         pls = []
         for i in mids:                                                  # two moons per non-salami anchor
@@ -407,26 +413,9 @@ def assemble(D):
             return (max(ts) - min(ts)) <= WIN
         def needy(t):
             return (len(t['legs']) - 1) < t['need']
-        for t in pls:                                                   # PREMIUM FIRST: fill the salami to a full 4 before the moons compete for legs (salami ships at exactly 4 or not at all)
-            if t['kind'] == 'biggest':
-                while needy(t):
-                    pick = next((n for n in pool_av if fits(t, n)), None)
-                    if pick is None:
-                        break
-                    t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick)
-        # If the salami can't structurally fill (e.g. no 4-game WIN window after a rain-out), don't strand
-        # its anchor as a builder -- hand back its borrowed legs and re-task that anchor as a moon anchor,
-        # so the slate's strongest bat still leads a parlay instead of dropping to a single.
-        for t in list(pls):
-            if t['kind'] == 'biggest' and needy(t):
-                for n in t['legs'][1:]:
-                    if n not in pool_av: pool_av.append(n)
-                pool_av[:] = byS(pool_av)
-                r = t['rank']; pls.remove(t)
-                for _ in range(MOONS_PER_ANC):
-                    pls.append({'rank': r, 'kind': 'moon', 'badge': "\U0001f680",
-                                'rr': {"struct": "by 2s & 3", "risk": 2.0},
-                                'legs': [al[r]], 'need': 2, 'games': {P[al[r]]['game']}})
+        # NO PREMIUM PICK: the salami drafts INSIDE the snake at its (best) anchor's slot, same as the
+        # moons -- it competes leg-for-leg instead of front-running them. If it still can't fill after the
+        # snake it is re-tasked to moons below, so the strongest bat still leads a parlay, never a single.
         byr = {}
         for t in pls:
             byr.setdefault(t['rank'], []).append(t)
@@ -513,28 +502,14 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     BUILDER_MAX_ODDS = 600
-    # Builders = the strongest bat per GAME across the whole pool that is at least as strong as our
-    # weakest actual anchor. This folds in (a) the parlay anchors, (b) anchor-eligible bats passed
-    # over only on game-time fit, AND (c) strong RAIN-banded bats (40-69%) that can't anchor but are
-    # allowed as builder singles per the rain bands. Same gated pool as everything else (FLOOR, top-4
-    # chalk ban, <=3/game). Calibration: only the top-conviction bats carry builder edge (#1 +23% ROI).
-    _chosen = []
-    for _t in tickets:
-        if _t.get('kind') in ('moon', 'biggest') and _t.get('anchor') and _t['anchor'] not in _chosen:
-            _chosen.append(_t['anchor'])
-    _cand_b, _bseen = [], set()
-    for n in byS(nonchalk):                       # strongest bat per game; NO rain/anchor filter -> rain singles stay eligible
-        g = P[n]['game']
-        if g in _bseen:
-            continue
-        _bseen.add(g); _cand_b.append(n)
-    _minS = min(strength(x) for x in _chosen) if _chosen else None
-    _bnames = [n for n in _cand_b
-               if (_minS is None or strength(n) >= _minS - 1e-9)
-               and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS]
-    for _a in _chosen:                            # guard: every actual anchor is a builder
-        if _a not in _bnames and P[_a].get('odds') is not None and P[_a]['odds'] <= BUILDER_MAX_ODDS:
-            _bnames.append(_a)
+    # Builders = EVERY priced nonchalk pool bat at <= +600 -- the day's conviction singles, not just the
+    # four anchors. (Dropped the per-game dedup AND the weakest-anchor strength floor, so the next tier
+    # down -- the second strong bat in a game, a Canzone/Marte -- is offered as a straight single too.)
+    # Folds in the anchors, anchor-eligible bats passed over on game-time fit, and rain-banded (40-69%)
+    # bats that can't anchor. The pool is already FLOOR-gated, top-4-chalk-banned and <=3/game, so the
+    # list stays bounded (at most 3 builders per game).
+    _bnames = [n for n in byS(nonchalk)
+               if P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS]
     for n in _bnames:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
