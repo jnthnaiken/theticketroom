@@ -152,12 +152,8 @@ def main():
         D = json.load(open(os.path.join(ROOT, f'D_{date}.json')))
         gr = [grade_ticket(t, homered, ppd, stake) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
-        try:                                                 # auto-append per-bat calibration rows for this night (same homered set)
-            _ex = load_extras(date)                          # full Kasper stat sidecar for this slate (k_* cols); {} if absent
-            with open(os.path.join(ROOT, 'calibration.jsonl'), 'a') as _cf:
-                for _r in build_rows(D, homered, _ex): _cf.write(json.dumps(_r) + '\n')
-        except Exception as _e:
-            print(f'  (calibration log skipped: {_e})')
+        # calibration logging is handled SEPARATELY by `calibrate.py` (idempotent, self-healing
+        # backfill run as its own pipeline step), so grade_night never silently drops rows.
         cashed = sum(1 for g in gr if g and g.get('won'))
         print(f"{date}: graded {len(gr)} tickets, {cashed} cashed, net {net:+.2f}u "
               f"-> season {season['history'][-1]:.2f}u")

@@ -99,6 +99,72 @@ def build_rows(D, homered, extras=None):
         rows.append(row)
     return rows
 
+def logged_dates(path=OUT):
+    """Set of slate dates already present in calibration.jsonl (for idempotent backfill)."""
+    s = set()
+    try:
+        with open(path) as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    s.add(json.loads(line).get("date"))
+                except Exception:
+                    pass
+    except FileNotFoundError:
+        pass
+    return s
+
+def backfill():
+    """Idempotent, self-healing calibration logger. Logs every FULLY-FINAL dated board
+    (D_<date>.json) that isn't already in calibration.jsonl. Safe to run on EVERY build:
+    it skips dates already logged, skips today/future, and skips not-yet-final nights
+    (they get picked up automatically on a later run). This is the single source of truth
+    for the calibration dataset -- no run can silently drop a night, and a missed run
+    self-heals on the next one."""
+    import datetime, glob
+    here = os.path.dirname(os.path.abspath(__file__))
+    today = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).date()  # US/Eastern
+    done = logged_dates()
+    files = sorted(set(glob.glob(os.path.join(here, "D_*.json")) + glob.glob("D_*.json")))
+    seen, added, nights = set(), 0, 0
+    for fp in files:
+        m = re.search(r"D_(\d{4}-\d{2}-\d{2})\.json$", os.path.basename(fp))
+        if not m:
+            continue
+        d = m.group(1)
+        if d in done or d in seen:
+            continue
+        seen.add(d)
+        if datetime.date.fromisoformat(d) >= today:        # today/future -> not final yet
+            continue
+        try:
+            homered, n_final, n_games = homers_and_finals(d)
+        except Exception as e:
+            print(f"  calib {d}: results fetch failed ({e}) -> retry next run")
+            continue
+        if n_games == 0 or n_final < n_games:              # only log a CLEAN, fully-final night
+            print(f"  calib {d}: {n_final}/{n_games} final -> skip, retry next run")
+            continue
+        try:
+            D = json.load(open(fp))
+        except Exception as e:
+            print(f"  calib {d}: cannot read board ({e})")
+            continue
+        rows = build_rows(D, homered, load_extras(d))
+        with open(OUT, "a") as fh:
+            for r in rows:
+                fh.write(json.dumps(r) + "\n")
+        added += len(rows); nights += 1
+        print(f"  calib {d}: +{len(rows)} rows ({sum(r['hr'] for r in rows)} HR, "
+              f"{sum(1 for r in rows if r.get('k_fb') is not None)} w/extras)")
+    cov = sorted(x for x in logged_dates() if x)
+    total = sum(1 for _ in open(OUT)) if os.path.exists(OUT) else 0
+    print(f"calibration: +{added} rows / {nights} night(s); now {total} rows "
+          f"covering {len(cov)} nights ({cov[0] if cov else '-'}..{cov[-1] if cov else '-'})")
+    return added
+
 def main(date):
     dfile = f"D_{date}.json"
     if not os.path.exists(dfile):
@@ -121,6 +187,8 @@ def main(date):
         print(f"  note: {n_games - n_final} game(s) not final yet -- re-run later to capture them cleanly")
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        sys.exit("usage: python calibrate.py YYYY-MM-DD")
-    main(sys.argv[1])
+    arg = sys.argv[1] if len(sys.argv) > 1 else '--backfill'
+    if arg in ('--backfill', '-b', 'backfill', ''):
+        backfill()                       # idempotent, self-healing: the Action runs this every build
+    else:
+        main(arg)                        # one-off single date: python calibrate.py YYYY-MM-DD
