@@ -148,18 +148,27 @@ handedness comes from the lineups (`away_hands`/`home_hands`, one L/R/S per bat)
   No fixed size, no backfill.
 - **Chalk** (the 4 banned favorites) are eligible **only** in the lunch special and
   the nightcap, in their time windows. Never in moons, salami, or builders.
+- **Anchors** — 4 total (3 moon anchors + 1 salami anchor), the strongest *fittable*
+  bats by model `TOTAL`. **Multiple anchors from the same game are allowed** (two
+  strong bats in one game can both anchor, each leading tickets whose legs come from
+  *other* games); the `≤3/game` pool cap still bounds total game exposure. The 4 are
+  chosen to maximize clean moons → salami → combined strength.
 - **Moons** — **2 per anchor** across 3 anchors = up to **6** moons. Each = an
   anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
   ships both its moons or none; on a thin slate the **weakest anchor** demotes
   rather than ship a lopsided board.
-- **Salami** ("biggest") — the 4th anchor leads four longest shots, full
-  round-robin. Also a demotion candidate on a thin slate.
-- **Builders** (our straight singles) — **the strongest bat per game that is at
-  least as strong as our weakest actual anchor**, at ≤ +600. This is exactly the
-  set of conviction bats: the parlay anchors, **plus** any anchor-caliber bat that
-  was only passed over because its game time couldn't fit a parlay window, **plus**
-  strong rain-banded (40–69%) bats that can't anchor. (Backtesting showed only the
-  top-conviction bats carry any builder edge; spraying weaker singles loses.)
+- **Salami** ("biggest") — led by the **best** anchor and **drafts inside the snake**
+  with the moons (no premium first-pick). The draft snakes **weakest-anchor-first**,
+  reverses each round, so the best anchor picks back-to-back at the turn. If the best
+  anchor can't fill 4 legs in its window it's re-tasked to moons. Demotion candidate
+  on a thin slate.
+- **Builders** (our straight singles) — the **actual anchors**, **plus** the
+  conviction **"snubs"**: strong bats that landed on **no** parlay at all (neither
+  anchor nor a drafted leg) — typically bats stuck in time-isolated late games no moon
+  window could reach. Concretely: the anchors **+ any unused pool bat at least as
+  strong as the weakest bat actually used on a leg**, at ≤ +600. Bats already on a
+  moon/salami aren't re-listed; sub-leg-strength dregs are dropped. Self-adjusts each
+  slate to catch whoever falls through the cracks.
 - **75 TOTAL floor** on parlay legs (anchors, partners, salami legs).
 
 Key knobs: `CHALK_N=4`, `FLOOR=130` (pool gate), `GAME_CAP=3`, `WIN=120`,
@@ -185,8 +194,8 @@ Behavior that's load-bearing:
   single with no replacement is dropped, never re-shown.
 - **Top-3 per GAME holds everywhere** — the pool and the span-fill fallback, so a
   game can never put a 4th bat on the regular board (chalk in lunch/nightcap exempt).
-- **Builders = anchors + passed-over + strong rain bats**, emitted live from the
-  drafted tickets, matching the server rule.
+- **Builders = anchors + conviction snubs** (unused bats ≥ the weakest drafted leg),
+  emitted live from the drafted tickets, matching the server rule.
 - **Badges** read one way: 🔒 *confirmed* · `N/M confirmed` (partial) · *projected*.
 - **No midnight rollover.** Once the calendar passes the slate date, the board
   freezes on that day with its locked/graded tickets and does not reset to projected.
@@ -213,7 +222,9 @@ into the board as `D.meta.season`.
 
 - The board is one static file — opening `index.html` is all you do. A build stamp
   (`build M/D h:mmam`) shows in the header next to the slate date so you can confirm
-  a fresh load; it's the *build* time, not the slate date.
+  a fresh load; it's the *build* time (in **US Eastern**), not the slate date. (The
+  Action runs in UTC, so `build15.py` stamps ET as UTC−4 — fixed so an afternoon
+  build no longer reads as a late-night time.)
 - Display changes (Pitcher chip, Model chip, khr badge, builder rule, FLOOR) are
   applied as idempotent patches in `regen15.py`, so they survive every rebuild
   regardless of the template state.
