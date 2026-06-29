@@ -55,6 +55,14 @@ if _same_slate and not _stale:
     print("  (same slate -> preserved %d prior tickets; no re-draft)" % len(D['tickets']))
 else:
     assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
+# hard-cap builders to 8 even on a PRESERVED draft (server BUILDER_N only applies on a fresh
+# assemble; a preserved older draft could carry more). Keep the strongest by TOTAL. Idempotent.
+_blds = [t for t in D.get('tickets', []) if t.get('kind') == 'builder']
+if len(_blds) > 8:
+    _keep = set(id(t) for t in sorted(_blds, key=lambda t: D['players'].get(t['players'][0]['name'], {}).get('TOTAL', 0), reverse=True)[:8])
+    D['tickets'] = [t for t in D['tickets'] if t.get('kind') != 'builder' or id(t) in _keep]
+    D.setdefault('meta', {})['tickets'] = len(D['tickets'])
+    print(f"  (trimmed preserved builders {len(_blds)} -> 8)")
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
