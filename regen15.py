@@ -86,11 +86,14 @@ if _nps:
 # NO base score -> the base chip now shows OUR model score (TOTAL). Relabel Match/khr -> Model. Idempotent.
 src, _nlab = re.subn(r"\['(?:Match|khr)',p\.aT!=null\?p\.aT\.toFixed\(1\):'—'\]",
                      "['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—']", src, count=1)
+# the brick "base" badge(s) also showed aT (flat 100 now) -> show the Model score (TOTAL).
+# Runs AFTER the chip relabel so it only catches the remaining badge displays. Idempotent.
+src, _nbb = re.subn(r"p\.aT\.toFixed\(1\)", "Math.round(p.TOTAL)", src)
 # no base -> retune the client pool gate to the new TOTAL scale; repoint UI sorts off the flat aT
 src, _nfl = re.subn(r"FLOOR=85,", "FLOOR=130,", src, count=1)
 src, _nsrt = re.subn(r"D\.players\[b\]\.aT-D\.players\[a\]\.aT", "D.players[b].TOTAL-D.players[a].TOTAL", src)
 if _nlab or _nfl or _nsrt:
-    print(f'  (display: base chip->Model x{_nlab}; client FLOOR->130 x{_nfl}; aT-sort->TOTAL x{_nsrt})')
+    print(f'  (display: base chip->Model x{_nlab}; base badge->Model x{_nbb}; client FLOOR->130 x{_nfl}; aT-sort->TOTAL x{_nsrt})')
 
 # strip the client-side ISO phrase banks (note generators) so live re-draws stay ISO-free
 _A = r"(?:else )?if\(iso&&parseFloat\('0'\+iso\)>=0\.\d+\)o\.push\(\[[\d.]+,'iso',\[.*?\]\]\);"   # verbose array form
