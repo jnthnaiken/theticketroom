@@ -144,7 +144,7 @@ def assemble(D):
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
-    # STRENGTH = how good a bat really is for OUR purposes: 65% model projection (TOTAL) + 35% market
+    # STRENGTH = norm(TOTAL) alone. TOTAL already embeds the market at +/-30% (its heaviest term),
     # likelihood (implied prob from the HR odds), each min-max normalized across the 33. This is the single
     # key that decides roles board-wide -- anchors, salami, moon legs, builder order -- so a long-odds bat the
     # model loves (e.g. a Coors flier at +680) no longer anchors over a likelier, nearly-as-strong bat. We
@@ -158,7 +158,7 @@ def assemble(D):
     def strength(n):
         nt = (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
         ni = (_ip(P[n]['odds']) - _imn) / (_imx - _imn) if _imx > _imn else 0.5
-        return 0.65 * nt + 0.35 * ni
+        return nt   # rank by TOTAL alone (market already ~70% of TOTAL via mktT; no double-count)
     byS = lambda names: sorted(names, key=strength, reverse=True)   # board-wide role/order key
 
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]

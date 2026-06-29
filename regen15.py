@@ -44,7 +44,7 @@ except Exception as e:
 # The live client engine (index.html) already does the prior-aware refill — keep locked
 # tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
 # already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
-RULES_VERSION = "2026-06-29-form-down"   # bump to force a one-time re-draft when draft rules change
+RULES_VERSION = "2026-06-29-rank-by-total"   # bump to force a one-time re-draft when draft rules change
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 # self-clearing: re-draft once if the prior draft predates the ISO drop OR was built under older rules.
 _stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
@@ -107,6 +107,9 @@ if _na or _nb:
 
 # footer: ISO no longer used anywhere -> drop it from the data-source credit (idempotent)
 src, _nf = re.subn(r"TeamRankings \(ISO &amp; HR/9\)", "TeamRankings (HR/9)", src, count=1)
+# role-selection: rank by TOTAL alone (drop the 0.35 implied double-count; market already ~70% of TOTAL). Idempotent.
+src, _nrank = re.subn(r"return 0\.65\*nt\+0\.35\*ni;", "return nt;", src, count=1)
+if _nrank: print("  (client: strength -> TOTAL alone)")
 # builders = the moon/salami ANCHORS plus any anchor-eligible bat at least as strong as the
 # weakest shipped anchor (passed over only on game-time fit). Emitted client-side from the
 # drafted tickets in `out` + candidate anchors `candA`. Replaces any prior variant. Idempotent.
