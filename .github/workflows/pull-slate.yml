@@ -67,6 +67,9 @@ jobs:
       - name: Grade finished nights
         run: python3 grade_night.py
 
+      - name: Log calibration (idempotent, self-healing)
+        run: python3 calibrate.py --backfill
+
       - name: Pull slate (StatsAPI + Open-Meteo)
         run: python3 fetch_mlb.py "$SLATE_DATE"
 
@@ -99,8 +102,7 @@ jobs:
         if: success() && steps.verify.outputs.fresh == 'true'
         run: python3 regen15.py
 
-      - name: Commit the board
-        if: success() && steps.verify.outputs.fresh == 'true'
+      - name: Commit the board + ledger + calibration
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
