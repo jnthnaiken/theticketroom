@@ -1,11 +1,11 @@
 {
   "date": "2026-06-29",
   "season": "2026",
-  "pulled_at": "2026-06-29T19:00:23Z",
+  "pulled_at": "2026-06-29T19:20:36Z",
   "games": [
     {
       "gamePk": 824822,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-29T22:35:00Z",
       "matchup": "CWS@BAL",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.119
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.248
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.257
+          },
+          {
+            "id": 691019,
+            "name": "Kyle Teel",
+            "iso": 0.177
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.312
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.18
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.158
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.106
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.109
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -27,10 +73,56 @@
           "hr9": 0.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.189
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.105
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.201
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.226
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.2
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.124
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.15
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.127
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.205
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -46,7 +138,7 @@
     },
     {
       "gamePk": 823444,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-29T22:40:00Z",
       "matchup": "PIT@PHI",
       "away": {
@@ -68,10 +160,56 @@
           "hr9": 1.9,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.104
+          },
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.335
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.255
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.189
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.131
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.155
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.123
+          },
+          {
+            "id": 687282,
+            "name": "Gabriel Rincones Jr.",
+            "iso": 0.088
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.089
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -122,13 +260,13 @@
         "wind_mph": 3.3,
         "wind_dir": 152,
         "tail_mph": 2.4,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.011
     },
     {
       "gamePk": 822792,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-29T23:07:00Z",
       "matchup": "NYM@TOR",
       "away": {
@@ -150,10 +288,56 @@
           "hr9": 0.74,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.149
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.129
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.081
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.228
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.142
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.184
+          },
+          {
+            "id": 649966,
+            "name": "Luis Ur\u00edas",
+            "iso": 0.3
+          },
+          {
+            "id": 682818,
+            "name": "Yohendrick Pi\u00f1ango",
+            "iso": 0.164
+          },
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -168,7 +352,7 @@
     },
     {
       "gamePk": 824741,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-29T23:10:00Z",
       "matchup": "WSH@BOS",
       "away": {
@@ -190,10 +374,56 @@
           "hr9": 0.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807799,
+            "name": "Masataka Yoshida",
+            "iso": 0.103
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.156
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.169
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.242
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.161
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.151
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.182
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.089
+          },
+          {
+            "id": 691907,
+            "name": "Tsung-Che Cheng",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -209,7 +439,7 @@
     },
     {
       "gamePk": 824420,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-29T23:10:00Z",
       "matchup": "TEX@CLE",
       "away": {
