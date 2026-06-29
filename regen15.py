@@ -83,6 +83,10 @@ if _nchip:
 src, _nps = re.subn(r"\(p\.phr9-0\.85\)/0\.30\*100", "(p.phr9-0.70)/0.60*100", src)
 if _nps:
     print(f"  (display: re-scaled Pitcher chip to 0.70-1.30 range x{_nps})")
+# the base-score chip now shows khr (aT = Kasper HR projection); relabel 'Match' -> 'khr'. Idempotent.
+src, _nlab = re.subn(r"\['Match',p\.aT", "['khr',p.aT", src, count=1)
+if _nlab:
+    print('  (display: Match chip -> khr)')
 
 # strip the client-side ISO phrase banks (note generators) so live re-draws stay ISO-free
 _A = r"(?:else )?if\(iso&&parseFloat\('0'\+iso\)>=0\.\d+\)o\.push\(\[[\d.]+,'iso',\[.*?\]\]\);"   # verbose array form
