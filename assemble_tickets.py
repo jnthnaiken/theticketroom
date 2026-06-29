@@ -512,13 +512,13 @@ def assemble(D):
 
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
-    BUILDER_MAX_ODDS = 600   # drop long-odds builder singles: >+600 hit ~5-6% -> -45 to -49% ROI (consistent money pits)
-    # Builders are our STRAIGHT SINGLES: every pool bat at <=+600, strength-ordered -- INCLUDING the
-    # bats that anchor/leg the parlays. A strong bat is both a moon anchor AND a straight single, because
-    # a straight bet on a high-conviction bat is the highest-EV, lowest-variance play (that's the whole
-    # point of "builders / getting paid"). We no longer relegate builders to the unused longshot dregs.
-    BUILDER_N = 8    # cap builders: singles are -EV vs the market at any selection (tested), so few = less bleed
-    for n in byS([x for x in nonchalk if (x_odds := P[x].get('odds')) is not None and x_odds <= BUILDER_MAX_ODDS])[:BUILDER_N]:
+    BUILDER_MAX_ODDS = 600
+    # Builders = our top-conviction ANCHORS as straight singles (strongest bat per game).
+    # Calibration (6/18-6/28): the #1 conviction bat/night is +23% ROI, top 2 ~breakeven, and
+    # it bleeds past ~3. Spraying singles loses (the market is already in the price at 35%);
+    # concentrating on the few bats we actually anchor parlays with is the only non-leak set.
+    BUILDER_N = 3
+    for n in [a for a in cand_anchors if (ao := P[a].get('odds')) is not None and ao <= BUILDER_MAX_ODDS][:BUILDER_N]:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)

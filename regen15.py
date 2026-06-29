@@ -58,11 +58,11 @@ else:
 # hard-cap builders to 8 even on a PRESERVED draft (server BUILDER_N only applies on a fresh
 # assemble; a preserved older draft could carry more). Keep the strongest by TOTAL. Idempotent.
 _blds = [t for t in D.get('tickets', []) if t.get('kind') == 'builder']
-if len(_blds) > 8:
-    _keep = set(id(t) for t in sorted(_blds, key=lambda t: D['players'].get(t['players'][0]['name'], {}).get('TOTAL', 0), reverse=True)[:8])
+if len(_blds) > 3:
+    _keep = set(id(t) for t in sorted(_blds, key=lambda t: D['players'].get(t['players'][0]['name'], {}).get('TOTAL', 0), reverse=True)[:3])
     D['tickets'] = [t for t in D['tickets'] if t.get('kind') != 'builder' or id(t) in _keep]
     D.setdefault('meta', {})['tickets'] = len(D['tickets'])
-    print(f"  (trimmed preserved builders {len(_blds)} -> 8)")
+    print(f"  (trimmed preserved builders {len(_blds)} -> 3)")
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
@@ -97,9 +97,12 @@ src, _nf = re.subn(r"TeamRankings \(ISO &amp; HR/9\)", "TeamRankings (HR/9)", sr
 # builder cap: singles can't beat the market (35% odds weight already concedes this), so the
 # client emitted EVERY pool bat as a builder. Cap to the top 8 strongest at <=+600 -- damage
 # control on a -EV category, ranked by TOTAL (which carries the market term). Idempotent.
+# builders = the top-3 ANCHORS (strongest bat per distinct game, <=+600). The client used to
+# emit every leftover pool bat as a builder; rewrite that emission to the few conviction plays
+# the data says actually carry edge. Matches EITHER the original or a prior capped line. Idempotent.
 src, _ncap = re.subn(
-    r"byS\(nonchalk\.filter\(function\(n\)\{return !spent\[n\];\}\)\)\.forEach",
-    "byS(nonchalk.filter(function(n){return !spent[n]&&P[n].odds!=null&&P[n].odds<=600;})).slice(0,8).forEach",
+    r"byS\(nonchalk\.filter\(function\(n\)\{return !spent\[n\][\s\S]*?\.forEach\(function\(n\)\{ mkF\('builder','\\uD83D\\uDCB0',\[n\]\); \}\);",
+    lambda m: r"(function(){var seen={},out=[];byS(nonchalk).forEach(function(n){var g=P[n].game;if(out.length<3&&!seen[g]&&P[n].odds!=null&&P[n].odds<=600){seen[g]=1;out.push(n);}});out.forEach(function(n){ mkF('builder','\uD83D\uDCB0',[n]); });})();",
     src, count=1)
 if _nf or _ncap:
     print(f"  (display: footer credit fixed={bool(_nf)}; client builder cap applied={bool(_ncap)})")
