@@ -252,8 +252,8 @@ medP=st.median([r['powidx'] for r in pool]); medI=st.median([r['iso_used'] for r
 zs=[r['zonev'] for r in pool if abs(r['zonev']-0.5)>1e-9]; medZ=st.median(zs) if zs else 0.06
 _imps=[100.0/(r['odds']+100) for r in pool if r.get('odds')]; medImp=st.median(_imps) if _imps else 0.13
 mktT=lambda o: 1.0 if not o else clamp(1+W_MKT*((100.0/(o+100))-medImp)/0.06, 1-MKT_CLAMP, 1+MKT_CLAMP)
-powT=lambda P:clamp(1+0.18*(P-medP)/40,0.82,1.18)   # power widened (true HR driver)
-isoT=lambda I:clamp(1+0.12*(I-medI)/0.06,0.88,1.12)   # ISO widened (cleanest power stat)
+powT=lambda P:clamp(1+0.30*(P-medP)/40,0.70,1.30)   # power is THE driver -> widened to absorb dropped ISO (data: power AUC ~0.66, ISO ~0.55 & 0.88-redundant w/ power; pb x hh x launch)
+# ISO term REMOVED from TOTAL -- weak (AUC ~0.55) and 0.88-redundant with the power index; iso still loaded for display
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
     _opn=pnorm((r.get('opp') or ['',''])[0])
@@ -264,7 +264,7 @@ for r in pool:
         r['phr9']=pHR9(r.get('hr9')); r['psrc']='hr9'
     _hm=(r.get('gmatch') or '@').split('@')[-1]; r['parkhr']=parkHandT(_hm, r.get('bhand'))
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*isoT(r['iso_used'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT'],1)
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT'],1)   # ISO dropped; park/weather/zone kept
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
