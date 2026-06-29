@@ -182,6 +182,37 @@ ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO el
 cards=load_dated('cards'); lin=load_dated('lineups')
 KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
 W_PEN=0.08          # bullpen-fatigue: small SEEDED weight, pulled from park/weather (already priced by books)
+W_BG=0.10           # bullpen-GAME boost: opener/TBD opposing "starter" -> proven +11% HR rate (full season) + market-underprice hint
+def bullpen_games(date):
+    """{team_abbrev: True} for teams throwing an opener/bullpen game today (opposing bats get the boost).
+    TBD/null probable -> bullpen game; a named probable who is really a reliever (<=3 starts AND <3.5 IP/outing)
+    -> opener. Best-effort: {} on any failure -> no boost, build never breaks."""
+    out={}
+    try:
+        sch=_getj('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=%s&hydrate=probablePitcher'%date)
+        named={}
+        for gd in (sch.get('dates') or []):
+            for g in gd.get('games',[]):
+                for side in ('away','home'):
+                    tm=g['teams'][side]; ab=_talias((tm.get('team') or {}).get('abbreviation'))
+                    pp=tm.get('probablePitcher')
+                    if not pp or not pp.get('id'):
+                        if ab: out[ab]=True
+                    else:
+                        named[pp['id']]=ab
+        if named:
+            pe=_getj('https://statsapi.mlb.com/api/v1/people?personIds=%s&hydrate=stats(group=[pitching],type=[season],season=%s)'%(','.join(map(str,named)),date[:4]))
+            for person in (pe.get('people') or []):
+                ab=named.get(person.get('id'))
+                try:
+                    stt=person['stats'][0]['splits'][0]['stat']
+                    gs=int(stt.get('gamesStarted') or 0); gp=int(stt.get('gamesPlayed') or 0); ip=float(stt.get('inningsPitched') or 0)
+                    if ab and gp>0 and gs<=3 and ip/gp<3.5:
+                        out[ab]=True
+                except Exception: pass
+    except Exception as e:
+        print('  (bullpen games: fallback (%s))'%e); return {}
+    return out
 _TEAMALIAS={'ARI':'AZ','CHW':'CWS','OAK':'ATH','WSN':'WSH','SDP':'SD','SFG':'SF','TBR':'TB','KCR':'KC'}
 def _talias(c):
     c=(c or '').upper(); return _TEAMALIAS.get(c,c)
@@ -227,7 +258,8 @@ def bullpen_fatigue(date):
 penTfn=lambda f:1.0 if not f else clamp(1+W_PEN*float(f.get('score') or 0.0),1-W_PEN,1+W_PEN)
 
 WX_LIVE,_wxs=fetch_weather(lin['games'], DATE); HR9_LIVE,_h9s=fetch_hr9(DATE)
-BULLPEN=bullpen_fatigue(DATE)   # opposing-bullpen fatigue (best-effort; {} offline)
+BULLPEN=bullpen_fatigue(DATE)   # opposing-bullpen fatigue (LOG-ONLY now)
+BG=bullpen_games(DATE)          # opposing opener/bullpen game flag (best-effort; {} offline)
 print(f'  (live weather: {_wxs} | live HR/9: {_h9s})')
 ODDS={norm(k):v for k,v in load_dated('odds').items()}
 def pnorm(x):
@@ -325,7 +357,8 @@ for r in pool:
     _hm=(r.get('gmatch') or '@').split('@')[-1]; _ph0=parkHandT(_hm, r.get('bhand')); r['parkhr']=1+0.30*((_ph0 if _ph0 is not None else 1)-1)
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
     _pf=BULLPEN.get(_talias(r.get('opp_code'))); r['pen_fatigue']=(_pf or {}).get('score'); r['penT']=penTfn(_pf)
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT']*r['penT'],1)   # ISO dropped; park/weather/zone kept
+    _bg=1 if (r.get('opp_code') and _talias(r.get('opp_code')) in BG) else 0; r['bg']=_bg; r['bgT']=(1+W_BG) if _bg else 1.0
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT']*r['bgT'],1)   # ISO dropped; park/weather/zone kept
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
