@@ -1,7 +1,7 @@
 {
   "date": "2026-06-29",
   "season": "2026",
-  "pulled_at": "2026-06-29T21:49:54Z",
+  "pulled_at": "2026-06-29T22:00:30Z",
   "games": [
     {
       "gamePk": 824822,
@@ -1343,8 +1343,54 @@
           "hr9": 2.23,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.243
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.205
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.203
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.205
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.16
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.143
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.239
+          },
+          {
+            "id": 500743,
+            "name": "Miguel Rojas",
+            "iso": 0.104
+          },
+          {
+            "id": 687221,
+            "name": "Dalton Rushing",
+            "iso": 0.233
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1459,7 +1505,7 @@
     },
     {
       "gamePk": 825065,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-30T01:40:00Z",
       "matchup": "SF@ARI",
       "away": {
@@ -1470,8 +1516,54 @@
           "hr9": 1.59,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656305,
+            "name": "Matt Chapman",
+            "iso": 0.137
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.123
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.218
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.212
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.155
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.207
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.281
+          },
+          {
+            "id": 606992,
+            "name": "Eric Haase",
+            "iso": 0.239
+          },
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -1484,7 +1576,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
