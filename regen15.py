@@ -44,7 +44,7 @@ except Exception as e:
 # The live client engine (index.html) already does the prior-aware refill — keep locked
 # tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
 # already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
-RULES_VERSION = "2026-06-29-builders-anchors+passedover"   # bump to force a one-time re-draft when draft rules change
+RULES_VERSION = "2026-06-29-builders-incl-rain"   # bump to force a one-time re-draft when draft rules change
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 # self-clearing: re-draft once if the prior draft predates the ISO drop OR was built under older rules.
 _stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
@@ -93,7 +93,7 @@ src, _nf = re.subn(r"TeamRankings \(ISO &amp; HR/9\)", "TeamRankings (HR/9)", sr
 # builders = the moon/salami ANCHORS plus any anchor-eligible bat at least as strong as the
 # weakest shipped anchor (passed over only on game-time fit). Emitted client-side from the
 # drafted tickets in `out` + candidate anchors `candA`. Replaces any prior variant. Idempotent.
-_BLD_NEW = ("(function(){var ancN=[];out.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&ancN.indexOf(t.anchor)<0)ancN.push(t.anchor);});if(ancN.length){var minS=Math.min.apply(null,ancN.map(strength));candA.filter(function(n){return strength(n)>=minS-1e-9&&P[n].odds!=null&&P[n].odds<=600;}).forEach(function(n){ mkF('builder','\\uD83D\\uDCB0',[n]); });}})();")
+_BLD_NEW = ("(function(){var ancN=[];out.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&ancN.indexOf(t.anchor)<0)ancN.push(t.anchor);});var minS=ancN.length?Math.min.apply(null,ancN.map(strength)):-1;var bs={};byS(nonchalk).forEach(function(n){var g=P[n].game;if(bs[g])return;bs[g]=1;if(strength(n)>=minS-1e-9&&P[n].odds!=null&&P[n].odds<=600)mkF('builder','\\uD83D\\uDCB0',[n]);});})();")
 _blines = src.split("\n"); _ncap = 0
 for _i, _ln in enumerate(_blines):
     if "mkF('builder'," in _ln and ("byS(nonchalk" in _ln or "var seen" in _ln or "var anc" in _ln):

@@ -513,25 +513,28 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     BUILDER_MAX_ODDS = 600
-    # Builders = our highest-conviction bats as straight singles: the parlay ANCHORS, PLUS any
-    # anchor-eligible bat passed over ONLY because its game time could not fit a parlay window
-    # (e.g. a strong bat in a lone late game). Concretely: every anchor candidate at least as
-    # strong as our weakest actual anchor. Calibration (6/18-6/28): the top conviction bats are
-    # where the only builder edge lives (#1 +23% ROI); weaker singles bleed (market is 35% of score).
+    # Builders = the strongest bat per GAME across the whole pool that is at least as strong as our
+    # weakest actual anchor. This folds in (a) the parlay anchors, (b) anchor-eligible bats passed
+    # over only on game-time fit, AND (c) strong RAIN-banded bats (40-69%) that can't anchor but are
+    # allowed as builder singles per the rain bands. Same gated pool as everything else (FLOOR, top-4
+    # chalk ban, <=3/game). Calibration: only the top-conviction bats carry builder edge (#1 +23% ROI).
     _chosen = []
     for _t in tickets:
         if _t.get('kind') in ('moon', 'biggest') and _t.get('anchor') and _t['anchor'] not in _chosen:
             _chosen.append(_t['anchor'])
-    if _chosen:
-        _minS = min(strength(x) for x in _chosen)
-        _bnames = [n for n in cand_anchors
-                   if strength(n) >= _minS - 1e-9
-                   and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS]
-        for _a in _chosen:
-            if _a not in _bnames and P[_a].get('odds') is not None and P[_a]['odds'] <= BUILDER_MAX_ODDS:
-                _bnames.append(_a)
-    else:
-        _bnames = []
+    _cand_b, _bseen = [], set()
+    for n in byS(nonchalk):                       # strongest bat per game; NO rain/anchor filter -> rain singles stay eligible
+        g = P[n]['game']
+        if g in _bseen:
+            continue
+        _bseen.add(g); _cand_b.append(n)
+    _minS = min(strength(x) for x in _chosen) if _chosen else None
+    _bnames = [n for n in _cand_b
+               if (_minS is None or strength(n) >= _minS - 1e-9)
+               and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS]
+    for _a in _chosen:                            # guard: every actual anchor is a builder
+        if _a not in _bnames and P[_a].get('odds') is not None and P[_a]['odds'] <= BUILDER_MAX_ODDS:
+            _bnames.append(_a)
     for n in _bnames:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
