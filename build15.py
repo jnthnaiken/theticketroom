@@ -374,6 +374,6 @@ for gn,g in gamemeta.items():
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
-meta={'wx':wx,'build':__import__('time').strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
+meta={'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")
