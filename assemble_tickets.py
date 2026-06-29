@@ -514,9 +514,12 @@ def assemble(D):
 
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
-    spent = {n for t in parlays for n in t['legs']}        # only bats in KEPT parlays; dropped-parlay anchors/legs become builders
     BUILDER_MAX_ODDS = 600   # drop long-odds builder singles: >+600 hit ~5-6% -> -45 to -49% ROI (consistent money pits)
-    for n in byS([x for x in nonchalk if x not in spent and (x_odds := P[x].get('odds')) is not None and x_odds <= BUILDER_MAX_ODDS]):
+    # Builders are our STRAIGHT SINGLES: every pool bat at <=+600, strength-ordered -- INCLUDING the
+    # bats that anchor/leg the parlays. A strong bat is both a moon anchor AND a straight single, because
+    # a straight bet on a high-conviction bat is the highest-EV, lowest-variance play (that's the whole
+    # point of "builders / getting paid"). We no longer relegate builders to the unused longshot dregs.
+    for n in byS([x for x in nonchalk if (x_odds := P[x].get('odds')) is not None and x_odds <= BUILDER_MAX_ODDS]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
