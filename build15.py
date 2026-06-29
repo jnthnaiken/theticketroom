@@ -188,6 +188,19 @@ def pnorm(x):
     return re.sub(r'[^a-z ]','',x).strip()
 HR9={pnorm(k):v for k,v in load_dated('hr9',required=False).items()}
 PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # Kasper Top-Pitchers barrel-against export (partial -> HR/9 fallback)
+# Pitcher allowed-contact term: the pitcher EQUIVALENTS of our batter power trio --
+# pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
+# More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
+# the calibration log now carries these per matchup and will confirm/refute as data accrues).
+W_PIT=0.15
+_PKS=('pbrl','hh','fb')
+def _pmed(k):
+    vs=[d[k] for d in PBRL.values() if isinstance(d,dict) and d.get(k) is not None]
+    return (st.median(vs), (st.pstdev(vs) or 1)) if len(vs)>=3 else (None,1)
+_PMED={k:_pmed(k) for k in _PKS}
+def ppitT(d):
+    zs=[(d[k]-_PMED[k][0])/_PMED[k][1] for k in _PKS if d.get(k) is not None and _PMED[k][0] is not None]
+    return clamp(1+W_PIT*(sum(zs)/len(zs)),1-W_PIT,1+W_PIT) if zs else 1.0
 SLATE={(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
 
 def wf_of(g):
@@ -257,7 +270,7 @@ powT=lambda P:clamp(1+0.30*(P-medP)/40,0.70,1.30)   # power is THE driver -> wid
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 for r in pool:
     _opn=pnorm((r.get('opp') or ['',''])[0])
-    if _opn in PBRL: r['phr9']=pbrl_mult(PBRL[_opn]); r['psrc']='brl'   # listed top arm -> barrel-against (better signal)
+    if _opn in PBRL: r['phr9']=ppitT(PBRL[_opn]); r['psrc']='brl'   # listed arm -> allowed pulled-barrel%/hard-hit%/fly-ball% (pitcher equivalents of batter power)
     else:                                                              # unlisted arm -> bake the live opp HR/9 here too (was deferred to the browser)
         _gm=r.get('gmatch') or '@'; _oh=(HR9_LIVE.get(_gm) or {}).get('home' if r.get('code')==_gm.split('@')[0] else 'away')
         if _oh is not None: r['hr9']=_oh
