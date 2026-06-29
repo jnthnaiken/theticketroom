@@ -45,7 +45,11 @@ except Exception as e:
 # tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
 # already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
-if _same_slate:
+# self-clearing: a prior draft whose notes still say "ISO" predates the ISO drop -> re-draft once.
+_stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
+if _stale:
+    print("  (prior draft has stale ISO notes -> forcing one fresh re-draft to purge)")
+if _same_slate and not _stale:
     D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
     D.setdefault('meta', {})['tickets'] = len(D['tickets'])   # assemble() normally sets this; the header "Tickets" counter reads D.meta.tickets
     print("  (same slate -> preserved %d prior tickets; no re-draft)" % len(D['tickets']))
@@ -71,6 +75,14 @@ src, _nchip = re.subn(
     src, count=1)
 if _nchip:
     print("  (display: ISO chip -> Pitcher 0-100 hittability)")
+
+# strip the client-side ISO phrase banks (note generators) so live re-draws stay ISO-free
+_A = r"(?:else )?if\(iso&&parseFloat\('0'\+iso\)>=0\.\d+\)o\.push\(\[[\d.]+,'iso',\[.*?\]\]\);"   # verbose array form
+_B = r"(?:else )?if\(iso&&parseFloat\('0'\+iso\)>=0\.\d+\)o\.push\(\[[\d.]+,'iso',(?!\[).*?\]\);"  # compact tag form
+src, _na = re.subn(_A, "", src)
+src, _nb = re.subn(_B, "", src)
+if _na or _nb:
+    print(f"  (display: stripped {_na+_nb} client-side ISO note bank(s))")
 
 dj = 'const D=' + json.dumps(D, ensure_ascii=True) + ',WX=D.meta.wx;'
 src, n = re.subn(r'const D=[\s\S]*?,WX=D\.meta\.wx;', (lambda mm: dj), src, count=1)
