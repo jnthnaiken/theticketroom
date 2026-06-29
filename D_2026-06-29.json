@@ -20799,7 +20799,7 @@
     "precip": 0
    }
   },
-  "build": "6/29 7:42pm",
+  "build": "6/29 7:59pm",
   "face": {},
   "maxAT": 100.0,
   "season": {
@@ -20877,7 +20877,7 @@
   "gs": {},
   "pool": 422,
   "tickets": 12,
-  "rules_version": "2026-06-29-form-down"
+  "rules_version": "2026-06-29-rank-by-total"
  },
  "pool": [
   "Ben Rice",
@@ -20921,149 +20921,7 @@
    "name": "Sonic Boom",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Rice is punishing the baseball (61% hard-hit), Hern\u00e1ndez gets a park that's launching everything tonight, and Clemens gets ideal loft (20\u00b0).",
-   "players": [
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 177.8,
-     "aT": 100.0,
-     "wf": 1.041,
-     "gmatch": "DET@NYY",
-     "gtime": "7:05 PM",
-     "game": 3,
-     "late": false,
-     "odds": 238,
-     "status": "projected"
-    },
-    {
-     "name": "Heriberto Hern\u00e1ndez",
-     "team": "Marlins",
-     "total": 153.6,
-     "aT": 100.0,
-     "wf": 1.193,
-     "gmatch": "MIA@COL",
-     "gtime": "8:40 PM",
-     "game": 10,
-     "late": false,
-     "odds": 315,
-     "status": "projected"
-    },
-    {
-     "name": "Kody Clemens",
-     "team": "Twins",
-     "total": 156.5,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "MIN@HOU",
-     "gtime": "8:10 PM",
-     "game": 9,
-     "late": false,
-     "odds": 377,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Ben Rice",
-   "lock": "7:05 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 114.9,
-    "bytwos": false
-   },
-   "n": 1,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 487.9,
-   "parlay_am": 6591,
-   "payout10": 669.09,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
-  },
-  {
-   "name": "The Long Bomb",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Rice is leaving scorch marks (61% hard-hit), Happ has gusts carrying balls over the wall, and Okamoto puts air under the ball (21\u00b0).",
-   "players": [
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 177.8,
-     "aT": 100.0,
-     "wf": 1.041,
-     "gmatch": "DET@NYY",
-     "gtime": "7:05 PM",
-     "game": 3,
-     "late": false,
-     "odds": 238,
-     "status": "projected"
-    },
-    {
-     "name": "Ian Happ",
-     "team": "Cubs",
-     "total": 147.1,
-     "aT": 100.0,
-     "wf": 1.084,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 266,
-     "status": "projected"
-    },
-    {
-     "name": "Kazuma Okamoto",
-     "team": "Blue Jays",
-     "total": 152.2,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "NYM@TOR",
-     "gtime": "7:07 PM",
-     "game": 4,
-     "late": false,
-     "odds": 325,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Ben Rice",
-   "lock": "7:05 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 92.9,
-    "bytwos": false
-   },
-   "n": 2,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 477.1,
-   "parlay_am": 5158,
-   "payout10": 525.76,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Thrust Vector",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Lowe is launching rockets (52% hard-hit), Soto grades out strong for power (82/100), and Torkelson launches it at the right angle (21\u00b0).",
+   "note": "Lowe is striking it clean and hard (52% hard-hit), Manzardo packs elite raw power, a 100/100 grade, and Alonso elevates with ease (20\u00b0).",
    "players": [
     {
      "name": "Brandon Lowe",
@@ -21079,16 +20937,74 @@
      "status": "projected"
     },
     {
-     "name": "Juan Soto",
-     "team": "Mets",
-     "total": 156.6,
+     "name": "Kyle Manzardo",
+     "team": "Guardians",
+     "total": 154.3,
      "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "NYM@TOR",
-     "gtime": "7:07 PM",
-     "game": 4,
+     "wf": 1.019,
+     "gmatch": "TEX@CLE",
+     "gtime": "7:10 PM",
+     "game": 6,
      "late": false,
-     "odds": 306,
+     "odds": 395,
+     "status": "projected"
+    },
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 153.8,
+     "aT": 100.0,
+     "wf": 1.03,
+     "gmatch": "CWS@BAL",
+     "gtime": "6:35 PM",
+     "game": 1,
+     "late": false,
+     "odds": 277,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Brandon Lowe",
+   "lock": "6:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 115.5,
+    "bytwos": false
+   },
+   "n": 1,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 480.7,
+   "parlay_am": 6637,
+   "payout10": 673.68,
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   }
+  },
+  {
+   "name": "The Long Bomb",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Lowe is generating elite exit velo (52% hard-hit), Torkelson swings on a clean uppercut (21\u00b0), and Basallo catches a small park boost.",
+   "players": [
+    {
+     "name": "Brandon Lowe",
+     "team": "Pirates",
+     "total": 172.6,
+     "aT": 100.0,
+     "wf": 1.034,
+     "gmatch": "PIT@PHI",
+     "gtime": "6:40 PM",
+     "game": 2,
+     "late": false,
+     "odds": 261,
      "status": "projected"
     },
     {
@@ -21102,64 +21018,6 @@
      "game": 3,
      "late": false,
      "odds": 356,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Brandon Lowe",
-   "lock": "6:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 114.5,
-    "bytwos": false
-   },
-   "n": 3,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 483.1,
-   "parlay_am": 6583,
-   "payout10": 668.34,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Rocket Fuel",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Lowe is hitting frozen ropes (52% hard-hit), Buxton stays in the launch zone (19\u00b0), and Basallo catches a small park boost.",
-   "players": [
-    {
-     "name": "Brandon Lowe",
-     "team": "Pirates",
-     "total": 172.6,
-     "aT": 100.0,
-     "wf": 1.034,
-     "gmatch": "PIT@PHI",
-     "gtime": "6:40 PM",
-     "game": 2,
-     "late": false,
-     "odds": 261,
-     "status": "projected"
-    },
-    {
-     "name": "Byron Buxton",
-     "team": "Twins",
-     "total": 144.9,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "MIN@HOU",
-     "gtime": "8:10 PM",
-     "game": 9,
-     "late": false,
-     "odds": 210,
      "status": "projected"
     },
     {
@@ -21184,16 +21042,87 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2.0,
-    "maxprofit": 93.0,
+    "maxprofit": 129.7,
     "bytwos": false
    },
-   "n": 4,
+   "n": 2,
    "priced": 3,
    "confleg": 0,
    "sum": 300.0,
-   "msum": 470.8,
-   "parlay_am": 5137,
-   "payout10": 523.74,
+   "msum": 479.8,
+   "parlay_am": 7604,
+   "payout10": 770.4,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Crossing the Karman Line",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Raleigh lands at 168 in our model, Moniak gets ideal loft (20\u00b0), and Kurtz is teeing off (66% hard-hit).",
+   "players": [
+    {
+     "name": "Cal Raleigh",
+     "team": "Mariners",
+     "total": 167.5,
+     "aT": 100.0,
+     "wf": 1.0,
+     "gmatch": "LAA@SEA",
+     "gtime": "9:40 PM",
+     "game": 12,
+     "late": true,
+     "odds": 300,
+     "status": "projected"
+    },
+    {
+     "name": "Mickey Moniak",
+     "team": "Rockies",
+     "total": 156.3,
+     "aT": 100.0,
+     "wf": 1.193,
+     "gmatch": "MIA@COL",
+     "gtime": "8:40 PM",
+     "game": 10,
+     "late": false,
+     "odds": 286,
+     "status": "projected"
+    },
+    {
+     "name": "Nick Kurtz",
+     "team": "Athletics",
+     "total": 153.2,
+     "aT": 100.0,
+     "wf": 1.089,
+     "gmatch": "LAD@ATH",
+     "gtime": "9:40 PM",
+     "game": 11,
+     "late": true,
+     "odds": 227,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Cal Raleigh",
+   "lock": "8:40 PM",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 89.6,
+    "bytwos": false
+   },
+   "n": 3,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 477.0,
+   "parlay_am": 4949,
+   "payout10": 504.89,
    "wxsum": {
     "boost": 2,
     "supp": 0,
@@ -21202,24 +21131,82 @@
    }
   },
   {
-   "name": "Crossing the Karman Line",
+   "name": "Thrust Vector",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong swings with the wind at his back, Henderson is hammering the ball (57% hard-hit), and Harper gets under it just right (16\u00b0).",
+   "note": "Raleigh is teeing off (62% hard-hit), Hern\u00e1ndez has the jet stream pushing toward the seats, and Thomas carries top-shelf pop (100/100 power grade).",
    "players": [
     {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 166.6,
+     "name": "Cal Raleigh",
+     "team": "Mariners",
+     "total": 167.5,
      "aT": 100.0,
-     "wf": 1.084,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 251,
+     "wf": 1.0,
+     "gmatch": "LAA@SEA",
+     "gtime": "9:40 PM",
+     "game": 12,
+     "late": true,
+     "odds": 300,
      "status": "projected"
     },
+    {
+     "name": "Heriberto Hern\u00e1ndez",
+     "team": "Marlins",
+     "total": 153.6,
+     "aT": 100.0,
+     "wf": 1.193,
+     "gmatch": "MIA@COL",
+     "gtime": "8:40 PM",
+     "game": 10,
+     "late": false,
+     "odds": 315,
+     "status": "projected"
+    },
+    {
+     "name": "Colby Thomas",
+     "team": "Athletics",
+     "total": 149.7,
+     "aT": 100.0,
+     "wf": 1.089,
+     "gmatch": "LAD@ATH",
+     "gtime": "9:40 PM",
+     "game": 11,
+     "late": true,
+     "odds": 374,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Cal Raleigh",
+   "lock": "8:40 PM",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 131.9,
+    "bytwos": false
+   },
+   "n": 4,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 470.8,
+   "parlay_am": 7768,
+   "payout10": 786.84,
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   }
+  },
+  {
+   "name": "No Doubter",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Henderson is hitting frozen ropes (57% hard-hit), Busch gets a park that's launching everything tonight, and Okamoto gets under it just right (21\u00b0).",
+   "players": [
     {
      "name": "Gunnar Henderson",
      "team": "Orioles",
@@ -21231,6 +21218,90 @@
      "game": 1,
      "late": false,
      "odds": 351,
+     "status": "projected"
+    },
+    {
+     "name": "Michael Busch",
+     "team": "Cubs",
+     "total": 159.8,
+     "aT": 100.0,
+     "wf": 1.084,
+     "gmatch": "SD@CHC",
+     "gtime": "8:05 PM",
+     "game": 8,
+     "late": false,
+     "odds": 284,
+     "status": "projected"
+    },
+    {
+     "name": "Kazuma Okamoto",
+     "team": "Blue Jays",
+     "total": 152.2,
+     "aT": 100.0,
+     "wf": 1.0,
+     "gmatch": "NYM@TOR",
+     "gtime": "7:07 PM",
+     "game": 4,
+     "late": false,
+     "odds": 325,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Gunnar Henderson",
+   "lock": "6:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 124.4,
+    "bytwos": false
+   },
+   "n": 5,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 478.9,
+   "parlay_am": 7260,
+   "payout10": 736.03,
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Rocket Fuel",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Henderson is hammering the ball (57% hard-hit), Dingler stays in the launch zone (16\u00b0), and Harper has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Gunnar Henderson",
+     "team": "Orioles",
+     "total": 166.9,
+     "aT": 100.0,
+     "wf": 1.03,
+     "gmatch": "CWS@BAL",
+     "gtime": "6:35 PM",
+     "game": 1,
+     "late": false,
+     "odds": 351,
+     "status": "projected"
+    },
+    {
+     "name": "Dillon Dingler",
+     "team": "Tigers",
+     "total": 154.3,
+     "aT": 100.0,
+     "wf": 1.041,
+     "gmatch": "DET@NYY",
+     "gtime": "7:05 PM",
+     "game": 3,
+     "late": false,
+     "odds": 410,
      "status": "projected"
     },
     {
@@ -21248,23 +21319,23 @@
     }
    ],
    "nlegs": 3,
-   "anchor": "Pete Crow-Armstrong",
+   "anchor": "Gunnar Henderson",
    "lock": "6:35 PM",
    "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2.0,
-    "maxprofit": 107.6,
+    "maxprofit": 149.2,
     "bytwos": false
    },
-   "n": 5,
+   "n": 6,
    "priced": 3,
    "confleg": 0,
    "sum": 300.0,
-   "msum": 480.7,
-   "parlay_am": 6121,
-   "payout10": 622.12,
+   "msum": 468.4,
+   "parlay_am": 8939,
+   "payout10": 903.94,
    "wxsum": {
     "boost": 3,
     "supp": 0,
@@ -21273,11 +21344,24 @@
    }
   },
   {
-   "name": "No Doubter",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong gets ideal loft (21\u00b0), Alonso lands at 154 in our model, and Manzardo is squaring it up (51% hard-hit).",
+   "name": "Family Style",
+   "kind": "biggest",
+   "badge": "\ud83e\udd6a",
+   "note": "Rice lands at 178 in our model, Crow-Armstrong gets ideal loft (21\u00b0), Soto is teeing off (59% hard-hit), and Clemens swings with usable power (69/100).",
    "players": [
+    {
+     "name": "Ben Rice",
+     "team": "Yankees",
+     "total": 177.8,
+     "aT": 100.0,
+     "wf": 1.041,
+     "gmatch": "DET@NYY",
+     "gtime": "7:05 PM",
+     "game": 3,
+     "late": false,
+     "odds": 238,
+     "status": "projected"
+    },
     {
      "name": "Pete Crow-Armstrong",
      "team": "Cubs",
@@ -21292,138 +21376,54 @@
      "status": "projected"
     },
     {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 153.8,
-     "aT": 100.0,
-     "wf": 1.03,
-     "gmatch": "CWS@BAL",
-     "gtime": "6:35 PM",
-     "game": 1,
-     "late": false,
-     "odds": 277,
-     "status": "projected"
-    },
-    {
-     "name": "Kyle Manzardo",
-     "team": "Guardians",
-     "total": 154.3,
-     "aT": 100.0,
-     "wf": 1.019,
-     "gmatch": "TEX@CLE",
-     "gtime": "7:10 PM",
-     "game": 6,
-     "late": false,
-     "odds": 395,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "6:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 112.8,
-    "bytwos": false
-   },
-   "n": 6,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 474.7,
-   "parlay_am": 6450,
-   "payout10": 655.02,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   }
-  },
-  {
-   "name": "Family Style",
-   "kind": "biggest",
-   "badge": "\ud83e\udd6a",
-   "note": "Raleigh lands at 168 in our model, Kurtz gets ideal loft (18\u00b0), Busch swings with the wind at his back, and Moniak is squaring it up (49% hard-hit).",
-   "players": [
-    {
-     "name": "Cal Raleigh",
-     "team": "Mariners",
-     "total": 167.5,
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 156.6,
      "aT": 100.0,
      "wf": 1.0,
-     "gmatch": "LAA@SEA",
-     "gtime": "9:40 PM",
-     "game": 12,
-     "late": true,
-     "odds": 300,
-     "status": "projected"
-    },
-    {
-     "name": "Nick Kurtz",
-     "team": "Athletics",
-     "total": 153.2,
-     "aT": 100.0,
-     "wf": 1.089,
-     "gmatch": "LAD@ATH",
-     "gtime": "9:40 PM",
-     "game": 11,
-     "late": true,
-     "odds": 227,
-     "status": "projected"
-    },
-    {
-     "name": "Michael Busch",
-     "team": "Cubs",
-     "total": 159.8,
-     "aT": 100.0,
-     "wf": 1.084,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
+     "gmatch": "NYM@TOR",
+     "gtime": "7:07 PM",
+     "game": 4,
      "late": false,
-     "odds": 284,
+     "odds": 306,
      "status": "projected"
     },
     {
-     "name": "Mickey Moniak",
-     "team": "Rockies",
-     "total": 156.3,
+     "name": "Kody Clemens",
+     "team": "Twins",
+     "total": 156.5,
      "aT": 100.0,
-     "wf": 1.193,
-     "gmatch": "MIA@COL",
-     "gtime": "8:40 PM",
-     "game": 10,
+     "wf": 1.0,
+     "gmatch": "MIN@HOU",
+     "gtime": "8:10 PM",
+     "game": 9,
      "late": false,
-     "odds": 286,
+     "odds": 377,
      "status": "projected"
     }
    ],
    "nlegs": 4,
-   "anchor": "Cal Raleigh",
-   "lock": "8:05 PM",
-   "has_late": true,
+   "anchor": "Ben Rice",
+   "lock": "7:05 PM",
+   "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s, 3s & 4",
     "risk": 5.5,
-    "maxprofit": 480.7,
+    "maxprofit": 554.5,
     "bytwos": false
    },
    "n": 7,
    "priced": 4,
    "confleg": 0,
    "sum": 400.0,
-   "msum": 636.8,
-   "parlay_am": 19288,
-   "payout10": 1938.77,
+   "msum": 657.5,
+   "parlay_am": 22876,
+   "payout10": 2297.57,
    "wxsum": {
-    "boost": 3,
+    "boost": 2,
     "supp": 0,
-    "dome": 1,
+    "dome": 2,
     "neu": 0
    }
   },
@@ -21431,7 +21431,7 @@
    "name": "Last Call",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Shea Langeliers has the jet stream pushing toward the seats, has textbook lift (21\u00b0), is driving balls into the gaps (52% hard-hit).",
+   "note": "Shea Langeliers has gusts carrying balls over the wall, puts air under the ball (21\u00b0), is driving balls into the gaps (52% hard-hit).",
    "players": [
     {
      "name": "Shea Langeliers",
@@ -21471,7 +21471,7 @@
    "name": "Singles Add Up",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Ben Rice is hitting absolute lasers (61% hard-hit), gets a sliver of help from the park, carries top-shelf pop (100/100 power grade).",
+   "note": "Ben Rice is hitting absolute lasers (61% hard-hit), plays in a slightly friendly yard, brings light-tower raw power (100/100).",
    "players": [
     {
      "name": "Ben Rice",
@@ -21511,7 +21511,7 @@
    "name": "Chip Stack",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Brandon Lowe is hitting bullets (52% hard-hit), has the swing plane dialed for liftoff (19\u00b0), plays in a slightly friendly yard.",
+   "note": "Brandon Lowe is hitting bullets (52% hard-hit), has textbook lift (19\u00b0), gets a touch of carry tonight.",
    "players": [
     {
      "name": "Brandon Lowe",
@@ -21551,47 +21551,7 @@
    "name": "The Vig Killer",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Pete Crow-Armstrong plays in a wind tunnel pointed at the seats, is crushing the baseball (53% hard-hit), is lifting everything (21\u00b0).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 166.6,
-     "aT": 100.0,
-     "wf": 1.084,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 251,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "8:05 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 11,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 166.6,
-   "parlay_am": 251,
-   "payout10": 35.1,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Direct Deposit",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Cal Raleigh is crushing contact at an elite rate (62% hard-hit), packs elite raw power, a 100/100 grade, the model bumps him to 168.",
+   "note": "Cal Raleigh is crushing contact at an elite rate (62% hard-hit), has the raw juice to clear any wall (100/100 power), lands at 168 in our model.",
    "players": [
     {
      "name": "Cal Raleigh",
@@ -21613,7 +21573,7 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 12,
+   "n": 11,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -21624,6 +21584,46 @@
     "boost": 0,
     "supp": 0,
     "dome": 1,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Direct Deposit",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Gunnar Henderson is leaving scorch marks (57% hard-hit), catches a small park boost, has real over-the-fence pop (57/100).",
+   "players": [
+    {
+     "name": "Gunnar Henderson",
+     "team": "Orioles",
+     "total": 166.9,
+     "aT": 100.0,
+     "wf": 1.03,
+     "gmatch": "CWS@BAL",
+     "gtime": "6:35 PM",
+     "game": 1,
+     "late": false,
+     "odds": 351,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Gunnar Henderson",
+   "lock": "6:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 12,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 166.9,
+   "parlay_am": 351,
+   "payout10": 45.1,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
     "neu": 0
    }
   }
