@@ -515,7 +515,8 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     spent = {n for t in parlays for n in t['legs']}        # only bats in KEPT parlays; dropped-parlay anchors/legs become builders
-    for n in byS([x for x in nonchalk if x not in spent]):
+    BUILDER_MAX_ODDS = 600   # drop long-odds builder singles: >+600 hit ~5-6% -> -45 to -49% ROI (consistent money pits)
+    for n in byS([x for x in nonchalk if x not in spent and (x_odds := P[x].get('odds')) is not None and x_odds <= BUILDER_MAX_ODDS]):
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)

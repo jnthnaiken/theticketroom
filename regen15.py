@@ -15,7 +15,7 @@ import assemble_tickets
 # Bump when the DRAFT RULES change (pool gate, caps, anchor logic). Folding this into the
 # input signature forces exactly one re-draft on the next build so a rules change actually
 # takes effect, then same-input rebuilds preserve as usual.
-RULES_VERSION = "2026-06-28-gamecap"
+RULES_VERSION = "2026-06-29-builder-odds-cap-600"
 
 BOARD = "index.html"       # published board == its own shell/template
 DJSON = "D_0615.json"      # scorer output; assembled in place, then injected
