@@ -18267,52 +18267,32 @@
     "precip": 0
    }
   },
-  "build": "6/29 5:00pm",
+  "build": "6/29 5:19pm",
   "face": {},
   "maxAT": 100.0,
   "season": {
-   "since": "2026-06-25",
    "stake": 1,
-   "cats": {
-    "moon": {
-     "graded": 24,
-     "won": 2,
-     "units": 1.72,
-     "staked": 48.0
-    },
-    "late": {
-     "graded": 3,
-     "won": 0,
-     "units": -3.0,
-     "staked": 3.0
-    },
-    "lunch": {
-     "graded": 2,
-     "won": 0,
-     "units": -2.0,
-     "staked": 2.0
-    },
-    "builder": {
-     "graded": 65,
-     "won": 8,
-     "units": -23.12,
-     "staked": 65.0
-    },
-    "biggest": {
-     "graded": 3,
-     "won": 0,
-     "units": -16.5,
-     "staked": 16.5
-    }
-   },
    "history": [
     0.0,
-    -6.5,
-    -26.13,
-    -28.5,
-    -42.9
+    3.55,
+    -15.72
    ],
    "graded_nights": [
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-03",
+    "2026-06-04",
+    "2026-06-05",
+    "2026-06-06",
+    "2026-06-07",
+    "2026-06-08",
+    "2026-06-09",
+    "2026-06-10",
+    "2026-06-11",
+    "2026-06-12",
+    "2026-06-13",
+    "2026-06-14",
+    "2026-06-15",
     "2026-06-16",
     "2026-06-17",
     "2026-06-18",
@@ -18327,7 +18307,39 @@
     "2026-06-27",
     "2026-06-28"
    ],
-   "reset_note": "ledger reset 2026-06-25 after model changes (one-pool>=85, 2-per-anchor moon demotion, halved parlay stakes); pre-reset record in season_pre-reset_2026-06-25.json"
+   "cats": {
+    "moon": {
+     "graded": 14,
+     "won": 1,
+     "units": -1.45,
+     "staked": 28.0
+    },
+    "late": {
+     "graded": 1,
+     "won": 0,
+     "units": -1.0,
+     "staked": 1.0
+    },
+    "builder": {
+     "graded": 10,
+     "won": 0,
+     "units": -10.0,
+     "staked": 10.0
+    },
+    "biggest": {
+     "graded": 1,
+     "won": 0,
+     "units": -5.5,
+     "staked": 5.5
+    },
+    "lunch": {
+     "graded": 1,
+     "won": 1,
+     "units": 2.23,
+     "staked": 1.0
+    }
+   },
+   "since": "2026-06-27"
   },
   "date": "2026-06-29",
   "gs": {},
