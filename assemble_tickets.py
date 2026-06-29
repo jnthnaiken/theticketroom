@@ -513,16 +513,25 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     BUILDER_MAX_ODDS = 600
-    # Builders = the bats we ACTUALLY anchor parlays with (moon + salami anchors) as straight
-    # singles. Calibration (6/18-6/28): the #1 conviction bat/night is +23% ROI, the top couple
-    # ~breakeven, and spraying more singles bleeds (the market is already 35% of the score). So
-    # builders ride exactly our highest-conviction plays -- the parlay anchors -- and nothing else.
-    _bnames = []
+    # Builders = our highest-conviction bats as straight singles: the parlay ANCHORS, PLUS any
+    # anchor-eligible bat passed over ONLY because its game time could not fit a parlay window
+    # (e.g. a strong bat in a lone late game). Concretely: every anchor candidate at least as
+    # strong as our weakest actual anchor. Calibration (6/18-6/28): the top conviction bats are
+    # where the only builder edge lives (#1 +23% ROI); weaker singles bleed (market is 35% of score).
+    _chosen = []
     for _t in tickets:
-        if _t.get('kind') in ('moon', 'biggest'):
-            _a = _t.get('anchor')
-            if _a and _a not in _bnames and (P[_a].get('odds') is not None and P[_a]['odds'] <= BUILDER_MAX_ODDS):
+        if _t.get('kind') in ('moon', 'biggest') and _t.get('anchor') and _t['anchor'] not in _chosen:
+            _chosen.append(_t['anchor'])
+    if _chosen:
+        _minS = min(strength(x) for x in _chosen)
+        _bnames = [n for n in cand_anchors
+                   if strength(n) >= _minS - 1e-9
+                   and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS]
+        for _a in _chosen:
+            if _a not in _bnames and P[_a].get('odds') is not None and P[_a]['odds'] <= BUILDER_MAX_ODDS:
                 _bnames.append(_a)
+    else:
+        _bnames = []
     for n in _bnames:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 

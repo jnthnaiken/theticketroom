@@ -44,27 +44,21 @@ except Exception as e:
 # The live client engine (index.html) already does the prior-aware refill — keep locked
 # tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
 # already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
+RULES_VERSION = "2026-06-29-builders-anchors+passedover"   # bump to force a one-time re-draft when draft rules change
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
-# self-clearing: a prior draft whose notes still say "ISO" predates the ISO drop -> re-draft once.
+# self-clearing: re-draft once if the prior draft predates the ISO drop OR was built under older rules.
 _stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
-if _stale:
-    print("  (prior draft has stale ISO notes -> forcing one fresh re-draft to purge)")
-if _same_slate and not _stale:
+_ruleschg = _same_slate and ((prevD.get('meta') or {}).get('rules_version') != RULES_VERSION)
+if _stale or _ruleschg:
+    print("  (forcing one fresh re-draft: %s)" % ("stale ISO notes" if _stale else "draft rules changed"))
+if _same_slate and not _stale and not _ruleschg:
     D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
-    D.setdefault('meta', {})['tickets'] = len(D['tickets'])   # assemble() normally sets this; the header "Tickets" counter reads D.meta.tickets
+    D.setdefault('meta', {})['tickets'] = len(D['tickets'])
     print("  (same slate -> preserved %d prior tickets; no re-draft)" % len(D['tickets']))
 else:
     assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
-# builders must be exactly the moon/salami ANCHORS. On a PRESERVED draft (no re-assemble),
-# drop any carried builder whose bat is no longer a parlay anchor; the live client re-draw
-# re-emits the current anchors anyway. Idempotent.
-_ancset = set(t.get('anchor') for t in D.get('tickets', []) if t.get('kind') in ('moon', 'biggest'))
-_blds = [t for t in D.get('tickets', []) if t.get('kind') == 'builder']
-_drop = [t for t in _blds if t['players'][0]['name'] not in _ancset]
-if _drop:
-    D['tickets'] = [t for t in D['tickets'] if t.get('kind') != 'builder' or t['players'][0]['name'] in _ancset]
-    D.setdefault('meta', {})['tickets'] = len(D['tickets'])
-    print(f"  (dropped {len(_drop)} non-anchor preserved builder(s))")
+# (no preserve-trim needed: a rules change forces a re-draft via RULES_VERSION above)
+D.setdefault('meta', {})['rules_version'] = RULES_VERSION   # stamp so a later build detects rule changes
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
@@ -96,9 +90,10 @@ if _na or _nb:
 
 # footer: ISO no longer used anywhere -> drop it from the data-source credit (idempotent)
 src, _nf = re.subn(r"TeamRankings \(ISO &amp; HR/9\)", "TeamRankings (HR/9)", src, count=1)
-# builders = the moon/salami ANCHORS, emitted client-side from the freshly drafted tickets in
-# `out`. Replace whatever builder-emission line is present (any prior variant) with this. Idempotent.
-_BLD_NEW = "(function(){var anc=[];out.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&anc.indexOf(t.anchor)<0&&P[t.anchor]&&P[t.anchor].odds!=null&&P[t.anchor].odds<=600)anc.push(t.anchor);});anc.forEach(function(n){ mkF('builder','\\uD83D\\uDCB0',[n]); });})();"
+# builders = the moon/salami ANCHORS plus any anchor-eligible bat at least as strong as the
+# weakest shipped anchor (passed over only on game-time fit). Emitted client-side from the
+# drafted tickets in `out` + candidate anchors `candA`. Replaces any prior variant. Idempotent.
+_BLD_NEW = ("(function(){var ancN=[];out.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&ancN.indexOf(t.anchor)<0)ancN.push(t.anchor);});if(ancN.length){var minS=Math.min.apply(null,ancN.map(strength));candA.filter(function(n){return strength(n)>=minS-1e-9&&P[n].odds!=null&&P[n].odds<=600;}).forEach(function(n){ mkF('builder','\\uD83D\\uDCB0',[n]); });}})();")
 _blines = src.split("\n"); _ncap = 0
 for _i, _ln in enumerate(_blines):
     if "mkF('builder'," in _ln and ("byS(nonchalk" in _ln or "var seen" in _ln or "var anc" in _ln):
