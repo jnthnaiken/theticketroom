@@ -1,11 +1,11 @@
 {
   "date": "2026-06-29",
   "season": "2026",
-  "pulled_at": "2026-06-29T22:00:30Z",
+  "pulled_at": "2026-06-29T22:30:21Z",
   "games": [
     {
       "gamePk": 824822,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-29T22:35:00Z",
       "matchup": "CWS@BAL",
       "away": {
@@ -128,7 +128,7 @@
         "emoji": "\u26c5",
         "cond": "calm 3mph, 79\u00b0",
         "lean": "Boost",
-        "temp": 79.2,
+        "temp": 78.9,
         "wind_mph": 2.8,
         "wind_dir": 225,
         "tail_mph": 2.7,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823444,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-06-29T22:40:00Z",
       "matchup": "PIT@PHI",
       "away": {
@@ -259,15 +259,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 77\u00b0",
+        "cond": "wind out 4mph, 76\u00b0",
         "lean": "Boost",
-        "temp": 76.9,
+        "temp": 76.0,
         "wind_mph": 3.7,
         "wind_dir": 194,
         "tail_mph": 3.7,
-        "precip": 2
+        "precip": 0
       },
-      "wf": 1.023
+      "wf": 1.022
     },
     {
       "gamePk": 823529,
@@ -394,13 +394,13 @@
         "emoji": "\u26c5",
         "cond": "wind out 3mph, 72\u00b0",
         "lean": "Neutral",
-        "temp": 72.1,
+        "temp": 72.4,
         "wind_mph": 4.3,
         "wind_dir": 152,
         "tail_mph": 3.1,
         "precip": 0
       },
-      "wf": 1.014
+      "wf": 1.015
     },
     {
       "gamePk": 822792,
@@ -657,15 +657,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 68\u00b0",
+        "cond": "calm 0mph, 67\u00b0",
         "lean": "Neutral",
-        "temp": 67.9,
+        "temp": 66.9,
         "wind_mph": 3.4,
         "wind_dir": 127,
         "tail_mph": -0.5,
         "precip": 0
       },
-      "wf": 0.995
+      "wf": 0.994
     },
     {
       "gamePk": 824420,
@@ -790,15 +790,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 81\u00b0",
+        "cond": "wind out 6mph, 79\u00b0",
         "lean": "Boost",
-        "temp": 81.4,
+        "temp": 78.9,
         "wind_mph": 6.5,
         "wind_dir": 164,
         "tail_mph": 6.2,
         "precip": 1
       },
-      "wf": 1.039
+      "wf": 1.035
     },
     {
       "gamePk": 823771,
@@ -1057,7 +1057,7 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 7mph, 80\u00b0",
         "lean": "Boost",
-        "temp": 79.6,
+        "temp": 80.0,
         "wind_mph": 7.2,
         "wind_dir": 187,
         "tail_mph": 6.6,
@@ -1322,13 +1322,13 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 72\u00b0",
         "lean": "Neutral",
-        "temp": 72.2,
+        "temp": 72.4,
         "wind_mph": 7.4,
         "wind_dir": 106,
         "tail_mph": 2.0,
         "precip": 0
       },
-      "wf": 1.01
+      "wf": 1.011
     },
     {
       "gamePk": 824986,
@@ -1455,7 +1455,7 @@
         "emoji": "\u26c5",
         "cond": "wind out 5mph, 73\u00b0",
         "lean": "Boost",
-        "temp": 73.0,
+        "temp": 72.8,
         "wind_mph": 5.1,
         "wind_dir": 221,
         "tail_mph": 4.8,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823121,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-06-30T01:40:00Z",
       "matchup": "LAA@SEA",
       "away": {
@@ -1487,10 +1487,56 @@
           "hr9": 0.84,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.146
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.17
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.268
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.159
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.114
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.145
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.114
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.031
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1573,8 +1619,54 @@
           "hr9": 0.85,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.208
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.116
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.254
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.159
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.07
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.0
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.146
+          },
+          {
+            "id": 656976,
+            "name": "Pavin Smith",
+            "iso": 0.071
+          },
+          {
+            "id": 694371,
+            "name": "Tommy Troy",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
