@@ -9,13 +9,8 @@ Runs AFTER the scorer (build15.py) has written D_0615.json = {players, meta}.
 The published index.html doubles as its own shell/template: we read it, swap the
 data block, and write it back. All paths are repo-relative so it runs on the Action.
 """
-import json, re, time, os, hashlib
+import json, re, time, os
 import assemble_tickets
-
-# Bump when the DRAFT RULES change (pool gate, caps, anchor logic). Folding this into the
-# input signature forces exactly one re-draft on the next build so a rules change actually
-# takes effect, then same-input rebuilds preserve as usual.
-RULES_VERSION = "2026-06-29-pitcher-allowed-trio"
 
 BOARD = "index.html"       # published board == its own shell/template
 DJSON = "D_0615.json"      # scorer output; assembled in place, then injected
@@ -23,20 +18,6 @@ DJSON = "D_0615.json"      # scorer output; assembled in place, then injected
 D = json.load(open(DJSON))
 for p in D.get('players', {}).values():        # assembler reads these flags
     p.setdefault('void', False); p.setdefault('out', False)
-
-def _input_sig(Dd):
-    """Fingerprint of the INPUT data the draft is built from (cards + ISO + odds),
-    independent of live weather/HR9 (which drift every 30-min rebuild). Same inputs ->
-    same sig -> preserve the prior draft (no reshuffle of locked tickets). New inputs
-    committed (a fresh slate, corrected cards, updated odds) -> sig changes -> re-draft."""
-    P = Dd.get('players', {})
-    rows = [RULES_VERSION]
-    for n in sorted(P):
-        p = P[n]
-        rows.append('|'.join(str(x) for x in (
-            n, p.get('aT'), p.get('zonev'), p.get('form'), p.get('pb'),
-            p.get('hh'), p.get('la'), p.get('iso_used'), p.get('odds'))))
-    return hashlib.md5('\n'.join(rows).encode('utf-8')).hexdigest()
 
 # carry any suspended game from the previously published board into today, then assemble
 prevD = None
@@ -58,31 +39,39 @@ try:
 except Exception as e:
     print(f"  (carryover skipped: {e})")
 
-# PRESERVE the prior board across same-slate rebuilds -- but ONLY when the INPUTS are unchanged.
-# A fresh assemble() each rebuild re-picks anchors as weather/strength drift and reshuffles
-# confirmed/locked tickets, so a routine 30-min rebuild (same cards/odds, only weather moved)
-# must keep the prior draft and let the live client engine do the leg-level confirm/scratch refill.
-# BUT a build where the INPUT data changed (a brand-new slate, corrected cards, updated odds --
-# detected by the input signature) MUST re-draft, or new inputs silently inherit the old tickets.
-# Draft fresh when: no prior, a different date, or the input signature changed.
-_cur_sig = _input_sig(D)
-D.setdefault('meta', {})['sig'] = _cur_sig
-_prev_sig = (prevD.get('meta') or {}).get('sig') if prevD else None
-_same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date')
-                   and prevD.get('tickets') and _prev_sig == _cur_sig)
+# PRESERVE the prior board across same-slate rebuilds. A fresh assemble() each rebuild
+# re-picks anchors as weather/strength drift and reshuffles confirmed/locked tickets.
+# The live client engine (index.html) already does the prior-aware refill — keep locked
+# tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
+# already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
+_same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 if _same_slate:
-    D['tickets'] = prevD['tickets']            # same inputs -> carry the prior draft forward unchanged; client handles live confirm/scratch/grade
-    D.setdefault('meta', {})['tickets'] = len(D['tickets'])
-    print(f"  (same slate + unchanged inputs -> preserved {len(D['tickets'])} prior tickets; no re-draft)")
+    D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
+    D.setdefault('meta', {})['tickets'] = len(D['tickets'])   # assemble() normally sets this; the header "Tickets" counter reads D.meta.tickets
+    print("  (same slate -> preserved %d prior tickets; no re-draft)" % len(D['tickets']))
 else:
-    assemble_tickets.assemble(D)               # brand-new slate / different date / inputs changed -> fresh draft
-    print(f"  (fresh draft: prev_sig={str(_prev_sig)[:8]} cur_sig={_cur_sig[:8]})")
+    assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
     json.dump(D, open(f"D_{_dt}.json", 'w'), indent=1)   # dated archive (with tickets) -> grade_night folds it next morning
 
 src = open(BOARD).read()
+
+# --- ISO chip -> Pitcher hittability (0-100) display swap (idempotent) ---
+# ISO no longer scores OR displays. The first stat chip now shows OUR opposing-pitcher
+# term as a 0-100 hittability score: 50 = neutral, higher = a more HR-prone arm. It is
+# derived live in the client from the same pitcher multiplier that scores the bat
+# (p.phr9 -- baked allowed-trio for listed arms, recomputed HR/9 otherwise; both clamp
+# to 0.85-1.15, so (phr9-0.85)/0.30 -> 0..1). Applied here every build so it survives
+# regen against whatever template is live, and is a no-op once the chip is already swapped.
+src, _nchip = re.subn(
+    r"\['ISO',.*?\],\['POWER'",
+    "['Pitcher',(p.phr9!=null?Math.max(0,Math.min(100,Math.round((p.phr9-0.85)/0.30*100))):'—')],['POWER'",
+    src, count=1)
+if _nchip:
+    print("  (display: ISO chip -> Pitcher 0-100 hittability)")
+
 dj = 'const D=' + json.dumps(D, ensure_ascii=True) + ',WX=D.meta.wx;'
 src, n = re.subn(r'const D=[\s\S]*?,WX=D\.meta\.wx;', (lambda mm: dj), src, count=1)
 assert n == 1, f"could not find the `const D=...,WX=D.meta.wx;` block in {BOARD}"
