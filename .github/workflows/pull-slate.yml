@@ -104,7 +104,7 @@ jobs:
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
-          git add slate_auto_*.json D_*.json season.json index.html
+          git add slate_auto_*.json D_*.json season.json index.html calibration.jsonl
           if git diff --staged --quiet; then
             echo "no changes to commit"
           else
