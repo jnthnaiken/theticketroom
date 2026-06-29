@@ -110,6 +110,7 @@ def build_rows(D, homered, extras=None, pstats=None):
             "wf": p.get('wf'), "odds": p.get('odds'), "total": p.get('TOTAL'),
             "mktT": p.get('mktT'), "slotT": p.get('slotT'), "platT": p.get('platT'),
             "slot": p.get('slot'), "bhand": p.get('bhand'),
+            "pen_fatigue": p.get('pen_fatigue'), "penT": p.get('penT'),
         }
         ex = extras.get(norm(p.get('nm', n))) or {}
         for k in KX:

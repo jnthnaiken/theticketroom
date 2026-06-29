@@ -46,7 +46,7 @@ la_window=lambda la:math.exp(-((la-25.0)/14.0)**2)
 W_WIND   = 0.0035   # wf per mph of tailwind toward CF
 W_TEMP   = 0.0015   # wf per F above 70 (cold subtracts the same)
 W_ELEV   = 0.025    # wf per 1000 ft of park elevation (thin-air carry; Coors ~+13%)
-W_WEATHER= 0.18     # how hard wf pushes TOTAL via pM (same up and down)
+W_WEATHER= 0.10     # how hard wf pushes TOTAL via pM (same up and down)
 W_HR9    = 0.16     # opposing-pitcher HR/9: TOTAL multiplier per HR/9 vs baseline (symmetric)
 HR9_BASE = 1.15     # league-ish HR/9 (neutral matchup); above -> boost, below -> penalty
 HR9_CLAMP= 0.15     # cap the pitcher-matchup swing at +-15%
@@ -181,7 +181,53 @@ ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO el
 
 cards=load_dated('cards'); lin=load_dated('lineups')
 KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
+W_PEN=0.08          # bullpen-fatigue: small SEEDED weight, pulled from park/weather (already priced by books)
+_TEAMALIAS={'ARI':'AZ','CHW':'CWS','OAK':'ATH','WSN':'WSH','SDP':'SD','SFG':'SF','TBR':'TB','KCR':'KC'}
+def _talias(c):
+    c=(c or '').upper(); return _TEAMALIAS.get(c,c)
+def bullpen_fatigue(date):
+    """Per-team bullpen fatigue from the prior 2 days' relief usage (StatsAPI; BEST-EFFORT).
+    {team_abbrev: {'score':float,'pitches':int,'b2b':int}} or {} on ANY failure -> neutral term.
+    Rises with total relief pitches over the last 2 days and with relievers used BOTH days
+    (back-to-back -> likely down today). Seeded small and LOGGED; weight earned once it proves out."""
+    import datetime as _dt
+    try: d0=_dt.date.fromisoformat(date)
+    except Exception: return {}
+    days=[(d0-_dt.timedelta(days=k)).isoformat() for k in (1,2)]
+    relief={}; abbr={}
+    try:
+        for dd in days:
+            sch=_getj('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=%s'%dd)
+            for gd in (sch.get('dates') or []):
+                for g in gd.get('games',[]):
+                    if ((g.get('status') or {}).get('abstractGameState') or '').lower()!='final': continue
+                    try: bx=_getj('https://statsapi.mlb.com/api/v1/game/%s/boxscore'%g.get('gamePk'))
+                    except Exception: continue
+                    for side in ('away','home'):
+                        tm=((bx.get('teams') or {}).get(side) or {})
+                        tid=((tm.get('team') or {}).get('id'))
+                        if tid is None: continue
+                        abbr[tid]=_talias((tm.get('team') or {}).get('abbreviation'))
+                        rec=relief.setdefault(tid,{'pitches':0,'days':{}})
+                        dset=rec['days'].setdefault(dd,set())
+                        players=tm.get('players') or {}
+                        for pid in (tm.get('pitchers') or [])[1:]:
+                            pp=((players.get('ID%s'%pid) or {}).get('stats') or {}).get('pitching') or {}
+                            try: rec['pitches']+=int(pp.get('numberOfPitches') or pp.get('pitchesThrown') or 0)
+                            except Exception: pass
+                            dset.add(pid)
+    except Exception as e:
+        print('  (bullpen fatigue: fallback (%s))'%e); return {}
+    out={}
+    for tid,rec in relief.items():
+        b2b=len(rec['days'].get(days[0],set()) & rec['days'].get(days[1],set()))
+        wl=clamp((rec['pitches']-110)/60.0,-1.0,1.0)
+        out[abbr.get(tid) or str(tid)]={'score':round(0.6*wl+0.4*clamp(b2b/3.0,0.0,1.0),3),'pitches':rec['pitches'],'b2b':b2b}
+    return out
+penTfn=lambda f:1.0 if not f else clamp(1+W_PEN*float(f.get('score') or 0.0),1-W_PEN,1+W_PEN)
+
 WX_LIVE,_wxs=fetch_weather(lin['games'], DATE); HR9_LIVE,_h9s=fetch_hr9(DATE)
+BULLPEN=bullpen_fatigue(DATE)   # opposing-bullpen fatigue (best-effort; {} offline)
 print(f'  (live weather: {_wxs} | live HR/9: {_h9s})')
 ODDS={norm(k):v for k,v in load_dated('odds').items()}
 def pnorm(x):
@@ -254,7 +300,7 @@ for g in lin['games']:
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
                 hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
-                void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,ftrend=c.get('form_arrow','flat'),
+                void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
 pool=list(players.values()); raws=sorted(r['powraw'] for r in pool); N=len(raws)
@@ -276,9 +322,10 @@ for r in pool:
         _gm=r.get('gmatch') or '@'; _oh=(HR9_LIVE.get(_gm) or {}).get('home' if r.get('code')==_gm.split('@')[0] else 'away')
         if _oh is not None: r['hr9']=_oh
         r['phr9']=pHR9(r.get('hr9')); r['psrc']='hr9'
-    _hm=(r.get('gmatch') or '@').split('@')[-1]; _ph0=parkHandT(_hm, r.get('bhand')); r['parkhr']=1+0.6*((_ph0 if _ph0 is not None else 1)-1)
+    _hm=(r.get('gmatch') or '@').split('@')[-1]; _ph0=parkHandT(_hm, r.get('bhand')); r['parkhr']=1+0.45*((_ph0 if _ph0 is not None else 1)-1)
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT'],1)   # ISO dropped; park/weather/zone kept
+    _pf=BULLPEN.get(_talias(r.get('opp_code'))); r['pen_fatigue']=(_pf or {}).get('score'); r['penT']=penTfn(_pf)
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT']*r['penT'],1)   # ISO dropped; park/weather/zone kept
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
