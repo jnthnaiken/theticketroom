@@ -513,12 +513,17 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     BUILDER_MAX_ODDS = 600
-    # Builders = our top-conviction ANCHORS as straight singles (strongest bat per game).
-    # Calibration (6/18-6/28): the #1 conviction bat/night is +23% ROI, top 2 ~breakeven, and
-    # it bleeds past ~3. Spraying singles loses (the market is already in the price at 35%);
-    # concentrating on the few bats we actually anchor parlays with is the only non-leak set.
-    BUILDER_N = 3
-    for n in [a for a in cand_anchors if (ao := P[a].get('odds')) is not None and ao <= BUILDER_MAX_ODDS][:BUILDER_N]:
+    # Builders = the bats we ACTUALLY anchor parlays with (moon + salami anchors) as straight
+    # singles. Calibration (6/18-6/28): the #1 conviction bat/night is +23% ROI, the top couple
+    # ~breakeven, and spraying more singles bleeds (the market is already 35% of the score). So
+    # builders ride exactly our highest-conviction plays -- the parlay anchors -- and nothing else.
+    _bnames = []
+    for _t in tickets:
+        if _t.get('kind') in ('moon', 'biggest'):
+            _a = _t.get('anchor')
+            if _a and _a not in _bnames and (P[_a].get('odds') is not None and P[_a]['odds'] <= BUILDER_MAX_ODDS):
+                _bnames.append(_a)
+    for n in _bnames:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)

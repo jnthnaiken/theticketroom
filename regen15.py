@@ -55,14 +55,16 @@ if _same_slate and not _stale:
     print("  (same slate -> preserved %d prior tickets; no re-draft)" % len(D['tickets']))
 else:
     assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
-# hard-cap builders to 8 even on a PRESERVED draft (server BUILDER_N only applies on a fresh
-# assemble; a preserved older draft could carry more). Keep the strongest by TOTAL. Idempotent.
+# builders must be exactly the moon/salami ANCHORS. On a PRESERVED draft (no re-assemble),
+# drop any carried builder whose bat is no longer a parlay anchor; the live client re-draw
+# re-emits the current anchors anyway. Idempotent.
+_ancset = set(t.get('anchor') for t in D.get('tickets', []) if t.get('kind') in ('moon', 'biggest'))
 _blds = [t for t in D.get('tickets', []) if t.get('kind') == 'builder']
-if len(_blds) > 3:
-    _keep = set(id(t) for t in sorted(_blds, key=lambda t: D['players'].get(t['players'][0]['name'], {}).get('TOTAL', 0), reverse=True)[:3])
-    D['tickets'] = [t for t in D['tickets'] if t.get('kind') != 'builder' or id(t) in _keep]
+_drop = [t for t in _blds if t['players'][0]['name'] not in _ancset]
+if _drop:
+    D['tickets'] = [t for t in D['tickets'] if t.get('kind') != 'builder' or t['players'][0]['name'] in _ancset]
     D.setdefault('meta', {})['tickets'] = len(D['tickets'])
-    print(f"  (trimmed preserved builders {len(_blds)} -> 3)")
+    print(f"  (dropped {len(_drop)} non-anchor preserved builder(s))")
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
@@ -94,16 +96,16 @@ if _na or _nb:
 
 # footer: ISO no longer used anywhere -> drop it from the data-source credit (idempotent)
 src, _nf = re.subn(r"TeamRankings \(ISO &amp; HR/9\)", "TeamRankings (HR/9)", src, count=1)
-# builder cap: singles can't beat the market (35% odds weight already concedes this), so the
-# client emitted EVERY pool bat as a builder. Cap to the top 8 strongest at <=+600 -- damage
-# control on a -EV category, ranked by TOTAL (which carries the market term). Idempotent.
-# builders = the top-3 ANCHORS (strongest bat per distinct game, <=+600). The client used to
-# emit every leftover pool bat as a builder; rewrite that emission to the few conviction plays
-# the data says actually carry edge. Matches EITHER the original or a prior capped line. Idempotent.
-src, _ncap = re.subn(
-    r"byS\(nonchalk\.filter\(function\(n\)\{return !spent\[n\][\s\S]*?\.forEach\(function\(n\)\{ mkF\('builder','\\uD83D\\uDCB0',\[n\]\); \}\);",
-    lambda m: r"(function(){var seen={},out=[];byS(nonchalk).forEach(function(n){var g=P[n].game;if(out.length<3&&!seen[g]&&P[n].odds!=null&&P[n].odds<=600){seen[g]=1;out.push(n);}});out.forEach(function(n){ mkF('builder','\uD83D\uDCB0',[n]); });})();",
-    src, count=1)
+# builders = the moon/salami ANCHORS, emitted client-side from the freshly drafted tickets in
+# `out`. Replace whatever builder-emission line is present (any prior variant) with this. Idempotent.
+_BLD_NEW = "(function(){var anc=[];out.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&anc.indexOf(t.anchor)<0&&P[t.anchor]&&P[t.anchor].odds!=null&&P[t.anchor].odds<=600)anc.push(t.anchor);});anc.forEach(function(n){ mkF('builder','\\uD83D\\uDCB0',[n]); });})();"
+_blines = src.split("\n"); _ncap = 0
+for _i, _ln in enumerate(_blines):
+    if "mkF('builder'," in _ln and ("byS(nonchalk" in _ln or "var seen" in _ln or "var anc" in _ln):
+        _new = _ln[:len(_ln) - len(_ln.lstrip())] + _BLD_NEW
+        if _blines[_i] != _new:
+            _blines[_i] = _new; _ncap += 1
+src = "\n".join(_blines)
 if _nf or _ncap:
     print(f"  (display: footer credit fixed={bool(_nf)}; client builder cap applied={bool(_ncap)})")
 
