@@ -62,7 +62,22 @@ def load_extras(date):
             continue
     return {}
 
-def build_rows(D, homered, extras=None):
+def load_pitchers(date):
+    """Load pitchers_<date>.json (the opposing-SP allowed-contact sidecar), keyed by norm(name).
+    Holds the pitcher EQUIVALENTS of our batter power stats -- pulled-barrel% (pbrl) and barrel%
+    (brl) allowed today; hard-hit% (hh) and fly-ball% (fb) and xwOBA allowed added going forward.
+    We join these onto each batter via their opposing starter so we can later test the matchup
+    crossovers (batter pull-barrel x pitcher pull-barrel-allowed, etc.)."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for p in (f"pitchers_{date}.json", os.path.join(here, f"pitchers_{date}.json")):
+        try:
+            raw = json.load(open(p))
+            return {norm(k): v for k, v in raw.items()}
+        except Exception:
+            continue
+    return {}
+
+def build_rows(D, homered, extras=None, pstats=None):
     """Pure (testable): turn a scored board + HR set into per-bat rows.
 
     `extras` (optional) is the kasper_extras_<date>.json sidecar -- the full Kasper
@@ -74,6 +89,7 @@ def build_rows(D, homered, extras=None):
     P    = D['players']
     pool = set(D.get('pool', []))
     extras = extras or {}
+    pstats = pstats or {}
     KX = ("fb", "sweet", "xwobacon", "xwoba", "brl_bip", "swstr",
           "kstrk", "bip", "pitch", "ceiling", "khr", "likely")   # Kasper-extra columns
     onkind = {}
@@ -96,6 +112,10 @@ def build_rows(D, homered, extras=None):
         ex = extras.get(norm(p.get('nm', n))) or {}
         for k in KX:
             row["k_" + k] = ex.get(k)
+        # opposing-pitcher allowed-contact (matchup crossover features); pitcher = p['opp'][0]
+        ps = pstats.get(norm((p.get('opp') or [None])[0] or '')) or {}
+        for pk in ("pbrl", "hh", "fb"):   # pitcher equivalents of our batter trio: pulled-barrel%, hard-hit%, fly-ball% ALLOWED
+            row["p_" + pk] = ps.get(pk)
         rows.append(row)
     return rows
 
@@ -152,7 +172,7 @@ def backfill():
         except Exception as e:
             print(f"  calib {d}: cannot read board ({e})")
             continue
-        rows = build_rows(D, homered, load_extras(d))
+        rows = build_rows(D, homered, load_extras(d), load_pitchers(d))
         with open(OUT, "a") as fh:
             for r in rows:
                 fh.write(json.dumps(r) + "\n")
@@ -174,7 +194,7 @@ def main(date):
     if n_final == 0:
         sys.exit(f"{date}: no final games yet -- run again once the slate is complete")
     extras = load_extras(date)
-    rows = build_rows(D, homered, extras)
+    rows = build_rows(D, homered, extras, load_pitchers(date))
     with open(OUT, 'a') as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")
