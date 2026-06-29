@@ -192,7 +192,7 @@ PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # K
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
-W_PIT=0.15
+W_PIT=0.30   # equal weight with batter power (+/-30%); per-request parity of pitcher & batter stats
 _PKS=('pbrl','hh','fb')
 def _pmed(k):
     vs=[d[k] for d in PBRL.values() if isinstance(d,dict) and d.get(k) is not None]
