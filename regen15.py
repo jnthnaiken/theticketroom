@@ -44,7 +44,7 @@ except Exception as e:
 # The live client engine (index.html) already does the prior-aware refill — keep locked
 # tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
 # already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
-RULES_VERSION = "2026-06-29-khr-base"   # bump to force a one-time re-draft when draft rules change
+RULES_VERSION = "2026-06-29-no-base-our-model"   # bump to force a one-time re-draft when draft rules change
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 # self-clearing: re-draft once if the prior draft predates the ISO drop OR was built under older rules.
 _stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
@@ -83,10 +83,14 @@ if _nchip:
 src, _nps = re.subn(r"\(p\.phr9-0\.85\)/0\.30\*100", "(p.phr9-0.70)/0.60*100", src)
 if _nps:
     print(f"  (display: re-scaled Pitcher chip to 0.70-1.30 range x{_nps})")
-# the base-score chip now shows khr (aT = Kasper HR projection); relabel 'Match' -> 'khr'. Idempotent.
-src, _nlab = re.subn(r"\['Match',p\.aT", "['khr',p.aT", src, count=1)
-if _nlab:
-    print('  (display: Match chip -> khr)')
+# NO base score -> the base chip now shows OUR model score (TOTAL). Relabel Match/khr -> Model. Idempotent.
+src, _nlab = re.subn(r"\['(?:Match|khr)',p\.aT!=null\?p\.aT\.toFixed\(1\):'—'\]",
+                     "['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—']", src, count=1)
+# no base -> retune the client pool gate to the new TOTAL scale; repoint UI sorts off the flat aT
+src, _nfl = re.subn(r"FLOOR=85,", "FLOOR=130,", src, count=1)
+src, _nsrt = re.subn(r"D\.players\[b\]\.aT-D\.players\[a\]\.aT", "D.players[b].TOTAL-D.players[a].TOTAL", src)
+if _nlab or _nfl or _nsrt:
+    print(f'  (display: base chip->Model x{_nlab}; client FLOOR->130 x{_nfl}; aT-sort->TOTAL x{_nsrt})')
 
 # strip the client-side ISO phrase banks (note generators) so live re-draws stay ISO-free
 _A = r"(?:else )?if\(iso&&parseFloat\('0'\+iso\)>=0\.\d+\)o\.push\(\[[\d.]+,'iso',\[.*?\]\]\);"   # verbose array form

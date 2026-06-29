@@ -180,8 +180,6 @@ ISO=dict(ISO_OLD); ISO.update(ISO_TODAY)
 ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO else 0.10)
 
 cards=load_dated('cards'); lin=load_dated('lineups')
-# base score: Kasper khr (HR projection) lives in the extras sidecar, re-keyed by build15's norm
-KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
 WX_LIVE,_wxs=fetch_weather(lin['games'], DATE); HR9_LIVE,_h9s=fetch_hr9(DATE)
 print(f'  (live weather: {_wxs} | live HR/9: {_h9s})')
 ODDS={norm(k):v for k,v in load_dated('odds').items()}
@@ -252,7 +250,7 @@ for g in lin['games']:
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=c['pb']*c['hh']*la_window(c['la'])
             lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
-            players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=((KEXTRA.get(n) or {}).get('khr') if (KEXTRA.get(n) or {}).get('khr') is not None else c['test']),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
+            players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
                 hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,ftrend=c.get('form_arrow','flat'),

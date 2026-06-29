@@ -33,7 +33,7 @@ LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
 NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
 CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
-FLOOR         = 85               # the pool gate: a bat must clear this model TOTAL to make the board at all
+FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
 WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay

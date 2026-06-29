@@ -108,6 +108,8 @@ def build_rows(D, homered, extras=None, pstats=None):
             "zone": p.get('zonev'), "form": p.get('form'), "hh": p.get('hh'), "la": p.get('la'),
             "pb": p.get('pb'), "hr9": p.get('hr9'), "phr9": p.get('phr9'), "parkhr": p.get('parkhr'),
             "wf": p.get('wf'), "odds": p.get('odds'), "total": p.get('TOTAL'),
+            "mktT": p.get('mktT'), "slotT": p.get('slotT'), "platT": p.get('platT'),
+            "slot": p.get('slot'), "bhand": p.get('bhand'),
         }
         ex = extras.get(norm(p.get('nm', n))) or {}
         for k in KX:
