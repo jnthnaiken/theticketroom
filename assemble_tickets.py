@@ -502,14 +502,25 @@ def assemble(D):
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
     BUILDER_MAX_ODDS = 600
-    # Builders = EVERY priced nonchalk pool bat at <= +600 -- the day's conviction singles, not just the
-    # four anchors. (Dropped the per-game dedup AND the weakest-anchor strength floor, so the next tier
-    # down -- the second strong bat in a game, a Canzone/Marte -- is offered as a straight single too.)
-    # Folds in the anchors, anchor-eligible bats passed over on game-time fit, and rain-banded (40-69%)
-    # bats that can't anchor. The pool is already FLOOR-gated, top-4-chalk-banned and <=3/game, so the
-    # list stays bounded (at most 3 builders per game).
-    _bnames = [n for n in byS(nonchalk)
-               if P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS]
+    # Builders = the actual anchors as singles, PLUS the conviction "snubs": strong bats that landed on
+    # NO parlay at all (neither an anchor nor a drafted leg) -- typically bats stuck in time-isolated late
+    # games that no moon window could reach (e.g. Marte / Canzone). A bat already on a moon/salami leg is
+    # on the board, so it is NOT re-listed; bats below leg strength aren't conviction plays, so they drop.
+    # Concretely: the anchors, plus any UNUSED pool bat at least as strong as the weakest bat we actually
+    # used on a leg, at <= +600. Self-adjusts per slate to catch whoever falls through the cracks.
+    _parlays = [t for t in tickets if t.get('kind') in ('moon', 'biggest')]
+    _usedN   = {l['name'] for t in _parlays for l in t['players']}
+    _legfloor = min([strength(l['name']) for t in _parlays for l in t['players']] or [-1])
+    _bnames = []
+    for t in _parlays:                                  # every actual anchor ships as a single too
+        a = t.get('anchor')
+        if a and a not in _bnames and P[a].get('odds') is not None and P[a]['odds'] <= BUILDER_MAX_ODDS:
+            _bnames.append(a)
+    for n in byS(nonchalk):                             # + conviction snubs left off every parlay
+        if n in _usedN or n in _bnames:
+            continue
+        if strength(n) >= _legfloor - 1e-9 and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS:
+            _bnames.append(n)
     for n in _bnames:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
