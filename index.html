@@ -462,7 +462,6 @@ function loadOdds(){try{const raw=localStorage.getItem(ODDS_KEY);if(!raw)return 
   let c=0;for(const n in d.odds){if(D.players[n]){D.players[n].odds=d.odds[n];c++;}}return c;}catch(e){return 0;}}
 function clearSaved(){try{localStorage.removeItem(ODDS_KEY);localStorage.removeItem('hr_lock_'+((D.meta&&D.meta.date)||''));}catch(e){}location.reload();}
 $('#btn-oclear').onclick=clearSaved;
-(D.tickets||[]).forEach(function(_t){(_t.players||[]).forEach(function(_l){if(_l.odds!=null&&D.players[_l.name]&&(D.players[_l.name].odds==null))D.players[_l.name].odds=_l.odds;});}); // ONE-TIME persist baked anchor odds into the pool so anchors whose live market is unposted stay priced all session
 const _ld=loadOdds();D.tickets.forEach(priceTicket);if(_ld){const s=$('#osaved');if(s)s.textContent='restored '+_ld;}
 drawTickets();drawPlayers();drawTracker();
 
@@ -549,7 +548,6 @@ drawTickets();drawPlayers();drawTracker();
     var pending=function(n){return !!P[n].pending || !!carryNames[n];};   // carried/carryover bat -> SINGLE only: barred from every parlay leg (lifts when its game is final)
 
     // ---- re-gate on live scores: take top (33+8) by TOTAL, re-sort by odds. 8-ban chalk -> lunch/nightcap ONLY; the remaining 33 -> moons/salami/builders. Taking 41 backfills the ban8 so 33 stay buildable. ----
-    (D.tickets||[]).forEach(function(_t){(_t.players||[]).forEach(function(_l){if(_l.odds!=null&&P[_l.name]&&(P[_l.name].odds==null))P[_l.name].odds=_l.odds;});}); // seed pool odds from baked ticket legs so server-drafted anchors whose live market is unposted still pass the gate
     var elig=names.filter(function(n){var p=P[n]; return p.odds && !p.out && !p.void && precipOf(p.game)<70 && (D.meta.gs||{})[String(p.game)]!=='ppd';}); // priced & in-lineup; >=70% rain out of pool
     var fullrank=byT(elig);var cand=fullrank.slice(0, FLOOR);                                  // top 41 by TOTAL
     var ranked=byO(cand);                                                        // that pool, sorted by odds
@@ -681,7 +679,7 @@ drawTickets();drawPlayers();drawTracker();
         else if(kind==='lunch') cand=byO(Object.keys(chalk).filter(function(n){return lunchG[P[n].game];}));
         else if(kind==='biggest') cand=ge75(byS(nonchalk));
         else cand=ge75(byS(nonchalk));
-        if((kind==='moon'||kind==='biggest')){ var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
+        if(kind==='moon'){ var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
           if(ma){ var nl=[ma], ng={}; ng[P[ma].game]=1;
             pl.kept.forEach(function(n){ if(n!==ma&&!ng[P[n].game]){ nl.push(n); ng[P[n].game]=1; } });
             legNames=nl; gUsed=ng; usedG[ma]=1; } }
