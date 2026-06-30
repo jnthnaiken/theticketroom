@@ -297,10 +297,36 @@ def fetch_pit_velo():                                    # opposing SP fastball 
     out={}
     for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=pitcher&min=20&selections=fastball_avg_speed,arm_angle&csv=true'%_SVYR):
         nm=_sv_name(r)
-        if nm: out[pnorm(nm)]={'velo':_sv_f(r,'fastball_avg_speed'),'arm':_sv_f(r,'arm_angle')}
+        if nm: out[pnorm(nm)]={'velo':_sv_f(r,'fastball_avg_speed'),'arm':_sv_f(r,'arm_angle'),'id':(r.get('player_id') or '').strip()}
     return out
+def fetch_pit_ext(ids):                                  # per-pitch aggregate: perceived velo + release extension for the day's starters
+    ids=[str(i) for i in ids if i]
+    if not ids: return {}
+    try:
+        import datetime as _d2
+        _hi=DATE; _lo=(_d2.datetime.strptime(DATE,'%Y-%m-%d')-_d2.timedelta(days=28)).strftime('%Y-%m-%d')
+        u=('https://baseballsavant.mlb.com/statcast_search/csv?hfSea=%s%%7C&hfPT=FF%%7CSI%%7CFC%%7C&player_type=pitcher&game_date_gt=%s&game_date_lt=%s&type=details'%(DATE[:4],_lo,_hi))
+        u+=''.join('&pitchers_lookup%%5B%%5D=%s'%i for i in ids)
+        agg={}
+        for r in _savant_csv(u):
+            pid=(r.get('pitcher') or r.get('player_id') or '').strip()
+            if not pid: continue
+            a=agg.setdefault(pid,{'es':[],'ex':[]})
+            es=_sv_f(r,'effective_speed'); ex=_sv_f(r,'release_extension')
+            if es is not None: a['es'].append(es)
+            if ex is not None: a['ex'].append(ex)
+        return {pid:{'pvelo':(sum(a['es'])/len(a['es']) if a['es'] else None),'ext':(sum(a['ex'])/len(a['ex']) if a['ex'] else None)} for pid,a in agg.items()}
+    except Exception: return {}
 SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo()
 print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
+_sp_ids=set()
+for _g in lin.get('games',[]):
+    for _k in ('away_sp','home_sp'):
+        _v=_g.get(_k); _nm=(_v[0] if isinstance(_v,(list,tuple)) and _v else _v)
+        _pi=(SAV_PIT.get(pnorm(_nm or '')) or {}).get('id')
+        if _pi: _sp_ids.add(_pi)
+SAV_EXT=fetch_pit_ext(_sp_ids)
+print(f'  (savant ext: {len(SAV_EXT)} starters w/ perceived-velo + extension)')
 # Park "trackability" / hitter's-eye -- JUDGMENT, not data (LOG-ONLY). +=easier to pick up the ball, -=harder.
 # Most parks neutral; a few flagged from background/lighting reputation. Trivially overruled once real data exists.
 PARK_TRK={'TB':0.10,'MIL':0.05,'TOR':0.05,'MIN':0.05,'HOU':0.05,'ARI':0.05,'TEX':0.05,   # roofs/controlled light -> steadier look
@@ -312,10 +338,14 @@ def btrkTfn(r):                                          # better pitch recognit
     if zc is None and wh is None: return 1.0
     s=((zc or 85)-85)/10.0 - ((wh or 25)-25)/15.0
     return clamp(1+W_BTRK*s, 1-W_BTRK, 1+W_BTRK)
-def pvTfn(v):                                            # faster opposing fastball (perceived-velo proxy) -> tiny HR suppress
+def pvTfn(pvelo, velo):                                            # faster opposing fastball (perceived-velo proxy) -> tiny HR suppress
+    v=pvelo if pvelo is not None else velo
     return 1.0 if v is None else clamp(1-W_PVEL*((v-93.5)/4.0), 1-W_PVEL, 1+W_PVEL)
 def parktrkTfn(pt):                                      # park hitter's-eye judgment -> half-strength multiplier
     return 1+0.5*(pt or 0.0)
+W_XPOW=0.03
+def xpowTfn(xi):                                         # park-neutral expected power (xISO) -> tiny boost
+    return 1.0 if xi is None else clamp(1+W_XPOW*((xi-0.16)/0.06), 1-W_XPOW, 1+W_XPOW)
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
@@ -408,10 +438,11 @@ for r in pool:
     _bg=1 if (r.get('opp_code') and _talias(r.get('opp_code')) in BG) else 0; r['bg']=_bg; r['bgT']=(1+W_BG) if _bg else 1.0
     _bt=SAV_BAT.get(norm(r['nm'])) or {}; r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')
     r['barrel']=_bt.get('barrel'); r['xiso']=_bt.get('xiso'); r['xwoba']=_bt.get('xwoba')        # batter ball-tracking (LOG-ONLY)
-    _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')        # opp SP velo/arm (LOG-ONLY)
+    _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')
+    _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
-    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk'))
-    r['_mm']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['slotT']*r['platT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT'],4)   # ISO dropped; park/weather/zone kept  # tracking terms LOG-ONLY, not yet in TOTAL
+    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso'))
+    r['_mm']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['slotT']*r['platT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT'],4)   # ISO dropped; park/weather/zone kept  # tracking terms LOG-ONLY, not yet in TOTAL
 
 # ---- 50/50 REWEIGHT: scale the market term so its log-spread == our combined model's, then blend (stays a PRODUCT -> client live re-score unaffected) ----
 import math as _math
