@@ -443,15 +443,7 @@ def assemble(D):
         # to a builder, hand its legs back, and re-fill the survivors. Repeat until everything left fills cleanly,
         # so we never ship a lopsided 2/2/1. Demoted anchors + any still-stranded legs aren't 'spent' -> builders.
         _full = lambda t: (len(t['legs']) - 1) >= t['need']
-        while pls and not all(_full(t) for t in pls):
-            drop = max(t['rank'] for t in pls)                          # weakest anchor by strength-index
-            for t in [x for x in pls if x['rank'] == drop]:
-                for n in t['legs'][1:]:
-                    if n not in pool_av: pool_av.append(n)
-            pls[:] = [t for t in pls if t['rank'] != drop]
-            pool_av[:] = byS(pool_av)
-            _fill_round()
-        miss = 0                                                       # every kept parlay is full by construction
+        miss = sum(1 for t in pls if not _full(t))   # no demote here -- the selection drops the unfillable anchors and promotes the next-strongest
         return al, pls, miss
 
     # TOTAL-FIRST: the strongest candidates by model TOTAL anchor the board. If an anchor's moons can't
@@ -463,7 +455,7 @@ def assemble(D):
     anchors, parlays = [], []
     while True:
         al, parlays, _ = _draft(chosen)
-        kept = [al[r] for r in sorted({t['rank'] for t in parlays})]
+        kept = [al[r] for r in sorted({t['rank'] for t in parlays}) if all((len(x['legs'])-1) >= x['need'] for x in parlays if x['rank'] == r)]
         need = len(chosen) - len(kept)
         anchors = kept
         if need <= 0 or not queue:
