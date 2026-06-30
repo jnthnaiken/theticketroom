@@ -1,7 +1,7 @@
 {
   "date": "2026-06-30",
   "season": "2026",
-  "pulled_at": "2026-06-30T21:29:25Z",
+  "pulled_at": "2026-06-30T21:30:29Z",
   "games": [
     {
       "gamePk": 824819,
@@ -1506,7 +1506,7 @@
     },
     {
       "gamePk": 824984,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T01:40:00Z",
       "matchup": "LAD@ATH",
       "away": {
@@ -1528,10 +1528,56 @@
           "hr9": 2.25,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.086
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.229
+          },
+          {
+            "id": 701762,
+            "name": "Nick Kurtz",
+            "iso": 0.242
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.236
+          },
+          {
+            "id": 608841,
+            "name": "Joey Meneses",
+            "iso": 0.0
+          },
+          {
+            "id": 687515,
+            "name": "Colby Thomas",
+            "iso": 0.143
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.173
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.142
+          },
+          {
+            "id": 811965,
+            "name": "Joshua Kuroda-Grauer",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
