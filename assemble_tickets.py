@@ -131,7 +131,9 @@ def assemble(D):
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
     GAME_CAP = 3   # at most 3 bats per GAME (both lineups combined); per-team would allow 6/game (3 each side) -> implies 6 different HRs in one game, unrealistic
     fullrank = byT(elig)                              # everyone ranked by model -> replacement order
-    cand     = [n for n in fullrank if P[n]['TOTAL'] >= FLOOR]   # the pool: every eligible bat clearing the FLOOR (one draft for moons/salami/builders)
+    _ft = sorted([P[n]['TOTAL'] for n in fullrank if P[n].get('TOTAL') is not None], reverse=True)   # SCALE-INDEPENDENT gate: every weight change shifts the TOTAL scale, so a fixed FLOOR breaks. Gate on RANK -- take the ~40 strongest eligible; chalk ban + 3/game cap trim from here.
+    _floor = _ft[min(len(_ft) - 1, 39)] if _ft else FLOOR
+    cand     = [n for n in fullrank if P[n]['TOTAL'] >= _floor]   # the pool: the strongest ~40 eligible bats by model TOTAL (one draft for moons/salami/builders)
     ranked   = byO(cand)                              # re-sort those 41 by odds
     chalk    = set(ranked[:CHALK_N])                  # ban-8 (lunch/nightcap only)
     nonchalk, _tc = [], {}
