@@ -272,10 +272,10 @@ PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # K
 
 # ---- Baseball Savant ball-tracking pulls (LOG-ONLY seed; fail-safe -> {} offline, never breaks the build) ----
 import csv as _csv, io as _io
-def _savant_csv(u, to=25):
+def _savant_csv(u):
     try:
         _rq=urllib.request.Request(u, headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})   # Savant WAF blocks default python-urllib UA
-        with urllib.request.urlopen(_rq, timeout=to) as _r: txt=_r.read().decode('utf-8-sig','ignore')
+        with urllib.request.urlopen(_rq, timeout=25) as _r: txt=_r.read().decode('utf-8-sig','ignore')
         return list(_csv.DictReader(_io.StringIO(txt)))
     except Exception: return []
 def _sv_name(row):                                       # Savant ships "Last, First" -> flip to "First Last"
@@ -300,19 +300,15 @@ def fetch_pit_velo():                                    # opposing SP fastball 
         if nm: out[pnorm(nm)]={'velo':_sv_f(r,'fastball_avg_speed'),'arm':_sv_f(r,'arm_angle'),'id':(r.get('player_id') or '').strip()}
     return out
 def fetch_pit_ext(ids):                                  # per-pitch aggregate: perceived velo + release extension for the day's starters
-    global _EXT_DIAG
     ids=[str(i) for i in ids if i]
-    _EXT_DIAG='%d ids'%len(ids)
     if not ids: return {}
     try:
         import datetime as _d2
-        _hi=DATE; _lo=(_d2.datetime.strptime(DATE,'%Y-%m-%d')-_d2.timedelta(days=12)).strftime('%Y-%m-%d')
-        u=('https://baseballsavant.mlb.com/statcast_search/csv?hfSea=%s%%7C&hfPT=FF%%7CSI%%7CFC%%7C&player_type=pitcher&game_date_gt=%s&game_date_lt=%s&type=details'%(DATE[:4],_lo,_hi))
+        _hi=DATE; _lo=(_d2.datetime.strptime(DATE,'%Y-%m-%d')-_d2.timedelta(days=28)).strftime('%Y-%m-%d')
+        u=('https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfGT=R%%7C&hfSea=%s%%7C&hfPT=FF%%7CSI%%7CFC%%7C&player_type=pitcher&game_date_gt=%s&game_date_lt=%s&min_pitches=0&min_results=0&min_pas=0&group_by=name&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&type=details'%(DATE[:4],_lo,_hi))
         u+=''.join('&pitchers_lookup%%5B%%5D=%s'%i for i in ids)
-        _rows=_savant_csv(u, 40)
-        _EXT_DIAG='%d ids, %d rows'%(len(ids),len(_rows))
         agg={}
-        for r in _rows:
+        for r in _savant_csv(u):
             pid=(r.get('pitcher') or r.get('player_id') or '').strip()
             if not pid: continue
             a=agg.setdefault(pid,{'es':[],'ex':[]})
@@ -472,6 +468,6 @@ for gn,g in gamemeta.items():
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
-meta={'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{},'ext_diag':globals().get('_EXT_DIAG','')}
+meta={'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")
