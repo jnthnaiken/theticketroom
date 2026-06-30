@@ -268,7 +268,42 @@ def pnorm(x):
     return re.sub(r'[^a-z ]','',x).strip()
 HR9={pnorm(k):v for k,v in load_dated('hr9',required=False).items()}
 PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # Kasper Top-Pitchers barrel-against export (partial -> HR/9 fallback)
-# Pitcher allowed-contact term: the pitcher EQUIVALENTS of our batter power trio --
+
+
+# ---- Baseball Savant ball-tracking pulls (LOG-ONLY seed; fail-safe -> {} offline, never breaks the build) ----
+import csv as _csv, io as _io
+def _savant_csv(u):
+    try:
+        with urllib.request.urlopen(u, timeout=25) as _r: txt=_r.read().decode('utf-8-sig','ignore')
+        return list(_csv.DictReader(_io.StringIO(txt)))
+    except Exception: return []
+def _sv_name(row):                                       # Savant ships "Last, First" -> flip to "First Last"
+    raw=(row.get('last_name, first_name') or '').strip()
+    if ',' in raw:
+        ln,fn=[p.strip() for p in raw.split(',',1)]; return (fn+' '+ln).strip()
+    return raw
+def _sv_f(row,k):
+    try: return float(row.get(k))
+    except Exception: return None
+_SVYR=DATE[:4]
+def fetch_bat_track():                                   # batter pitch-recognition: chase / whiff / in-zone contact
+    out={}
+    for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=batter&min=50&selections=oz_swing_percent,whiff_percent,iz_contact_percent&csv=true'%_SVYR):
+        nm=_sv_name(r)
+        if nm: out[norm(nm)]={'chase':_sv_f(r,'oz_swing_percent'),'whiff':_sv_f(r,'whiff_percent'),'zc':_sv_f(r,'iz_contact_percent')}
+    return out
+def fetch_pit_velo():                                    # opposing SP fastball velo + arm angle (extension/perceived-velo added next pass via per-pitch pull)
+    out={}
+    for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=pitcher&min=20&selections=fastball_avg_speed,arm_angle&csv=true'%_SVYR):
+        nm=_sv_name(r)
+        if nm: out[pnorm(nm)]={'velo':_sv_f(r,'fastball_avg_speed'),'arm':_sv_f(r,'arm_angle')}
+    return out
+SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo()
+print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
+# Park "trackability" / hitter's-eye -- JUDGMENT, not data (LOG-ONLY). +=easier to pick up the ball, -=harder.
+# Most parks neutral; a few flagged from background/lighting reputation. Trivially overruled once real data exists.
+PARK_TRK={'TB':0.10,'MIL':0.05,'TOR':0.05,'MIN':0.05,'HOU':0.05,'ARI':0.05,'TEX':0.05,   # roofs/controlled light -> steadier look
+          'COL':-0.05,'SF':-0.05,'ATH':-0.05,'OAK':-0.05,'CIN':-0.05}                     # open sky / shadows / tougher-eye notes# Pitcher allowed-contact term: the pitcher EQUIVALENTS of our batter power trio --
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
@@ -359,7 +394,10 @@ for r in pool:
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
     _pf=BULLPEN.get(_talias(r.get('opp_code'))); r['pen_fatigue']=(_pf or {}).get('score'); r['penT']=penTfn(_pf)
     _bg=1 if (r.get('opp_code') and _talias(r.get('opp_code')) in BG) else 0; r['bg']=_bg; r['bgT']=(1+W_BG) if _bg else 1.0
-    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT']*r['bgT'],1)   # ISO dropped; park/weather/zone kept
+    _bt=SAV_BAT.get(norm(r['nm'])) or {}; r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')        # batter ball-tracking (LOG-ONLY)
+    _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')        # opp SP velo/arm (LOG-ONLY)
+    r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
+    r['TOTAL']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['mktT']*r['slotT']*r['platT']*r['bgT'],1)   # ISO dropped; park/weather/zone kept  # tracking terms LOG-ONLY, not yet in TOTAL
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
