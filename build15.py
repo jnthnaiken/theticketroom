@@ -362,7 +362,7 @@ print(f'  (savant ext: {len(SAV_EXT)} starters w/ perceived-velo + extension)')
 PARK_TRK={'TB':0.10,'MIL':0.05,'TOR':0.05,'MIN':0.05,'HOU':0.05,'ARI':0.05,'TEX':0.05,   # roofs/controlled light -> steadier look
           'COL':-0.05,'SF':-0.05,'ATH':-0.05,'OAK':-0.05,'CIN':-0.05}                     # open sky / shadows / tougher-eye notes# Pitcher allowed-contact term: the pitcher EQUIVALENTS of our batter power trio --
 # tracking terms fold into the MODEL half at TINY seed weights (signs TENTATIVE -> refined from the log)
-W_BTRK=0.03; W_PVEL=0.06
+W_BTRK=0.02; W_PVEL=0.06
 def btrkTfn(r):                                          # better pitch recognition (high in-zone contact, low whiff) -> tiny boost
     zc=r.get('zc'); wh=r.get('whiff')
     if zc is None and wh is None: return 1.0
@@ -373,7 +373,7 @@ def pvTfn(pvelo, velo):                                            # faster oppo
     return 1.0 if v is None else clamp(1-W_PVEL*((v-93.5)/4.0), 1-W_PVEL, 1+W_PVEL)
 def parktrkTfn(pt):                                      # park hitter's-eye judgment -> half-strength multiplier
     return 1+0.5*(pt or 0.0)
-W_XPOW=0.08
+W_XPOW=0.12
 def xpowTfn(xi):                                         # park-neutral expected power (xISO) -> tiny boost
     return 1.0 if xi is None else clamp(1+W_XPOW*((xi-0.16)/0.06), 1-W_XPOW, 1+W_XPOW)
 W_PVDECL=0.04   # opp SP recent fastball velo (28d) vs season avg -> velo drop = losing stuff = batter boost
@@ -388,11 +388,11 @@ def sprayTfn(pull, tilt, ptail):                         # pull% x handed park p
     if tilt is not None: env+=(tilt-1.0)/0.05            # handed park pull-side friendliness (~+-1)
     if ptail is not None: env+=clamp(ptail/8.0,-1.0,1.0) # wind blowing out to the pull field (~+-1)
     return clamp(1+W_SPRAY*lean*clamp(env,-1.5,1.5), 1-W_SPRAY, 1+W_SPRAY)
-W_XPTREND=0.05
+W_XPTREND=0.08
 def xptrendTfn(recent, season):                          # recent (14d) xwOBAcon vs season xwOBAcon -> hot/cold expected-power form
     if recent is None or season is None: return 1.0
     return clamp(1+W_XPTREND*((recent-season)/0.040), 1-W_XPTREND, 1+W_XPTREND)
-W_ARS=0.06
+W_ARS=0.12
 def arsenalTfn(bat, pit):                                # batter run-value-by-pitch-type x opposing pitcher's pitch mix
     if not bat or not pit: return 1.0
     num=0.0; den=0.0
