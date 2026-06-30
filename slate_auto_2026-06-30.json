@@ -1,7 +1,7 @@
 {
   "date": "2026-06-30",
   "season": "2026",
-  "pulled_at": "2026-06-30T20:30:24Z",
+  "pulled_at": "2026-06-30T20:35:27Z",
   "games": [
     {
       "gamePk": 824819,
@@ -1195,7 +1195,7 @@
     },
     {
       "gamePk": 824175,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T00:10:00Z",
       "matchup": "MIN@HOU",
       "away": {
@@ -1206,8 +1206,54 @@
           "hr9": 0.87,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.146
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.194
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.23
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.16
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.171
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.138
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.226
+          },
+          {
+            "id": 656484,
+            "name": "Tristan Gray",
+            "iso": 0.115
+          },
+          {
+            "id": 668885,
+            "name": "Austin Martin",
+            "iso": 0.079
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -1217,10 +1263,56 @@
           "hr9": 2.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.148
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.299
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.171
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.233
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.165
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.176
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.119
+          },
+          {
+            "id": 669397,
+            "name": "Nick Allen",
+            "iso": 0.075
+          },
+          {
+            "id": 669384,
+            "name": "Raynel Delgado",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
