@@ -680,7 +680,7 @@ drawTickets();drawPlayers();drawTracker();
         else if(kind==='lunch') cand=byO(Object.keys(chalk).filter(function(n){return lunchG[P[n].game];}));
         else if(kind==='biggest') cand=ge75(byS(nonchalk));
         else cand=ge75(byS(nonchalk));
-        if(kind==='moon'){ var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
+        if((kind==='moon'||kind==='biggest')){ var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
           if(ma){ var nl=[ma], ng={}; ng[P[ma].game]=1;
             pl.kept.forEach(function(n){ if(n!==ma&&!ng[P[n].game]){ nl.push(n); ng[P[n].game]=1; } });
             legNames=nl; gUsed=ng; usedG[ma]=1; } }
