@@ -91,11 +91,10 @@ src, _nlab = re.subn(r"\['(?:Match|khr)',p\.aT!=null\?p\.aT\.toFixed\(1\):'—'\
 # TOTAL form. Idempotent.
 src, _nbb = re.subn(r"🧱 \$\{(?:Math\.round\(p\.TOTAL\)|p\.aT\.toFixed\(1\))\}",
                     "🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr:'—'}", src)
-# no base -> retune the client pool gate to the new TOTAL scale; repoint UI sorts off the flat aT
-src, _nfl = re.subn(r"FLOOR=85,", "FLOOR=130,", src, count=1)
+# no base -> repoint UI sorts off the flat aT onto TOTAL
 src, _nsrt = re.subn(r"D\.players\[b\]\.aT-D\.players\[a\]\.aT", "D.players[b].TOTAL-D.players[a].TOTAL", src)
-if _nlab or _nfl or _nsrt:
-    print(f'  (display: base chip->Model x{_nlab}; base badge->Model x{_nbb}; client FLOOR->130 x{_nfl}; aT-sort->TOTAL x{_nsrt})')
+if _nlab or _nsrt:
+    print(f'  (display: base chip->Model x{_nlab}; base badge->Model x{_nbb}; aT-sort->TOTAL x{_nsrt})')
 
 # strip the client-side ISO phrase banks (note generators) so live re-draws stay ISO-free
 _A = r"(?:else )?if\(iso&&parseFloat\('0'\+iso\)>=0\.\d+\)o\.push\(\[[\d.]+,'iso',\[.*?\]\]\);"   # verbose array form
