@@ -34,6 +34,7 @@ NIGHT_WIN     = 60              # nightcap window = games starting within 60 min
 CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
+Z_GATE        = 1.0              # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40)
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
 WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay
@@ -131,9 +132,14 @@ def assemble(D):
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
     GAME_CAP = 3   # at most 3 bats per GAME (both lineups combined); per-team would allow 6/game (3 each side) -> implies 6 different HRs in one game, unrealistic
     fullrank = byT(elig)                              # everyone ranked by model -> replacement order
-    _ft = sorted([P[n]['TOTAL'] for n in fullrank if P[n].get('TOTAL') is not None], reverse=True)   # SCALE-INDEPENDENT gate: every weight change shifts the TOTAL scale, so a fixed FLOOR breaks. Gate on RANK -- take the ~40 strongest eligible; chalk ban + 3/game cap trim from here.
-    _floor = _ft[min(len(_ft) - 1, 39)] if _ft else FLOOR
-    cand     = [n for n in fullrank if P[n]['TOTAL'] >= _floor]   # the pool: the strongest ~40 eligible bats by model TOTAL (one draft for moons/salami/builders)
+    _bl = [P[n]['blend'] for n in fullrank if P[n].get('blend') is not None]
+    if len(_bl) >= 8:                                  # z-THRESHOLD gate (scale/slate-independent): keep bats whose blended z clears Z_GATE SDs above the slate mean
+        _bm = sum(_bl)/len(_bl); _bsd = (sum((x-_bm)**2 for x in _bl)/len(_bl))**0.5 or 1e-9
+        cand = [n for n in fullrank if P[n].get('blend') is not None and (P[n]['blend']-_bm)/_bsd >= Z_GATE]
+    else:                                              # fallback (board scored by old model, no 'blend'): strongest ~40 by TOTAL
+        _ft = sorted([P[n]['TOTAL'] for n in fullrank if P[n].get('TOTAL') is not None], reverse=True)
+        _floor = _ft[min(len(_ft)-1, 39)] if _ft else FLOOR
+        cand = [n for n in fullrank if P[n]['TOTAL'] >= _floor]
     ranked   = byO(cand)                              # re-sort those 41 by odds
     chalk    = set(ranked[:CHALK_N])                  # ban-8 (lunch/nightcap only)
     nonchalk, _tc = [], {}
