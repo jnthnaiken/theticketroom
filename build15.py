@@ -311,11 +311,12 @@ def fetch_pit_ext(ids):                                  # per-pitch aggregate: 
         for r in _savant_csv(u):
             pid=(r.get('pitcher') or r.get('player_id') or '').strip()
             if not pid: continue
-            a=agg.setdefault(pid,{'es':[],'ex':[]})
-            es=_sv_f(r,'effective_speed'); ex=_sv_f(r,'release_extension')
+            a=agg.setdefault(pid,{'es':[],'ex':[],'rs':[]})
+            es=_sv_f(r,'effective_speed'); ex=_sv_f(r,'release_extension'); rs=_sv_f(r,'release_speed')
             if es is not None: a['es'].append(es)
             if ex is not None: a['ex'].append(ex)
-        return {pid:{'pvelo':(sum(a['es'])/len(a['es']) if a['es'] else None),'ext':(sum(a['ex'])/len(a['ex']) if a['ex'] else None)} for pid,a in agg.items()}
+            if rs is not None: a['rs'].append(rs)
+        return {pid:{'pvelo':(sum(a['es'])/len(a['es']) if a['es'] else None),'ext':(sum(a['ex'])/len(a['ex']) if a['ex'] else None),'rvelo':(sum(a['rs'])/len(a['rs']) if a['rs'] else None)} for pid,a in agg.items()}
     except Exception: return {}
 SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo()
 print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
@@ -346,6 +347,10 @@ def parktrkTfn(pt):                                      # park hitter's-eye jud
 W_XPOW=0.08
 def xpowTfn(xi):                                         # park-neutral expected power (xISO) -> tiny boost
     return 1.0 if xi is None else clamp(1+W_XPOW*((xi-0.16)/0.06), 1-W_XPOW, 1+W_XPOW)
+W_PVDECL=0.04   # opp SP recent fastball velo (28d) vs season avg -> velo drop = losing stuff = batter boost
+def pvdTfn(rvelo, svelo):                                 # recent raw fastball velo vs season; 1.5 mph drop = full weight
+    if rvelo is None or svelo is None: return 1.0
+    return clamp(1+W_PVDECL*((svelo-rvelo)/1.5), 1-W_PVDECL, 1+W_PVDECL)
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
@@ -439,10 +444,10 @@ for r in pool:
     _bt=SAV_BAT.get(norm(r['nm'])) or {}; r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')
     r['barrel']=_bt.get('barrel'); r['xiso']=_bt.get('xiso'); r['xwoba']=_bt.get('xwoba')        # batter ball-tracking (LOG-ONLY)
     _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')
-    _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext')        # opp SP velo/arm (LOG-ONLY)
+    _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext'); r['opp_rvelo']=_ex.get('rvelo')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
-    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso'))
-    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT'],4)   # ISO dropped; park/weather/zone kept  # tracking terms LOG-ONLY, not yet in TOTAL
+    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo'))
+    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline
 
 # ---- 50/50 REWEIGHT: scale the market term so its log-spread == our combined model's, then blend (stays a PRODUCT -> client live re-score unaffected) ----
 import math as _math
