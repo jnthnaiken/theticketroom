@@ -314,6 +314,14 @@ def fetch_bat_recent(ids):                              # rolling last-14d xwOBA
             if bid and xw is not None: agg.setdefault(bid,[]).append(xw)
         return {bid:(sum(v)/len(v)) for bid,v in agg.items()}
     except Exception: return {}
+def fetch_arsenal(kind):                                # pitch-arsenal-stats: per player per pitch type -> usage% + run_value/100
+    out={}
+    u='https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats?type=%s&year=%s&min=10&csv=true'%(kind,_SVYR)
+    for r in _savant_csv(u, to=45):
+        pid=(r.get('player_id') or '').strip(); pt=(r.get('pitch_type') or '').strip()
+        if not pid or not pt: continue
+        out.setdefault(pid,{})[pt]={'usage':_sv_f(r,'pitch_usage'),'rv100':_sv_f(r,'run_value_per_100')}
+    return out
 def fetch_pit_velo():                                    # opposing SP fastball velo + arm angle (extension/perceived-velo added next pass via per-pitch pull)
     out={}
     for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=pitcher&min=20&selections=fastball_avg_speed,arm_angle&csv=true'%_SVYR):
@@ -339,7 +347,7 @@ def fetch_pit_ext(ids):                                  # per-pitch aggregate: 
             if rs is not None: a['rs'].append(rs)
         return {pid:{'pvelo':(sum(a['es'])/len(a['es']) if a['es'] else None),'ext':(sum(a['ex'])/len(a['ex']) if a['ex'] else None),'rvelo':(sum(a['rs'])/len(a['rs']) if a['rs'] else None)} for pid,a in agg.items()}
     except Exception: return {}
-SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo(); SAV_SPRAY=fetch_bat_spray(); SAV_RECENT=fetch_bat_recent([v['id'] for v in SAV_BAT.values() if v.get('id')])
+SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo(); SAV_SPRAY=fetch_bat_spray(); SAV_RECENT=fetch_bat_recent([v['id'] for v in SAV_BAT.values() if v.get('id')]); SAV_ARS_BAT=fetch_arsenal('batter'); SAV_ARS_PIT=fetch_arsenal('pitcher')
 print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
 _sp_ids=set()
 for _g in lin.get('games',[]):
@@ -384,6 +392,17 @@ W_XPTREND=0.05
 def xptrendTfn(recent, season):                          # recent (14d) xwOBAcon vs season xwOBAcon -> hot/cold expected-power form
     if recent is None or season is None: return 1.0
     return clamp(1+W_XPTREND*((recent-season)/0.040), 1-W_XPTREND, 1+W_XPTREND)
+W_ARS=0.06
+def arsenalTfn(bat, pit):                                # batter run-value-by-pitch-type x opposing pitcher's pitch mix
+    if not bat or not pit: return 1.0
+    num=0.0; den=0.0
+    for pt,pv in pit.items():
+        u=pv.get('usage'); bv=bat.get(pt)
+        rv=(bv.get('rv100') if bv else None)
+        if u is None or rv is None: continue
+        num+=u*rv; den+=u
+    if den<=0: return 1.0
+    return clamp(1+W_ARS*((num/den)/1.5), 1-W_ARS, 1+W_ARS)
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
@@ -489,8 +508,8 @@ for r in pool:
     _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')
     _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext'); r['opp_rvelo']=_ex.get('rvelo')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
-    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo')); r['sprayT']=sprayTfn(r.get('pull'), (PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0, r.get('pull_tail')); r['xptrendT']=xptrendTfn(r.get('xwoba_recent'), r.get('xwcon'))
-    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend
+    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo')); r['sprayT']=sprayTfn(r.get('pull'), (PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0, r.get('pull_tail')); r['xptrendT']=xptrendTfn(r.get('xwoba_recent'), r.get('xwcon')); r['arsenalT']=arsenalTfn(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id')))
+    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- 50/50 REWEIGHT: scale the market term so its log-spread == our combined model's, then blend (stays a PRODUCT -> client live re-score unaffected) ----
 import math as _math
