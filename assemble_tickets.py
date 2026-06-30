@@ -5,27 +5,20 @@ Drop this into the build step AFTER the field is scored (it consumes the same
 `D` the board renders: D['players'][name] = {odds, TOTAL, game, gmatch, gtime,
 late, status, void, out, ...}). Call assemble(D) and it returns D['tickets'].
 
-WHAT'S HARDCODED
-================
-Existing rules (from the model/README + tierOf):
-  * Eligible field   = priced bats in the lineup, not voided/scratched.
-  * Anchor ranking   = model TOTAL (the full-pool re-rank), one anchor per game.
-  * Tier             = premium (rank < 9), strong (rank < 32), else value.
-  * Moons            = anchor + 2 longshot partners, snake-drafted so each
-                       parlay pairs a stronger bat with a longer shot.
-  * Salami           = four longest shots in distinct games, full round robin.
-  * Builders         = leftover bats as single-leg bankroll plays.
-  * Nightcap         = the late single.
-
-THE THREE UPDATES
-=================
-  (1) CHALK ROUTING  — chalk = the 8 shortest-odds bats. They are eligible
-      ONLY in the lunch special and the nightcap. Moons, builders, and the
-      salami are chalk-free.
-  (2) MOON STRUCTURE — 5 moons in a 2/2/1 split: A1 x2, A2 x2, A3 x1.
-      The 4th-best anchor (A4) LEADS THE SALAMI.
-  (3) CARRYOVER      — games still suspended/resuming are rolled to the next
-      slate (see carryover()).
+RULES (match the code below):
+================================
+  * Eligible field = priced bats in the lineup, not voided/scratched.
+  * Pool gate      = z-THRESHOLD on the blended model score (Z_GATE SDs above the slate mean) --
+                     scale/slate-independent, no fixed size.
+  * Anchors        = strongest by model; MULTIPLE anchors per game allowed (two bats from one
+                     game can each lead their own tickets).
+  * Per-ticket     = one bat per distinct game; GAME_CAP (=3) bats per game overall.
+  * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY; moons/salami/builders chalk-free.
+  * Moons          = ~2 per non-salami anchor; anchor + 2 longshots, snake-drafted, legs inside a WIN(=120)-min window.
+  * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
+  * Builders       = leftover / sub-gate bats as single-leg bankroll plays.
+  * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (4:00 PM ET).
+  * Ticket names   = rotated by day-of-year, no repeats.
 """
 import re, datetime
 
