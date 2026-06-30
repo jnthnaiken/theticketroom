@@ -112,6 +112,9 @@ def build_rows(D, homered, extras=None, pstats=None):
             "slot": p.get('slot'), "bhand": p.get('bhand'),
             "pen_fatigue": p.get('pen_fatigue'), "penT": p.get('penT'),
             "bg": p.get('bg'), "bgT": p.get('bgT'),
+            "chase": p.get('chase'), "whiff": p.get('whiff'), "zc": p.get('zc'),          # batter ball-tracking
+            "opp_velo": p.get('opp_velo'), "opp_arm": p.get('opp_arm'),                    # opp SP velo/arm
+            "park_trk": p.get('park_trk'),                                                 # park hitter's-eye (judgment)
         }
         ex = extras.get(norm(p.get('nm', n))) or {}
         for k in KX:
