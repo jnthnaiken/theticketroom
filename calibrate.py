@@ -116,7 +116,8 @@ def build_rows(D, homered, extras=None, pstats=None):
             "opp_velo": p.get('opp_velo'), "opp_arm": p.get('opp_arm'),                    # opp SP velo/arm
             "park_trk": p.get('park_trk'),                                                 # park hitter's-eye (judgment)
             "barrel": p.get('barrel'), "xiso": p.get('xiso'), "xwoba": p.get('xwoba'),     # expected-power (xHR thread)
-            "btrkT": p.get('btrkT'), "pvT": p.get('pvT'), "parktrkT": p.get('parktrkT'),   # tracking terms (model half)
+            "btrkT": p.get('btrkT'), "pvT": p.get('pvT'), "parktrkT": p.get('parktrkT'), "xpowT": p.get('xpowT'),   # tracking + expected-power terms
+            "opp_pvelo": p.get('opp_pvelo'), "opp_ext": p.get('opp_ext'),                  # opp SP perceived-velo + release extension
             "mkt_exp": p.get('mkt_exp'),                                                   # market exponent (50/50 reweight)
         }
         ex = extras.get(norm(p.get('nm', n))) or {}
