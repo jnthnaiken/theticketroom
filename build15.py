@@ -274,7 +274,8 @@ PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # K
 import csv as _csv, io as _io
 def _savant_csv(u):
     try:
-        with urllib.request.urlopen(u, timeout=25) as _r: txt=_r.read().decode('utf-8-sig','ignore')
+        _rq=urllib.request.Request(u, headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})   # Savant WAF blocks default python-urllib UA
+        with urllib.request.urlopen(_rq, timeout=25) as _r: txt=_r.read().decode('utf-8-sig','ignore')
         return list(_csv.DictReader(_io.StringIO(txt)))
     except Exception: return []
 def _sv_name(row):                                       # Savant ships "Last, First" -> flip to "First Last"
