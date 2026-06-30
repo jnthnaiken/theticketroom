@@ -1,7 +1,7 @@
 {
   "date": "2026-06-30",
   "season": "2026",
-  "pulled_at": "2026-06-30T21:35:58Z",
+  "pulled_at": "2026-06-30T21:48:44Z",
   "games": [
     {
       "gamePk": 824819,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824338,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T00:40:00Z",
       "matchup": "MIA@COL",
       "away": {
@@ -1476,8 +1476,54 @@
           "hr9": 1.6,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.194
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.192
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.25
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.129
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.1
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.194
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.117
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.133
+          },
+          {
+            "id": 677870,
+            "name": "Leo Jim\u00e9nez",
+            "iso": 0.037
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -1490,7 +1536,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
