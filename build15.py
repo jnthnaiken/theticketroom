@@ -293,6 +293,12 @@ def fetch_bat_track():                                   # batter pitch-recognit
         nm=_sv_name(r)
         if nm: out[norm(nm)]={'chase':_sv_f(r,'oz_swing_percent'),'whiff':_sv_f(r,'whiff_percent'),'zc':_sv_f(r,'iz_contact_percent'),'barrel':_sv_f(r,'barrel_batted_rate'),'xiso':_sv_f(r,'xiso'),'xwoba':_sv_f(r,'xwoba')}
     return out
+def fetch_bat_spray():                                  # batter pull% (spray-angle) for pull-side HR alignment
+    out={}
+    for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=batter&min=50&selections=pull_percent&csv=true'%_SVYR):
+        nm=_sv_name(r)
+        if nm: out[norm(nm)]={'pull':_sv_f(r,'pull_percent')}
+    return out
 def fetch_pit_velo():                                    # opposing SP fastball velo + arm angle (extension/perceived-velo added next pass via per-pitch pull)
     out={}
     for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=pitcher&min=20&selections=fastball_avg_speed,arm_angle&csv=true'%_SVYR):
@@ -318,7 +324,7 @@ def fetch_pit_ext(ids):                                  # per-pitch aggregate: 
             if rs is not None: a['rs'].append(rs)
         return {pid:{'pvelo':(sum(a['es'])/len(a['es']) if a['es'] else None),'ext':(sum(a['ex'])/len(a['ex']) if a['ex'] else None),'rvelo':(sum(a['rs'])/len(a['rs']) if a['rs'] else None)} for pid,a in agg.items()}
     except Exception: return {}
-SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo()
+SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo(); SAV_SPRAY=fetch_bat_spray()
 print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
 _sp_ids=set()
 for _g in lin.get('games',[]):
@@ -351,6 +357,14 @@ W_PVDECL=0.04   # opp SP recent fastball velo (28d) vs season avg -> velo drop =
 def pvdTfn(rvelo, svelo):                                 # recent raw fastball velo vs season; 1.5 mph drop = full weight
     if rvelo is None or svelo is None: return 1.0
     return clamp(1+W_PVDECL*((svelo-rvelo)/1.5), 1-W_PVDECL, 1+W_PVDECL)
+W_SPRAY=0.05
+def sprayTfn(pull, tilt, ptail):                         # pull% x handed park pull-side tilt x wind-to-pull-field
+    if pull is None: return 1.0
+    lean=(pull-40.0)/10.0                                # >0 = pulls more than ~league-avg 40%
+    env=0.0
+    if tilt is not None: env+=(tilt-1.0)/0.05            # handed park pull-side friendliness (~+-1)
+    if ptail is not None: env+=clamp(ptail/8.0,-1.0,1.0) # wind blowing out to the pull field (~+-1)
+    return clamp(1+W_SPRAY*lean*clamp(env,-1.5,1.5), 1-W_SPRAY, 1+W_SPRAY)
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
@@ -387,6 +401,16 @@ def gmin(gt):
     return (int(m.group(1))%12+(12 if m.group(3)=='PM' else 0))*60+int(m.group(2)) if m else 0
 is_late=lambda gt: gmin(gt)>=21*60
 
+def pull_tail_of(home, bh, deg, windstr):                # wind projected onto the batter's PULL field (mph, + = out to pull)
+    if deg is None or bh not in ('L','R'): return None
+    cf=CF_AZ.get(home)
+    if cf is None: return None
+    m=re.search(r'(\d+)\s*mph', windstr or ''); spd=int(m.group(1)) if m else 0
+    if not spd: return 0.0
+    pull_az=(cf+(45 if bh=='L' else -45))%360            # LHB pull->RF (+45 off CF), RHB pull->LF (-45)
+    toward=(deg+180)%360
+    return spd*math.cos(math.radians(toward-pull_az))
+
 players={}; gamemeta={}
 for g in lin['games']:
     gn=g['gn']; gm=g['matchup']; gt=g['time']
@@ -414,7 +438,7 @@ for g in lin['games']:
             lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
-                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
+                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
@@ -441,13 +465,13 @@ for r in pool:
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
     _pf=BULLPEN.get(_talias(r.get('opp_code'))); r['pen_fatigue']=(_pf or {}).get('score'); r['penT']=penTfn(_pf)
     _bg=1 if (r.get('opp_code') and _talias(r.get('opp_code')) in BG) else 0; r['bg']=_bg; r['bgT']=(1+W_BG) if _bg else 1.0
-    _bt=SAV_BAT.get(norm(r['nm'])) or {}; r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')
+    _bt=SAV_BAT.get(norm(r['nm'])) or {}; _sp=SAV_SPRAY.get(norm(r['nm'])) or {}; r['pull']=_sp.get('pull'); r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')
     r['barrel']=_bt.get('barrel'); r['xiso']=_bt.get('xiso'); r['xwoba']=_bt.get('xwoba')        # batter ball-tracking (LOG-ONLY)
     _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')
     _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext'); r['opp_rvelo']=_ex.get('rvelo')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
-    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo'))
-    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline
+    r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo')); r['sprayT']=sprayTfn(r.get('pull'), (PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0, r.get('pull_tail'))
+    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park
 
 # ---- 50/50 REWEIGHT: scale the market term so its log-spread == our combined model's, then blend (stays a PRODUCT -> client live re-score unaffected) ----
 import math as _math
