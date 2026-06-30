@@ -545,9 +545,14 @@ for r in pool:
         x=r.get(k)
         if x is None: continue
         mu,sd=_stat[k]; edge+=w*((x-mu)/sd)
-    xm=r.get('_zmkt'); mz=((xm-_mkstat[0])/_mkstat[1]) if xm is not None else 0.0
-    blend=0.5*mz+0.5*edge
-    r['edge_z']=round(edge,4); r['mkt_z']=round(mz,4); r['blend']=round(blend,4)
+    xm=r.get('_zmkt'); r['_mz0']=((xm-_mkstat[0])/_mkstat[1]) if xm is not None else 0.0
+    r['_edge0']=edge
+# standardize BOTH halves to unit variance so the edge bites as hard as the market (equal influence, 50/50)
+_es=_ms('_edge0'); _mks=_ms('_mz0')
+for r in pool:
+    ez=(r['_edge0']-_es[0])/_es[1]; mz=(r['_mz0']-_mks[0])/_mks[1]
+    blend=0.5*mz+0.5*ez
+    r['edge_z']=round(ez,4); r['mkt_z']=round(mz,4); r['blend']=round(blend,4)
     r['TOTAL']=round(100+30*blend,1)
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
