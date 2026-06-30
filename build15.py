@@ -182,7 +182,7 @@ ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO el
 cards=load_dated('cards'); lin=load_dated('lineups')
 KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
 W_PEN=0.08          # bullpen-fatigue: small SEEDED weight, pulled from park/weather (already priced by books)
-W_BG=0.10           # bullpen-GAME boost: opener/TBD opposing "starter" -> proven +11% HR rate (full season) + market-underprice hint
+W_BG=0.15           # bullpen-GAME boost: opener/TBD opposing "starter" -> proven +11% HR rate (full season) + market-underprice hint
 def bullpen_games(date):
     """{team_abbrev: True} for teams throwing an opener/bullpen game today (opposing bats get the boost).
     TBD/null probable -> bullpen game; a named probable who is really a reliever (<=3 starts AND <3.5 IP/outing)
@@ -332,7 +332,7 @@ print(f'  (savant ext: {len(SAV_EXT)} starters w/ perceived-velo + extension)')
 PARK_TRK={'TB':0.10,'MIL':0.05,'TOR':0.05,'MIN':0.05,'HOU':0.05,'ARI':0.05,'TEX':0.05,   # roofs/controlled light -> steadier look
           'COL':-0.05,'SF':-0.05,'ATH':-0.05,'OAK':-0.05,'CIN':-0.05}                     # open sky / shadows / tougher-eye notes# Pitcher allowed-contact term: the pitcher EQUIVALENTS of our batter power trio --
 # tracking terms fold into the MODEL half at TINY seed weights (signs TENTATIVE -> refined from the log)
-W_BTRK=0.02; W_PVEL=0.03
+W_BTRK=0.03; W_PVEL=0.06
 def btrkTfn(r):                                          # better pitch recognition (high in-zone contact, low whiff) -> tiny boost
     zc=r.get('zc'); wh=r.get('whiff')
     if zc is None and wh is None: return 1.0
@@ -343,7 +343,7 @@ def pvTfn(pvelo, velo):                                            # faster oppo
     return 1.0 if v is None else clamp(1-W_PVEL*((v-93.5)/4.0), 1-W_PVEL, 1+W_PVEL)
 def parktrkTfn(pt):                                      # park hitter's-eye judgment -> half-strength multiplier
     return 1+0.5*(pt or 0.0)
-W_XPOW=0.03
+W_XPOW=0.08
 def xpowTfn(xi):                                         # park-neutral expected power (xISO) -> tiny boost
     return 1.0 if xi is None else clamp(1+W_XPOW*((xi-0.16)/0.06), 1-W_XPOW, 1+W_XPOW)
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
@@ -442,7 +442,7 @@ for r in pool:
     _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
     r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso'))
-    r['_mm']=round(r['aT']*powT(r['powidx'])*zoneT(r['zonev'])*fF(r['form'])*r['phr9']*r['parkhr']*pM(r['wf'])*r['slotT']*r['platT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT'],4)   # ISO dropped; park/weather/zone kept  # tracking terms LOG-ONLY, not yet in TOTAL
+    r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT'],4)   # ISO dropped; park/weather/zone kept  # tracking terms LOG-ONLY, not yet in TOTAL
 
 # ---- 50/50 REWEIGHT: scale the market term so its log-spread == our combined model's, then blend (stays a PRODUCT -> client live re-score unaffected) ----
 import math as _math
