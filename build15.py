@@ -182,7 +182,8 @@ ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO el
 cards=load_dated('cards'); lin=load_dated('lineups')
 KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
 W_PEN=0.08          # bullpen-fatigue: small SEEDED weight, pulled from park/weather (already priced by books)
-W_BG=0.15           # bullpen-GAME boost: opener/TBD opposing "starter" -> proven +11% HR rate (full season) + market-underprice hint
+W_BG=0.20           # bullpen-GAME boost: opener/TBD opposing "starter" -> proven +11% HR rate (full season) + market-underprice hint
+W_PARKTRK=0.03           # park hitter's-eye -> edge-half share
 def bullpen_games(date):
     """{team_abbrev: True} for teams throwing an opener/bullpen game today (opposing bats get the boost).
     TBD/null probable -> bullpen game; a named probable who is really a reliever (<=3 starts AND <3.5 IP/outing)
@@ -362,7 +363,7 @@ print(f'  (savant ext: {len(SAV_EXT)} starters w/ perceived-velo + extension)')
 PARK_TRK={'TB':0.10,'MIL':0.05,'TOR':0.05,'MIN':0.05,'HOU':0.05,'ARI':0.05,'TEX':0.05,   # roofs/controlled light -> steadier look
           'COL':-0.05,'SF':-0.05,'ATH':-0.05,'OAK':-0.05,'CIN':-0.05}                     # open sky / shadows / tougher-eye notes# Pitcher allowed-contact term: the pitcher EQUIVALENTS of our batter power trio --
 # tracking terms fold into the MODEL half at TINY seed weights (signs TENTATIVE -> refined from the log)
-W_BTRK=0.08; W_PVEL=0.08
+W_BTRK=0.04; W_PVEL=0.10
 def btrkTfn(r):                                          # better pitch recognition (high in-zone contact, low whiff) -> tiny boost
     zc=r.get('zc'); wh=r.get('whiff')
     if zc is None and wh is None: return 1.0
@@ -373,14 +374,14 @@ def pvTfn(pvelo, velo):                                            # faster oppo
     return 1.0 if v is None else clamp(1-W_PVEL*((v-93.5)/4.0), 1-W_PVEL, 1+W_PVEL)
 def parktrkTfn(pt):                                      # park hitter's-eye judgment -> half-strength multiplier
     return 1+0.5*(pt or 0.0)
-W_XPOW=0.08
+W_XPOW=0.18
 def xpowTfn(xi):                                         # park-neutral expected power (xISO) -> tiny boost
     return 1.0 if xi is None else clamp(1+W_XPOW*((xi-0.16)/0.06), 1-W_XPOW, 1+W_XPOW)
 W_PVDECL=0.08   # opp SP recent fastball velo (28d) vs season avg -> velo drop = losing stuff = batter boost
 def pvdTfn(rvelo, svelo):                                 # recent raw fastball velo vs season; 1.5 mph drop = full weight
     if rvelo is None or svelo is None: return 1.0
     return clamp(1+W_PVDECL*((svelo-rvelo)/1.5), 1-W_PVDECL, 1+W_PVDECL)
-W_SPRAY=0.08
+W_SPRAY=0.09
 def sprayTfn(pull, tilt, ptail):                         # pull% x handed park pull-side tilt x wind-to-pull-field
     if pull is None: return 1.0
     lean=(pull-40.0)/10.0                                # >0 = pulls more than ~league-avg 40%
@@ -388,11 +389,11 @@ def sprayTfn(pull, tilt, ptail):                         # pull% x handed park p
     if tilt is not None: env+=(tilt-1.0)/0.05            # handed park pull-side friendliness (~+-1)
     if ptail is not None: env+=clamp(ptail/8.0,-1.0,1.0) # wind blowing out to the pull field (~+-1)
     return clamp(1+W_SPRAY*lean*clamp(env,-1.5,1.5), 1-W_SPRAY, 1+W_SPRAY)
-W_XPTREND=0.08
+W_XPTREND=0.12
 def xptrendTfn(recent, season):                          # recent (14d) xwOBAcon vs season xwOBAcon -> hot/cold expected-power form
     if recent is None or season is None: return 1.0
     return clamp(1+W_XPTREND*((recent-season)/0.040), 1-W_XPTREND, 1+W_XPTREND)
-W_ARS=0.08
+W_ARS=0.16
 def arsenalTfn(bat, pit):                                # batter run-value-by-pitch-type x opposing pitcher's pitch mix
     if not bat or not pit: return 1.0
     num=0.0; den=0.0
@@ -403,6 +404,14 @@ def arsenalTfn(bat, pit):                                # batter run-value-by-p
         num+=u*rv; den+=u
     if den<=0: return 1.0
     return clamp(1+W_ARS*((num/den)/1.5), 1-W_ARS, 1+W_ARS)
+def arsenal_raw(bat, pit):                               # raw usage-weighted batter run-value/100 vs the pitcher's mix (no clamp)
+    if not bat or not pit: return None
+    num=0.0; den=0.0
+    for pt,pv in pit.items():
+        u=pv.get('usage'); bv=bat.get(pt); rv=(bv.get('rv100') if bv else None)
+        if u is None or rv is None: continue
+        num+=u*rv; den+=u
+    return (num/den) if den>0 else None
 # pulled-barrel%, hard-hit%, fly-ball% ALLOWED -- standardized across the slate's starters.
 # More allowed contact -> more hittable arm -> boosts the hitter. Bounded +-15% (UNVALIDATED yet;
 # the calibration log now carries these per matchup and will confirm/refute as data accrues).
@@ -509,18 +518,37 @@ for r in pool:
     _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext'); r['opp_rvelo']=_ex.get('rvelo')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
     r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo')); r['sprayT']=sprayTfn(r.get('pull'), (PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0, r.get('pull_tail')); r['xptrendT']=xptrendTfn(r.get('xwoba_recent'), r.get('xwcon')); r['arsenalT']=arsenalTfn(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id')))
+    r['_zbg']=r['bg']
+    r['_zxpow']=r.get('xiso')
+    r['_zxptr']=(r['xwoba_recent']-r['xwcon']) if (r.get('xwoba_recent') is not None and r.get('xwcon') is not None) else None
+    _pvr=r.get('opp_pvelo') if r.get('opp_pvelo') is not None else r.get('opp_velo'); r['_zpvel']=(-_pvr) if _pvr is not None else None
+    r['_zpvd']=(r['opp_velo']-r['opp_rvelo']) if (r.get('opp_velo') is not None and r.get('opp_rvelo') is not None) else None
+    r['_zbtrk']=(((r['zc'] or 85)-85)/10.0-((r['whiff'] or 25)-25)/15.0) if (r.get('zc') is not None or r.get('whiff') is not None) else None
+    r['_zpark']=r.get('park_trk')
+    _tlt=(PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0
+    r['_zspray']=(((r['pull']-40.0)/10.0)*(((_tlt-1.0)/0.05)+(clamp(r['pull_tail']/8.0,-1.0,1.0) if r.get('pull_tail') is not None else 0.0))) if r.get('pull') is not None else None
+    r['_zars']=arsenal_raw(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id')))
+    r['_zmkt']=(100.0/(r['odds']+100)) if r.get('odds') else None
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
-# ---- 50/50 REWEIGHT: scale the market term so its log-spread == our combined model's, then blend (stays a PRODUCT -> client live re-score unaffected) ----
-import math as _math
-_lm=[_math.log(r['_mm']) for r in pool if r.get('_mm',0)>0]
-_lk=[_math.log(r['mktT']) for r in pool if r.get('mktT',0)>0]
-_sd_m=(st.pstdev(_lm) if len(_lm)>1 else 0.0) or 1e-9
-_sd_k=(st.pstdev(_lk) if len(_lk)>1 else 0.0) or 1e-9
-MKT_EXP=clamp(_sd_m/_sd_k, 0.5, 6.0)
-print(f'  (reweight: market exp {MKT_EXP:.2f} | model sd {_sd_m:.3f}, mkt sd {_sd_k:.3f})')
+# ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
+_SIG=[('_zbg',W_BG),('_zxpow',W_XPOW),('_zars',W_ARS),('_zxptr',W_XPTREND),('_zpvel',W_PVEL),('_zspray',W_SPRAY),('_zpvd',W_PVDECL),('_zbtrk',W_BTRK),('_zpark',W_PARKTRK)]
+def _ms(key):
+    vals=[r[key] for r in pool if r.get(key) is not None]
+    if len(vals)<2: return (0.0,1.0)
+    m=sum(vals)/len(vals); var=sum((x-m)**2 for x in vals)/len(vals)
+    return (m,(var**0.5) or 1e-9)
+_stat={k:_ms(k) for k,_w in _SIG}; _mkstat=_ms('_zmkt')
 for r in pool:
-    r['mkt_exp']=round(MKT_EXP,3); r['TOTAL']=round(r['_mm']*(r['mktT']**MKT_EXP),1)
+    edge=0.0
+    for k,w in _SIG:
+        x=r.get(k)
+        if x is None: continue
+        mu,sd=_stat[k]; edge+=w*((x-mu)/sd)
+    xm=r.get('_zmkt'); mz=((xm-_mkstat[0])/_mkstat[1]) if xm is not None else 0.0
+    blend=0.5*mz+0.5*edge
+    r['edge_z']=round(edge,4); r['mkt_z']=round(mz,4); r['blend']=round(blend,4)
+    r['TOTAL']=round(100+30*blend,1)
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
