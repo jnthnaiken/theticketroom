@@ -118,7 +118,7 @@ def build_rows(D, homered, extras=None, pstats=None):
             "barrel": p.get('barrel'), "xiso": p.get('xiso'), "xwoba": p.get('xwoba'),     # expected-power (xHR thread)
             "btrkT": p.get('btrkT'), "pvT": p.get('pvT'), "parktrkT": p.get('parktrkT'), "xpowT": p.get('xpowT'), "pvdT": p.get('pvdT'), "sprayT": p.get('sprayT'), "pull": p.get('pull'), "xptrendT": p.get('xptrendT'), "xwoba_recent": p.get('xwoba_recent'), "arsenalT": p.get('arsenalT'),   # tracking + xpower + velo-decline + spray + xpower-trend terms
             "opp_pvelo": p.get('opp_pvelo'), "opp_ext": p.get('opp_ext'), "opp_rvelo": p.get('opp_rvelo'),   # opp SP perceived-velo + extension + recent raw velo
-            "mkt_exp": p.get('mkt_exp'),                                                   # market exponent (50/50 reweight)
+            "mkt_exp": p.get('mkt_exp'), "blend": p.get('blend'), "edge_z": p.get('edge_z'), "mkt_z": p.get('mkt_z'),                                                   # market exponent (50/50 reweight)
         }
         ex = extras.get(norm(p.get('nm', n))) or {}
         for k in KX:
