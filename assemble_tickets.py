@@ -454,26 +454,22 @@ def assemble(D):
         miss = 0                                                       # every kept parlay is full by construction
         return al, pls, miss
 
-    # choose the 4 candidate anchors (one per game) that maximize combined TOTAL among ALL sets whose draft
-    # fills every parlay -- so the board is as strong as possible while still never running a moon short. With
-    # one candidate per game this is only a few hundred sets. Falls back to the fewest-missing set if (on a very
-    # thin slate) nothing fills perfectly.
-    best = None
-    N = len(cand_anchors)
-    for ia in range(N):
-        for ib in range(ia + 1, N):
-            for ic in range(ib + 1, N):
-                for idd in range(ic + 1, N):
-                    al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
-                    sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)  # PREMIUM-FIRST across sets too: a set that ships the full 4-leg salami beats one that starves it, then fewest shorts, then strength
-                    n_moons = sum(1 for t in pls if t['kind'] == 'moon')
-                    score = (n_moons, 1 if sal_ok else 0, round(sum(strength(a) for a in al), 4))   # most clean 2-per-anchor moons first, then salami, then strength
-                    if best is None or score > best[0]:
-                        best = (score, al, pls)
-    if best is None:                                        # fewer than 4 candidates (degenerate slate)
-        anchors, parlays, _ = _draft(cand_anchors)
-    else:
-        _, anchors, parlays = best
+    # TOTAL-FIRST: the strongest candidates by model TOTAL anchor the board. If an anchor's moons can't
+    # fill (no partners in distinct games inside the WIN window), _draft drops it -- its legs return to the
+    # pool -- and we promote the next-strongest candidate, then redraft. Dropped bats fall through to
+    # builders (via 'spent'). No moon-count maximization: the formula's TOTAL decides who anchors.
+    chosen = list(cand_anchors[:4])
+    queue  = list(cand_anchors[4:])
+    anchors, parlays = [], []
+    while True:
+        al, parlays, _ = _draft(chosen)
+        kept = [al[r] for r in sorted({t['rank'] for t in parlays})]
+        need = len(chosen) - len(kept)
+        anchors = kept
+        if need <= 0 or not queue:
+            break
+        chosen = kept + queue[:need]
+        queue  = queue[need:]
 
     parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship a parlay ONLY if fully filled: moons exactly 3 legs, salami exactly 4; dropped bats fall to builders via spent
 
