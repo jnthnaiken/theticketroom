@@ -37399,863 +37399,1155 @@
   "rules_version": "2026-07-01-redraft2"
  },
  "pool": [
-  "Byron Buxton",
-  "Esmerlyn Valdez",
-  "Pete Crow-Armstrong",
-  "Juan Soto",
-  "Shohei Ohtani",
-  "Nick Kurtz",
-  "Ben Rice",
-  "Hunter Goodman",
-  "Miguel Vargas",
-  "Willson Contreras",
-  "Colson Montgomery",
-  "Brandon Lowe",
-  "Ian Happ",
-  "Jackson Chourio",
-  "Bryce Harper",
-  "Michael Busch",
-  "Max Muncy",
-  "Dominic Canzone",
-  "Kazuma Okamoto",
-  "James Wood",
-  "Pete Alonso",
-  "Cal Raleigh",
-  "Kody Clemens",
-  "Christian Walker",
-  "Sal Stewart",
-  "William Contreras"
- ],
+  {
+    "name": "Rocket Fuel",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Shohei Ohtani",
+        "team": "Dodgers",
+        "total": 167.6,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 216,
+        "status": "projected"
+      },
+      {
+        "name": "Casey Schmitt",
+        "team": "Giants",
+        "total": 117.5,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "SF@AZ",
+        "gtime": "9:40 PM",
+        "game": 13,
+        "late": true,
+        "odds": 486,
+        "status": "projected"
+      },
+      {
+        "name": "Ian Happ",
+        "team": "Cubs",
+        "total": 155.8,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 266,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Shohei Ohtani",
+    "lock": "8:05 PM",
+    "has_late": true,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "Tape Measure Job",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Shohei Ohtani",
+        "team": "Dodgers",
+        "total": 167.6,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 216,
+        "status": "projected"
+      },
+      {
+        "name": "Rafael Devers",
+        "team": "Giants",
+        "total": 117.6,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "SF@AZ",
+        "gtime": "9:40 PM",
+        "game": 13,
+        "late": true,
+        "odds": 466,
+        "status": "projected"
+      },
+      {
+        "name": "Mickey Moniak",
+        "team": "Rockies",
+        "total": 129.2,
+        "aT": 100,
+        "wf": 1.139,
+        "gmatch": "MIA@COL",
+        "gtime": "8:40 PM",
+        "game": 10,
+        "late": false,
+        "odds": 286,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Shohei Ohtani",
+    "lock": "8:40 PM",
+    "has_late": true,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "No Doubter",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Pete Crow-Armstrong",
+        "team": "Cubs",
+        "total": 174.6,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 251,
+        "status": "projected"
+      },
+      {
+        "name": "Nick Kurtz",
+        "team": "Athletics",
+        "total": 165.8,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 227,
+        "status": "projected"
+      },
+      {
+        "name": "Heliot Ramos",
+        "team": "Giants",
+        "total": 111.7,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "SF@AZ",
+        "gtime": "9:40 PM",
+        "game": 13,
+        "late": true,
+        "odds": 500,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Pete Crow-Armstrong",
+    "lock": "8:05 PM",
+    "has_late": true,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "The Long Bomb",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Pete Crow-Armstrong",
+        "team": "Cubs",
+        "total": 174.6,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 251,
+        "status": "projected"
+      },
+      {
+        "name": "Hunter Goodman",
+        "team": "Rockies",
+        "total": 164.4,
+        "aT": 100,
+        "wf": 1.139,
+        "gmatch": "MIA@COL",
+        "gtime": "8:40 PM",
+        "game": 10,
+        "late": false,
+        "odds": 267,
+        "status": "projected"
+      },
+      {
+        "name": "Ben Rice",
+        "team": "Yankees",
+        "total": 165.1,
+        "aT": 100,
+        "wf": 1.055,
+        "gmatch": "DET@NYY",
+        "gtime": "7:05 PM",
+        "game": 3,
+        "late": false,
+        "odds": 238,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Pete Crow-Armstrong",
+    "lock": "7:05 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "Crossing the Karman Line",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Esmerlyn Valdez",
+        "team": "Pirates",
+        "total": 177.4,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 450,
+        "status": "projected"
+      },
+      {
+        "name": "Juan Soto",
+        "team": "Mets",
+        "total": 174.5,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "NYM@TOR",
+        "gtime": "7:07 PM",
+        "game": 4,
+        "late": false,
+        "odds": 306,
+        "status": "projected"
+      },
+      {
+        "name": "Willson Contreras",
+        "team": "Red Sox",
+        "total": 160.6,
+        "aT": 100,
+        "wf": 1.04,
+        "gmatch": "WSH@BOS",
+        "gtime": "7:10 PM",
+        "game": 5,
+        "late": false,
+        "odds": 372,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Esmerlyn Valdez",
+    "lock": "6:40 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "Thrust Vector",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Esmerlyn Valdez",
+        "team": "Pirates",
+        "total": 177.4,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 450,
+        "status": "projected"
+      },
+      {
+        "name": "Colson Montgomery",
+        "team": "White Sox",
+        "total": 159.3,
+        "aT": 100,
+        "wf": 1.048,
+        "gmatch": "CWS@BAL",
+        "gtime": "6:35 PM",
+        "game": 1,
+        "late": false,
+        "odds": 249,
+        "status": "projected"
+      },
+      {
+        "name": "Jackson Chourio",
+        "team": "Brewers",
+        "total": 152.8,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "CIN@MIL",
+        "gtime": "7:40 PM",
+        "game": 7,
+        "late": false,
+        "odds": 360,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Esmerlyn Valdez",
+    "lock": "6:35 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "The Tasting Menu",
+    "kind": "biggest",
+    "badge": "🥪",
+    "note": "",
+    "players": [
+      {
+        "name": "Miguel Vargas",
+        "team": "White Sox",
+        "total": 162,
+        "aT": 100,
+        "wf": 1.048,
+        "gmatch": "CWS@BAL",
+        "gtime": "6:35 PM",
+        "game": 1,
+        "late": false,
+        "odds": 353,
+        "status": "projected"
+      },
+      {
+        "name": "Sal Stewart",
+        "team": "Reds",
+        "total": 137.1,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "CIN@MIL",
+        "gtime": "7:40 PM",
+        "game": 7,
+        "late": false,
+        "odds": 348,
+        "status": "projected"
+      },
+      {
+        "name": "Michael Busch",
+        "team": "Cubs",
+        "total": 148.9,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 284,
+        "status": "projected"
+      },
+      {
+        "name": "Kody Clemens",
+        "team": "Twins",
+        "total": 139.8,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "MIN@HOU",
+        "gtime": "8:10 PM",
+        "game": 9,
+        "late": false,
+        "odds": 377,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 4,
+    "anchor": "Miguel Vargas",
+    "lock": "6:35 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s, 3s & 4",
+      "risk": 5.5,
+      "bytwos": false
+    }
+  },
+  {
+    "name": "Closing Time",
+    "kind": "late",
+    "badge": "🌃",
+    "note": "",
+    "players": [
+      {
+        "name": "Shea Langeliers",
+        "team": "Athletics",
+        "total": 184,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 191,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Shea Langeliers",
+    "lock": "9:40 PM",
+    "has_late": true,
+    "final": false,
+    "rr": null
+  },
+  {
+    "name": "Chip Stack",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Shohei Ohtani",
+        "team": "Dodgers",
+        "total": 167.6,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 216,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Shohei Ohtani",
+    "lock": "9:40 PM",
+    "has_late": true,
+    "final": false,
+    "rr": null
+  },
+  {
+    "name": "The Vig Killer",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Pete Crow-Armstrong",
+        "team": "Cubs",
+        "total": 174.6,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 251,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Pete Crow-Armstrong",
+    "lock": "8:05 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
+  },
+  {
+    "name": "Direct Deposit",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Esmerlyn Valdez",
+        "team": "Pirates",
+        "total": 177.4,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 450,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Esmerlyn Valdez",
+    "lock": "6:40 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
+  },
+  {
+    "name": "Rainy Day Fund",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Byron Buxton",
+        "team": "Twins",
+        "total": 189.1,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "MIN@HOU",
+        "gtime": "8:10 PM",
+        "game": 9,
+        "late": false,
+        "odds": 210,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Byron Buxton",
+    "lock": "8:10 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
+  },
+  {
+    "name": "The ATM",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Bryce Harper",
+        "team": "Phillies",
+        "total": 150,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 293,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Bryce Harper",
+    "lock": "6:40 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
+  }
+],
  "tickets": [
   {
-   "name": "Crossing the Karman Line",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Valdez has the jet stream pushing toward the seats, Vargas swings with usable power (65/100), and Happ has loft to spare (19\u00b0).",
-   "players": [
-    {
-     "name": "Esmerlyn Valdez",
-     "team": "Pirates",
-     "total": 177.4,
-     "aT": 100.0,
-     "wf": 1.058,
-     "gmatch": "PIT@PHI",
-     "gtime": "6:40 PM",
-     "game": 2,
-     "late": false,
-     "odds": 450,
-     "status": "projected"
-    },
-    {
-     "name": "Miguel Vargas",
-     "team": "White Sox",
-     "total": 162.0,
-     "aT": 100.0,
-     "wf": 1.048,
-     "gmatch": "CWS@BAL",
-     "gtime": "6:35 PM",
-     "game": 1,
-     "late": false,
-     "odds": 353,
-     "status": "projected"
-    },
-    {
-     "name": "Ian Happ",
-     "team": "Cubs",
-     "total": 155.8,
-     "aT": 100.0,
-     "wf": 1.099,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 266,
-     "status": "projected"
+    "name": "Rocket Fuel",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Shohei Ohtani",
+        "team": "Dodgers",
+        "total": 167.6,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 216,
+        "status": "projected"
+      },
+      {
+        "name": "Casey Schmitt",
+        "team": "Giants",
+        "total": 117.5,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "SF@AZ",
+        "gtime": "9:40 PM",
+        "game": 13,
+        "late": true,
+        "odds": 486,
+        "status": "projected"
+      },
+      {
+        "name": "Ian Happ",
+        "team": "Cubs",
+        "total": 155.8,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 266,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Shohei Ohtani",
+    "lock": "8:05 PM",
+    "has_late": true,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
     }
-   ],
-   "nlegs": 3,
-   "anchor": "Esmerlyn Valdez",
-   "lock": "6:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 150.8,
-    "bytwos": false
-   },
-   "n": 1,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 495.2,
-   "parlay_am": 9019,
-   "payout10": 911.89,
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
   },
   {
-   "name": "No Doubter",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Valdez gets ideal loft (20\u00b0), Contreras lands at 161 in our model, and Chourio is squaring it up (49% hard-hit).",
-   "players": [
-    {
-     "name": "Esmerlyn Valdez",
-     "team": "Pirates",
-     "total": 177.4,
-     "aT": 100.0,
-     "wf": 1.058,
-     "gmatch": "PIT@PHI",
-     "gtime": "6:40 PM",
-     "game": 2,
-     "late": false,
-     "odds": 450,
-     "status": "projected"
-    },
-    {
-     "name": "Willson Contreras",
-     "team": "Red Sox",
-     "total": 160.6,
-     "aT": 100.0,
-     "wf": 1.04,
-     "gmatch": "WSH@BOS",
-     "gtime": "7:10 PM",
-     "game": 5,
-     "late": false,
-     "odds": 372,
-     "status": "projected"
-    },
-    {
-     "name": "Jackson Chourio",
-     "team": "Brewers",
-     "total": 152.8,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "CIN@MIL",
-     "gtime": "7:40 PM",
-     "game": 7,
-     "late": false,
-     "odds": 360,
-     "status": "projected"
+    "name": "Tape Measure Job",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Shohei Ohtani",
+        "team": "Dodgers",
+        "total": 167.6,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 216,
+        "status": "projected"
+      },
+      {
+        "name": "Rafael Devers",
+        "team": "Giants",
+        "total": 117.6,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "SF@AZ",
+        "gtime": "9:40 PM",
+        "game": 13,
+        "late": true,
+        "odds": 466,
+        "status": "projected"
+      },
+      {
+        "name": "Mickey Moniak",
+        "team": "Rockies",
+        "total": 129.2,
+        "aT": 100,
+        "wf": 1.139,
+        "gmatch": "MIA@COL",
+        "gtime": "8:40 PM",
+        "game": 10,
+        "late": false,
+        "odds": 286,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Shohei Ohtani",
+    "lock": "8:40 PM",
+    "has_late": true,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
     }
-   ],
-   "nlegs": 3,
-   "anchor": "Esmerlyn Valdez",
-   "lock": "6:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 190.4,
-    "bytwos": false
-   },
-   "n": 2,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 490.8,
-   "parlay_am": 11842,
-   "payout10": 1194.16,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
   },
   {
-   "name": "Thrust Vector",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong gets ideal loft (21\u00b0), Ohtani lands at 168 in our model, and Canzone is teeing off (53% hard-hit).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 174.6,
-     "aT": 100.0,
-     "wf": 1.099,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 251,
-     "status": "projected"
-    },
-    {
-     "name": "Shohei Ohtani",
-     "team": "Dodgers",
-     "total": 167.6,
-     "aT": 100.0,
-     "wf": 1.111,
-     "gmatch": "LAD@ATH",
-     "gtime": "9:40 PM",
-     "game": 11,
-     "late": true,
-     "odds": 216,
-     "status": "projected"
-    },
-    {
-     "name": "Dominic Canzone",
-     "team": "Mariners",
-     "total": 148.0,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "LAA@SEA",
-     "gtime": "9:40 PM",
-     "game": 12,
-     "late": true,
-     "odds": 359,
-     "status": "projected"
+    "name": "No Doubter",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Pete Crow-Armstrong",
+        "team": "Cubs",
+        "total": 174.6,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 251,
+        "status": "projected"
+      },
+      {
+        "name": "Nick Kurtz",
+        "team": "Athletics",
+        "total": 165.8,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 227,
+        "status": "projected"
+      },
+      {
+        "name": "Heliot Ramos",
+        "team": "Giants",
+        "total": 111.7,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "SF@AZ",
+        "gtime": "9:40 PM",
+        "game": 13,
+        "late": true,
+        "odds": 500,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Pete Crow-Armstrong",
+    "lock": "8:05 PM",
+    "has_late": true,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
     }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "8:05 PM",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 90.6,
-    "bytwos": false
-   },
-   "n": 3,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 490.2,
-   "parlay_am": 4991,
-   "payout10": 509.1,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
   },
   {
-   "name": "Rocket Fuel",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong gets ideal loft (21\u00b0), Kurtz lands at 166 in our model, and Raleigh is teeing off (62% hard-hit).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 174.6,
-     "aT": 100.0,
-     "wf": 1.099,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 251,
-     "status": "projected"
-    },
-    {
-     "name": "Nick Kurtz",
-     "team": "Athletics",
-     "total": 165.8,
-     "aT": 100.0,
-     "wf": 1.111,
-     "gmatch": "LAD@ATH",
-     "gtime": "9:40 PM",
-     "game": 11,
-     "late": true,
-     "odds": 227,
-     "status": "projected"
-    },
-    {
-     "name": "Cal Raleigh",
-     "team": "Mariners",
-     "total": 140.9,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "LAA@SEA",
-     "gtime": "9:40 PM",
-     "game": 12,
-     "late": true,
-     "odds": 300,
-     "status": "projected"
+    "name": "The Long Bomb",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Pete Crow-Armstrong",
+        "team": "Cubs",
+        "total": 174.6,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 251,
+        "status": "projected"
+      },
+      {
+        "name": "Hunter Goodman",
+        "team": "Rockies",
+        "total": 164.4,
+        "aT": 100,
+        "wf": 1.139,
+        "gmatch": "MIA@COL",
+        "gtime": "8:40 PM",
+        "game": 10,
+        "late": false,
+        "odds": 267,
+        "status": "projected"
+      },
+      {
+        "name": "Ben Rice",
+        "team": "Yankees",
+        "total": 165.1,
+        "aT": 100,
+        "wf": 1.055,
+        "gmatch": "DET@NYY",
+        "gtime": "7:05 PM",
+        "game": 3,
+        "late": false,
+        "odds": 238,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Pete Crow-Armstrong",
+    "lock": "7:05 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
     }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "8:05 PM",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 82.5,
-    "bytwos": false
-   },
-   "n": 4,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 481.3,
-   "parlay_am": 4491,
-   "payout10": 459.11,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
   },
   {
-   "name": "The Long Bomb",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Soto is making elite contact (59% hard-hit), Rice has the wind howling out behind him, and Harper is lifting everything (16\u00b0).",
-   "players": [
-    {
-     "name": "Juan Soto",
-     "team": "Mets",
-     "total": 174.5,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "NYM@TOR",
-     "gtime": "7:07 PM",
-     "game": 4,
-     "late": false,
-     "odds": 306,
-     "status": "projected"
-    },
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 165.1,
-     "aT": 100.0,
-     "wf": 1.055,
-     "gmatch": "DET@NYY",
-     "gtime": "7:05 PM",
-     "game": 3,
-     "late": false,
-     "odds": 238,
-     "status": "projected"
-    },
-    {
-     "name": "Bryce Harper",
-     "team": "Phillies",
-     "total": 150.0,
-     "aT": 100.0,
-     "wf": 1.058,
-     "gmatch": "PIT@PHI",
-     "gtime": "6:40 PM",
-     "game": 2,
-     "late": false,
-     "odds": 293,
-     "status": "projected"
+    "name": "Crossing the Karman Line",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Esmerlyn Valdez",
+        "team": "Pirates",
+        "total": 177.4,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 450,
+        "status": "projected"
+      },
+      {
+        "name": "Juan Soto",
+        "team": "Mets",
+        "total": 174.5,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "NYM@TOR",
+        "gtime": "7:07 PM",
+        "game": 4,
+        "late": false,
+        "odds": 306,
+        "status": "projected"
+      },
+      {
+        "name": "Willson Contreras",
+        "team": "Red Sox",
+        "total": 160.6,
+        "aT": 100,
+        "wf": 1.04,
+        "gmatch": "WSH@BOS",
+        "gtime": "7:10 PM",
+        "game": 5,
+        "late": false,
+        "odds": 372,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Esmerlyn Valdez",
+    "lock": "6:40 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
     }
-   ],
-   "nlegs": 3,
-   "anchor": "Juan Soto",
-   "lock": "6:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 94.9,
-    "bytwos": false
-   },
-   "n": 5,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 489.6,
-   "parlay_am": 5293,
-   "payout10": 539.31,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
   },
   {
-   "name": "Tape Measure Job",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Soto is striking it clean and hard (59% hard-hit), Goodman gets a yard playing like a launchpad tonight, and Busch has textbook lift (18\u00b0).",
-   "players": [
-    {
-     "name": "Juan Soto",
-     "team": "Mets",
-     "total": 174.5,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "NYM@TOR",
-     "gtime": "7:07 PM",
-     "game": 4,
-     "late": false,
-     "odds": 306,
-     "status": "projected"
-    },
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 164.4,
-     "aT": 100.0,
-     "wf": 1.139,
-     "gmatch": "MIA@COL",
-     "gtime": "8:40 PM",
-     "game": 10,
-     "late": false,
-     "odds": 267,
-     "status": "projected"
-    },
-    {
-     "name": "Michael Busch",
-     "team": "Cubs",
-     "total": 148.9,
-     "aT": 100.0,
-     "wf": 1.099,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 284,
-     "status": "projected"
+    "name": "Thrust Vector",
+    "kind": "moon",
+    "badge": "🚀",
+    "note": "",
+    "players": [
+      {
+        "name": "Esmerlyn Valdez",
+        "team": "Pirates",
+        "total": 177.4,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 450,
+        "status": "projected"
+      },
+      {
+        "name": "Colson Montgomery",
+        "team": "White Sox",
+        "total": 159.3,
+        "aT": 100,
+        "wf": 1.048,
+        "gmatch": "CWS@BAL",
+        "gtime": "6:35 PM",
+        "game": 1,
+        "late": false,
+        "odds": 249,
+        "status": "projected"
+      },
+      {
+        "name": "Jackson Chourio",
+        "team": "Brewers",
+        "total": 152.8,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "CIN@MIL",
+        "gtime": "7:40 PM",
+        "game": 7,
+        "late": false,
+        "odds": 360,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 3,
+    "anchor": "Esmerlyn Valdez",
+    "lock": "6:35 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s & 3",
+      "risk": 2,
+      "bytwos": false
     }
-   ],
-   "nlegs": 3,
-   "anchor": "Juan Soto",
-   "lock": "7:07 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 99.8,
-    "bytwos": false
-   },
-   "n": 6,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 487.8,
-   "parlay_am": 5622,
-   "payout10": 572.17,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
   },
   {
-   "name": "The Tasting Menu",
-   "kind": "biggest",
-   "badge": "\ud83e\udd6a",
-   "note": "Buxton gets ideal loft (19\u00b0), Montgomery lands at 159 in our model, Lowe is teeing off (52% hard-hit), and Okamoto packs elite raw power, a 100/100 grade.",
-   "players": [
-    {
-     "name": "Miguel Vargas",
-     "team": "White Sox",
-     "total": 162,
-     "aT": 100.0,
-     "wf": 1.048,
-     "gmatch": "CWS@BAL",
-     "gtime": "6:35 PM",
-     "game": 1,
-     "late": false,
-     "odds": 353,
-     "status": "projected"
-    },
-    {
-     "name": "Sal Stewart",
-     "team": "Reds",
-     "total": 137.1,
-     "aT": 100.0,
-     "wf": 1,
-     "gmatch": "CIN@MIL",
-     "gtime": "7:40 PM",
-     "game": 7,
-     "late": false,
-     "odds": 348,
-     "status": "projected"
-    },
-    {
-     "name": "Michael Busch",
-     "team": "Cubs",
-     "total": 148.9,
-     "aT": 100.0,
-     "wf": 1.099,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 284,
-     "status": "projected"
-    },
-    {
-     "name": "Kody Clemens",
-     "team": "Twins",
-     "total": 139.8,
-     "aT": 100.0,
-     "wf": 1,
-     "gmatch": "MIN@HOU",
-     "gtime": "8:10 PM",
-     "game": 9,
-     "late": false,
-     "odds": 377,
-     "status": "projected"
+    "name": "The Tasting Menu",
+    "kind": "biggest",
+    "badge": "🥪",
+    "note": "",
+    "players": [
+      {
+        "name": "Miguel Vargas",
+        "team": "White Sox",
+        "total": 162,
+        "aT": 100,
+        "wf": 1.048,
+        "gmatch": "CWS@BAL",
+        "gtime": "6:35 PM",
+        "game": 1,
+        "late": false,
+        "odds": 353,
+        "status": "projected"
+      },
+      {
+        "name": "Sal Stewart",
+        "team": "Reds",
+        "total": 137.1,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "CIN@MIL",
+        "gtime": "7:40 PM",
+        "game": 7,
+        "late": false,
+        "odds": 348,
+        "status": "projected"
+      },
+      {
+        "name": "Michael Busch",
+        "team": "Cubs",
+        "total": 148.9,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 284,
+        "status": "projected"
+      },
+      {
+        "name": "Kody Clemens",
+        "team": "Twins",
+        "total": 139.8,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "MIN@HOU",
+        "gtime": "8:10 PM",
+        "game": 9,
+        "late": false,
+        "odds": 377,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 4,
+    "anchor": "Miguel Vargas",
+    "lock": "6:35 PM",
+    "has_late": false,
+    "final": false,
+    "rr": {
+      "struct": "by 2s, 3s & 4",
+      "risk": 5.5,
+      "bytwos": false
     }
-   ],
-   "nlegs": 4,
-   "anchor": "Miguel Vargas",
-   "lock": "6:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 5.5,
-    "maxprofit": 424.6,
-    "bytwos": false
-   },
-   "n": 7,
-   "priced": 4,
-   "confleg": 0,
-   "sum": 400.0,
-   "msum": 655.0,
-   "parlay_am": 16499,
-   "payout10": 1659.91,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 2,
-    "neu": 0
-   }
   },
   {
-   "name": "Closing Time",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Shea Langeliers gets a yard playing like a launchpad tonight, puts air under the ball (21\u00b0), is driving balls into the gaps (52% hard-hit).",
-   "players": [
-    {
-     "name": "Shea Langeliers",
-     "team": "Athletics",
-     "total": 184.0,
-     "aT": 100.0,
-     "wf": 1.111,
-     "gmatch": "LAD@ATH",
-     "gtime": "9:40 PM",
-     "game": 11,
-     "late": true,
-     "odds": 191,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Shea Langeliers",
-   "lock": "9:40 PM",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "n": 8,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 184.0,
-   "parlay_am": 191,
-   "payout10": 29.1,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
+    "name": "Closing Time",
+    "kind": "late",
+    "badge": "🌃",
+    "note": "",
+    "players": [
+      {
+        "name": "Shea Langeliers",
+        "team": "Athletics",
+        "total": 184,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 191,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Shea Langeliers",
+    "lock": "9:40 PM",
+    "has_late": true,
+    "final": false,
+    "rr": null
   },
   {
-   "name": "Chip Stack",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Esmerlyn Valdez has gusts carrying balls over the wall, is leaving scorch marks (71% hard-hit), keeps the ball in the air (20\u00b0).",
-   "players": [
-    {
-     "name": "Esmerlyn Valdez",
-     "team": "Pirates",
-     "total": 177.4,
-     "aT": 100.0,
-     "wf": 1.058,
-     "gmatch": "PIT@PHI",
-     "gtime": "6:40 PM",
-     "game": 2,
-     "late": false,
-     "odds": 450,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Esmerlyn Valdez",
-   "lock": "6:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 9,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 177.4,
-   "parlay_am": 450,
-   "payout10": 55.0,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
+    "name": "Chip Stack",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Shohei Ohtani",
+        "team": "Dodgers",
+        "total": 167.6,
+        "aT": 100,
+        "wf": 1.111,
+        "gmatch": "LAD@ATH",
+        "gtime": "9:40 PM",
+        "game": 11,
+        "late": true,
+        "odds": 216,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Shohei Ohtani",
+    "lock": "9:40 PM",
+    "has_late": true,
+    "final": false,
+    "rr": null
   },
   {
-   "name": "The Vig Killer",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Pete Crow-Armstrong plays in a wind tunnel pointed at the seats, is crushing the baseball (53% hard-hit), stays in the launch zone (21\u00b0).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 174.6,
-     "aT": 100.0,
-     "wf": 1.099,
-     "gmatch": "SD@CHC",
-     "gtime": "8:05 PM",
-     "game": 8,
-     "late": false,
-     "odds": 251,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "8:05 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 10,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 174.6,
-   "parlay_am": 251,
-   "payout10": 35.1,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
+    "name": "The Vig Killer",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Pete Crow-Armstrong",
+        "team": "Cubs",
+        "total": 174.6,
+        "aT": 100,
+        "wf": 1.099,
+        "gmatch": "SD@CHC",
+        "gtime": "8:05 PM",
+        "game": 8,
+        "late": false,
+        "odds": 251,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Pete Crow-Armstrong",
+    "lock": "8:05 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
   },
   {
-   "name": "Direct Deposit",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Juan Soto is teeing off (59% hard-hit), carries serious thump (82/100 grade), lands at 175 in our model, on stable footing lately.",
-   "players": [
-    {
-     "name": "Juan Soto",
-     "team": "Mets",
-     "total": 174.5,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "NYM@TOR",
-     "gtime": "7:07 PM",
-     "game": 4,
-     "late": false,
-     "odds": 306,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Juan Soto",
-   "lock": "7:07 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 11,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 174.5,
-   "parlay_am": 306,
-   "payout10": 40.6,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
+    "name": "Direct Deposit",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Esmerlyn Valdez",
+        "team": "Pirates",
+        "total": 177.4,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 450,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Esmerlyn Valdez",
+    "lock": "6:40 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
   },
   {
-   "name": "Rainy Day Fund",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Byron Buxton is scorching the ball (62% hard-hit), finds the home-run trajectory (19\u00b0), brings light-tower raw power (100/100).",
-   "players": [
-    {
-     "name": "Byron Buxton",
-     "team": "Twins",
-     "total": 189.1,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "MIN@HOU",
-     "gtime": "8:10 PM",
-     "game": 9,
-     "late": false,
-     "odds": 210,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Byron Buxton",
-   "lock": "8:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 12,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 189.1,
-   "parlay_am": 210,
-   "payout10": 31.0,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
+    "name": "Rainy Day Fund",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Byron Buxton",
+        "team": "Twins",
+        "total": 189.1,
+        "aT": 100,
+        "wf": 1,
+        "gmatch": "MIN@HOU",
+        "gtime": "8:10 PM",
+        "game": 9,
+        "late": false,
+        "odds": 210,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Byron Buxton",
+    "lock": "8:10 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
   },
   {
-   "name": "The ATM",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Max Muncy has the wind howling out behind him, is barreling up enough (50% hard-hit), brings average-plus thump (54/100).",
-   "players": [
-    {
-     "name": "Max Muncy",
-     "team": "Athletics",
-     "total": 148.1,
-     "aT": 100.0,
-     "wf": 1.111,
-     "gmatch": "LAD@ATH",
-     "gtime": "9:40 PM",
-     "game": 11,
-     "late": true,
-     "odds": 412,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Max Muncy",
-   "lock": "9:40 PM",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "n": 13,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 148.1,
-   "parlay_am": 412,
-   "payout10": 51.2,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Milk Money",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "James Wood is squaring up premium contact (65% hard-hit), gets a touch of carry tonight, brings fringe-average pop (34/100).",
-   "players": [
-    {
-     "name": "James Wood",
-     "team": "Nationals",
-     "total": 144.6,
-     "aT": 100.0,
-     "wf": 1.04,
-     "gmatch": "WSH@BOS",
-     "gtime": "7:10 PM",
-     "game": 5,
-     "late": false,
-     "odds": 414,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "James Wood",
-   "lock": "7:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 14,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 144.6,
-   "parlay_am": 414,
-   "payout10": 51.4,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Tab Settled",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Pete Alonso is tattooing the baseball (58% hard-hit), swings with home-run loft (20\u00b0), gets a sliver of help from the park.",
-   "players": [
-    {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 144.0,
-     "aT": 100.0,
-     "wf": 1.048,
-     "gmatch": "CWS@BAL",
-     "gtime": "6:35 PM",
-     "game": 1,
-     "late": false,
-     "odds": 277,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Alonso",
-   "lock": "6:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 15,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 144.0,
-   "parlay_am": 277,
-   "payout10": 37.7,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
+    "name": "The ATM",
+    "kind": "builder",
+    "badge": "💰",
+    "note": "",
+    "players": [
+      {
+        "name": "Bryce Harper",
+        "team": "Phillies",
+        "total": 150,
+        "aT": 100,
+        "wf": 1.058,
+        "gmatch": "PIT@PHI",
+        "gtime": "6:40 PM",
+        "game": 2,
+        "late": false,
+        "odds": 293,
+        "status": "projected"
+      }
+    ],
+    "nlegs": 1,
+    "anchor": "Bryce Harper",
+    "lock": "6:40 PM",
+    "has_late": false,
+    "final": false,
+    "rr": null
   }
- ]
+]
 }
