@@ -454,7 +454,7 @@ def assemble(D):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
                     sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)
                     n_moons = sum(1 for t in pls if t['kind'] == 'moon')
-                    score = (n_moons, 1 if sal_ok else 0, round(sum(strength(a) for a in al), 4))
+                    score = (1 if sal_ok else 0, n_moons, round(sum(strength(a) for a in al), 4))   # salami first, then most moons, then strength
                     if best is None or score > best[0]:
                         best = (score, al, pls)
     if best is None:                                                   # fewer than 4 candidates (degenerate slate)
