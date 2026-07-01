@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T21:13:24Z",
+  "pulled_at": "2026-07-01T21:30:27Z",
   "games": [
     {
       "gamePk": 824818,
@@ -700,7 +700,7 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 805999,
@@ -710,7 +710,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 676724,
@@ -1552,7 +1552,7 @@
     },
     {
       "gamePk": 824985,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-02T01:40:00Z",
       "matchup": "LAD@ATH",
       "away": {
@@ -1572,10 +1572,56 @@
           "hr9": 0.91,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.226
+          },
+          {
+            "id": 701762,
+            "name": "Nick Kurtz",
+            "iso": 0.24
+          },
+          {
+            "id": 687515,
+            "name": "Colby Thomas",
+            "iso": 0.175
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.229
+          },
+          {
+            "id": 811965,
+            "name": "Joshua Kuroda-Grauer",
+            "iso": 0.142
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.105
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.084
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.077
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1591,7 +1637,7 @@
     },
     {
       "gamePk": 825064,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-02T01:40:00Z",
       "matchup": "SF@ARI",
       "away": {
@@ -1613,10 +1659,56 @@
           "hr9": 1.56,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.221
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.116
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.249
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.154
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.102
+          },
+          {
+            "id": 680728,
+            "name": "Adrian Del Castillo",
+            "iso": 0.111
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.154
+          },
+          {
+            "id": 656976,
+            "name": "Pavin Smith",
+            "iso": 0.065
+          },
+          {
+            "id": 694371,
+            "name": "Tommy Troy",
+            "iso": 0.147
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
