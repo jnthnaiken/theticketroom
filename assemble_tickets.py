@@ -379,10 +379,7 @@ def assemble(D):
                 pls.append({'rank': i, 'kind': 'moon', 'badge': "\U0001f680",
                             'rr': {"struct": "by 2s & 3", "risk": 2.0},
                             'legs': [al[i]], 'need': 2, 'games': {P[al[i]]['game']}})
-        if sidx is not None:                                            # salami drafts at its anchor's own snake position
-            pls.append({'rank': sidx, 'kind': 'biggest', 'badge': "\U0001f96a",
-                        'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
-                        'legs': [al[sidx]], 'need': 3, 'games': {P[al[sidx]]['game']}})
+        # (the salami is assembled AFTER the moons below, from the legs they leave behind -- moons get first pick)
         def fits(t, n):
             if P[n]['game'] in t['games']:
                 return False
@@ -390,13 +387,7 @@ def assemble(D):
             return (max(ts) - min(ts)) <= WIN
         def needy(t):
             return (len(t['legs']) - 1) < t['need']
-        for t in pls:                                                   # PREMIUM FIRST: fill the salami to a full 4 before the moons compete for legs
-            if t['kind'] == 'biggest':
-                while needy(t):
-                    pick = next((n for n in pool_av if fits(t, n)), None)
-                    if pick is None:
-                        break
-                    t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick)
+        # (no salami pre-fill: moons fill first, then the salami takes leftovers -- see after the demote loop)
         # (no re-task: a salami that cannot fill is dropped by the demote loop below; its legs free up for the moons -- per README)
         def _fill_round():                                             # round-robin: weakest anchor picks first, fills BOTH its tickets before the next
             rnd = 0
@@ -425,6 +416,19 @@ def assemble(D):
             pls[:] = [t for t in pls if t['rank'] != drop]
             pool_av[:] = byS(pool_av)
             _fill_round()
+        # MOONS WIN, SALAMI IS LEFTOVER: with every kept moon full, build the salami on the weakest
+        # anchor (al[sidx]) from the legs the moons left behind. If it can't reach 4 legs, it doesn't ship.
+        if sidx is not None:
+            sal = {'rank': sidx, 'kind': 'biggest', 'badge': "\U0001f96a",
+                   'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
+                   'legs': [al[sidx]], 'need': 3, 'games': {P[al[sidx]]['game']}}
+            while needy(sal):
+                pick = next((n for n in pool_av if fits(sal, n)), None)
+                if pick is None:
+                    break
+                sal['legs'].append(pick); sal['games'].add(P[pick]['game']); pool_av.remove(pick)
+            if (len(sal['legs']) - 1) >= sal['need']:
+                pls.append(sal)
         miss = 0
         return al, pls, miss
 
