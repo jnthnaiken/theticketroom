@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T22:00:35Z",
+  "pulled_at": "2026-07-01T22:30:33Z",
   "games": [
     {
       "gamePk": 824818,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 822791,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-01T19:07:00Z",
       "matchup": "NYM@TOR",
       "away": {
@@ -700,17 +700,17 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.148
+            "iso": 0.172
           },
           {
             "id": 805999,
             "name": "A.J. Ewing",
-            "iso": 0.135
+            "iso": 0.133
           },
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.186
+            "iso": 0.184
           },
           {
             "id": 676724,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823446,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-01T22:40:00Z",
       "matchup": "PIT@PHI",
       "away": {
@@ -929,7 +929,7 @@
         "wind_mph": 7.5,
         "wind_dir": 170,
         "tail_mph": 6.8,
-        "precip": 8
+        "precip": 9
       },
       "wf": 1.046
     },
@@ -1062,7 +1062,7 @@
         "wind_mph": 0.7,
         "wind_dir": 252,
         "tail_mph": 0.6,
-        "precip": 6
+        "precip": 5
       },
       "wf": 1.023
     },
@@ -1592,7 +1592,7 @@
         "wind_mph": 10.2,
         "wind_dir": 38,
         "tail_mph": -8.0,
-        "precip": 3
+        "precip": 2
       },
       "wf": 0.981
     },
@@ -1607,8 +1607,54 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.246
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.208
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.201
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.2
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.247
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.14
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.184
+          },
+          {
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.093
+          },
+          {
+            "id": 642020,
+            "name": "Chuckie Robinson",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
