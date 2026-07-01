@@ -379,7 +379,7 @@ def assemble(D):
                 if len(legs) == 3:
                     break
             return sum(strength(n) for n in legs) if len(legs) == 3 else -1e9
-        sidx = max(range(len(al)), key=lambda i: _fitpool(al[i])) if len(al) >= 4 else None
+        sidx = len(al) - 1 if len(al) >= 4 else None                            # README: salami rides the WEAKEST (4th) anchor -> demote loop drops it first
         mids = [i for i in range(len(al)) if i != sidx]
         pls = []
         for i in mids:                                                  # two moons per non-salami anchor
@@ -405,16 +405,7 @@ def assemble(D):
                     if pick is None:
                         break
                     t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick)
-        for t in list(pls):                                             # salami can't structurally fill -> re-task its anchor to moons
-            if t['kind'] == 'biggest' and needy(t):
-                for n in t['legs'][1:]:
-                    if n not in pool_av: pool_av.append(n)
-                pool_av[:] = byS(pool_av)
-                r = t['rank']; pls.remove(t)
-                for _ in range(MOONS_PER_ANC):
-                    pls.append({'rank': r, 'kind': 'moon', 'badge': "\U0001f680",
-                                'rr': {"struct": "by 2s & 3", "risk": 2.0},
-                                'legs': [al[r]], 'need': 2, 'games': {P[al[r]]['game']}})
+        # (no re-task: a salami that cannot fill is dropped by the demote loop below; its legs free up for the moons -- per README)
         def _fill_round():                                             # round-robin: weakest anchor picks first, fills BOTH its tickets before the next
             rnd = 0
             while any(needy(t) for t in pls):
@@ -454,7 +445,7 @@ def assemble(D):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
                     sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)
                     n_moons = sum(1 for t in pls if t['kind'] == 'moon')
-                    score = (1 if sal_ok else 0, n_moons, round(sum(strength(a) for a in al), 4))   # salami first, then most moons, then strength
+                    score = (n_moons, 1 if sal_ok else 0, round(sum(strength(a) for a in al), 4))   # most clean moons first, salami as tiebreak, then strength
                     if best is None or score > best[0]:
                         best = (score, al, pls)
     if best is None:                                                   # fewer than 4 candidates (degenerate slate)
