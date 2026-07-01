@@ -170,18 +170,12 @@ def assemble(D):
     # anchor CANDIDATES: strongest nonchalk by STRENGTH, one per game, never pending/below-floor.
     # The final 4 anchors are chosen from these for the best fittable schedule (see the draft below), so
     # every moon fills three legs -- we never ship a 2-leg moon.
-    # MULTIPLE ANCHORS PER GAME allowed: two bats from one game can both anchor (each leads its own
-    # tickets with legs from OTHER games -- a ticket still never repeats a game). The <=3/game POOL cap
-    # already bounds how many of a game's bats reach the board, so a game can put at most 3 bats total
-    # (anchors + legs) on the slate. Cap the candidate list so the O(N^4) anchor-set search stays cheap.
-    ANCHOR_CAND_MAX = 12
-    cand_anchors = []
+    cand_anchors, seen = [], set()
     for n in byS(nonchalk):
-        if pend(n) or _precip(n) >= 40:   # 40-49% rain -> still a parlay leg/builder, but never an anchor
+        g = P[n]['game']
+        if g in seen or pend(n) or _precip(n) >= 40:   # one anchor per game; 40%+ rain never anchors
             continue
-        cand_anchors.append(n)
-        if len(cand_anchors) >= ANCHOR_CAND_MAX:
-            break
+        cand_anchors.append(n); seen.add(g)
 
     tickets, used = [], set()
 
@@ -366,33 +360,26 @@ def assemble(D):
         rest = [_lastnm(P[n].get('nm', n)) for n in names[1:]]
         return _clmp(anc + ", with " + _join(rest) + ".", B)
 
-    # ---- ANCHOR SELECTION + SNAKE DRAFT (update 5) ----
-    # We want the 4 strongest anchors whose lineup-timing schedule can actually FEED the board. A moon needs its
-    # anchor + two legs all inside one WIN-minute window AND in distinct games, so a thin / time-isolated anchor
-    # can leave a moon short. A per-anchor score can't see the cross-leg span (two legs reachable from the anchor
-    # may still be >WIN apart from each other), so we TEST it: draft a candidate set, and if any parlay comes up
-    # short, swap the anchor owning the most shorts for the next candidate by TOTAL and re-draft -- keeping the
-    # set that fills (fewest missing legs, then highest combined TOTAL). Inside a kept set the draft runs as
-    # usual: salami on the best fittable anchor, two moons on every other, snake weakest-anchor-first, both of an
-    # anchor's tickets before the next anchor. The strongest leftover bats always land in a parlay; never #42+.
-
+    # ---- ANCHOR SELECTION + SNAKE DRAFT (restored: exhaustive best-fillable set) ----
+    # Pick the 4 anchors (from cand_anchors, one per game) whose draft fills the most clean 2-per-anchor
+    # moons, then ships the salami, then maximizes combined strength. TOTAL-first: strongest fillable
+    # anchors lead the board; a time-isolated anchor that can't fill is simply not chosen.
     def _draft(anchor_list):
         al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
-        pool_av = [n for n in byS(nonchalk) if n not in al
-                   and not pend(n)]           # the 33 only; never reach into #42+ extra
-        def _fitpool(a):                                                # STRENGTH of the 3 legs this anchor can fill a 4-leg salami with -- span-aware: anchor + its 3 partners must ALL fit one WIN window (mirrors fits()); an anchor that can't reach 3 distinct games inside the window can't ship a salami and is ranked unusable so the salami routes to a cluster that CAN fill
+        pool_av = [n for n in byS(nonchalk) if n not in al and not pend(n)]
+        def _fitpool(a):                                                # STRENGTH of the 3 legs this anchor can fill a 4-leg salami with (span-aware)
             reach, seen, legs, times = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), [], [tmin(a)]
-            for n in reach:                                             # one bat per distinct game -- a ticket can't repeat a game (same rule the draft enforces)
+            for n in reach:
                 if P[n]['game'] in seen:
                     continue
                 t2 = times + [tmin(n)]
-                if max(t2) - min(t2) > WIN:                             # adding this leg blows the earliest->latest span -> can't sit in the salami together
+                if max(t2) - min(t2) > WIN:
                     continue
                 seen.add(P[n]['game']); legs.append(n); times.append(tmin(n))
                 if len(legs) == 3:
                     break
-            return sum(strength(n) for n in legs) if len(legs) == 3 else -1e9   # must reach a full 3 partners inside the window or it can't anchor the salami
-        sidx = 0 if len(al) >= 4 else None     # salami led by the BEST anchor (al is sorted by -strength); it drafts in the snake, no premium pick
+            return sum(strength(n) for n in legs) if len(legs) == 3 else -1e9
+        sidx = max(range(len(al)), key=lambda i: _fitpool(al[i])) if len(al) >= 4 else None
         mids = [i for i in range(len(al)) if i != sidx]
         pls = []
         for i in mids:                                                  # two moons per non-salami anchor
@@ -404,9 +391,6 @@ def assemble(D):
             pls.append({'rank': sidx, 'kind': 'biggest', 'badge': "\U0001f96a",
                         'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
                         'legs': [al[sidx]], 'need': 3, 'games': {P[al[sidx]]['game']}})
-        byr = {}
-        for t in pls:
-            byr.setdefault(t['rank'], []).append(t)
         def fits(t, n):
             if P[n]['game'] in t['games']:
                 return False
@@ -414,12 +398,23 @@ def assemble(D):
             return (max(ts) - min(ts)) <= WIN
         def needy(t):
             return (len(t['legs']) - 1) < t['need']
-        # NO PREMIUM PICK: the salami drafts INSIDE the snake at its (best) anchor's slot, same as the
-        # moons -- it competes leg-for-leg instead of front-running them. If it still can't fill after the
-        # snake it is re-tasked to moons below, so the strongest bat still leads a parlay, never a single.
-        byr = {}
-        for t in pls:
-            byr.setdefault(t['rank'], []).append(t)
+        for t in pls:                                                   # PREMIUM FIRST: fill the salami to a full 4 before the moons compete for legs
+            if t['kind'] == 'biggest':
+                while needy(t):
+                    pick = next((n for n in pool_av if fits(t, n)), None)
+                    if pick is None:
+                        break
+                    t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick)
+        for t in list(pls):                                             # salami can't structurally fill -> re-task its anchor to moons
+            if t['kind'] == 'biggest' and needy(t):
+                for n in t['legs'][1:]:
+                    if n not in pool_av: pool_av.append(n)
+                pool_av[:] = byS(pool_av)
+                r = t['rank']; pls.remove(t)
+                for _ in range(MOONS_PER_ANC):
+                    pls.append({'rank': r, 'kind': 'moon', 'badge': "\U0001f680",
+                                'rr': {"struct": "by 2s & 3", "risk": 2.0},
+                                'legs': [al[r]], 'need': 2, 'games': {P[al[r]]['game']}})
         def _fill_round():                                             # round-robin: weakest anchor picks first, fills BOTH its tickets before the next
             rnd = 0
             while any(needy(t) for t in pls):
@@ -438,32 +433,36 @@ def assemble(D):
                 if not progressed:
                     break
         _fill_round()
-        # CLEAN 2-PER-ANCHOR MOONS: an anchor ships ALL its parlays full or none at all. If the slate is too thin
-        # to fill the whole board, demote the WEAKEST anchor (highest strength-index -- a moon anchor OR the salami)
-        # to a builder, hand its legs back, and re-fill the survivors. Repeat until everything left fills cleanly,
-        # so we never ship a lopsided 2/2/1. Demoted anchors + any still-stranded legs aren't 'spent' -> builders.
-        _full = lambda t: (len(t['legs']) - 1) >= t['need']
-        miss = sum(1 for t in pls if not _full(t))   # no demote here -- the selection drops the unfillable anchors and promotes the next-strongest
+        _full = lambda t: (len(t['legs']) - 1) >= t['need']            # clean N-per-anchor: an anchor ships ALL its parlays or none
+        while pls and not all(_full(t) for t in pls):
+            drop = max(t['rank'] for t in pls)                          # weakest anchor by strength-index
+            for t in [x for x in pls if x['rank'] == drop]:
+                for n in t['legs'][1:]:
+                    if n not in pool_av: pool_av.append(n)
+            pls[:] = [t for t in pls if t['rank'] != drop]
+            pool_av[:] = byS(pool_av)
+            _fill_round()
+        miss = 0
         return al, pls, miss
 
-    # TOTAL-FIRST: the strongest candidates by model TOTAL anchor the board. If an anchor's moons can't
-    # fill (no partners in distinct games inside the WIN window), _draft drops it -- its legs return to the
-    # pool -- and we promote the next-strongest candidate, then redraft. Dropped bats fall through to
-    # builders (via 'spent'). No moon-count maximization: the formula's TOTAL decides who anchors.
-    chosen = list(cand_anchors[:4])
-    queue  = list(cand_anchors[4:])
-    anchors, parlays = [], []
-    while True:
-        al, parlays, _ = _draft(chosen)
-        kept = [al[r] for r in sorted({t['rank'] for t in parlays}) if all((len(x['legs'])-1) >= x['need'] for x in parlays if x['rank'] == r)]
-        need = len(chosen) - len(kept)
-        anchors = kept
-        if need <= 0 or not queue:
-            break
-        chosen = kept + queue[:need]
-        queue  = queue[need:]
+    best = None                                                        # exhaustive best-fillable-set search over one-per-game candidates
+    N = len(cand_anchors)
+    for ia in range(N):
+        for ib in range(ia + 1, N):
+            for ic in range(ib + 1, N):
+                for idd in range(ic + 1, N):
+                    al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
+                    sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)
+                    n_moons = sum(1 for t in pls if t['kind'] == 'moon')
+                    score = (n_moons, 1 if sal_ok else 0, round(sum(strength(a) for a in al), 4))
+                    if best is None or score > best[0]:
+                        best = (score, al, pls)
+    if best is None:                                                   # fewer than 4 candidates (degenerate slate)
+        anchors, parlays, _ = _draft(cand_anchors)
+    else:
+        _, anchors, parlays = best
 
-    parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship a parlay ONLY if fully filled: moons exactly 3 legs, salami exactly 4; dropped bats fall to builders via spent
+    parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship only fully-filled parlays; dropped bats fall to builders
 
     # CANONICAL NAMING: a moon's name is tied to its LEG SET, not its output position.
     # Without this, two moons sharing an anchor can swap names on a rebuild (the partner pairs
