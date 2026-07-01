@@ -1,11 +1,11 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T19:21:31Z",
+  "pulled_at": "2026-07-01T19:30:27Z",
   "games": [
     {
       "gamePk": 824818,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-01T16:35:00Z",
       "matchup": "CWS@BAL",
       "away": {
@@ -215,7 +215,7 @@
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 656555,
@@ -291,7 +291,7 @@
           {
             "id": 678554,
             "name": "Curtis Mead",
-            "iso": 0.243
+            "iso": 0.242
           },
           {
             "id": 665953,
@@ -353,7 +353,7 @@
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.165
+            "iso": 0.164
           },
           {
             "id": 575929,
@@ -424,7 +424,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.266
+            "iso": 0.264
           },
           {
             "id": 681481,
@@ -545,7 +545,7 @@
         "sp": {
           "id": 621111,
           "name": "Walker Buehler",
-          "hr9": 1.0,
+          "hr9": 0.99,
           "hand": "RHP"
         },
         "lineup": [
@@ -587,7 +587,7 @@
           {
             "id": 660710,
             "name": "Rodolfo Dur\u00e1n",
-            "iso": 0.2
+            "iso": 0.197
           },
           {
             "id": 823550,
@@ -602,7 +602,7 @@
         "sp": {
           "id": 607067,
           "name": "Colin Rea",
-          "hr9": 1.24,
+          "hr9": 1.22,
           "hand": "RHP"
         },
         "lineup": [
@@ -614,7 +614,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.103
+            "iso": 0.102
           },
           {
             "id": 683737,
@@ -624,12 +624,12 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.23
+            "iso": 0.229
           },
           {
             "id": 663538,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 822791,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-01T19:07:00Z",
       "matchup": "NYM@TOR",
       "away": {
@@ -685,12 +685,12 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.265
+            "iso": 0.264
           },
           {
             "id": 666182,
@@ -735,7 +735,7 @@
         "sp": {
           "id": 680755,
           "name": "Braydon Fisher",
-          "hr9": 1.23,
+          "hr9": 1.21,
           "hand": "RHP"
         },
         "lineup": [
@@ -930,7 +930,7 @@
     },
     {
       "gamePk": 824094,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T23:40:00Z",
       "matchup": "TB@KC",
       "away": {
@@ -952,10 +952,56 @@
           "hr9": 1.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.122
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.185
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.213
+          },
+          {
+            "id": 516782,
+            "name": "Starling Marte",
+            "iso": 0.074
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.127
+          },
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.195
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.162
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.0
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.179
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1097,7 +1143,7 @@
     },
     {
       "gamePk": 824337,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-02T00:40:00Z",
       "matchup": "MIA@COL",
       "away": {
@@ -1119,10 +1165,56 @@
           "hr9": 2.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.188
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.301
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.298
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.196
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.122
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.091
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.123
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.141
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.122
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
