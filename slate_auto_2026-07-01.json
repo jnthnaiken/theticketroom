@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T15:30:26Z",
+  "pulled_at": "2026-07-01T15:40:28Z",
   "games": [
     {
       "gamePk": 824818,
@@ -559,8 +559,54 @@
           "hr9": 1.28,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.231
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.104
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.155
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.18
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.229
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.097
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.213
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.132
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.192
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -578,7 +624,7 @@
     },
     {
       "gamePk": 822791,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T19:07:00Z",
       "matchup": "NYM@TOR",
       "away": {
@@ -600,10 +646,56 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.124
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.08
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.226
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.168
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.125
+          },
+          {
+            "id": 682818,
+            "name": "Yohendrick Pi\u00f1ango",
+            "iso": 0.159
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.138
+          },
+          {
+            "id": 815873,
+            "name": "Sean Keys",
+            "iso": 0.0
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",

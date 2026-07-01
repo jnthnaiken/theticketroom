@@ -40180,7 +40180,7 @@
     "precip": 0
    }
   },
-  "build": "7/1 11:30am",
+  "build": "7/1 11:40am",
   "face": {},
   "maxAT": 100.0,
   "season": {
@@ -40251,20 +40251,45 @@
   },
   "date": "2026-07-01",
   "gs": {},
-  "tickets": 14,
-  "rules_version": "2026-06-30-total-first-anchors"
+  "pool": 450,
+  "tickets": 17,
+  "rules_version": "2026-07-01-redraft"
  },
+ "pool": [
+  "Willson Contreras",
+  "Shea Langeliers",
+  "Ben Rice",
+  "Hunter Goodman",
+  "Nick Kurtz",
+  "Juan Soto",
+  "Esmerlyn Valdez",
+  "Kerry Carpenter",
+  "Pete Crow-Armstrong",
+  "Wilyer Abreu",
+  "Miguel Vargas",
+  "Matt Olson",
+  "Manny Machado",
+  "Colby Thomas",
+  "Pete Alonso",
+  "James Wood",
+  "Bryce Harper",
+  "Ketel Marte",
+  "Riley Greene",
+  "Jackson Chourio",
+  "Jonathan Aranda",
+  "Gavin Sheets"
+ ],
  "tickets": [
   {
-   "name": "Onto the Concourse",
+   "name": "No Doubter",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Vargas gets a touch of carry tonight, Carpenter is hitting frozen ropes (54% hard-hit), and Machado stays in the launch zone (21\u00b0).",
+   "note": "Vargas gets a touch of carry tonight, Contreras is squaring up premium contact (56% hard-hit), and Carpenter gets ideal loft (20\u00b0).",
    "players": [
     {
      "name": "Miguel Vargas",
      "team": "White Sox",
-     "total": 150.1,
+     "total": 148.6,
      "aT": 100.0,
      "wf": 1.048,
      "gmatch": "CWS@BAL",
@@ -40275,9 +40300,22 @@
      "status": "confirmed"
     },
     {
+     "name": "Willson Contreras",
+     "team": "Red Sox",
+     "total": 180.7,
+     "aT": 100.0,
+     "wf": 1.06,
+     "gmatch": "WSH@BOS",
+     "gtime": "1:35 PM",
+     "game": 3,
+     "late": false,
+     "odds": 388,
+     "status": "projected"
+    },
+    {
      "name": "Kerry Carpenter",
      "team": "Tigers",
-     "total": 155.1,
+     "total": 153.7,
      "aT": 100.0,
      "wf": 1.058,
      "gmatch": "DET@NYY",
@@ -40286,19 +40324,6 @@
      "late": false,
      "odds": 280,
      "status": "projected"
-    },
-    {
-     "name": "Manny Machado",
-     "team": "Padres",
-     "total": 148.7,
-     "aT": 100.0,
-     "wf": 1.098,
-     "gmatch": "SD@CHC",
-     "gtime": "2:20 PM",
-     "game": 5,
-     "late": false,
-     "odds": 265,
-     "status": "projected"
     }
    ],
    "nlegs": 3,
@@ -40309,16 +40334,16 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2.0,
-    "maxprofit": 103.1,
+    "maxprofit": 133.1,
     "bytwos": false
    },
    "n": 1,
    "priced": 3,
    "confleg": 1,
    "sum": 300.0,
-   "msum": 453.9,
-   "parlay_am": 5836,
-   "payout10": 593.64,
+   "msum": 483.0,
+   "parlay_am": 7837,
+   "payout10": 793.68,
    "wxsum": {
     "boost": 3,
     "supp": 0,
@@ -40327,15 +40352,15 @@
    }
   },
   {
-   "name": "No Doubter",
+   "name": "Rocket Fuel",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Vargas catches a small park boost, Crow-Armstrong is denting outfield walls (53% hard-hit), and Wood brings fringe-average pop (35/100).",
+   "note": "Vargas gets a sliver of help from the park, Rice is tattooing the baseball (60% hard-hit), and Crow-Armstrong hits it on the perfect plane (21\u00b0).",
    "players": [
     {
      "name": "Miguel Vargas",
      "team": "White Sox",
-     "total": 150.1,
+     "total": 148.6,
      "aT": 100.0,
      "wf": 1.048,
      "gmatch": "CWS@BAL",
@@ -40346,9 +40371,22 @@
      "status": "confirmed"
     },
     {
+     "name": "Ben Rice",
+     "team": "Yankees",
+     "total": 173.7,
+     "aT": 100.0,
+     "wf": 1.058,
+     "gmatch": "DET@NYY",
+     "gtime": "1:35 PM",
+     "game": 4,
+     "late": false,
+     "odds": 225,
+     "status": "projected"
+    },
+    {
      "name": "Pete Crow-Armstrong",
      "team": "Cubs",
-     "total": 151.9,
+     "total": 150.8,
      "aT": 100.0,
      "wf": 1.098,
      "gmatch": "SD@CHC",
@@ -40356,19 +40394,6 @@
      "game": 5,
      "late": false,
      "odds": 265,
-     "status": "projected"
-    },
-    {
-     "name": "James Wood",
-     "team": "Nationals",
-     "total": 147.4,
-     "aT": 100.0,
-     "wf": 1.06,
-     "gmatch": "WSH@BOS",
-     "gtime": "1:35 PM",
-     "game": 3,
-     "late": false,
-     "odds": 275,
      "status": "projected"
     }
    ],
@@ -40380,16 +40405,16 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2.0,
-    "maxprofit": 101.9,
+    "maxprofit": 90.2,
     "bytwos": false
    },
    "n": 2,
    "priced": 3,
    "confleg": 1,
    "sum": 300.0,
-   "msum": 449.4,
-   "parlay_am": 5758,
-   "payout10": 585.82,
+   "msum": 473.1,
+   "parlay_am": 4977,
+   "payout10": 507.71,
    "wxsum": {
     "boost": 3,
     "supp": 0,
@@ -40406,7 +40431,7 @@
     {
      "name": "Matt Olson",
      "team": "Braves",
-     "total": 149.8,
+     "total": 148.5,
      "aT": 100.0,
      "wf": 1.049,
      "gmatch": "STL@ATL",
@@ -40419,7 +40444,7 @@
     {
      "name": "Hunter Goodman",
      "team": "Rockies",
-     "total": 171.7,
+     "total": 170.2,
      "aT": 100.0,
      "wf": 1.205,
      "gmatch": "MIA@COL",
@@ -40432,7 +40457,7 @@
     {
      "name": "Bryce Harper",
      "team": "Phillies",
-     "total": 146.3,
+     "total": 144.9,
      "aT": 100.0,
      "wf": 1.065,
      "gmatch": "PIT@PHI",
@@ -40458,7 +40483,7 @@
    "priced": 3,
    "confleg": 0,
    "sum": 300.0,
-   "msum": 467.8,
+   "msum": 463.6,
    "parlay_am": 5653,
    "payout10": 575.28,
    "wxsum": {
@@ -40477,7 +40502,7 @@
     {
      "name": "Matt Olson",
      "team": "Braves",
-     "total": 149.8,
+     "total": 148.5,
      "aT": 100.0,
      "wf": 1.049,
      "gmatch": "STL@ATL",
@@ -40490,7 +40515,7 @@
     {
      "name": "Esmerlyn Valdez",
      "team": "Pirates",
-     "total": 158.7,
+     "total": 156.4,
      "aT": 100.0,
      "wf": 1.065,
      "gmatch": "PIT@PHI",
@@ -40503,7 +40528,7 @@
     {
      "name": "Jackson Chourio",
      "team": "Brewers",
-     "total": 142.5,
+     "total": 141.0,
      "aT": 100.0,
      "wf": 1.0,
      "gmatch": "CIN@MIL",
@@ -40529,151 +40554,9 @@
    "priced": 3,
    "confleg": 0,
    "sum": 300.0,
-   "msum": 451.0,
+   "msum": 445.9,
    "parlay_am": 10363,
    "payout10": 1046.28,
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Rocket Fuel",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Contreras plays in a wind tunnel pointed at the seats, Rice is scorching the ball (60% hard-hit), and Alonso has a swing built for the seats (20\u00b0).",
-   "players": [
-    {
-     "name": "Willson Contreras",
-     "team": "Red Sox",
-     "total": 149.5,
-     "aT": 100.0,
-     "wf": 1.06,
-     "gmatch": "WSH@BOS",
-     "gtime": "1:35 PM",
-     "game": 3,
-     "late": false,
-     "odds": 388,
-     "status": "projected"
-    },
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 175.2,
-     "aT": 100.0,
-     "wf": 1.058,
-     "gmatch": "DET@NYY",
-     "gtime": "1:35 PM",
-     "game": 4,
-     "late": false,
-     "odds": 225,
-     "status": "projected"
-    },
-    {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 148.0,
-     "aT": 100.0,
-     "wf": 1.048,
-     "gmatch": "CWS@BAL",
-     "gtime": "12:35 PM",
-     "game": 1,
-     "late": false,
-     "odds": 290,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Willson Contreras",
-   "lock": "12:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 107.4,
-    "bytwos": false
-   },
-   "n": 5,
-   "priced": 3,
-   "confleg": 1,
-   "sum": 300.0,
-   "msum": 472.7,
-   "parlay_am": 6085,
-   "payout10": 618.54,
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Tape Measure Job",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Contreras has the jet stream pushing toward the seats, Soto is tattooing the baseball (59% hard-hit), and Greene swings with home-run loft (16\u00b0).",
-   "players": [
-    {
-     "name": "Willson Contreras",
-     "team": "Red Sox",
-     "total": 149.5,
-     "aT": 100.0,
-     "wf": 1.06,
-     "gmatch": "WSH@BOS",
-     "gtime": "1:35 PM",
-     "game": 3,
-     "late": false,
-     "odds": 388,
-     "status": "projected"
-    },
-    {
-     "name": "Juan Soto",
-     "team": "Mets",
-     "total": 164.2,
-     "aT": 100.0,
-     "wf": 1.0,
-     "gmatch": "NYM@TOR",
-     "gtime": "3:07 PM",
-     "game": 6,
-     "late": false,
-     "odds": 325,
-     "status": "projected"
-    },
-    {
-     "name": "Riley Greene",
-     "team": "Tigers",
-     "total": 144.7,
-     "aT": 100.0,
-     "wf": 1.058,
-     "gmatch": "DET@NYY",
-     "gtime": "1:35 PM",
-     "game": 4,
-     "late": false,
-     "odds": 313,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Willson Contreras",
-   "lock": "1:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2.0,
-    "maxprofit": 142.1,
-    "bytwos": false
-   },
-   "n": 6,
-   "priced": 3,
-   "confleg": 0,
-   "sum": 300.0,
-   "msum": 458.4,
-   "parlay_am": 8466,
-   "payout10": 856.56,
    "wxsum": {
     "boost": 2,
     "supp": 0,
@@ -40690,7 +40573,7 @@
     {
      "name": "Shohei Ohtani",
      "team": "Dodgers",
-     "total": 204.4,
+     "total": 202.4,
      "aT": 100.0,
      "wf": 1.109,
      "gmatch": "LAD@ATH",
@@ -40707,11 +40590,11 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 7,
+   "n": 5,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
-   "msum": 204.4,
+   "msum": 202.4,
    "parlay_am": 192,
    "payout10": 29.2,
    "wxsum": {
@@ -40725,12 +40608,12 @@
    "name": "The Vig Killer",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Miguel Vargas gets a sliver of help from the park, carries a solid power grade (66/100), he's locked in at the plate lately.",
+   "note": "Miguel Vargas catches a small park boost, carries a solid power grade (66/100), he's locked in at the plate lately, the model bumps him to 149.",
    "players": [
     {
      "name": "Miguel Vargas",
      "team": "White Sox",
-     "total": 150.1,
+     "total": 148.6,
      "aT": 100.0,
      "wf": 1.048,
      "gmatch": "CWS@BAL",
@@ -40747,11 +40630,11 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 8,
+   "n": 6,
    "priced": 1,
    "confleg": 1,
    "sum": 100.0,
-   "msum": 150.1,
+   "msum": 148.6,
    "parlay_am": 328,
    "payout10": 42.8,
    "wxsum": {
@@ -40765,12 +40648,12 @@
    "name": "Direct Deposit",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Matt Olson is stinging it on a rope (62% hard-hit), puts air under the ball (22\u00b0), plays in a slightly friendly yard.",
+   "note": "Matt Olson is stinging it on a rope (62% hard-hit), swings with home-run loft (22\u00b0), plays in a slightly friendly yard.",
    "players": [
     {
      "name": "Matt Olson",
      "team": "Braves",
-     "total": 149.8,
+     "total": 148.5,
      "aT": 100.0,
      "wf": 1.049,
      "gmatch": "STL@ATL",
@@ -40787,11 +40670,11 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 9,
+   "n": 7,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
-   "msum": 149.8,
+   "msum": 148.5,
    "parlay_am": 300,
    "payout10": 40.0,
    "wxsum": {
@@ -40805,52 +40688,12 @@
    "name": "Rainy Day Fund",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Willson Contreras has the wind howling out behind him, is crushing it to all fields (56% hard-hit), packs respectable power (58/100 grade).",
-   "players": [
-    {
-     "name": "Willson Contreras",
-     "team": "Red Sox",
-     "total": 149.5,
-     "aT": 100.0,
-     "wf": 1.06,
-     "gmatch": "WSH@BOS",
-     "gtime": "1:35 PM",
-     "game": 3,
-     "late": false,
-     "odds": 388,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Willson Contreras",
-   "lock": "1:35 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 10,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 149.5,
-   "parlay_am": 388,
-   "payout10": 48.8,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "The ATM",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Shea Langeliers gets a yard playing like a launchpad tonight, is leaving scorch marks (52% hard-hit), has textbook lift (21\u00b0).",
+   "note": "Shea Langeliers plays in a wind tunnel pointed at the seats, is leaving scorch marks (52% hard-hit), puts air under the ball (21\u00b0).",
    "players": [
     {
      "name": "Shea Langeliers",
      "team": "Athletics",
-     "total": 195.3,
+     "total": 177.8,
      "aT": 100.0,
      "wf": 1.109,
      "gmatch": "LAD@ATH",
@@ -40867,11 +40710,11 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 11,
+   "n": 8,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
-   "msum": 195.3,
+   "msum": 177.8,
    "parlay_am": 255,
    "payout10": 35.5,
    "wxsum": {
@@ -40882,15 +40725,15 @@
    }
   },
   {
-   "name": "Milk Money",
+   "name": "The ATM",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Nick Kurtz has gusts carrying balls over the wall, is barreling everything in sight (66% hard-hit), finds the home-run trajectory (18\u00b0).",
+   "note": "Nick Kurtz has gusts carrying balls over the wall, is scorching the ball (66% hard-hit), finds the home-run trajectory (18\u00b0).",
    "players": [
     {
      "name": "Nick Kurtz",
      "team": "Athletics",
-     "total": 185.1,
+     "total": 167.9,
      "aT": 100.0,
      "wf": 1.109,
      "gmatch": "LAD@ATH",
@@ -40907,11 +40750,11 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 12,
+   "n": 9,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
-   "msum": 185.1,
+   "msum": 167.9,
    "parlay_am": 265,
    "payout10": 36.5,
    "wxsum": {
@@ -40922,7 +40765,127 @@
    }
   },
   {
+   "name": "Milk Money",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Juan Soto is crushing the baseball (59% hard-hit), has plenty of raw power (85/100), lands at 162 in our model, due to run into one.",
+   "players": [
+    {
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 162.3,
+     "aT": 100.0,
+     "wf": 1.0,
+     "gmatch": "NYM@TOR",
+     "gtime": "3:07 PM",
+     "game": 6,
+     "late": false,
+     "odds": 325,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Juan Soto",
+   "lock": "3:07 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 10,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 162.3,
+   "parlay_am": 325,
+   "payout10": 42.5,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   }
+  },
+  {
    "name": "Tab Settled",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Wilyer Abreu plays in a wind tunnel pointed at the seats, is blistering line drives (52% hard-hit).",
+   "players": [
+    {
+     "name": "Wilyer Abreu",
+     "team": "Red Sox",
+     "total": 150.5,
+     "aT": 100.0,
+     "wf": 1.06,
+     "gmatch": "WSH@BOS",
+     "gtime": "1:35 PM",
+     "game": 3,
+     "late": false,
+     "odds": 450,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Wilyer Abreu",
+   "lock": "1:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 11,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 150.5,
+   "parlay_am": 450,
+   "payout10": 55.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Cash Is King",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Manny Machado has the wind howling out behind him, is hammering the ball (56% hard-hit), launches it at the right angle (21\u00b0).",
+   "players": [
+    {
+     "name": "Manny Machado",
+     "team": "Padres",
+     "total": 147.7,
+     "aT": 100.0,
+     "wf": 1.098,
+     "gmatch": "SD@CHC",
+     "gtime": "2:20 PM",
+     "game": 5,
+     "late": false,
+     "odds": 265,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Manny Machado",
+   "lock": "2:20 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 12,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 147.7,
+   "parlay_am": 265,
+   "payout10": 36.5,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Paid in Full",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
    "note": "Colby Thomas gets a park that's launching everything tonight, is driving the ball (49% hard-hit).",
@@ -40930,7 +40893,7 @@
     {
      "name": "Colby Thomas",
      "team": "Athletics",
-     "total": 165.1,
+     "total": 147.5,
      "aT": 100.0,
      "wf": 1.109,
      "gmatch": "LAD@ATH",
@@ -40951,7 +40914,7 @@
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
-   "msum": 165.1,
+   "msum": 147.5,
    "parlay_am": 450,
    "payout10": 55.0,
    "wxsum": {
@@ -40962,15 +40925,95 @@
    }
   },
   {
-   "name": "Cash Is King",
+   "name": "Bag Secured",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Ketel Marte is squaring up premium contact (57% hard-hit), has enough pop to clear it (63/100 power), our number on him is 146 tonight.",
+   "note": "Pete Alonso is lighting up the radar gun (58% hard-hit), stays in the launch zone (20\u00b0), has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 146.8,
+     "aT": 100.0,
+     "wf": 1.048,
+     "gmatch": "CWS@BAL",
+     "gtime": "12:35 PM",
+     "game": 1,
+     "late": false,
+     "odds": 290,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Alonso",
+   "lock": "12:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 14,
+   "priced": 1,
+   "confleg": 1,
+   "sum": 100.0,
+   "msum": 146.8,
+   "parlay_am": 290,
+   "payout10": 39.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "The Sure Thing",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "James Wood has the jet stream pushing toward the seats, is barreling balls at will (65% hard-hit).",
+   "players": [
+    {
+     "name": "James Wood",
+     "team": "Nationals",
+     "total": 146.4,
+     "aT": 100.0,
+     "wf": 1.06,
+     "gmatch": "WSH@BOS",
+     "gtime": "1:35 PM",
+     "game": 3,
+     "late": false,
+     "odds": 275,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "James Wood",
+   "lock": "1:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 15,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 146.4,
+   "parlay_am": 275,
+   "payout10": 37.5,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Easy Money",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Ketel Marte is hitting it on the screws (57% hard-hit), has enough pop to clear it (63/100 power), our number on him is 144 tonight.",
    "players": [
     {
      "name": "Ketel Marte",
      "team": "Diamondbacks",
-     "total": 145.8,
+     "total": 144.0,
      "aT": 100.0,
      "wf": 1.0,
      "gmatch": "SF@AZ",
@@ -40987,17 +41030,57 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 14,
+   "n": 16,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
-   "msum": 145.8,
+   "msum": 144.0,
    "parlay_am": 423,
    "payout10": 52.3,
    "wxsum": {
     "boost": 0,
     "supp": 0,
     "dome": 1,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Stack It High",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Riley Greene swings with the wind at his back, is generating elite exit velo (56% hard-hit), has textbook lift (16\u00b0).",
+   "players": [
+    {
+     "name": "Riley Greene",
+     "team": "Tigers",
+     "total": 143.5,
+     "aT": 100.0,
+     "wf": 1.058,
+     "gmatch": "DET@NYY",
+     "gtime": "1:35 PM",
+     "game": 4,
+     "late": false,
+     "odds": 313,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Riley Greene",
+   "lock": "1:35 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 17,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 143.5,
+   "parlay_am": 313,
+   "payout10": 41.3,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
     "neu": 0
    }
   }
