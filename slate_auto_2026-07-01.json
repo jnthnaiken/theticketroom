@@ -1,11 +1,11 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T16:08:57Z",
+  "pulled_at": "2026-07-01T16:30:29Z",
   "games": [
     {
       "gamePk": 824818,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-01T16:35:00Z",
       "matchup": "CWS@BAL",
       "away": {
@@ -681,8 +681,54 @@
           "hr9": 1.18,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.132
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.265
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.131
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.151
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.137
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.189
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.198
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.084
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.131
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
