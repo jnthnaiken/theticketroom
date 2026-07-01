@@ -145,21 +145,13 @@ def assemble(D):
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
-    # STRENGTH = norm(TOTAL) alone. TOTAL already embeds the market at +/-30% (its heaviest term),
-    # likelihood (implied prob from the HR odds), each min-max normalized across the 33. This is the single
-    # key that decides roles board-wide -- anchors, salami, moon legs, builder order -- so a long-odds bat the
-    # model loves (e.g. a Coors flier at +680) no longer anchors over a likelier, nearly-as-strong bat. We
-    # don't out-predict the market, so likelihood gets a real vote; projection still leads so a short-odds
-    # weak-projection bat can't float to the top. TOTAL is unchanged and still shown; this only drives picks.
-    _ip   = lambda o: (100.0/(o+100) if o > 0 else abs(o)/(abs(o)+100.0)) if o else 0.0
+    # STRENGTH = normalized TOTAL, nothing else. TOTAL already carries the market -- the ~50% odds /
+    # 50% edge blend is baked into TOTAL (via mktT) -- so ranking by TOTAL alone avoids double-counting the
+    # odds. This one key decides every role board-wide: anchors, salami, moon legs, and builder order.
     _Ts   = [P[n]['TOTAL'] for n in nonchalk] or [0]
-    _Is   = [_ip(P[n]['odds']) for n in nonchalk] or [0]
     _tmn, _tmx = min(_Ts), max(_Ts)
-    _imn, _imx = min(_Is), max(_Is)
     def strength(n):
-        nt = (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
-        ni = (_ip(P[n]['odds']) - _imn) / (_imx - _imn) if _imx > _imn else 0.5
-        return nt   # rank by TOTAL alone (market already ~70% of TOTAL via mktT; no double-count)
+        return (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5   # TOTAL alone
     byS = lambda names: sorted(names, key=strength, reverse=True)   # board-wide role/order key
 
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]
