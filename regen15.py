@@ -49,9 +49,10 @@ _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('me
 # self-clearing: re-draft once if the prior draft predates the ISO drop OR was built under older rules.
 _stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
 _ruleschg = _same_slate and ((prevD.get('meta') or {}).get('rules_version') != RULES_VERSION)
-if _stale or _ruleschg:
-    print("  (forcing one fresh re-draft: %s)" % ("stale ISO notes" if _stale else "draft rules changed"))
-if _same_slate and not _stale and not _ruleschg:
+_scratched = _same_slate and any((((D.get('players') or {}).get(l.get('name')) or {}).get('out')) or (((D.get('players') or {}).get(l.get('name')) or {}).get('void')) for t in prevD.get('tickets', []) for l in (t.get('players') or []))   # ROOT FIX: a preserved ticket has a now-scratched/void leg -> re-draft so the committed board never grades a benched player
+if _stale or _ruleschg or _scratched:
+    print("  (forcing one fresh re-draft: %s)" % ("stale ISO notes" if _stale else ("draft rules changed" if _ruleschg else "a leg was scratched/void")))
+if _same_slate and not _stale and not _ruleschg and not _scratched:
     D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
     D.setdefault('meta', {})['tickets'] = len(D['tickets'])
     print("  (same slate -> preserved %d prior tickets; no re-draft)" % len(D['tickets']))
