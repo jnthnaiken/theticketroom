@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T21:00:32Z",
+  "pulled_at": "2026-07-01T21:13:24Z",
   "games": [
     {
       "gamePk": 824818,
@@ -398,7 +398,7 @@
         "wind_mph": 3.3,
         "wind_dir": 290,
         "tail_mph": 1.4,
-        "precip": 2
+        "precip": 0
       },
       "wf": 1.044
     },
@@ -531,13 +531,13 @@
         "wind_mph": 9.8,
         "wind_dir": 163,
         "tail_mph": 8.3,
-        "precip": 8
+        "precip": 9
       },
       "wf": 1.068
     },
     {
       "gamePk": 824660,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-01T18:20:00Z",
       "matchup": "SD@CHC",
       "away": {
@@ -685,12 +685,12 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.262
+            "iso": 0.261
           },
           {
             "id": 666182,
@@ -777,7 +777,7 @@
           {
             "id": 815873,
             "name": "Sean Keys",
-            "iso": 0.3
+            "iso": 0.273
           },
           {
             "id": 665926,
@@ -929,7 +929,7 @@
         "wind_mph": 2.9,
         "wind_dir": 189,
         "tail_mph": 2.9,
-        "precip": 9
+        "precip": 8
       },
       "wf": 1.033
     },
@@ -1062,7 +1062,7 @@
         "wind_mph": 0.8,
         "wind_dir": 304,
         "tail_mph": 0.2,
-        "precip": 7
+        "precip": 6
       },
       "wf": 1.022
     },
@@ -1401,8 +1401,54 @@
           "hr9": 0.69,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.238
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.19
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.129
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.236
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.185
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.162
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.234
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.026
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.064
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
