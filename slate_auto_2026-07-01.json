@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T15:00:28Z",
+  "pulled_at": "2026-07-01T15:30:26Z",
   "games": [
     {
       "gamePk": 824818,
@@ -73,8 +73,54 @@
           "hr9": 3.27,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.19
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.199
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.102
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.222
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.186
+          },
+          {
+            "id": 641933,
+            "name": "Tyler O'Neill",
+            "iso": 0.088
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.112
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.19
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -231,10 +277,10 @@
       "away": {
         "abbrev": "WSH",
         "sp": {
-          "id": 674841,
-          "name": "Andrew Alvarez",
-          "hr9": 0.49,
-          "hand": "LHP"
+          "id": 695418,
+          "name": "Brad Lord",
+          "hr9": 0.99,
+          "hand": "RHP"
         },
         "lineup": [
           {
@@ -445,7 +491,7 @@
     },
     {
       "gamePk": 824660,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T18:20:00Z",
       "matchup": "SD@CHC",
       "away": {
@@ -456,8 +502,54 @@
           "hr9": 0.69,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.099
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.229
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.21
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.239
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.13
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.104
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.049
+          },
+          {
+            "id": 660710,
+            "name": "Rodolfo Dur\u00e1n",
+            "iso": 0.203
+          },
+          {
+            "id": 823550,
+            "name": "Sung-Mun Song",
+            "iso": 0.036
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -470,7 +562,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
