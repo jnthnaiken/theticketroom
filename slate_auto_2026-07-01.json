@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-01T19:30:27Z",
+  "pulled_at": "2026-07-01T19:34:11Z",
   "games": [
     {
       "gamePk": 824818,
@@ -358,7 +358,7 @@
           {
             "id": 575929,
             "name": "Willson Contreras",
-            "iso": 0.249
+            "iso": 0.247
           },
           {
             "id": 663853,
@@ -592,7 +592,7 @@
           {
             "id": 823550,
             "name": "Sung-Mun Song",
-            "iso": 0.053
+            "iso": 0.104
           }
         ],
         "confirmed": true
@@ -700,7 +700,7 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.151
+            "iso": 0.149
           },
           {
             "id": 805999,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823446,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-01T22:40:00Z",
       "matchup": "PIT@PHI",
       "away": {
@@ -824,10 +824,56 @@
           "hr9": 0.96,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.121
+          },
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.327
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.258
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.203
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.128
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.151
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.119
+          },
+          {
+            "id": 687282,
+            "name": "Gabriel Rincones Jr.",
+            "iso": 0.079
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
