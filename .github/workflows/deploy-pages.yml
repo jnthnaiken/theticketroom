@@ -43,3 +43,5 @@ jobs:
           path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000   # wait up to 30 min for Pages to publish (default 10 min was timing out during Pages congestion)
