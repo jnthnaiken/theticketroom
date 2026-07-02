@@ -414,6 +414,10 @@ def assemble(D):
                 for n in t['legs'][1:]:
                     if n not in pool_av: pool_av.append(n)
             pls[:] = [t for t in pls if t['rank'] != drop]
+            for t in pls:                                               # FULL REDRAFT: return every SURVIVING ticket's legs too and rebuild from scratch -- a demoted anchor's freed longshots re-enter the pool for the strongest anchors, instead of being handed to whoever was still needy while already-placed anchors keep weak leftovers
+                for n in t['legs'][1:]:
+                    if n not in pool_av: pool_av.append(n)
+                t['legs'] = [t['legs'][0]]; t['games'] = {P[t['legs'][0]]['game']}
             pool_av[:] = byS(pool_av)
             _fill_round()
         # MOONS WIN, SALAMI IS LEFTOVER: with every kept moon full, build the salami on the weakest
