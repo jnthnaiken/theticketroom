@@ -27,7 +27,7 @@ NIGHT_WIN     = 60              # nightcap window = games starting within 60 min
 CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
-Z_GATE        = 1.0              # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40)
+Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40). Lowered 1.0->0.75 to deepen the pool (more legs -> more moons on fragmented slates).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
 WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay
