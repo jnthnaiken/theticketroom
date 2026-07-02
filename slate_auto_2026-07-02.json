@@ -1,7 +1,7 @@
 {
   "date": "2026-07-02",
   "season": "2026",
-  "pulled_at": "2026-07-02T15:42:15Z",
+  "pulled_at": "2026-07-02T16:00:29Z",
   "games": [
     {
       "gamePk": 823442,
@@ -128,10 +128,10 @@
         "emoji": "\u26c5",
         "cond": "wind out 4mph, 104\u00b0",
         "lean": "Boost",
-        "temp": 103.9,
-        "wind_mph": 7.8,
-        "wind_dir": 252,
-        "tail_mph": 4.2,
+        "temp": 103.8,
+        "wind_mph": 8.4,
+        "wind_dir": 253,
+        "tail_mph": 4.5,
         "precip": 0
       },
       "wf": 1.066
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 824335,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-02T19:10:00Z",
       "matchup": "MIA@COL",
       "away": {
@@ -292,22 +292,68 @@
           "hr9": 1.43,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.185
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.328
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.193
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.119
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.121
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.218
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.153
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.165
+          },
+          {
+            "id": 666397,
+            "name": "Edouard Julien",
+            "iso": 0.078
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 5mph, 92\u00b0",
-        "lean": "Neutral",
-        "temp": 91.9,
-        "wind_mph": 9.1,
-        "wind_dir": 59,
-        "tail_mph": -4.7,
+        "cond": "calm 1mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 91.3,
+        "wind_mph": 10.1,
+        "wind_dir": 84,
+        "tail_mph": -1.1,
         "precip": 5
       },
-      "wf": 1.016
+      "wf": 1.028
     },
     {
       "gamePk": 824416,
@@ -342,9 +388,9 @@
         "emoji": "\u26c5",
         "cond": "wind out 4mph, 86\u00b0",
         "lean": "Boost",
-        "temp": 86.5,
-        "wind_mph": 4.6,
-        "wind_dir": 219,
+        "temp": 86.4,
+        "wind_mph": 4.2,
+        "wind_dir": 212,
         "tail_mph": 3.6,
         "precip": 1
       },
@@ -381,15 +427,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 86\u00b0",
+        "cond": "calm 3mph, 86\u00b0",
         "lean": "Boost",
-        "temp": 85.9,
-        "wind_mph": 4.0,
-        "wind_dir": 207,
-        "tail_mph": 3.7,
+        "temp": 85.7,
+        "wind_mph": 4.5,
+        "wind_dir": 177,
+        "tail_mph": 2.7,
         "precip": 1
       },
-      "wf": 1.037
+      "wf": 1.033
     },
     {
       "gamePk": 824093,
@@ -422,11 +468,11 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 85\u00b0",
+        "cond": "wind out 5mph, 84\u00b0",
         "lean": "Boost",
-        "temp": 84.7,
-        "wind_mph": 7.8,
-        "wind_dir": 177,
+        "temp": 84.5,
+        "wind_mph": 6.7,
+        "wind_dir": 186,
         "tail_mph": 5.2,
         "precip": 1
       },
@@ -545,10 +591,10 @@
         "emoji": "\u26c5",
         "cond": "calm 3mph, 60\u00b0",
         "lean": "Neutral",
-        "temp": 59.8,
-        "wind_mph": 3.0,
-        "wind_dir": 193,
-        "tail_mph": 2.9,
+        "temp": 60.1,
+        "wind_mph": 3.2,
+        "wind_dir": 172,
+        "tail_mph": 2.7,
         "precip": 0
       },
       "wf": 0.995
