@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
   "season": "2026",
-  "pulled_at": "2026-07-02T02:00:37Z",
+  "pulled_at": "2026-07-02T02:30:28Z",
   "games": [
     {
       "gamePk": 824818,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823446,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-01T22:40:00Z",
       "matchup": "PIT@PHI",
       "away": {
@@ -923,15 +923,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 6mph, 86\u00b0",
-        "lean": "Neutral",
-        "temp": 85.6,
-        "wind_mph": 7.6,
-        "wind_dir": 339,
-        "tail_mph": -6.1,
+        "cond": "wind out 5mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 85.4,
+        "wind_mph": 4.7,
+        "wind_dir": 188,
+        "tail_mph": 4.7,
         "precip": 9
       },
-      "wf": 1.002
+      "wf": 1.039
     },
     {
       "gamePk": 824905,
@@ -1056,19 +1056,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 3mph, 78\u00b0",
+        "cond": "calm 3mph, 78\u00b0",
         "lean": "Boost",
-        "temp": 78.4,
-        "wind_mph": 3.6,
-        "wind_dir": 248,
-        "tail_mph": 3.4,
+        "temp": 78.2,
+        "wind_mph": 2.6,
+        "wind_dir": 218,
+        "tail_mph": 2.5,
         "precip": 2
       },
-      "wf": 1.025
+      "wf": 1.021
     },
     {
       "gamePk": 824094,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-01T23:40:00Z",
       "matchup": "TB@KC",
       "away": {
@@ -1191,9 +1191,9 @@
         "emoji": "\u26c5",
         "cond": "wind out 4mph, 82\u00b0",
         "lean": "Boost",
-        "temp": 82.5,
-        "wind_mph": 8.6,
-        "wind_dir": 165,
+        "temp": 82.4,
+        "wind_mph": 8.3,
+        "wind_dir": 166,
         "tail_mph": 4.3,
         "precip": 0
       },
@@ -1209,7 +1209,7 @@
         "sp": {
           "id": 671737,
           "name": "Taj Bradley",
-          "hr9": 1.23,
+          "hr9": 1.22,
           "hand": "RHP"
         },
         "lineup": [
@@ -1221,12 +1221,12 @@
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.191
+            "iso": 0.189
           },
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.235
+            "iso": 0.233
           },
           {
             "id": 605137,
@@ -1293,12 +1293,12 @@
           {
             "id": 701358,
             "name": "Cam Smith",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 666211,
             "name": "Taylor Trammell",
-            "iso": 0.167
+            "iso": 0.165
           },
           {
             "id": 673237,
@@ -1308,7 +1308,7 @@
           {
             "id": 694388,
             "name": "Joey Loperfido",
-            "iso": 0.119
+            "iso": 0.117
           },
           {
             "id": 669384,
@@ -1383,12 +1383,12 @@
           {
             "id": 680574,
             "name": "Matt McLain",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 695490,
             "name": "Edwin Arroyo",
-            "iso": 0.043
+            "iso": 0.042
           }
         ],
         "confirmed": true
@@ -1405,32 +1405,32 @@
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.237
+            "iso": 0.236
           },
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.234
+            "iso": 0.233
           },
           {
             "id": 683734,
             "name": "Andrew Vaughn",
-            "iso": 0.183
+            "iso": 0.189
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.168
+            "iso": 0.177
           },
           {
             "id": 596142,
@@ -1445,7 +1445,7 @@
           {
             "id": 687401,
             "name": "Joey Ortiz",
-            "iso": 0.063
+            "iso": 0.062
           }
         ],
         "confirmed": true
@@ -1473,7 +1473,7 @@
         "sp": {
           "id": 676974,
           "name": "Max Meyer",
-          "hr9": 0.8,
+          "hr9": 0.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -1485,7 +1485,7 @@
           {
             "id": 665923,
             "name": "Esteury Ruiz",
-            "iso": 0.247
+            "iso": 0.244
           },
           {
             "id": 689414,
@@ -1495,7 +1495,7 @@
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.182
+            "iso": 0.18
           },
           {
             "id": 691594,
@@ -1505,7 +1505,7 @@
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 677870,
@@ -1542,17 +1542,17 @@
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.32
+            "iso": 0.329
           },
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.296
+            "iso": 0.305
           },
           {
             "id": 681198,
             "name": "TJ Rumfield",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 650489,
@@ -1562,7 +1562,7 @@
           {
             "id": 671289,
             "name": "Tyler Freeman",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 687859,
@@ -1572,7 +1572,7 @@
           {
             "id": 691720,
             "name": "Kyle Karros",
-            "iso": 0.141
+            "iso": 0.153
           },
           {
             "id": 678662,
@@ -1586,15 +1586,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 13mph, 76\u00b0",
-        "lean": "Suppress",
-        "temp": 76.4,
-        "wind_mph": 12.9,
-        "wind_dir": 9,
-        "tail_mph": -12.7,
+        "cond": "wind in 6mph, 77\u00b0",
+        "lean": "Neutral",
+        "temp": 76.7,
+        "wind_mph": 9.3,
+        "wind_dir": 48,
+        "tail_mph": -6.2,
         "precip": 2
       },
-      "wf": 0.965
+      "wf": 0.988
     },
     {
       "gamePk": 824985,
@@ -1611,7 +1611,7 @@
           {
             "id": 660271,
             "name": "Shohei Ohtani",
-            "iso": 0.245
+            "iso": 0.244
           },
           {
             "id": 681624,
@@ -1621,12 +1621,12 @@
           {
             "id": 518692,
             "name": "Freddie Freeman",
-            "iso": 0.201
+            "iso": 0.21
           },
           {
             "id": 571970,
             "name": "Max Muncy",
-            "iso": 0.246
+            "iso": 0.245
           },
           {
             "id": 663656,
@@ -1641,12 +1641,12 @@
           {
             "id": 690976,
             "name": "Alex Freeland",
-            "iso": 0.093
+            "iso": 0.092
           },
           {
             "id": 500743,
             "name": "Miguel Rojas",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 642020,
@@ -1661,7 +1661,7 @@
         "sp": {
           "id": 669372,
           "name": "J.T. Ginn",
-          "hr9": 0.9,
+          "hr9": 0.99,
           "hand": "RHP"
         },
         "lineup": [
@@ -1678,27 +1678,27 @@
           {
             "id": 687515,
             "name": "Colby Thomas",
-            "iso": 0.175
+            "iso": 0.172
           },
           {
             "id": 641680,
             "name": "Jonah Heim",
-            "iso": 0.229
+            "iso": 0.25
           },
           {
             "id": 811965,
             "name": "Joshua Kuroda-Grauer",
-            "iso": 0.142
+            "iso": 0.125
           },
           {
             "id": 671732,
             "name": "Lawrence Butler",
-            "iso": 0.105
+            "iso": 0.104
           },
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.084
+            "iso": 0.083
           },
           {
             "id": 643446,
@@ -1717,12 +1717,12 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 65\u00b0",
+        "cond": "wind out 8mph, 66\u00b0",
         "lean": "Boost",
-        "temp": 65.4,
-        "wind_mph": 8.4,
-        "wind_dir": 226,
-        "tail_mph": 8.2,
+        "temp": 65.6,
+        "wind_mph": 8.5,
+        "wind_dir": 227,
+        "tail_mph": 8.3,
         "precip": 0
       },
       "wf": 1.022
@@ -1737,24 +1737,24 @@
         "sp": {
           "id": 686790,
           "name": "Trevor McDonald",
-          "hr9": 0.69,
+          "hr9": 0.67,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.213
+            "iso": 0.212
           },
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 646240,
@@ -1774,7 +1774,7 @@
           {
             "id": 682674,
             "name": "Victor Bericoto",
-            "iso": 0.285
+            "iso": 0.278
           },
           {
             "id": 701852,
@@ -1784,7 +1784,7 @@
           {
             "id": 683766,
             "name": "Christian Koss",
-            "iso": 0.072
+            "iso": 0.067
           }
         ],
         "confirmed": true
@@ -1794,7 +1794,7 @@
         "sp": {
           "id": 668678,
           "name": "Zac Gallen",
-          "hr9": 1.53,
+          "hr9": 1.49,
           "hand": "RHP"
         },
         "lineup": [
@@ -1816,12 +1816,12 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 666971,
             "name": "Lourdes Gurriel Jr.",
-            "iso": 0.102
+            "iso": 0.101
           },
           {
             "id": 680728,
@@ -1836,12 +1836,12 @@
           {
             "id": 656976,
             "name": "Pavin Smith",
-            "iso": 0.065
+            "iso": 0.063
           },
           {
             "id": 694371,
             "name": "Tommy Troy",
-            "iso": 0.147
+            "iso": 0.146
           }
         ],
         "confirmed": true
