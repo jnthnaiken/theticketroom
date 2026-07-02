@@ -358,7 +358,8 @@ def assemble(D):
     # anchors lead the board; a time-isolated anchor that can't fill is simply not chosen.
     def _draft(anchor_list):
         al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
-        pool_av = [n for n in byS(nonchalk) if n not in al and not pend(n)]
+        _sal_anchor = al[-1] if len(al) >= 4 else None                  # weakest = the salami anchor
+        pool_av = [n for n in byS(nonchalk) if (n not in al or n == _sal_anchor) and not pend(n)]  # keep the salami anchor AS a leg candidate too (moons get first pick; the salami builds from true leftovers, and only if its anchor wasn't drafted into a moon)
         def _fitpool(a):                                                # STRENGTH of the 3 legs this anchor can fill a 4-leg salami with (span-aware)
             reach, seen, legs, times = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), [], [tmin(a)]
             for n in reach:
@@ -413,6 +414,7 @@ def assemble(D):
             for t in [x for x in pls if x['rank'] == drop]:
                 for n in t['legs'][1:]:
                     if n not in pool_av: pool_av.append(n)
+            if al[drop] not in pool_av and not pend(al[drop]): pool_av.append(al[drop])   # the demoted anchor itself re-enters as a draftable leg (not just its legs)
             pls[:] = [t for t in pls if t['rank'] != drop]
             for t in pls:                                               # FULL REDRAFT: return every SURVIVING ticket's legs too and rebuild from scratch -- a demoted anchor's freed longshots re-enter the pool for the strongest anchors, instead of being handed to whoever was still needy while already-placed anchors keep weak leftovers
                 for n in t['legs'][1:]:
@@ -422,7 +424,8 @@ def assemble(D):
             _fill_round()
         # MOONS WIN, SALAMI IS LEFTOVER: with every kept moon full, build the salami on the weakest
         # anchor (al[sidx]) from the legs the moons left behind. If it can't reach 4 legs, it doesn't ship.
-        if sidx is not None:
+        if sidx is not None and al[sidx] in pool_av:                   # salami ships only if its anchor wasn't already drafted into a moon (moons win)
+            pool_av.remove(al[sidx])
             sal = {'rank': sidx, 'kind': 'biggest', 'badge': "\U0001f96a",
                    'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
                    'legs': [al[sidx]], 'need': 3, 'games': {P[al[sidx]]['game']}}
