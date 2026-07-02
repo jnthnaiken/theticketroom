@@ -1,7 +1,7 @@
 {
   "date": "2026-07-02",
   "season": "2026",
-  "pulled_at": "2026-07-02T20:39:22Z",
+  "pulled_at": "2026-07-02T21:00:28Z",
   "games": [
     {
       "gamePk": 823442,
@@ -126,19 +126,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 102\u00b0",
+        "cond": "wind out 4mph, 102\u00b0",
         "lean": "Boost",
         "temp": 102.0,
-        "wind_mph": 7.7,
-        "wind_dir": 244,
-        "tail_mph": 5.1,
+        "wind_mph": 8.2,
+        "wind_dir": 257,
+        "tail_mph": 3.8,
         "precip": 0
       },
-      "wf": 1.066
+      "wf": 1.061
     },
     {
       "gamePk": 823765,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-02T18:10:00Z",
       "matchup": "CIN@MIL",
       "away": {
@@ -178,7 +178,7 @@
           {
             "id": 682622,
             "name": "Noelvi Marte",
-            "iso": 0.183
+            "iso": 0.181
           },
           {
             "id": 695490,
@@ -230,12 +230,12 @@
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.229
+            "iso": 0.228
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 686217,
@@ -295,7 +295,7 @@
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 669364,
@@ -335,7 +335,7 @@
         "sp": {
           "id": 547179,
           "name": "Michael Lorenzen",
-          "hr9": 1.37,
+          "hr9": 1.36,
           "hand": "RHP"
         },
         "lineup": [
@@ -352,7 +352,7 @@
           {
             "id": 681198,
             "name": "TJ Rumfield",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 650489,
@@ -362,7 +362,7 @@
           {
             "id": 687859,
             "name": "Troy Johnston",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 694249,
@@ -390,16 +390,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 89\u00b0",
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 89\u00b0",
         "lean": "Boost",
         "temp": 89.3,
-        "wind_mph": 14.8,
-        "wind_dir": 125,
-        "tail_mph": 8.5,
+        "wind_mph": 13.3,
+        "wind_dir": 84,
+        "tail_mph": -1.4,
         "precip": 4
       },
-      "wf": 1.059
+      "wf": 1.024
     },
     {
       "gamePk": 824416,
@@ -527,12 +527,12 @@
         "cond": "calm 2mph, 87\u00b0",
         "lean": "Boost",
         "temp": 86.7,
-        "wind_mph": 3.9,
-        "wind_dir": 239,
-        "tail_mph": 2.0,
+        "wind_mph": 3.2,
+        "wind_dir": 236,
+        "tail_mph": 1.8,
         "precip": 1
       },
-      "wf": 1.032
+      "wf": 1.031
     },
     {
       "gamePk": 824906,
@@ -614,12 +614,12 @@
         "cond": "wind out 3mph, 85\u00b0",
         "lean": "Boost",
         "temp": 85.3,
-        "wind_mph": 5.1,
-        "wind_dir": 180,
-        "tail_mph": 3.3,
+        "wind_mph": 3.5,
+        "wind_dir": 215,
+        "tail_mph": 3.4,
         "precip": 8
       },
-      "wf": 1.034
+      "wf": 1.035
     },
     {
       "gamePk": 824093,
@@ -634,8 +634,54 @@
           "hr9": 1.26,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.174
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.176
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.268
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.154
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.054
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.135
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.072
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.076
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.069
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
@@ -697,16 +743,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 85\u00b0",
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 85\u00b0",
         "lean": "Boost",
         "temp": 84.7,
-        "wind_mph": 9.2,
-        "wind_dir": 183,
-        "tail_mph": 6.8,
+        "wind_mph": 7.6,
+        "wind_dir": 175,
+        "tail_mph": 4.9,
         "precip": 1
       },
-      "wf": 1.046
+      "wf": 1.039
     },
     {
       "gamePk": 822884,
@@ -842,7 +888,7 @@
     },
     {
       "gamePk": 823119,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-03T01:40:00Z",
       "matchup": "LAA@SEA",
       "away": {
@@ -864,10 +910,56 @@
           "hr9": 1.38,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.141
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.165
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.279
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.158
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.111
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.14
+          },
+          {
+            "id": 670042,
+            "name": "Luke Raley",
+            "iso": 0.247
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.131
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.236
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -914,9 +1006,9 @@
         "cond": "calm 2mph, 60\u00b0",
         "lean": "Neutral",
         "temp": 60.4,
-        "wind_mph": 3.1,
-        "wind_dir": 159,
-        "tail_mph": 2.2,
+        "wind_mph": 2.8,
+        "wind_dir": 162,
+        "tail_mph": 2.0,
         "precip": 0
       },
       "wf": 0.993
