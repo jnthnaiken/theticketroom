@@ -467,7 +467,7 @@ def assemble(D):
             add(name_for("biggest"), "biggest", t['badge'], t['legs'], rr=t['rr'])
 
     # lunch special + nightcap = the highest-ranked (by model) bat NOT already on a parlay, in each window
-    _pused  = {l['name'] for t in parlays for l in t.get('legs', [])}
+    _pused  = {l for t in parlays for l in t.get('legs', [])}   # parlay legs are name strings at this stage, not dicts
     _lnpick = []
     _nc = [n for n in byS(nonchalk) if P[n]['game'] in night_games and n not in _pused
            and P[n].get('odds') is not None and P[n]['odds'] <= 600]
