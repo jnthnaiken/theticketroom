@@ -134,7 +134,7 @@ def assemble(D):
         _floor = _ft[min(len(_ft)-1, 39)] if _ft else FLOOR
         cand = [n for n in fullrank if P[n]['TOTAL'] >= _floor]
     ranked   = byO(cand)                              # re-sort those 41 by odds
-    chalk    = set(ranked[:CHALK_N])                  # ban-8 (lunch/nightcap only)
+    chalk    = set()                                 # chalk ban removed -- the top-4 favorites now draft into moons/salami/builders like every other bat
     nonchalk, _tc = [], {}
     for n in byT([x for x in cand if x not in chalk]):   # the pool, model order, trimmed to <=3 per GAME (both teams combined)
         g = P[n]['game']
@@ -466,13 +466,17 @@ def assemble(D):
         if t['kind'] == 'biggest':
             add(name_for("biggest"), "biggest", t['badge'], t['legs'], rr=t['rr'])
 
-    # lunch special + nightcap come from the 8-ban chalk (the favorites), always
-    ncap = byO([n for n in chalk if P[n]['game'] in night_games])
-    if ncap:
-        add(name_for("late"), "late", "\U0001f303", [ncap[0]])
-    lunchc = byO([n for n in chalk if P[n]['game'] in lunch_games])
-    if lunchc:
-        add(name_for("lunch"), "lunch", "\U0001f371", [lunchc[0]])
+    # lunch special + nightcap = the highest-ranked (by model) bat NOT already on a parlay, in each window
+    _pused  = {l['name'] for t in parlays for l in t.get('legs', [])}
+    _lnpick = []
+    _nc = [n for n in byS(nonchalk) if P[n]['game'] in night_games and n not in _pused
+           and P[n].get('odds') is not None and P[n]['odds'] <= 600]
+    if _nc:
+        add(name_for("late"), "late", "\U0001f303", [_nc[0]]); _lnpick.append(_nc[0])
+    _lc = [n for n in byS(nonchalk) if P[n]['game'] in lunch_games and n not in _pused and n not in _lnpick
+           and P[n].get('odds') is not None and P[n]['odds'] <= 600]
+    if _lc:
+        add(name_for("lunch"), "lunch", "\U0001f371", [_lc[0]]); _lnpick.append(_lc[0])
 
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
@@ -492,7 +496,7 @@ def assemble(D):
         if a and a not in _bnames and P[a].get('odds') is not None and P[a]['odds'] <= BUILDER_MAX_ODDS:
             _bnames.append(a)
     for n in byS(nonchalk):                             # + conviction snubs left off every parlay
-        if n in _usedN or n in _bnames:
+        if n in _usedN or n in _bnames or n in _lnpick:   # _lnpick (lunch/nightcap) featured once, not duplicated as a builder
             continue
         if strength(n) >= _legfloor - 1e-9 and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS:
             _bnames.append(n)
