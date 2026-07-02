@@ -1,7 +1,7 @@
 {
   "date": "2026-07-02",
   "season": "2026",
-  "pulled_at": "2026-07-02T20:30:31Z",
+  "pulled_at": "2026-07-02T20:39:22Z",
   "games": [
     {
       "gamePk": 823442,
@@ -128,7 +128,7 @@
         "emoji": "\u26c5",
         "cond": "wind out 5mph, 102\u00b0",
         "lean": "Boost",
-        "temp": 102.5,
+        "temp": 102.0,
         "wind_mph": 7.7,
         "wind_dir": 244,
         "tail_mph": 5.1,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823765,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-07-02T18:10:00Z",
       "matchup": "CIN@MIL",
       "away": {
@@ -163,7 +163,7 @@
           {
             "id": 668709,
             "name": "JJ Bleday",
-            "iso": 0.252
+            "iso": 0.251
           },
           {
             "id": 553993,
@@ -215,12 +215,12 @@
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.232
+            "iso": 0.23
           },
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 661388,
@@ -342,12 +342,12 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.184
+            "iso": 0.196
           },
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.347
+            "iso": 0.344
           },
           {
             "id": 681198,
@@ -391,15 +391,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 91\u00b0",
+        "cond": "wind out 8mph, 89\u00b0",
         "lean": "Boost",
-        "temp": 90.9,
+        "temp": 89.3,
         "wind_mph": 14.8,
         "wind_dir": 125,
         "tail_mph": 8.5,
         "precip": 4
       },
-      "wf": 1.061
+      "wf": 1.059
     },
     {
       "gamePk": 824416,
@@ -526,13 +526,13 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 87\u00b0",
         "lean": "Boost",
-        "temp": 87.0,
+        "temp": 86.7,
         "wind_mph": 3.9,
         "wind_dir": 239,
         "tail_mph": 2.0,
         "precip": 1
       },
-      "wf": 1.033
+      "wf": 1.032
     },
     {
       "gamePk": 824906,
@@ -613,7 +613,7 @@
         "emoji": "\u26c5",
         "cond": "wind out 3mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 85.1,
+        "temp": 85.3,
         "wind_mph": 5.1,
         "wind_dir": 180,
         "tail_mph": 3.3,
@@ -700,13 +700,13 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 7mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 85.1,
+        "temp": 84.7,
         "wind_mph": 9.2,
         "wind_dir": 183,
         "tail_mph": 6.8,
         "precip": 1
       },
-      "wf": 1.047
+      "wf": 1.046
     },
     {
       "gamePk": 822884,
@@ -721,8 +721,54 @@
           "hr9": 0.94,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.142
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.263
+          },
+          {
+            "id": 681481,
+            "name": "Kerry Carpenter",
+            "iso": 0.265
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.161
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.12
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.209
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.096
+          },
+          {
+            "id": 681546,
+            "name": "James Outman",
+            "iso": 0.146
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -867,7 +913,7 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 60\u00b0",
         "lean": "Neutral",
-        "temp": 60.1,
+        "temp": 60.4,
         "wind_mph": 3.1,
         "wind_dir": 159,
         "tail_mph": 2.2,
