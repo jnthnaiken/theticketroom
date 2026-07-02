@@ -1,7 +1,7 @@
 {
   "date": "2026-07-02",
   "season": "2026",
-  "pulled_at": "2026-07-02T15:00:29Z",
+  "pulled_at": "2026-07-02T15:30:30Z",
   "games": [
     {
       "gamePk": 823442,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823765,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-02T18:10:00Z",
       "matchup": "CIN@MIL",
       "away": {
@@ -149,8 +149,54 @@
           "hr9": 1.08,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.216
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.207
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.257
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.167
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.22
+          },
+          {
+            "id": 682622,
+            "name": "Noelvi Marte",
+            "iso": 0.19
+          },
+          {
+            "id": 695490,
+            "name": "Edwin Arroyo",
+            "iso": 0.042
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.039
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.073
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -163,7 +209,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
