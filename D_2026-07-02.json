@@ -21000,7 +21000,7 @@
     "precip": 0
    }
   },
-  "build": "7/2 11:31am",
+  "build": "7/2 11:42am",
   "face": {},
   "maxAT": 100.0,
   "season": {
@@ -21073,15 +21073,41 @@
   },
   "date": "2026-07-02",
   "gs": {},
-  "tickets": 14,
-  "rules_version": "2026-07-02-nochalk"
+  "pool": 235,
+  "tickets": 17,
+  "rules_version": "2026-07-02-zgate"
  },
+ "pool": [
+  "Kyle Schwarber",
+  "Junior Caminero",
+  "Hunter Goodman",
+  "Shohei Ohtani",
+  "Jac Caglianone",
+  "Colson Montgomery",
+  "Bryce Harper",
+  "Bobby Witt",
+  "Mickey Moniak",
+  "Esmerlyn Valdez",
+  "Max Muncy",
+  "Miguel Vargas",
+  "Kyle Stowers",
+  "Alec Burleson",
+  "Matt Olson",
+  "Kerry Carpenter",
+  "Jordan Walker",
+  "Freddie Freeman",
+  "Jackson Chourio",
+  "Andrew Benintendi",
+  "Riley Greene",
+  "Cal Raleigh",
+  "Dominic Canzone"
+ ],
  "tickets": [
   {
-   "name": "Crossing the Karman Line",
+   "name": "Tape Measure Job",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Caminero swings with the wind at his back, Vargas swings with usable power (56/100), and Olson is launching rockets (66% hard-hit).",
+   "note": "Caminero gets a yard playing like a launchpad tonight, Vargas brings average-plus thump (56/100), and Greene is rocketing line drives (57% hard-hit).",
    "players": [
     {
      "name": "Junior Caminero",
@@ -21110,16 +21136,16 @@
      "status": "projected"
     },
     {
-     "name": "Matt Olson",
-     "team": "Braves",
-     "total": 139.9,
+     "name": "Riley Greene",
+     "team": "Tigers",
+     "total": 126.1,
      "aT": 100.0,
-     "wf": 1.043,
-     "gmatch": "STL@ATL",
-     "gtime": "7:15 PM",
-     "game": 5,
+     "wf": 1.0,
+     "gmatch": "DET@TEX",
+     "gtime": "8:05 PM",
+     "game": 7,
      "late": false,
-     "odds": 320,
+     "odds": 346,
      "status": "projected"
     }
    ],
@@ -21131,20 +21157,20 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2.0,
-    "maxprofit": 108.6,
+    "maxprofit": 114.5,
     "bytwos": false
    },
    "n": 1,
    "priced": 3,
    "confleg": 0,
    "sum": 300.0,
-   "msum": 463.3,
-   "parlay_am": 6167,
-   "payout10": 626.75,
+   "msum": 449.5,
+   "parlay_am": 6555,
+   "payout10": 665.55,
    "wxsum": {
-    "boost": 3,
+    "boost": 2,
     "supp": 0,
-    "dome": 0,
+    "dome": 1,
     "neu": 0
    }
   },
@@ -21152,7 +21178,7 @@
    "name": "Thrust Vector",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Caminero lands at 182 in our model, Burleson gets ideal loft (16\u00b0), and Carpenter is teeing off (55% hard-hit).",
+   "note": "Caminero has the jet stream pushing toward the seats, Walker is mashing the ball (54% hard-hit), and Benintendi sits in the ideal launch angle (22\u00b0).",
    "players": [
     {
      "name": "Junior Caminero",
@@ -21168,16 +21194,145 @@
      "status": "projected"
     },
     {
-     "name": "Alec Burleson",
+     "name": "Jordan Walker",
      "team": "Cardinals",
-     "total": 141.0,
+     "total": 136.9,
      "aT": 100.0,
      "wf": 1.043,
      "gmatch": "STL@ATL",
      "gtime": "7:15 PM",
      "game": 5,
      "late": false,
-     "odds": 421,
+     "odds": 406,
+     "status": "projected"
+    },
+    {
+     "name": "Andrew Benintendi",
+     "team": "White Sox",
+     "total": 127.1,
+     "aT": 100.0,
+     "wf": 1.043,
+     "gmatch": "CWS@CLE",
+     "gtime": "6:40 PM",
+     "game": 4,
+     "late": false,
+     "odds": 425,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Junior Caminero",
+   "lock": "6:40 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 143.7,
+    "bytwos": false
+   },
+   "n": 2,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 446.1,
+   "parlay_am": 8480,
+   "payout10": 858.05,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "No Doubter",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Montgomery is hammering the ball (64% hard-hit), Olson launches it at the right angle (23\u00b0), and Caglianone swings with the wind at his back.",
+   "players": [
+    {
+     "name": "Colson Montgomery",
+     "team": "White Sox",
+     "total": 158.0,
+     "aT": 100.0,
+     "wf": 1.043,
+     "gmatch": "CWS@CLE",
+     "gtime": "6:40 PM",
+     "game": 4,
+     "late": false,
+     "odds": 264,
+     "status": "projected"
+    },
+    {
+     "name": "Matt Olson",
+     "team": "Braves",
+     "total": 139.9,
+     "aT": 100.0,
+     "wf": 1.043,
+     "gmatch": "STL@ATL",
+     "gtime": "7:15 PM",
+     "game": 5,
+     "late": false,
+     "odds": 320,
+     "status": "projected"
+    },
+    {
+     "name": "Jac Caglianone",
+     "team": "Royals",
+     "total": 165.7,
+     "aT": 100.0,
+     "wf": 1.101,
+     "gmatch": "TB@KC",
+     "gtime": "7:40 PM",
+     "game": 6,
+     "late": false,
+     "odds": 309,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Colson Montgomery",
+   "lock": "6:40 PM",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 107.9,
+    "bytwos": false
+   },
+   "n": 3,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 463.6,
+   "parlay_am": 6153,
+   "payout10": 625.28,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Crossing the Karman Line",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Montgomery is launching rockets (64% hard-hit), Carpenter gets under it just right (21\u00b0), and Witt has the wind howling out behind him.",
+   "players": [
+    {
+     "name": "Colson Montgomery",
+     "team": "White Sox",
+     "total": 158.0,
+     "aT": 100.0,
+     "wf": 1.043,
+     "gmatch": "CWS@CLE",
+     "gtime": "6:40 PM",
+     "game": 4,
+     "late": false,
+     "odds": 264,
      "status": "projected"
     },
     {
@@ -21192,26 +21347,39 @@
      "late": false,
      "odds": 361,
      "status": "projected"
+    },
+    {
+     "name": "Bobby Witt",
+     "team": "Royals",
+     "total": 153.9,
+     "aT": 100.0,
+     "wf": 1.101,
+     "gmatch": "TB@KC",
+     "gtime": "7:40 PM",
+     "game": 6,
+     "late": false,
+     "odds": 315,
+     "status": "projected"
     }
    ],
    "nlegs": 3,
-   "anchor": "Junior Caminero",
-   "lock": "7:15 PM",
+   "anchor": "Colson Montgomery",
+   "lock": "6:40 PM",
    "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2.0,
-    "maxprofit": 131.3,
+    "maxprofit": 118.7,
     "bytwos": false
    },
-   "n": 2,
+   "n": 4,
    "priced": 3,
    "confleg": 0,
    "sum": 300.0,
-   "msum": 461.8,
-   "parlay_am": 7658,
-   "payout10": 775.78,
+   "msum": 450.6,
+   "parlay_am": 6864,
+   "payout10": 696.39,
    "wxsum": {
     "boost": 2,
     "supp": 0,
@@ -21223,7 +21391,7 @@
    "name": "One for the Road",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Shohei Ohtani is hitting absolute lasers (67% hard-hit), has loft to spare (18\u00b0), has the yard tilting his way, carries top-shelf pop (100/100 power grade).",
+   "note": "Shohei Ohtani is hitting absolute lasers (67% hard-hit), has loft to spare (18\u00b0), gets a touch of carry tonight, brings light-tower raw power (100/100).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -21245,7 +21413,7 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 3,
+   "n": 5,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -21263,7 +21431,7 @@
    "name": "The Noon Whistle",
    "kind": "lunch",
    "badge": "\ud83c\udf71",
-   "note": "Kyle Schwarber is barreling everything in sight (75% hard-hit), gets ideal loft (20\u00b0), gets a touch of carry tonight, sits in the elite power tier (100/100).",
+   "note": "Kyle Schwarber is barreling everything in sight (75% hard-hit), gets ideal loft (20\u00b0), gets a touch of carry tonight.",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -21285,7 +21453,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 4,
+   "n": 6,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -21303,7 +21471,7 @@
    "name": "Direct Deposit",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Junior Caminero has the jet stream pushing toward the seats, is lighting up the radar gun (58% hard-hit), has real over-the-fence pop (57/100).",
+   "note": "Junior Caminero has gusts carrying balls over the wall, is lighting up the radar gun (58% hard-hit), has real over-the-fence pop (57/100).",
    "players": [
     {
      "name": "Junior Caminero",
@@ -21325,7 +21493,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 5,
+   "n": 7,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -21343,87 +21511,7 @@
    "name": "Rainy Day Fund",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Hunter Goodman plays in a wind tunnel pointed at the seats, is crushing the baseball (56% hard-hit), launches it at the right angle (23\u00b0).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 181.9,
-     "aT": 100.0,
-     "wf": 1.161,
-     "gmatch": "MIA@COL",
-     "gtime": "3:10 PM",
-     "game": 3,
-     "late": false,
-     "odds": 198,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Hunter Goodman",
-   "lock": "3:10 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 6,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 181.9,
-   "parlay_am": 198,
-   "payout10": 29.8,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "The ATM",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Jac Caglianone has the wind howling out behind him, is a contact-first bat hunting one good swing (9/100 power), the momentum's with him.",
-   "players": [
-    {
-     "name": "Jac Caglianone",
-     "team": "Royals",
-     "total": 165.7,
-     "aT": 100.0,
-     "wf": 1.101,
-     "gmatch": "TB@KC",
-     "gtime": "7:40 PM",
-     "game": 6,
-     "late": false,
-     "odds": 309,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Jac Caglianone",
-   "lock": "7:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 7,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 165.7,
-   "parlay_am": 309,
-   "payout10": 40.9,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Milk Money",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Colson Montgomery is crushing it to all fields (64% hard-hit), plays in a slightly friendly yard.",
+   "note": "Colson Montgomery is crushing it to all fields (64% hard-hit), plays in a slightly friendly yard, sits in the elite power tier (100/100).",
    "players": [
     {
      "name": "Colson Montgomery",
@@ -21460,7 +21548,47 @@
    }
   },
   {
-   "name": "Tab Settled",
+   "name": "The ATM",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Hunter Goodman plays in a wind tunnel pointed at the seats, is crushing the baseball (56% hard-hit), keeps the ball in the air (23\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 181.9,
+     "aT": 100.0,
+     "wf": 1.161,
+     "gmatch": "MIA@COL",
+     "gtime": "3:10 PM",
+     "game": 3,
+     "late": false,
+     "odds": 198,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Hunter Goodman",
+   "lock": "3:10 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 9,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 181.9,
+   "parlay_am": 198,
+   "payout10": 29.8,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Milk Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
    "note": "Bryce Harper is denting outfield walls (58% hard-hit), sends it skyward (17\u00b0), catches a small park boost, carries serious thump (75/100 grade).",
@@ -21485,7 +21613,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 9,
+   "n": 10,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -21500,50 +21628,10 @@
    }
   },
   {
-   "name": "Cash Is King",
+   "name": "Tab Settled",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Bobby Witt gets a park that's launching everything tonight, is rocketing line drives (55% hard-hit), finds the home-run trajectory (23\u00b0).",
-   "players": [
-    {
-     "name": "Bobby Witt",
-     "team": "Royals",
-     "total": 153.9,
-     "aT": 100.0,
-     "wf": 1.101,
-     "gmatch": "TB@KC",
-     "gtime": "7:40 PM",
-     "game": 6,
-     "late": false,
-     "odds": 315,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Bobby Witt",
-   "lock": "7:40 PM",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "n": 10,
-   "priced": 1,
-   "confleg": 0,
-   "sum": 100.0,
-   "msum": 153.9,
-   "parlay_am": 315,
-   "payout10": 41.5,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   }
-  },
-  {
-   "name": "Paid in Full",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Mickey Moniak has gusts carrying balls over the wall, elevates with ease (20\u00b0), is squaring up a good chunk (49% hard-hit).",
+   "note": "Mickey Moniak has gusts carrying balls over the wall, elevates with ease (20\u00b0), is putting a charge into it (49% hard-hit).",
    "players": [
     {
      "name": "Mickey Moniak",
@@ -21580,10 +21668,10 @@
    }
   },
   {
-   "name": "Bag Secured",
+   "name": "Cash Is King",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Esmerlyn Valdez is leaving scorch marks (75% hard-hit), keeps the ball in the air (18\u00b0), has the yard tilting his way.",
+   "note": "Esmerlyn Valdez is leaving scorch marks (75% hard-hit), swings with natural lift (18\u00b0), has the yard tilting his way.",
    "players": [
     {
      "name": "Esmerlyn Valdez",
@@ -21620,10 +21708,10 @@
    }
   },
   {
-   "name": "The Sure Thing",
+   "name": "Paid in Full",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Max Muncy is tattooing the baseball (56% hard-hit), stays in the launch zone (21\u00b0), gets a sliver of help from the park, and packs elite raw power.",
+   "note": "Max Muncy is tattooing the baseball (56% hard-hit), swings with home-run loft (21\u00b0), gets a sliver of help from the park, and packs elite raw power.",
    "players": [
     {
      "name": "Max Muncy",
@@ -21660,10 +21748,10 @@
    }
   },
   {
-   "name": "Easy Money",
+   "name": "Bag Secured",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Kyle Stowers plays in a wind tunnel pointed at the seats, is hitting bullets (62% hard-hit), swings with natural lift (19\u00b0).",
+   "note": "Kyle Stowers plays in a wind tunnel pointed at the seats, is hitting bullets (62% hard-hit), finds the home-run trajectory (19\u00b0).",
    "players": [
     {
      "name": "Kyle Stowers",
@@ -21696,6 +21784,126 @@
     "boost": 1,
     "supp": 0,
     "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "The Sure Thing",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Alec Burleson is lifting everything (16\u00b0), gets a sliver of help from the park, is connecting solidly (50% hard-hit).",
+   "players": [
+    {
+     "name": "Alec Burleson",
+     "team": "Cardinals",
+     "total": 141.0,
+     "aT": 100.0,
+     "wf": 1.043,
+     "gmatch": "STL@ATL",
+     "gtime": "7:15 PM",
+     "game": 5,
+     "late": false,
+     "odds": 421,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Alec Burleson",
+   "lock": "7:15 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 15,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 141.0,
+   "parlay_am": 421,
+   "payout10": 52.1,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Easy Money",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Freddie Freeman is consistently barreling up (53% hard-hit), swings on a clean uppercut (18\u00b0), plays in a slightly friendly yard.",
+   "players": [
+    {
+     "name": "Freddie Freeman",
+     "team": "Dodgers",
+     "total": 136.5,
+     "aT": 100.0,
+     "wf": 1.028,
+     "gmatch": "SD@LAD",
+     "gtime": "10:10 PM",
+     "game": 9,
+     "late": true,
+     "odds": 324,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Freddie Freeman",
+   "lock": "10:10 PM",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "n": 16,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 136.5,
+   "parlay_am": 324,
+   "payout10": 42.4,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Stack It High",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Jackson Chourio stays in the sweet-spot angle (17\u00b0), is driving the ball (47% hard-hit), brings fringe-average pop (38/100), the momentum's with him.",
+   "players": [
+    {
+     "name": "Jackson Chourio",
+     "team": "Brewers",
+     "total": 133.0,
+     "aT": 100.0,
+     "wf": 1.0,
+     "gmatch": "CIN@MIL",
+     "gtime": "2:10 PM",
+     "game": 2,
+     "late": false,
+     "odds": 358,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Jackson Chourio",
+   "lock": "2:10 PM",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 17,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 133.0,
+   "parlay_am": 358,
+   "payout10": 45.8,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
     "neu": 0
    }
   }
