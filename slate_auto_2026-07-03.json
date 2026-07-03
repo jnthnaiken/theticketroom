@@ -1,11 +1,11 @@
 {
   "date": "2026-07-03",
   "season": "2026",
-  "pulled_at": "2026-07-03T20:00:28Z",
+  "pulled_at": "2026-07-03T20:30:32Z",
   "games": [
     {
       "gamePk": 824659,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-03T20:05:00Z",
       "matchup": "STL@CHC",
       "away": {
@@ -13,7 +13,7 @@
         "sp": {
           "id": 669467,
           "name": "Andre Pallante",
-          "hr9": 0.91,
+          "hr9": 0.9,
           "hand": "RHP"
         },
         "lineup": [
@@ -30,12 +30,12 @@
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 676369,
             "name": "Nelson Vel\u00e1zquez",
-            "iso": 0.282
+            "iso": 0.275
           },
           {
             "id": 676475,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 656849,
           "name": "David Peterson",
-          "hr9": 0.86,
+          "hr9": 0.84,
           "hand": "LHP"
         },
         "lineup": [
@@ -149,8 +149,54 @@
           "hr9": 0.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.137
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.255
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.179
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.421
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.186
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.082
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.061
+          },
+          {
+            "id": 682848,
+            "name": "Endy Rodr\u00edguez",
+            "iso": 0.226
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.067
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -502,8 +548,54 @@
           "hr9": 1.24,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.134
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.24
+          },
+          {
+            "id": 691019,
+            "name": "Kyle Teel",
+            "iso": 0.134
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.189
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.258
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.189
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.115
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.152
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -720,8 +812,54 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.137
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.211
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.19
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.216
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.135
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.199
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.189
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.333
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
