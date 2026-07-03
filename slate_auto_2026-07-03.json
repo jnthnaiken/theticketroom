@@ -1,11 +1,11 @@
 {
   "date": "2026-07-03",
   "season": "2026",
-  "pulled_at": "2026-07-03T19:30:27Z",
+  "pulled_at": "2026-07-03T20:00:28Z",
   "games": [
     {
       "gamePk": 824659,
-      "status": "Delayed Start",
+      "status": "Warmup",
       "gameTime": "2026-07-03T20:05:00Z",
       "matchup": "STL@CHC",
       "away": {
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822714,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-03T22:45:00Z",
       "matchup": "PIT@WSH",
       "away": {
@@ -160,10 +160,56 @@
           "hr9": 1.46,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.257
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.257
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.146
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.238
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.138
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.146
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.19
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.1
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.053
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -445,7 +491,7 @@
     },
     {
       "gamePk": 824417,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-03T23:10:00Z",
       "matchup": "CWS@CLE",
       "away": {
@@ -467,10 +513,56 @@
           "hr9": 1.33,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.169
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.187
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.144
+          },
+          {
+            "id": 656555,
+            "name": "Rhys Hoskins",
+            "iso": 0.171
+          },
+          {
+            "id": 700932,
+            "name": "Kyle Manzardo",
+            "iso": 0.163
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.123
+          },
+          {
+            "id": 672356,
+            "name": "Gabriel Arias",
+            "iso": 0.155
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.113
+          },
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.051
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -497,8 +589,54 @@
           "hr9": 1.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.133
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.261
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.129
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.172
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.143
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.193
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.184
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.084
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.105
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -658,7 +796,7 @@
     },
     {
       "gamePk": 824173,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-04T00:15:00Z",
       "matchup": "TB@HOU",
       "away": {
@@ -680,10 +818,56 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.145
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.301
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.166
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.23
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.164
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.164
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.113
+          },
+          {
+            "id": 676694,
+            "name": "Jake Meyers",
+            "iso": 0.112
+          },
+          {
+            "id": 669397,
+            "name": "Nick Allen",
+            "iso": 0.068
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
