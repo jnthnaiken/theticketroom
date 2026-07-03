@@ -1,11 +1,11 @@
 {
   "date": "2026-07-03",
   "season": "2026",
-  "pulled_at": "2026-07-03T19:00:29Z",
+  "pulled_at": "2026-07-03T19:30:27Z",
   "games": [
     {
       "gamePk": 824659,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-07-03T20:05:00Z",
       "matchup": "STL@CHC",
       "away": {
@@ -132,7 +132,7 @@
         "wind_mph": 9.1,
         "wind_dir": 237,
         "tail_mph": 8.1,
-        "precip": 22
+        "precip": 24
       },
       "wf": 1.034
     },
@@ -247,8 +247,54 @@
           "hr9": 1.67,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.174
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.292
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.17
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.179
+          },
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.25
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.15
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.139
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.082
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -260,7 +306,7 @@
         "wind_mph": 12.0,
         "wind_dir": 278,
         "tail_mph": 1.5,
-        "precip": 8
+        "precip": 16
       },
       "wf": 1.038
     },
@@ -277,8 +323,54 @@
           "hr9": 1.02,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.189
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.196
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.101
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.219
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.194
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.124
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.146
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.129
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.186
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
@@ -394,7 +486,7 @@
     },
     {
       "gamePk": 824904,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-03T23:15:00Z",
       "matchup": "NYM@ATL",
       "away": {
@@ -416,10 +508,56 @@
           "hr9": 1.63,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.198
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.166
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.248
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.15
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.191
+          },
+          {
+            "id": 642086,
+            "name": "Dominic Smith",
+            "iso": 0.139
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.123
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.111
+          },
+          {
+            "id": 622761,
+            "name": "Jorge Mateo",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -429,7 +567,7 @@
         "wind_mph": 3.6,
         "wind_dir": 317,
         "tail_mph": 0.2,
-        "precip": 1
+        "precip": 2
       },
       "wf": 1.012
     },
