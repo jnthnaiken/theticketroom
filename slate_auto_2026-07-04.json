@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T19:25:04Z",
+  "pulled_at": "2026-07-04T19:30:27Z",
   "games": [
     {
       "gamePk": 822716,
@@ -220,12 +220,12 @@
           {
             "id": 641355,
             "name": "Cody Bellinger",
-            "iso": 0.176
+            "iso": 0.179
           },
           {
             "id": 691176,
             "name": "Jasson Dom\u00ednguez",
-            "iso": 0.2
+            "iso": 0.198
           },
           {
             "id": 683011,
@@ -622,7 +622,7 @@
     },
     {
       "gamePk": 824171,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-04T23:10:00Z",
       "matchup": "TB@HOU",
       "away": {
@@ -633,8 +633,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.17
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.269
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.143
+          },
+          {
+            "id": 668723,
+            "name": "Ryan Vilade",
+            "iso": 0.206
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.138
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.172
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.074
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.074
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.086
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -647,7 +693,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
