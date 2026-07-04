@@ -162,12 +162,7 @@ def assemble(D):
     # anchor CANDIDATES: strongest nonchalk by STRENGTH, one per game, never pending/below-floor.
     # The final 4 anchors are chosen from these for the best fittable schedule (see the draft below), so
     # every moon fills three legs -- we never ship a 2-leg moon.
-    cand_anchors, seen = [], set()
-    for n in byS(nonchalk):
-        g = P[n]['game']
-        if g in seen or pend(n) or _precip(n) >= 40:   # one anchor per game; 40%+ rain never anchors
-            continue
-        cand_anchors.append(n); seen.add(g)
+    cand_anchors = [n for n in byS(nonchalk) if not pend(n) and _precip(n) < 40][:20]   # MULTIPLE anchors per game ALLOWED (no per-game dedup) -- each leads its own ticket; the one-bat-per-game-per-TICKET rule (fits()) + the <=3/game POOL cap bound total exposure. 40%+ rain never anchors. Capped to the strongest 20 so the exhaustive 4-anchor-set search (O(N^4)) stays fast -- no realistic anchor ranks below the 20th-strongest bat.
 
     tickets, used = [], set()
 
