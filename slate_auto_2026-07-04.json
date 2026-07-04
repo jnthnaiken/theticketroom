@@ -1,11 +1,11 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T15:00:55Z",
+  "pulled_at": "2026-07-04T15:18:10Z",
   "games": [
     {
       "gamePk": 822716,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-04T15:05:00Z",
       "matchup": "PIT@WSH",
       "away": {
@@ -30,12 +30,12 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.403
+            "iso": 0.397
           },
           {
             "id": 656811,
@@ -467,7 +467,7 @@
         "wind_mph": 0.4,
         "wind_dir": 180,
         "tail_mph": 0.4,
-        "precip": 9
+        "precip": 8
       },
       "wf": 1.012
     },
@@ -549,7 +549,7 @@
         "wind_mph": 2.8,
         "wind_dir": 72,
         "tail_mph": -2.6,
-        "precip": 15
+        "precip": 13
       },
       "wf": 1.0
     },
@@ -631,7 +631,7 @@
         "wind_mph": 3.5,
         "wind_dir": 215,
         "tail_mph": 3.4,
-        "precip": 13
+        "precip": 12
       },
       "wf": 1.022
     },
@@ -665,9 +665,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 67\u00b0",
+        "lean": "Neutral",
+        "temp": 66.7,
+        "wind_mph": 4.8,
+        "wind_dir": 221,
+        "tail_mph": 4.8,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.012
     },
     {
       "gamePk": 824983,
