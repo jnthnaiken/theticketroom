@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T15:18:10Z",
+  "pulled_at": "2026-07-04T15:30:50Z",
   "games": [
     {
       "gamePk": 822716,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 677952,
           "name": "Braxton Ashcraft",
-          "hr9": 0.96,
+          "hr9": 1.04,
           "hand": "RHP"
         },
         "lineup": [
@@ -77,22 +77,22 @@
           {
             "id": 695578,
             "name": "James Wood",
-            "iso": 0.262
+            "iso": 0.269
           },
           {
             "id": 671277,
             "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.276
+            "iso": 0.275
           },
           {
             "id": 678554,
             "name": "Curtis Mead",
-            "iso": 0.24
+            "iso": 0.239
           },
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.235
+            "iso": 0.234
           },
           {
             "id": 695734,
@@ -572,10 +572,10 @@
       "home": {
         "abbrev": "COL",
         "sp": {
-          "id": 608372,
-          "name": "Tomoyuki Sugano",
-          "hr9": 1.71,
-          "hand": "RHP"
+          "id": 807743,
+          "name": "Sean Sullivan",
+          "hr9": 2.16,
+          "hand": "LHP"
         },
         "lineup": [],
         "confirmed": false
@@ -787,16 +787,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 62\u00b0",
-        "lean": "Neutral",
-        "temp": 62.3,
-        "wind_mph": 4.3,
-        "wind_dir": 261,
-        "tail_mph": 2.4,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 0.997
+      "wf": 1.0
     }
   ]
 }
