@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T17:00:31Z",
+  "pulled_at": "2026-07-04T17:30:30Z",
   "games": [
     {
       "gamePk": 822716,
@@ -25,7 +25,7 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.253
+            "iso": 0.252
           },
           {
             "id": 668804,
@@ -35,12 +35,12 @@
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.385
+            "iso": 0.379
           },
           {
             "id": 656811,
             "name": "Ryan O'Hearn",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 693304,
@@ -60,7 +60,7 @@
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.175
+            "iso": 0.174
           }
         ],
         "confirmed": true
@@ -132,13 +132,13 @@
         "wind_mph": 9.1,
         "wind_dir": 245,
         "tail_mph": 7.5,
-        "precip": 3
+        "precip": 2
       },
       "wf": 1.076
     },
     {
       "gamePk": 823526,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-04T17:35:00Z",
       "matchup": "MIN@NYY",
       "away": {
@@ -265,7 +265,7 @@
         "wind_mph": 9.6,
         "wind_dir": 267,
         "tail_mph": 3.0,
-        "precip": 12
+        "precip": 2
       },
       "wf": 1.054
     },
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823118,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-04T20:10:00Z",
       "matchup": "TOR@SEA",
       "away": {
@@ -425,10 +425,56 @@
           "hr9": 1.26,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.145
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.156
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.268
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.136
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.108
+          },
+          {
+            "id": 670042,
+            "name": "Luke Raley",
+            "iso": 0.241
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.129
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.027
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.224
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -478,7 +524,7 @@
         "wind_mph": 0.4,
         "wind_dir": 90,
         "tail_mph": -0.3,
-        "precip": 10
+        "precip": 8
       },
       "wf": 1.013
     },
@@ -559,7 +605,7 @@
         "wind_mph": 2.9,
         "wind_dir": 58,
         "tail_mph": -1.5,
-        "precip": 9
+        "precip": 10
       },
       "wf": 1.006
     },
@@ -600,7 +646,7 @@
         "wind_mph": 6.7,
         "wind_dir": 2,
         "tail_mph": -5.9,
-        "precip": 3
+        "precip": 4
       },
       "wf": 0.974
     },
@@ -723,7 +769,7 @@
         "wind_mph": 5.7,
         "wind_dir": 222,
         "tail_mph": 5.7,
-        "precip": 12
+        "precip": 13
       },
       "wf": 1.022
     },
