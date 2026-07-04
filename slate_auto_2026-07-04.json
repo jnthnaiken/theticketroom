@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T23:00:34Z",
+  "pulled_at": "2026-07-04T23:09:18Z",
   "games": [
     {
       "gamePk": 822716,
@@ -1874,8 +1874,54 @@
           "hr9": 0.6,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.098
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.071
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.215
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.227
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.227
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.107
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.145
+          },
+          {
+            "id": 609280,
+            "name": "Miguel Andujar",
+            "iso": 0.156
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.308
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -1937,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 63\u00b0",
-        "lean": "Neutral",
-        "temp": 63.0,
-        "wind_mph": 3.0,
-        "wind_dir": 257,
-        "tail_mph": 1.8,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 0.996
+      "wf": 1.0
     }
   ]
 }
