@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T19:00:54Z",
+  "pulled_at": "2026-07-04T19:09:24Z",
   "games": [
     {
       "gamePk": 822716,
@@ -183,7 +183,7 @@
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.2
+            "iso": 0.198
           },
           {
             "id": 807712,
@@ -936,16 +936,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 70\u00b0",
-        "lean": "Boost",
-        "temp": 70.0,
-        "wind_mph": 10.7,
-        "wind_dir": 233,
-        "tail_mph": 10.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 825063,
@@ -1017,9 +1010,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 63\u00b0",
+        "lean": "Neutral",
+        "temp": 63.0,
+        "wind_mph": 4.0,
+        "wind_dir": 267,
+        "tail_mph": 1.9,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 0.996
     }
   ]
 }
