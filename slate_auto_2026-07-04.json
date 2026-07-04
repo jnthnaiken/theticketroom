@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T16:00:28Z",
+  "pulled_at": "2026-07-04T16:30:27Z",
   "games": [
     {
       "gamePk": 822716,
@@ -13,14 +13,14 @@
         "sp": {
           "id": 677952,
           "name": "Braxton Ashcraft",
-          "hr9": 1.03,
+          "hr9": 1.01,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 804606,
             "name": "Konnor Griffin",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 664040,
@@ -30,12 +30,12 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.39
+            "iso": 0.385
           },
           {
             "id": 656811,
@@ -55,12 +55,12 @@
           {
             "id": 682997,
             "name": "Tyler Callihan",
-            "iso": 0.25
+            "iso": 0.246
           },
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.176
+            "iso": 0.175
           }
         ],
         "confirmed": true
@@ -82,12 +82,12 @@
           {
             "id": 671277,
             "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.275
+            "iso": 0.274
           },
           {
             "id": 678554,
             "name": "Curtis Mead",
-            "iso": 0.239
+            "iso": 0.238
           },
           {
             "id": 682928,
@@ -107,7 +107,7 @@
           {
             "id": 677588,
             "name": "Jos\u00e9 Tena",
-            "iso": 0.16
+            "iso": 0.158
           },
           {
             "id": 686452,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822882,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-04T20:05:00Z",
       "matchup": "DET@TEX",
       "away": {
@@ -288,15 +288,61 @@
       "home": {
         "abbrev": "TEX",
         "sp": {
-          "id": 677958,
-          "name": "Kumar Rocker",
-          "hr9": 0.9,
+          "id": 615698,
+          "name": "Cal Quantrill",
+          "hr9": 1.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.232
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.057
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.15
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.158
+          },
+          {
+            "id": 696030,
+            "name": "Alejandro Osuna",
+            "iso": 0.027
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.138
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.152
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.257
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.051
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -467,7 +513,7 @@
         "wind_mph": 2.7,
         "wind_dir": 114,
         "tail_mph": 1.1,
-        "precip": 8
+        "precip": 9
       },
       "wf": 1.015
     },
@@ -549,7 +595,7 @@
         "wind_mph": 1.9,
         "wind_dir": 324,
         "tail_mph": -0.1,
-        "precip": 13
+        "precip": 14
       },
       "wf": 1.016
     },
@@ -794,7 +840,7 @@
         "wind_mph": 4.6,
         "wind_dir": 259,
         "tail_mph": 2.7,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.999
     }
