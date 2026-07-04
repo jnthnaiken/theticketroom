@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T19:30:27Z",
+  "pulled_at": "2026-07-04T19:47:58Z",
   "games": [
     {
       "gamePk": 822716,
@@ -158,12 +158,12 @@
           {
             "id": 621439,
             "name": "Byron Buxton",
-            "iso": 0.306
+            "iso": 0.305
           },
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.254
+            "iso": 0.253
           },
           {
             "id": 605137,
@@ -193,7 +193,7 @@
           {
             "id": 656577,
             "name": "Alex Jackson",
-            "iso": 0.128
+            "iso": 0.125
           }
         ],
         "confirmed": true
@@ -230,17 +230,17 @@
           {
             "id": 683011,
             "name": "Anthony Volpe",
-            "iso": 0.089
+            "iso": 0.088
           },
           {
             "id": 665862,
             "name": "Jazz Chisholm Jr.",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 641857,
             "name": "Ryan McMahon",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 680474,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822882,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-04T20:05:00Z",
       "matchup": "DET@TEX",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823118,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-04T20:10:00Z",
       "matchup": "TOR@SEA",
       "away": {
@@ -1028,16 +1028,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 70\u00b0",
-        "lean": "Boost",
-        "temp": 70.0,
-        "wind_mph": 10.7,
-        "wind_dir": 233,
-        "tail_mph": 10.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 825063,
