@@ -498,9 +498,9 @@ def assemble(D):
     _usedN   = {l['name'] for t in _parlays for l in t['players']}
     _legfloor = min([strength(l['name']) for t in _parlays for l in t['players']] or [-1])
     _bnames = []
-    for t in _parlays:                                  # every actual anchor ships as a single too
+    for t in _parlays:                                  # every actual anchor ships as a single too -- ALWAYS, regardless of price (no <=600 cap; anchors are our conviction plays)
         a = t.get('anchor')
-        if a and a not in _bnames and P[a].get('odds') is not None and P[a]['odds'] <= BUILDER_MAX_ODDS:
+        if a and a not in _bnames and P[a].get('odds') is not None:
             _bnames.append(a)
     for n in byS(nonchalk):                             # + conviction snubs left off every parlay
         if n in _usedN or n in _bnames or n in _lnpick:   # _lnpick (lunch/nightcap) featured once, not duplicated as a builder
