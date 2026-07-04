@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T19:47:58Z",
+  "pulled_at": "2026-07-04T20:00:35Z",
   "games": [
     {
       "gamePk": 822716,
@@ -546,8 +546,54 @@
           "hr9": 0.87,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.187
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.197
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.099
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.217
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.204
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.144
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.124
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.181
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
@@ -690,8 +736,54 @@
           "hr9": 0.71,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.143
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.306
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.164
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.228
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.417
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.162
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.111
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.159
+          },
+          {
+            "id": 669397,
+            "name": "Nick Allen",
+            "iso": 0.067
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1028,9 +1120,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 11mph, 70\u00b0",
+        "lean": "Boost",
+        "temp": 70.0,
+        "wind_mph": 10.7,
+        "wind_dir": 233,
+        "tail_mph": 10.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.037
     },
     {
       "gamePk": 825063,
