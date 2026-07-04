@@ -1,11 +1,11 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T18:00:53Z",
+  "pulled_at": "2026-07-04T18:30:27Z",
   "games": [
     {
       "gamePk": 822716,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-04T15:05:00Z",
       "matchup": "PIT@WSH",
       "away": {
@@ -146,7 +146,7 @@
         "sp": {
           "id": 805673,
           "name": "Zebby Matthews",
-          "hr9": 1.73,
+          "hr9": 1.68,
           "hand": "RHP"
         },
         "lineup": [
@@ -163,37 +163,37 @@
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.167
+            "iso": 0.169
           },
           {
             "id": 668904,
             "name": "Royce Lewis",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.202
+            "iso": 0.2
           },
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.085
+            "iso": 0.095
           },
           {
             "id": 656577,
             "name": "Alex Jackson",
-            "iso": 0.067
+            "iso": 0.131
           }
         ],
         "confirmed": true
@@ -203,7 +203,7 @@
         "sp": {
           "id": 694341,
           "name": "Brendan Beck",
-          "hr9": 4.15,
+          "hr9": 6.0,
           "hand": "RHP"
         },
         "lineup": [
@@ -225,12 +225,12 @@
           {
             "id": 691176,
             "name": "Jasson Dom\u00ednguez",
-            "iso": 0.164
+            "iso": 0.172
           },
           {
             "id": 683011,
             "name": "Anthony Volpe",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 665862,
@@ -240,7 +240,7 @@
           {
             "id": 641857,
             "name": "Ryan McMahon",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 680474,
@@ -250,7 +250,7 @@
           {
             "id": 645305,
             "name": "Ali S\u00e1nchez",
-            "iso": 0.08
+            "iso": 0.077
           }
         ],
         "confirmed": true
@@ -570,7 +570,7 @@
         "wind_mph": 1.4,
         "wind_dir": 231,
         "tail_mph": 1.4,
-        "precip": 8
+        "precip": 6
       },
       "wf": 1.022
     },
@@ -651,7 +651,7 @@
         "wind_mph": 3.5,
         "wind_dir": 27,
         "tail_mph": -3.1,
-        "precip": 10
+        "precip": 9
       },
       "wf": 1.0
     },
@@ -733,7 +733,7 @@
         "wind_mph": 3.7,
         "wind_dir": 142,
         "tail_mph": 0.1,
-        "precip": 14
+        "precip": 17
       },
       "wf": 1.009
     },
@@ -815,7 +815,7 @@
         "wind_mph": 1.0,
         "wind_dir": 207,
         "tail_mph": 1.0,
-        "precip": 13
+        "precip": 12
       },
       "wf": 1.006
     },
@@ -890,9 +890,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 70\u00b0",
+        "lean": "Boost",
+        "temp": 70.4,
+        "wind_mph": 9.2,
+        "wind_dir": 225,
+        "tail_mph": 8.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.032
     },
     {
       "gamePk": 825063,
