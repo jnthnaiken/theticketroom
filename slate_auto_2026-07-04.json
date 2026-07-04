@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T22:00:31Z",
+  "pulled_at": "2026-07-04T22:23:30Z",
   "games": [
     {
       "gamePk": 822716,
@@ -291,17 +291,17 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.261
+            "iso": 0.26
           },
           {
             "id": 681481,
             "name": "Kerry Carpenter",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 679529,
@@ -316,7 +316,7 @@
           {
             "id": 656716,
             "name": "Zach McKinstry",
-            "iso": 0.098
+            "iso": 0.097
           },
           {
             "id": 701162,
@@ -326,7 +326,7 @@
           {
             "id": 681546,
             "name": "James Outman",
-            "iso": 0.139
+            "iso": 0.138
           }
         ],
         "confirmed": true
@@ -343,12 +343,12 @@
           {
             "id": 592626,
             "name": "Joc Pederson",
-            "iso": 0.229
+            "iso": 0.228
           },
           {
             "id": 669701,
             "name": "Josh Smith",
-            "iso": 0.056
+            "iso": 0.055
           },
           {
             "id": 673962,
@@ -383,7 +383,7 @@
           {
             "id": 670032,
             "name": "Nicky Lopez",
-            "iso": 0.05
+            "iso": 0.049
           }
         ],
         "confirmed": true
@@ -468,7 +468,7 @@
         "sp": {
           "id": 669302,
           "name": "Logan Gilbert",
-          "hr9": 1.19,
+          "hr9": 1.18,
           "hand": "RHP"
         },
         "lineup": [
@@ -500,7 +500,7 @@
           {
             "id": 670042,
             "name": "Luke Raley",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 702284,
@@ -515,7 +515,7 @@
           {
             "id": 806068,
             "name": "Colt Emerson",
-            "iso": 0.219
+            "iso": 0.217
           }
         ],
         "confirmed": true
@@ -662,7 +662,7 @@
         "wind_mph": 2.9,
         "wind_dir": 274,
         "tail_mph": 1.7,
-        "precip": 7
+        "precip": 9
       },
       "wf": 1.023
     },
@@ -1014,7 +1014,7 @@
         "wind_mph": 7.6,
         "wind_dir": 358,
         "tail_mph": -6.4,
-        "precip": 6
+        "precip": 5
       },
       "wf": 0.974
     },
@@ -1031,8 +1031,54 @@
           "hr9": 0.86,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.165
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.268
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.128
+          },
+          {
+            "id": 668901,
+            "name": "Mark Vientos",
+            "iso": 0.169
+          },
+          {
+            "id": 676572,
+            "name": "Eric Wagaman",
+            "iso": 0.231
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.181
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.141
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.125
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.086
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -1101,7 +1147,7 @@
         "wind_mph": 7.7,
         "wind_dir": 263,
         "tail_mph": 6.5,
-        "precip": 12
+        "precip": 9
       },
       "wf": 1.027
     },
@@ -1175,8 +1221,54 @@
           "hr9": 2.16,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.118
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.157
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.304
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.087
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.253
+          },
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.214
+          },
+          {
+            "id": 690924,
+            "name": "Braxton Fulford",
+            "iso": 0.133
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.128
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1188,7 +1280,7 @@
         "wind_mph": 8.2,
         "wind_dir": 119,
         "tail_mph": 4.0,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.023
     },
@@ -1338,8 +1430,54 @@
           "hr9": 0.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.182
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.151
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.164
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.246
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.168
+          },
+          {
+            "id": 663853,
+            "name": "Romy Gonzalez",
+            "iso": 0.134
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.156
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.146
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.113
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
@@ -1425,8 +1563,54 @@
           "hr9": 0.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.18
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.214
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.156
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.128
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.214
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.211
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.106
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.169
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
