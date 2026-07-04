@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T19:09:24Z",
+  "pulled_at": "2026-07-04T19:25:04Z",
   "games": [
     {
       "gamePk": 822716,
@@ -132,7 +132,7 @@
         "wind_mph": 4.1,
         "wind_dir": 248,
         "tail_mph": 3.2,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.06
     },
@@ -146,7 +146,7 @@
         "sp": {
           "id": 805673,
           "name": "Zebby Matthews",
-          "hr9": 1.79,
+          "hr9": 1.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -235,7 +235,7 @@
           {
             "id": 665862,
             "name": "Jazz Chisholm Jr.",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 641857,
@@ -245,12 +245,12 @@
           {
             "id": 680474,
             "name": "Max Schuemann",
-            "iso": 0.189
+            "iso": 0.263
           },
           {
             "id": 645305,
             "name": "Ali S\u00e1nchez",
-            "iso": 0.077
+            "iso": 0.074
           }
         ],
         "confirmed": true
@@ -616,7 +616,7 @@
         "wind_mph": 1.6,
         "wind_dir": 254,
         "tail_mph": 1.3,
-        "precip": 6
+        "precip": 5
       },
       "wf": 1.024
     },
@@ -662,7 +662,7 @@
     },
     {
       "gamePk": 824415,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-04T23:10:00Z",
       "matchup": "CWS@CLE",
       "away": {
@@ -684,10 +684,56 @@
           "hr9": 0.8,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.165
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.142
+          },
+          {
+            "id": 700932,
+            "name": "Kyle Manzardo",
+            "iso": 0.161
+          },
+          {
+            "id": 696135,
+            "name": "Kahlil Watson",
+            "iso": 0.125
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.121
+          },
+          {
+            "id": 694876,
+            "name": "Cooper Ingle",
+            "iso": 0.0
+          },
+          {
+            "id": 682177,
+            "name": "Daniel Schneemann",
+            "iso": 0.127
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.11
+          },
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.051
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -779,7 +825,7 @@
         "wind_mph": 3.3,
         "wind_dir": 228,
         "tail_mph": 3.3,
-        "precip": 17
+        "precip": 19
       },
       "wf": 1.022
     },
@@ -861,7 +907,7 @@
         "wind_mph": 2.4,
         "wind_dir": 319,
         "tail_mph": -0.2,
-        "precip": 12
+        "precip": 11
       },
       "wf": 1.0
     },
@@ -936,9 +982,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 11mph, 70\u00b0",
+        "lean": "Boost",
+        "temp": 70.0,
+        "wind_mph": 10.7,
+        "wind_dir": 233,
+        "tail_mph": 10.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.037
     },
     {
       "gamePk": 825063,
