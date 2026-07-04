@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T20:57:24Z",
+  "pulled_at": "2026-07-04T21:00:30Z",
   "games": [
     {
       "gamePk": 822716,
@@ -316,7 +316,7 @@
           {
             "id": 656716,
             "name": "Zach McKinstry",
-            "iso": 0.099
+            "iso": 0.098
           },
           {
             "id": 701162,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 615698,
           "name": "Cal Quantrill",
-          "hr9": 1.17,
+          "hr9": 1.16,
           "hand": "RHP"
         },
         "lineup": [
@@ -453,7 +453,7 @@
           {
             "id": 678218,
             "name": "Brandon Valenzuela",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 665926,
@@ -468,7 +468,7 @@
         "sp": {
           "id": 669302,
           "name": "Logan Gilbert",
-          "hr9": 1.23,
+          "hr9": 1.22,
           "hand": "RHP"
         },
         "lineup": [
@@ -1327,7 +1327,7 @@
     },
     {
       "gamePk": 824012,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-05T01:38:00Z",
       "matchup": "BOS@LAA",
       "away": {
@@ -1349,10 +1349,56 @@
           "hr9": 1.21,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.222
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.152
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.122
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.185
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.147
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.145
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.118
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.182
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.055
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
