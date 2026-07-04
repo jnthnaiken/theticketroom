@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
   "season": "2026",
-  "pulled_at": "2026-07-04T14:13:11Z",
+  "pulled_at": "2026-07-04T14:30:27Z",
   "games": [
     {
       "gamePk": 822716,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823526,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-04T17:35:00Z",
       "matchup": "MIN@NYY",
       "away": {
@@ -149,8 +149,54 @@
           "hr9": 1.76,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.143
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.305
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.245
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.167
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.167
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.186
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.203
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.085
+          },
+          {
+            "id": 656577,
+            "name": "Alex Jackson",
+            "iso": 0.067
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -163,7 +209,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
