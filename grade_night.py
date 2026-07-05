@@ -150,6 +150,19 @@ def main():
             print(f"{date}: not final in the feed yet -> will fold next run")
             break                              # keep nights in order; stop at first unsettled
         D = json.load(open(os.path.join(ROOT, f'D_{date}.json')))
+        # GRADE THE FINAL BOARD (not the pre-game bake): scratch anyone who didn't take a PA in a
+        # played game, then re-draft on that final pool -- the ledger grades the board you actually
+        # saw/bet (the browser runs the same draft on the same final pool).
+        try:
+            import assemble_tickets
+            _pg = {p.get('game') for _n, p in D.get('players', {}).items() if norm(p.get('nm', _n)) in played}
+            for _n, p in D.get('players', {}).items():
+                _k = norm(p.get('nm', _n))
+                if p.get('game') in _pg and _k not in played and _k not in homered and not p.get('void'):
+                    p['out'] = True
+            assemble_tickets.assemble(D)
+        except Exception as _e:
+            print(f"  {date}: re-assemble failed ({_e}) -> grading the baked board")
         gr = [grade_ticket(t, homered, ppd, stake) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
         # calibration logging is handled SEPARATELY by `calibrate.py` (idempotent, self-healing
