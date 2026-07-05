@@ -123,7 +123,7 @@ def assemble(D):
     # Re-sort that pool by odds and pull the CHALK_N shortest (chalk -> lunch/nightcap ONLY); from the rest
     # keep at most TOP-3 per GAME (best-by-model, both teams combined). No fixed size and no backfill -- the floor is the only
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
-    GAME_CAP = 3   # at most 3 bats per GAME (both lineups combined); per-team would allow 6/game (3 each side) -> implies 6 different HRs in one game, unrealistic
+    GAME_CAP = 4   # at most 4 bats per GAME (both lineups combined); adds z-gate-passing depth so a scratched leg can refill in-gate. Still one bat/game per TICKET (fits()), so no single ticket over-concentrates on one game
     fullrank = byT(elig)                              # everyone ranked by model -> replacement order
     _bl = [P[n]['blend'] for n in fullrank if P[n].get('blend') is not None]
     if len(_bl) >= 8:                                  # z-THRESHOLD gate (scale/slate-independent): keep bats whose blended z clears Z_GATE SDs above the slate mean
