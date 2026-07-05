@@ -112,7 +112,8 @@ dominate:
 edge_z = standardized( Σ w_i · z(signal_i) )   # the 9 edge signals below
 mkt_z  = standardized( z(market implied prob) )
 blend  = 0.5·mkt_z + 0.5·edge_z
-TOTAL  = 100 + 30·blend                         # centered at 100, roughly [40, 160]
+baseTotal = 100 + 30·blend                      # weather-free blend score, centered ~100
+TOTAL  = baseTotal · wxMult(wf)                 # × live Open-Meteo park factor (±10% cap)
 ```
 
 The **market half** (`mkt_z`) carries everything the books already price — power,
@@ -142,9 +143,17 @@ ISO is **gone** — dropped from scoring and display (no predictive value,
 and notes.
 
 Batter handedness comes from the lineups (`away_hands`/`home_hands`, one L/R/S per
-bat). Live weather and opposing-pitcher HR/9 are baked into the chips server-side;
-the client refreshes those chips but re-drafts on the baked `TOTAL` (no live
-re-score).
+bat).
+
+**Live-weather re-score.** After the blend, `TOTAL` is scaled by a bounded park-factor
+term: `TOTAL = baseTotal · wxMult(wf)`, where `baseTotal` is the weather-free blend
+score and `wxMult(wf) = clamp(1 + K·(wf−1), 1−CAP, 1+CAP)` (`K=1.0`, `CAP=0.10` → ±10%
+max). `wf` is the Open-Meteo park factor (wind + temp + elevation). The server
+(`build15.py`) and the client (`index.html`) compute `wxMult` identically, and the
+client re-scores `TOTAL` from `baseTotal · wxMult(live wf)` on every ~6-min refresh
+before re-drafting, so the draft reacts to weather as Open-Meteo updates. The pool
+**gate** stays on the weather-free `blend` — weather moves the draft (ordering/roles),
+not pool membership. Opposing-pitcher HR/9 remains a display chip only.
 
 ### Card display
 
@@ -210,9 +219,11 @@ salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 ## Live engine (index.html)
 
 Every ~6 minutes the board: refreshes weather + opposing-pitcher HR/9 → updates the
-weather/pitcher **chips** (it does **not** re-score `TOTAL`; the baked server `TOTAL`
-is authoritative) → pulls posted lineups (confirm / scratch) and results
-(HRs / finals) → re-drafts on the baked scores → grades.
+weather/pitcher **chips** and **re-scores each bat's `TOTAL` from `baseTotal ·
+wxMult(live wf)`** (the weather-free `baseTotal` and `wxMult` are baked/mirrored
+server+client, so the client re-score matches the server bake) → pulls posted lineups
+(confirm / scratch) and results (HRs / finals) → re-drafts on the re-scored numbers →
+grades.
 
 Behavior that's load-bearing:
 
