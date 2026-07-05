@@ -49,7 +49,8 @@ otherwise re-run the Deploy Pages workflow.
 edge_z = standardized( Σ w_i · z(signal_i) )    # the 9 edge signals below
 mkt_z  = standardized( z(market implied prob) )
 blend  = 0.5·mkt_z + 0.5·edge_z
-TOTAL  = 100 + 30·blend                          # centered at 100, ~[40,160]
+baseTotal = 100 + 30·blend                       # weather-free blend score, centered ~100
+TOTAL  = baseTotal · wxMult(wf)                   # × live Open-Meteo park factor (±10% cap)
 ```
 
 Both halves are re-standardized to unit variance before the 0.5/0.5 blend, so the
@@ -82,11 +83,17 @@ edge bites exactly as hard as the market regardless of how thin the edge is
 1. **Client FLOOR gate** — `index.html:498` now sets `FLOOR=41` and line 552 does
    `fullrank.slice(0, FLOOR)` (a rank slice, top 41 by TOTAL), not a `TOTAL>=130`
    threshold. Scale-independent; a compressed TOTAL can't empty the pool.
-2. **Client weather/pitcher live re-score** — removed. `liveUpdate()` (`index.html:959`)
-   refreshes `p.wf`/`p.phr9`/`p.hr9` for the chips only, then re-drafts on the baked
-   `p.TOTAL`. There is NO `p.TOTAL=` reassignment and no `TOTAL/(weather×pitcher)`
-   division anywhere. (The comment at line 974 still says "recompute every player's
-   TOTAL" — it doesn't; leave or clean up.)
+2. **Client weather live re-score — RE-ADDED 2026-07-05 (weather-only, draft-only).**
+   `build15.py` ships `baseTotal` (the weather-free blend) and bakes
+   `TOTAL = baseTotal * wxMult(wf)`; `wxMult(wf)=clamp(1+WX_K*(wf-1),1-WX_CAP,1+WX_CAP)`
+   with `WX_K=1.0, WX_CAP=0.10` (±10% cap). `liveUpdate()` refreshes `p.wf` (Open-Meteo)
+   then recomputes `p.TOTAL = p.baseTotal * wxMult(p.wf)` before the re-draft (fallback
+   to the baked `p.TOTAL` when `baseTotal` is absent, so older boards still render). The
+   client `wfFor()` was brought to parity with the server `wf_of()` (elevation term +
+   clamp) so baked `wf` == live `wf`. Weather moves the **draft** (ordering/roles via
+   TOTAL) only — the pool gate stays on the weather-free `blend`. This is NOT the old
+   multiplicative `TOTAL/(weather×pitcher)` re-score; it's a bounded, slate-independent
+   multiplier on a shipped base score, so client and server never desync.
 
 ## ✅ The 4 "expected/unpriced" signals are BUILT (all in `build15.py`)
 
