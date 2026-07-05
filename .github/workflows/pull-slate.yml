@@ -87,7 +87,12 @@ jobs:
           have = sum(1 for x in hr if x is not None)
           print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
           fresh = not (pa.startswith("manual") or "T" not in pa or have == 0)
-          if not fresh:
+          import re as _re
+          allfinal = bool(games) and all(_re.search(r"final|completed|over", str(g.get("status") or ""), _re.I) for g in games)
+          if allfinal:
+              print("::notice::Slate %s is fully final -- board frozen, skipping rebuild." % d)
+              fresh = False
+          elif not fresh:
               print("::notice::No fresh StatsAPI pull yet (manual/stale or zero HR/9). Skipping "
                     "score+assemble+commit this run -- harmless; a later run builds it.")
           with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
