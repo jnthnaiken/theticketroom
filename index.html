@@ -648,7 +648,7 @@ drawTickets();drawPlayers();drawTracker();
     var prior=(D.tickets||[]), out=[], kc={};
     function nextIdx(kind){kc[kind]=(kc[kind]==null?-1:kc[kind])+1;return kc[kind];}
     function mkBuilder(n){var legs=[leg(n)];var idx=nextIdx('builder');out.push({name:cwName('builder',idx),kind:'builder',badge:'💰',note:"",players:legs,nlegs:1,anchor:n,lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:null});}
-    function frozenT(t){try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(D.meta&&D.meta.date&&_td>D.meta.date)return !!(t.players&&t.players.length);}catch(e){}return !!(t.players.length && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
+    function frozenT(t){try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(D.meta&&D.meta.date&&_td>D.meta.date)return !!(t.players&&t.players.length&&t.players.every(function(l){var _p=D.players[l.name]||{};return !_p.out&&!_p.void;}));}catch(e){}return !!(t.players.length && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
 
     // ---- LOCKS (shared by both paths): a ticket is LOCKED when every leg is confirmed / in-progress. ----
     var lmap={}, usedG={};
