@@ -490,6 +490,7 @@ drawTickets();drawPlayers();drawTracker();
    SEA:[47.5914,-122.3325,60,true], STL:[38.6226,-90.1928,30,false], TB:[27.7683,-82.6534,50,true],
    TEX:[32.7473,-97.0833,40,true], TOR:[43.6414,-79.3894,0,true], WSH:[38.8730,-77.0074,30,false]};
   var ALIAS={CHW:'CWS',AZ:'ARI',OAK:'ATH',SAC:'ATH',WAS:'WSH',SDP:'SD',TBR:'TB',KCR:'KC',SFG:'SF'};
+  var PARK_ELEV={COL:5200,ATH:2000,ATL:1050,MIN:815,KC:750,PIT:730,CLE:660,CHC:600,DET:600,CIN:490,STL:465,LAD:522,LAA:160,SD:62,SF:13,NYY:55,NYM:36,PHI:39,BOS:20,BAL:36,WSH:30,ARI:1100,SEA:134,HOU:80,MIA:10,TB:44,TOR:250,TEX:545,MIL:635};
   var SA='https://statsapi.mlb.com/api/v1', OM='https://api.open-meteo.com/v1/forecast';
   var code=function(a){a=(a||'').toUpperCase();return ALIAS[a]||a;};
   var r2=function(d){return d*Math.PI/180;};
@@ -500,12 +501,15 @@ drawTickets();drawPlayers();drawTracker();
 
   function gmin(gt){var m=/(\d+):(\d+)\s*(AM|PM)/.exec(gt||''); if(!m)return 0; var h=(+m[1])%12+(m[3]=='PM'?12:0); return h*60+(+m[2]);}
 
+  var WX_K=1.0, WX_CAP=0.10;
+  function wxMult(wf){ return wf==null?1:Math.max(1-WX_CAP,Math.min(1+WX_CAP,1+WX_K*(wf-1))); }
   function wfFor(c,temp,wind,dirFrom){
     var p=PARKS[c]; if(!p) return [1.0,{}];
     if(p[3]) return [1.0,{emoji:'\uD83C\uDFDF',cond:'Dome',lean:'Neutral'}];
     var toward=(dirFrom+180)%360, tail=wind*Math.cos(r2(toward-p[2]));
-    var wf=1+0.0035*tail+0.0015*((temp==null?70:temp)-70);
-    wf=Math.max(0.94,Math.min(1.08,Math.round(wf*1000)/1000));
+    var wxw=Math.max(0.90,Math.min(1.10,1+0.0035*tail+0.0015*((temp==null?70:temp)-70)));
+    var wxe=1+0.025*((PARK_ELEV[c]||0)/1000);
+    var wf=Math.round(wxw*wxe*1000)/1000;
     var lean=wf>1.02?'Boost':(wf<0.98?'Suppress':'Neutral');
     var emoji=tail>=6?'\u2600\uFE0F':'\u26C5';
     var cond=(tail>=3?'wind out':tail<=-3?'wind in':'calm')+' '+Math.abs(Math.round(tail))+'mph, '+Math.round(temp)+'\u00B0';
@@ -1154,6 +1158,7 @@ drawTickets();drawPlayers();drawTracker();
         });
         Object.keys(D.players).forEach(function(nm){var p=D.players[nm], gm=p.gmatch, w=wxByGm[gm], W=D.meta.wx[String(p.game)];
           if(w&&W){ if(wfByGm[gm]!=null)W.factor=wfByGm[gm]; if(w.emoji)W.emoji=w.emoji; if(w.lean)W.lean=w.lean; if(w.cond)W.cond=w.cond; }});
+        Object.keys(D.players).forEach(function(nm){var p=D.players[nm]; if(p.baseTotal!=null){ p.TOTAL=Math.round(p.baseTotal*wxMult(p.wf)*10)/10; }});   // live weather -> re-score TOTAL from baseTotal before re-draft (mirrors build15 wxMult)
         return confirmResults().then(function(){  // posted lineups -> confirm/scratch; results -> HR + finals + game-state
           return liftPending().then(function(){    // free carried bats once their resumed game is final
             try{assembleClient(D);}catch(_ae){if(typeof console!=='undefined')console.log('re-draft skipped (grading/render continue):',_ae&&_ae.message);}   // a re-draft error must NEVER block grading/render
