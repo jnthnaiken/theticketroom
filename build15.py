@@ -548,12 +548,19 @@ for r in pool:
     xm=r.get('_zmkt'); r['_mz0']=((xm-_mkstat[0])/_mkstat[1]) if xm is not None else 0.0
     r['_edge0']=edge
 # standardize BOTH halves to unit variance so the edge bites as hard as the market (equal influence, 50/50)
+# live-weather TOTAL multiplier (Open-Meteo park factor). baseTotal is the weather-free additive score;
+# TOTAL = baseTotal * wxMult(wf). The client (index.html) mirrors this EXACTLY so the live re-draft matches
+# the baked board. wf already carries wind+temp+elevation (wf_of); K=1 -> multiplier ~= clamp(wf).
+WX_K=1.0; WX_CAP=0.10
+def wxMult(wf):
+    return 1.0 if wf is None else clamp(1+WX_K*(wf-1), 1-WX_CAP, 1+WX_CAP)
 _es=_ms('_edge0'); _mks=_ms('_mz0')
 for r in pool:
     ez=(r['_edge0']-_es[0])/_es[1]; mz=(r['_mz0']-_mks[0])/_mks[1]
     blend=0.5*mz+0.5*ez
     r['edge_z']=round(ez,4); r['mkt_z']=round(mz,4); r['blend']=round(blend,4)
-    r['TOTAL']=round(100+30*blend,1)
+    r['baseTotal']=round(100+30*blend,1)
+    r['TOTAL']=round(r['baseTotal']*wxMult(r.get('wf')),1)
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
