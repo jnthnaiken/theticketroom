@@ -419,18 +419,35 @@ def assemble(D):
             _fill_round()
         # MOONS WIN, SALAMI IS LEFTOVER: with every kept moon full, build the salami on the weakest
         # anchor (al[sidx]) from the legs the moons left behind. If it can't reach 4 legs, it doesn't ship.
-        if sidx is not None and al[sidx] in pool_av:                   # salami ships only if its anchor wasn't already drafted into a moon (moons win)
-            pool_av.remove(al[sidx])
-            sal = {'rank': sidx, 'kind': 'biggest', 'badge': "\U0001f96a",
-                   'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
-                   'legs': [al[sidx]], 'need': 3, 'games': {P[al[sidx]]['game']}}
-            while needy(sal):
-                pick = next((n for n in pool_av if fits(sal, n)), None)
-                if pick is None:
-                    break
-                sal['legs'].append(pick); sal['games'].add(P[pick]['game']); pool_av.remove(pick)
-            if (len(sal['legs']) - 1) >= sal['need']:
-                pls.append(sal)
+        # SALAMI = leftover, seed-based (mirrors index.html): anchor on the strongest available leftover -- not
+        # only al[sidx] -- so a salami still ships when the weakest anchor got absorbed into a moon. Seed-based
+        # (not greedy) so a time-isolated strongest leftover can't strand the slip. Ships only as a full 4-leg set.
+        _salpool = [n for n in byS(pool_av) if not pend(n)]
+        def _try_sal(seed):
+            legs = [seed]; games = {P[seed]['game']}; times = [tmin(seed)]
+            for n in _salpool:
+                if n == seed or P[n]['game'] in games:
+                    continue
+                t2 = times + [tmin(n)]
+                if max(t2) - min(t2) > WIN:
+                    continue
+                legs.append(n); games.add(P[n]['game']); times.append(tmin(n))
+                if len(legs) >= 4:
+                    return legs
+            return None
+        _seeds = ([al[sidx]] if (sidx is not None and al[sidx] in pool_av) else []) + _salpool
+        _sallegs = None
+        for _s in _seeds:
+            _sallegs = _try_sal(_s)
+            if _sallegs:
+                break
+        if _sallegs:
+            _sallegs.sort(key=lambda n: -strength(n))
+            for _n in _sallegs:
+                if _n in pool_av: pool_av.remove(_n)
+            pls.append({'rank': sidx if sidx is not None else (len(al) - 1), 'kind': 'biggest', 'badge': "\U0001f96a",
+                        'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
+                        'legs': _sallegs, 'need': 3, 'games': {P[_n]['game'] for _n in _sallegs}})
         miss = 0
         return al, pls, miss
 
