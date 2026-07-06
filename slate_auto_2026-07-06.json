@@ -1,7 +1,7 @@
 {
   "date": "2026-07-06",
   "season": "2026",
-  "pulled_at": "2026-07-06T19:00:31Z",
+  "pulled_at": "2026-07-06T19:30:26Z",
   "games": [
     {
       "gamePk": 824089,
@@ -13,14 +13,14 @@
         "sp": {
           "id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "hr9": 0.68,
+          "hr9": 0.75,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 607208,
             "name": "Trea Turner",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 656941,
@@ -45,7 +45,7 @@
           {
             "id": 624641,
             "name": "Edmundo Sosa",
-            "iso": 0.163
+            "iso": 0.161
           },
           {
             "id": 681082,
@@ -55,12 +55,12 @@
           {
             "id": 592663,
             "name": "J.T. Realmuto",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 656537,
             "name": "Derek Hill",
-            "iso": 0.175
+            "iso": 0.174
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 702070,
           "name": "Noah Cameron",
-          "hr9": 1.05,
+          "hr9": 1.03,
           "hand": "LHP"
         },
         "lineup": [
@@ -87,7 +87,7 @@
           {
             "id": 521692,
             "name": "Salvador Perez",
-            "iso": 0.127
+            "iso": 0.136
           },
           {
             "id": 695506,
@@ -97,22 +97,22 @@
           {
             "id": 679845,
             "name": "Nick Loftin",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 516782,
             "name": "Starling Marte",
-            "iso": 0.068
+            "iso": 0.066
           },
           {
             "id": 686475,
             "name": "Tyler Tolbert",
-            "iso": 0.0
+            "iso": 0.026
           },
           {
             "id": 571912,
             "name": "Luke Maile",
-            "iso": 3.0
+            "iso": 1.5
           },
           {
             "id": 668942,
@@ -224,7 +224,7 @@
     },
     {
       "gamePk": 822712,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-06T22:45:00Z",
       "matchup": "HOU@WSH",
       "away": {
@@ -235,8 +235,54 @@
           "hr9": 1.89,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.15
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.317
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.169
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.232
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.278
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.159
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.127
+          },
+          {
+            "id": 669699,
+            "name": "Braden Shewmake",
+            "iso": 0.162
+          },
+          {
+            "id": 694728,
+            "name": "Brice Matthews",
+            "iso": 0.129
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -246,10 +292,56 @@
           "hr9": 1.92,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.267
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.279
+          },
+          {
+            "id": 678554,
+            "name": "Curtis Mead",
+            "iso": 0.232
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.229
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.149
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.161
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.151
+          },
+          {
+            "id": 686452,
+            "name": "Drew Millas",
+            "iso": 0.08
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.052
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -259,7 +351,7 @@
         "wind_mph": 6.7,
         "wind_dir": 26,
         "tail_mph": -6.7,
-        "precip": 21
+        "precip": 32
       },
       "wf": 0.988
     },
