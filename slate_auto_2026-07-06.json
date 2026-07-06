@@ -1,11 +1,11 @@
 {
   "date": "2026-07-06",
   "season": "2026",
-  "pulled_at": "2026-07-06T21:15:59Z",
+  "pulled_at": "2026-07-06T21:30:30Z",
   "games": [
     {
       "gamePk": 824089,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-06T18:10:00Z",
       "matchup": "PHI@KC",
       "away": {
@@ -45,7 +45,7 @@
           {
             "id": 624641,
             "name": "Edmundo Sosa",
-            "iso": 0.16
+            "iso": 0.158
           },
           {
             "id": 681082,
@@ -177,7 +177,7 @@
           },
           {
             "id": 665862,
-            "name": "Jazz Chisholm Jr.",
+            "name": "Jazz Chisholm",
             "iso": 0.171
           },
           {
@@ -304,7 +304,7 @@
           },
           {
             "id": 664774,
-            "name": "LaMonte Wade Jr.",
+            "name": "LaMonte Wade",
             "iso": 0.278
           },
           {
@@ -346,7 +346,7 @@
           },
           {
             "id": 671277,
-            "name": "Luis Garc\u00eda Jr.",
+            "name": "Luis Garc\u00eda",
             "iso": 0.279
           },
           {
@@ -474,7 +474,7 @@
         "lineup": [
           {
             "id": 671739,
-            "name": "Michael Harris II",
+            "name": "Michael Harris",
             "iso": 0.203
           },
           {
@@ -762,54 +762,8 @@
           "hr9": 1.87,
           "hand": "LHP"
         },
-        "lineup": [
-          {
-            "id": 650489,
-            "name": "Willi Castro",
-            "iso": 0.115
-          },
-          {
-            "id": 691720,
-            "name": "Kyle Karros",
-            "iso": 0.163
-          },
-          {
-            "id": 696100,
-            "name": "Hunter Goodman",
-            "iso": 0.298
-          },
-          {
-            "id": 681198,
-            "name": "TJ Rumfield",
-            "iso": 0.193
-          },
-          {
-            "id": 694249,
-            "name": "Cole Carrigg",
-            "iso": 0.277
-          },
-          {
-            "id": 671289,
-            "name": "Tyler Freeman",
-            "iso": 0.086
-          },
-          {
-            "id": 664983,
-            "name": "Jake McCarthy",
-            "iso": 0.216
-          },
-          {
-            "id": 687859,
-            "name": "Troy Johnston",
-            "iso": 0.121
-          },
-          {
-            "id": 678662,
-            "name": "Ezequiel Tovar",
-            "iso": 0.126
-          }
-        ],
-        "confirmed": true
+        "lineup": [],
+        "confirmed": false
       },
       "home": {
         "abbrev": "LAD",
@@ -822,7 +776,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": true,
+      "lineups_posted": false,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
