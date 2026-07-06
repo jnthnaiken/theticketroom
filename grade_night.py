@@ -43,12 +43,12 @@ def results_for(date):
     try:
         sch = getj(f"{SA}/schedule?sportId=1&date={date}&hydrate=team")
     except Exception:
-        return set(), False, set()
+        return set(), set(), False, set()
     dates = sch.get('dates') or []
     games = dates[0].get('games', []) if dates else []
     if not games:
-        return set(), False, set()
-    homered, ppd, all_final = set(), set(), True
+        return set(), set(), False, set()
+    homered, played, ppd, all_final = set(), set(), set(), True
     for g in games:
         st = g.get('status') or {}
         ds, ab = (st.get('detailedState') or ''), (st.get('abstractGameState') or '')
@@ -67,10 +67,12 @@ def results_for(date):
             all_final = False
             continue
         for p in pbp.get('allPlays', []):
+            bnm = ((p.get('matchup') or {}).get('batter') or {}).get('fullName')
+            if bnm: played.add(norm(bnm))
             if (p.get('result') or {}).get('eventType') == 'home_run':
                 nm = ((p.get('matchup') or {}).get('batter') or {}).get('fullName')
                 if nm: homered.add(norm(nm))
-    return homered, all_final, ppd
+    return homered, played, all_final, ppd
 
 # ---------- grade one ticket (faithful port of the board's gradeTicket) ----------
 def grade_ticket(t, homered, ppd_codes, stake):
@@ -145,7 +147,7 @@ def main():
         if date in graded:                     continue
         if datetime.date.fromisoformat(date) >= today:  # never grade today/future
             continue
-        homered, all_final, ppd = results_for(date)
+        homered, played, all_final, ppd = results_for(date)
         if not all_final:
             print(f"{date}: not final in the feed yet -> will fold next run")
             break                              # keep nights in order; stop at first unsettled
