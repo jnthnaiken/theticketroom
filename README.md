@@ -18,7 +18,7 @@ Drop the day's input files in this folder (named with the slate date,
 `YYYY-MM-DD`), then run the pipeline in order:
 
 ```
-python grade_night.py        # 1. grade last night into season.json
+python grade_night.py        # 1. grade last night (off the FINAL re-assembled board) into season.json
 python build15.py             # 2. score today's field  (SLATE_DATE env or today ET)
 python regen15.py             # 3. assemble tickets + inject into index.html
 python calibrate.py           # 4. (idempotent) log finalized nights -> calibration.jsonl
@@ -33,6 +33,12 @@ SLATE_DATE=2026-06-29 python build15.py && python regen15.py
 On GitHub the Action `pull-slate.yml` runs the whole pipeline (grade → build →
 assemble → calibrate-backfill) and commits the rebuilt `index.html`. Then open
 `index.html` — it runs live on its own from there, no server needed.
+
+**Frozen boards:** the Action's verify step checks the slate's game states. When
+every game is already **final**, it marks the board frozen and skips the
+score/assemble/commit steps entirely — so a locked, graded board is never
+re-drafted by a later scheduled run (the slate only advances when you commit a new
+day's `cards_<date>.json`).
 
 ---
 
@@ -83,8 +89,12 @@ lineup's wind/temp and a neutral pitcher term.
 
 - **`grade_night.py`** — auto-grader. Reads `season.json`, finds the last graded
   night, and folds every fully-final night since then into the ledger off real
-  play-by-play home runs. Postponed games void (refund). Never grades a night
-  that isn't final yet, never double-grades.
+  play-by-play home runs. It grades the **final board, not the pre-game bake**:
+  before scoring it scratches any carded bat that never took a plate appearance
+  (benched / late scratch) and re-runs `assemble_tickets`, so the ledger grades the
+  board that actually shipped — matching the browser's live re-draft. Postponed
+  games void (refund). Never grades a night that isn't final yet, never
+  double-grades.
 - **`build15.py`** — the scorer. Turns the carded field into a `TOTAL` per bat
   (our multiplier stack; **no base**). Also attaches display-only `khr`.
 - **`regen15.py`** — assembles the tickets (via `assemble_tickets.py`) and injects

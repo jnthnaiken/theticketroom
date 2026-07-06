@@ -1,4 +1,4 @@
-# The Ticket Room — Handoff / Resume Notes (2026-07-04)
+# The Ticket Room — Handoff / Resume Notes (2026-07-05)
 
 Quick-start status so a fresh session can continue without re-deriving context.
 
@@ -161,6 +161,16 @@ rounded to int. cards fields come from the same matchup roster tables.
   `priorGrade` (with a boxscore-fetch guard so a failed fetch never false-voids).
 - **Scratched singles are dropped from the board** (client `singleAlive` filter) — a
   benched builder/lunch/nightcap single disappears instead of showing as a SOLD loss.
+- **`grade_night` now grades the FINAL board, not the pre-game bake** (2026-07-05).
+  Before scoring a night it imports `assemble_tickets`, marks any carded bat that took
+  no plate appearance as `out`, and re-runs the draft — so the ledger grades the board
+  that actually shipped (same pool the browser re-drafts on), not the tickets baked
+  hours earlier. Wrapped in try/except: if the re-assemble fails it falls back to
+  grading the baked board.
+- **Frozen boards are never re-drafted** (2026-07-05). `pull-slate.yml`'s verify step
+  now flags a slate whose games are all `final` and sets `fresh=false`, skipping the
+  score/assemble/commit steps. Stops a locked, graded board from being re-drafted by a
+  later scheduled run; the slate only moves when a new day's `cards_<date>.json` lands.
 - **Footer sources corrected** in `index.html` (Kasper, Savant, StatsAPI, RotoWire,
   Open-Meteo, multi-book odds — TeamRankings was dead).
 - Not retroactive: nights already in `graded_nights` won't re-grade. Recompute if a
