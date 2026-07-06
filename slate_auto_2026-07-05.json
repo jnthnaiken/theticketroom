@@ -1,7 +1,7 @@
 {
   "date": "2026-07-05",
   "season": "2026",
-  "pulled_at": "2026-07-06T01:00:38Z",
+  "pulled_at": "2026-07-06T01:30:55Z",
   "games": [
     {
       "gamePk": 824902,
@@ -1738,7 +1738,7 @@
         "sp": {
           "id": 676664,
           "name": "JP Sears",
-          "hr9": 2.4,
+          "hr9": 2.35,
           "hand": "LHP"
         },
         "lineup": [
@@ -1770,7 +1770,7 @@
           {
             "id": 701538,
             "name": "Jackson Merrill",
-            "iso": 0.143
+            "iso": 0.141
           },
           {
             "id": 593428,
@@ -1812,12 +1812,12 @@
           {
             "id": 518692,
             "name": "Freddie Freeman",
-            "iso": 0.21
+            "iso": 0.209
           },
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 606192,
@@ -1832,7 +1832,7 @@
           {
             "id": 500743,
             "name": "Miguel Rojas",
-            "iso": 0.133
+            "iso": 0.131
           },
           {
             "id": 690976,
@@ -1863,7 +1863,7 @@
     },
     {
       "gamePk": 824010,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-06T01:30:00Z",
       "matchup": "BOS@LAA",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 69.5,
-        "wind_mph": 4.0,
-        "wind_dir": 289,
-        "tail_mph": 1.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.004
+      "wf": 1.0
     }
   ]
 }
