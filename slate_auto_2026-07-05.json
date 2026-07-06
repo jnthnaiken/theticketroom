@@ -1,7 +1,7 @@
 {
   "date": "2026-07-05",
   "season": "2026",
-  "pulled_at": "2026-07-06T04:00:36Z",
+  "pulled_at": "2026-07-06T04:30:55Z",
   "games": [
     {
       "gamePk": 824902,
@@ -132,7 +132,7 @@
         "wind_mph": 0.5,
         "wind_dir": 117,
         "tail_mph": -0.2,
-        "precip": 11
+        "precip": 7
       },
       "wf": 1.002
     },
@@ -265,7 +265,7 @@
         "wind_mph": 7.8,
         "wind_dir": 2,
         "tail_mph": -6.9,
-        "precip": 23
+        "precip": 17
       },
       "wf": 0.988
     },
@@ -398,7 +398,7 @@
         "wind_mph": 3.2,
         "wind_dir": 326,
         "tail_mph": -0.9,
-        "precip": 4
+        "precip": 3
       },
       "wf": 1.005
     },
@@ -531,7 +531,7 @@
         "wind_mph": 4.1,
         "wind_dir": 103,
         "tail_mph": -0.1,
-        "precip": 67
+        "precip": 79
       },
       "wf": 1.001
     },
@@ -664,7 +664,7 @@
         "wind_mph": 3.8,
         "wind_dir": 54,
         "tail_mph": -2.2,
-        "precip": 38
+        "precip": 33
       },
       "wf": 0.997
     },
@@ -797,7 +797,7 @@
         "wind_mph": 4.9,
         "wind_dir": 3,
         "tail_mph": -4.4,
-        "precip": 3
+        "precip": 2
       },
       "wf": 0.979
     },
@@ -1878,27 +1878,27 @@
           {
             "id": 678011,
             "name": "Anthony Seigler",
-            "iso": 0.176
+            "iso": 0.173
           },
           {
             "id": 678882,
             "name": "Ceddanne Rafaela",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.165
+            "iso": 0.163
           },
           {
             "id": 575929,
             "name": "Willson Contreras",
-            "iso": 0.259
+            "iso": 0.258
           },
           {
             "id": 807799,
             "name": "Masataka Yoshida",
-            "iso": 0.098
+            "iso": 0.097
           },
           {
             "id": 702332,
@@ -1918,7 +1918,7 @@
           {
             "id": 691907,
             "name": "Tsung-Che Cheng",
-            "iso": 0.056
+            "iso": 0.052
           }
         ],
         "confirmed": true
@@ -1940,7 +1940,7 @@
           {
             "id": 694203,
             "name": "Denzer Guzman",
-            "iso": 0.141
+            "iso": 0.139
           },
           {
             "id": 687093,
@@ -1950,7 +1950,7 @@
           {
             "id": 624585,
             "name": "Jorge Soler",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 672724,
@@ -1960,7 +1960,7 @@
           {
             "id": 666176,
             "name": "Jo Adell",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 642350,
@@ -1975,7 +1975,7 @@
           {
             "id": 666139,
             "name": "Josh Lowe",
-            "iso": 0.161
+            "iso": 0.16
           }
         ],
         "confirmed": true
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 70.1,
-        "wind_mph": 5.1,
-        "wind_dir": 285,
-        "tail_mph": 2.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.008
+      "wf": 1.0
     }
   ]
 }
