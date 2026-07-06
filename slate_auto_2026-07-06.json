@@ -1,7 +1,7 @@
 {
   "date": "2026-07-06",
   "season": "2026",
-  "pulled_at": "2026-07-06T22:00:34Z",
+  "pulled_at": "2026-07-06T22:30:28Z",
   "games": [
     {
       "gamePk": 824089,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822958,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-06T22:40:00Z",
       "matchup": "NYY@TB",
       "away": {
@@ -177,7 +177,7 @@
           },
           {
             "id": 665862,
-            "name": "Jazz Chisholm",
+            "name": "Jazz Chisholm Jr.",
             "iso": 0.171
           },
           {
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 822712,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-06T22:45:00Z",
       "matchup": "HOU@WSH",
       "away": {
@@ -397,7 +397,7 @@
         "wind_mph": 7.0,
         "wind_dir": 84,
         "tail_mph": -4.1,
-        "precip": 28
+        "precip": 24
       },
       "wf": 1.003
     },
@@ -530,7 +530,7 @@
         "wind_mph": 1.6,
         "wind_dir": 278,
         "tail_mph": 1.1,
-        "precip": 5
+        "precip": 7
       },
       "wf": 1.011
     },
@@ -680,8 +680,54 @@
           "hr9": 1.66,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.214
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.112
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.24
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.144
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.095
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.053
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.152
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.141
+          },
+          {
+            "id": 694371,
+            "name": "Tommy Troy",
+            "iso": 0.129
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -837,7 +883,7 @@
         "wind_mph": 12.2,
         "wind_dir": 283,
         "tail_mph": 11.6,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.018
     },
