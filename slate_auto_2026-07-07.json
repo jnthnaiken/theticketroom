@@ -1,11 +1,11 @@
 {
   "date": "2026-07-07",
   "season": "2026",
-  "pulled_at": "2026-07-07T18:00:31Z",
+  "pulled_at": "2026-07-07T18:30:30Z",
   "games": [
     {
       "gamePk": 823062,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-07T18:15:00Z",
       "matchup": "MIL@STL",
       "away": {
@@ -13,29 +13,29 @@
         "sp": {
           "id": 694819,
           "name": "Jacob Misiorowski",
-          "hr9": 0.61,
+          "hr9": 0.69,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 592885,
             "name": "Christian Yelich",
-            "iso": 0.137
+            "iso": 0.142
           },
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.232
+            "iso": 0.23
           },
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.12
+            "iso": 0.119
           },
           {
             "id": 641343,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 694335,
           "name": "Matt Svanson",
-          "hr9": 1.19,
+          "hr9": 1.16,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,27 +82,27 @@
           {
             "id": 671056,
             "name": "Iv\u00e1n Herrera",
-            "iso": 0.144
+            "iso": 0.142
           },
           {
             "id": 676475,
             "name": "Alec Burleson",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.236
+            "iso": 0.244
           },
           {
             "id": 663457,
             "name": "Lars Nootbaar",
-            "iso": 0.146
+            "iso": 0.155
           },
           {
             "id": 663494,
             "name": "Bryan Torres",
-            "iso": 0.269
+            "iso": 0.265
           },
           {
             "id": 701675,
@@ -220,7 +220,7 @@
     },
     {
       "gamePk": 824254,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-07T22:40:00Z",
       "matchup": "ATH@DET",
       "away": {
@@ -242,10 +242,56 @@
           "hr9": 1.23,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.138
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.129
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.182
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.256
+          },
+          {
+            "id": 681481,
+            "name": "Kerry Carpenter",
+            "iso": 0.25
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.095
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.2
+          },
+          {
+            "id": 681546,
+            "name": "James Outman",
+            "iso": 0.133
+          },
+          {
+            "id": 663837,
+            "name": "Matt Vierling",
+            "iso": 0.137
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
