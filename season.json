@@ -1,14 +1,45 @@
 {
+ "since": "2026-06-30",
  "stake": 1,
+ "cats": {
+  "moon": {
+   "graded": 28,
+   "won": 8,
+   "units": 209.48,
+   "staked": 56
+  },
+  "late": {
+   "graded": 5,
+   "won": 1,
+   "units": -0.25,
+   "staked": 5
+  },
+  "lunch": {
+   "graded": 2,
+   "won": 0,
+   "units": -2,
+   "staked": 2
+  },
+  "builder": {
+   "graded": 60,
+   "won": 11,
+   "units": -19.44,
+   "staked": 60
+  },
+  "biggest": {
+   "graded": 3,
+   "won": 1,
+   "units": 0.7,
+   "staked": 16.5
+  }
+ },
  "history": [
   0,
   46.97,
   53.28,
   35.68,
   101.88,
-  188.49,
-  184.02,
-  197.54
+  188.49
  ],
  "graded_nights": [
   "2026-06-01",
@@ -44,41 +75,6 @@
   "2026-07-01",
   "2026-07-02",
   "2026-07-03",
-  "2026-07-04",
-  "2026-07-05",
-  "2026-07-06"
- ],
- "cats": {
-  "moon": {
-   "graded": 40,
-   "won": 11,
-   "units": 226.3,
-   "staked": 80.0
-  },
-  "biggest": {
-   "graded": 4,
-   "won": 1,
-   "units": -4.8,
-   "staked": 22.0
-  },
-  "late": {
-   "graded": 7,
-   "won": 2,
-   "units": 2.36,
-   "staked": 7.0
-  },
-  "builder": {
-   "graded": 88,
-   "won": 16,
-   "units": -27.72,
-   "staked": 88.0
-  },
-  "lunch": {
-   "graded": 4,
-   "won": 1,
-   "units": 1.4,
-   "staked": 4.0
-  }
- },
- "since": "2026-06-30"
+  "2026-07-04"
+ ]
 }
