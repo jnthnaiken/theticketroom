@@ -1,7 +1,7 @@
 {
   "date": "2026-07-08",
   "season": "2026",
-  "pulled_at": "2026-07-08T17:01:00Z",
+  "pulled_at": "2026-07-08T17:30:37Z",
   "games": [
     {
       "gamePk": 823202,
@@ -16,8 +16,54 @@
           "hr9": 0.5,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.136
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.107
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.081
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.152
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.156
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.219
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.104
+          },
+          {
+            "id": 682729,
+            "name": "Jonatan Clase",
+            "iso": 0.6
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.133
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -607,9 +653,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 66\u00b0",
+        "lean": "Neutral",
+        "temp": 65.8,
+        "wind_mph": 2.8,
+        "wind_dir": 198,
+        "tail_mph": 2.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.003
     },
     {
       "gamePk": 823279,
