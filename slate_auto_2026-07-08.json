@@ -1,7 +1,7 @@
 {
   "date": "2026-07-08",
   "season": "2026",
-  "pulled_at": "2026-07-08T20:30:30Z",
+  "pulled_at": "2026-07-08T20:42:43Z",
   "games": [
     {
       "gamePk": 823202,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 656302,
           "name": "Dylan Cease",
-          "hr9": 0.49,
+          "hr9": 0.48,
           "hand": "RHP"
         },
         "lineup": [
@@ -45,17 +45,17 @@
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.103
+            "iso": 0.101
           },
           {
             "id": 682729,
             "name": "Jonatan Clase",
-            "iso": 0.5
+            "iso": 0.428
           },
           {
             "id": 665926,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 657277,
           "name": "Logan Webb",
-          "hr9": 0.75,
+          "hr9": 0.74,
           "hand": "RHP"
         },
         "lineup": [
@@ -107,7 +107,7 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.192
+            "iso": 0.19
           },
           {
             "id": 687551,
@@ -117,7 +117,7 @@
           {
             "id": 606992,
             "name": "Eric Haase",
-            "iso": 0.208
+            "iso": 0.206
           }
         ],
         "confirmed": true
@@ -1420,7 +1420,7 @@
     },
     {
       "gamePk": 823032,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-08T23:45:00Z",
       "matchup": "MIL@STL",
       "away": {
@@ -1442,10 +1442,56 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.09
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.15
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.239
+          },
+          {
+            "id": 676369,
+            "name": "Nelson Vel\u00e1zquez",
+            "iso": 0.289
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.187
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.124
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.119
+          },
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.152
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
