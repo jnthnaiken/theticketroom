@@ -1,7 +1,7 @@
 {
   "date": "2026-07-08",
   "season": "2026",
-  "pulled_at": "2026-07-08T21:00:39Z",
+  "pulled_at": "2026-07-08T21:30:58Z",
   "games": [
     {
       "gamePk": 823202,
@@ -20,7 +20,7 @@
           {
             "id": 676391,
             "name": "Ernie Clement",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 664770,
@@ -50,12 +50,12 @@
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.101
+            "iso": 0.1
           },
           {
             "id": 682729,
             "name": "Jonatan Clase",
-            "iso": 0.428
+            "iso": 0.375
           },
           {
             "id": 665926,
@@ -70,14 +70,14 @@
         "sp": {
           "id": 657277,
           "name": "Logan Webb",
-          "hr9": 0.73,
+          "hr9": 0.72,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.212
+            "iso": 0.21
           },
           {
             "id": 650333,
@@ -87,7 +87,7 @@
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 646240,
@@ -117,7 +117,7 @@
           {
             "id": 606992,
             "name": "Eric Haase",
-            "iso": 0.206
+            "iso": 0.203
           }
         ],
         "confirmed": true
@@ -265,7 +265,7 @@
         "wind_mph": 1.6,
         "wind_dir": 90,
         "tail_mph": -0.8,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.007
     },
@@ -531,7 +531,7 @@
         "wind_mph": 2.6,
         "wind_dir": 75,
         "tail_mph": -2.6,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.0
     },
@@ -1327,7 +1327,7 @@
         "wind_mph": 3.7,
         "wind_dir": 25,
         "tail_mph": -3.5,
-        "precip": 17
+        "precip": 16
       },
       "wf": 0.991
     },
@@ -1460,7 +1460,7 @@
         "wind_mph": 5.2,
         "wind_dir": 200,
         "tail_mph": 4.9,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.024
     },
@@ -1759,20 +1759,13 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 65\u00b0",
-        "lean": "Neutral",
-        "temp": 64.9,
-        "wind_mph": 2.2,
-        "wind_dir": 217,
-        "tail_mph": 2.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
       "wf": 1.0
     },
     {
       "gamePk": 823279,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-09T02:10:00Z",
       "matchup": "ARI@SD",
       "away": {
@@ -1783,8 +1776,54 @@
           "hr9": 2.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.219
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.139
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.239
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.139
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.166
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.091
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.158
+          },
+          {
+            "id": 656976,
+            "name": "Pavin Smith",
+            "iso": 0.054
+          },
+          {
+            "id": 694371,
+            "name": "Tommy Troy",
+            "iso": 0.124
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1797,7 +1836,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
