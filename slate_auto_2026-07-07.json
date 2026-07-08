@@ -1,7 +1,7 @@
 {
   "date": "2026-07-07",
   "season": "2026",
-  "pulled_at": "2026-07-08T04:01:07Z",
+  "pulled_at": "2026-07-08T04:30:31Z",
   "games": [
     {
       "gamePk": 823062,
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823280,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-08T01:40:00Z",
       "matchup": "ARI@SD",
       "away": {
@@ -1864,7 +1864,7 @@
     },
     {
       "gamePk": 823203,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-08T01:45:00Z",
       "matchup": "TOR@SF",
       "away": {
@@ -1889,12 +1889,12 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.082
+            "iso": 0.081
           },
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.22
+            "iso": 0.219
           },
           {
             "id": 678218,
@@ -1961,17 +1961,17 @@
           {
             "id": 642715,
             "name": "Willy Adames",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 682674,
             "name": "Victor Bericoto",
-            "iso": 0.278
+            "iso": 0.273
           },
           {
             "id": 701852,
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 13mph, 56\u00b0",
+        "lean": "Boost",
+        "temp": 55.5,
+        "wind_mph": 14.1,
+        "wind_dir": 288,
+        "tail_mph": 13.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.024
     },
     {
       "gamePk": 823929,
@@ -2005,22 +2012,22 @@
           {
             "id": 650489,
             "name": "Willi Castro",
-            "iso": 0.113
+            "iso": 0.112
           },
           {
             "id": 691720,
             "name": "Kyle Karros",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 681198,
             "name": "TJ Rumfield",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.285
+            "iso": 0.282
           },
           {
             "id": 671289,
@@ -2035,17 +2042,17 @@
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 690924,
             "name": "Braxton Fulford",
-            "iso": 0.116
+            "iso": 0.113
           },
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.319
+            "iso": 0.318
           }
         ],
         "confirmed": true
@@ -2082,7 +2089,7 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.154
+            "iso": 0.151
           },
           {
             "id": 663656,
@@ -2092,7 +2099,7 @@
           {
             "id": 687221,
             "name": "Dalton Rushing",
-            "iso": 0.231
+            "iso": 0.23
           },
           {
             "id": 690976,
