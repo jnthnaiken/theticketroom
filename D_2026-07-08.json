@@ -35059,7 +35059,7 @@
     "precip": 0
    }
   },
-  "build": "7/8 10:30am",
+  "build": "7/8 10:45am",
   "face": {},
   "maxAT": 100.0,
   "season": {
@@ -35150,15 +35150,60 @@
   },
   "date": "2026-07-08",
   "gs": {},
-  "tickets": 4,
-  "rules_version": "2026-07-04-redraft3"
+  "pool": 388,
+  "tickets": 15,
+  "rules_version": "2026-07-08-redraft4"
  },
+ "pool": [
+  "Juan Soto",
+  "Kyle Schwarber",
+  "Shohei Ohtani",
+  "Yordan Alvarez",
+  "James Wood",
+  "JJ Bleday",
+  "Elly De La Cruz",
+  "Spencer Steer",
+  "Brandon Lowe",
+  "Nick Kurtz",
+  "Shea Langeliers",
+  "Willson Contreras",
+  "Junior Caminero",
+  "Miguel Vargas",
+  "Matt Olson",
+  "Dillon Dingler",
+  "Francisco Lindor",
+  "Francisco Alvarez",
+  "Curtis Mead",
+  "Pete Crow-Armstrong",
+  "Pete Alonso",
+  "Ben Rice",
+  "Hunter Goodman",
+  "Carson Benge",
+  "Mickey Moniak",
+  "Esmerlyn Valdez",
+  "Spencer Torkelson",
+  "Jake Bauers",
+  "Samuel Basallo",
+  "Nelson Velazquez",
+  "CJ Abrams",
+  "Cal Raleigh",
+  "Jordan Walker",
+  "Gunnar Henderson",
+  "Dalton Rushing",
+  "Colson Montgomery",
+  "Wilyer Abreu",
+  "Ketel Marte",
+  "Kazuma Okamoto",
+  "Kody Clemens",
+  "Dominic Canzone",
+  "Zach Neto"
+ ],
  "tickets": [
   {
-   "name": "Last Train Home",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Juan Soto is crushing the baseball (59% hard-hit), has the yard tilting his way, carries serious thump (70/100 grade), the swing's trending up.",
+   "name": "Orbital Insertion",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Soto is lighting up the radar gun (59% hard-hit), Steer plays in a wind tunnel pointed at the seats, and Langeliers puts air under the ball (22\u00b0).",
    "players": [
     {
      "name": "Juan Soto",
@@ -35168,37 +35213,139 @@
      "wf": 1.037,
      "gmatch": "KC@NYM",
      "gtime": "7:10 PM ET",
-     "game": 1,
+     "game": 9,
      "late": false,
      "odds": 285,
      "status": "projected"
+    },
+    {
+     "name": "Spencer Steer",
+     "team": "Reds",
+     "total": 167.5,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "PHI@CIN",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 438,
+     "status": "projected"
+    },
+    {
+     "name": "Shea Langeliers",
+     "team": "Athletics",
+     "total": 158.6,
+     "aT": 100.0,
+     "wf": 1.074,
+     "gmatch": "ATH@DET",
+     "gtime": "6:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 320,
+     "status": "projected"
     }
    ],
-   "nlegs": 1,
+   "nlegs": 3,
    "anchor": "Juan Soto",
-   "lock": "7:10 PM ET",
+   "lock": "6:40 PM ET",
    "has_late": false,
    "final": false,
-   "rr": null,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 144.5,
+    "bytwos": false
+   },
    "n": 1,
-   "priced": 1,
+   "priced": 3,
    "confleg": 0,
-   "sum": 100.0,
-   "msum": 213.8,
-   "parlay_am": 285,
-   "payout10": 38.5,
+   "sum": 300.0,
+   "msum": 539.9,
+   "parlay_am": 8599,
+   "payout10": 869.95,
    "wxsum": {
-    "boost": 0,
+    "boost": 3,
     "supp": 0,
     "dome": 0,
-    "neu": 1
+    "neu": 0
    }
   },
   {
-   "name": "First-Pitch Feast",
-   "kind": "lunch",
-   "badge": "\ud83c\udf71",
-   "note": "Kyle Schwarber has gusts carrying balls over the wall, is barreling everything in sight (75% hard-hit), gets ideal loft (20\u00b0).",
+   "name": "Ballistic Arc",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Soto lands at 214 in our model, Kurtz gets ideal loft (18\u00b0), and Contreras catches a small park boost.",
+   "players": [
+    {
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 213.8,
+     "aT": 100.0,
+     "wf": 1.037,
+     "gmatch": "KC@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 285,
+     "status": "projected"
+    },
+    {
+     "name": "Nick Kurtz",
+     "team": "Athletics",
+     "total": 160.3,
+     "aT": 100.0,
+     "wf": 1.074,
+     "gmatch": "ATH@DET",
+     "gtime": "6:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 235,
+     "status": "projected"
+    },
+    {
+     "name": "Willson Contreras",
+     "team": "Red Sox",
+     "total": 156.2,
+     "aT": 100.0,
+     "wf": 1.025,
+     "gmatch": "BOS@CWS",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 380,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Juan Soto",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 107.4,
+    "bytwos": false
+   },
+   "n": 2,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 530.3,
+   "parlay_am": 6091,
+   "payout10": 619.08,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Climbing the Ladder",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Schwarber swings with the wind at his back, Wood is rocketing line drives (67% hard-hit), and Caminero has real over-the-fence pop (54/100).",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -35208,37 +35355,365 @@
      "wf": 1.066,
      "gmatch": "PHI@CIN",
      "gtime": "7:10 PM ET",
-     "game": 1,
+     "game": 8,
      "late": false,
      "odds": 198,
      "status": "projected"
+    },
+    {
+     "name": "James Wood",
+     "team": "Nationals",
+     "total": 186.8,
+     "aT": 100.0,
+     "wf": 1.04,
+     "gmatch": "HOU@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 265,
+     "status": "projected"
+    },
+    {
+     "name": "Junior Caminero",
+     "team": "Rays",
+     "total": 156.0,
+     "aT": 100.0,
+     "wf": 1.0,
+     "gmatch": "NYY@TB",
+     "gtime": "6:40 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 260,
+     "status": "projected"
     }
    ],
-   "nlegs": 1,
+   "nlegs": 3,
    "anchor": "Kyle Schwarber",
-   "lock": "7:10 PM ET",
+   "lock": "6:40 PM ET",
    "has_late": false,
    "final": false,
-   "rr": null,
-   "n": 2,
-   "priced": 1,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 71.9,
+    "bytwos": false
+   },
+   "n": 3,
+   "priced": 3,
    "confleg": 0,
-   "sum": 100.0,
-   "msum": 197.4,
-   "parlay_am": 198,
-   "payout10": 29.8,
+   "sum": 300.0,
+   "msum": 540.2,
+   "parlay_am": 3816,
+   "payout10": 391.57,
    "wxsum": {
-    "boost": 0,
+    "boost": 2,
     "supp": 0,
-    "dome": 0,
-    "neu": 1
+    "dome": 1,
+    "neu": 0
    }
   },
   {
-   "name": "Paid in Full",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Shohei Ohtani is hitting absolute lasers (67% hard-hit), has loft to spare (18\u00b0), gets a sliver of help from the park.",
+   "name": "The Way Back Machine",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Schwarber gets ideal loft (20\u00b0), Lowe lands at 161 in our model, and Vargas catches a small park boost.",
+   "players": [
+    {
+     "name": "Kyle Schwarber",
+     "team": "Phillies",
+     "total": 197.4,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "PHI@CIN",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 198,
+     "status": "projected"
+    },
+    {
+     "name": "Brandon Lowe",
+     "team": "Pirates",
+     "total": 161.1,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "ATL@PIT",
+     "gtime": "6:40 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 335,
+     "status": "projected"
+    },
+    {
+     "name": "Miguel Vargas",
+     "team": "White Sox",
+     "total": 155.5,
+     "aT": 100.0,
+     "wf": 1.025,
+     "gmatch": "BOS@CWS",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 325,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Kyle Schwarber",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 97.2,
+    "bytwos": false
+   },
+   "n": 4,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 514.0,
+   "parlay_am": 5409,
+   "payout10": 550.93,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Touch 'Em All",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alvarez is crushing it to all fields (59% hard-hit), Bleday gets a yard playing like a launchpad tonight, and Olson gets ideal loft (23\u00b0).",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 189.4,
+     "aT": 100.0,
+     "wf": 1.04,
+     "gmatch": "HOU@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 250,
+     "status": "projected"
+    },
+    {
+     "name": "JJ Bleday",
+     "team": "Reds",
+     "total": 176.1,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "PHI@CIN",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 340,
+     "status": "projected"
+    },
+    {
+     "name": "Matt Olson",
+     "team": "Braves",
+     "total": 155.1,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "ATL@PIT",
+     "gtime": "6:40 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 290,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Yordan Alvarez",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 104.3,
+    "bytwos": false
+   },
+   "n": 5,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 520.6,
+   "parlay_am": 5906,
+   "payout10": 600.6,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Goodbye Baseball",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alvarez gets ideal loft (18\u00b0), Cruz lands at 172 in our model, and Dingler is teeing off (58% hard-hit).",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 189.4,
+     "aT": 100.0,
+     "wf": 1.04,
+     "gmatch": "HOU@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 250,
+     "status": "projected"
+    },
+    {
+     "name": "Elly De La Cruz",
+     "team": "Reds",
+     "total": 172.4,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "PHI@CIN",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 315,
+     "status": "projected"
+    },
+    {
+     "name": "Dillon Dingler",
+     "team": "Tigers",
+     "total": 154.7,
+     "aT": 100.0,
+     "wf": 1.074,
+     "gmatch": "ATH@DET",
+     "gtime": "6:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 373,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Yordan Alvarez",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2.0,
+    "maxprofit": 117.4,
+    "bytwos": false
+   },
+   "n": 6,
+   "priced": 3,
+   "confleg": 0,
+   "sum": 300.0,
+   "msum": 516.5,
+   "parlay_am": 6770,
+   "payout10": 687.03,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Loaded Plate",
+   "kind": "biggest",
+   "badge": "\ud83e\udd6a",
+   "note": "Lindor gets ideal loft (19\u00b0), Mead lands at 151 in our model, Crow-Armstrong catches a small park boost, and Rice is squaring it up (49% hard-hit).",
+   "players": [
+    {
+     "name": "Francisco Lindor",
+     "team": "Mets",
+     "total": 152.9,
+     "aT": 100.0,
+     "wf": 1.037,
+     "gmatch": "KC@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 440,
+     "status": "projected"
+    },
+    {
+     "name": "Curtis Mead",
+     "team": "Nationals",
+     "total": 150.9,
+     "aT": 100.0,
+     "wf": 1.04,
+     "gmatch": "HOU@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 458,
+     "status": "projected"
+    },
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 149.6,
+     "aT": 100.0,
+     "wf": 1.035,
+     "gmatch": "CHC@BAL",
+     "gtime": "6:35 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 275,
+     "status": "projected"
+    },
+    {
+     "name": "Ben Rice",
+     "team": "Yankees",
+     "total": 147.6,
+     "aT": 100.0,
+     "wf": 1.0,
+     "gmatch": "NYY@TB",
+     "gtime": "6:40 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 408,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Francisco Lindor",
+   "lock": "6:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 5.5,
+    "maxprofit": 1189.9,
+    "bytwos": false
+   },
+   "n": 7,
+   "priced": 4,
+   "confleg": 0,
+   "sum": 400.0,
+   "msum": 601.0,
+   "parlay_am": 57301,
+   "payout10": 5740.15,
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Last Train Home",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Shohei Ohtani is hitting absolute lasers (67% hard-hit), has loft to spare (18\u00b0), gets a sliver of help from the park, and carries top-shelf pop (100/100 power grade).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -35248,7 +35723,7 @@
      "wf": 1.04,
      "gmatch": "COL@LAD",
      "gtime": "10:10 PM ET",
-     "game": 1,
+     "game": 14,
      "late": true,
      "odds": 199,
      "status": "projected"
@@ -35260,7 +35735,7 @@
    "has_late": true,
    "final": false,
    "rr": null,
-   "n": 3,
+   "n": 8,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -35268,17 +35743,137 @@
    "parlay_am": 199,
    "payout10": 29.9,
    "wxsum": {
-    "boost": 0,
+    "boost": 1,
     "supp": 0,
     "dome": 0,
-    "neu": 1
+    "neu": 0
+   }
+  },
+  {
+   "name": "First-Pitch Feast",
+   "kind": "lunch",
+   "badge": "\ud83c\udf71",
+   "note": "Kazuma Okamoto is barreling balls at will (58% hard-hit), sends it skyward (21\u00b0), catches a small park boost, has plenty of raw power (80/100).",
+   "players": [
+    {
+     "name": "Kazuma Okamoto",
+     "team": "Blue Jays",
+     "total": 132.4,
+     "aT": 100.0,
+     "wf": 1.031,
+     "gmatch": "TOR@SF",
+     "gtime": "3:45 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 568,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kazuma Okamoto",
+   "lock": "3:45 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 9,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 132.4,
+   "parlay_am": 568,
+   "payout10": 66.8,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Paid in Full",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Juan Soto is crushing the baseball (59% hard-hit), plays in a slightly friendly yard, has the pop to go deep (70/100 power).",
+   "players": [
+    {
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 213.8,
+     "aT": 100.0,
+     "wf": 1.037,
+     "gmatch": "KC@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 285,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Juan Soto",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 10,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 213.8,
+   "parlay_am": 285,
+   "payout10": 38.5,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
    }
   },
   {
    "name": "Bag Secured",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Yordan Alvarez is hitting frozen ropes (59% hard-hit), gets under it just right (18\u00b0), catches a small park boost.",
+   "note": "Kyle Schwarber has gusts carrying balls over the wall, is barreling everything in sight (75% hard-hit), drives the ball into the air (20\u00b0).",
+   "players": [
+    {
+     "name": "Kyle Schwarber",
+     "team": "Phillies",
+     "total": 197.4,
+     "aT": 100.0,
+     "wf": 1.066,
+     "gmatch": "PHI@CIN",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 198,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kyle Schwarber",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 11,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 197.4,
+   "parlay_am": 198,
+   "payout10": 29.8,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "The Sure Thing",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Yordan Alvarez is hitting frozen ropes (59% hard-hit), gets under it just right (18\u00b0), gets a touch of carry tonight.",
    "players": [
     {
      "name": "Yordan Alvarez",
@@ -35288,7 +35883,7 @@
      "wf": 1.04,
      "gmatch": "HOU@WSH",
      "gtime": "6:45 PM ET",
-     "game": 1,
+     "game": 7,
      "late": false,
      "odds": 250,
      "status": "projected"
@@ -35300,7 +35895,7 @@
    "has_late": false,
    "final": false,
    "rr": null,
-   "n": 4,
+   "n": 12,
    "priced": 1,
    "confleg": 0,
    "sum": 100.0,
@@ -35308,10 +35903,130 @@
    "parlay_am": 250,
    "payout10": 35.0,
    "wxsum": {
-    "boost": 0,
+    "boost": 1,
     "supp": 0,
     "dome": 0,
-    "neu": 1
+    "neu": 0
+   }
+  },
+  {
+   "name": "Easy Money",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Francisco Lindor is punishing the baseball (55% hard-hit), finds the home-run trajectory (19\u00b0), has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Francisco Lindor",
+     "team": "Mets",
+     "total": 152.9,
+     "aT": 100.0,
+     "wf": 1.037,
+     "gmatch": "KC@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 440,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Francisco Lindor",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 13,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 152.9,
+   "parlay_am": 440,
+   "payout10": 54.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Stack It High",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Francisco Alvarez is hitting bullets (53% hard-hit), catches a small park boost, leans on contact with sneaky pop (43/100).",
+   "players": [
+    {
+     "name": "Francisco Alvarez",
+     "team": "Mets",
+     "total": 151.9,
+     "aT": 100.0,
+     "wf": 1.037,
+     "gmatch": "KC@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 440,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Francisco Alvarez",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 14,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 151.9,
+   "parlay_am": 440,
+   "payout10": 54.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   }
+  },
+  {
+   "name": "Mailbox Money",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Pete Alonso is tattooing the baseball (59% hard-hit), swings with home-run loft (19\u00b0), gets a sliver of help from the park.",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 149.4,
+     "aT": 100.0,
+     "wf": 1.035,
+     "gmatch": "CHC@BAL",
+     "gtime": "6:35 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 290,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Alonso",
+   "lock": "6:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "n": 15,
+   "priced": 1,
+   "confleg": 0,
+   "sum": 100.0,
+   "msum": 149.4,
+   "parlay_am": 290,
+   "payout10": 39.0,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
    }
   }
  ]
