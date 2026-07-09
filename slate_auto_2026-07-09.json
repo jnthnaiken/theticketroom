@@ -1,7 +1,7 @@
 {
   "date": "2026-07-09",
   "season": "2026",
-  "pulled_at": "2026-07-09T21:06:57Z",
+  "pulled_at": "2026-07-09T21:30:30Z",
   "games": [
     {
       "gamePk": 823359,
@@ -265,7 +265,7 @@
         "wind_mph": 10.2,
         "wind_dir": 188,
         "tail_mph": 9.8,
-        "precip": 35
+        "precip": 49
       },
       "wf": 1.042
     },
@@ -530,7 +530,7 @@
         "wind_mph": 4.9,
         "wind_dir": 355,
         "tail_mph": -4.0,
-        "precip": 66
+        "precip": 79
       },
       "wf": 0.995
     },
@@ -929,7 +929,7 @@
         "wind_mph": 1.3,
         "wind_dir": 301,
         "tail_mph": -0.0,
-        "precip": 7
+        "precip": 8
       },
       "wf": 1.005
     },
@@ -1194,7 +1194,7 @@
         "wind_mph": 4.3,
         "wind_dir": 201,
         "tail_mph": 4.1,
-        "precip": 5
+        "precip": 4
       },
       "wf": 1.026
     },
@@ -1327,7 +1327,7 @@
         "wind_mph": 5.6,
         "wind_dir": 254,
         "tail_mph": 4.0,
-        "precip": 27
+        "precip": 28
       },
       "wf": 1.02
     },
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823277,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T01:40:00Z",
       "matchup": "ARI@SD",
       "away": {
@@ -1487,10 +1487,56 @@
           "hr9": 1.41,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.101
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.137
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.103
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.216
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.211
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.092
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.302
+          },
+          {
+            "id": 609280,
+            "name": "Miguel Andujar",
+            "iso": 0.162
+          },
+          {
+            "id": 823550,
+            "name": "Sung-Mun Song",
+            "iso": 0.078
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1506,7 +1552,7 @@
     },
     {
       "gamePk": 823201,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T01:45:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -1517,8 +1563,54 @@
           "hr9": 1.37,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.211
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.176
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.273
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.293
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.185
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.082
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.111
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.132
+          },
+          {
+            "id": 690924,
+            "name": "Braxton Fulford",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -1528,10 +1620,56 @@
           "hr9": 0.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.21
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.133
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.207
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.228
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.192
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.188
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.273
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.143
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
