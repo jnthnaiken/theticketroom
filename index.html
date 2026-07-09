@@ -863,7 +863,7 @@ drawTickets();drawPlayers();drawTracker();
         var lf=Infinity; par.forEach(function(t){(t.players||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});}); if(lf===Infinity)lf=-1;
         var done={}; Object.keys(lockedB).forEach(function(n){done[n]=1;});
         par.forEach(function(t){ var a=t.anchor; if(a&&!done[a]&&P[a]&&P[a].odds!=null){ done[a]=1; mkBuilder(a); } });   // shipped-parlay anchors -> builders (no odds cap, mirrors server)
-        byS(nonchalk).forEach(function(n){ if(usedN[n]||done[n]||lnp[n])return; if(strength(n)>=lf-1e-9&&P[n].odds!=null&&P[n].odds<=600){ done[n]=1; mkBuilder(n); } });   // conviction snubs from the LIVE pool
+           // conviction snubs from the LIVE pool
       })();
     } else {
       // ---- FRESH draftF ASSEMBLY over the PROJECTED pool. Runs with NO prior board, OR on a live refresh where
