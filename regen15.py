@@ -123,7 +123,7 @@ for _i, _ln in enumerate(_blines):
 src = "\n".join(_blines)
 # strip the client conviction-snub builder loop (byS(draftPool)) so the live re-draft stays anchors-only
 # (idempotent; complements the line-based _BLD_NEW patch above, which the newer client variant does not match)
-src, _nsnub = re.subn(r"byS\(draftPool\)\.forEach\(function\(n\)\{if\(usedN\[n\][\s\S]*?,\[n\]\);\}\}\);", "", src)
+src, _nsnub = re.subn(r"byS\(nonchalk\)\.forEach\(function\(n\)\{\s*if\(usedN\[n\][\s\S]*?mkBuilder\(n\);\s*\}\s*\}\);", "", src)
 if _nsnub: print(f"  (display: stripped {_nsnub} client snub-builder loop(s) -> builders anchors-only)")
 if _nf or _ncap:
     print(f"  (display: footer credit fixed={bool(_nf)}; client builder cap applied={bool(_ncap)})")
