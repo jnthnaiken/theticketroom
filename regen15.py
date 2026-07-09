@@ -44,7 +44,7 @@ except Exception as e:
 # The live client engine (index.html) already does the prior-aware refill — keep locked
 # tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
 # already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
-RULES_VERSION = "2026-07-08-redraft4"      # bump to force a one-time re-draft when draft rules change
+RULES_VERSION = "2026-07-09-edge1"      # bump to force a one-time re-draft when draft rules change
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 # self-clearing: re-draft once if the prior draft predates the ISO drop OR was built under older rules.
 _stale = _same_slate and any(re.search(r'\bISO\b', (t.get('note') or '')) for t in prevD.get('tickets', []))
@@ -113,7 +113,7 @@ if _nrank: print("  (client: strength -> TOTAL alone)")
 # builders = the moon/salami ANCHORS plus any anchor-eligible bat at least as strong as the
 # weakest shipped anchor (passed over only on game-time fit). Emitted client-side from the
 # drafted tickets in `out` + candidate anchors `candA`. Replaces any prior variant. Idempotent.
-_BLD_NEW = ("(function(){var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});var usedN={};par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){usedN[l.name]=1;});});var lf=Infinity;par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});});if(lf===Infinity)lf=-1;var done={};par.forEach(function(t){if(t.anchor&&!done[t.anchor]&&P[t.anchor].odds!=null&&P[t.anchor].odds<=600){done[t.anchor]=1;mkF('builder','\\uD83D\\uDCB0',[t.anchor]);}});byS(nonchalk).forEach(function(n){if(usedN[n]||done[n])return;if(strength(n)>=lf-1e-9&&P[n].odds!=null&&P[n].odds<=600){done[n]=1;mkF('builder','\\uD83D\\uDCB0',[n]);}});})();")
+_BLD_NEW = ("(function(){var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});var usedN={};par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){usedN[l.name]=1;});});var lf=Infinity;par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});});if(lf===Infinity)lf=-1;var done={};par.forEach(function(t){if(t.anchor&&!done[t.anchor]&&P[t.anchor].odds!=null){done[t.anchor]=1;mkF('builder','\\uD83D\\uDCB0',[t.anchor]);}});})();")
 _blines = src.split("\n"); _ncap = 0
 for _i, _ln in enumerate(_blines):
     if "mkF('builder'," in _ln and ("byS(nonchalk" in _ln or "var seen" in _ln or "var anc" in _ln):
