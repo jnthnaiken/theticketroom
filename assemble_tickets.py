@@ -514,11 +514,8 @@ def assemble(D):
         a = t.get('anchor')
         if a and a not in _bnames and P[a].get('odds') is not None:
             _bnames.append(a)
-    for n in byS(nonchalk):                             # + conviction snubs left off every parlay
-        if n in _usedN or n in _bnames or n in _lnpick:   # _lnpick (lunch/nightcap) featured once, not duplicated as a builder
-            continue
-        if strength(n) >= _legfloor - 1e-9 and P[n].get('odds') is not None and P[n]['odds'] <= BUILDER_MAX_ODDS:
-            _bnames.append(n)
+    # 2026-07-09: conviction-snub builders removed -- builders = parlay ANCHORS only.
+    # (over the ledger window snubs graded -57u vs anchors +9u; snubs were the entire builder bleed)
     for n in _bnames:
         add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
