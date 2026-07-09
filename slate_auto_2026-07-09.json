@@ -1,7 +1,7 @@
 {
   "date": "2026-07-09",
   "season": "2026",
-  "pulled_at": "2026-07-09T22:00:33Z",
+  "pulled_at": "2026-07-09T22:30:29Z",
   "games": [
     {
       "gamePk": 823359,
@@ -796,13 +796,13 @@
         "wind_mph": 6.3,
         "wind_dir": 96,
         "tail_mph": -3.3,
-        "precip": 8
+        "precip": 7
       },
       "wf": 1.003
     },
     {
       "gamePk": 824251,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-09T22:40:00Z",
       "matchup": "ATH@DET",
       "away": {
@@ -929,13 +929,13 @@
         "wind_mph": 2.4,
         "wind_dir": 248,
         "tail_mph": 1.9,
-        "precip": 8
+        "precip": 13
       },
       "wf": 1.012
     },
     {
       "gamePk": 823846,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-09T22:40:00Z",
       "matchup": "SEA@MIA",
       "away": {
@@ -1194,7 +1194,7 @@
         "wind_mph": 5.6,
         "wind_dir": 182,
         "tail_mph": 4.4,
-        "precip": 4
+        "precip": 8
       },
       "wf": 1.026
     },
@@ -1327,7 +1327,7 @@
         "wind_mph": 6.9,
         "wind_dir": 289,
         "tail_mph": 1.3,
-        "precip": 28
+        "precip": 42
       },
       "wf": 1.014
     },
@@ -1476,8 +1476,54 @@
           "hr9": 1.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.216
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.119
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.236
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.14
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.178
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.088
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.156
+          },
+          {
+            "id": 694371,
+            "name": "Tommy Troy",
+            "iso": 0.146
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1679,7 +1725,7 @@
         "wind_mph": 7.8,
         "wind_dir": 267,
         "tail_mph": 7.8,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.007
     }
