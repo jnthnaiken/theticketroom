@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "season": "2026",
-  "pulled_at": "2026-07-10T19:00:32Z",
+  "pulled_at": "2026-07-10T19:30:32Z",
   "games": [
     {
       "gamePk": 824252,
@@ -86,13 +86,13 @@
         "wind_mph": 4.3,
         "wind_dir": 9,
         "tail_mph": -4.0,
-        "precip": 24
+        "precip": 25
       },
       "wf": 0.99
     },
     {
       "gamePk": 823357,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T22:40:00Z",
       "matchup": "MIL@PIT",
       "away": {
@@ -114,10 +114,56 @@
           "hr9": 1.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.072
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.247
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.196
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.341
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.201
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.083
+          },
+          {
+            "id": 682997,
+            "name": "Tyler Callihan",
+            "iso": 0.219
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.072
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.165
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -127,7 +173,7 @@
         "wind_mph": 4.1,
         "wind_dir": 189,
         "tail_mph": 2.0,
-        "precip": 29
+        "precip": 20
       },
       "wf": 1.011
     },
@@ -220,7 +266,7 @@
     },
     {
       "gamePk": 824817,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T23:05:00Z",
       "matchup": "KC@BAL",
       "away": {
@@ -231,8 +277,54 @@
           "hr9": 0.87,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.192
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.199
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.16
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.166
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.136
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.154
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.172
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.109
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -242,10 +334,56 @@
           "hr9": 0.81,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.177
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.188
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.097
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.218
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.202
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.122
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.138
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.117
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.177
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -480,7 +618,7 @@
     },
     {
       "gamePk": 823845,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T23:10:00Z",
       "matchup": "CLE@MIA",
       "away": {
@@ -502,10 +640,56 @@
           "hr9": 0.87,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.177
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.235
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.126
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.139
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.224
+          },
+          {
+            "id": 677870,
+            "name": "Leo Jim\u00e9nez",
+            "iso": 0.068
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.234
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.101
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.176
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -561,7 +745,7 @@
     },
     {
       "gamePk": 824575,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T23:40:00Z",
       "matchup": "ATH@CWS",
       "away": {
@@ -583,10 +767,56 @@
           "hr9": 1.09,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.122
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.32
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.238
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.258
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.15
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.107
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.182
+          },
+          {
+            "id": 691019,
+            "name": "Kyle Teel",
+            "iso": 0.145
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.158
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -642,7 +872,7 @@
     },
     {
       "gamePk": 823685,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T00:10:00Z",
       "matchup": "LAA@MIN",
       "away": {
@@ -664,10 +894,56 @@
           "hr9": 1.92,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.149
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.246
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.248
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.178
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.169
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.177
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.0
+          },
+          {
+            "id": 656484,
+            "name": "Tristan Gray",
+            "iso": 0.105
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.094
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -718,7 +994,7 @@
         "wind_mph": 6.0,
         "wind_dir": 124,
         "tail_mph": 0.4,
-        "precip": 27
+        "precip": 31
       },
       "wf": 1.007
     },
