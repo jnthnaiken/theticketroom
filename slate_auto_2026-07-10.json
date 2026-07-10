@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "season": "2026",
-  "pulled_at": "2026-07-10T20:51:38Z",
+  "pulled_at": "2026-07-10T21:00:57Z",
   "games": [
     {
       "gamePk": 824252,
@@ -132,7 +132,7 @@
         "wind_mph": 2.9,
         "wind_dir": 274,
         "tail_mph": 1.3,
-        "precip": 25
+        "precip": 26
       },
       "wf": 1.009
     },
@@ -265,7 +265,7 @@
         "wind_mph": 2.0,
         "wind_dir": 276,
         "tail_mph": 1.8,
-        "precip": 20
+        "precip": 18
       },
       "wf": 1.01
     },
@@ -398,7 +398,7 @@
         "wind_mph": 2.9,
         "wind_dir": 231,
         "tail_mph": 2.7,
-        "precip": 5
+        "precip": 3
       },
       "wf": 1.02
     },
@@ -664,7 +664,7 @@
         "wind_mph": 3.1,
         "wind_dir": 274,
         "tail_mph": 1.8,
-        "precip": 14
+        "precip": 12
       },
       "wf": 1.017
     },
@@ -1148,7 +1148,7 @@
         "wind_mph": 8.8,
         "wind_dir": 19,
         "tail_mph": -8.3,
-        "precip": 2
+        "precip": 0
       },
       "wf": 0.972
     },
@@ -1367,7 +1367,7 @@
         "wind_mph": 3.4,
         "wind_dir": 148,
         "tail_mph": 2.6,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.02
     },
@@ -1500,7 +1500,7 @@
         "wind_mph": 8.4,
         "wind_dir": 290,
         "tail_mph": 1.5,
-        "precip": 31
+        "precip": 40
       },
       "wf": 1.011
     },
@@ -1564,8 +1564,10 @@
       "home": {
         "abbrev": "LAD",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 669165,
+          "name": "Kyle Hurt",
+          "hr9": 0.91,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -1614,16 +1616,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 12mph, 55\u00b0",
-        "lean": "Neutral",
-        "temp": 55.0,
-        "wind_mph": 12.2,
-        "wind_dir": 279,
-        "tail_mph": 11.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.019
+      "wf": 1.0
     }
   ]
 }
