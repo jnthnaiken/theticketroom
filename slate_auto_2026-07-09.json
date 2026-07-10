@@ -1,7 +1,7 @@
 {
   "date": "2026-07-09",
   "season": "2026",
-  "pulled_at": "2026-07-10T04:00:34Z",
+  "pulled_at": "2026-07-10T04:30:58Z",
   "games": [
     {
       "gamePk": 823359,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823277,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-10T01:40:00Z",
       "matchup": "ARI@SD",
       "away": {
@@ -1515,7 +1515,7 @@
           {
             "id": 694371,
             "name": "Tommy Troy",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 694374,
@@ -1542,7 +1542,7 @@
           {
             "id": 701538,
             "name": "Jackson Merrill",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 593428,
@@ -1572,12 +1572,12 @@
           {
             "id": 609280,
             "name": "Miguel Andujar",
-            "iso": 0.161
+            "iso": 0.16
           },
           {
             "id": 823550,
             "name": "Sung-Mun Song",
-            "iso": 0.076
+            "iso": 0.075
           }
         ],
         "confirmed": true
@@ -1613,27 +1613,27 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 691720,
             "name": "Kyle Karros",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.263
+            "iso": 0.261
           },
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.291
+            "iso": 0.29
           },
           {
             "id": 681198,
             "name": "TJ Rumfield",
-            "iso": 0.185
+            "iso": 0.183
           },
           {
             "id": 671289,
@@ -1643,7 +1643,7 @@
           {
             "id": 650489,
             "name": "Willi Castro",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 678662,
@@ -1680,22 +1680,22 @@
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.214
+            "iso": 0.216
           },
           {
             "id": 646240,
             "name": "Rafael Devers",
-            "iso": 0.225
+            "iso": 0.228
           },
           {
             "id": 642715,
             "name": "Willy Adames",
-            "iso": 0.189
+            "iso": 0.197
           },
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.204
+            "iso": 0.203
           },
           {
             "id": 682674,
@@ -1718,16 +1718,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 56\u00b0",
-        "lean": "Neutral",
-        "temp": 55.5,
-        "wind_mph": 10.6,
-        "wind_dir": 275,
-        "tail_mph": 10.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     }
   ]
 }
