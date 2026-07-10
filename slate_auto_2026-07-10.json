@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "season": "2026",
-  "pulled_at": "2026-07-10T21:00:57Z",
+  "pulled_at": "2026-07-10T21:30:57Z",
   "games": [
     {
       "gamePk": 824252,
@@ -1547,7 +1547,7 @@
     },
     {
       "gamePk": 823927,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T02:10:00Z",
       "matchup": "ARI@LAD",
       "away": {
@@ -1558,8 +1558,54 @@
           "hr9": 0.83,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.213
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.118
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.234
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.138
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.087
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.137
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.164
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.098
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.084
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -1572,19 +1618,12 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 66\u00b0",
-        "lean": "Neutral",
-        "temp": 65.5,
-        "wind_mph": 3.6,
-        "wind_dir": 227,
-        "tail_mph": 3.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.005
+      "wf": 1.0
     },
     {
       "gamePk": 823200,
@@ -1616,9 +1655,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 55\u00b0",
+        "lean": "Neutral",
+        "temp": 55.0,
+        "wind_mph": 12.2,
+        "wind_dir": 279,
+        "tail_mph": 11.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.019
     }
   ]
 }
