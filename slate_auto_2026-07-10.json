@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "season": "2026",
-  "pulled_at": "2026-07-10T18:00:33Z",
+  "pulled_at": "2026-07-10T18:30:53Z",
   "games": [
     {
       "gamePk": 824252,
@@ -40,7 +40,7 @@
         "wind_mph": 3.2,
         "wind_dir": 192,
         "tail_mph": 3.0,
-        "precip": 9
+        "precip": 24
       },
       "wf": 1.015
     },
@@ -81,7 +81,7 @@
         "wind_mph": 3.7,
         "wind_dir": 107,
         "tail_mph": -3.0,
-        "precip": 20
+        "precip": 29
       },
       "wf": 0.995
     },
@@ -122,7 +122,7 @@
         "wind_mph": 4.3,
         "wind_dir": 208,
         "tail_mph": 4.3,
-        "precip": 7
+        "precip": 5
       },
       "wf": 1.027
     },
@@ -163,7 +163,7 @@
         "wind_mph": 3.0,
         "wind_dir": 297,
         "tail_mph": 0.2,
-        "precip": 4
+        "precip": 3
       },
       "wf": 1.007
     },
@@ -204,7 +204,7 @@
         "wind_mph": 1.3,
         "wind_dir": 301,
         "tail_mph": 0.2,
-        "precip": 16
+        "precip": 14
       },
       "wf": 1.012
     },
@@ -325,7 +325,7 @@
         "wind_mph": 3.3,
         "wind_dir": 200,
         "tail_mph": 3.3,
-        "precip": 3
+        "precip": 2
       },
       "wf": 1.022
     },
@@ -366,7 +366,7 @@
         "wind_mph": 6.0,
         "wind_dir": 34,
         "tail_mph": -6.0,
-        "precip": 1
+        "precip": 2
       },
       "wf": 0.98
     },
@@ -488,7 +488,7 @@
         "wind_mph": 5.5,
         "wind_dir": 212,
         "tail_mph": 5.5,
-        "precip": 28
+        "precip": 27
       },
       "wf": 1.026
     },
@@ -563,16 +563,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 65\u00b0",
-        "lean": "Neutral",
-        "temp": 65.3,
-        "wind_mph": 2.8,
-        "wind_dir": 241,
-        "tail_mph": 2.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.001
+      "wf": 1.0
     },
     {
       "gamePk": 823200,
