@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "season": "2026",
-  "pulled_at": "2026-07-10T18:55:56Z",
+  "pulled_at": "2026-07-10T19:00:32Z",
   "games": [
     {
       "gamePk": 824252,
@@ -348,7 +348,7 @@
     },
     {
       "gamePk": 822955,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-10T23:10:00Z",
       "matchup": "SEA@TB",
       "away": {
@@ -359,8 +359,54 @@
           "hr9": 0.98,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.136
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.168
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.274
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.147
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.102
+          },
+          {
+            "id": 670042,
+            "name": "Luke Raley",
+            "iso": 0.23
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.134
+          },
+          {
+            "id": 670156,
+            "name": "Miles Mastrobuoni",
+            "iso": 0.0
+          },
+          {
+            "id": 671083,
+            "name": "Buddy Kennedy",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
@@ -370,10 +416,56 @@
           "hr9": 0.9,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.172
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.161
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.269
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.134
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.063
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.171
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.069
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.09
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
