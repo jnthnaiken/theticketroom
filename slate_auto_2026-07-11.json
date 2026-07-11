@@ -1,11 +1,11 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-11T13:24:36Z",
+  "pulled_at": "2026-07-11T13:30:33Z",
   "games": [
     {
       "gamePk": 823357,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T16:05:00Z",
       "matchup": "MIL@PIT",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 1.59,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.139
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.185
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.193
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.115
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.237
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.0
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.06
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.086
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.079
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PIT",
@@ -30,7 +76,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
