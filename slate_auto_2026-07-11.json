@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-11T17:08:22Z",
+  "pulled_at": "2026-07-11T17:30:40Z",
   "games": [
     {
       "gamePk": 823357,
@@ -45,12 +45,12 @@
           {
             "id": 800325,
             "name": "Luis Lara",
-            "iso": 0.0
+            "iso": 0.1
           },
           {
             "id": 806198,
             "name": "Cooper Pratt",
-            "iso": 0.059
+            "iso": 0.073
           },
           {
             "id": 686217,
@@ -70,14 +70,14 @@
         "sp": {
           "id": 677952,
           "name": "Braxton Ashcraft",
-          "hr9": 1.05,
+          "hr9": 1.04,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 663968,
             "name": "Jake Mangum",
-            "iso": 0.072
+            "iso": 0.071
           },
           {
             "id": 664040,
@@ -107,7 +107,7 @@
           {
             "id": 682997,
             "name": "Tyler Callihan",
-            "iso": 0.216
+            "iso": 0.214
           },
           {
             "id": 669707,
@@ -513,8 +513,54 @@
           "hr9": 1.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.201
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.132
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.213
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.234
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.195
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.198
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.129
+          },
+          {
+            "id": 683679,
+            "name": "Jesus Rodriguez",
+            "iso": 0.154
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -532,7 +578,7 @@
     },
     {
       "gamePk": 822711,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T20:05:00Z",
       "matchup": "NYY@WSH",
       "away": {
@@ -543,8 +589,54 @@
           "hr9": 0.8,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 642708,
+            "name": "Amed Rosario",
+            "iso": 0.22
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.32
+          },
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.179
+          },
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.225
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.185
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.173
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.083
+          },
+          {
+            "id": 645305,
+            "name": "Ali S\u00e1nchez",
+            "iso": 0.066
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -557,7 +649,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -803,8 +895,54 @@
           "hr9": 1.69,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.156
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.126
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.165
+          },
+          {
+            "id": 700932,
+            "name": "Kyle Manzardo",
+            "iso": 0.148
+          },
+          {
+            "id": 696135,
+            "name": "Kahlil Watson",
+            "iso": 0.088
+          },
+          {
+            "id": 672356,
+            "name": "Gabriel Arias",
+            "iso": 0.203
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.055
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.088
+          },
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.055
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
