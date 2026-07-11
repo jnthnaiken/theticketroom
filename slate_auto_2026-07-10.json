@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
   "season": "2026",
-  "pulled_at": "2026-07-11T04:01:05Z",
+  "pulled_at": "2026-07-11T04:20:24Z",
   "games": [
     {
       "gamePk": 824252,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822709,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-10T22:45:00Z",
       "matchup": "NYY@WSH",
       "away": {
@@ -1319,16 +1319,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 76\u00b0",
-        "lean": "Neutral",
-        "temp": 76.5,
-        "wind_mph": 3.0,
-        "wind_dir": 297,
-        "tail_mph": -1.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.006
+      "wf": 1.0
     },
     {
       "gamePk": 823033,
@@ -1372,7 +1365,7 @@
           {
             "id": 573262,
             "name": "Mike Yastrzemski",
-            "iso": 0.132
+            "iso": 0.136
           },
           {
             "id": 663586,
@@ -1382,12 +1375,12 @@
           {
             "id": 642086,
             "name": "Dominic Smith",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 805347,
             "name": "Jim Jarvis",
-            "iso": 0.16
+            "iso": 0.154
           }
         ],
         "confirmed": true
@@ -1429,7 +1422,7 @@
           {
             "id": 691026,
             "name": "Masyn Winn",
-            "iso": 0.091
+            "iso": 0.09
           },
           {
             "id": 665877,
@@ -1439,7 +1432,7 @@
           {
             "id": 691458,
             "name": "Blaze Jordan",
-            "iso": 0.127
+            "iso": 0.125
           },
           {
             "id": 686780,
@@ -1500,22 +1493,22 @@
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.108
+            "iso": 0.106
           },
           {
             "id": 662139,
             "name": "Daulton Varsho",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 649966,
             "name": "Luis Ur\u00edas",
-            "iso": 0.182
+            "iso": 0.174
           },
           {
             "id": 664702,
             "name": "Myles Straw",
-            "iso": 0.105
+            "iso": 0.104
           },
           {
             "id": 682729,
@@ -1562,7 +1555,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 609280,
@@ -1606,7 +1599,7 @@
         "sp": {
           "id": 593958,
           "name": "Eduardo Rodriguez",
-          "hr9": 0.96,
+          "hr9": 0.95,
           "hand": "LHP"
         },
         "lineup": [
@@ -1628,12 +1621,12 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 666971,
             "name": "Lourdes Gurriel Jr.",
-            "iso": 0.085
+            "iso": 0.084
           },
           {
             "id": 545121,
@@ -1643,7 +1636,7 @@
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.164
+            "iso": 0.162
           },
           {
             "id": 814439,
@@ -1685,7 +1678,7 @@
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 669242,
@@ -1695,17 +1688,17 @@
           {
             "id": 663656,
             "name": "Kyle Tucker",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 606192,
             "name": "Teoscar Hern\u00e1ndez",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 500743,
             "name": "Miguel Rojas",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 687221,
@@ -1771,7 +1764,7 @@
           {
             "id": 671289,
             "name": "Tyler Freeman",
-            "iso": 0.079
+            "iso": 0.08
           },
           {
             "id": 650489,
@@ -1781,12 +1774,12 @@
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.312
+            "iso": 0.31
           },
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.133
+            "iso": 0.132
           }
         ],
         "confirmed": true
