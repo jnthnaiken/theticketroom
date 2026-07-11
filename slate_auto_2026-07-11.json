@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-11T17:42:38Z",
+  "pulled_at": "2026-07-11T18:00:33Z",
   "games": [
     {
       "gamePk": 823357,
@@ -40,7 +40,7 @@
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.246
+            "iso": 0.245
           },
           {
             "id": 800325,
@@ -92,7 +92,7 @@
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.369
+            "iso": 0.365
           },
           {
             "id": 656811,
@@ -132,7 +132,7 @@
         "wind_mph": 1.1,
         "wind_dir": 349,
         "tail_mph": -0.2,
-        "precip": 9
+        "precip": 7
       },
       "wf": 1.019
     },
@@ -173,13 +173,13 @@
         "wind_mph": 0.7,
         "wind_dir": 270,
         "tail_mph": 0.7,
-        "precip": 12
+        "precip": 13
       },
       "wf": 1.02
     },
     {
       "gamePk": 823682,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-07-11T18:10:00Z",
       "matchup": "LAA@MIN",
       "away": {
@@ -312,7 +312,7 @@
     },
     {
       "gamePk": 824576,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-11T18:10:00Z",
       "matchup": "ATH@CWS",
       "away": {
@@ -646,8 +646,54 @@
           "hr9": 1.03,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.285
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.277
+          },
+          {
+            "id": 678554,
+            "name": "Curtis Mead",
+            "iso": 0.236
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.24
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.158
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.137
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.097
+          },
+          {
+            "id": 686452,
+            "name": "Drew Millas",
+            "iso": 0.078
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.05
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -659,7 +705,7 @@
         "wind_mph": 4.1,
         "wind_dir": 29,
         "tail_mph": -4.1,
-        "precip": 20
+        "precip": 16
       },
       "wf": 1.004
     },
@@ -1138,7 +1184,7 @@
         "wind_mph": 2.7,
         "wind_dir": 42,
         "tail_mph": -2.6,
-        "precip": 14
+        "precip": 10
       },
       "wf": 0.996
     },
@@ -1219,7 +1265,7 @@
         "wind_mph": 4.1,
         "wind_dir": 9,
         "tail_mph": -3.5,
-        "precip": 13
+        "precip": 17
       },
       "wf": 0.99
     },
