@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-11T15:00:34Z",
+  "pulled_at": "2026-07-11T15:30:56Z",
   "games": [
     {
       "gamePk": 823357,
@@ -132,7 +132,7 @@
         "wind_mph": 4.3,
         "wind_dir": 348,
         "tail_mph": -0.6,
-        "precip": 12
+        "precip": 11
       },
       "wf": 1.019
     },
@@ -179,7 +179,7 @@
     },
     {
       "gamePk": 823682,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T18:10:00Z",
       "matchup": "LAA@MIN",
       "away": {
@@ -190,8 +190,54 @@
           "hr9": 2.54,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.224
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.241
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.122
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.178
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.144
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.154
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.106
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.131
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.097
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIN",
@@ -204,7 +250,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -231,8 +277,54 @@
           "hr9": 0.84,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.102
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.227
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.222
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.231
+          },
+          {
+            "id": 811965,
+            "name": "Joshua Kuroda-Grauer",
+            "iso": 0.082
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.102
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.155
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.076
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CWS",
@@ -383,7 +475,7 @@
         "wind_mph": 3.0,
         "wind_dir": 48,
         "tail_mph": -2.9,
-        "precip": 30
+        "precip": 31
       },
       "wf": 1.009
     },
@@ -584,7 +676,7 @@
         "wind_mph": 5.1,
         "wind_dir": 61,
         "tail_mph": -4.4,
-        "precip": 16
+        "precip": 15
       },
       "wf": 0.993
     },
@@ -740,16 +832,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 68\u00b0",
-        "lean": "Neutral",
-        "temp": 68.2,
-        "wind_mph": 1.4,
-        "wind_dir": 261,
-        "tail_mph": 0.2,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 0.998
+      "wf": 1.0
     },
     {
       "gamePk": 823926,
