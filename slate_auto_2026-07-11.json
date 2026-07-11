@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-11T17:00:32Z",
+  "pulled_at": "2026-07-11T17:08:22Z",
   "games": [
     {
       "gamePk": 823357,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 687075,
           "name": "Brandon Sproat",
-          "hr9": 1.56,
+          "hr9": 1.65,
           "hand": "RHP"
         },
         "lineup": [
@@ -87,12 +87,12 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.338
+            "iso": 0.369
           },
           {
             "id": 656811,
@@ -445,7 +445,7 @@
     },
     {
       "gamePk": 823198,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T20:05:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -456,8 +456,54 @@
           "hr9": 1.87,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.21
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.308
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.287
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.182
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.17
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.119
+          },
+          {
+            "id": 666397,
+            "name": "Edouard Julien",
+            "iso": 0.087
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.132
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.16
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -470,7 +516,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -682,8 +728,54 @@
           "hr9": 1.66,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.17
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.162
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.277
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.143
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.174
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.062
+          },
+          {
+            "id": 810938,
+            "name": "Ben Williamson",
+            "iso": 0.083
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.104
+          },
+          {
+            "id": 663743,
+            "name": "Nick Fortes",
+            "iso": 0.085
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -700,7 +792,7 @@
     },
     {
       "gamePk": 823844,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-11T20:10:00Z",
       "matchup": "CLE@MIA",
       "away": {
@@ -722,10 +814,56 @@
           "hr9": 1.47,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.172
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.175
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.22
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.125
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.246
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.219
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.1
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.173
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
