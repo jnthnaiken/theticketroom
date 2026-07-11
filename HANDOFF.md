@@ -1,6 +1,75 @@
-# The Ticket Room — Handoff / Resume Notes (2026-07-05)
+# The Ticket Room — Handoff / Resume Notes (2026-07-08)
 
 Quick-start status so a fresh session can continue without re-deriving context.
+
+## ⛔ DAILY BUILD WORKFLOW — READ THIS FIRST, DO NOT ASK
+
+Three live sources build a slate: **RotoWire** (lineups), **VegasInsider** (odds),
+**Kasper** (cards + khr extras + pitchers). The user has all three tabs + the repo + the
+live client open. Just build it — do not ask which sources or how.
+
+**KASPER: WE DO NOT USE THE EXPORT. GO THROUGH EVERY MATCHUP PAGE, ONE BY ONE.**
+Kasper's Export / Rolling / Zones are under construction — never touch them. For EACH game
+on the slate, open its matchup detail page `kasperbaseball.win/?game=<pk>` and scrape that
+game's roster tables. Accumulate across all games (N varies daily — 15 on a full slate),
+then compile the three sidecars:
+- `cards_<date>.json`  — per bat: name, form_pct, form_arrow, pb, hh, la, zone (roster
+  columns: Zone Fit / kHR / HR Form / PullBrl% / HH% / LA).
+- `kasper_extras_<date>.json` — per bat: `khr` (the 🧱 base-score badge), rounded int.
+- `pitchers_<date>.json` — per opposing starter: brl, pbrl, hh, fb (pitcher / Top Slate
+  Pitchers table).
+Strip ALL name suffixes (Jr./Sr./II/III). The browser localStorage may hold a prior day's
+`__cards_json`/`__extras_json`/`__pitchers_json` — those are STALE; clear the accumulator
+(`__cards_accum` + `TT_*`) and re-pull today's games before compiling. Verify freshness by
+checking the pitchers are today's starters, not yesterday's.
+
+Do NOT propose using the Kasper export or ask the user to run it. Going matchup-by-matchup
+IS the workflow, every single day.
+
+## 🔧 2026-07-08 session — built today's board; two data-shape traps found & fixed
+
+Built the full **2026-07-08** board end-to-end from the three live sources (RotoWire
+lineups, VegasInsider odds, Kasper cards/khr/pitchers). Final board: **15 tickets**
+(6 moon / 1 salami / 1 lunch / 1 nightcap / 6 builder), 388 pool bats, 291 priced,
+388 khr, 362 bats carrying live pitcher barrel-against. Ledger rolled forward to
+**builder 18-97** (graded 07-07's shipped board — 26 builders, 2 winners — on top
+of the 16-73 that stood through 07-06). `RULES_VERSION` is now `"2026-07-08-redraft4"`.
+
+Two traps cost most of the session — both DATA-shape issues, not model bugs:
+
+1. **`gn` MUST be unique per game (1,2,3,…N).** `build15.py` does `gamemeta[gn]=g`
+   and stamps each bat `game = gn`. Hardcode `gn:1` for every game and all games
+   collapse onto game 1, `meta.wx` ends up with a single entry, and the `GAME_CAP=4`
+   per-game cap throttles the ENTIRE pool to 4 bats → a 4-ticket board. Symptom:
+   healthy scores (dozens pass the z-gate) but only 4 tickets, all singles, all tagged
+   `game 1`. Fix: number the games sequentially when building `lineups_<date>.json`.
+
+2. **A same-slate rebuild does NOT re-draft — you must bump `RULES_VERSION`.**
+   `regen15.py` preserves the prior board's tickets on any same-date rebuild
+   (`_same_slate` → carries `prevD['tickets']` forward). So after you FIX a bad input
+   and rebuild the same slate, it keeps the OLD (bad) draft. To force one clean
+   re-assemble, bump `RULES_VERSION` in `regen15.py` (sets `_ruleschg=True`). This
+   session the gn-fix rebuild re-scored the players correctly but still shipped the
+   stale 4 tickets until the version bump. (`_scratched` — a preserved leg going
+   out/void — and `_stale` ISO notes also force a re-draft, but `RULES_VERSION` is the
+   reliable manual lever.)
+
+**VegasInsider odds parsing.** The HR-props table cells are formatted `o0.5 +575 +`
+(over-0.5 line, American odds, indicator) across 5 book columns, NOT bare numbers.
+Parse the last `[+-]\d{2,4}` per cell, drop `0`/blank, take the median across books.
+Two extra gotchas: (a) the live-RENDERED DOM collapses most cells to `0` — read the
+RAW server HTML instead (`fetch(url+'?_cb='+Date.now(),{cache:'no-store'})` then
+`DOMParser`), which carries every book's real line; (b) the article headline can lag a
+day (still shows yesterday's date) while the table underneath is today's — trust the
+table, not the headline. This session's pull was 292 priced bats.
+
+**pitchers file is now built for every starter** (not skipped). `pitchers_<date>.json`
+= `{PitcherName:{brl, pbrl}}`, keyed by the OPPOSING starter's (suffix-less) name,
+`brl`=Kasper "Brl/BIP%", `pbrl`="PullBrl%", read off each game page's
+`{TEAM} Starter{Name}` → "Summary" split table ("All" row). Feeds the barrel-against
+multiplier vs `BRL_BASE=7.5 / PBRL_BASE=5.0` in `build15.py`. Spot starters/openers
+Kasper doesn't cover (this slate: Lazar, Kolek) are simply absent → live HR/9 fallback.
+
 
 ## 🎫 Live-engine ticket fixes (2026-07-04 session — DEPLOYED & verified)
 
@@ -76,7 +145,7 @@ edge bites exactly as hard as the market regardless of how thin the edge is
   missing `blend`. The old fixed-40 rank cut is also fallback-only.
 - **Chalk ban is removed** — `CHALK_N` still defined but `chalk = set()`; the top-4
   favorites now draft into moons/salami/builders like any other bat.
-- `RULES_VERSION = "2026-07-04-redraft3"` in `regen15.py`.
+- `RULES_VERSION = "2026-07-08-redraft4"` in `regen15.py` (bumped 2026-07-08 to force a re-draft).
 
 ## ✅ Both prior "BROKEN" items are FIXED (verified in current code)
 
@@ -222,15 +291,4 @@ rounded to int. cards fields come from the same matchup roster tables.
    run actually rebuilt (`D_<date>.json` present, ~90s) — a 29s "success" skipped it.
 2. Let more nights log + grade, then backtest the 9 edge signals for real and refit
    the `_SIG` weights (they're currently guesses).
-3. **Server-salami rework (ledger consistency):** the client now builds the salami from
-   leftovers when the server ships none, but the graded ledger reads the *server* board.
-   Decouple `assemble_tickets.py`'s salami from the pre-chosen-anchor search — build it from
-   whatever the moons leave behind (mirror the client's seed-based leftover build) — so the
-   baked board carries the same salami the user sees/bets.
-4. Optional cleanup: fix the stale `liveUpdate` comment and prune the vestigial
-   multiplicative lambdas/`_mm` in `build15.py`.
-5. Keep an eye on the edge-vs-market AUC gap; the edge half is unproven.
-
-(Last verified: 07-04 board built & deployed with the live-engine ticket fixes above —
-cap=4 pool (42 bats), 6 paired moons + salami + builders + nightcap, salami robust to
-scratches, zero invariant violations across the scratch stress-test.)
+3. **Server-salami rework (ledger consistency):** the client now builds th
