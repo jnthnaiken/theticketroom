@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-11T14:00:35Z",
+  "pulled_at": "2026-07-11T14:30:54Z",
   "games": [
     {
       "gamePk": 823357,
@@ -319,10 +319,10 @@
       "home": {
         "abbrev": "WSH",
         "sp": {
-          "id": 571945,
-          "name": "Miles Mikolas",
-          "hr9": 1.99,
-          "hand": "RHP"
+          "id": 676571,
+          "name": "PJ Poulin",
+          "hr9": 1.03,
+          "hand": "LHP"
         },
         "lineup": [],
         "confirmed": false
@@ -735,16 +735,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 68\u00b0",
-        "lean": "Neutral",
-        "temp": 68.5,
-        "wind_mph": 4.3,
-        "wind_dir": 223,
-        "tail_mph": 4.1,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.012
+      "wf": 1.0
     }
   ]
 }
