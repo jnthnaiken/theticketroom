@@ -1,7 +1,7 @@
 {
   "date": "2026-07-12",
   "season": "2026",
-  "pulled_at": "2026-07-12T23:00:44Z",
+  "pulled_at": "2026-07-12T23:30:59Z",
   "games": [
     {
       "gamePk": 823358,
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823925,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-12T20:10:00Z",
       "matchup": "ARI@LAD",
       "away": {
@@ -1823,7 +1823,7 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.137
+            "iso": 0.135
           },
           {
             "id": 663656,
@@ -1833,7 +1833,7 @@
           {
             "id": 606192,
             "name": "Teoscar Hern\u00e1ndez",
-            "iso": 0.145
+            "iso": 0.144
           },
           {
             "id": 571970,
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 75\u00b0",
-        "lean": "Neutral",
-        "temp": 75.1,
-        "wind_mph": 7.4,
-        "wind_dir": 291,
-        "tail_mph": -2.7,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 0.998
+      "wf": 1.0
     }
   ]
 }
