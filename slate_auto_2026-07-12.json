@@ -1,11 +1,11 @@
 {
   "date": "2026-07-12",
   "season": "2026",
-  "pulled_at": "2026-07-12T16:00:58Z",
+  "pulled_at": "2026-07-12T16:30:56Z",
   "games": [
     {
       "gamePk": 823358,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-12T16:15:00Z",
       "matchup": "MIL@PIT",
       "away": {
@@ -13,24 +13,24 @@
         "sp": {
           "id": 688107,
           "name": "Robert Gasser",
-          "hr9": 1.66,
+          "hr9": 1.64,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 592885,
             "name": "Christian Yelich",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 641343,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 694973,
           "name": "Paul Skenes",
-          "hr9": 0.96,
+          "hr9": 0.95,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,7 +82,7 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.244
+            "iso": 0.243
           },
           {
             "id": 668804,
@@ -1477,8 +1477,54 @@
           "hr9": 2.19,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.142
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.318
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.165
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.227
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.16
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.151
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.286
+          },
+          {
+            "id": 694728,
+            "name": "Brice Matthews",
+            "iso": 0.135
+          },
+          {
+            "id": 543877,
+            "name": "Christian V\u00e1zquez",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -1552,7 +1598,7 @@
     },
     {
       "gamePk": 823199,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-12T20:05:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -1574,10 +1620,56 @@
           "hr9": 0.76,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.197
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.132
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.22
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.232
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.128
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.2
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.192
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.139
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
