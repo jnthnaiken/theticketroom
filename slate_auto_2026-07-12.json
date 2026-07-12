@@ -1,7 +1,7 @@
 {
   "date": "2026-07-12",
   "season": "2026",
-  "pulled_at": "2026-07-12T17:11:03Z",
+  "pulled_at": "2026-07-12T17:30:57Z",
   "games": [
     {
       "gamePk": 823358,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 688107,
           "name": "Robert Gasser",
-          "hr9": 1.75,
+          "hr9": 1.94,
           "hand": "LHP"
         },
         "lineup": [
@@ -40,12 +40,12 @@
           {
             "id": 596142,
             "name": "Gary S\u00e1nchez",
-            "iso": 0.223
+            "iso": 0.222
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 686217,
@@ -107,17 +107,17 @@
           {
             "id": 542303,
             "name": "Marcell Ozuna",
-            "iso": 0.118
+            "iso": 0.131
           },
           {
             "id": 669707,
             "name": "Jared Triolo",
-            "iso": 0.069
+            "iso": 0.074
           },
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.181
+            "iso": 0.18
           }
         ],
         "confirmed": true
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 824491,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-12T17:40:00Z",
       "matchup": "CHC@CIN",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823602,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-12T17:40:00Z",
       "matchup": "BOS@NYM",
       "away": {
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 822951,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-12T17:40:00Z",
       "matchup": "SEA@TB",
       "away": {
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824250,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-12T17:40:00Z",
       "matchup": "PHI@DET",
       "away": {
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 823842,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-12T17:40:00Z",
       "matchup": "CLE@MIA",
       "away": {
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823925,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-12T20:10:00Z",
       "matchup": "ARI@LAD",
       "away": {
@@ -1753,22 +1753,61 @@
           "hr9": 1.75,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.248
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.203
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.2
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.184
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.143
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.133
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.146
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.23
+          },
+          {
+            "id": 672613,
+            "name": "Eliezer Alfonzo",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 70.7,
-        "wind_mph": 3.8,
-        "wind_dir": 267,
-        "tail_mph": 1.8,
-        "precip": 6
+        "note": "weather fetch failed"
       },
-      "wf": 1.007
+      "wf": 1.0
     },
     {
       "gamePk": 823274,
