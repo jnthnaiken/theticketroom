@@ -26,6 +26,65 @@ checking the pitchers are today's starters, not yesterday's.
 Do NOT propose using the Kasper export or ask the user to run it. Going matchup-by-matchup
 IS the workflow, every single day.
 
+## 🎯 2026-07-11 session — ledger reconciled, doubleheader live-grade FIXED, Kasper method locked
+
+Built the **2026-07-11** board end-to-end (15 games, 388 bats, 13 tickets: 6 moon / 1 salami /
+1 nightcap / 1 lunch / 4 anchors-only builders). Ledger stands at **+350.1u** (corrected
+324.11 through 07-09, then 07-10 folded +25.95u). Carry these forward:
+
+**1. The board's season total = SUM of category units, NOT `history[-1]`.** `drawTracker()`
+sums `cats.{builder,moon,biggest,lunch,late}.units` for the big "+Nu" number; `history` only
+feeds the sparkline. To correct the displayed total, edit the category `units` AND keep
+`history[-1]` consistent (add the same delta to both). We hit this reconciling 07-09.
+
+**2. 07-09 ledger correction (bet board vs re-drafted board).** A mid-slate `RULES_VERSION`
+bump under the OLD regen15 force-re-drafted an already-confirmed board and swapped a confirmed
+moon leg (Rice → Contreras); the wrong leg then graded (+11 instead of +103). Fixed surgically:
+moon `units += 91.69`, `history[-1] += 91.69` → 324.11. **Lesson: never re-score / bump
+`RULES_VERSION` while a slate is live and confirmed.** The CURRENT `regen15.py` is the
+simplified preserve-and-inject with **no `RULES_VERSION`** — a same-slate rebuild ALWAYS
+preserves the prior tickets, so this can't recur.
+
+**3. DOUBLEHEADER live-grade bug — FIXED (deployed via a `regen15.py` swap).** On a DH the
+live grader disambiguates by matching the board's expected game time to the schedule game's ET
+start. It compared board gtime `"12:05 PM ET"` (carries a " ET" suffix) to `etOf()`'s
+`"12:05 PM"` (no zone), so `_got !== _want` was ALWAYS true → BOTH halves skipped → a HR in
+the game actually being played never registered (07-11 Valdez in MIL@PIT game 1). Fix: a
+`re.subn` in `regen15.py` strips a trailing " ET" from both sides before comparing (idempotent;
+bakes in on every build). Verified: board went from 0 HRs detected to catching Valdez/Bauers/
+Frelick, lunch ticket graded a +5.48u win. **DH gotcha:** StatsAPI `gamePk` order does NOT
+match game order — game 1 can have the HIGHER pk. Use `gameNumber`; when deduping a DH for the
+slate, favor the game actually being played (In Progress). The nightly `grade_night.py` reads
+every game's play-by-play by name, so the LEDGER always counts a DH HR regardless — only the
+live board needed the fix.
+
+### Kasper extraction — the exact fast method (matchup-by-matchup, NO export)
+
+Kasper is a **static Next.js build**: the whole slate's data is baked into the JS bundle and
+rendered per view — there is **no data API** to fetch. The per-game roster (with HH%/LA) only
+renders on the game detail page. Method that worked cleanly on 07-11:
+
+1. Build `pk→matchup` from StatsAPI (`schedule?sportId=1&date=<d>&hydrate=team`). Kasper's
+   `?game=<pk>` uses the MLB `gamePk`. Dedupe DHs to one pk per matchup.
+2. Per game: navigate `kasperbaseball.win/?game=<pk>`, then scrape the hitter roster tables
+   (a table is a roster if its headers include `Zone Fit` and `kHR`). Columns present by
+   default: Ceiling / Zone Fit / kHR / HR Form / ISO / xwOBA / xwOBAc / SwStr% / PullBrl% /
+   Brl/BIP% / Sweet% / FB%. **HH% and LA are NOT shown by default** — the hitter table has 3
+   `<select>` column-pickers whose options include `HH%` and `LA`; set two of them (native
+   value setter + `change` event) so those columns render, then scrape. Team = the
+   "TEAM vs Pitcher" heading above each roster table (skip the small unlabeled highlight table —
+   it's a duplicate subset). Headers double-render (`"LALA"`, `"HH%HH%"`) → match by
+   `includes()` and detect LA as `/LALA/`. Strip `LHB/RHB/SHB` + name suffixes off each name.
+3. Accumulate into **`localStorage`** (a `window` var resets on navigation). Store the scraper
+   itself in `localStorage` and run it per page as `await (eval(localStorage.getItem('SCRAPE')))()`;
+   chain `navigate + scrape` ~5 games per `browser_batch` call to go fast.
+4. Pitchers: the ROOT slate page's "Top Slate Pitchers" table has all ~12 arms in one place →
+   `{name:{pbrl:PulledBarrel%, brl:BarrelBIP%, hh:HardHit%, fb:FB%}}`. Names are "Last, First" →
+   reverse them.
+5. Compile `cards`/`kasper_extras`/`pitchers`; transfer to disk via the base64-sink →
+   `read_network_requests`(saved-to-file) → bash-reassemble channel; validate (every lineup bat
+   has a card, stars matched suffix-less, teams == lineup teams); commit all 5 + run the Action.
+
 ## 🔧 2026-07-08 session — built today's board; two data-shape traps found & fixed
 
 Built the full **2026-07-08** board end-to-end from the three live sources (RotoWire

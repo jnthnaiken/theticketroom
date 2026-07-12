@@ -55,7 +55,7 @@ day's `cards_<date>.json`).
 | `hr9_<date>.json` | opposing-pitcher HR/9 — legacy/optional (live HR/9 is fetched at build time) |
 
 **`cards`, `lineups`, and `odds` are REQUIRED; `kasper_extras` and `pitchers` are
-optional.** All five are **manual inputs you commit** — `cards`/`extras`/`pitchers`
+optional (though `pitchers` is now built every slate for all ~30 starters).** All five are **manual inputs you commit** — `cards`/`extras`/`pitchers`
 from the Kasper matchup pages, `odds` from VegasInsider HR props, `lineups` from
 RotoWire. `fetch_mlb.py` (in the Action) does **not** generate `lineups_<date>.json`;
 it only writes `slate_auto` (weather + HR/9).
@@ -68,6 +68,12 @@ missing `lineups_<date>.json` makes `build15` iterate yesterday's games and
 `build15`'s `norm()` does not strip `Jr./Sr./II/III`, so a suffix on one file and not
 another silently drops that player's odds/khr. Team codes: **AZ / ATH / CWS** (not
 ARI/OAK/CHW), matching the cards' matchup keys.
+
+⚠️ **`gn` must be UNIQUE per game (1, 2, 3, … N).** `build15` keys games by
+`gn` (`gamemeta[gn]=g`) and stamps every bat `game = gn`. If two games share a `gn`
+(e.g. you hardcode `gn:1` everywhere) they collapse into one game and the `GAME_CAP=4`
+per-game pool cap throttles the WHOLE board to 4 bats/4 tickets. Number the games
+sequentially. (`gn` is only 1/2 for a genuine doubleheader of the same matchup.)
 
 `build15` also pulls **live weather (Open-Meteo) and opposing-pitcher HR/9 (StatsAPI)**
 at build time and bakes them into TOTAL, so the shipped board matches the browser's
@@ -98,9 +104,14 @@ lineup's wind/temp and a neutral pitcher term.
 - **`build15.py`** — the scorer. Turns the carded field into a `TOTAL` per bat
   (our multiplier stack; **no base**). Also attaches display-only `khr`.
 - **`regen15.py`** — assembles the tickets (via `assemble_tickets.py`) and injects
-  `const D = …` into `index.html`. Preserves the prior draft across same-input
-  rebuilds; a `RULES_VERSION` bump forces a one-time re-draft when rules change.
-  Also applies the idempotent display patches (Pitcher chip, Model chip, khr badge).
+  `const D = …` into `index.html`. A **same-slate rebuild ALWAYS preserves the prior
+  draft** (carries `prevD['tickets']` forward untouched — the live client handles
+  confirm / scratch / refill), so a live, confirmed board is never re-drafted out from
+  under a placed bet. It also applies one idempotent client patch: the **doubleheader
+  ET time-match fix** (strips the `" ET"` suffix so a DH's in-progress game is graded
+  live — see the 2026-07-11 note in `HANDOFF.md`). *(An older version used a
+  `RULES_VERSION` lever to force a re-draft; it was removed after force-re-drafting a
+  confirmed 07-09 board and swapping a bet leg.)*
 - **`assemble_tickets.py`** — the ticket rules engine (pool gate, chalk routing,
   moons/salami/builders, lunch/nightcap, pricing).
 - **`calibrate.py`** — per-bat outcome logger → `calibration.jsonl`. Logs every
@@ -247,6 +258,13 @@ Behavior that's load-bearing:
   appearance in a completed game is a refund, not a miss — in the persistent ledger
   (`grade_night.py`, off a play-by-play "played" set) and both client graders
   (`gradeTicket` tonight, `priorGrade` yesterday). Only *postponed* games voided before.
+- **Doubleheaders.** When a matchup plays twice, the live grader picks the correct half
+  by matching the board's expected game time to each schedule game's ET start time
+  (`regen15.py` bakes in the ET-suffix fix so `"12:05 PM ET"` matches `"12:05 PM"` — without
+  it BOTH halves were skipped and a HR in the game being played never registered). Note
+  `gamePk` order does **not** track game order — game 1 can have the higher pk; use
+  `gameNumber`. The nightly grader reads every game's play-by-play by name, so the ledger
+  counts a DH HR regardless; the fix is about the live board.
 - **Top-4 per GAME holds everywhere** — the pool and the span-fill fallback, so a
   game can never put a 5th bat on the regular board (chalk in lunch/nightcap exempt).
 - **Builders = anchors + conviction snubs** (unused bats ≥ the weakest drafted leg),
@@ -277,26 +295,17 @@ Behavior that's load-bearing:
 ## Ledger (season.json)
 
 `season.json` is the source of truth for the running tracker; `grade_night.py` is
-the only thing that writes its history. It was **reset to start on 2026-06-27**,
-reflecting the current model graded over 6/27–6/28 only, and rolls forward from
-6/29 like usual. Per-category units, win counts, and the history curve are baked
-into the board as `D.meta.season`.
+the only thing that writes its history. Current epoch is **since 2026-06-30**
+(running **≈ +350u through 2026-07-10**), rolling forward each morning as the prior
+night settles. Per-category units, win counts, and the history curve are baked into
+the board as `D.meta.season`.
+
+> ⚠️ **The board's big "+Nu" season number is the SUM of the category `units`
+> (`builder/moon/biggest/lunch/late`), not `history[-1]`.** `history` only feeds the
+> sparkline. To correct the displayed total, edit the category `units` and add the
+> same delta to `history[-1]` to keep the curve consistent.
 
 > **Reality check.** Backtesting on the calibration data shows the model does **not**
 > out-predict the HR-prop market (AUC ≈ 0.58 vs the market's ≈ 0.61). Builder singles
 > bleed and the salami round-robin is unproven; moons are roughly break-even and the
-> most plausible — but not proven — place for an edge. Treat the board as a ranking/
-> research tool, not a guaranteed-profit system.
-
----
-
-## Notes
-
-- The board is one static file — opening `index.html` is all you do. A build stamp
-  (`build M/D h:mmam`) shows in the header next to the slate date so you can confirm
-  a fresh load; it's the *build* time (in **US Eastern**), not the slate date. (The
-  Action runs in UTC, so `build15.py` stamps ET as UTC−4 — fixed so an afternoon
-  build no longer reads as a late-night time.)
-- Display changes (Pitcher chip, Model chip, khr badge, builder rule, FLOOR) are
-  applied as idempotent patches in `regen15.py`, so they survive every rebuild
-  regardless of the template state.
+> most plausible — but not proven — place for an edge. Treat th
