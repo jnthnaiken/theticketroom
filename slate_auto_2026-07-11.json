@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
   "season": "2026",
-  "pulled_at": "2026-07-12T02:01:01Z",
+  "pulled_at": "2026-07-12T02:30:32Z",
   "games": [
     {
       "gamePk": 823357,
@@ -1466,7 +1466,7 @@
     },
     {
       "gamePk": 822875,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-11T23:05:00Z",
       "matchup": "HOU@TEX",
       "away": {
@@ -1578,7 +1578,7 @@
           {
             "id": 553869,
             "name": "Elias D\u00edaz",
-            "iso": 0.204
+            "iso": 0.202
           }
         ],
         "confirmed": true
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 824492,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-07-11T23:10:00Z",
       "matchup": "CHC@CIN",
       "away": {
@@ -1705,7 +1705,7 @@
           {
             "id": 695490,
             "name": "Edwin Arroyo",
-            "iso": 0.053
+            "iso": 0.052
           },
           {
             "id": 670770,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 4mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 72.9,
+        "wind_mph": 4.6,
+        "wind_dir": 11,
+        "tail_mph": -4.3,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 0.989
     },
     {
       "gamePk": 823276,
@@ -1872,22 +1879,22 @@
           {
             "id": 676391,
             "name": "Ernie Clement",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.104
+            "iso": 0.103
           },
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.089
+            "iso": 0.088
           },
           {
             "id": 543807,
             "name": "George Springer",
-            "iso": 0.158
+            "iso": 0.156
           },
           {
             "id": 672960,
@@ -1934,7 +1941,7 @@
           {
             "id": 701538,
             "name": "Jackson Merrill",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 593428,
@@ -1944,7 +1951,7 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.219
+            "iso": 0.218
           },
           {
             "id": 657757,
@@ -1954,17 +1961,17 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.214
+            "iso": 0.213
           },
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.088
+            "iso": 0.087
           },
           {
             "id": 669134,
             "name": "Luis Campusano",
-            "iso": 0.279
+            "iso": 0.276
           },
           {
             "id": 823550,
@@ -1990,7 +1997,7 @@
     },
     {
       "gamePk": 823926,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-07-12T01:10:00Z",
       "matchup": "ARI@LAD",
       "away": {
@@ -1998,14 +2005,14 @@
         "sp": {
           "id": 694297,
           "name": "Brandon Pfaadt",
-          "hr9": 1.4,
+          "hr9": 1.36,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 606466,
             "name": "Ketel Marte",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 672695,
@@ -2035,17 +2042,17 @@
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.048
+            "iso": 0.047
           },
           {
             "id": 694371,
             "name": "Tommy Troy",
-            "iso": 0.142
+            "iso": 0.141
           }
         ],
         "confirmed": true
@@ -2055,14 +2062,14 @@
         "sp": {
           "id": 808967,
           "name": "Yoshinobu Yamamoto",
-          "hr9": 0.91,
+          "hr9": 0.9,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 660271,
             "name": "Shohei Ohtani",
-            "iso": 0.249
+            "iso": 0.248
           },
           {
             "id": 681624,
@@ -2072,7 +2079,7 @@
           {
             "id": 518692,
             "name": "Freddie Freeman",
-            "iso": 0.201
+            "iso": 0.2
           },
           {
             "id": 605141,
@@ -2082,7 +2089,7 @@
           {
             "id": 571970,
             "name": "Max Muncy",
-            "iso": 0.233
+            "iso": 0.232
           },
           {
             "id": 663656,
@@ -2092,7 +2099,7 @@
           {
             "id": 606192,
             "name": "Teoscar Hern\u00e1ndez",
-            "iso": 0.147
+            "iso": 0.146
           },
           {
             "id": 687221,
