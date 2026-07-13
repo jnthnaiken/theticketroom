@@ -1,7 +1,7 @@
 {
   "date": "2026-07-12",
   "season": "2026",
-  "pulled_at": "2026-07-13T01:30:38Z",
+  "pulled_at": "2026-07-13T02:01:03Z",
   "games": [
     {
       "gamePk": 823358,
@@ -1719,15 +1719,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 74\u00b0",
+        "cond": "wind out 9mph, 73\u00b0",
         "lean": "Boost",
-        "temp": 73.8,
-        "wind_mph": 11.1,
-        "wind_dir": 261,
-        "tail_mph": 11.1,
+        "temp": 73.2,
+        "wind_mph": 9.6,
+        "wind_dir": 274,
+        "tail_mph": 9.5,
         "precip": 0
       },
-      "wf": 1.044
+      "wf": 1.038
     },
     {
       "gamePk": 823925,
@@ -1851,16 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 77\u00b0",
-        "lean": "Neutral",
-        "temp": 77.3,
-        "wind_mph": 6.5,
-        "wind_dir": 276,
-        "tail_mph": 2.1,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 74\u00b0",
+        "lean": "Boost",
+        "temp": 74.1,
+        "wind_mph": 8.8,
+        "wind_dir": 246,
+        "tail_mph": 6.6,
         "precip": 6
       },
-      "wf": 1.018
+      "wf": 1.029
     },
     {
       "gamePk": 823274,
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 75\u00b0",
-        "lean": "Neutral",
-        "temp": 75.1,
-        "wind_mph": 6.9,
-        "wind_dir": 291,
-        "tail_mph": -2.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 0.999
+      "wf": 1.0
     }
   ]
 }
