@@ -10,7 +10,8 @@ What it does:
   - For every night AFTER it, up to yesterday, that is FULLY FINAL in the MLB
     feed, it grades that night's board (D_<date>.json) leg-by-leg off real
     play-by-play home runs and folds the net into season.json (history, cats,
-    graded_nights). Postponed games void their legs (refund). It never grades a
+    graded_nights). Postponed games AND benched/DNP bats (no plate appearance) void
+    their legs (refund, never a loss). It never grades a
     night that isn't final yet (so a lagged feed just means it folds that night
     the next morning instead), and never double-grades a night already in the
     ledger. Net result: the tracker is always current before the new slate builds.
@@ -75,19 +76,26 @@ def results_for(date):
     return homered, played, all_final, ppd
 
 # ---------- grade one ticket (faithful port of the board's gradeTicket) ----------
-def grade_ticket(t, homered, ppd_codes, stake):
+def grade_ticket(t, homered, played, ppd_codes, stake):
     legs = t.get('players') or []
     if not legs:
         return None
-    def voided(l):
+    def ppd_void(l):
         code = (l.get('team') or l.get('code') or '')[:3].upper()
         return code in ppd_codes
-    # leg state: True=HR, False=miss, None=void(ppd, refund)
+    # leg state: True=HR, False=miss, None=void(refund). A leg VOIDS (refund, never a loss) when its
+    # game was postponed OR the batter took no plate appearance in his final game (benched / late
+    # scratch / DNP). This mirrors the live board's gradeTicket(), which voids any out/void leg that
+    # didn't homer. grade_night only reaches here once EVERY game on the slate is final (all_final gate),
+    # so `played` is the complete set of bats who actually took a PA -- a carded bat absent from it was
+    # benched, not just un-fetched.
     kept = []
     for l in legs:
-        if voided(l):
-            continue
-        kept.append((l, norm(l.get('name')) in homered))
+        nm = norm(l.get('name'))
+        hr = nm in homered
+        if not hr and (ppd_void(l) or nm not in played):
+            continue                          # postponed game or benched/DNP -> refund (void), not a loss
+        kept.append((l, hr))
     if not kept:
         return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': None}   # whole ticket voided
     if t.get('rr'):
@@ -155,7 +163,7 @@ def main():
         # Grade the board that ACTUALLY SHIPPED (the baked D_<date>.json tickets). A fresh server
         # re-draft here diverges from the live board you bet (different builders), so grade the
         # shipped tickets directly -- matches how the prior nights were graded.
-        gr = [grade_ticket(t, homered, ppd, stake) for t in D.get('tickets', [])]
+        gr = [grade_ticket(t, homered, played, ppd, stake) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
         # calibration logging is handled SEPARATELY by `calibrate.py` (idempotent, self-healing
         # backfill run as its own pipeline step), so grade_night never silently drops rows.
