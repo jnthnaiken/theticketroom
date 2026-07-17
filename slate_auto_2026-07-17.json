@@ -1,7 +1,7 @@
 {
   "date": "2026-07-17",
   "season": "2026",
-  "pulled_at": "2026-07-17T19:30:27Z",
+  "pulled_at": "2026-07-17T19:43:06Z",
   "games": [
     {
       "gamePk": 824766,
@@ -20,7 +20,7 @@
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 666018,
@@ -50,12 +50,12 @@
           {
             "id": 810938,
             "name": "Ben Williamson",
-            "iso": 0.085
+            "iso": 0.084
           },
           {
             "id": 670764,
             "name": "Taylor Walls",
-            "iso": 0.067
+            "iso": 0.07
           },
           {
             "id": 663743,
@@ -827,7 +827,7 @@
     },
     {
       "gamePk": 824090,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-18T00:10:00Z",
       "matchup": "SD@KC",
       "away": {
@@ -849,10 +849,56 @@
           "hr9": 1.29,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.185
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.175
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.201
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.156
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.123
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.135
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.163
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.165
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
