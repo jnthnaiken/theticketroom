@@ -1,11 +1,11 @@
 {
   "date": "2026-07-17",
   "season": "2026",
-  "pulled_at": "2026-07-17T17:00:35Z",
+  "pulled_at": "2026-07-17T17:20:06Z",
   "games": [
     {
       "gamePk": 824766,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-17T17:35:00Z",
       "matchup": "TB@BOS",
       "away": {
@@ -125,16 +125,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 85\u00b0",
-        "lean": "Boost",
-        "temp": 84.8,
-        "wind_mph": 11.1,
-        "wind_dir": 284,
-        "tail_mph": 5.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.042
+      "wf": 1.0
     },
     {
       "gamePk": 824737,
