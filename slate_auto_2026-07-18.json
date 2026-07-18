@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
   "season": "2026",
-  "pulled_at": "2026-07-18T18:03:47Z",
+  "pulled_at": "2026-07-18T18:30:29Z",
   "games": [
     {
       "gamePk": 824414,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 683003,
           "name": "Jared Jones",
-          "hr9": 1.16,
+          "hr9": 1.13,
           "hand": "RHP"
         },
         "lineup": [
@@ -35,7 +35,7 @@
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.396
+            "iso": 0.423
           },
           {
             "id": 656811,
@@ -50,17 +50,17 @@
           {
             "id": 682997,
             "name": "Tyler Callihan",
-            "iso": 0.215
+            "iso": 0.213
           },
           {
             "id": 694378,
             "name": "Jacob Gonzalez",
-            "iso": 0.148
+            "iso": 0.146
           },
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.176
+            "iso": 0.175
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 668909,
           "name": "Gavin Williams",
-          "hr9": 1.38,
+          "hr9": 1.44,
           "hand": "RHP"
         },
         "lineup": [
@@ -102,17 +102,17 @@
           {
             "id": 696135,
             "name": "Kahlil Watson",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 672356,
             "name": "Gabriel Arias",
-            "iso": 0.182
+            "iso": 0.181
           },
           {
             "id": 672275,
             "name": "Patrick Bailey",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 680757,
@@ -132,7 +132,7 @@
         "wind_mph": 12.5,
         "wind_dir": 279,
         "tail_mph": -2.0,
-        "precip": 37
+        "precip": 31
       },
       "wf": 1.018
     },
@@ -171,13 +171,13 @@
         "wind_mph": 12.1,
         "wind_dir": 359,
         "tail_mph": -12.1,
-        "precip": 9
+        "precip": 8
       },
       "wf": 0.965
     },
     {
       "gamePk": 824657,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-18T18:20:00Z",
       "matchup": "MIN@CHC",
       "away": {
@@ -197,12 +197,12 @@
           {
             "id": 680777,
             "name": "Ryan Jeffers",
-            "iso": 0.261
+            "iso": 0.259
           },
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 605170,
@@ -242,7 +242,7 @@
         "sp": {
           "id": 571510,
           "name": "Matthew Boyd",
-          "hr9": 0.98,
+          "hr9": 0.96,
           "hand": "LHP"
         },
         "lineup": [
@@ -430,14 +430,14 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
+        "emoji": "\ud83c\udf27\ufe0f",
         "cond": "wind out 8mph, 79\u00b0",
         "lean": "Boost",
         "temp": 79.1,
         "wind_mph": 8.1,
         "wind_dir": 204,
         "tail_mph": 8.0,
-        "precip": 48
+        "precip": 52
       },
       "wf": 1.042
     },
@@ -719,8 +719,54 @@
           "hr9": 1.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.185
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.177
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.111
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.22
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.212
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.114
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.131
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": null
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.165
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -1186,7 +1232,7 @@
         "wind_mph": 11.8,
         "wind_dir": 189,
         "tail_mph": 9.5,
-        "precip": 26
+        "precip": 42
       },
       "wf": 1.037
     },
