@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
   "season": "2026",
-  "pulled_at": "2026-07-18T21:27:53Z",
+  "pulled_at": "2026-07-18T21:30:48Z",
   "games": [
     {
       "gamePk": 824414,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823441,
-      "status": "In Progress",
+      "status": "Delayed",
       "gameTime": "2026-07-18T19:05:00Z",
       "matchup": "NYM@PHI",
       "away": {
@@ -577,12 +577,12 @@
           {
             "id": 691019,
             "name": "Kyle Teel",
-            "iso": 0.131
+            "iso": 0.129
           },
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 671976,
@@ -746,12 +746,12 @@
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.287
+            "iso": 0.286
           },
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.243
+            "iso": 0.241
           },
           {
             "id": 681198,
@@ -867,7 +867,7 @@
         "sp": {
           "id": 681293,
           "name": "Spencer Arrighetti",
-          "hr9": 1.25,
+          "hr9": 1.24,
           "hand": "RHP"
         },
         "lineup": [
@@ -1117,7 +1117,7 @@
           {
             "id": 665877,
             "name": "Jos\u00e9 Ferm\u00edn",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 686780,
@@ -1132,7 +1132,7 @@
         "sp": {
           "id": 694297,
           "name": "Brandon Pfaadt",
-          "hr9": 1.24,
+          "hr9": 1.23,
           "hand": "RHP"
         },
         "lineup": [
@@ -1207,7 +1207,7 @@
         "sp": {
           "id": 693855,
           "name": "Ian Seymour",
-          "hr9": 1.38,
+          "hr9": 1.37,
           "hand": "LHP"
         },
         "lineup": [
@@ -1572,7 +1572,7 @@
           {
             "id": 669699,
             "name": "Braden Shewmake",
-            "iso": 0.163
+            "iso": 0.16
           },
           {
             "id": 687401,
@@ -1839,16 +1839,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 73.3,
-        "wind_mph": 9.7,
-        "wind_dir": 228,
-        "tail_mph": 8.1,
-        "precip": 20
+        "note": "weather fetch failed"
       },
-      "wf": 1.033
+      "wf": 1.0
     }
   ]
 }
