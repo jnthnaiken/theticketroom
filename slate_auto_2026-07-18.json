@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
   "season": "2026",
-  "pulled_at": "2026-07-18T23:00:28Z",
+  "pulled_at": "2026-07-18T23:30:33Z",
   "games": [
     {
       "gamePk": 824414,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824412,
-      "status": "Delayed Start",
+      "status": "Warmup",
       "gameTime": "2026-07-18T23:10:00Z",
       "matchup": "PIT@CLE",
       "away": {
@@ -817,7 +817,7 @@
           {
             "id": 668939,
             "name": "Adley Rutschman",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 683002,
@@ -837,7 +837,7 @@
           {
             "id": 694212,
             "name": "Samuel Basallo",
-            "iso": 0.211
+            "iso": 0.21
           },
           {
             "id": 687637,
@@ -879,12 +879,12 @@
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.313
+            "iso": 0.315
           },
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 514888,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 825059,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-18T20:10:00Z",
       "matchup": "STL@ARI",
       "away": {
@@ -1214,17 +1214,17 @@
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.164
+            "iso": 0.181
           },
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.276
+            "iso": 0.275
           },
           {
             "id": 668723,
@@ -1254,7 +1254,7 @@
           {
             "id": 680700,
             "name": "Richie Palacios",
-            "iso": 0.105
+            "iso": 0.104
           }
         ],
         "confirmed": true
@@ -1271,17 +1271,17 @@
           {
             "id": 678011,
             "name": "Anthony Seigler",
-            "iso": 0.153
+            "iso": 0.151
           },
           {
             "id": 678882,
             "name": "Ceddanne Rafaela",
-            "iso": 0.152
+            "iso": 0.155
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.188
+            "iso": 0.196
           },
           {
             "id": 575929,
@@ -1291,17 +1291,17 @@
           {
             "id": 663853,
             "name": "Romy Gonzalez",
-            "iso": 0.14
+            "iso": 0.136
           },
           {
             "id": 702332,
             "name": "Caleb Durbin",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 655316,
             "name": "Andruw Monasterio",
-            "iso": 0.19
+            "iso": 0.195
           },
           {
             "id": 663330,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 824899,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-18T20:10:00Z",
       "matchup": "TEX@ATL",
       "away": {
@@ -1409,7 +1409,7 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 621566,
@@ -1419,7 +1419,7 @@
           {
             "id": 671739,
             "name": "Michael Harris II",
-            "iso": 0.201
+            "iso": 0.2
           },
           {
             "id": 643289,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823763,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-07-18T20:10:00Z",
       "matchup": "MIA@MIL",
       "away": {
@@ -1485,7 +1485,7 @@
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 669065,
@@ -1873,8 +1873,54 @@
           "hr9": 1.19,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.135
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.244
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.146
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.176
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.202
+          },
+          {
+            "id": 681481,
+            "name": "Kerry Carpenter",
+            "iso": 0.234
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.099
+          },
+          {
+            "id": 663837,
+            "name": "Matt Vierling",
+            "iso": 0.128
+          },
+          {
+            "id": 681546,
+            "name": "James Outman",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
