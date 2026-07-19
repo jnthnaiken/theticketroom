@@ -1,7 +1,7 @@
 {
   "date": "2026-07-19",
   "season": "2026",
-  "pulled_at": "2026-07-19T23:00:52Z",
+  "pulled_at": "2026-07-19T23:01:29Z",
   "games": [
     {
       "gamePk": 822786,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 88\u00b0",
+        "lean": "Boost",
+        "temp": 88.2,
+        "wind_mph": 8.2,
+        "wind_dir": 241,
+        "tail_mph": 7.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.054
     },
     {
       "gamePk": 823113,
@@ -2091,7 +2098,7 @@
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.17
+            "iso": 0.178
           },
           {
             "id": 680728,
