@@ -1,11 +1,11 @@
 {
   "date": "2026-07-19",
   "season": "2026",
-  "pulled_at": "2026-07-19T16:00:24Z",
+  "pulled_at": "2026-07-19T16:30:22Z",
   "games": [
     {
       "gamePk": 822786,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-19T16:15:00Z",
       "matchup": "CWS@TOR",
       "away": {
@@ -13,7 +13,7 @@
         "sp": {
           "id": 680732,
           "name": "Sean Burke",
-          "hr9": 1.11,
+          "hr9": 1.1,
           "hand": "RHP"
         },
         "lineup": [
@@ -25,7 +25,7 @@
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.303
+            "iso": 0.301
           },
           {
             "id": 678246,
@@ -35,7 +35,7 @@
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.247
+            "iso": 0.246
           },
           {
             "id": 643217,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 702056,
           "name": "Trey Yesavage",
-          "hr9": 0.84,
+          "hr9": 0.83,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,12 +82,12 @@
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.114
+            "iso": 0.113
           },
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.097
+            "iso": 0.095
           },
           {
             "id": 672960,
@@ -137,7 +137,7 @@
     },
     {
       "gamePk": 823523,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-19T16:35:00Z",
       "matchup": "LAD@NYY",
       "away": {
@@ -1391,8 +1391,54 @@
           "hr9": 1.56,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.213
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.286
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.281
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.183
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.125
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.174
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.116
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.076
+          },
+          {
+            "id": 666397,
+            "name": "Edouard Julien",
+            "iso": 0.089
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
