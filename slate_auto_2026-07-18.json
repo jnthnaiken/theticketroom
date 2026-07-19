@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
   "season": "2026",
-  "pulled_at": "2026-07-18T23:30:33Z",
+  "pulled_at": "2026-07-19T00:00:28Z",
   "games": [
     {
       "gamePk": 824414,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824412,
-      "status": "Warmup",
+      "status": "Delayed Start",
       "gameTime": "2026-07-18T23:10:00Z",
       "matchup": "PIT@CLE",
       "away": {
@@ -259,15 +259,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 12mph, 72\u00b0",
+        "cond": "wind in 12mph, 73\u00b0",
         "lean": "Suppress",
-        "temp": 72.5,
-        "wind_mph": 11.6,
-        "wind_dir": 2,
-        "tail_mph": -11.6,
+        "temp": 72.8,
+        "wind_mph": 12.1,
+        "wind_dir": 4,
+        "tail_mph": -12.1,
         "precip": 2
       },
-      "wf": 0.963
+      "wf": 0.962
     },
     {
       "gamePk": 824657,
@@ -392,15 +392,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 12mph, 80\u00b0",
+        "cond": "wind in 14mph, 80\u00b0",
         "lean": "Suppress",
-        "temp": 80.0,
-        "wind_mph": 12.6,
-        "wind_dir": 51,
-        "tail_mph": -11.8,
+        "temp": 79.8,
+        "wind_mph": 14.7,
+        "wind_dir": 48,
+        "tail_mph": -14.0,
         "precip": 2
       },
-      "wf": 0.974
+      "wf": 0.966
     },
     {
       "gamePk": 823441,
@@ -525,15 +525,15 @@
       "weather": {
         "dome": false,
         "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind out 8mph, 77\u00b0",
+        "cond": "calm 2mph, 79\u00b0",
         "lean": "Boost",
-        "temp": 77.2,
-        "wind_mph": 8.2,
-        "wind_dir": 191,
-        "tail_mph": 8.2,
+        "temp": 79.4,
+        "wind_mph": 4.8,
+        "wind_dir": 259,
+        "tail_mph": 2.1,
         "precip": 52
       },
-      "wf": 1.039
+      "wf": 1.021
     },
     {
       "gamePk": 822790,
@@ -790,19 +790,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 6mph, 95\u00b0",
-        "lean": "Neutral",
-        "temp": 94.6,
-        "wind_mph": 8.7,
-        "wind_dir": 48,
-        "tail_mph": -5.8,
+        "cond": "wind in 5mph, 96\u00b0",
+        "lean": "Boost",
+        "temp": 95.7,
+        "wind_mph": 8.9,
+        "wind_dir": 58,
+        "tail_mph": -4.7,
         "precip": 0
       },
-      "wf": 1.017
+      "wf": 1.022
     },
     {
       "gamePk": 824169,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-18T20:10:00Z",
       "matchup": "BAL@HOU",
       "away": {
@@ -909,7 +909,7 @@
           {
             "id": 701305,
             "name": "Zach Dezenzo",
-            "iso": 0.115
+            "iso": 0.113
           },
           {
             "id": 828599,
@@ -1055,15 +1055,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 79\u00b0",
-        "lean": "Neutral",
-        "temp": 78.6,
-        "wind_mph": 9.4,
-        "wind_dir": 130,
-        "tail_mph": -0.8,
-        "precip": 10
+        "cond": "wind out 3mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 91.2,
+        "wind_mph": 4.5,
+        "wind_dir": 273,
+        "tail_mph": 3.0,
+        "precip": 12
       },
-      "wf": 1.01
+      "wf": 1.042
     },
     {
       "gamePk": 825059,
@@ -1199,7 +1199,7 @@
     },
     {
       "gamePk": 824738,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-07-18T20:10:00Z",
       "matchup": "TB@BOS",
       "away": {
@@ -1219,7 +1219,7 @@
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 691406,
@@ -1239,17 +1239,17 @@
           {
             "id": 810938,
             "name": "Ben Williamson",
-            "iso": 0.082
+            "iso": 0.081
           },
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.218
+            "iso": 0.215
           },
           {
             "id": 663743,
             "name": "Nick Fortes",
-            "iso": 0.08
+            "iso": 0.079
           },
           {
             "id": 680700,
@@ -1291,17 +1291,17 @@
           {
             "id": 663853,
             "name": "Romy Gonzalez",
-            "iso": 0.136
+            "iso": 0.133
           },
           {
             "id": 702332,
             "name": "Caleb Durbin",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 655316,
             "name": "Andruw Monasterio",
-            "iso": 0.195
+            "iso": 0.193
           },
           {
             "id": 663330,
@@ -1320,15 +1320,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 71\u00b0",
+        "cond": "wind out 13mph, 69\u00b0",
         "lean": "Boost",
-        "temp": 70.6,
-        "wind_mph": 11.2,
-        "wind_dir": 193,
-        "tail_mph": 9.5,
-        "precip": 17
+        "temp": 69.0,
+        "wind_mph": 13.8,
+        "wind_dir": 207,
+        "tail_mph": 13.1,
+        "precip": 30
       },
-      "wf": 1.034
+      "wf": 1.044
     },
     {
       "gamePk": 824899,
@@ -1453,19 +1453,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 88\u00b0",
+        "cond": "calm 1mph, 88\u00b0",
         "lean": "Boost",
-        "temp": 87.5,
-        "wind_mph": 9.8,
-        "wind_dir": 307,
-        "tail_mph": 2.2,
-        "precip": 13
+        "temp": 87.9,
+        "wind_mph": 8.5,
+        "wind_dir": 313,
+        "tail_mph": 1.0,
+        "precip": 23
       },
-      "wf": 1.034
+      "wf": 1.03
     },
     {
       "gamePk": 823763,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-18T20:10:00Z",
       "matchup": "MIA@MIL",
       "away": {
@@ -1597,7 +1597,7 @@
     },
     {
       "gamePk": 823116,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-19T00:08:00Z",
       "matchup": "SF@SEA",
       "away": {
@@ -1850,15 +1850,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 67\u00b0",
+        "cond": "wind out 6mph, 67\u00b0",
         "lean": "Neutral",
-        "temp": 67.2,
-        "wind_mph": 6.2,
-        "wind_dir": 210,
-        "tail_mph": 5.4,
+        "temp": 66.8,
+        "wind_mph": 6.6,
+        "wind_dir": 215,
+        "tail_mph": 6.0,
         "precip": 0
       },
-      "wf": 1.015
+      "wf": 1.016
     },
     {
       "gamePk": 824008,
@@ -1983,15 +1983,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 3mph, 69\u00b0",
+        "cond": "wind out 4mph, 69\u00b0",
         "lean": "Neutral",
-        "temp": 69.4,
-        "wind_mph": 3.2,
-        "wind_dir": 214,
-        "tail_mph": 3.2,
+        "temp": 68.8,
+        "wind_mph": 4.0,
+        "wind_dir": 223,
+        "tail_mph": 4.0,
         "precip": 1
       },
-      "wf": 1.01
+      "wf": 1.012
     },
     {
       "gamePk": 823523,
@@ -2024,15 +2024,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 73\u00b0",
+        "cond": "wind out 11mph, 74\u00b0",
         "lean": "Boost",
-        "temp": 73.2,
-        "wind_mph": 11.4,
-        "wind_dir": 227,
-        "tail_mph": 9.7,
-        "precip": 21
+        "temp": 73.8,
+        "wind_mph": 12.3,
+        "wind_dir": 217,
+        "tail_mph": 11.4,
+        "precip": 31
       },
-      "wf": 1.039
+      "wf": 1.046
     }
   ]
 }
