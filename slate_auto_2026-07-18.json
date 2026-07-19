@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
   "season": "2026",
-  "pulled_at": "2026-07-19T01:05:06Z",
+  "pulled_at": "2026-07-19T01:30:29Z",
   "games": [
     {
       "gamePk": 824414,
@@ -30,12 +30,12 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.198
+            "iso": 0.196
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.414
+            "iso": 0.42
           },
           {
             "id": 656811,
@@ -45,7 +45,7 @@
           {
             "id": 693304,
             "name": "Nick Gonzales",
-            "iso": 0.09
+            "iso": 0.093
           },
           {
             "id": 682997,
@@ -117,7 +117,7 @@
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.057
+            "iso": 0.056
           }
         ],
         "confirmed": true
@@ -158,17 +158,17 @@
           {
             "id": 693304,
             "name": "Nick Gonzales",
-            "iso": 0.09
+            "iso": 0.093
           },
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.198
+            "iso": 0.196
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.414
+            "iso": 0.42
           },
           {
             "id": 656811,
@@ -178,7 +178,7 @@
           {
             "id": 542303,
             "name": "Marcell Ozuna",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 664040,
@@ -245,12 +245,12 @@
           {
             "id": 595978,
             "name": "Austin Hedges",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.057
+            "iso": 0.056
           }
         ],
         "confirmed": true
@@ -265,7 +265,7 @@
         "wind_mph": 13.6,
         "wind_dir": 1,
         "tail_mph": -13.6,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.96
     },
@@ -1605,7 +1605,7 @@
         "sp": {
           "id": 657277,
           "name": "Logan Webb",
-          "hr9": 0.7,
+          "hr9": 0.68,
           "hand": "RHP"
         },
         "lineup": [
@@ -1632,12 +1632,12 @@
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 642715,
@@ -1647,7 +1647,7 @@
           {
             "id": 687551,
             "name": "Drew Gilbert",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 691740,
@@ -1662,7 +1662,7 @@
         "sp": {
           "id": 693433,
           "name": "Bryan Woo",
-          "hr9": 0.84,
+          "hr9": 0.82,
           "hand": "RHP"
         },
         "lineup": [
@@ -1679,12 +1679,12 @@
           {
             "id": 686527,
             "name": "Dominic Canzone",
-            "iso": 0.259
+            "iso": 0.258
           },
           {
             "id": 668227,
             "name": "Randy Arozarena",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 647304,
@@ -1704,7 +1704,7 @@
           {
             "id": 670042,
             "name": "Luke Raley",
-            "iso": 0.221
+            "iso": 0.22
           },
           {
             "id": 806068,
@@ -2023,9 +2023,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 73.4,
+        "wind_mph": 10.0,
+        "wind_dir": 219,
+        "tail_mph": 9.1,
+        "precip": 24
       },
-      "wf": 1.0
+      "wf": 1.037
     }
   ]
 }
