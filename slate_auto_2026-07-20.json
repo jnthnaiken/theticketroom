@@ -1,11 +1,11 @@
 {
   "date": "2026-07-20",
   "season": "2026",
-  "pulled_at": "2026-07-20T22:00:28Z",
+  "pulled_at": "2026-07-20T22:30:31Z",
   "games": [
     {
       "gamePk": 824410,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-20T22:40:00Z",
       "matchup": "MIN@CLE",
       "away": {
@@ -1194,7 +1194,7 @@
         "wind_mph": 11.3,
         "wind_dir": 207,
         "tail_mph": 11.3,
-        "precip": 25
+        "precip": 18
       },
       "wf": 1.044
     },
@@ -1815,7 +1815,7 @@
     },
     {
       "gamePk": 824006,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-21T02:10:00Z",
       "matchup": "STL@LAA",
       "away": {
@@ -1826,8 +1826,54 @@
           "hr9": 0.91,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.142
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.135
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.188
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.232
+          },
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.15
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.086
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.141
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.136
+          },
+          {
+            "id": 699625,
+            "name": "Jimmy Crooks",
+            "iso": 0.169
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
@@ -1837,10 +1883,56 @@
           "hr9": 0.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.211
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.233
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.117
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.171
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.139
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.159
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.146
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.139
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.092
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
