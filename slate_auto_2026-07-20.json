@@ -1,11 +1,11 @@
 {
   "date": "2026-07-20",
   "season": "2026",
-  "pulled_at": "2026-07-20T18:30:25Z",
+  "pulled_at": "2026-07-20T19:00:29Z",
   "games": [
     {
       "gamePk": 824410,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-20T22:40:00Z",
       "matchup": "MIN@CLE",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 0.82,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.158
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.304
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.251
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.175
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.179
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.127
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.173
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.0
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.166
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -27,10 +73,56 @@
           "hr9": 1.59,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.059
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.165
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.168
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.127
+          },
+          {
+            "id": 656555,
+            "name": "Rhys Hoskins",
+            "iso": 0.182
+          },
+          {
+            "id": 682177,
+            "name": "Daniel Schneemann",
+            "iso": 0.12
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.17
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.086
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.06
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
