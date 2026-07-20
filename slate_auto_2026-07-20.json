@@ -1,7 +1,7 @@
 {
   "date": "2026-07-20",
   "season": "2026",
-  "pulled_at": "2026-07-20T21:45:44Z",
+  "pulled_at": "2026-07-20T22:00:28Z",
   "games": [
     {
       "gamePk": 824410,
@@ -1597,7 +1597,7 @@
     },
     {
       "gamePk": 825058,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-21T01:40:00Z",
       "matchup": "ATH@ARI",
       "away": {
@@ -1608,8 +1608,54 @@
           "hr9": 2.4,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.113
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.235
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.233
+          },
+          {
+            "id": 687515,
+            "name": "Colby Thomas",
+            "iso": 0.147
+          },
+          {
+            "id": 811965,
+            "name": "Joshua Kuroda-Grauer",
+            "iso": 0.122
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.208
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.166
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.17
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -1622,7 +1668,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
