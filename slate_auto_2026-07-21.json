@@ -1,11 +1,11 @@
 {
   "date": "2026-07-21",
   "season": "2026",
-  "pulled_at": "2026-07-21T22:00:39Z",
+  "pulled_at": "2026-07-21T22:29:25Z",
   "games": [
     {
       "gamePk": 824409,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-21T22:40:00Z",
       "matchup": "MIN@CLE",
       "away": {
@@ -132,13 +132,13 @@
         "wind_mph": 0.3,
         "wind_dir": 315,
         "tail_mph": -0.2,
-        "precip": 25
+        "precip": 17
       },
       "wf": 1.001
     },
     {
       "gamePk": 823437,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-07-21T22:40:00Z",
       "matchup": "LAD@PHI",
       "away": {
@@ -265,7 +265,7 @@
         "wind_mph": 4.5,
         "wind_dir": 198,
         "tail_mph": 4.5,
-        "precip": 25
+        "precip": 22
       },
       "wf": 1.024
     },
@@ -1325,7 +1325,7 @@
         "wind_mph": 5.8,
         "wind_dir": 293,
         "tail_mph": -2.3,
-        "precip": 7
+        "precip": 9
       },
       "wf": 1.006
     },
@@ -1618,8 +1618,54 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.152
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.166
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.252
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.144
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.098
+          },
+          {
+            "id": 670042,
+            "name": "Luke Raley",
+            "iso": 0.227
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.029
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.179
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.131
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1671,7 +1717,7 @@
         "wind_mph": 1.4,
         "wind_dir": 108,
         "tail_mph": 0.1,
-        "precip": 13
+        "precip": 15
       },
       "wf": 1.007
     },
@@ -1712,7 +1758,7 @@
         "wind_mph": 8.7,
         "wind_dir": 181,
         "tail_mph": 6.3,
-        "precip": 39
+        "precip": 37
       },
       "wf": 1.025
     }
