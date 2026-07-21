@@ -1,7 +1,7 @@
 {
   "date": "2026-07-21",
   "season": "2026",
-  "pulled_at": "2026-07-21T20:30:28Z",
+  "pulled_at": "2026-07-21T21:00:27Z",
   "games": [
     {
       "gamePk": 824409,
@@ -16,8 +16,54 @@
           "hr9": 0.47,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668885,
+            "name": "Austin Martin",
+            "iso": 0.075
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.301
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.252
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.176
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.177
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.129
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.247
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.089
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.162
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -86,7 +132,7 @@
         "wind_mph": 13.0,
         "wind_dir": 316,
         "tail_mph": -9.4,
-        "precip": 26
+        "precip": 25
       },
       "wf": 0.969
     },
@@ -219,7 +265,7 @@
         "wind_mph": 6.5,
         "wind_dir": 194,
         "tail_mph": 6.5,
-        "precip": 31
+        "precip": 25
       },
       "wf": 1.031
     },
@@ -484,7 +530,7 @@
         "wind_mph": 4.6,
         "wind_dir": 169,
         "tail_mph": 2.6,
-        "precip": 46
+        "precip": 39
       },
       "wf": 1.011
     },
@@ -894,8 +940,54 @@
           "hr9": 1.36,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.134
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.299
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.245
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.25
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.186
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.175
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.17
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.107
+          },
+          {
+            "id": 691011,
+            "name": "Drew Romo",
+            "iso": 0.179
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -1055,7 +1147,7 @@
     },
     {
       "gamePk": 824329,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-22T00:40:00Z",
       "matchup": "WSH@COL",
       "away": {
@@ -1077,10 +1169,56 @@
           "hr9": 1.3,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.207
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.232
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.301
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.135
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.18
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.169
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.281
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.115
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.126
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1252,7 +1390,7 @@
         "wind_mph": 9.2,
         "wind_dir": 194,
         "tail_mph": 9.2,
-        "precip": 14
+        "precip": 13
       },
       "wf": 1.039
     }
