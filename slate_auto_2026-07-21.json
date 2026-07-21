@@ -1,7 +1,7 @@
 {
   "date": "2026-07-21",
   "season": "2026",
-  "pulled_at": "2026-07-21T21:20:42Z",
+  "pulled_at": "2026-07-21T21:30:27Z",
   "games": [
     {
       "gamePk": 824409,
@@ -1464,7 +1464,7 @@
     },
     {
       "gamePk": 824005,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-22T01:38:00Z",
       "matchup": "STL@LAA",
       "away": {
@@ -1486,10 +1486,56 @@
           "hr9": 0.55,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.209
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.229
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.117
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.169
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.141
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.153
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.137
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.203
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
