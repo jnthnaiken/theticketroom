@@ -351,3 +351,51 @@ rounded to int. cards fields come from the same matchup roster tables.
 2. Let more nights log + grade, then backtest the 9 edge signals for real and refit
    the `_SIG` weights (they're currently guesses).
 3. **Server-salami rework (ledger consistency):** the client now builds th
+## 🛡️ 2026-07-21 — SLATE INPUT SCHEMA + SAFEGUARDS (read before assembling)
+
+A mid-build container reclaim forced the input-assembler to be rebuilt from a
+compaction summary, and three format regressions shipped and broke the live
+board. To make that impossible again, two tools now live in the repo. USE THEM.
+
+**`slate_assemble.py`** — canonical scraped-intermediates → 5 dated files. Never
+hand-roll this transform again; if you must, diff against this file.
+    python3 slate_assemble.py <YYYY-MM-DD> --dir <dir with cards.json/extras.json/pitch.json/roto.json/odds.json>
+It writes the 5 files AND auto-runs the validator; it exits non-zero on any hard error.
+
+**`slate_validate.py`** — pre-commit gate. ALWAYS run before commit/push:
+    python3 slate_validate.py <YYYY-MM-DD>        # in the repo dir
+Exit 0 = safe to commit+build. Exit 1 = DO NOT COMMIT.
+
+### The 5-file contract build15.py actually consumes
+- `cards_<d>.json`         `{MATCHUP:{TEAM:[{name,form_pct,form_arrow,pb,hh,la,zone,test}]}}`
+- `kasper_extras_<d>.json` `{name:{khr,...}}`
+- `odds_<d>.json`          `{name: american_int}`   (number, not string)
+- `pitchers_<d>.json`      `{name:{brl,pbrl,hh,fb}}`
+- `lineups_<d>.json`       `{"date":<d>, "games":[ per-game ]}`   ← OBJECT, not a bare list
+
+### lineups per-game keys (every one required)
+`gn`(int, UNIQUE per game), `matchup`, `away`, `home`, `time`, `status`,
+`away_sp:[name,hand]`, `home_sp:[name,hand]`, `dome`(bool),
+`precip`(int), `temp`(int), `wind`(str; "Dome" for domes),
+`away_bats:[names]`, `away_hands:[hands]`, `home_bats`, `home_hands`.
+
+### The three bugs that broke 2026-07-21 (all now caught by slate_validate.py)
+1. **lineups written as a bare `[...]` list** instead of `{"games":[...]}` →
+   build15 crashes at `lin['games']` (list indices must be int, not str).
+2. **precip/temp emitted as strings** ("67%","81") instead of ints → build15 does
+   `precip < 30`; the frontend skew/emoji logic misreads them.
+3. **`gn` hardcoded to 1 for every game.** gn is the WEATHER-MAP KEY
+   (`wx[str(gn)]`, `gamemeta[gn]=g`). All-1 collapses 15 games to one wx entry;
+   the ticket renderer then hits `wxOf(p.game)` → undefined → crash
+   "Cannot read properties of undefined (reading 'emoji')", and the header/date +
+   summary tiles fall back to the June-15 defaults with `undefined` denominators.
+   gn MUST be unique per kept game (1..N; doubleheaders keep game 1 only).
+
+### GIT: do NOT run git through the device bridge
+The cloud↔device mount cannot `unlink`, so every git write via `device_bash`
+leaves `.git/index.lock` / `HEAD.lock` / `MERGE_HEAD` behind that then blocks the
+user's native git. Let the USER run all git in their own terminal:
+    git pull --no-rebase --no-edit   # scheduled build auto-commits to main; pull first
+    git push
+The `--no-edit` avoids the merge-message editor. If push is rejected, repeat
+pull+push (the build races you). Assistant work stops at "files written to repo".
