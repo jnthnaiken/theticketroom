@@ -1,11 +1,11 @@
 {
   "date": "2026-07-23",
   "season": "2026",
-  "pulled_at": "2026-07-23T19:00:25Z",
+  "pulled_at": "2026-07-23T19:30:22Z",
   "games": [
     {
       "gamePk": 824893,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-23T16:15:00Z",
       "matchup": "SD@ATL",
       "away": {
@@ -132,7 +132,7 @@
         "wind_mph": 7.1,
         "wind_dir": 252,
         "tail_mph": 6.6,
-        "precip": 7
+        "precip": 8
       },
       "wf": 1.05
     },
@@ -158,22 +158,22 @@
           {
             "id": 621439,
             "name": "Byron Buxton",
-            "iso": 0.295
+            "iso": 0.294
           },
           {
             "id": 680777,
             "name": "Ryan Jeffers",
-            "iso": 0.26
+            "iso": 0.258
           },
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.241
+            "iso": 0.24
           },
           {
             "id": 668904,
@@ -215,7 +215,7 @@
           {
             "id": 608070,
             "name": "Jos\u00e9 Ram\u00edrez",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 800050,
@@ -250,7 +250,7 @@
           {
             "id": 690984,
             "name": "Petey Halpin",
-            "iso": 0.137
+            "iso": 0.136
           }
         ],
         "confirmed": true
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822785,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-23T19:07:00Z",
       "matchup": "TB@TOR",
       "away": {
@@ -279,7 +279,7 @@
         "sp": {
           "id": 668984,
           "name": "Casey Legumina",
-          "hr9": 0.87,
+          "hr9": 0.85,
           "hand": "RHP"
         },
         "lineup": [
@@ -296,7 +296,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.269
+            "iso": 0.268
           },
           {
             "id": 683748,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 669456,
           "name": "Shane Bieber",
-          "hr9": 2.66,
+          "hr9": 2.55,
           "hand": "RHP"
         },
         "lineup": [
@@ -348,12 +348,12 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.095
+            "iso": 0.094
           },
           {
             "id": 676391,
             "name": "Ernie Clement",
-            "iso": 0.128
+            "iso": 0.129
           },
           {
             "id": 543807,
@@ -363,12 +363,12 @@
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 676914,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824247,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-23T22:40:00Z",
       "matchup": "KC@DET",
       "away": {
@@ -547,8 +547,54 @@
           "hr9": 1.29,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.192
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.169
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.118
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.152
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.157
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.118
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.112
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.15
+          },
+          {
+            "id": 623205,
+            "name": "Andrew Velazquez",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -558,10 +604,56 @@
           "hr9": 1.15,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.142
+          },
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.11
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.143
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.186
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.262
+          },
+          {
+            "id": 681481,
+            "name": "Kerry Carpenter",
+            "iso": 0.216
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.217
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.103
+          },
+          {
+            "id": 681546,
+            "name": "James Outman",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
