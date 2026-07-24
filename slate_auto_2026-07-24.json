@@ -1,7 +1,7 @@
 {
   "date": "2026-07-24",
   "season": "2026",
-  "pulled_at": "2026-07-24T17:00:26Z",
+  "pulled_at": "2026-07-24T17:30:26Z",
   "games": [
     {
       "gamePk": 823759,
@@ -73,8 +73,54 @@
           "hr9": 0.71,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.145
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.198
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.193
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.121
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.178
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.04
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.226
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.113
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -167,7 +213,7 @@
         "wind_mph": 2.8,
         "wind_dir": 104,
         "tail_mph": -2.3,
-        "precip": 3
+        "precip": 6
       },
       "wf": 0.999
     },
@@ -208,7 +254,7 @@
         "wind_mph": 6.5,
         "wind_dir": 96,
         "tail_mph": -2.6,
-        "precip": 1
+        "precip": 0
       },
       "wf": 0.998
     },
@@ -290,7 +336,7 @@
         "wind_mph": 4.7,
         "wind_dir": 95,
         "tail_mph": -2.0,
-        "precip": 0
+        "precip": 1
       },
       "wf": 0.996
     },
@@ -394,8 +440,10 @@
       "home": {
         "abbrev": "MIA",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 687473,
+          "name": "Ryan Gusto",
+          "hr9": 0.88,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -613,7 +661,7 @@
         "wind_mph": 4.7,
         "wind_dir": 121,
         "tail_mph": 0.1,
-        "precip": 23
+        "precip": 10
       },
       "wf": 0.999
     },
