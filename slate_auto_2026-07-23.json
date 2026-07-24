@@ -1,7 +1,7 @@
 {
   "date": "2026-07-23",
   "season": "2026",
-  "pulled_at": "2026-07-24T01:00:02Z",
+  "pulled_at": "2026-07-24T01:30:21Z",
   "games": [
     {
       "gamePk": 824893,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824247,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-07-23T22:40:00Z",
       "matchup": "KC@DET",
       "away": {
@@ -551,7 +551,7 @@
           {
             "id": 695600,
             "name": "Carter Jensen",
-            "iso": 0.194
+            "iso": 0.193
           },
           {
             "id": 657041,
@@ -561,7 +561,7 @@
           {
             "id": 686469,
             "name": "Vinnie Pasquantino",
-            "iso": 0.117
+            "iso": 0.118
           },
           {
             "id": 521692,
@@ -613,7 +613,7 @@
           {
             "id": 650402,
             "name": "Gleyber Torres",
-            "iso": 0.108
+            "iso": 0.107
           },
           {
             "id": 690993,
@@ -623,17 +623,17 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.261
+            "iso": 0.263
           },
           {
             "id": 681481,
             "name": "Kerry Carpenter",
-            "iso": 0.213
+            "iso": 0.212
           },
           {
             "id": 679529,
@@ -656,9 +656,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 67\u00b0",
+        "lean": "Neutral",
+        "temp": 66.8,
+        "wind_mph": 5.8,
+        "wind_dir": 152,
+        "tail_mph": 3.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.006
     }
   ]
 }
