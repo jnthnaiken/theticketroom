@@ -1,7 +1,7 @@
 {
   "date": "2026-07-24",
   "season": "2026",
-  "pulled_at": "2026-07-24T18:00:26Z",
+  "pulled_at": "2026-07-24T18:30:26Z",
   "games": [
     {
       "gamePk": 823759,
@@ -219,7 +219,7 @@
     },
     {
       "gamePk": 822707,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-24T22:45:00Z",
       "matchup": "ARI@WSH",
       "away": {
@@ -230,8 +230,54 @@
           "hr9": 0.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.203
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.241
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.117
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.141
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.184
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.164
+          },
+          {
+            "id": 682988,
+            "name": "Tyler Locklear",
+            "iso": 0.307
+          },
+          {
+            "id": 680728,
+            "name": "Adrian Del Castillo",
+            "iso": 0.132
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.174
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -244,7 +290,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -336,7 +382,7 @@
         "wind_mph": 4.3,
         "wind_dir": 99,
         "tail_mph": -1.5,
-        "precip": 1
+        "precip": 0
       },
       "wf": 0.998
     },
@@ -661,7 +707,7 @@
         "wind_mph": 3.4,
         "wind_dir": 127,
         "tail_mph": 0.4,
-        "precip": 10
+        "precip": 9
       },
       "wf": 1.004
     },
