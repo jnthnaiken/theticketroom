@@ -1,7 +1,7 @@
 {
   "date": "2026-07-24",
   "season": "2026",
-  "pulled_at": "2026-07-25T03:00:26Z",
+  "pulled_at": "2026-07-25T03:30:53Z",
   "games": [
     {
       "gamePk": 823759,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 824573,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-24T23:40:00Z",
       "matchup": "HOU@CWS",
       "away": {
@@ -1730,7 +1730,7 @@
     },
     {
       "gamePk": 823031,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-25T00:15:00Z",
       "matchup": "CIN@STL",
       "away": {
@@ -1871,7 +1871,7 @@
         "sp": {
           "id": 680570,
           "name": "Grayson Rodriguez",
-          "hr9": 1.46,
+          "hr9": 1.62,
           "hand": "RHP"
         },
         "lineup": [
@@ -1888,32 +1888,32 @@
           {
             "id": 694384,
             "name": "Nolan Schanuel",
-            "iso": 0.114
+            "iso": 0.113
           },
           {
             "id": 624585,
             "name": "Jorge Soler",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 687093,
             "name": "Vaughn Grissom",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 685133,
             "name": "Wade Meckler",
-            "iso": 0.106
+            "iso": 0.104
           },
           {
             "id": 666176,
             "name": "Jo Adell",
-            "iso": 0.156
+            "iso": 0.157
           },
           {
             "id": 694203,
             "name": "Denzer Guzman",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 623168,
@@ -1928,14 +1928,14 @@
         "sp": {
           "id": 657277,
           "name": "Logan Webb",
-          "hr9": 0.74,
+          "hr9": 0.73,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 671218,
@@ -1945,7 +1945,7 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.204
+            "iso": 0.207
           },
           {
             "id": 646240,
@@ -1955,17 +1955,17 @@
           {
             "id": 669477,
             "name": "Casey Schmitt",
-            "iso": 0.211
+            "iso": 0.218
           },
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.124
+            "iso": 0.123
           },
           {
             "id": 642715,
             "name": "Willy Adames",
-            "iso": 0.206
+            "iso": 0.204
           },
           {
             "id": 687551,
@@ -1975,7 +1975,7 @@
           {
             "id": 691740,
             "name": "Daniel Susac",
-            "iso": 0.071
+            "iso": 0.07
           }
         ],
         "confirmed": true
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 59\u00b0",
-        "lean": "Neutral",
-        "temp": 59.2,
-        "wind_mph": 11.5,
-        "wind_dir": 292,
-        "tail_mph": 10.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.02
+      "wf": 1.0
     }
   ]
 }
