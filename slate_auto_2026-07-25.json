@@ -1,11 +1,11 @@
 {
   "date": "2026-07-25",
   "season": "2026",
-  "pulled_at": "2026-07-25T19:30:49Z",
+  "pulled_at": "2026-07-25T19:47:29Z",
   "games": [
     {
       "gamePk": 824244,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-25T17:10:00Z",
       "matchup": "KC@DET",
       "away": {
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822704,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-25T20:05:00Z",
       "matchup": "ARI@WSH",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823197,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-25T20:05:00Z",
       "matchup": "LAA@SF",
       "away": {
@@ -1108,7 +1108,7 @@
     },
     {
       "gamePk": 823679,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T23:10:00Z",
       "matchup": "ATH@MIN",
       "away": {
@@ -1125,13 +1125,61 @@
       "home": {
         "abbrev": "MIN",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 702474,
+          "name": "Mike Paredes",
+          "hr9": 1.57,
+          "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.166
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.291
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.24
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.171
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.167
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.124
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.0
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.178
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.15
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1234,7 +1282,7 @@
     },
     {
       "gamePk": 823758,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T23:10:00Z",
       "matchup": "COL@MIL",
       "away": {
@@ -1245,8 +1293,54 @@
           "hr9": 1.92,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.21
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.168
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.215
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.304
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.181
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.133
+          },
+          {
+            "id": 690924,
+            "name": "Braxton Fulford",
+            "iso": 0.119
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.073
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -1259,7 +1353,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1389,13 +1483,20 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 0mph, 81\u00b0",
+        "lean": "Neutral",
+        "temp": 81.2,
+        "wind_mph": 3.1,
+        "wind_dir": 111,
+        "tail_mph": -0.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.015
     },
     {
       "gamePk": 822869,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T23:15:00Z",
       "matchup": "SEA@TEX",
       "away": {
@@ -1406,8 +1507,54 @@
           "hr9": 0.98,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.147
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.166
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.245
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.16
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.097
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.138
+          },
+          {
+            "id": 670042,
+            "name": "Luke Raley",
+            "iso": 0.222
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.137
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.173
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -1420,7 +1567,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
