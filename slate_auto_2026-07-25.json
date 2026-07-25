@@ -1,7 +1,7 @@
 {
   "date": "2026-07-25",
   "season": "2026",
-  "pulled_at": "2026-07-25T19:47:29Z",
+  "pulled_at": "2026-07-25T20:00:29Z",
   "games": [
     {
       "gamePk": 824244,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 824734,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-25T20:10:00Z",
       "matchup": "TOR@BOS",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823841,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-25T20:10:00Z",
       "matchup": "SD@MIA",
       "away": {
@@ -1119,8 +1119,54 @@
           "hr9": 1.08,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.13
+          },
+          {
+            "id": 701762,
+            "name": "Nick Kurtz",
+            "iso": 0.231
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.224
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.2
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.087
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.194
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.082
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.082
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.1
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIN",
@@ -1350,8 +1396,54 @@
           "hr9": 1.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.153
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.196
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.198
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.12
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.223
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.176
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.037
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.086
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.092
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1455,7 +1547,7 @@
     },
     {
       "gamePk": 823027,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T23:15:00Z",
       "matchup": "CIN@STL",
       "away": {
@@ -1466,8 +1558,54 @@
           "hr9": 1.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.224
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.22
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.24
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.201
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.151
+          },
+          {
+            "id": 682622,
+            "name": "Noelvi Marte",
+            "iso": 0.175
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.087
+          },
+          {
+            "id": 695490,
+            "name": "Edwin Arroyo",
+            "iso": 0.043
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.073
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
@@ -1480,7 +1618,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
