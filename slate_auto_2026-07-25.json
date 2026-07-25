@@ -1,7 +1,7 @@
 {
   "date": "2026-07-25",
   "season": "2026",
-  "pulled_at": "2026-07-25T19:00:53Z",
+  "pulled_at": "2026-07-25T19:30:49Z",
   "games": [
     {
       "gamePk": 824244,
@@ -45,17 +45,17 @@
           {
             "id": 679845,
             "name": "Nick Loftin",
-            "iso": 0.148
+            "iso": 0.162
           },
           {
             "id": 686681,
             "name": "Michael Massey",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 686555,
             "name": "Isaac Collins",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 623205,
@@ -97,12 +97,12 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 656716,
@@ -680,8 +680,54 @@
           "hr9": 1.5,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 642708,
+            "name": "Amed Rosario",
+            "iso": 0.211
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.31
+          },
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.231
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.159
+          },
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.179
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.157
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.19
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.142
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.098
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -929,7 +975,7 @@
     },
     {
       "gamePk": 824811,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T23:05:00Z",
       "matchup": "ATL@BAL",
       "away": {
@@ -940,8 +986,54 @@
           "hr9": 1.41,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.213
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.171
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.263
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.208
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.147
+          },
+          {
+            "id": 642086,
+            "name": "Dominic Smith",
+            "iso": 0.132
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.137
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.13
+          },
+          {
+            "id": 805347,
+            "name": "Jim Jarvis",
+            "iso": 0.16
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -951,10 +1043,56 @@
           "hr9": 0.89,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.114
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.214
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.178
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.107
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.5
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.119
+          },
+          {
+            "id": 641933,
+            "name": "Tyler O'Neill",
+            "iso": 0.155
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.146
+          },
+          {
+            "id": 644433,
+            "name": "Chadwick Tromp",
+            "iso": 0.028
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1136,7 +1274,7 @@
     },
     {
       "gamePk": 823600,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T23:15:00Z",
       "matchup": "LAD@NYM",
       "away": {
@@ -1158,10 +1296,56 @@
           "hr9": 0.79,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.15
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.161
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.116
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.133
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.153
+          },
+          {
+            "id": 593871,
+            "name": "Jorge Polanco",
+            "iso": 0.08
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.13
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.108
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.191
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
