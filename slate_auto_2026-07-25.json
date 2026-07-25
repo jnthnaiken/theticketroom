@@ -1,7 +1,7 @@
 {
   "date": "2026-07-25",
   "season": "2026",
-  "pulled_at": "2026-07-25T16:12:55Z",
+  "pulled_at": "2026-07-25T16:30:24Z",
   "games": [
     {
       "gamePk": 824244,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822704,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T20:05:00Z",
       "matchup": "ARI@WSH",
       "away": {
@@ -149,8 +149,54 @@
           "hr9": 2.53,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.239
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.116
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.139
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.2
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.137
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.182
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.168
+          },
+          {
+            "id": 543510,
+            "name": "James McCann",
+            "iso": 0.162
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -163,7 +209,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -179,7 +225,7 @@
     },
     {
       "gamePk": 823197,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T20:05:00Z",
       "matchup": "LAA@SF",
       "away": {
@@ -201,10 +247,56 @@
           "hr9": 1.22,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.124
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.183
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.206
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.232
+          },
+          {
+            "id": 669477,
+            "name": "Casey Schmitt",
+            "iso": 0.217
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.123
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.203
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.124
+          },
+          {
+            "id": 691740,
+            "name": "Daniel Susac",
+            "iso": 0.07
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -261,7 +353,7 @@
     },
     {
       "gamePk": 823841,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-25T20:10:00Z",
       "matchup": "SD@MIA",
       "away": {
@@ -283,10 +375,56 @@
           "hr9": 1.28,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.165
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.199
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.241
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.116
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.164
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.129
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.26
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.231
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
