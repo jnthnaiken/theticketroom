@@ -1,7 +1,7 @@
 {
   "date": "2026-07-24",
   "season": "2026",
-  "pulled_at": "2026-07-25T05:00:54Z",
+  "pulled_at": "2026-07-25T05:30:57Z",
   "games": [
     {
       "gamePk": 823759,
@@ -1850,13 +1850,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 69.7,
+        "wind_mph": 6.0,
+        "wind_dir": 146,
+        "tail_mph": 2.6,
+        "precip": 11
       },
-      "wf": 1.0
+      "wf": 1.009
     },
     {
       "gamePk": 823196,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-07-25T02:15:00Z",
       "matchup": "LAA@SF",
       "away": {
@@ -1886,17 +1893,17 @@
           {
             "id": 624585,
             "name": "Jorge Soler",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 687093,
             "name": "Vaughn Grissom",
-            "iso": 0.147
+            "iso": 0.146
           },
           {
             "id": 685133,
             "name": "Wade Meckler",
-            "iso": 0.103
+            "iso": 0.102
           },
           {
             "id": 666176,
@@ -1928,12 +1935,12 @@
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 805811,
@@ -1976,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 12mph, 59\u00b0",
-        "lean": "Boost",
-        "temp": 59.3,
-        "wind_mph": 14.0,
-        "wind_dir": 292,
-        "tail_mph": 12.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     }
   ]
 }
