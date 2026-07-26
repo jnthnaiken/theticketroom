@@ -1,7 +1,7 @@
 {
   "date": "2026-07-25",
   "season": "2026",
-  "pulled_at": "2026-07-26T02:00:52Z",
+  "pulled_at": "2026-07-26T02:30:30Z",
   "games": [
     {
       "gamePk": 824244,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 824571,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-25T23:10:00Z",
       "matchup": "HOU@CWS",
       "away": {
@@ -1466,7 +1466,7 @@
     },
     {
       "gamePk": 823758,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-07-25T23:10:00Z",
       "matchup": "COL@MIL",
       "away": {
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 823600,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-25T23:15:00Z",
       "matchup": "LAD@NYM",
       "away": {
@@ -1675,12 +1675,12 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 666182,
             "name": "Bo Bichette",
-            "iso": 0.115
+            "iso": 0.114
           },
           {
             "id": 701807,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 82\u00b0",
+        "lean": "Boost",
+        "temp": 82.2,
+        "wind_mph": 4.8,
+        "wind_dir": 131,
+        "tail_mph": 0.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.022
     },
     {
       "gamePk": 822869,
