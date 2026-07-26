@@ -1,7 +1,7 @@
 {
   "date": "2026-07-26",
   "season": "2026",
-  "pulled_at": "2026-07-26T14:19:06Z",
+  "pulled_at": "2026-07-26T14:30:25Z",
   "games": [
     {
       "gamePk": 822950,
@@ -352,7 +352,7 @@
     },
     {
       "gamePk": 824810,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-26T17:35:00Z",
       "matchup": "ATL@BAL",
       "away": {
@@ -374,10 +374,56 @@
           "hr9": 0.69,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.111
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.211
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.184
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.106
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.417
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.125
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.117
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.15
+          },
+          {
+            "id": 644433,
+            "name": "Chadwick Tromp",
+            "iso": 0.026
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -404,8 +450,54 @@
           "hr9": 0.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.162
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.162
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.157
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.202
+          },
+          {
+            "id": 516782,
+            "name": "Starling Marte",
+            "iso": 0.057
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.128
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.112
+          },
+          {
+            "id": 571912,
+            "name": "Luke Maile",
+            "iso": 0.3
+          },
+          {
+            "id": 623205,
+            "name": "Andrew Velazquez",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
