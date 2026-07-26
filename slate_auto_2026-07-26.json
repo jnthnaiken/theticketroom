@@ -1,7 +1,7 @@
 {
   "date": "2026-07-26",
   "season": "2026",
-  "pulled_at": "2026-07-26T17:11:02Z",
+  "pulled_at": "2026-07-26T17:30:28Z",
   "games": [
     {
       "gamePk": 822950,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 800048,
           "name": "Parker Messick",
-          "hr9": 0.81,
+          "hr9": 0.8,
           "hand": "LHP"
         },
         "lineup": [
@@ -25,12 +25,12 @@
           {
             "id": 608070,
             "name": "Jos\u00e9 Ram\u00edrez",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 677587,
@@ -60,7 +60,7 @@
           {
             "id": 690984,
             "name": "Petey Halpin",
-            "iso": 0.125
+            "iso": 0.124
           }
         ],
         "confirmed": true
@@ -70,19 +70,19 @@
         "sp": {
           "id": 656876,
           "name": "Drew Rasmussen",
-          "hr9": 0.99,
+          "hr9": 0.98,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 668723,
             "name": "Ryan Vilade",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 691406,
@@ -107,12 +107,12 @@
           {
             "id": 656775,
             "name": "Cedric Mullins",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 663743,
             "name": "Nick Fortes",
-            "iso": 0.109
+            "iso": 0.108
           },
           {
             "id": 680700,
@@ -137,7 +137,7 @@
     },
     {
       "gamePk": 822706,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-26T17:35:00Z",
       "matchup": "ARI@WSH",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824730,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-26T17:35:00Z",
       "matchup": "TOR@BOS",
       "away": {
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824810,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-26T17:35:00Z",
       "matchup": "ATL@BAL",
       "away": {
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 824246,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-26T17:40:00Z",
       "matchup": "KC@DET",
       "away": {
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823599,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-26T17:40:00Z",
       "matchup": "LAD@NYM",
       "away": {
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 823840,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-26T17:40:00Z",
       "matchup": "SD@MIA",
       "away": {
@@ -1741,8 +1741,54 @@
           "hr9": 0.92,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.209
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.221
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.143
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.165
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.11
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.155
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.128
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.209
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
