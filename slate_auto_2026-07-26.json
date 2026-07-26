@@ -1,11 +1,11 @@
 {
   "date": "2026-07-26",
   "season": "2026",
-  "pulled_at": "2026-07-26T16:00:50Z",
+  "pulled_at": "2026-07-26T16:30:50Z",
   "games": [
     {
       "gamePk": 822950,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-07-26T16:15:00Z",
       "matchup": "CLE@TB",
       "away": {
@@ -13,19 +13,19 @@
         "sp": {
           "id": 800048,
           "name": "Parker Messick",
-          "hr9": 0.84,
+          "hr9": 0.83,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.058
+            "iso": 0.061
           },
           {
             "id": 608070,
             "name": "Jos\u00e9 Ram\u00edrez",
-            "iso": 0.172
+            "iso": 0.171
           },
           {
             "id": 800050,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 656876,
           "name": "Drew Rasmussen",
-          "hr9": 1.04,
+          "hr9": 1.02,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,12 +82,12 @@
           {
             "id": 668723,
             "name": "Ryan Vilade",
-            "iso": 0.22
+            "iso": 0.219
           },
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.263
+            "iso": 0.262
           },
           {
             "id": 676356,
@@ -264,7 +264,7 @@
         "wind_mph": 4.4,
         "wind_dir": 221,
         "tail_mph": 4.3,
-        "precip": 8
+        "precip": 7
       },
       "wf": 1.041
     },
@@ -397,7 +397,7 @@
         "wind_mph": 5.6,
         "wind_dir": 307,
         "tail_mph": 3.0,
-        "precip": 7
+        "precip": 6
       },
       "wf": 1.029
     },
@@ -1592,7 +1592,7 @@
         "wind_mph": 4.5,
         "wind_dir": 303,
         "tail_mph": -0.2,
-        "precip": 12
+        "precip": 8
       },
       "wf": 1.047
     },
@@ -1666,8 +1666,54 @@
           "hr9": 1.37,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.24
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.243
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.169
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.162
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.188
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.15
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.043
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.064
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.176
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1712,16 +1758,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 18mph, 67\u00b0",
-        "lean": "Boost",
-        "temp": 67.2,
-        "wind_mph": 20.2,
-        "wind_dir": 289,
-        "tail_mph": 18.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.06
+      "wf": 1.0
     },
     {
       "gamePk": 823433,
@@ -1753,9 +1792,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 73.0,
+        "wind_mph": 4.0,
+        "wind_dir": 177,
+        "tail_mph": 3.8,
+        "precip": 5
       },
-      "wf": 1.0
+      "wf": 1.018
     }
   ]
 }
