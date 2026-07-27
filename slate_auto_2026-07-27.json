@@ -1,11 +1,11 @@
 {
   "date": "2026-07-27",
   "season": "2026",
-  "pulled_at": "2026-07-27T18:00:50Z",
+  "pulled_at": "2026-07-27T18:30:35Z",
   "games": [
     {
       "gamePk": 822868,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-27T18:35:00Z",
       "matchup": "SEA@TEX",
       "away": {
@@ -172,7 +172,7 @@
         "wind_mph": 3.7,
         "wind_dir": 155,
         "tail_mph": 2.1,
-        "precip": 22
+        "precip": 21
       },
       "wf": 1.023
     },
@@ -213,7 +213,7 @@
         "wind_mph": 2.1,
         "wind_dir": 212,
         "tail_mph": 1.7,
-        "precip": 8
+        "precip": 11
       },
       "wf": 1.017
     },
@@ -294,7 +294,7 @@
         "wind_mph": 7.1,
         "wind_dir": 152,
         "tail_mph": 3.8,
-        "precip": 9
+        "precip": 7
       },
       "wf": 1.025
     },
@@ -335,7 +335,7 @@
         "wind_mph": 5.4,
         "wind_dir": 142,
         "tail_mph": 1.1,
-        "precip": 30
+        "precip": 25
       },
       "wf": 1.022
     },
@@ -417,7 +417,7 @@
         "wind_mph": 7.9,
         "wind_dir": 165,
         "tail_mph": 4.8,
-        "precip": 21
+        "precip": 14
       },
       "wf": 1.019
     },
@@ -456,7 +456,7 @@
         "wind_mph": 5.1,
         "wind_dir": 218,
         "tail_mph": 5.1,
-        "precip": 7
+        "precip": 5
       },
       "wf": 1.047
     },
@@ -531,9 +531,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 72\u00b0",
+        "lean": "Boost",
+        "temp": 72.3,
+        "wind_mph": 6.4,
+        "wind_dir": 200,
+        "tail_mph": 4.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.021
     },
     {
       "gamePk": 823195,
