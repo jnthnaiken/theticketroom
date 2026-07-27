@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
   "season": "2026",
-  "pulled_at": "2026-07-27T19:30:36Z",
+  "pulled_at": "2026-07-27T19:46:57Z",
   "games": [
     {
       "gamePk": 822868,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 669923,
           "name": "George Kirby",
-          "hr9": 1.14,
+          "hr9": 1.13,
           "hand": "RHP"
         },
         "lineup": [
@@ -70,19 +70,19 @@
         "sp": {
           "id": 677958,
           "name": "Kumar Rocker",
-          "hr9": 1.18,
+          "hr9": 1.17,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 592626,
             "name": "Joc Pederson",
-            "iso": 0.26
+            "iso": 0.259
           },
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.236
+            "iso": 0.235
           },
           {
             "id": 677649,
@@ -107,7 +107,7 @@
           {
             "id": 670032,
             "name": "Nicky Lopez",
-            "iso": 0.042
+            "iso": 0.041
           },
           {
             "id": 669701,
@@ -117,7 +117,7 @@
           {
             "id": 553869,
             "name": "Elias D\u00edaz",
-            "iso": 0.171
+            "iso": 0.17
           }
         ],
         "confirmed": true
@@ -546,8 +546,54 @@
           "hr9": 3.68,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.129
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.114
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.091
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.164
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.115
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.219
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.135
+          },
+          {
+            "id": 649966,
+            "name": "Luis Ur\u00edas",
+            "iso": 0.195
+          },
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.092
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -842,7 +888,7 @@
     },
     {
       "gamePk": 824570,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-27T23:40:00Z",
       "matchup": "NYY@CWS",
       "away": {
@@ -864,10 +910,56 @@
           "hr9": 1.43,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.262
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.304
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.242
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.242
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.113
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.153
+          },
+          {
+            "id": 677592,
+            "name": "Everson Pereira",
+            "iso": 0.188
+          },
+          {
+            "id": 700337,
+            "name": "Edgar Quero",
+            "iso": 0.045
+          },
+          {
+            "id": 682668,
+            "name": "Luisangel Acu\u00f1a",
+            "iso": 0.038
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
