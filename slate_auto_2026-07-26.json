@@ -1,7 +1,7 @@
 {
   "date": "2026-07-26",
   "season": "2026",
-  "pulled_at": "2026-07-27T01:12:23Z",
+  "pulled_at": "2026-07-27T01:30:25Z",
   "games": [
     {
       "gamePk": 822950,
@@ -1320,9 +1320,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 84\u00b0",
+        "lean": "Boost",
+        "temp": 83.9,
+        "wind_mph": 7.3,
+        "wind_dir": 142,
+        "tail_mph": 1.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.027
     },
     {
       "gamePk": 823755,
@@ -1871,7 +1878,7 @@
           {
             "id": 502671,
             "name": "Paul Goldschmidt",
-            "iso": 0.227
+            "iso": 0.226
           },
           {
             "id": 700250,
@@ -1901,7 +1908,7 @@
           {
             "id": 680474,
             "name": "Max Schuemann",
-            "iso": 0.19
+            "iso": 0.187
           },
           {
             "id": 676609,
@@ -1911,7 +1918,7 @@
           {
             "id": 645305,
             "name": "Ali S\u00e1nchez",
-            "iso": 0.048
+            "iso": 0.046
           }
         ],
         "confirmed": true
@@ -1958,7 +1965,7 @@
           {
             "id": 592663,
             "name": "J.T. Realmuto",
-            "iso": 0.13
+            "iso": 0.128
           },
           {
             "id": 687282,
@@ -1968,7 +1975,7 @@
           {
             "id": 702222,
             "name": "Justin Crawford",
-            "iso": 0.085
+            "iso": 0.086
           }
         ],
         "confirmed": true
@@ -1983,7 +1990,7 @@
         "wind_mph": 5.2,
         "wind_dir": 190,
         "tail_mph": 5.2,
-        "precip": 3
+        "precip": 6
       },
       "wf": 1.021
     }
