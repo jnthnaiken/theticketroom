@@ -1,7 +1,7 @@
 {
   "date": "2026-07-26",
   "season": "2026",
-  "pulled_at": "2026-07-27T00:00:55Z",
+  "pulled_at": "2026-07-27T00:30:30Z",
   "games": [
     {
       "gamePk": 822950,
@@ -1850,9 +1850,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 18mph, 67\u00b0",
+        "lean": "Boost",
+        "temp": 66.7,
+        "wind_mph": 20.1,
+        "wind_dir": 292,
+        "tail_mph": 17.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.058
     },
     {
       "gamePk": 823433,
@@ -1864,7 +1871,7 @@
         "sp": {
           "id": 701542,
           "name": "Will Warren",
-          "hr9": 1.34,
+          "hr9": 1.32,
           "hand": "RHP"
         },
         "lineup": [
@@ -1876,12 +1883,12 @@
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.306
+            "iso": 0.304
           },
           {
             "id": 642708,
             "name": "Amed Rosario",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 691176,
@@ -1891,7 +1898,7 @@
           {
             "id": 683011,
             "name": "Anthony Volpe",
-            "iso": 0.073
+            "iso": 0.08
           },
           {
             "id": 663757,
@@ -1921,7 +1928,7 @@
         "sp": {
           "id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "hr9": 0.8,
+          "hr9": 0.79,
           "hand": "LHP"
         },
         "lineup": [
@@ -1938,7 +1945,7 @@
           {
             "id": 547180,
             "name": "Bryce Harper",
-            "iso": 0.231
+            "iso": 0.234
           },
           {
             "id": 669016,
@@ -1948,7 +1955,7 @@
           {
             "id": 664761,
             "name": "Alec Bohm",
-            "iso": 0.146
+            "iso": 0.147
           },
           {
             "id": 681082,
@@ -1968,7 +1975,7 @@
           {
             "id": 702222,
             "name": "Justin Crawford",
-            "iso": 0.087
+            "iso": 0.085
           }
         ],
         "confirmed": true
