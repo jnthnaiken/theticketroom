@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
   "season": "2026",
-  "pulled_at": "2026-07-27T22:00:35Z",
+  "pulled_at": "2026-07-27T22:30:31Z",
   "games": [
     {
       "gamePk": 822868,
@@ -137,7 +137,7 @@
     },
     {
       "gamePk": 824245,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-27T22:40:00Z",
       "matchup": "BAL@DET",
       "away": {
@@ -264,13 +264,13 @@
         "wind_mph": 3.4,
         "wind_dir": 180,
         "tail_mph": 2.9,
-        "precip": 22
+        "precip": 19
       },
       "wf": 1.019
     },
     {
       "gamePk": 823353,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-27T22:40:00Z",
       "matchup": "ARI@PIT",
       "away": {
@@ -397,13 +397,13 @@
         "wind_mph": 6.5,
         "wind_dir": 196,
         "tail_mph": 3.8,
-        "precip": 12
+        "precip": 13
       },
       "wf": 1.021
     },
     {
       "gamePk": 823839,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-27T22:40:00Z",
       "matchup": "PHI@MIA",
       "away": {
@@ -535,7 +535,7 @@
     },
     {
       "gamePk": 822705,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-27T22:45:00Z",
       "matchup": "TOR@WSH",
       "away": {
@@ -662,13 +662,13 @@
         "wind_mph": 8.9,
         "wind_dir": 146,
         "tail_mph": 3.9,
-        "precip": 5
+        "precip": 4
       },
       "wf": 1.025
     },
     {
       "gamePk": 824490,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-07-27T23:10:00Z",
       "matchup": "CLE@CIN",
       "away": {
@@ -788,14 +788,14 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
+        "emoji": "\ud83c\udf27\ufe0f",
         "cond": "wind out 11mph, 74\u00b0",
         "lean": "Boost",
         "temp": 73.5,
         "wind_mph": 11.5,
         "wind_dir": 204,
         "tail_mph": 11.1,
-        "precip": 37
+        "precip": 52
       },
       "wf": 1.044
     },
@@ -1298,8 +1298,54 @@
           "hr9": 0.9,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807799,
+            "name": "Masataka Yoshida",
+            "iso": 0.122
+          },
+          {
+            "id": 678554,
+            "name": "Curtis Mead",
+            "iso": 0.246
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.259
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.187
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.159
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.156
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.147
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.189
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.086
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1385,8 +1431,54 @@
           "hr9": 1.66,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.154
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.196
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.197
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.12
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.223
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.183
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.174
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.12
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.122
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
