@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
   "season": "2026",
-  "pulled_at": "2026-07-27T19:46:57Z",
+  "pulled_at": "2026-07-27T20:00:50Z",
   "games": [
     {
       "gamePk": 822868,
@@ -20,7 +20,7 @@
           {
             "id": 702284,
             "name": "Cole Young",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 677594,
@@ -50,7 +50,7 @@
           {
             "id": 641598,
             "name": "Mitch Garver",
-            "iso": 0.127
+            "iso": 0.125
           },
           {
             "id": 641487,
@@ -60,7 +60,7 @@
           {
             "id": 806068,
             "name": "Colt Emerson",
-            "iso": 0.165
+            "iso": 0.164
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 677958,
           "name": "Kumar Rocker",
-          "hr9": 1.17,
+          "hr9": 1.15,
           "hand": "RHP"
         },
         "lineup": [
@@ -92,7 +92,7 @@
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.162
+            "iso": 0.164
           },
           {
             "id": 694497,
@@ -102,7 +102,7 @@
           {
             "id": 669394,
             "name": "Jake Burger",
-            "iso": 0.194
+            "iso": 0.193
           },
           {
             "id": 670032,
@@ -975,7 +975,7 @@
     },
     {
       "gamePk": 823025,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-27T23:45:00Z",
       "matchup": "CHC@STL",
       "away": {
@@ -995,10 +995,56 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.14
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.224
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.138
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.182
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.08
+          },
+          {
+            "id": 676369,
+            "name": "Nelson Vel\u00e1zquez",
+            "iso": 0.224
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.118
+          },
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.127
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.114
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1124,16 +1170,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 59\u00b0",
-        "lean": "Neutral",
-        "temp": 58.6,
-        "wind_mph": 3.4,
-        "wind_dir": 281,
-        "tail_mph": 3.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.994
+      "wf": 1.0
     }
   ]
 }
