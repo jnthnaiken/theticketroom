@@ -1,7 +1,7 @@
 {
   "date": "2026-07-26",
   "season": "2026",
-  "pulled_at": "2026-07-27T00:30:30Z",
+  "pulled_at": "2026-07-27T01:01:01Z",
   "games": [
     {
       "gamePk": 822950,
@@ -1187,16 +1187,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 96\u00b0",
-        "lean": "Boost",
-        "temp": 95.9,
-        "wind_mph": 8.2,
-        "wind_dir": 197,
-        "tail_mph": 8.1,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.067
+      "wf": 1.0
     },
     {
       "gamePk": 824572,
@@ -1850,16 +1843,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 18mph, 67\u00b0",
-        "lean": "Boost",
-        "temp": 66.7,
-        "wind_mph": 20.1,
-        "wind_dir": 292,
-        "tail_mph": 17.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.058
+      "wf": 1.0
     },
     {
       "gamePk": 823433,
@@ -1888,17 +1874,17 @@
           {
             "id": 642708,
             "name": "Amed Rosario",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 691176,
             "name": "Jasson Dom\u00ednguez",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 683011,
             "name": "Anthony Volpe",
-            "iso": 0.08
+            "iso": 0.086
           },
           {
             "id": 663757,
@@ -1913,7 +1899,7 @@
           {
             "id": 676609,
             "name": "Jos\u00e9 Caballero",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 645305,
@@ -1935,12 +1921,12 @@
           {
             "id": 607208,
             "name": "Trea Turner",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 656941,
             "name": "Kyle Schwarber",
-            "iso": 0.298
+            "iso": 0.297
           },
           {
             "id": 547180,
@@ -1970,7 +1956,7 @@
           {
             "id": 687282,
             "name": "Gabriel Rincones Jr.",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 702222,
@@ -1984,15 +1970,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 6mph, 72\u00b0",
+        "cond": "wind out 5mph, 72\u00b0",
         "lean": "Boost",
-        "temp": 71.7,
-        "wind_mph": 5.6,
-        "wind_dir": 185,
-        "tail_mph": 5.5,
+        "temp": 72.2,
+        "wind_mph": 5.2,
+        "wind_dir": 190,
+        "tail_mph": 5.2,
         "precip": 3
       },
-      "wf": 1.022
+      "wf": 1.021
     }
   ]
 }
