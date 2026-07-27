@@ -1,11 +1,11 @@
 {
   "date": "2026-07-27",
   "season": "2026",
-  "pulled_at": "2026-07-27T21:00:31Z",
+  "pulled_at": "2026-07-27T21:20:04Z",
   "games": [
     {
       "gamePk": 822868,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-07-27T18:35:00Z",
       "matchup": "SEA@TEX",
       "away": {
@@ -60,7 +60,7 @@
           {
             "id": 806068,
             "name": "Colt Emerson",
-            "iso": 0.164
+            "iso": 0.163
           }
         ],
         "confirmed": true
@@ -397,7 +397,7 @@
         "wind_mph": 6.8,
         "wind_dir": 203,
         "tail_mph": 4.6,
-        "precip": 16
+        "precip": 12
       },
       "wf": 1.026
     },
@@ -662,7 +662,7 @@
         "wind_mph": 6.9,
         "wind_dir": 151,
         "tail_mph": 3.6,
-        "precip": 7
+        "precip": 5
       },
       "wf": 1.025
     },
@@ -795,7 +795,7 @@
         "wind_mph": 7.3,
         "wind_dir": 133,
         "tail_mph": 0.4,
-        "precip": 35
+        "precip": 37
       },
       "wf": 1.003
     },
@@ -869,22 +869,61 @@
           "hr9": 0.39,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.149
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.155
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.113
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.15
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.189
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.182
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.244
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.137
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.097
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 72\u00b0",
-        "lean": "Neutral",
-        "temp": 71.8,
-        "wind_mph": 2.8,
-        "wind_dir": 162,
-        "tail_mph": 2.0,
-        "precip": 3
+        "note": "weather fetch failed"
       },
-      "wf": 1.01
+      "wf": 1.0
     },
     {
       "gamePk": 824570,
@@ -1008,16 +1047,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 73\u00b0",
-        "lean": "Neutral",
-        "temp": 72.6,
-        "wind_mph": 4.6,
-        "wind_dir": 133,
-        "tail_mph": 0.4,
-        "precip": 15
+        "note": "weather fetch failed"
       },
-      "wf": 1.005
+      "wf": 1.0
     },
     {
       "gamePk": 823025,
@@ -1141,20 +1173,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 89\u00b0",
-        "lean": "Boost",
-        "temp": 89.3,
-        "wind_mph": 6.5,
-        "wind_dir": 226,
-        "tail_mph": 6.2,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 1.051
+      "wf": 1.0
     },
     {
       "gamePk": 824001,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-28T01:38:00Z",
       "matchup": "HOU@LAA",
       "away": {
@@ -1176,22 +1201,61 @@
           "hr9": 0.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.207
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.221
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.11
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.172
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.142
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.152
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.16
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.124
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.067
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 70.6,
-        "wind_mph": 5.2,
-        "wind_dir": 190,
-        "tail_mph": 4.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.017
+      "wf": 1.0
     },
     {
       "gamePk": 824977,
