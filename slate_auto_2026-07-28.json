@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-28T21:17:07Z",
+  "pulled_at": "2026-07-28T21:30:26Z",
   "games": [
     {
       "gamePk": 824490,
@@ -149,8 +149,54 @@
           "hr9": 1.42,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.06
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.166
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.163
+          },
+          {
+            "id": 656555,
+            "name": "Rhys Hoskins",
+            "iso": 0.195
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.129
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.16
+          },
+          {
+            "id": 672356,
+            "name": "Gabriel Arias",
+            "iso": 0.153
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.136
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.119
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
@@ -1489,9 +1535,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 68.4,
+        "wind_mph": 2.7,
+        "wind_dir": 235,
+        "tail_mph": 1.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.003
     },
     {
       "gamePk": 823193,
