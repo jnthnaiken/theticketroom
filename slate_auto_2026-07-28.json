@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-28T21:00:28Z",
+  "pulled_at": "2026-07-28T21:17:07Z",
   "games": [
     {
       "gamePk": 824490,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824489,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-28T23:10:00Z",
       "matchup": "CLE@CIN",
       "away": {
@@ -160,10 +160,56 @@
           "hr9": 1.29,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.224
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.223
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.23
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.22
+          },
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.111
+          },
+          {
+            "id": 682622,
+            "name": "Noelvi Marte",
+            "iso": 0.166
+          },
+          {
+            "id": 671155,
+            "name": "Ivan Johnson",
+            "iso": 0.0
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.154
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1119,8 +1165,54 @@
           "hr9": 1.45,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.252
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.208
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.155
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.128
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.202
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.095
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.244
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.114
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.146
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
@@ -1345,22 +1437,61 @@
           "hr9": 0.83,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.116
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.08
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.228
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.262
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.16
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.075
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.184
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.104
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.218
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 68\u00b0",
-        "lean": "Neutral",
-        "temp": 68.4,
-        "wind_mph": 2.7,
-        "wind_dir": 235,
-        "tail_mph": 1.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.003
+      "wf": 1.0
     },
     {
       "gamePk": 823193,
