@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-28T22:30:51Z",
+  "pulled_at": "2026-07-28T22:37:10Z",
   "games": [
     {
       "gamePk": 824490,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 824003,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-29T01:38:00Z",
       "matchup": "HOU@LAA",
       "away": {
@@ -1355,10 +1355,56 @@
           "hr9": 0.98,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.205
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.218
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.111
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.17
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.152
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.102
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.162
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.132
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1442,8 +1488,54 @@
           "hr9": 1.11,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.124
+          },
+          {
+            "id": 701762,
+            "name": "Nick Kurtz",
+            "iso": 0.234
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.203
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.229
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.057
+          },
+          {
+            "id": 687515,
+            "name": "Colby Thomas",
+            "iso": 0.138
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.079
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.15
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1668,9 +1760,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 6mph, 60\u00b0",
+        "lean": "Neutral",
+        "temp": 59.9,
+        "wind_mph": 6.1,
+        "wind_dir": 276,
+        "tail_mph": 6.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.006
     },
     {
       "gamePk": 823923,
@@ -1835,16 +1934,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind out 4mph, 74\u00b0",
-        "lean": "Boost",
-        "temp": 74.3,
-        "wind_mph": 6.9,
-        "wind_dir": 151,
-        "tail_mph": 4.1,
-        "precip": 64
+        "note": "weather fetch failed"
       },
-      "wf": 1.021
+      "wf": 1.0
     }
   ]
 }
