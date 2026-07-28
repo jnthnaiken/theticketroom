@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
   "season": "2026",
-  "pulled_at": "2026-07-28T07:00:55Z",
+  "pulled_at": "2026-07-28T07:30:51Z",
   "games": [
     {
       "gamePk": 822868,
@@ -788,16 +788,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 73\u00b0",
-        "lean": "Neutral",
-        "temp": 72.9,
-        "wind_mph": 2.9,
-        "wind_dir": 129,
-        "tail_mph": 0.7,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.007
+      "wf": 1.0
     },
     {
       "gamePk": 824570,
@@ -1188,15 +1181,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 73\u00b0",
-        "lean": "Boost",
+        "cond": "wind out 4mph, 73\u00b0",
+        "lean": "Neutral",
         "temp": 72.6,
-        "wind_mph": 5.8,
-        "wind_dir": 196,
-        "tail_mph": 5.3,
+        "wind_mph": 5.4,
+        "wind_dir": 180,
+        "tail_mph": 4.1,
         "precip": 0
       },
-      "wf": 1.022
+      "wf": 1.018
     },
     {
       "gamePk": 824977,
@@ -1320,9 +1313,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 70\u00b0",
+        "lean": "Boost",
+        "temp": 70.3,
+        "wind_mph": 6.8,
+        "wind_dir": 212,
+        "tail_mph": 6.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.021
     },
     {
       "gamePk": 823195,
@@ -1446,16 +1446,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 58\u00b0",
-        "lean": "Neutral",
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 58\u00b0",
+        "lean": "Boost",
         "temp": 57.6,
-        "wind_mph": 4.1,
-        "wind_dir": 276,
-        "tail_mph": 4.0,
+        "wind_mph": 12.0,
+        "wind_dir": 278,
+        "tail_mph": 11.7,
         "precip": 0
       },
-      "wf": 0.995
+      "wf": 1.022
     },
     {
       "gamePk": 824490,
