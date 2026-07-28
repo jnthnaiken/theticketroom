@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-28T20:00:33Z",
+  "pulled_at": "2026-07-28T20:30:52Z",
   "games": [
     {
       "gamePk": 824490,
@@ -20,7 +20,7 @@
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.059
+            "iso": 0.06
           },
           {
             "id": 608070,
@@ -30,12 +30,12 @@
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.161
+            "iso": 0.16
           },
           {
             "id": 677587,
@@ -50,7 +50,7 @@
           {
             "id": 682657,
             "name": "Angel Mart\u00ednez",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 672275,
@@ -92,12 +92,12 @@
           {
             "id": 553993,
             "name": "Eugenio Su\u00e1rez",
-            "iso": 0.194
+            "iso": 0.192
           },
           {
             "id": 663993,
             "name": "Nathaniel Lowe",
-            "iso": 0.221
+            "iso": 0.22
           },
           {
             "id": 663886,
@@ -107,12 +107,12 @@
           {
             "id": 667472,
             "name": "Dane Myers",
-            "iso": 0.112
+            "iso": 0.111
           },
           {
             "id": 695490,
             "name": "Edwin Arroyo",
-            "iso": 0.04
+            "iso": 0.039
           },
           {
             "id": 670770,
@@ -1183,7 +1183,7 @@
     },
     {
       "gamePk": 823275,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-07-29T01:40:00Z",
       "matchup": "COL@SD",
       "away": {
@@ -1194,8 +1194,54 @@
           "hr9": 1.43,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.204
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.276
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.297
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.177
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.164
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.232
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.11
+          },
+          {
+            "id": 666397,
+            "name": "Edouard Julien",
+            "iso": 0.084
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.122
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1208,7 +1254,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1252,16 +1298,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 60\u00b0",
-        "lean": "Neutral",
-        "temp": 60.0,
-        "wind_mph": 5.4,
-        "wind_dir": 287,
-        "tail_mph": 5.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.003
+      "wf": 1.0
     },
     {
       "gamePk": 823923,
