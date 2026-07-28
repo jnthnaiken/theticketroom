@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-28T22:00:53Z",
+  "pulled_at": "2026-07-28T22:30:51Z",
   "games": [
     {
       "gamePk": 824490,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824243,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-28T22:40:00Z",
       "matchup": "BAL@DET",
       "away": {
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823350,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-28T22:40:00Z",
       "matchup": "ARI@PIT",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 822949,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-28T22:40:00Z",
       "matchup": "TEX@TB",
       "away": {
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823838,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-07-28T22:40:00Z",
       "matchup": "PHI@MIA",
       "away": {
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 822703,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-07-28T22:45:00Z",
       "matchup": "TOR@WSH",
       "away": {
@@ -1668,16 +1668,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 60\u00b0",
-        "lean": "Neutral",
-        "temp": 59.9,
-        "wind_mph": 6.1,
-        "wind_dir": 276,
-        "tail_mph": 6.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.006
+      "wf": 1.0
     },
     {
       "gamePk": 823923,
@@ -1692,8 +1685,54 @@
           "hr9": 1.33,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.147
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.171
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.161
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.248
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.135
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.097
+          },
+          {
+            "id": 608701,
+            "name": "Rob Refsnyder",
+            "iso": 0.086
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.155
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.163
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -1703,15 +1742,68 @@
           "hr9": 0.67,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.238
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.191
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.19
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.244
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.181
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.153
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.137
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.139
+          },
+          {
+            "id": 687221,
+            "name": "Dalton Rushing",
+            "iso": 0.217
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 67\u00b0",
+        "lean": "Neutral",
+        "temp": 67.2,
+        "wind_mph": 2.2,
+        "wind_dir": 186,
+        "tail_mph": 2.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.003
     },
     {
       "gamePk": 823598,
