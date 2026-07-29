@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-29T01:01:08Z",
+  "pulled_at": "2026-07-29T01:04:20Z",
   "games": [
     {
       "gamePk": 824490,
@@ -286,7 +286,7 @@
           {
             "id": 687637,
             "name": "Dylan Beavers",
-            "iso": 0.105
+            "iso": 0.104
           },
           {
             "id": 624413,
@@ -459,7 +459,7 @@
           {
             "id": 814439,
             "name": "Ryan Waldschmidt",
-            "iso": 0.125
+            "iso": 0.124
           }
         ],
         "confirmed": true
@@ -609,7 +609,7 @@
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 666018,
@@ -619,7 +619,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.266
+            "iso": 0.265
           },
           {
             "id": 656775,
@@ -999,7 +999,7 @@
         "sp": {
           "id": 671737,
           "name": "Taj Bradley",
-          "hr9": 1.28,
+          "hr9": 1.27,
           "hand": "RHP"
         },
         "lineup": [
@@ -1075,7 +1075,7 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.51,
+          "hr9": 1.5,
           "hand": "RHP"
         },
         "lineup": [
@@ -1169,7 +1169,7 @@
           {
             "id": 671976,
             "name": "Tristan Peters",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 805367,
@@ -1235,7 +1235,7 @@
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.204
+            "iso": 0.203
           },
           {
             "id": 663538,
@@ -1320,9 +1320,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 78\u00b0",
+        "lean": "Neutral",
+        "temp": 78.3,
+        "wind_mph": 4.6,
+        "wind_dir": 29,
+        "tail_mph": -4.6,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 0.996
     },
     {
       "gamePk": 824003,
@@ -1978,16 +1985,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 68\u00b0",
-        "lean": "Neutral",
-        "temp": 67.7,
-        "wind_mph": 2.6,
-        "wind_dir": 232,
-        "tail_mph": 2.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.005
+      "wf": 1.0
     },
     {
       "gamePk": 823598,
