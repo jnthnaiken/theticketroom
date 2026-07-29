@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-29T19:55:16Z",
+  "pulled_at": "2026-07-29T20:00:57Z",
   "games": [
     {
       "gamePk": 824490,
@@ -358,7 +358,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.248
+            "iso": 0.247
           },
           {
             "id": 690993,
@@ -378,7 +378,7 @@
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.571
+            "iso": 0.546
           },
           {
             "id": 595879,
@@ -1719,16 +1719,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 69\u00b0",
-        "lean": "Neutral",
-        "temp": 69.1,
-        "wind_mph": 3.6,
-        "wind_dir": 210,
-        "tail_mph": 3.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.01
+      "wf": 1.0
     },
     {
       "gamePk": 823193,
@@ -1852,9 +1845,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 60\u00b0",
+        "lean": "Neutral",
+        "temp": 59.8,
+        "wind_mph": 10.1,
+        "wind_dir": 274,
+        "tail_mph": 10.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.02
     },
     {
       "gamePk": 823923,
