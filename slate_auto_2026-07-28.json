@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-29T18:33:35Z",
+  "pulled_at": "2026-07-29T19:00:55Z",
   "games": [
     {
       "gamePk": 824490,
@@ -296,7 +296,7 @@
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.178
+            "iso": 0.177
           },
           {
             "id": 621493,
@@ -306,12 +306,12 @@
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.122
+            "iso": 0.123
           },
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.145
+            "iso": 0.144
           },
           {
             "id": 691723,
@@ -353,7 +353,7 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 693307,
@@ -373,17 +373,17 @@
           {
             "id": 656716,
             "name": "Zach McKinstry",
-            "iso": 0.106
+            "iso": 0.11
           },
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.631
+            "iso": 0.6
           },
           {
             "id": 595879,
             "name": "Javier B\u00e1ez",
-            "iso": 0.142
+            "iso": 0.141
           }
         ],
         "confirmed": true
@@ -439,17 +439,17 @@
           {
             "id": 596146,
             "name": "Max Kepler",
-            "iso": 0.16
+            "iso": 0.158
           },
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 543510,
@@ -481,12 +481,12 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.233
+            "iso": 0.232
           },
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.19
+            "iso": 0.188
           },
           {
             "id": 699013,
@@ -496,12 +496,12 @@
           {
             "id": 656811,
             "name": "Ryan O'Hearn",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 693304,
             "name": "Nick Gonzales",
-            "iso": 0.095
+            "iso": 0.094
           },
           {
             "id": 682848,
@@ -709,7 +709,7 @@
           {
             "id": 624641,
             "name": "Edmundo Sosa",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 702222,
@@ -741,7 +741,7 @@
           {
             "id": 672640,
             "name": "Otto Lopez",
-            "iso": 0.163
+            "iso": 0.161
           },
           {
             "id": 669065,
@@ -816,12 +816,12 @@
           {
             "id": 682818,
             "name": "Yohendrick Pi\u00f1ango",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.11
+            "iso": 0.109
           },
           {
             "id": 665489,
@@ -846,7 +846,7 @@
           {
             "id": 676391,
             "name": "Ernie Clement",
-            "iso": 0.128
+            "iso": 0.129
           },
           {
             "id": 665926,
@@ -888,7 +888,7 @@
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.271
+            "iso": 0.269
           },
           {
             "id": 660688,
@@ -1852,9 +1852,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 60\u00b0",
+        "lean": "Neutral",
+        "temp": 59.8,
+        "wind_mph": 10.1,
+        "wind_dir": 274,
+        "tail_mph": 10.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.02
     },
     {
       "gamePk": 823923,
@@ -2019,16 +2026,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind out 4mph, 74\u00b0",
-        "lean": "Neutral",
-        "temp": 73.6,
-        "wind_mph": 10.6,
-        "wind_dir": 138,
-        "tail_mph": 4.1,
-        "precip": 66
+        "note": "weather fetch failed"
       },
-      "wf": 1.02
+      "wf": 1.0
     }
   ]
 }
