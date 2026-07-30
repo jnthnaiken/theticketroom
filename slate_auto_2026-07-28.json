@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-29T23:35:28Z",
+  "pulled_at": "2026-07-30T00:00:56Z",
   "games": [
     {
       "gamePk": 824490,
@@ -35,17 +35,17 @@
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 700932,
             "name": "Kyle Manzardo",
-            "iso": 0.157
+            "iso": 0.155
           },
           {
             "id": 682657,
@@ -60,7 +60,7 @@
           {
             "id": 690984,
             "name": "Petey Halpin",
-            "iso": 0.116
+            "iso": 0.115
           }
         ],
         "confirmed": true
@@ -173,17 +173,17 @@
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 672356,
             "name": "Gabriel Arias",
-            "iso": 0.148
+            "iso": 0.146
           },
           {
             "id": 595978,
@@ -193,7 +193,7 @@
           {
             "id": 690984,
             "name": "Petey Halpin",
-            "iso": 0.116
+            "iso": 0.115
           }
         ],
         "confirmed": true
@@ -235,7 +235,7 @@
           {
             "id": 682622,
             "name": "Noelvi Marte",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 671155,
@@ -567,7 +567,7 @@
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 694497,
@@ -577,12 +577,12 @@
           {
             "id": 669394,
             "name": "Jake Burger",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 670032,
             "name": "Nicky Lopez",
-            "iso": 0.04
+            "iso": 0.039
           },
           {
             "id": 669701,
@@ -954,12 +954,12 @@
           {
             "id": 657041,
             "name": "Lane Thomas",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 695506,
             "name": "Jac Caglianone",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 521692,
@@ -1021,7 +1021,7 @@
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.247
+            "iso": 0.245
           },
           {
             "id": 605137,
@@ -1041,7 +1041,7 @@
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 668952,
@@ -1082,12 +1082,12 @@
           {
             "id": 502671,
             "name": "Paul Goldschmidt",
-            "iso": 0.219
+            "iso": 0.218
           },
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.307
+            "iso": 0.308
           },
           {
             "id": 642708,
@@ -1102,7 +1102,7 @@
           {
             "id": 663757,
             "name": "Trent Grisham",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 683011,
@@ -1144,12 +1144,12 @@
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.3
+            "iso": 0.299
           },
           {
             "id": 678246,
             "name": "Miguel Vargas",
-            "iso": 0.24
+            "iso": 0.239
           },
           {
             "id": 695657,
@@ -1230,7 +1230,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 664023,
@@ -1277,7 +1277,7 @@
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.221
+            "iso": 0.22
           },
           {
             "id": 676475,
@@ -1287,7 +1287,7 @@
           {
             "id": 671056,
             "name": "Iv\u00e1n Herrera",
-            "iso": 0.135
+            "iso": 0.137
           },
           {
             "id": 663457,
@@ -1719,9 +1719,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 69.1,
+        "wind_mph": 3.6,
+        "wind_dir": 210,
+        "tail_mph": 3.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.01
     },
     {
       "gamePk": 823193,
@@ -1845,16 +1852,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 60\u00b0",
-        "lean": "Neutral",
-        "temp": 59.8,
-        "wind_mph": 10.1,
-        "wind_dir": 274,
-        "tail_mph": 10.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.02
+      "wf": 1.0
     },
     {
       "gamePk": 823923,
@@ -1999,7 +1999,7 @@
         "sp": {
           "id": 519242,
           "name": "Chris Sale",
-          "hr9": 0.64,
+          "hr9": 0.63,
           "hand": "LHP"
         },
         "lineup": [],
@@ -2010,7 +2010,7 @@
         "sp": {
           "id": 681035,
           "name": "Christian Scott",
-          "hr9": 0.97,
+          "hr9": 0.94,
           "hand": "RHP"
         },
         "lineup": [],
