@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-30T21:00:48Z",
+  "pulled_at": "2026-07-30T21:19:40Z",
   "games": [
     {
       "gamePk": 824490,
@@ -1082,7 +1082,7 @@
           {
             "id": 502671,
             "name": "Paul Goldschmidt",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 700250,
@@ -1117,7 +1117,7 @@
           {
             "id": 680474,
             "name": "Max Schuemann",
-            "iso": 0.176
+            "iso": 0.174
           },
           {
             "id": 669224,
@@ -1225,17 +1225,17 @@
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.131
+            "iso": 0.133
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.202
+            "iso": 0.203
           },
           {
             "id": 663538,
@@ -1255,7 +1255,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.146
+            "iso": 0.145
           }
         ],
         "confirmed": true
@@ -1312,7 +1312,7 @@
           {
             "id": 699625,
             "name": "Jimmy Crooks",
-            "iso": 0.148
+            "iso": 0.146
           }
         ],
         "confirmed": true
@@ -1719,16 +1719,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 69\u00b0",
-        "lean": "Neutral",
-        "temp": 69.4,
-        "wind_mph": 3.5,
-        "wind_dir": 207,
-        "tail_mph": 3.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.01
+      "wf": 1.0
     },
     {
       "gamePk": 823193,
@@ -2026,9 +2019,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 69.2,
+        "wind_mph": 9.1,
+        "wind_dir": 280,
+        "tail_mph": 2.4,
+        "precip": 12
       },
-      "wf": 1.0
+      "wf": 1.007
     }
   ]
 }
