@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-31T19:01:03Z",
+  "pulled_at": "2026-07-31T19:30:53Z",
   "games": [
     {
       "gamePk": 824490,
@@ -1092,12 +1092,12 @@
           {
             "id": 642708,
             "name": "Amed Rosario",
-            "iso": 0.203
+            "iso": 0.219
           },
           {
             "id": 691176,
             "name": "Jasson Dom\u00ednguez",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 663757,
@@ -1107,7 +1107,7 @@
           {
             "id": 683011,
             "name": "Anthony Volpe",
-            "iso": 0.084
+            "iso": 0.083
           },
           {
             "id": 665862,
@@ -1235,17 +1235,17 @@
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.203
+            "iso": 0.202
           },
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 624424,
             "name": "Michael Conforto",
-            "iso": 0.229
+            "iso": 0.227
           },
           {
             "id": 608348,
@@ -1255,7 +1255,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.143
+            "iso": 0.142
           }
         ],
         "confirmed": true
@@ -1852,16 +1852,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 60\u00b0",
-        "lean": "Neutral",
-        "temp": 59.8,
-        "wind_mph": 9.4,
-        "wind_dir": 273,
-        "tail_mph": 9.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.017
+      "wf": 1.0
     },
     {
       "gamePk": 823923,
@@ -2026,9 +2019,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 69.1,
+        "wind_mph": 3.2,
+        "wind_dir": 282,
+        "tail_mph": 0.7,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.001
     }
   ]
 }
