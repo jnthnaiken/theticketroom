@@ -120,6 +120,15 @@ def build_rows(D, homered, extras=None, pstats=None):
             "opp_pvelo": p.get('opp_pvelo'), "opp_ext": p.get('opp_ext'), "opp_rvelo": p.get('opp_rvelo'),   # opp SP perceived-velo + extension + recent raw velo
             "mkt_exp": p.get('mkt_exp'), "blend": p.get('blend'), "edge_z": p.get('edge_z'), "mkt_z": p.get('mkt_z'),                                                   # market exponent (50/50 reweight)
         }
+        # RAW additive-blend inputs (the exact _SIG signals build15.py z-scores + blends). These
+        # already live on the scored board (build15.py sets p['_zxpow']=xiso, p['_zxwcon']=Kasper/
+        # Savant xwOBAcon, p['_zars']=arsenal_raw, etc.) but were being DROPPED from the log, so
+        # calibration.jsonl couldn't refit _SIG without recomputing from Savant -- and _zxwcon
+        # (xwOBAcon) wasn't recoverable at all. Logging them makes the file self-sufficient for a
+        # weight refit, and (since D_<date>.json carries them) a backfill re-log recovers history.
+        for zk in ("_zbg", "_zxpow", "_zxwcon", "_zxptr", "_zpvel",
+                   "_zpvd", "_zbtrk", "_zpark", "_zspray", "_zars", "_zmkt"):
+            row[zk] = p.get(zk)
         ex = extras.get(norm(p.get('nm', n))) or {}
         for k in KX:
             row["k_" + k] = ex.get(k)
