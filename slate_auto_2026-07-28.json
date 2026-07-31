@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
   "season": "2026",
-  "pulled_at": "2026-07-31T00:30:46Z",
+  "pulled_at": "2026-07-31T01:00:55Z",
   "games": [
     {
       "gamePk": 824490,
@@ -77,12 +77,12 @@
           {
             "id": 682829,
             "name": "Elly De La Cruz",
-            "iso": 0.221
+            "iso": 0.223
           },
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 668709,
@@ -210,12 +210,12 @@
           {
             "id": 682829,
             "name": "Elly De La Cruz",
-            "iso": 0.221
+            "iso": 0.223
           },
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 668709,
@@ -353,7 +353,7 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.179
+            "iso": 0.183
           },
           {
             "id": 693307,
@@ -481,17 +481,17 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.231
+            "iso": 0.238
           },
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.385
+            "iso": 0.382
           },
           {
             "id": 656811,
@@ -761,12 +761,12 @@
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.286
+            "iso": 0.284
           },
           {
             "id": 805300,
@@ -776,7 +776,7 @@
           {
             "id": 688363,
             "name": "Graham Pauley",
-            "iso": 0.114
+            "iso": 0.112
           },
           {
             "id": 691788,
@@ -893,7 +893,7 @@
           {
             "id": 660688,
             "name": "Keibert Ruiz",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 695734,
@@ -1852,16 +1852,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 60\u00b0",
-        "lean": "Neutral",
-        "temp": 60.5,
-        "wind_mph": 6.5,
-        "wind_dir": 268,
-        "tail_mph": 6.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.008
+      "wf": 1.0
     },
     {
       "gamePk": 823923,
@@ -2026,9 +2019,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 69.2,
+        "wind_mph": 9.1,
+        "wind_dir": 280,
+        "tail_mph": 2.4,
+        "precip": 12
       },
-      "wf": 1.0
+      "wf": 1.007
     }
   ]
 }
