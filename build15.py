@@ -534,7 +534,7 @@ for r in pool:
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
-_SIG=[('_zxpow',0.13),('_zxwcon',0.50),('_zars',0.37)]   # weights REFIT 2026-07-31 (grouped-CV logistic on the calibration log, 16 clean nights 7/9-7/28 where all 3 signals are present): xISO was over-weighted, shifted onto xwOBAcon + arsenal (direction consistent with the first-3-weeks read). Was .45/.35/.20 (2026-07-09 reasoned guess). Edge blend weight stays 0.50 (AUC(a) grid flat-topped, peak at ~0.5). Revisit as more nights log.
+_SIG=[('_zxpow',0.47),('_zxwcon',0.47),('_zars',0.06)]   # weights RE-REFIT 2026-08-01 (grouped-CV logistic on 17 signal-complete nights 7/9-7/31, reconstructed from the D_<date>.json archive after we found calibration.jsonl only carried the _z* signals for ONE night -- backfill dedupes by date so a schema addition never reached history; fixed by calibrate.repair()). ARSENAL (was 0.37) is NOT supported: its CV weight is ~0.06 and dropping it entirely barely moves AUC (0.604 vs 0.607). The edge is carried by xISO + xwOBAcon, which are collinear so their ~equal split is soft. The whole edge is marginal vs the market (50/50 blend ~0.64 vs market ~0.63 out-of-fold -- within noise). Prior: .13/.50/.37 (2026-07-31, overfit to a single night). Revisit as more nights log.
 def _ms(key):
     vals=[r[key] for r in pool if r.get(key) is not None]
     if len(vals)<2: return (0.0,1.0)
