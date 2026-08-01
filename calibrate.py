@@ -156,6 +156,74 @@ def logged_dates(path=OUT):
         pass
     return s
 
+# Columns that mark the CURRENT build_rows schema. When build_rows gains new
+# columns (e.g. the _z* edge-signal inputs), already-logged nights stay frozen on
+# the OLD schema because backfill() dedupes by DATE -- so the change only reaches
+# nights logged AFTERWARD. repair() re-derives the stale nights from the archived
+# D_<date>.json board (OFFLINE, reusing the hr outcomes already in the log) so a
+# schema addition propagates to history too.
+SCHEMA_KEYS = ('_zxpow', '_zxwcon', '_zars', '_zmkt')
+
+def repair(path=OUT):
+    """Upgrade already-logged nights whose rows predate a build_rows schema change.
+    Re-derives every model-input column from the archived board and REUSES the hr
+    outcomes already in the log (no StatsAPI call), then rewrites the file with
+    those nights' rows replaced. Idempotent: once every night carries SCHEMA_KEYS
+    it is a no-op. A stale night whose D_<date>.json is missing is left untouched."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    if not os.path.exists(path):
+        return 0
+    by_date, order = {}, []
+    for line in open(path):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            r = json.loads(line)
+        except Exception:
+            continue
+        d = r.get('date')
+        if d not in by_date:
+            by_date[d] = []
+            order.append(d)
+        by_date[d].append(r)
+    stale = [d for d in order if d and by_date[d]
+             and not all(k in by_date[d][0] for k in SCHEMA_KEYS)]
+    if not stale:
+        print("calibration: schema current, nothing to repair")
+        return 0
+    rebuilt = {}
+    for d in stale:
+        fp = os.path.join(here, f"D_{d}.json")
+        if not os.path.exists(fp):
+            fp = f"D_{d}.json"
+        if not os.path.exists(fp):
+            print(f"  repair {d}: no D_{d}.json in archive -> keeping old rows")
+            continue
+        try:
+            D = json.load(open(fp))
+            homered = {norm(r['name']) for r in by_date[d] if r.get('hr')}
+            rows = build_rows(D, homered, load_extras(d), load_pitchers(d))
+        except Exception as e:
+            # an ancient board whose shape predates current build_rows (e.g. pool
+            # stored as a dict) -- can't rebuild it; keep its old rows untouched.
+            print(f"  repair {d}: board incompatible with current build_rows ({e}) -> keeping old rows")
+            continue
+        if rows:
+            rebuilt[d] = rows
+    if not rebuilt:
+        return 0
+    tmp = path + ".tmp"
+    with open(tmp, 'w') as fh:
+        for d in order:
+            for r in rebuilt.get(d, by_date[d]):
+                fh.write(json.dumps(r) + "\n")
+    os.replace(tmp, path)
+    n = sum(len(v) for v in rebuilt.values())
+    print(f"calibration: repaired {len(rebuilt)} night(s) -> {n} rows re-derived "
+          f"from the D archive (outcomes reused, no network)")
+    return n
+
 def backfill():
     """Idempotent, self-healing calibration logger. Logs every FULLY-FINAL dated board
     (D_<date>.json) that isn't already in calibration.jsonl. Safe to run on EVERY build:
@@ -229,6 +297,9 @@ def main(date):
 if __name__ == '__main__':
     arg = sys.argv[1] if len(sys.argv) > 1 else '--backfill'
     if arg in ('--backfill', '-b', 'backfill', ''):
+        repair()                         # heal nights frozen on an older schema (offline; reuses outcomes)
         backfill()                       # idempotent, self-healing: the Action runs this every build
+    elif arg in ('--repair', 'repair'):
+        repair()                         # one-off: rebuild stale-schema nights from the D archive
     else:
         main(arg)                        # one-off single date: python calibrate.py YYYY-MM-DD
