@@ -1,11 +1,11 @@
 {
   "date": "2026-08-01",
   "season": "2026",
-  "pulled_at": "2026-08-01T22:00:32Z",
+  "pulled_at": "2026-08-01T22:05:23Z",
   "games": [
     {
       "gamePk": 822781,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-01T19:07:00Z",
       "matchup": "STL@TOR",
       "away": {
@@ -249,7 +249,7 @@
           {
             "id": 806068,
             "name": "Colt Emerson",
-            "iso": 0.153
+            "iso": 0.152
           }
         ],
         "confirmed": true
@@ -324,7 +324,7 @@
           {
             "id": 700337,
             "name": "Edgar Quero",
-            "iso": 0.042
+            "iso": 0.041
           }
         ],
         "confirmed": true
@@ -473,7 +473,7 @@
           {
             "id": 805999,
             "name": "A.J. Ewing",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 596019,
@@ -1475,8 +1475,54 @@
           "hr9": 1.31,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.118
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.196
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.165
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.228
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.132
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.197
+          },
+          {
+            "id": 691740,
+            "name": "Daniel Susac",
+            "iso": 0.137
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.119
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.027
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1684,7 +1730,7 @@
     },
     {
       "gamePk": 824000,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-02T01:38:00Z",
       "matchup": "MIL@LAA",
       "away": {
@@ -1706,10 +1752,56 @@
           "hr9": 1.03,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.199
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.213
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.111
+          },
+          {
+            "id": 624585,
+            "name": "Jorge Soler",
+            "iso": 0.17
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.149
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.158
+          },
+          {
+            "id": 518595,
+            "name": "Travis d'Arnaud",
+            "iso": 0.108
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.137
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.192
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
