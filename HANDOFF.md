@@ -2,6 +2,25 @@
 
 Quick-start status so a fresh session can continue without re-deriving context.
 
+## 🛠️ 2026-08-01 — DOCS RECONCILED TO CODE (read this before trusting older notes)
+
+These docs were audited line-by-line against the actual source. The load-bearing
+corrections (details in the sections below):
+
+1. **Scoring is a 3-signal edge half, not 9.** Live `_SIG` (build15.py L537, refit
+   2026-07-31) = `xISO 0.13`, `xwOBAcon 0.50`, `arsenal 0.37`. The old nine-signal
+   basket (`_zbg/_zxptr/_zpvel/_zspray/_zpvd/_zbtrk/_zpark`) is computed+logged but
+   DEAD to `TOTAL`. Power index / ISO / the multiplicative lambdas are also dead
+   (display-only). Market half = z(implied prob), nothing else.
+2. **`grade_night.py` does NOT re-assemble/re-draft.** It grades the baked
+   `D_<date>.json` tickets directly; only individual legs void (benched via the
+   play-by-play `played` set). Any claim that it re-runs `assemble_tickets` is wrong.
+3. **Server builders = anchors only** (snubs removed 2026-07-09). The live client
+   still adds snubs → known server/client divergence.
+4. **No `RULES_VERSION` lever** exists in `regen15.py` anymore.
+5. **`GAME_CAP`=4** (in-code comments still say 3). Client `FLOOR=41`/`GATE_N`/
+   `CHALK_N` are declared-but-unused; the real gate is `Z_GATE=0.75` on `blend`.
+
 ## ⛔ DAILY BUILD WORKFLOW — READ THIS FIRST, DO NOT ASK
 
 Three live sources build a slate: **RotoWire** (lineups), **VegasInsider** (odds),
@@ -174,7 +193,7 @@ otherwise re-run the Deploy Pages workflow.
 (This replaced the old multiplicative "market half × edge half" from the 6/30 handoff.)
 
 ```
-edge_z = standardized( Σ w_i · z(signal_i) )    # the 9 edge signals below
+edge_z = standardized( Σ w_i · z(signal_i) )    # the 3 edge signals below
 mkt_z  = standardized( z(market implied prob) )
 blend  = 0.5·mkt_z + 0.5·edge_z
 baseTotal = 100 + 30·blend                       # weather-free blend score, centered ~100
@@ -183,34 +202,45 @@ TOTAL  = baseTotal · wxMult(wf)                   # × live Open-Meteo park fac
 
 Both halves are re-standardized to unit variance before the 0.5/0.5 blend, so the
 edge bites exactly as hard as the market regardless of how thin the edge is
-(`build15.py` ~lines 534–556). No auto-computed `MKT_EXP` exponent anymore.
+(`build15.py` ~lines 543–565). No auto-computed `MKT_EXP` exponent anymore.
 
-- **Market half** (`mkt_z`) carries everything the books already price — power,
-  opposing pitcher, park, weather, platoon, slot, zone, form.
-- **Edge half** = the signals the books miss / are late on. Weights (all reasoned
-  guesses, NOT yet fitted) live in `build15.py` `_SIG`:
-  - `_zbg`   bullpen-game/opener flag — **W_BG = 0.20**
-  - `_zxpow` expected power (xISO, park-neutral) — **W_XPOW = 0.18**
-  - `_zars`  pitch-arsenal matchup (batter RV/100 × pitcher pitch mix) — **W_ARS = 0.16**
-  - `_zxptr` recent expected-power trend (14d xwOBAcon vs season) — **W_XPTREND = 0.12**
-  - `_zpvel` perceived velo (effective_speed, falls back to raw velo) — **W_PVEL = 0.10**
-  - `_zspray` spray-angle × park pull-side × wind — **W_SPRAY = 0.09**
-  - `_zpvd`  pitcher velo decline (recent raw velo vs season) — **W_PVDECL = 0.08**
-  - `_zbtrk` ball-tracking (whiff/zone-contact) — **W_BTRK = 0.04**
-  - `_zpark` park hitter's-eye (hand-set judgment dict `PARK_TRK`) — **W_PARKTRK = 0.03**
+- **Market half** (`mkt_z`) = standardized market implied probability, **only**.
+  Nothing else is added to it (the point of a thin edge half is that the price
+  already reflects power, pitcher, park, weather, platoon, slot, etc.).
+- **Edge half** = exactly **THREE** z-scored signals in `build15.py` `_SIG`,
+  **REFIT 2026-07-31** (grouped-CV logistic on the calibration log, 16 clean nights
+  7/9–7/28):
+  - `_zxpow`  expected power (xISO, park-neutral, raw) — **0.13**
+  - `_zxwcon` expected contact quality (Kasper xwOBAcon if sidecar populated, else Savant) — **0.50**
+  - `_zars`   pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) — **0.37**
+  - (Was `.45/.35/.20` before the refit — xISO over-weighted, shifted to xwOBAcon+arsenal.)
+- ⚠️ **The old NINE-signal basket is DEAD.** `_zbg`, `_zxptr`, `_zpvel`, `_zspray`,
+  `_zpvd`, `_zbtrk`, `_zpark` are all still computed and logged but are **NOT in
+  `_SIG`** — they do not touch `TOTAL`. `W_BTRK`, `W_PVDECL`, `W_XPTREND` are hard
+  `0.0`. Only the three signals above feed the score.
+- ⚠️ **Power index is also dead to TOTAL** — `powidx`/`powraw` and the multiplicative
+  lambdas (`powT`, `zoneT`, `mktT`, `_mm`, …) are computed but vestigial (display/notes
+  only). Live HR/9 + bullpen pulls feed display chips only.
 - **Server pool gate is Z-THRESHOLD based**: keep bats whose `blend` z-score is
   `>= Z_GATE (0.75)` SDs above the slate mean (`assemble_tickets.py` ~line 129).
   Scale/slate-independent. `FLOOR=130` is dead — only a fallback if a board is
-  missing `blend`. The old fixed-40 rank cut is also fallback-only.
+  missing `blend`. The old fixed-40 rank cut is also fallback-only. (The in-code
+  `GAME_CAP` comments still say "3 per game" but the value is **4**.)
 - **Chalk ban is removed** — `CHALK_N` still defined but `chalk = set()`; the top-4
   favorites now draft into moons/salami/builders like any other bat.
-- `RULES_VERSION = "2026-07-08-redraft4"` in `regen15.py` (bumped 2026-07-08 to force a re-draft).
+- **No `RULES_VERSION` lever anymore.** `regen15.py` was rewritten to the
+  simplified preserve-and-inject: a same-slate rebuild ALWAYS carries the prior
+  `tickets` forward untouched (never re-drafts a live board). Any older note citing a
+  `RULES_VERSION` bump is stale — the lever is gone.
 
 ## ✅ Both prior "BROKEN" items are FIXED (verified in current code)
 
-1. **Client FLOOR gate** — `index.html:498` now sets `FLOOR=41` and line 552 does
-   `fullrank.slice(0, FLOOR)` (a rank slice, top 41 by TOTAL), not a `TOTAL>=130`
-   threshold. Scale-independent; a compressed TOTAL can't empty the pool.
+1. **Client pool gate** — the client now mirrors the server **z-gate**: keep bats
+   whose `blend` z-score `>= Z_GATE (0.75)` (with a fallback top-~40-by-TOTAL rank
+   slice, index 39, only when no `blend` is present). Scale-independent; a compressed
+   TOTAL can't empty the pool. ⚠️ Note `FLOOR=41` (and `GATE_N`, `CHALK_N`) are still
+   **declared in `index.html` but unused** — the live gate is the z-gate, not a 41-rank
+   slice.
 2. **Client weather live re-score — RE-ADDED 2026-07-05 (weather-only, draft-only).**
    `build15.py` ships `baseTotal` (the weather-free blend) and bakes
    `TOTAL = baseTotal * wxMult(wf)`; `wxMult(wf)=clamp(1+WX_K*(wf-1),1-WX_CAP,1+WX_CAP)`
@@ -223,14 +253,21 @@ edge bites exactly as hard as the market regardless of how thin the edge is
    multiplicative `TOTAL/(weather×pitcher)` re-score; it's a bounded, slate-independent
    multiplier on a shipped base score, so client and server never desync.
 
-## ✅ The 4 "expected/unpriced" signals are BUILT (all in `build15.py`)
+## The 4 "expected/unpriced" signals are BUILT — but only ONE feeds TOTAL now
 
-1. **Pitch-arsenal matchup** — `fetch_arsenal()` + `arsenalTfn`/`arsenal_raw` → `_zars` (W_ARS=0.16).
-2. **Recent expected-power trend** — `fetch_bat_recent()` + `xptrendTfn` → `_zxptr` (W_XPTREND=0.12).
-3. **Pitcher velo/stuff decline** — `fetch_pit_ext()` `release_speed` agg + `pvdTfn` → `_zpvd` (W_PVDECL=0.08).
-4. **Spray-angle × park alignment** — `fetch_bat_spray()` + `pull_tail_of()` + `sprayTfn` → `_zspray` (W_SPRAY=0.09).
+These fetchers/terms all exist in `build15.py` and still log to `calibration.jsonl`,
+but after the **2026-07-31 refit only `_zars` (arsenal) survives in `_SIG`**; the
+other three are **dead to the score** (kept for logging / a future refit):
 
-All still on educated-guess weights — no fitted outcomes yet (see Backtest reality).
+1. **Pitch-arsenal matchup** — `fetch_arsenal()` + `arsenal_raw` → `_zars` — **LIVE in `_SIG` (0.37).**
+2. **Recent expected-power trend** — `fetch_bat_recent()` + `xptrendTfn` → `_zxptr` — **DEAD** (`W_XPTREND=0.0`, not in `_SIG`).
+3. **Pitcher velo/stuff decline** — `fetch_pit_ext()` + `pvdTfn` → `_zpvd` — **DEAD** (`W_PVDECL=0.0`, not in `_SIG`).
+4. **Spray-angle × park alignment** — `fetch_bat_spray()` + `sprayTfn` → `_zspray` — **DEAD** (not in `_SIG`).
+
+The two signals that actually carry the edge half — **xISO (`_zxpow`, 0.13)** and
+**xwOBAcon (`_zxwcon`, 0.50)** — come from `fetch_bat_track()` (Savant) and the
+Kasper `xwobacon` sidecar. Weights are now FITTED (grouped-CV), not guesses; refit
+again as more nights log (see Backtest reality).
 
 ## Data infra (reuse it) — in `build15.py`
 
@@ -289,12 +326,14 @@ rounded to int. cards fields come from the same matchup roster tables.
   `priorGrade` (with a boxscore-fetch guard so a failed fetch never false-voids).
 - **Scratched singles are dropped from the board** (client `singleAlive` filter) — a
   benched builder/lunch/nightcap single disappears instead of showing as a SOLD loss.
-- **`grade_night` now grades the FINAL board, not the pre-game bake** (2026-07-05).
-  Before scoring a night it imports `assemble_tickets`, marks any carded bat that took
-  no plate appearance as `out`, and re-runs the draft — so the ledger grades the board
-  that actually shipped (same pool the browser re-drafts on), not the tickets baked
-  hours earlier. Wrapped in try/except: if the re-assemble fails it falls back to
-  grading the baked board.
+- **`grade_night` grades the baked board that SHIPPED** (`D_<date>.json` tickets),
+  **directly** — ⚠️ it does **NOT** import `assemble_tickets` and does **NOT** re-draft
+  (an earlier plan to re-assemble was dropped; the code comment at ~line 163 says a
+  fresh re-draft "would diverge" from the live board, so it grades the shipped tickets
+  as-is). Benched/DNP handling is at the **leg** level: it builds a `played` set from
+  the play-by-play and voids (refunds) any carded leg who took no plate appearance —
+  the ticket LIST is not re-drafted, only individual legs void. (`grade_night` imports
+  `build_rows`/`load_extras` from `calibrate` but currently never calls them.)
 - **Frozen boards are never re-drafted** (2026-07-05). `pull-slate.yml`'s verify step
   now flags a slate whose games are all `final` and sets `fresh=false`, skipping the
   score/assemble/commit steps. Stops a locked, graded board from being re-drafted by a
@@ -348,8 +387,10 @@ rounded to int. cards fields come from the same matchup roster tables.
 1. **Each slate: commit all 5 inputs, then run the Action.** Don't forget
    `lineups_<date>.json` (manual, RotoWire) and keep every file suffix-less. Verify the
    run actually rebuilt (`D_<date>.json` present, ~90s) — a 29s "success" skipped it.
-2. Let more nights log + grade, then backtest the 9 edge signals for real and refit
-   the `_SIG` weights (they're currently guesses).
+2. Let more nights log + grade, then **re-refit** the 3-signal `_SIG` weights
+   (`_zxpow/_zxwcon/_zars`) — they were fitted 2026-07-31 (grouped-CV on 16 nights),
+   so this is a periodic refresh, not a first fit. Reconsider whether any of the dead
+   signals (`_zbg/_zxptr/_zpvel/_zspray/_zpvd`) earn their way back into `_SIG`.
 3. **Server-salami rework (ledger consistency):** the client now builds th
 ## 🛡️ 2026-07-21 — SLATE INPUT SCHEMA + SAFEGUARDS (read before assembling)
 
