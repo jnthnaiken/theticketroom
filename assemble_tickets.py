@@ -51,6 +51,12 @@ NAME_POOLS = {
         "Heat Shield Off", "Beyond the Bleachers", "Into the Upper Air", "The Apollo",
         "Terminal Climb", "Past Low Earth Orbit",
     ],
+    "chef": [  # all-chalk marquee: fine dining / the favorites' table  (no 'Chef'/'Table' -- section-header words)
+        "Omakase", "The Prix Fixe", "The Degustation", "Five-Course Service",
+        "The Sommelier's Pick", "Michelin Three-Star", "The Reserve List", "Top Shelf",
+        "The Blue Ribbon", "Cream of the Crop", "The A-List", "House Reserve",
+        "Dry-Aged and Prime", "The Priciest Cuts", "Blue-Chip Plate", "The Standing Reservation",
+    ],
     "biggest": [  # the feast / the spread
         "The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats",
         "Family Style", "The Tasting Menu", "Surf and Turf",
@@ -134,7 +140,21 @@ def assemble(D):
         _floor = _ft[min(len(_ft)-1, 39)] if _ft else FLOOR
         cand = [n for n in fullrank if P[n]['TOTAL'] >= _floor]
     ranked   = byO(cand)                              # re-sort those 41 by odds
-    chalk    = set()                                 # chalk ban removed -- the top-4 favorites now draft into moons/salami/builders like every other bat
+    # CHEF'S TABLE reservation: the CHALK_N shortest-odds parlay-eligible bats, one per GAME, spanning the
+    # whole slate (no time window). Pulled out here and handed to the all-chalk round robin below; excluding
+    # them from `nonchalk` keeps them off every other ticket (anchors, moons, salami, builders, lunch,
+    # nightcap) -- so the NEXT-strongest bats become the anchors, then we draft as usual.
+    chef_legs, _cgm = [], set()
+    for n in ranked:                                  # shortest odds first
+        if pend(n) or _precip(n) >= 40:               # same parlay-leg gate as anchors: no pending/carryover, <40% rain
+            continue
+        g = P[n]['game']
+        if g in _cgm:                                 # one bat per GAME -> clean round robin
+            continue
+        chef_legs.append(n); _cgm.add(g)
+        if len(chef_legs) >= CHALK_N:
+            break
+    chalk    = set(chef_legs)                          # reserved for Chef's Table; barred from every other ticket
     nonchalk, _tc = [], {}
     for n in byT([x for x in cand if x not in chalk]):   # the pool, model order, trimmed to <=3 per GAME (both teams combined)
         g = P[n]['game']
@@ -328,7 +348,7 @@ def assemble(D):
         # Substance only: why each bat can leave the yard. Full-width cards (salami/nightcap/lunch) carry
         # richer two-line notes since they have the room; grid cards (moons/builders) fill two normal lines.
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
-        WIDE = kind in ('biggest', 'late', 'lunch')
+        WIDE = kind in ('chef', 'biggest', 'late', 'lunch')
         B = 168 if WIDE else 150
         if len(names) == 1:
             a = P[names[0]]
@@ -469,6 +489,14 @@ def assemble(D):
         _, anchors, parlays = best
 
     parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship only fully-filled parlays; dropped bats fall to builders
+
+    # CHEF'S TABLE: the all-chalk 4-man round robin (structured exactly like the salami: by-2s/3s/4, 5.5u
+    # risk). Built from the reserved chalk legs; ships only as a full CHALK_N-leg set and leads the
+    # round-robin trio (Chef's Table -> Moonshots -> Grand Salami) on the board.
+    if len(chef_legs) >= CHALK_N:
+        _cheflegs = sorted(chef_legs, key=lambda n: -P[n]['TOTAL'])   # strongest-first display, like the salami
+        add(name_for("chef"), "chef", "\U0001F37D", _cheflegs,
+            rr={"struct": "by 2s, 3s & 4", "risk": 5.5})
 
     # CANONICAL NAMING: a moon's name is tied to its LEG SET, not its output position.
     # Without this, two moons sharing an anchor can swap names on a rebuild (the partner pairs
