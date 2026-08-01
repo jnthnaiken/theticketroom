@@ -1,7 +1,7 @@
 {
   "date": "2026-08-01",
   "season": "2026",
-  "pulled_at": "2026-08-01T22:05:23Z",
+  "pulled_at": "2026-08-01T22:30:51Z",
   "games": [
     {
       "gamePk": 822781,
@@ -172,7 +172,7 @@
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.179
+            "iso": 0.181
           },
           {
             "id": 807712,
@@ -182,7 +182,7 @@
           {
             "id": 605170,
             "name": "Victor Caratini",
-            "iso": 0.116
+            "iso": 0.115
           },
           {
             "id": 668952,
@@ -202,7 +202,7 @@
         "sp": {
           "id": 669302,
           "name": "Logan Gilbert",
-          "hr9": 1.16,
+          "hr9": 1.15,
           "hand": "RHP"
         },
         "lineup": [
@@ -269,7 +269,7 @@
     },
     {
       "gamePk": 822944,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-08-01T20:10:00Z",
       "matchup": "CWS@TB",
       "away": {
@@ -284,22 +284,22 @@
           {
             "id": 803011,
             "name": "Sam Antonacci",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.306
+            "iso": 0.305
           },
           {
             "id": 678246,
             "name": "Miguel Vargas",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.236
+            "iso": 0.235
           },
           {
             "id": 643217,
@@ -351,7 +351,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.266
+            "iso": 0.265
           },
           {
             "id": 683748,
@@ -376,12 +376,12 @@
           {
             "id": 663743,
             "name": "Nick Fortes",
-            "iso": 0.106
+            "iso": 0.105
           },
           {
             "id": 670764,
             "name": "Taylor Walls",
-            "iso": 0.07
+            "iso": 0.069
           }
         ],
         "confirmed": true
@@ -409,29 +409,29 @@
         "sp": {
           "id": 663969,
           "name": "Tyler Phillips",
-          "hr9": 1.12,
+          "hr9": 1.11,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 672640,
             "name": "Otto Lopez",
-            "iso": 0.158
+            "iso": 0.16
           },
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.237
+            "iso": 0.236
           },
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 669364,
             "name": "Xavier Edwards",
-            "iso": 0.108
+            "iso": 0.107
           },
           {
             "id": 677870,
@@ -451,12 +451,12 @@
           {
             "id": 665923,
             "name": "Esteury Ruiz",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.264
+            "iso": 0.287
           }
         ],
         "confirmed": true
@@ -493,7 +493,7 @@
           {
             "id": 676724,
             "name": "Jared Young",
-            "iso": 0.169
+            "iso": 0.167
           },
           {
             "id": 543760,
@@ -534,7 +534,7 @@
     },
     {
       "gamePk": 824485,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-01T22:40:00Z",
       "matchup": "PIT@CIN",
       "away": {
@@ -1828,8 +1828,54 @@
           "hr9": 0.95,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.139
+          },
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.118
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.251
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.18
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.152
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.21
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.5
+          },
+          {
+            "id": 595879,
+            "name": "Javier B\u00e1ez",
+            "iso": 0.131
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.109
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1891,16 +1937,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 80.4,
-        "wind_mph": 5.0,
-        "wind_dir": 207,
-        "tail_mph": 4.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.03
+      "wf": 1.0
     }
   ]
 }
