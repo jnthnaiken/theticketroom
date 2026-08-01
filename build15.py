@@ -559,7 +559,7 @@ def wxMult(wf):
 _es=_ms('_edge0'); _mks=_ms('_mz0')
 for r in pool:
     ez=(r['_edge0']-_es[0])/_es[1]; mz=(r['_mz0']-_mks[0])/_mks[1]
-    blend=0.5*mz+0.5*ez
+    blend=0.75*mz+0.25*ez   # market/edge mix RE-CALIBRATED 2026-08-01 (was 0.5/0.5). Both the AUC sweep (rises with market share, peak ~0.85) AND the 26-night unit-P&L backtest agree 0.5/0.5 is too much edge: in that backtest 0.5/0.5 was the WORST mix (-40u) while 0.7-0.8 market led (+137/+160u). Lean on the market's better calibration but KEEP ~25% edge -- all-market was worse (+24u), i.e. you still need disagreement with the price to generate bets. High parlay variance means the exact point is soft; re-tune on bet P&L as nights accrue (backtest_mix.py).
     r['edge_z']=round(ez,4); r['mkt_z']=round(mz,4); r['blend']=round(blend,4)
     r['baseTotal']=round(100+30*blend,1)
     r['TOTAL']=round(r['baseTotal']*wxMult(r.get('wf')),1)
