@@ -1,7 +1,7 @@
 {
   "date": "2026-08-01",
   "season": "2026",
-  "pulled_at": "2026-08-01T19:50:50Z",
+  "pulled_at": "2026-08-01T20:00:26Z",
   "games": [
     {
       "gamePk": 822781,
@@ -77,17 +77,17 @@
           {
             "id": 649966,
             "name": "Luis Ur\u00edas",
-            "iso": 0.227
+            "iso": 0.223
           },
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.223
+            "iso": 0.222
           },
           {
             "id": 543807,
@@ -137,7 +137,7 @@
     },
     {
       "gamePk": 823109,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-01T20:10:00Z",
       "matchup": "MIN@SEA",
       "away": {
@@ -269,7 +269,7 @@
     },
     {
       "gamePk": 822944,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-01T20:10:00Z",
       "matchup": "CWS@TB",
       "away": {
@@ -401,7 +401,7 @@
     },
     {
       "gamePk": 823594,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-01T20:10:00Z",
       "matchup": "MIA@NYM",
       "away": {
@@ -545,8 +545,54 @@
           "hr9": 1.18,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.078
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.237
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.185
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.379
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.096
+          },
+          {
+            "id": 542303,
+            "name": "Marcell Ozuna",
+            "iso": 0.122
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.068
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.266
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
