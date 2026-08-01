@@ -95,14 +95,19 @@ lineup's wind/temp and a neutral pitcher term.
 
 - **`grade_night.py`** — auto-grader. Reads `season.json`, finds the last graded
   night, and folds every fully-final night since then into the ledger off real
-  play-by-play home runs. It grades the **final board, not the pre-game bake**:
-  before scoring it scratches any carded bat that never took a plate appearance
-  (benched / late scratch) and re-runs `assemble_tickets`, so the ledger grades the
-  board that actually shipped — matching the browser's live re-draft. Postponed
+  play-by-play home runs. It grades the **baked board that actually shipped** —
+  it loads `D_<date>.json` and grades those tickets **directly**; it does **not**
+  import `assemble_tickets` and does **not** re-draft (a fresh re-assemble would
+  diverge from the live board). It builds a `played` set from the play-by-play, so
+  a carded leg who never took a plate appearance (benched / late scratch) **voids
+  (refund), not a loss** — but the ticket list itself is graded as-baked. Postponed
   games void (refund). Never grades a night that isn't final yet, never
-  double-grades.
-- **`build15.py`** — the scorer. Turns the carded field into a `TOTAL` per bat
-  (our multiplier stack; **no base**). Also attaches display-only `khr`.
+  double-grades. (Its only import from `calibrate` is `build_rows`/`load_extras`,
+  which are currently unused here — calibration logging lives in `calibrate.py`.)
+- **`build15.py`** — the scorer. Turns the carded field into a `TOTAL` per bat via
+  the **additive 50/50 z-score blend** below (**no base, no multiplier stack** —
+  the old multiplicative lambdas are still computed but vestigial). Also attaches
+  display-only `khr`.
 - **`regen15.py`** — assembles the tickets (via `assemble_tickets.py`) and injects
   `const D = …` into `index.html`. A **same-slate rebuild ALWAYS preserves the prior
   draft** (carries `prevD['tickets']` forward untouched — the live client handles
@@ -130,38 +135,46 @@ market and an edge basket, each half standardized to unit variance so neither ca
 dominate:
 
 ```
-edge_z = standardized( Σ w_i · z(signal_i) )   # the 9 edge signals below
+edge_z = standardized( Σ w_i · z(signal_i) )   # the 3 edge signals below
 mkt_z  = standardized( z(market implied prob) )
 blend  = 0.5·mkt_z + 0.5·edge_z
 baseTotal = 100 + 30·blend                      # weather-free blend score, centered ~100
 TOTAL  = baseTotal · wxMult(wf)                 # × live Open-Meteo park factor (±10% cap)
 ```
 
-The **market half** (`mkt_z`) carries everything the books already price — power,
-opposing pitcher, park, weather, platoon, slot, zone, form. The **edge half** is
-only signals the books miss or are late on. Edge weights (`build15.py` `_SIG`,
-all reasoned guesses pending fitted outcomes):
+The **market half** (`mkt_z`) is the standardized market implied probability and
+**nothing else** — no other feature feeds it (the rationale for keeping the edge
+half thin is that the books' price already reflects power, park, pitcher, weather,
+platoon, slot, etc., so those don't need to be re-added). The **edge half** is a
+weighted sum of exactly **three** z-scored signals — this is the live `_SIG` list
+in `build15.py`, **refit 2026-07-31** via grouped-CV logistic regression on the
+calibration log (16 clean nights, 7/9–7/28):
 
 | signal | key | weight |
 |---|---|---|
-| bullpen-game / opener flag | `_zbg` | `W_BG = 0.20` |
-| expected power (park-neutral xISO) | `_zxpow` | `W_XPOW = 0.18` |
-| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix) | `_zars` | `W_ARS = 0.16` |
-| recent expected-power trend (14d xwOBAcon vs season) | `_zxptr` | `W_XPTREND = 0.12` |
-| perceived velo (effective_speed, falls back to raw velo) | `_zpvel` | `W_PVEL = 0.10` |
-| spray-angle × park pull-side × wind | `_zspray` | `W_SPRAY = 0.09` |
-| pitcher velo decline (recent raw velo vs season) | `_zpvd` | `W_PVDECL = 0.08` |
-| ball-tracking (whiff / zone-contact) | `_zbtrk` | `W_BTRK = 0.04` |
-| park hitter's-eye (hand-set `PARK_TRK` dict) | `_zpark` | `W_PARKTRK = 0.03` |
+| expected power (park-neutral xISO, raw) | `_zxpow` | `0.13` |
+| expected contact quality (Kasper xwOBAcon if the sidecar is populated, else Savant xwOBAcon) | `_zxwcon` | `0.50` |
+| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.37` |
+
+(These were `.45/.35/.20` reasoned guesses before the 7/31 refit — xISO was
+over-weighted and shifted onto xwOBAcon + arsenal. Weights sum to 1.0.)
+
+⚠️ **The nine-signal edge basket described in older revisions is DEAD.** `_zbg`
+(bullpen game), `_zxptr` (power trend), `_zpvel` (perceived velo), `_zspray`,
+`_zpvd` (velo decline), `_zbtrk` (ball-tracking), `_zpark` (park eye) are all still
+**computed and logged** but are **not** in `_SIG`, so none of them touch `TOTAL`
+(and `W_BTRK`, `W_PVDECL`, `W_XPTREND` are hard-set to `0.0`). Only the three above
+feed the score.
 
 Both halves are re-standardized before the 0.5/0.5 blend, so the edge bites as
 hard as the market even when it's thin. There is no `MKT_EXP` exponent anymore.
 
-ISO is **gone** — dropped from scoring and display (no predictive value,
-~0.88-redundant with the power index). The old multiplicative lambdas (`powT`,
-`zoneT`, `fF`, `parkT`, `pM`, `mktT`) and the `_mm` term are still computed in
-`build15.py` but no longer feed TOTAL — vestigial. `powidx` still drives display
-and notes.
+ISO is **gone** from the math. So is the **power index** as a scoring input:
+`powidx`/`powraw` and the old multiplicative lambdas (`powT`, `zoneT`, `fF`,
+`parkT`, `pM`, `mktT`) and the `_mm` term are all still computed in `build15.py`
+but **no longer feed TOTAL** — vestigial. `powidx` survives only to drive display
+and notes. The live StatsAPI HR/9 and bullpen pulls likewise feed display chips
+only, never the score.
 
 Batter handedness comes from the lineups (`away_hands`/`home_hands`, one L/R/S per
 bat).
@@ -180,7 +193,7 @@ not pool membership. Opposing-pitcher HR/9 remains a display chip only.
 
 - **`Model` chip** = the bat's `TOTAL` (our actual model score; drives every pick).
 - **🧱 brick badge** = `khr` (Kasper's HR projection) — **display-only reference**, not in the math.
-- **`Pitcher` chip** = 0–100 hittability of the opposing arm (50 = neutral, higher = more HR-prone), derived from the same pitcher multiplier that scores the bat.
+- **`Pitcher` chip** = 0–100 hittability of the opposing arm (50 = neutral, higher = more HR-prone), derived from the opposing-pitcher term — **display-only; it does not feed `TOTAL`.**
 - **`POWER` / `Zone` / `Park`** chips = the respective inputs.
 
 ---
@@ -219,21 +232,20 @@ not pool membership. Opposing-pitcher HR/9 remains a display chip only.
   reverses each round, so the best anchor picks back-to-back at the turn. If the best
   anchor can't fill 4 legs in its window it's re-tasked to moons. Demotion candidate
   on a thin slate.
-- **Builders** (our straight singles) — the **actual anchors**, **plus** the
-  conviction **"snubs"**: strong bats that landed on **no** parlay at all (neither
-  anchor nor a drafted leg) — typically bats stuck in time-isolated late games no moon
-  window could reach. Concretely: the anchors **+ any unused pool bat at least as
-  strong as the weakest bat actually used on a leg**, at ≤ +600. Bats already on a
-  moon/salami aren't re-listed; sub-leg-strength dregs are dropped. Self-adjusts each
-  slate to catch whoever falls through the cracks.
+- **Builders** (our straight singles) — on the **server** these are the **parlay
+  anchors only**, emitted as singles (no odds cap). The conviction **"snubs"**
+  (unused strong bats) were **removed from the server on 2026-07-09**. ⚠️ **The live
+  client still adds snubs** (anchors + any unused pool bat ≥ the weakest drafted
+  leg) — so the Tickets page in the browser can show more builders than the baked
+  server board. This is a known server/client divergence, not a bug.
 - **75 TOTAL floor** on parlay legs (anchors, partners, salami legs).
 
 Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2` (`CHALK_N=4` defined but the ban is off; `FLOOR=130` is a dead
-fallback). Edge weights: `W_BG=0.20`, `W_XPOW=0.18`, `W_ARS=0.16`, `W_XPTREND=0.12`,
-`W_PVEL=0.10`, `W_SPRAY=0.09`, `W_PVDECL=0.08`, `W_BTRK=0.04`, `W_PARKTRK=0.03`
-(market is a flat 0.5 of the blend). Parlay stakes: moon round-robin `risk=2.0u`,
-salami round-robin `risk=5.5u` (singles/builders stake `1u`).
+fallback; note the in-code comments still say "3 per game" but the value is 4).
+Edge weights (`_SIG`, refit 2026-07-31): `xISO 0.13`, `xwOBAcon 0.50`,
+`arsenal 0.37` — market is a flat 0.5 of the blend. Parlay stakes: moon round-robin
+`risk=2.0u`, salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 
 ---
 
@@ -268,7 +280,9 @@ Behavior that's load-bearing:
 - **Top-4 per GAME holds everywhere** — the pool and the span-fill fallback, so a
   game can never put a 5th bat on the regular board (chalk in lunch/nightcap exempt).
 - **Builders = anchors + conviction snubs** (unused bats ≥ the weakest drafted leg),
-  emitted live from the drafted tickets, matching the server rule.
+  emitted live from the drafted tickets. ⚠️ Note this **diverges from the server**,
+  which now emits **anchors only** (snubs removed 2026-07-09) — so the live board can
+  show more builder singles than the baked `D_<date>.json`.
 - **Moon pairing is enforced live.** After the refill, any anchor left with fewer than
   `MOONS_PER_ANC` (2) moons is repaired from the free pool, or demoted whole (never a
   single-moon anchor). A scratched-anchor moon **re-anchors to one replacement** for the
@@ -296,8 +310,9 @@ Behavior that's load-bearing:
 
 `season.json` is the source of truth for the running tracker; `grade_night.py` is
 the only thing that writes its history. Current epoch is **since 2026-06-30**
-(running **≈ +350u through 2026-07-10**), rolling forward each morning as the prior
-night settles. Per-category units, win counts, and the history curve are baked into
+(running **≈ +331u through 2026-07-31** — moons carry it at ≈ +362u, the salami
+round-robin bleeds at ≈ −44u), rolling forward each morning as the prior night
+settles. Per-category units, win counts, and the history curve are baked into
 the board as `D.meta.season`.
 
 > ⚠️ **The board's big "+Nu" season number is the SUM of the category `units`
