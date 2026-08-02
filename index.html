@@ -742,7 +742,7 @@ drawTickets();drawPlayers();drawTracker();
         if(isLocked(t)){ plan.push({frozen:true,t:t}); return; }   // PLACED slip -> emit verbatim forever; a leg that later voids just grades as void, the slip itself never changes
         var need=t.nlegs||(t.players?t.players.length:1), kept=[], gUsed={};
         t.players.forEach(function(l){var n=l.name, isA=(n===t.anchor);
-          if(pinnedP(n) || (aliveP(n) && inPool[n])){
+          if((pinnedP(n) || (aliveP(n) && inPool[n])) && !chalk[n]){/*chalk newly reserved for Chef -> release it from every other ticket, even preserved ones (refills from nonchalk below)*/
             if(need>1 && pending(n)) return;                // pending (resuming) bat -> singles only; drop from parlays, refill later
             if(need>1 && gUsed[P[n].game]) return;          // distinct game within ticket
             if(usedG[n] && !isA) return;                    // already taken elsewhere (non-anchor) -> drop, refill later
