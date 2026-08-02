@@ -1,0 +1,80 @@
+# ====================================================================================
+# Savant training-table builder -- research puller, NOT part of the daily board pipeline.
+#
+# Runs build_savant_training.py on GitHub's runners (which HAVE Python + internet, unlike
+# the offline dev sandbox). Produces savant_training.parquet: one row per batter-game with
+# the HR outcome + point-in-time trailing-window features (batter profile + opposing-starter
+# ALLOWED profile). Download it from the run's Artifacts, then fit it like calibration.jsonl.
+#
+# TRIGGER: workflow_dispatch only ("Run workflow" button). Pick a date range + window.
+#   - Start SMALL first (a week) to confirm it runs, then widen to full seasons.
+#   - The savant_cache/ is cached between runs, so re-running a wider range only pulls the
+#     NEW days -- an all-time table can be built in a few widening passes without re-fetching.
+#   - A full season is heavy; if a run times out, split it (e.g. Apr-Jun, then Jul-Oct) --
+#     the cache means the second run reuses everything the first already pulled.
+# ====================================================================================
+
+name: Savant Training Table
+
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "Start date YYYY-MM-DD"
+        required: true
+        default: "2024-04-01"
+      end:
+        description: "End date YYYY-MM-DD"
+        required: true
+        default: "2024-10-01"
+      window:
+        description: "Trailing days for pre-game features"
+        required: false
+        default: "21"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: savant-training
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Cache pulled Statcast days
+        uses: actions/cache@v4
+        with:
+          path: savant_cache
+          key: savant-cache-v1
+          restore-keys: |
+            savant-cache-v1
+
+      - name: Install deps
+        run: pip install pybaseball pandas numpy pyarrow
+
+      - name: Build training table
+        run: |
+          python3 build_savant_training.py \
+            "${{ github.event.inputs.start }}" \
+            "${{ github.event.inputs.end }}" \
+            --window "${{ github.event.inputs.window }}" \
+            --out "savant_training_${{ github.event.inputs.start }}_${{ github.event.inputs.end }}.parquet"
+
+      - name: Upload training table
+        uses: actions/upload-artifact@v4
+        with:
+          name: savant-training
+          path: savant_training_*.parquet
+          if-no-files-found: error
+          retention-days: 90
