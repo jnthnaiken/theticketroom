@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+
+# Savant research puller (build_savant_training.py) — big, regenerable, never commit
+savant_cache/
+*.parquet
