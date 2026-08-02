@@ -19,12 +19,16 @@ data BEFORE that game so nothing leaks the result.
     b_hh, b_brl, b_fb, b_pull, b_sweet, b_la, b_xwobacon, b_swstr, b_csw, b_n,   # batter pre-game
     p_hh, p_brl, p_fb, p_pull, p_sweet, p_la, p_xwobacon, p_swstr, p_csw, p_n    # opp SP allowed pre-game
 
+MEMORY: each day is aggregated down to small per-player daily sums + batter-game
+outcomes immediately, then the raw pitch rows are discarded — so peak memory stays
+flat whether you pull one week or ten seasons (never holds all pitches at once).
+
 WHERE IT RUNS: anywhere with internet + pip. NOT this offline sandbox — run it on
 the GitHub Action or your laptop. Resumable: each day's raw Statcast is cached under
 --cache, so a killed run picks up where it left off and re-runs are cheap.
 
     pip install pybaseball pandas numpy pyarrow
-    python3 build_savant_training.py 2021-04-01 2024-10-01 --window 21 --out savant_training.parquet
+    python3 build_savant_training.py 2015-04-01 2024-10-01 --window 21 --out savant_training.parquet
     # quick sanity pass first:
     python3 build_savant_training.py 2024-06-01 2024-06-14
 
@@ -155,6 +159,29 @@ def rolling_pre(daily, window):
     return feat
 
 
+def day_aggregate(df):
+    """Turn one day's raw pitches into (batter-game outcomes, batter daily-sums, pitcher daily-sums).
+    A game is contained within a day, so the opposing starter (lowest at_bat_number a team faced) and
+    the HR outcome are both correct per-day. Raw pitches are dropped by the caller after this returns."""
+    df = df.dropna(subset=['batter','pitcher','game_pk'])
+    if df.empty:
+        return None
+    df = df.copy()
+    df['batter'] = df['batter'].astype(int); df['pitcher'] = df['pitcher'].astype(int)
+    fl = flags(df)
+    fl['bat_team'] = np.where(fl['inning_topbot'].eq('Top'), fl['away_team'], fl['home_team'])
+    fl['pit_team'] = np.where(fl['inning_topbot'].eq('Top'), fl['home_team'], fl['away_team'])
+    starts = (fl.sort_values('at_bat_number')
+                .groupby(['game_pk','bat_team']).first().reset_index()[['game_pk','bat_team','pitcher']]
+                .rename(columns={'pitcher':'sp_id'}))
+    bg = (fl.groupby(['game_pk','game_date','batter','bat_team','pit_team'])
+            .agg(hr=('events', lambda s: int((s == 'home_run').any())),
+                 batter_name=('player_name','first'))
+            .reset_index()
+            .merge(starts, on=['game_pk','bat_team'], how='left'))
+    return bg, daily_sums(fl, 'batter'), daily_sums(fl, 'pitcher'), len(df)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('start'); ap.add_argument('end')
@@ -165,38 +192,27 @@ def main():
 
     days = list(daterange(a.start, a.end))
     print(f"pulling {len(days)} days {a.start}..{a.end} (cache={a.cache}) ...")
-    frames = []
+    # aggregate each day immediately, discard raw pitches -> flat memory across any range
+    outs, bsum, psum, npitch = [], [], [], 0
     for i, day in enumerate(days, 1):
         df = pull_day(day, a.cache)
         if not df.empty:
-            frames.append(df)
-        if i % 20 == 0 or i == len(days):
-            print(f"  {i}/{len(days)} days ({sum(len(f) for f in frames):,} pitches)")
-    if not frames:
+            agg = day_aggregate(df)
+            if agg is not None:
+                bg, bd, pdd, npp = agg
+                outs.append(bg); bsum.append(bd); psum.append(pdd); npitch += npp
+        del df
+        if i % 30 == 0 or i == len(days):
+            print(f"  {i}/{len(days)} days | {npitch:,} pitches | {sum(len(o) for o in outs):,} batter-games so far")
+    if not outs:
         sys.exit("no data pulled")
-    raw = pd.concat(frames, ignore_index=True)
-    raw = raw.dropna(subset=['batter','pitcher','game_pk']).copy()
-    raw['batter'] = raw['batter'].astype(int); raw['pitcher'] = raw['pitcher'].astype(int)
-    fl = flags(raw)
 
-    # ---- outcomes + who batted vs whom: one row per (game, batter) ----
-    fl['bat_team'] = np.where(fl['inning_topbot'].eq('Top'), fl['away_team'], fl['home_team'])
-    fl['pit_team'] = np.where(fl['inning_topbot'].eq('Top'), fl['home_team'], fl['away_team'])
-    # opposing STARTER = pitcher on the lowest at_bat_number this team faced this game
-    starts = (fl.sort_values('at_bat_number')
-                .groupby(['game_pk','bat_team']).first().reset_index()[['game_pk','bat_team','pitcher']]
-                .rename(columns={'pitcher':'sp_id'}))
-    bg = (fl.groupby(['game_pk','game_date','batter','bat_team','pit_team'])
-            .agg(hr=('events', lambda s: int((s == 'home_run').any())),
-                 batter_name=('player_name','first'))
-            .reset_index()
-            .merge(starts, on=['game_pk','bat_team'], how='left'))
+    bg = pd.concat(outs, ignore_index=True)
     bg['game_date'] = pd.to_datetime(bg['game_date'])
 
-    # ---- point-in-time features ----
     print("building trailing-window features (leak-free) ...")
-    bfeat = rolling_pre(daily_sums(fl, 'batter'), a.window)
-    pfeat = rolling_pre(daily_sums(fl, 'pitcher'), a.window)
+    bfeat = rolling_pre(pd.concat(bsum, ignore_index=True), a.window)
+    pfeat = rolling_pre(pd.concat(psum, ignore_index=True), a.window)
 
     tr = (bg.merge(bfeat.add_prefix('b_'), left_on=['batter','game_date'],
                    right_on=['b_id','b_game_date'], how='left')
