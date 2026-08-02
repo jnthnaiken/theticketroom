@@ -1,7 +1,7 @@
 {
   "date": "2026-08-02",
   "season": "2026",
-  "pulled_at": "2026-08-02T16:52:19Z",
+  "pulled_at": "2026-08-02T17:00:48Z",
   "games": [
     {
       "gamePk": 824807,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824971,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-02T20:05:00Z",
       "matchup": "DET@ATH",
       "away": {
@@ -1476,8 +1476,54 @@
           "hr9": 0.9,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.131
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.248
+          },
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.145
+          },
+          {
+            "id": 680664,
+            "name": "Eduardo Valencia",
+            "iso": 0.5
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.208
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.161
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.555
+          },
+          {
+            "id": 701162,
+            "name": "Ben Malgeri",
+            "iso": 0.128
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1490,7 +1536,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1506,7 +1552,7 @@
     },
     {
       "gamePk": 823270,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-02T20:10:00Z",
       "matchup": "SF@SD",
       "away": {
@@ -1517,8 +1563,54 @@
           "hr9": 0.63,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.118
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.192
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.162
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.226
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.131
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.194
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.0
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.116
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.667
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1531,7 +1623,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1615,16 +1707,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 71.1,
-        "wind_mph": 4.9,
-        "wind_dir": 254,
-        "tail_mph": 3.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.013
+      "wf": 1.0
     }
   ]
 }
