@@ -1,11 +1,11 @@
 {
   "date": "2026-08-02",
   "season": "2026",
-  "pulled_at": "2026-08-02T17:10:17Z",
+  "pulled_at": "2026-08-02T17:30:31Z",
   "games": [
     {
       "gamePk": 824807,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:35:00Z",
       "matchup": "PHI@BAL",
       "away": {
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824891,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:35:00Z",
       "matchup": "WSH@ATL",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822783,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:37:00Z",
       "matchup": "STL@TOR",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824404,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:40:00Z",
       "matchup": "ARI@CLE",
       "away": {
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824483,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:40:00Z",
       "matchup": "PIT@CIN",
       "away": {
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 822943,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:40:00Z",
       "matchup": "CWS@TB",
       "away": {
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 823592,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-02T17:40:00Z",
       "matchup": "MIA@NYM",
       "away": {
@@ -844,11 +844,6 @@
             "iso": 0.22
           },
           {
-            "id": 805300,
-            "name": "Jakob Marsee",
-            "iso": 0.102
-          },
-          {
             "id": 691788,
             "name": "Joe Mack",
             "iso": 0.192
@@ -857,6 +852,11 @@
             "id": 691594,
             "name": "Javier Sanoja",
             "iso": 0.134
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.215
           }
         ],
         "confirmed": true
@@ -1533,8 +1533,54 @@
           "hr9": 1.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.176
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.218
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.208
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.035
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.117
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.155
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.147
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.082
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1685,7 +1731,7 @@
     },
     {
       "gamePk": 823107,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-02T20:10:00Z",
       "matchup": "MIN@SEA",
       "away": {
@@ -1696,8 +1742,54 @@
           "hr9": 1.27,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.166
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.24
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.164
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.244
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.177
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.18
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.0
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.093
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.169
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
@@ -1707,10 +1799,56 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.155
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.175
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.262
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.161
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.095
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.14
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.027
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.152
+          },
+          {
+            "id": 660844,
+            "name": "Leo Rivas",
+            "iso": 0.041
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
