@@ -34,9 +34,13 @@ game's roster tables. Accumulate across all games (N varies daily — 15 on a fu
 then compile the three sidecars:
 - `cards_<date>.json`  — per bat: name, form_pct, form_arrow, pb, hh, la, zone (roster
   columns: Zone Fit / kHR / HR Form / PullBrl% / HH% / LA).
-- `kasper_extras_<date>.json` — per bat: `khr` (the 🧱 base-score badge), rounded int.
-- `pitchers_<date>.json` — per opposing starter: brl, pbrl, hh, fb (pitcher / Top Slate
-  Pitchers table).
+- `kasper_extras_<date>.json` — per bat: `khr` (the 🧱 base-score badge), kept to **1 decimal**
+  (Kasper's real `khr_score` is a decimal, e.g. 60.3; the brick renders `khr.toFixed(1)`, so a
+  rounded int shows a fake `.0` that never matches his site — DO NOT round).
+- `pitchers_<date>.json` — per opposing starter: brl, pbrl, hh, fb, **csw, swstr, kscore**
+  (pitcher / Top Slate Pitchers table). The last three are the strikeout side (CSW%, SwStr%,
+  K-Score) — logged as HR-suppressor candidates via calibrate `p_csw/p_swstr/p_kscore`; not
+  used in scoring, just captured so we can fit them once a few nights accrue.
 Strip ALL name suffixes (Jr./Sr./II/III). The browser localStorage may hold a prior day's
 `__cards_json`/`__extras_json`/`__pitchers_json` — those are STALE; clear the accumulator
 (`__cards_accum` + `TT_*`) and re-pull today's games before compiling. Verify freshness by
@@ -98,8 +102,9 @@ renders on the game detail page. Method that worked cleanly on 07-11:
    itself in `localStorage` and run it per page as `await (eval(localStorage.getItem('SCRAPE')))()`;
    chain `navigate + scrape` ~5 games per `browser_batch` call to go fast.
 4. Pitchers: the ROOT slate page's "Top Slate Pitchers" table has all ~12 arms in one place →
-   `{name:{pbrl:PulledBarrel%, brl:BarrelBIP%, hh:HardHit%, fb:FB%}}`. Names are "Last, First" →
-   reverse them.
+   `{name:{pbrl:PulledBarrel%, brl:BarrelBIP%, hh:HardHit%, fb:FB%, csw:CSW%, swstr:SwStr%,
+   kscore:K-Score}}`. Grab the CSW%/SwStr%/K-Score columns too (strikeout side — logged as
+   HR-suppressor candidates, not scored). Names are "Last, First" → reverse them.
 5. Compile `cards`/`kasper_extras`/`pitchers`; transfer to disk via the base64-sink →
    `read_network_requests`(saved-to-file) → bash-reassemble channel; validate (every lineup bat
    has a card, stars matched suffix-less, teams == lineup teams); commit all 5 + run the Action.
@@ -296,7 +301,7 @@ A missing one silently falls back to the **prior day**, which then mismatches th
 | `lineups_<date>.json` | **yes** | **RotoWire (MANUAL)** | see below — this is the #1 trap |
 | `odds_<date>.json` | **yes** | VegasInsider HR props | `{name: american}` |
 | `kasper_extras_<date>.json` | optional | Kasper matchup pages | carries `khr` (the 🧱 base-score badge) |
-| `pitchers_<date>.json` | optional | Kasper "Top Slate Pitchers" | `{name:{brl,pbrl,hh,fb}}`; unlisted arms → live HR/9 |
+| `pitchers_<date>.json` | optional | Kasper "Top Slate Pitchers" | `{name:{brl,pbrl,hh,fb,csw,swstr,kscore}}`; unlisted arms → live HR/9 |
 
 **`lineups_<date>.json` is NOT auto-pulled.** `fetch_mlb.py` only writes `slate_auto`
 (weather + HR/9); nothing generates `lineups_`. It's a manual RotoWire input. If it's
@@ -315,7 +320,10 @@ historical files are already suffix-less. (Stripping on 07-03 lifted odds covera
 
 **khr sourcing.** Kasper's Export is "under construction," so `kasper_extras` is now
 hand-built by reading the KHR column off each of the 13 matchup pages (`?game=<pk>`),
-rounded to int. cards fields come from the same matchup roster tables.
+kept to 1 decimal (do NOT round — the brick shows `khr.toFixed(1)`). Better still, the whole
+slate's 484-row hitter set (incl. exact `khr_score`) is reachable from the React fiber on the
+root page — walk `memoizedState`/`memoizedProps` for the array whose objects carry `khr_score`,
+which avoids per-page scraping and gives full precision. cards fields come from the same tables.
 
 ## 🩹 Grading / behavior fixes (this session)
 
