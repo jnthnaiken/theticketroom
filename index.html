@@ -563,8 +563,8 @@ drawTickets();drawPlayers();drawTracker();
     if(_bl.length>=8){ var _bm=_bl.reduce(function(a,b){return a+b;},0)/_bl.length; var _bsd=Math.sqrt(_bl.reduce(function(a,b){return a+(b-_bm)*(b-_bm);},0)/_bl.length)||1e-9; cand=fullrank.filter(function(n){return P[n].blend!=null&&(P[n].blend-_bm)/_bsd>=Z_GATE;}); }   // Z-THRESHOLD gate on the blended z-score -- MIRRORS assemble_tickets.py so client & server pool identically (replaces the old top-41 TOTAL slice that dropped z-gated bats at #42+)
     else { var _ft=fullrank.map(function(n){return P[n].TOTAL;}).filter(function(x){return x!=null;}).sort(function(a,b){return b-a;}); var _flr=_ft.length?_ft[Math.min(_ft.length-1,39)]:130; cand=fullrank.filter(function(n){return P[n].TOTAL!=null&&P[n].TOTAL>=_flr;}); }   // fallback (no blend): strongest ~40 by TOTAL
     var ranked=byO(cand);                                                        // that pool, sorted by odds
-    var chalk={},_chefLegs=[],_chefG={};   // CHEF'S TABLE: reserve the CHALK_N shortest-odds parlay-eligible bats, one per GAME, whole slate (mirrors assemble_tickets.py); excluded from every other ticket
-    for(var _cci=0;_cci<ranked.length&&_chefLegs.length<CHALK_N;_cci++){var _ccn=ranked[_cci];if(pending(_ccn)||precipOf(P[_ccn].game)>=40)continue;var _ccg=P[_ccn].game;if(_chefG[_ccg])continue;_chefLegs.push(_ccn);_chefG[_ccg]=1;chalk[_ccn]=1;}
+    var chalk={},_chefLegs=[],_chefG={},_chefKeep={};   // CHEF'S TABLE: reserve the CHALK_N shortest-odds parlay-eligible bats, one per GAME, whole slate (mirrors assemble_tickets.py); excluded from every other ticket
+    /*PER-LEG LOCK: a chef seat freezes only when ITS OWN game starts. Keep prior chef legs whose game is underway (a live leg, or a too-late-to-redraft void that renders a Missed Reservation stamp); every not-yet-started seat stays OPEN to the current shortest chalk, so a shorter name priced after the early games post can still claim it instead of being frozen out by whoever was priced at first pitch.*/(function(){var _pc=(D.tickets||[]).filter(function(t){return t.kind==='chef';})[0];if(!_pc||!_pc.players)return;_pc.players.forEach(function(l){var n=l.name,p=P[n];if(!p||_chefLegs.length>=CHALK_N)return;if(started(n)&&!_chefG[p.game]){_chefLegs.push(n);_chefG[p.game]=1;_chefKeep[n]=1;if(!p.out&&!p.void)chalk[n]=1;}});})();for(var _cci=0;_cci<ranked.length&&_chefLegs.length<CHALK_N;_cci++){var _ccn=ranked[_cci];if(_chefKeep[_ccn]||pending(_ccn)||precipOf(P[_ccn].game)>=40)continue;var _ccg=P[_ccn].game;if(_chefG[_ccg])continue;_chefLegs.push(_ccn);_chefG[_ccg]=1;chalk[_ccn]=1;}
     var _committed={},_ctTeam={};(D.tickets||[]).forEach(function(_t){if(_t.kind==='late'||_t.kind==='lunch'||_t.kind==='chef')return;(_t.players||[]).forEach(function(_l){var _cn=_l.name,_cp=P[_cn];if(_cp&&!_cp.out&&!_cp.void&&(_cp.status==='confirmed'||started(_cn))&&!_committed[_cn]){_committed[_cn]=1;_ctTeam[_cp.game]=(_ctTeam[_cp.game]||0)+1;}});});var _TC={},_hv={},nonchalk=[];Object.keys(_ctTeam).forEach(function(_k){_TC[_k]=_ctTeam[_k];});Object.keys(_committed).forEach(function(_n){if(!_hv[_n]&&P[_n]&&P[_n].odds!=null){nonchalk.push(_n);_hv[_n]=1;}});byT(cand.filter(function(n){return !chalk[n];})).forEach(function(n){if(_hv[n])return;var t=P[n].game;if((_TC[t]||0)>=4)return;nonchalk.push(n);_hv[n]=1;_TC[t]=(_TC[t]||0)+1;});/* FLOOR is the only gate -> no backfill */                                          // the buildable 33 -> moons/salami/builders
     D.pool=nonchalk.slice();
     var _poolTeam={}; nonchalk.forEach(function(_pn){var _pc=(P[_pn]||{}).game; if(_pc)_poolTeam[_pc]=(_poolTeam[_pc]||0)+1;});   // distinct pool bats per team -> caps the #42+ span-fill fallback so it can't add a 4th of a team                                                     // Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
@@ -657,7 +657,7 @@ drawTickets();drawPlayers();drawTracker();
     // ---- LOCKS (shared by both paths): a ticket is LOCKED when every leg is confirmed / in-progress. ----
     var lmap={}, usedG={};
     if(prior.length){
-      prior.forEach(function(t){ if(frozenT(t)&&validT(t)) lmap[tsig(t)]={sig:tsig(t),t:t}; });   // LOCK = whole ticket confirmed, computed fresh from the live lineup
+      prior.forEach(function(t){ if(t.kind!=='chef'&&frozenT(t)&&validT(t)) lmap[tsig(t)]={sig:tsig(t),t:t}; });   // LOCK = whole ticket confirmed, computed fresh from the live lineup
       saveLock(Object.keys(lmap).map(function(k){return lmap[k];}));   // OVERWRITE with only this board's locks -> stale/multi-version locks self-prune every load
       prior.forEach(function(t){ if(lmap[tsig(t)]) t.players.forEach(function(l){usedG[l.name]=1;}); });   // placed legs reserved -> projected tickets can't poach them
     }
@@ -737,6 +737,7 @@ drawTickets();drawPlayers();drawTracker();
       // ---- PRESERVE locked + confirmed/in-progress parlays; RE-DRAFT the projected parlays via draftF. ----
       var plan=[];
       prior.forEach(function(t){
+        if(t.kind==='chef')return;/*chef -> rebuilt fresh from _chefLegs (per-leg lock) at emit; never frozen/reverted here*/
         var kind=t.kind, idx=nextIdx(kind);
         if(isLocked(t)){ plan.push({frozen:true,t:t}); return; }   // PLACED slip -> emit verbatim forever; a leg that later voids just grades as void, the slip itself never changes
         var need=t.nlegs||(t.players?t.players.length:1), kept=[], gUsed={};
