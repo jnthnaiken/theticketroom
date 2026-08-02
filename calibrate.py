@@ -66,8 +66,9 @@ def load_pitchers(date):
     """Load pitchers_<date>.json (the opposing-SP allowed-contact sidecar), keyed by norm(name).
     Holds the pitcher EQUIVALENTS of our batter power stats -- pulled-barrel% (pbrl) and barrel%
     (brl) allowed today; hard-hit% (hh) and fly-ball% (fb) and xwOBA allowed added going forward.
-    We join these onto each batter via their opposing starter so we can later test the matchup
-    crossovers (batter pull-barrel x pitcher pull-barrel-allowed, etc.)."""
+    Strikeout side (csw = CSW%, swstr = SwStr%, kscore = Kasper K-Score) is captured too as an
+    HR-suppressor candidate. We join these onto each batter via their opposing starter so we can
+    later test the matchup crossovers (batter pull-barrel x pitcher pull-barrel-allowed, etc.)."""
     here = os.path.dirname(os.path.abspath(__file__))
     for p in (f"pitchers_{date}.json", os.path.join(here, f"pitchers_{date}.json")):
         try:
@@ -134,7 +135,8 @@ def build_rows(D, homered, extras=None, pstats=None):
             row["k_" + k] = ex.get(k)
         # opposing-pitcher allowed-contact (matchup crossover features); pitcher = p['opp'][0]
         ps = pstats.get(norm((p.get('opp') or [None])[0] or '')) or {}
-        for pk in ("pbrl", "hh", "fb"):   # pitcher equivalents of our batter trio: pulled-barrel%, hard-hit%, fly-ball% ALLOWED
+        for pk in ("pbrl", "hh", "fb",     # pitcher equivalents of our batter trio: pulled-barrel%, hard-hit%, fly-ball% ALLOWED
+                   "csw", "swstr", "kscore"):  # + strikeout side (CSW%, SwStr%, Kasper K-Score) -- HR-suppressor candidates, logged going forward
             row["p_" + pk] = ps.get(pk)
         rows.append(row)
     return rows
