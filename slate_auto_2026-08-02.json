@@ -1,7 +1,7 @@
 {
   "date": "2026-08-02",
   "season": "2026",
-  "pulled_at": "2026-08-02T17:00:48Z",
+  "pulled_at": "2026-08-02T17:10:17Z",
   "games": [
     {
       "gamePk": 824807,
@@ -132,7 +132,7 @@
         "wind_mph": 1.6,
         "wind_dir": 360,
         "tail_mph": -1.4,
-        "precip": 24
+        "precip": 23
       },
       "wf": 1.009
     },
@@ -156,19 +156,9 @@
             "iso": 0.275
           },
           {
-            "id": 671277,
-            "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.277
-          },
-          {
-            "id": 677588,
-            "name": "Jos\u00e9 Tena",
-            "iso": 0.155
-          },
-          {
-            "id": 682928,
-            "name": "CJ Abrams",
-            "iso": 0.269
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.169
           },
           {
             "id": 686611,
@@ -176,9 +166,19 @@
             "iso": 0.161
           },
           {
-            "id": 695734,
-            "name": "Daylen Lile",
-            "iso": 0.169
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.269
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.176
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.155
           },
           {
             "id": 683083,
@@ -191,9 +191,9 @@
             "iso": 0.095
           },
           {
-            "id": 660688,
-            "name": "Keibert Ruiz",
-            "iso": 0.176
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.284
           }
         ],
         "confirmed": true
@@ -530,7 +530,7 @@
         "wind_mph": 5.4,
         "wind_dir": 45,
         "tail_mph": -3.8,
-        "precip": 27
+        "precip": 21
       },
       "wf": 0.996
     },
@@ -1615,13 +1615,59 @@
       "home": {
         "abbrev": "SD",
         "sp": {
-          "id": 650633,
-          "name": "Michael King",
-          "hr9": 0.93,
-          "hand": "RHP"
+          "id": 606996,
+          "name": "Kyle Hart",
+          "hr9": 0.89,
+          "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.074
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.073
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.22
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.246
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.155
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.204
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.182
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.101
+          },
+          {
+            "id": 823550,
+            "name": "Sung-Mun Song",
+            "iso": 0.071
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1707,9 +1753,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 71\u00b0",
+        "lean": "Neutral",
+        "temp": 71.1,
+        "wind_mph": 4.9,
+        "wind_dir": 254,
+        "tail_mph": 3.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.013
     }
   ]
 }
