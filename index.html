@@ -30,7 +30,7 @@ background:linear-gradient(92deg,#fff 18%,var(--cyan) 60%,var(--violet) 100%);-w
    they run ~12px past a 360px viewport -- enough horizontal scroll to expose the gap past the sticky
    bars. Tighten the padding rather than let them wrap onto a second row. */
 @media(max-width:400px){.tab{padding:9px 12px;letter-spacing:.05em}.tabs{max-width:100%}
-.tracker{padding:10px 11px 11px;width:auto;align-self:stretch;min-width:0}.tk-graph{width:86px}.tk-cnt{font-size:9.5px}.tk-cap{flex-wrap:wrap}.tracker *{min-width:0}}
+.head-right{align-self:stretch;min-width:0}.tracker{padding:10px 11px 11px;width:auto;align-self:stretch;min-width:0}.tk-graph{width:86px}.tk-cnt{font-size:9.5px}.tk-cap{flex-wrap:wrap}.tracker *{min-width:0}}
 
 .tab[aria-selected="true"]{color:#06121a;background:linear-gradient(180deg,#5fe0f5,var(--cyan));box-shadow:0 4px 16px #26d4f04d}
 .tab:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
@@ -220,6 +220,15 @@ header{position:relative}
 .head-stats{flex:1;min-width:0}
 .head-stats .statrow{margin-top:0}
 .tracker{flex:none;width:360px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:10px 15px 11px}
+.head-right{display:flex;flex-direction:column;align-items:stretch;min-width:0}
+.tipjar{display:none;align-items:center;justify-content:center;gap:9px;margin-top:10px;padding:9px 14px;background:var(--surf);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--txt);transition:.16s}
+.tipjar[href]{display:flex}
+.tipjar:hover{border-color:var(--gold);background:var(--surf2);transform:translateY(-1px)}
+.tipjar:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tj-i{font-size:15px;line-height:1}
+.tj-t{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.09em;font-size:12.5px;font-weight:600;color:var(--gold)}
+.tj-s{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--dim)}
+@media(max-width:400px){.tj-s{display:none}}
 .tk-cap{display:flex;justify-content:space-between;align-items:baseline;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:9px}
 .tk-cap span{color:var(--dim);letter-spacing:.05em;text-transform:none}
 .tk-body{display:flex;gap:15px;align-items:center}
@@ -258,7 +267,7 @@ header{position:relative}
   <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild</span><span>🔥 hot park · ❄️ suppressed park</span><span>🧱 base score</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> soft starter · 🚧 in progress · ❌ no homer · ⚾ homered</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
  </div>
   </div>
-  <div class="tracker" id="tracker"></div>
+  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar" id="tipjar" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the board free</span></a></div>
  </div>
 </header>
 <div class="nav"><div class="tabs" role="tablist">
@@ -509,8 +518,20 @@ drawTickets();drawPlayers();drawTracker();
   var r2=function(d){return d*Math.PI/180;};
   var CACHE=null;                                   // schedule + HR/9, fetched once
 
+  // ---- TIP JAR ----------------------------------------------------------------------
+  // Paste the destination here to switch it on -- Ko-fi, Buy Me a Coffee, GitHub Sponsors,
+  // a Stripe payment link, whatever. Leave it empty and the pill is removed from the DOM: no
+  // dead link, no empty box, nothing for a visitor to notice. Only line that needs editing.
+  var TIP_URL='';
+
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2, LUNCH_CUT=16*60, NIGHT_WIN=60;
+
+  (function(){var _t=document.getElementById('tipjar');
+    if(!_t)return;
+    if(!TIP_URL){_t.remove();return;}          // unset -> out of the DOM entirely
+    _t.href=TIP_URL;_t.removeAttribute('hidden');
+  })();
 
   function gmin(gt){var m=/(\d+):(\d+)\s*(AM|PM)/.exec(gt||''); if(!m)return 0; var h=(+m[1])%12+(m[3]=='PM'?12:0); return h*60+(+m[2]);}
 
