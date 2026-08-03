@@ -80,9 +80,13 @@ def main():
               + (f' (+{len(material)-6} more)' if len(material) > 6 else ''))
         return 0
 
-    # Only the build stamps moved. Hold the commit -- unless the board has gone stale enough that
-    # a reader would start to wonder whether it is still updating.
-    ts = _run('git', 'log', '-1', '--format=%ct', '--', 'index.html')
+    # Only the build stamps moved. Hold the commit -- unless the repo has gone quiet long enough
+    # that a reader would start to wonder whether the board is still updating.
+    # Measured off HEAD, not `git log -- index.html`: the runner checks out with fetch-depth 1, so
+    # there is exactly one commit in the clone and per-path history does not mean what it looks like.
+    # HEAD's timestamp is well defined at any clone depth and is the right proxy anyway -- it answers
+    # "how long since anything was published", which is what the stale build stamp would signal.
+    ts = _run('git', 'log', '-1', '--format=%ct')
     age = (time.time() - int(ts)) / 60.0 if ts.isdigit() else 1e9
     if age >= MAX_STALE_MIN:
         print(f'  commit gate: only timestamps moved, but index.html is {age:.0f}m old -> committing to refresh the stamp')
