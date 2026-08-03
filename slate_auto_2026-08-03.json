@@ -1,7 +1,7 @@
 {
   "date": "2026-08-03",
   "season": "2026",
-  "pulled_at": "2026-08-03T20:00:30Z",
+  "pulled_at": "2026-08-03T20:19:45Z",
   "games": [
     {
       "gamePk": 823431,
@@ -80,15 +80,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 82\u00b0",
-        "lean": "Neutral",
-        "temp": 81.7,
-        "wind_mph": 6.4,
-        "wind_dir": 309,
-        "tail_mph": -2.6,
+        "cond": "calm 1mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 83.3,
+        "wind_mph": 3.1,
+        "wind_dir": 270,
+        "tail_mph": 0.8,
         "precip": 1
       },
-      "wf": 1.008
+      "wf": 1.023
     },
     {
       "gamePk": 823520,
@@ -160,8 +160,54 @@
           "hr9": 0.79,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.163
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.295
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.277
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.196
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.153
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.178
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.154
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.143
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -170,12 +216,12 @@
         "cond": "calm 2mph, 76\u00b0",
         "lean": "Neutral",
         "temp": 76.4,
-        "wind_mph": 7.7,
-        "wind_dir": 300,
-        "tail_mph": -2.0,
+        "wind_mph": 7.1,
+        "wind_dir": 302,
+        "tail_mph": -2.1,
         "precip": 0
       },
-      "wf": 1.003
+      "wf": 1.002
     },
     {
       "gamePk": 823757,
@@ -292,19 +338,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 71\u00b0",
+        "cond": "calm 3mph, 71\u00b0",
         "lean": "Neutral",
         "temp": 71.4,
-        "wind_mph": 5.9,
-        "wind_dir": 99,
-        "tail_mph": -2.1,
+        "wind_mph": 6.3,
+        "wind_dir": 92,
+        "tail_mph": -3.0,
         "precip": 0
       },
-      "wf": 0.995
+      "wf": 0.992
     },
     {
       "gamePk": 822867,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T00:05:00Z",
       "matchup": "SF@TEX",
       "away": {
@@ -326,10 +372,56 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.256
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.23
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.188
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.166
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.142
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.185
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.172
+          },
+          {
+            "id": 642851,
+            "name": "Austin Wynns",
+            "iso": 0.044
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.037
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -413,15 +505,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 98\u00b0",
+        "cond": "calm 2mph, 98\u00b0",
         "lean": "Boost",
         "temp": 97.5,
-        "wind_mph": 6.0,
-        "wind_dir": 92,
-        "tail_mph": 0.2,
+        "wind_mph": 2.2,
+        "wind_dir": 24,
+        "tail_mph": -2.0,
         "precip": 13
       },
-      "wf": 1.042
+      "wf": 1.034
     },
     {
       "gamePk": 825095,
