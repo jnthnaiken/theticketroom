@@ -26,7 +26,7 @@ def zstd(vals):
     sd = a.std()
     return (a.mean(), sd if sd > 1e-9 else 1e-9)
 
-SIG = [('_zxpow', 0.47), ('_zxwcon', 0.47), ('_zars', 0.06)]   # current shipped edge basket
+SIG = [('_zxpow', 0.346), ('_zxwcon', 0.288), ('_zars', 0.366)]  # corrected 2026-08-02: 8/01 wts were raw-space; model z-scores signals -> arsenal deserves ~0.37 not 0.06 (see build15.py _SIG)   # current shipped edge basket
 
 def rescore(D, alpha):
     """Rebuild TOTAL/blend under blend = alpha*market_z + (1-alpha)*edge_z (per-slate standardized,
