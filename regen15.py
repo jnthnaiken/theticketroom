@@ -39,49 +39,52 @@ try:
 except Exception as e:
     print(f"  (carryover skipped: {e})")
 
-# PRESERVE the prior board across same-slate rebuilds ONCE THE SLATE IS UNDERWAY. A fresh assemble()
-# each rebuild re-picks anchors as weather/strength drift and reshuffles confirmed/locked tickets.
-# The live client engine (index.html) already does the prior-aware refill — keep locked tickets,
-# replace only a scratched leg — so the server must NOT re-draft a slate whose games have started.
+# ---------------------------------------------------------------------------------------------
+# DRAFT. One rule, one implementation: a ticket is LOCKED once every one of its legs is confirmed
+# (in the posted lineup) or already in progress, and none are scratched. Everything else re-drafts
+# against the current odds, lineups and weather on every build.
 #
-# BEFORE FIRST PITCH, THOUGH, PRESERVING IS STRICTLY HARMFUL. Nothing is locked yet, and the client
-# re-drafts from scratch on every page load regardless — so a preserved server draft doesn't stabilize
-# anything the viewer sees, it just lets D_<date>.json drift away from the board on screen. And
-# grade_night.py grades D_<date>.json. That gap is not theoretical: on 2026-08-03 the 17:01Z build
-# drafted the Chef's Table off a 0%-rain forecast, the 17:18Z rebuild inherited a bad 56%/63% rain
-# reading (see build15's precip provenance note), and the client — which re-drafts live — dropped the
-# three shortest prices and showed Devers/Ohtani while the archive still said Schwarber/Rice. Whichever
-# four were right, the night would have been graded on legs nobody was ever shown.
+# That rule has always lived in __assembleClient() inside index.html, which re-runs on every page
+# load and decides what a person actually sees. assemble_tickets.py implements the same intent in
+# Python, but it drafts from scratch with no notion of a prior board -- so the server could only
+# ever choose between re-drafting confirmed tickets (breaks the lock) or freezing everything
+# (breaks the re-draft). Neither is the rule.
 #
-# So: re-draft while every game is still pending (server == what the client renders), and preserve only
-# from first pitch onward (protecting a live board, which is what the rule was always for).
-def _slate_started(_D):
-    """True once ANY game on this slate has reached its first pitch (ET), matching the client's started())."""
-    import datetime as _dtm
-    try:
-        from zoneinfo import ZoneInfo
-        now = _dtm.datetime.now(ZoneInfo("America/New_York"))
-    except Exception:
-        now = _dtm.datetime.now(_dtm.timezone.utc) - _dtm.timedelta(hours=4)
-    if (_D.get('meta') or {}).get('date') and now.strftime('%Y-%m-%d') > _D['meta']['date']:
-        return True                             # past midnight ET on the slate date -> everything has started
-    nowmin = now.hour * 60 + now.minute
-    for _p in (_D.get('players') or {}).values():
-        m = re.match(r'(\d+):(\d+)\s*(AM|PM)', _p.get('gtime') or '')
-        if m and nowmin >= (int(m.group(1)) % 12 + (12 if m.group(3) == 'PM' else 0)) * 60 + int(m.group(2)):
-            return True
-    return False
-
+# The gap was not cosmetic: grade_night.py grades D_<date>.json, the SERVER's draft. On 2026-08-03
+# a bad rain reading (see build15's precip provenance note) reached the 17:18Z build, the client
+# dropped the three shortest Chef's Table prices, and the archive still said Schwarber/Rice --
+# the night would have been graded on legs nobody was shown.
+#
+# So the server now RUNS the client's engine (client_assemble.js) instead of paraphrasing it.
+# index.html is the single source of truth for the draft; the archive is what the board shows, by
+# construction, and there is no second implementation to keep in sync. assemble_tickets.assemble()
+# stays as the fallback if Node or the engine is unavailable.
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
-if _same_slate and _slate_started(D):
-    D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
-    D.setdefault('meta', {})['tickets'] = len(D['tickets'])
-    print(f"  (same slate, games underway -> preserved {len(D['tickets'])} prior tickets; no re-draft)")
-else:
-    assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate, or same slate pre-first-pitch)
-    if _same_slate:
-        print(f"  (same slate, no first pitch yet -> re-drafted {len(D.get('tickets') or [])} tickets "
-              f"so the archive matches what the client renders)")
+if _same_slate:
+    D['tickets'] = prevD['tickets']            # hand the prior board to the engine AS PRIOR -> it locks the confirmed ones
+    print(f"  (same slate -> {len(D['tickets'])} prior tickets handed to the draft engine)")
+
+json.dump(D, open(DJSON, 'w'), indent=1)       # the engine reads/writes this file in place
+
+_drafted = False
+if os.path.exists('client_assemble.js') and os.path.exists(BOARD):
+    import subprocess
+    try:
+        r = subprocess.run(['node', 'client_assemble.js', DJSON, BOARD],
+                           capture_output=True, text=True, timeout=120)
+        if r.stdout.strip(): print(r.stdout.rstrip())
+        if r.returncode == 0:
+            D = json.load(open(DJSON))         # engine rewrote tickets/pool in place
+            _drafted = bool(D.get('tickets'))
+        else:
+            print(f"  !! client engine exited {r.returncode}: {(r.stderr or '').strip()[:200]}")
+    except Exception as e:
+        print(f"  !! client engine unavailable ({str(e)[:120]})")
+if not _drafted:
+    print("  !! FALLING BACK to assemble_tickets.py -- the archive may not match the rendered board")
+    assemble_tickets.assemble(D)               # same rules, but no prior-board lock: last resort only
+
+D.setdefault('meta', {})['tickets'] = len(D.get('tickets') or [])
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
