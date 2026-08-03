@@ -24504,7 +24504,7 @@
     "precip_src": null
    }
   },
-  "build": "8/3 6:32pm",
+  "build": "8/3 6:42pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -25146,10 +25146,46 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "locked": true
   },
   {
-   "name": "Walking-Around Money",
+   "name": "The Cookie Jar",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Bryce Harper is denting outfield walls (55% hard-hit), sends it skyward (17\u00b0), packs a big-league power grade (70/100), the swing's trending up.",
+   "players": [
+    {
+     "name": "Bryce Harper",
+     "team": "Phillies",
+     "total": 182.6,
+     "aT": 100,
+     "wf": 1.016,
+     "gmatch": "WSH@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 280,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Bryce Harper",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 0,
+   "locked": true
+  },
+  {
+   "name": "The Float",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
    "note": "Hunter Goodman has the jet stream pushing toward the seats, is teeing off (56% hard-hit), keeps the ball in the air (22\u00b0).",
@@ -25183,41 +25219,7 @@
    "confleg": 0
   },
   {
-   "name": "The Cookie Jar",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Bryce Harper is denting outfield walls (55% hard-hit), sends it skyward (17\u00b0), has the pop to go deep (70/100 power), the swing's trending up.",
-   "players": [
-    {
-     "name": "Bryce Harper",
-     "team": "Phillies",
-     "total": 182.6,
-     "aT": 100,
-     "wf": 1.016,
-     "gmatch": "WSH@PHI",
-     "gtime": "6:40 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 280,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Bryce Harper",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 0
-  },
-  {
-   "name": "Pocket Money",
+   "name": "Walking-Around Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
    "note": "Pete Crow-Armstrong is rocketing line drives (53% hard-hit), stays in the launch zone (21\u00b0), sits in the elite power tier (100/100).",
@@ -25331,9 +25333,10 @@
  ],
  "pool": [
   "James Wood",
+  "Andr\u00e9s Chaparro",
+  "Bryce Harper",
   "Hunter Goodman",
   "Rafael Devers",
-  "Bryce Harper",
   "Shohei Ohtani",
   "Kazuma Okamoto",
   "Brandon Lowe",
@@ -25341,7 +25344,6 @@
   "Bryce Eldridge",
   "Jonathan Aranda",
   "Cedric Mullins",
-  "Andr\u00e9s Chaparro",
   "Trent Grisham",
   "Corey Seager",
   "Seiya Suzuki",
