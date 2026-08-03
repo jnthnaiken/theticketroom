@@ -38,13 +38,13 @@ select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:foc
 .pool>summary::-webkit-details-marker{display:none}
 .pool>summary .tag{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.12em;color:#1a1330;background:var(--violet);border-radius:20px;padding:3px 9px}
 .pool>summary .hint{font-family:Inter,sans-serif;text-transform:none;letter-spacing:0;font-size:12px;color:var(--mut);font-weight:400;margin-left:auto}
-.poolbody{padding:0 0 16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(440px,1fr))}
+.poolbody{padding:0 0 16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(440px,100%),1fr))}
 .pg{background:var(--surf2);border:1px solid var(--line);border-radius:11px;padding:10px 12px}
 .pg h4{margin:0 0 7px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--violet);display:flex;justify-content:space-between;gap:6px}
 .pg h4 em{font-style:normal;color:var(--mut)}
 .pg .pl{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:2px 0}
 .pg .pl .o{font-family:'Roboto Mono',monospace;color:var(--lime);font-weight:600}.pg .pl .o.tbd{color:var(--dim)}
-.grid{display:grid;gap:16px}.tgrid{grid-template-columns:repeat(auto-fill,minmax(460px,1fr))}.pgrid{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+.grid{display:grid;gap:16px}.tgrid{grid-template-columns:repeat(auto-fill,minmax(min(460px,100%),1fr))}.pgrid{grid-template-columns:repeat(auto-fill,minmax(min(360px,100%),1fr))}
 .slip{background:var(--surf);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.18s}
 .slip.lunchwide{grid-column:1/-1;display:flex;flex-direction:row;align-items:stretch}
 .slip.lunchwide .top{flex:0 0 35%;max-width:390px;border-right:1px solid var(--line);background:var(--surf2)}
@@ -369,8 +369,8 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr">⚾ homered</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
  $('#tickets').innerHTML=(html||'<div class="closed">No tickets match.</div>')+((ticketType==='all'&&!q)?carryoverStrip():'');
- const n=((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
- $('#tcount').textContent=q?(n+' matching'):(n+' tickets');drawPool();}
+ const n=((ty==='all'||ty==='chef')?chef.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
+ $('#tcount').textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
 
 function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.game),c=isConf(p.status),av=avail(p);
  const chips=[['Pitcher',(p.phr9!=null?Math.max(0,Math.min(100,Math.round((p.phr9-0.70)/0.60*100))):'—')],['POWER',(p.powidx!=null?p.powidx:'—')],['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—'],['Zone',fmt(p.zonev)],['Park','×'+p.wf]];
