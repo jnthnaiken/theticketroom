@@ -39,18 +39,49 @@ try:
 except Exception as e:
     print(f"  (carryover skipped: {e})")
 
-# PRESERVE the prior board across same-slate rebuilds. A fresh assemble() each rebuild
-# re-picks anchors as weather/strength drift and reshuffles confirmed/locked tickets.
-# The live client engine (index.html) already does the prior-aware refill — keep locked
-# tickets, replace only a scratched leg — so the server must NOT re-draft a slate it has
-# already built. Draft fresh ONLY for a brand-new slate (no prior, or a different date).
+# PRESERVE the prior board across same-slate rebuilds ONCE THE SLATE IS UNDERWAY. A fresh assemble()
+# each rebuild re-picks anchors as weather/strength drift and reshuffles confirmed/locked tickets.
+# The live client engine (index.html) already does the prior-aware refill — keep locked tickets,
+# replace only a scratched leg — so the server must NOT re-draft a slate whose games have started.
+#
+# BEFORE FIRST PITCH, THOUGH, PRESERVING IS STRICTLY HARMFUL. Nothing is locked yet, and the client
+# re-drafts from scratch on every page load regardless — so a preserved server draft doesn't stabilize
+# anything the viewer sees, it just lets D_<date>.json drift away from the board on screen. And
+# grade_night.py grades D_<date>.json. That gap is not theoretical: on 2026-08-03 the 17:01Z build
+# drafted the Chef's Table off a 0%-rain forecast, the 17:18Z rebuild inherited a bad 56%/63% rain
+# reading (see build15's precip provenance note), and the client — which re-drafts live — dropped the
+# three shortest prices and showed Devers/Ohtani while the archive still said Schwarber/Rice. Whichever
+# four were right, the night would have been graded on legs nobody was ever shown.
+#
+# So: re-draft while every game is still pending (server == what the client renders), and preserve only
+# from first pitch onward (protecting a live board, which is what the rule was always for).
+def _slate_started(_D):
+    """True once ANY game on this slate has reached its first pitch (ET), matching the client's started())."""
+    import datetime as _dtm
+    try:
+        from zoneinfo import ZoneInfo
+        now = _dtm.datetime.now(ZoneInfo("America/New_York"))
+    except Exception:
+        now = _dtm.datetime.now(_dtm.timezone.utc) - _dtm.timedelta(hours=4)
+    if (_D.get('meta') or {}).get('date') and now.strftime('%Y-%m-%d') > _D['meta']['date']:
+        return True                             # past midnight ET on the slate date -> everything has started
+    nowmin = now.hour * 60 + now.minute
+    for _p in (_D.get('players') or {}).values():
+        m = re.match(r'(\d+):(\d+)\s*(AM|PM)', _p.get('gtime') or '')
+        if m and nowmin >= (int(m.group(1)) % 12 + (12 if m.group(3) == 'PM' else 0)) * 60 + int(m.group(2)):
+            return True
+    return False
+
 _same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
-if _same_slate:
+if _same_slate and _slate_started(D):
     D['tickets'] = prevD['tickets']            # carry the prior draft forward unchanged; client handles live confirm/scratch/grade
     D.setdefault('meta', {})['tickets'] = len(D['tickets'])
-    print(f"  (same slate -> preserved {len(D['tickets'])} prior tickets; no re-draft)")
+    print(f"  (same slate, games underway -> preserved {len(D['tickets'])} prior tickets; no re-draft)")
 else:
-    assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate / first build)
+    assemble_tickets.assemble(D)               # builds D['tickets'] (brand-new slate, or same slate pre-first-pitch)
+    if _same_slate:
+        print(f"  (same slate, no first pitch yet -> re-drafted {len(D.get('tickets') or [])} tickets "
+              f"so the archive matches what the client renders)")
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
 if _dt:
