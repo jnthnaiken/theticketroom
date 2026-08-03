@@ -1,0 +1,79 @@
+# ====================================================================================
+# Ticker -- drives the board's 5-minute build cadence from inside GitHub.
+#
+# WHY THIS EXISTS
+# Builds need to land close to every first pitch. The browser re-drafts on every page load
+# and sees a scratch the moment MLB posts it; the server only sees one at its next build, and
+# whatever is archived at a ticket's lock is what grade_night.py grades. For a Chef's Table
+# seat that window decides refund-vs-substitute, since the seat is held with a Missed
+# Reservation stamp once its own game is underway.
+#
+# The obvious fix -- `schedule: */5` on pull-slate.yml -- does not work. GitHub drops scheduled
+# runs heavily: on 2026-08-03 exactly ONE scheduled run fired between 15:00 and 20:00 UTC
+# against ~10 expected. The only trigger that has proven reliable on this repo is
+# repository_dispatch, which fires on the dot every 30 minutes.
+#
+# So this workflow turns one reliable 30-minute trigger into a reliable 5-minute one: it wakes
+# on a `tick`, then dispatches `build-tick` five times at 5-minute intervals and exits after
+# ~25 minutes, just as the next external dispatch arrives to start the next ticker.
+#
+#   :00  external cron -> build-board -> pull-slate builds, then dispatches `tick`
+#   :05 :10 :15 :20 :25   this ticker dispatches `build-tick` -> pull-slate builds
+#   :30  external cron -> build-board -> ... and around again
+#
+# NOT RECURSIVE: pull-slate only starts a ticker on `build-board` (the external cron), never on
+# the `build-tick` events this file sends. A ticker cannot spawn a ticker.
+#
+# SELF-HEALING: if a ticker dies, is cancelled, or GH_PAT expires, nothing breaks -- the board
+# simply falls back to the 30-minute external cadence until the next `build-board` starts a
+# fresh ticker. Worst case is today's behaviour, never worse.
+#
+# COST: ~25 runner-minutes per half hour while the window is open. This repo is public, so
+# Actions minutes are free. Delete this file to go back to 30-minute builds.
+# ====================================================================================
+
+name: Ticker
+
+on:
+  repository_dispatch:
+    types: [tick]
+  workflow_dispatch:
+  schedule:
+    # Backup restarter for the rare case the external cron stops. GitHub drops most of these,
+    # which is fine -- it only ever needs to land once to get the chain going again.
+    - cron: "*/30 16-23,0-5 * * *"
+
+concurrency:
+  group: ticket-room-ticker      # one ticker at a time; a queued one takes over cleanly
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40          # hard stop well under the 25 min of real work -- no runaway
+    steps:
+      - name: Dispatch a build every 5 minutes for ~25 minutes
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::warning::GH_PAT is empty -- cannot dispatch. Board stays on the 30-minute cadence."
+            exit 0
+          fi
+          for i in 1 2 3 4 5; do
+            sleep 300
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_PAT" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/repos/${{ github.repository }}/dispatches" \
+              -d '{"event_type":"build-tick"}' || echo "000")
+            echo "tick $i/5 -> HTTP $code"
+            # 204 = accepted. Anything else means the token is bad or GitHub is unhappy; say so
+            # loudly and stop, rather than hammering the API for another 20 minutes.
+            if [ "$code" != "204" ]; then
+              echo "::warning::dispatch returned $code -- stopping this ticker; the next build-board will start a fresh one"
+              exit 0
+            fi
+          done
+          echo "ticker done -- next external build-board starts the following one"
