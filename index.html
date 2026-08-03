@@ -344,8 +344,18 @@ const comma=n=>n.toLocaleString('en-US'),oddsStr=o=>o?'+'+comma(o):'TBD';
 const wxOf=g=>WX[String(g)],liftCls=wf=>wf>=1.07?'boost':(wf<0.965?'supp':'');
 const liftStr=wf=>{const p=Math.round((wf-1)*100);return(p>0?'+':'')+p+'%';};
 const isConf=s=>s==='confirmed';
+/* Tickets actually on the board right now. D.meta.tickets is baked at BUILD time, but the client
+   re-drafts on every load and drops scratched singles (singleAlive), so the stat tile drifted away
+   from the list under it -- 12 up top, 9 rendered. Count the same set drawTickets() renders on the
+   All view so the two can never disagree. Nightcap is excluded on purpose: it lives in its own
+   collapsible pool and the filter-bar counter has never counted it either. */
+function liveTickets(){return (D.tickets||[]).filter(function(t){var k=t.kind;
+  if(k==='late')return false;
+  if(k==='lunch')return !t.final&&singleAlive(t);
+  if(k==='builder')return singleAlive(t);
+  return k==='moon'||k==='biggest'||k==='chef';});}
 function drawStats(){const priced=Object.values(D.players).filter(p=>p.odds).length;
-$('#stats').innerHTML=[['Pool bats',D.meta.pool],['Tickets',D.meta.tickets],['Confirmed',Object.values(D.players).filter(p=>p.status==='confirmed').length+'/'+D.meta.pool],['Priced',priced+'/'+D.meta.pool]]
+$('#stats').innerHTML=[['Pool bats',D.meta.pool],['Tickets',liveTickets().length],['Confirmed',Object.values(D.players).filter(p=>p.status==='confirmed').length+'/'+D.meta.pool],['Priced',priced+'/'+D.meta.pool]]
  .map(s=>`<div class="kpi"><div class="n">${s[1]}</div><div class="l">${s[0]}</div></div>`).join('');}
 drawStats();
 function singleAlive(t){if((t.nlegs||(t.players||[]).length)!==1)return true;var p=D.players[((t.players||[])[0]||{}).name]||{};return !((p.out||p.void)&&!p.hr);}  /* a scratched/benched single -> dropped from the board entirely (it voids/refunds, never shown as a loss) */
