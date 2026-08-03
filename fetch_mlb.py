@@ -122,6 +122,24 @@ def batch_people(ids, group, season):
 
 
 # ---- Open-Meteo weather -> park factor ----
+def _et_hour_key(when_iso):
+    """StatsAPI gameDate (UTC ISO, '...Z') -> 'YYYY-MM-DDTHH' in America/New_York, to index an ET hourly series."""
+    s = (when_iso or "").replace("Z", "+00:00")
+    try:
+        dt = datetime.datetime.fromisoformat(s)
+    except Exception:
+        return (when_iso or "")[:13]
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+    try:
+        import zoneinfo
+        return dt.astimezone(zoneinfo.ZoneInfo("America/New_York")).strftime("%Y-%m-%dT%H")
+    except Exception:
+        # no tzdata: DST is in effect for the entire MLB regular season, so -4 is right Mar-Nov.
+        off = 4 if 3 <= dt.month <= 11 else 5
+        return (dt - datetime.timedelta(hours=off)).strftime("%Y-%m-%dT%H")
+
+
 def weather_for(code, when_iso):
     """Return (weather_dict, wf) for a ballpark at first pitch. Dome -> neutral."""
     p = PARKS.get(code)
@@ -140,9 +158,18 @@ def weather_for(code, when_iso):
     if not data or "hourly" not in data:
         return {"dome": False, "note": "weather fetch failed"}, 1.0
     H = data["hourly"]; times = H.get("time", [])
-    hour = when_iso[:13]                       # match 'YYYY-MM-DDTHH'
+    # HOUR MATCH -- `when_iso` is StatsAPI's gameDate, which is UTC ("2026-08-03T22:40:00Z"), but the
+    # Open-Meteo series above is requested with timezone=America/New_York, so its stamps are LOCAL ET
+    # ("2026-08-03T18:00"). Slicing when_iso[:13] compared a UTC hour against an ET series and silently
+    # matched a real-but-wrong row 4-5 hours late: a 6:40pm ET first pitch read the 10pm ET forecast
+    # (2026-08-03: PHI 73.3F instead of 81.3F), and an 8:40pm ET game read midnight (COL 83F vs ~93F).
+    # Convert to ET first. tzdata is present on the runner; UTC-4/-5 fallback keeps this working offline.
+    hour = _et_hour_key(when_iso)
     i = next((k for k, t in enumerate(times) if t[:13] == hour), None)
-    if i is None: i = 0
+    if i is None:
+        # NEVER silently fall back to index 0 -- that returns MIDNIGHT weather and reads as a real forecast.
+        print(f"   !! {code}: no forecast row for first pitch {hour} (ET) -- weather skipped for this park")
+        return {"dome": False, "note": f"no forecast hour {hour}"}, 1.0
     temp  = H["temperature_2m"][i]
     wind  = H["wind_speed_10m"][i]
     wdir  = H["wind_direction_10m"][i]         # deg the wind blows FROM
