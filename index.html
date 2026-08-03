@@ -23,7 +23,7 @@ background:linear-gradient(92deg,#fff 18%,var(--cyan) 60%,var(--violet) 100%);-w
 .note b{color:var(--txt);font-weight:600}.note .up{color:var(--lime);font-weight:600}.note .dn{color:var(--cool);font-weight:600}.note .tbd{color:var(--gold);font-weight:600}
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--mut)}
 .legend span{display:inline-flex;align-items:center;gap:5px}
-.nav{position:sticky;top:0;z-index:20;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:16px 0 10px;margin-top:20px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:20;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:16px 0 10px;margin-top:20px}
 .tabs{display:inline-flex;gap:4px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:4px}
 .tab{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:14px;font-weight:600;background:none;color:var(--mut);border:0;border-radius:9px;padding:9px 20px;cursor:pointer;transition:.16s}
 /* narrow phones: the three tabs are an inline-flex row that cannot wrap, and at 20px side padding
@@ -223,6 +223,12 @@ header{position:relative}
 .head-right{display:flex;flex-direction:column;align-items:stretch;min-width:0}
 .tipjar{display:none;align-items:center;justify-content:center;gap:9px;margin-top:10px;padding:9px 14px;background:var(--surf);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--txt);transition:.16s}
 .tipjar[href]{display:flex}
+.tip-nav{margin-top:0;flex:none}
+/* wide: the pill rides the sticky tab bar, far right. narrow (<=900, where .head-row stacks):
+   the tab row has no spare width, so it falls back under the season panel instead. Exactly one
+   of the two ever renders -- the other is display:none, not merely offscreen. */
+@media(max-width:900px){.tipjar.tip-nav[href]{display:none}}
+@media(min-width:901px){.tipjar.tip-stack[href]{display:none}}
 .tipjar:hover{border-color:var(--gold);background:var(--surf2);transform:translateY(-1px)}
 .tipjar:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .tj-i{font-size:15px;line-height:1}
@@ -267,7 +273,7 @@ header{position:relative}
   <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild</span><span>🔥 hot park · ❄️ suppressed park</span><span>🧱 base score</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> soft starter · 🚧 in progress · ❌ no homer · ⚾ homered</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
  </div>
   </div>
-  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar" id="tipjar" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the drinks free</span></a></div>
+  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar tip-stack" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the drinks free</span></a></div>
  </div>
 </header>
 <div class="nav"><div class="tabs" role="tablist">
@@ -275,7 +281,7 @@ header{position:relative}
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div></div>
+</div><a class="tipjar tip-nav" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the drinks free</span></a></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="builder">💰 Bank-Roll Builders</button><button class="tbtn" data-type="chef">🍽️ Chef's Table</button><button class="tbtn" data-type="moon">🚀 Moonshots</button><button class="tbtn" data-type="biggest">🥪 Grand Salami</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
@@ -527,10 +533,11 @@ drawTickets();drawPlayers();drawTracker();
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2, LUNCH_CUT=16*60, NIGHT_WIN=60;
 
-  (function(){var _t=document.getElementById('tipjar');
-    if(!_t)return;
-    if(!TIP_URL){_t.remove();return;}          // unset -> out of the DOM entirely
-    _t.href=TIP_URL;_t.removeAttribute('hidden');
+  (function(){var _ts=document.querySelectorAll('.tipjar');
+    for(var _i=0;_i<_ts.length;_i++){
+      if(!TIP_URL){_ts[_i].remove();continue;}   // unset -> out of the DOM entirely
+      _ts[_i].href=TIP_URL;_ts[_i].removeAttribute('hidden');
+    }
   })();
 
   function gmin(gt){var m=/(\d+):(\d+)\s*(AM|PM)/.exec(gt||''); if(!m)return 0; var h=(+m[1])%12+(m[3]=='PM'?12:0); return h*60+(+m[2]);}
