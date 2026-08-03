@@ -1,7 +1,7 @@
 {
   "date": "2026-08-03",
   "season": "2026",
-  "pulled_at": "2026-08-03T21:46:31Z",
+  "pulled_at": "2026-08-03T22:06:50Z",
   "games": [
     {
       "gamePk": 823431,
@@ -16,8 +16,54 @@
           "hr9": 0.31,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.272
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.5
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.152
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.267
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.175
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.167
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.041
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.094
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.151
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -559,13 +605,13 @@
         "wind_mph": 13.5,
         "wind_dir": 48,
         "tail_mph": -9.0,
-        "precip": 11
+        "precip": 13
       },
       "wf": 1.003
     },
     {
       "gamePk": 825095,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T01:40:00Z",
       "matchup": "SD@ARI",
       "away": {
@@ -576,8 +622,54 @@
           "hr9": 0.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.116
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.072
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.218
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.242
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.161
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.073
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.196
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.101
+          },
+          {
+            "id": 823550,
+            "name": "Sung-Mun Song",
+            "iso": 0.068
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -590,7 +682,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
