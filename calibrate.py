@@ -164,6 +164,16 @@ def logged_dates(path=OUT):
 # nights logged AFTERWARD. repair() re-derives the stale nights from the archived
 # D_<date>.json board (OFFLINE, reusing the hr outcomes already in the log) so a
 # schema addition propagates to history too.
+#
+# ONLY list keys whose values are RECOVERABLE from the archived board. repair() rebuilds a night via
+# build_rows(D, homered, load_extras(d), load_pitchers(d)) -- so a key is only recoverable if it comes
+# from D_<date>.json or from a sidecar that actually carried it on that date.
+# DELIBERATELY EXCLUDED: p_csw / p_swstr / p_kscore (Kasper strikeout side, added 2026-08-02). Their
+# source is pitchers_<date>.json, and every file before 2026-08-02 carries only brl/fb/hh/pbrl; the
+# D_ archive never held them either. Listing them here would mark all 38 logged nights stale and
+# rewrite ~8.6k rows to add three permanently-NULL columns (and re-derive every other column from
+# today's code). They populate naturally for nights logged from 2026-08-02 forward -- provided the
+# daily pitchers_<date>.json keeps including csw/swstr/kscore. Filter on non-null when fitting them.
 SCHEMA_KEYS = ('_zxpow', '_zxwcon', '_zars', '_zmkt')
 
 def repair(path=OUT):
