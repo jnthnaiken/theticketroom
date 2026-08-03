@@ -26,6 +26,12 @@ background:linear-gradient(92deg,#fff 18%,var(--cyan) 60%,var(--violet) 100%);-w
 .nav{position:sticky;top:0;z-index:20;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:16px 0 10px;margin-top:20px}
 .tabs{display:inline-flex;gap:4px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:4px}
 .tab{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:14px;font-weight:600;background:none;color:var(--mut);border:0;border-radius:9px;padding:9px 20px;cursor:pointer;transition:.16s}
+/* narrow phones: the three tabs are an inline-flex row that cannot wrap, and at 20px side padding
+   they run ~12px past a 360px viewport -- enough horizontal scroll to expose the gap past the sticky
+   bars. Tighten the padding rather than let them wrap onto a second row. */
+@media(max-width:400px){.tab{padding:9px 12px;letter-spacing:.05em}.tabs{max-width:100%}
+.tracker{padding:10px 11px 11px;width:auto;align-self:stretch;min-width:0}.tk-graph{width:86px}.tk-cnt{font-size:9.5px}.tk-cap{flex-wrap:wrap}.tracker *{min-width:0}}
+
 .tab[aria-selected="true"]{color:#06121a;background:linear-gradient(180deg,#5fe0f5,var(--cyan));box-shadow:0 4px 16px #26d4f04d}
 .tab:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .bar{position:sticky;top:62px;z-index:15;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:8px 0 16px;box-shadow:0 -16px 0 var(--bg)}
