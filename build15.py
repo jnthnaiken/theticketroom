@@ -106,8 +106,16 @@ def fetch_weather(games, date):
     if not homes: return {}, 'no open parks'
     la=','.join(str(PARK_LL[c][0]) for c in homes); lo=','.join(str(PARK_LL[c][1]) for c in homes)
     try:
+        # PRECIP IS PULLED HERE TOO (added 2026-08-03). It used to come ONLY from fetch_mlb's slate_auto
+        # sidecar; when that per-park call failed the board silently kept the LINEUP FILE's precip (Kasper's
+        # forecast) with no warning. On 2026-08-03 17:17Z every open-air park in slate_auto came back
+        # "weather fetch failed", so PHI/NYY inherited Kasper's 56%/63% against an actual 0-1% forecast --
+        # and since a chef seat is vetoed at >=40% rain, that silently knocked the three shortest prices
+        # (Schwarber +200, Wood +240, Rice +260) off the Chef's Table. precip now rides the same
+        # correct-ET-hour path as temp/wind, so it takes two independent outages to go stale, and
+        # apply_weather() reports its source per game either way.
         u=('https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s'
-           '&hourly=temperature_2m,wind_speed_10m,wind_direction_10m'
+           '&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation_probability'
            '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%%2FNew_York'
            '&start_date=%s&end_date=%s')%(la,lo,date,date)
         d=_getj(u)
@@ -116,7 +124,7 @@ def fetch_weather(games, date):
     locs=d if isinstance(d,list) else [d]; out={}
     for c,loc in zip(homes,locs):
         hh=loc.get('hourly') or {}
-        out[c]={'time':hh.get('time') or [],'t':hh.get('temperature_2m') or [],'ws':hh.get('wind_speed_10m') or [],'wd':hh.get('wind_direction_10m') or []}
+        out[c]={'time':hh.get('time') or [],'t':hh.get('temperature_2m') or [],'ws':hh.get('wind_speed_10m') or [],'wd':hh.get('wind_direction_10m') or [],'pp':hh.get('precipitation_probability') or []}
     return out, 'OK (%d parks)'%len(out)
 def apply_weather(g, wx, date):
     w=wx.get(g.get('home'))
@@ -130,6 +138,8 @@ def apply_weather(g, wx, date):
     if i<len(w['t']) and w['t'][i] is not None: g['temp']=round(w['t'][i])
     if i<len(w['ws']) and w['ws'][i] is not None: g['wind']=str(round(w['ws'][i]))+' mph'
     if i<len(w['wd']) and w['wd'][i] is not None: g['wind_deg']=w['wd'][i]
+    _pp=w.get('pp') or []
+    if i<len(_pp) and _pp[i] is not None: g['precip']=_pp[i]; g['_precip_src']='live'
     return True
 def fetch_hr9(date):
     try:
@@ -482,8 +492,16 @@ for g in lin['games']:
         if _wx.get('wind_mph') is not None: g['wind']=str(round(_wx['wind_mph']))+' mph'
         if _wx.get('temp') is not None: g['temp']=_wx['temp']
         if 'dome' in _wx: g['dome']=_wx['dome']
-        if _wx.get('precip') is not None: g['precip']=_wx['precip']
-    apply_weather(g, WX_LIVE, DATE)                     # live Open-Meteo overrides lineup wind/temp/dir
+        if _wx.get('precip') is not None: g['precip']=_wx['precip']; g['_precip_src']='slate_auto'
+    apply_weather(g, WX_LIVE, DATE)                     # live Open-Meteo overrides lineup wind/temp/dir (and precip)
+    # PRECIP PROVENANCE -- shout when a game's rain% is NOT from a live pull. Rain >=40% silently vetoes a
+    # Chef's Table seat and >=50% bars a bat from every parlay leg, so an unverified number here rewrites the
+    # board. 'lineup_file' means BOTH Open-Meteo paths failed and we are flying on the scraped card forecast.
+    if not g.get('dome'):
+        _psrc=g.get('_precip_src') or 'lineup_file'
+        if _psrc!='live':
+            print(f"   !! precip {g.get('precip',0)}% for {gm} came from {_psrc}, not a live pull"
+                  + ("  <-- VETOES CHEF SEATS / PARLAY LEGS" if (g.get('precip') or 0)>=40 else ""))
     wf=wf_of(g); gamemeta[gn]=g
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
@@ -595,7 +613,10 @@ for gn,g in gamemeta.items():
         # DIRECTIONAL INPUTS -- archived so weather is testable retroactively. These were computed every night
         # and then thrown away, which is why the weather term could never be evaluated or repaired (same class of
         # gap as the calibration _z* schema hole). tail_mph = wind out(+)/in(-) to CF; wind_deg = bearing it blows FROM.
-        'tail_mph':(None if dome else round(_tail,1)),'wind_deg':g.get('wind_deg'),'wind_mph':g.get('wind'),'temp':g.get('temp')}
+        'tail_mph':(None if dome else round(_tail,1)),'wind_deg':g.get('wind_deg'),'wind_mph':g.get('wind'),'temp':g.get('temp'),
+        # where this game's rain% actually came from: 'live' (build15's own ET-hour pull), 'slate_auto'
+        # (fetch_mlb's sidecar), or 'lineup_file' (scraped card forecast -- both live paths were down).
+        'precip_src':(None if dome else (g.get('_precip_src') or 'lineup_file'))}
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
