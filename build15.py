@@ -444,6 +444,19 @@ def wf_of(g):
     wx_w=clamp(1.0+W_WIND*tail+W_TEMP*(temp-70), 1-WX_CLAMP, 1+WX_CLAMP)
     wx_e=1.0+W_ELEV*(PARK_ELEV.get(g.get('home'),0)/1000.0)
     return round(wx_w*wx_e, 3)
+WIND_LEAN_MPH = 6.0   # |tail| above this = wind-driven Boost/Suppress label. Matches fetch_mlb's wind-out emoji
+                      # threshold. PROVISIONAL: pick a data-driven cut once tail_mph has been archived for a few weeks.
+def tail_of(g):
+    # The WIND component alone (mph projected onto plate->CF axis, + = blowing out). Same projection wf_of
+    # uses, factored out so the Boost/Suppress LABEL can key on wind instead of the temp-contaminated wf.
+    if g.get('dome'): return 0.0
+    w=(g.get('wind') or ''); m=re.search(r'(\d+)\s*mph',w); spd=int(m.group(1)) if m else 0
+    deg=g.get('wind_deg')
+    if deg is not None:
+        toward=(deg+180)%360
+        return spd*math.cos(math.radians(toward-CF_AZ.get(g.get('home'),0)))
+    sign=1 if 'Out' in w else (-1 if re.search(r'\bIn\b',w) else 0)
+    return spd*sign
 def gmin(gt):
     m=re.match(r'(\d+):(\d+)\s*(AM|PM)',gt or '')
     return (int(m.group(1))%12+(12 if m.group(3)=='PM' else 0))*60+int(m.group(2)) if m else 0
@@ -483,7 +496,6 @@ for g in lin['games']:
             form=c['form_pct'] if c.get('form_pct') is not None else 50
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=c['pb']*c['hh']*la_window(c['la'])
-            lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
                 hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
@@ -570,10 +582,20 @@ for r in pool:
 
 wx={}
 for gn,g in gamemeta.items():
-    wf=wf_of(g); lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral'); dome=g.get('dome')
+    wf=wf_of(g); dome=g.get('dome'); _tail=tail_of(g)
+    # LEAN NOW KEYS ON WIND, NOT wf. wf = 1 + W_WIND*tail + W_TEMP*(temp-70), and in summer the temp term
+    # swamps the wind term: at 82F EVERY wind direction cleared the old wf>1.02 cut, and at 89F a 12mph wind
+    # blowing straight IN still read "Boost". That mislabeled the board (4,300 Boost vs 172 Suppress across the
+    # 40-day archive) and made the badge meaningless -- logged Boost nights homered at 10.79% vs Neutral 10.78%.
+    # wf itself is unchanged (temperature genuinely affects carry); only the LABEL is now honest about wind.
+    lean='Boost' if _tail>=WIND_LEAN_MPH else ('Suppress' if _tail<=-WIND_LEAN_MPH else 'Neutral')
     wx[str(gn)]={'emoji':("\U0001f3df" if dome else ("☀️" if g.get('precip',0)<30 else "\U0001f327️")),
         'lean':('Neutral' if dome else lean),'factor':wf,'park':g['matchup'],
-        'cond':('Dome' if dome else (g.get('wind','') or 'calm')),'rain':str(g.get('precip',0))+"% rain",'precip':g.get('precip',0)}
+        'cond':('Dome' if dome else (g.get('wind','') or 'calm')),'rain':str(g.get('precip',0))+"% rain",'precip':g.get('precip',0),
+        # DIRECTIONAL INPUTS -- archived so weather is testable retroactively. These were computed every night
+        # and then thrown away, which is why the weather term could never be evaluated or repaired (same class of
+        # gap as the calibration _z* schema hole). tail_mph = wind out(+)/in(-) to CF; wind_deg = bearing it blows FROM.
+        'tail_mph':(None if dome else round(_tail,1)),'wind_deg':g.get('wind_deg'),'wind_mph':g.get('wind'),'temp':g.get('temp')}
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
