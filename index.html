@@ -626,6 +626,11 @@ drawTickets();drawPlayers();drawTracker();
     function strength(n){var nt=_tmx>_tmn?(P[n].TOTAL-_tmn)/(_tmx-_tmn):0.5,ni=_imx>_imn?(_ipp(P[n].odds)-_imn)/(_imx-_imn):0.5; return nt;}
     function byS(a){return a.slice().sort(function(x,y){return strength(y)-strength(x);});}   // board-wide role/order key
     var inPool={}; cand.forEach(function(n){inPool[n]=1;});
+    extra=byT(elig.filter(function(n){return !chalk[n]&&!inPool[n];}));   // RESERVE TIER (below the z-gate).
+    // Only consulted when the gated pool cannot fill a ticket (see widerA), so a healthy slate still drafts exclusively
+    // from the gate. It exists because the gate can pass fewer bats than the board needs: on 2026-08-03 it passed 20, two
+    // were scratched, 19 were already placed, and the one bat left over had missed the gate by 0.02 (z 0.73 vs 0.75).
+    // Chalk excluded: the Chef's Table is reserved first, always.
     var ptimes=cand.map(tmin).filter(function(x){return x!=null;}), latest=ptimes.length?Math.max.apply(null,ptimes):0;
     var lunchG={}, nightG={};
     cand.forEach(function(n){ if(tmin(n)<LUNCH_CUT)lunchG[P[n].game]=1; if(tmin(n)>=latest-NIGHT_WIN)nightG[P[n].game]=1; });
@@ -798,15 +803,20 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         if(t.kind==='chef')return;/*chef -> rebuilt fresh from _chefLegs (per-leg lock) at emit; never frozen/reverted here*/
         var kind=t.kind, idx=nextIdx(kind);
         if(isLocked(t)){ plan.push({frozen:true,t:t}); return; }   // PLACED slip -> emit verbatim forever; a leg that later voids just grades as void, the slip itself never changes
-        var need=t.nlegs||(t.players?t.players.length:1), kept=[], gUsed={};
+        var need=t.nlegs||(t.players?t.players.length:1), kept=[], pref=[], gUsed={};
         t.players.forEach(function(l){var n=l.name, isA=(n===t.anchor);
-          if((pinnedP(n) || (aliveP(n) && inPool[n])) && !chalk[n]){/*chalk newly reserved for Chef -> release it from every other ticket, even preserved ones (refills from nonchalk below)*/
+          if(pinnedP(n) && !chalk[n]){/*LOCK = confirmed or already in progress, nothing else. An unconfirmed leg used to be kept here as well (aliveP && inPool), which silently reserved that bat board-wide -- so when some OTHER leg was scratched the refill found every candidate already taken and the anchor got demoted, dropping its intact partner moon with it (2026-08-03: Eldridge scratched -> Wood lost BOTH moons, while the only unplaced bat had missed the z-gate by 0.02). Releasing unconfirmed legs returns them to the pool to be re-drafted around the locked ones, which is the point of the re-draft. Chalk stays excluded: the Chef's Table is reserved first, always.*/
             if(need>1 && pending(n)) return;                // pending (resuming) bat -> singles only; drop from parlays, refill later
             if(need>1 && gUsed[P[n].game]) return;          // distinct game within ticket
             if(usedG[n] && !isA) return;                    // already taken elsewhere (non-anchor) -> drop, refill later
             kept.push(n); gUsed[P[n].game]=1; usedG[n]=1; }
+          else if(aliveP(n) && inPool[n] && !chalk[n] && !(need>1 && pending(n))) pref.push(n);
+          /* RECLAIM list: alive but not yet confirmed. Released into the pool (no usedG) so a ticket that lost a leg can
+             actually reach it -- but offered back to THIS ticket first, ahead of the open pool, so a slate where nothing
+             has moved re-drafts to exactly the board that was already up. Only a ticket with higher priority taking one
+             away moves it, and that ticket then refills from the pool in turn. */
         });
-        plan.push({frozen:false,t:t,kind:kind,idx:idx,need:need,kept:kept,gUsed:gUsed});
+        plan.push({frozen:false,t:t,kind:kind,idx:idx,need:need,kept:kept,pref:pref,gUsed:gUsed});
       });
       // ---- MOON ANCHOR CONTINUITY: if a moon's anchor is scratched, BOTH of that anchor's moons must
       // re-anchor to the SAME replacement -- never split one anchor's pair into two new anchors (3 anchors x2, never 4). ----
@@ -815,6 +825,22 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       var anchRepl={}, _usedAnch={}; moonAnchors.forEach(function(a){ if(anchorAlive(a))_usedAnch[a]=1; });
       moonAnchors.forEach(function(a){ if(anchorAlive(a))return; var p2=byS(nonchalk);
         for(var i=0;i<p2.length;i++){var c=p2[i]; if(_usedAnch[c]||usedG[c]||pending(c)||precipOf(P[c].game)>=40)continue; anchRepl[a]=c; _usedAnch[c]=1; usedG[c]=1; break;} });
+      // ---- ANCHOR PASS. Priority is Chef's Table -> moon anchors -> salami anchor -> moon fills -> salami fills.
+      // Every anchor claims its seat HERE, before any ticket fills a partner leg, and holds it for the rest of the draft.
+      // draftF has always worked this way (its partner pool excludes the anchor list outright); the preserve path never
+      // needed to, because an unconfirmed anchor was kept in place and reserved itself as a side effect. Now that the lock
+      // releases unconfirmed legs, an anchor with no seat of its own gets spent as a partner leg on whichever moon refills
+      // first -- all-or-none then demotes it, its intact partner moon goes with it, and the salami re-anchors to whoever is
+      // left standing. Reserving the anchors is what keeps the board's shape stable across a re-draft.
+      var _anchOwn={};
+      plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='moon')return;
+        var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
+        if(ma){ pl.anch=ma; _anchOwn[ma]=1; usedG[ma]=1; } });   // both of an anchor's moons share the one seat -- by design
+      plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='biggest')return;
+        var sa=pl.t.anchor; if(anchorAlive(sa)&&!_anchOwn[sa]){ pl.anch=sa; _anchOwn[sa]=1; usedG[sa]=1; } });
+      var _ord={moon:0,biggest:1,late:2,lunch:3,builder:4};   // Chef -> moon anchors -> salami anchor -> moon fills ->
+      plan.sort(function(a,b){                                  // salami fills. A ticket only loses a leg to a HIGHER priority.
+        return (a.frozen?-1:(_ord[a.kind]==null?9:_ord[a.kind])) - (b.frozen?-1:(_ord[b.kind]==null?9:_ord[b.kind])); });
       plan.forEach(function(pl){
         if(pl.frozen){ pl.t.locked=true; out.push(pl.t); return; }
         var kind=pl.kind, need=pl.need, legNames=pl.kept.slice(), gUsed=pl.gUsed, cand;
@@ -823,10 +849,11 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         else if(kind==='lunch') cand=byS(nonchalk.filter(function(n){return lunchG[P[n].game]&&P[n].odds!=null&&P[n].odds<=600;}));
         else if(kind==='biggest') cand=ge75(byS(nonchalk));
         else cand=ge75(byS(nonchalk));
-        if(kind==='moon'){ var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
-          if(ma){ var nl=[ma], ng={}; ng[P[ma].game]=1;
+        if(pl.anch){ var ma=pl.anch;   // moon OR salami: rebuild anchor-first so legNames[0] is still the anchor
+          { var nl=[ma], ng={}; ng[P[ma].game]=1;
             pl.kept.forEach(function(n){ if(n!==ma&&!ng[P[n].game]&&spanOk(nl.concat([n]))){ nl.push(n); ng[P[n].game]=1; } });   // WIN GUARD: a replacement anchor in a different time slot must not carry legs outside its window -- drop out-of-window kept legs so the re-anchored moon never exceeds WIN (it refills in-window below, or demotes cleanly)
             legNames=nl; gUsed=ng; usedG[ma]=1; } }
+        cand=(pl.pref||[]).filter(function(n){return legNames.indexOf(n)<0;}).concat(cand);   // own legs first, then the pool
         for(var i=0;i<cand.length && legNames.length<need;i++){var n=cand[i];
           if(usedG[n])continue;
           if(need>1 && gUsed[P[n].game])continue;
@@ -1013,7 +1040,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       Object.keys(mc).forEach(function(a){ if(!P[a]||!(pinnedP(a)||(aliveP(a)&&inPool[a])))return;
         var g=0; while(mc[a]<MOONS_PER_ANC && g++<4){
           var ln=[a],gu={}; gu[P[a].game]=1;
-          var cnd=Object.keys(P).filter(function(n){return !pl[n]&&n!==a&&!P[n].out&&!P[n].void&&P[n].odds!=null;}).sort(function(x,y){return (P[y].TOTAL||0)-(P[x].TOTAL||0);});
+          var cnd=Object.keys(P).filter(function(n){return !pl[n]&&n!==a&&!chalk[n]&&!P[n].out&&!P[n].void&&P[n].odds!=null;}).sort(function(x,y){return (P[y].TOTAL||0)-(P[x].TOTAL||0);});
           for(var ci=0;ci<cnd.length&&ln.length<3;ci++){var n=cnd[ci]; if(gu[P[n].game])continue; if(!spanOk(ln.concat([n])))continue; ln.push(n); gu[P[n].game]=1;}
           if(ln.length<3)break;
           ln.forEach(function(n){pl[n]=1;});
