@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T18:36:29Z",
+  "pulled_at": "2026-08-04T18:41:29Z",
   "games": [
     {
       "gamePk": 824805,
@@ -46,7 +46,7 @@
     },
     {
       "gamePk": 824403,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T22:40:00Z",
       "matchup": "NYM@CLE",
       "away": {
@@ -68,10 +68,56 @@
           "hr9": 1.03,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.059
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.156
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.166
+          },
+          {
+            "id": 656555,
+            "name": "Rhys Hoskins",
+            "iso": 0.204
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.189
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.152
+          },
+          {
+            "id": 672356,
+            "name": "Gabriel Arias",
+            "iso": 0.146
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.128
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
