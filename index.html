@@ -461,8 +461,18 @@ function liveTickets(){return (D.tickets||[]).filter(function(t){var k=t.kind;
   if(k==='lunch')return !t.final&&singleAlive(t);
   if(k==='builder')return singleAlive(t);
   return k==='moon'||k==='biggest'||k==='chef';});}
-function drawStats(){const priced=Object.values(D.players).filter(p=>p.odds).length;
-$('#stats').innerHTML=[['Pool bats',D.meta.pool],['Tickets',liveTickets().length],['Confirmed',Object.values(D.players).filter(p=>p.status==='confirmed').length+'/'+D.meta.pool],['Priced',priced+'/'+D.meta.pool]]
+/* COUNTER DENOMINATORS: count against the ALIVE field, not every scored bat. D.meta.pool is the whole
+   scored slate -- 268 on 2026-08-03, of which 113 were out (benched, or never in the posted lineup). The
+   old tiles read "Confirmed 121/268 . Priced 126/268": 17 of those priced bats were scratched and 113 of
+   that denominator could never take a seat, while the Builder and the drafter both worked off 109. Same
+   night, the honest numbers are 121/155 and 109/155. The fifth tile is the one that explains the board --
+   how many bats cleared the z-gate. The gate is RELATIVE (0.75 SD over the eligible mean), so a full slate
+   passes 50-60 and the thin 8-game 2026-08-03 card passed 20; four went to the Chef's Table and the other
+   sixteen were consumed exactly by six moons, the salami and four anchors, which is why the nightcap found
+   nothing left. That collapse was invisible on the old header. */
+function drawStats(){const V=Object.values(D.players),AL=V.filter(p=>!p.out&&!p.void),A=AL.length||D.meta.pool,
+ priced=AL.filter(p=>p.odds!=null).length,conf=AL.filter(p=>p.status==='confirmed').length;
+$('#stats').innerHTML=[['Pool bats',D.meta.pool],['Tickets',liveTickets().length],['Confirmed',conf+'/'+A],['Priced',priced+'/'+A],['In the gate',(D.meta.gate!=null?D.meta.gate:'\u2014')]]
  .map(s=>`<div class="kpi"><div class="n">${s[1]}</div><div class="l">${s[0]}</div></div>`).join('');}
 drawStats();
 function singleAlive(t){if((t.nlegs||(t.players||[]).length)!==1)return true;var p=D.players[((t.players||[])[0]||{}).name]||{};return !((p.out||p.void)&&!p.hr);}  /* a scratched/benched single -> dropped from the board entirely (it voids/refunds, never shown as a loss) */
@@ -1027,7 +1037,7 @@ drawTickets();drawPlayers();drawTracker();
     var _committed={},_ctTeam={};(D.tickets||[]).forEach(function(_t){if(_t.kind==='late'||_t.kind==='lunch'||_t.kind==='chef')return;(_t.players||[]).forEach(function(_l){var _cn=_l.name,_cp=P[_cn];if(_cp&&!_cp.out&&!_cp.void&&(_cp.status==='confirmed'||started(_cn))&&!_committed[_cn]){_committed[_cn]=1;_ctTeam[_cp.game]=(_ctTeam[_cp.game]||0)+1;}});});var _TC={},_hv={},nonchalk=[];Object.keys(_ctTeam).forEach(function(_k){_TC[_k]=_ctTeam[_k];});Object.keys(_committed).forEach(function(_n){if(!_hv[_n]&&P[_n]&&P[_n].odds!=null){nonchalk.push(_n);_hv[_n]=1;}});byT(cand.filter(function(n){return !chalk[n];})).forEach(function(n){if(_hv[n])return;var t=P[n].game;if((_TC[t]||0)>=4)return;nonchalk.push(n);_hv[n]=1;_TC[t]=(_TC[t]||0)+1;});/* FLOOR is the only gate -> no backfill */                                          // the buildable 33 -> moons/salami/builders
     D.pool=nonchalk.slice();
     var _poolTeam={}; nonchalk.forEach(function(_pn){var _pc=(P[_pn]||{}).game; if(_pc)_poolTeam[_pc]=(_poolTeam[_pc]||0)+1;});   // distinct pool bats per team -> caps the #42+ span-fill fallback so it can't add a 4th of a team                                                     // Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
-    if(D.meta)D.meta.pool=Object.keys(D.players).length;   // counters denominator = whole scored field (all bats); Players/Tickets use the 33 in D.pool
+    if(D.meta)D.meta.pool=Object.keys(D.players).length;if(D.meta)D.meta.gate=cand.length;   /* how many bats cleared the z-gate -- the number that actually explains the board */   // counters denominator = whole scored field (all bats); Players/Tickets use the 33 in D.pool
     var extra=[];   // MIRRORS assemble_tickets.py: the gate is the only gate -> no sub-gate backfill; parlays fill from the gated pool only, else the anchor demotes
     // STRENGTH: 65% TOTAL (total score) + 35% market likelihood (implied prob from odds), each min-max
     // normalized across the 33. Single key for roles board-wide -- anchors, salami, legs, builder order.
@@ -1460,7 +1470,25 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       parlays.forEach(function(t){ if(t.kind==='moon') mkF('moon',t.badge,t.legs,t.rr); });       // moons first (display order)
       parlays.forEach(function(t){ if(t.kind==='biggest') mkF('biggest',t.badge,t.legs,t.rr); });  // then the salami
       var _plg={}; parlays.forEach(function(t){t.legs.forEach(function(n){_plg[n]=1;});}); var _lnp={};
-      var ncap=byS(draftPool).filter(function(n){return nightG[P[n].game]&&!_plg[n]&&P[n].odds!=null&&P[n].odds<=600;}); if(ncap.length){ mkF('late','\uD83C\uDF03',[ncap[0]]); _lnp[ncap[0]]=1; }
+      /* NIGHTCAP FALLBACK. The nightcap drafts dead-last out of whatever the gated pool has left over --
+         correct on a normal slate, and on 2026-08-03 it shipped NOTHING. The z-gate is relative, so an
+         8-game card with every lineup posted (113 of 268 bats out) passed only 20; the Chef's Table took 4
+         and six moons + the salami + four anchors consumed all 16 that remained. Worse, the 9:40 SD@AZ game
+         -- the only true nightcap game -- put ZERO bats through the gate (Carroll was closest, z +0.644,
+         missing 0.75 by a tenth), so `latest` fell back to the 8:40 card and even the night WINDOW collapsed
+         to 7:40. Every night from 07-31 through 08-02 shipped one; 08-03 silently did not.
+         So: when the leftover pool is dry, reach into the full priced-and-alive field inside the TRUE
+         latest-game window. This changes NO priority -- it still runs after the Chef's Table, the moon
+         anchors, the salami anchor, the moon fills and the salami fills have all taken what they want. It
+         only stops a thin gate from deleting the ticket outright. */
+      var ncap=byS(draftPool).filter(function(n){return nightG[P[n].game]&&!_plg[n]&&P[n].odds!=null&&P[n].odds<=600;});
+      if(!ncap.length){
+        var _nt=elig.map(tmin).filter(function(x){return x!=null;}), _nlast=_nt.length?Math.max.apply(null,_nt):0;
+        ncap=byT(elig.filter(function(n){var _q=tmin(n);
+          return _q!=null && _q>=_nlast-NIGHT_WIN && !_plg[n] && !usedG[n] && !chalk[n] && !started(n) && !pending(n)
+                 && precipOf(P[n].game)<40 && P[n].odds!=null && P[n].odds<=600;}));
+      }
+      if(ncap.length){ mkF('late','\uD83C\uDF03',[ncap[0]]); _lnp[ncap[0]]=1; }
       var lunchc=byS(draftPool).filter(function(n){return lunchG[P[n].game]&&!_plg[n]&&!_lnp[n]&&P[n].odds!=null&&P[n].odds<=600;}); if(lunchc.length){ mkF('lunch','\uD83C\uDF71',[lunchc[0]]); _lnp[lunchc[0]]=1; }
       var spent={}; parlays.forEach(function(t){ t.legs.forEach(function(n){spent[n]=1;}); });   // only KEPT-parlay bats; dropped anchors/legs become builders
       (function(){var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});var usedN={};par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){usedN[l.name]=1;});});var lf=Infinity;par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});});if(lf===Infinity)lf=-1;var done={};par.forEach(function(t){if(t.anchor&&!done[t.anchor]&&P[t.anchor].odds!=null){done[t.anchor]=1;mkF('builder','\uD83D\uDCB0',[t.anchor]);}});})();
