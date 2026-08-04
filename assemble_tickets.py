@@ -519,6 +519,18 @@ def assemble(D):
     _lnpick = []
     _nc = [n for n in byS(nonchalk) if P[n]['game'] in night_games and n not in _pused
            and P[n].get('odds') is not None and P[n]['odds'] <= 600]
+    # NIGHTCAP FALLBACK (mirrors index.html __assembleClient). The nightcap drafts dead-last out of whatever
+    # the gated pool has left over -- fine on a normal slate, and on 2026-08-03 it shipped NOTHING. The z-gate
+    # is RELATIVE, so an 8-game card with every lineup posted (113 of 268 bats out) passed only 20; the Chef's
+    # Table took 4 and six moons + the salami + four anchors consumed all 16 that remained. The one true 9:40
+    # nightcap game put ZERO bats through the gate, so `latest` fell back to the 8:40 card and even the night
+    # WINDOW collapsed to 7:40. When the leftover pool is dry, reach into the full priced-and-alive field
+    # inside the TRUE latest-game window. Priority is unchanged -- this still runs after every other ticket.
+    if not _nc:
+        _nlast = max((tmin(n) for n in elig), default=0)
+        _nc = [n for n in byT(elig) if tmin(n) >= _nlast - NIGHT_WIN and n not in _pused and n not in chalk
+               and not pend(n) and _precip(n) < 40
+               and P[n].get('odds') is not None and P[n]['odds'] <= 600]
     if _nc:
         add(name_for("late"), "late", "\U0001f303", [_nc[0]]); _lnpick.append(_nc[0])
     _lc = [n for n in byS(nonchalk) if P[n]['game'] in lunch_games and n not in _pused and n not in _lnpick
