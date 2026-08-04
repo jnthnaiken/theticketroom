@@ -1,7 +1,7 @@
 {
   "date": "2026-08-03",
   "season": "2026",
-  "pulled_at": "2026-08-04T02:54:56Z",
+  "pulled_at": "2026-08-04T03:00:02Z",
   "games": [
     {
       "gamePk": 823431,
@@ -668,7 +668,7 @@
     },
     {
       "gamePk": 824160,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-04T00:10:00Z",
       "matchup": "TOR@HOU",
       "away": {
@@ -920,16 +920,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 16mph, 92\u00b0",
-        "lean": "Suppress",
-        "temp": 92.0,
-        "wind_mph": 21.3,
-        "wind_dir": 40,
-        "tail_mph": -16.3,
-        "precip": 9
+        "note": "weather fetch failed"
       },
-      "wf": 0.976
+      "wf": 1.0
     },
     {
       "gamePk": 825095,
