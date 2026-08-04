@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T19:00:32Z",
+  "pulled_at": "2026-08-04T19:01:38Z",
   "games": [
     {
       "gamePk": 824805,
@@ -34,15 +34,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 87\u00b0",
+        "cond": "calm 2mph, 86\u00b0",
         "lean": "Neutral",
-        "temp": 86.7,
-        "wind_mph": 7.0,
-        "wind_dir": 96,
-        "tail_mph": -2.8,
+        "temp": 86.1,
+        "wind_mph": 4.7,
+        "wind_dir": 98,
+        "tail_mph": -1.8,
         "precip": 0
       },
-      "wf": 1.015
+      "wf": 1.018
     },
     {
       "gamePk": 824403,
@@ -167,11 +167,11 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 8mph, 79\u00b0",
+        "cond": "wind in 8mph, 80\u00b0",
         "lean": "Neutral",
-        "temp": 79.1,
-        "wind_mph": 8.3,
-        "wind_dir": 3,
+        "temp": 79.7,
+        "wind_mph": 8.4,
+        "wind_dir": 8,
         "tail_mph": -8.3,
         "precip": 0
       },
@@ -254,9 +254,9 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 88\u00b0",
+        "cond": "calm 0mph, 87\u00b0",
         "lean": "Boost",
-        "temp": 87.7,
+        "temp": 87.3,
         "wind_mph": 2.2,
         "wind_dir": 127,
         "tail_mph": -0.1,
@@ -266,7 +266,7 @@
     },
     {
       "gamePk": 823432,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T22:40:00Z",
       "matchup": "WSH@PHI",
       "away": {
@@ -288,22 +288,68 @@
           "hr9": 0.84,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.286
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.152
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.248
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.116
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.136
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.137
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.17
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.153
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.082
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 84\u00b0",
-        "lean": "Neutral",
-        "temp": 83.7,
-        "wind_mph": 10.2,
-        "wind_dir": 98,
-        "tail_mph": -1.2,
+        "cond": "calm 0mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 85.0,
+        "wind_mph": 6.6,
+        "wind_dir": 102,
+        "tail_mph": -0.3,
         "precip": 0
       },
-      "wf": 1.016
+      "wf": 1.021
     },
     {
       "gamePk": 823517,
@@ -336,19 +382,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 78\u00b0",
+        "cond": "wind out 4mph, 79\u00b0",
         "lean": "Boost",
-        "temp": 77.8,
-        "wind_mph": 7.4,
-        "wind_dir": 139,
-        "tail_mph": 4.1,
+        "temp": 78.6,
+        "wind_mph": 6.6,
+        "wind_dir": 147,
+        "tail_mph": 4.4,
         "precip": 0
       },
-      "wf": 1.026
+      "wf": 1.028
     },
     {
       "gamePk": 824731,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T23:10:00Z",
       "matchup": "CWS@BOS",
       "away": {
@@ -359,8 +405,54 @@
           "hr9": 0.54,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.118
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.302
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.242
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.26
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.234
+          },
+          {
+            "id": 663698,
+            "name": "Joey Bart",
+            "iso": 0.151
+          },
+          {
+            "id": 686668,
+            "name": "Brenton Doyle",
+            "iso": 0.068
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.145
+          },
+          {
+            "id": 682668,
+            "name": "Luisangel Acu\u00f1a",
+            "iso": 0.036
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -373,19 +465,19 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 80\u00b0",
+        "cond": "wind out 4mph, 82\u00b0",
         "lean": "Boost",
-        "temp": 80.1,
-        "wind_mph": 4.4,
-        "wind_dir": 240,
-        "tail_mph": 4.3,
+        "temp": 82.2,
+        "wind_mph": 4.6,
+        "wind_dir": 241,
+        "tail_mph": 4.4,
         "precip": 0
       },
-      "wf": 1.03
+      "wf": 1.034
     },
     {
       "gamePk": 824888,
@@ -418,15 +510,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 79\u00b0",
+        "cond": "calm 1mph, 78\u00b0",
         "lean": "Neutral",
-        "temp": 79.1,
-        "wind_mph": 5.5,
-        "wind_dir": 137,
-        "tail_mph": -0.3,
+        "temp": 78.2,
+        "wind_mph": 4.7,
+        "wind_dir": 149,
+        "tail_mph": 0.7,
         "precip": 14
       },
-      "wf": 1.013
+      "wf": 1.015
     },
     {
       "gamePk": 824084,
@@ -459,15 +551,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 93\u00b0",
+        "cond": "calm 0mph, 94\u00b0",
         "lean": "Boost",
-        "temp": 93.3,
-        "wind_mph": 5.8,
-        "wind_dir": 148,
-        "tail_mph": 1.3,
+        "temp": 93.5,
+        "wind_mph": 6.5,
+        "wind_dir": 139,
+        "tail_mph": 0.5,
         "precip": 1
       },
-      "wf": 1.04
+      "wf": 1.037
     },
     {
       "gamePk": 823756,
@@ -542,7 +634,7 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 74\u00b0",
         "lean": "Neutral",
-        "temp": 73.5,
+        "temp": 73.6,
         "wind_mph": 7.1,
         "wind_dir": 139,
         "tail_mph": 2.3,
@@ -661,11 +753,11 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 5mph, 79\u00b0",
+        "cond": "wind in 4mph, 79\u00b0",
         "lean": "Neutral",
-        "temp": 78.6,
-        "wind_mph": 8.1,
-        "wind_dir": 56,
+        "temp": 78.7,
+        "wind_mph": 6.0,
+        "wind_dir": 42,
         "tail_mph": -4.5,
         "precip": 3
       },
