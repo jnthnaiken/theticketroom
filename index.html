@@ -1337,7 +1337,14 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         var ps=prior.filter(function(t){return t.kind==='biggest'&&!isLocked(t);})[0];                  // prior salami if any (may be absent)
         var need=ps?(ps.nlegs||(ps.players?ps.players.length:4)):4;
         var placed={}; out.forEach(function(t){ (t.players||[]).forEach(function(l){placed[l.name]=1;}); });
-        var cands=byT(elig).filter(function(n){var p=P[n];return p&&!placed[n]&&!pending(n)&&p.odds!=null;});   // leftover eligible bats, strongest first
+        // CHALK IS NOT A LEFTOVER. `elig` is the broad field and does not exclude the Chef's Table four, and this
+        // backstop runs BEFORE the chef ticket is pushed to `out` -- so `placed` doesn't know about them yet and the
+        // four shortest prices on the board look like the strongest unplaced bats going. On 2026-08-04 that shipped a
+        // Grand Salami that was a carbon copy of the Chef's Table (Schwarber/Caminero/Alvarez/Rice, identical legs and
+        // odds), and then the builder pass turned its anchor into a Schwarber single as well. Chalk is reserved for
+        // the Chef's Table, lunch and the nightcap; moons, salami and anchors are chalk-free everywhere else, and
+        // this was the one path that had not been told.
+        var cands=byT(elig).filter(function(n){var p=P[n];return p&&!chalk[n]&&!placed[n]&&!pending(n)&&p.odds!=null;});
         // SEED-BASED build: greedy-by-strength alone fails when the single strongest leftover sits in a
         // time-isolated game (e.g. an 11 AM lunch bat) with no in-window partners. Instead try each candidate
         // as a SEED (strongest first) and complete it to `need` distinct-game legs within the WIN window; the
