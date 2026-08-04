@@ -30,6 +30,22 @@
 'use strict';
 const fs = require('fs');
 
+// ASOF: draft this slate as of a point in time instead of "now".
+// The engine asks the clock constantly -- started(), pinnedP(), lock times -- because on a normal build it
+// IS drafting live. Re-running a finished slate at 1am therefore reads every bat as confirmed-and-underway,
+// treats them all as already placed, and emits an almost empty board. A data-fix rebuild has to be drafted
+// as of the moment it would really have been drafted: just before first pitch. Only `new Date()` with no
+// arguments is redirected; parsing and arithmetic are untouched.
+if (process.env.ASOF) {
+  const fixed = new Date(process.env.ASOF).getTime();
+  if (!isFinite(fixed)) { console.error('client_assemble: bad ASOF ' + process.env.ASOF); process.exit(68); }
+  const R = Date;
+  const F = function (...a) { return a.length ? new R(...a) : new R(fixed); };
+  F.prototype = R.prototype; F.now = () => fixed; F.parse = R.parse; F.UTC = R.UTC;
+  global.Date = F;
+  console.log('  (drafting as of ' + new R(fixed).toISOString() + ')');
+}
+
 const [, , DJSON, BOARD] = process.argv;
 if (!DJSON || !BOARD) { console.error('usage: client_assemble.js <D.json> <index.html>'); process.exit(64); }
 
