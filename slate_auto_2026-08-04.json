@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T19:06:42Z",
+  "pulled_at": "2026-08-04T19:09:19Z",
   "games": [
     {
       "gamePk": 824805,
@@ -353,7 +353,7 @@
     },
     {
       "gamePk": 823517,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T23:05:00Z",
       "matchup": "STL@NYY",
       "away": {
@@ -364,8 +364,54 @@
           "hr9": 1.07,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.139
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.206
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.134
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.123
+          },
+          {
+            "id": 676369,
+            "name": "Nelson Vel\u00e1zquez",
+            "iso": 0.215
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.079
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.126
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.134
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.118
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -378,7 +424,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
