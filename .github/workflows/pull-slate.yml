@@ -29,6 +29,15 @@ on:
         description: "Slate date YYYY-MM-DD (blank = latest committed cards)"
         required: false
         default: ""
+      force:
+        # Rebuild a slate that is already final. For a DATA FIX, not for routine use: it re-pulls,
+        # re-scores and re-drafts the night from scratch, ignoring the prior board. Used 2026-08-04 to
+        # rebuild 8/3 after build15 was found to be reading the projected lineup file instead of MLB's
+        # posted card (it had Rumfield batting 5th for COL; the real card had Moniak, who was stamped
+        # scratched, barred from every ticket, and homered).
+        description: "Force a rebuild even if the slate is final (data fix). Drafts from scratch."
+        required: false
+        default: "false"
   schedule:
     # EVERY 5 MINUTES, not twice an hour. The browser re-drafts on every page load and sees a
     # scratch as soon as MLB posts it; the server only sees one at its next build. Whatever is
@@ -86,6 +95,8 @@ jobs:
 
       - name: Verify the slate was pulled fresh
         id: verify
+        env:
+          FORCE_REBUILD: ${{ github.event.inputs.force }}
         run: |
           python3 - "$SLATE_DATE" <<'PY'
           import json, os, sys
@@ -100,7 +111,10 @@ jobs:
           fresh = not (pa.startswith("manual") or "T" not in pa or have == 0)
           import re as _re
           allfinal = bool(games) and all(_re.search(r"final|completed|over", str(g.get("status") or ""), _re.I) for g in games)
-          if allfinal:
+          force = os.environ.get("FORCE_REBUILD", "").lower() == "true"
+          if allfinal and force:
+              print("::notice::Slate %s is final, but force=true -- rebuilding it from scratch." % d)
+          elif allfinal:
               print("::notice::Slate %s is fully final -- board frozen, skipping rebuild." % d)
               fresh = False
           elif not fresh:
@@ -116,6 +130,8 @@ jobs:
 
       - name: Assemble + inject the board
         if: success() && steps.verify.outputs.fresh == 'true'
+        env:
+          FORCE_REBUILD: ${{ github.event.inputs.force }}
         run: python3 regen15.py
 
       - name: Commit the board + ledger + calibration
