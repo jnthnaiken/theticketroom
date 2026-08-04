@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T21:06:17Z",
+  "pulled_at": "2026-08-04T21:16:19Z",
   "games": [
     {
       "gamePk": 824805,
@@ -1109,7 +1109,7 @@
     },
     {
       "gamePk": 824645,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T00:05:00Z",
       "matchup": "LAD@CHC",
       "away": {
@@ -1120,8 +1120,54 @@
           "hr9": 0.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.248
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.187
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.178
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.238
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.168
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.131
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.162
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.158
+          },
+          {
+            "id": 666163,
+            "name": "Ben Rortvedt",
+            "iso": null
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -1134,7 +1180,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
