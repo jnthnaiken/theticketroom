@@ -1,7 +1,7 @@
 {
   "date": "2026-08-03",
   "season": "2026",
-  "pulled_at": "2026-08-04T03:00:02Z",
+  "pulled_at": "2026-08-04T03:04:54Z",
   "games": [
     {
       "gamePk": 823431,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 822867,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-04T00:05:00Z",
       "matchup": "SF@TEX",
       "away": {
@@ -830,12 +830,12 @@
           {
             "id": 656775,
             "name": "Cedric Mullins",
-            "iso": 0.153
+            "iso": 0.156
           },
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.204
+            "iso": 0.203
           },
           {
             "id": 802415,
@@ -907,7 +907,7 @@
           {
             "id": 687859,
             "name": "Troy Johnston",
-            "iso": 0.109
+            "iso": 0.107
           },
           {
             "id": 678662,
@@ -920,9 +920,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 16mph, 92\u00b0",
+        "lean": "Suppress",
+        "temp": 92.0,
+        "wind_mph": 21.3,
+        "wind_dir": 40,
+        "tail_mph": -16.3,
+        "precip": 9
       },
-      "wf": 1.0
+      "wf": 0.976
     },
     {
       "gamePk": 825095,
@@ -1008,7 +1015,7 @@
           {
             "id": 596146,
             "name": "Max Kepler",
-            "iso": 0.143
+            "iso": 0.141
           },
           {
             "id": 606466,
