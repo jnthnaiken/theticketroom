@@ -408,12 +408,9 @@ header{position:relative}
 <section id="v-b" role="tabpanel" aria-labelledby="tab-b" hidden>
  <div class="bar">
   <label class="fld">Combo type<select id="bmode"><option value="rr2">Round-robin · 2-leg</option><option value="rr3">Round-robin · 3-leg</option><option value="rr23">Round-robin · 2s + 3s</option><option value="straight">Single straight parlay</option></select></label>
-  <label class="fld">Stake / ticket<input type="search" id="bstake" value="10" style="min-width:90px"></label>
+  <label class="fld">Find<input type="search" id="bsearch" placeholder="Search"></label>
   <button class="rbtn go" id="btn-build">🔨 Build</button>
   <button class="rbtn" id="btn-clear">Clear</button>
-  <button class="rbtn" id="btn-autopick">Auto-pick top 6 boost</button>
-  <button class="rbtn" id="btn-confonly">✓ Confirmed only</button>
-  <button class="rbtn" id="btn-allgames">All games</button>
   <span class="count" id="bcount"></span>
  </div>
  <div class="bgames" id="bgames"></div>
@@ -581,7 +578,10 @@ function bState(p){ if(isLive(p.game)||(hasStarted(p.gtime)&&!likelyEnded(p.gtim
 function bField(){ return Object.keys(D.players).filter(function(n){var p=D.players[n];
   return p&&p.odds!=null&&!p.out&&!p.void;}); }
 var _bRank={open:0,live:1,final:2};
-function buildPicker(){const names=bField().filter(n=>gameSel.has(D.players[n].game))
+function buildPicker(){const q=(($('#bsearch')||{}).value||'').trim().toLowerCase();
+  const names=bField().filter(n=>gameSel.has(D.players[n].game))
+  .filter(n=>{if(!q)return true;const p=D.players[n];
+    return n.toLowerCase().indexOf(q)>=0||(p.team||'').toLowerCase().indexOf(q)>=0||(p.code||'').toLowerCase().indexOf(q)>=0||(p.gmatch||'').toLowerCase().indexOf(q)>=0;})
   .sort((a,b)=>(_bRank[bState(D.players[a])]-_bRank[bState(D.players[b])])||(D.players[b].TOTAL-D.players[a].TOTAL));
  $('#bpick').innerHTML=names.length?names.map(n=>{const p=D.players[n];const ck=selNames.has(n)?' checked':'';const st=bState(p);return `<label class="prow${st!=='open'?' prow-off':''}"><input type="checkbox" class="bchk"${ck} value="${esc(n)}"><span class="pn">${n}</span><span class="pmeta">${p.code} ${st==='open'?(p.gtime||'').replace(/\s*(AM|PM)\s*ET/i,''):('<i class="b-'+st+'">'+(st==='live'?'live':'final')+'</i>')}</span><span class="po${p.odds?'':' tbd'}">${oStr(p.odds)}</span></label>`;}).join(''):'<div class="empty" style="padding:22px">No games selected — tap a game above.</div>';}
 const bSel=()=>[...document.querySelectorAll('.bchk:checked')].map(c=>c.value);
@@ -835,7 +835,7 @@ function gradeHTML(g,k,mode){
       +'<span class="lg-o">'+((p.odds>0?'+':'')+p.odds)+'</span>'
       +'<span class="lg-bar"><i style="width:'+cv+'%"></i></span>'
       +'<span class="lg-p">'+(Math.round(g.ps[i]*1000)/10)+'%</span></div>'; }).join('');
-  var stk=parseFloat(($('#bstake')||{}).value)||10;
+  var stk=BSTAKE;
   var lad=g.ladder.map(function(r){
     return '<div class="pay-row"><span class="pay-k">'+(r.all?'all '+r.j+' land':r.j+' of '+k+' land')+'</span>'
      +'<span class="pay-v">'+(r.hi-r.lo>1?('$'+Math.round(r.lo)+' – $'+Math.round(r.hi)):('$'+Math.round(r.hi)))+'</span>'
@@ -864,7 +864,8 @@ function gradeHTML(g,k,mode){
    +'</div></div>';
 }
 
-function buildCombos(){const mode=$('#bmode').value,stake=parseFloat($('#bstake').value)||10,sel=bSel();
+var BSTAKE=10;   // the stake box was replaced by Find; every ticket is priced at a flat $10
+function buildCombos(){const mode=$('#bmode').value,stake=BSTAKE,sel=bSel();
  if(!sel.length){$('#bout').innerHTML='<div class="empty">Pick bats on the left, then Build.</div>';$('#bcount').textContent='';return;}
  let groups=[];if(mode==='straight')groups=sel.length>=2?[sel]:[];else{(mode==='rr2'?[2]:mode==='rr3'?[3]:[2,3]).forEach(k=>{if(sel.length>=k)groups=groups.concat(kcombos(sel,k));});}
  let priced=0,html='';
@@ -881,7 +882,8 @@ function clearBuild(){   // wipes the slip, not the game filter -- Clear sits ne
   document.querySelectorAll('.bchk').forEach(c=>{c.checked=false;});
   $('#bout').innerHTML='<div class="empty">Pick bats on the left, then Build.</div>';
   $('#bcount').textContent='';}
-$('#btn-build').onclick=buildCombos;$('#btn-clear').onclick=clearBuild;$('#btn-autopick').onclick=autopick;$('#btn-confonly').onclick=confirmedOnly;$('#btn-allgames').onclick=allGames;
+$('#btn-build').onclick=buildCombos;$('#btn-clear').onclick=clearBuild;
+$('#bsearch').addEventListener('input',buildPicker);
 function fmtOdds(o){return o==null?'':((o>0?'+':'')+o);}
 function adminList(){let ns=Object.keys(D.players).sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL);const q=$('#osearch').value.trim().toLowerCase(),f=$('#ofilter').value;
  if(q)ns=ns.filter(n=>n.toLowerCase().includes(q)||D.players[n].team.toLowerCase().includes(q)||D.players[n].code.toLowerCase().includes(q));
