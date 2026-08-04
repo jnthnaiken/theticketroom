@@ -873,7 +873,8 @@ function buildCombos(){const mode=$('#bmode').value,stake=parseFloat($('#bstake'
  if(_g){ $('#bout').innerHTML=gradeHTML(_g,sel.length,mode); $('#bcount').textContent=sel.length+' selected'; return; }
  $('#bout').innerHTML=`<div class="bsum">${groups.length} ticket${groups.length!==1?'s':''} \u00b7 <b>${priced}</b> priced \u00b7 total stake <span class="big">$${(groups.length*stake).toFixed(0)}</span> \u00b7 cashes when ${mode==='straight'?'all legs hit':'<b>any ticket</b> hits'}</div>`+html;
  $('#bcount').textContent=sel.length+' selected';}
-function autopick(){const pool=Object.keys(D.players).filter(n=>gameSel.has(D.players[n].game)&&avail(D.players[n])==='ok');let top=pool.filter(n=>D.players[n].wf>=1.20).sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL).slice(0,6);if(top.length<2)top=pool.sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL).slice(0,6);selNames.clear();top.forEach(n=>selNames.add(n));buildPicker();buildCombos();}
+function autopick(){const pool=bField().filter(n=>gameSel.has(D.players[n].game))   // same fix as the picker: the whole priced field, still-open games first
+  .sort((a,b)=>(_bRank[bState(D.players[a])]-_bRank[bState(D.players[b])])||(D.players[b].TOTAL-D.players[a].TOTAL));let top=pool.filter(n=>D.players[n].wf>=1.20).sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL).slice(0,6);if(top.length<2)top=pool.sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL).slice(0,6);selNames.clear();top.forEach(n=>selNames.add(n));buildPicker();buildCombos();}
 $('#btn-build').onclick=buildCombos;$('#btn-autopick').onclick=autopick;$('#btn-confonly').onclick=confirmedOnly;$('#btn-allgames').onclick=allGames;
 function fmtOdds(o){return o==null?'':((o>0?'+':'')+o);}
 function adminList(){let ns=Object.keys(D.players).sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL);const q=$('#osearch').value.trim().toLowerCase(),f=$('#ofilter').value;
