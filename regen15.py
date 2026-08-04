@@ -99,6 +99,25 @@ if os.path.exists('client_assemble.js') and os.path.exists(BOARD):
             print(f"  !! client engine exited {r.returncode}: {(r.stderr or '').strip()[:200]}")
     except Exception as e:
         print(f"  !! client engine unavailable ({str(e)[:120]})")
+# A forced rebuild starts with no prior board, so the engine takes the FRESH draftF path -- and the salami
+# backstop (the block that ships a Grand Salami when draftF's pre-chosen salami anchor got absorbed into a
+# moon) only lives on the preserve path. A browser loading the board would run that backstop on the next
+# page load and add a salami the archive never had, which is exactly the archive-vs-screen divergence
+# client_assemble.js exists to prevent. So run the engine a second time, feeding it its own output as prior
+# -- the same two steps a visitor's browser performs -- and archive whatever that settles on.
+if _force and _drafted:
+    json.dump(D, open(DJSON, 'w'), indent=1)
+    try:
+        r2 = subprocess.run(['node', 'client_assemble.js', DJSON, BOARD],
+                            capture_output=True, text=True, timeout=120)
+        if r2.stdout.strip(): print("  second pass:" + r2.stdout.rstrip())
+        if r2.returncode == 0:
+            D = json.load(open(DJSON))
+        else:
+            print(f"  !! second pass exited {r2.returncode}: {(r2.stderr or '').strip()[:200]}")
+    except Exception as e:
+        print(f"  !! second pass failed ({str(e)[:120]})")
+
 if not _drafted:
     print("  !! FALLING BACK to assemble_tickets.py -- the archive may not match the rendered board")
     assemble_tickets.assemble(D)               # same rules, but no prior-board lock: last resort only
