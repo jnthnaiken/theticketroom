@@ -16,7 +16,7 @@ RULES (match the code below):
   * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY; moons/salami/builders chalk-free.
   * Moons          = ~2 per non-salami anchor; anchor + 2 longshots, snake-drafted, legs inside a WIN(=120)-min window.
   * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
-  * Builders       = leftover / sub-gate bats as single-leg bankroll plays.
+  * Anchors        = the parlay anchors as single-leg plays (kind key is still "builder" -- see NAMES).
   * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (4:00 PM ET).
   * Ticket names   = rotated by day-of-year, no repeats.
 """
@@ -75,17 +75,18 @@ NAME_POOLS = {
         "Midday Meal", "High Noon", "The Blue Plate", "The Noon Whistle", "The Midday Mash",
         "Half-Day Hammer", "The Matinee", "The Early Bird", "Midday Money", "First-Pitch Feast",
     ],
-    "builder": [  # bankroll / getting paid
-        "Cash Is King", "Paid in Full", "Bag Secured", "The Sure Thing", "Easy Money",
-        "Stack It High", "Mailbox Money", "Bread Winner", "Walk-Off Wallet", "Petty Cash",
-        "Pay the Rent", "Cha-Ching", "The Day Job", "Clock In, Cash Out",
-        "Grocery Money", "The Side Hustle", "Beer Money", "Coffee's on Me", "The Tip Jar",
-        "Found Money", "Gas Money", "The Down Payment", "Spare Change", "The Nest Egg", "Payday", "House Money",
-        "Keep the Change", "Cover Charge", "The Cushion", "Quick Buck", "In the Black",
-        "The Float", "Walking-Around Money", "The Cookie Jar", "Pocket Money", "The Allowance",
-        "Cashing Out", "The Slow Grind", "Steady Drip", "Singles Add Up", "Chip Stack",
-        "The Vig Killer", "Direct Deposit", "Rainy Day Fund", "The ATM",
-        "Milk Money", "Tab Settled",
+    # Anchors (kind key stays "builder": season.json, the D_<date>.json archives and grade_night.py
+    # are all keyed on it, and 92 graded nights of ledger history hang off that key. Display only.)
+    "builder": [  # nautical -- the bat the board is built around
+        "Even Keel", "Weigh Anchor", "Holding Ground", "Safe Harbour", "Deep Water",
+        "The Mooring", "Steady as She Goes", "All Hands", "Full Fathom", "The Windlass",
+        "Drop the Hook", "The Ballast", "Sea Legs", "The Keel", "Fair Winds",
+        "Following Sea", "Set the Hook", "The Capstan", "Anchors Aweigh", "Riding the Tide",
+        "High Water", "Made Fast", "Cast Off", "Slack Tide", "Trim the Sail",
+        "Port of Call", "The Bowline", "On Station", "Dockside", "The Waterline",
+        "Shipshape", "The Anchorage", "Under Way", "Making Headway", "Ready About",
+        "Landfall", "The Lighthouse", "The Breakwater", "Chart a Course", "The Helm",
+        "Squared Away", "Hold Fast", "Ground Tackle", "Calm Seas", "The Berth", "Tide's Turn",
     ],
 }
 
@@ -545,7 +546,7 @@ def assemble(D):
     # 2026-07-09: conviction-snub builders removed -- builders = parlay ANCHORS only.
     # (over the ledger window snubs graded -57u vs anchors +9u; snubs were the entire builder bleed)
     for n in _bnames:
-        add(name_for("builder"), "builder", "\U0001f4b0", [n])
+        add(name_for("builder"), "builder", "\u2693\ufe0f", [n])
 
     # price every ticket (same correlation rule the board uses)
     wx = D.get('meta', {}).get('wx', {})
