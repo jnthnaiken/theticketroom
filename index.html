@@ -409,7 +409,8 @@ header{position:relative}
  <div class="bar">
   <label class="fld">Combo type<select id="bmode"><option value="rr2">Round-robin · 2-leg</option><option value="rr3">Round-robin · 3-leg</option><option value="rr23">Round-robin · 2s + 3s</option><option value="straight">Single straight parlay</option></select></label>
   <label class="fld">Stake / ticket<input type="search" id="bstake" value="10" style="min-width:90px"></label>
-  <button class="rbtn go" id="btn-build">↻ Build / refresh</button>
+  <button class="rbtn go" id="btn-build">🧾 Build</button>
+  <button class="rbtn" id="btn-clear">Clear</button>
   <button class="rbtn" id="btn-autopick">Auto-pick top 6 boost</button>
   <button class="rbtn" id="btn-confonly">✓ Confirmed only</button>
   <button class="rbtn" id="btn-allgames">All games</button>
@@ -875,7 +876,12 @@ function buildCombos(){const mode=$('#bmode').value,stake=parseFloat($('#bstake'
  $('#bcount').textContent=sel.length+' selected';}
 function autopick(){const pool=bField().filter(n=>gameSel.has(D.players[n].game))   // same fix as the picker: the whole priced field, still-open games first
   .sort((a,b)=>(_bRank[bState(D.players[a])]-_bRank[bState(D.players[b])])||(D.players[b].TOTAL-D.players[a].TOTAL));let top=pool.filter(n=>D.players[n].wf>=1.20).sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL).slice(0,6);if(top.length<2)top=pool.sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL).slice(0,6);selNames.clear();top.forEach(n=>selNames.add(n));buildPicker();buildCombos();}
-$('#btn-build').onclick=buildCombos;$('#btn-autopick').onclick=autopick;$('#btn-confonly').onclick=confirmedOnly;$('#btn-allgames').onclick=allGames;
+function clearBuild(){   // wipes the slip, not the game filter -- Clear sits next to Build and means "start this slip over"
+  selNames.clear();
+  document.querySelectorAll('.bchk').forEach(c=>{c.checked=false;});
+  $('#bout').innerHTML='<div class="empty">Pick bats on the left, then Build.</div>';
+  $('#bcount').textContent='';}
+$('#btn-build').onclick=buildCombos;$('#btn-clear').onclick=clearBuild;$('#btn-autopick').onclick=autopick;$('#btn-confonly').onclick=confirmedOnly;$('#btn-allgames').onclick=allGames;
 function fmtOdds(o){return o==null?'':((o>0?'+':'')+o);}
 function adminList(){let ns=Object.keys(D.players).sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL);const q=$('#osearch').value.trim().toLowerCase(),f=$('#ofilter').value;
  if(q)ns=ns.filter(n=>n.toLowerCase().includes(q)||D.players[n].team.toLowerCase().includes(q)||D.players[n].code.toLowerCase().includes(q));
