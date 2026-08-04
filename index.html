@@ -382,7 +382,7 @@ header{position:relative}
   <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild</span><span>🔥 hot park · ❄️ suppressed park</span><span>🧱 base score</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> soft starter · 🚧 in progress · ❌ no homer · ⚾ homered</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
  </div>
   </div>
-  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar tip-stack" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the drinks free</span></a></div>
+  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar tip-stack" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
  </div>
 </header>
 <div class="nav"><div class="tabs" role="tablist">
@@ -390,7 +390,7 @@ header{position:relative}
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><a class="tipjar tip-nav" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the drinks free</span></a></div>
+</div><a class="tipjar tip-nav" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="builder">⚓️ Anchors</button><button class="tbtn" data-type="chef">🍽️ Chef's Table</button><button class="tbtn" data-type="moon">🚀 Moonshots</button><button class="tbtn" data-type="biggest">🥪 Grand Salami</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
@@ -407,9 +407,8 @@ header{position:relative}
 </section>
 <section id="v-b" role="tabpanel" aria-labelledby="tab-b" hidden>
  <div class="bar">
-  <label class="fld">Combo type<select id="bmode"><option value="rr2">Round-robin · 2-leg</option><option value="rr3">Round-robin · 3-leg</option><option value="rr23">Round-robin · 2s + 3s</option><option value="straight">Single straight parlay</option></select></label>
   <label class="fld">Find<input type="search" id="bsearch" placeholder="Search"></label>
-  <button class="rbtn go" id="btn-build">🔨 Build</button>
+  <button class="rbtn" id="btn-build">🔨 Build</button>
   <button class="rbtn" id="btn-clear">Clear</button>
   <span class="count" id="bcount"></span>
  </div>
@@ -875,7 +874,11 @@ function gradeHTML(g,k,mode){
 }
 
 var BSTAKE=10;   // the stake box was replaced by Find; every ticket is priced at a flat $10
-function buildCombos(){const mode=$('#bmode').value,stake=BSTAKE,sel=bSel();
+var BMODE='rr2'; /* the Combo type picker is gone -- one less decision to make before you can get a grade.
+   'rr2' is exactly what the dropdown defaulted to on load, so every slip grades the same as it did with the
+   picker sitting there: a 2-leg round robin over the bats you tick, cashing when ANY pair hits. Change this
+   one constant to rr3 / rr23 / straight to move the whole board's grading basis. */
+function buildCombos(){const mode=BMODE,stake=BSTAKE,sel=bSel();
  if(!sel.length){$('#bout').innerHTML='<div class="empty">Pick bats on the left, then Build.</div>';$('#bcount').textContent='';return;}
  let groups=[];if(mode==='straight')groups=sel.length>=2?[sel]:[];else{(mode==='rr2'?[2]:mode==='rr3'?[3]:[2,3]).forEach(k=>{if(sel.length>=k)groups=groups.concat(kcombos(sel,k));});}
  let priced=0,html='';
