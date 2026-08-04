@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T19:16:52Z",
+  "pulled_at": "2026-08-04T19:21:50Z",
   "games": [
     {
       "gamePk": 824805,
@@ -73,8 +73,54 @@
           "hr9": 1.86,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.104
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.214
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.177
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.29
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.135
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.211
+          },
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": null
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.12
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -665,7 +711,7 @@
     },
     {
       "gamePk": 824888,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T23:15:00Z",
       "matchup": "MIA@ATL",
       "away": {
@@ -687,10 +733,56 @@
           "hr9": 1.59,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.195
+          },
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.275
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.201
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.172
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.154
+          },
+          {
+            "id": 642086,
+            "name": "Dominic Smith",
+            "iso": 0.136
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.135
+          },
+          {
+            "id": 805347,
+            "name": "Jim Jarvis",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
