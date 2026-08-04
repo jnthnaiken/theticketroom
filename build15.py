@@ -437,7 +437,7 @@ def ppitT(d):
     return clamp(1+W_PIT*(sum(zs)/len(zs)),1-W_PIT,1+W_PIT) if zs else 1.0
 SLATE={(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
 
-def _scratched(g, in_lu):
+def _scratched(g, in_lu, conf=False):
     """Is this bat OUT? Only a CONFIRMED lineup can answer that.
 
     This used to be a flat `not in_lu`, which treats a PROJECTED lineup as gospel: any bat missing from
@@ -450,7 +450,7 @@ def _scratched(g, in_lu):
     index.html has always had this guard on the live path -- `if(!posted)return;` -- so the browser never
     scratched anyone off an unposted lineup. The scorer just never got the same guard. Now it does: no
     confirmed lineup, no scratches. An unknown bat is available, not dead."""
-    return (not in_lu) if g.get('status') == 'confirmed' else False
+    return (not in_lu) if (conf or g.get('status') == 'confirmed') else False
 
 
 def wf_of(g):
@@ -521,18 +521,38 @@ for g in lin['games']:
     wf=wf_of(g); gamemeta[gn]=g
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
+        # THE REAL POSTED LINEUP WINS.
+        # fetch_mlb pulls MLB's actual card into slate_auto_<date>.json on every build -- lineups_posted,
+        # per-side confirmed, and the nine names in order. build15 was reading only the PROJECTED
+        # lineups_<date>.json and using slate_auto for WEATHER ALONE, so the truth was fetched every five
+        # minutes and thrown away. On 2026-08-03 slate_auto had COL batting Moniak 5th (confirmed=True,
+        # lineups_posted=True) while the projection batted Rumfield there; Moniak was the 11th-best bat on
+        # the board, got stamped scratched off the projection, was barred from every ticket, started, and
+        # homered. Worse, lineups_<date>.json is written by slate_assemble.py, which is not a step in the
+        # workflow at all -- so once a day starts, nothing ever refreshes it.
+        # Prefer the pull. Keep the projection only as the fallback for a side MLB has not posted yet.
+        _hand={norm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None
+               for i,b in enumerate(g[side+'_bats'])}
+        _sag=SLATE.get(gm) or {}; _sas=(_sag.get(side) or {})
+        _real=[p.get('name') for p in (_sas.get('lineup') or []) if p.get('name')]
+        _conf=bool(_real) and bool(_sas.get('confirmed')) and bool(_sag.get('lineups_posted'))
+        if _conf and [norm(x) for x in g[side+'_bats']]!=[norm(x) for x in _real]:
+            print(f"  lineup: {gm} {side} -> using MLB's posted card ({len(_real)}), not the projection")
+        if _conf: g[side+'_bats']=_real
         posted={norm(x) for x in g[side+'_bats']}
-        _bhand={norm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None for i,b in enumerate(g[side+'_bats'])}
+        # hands are keyed by NAME, never by slot -- the real card reorders (and adds) bats, so an index
+        # lookup into the projection's hands array would hand somebody else's handedness to the wrong bat.
+        _bhand={norm(b):_hand.get(norm(b)) for b in g[side+'_bats']}
         _slot={norm(b):i+1 for i,b in enumerate(g[side+'_bats'])}
         for c in cards[gm][code]:
             nm=c['name']; n=norm(nm); in_lu=n in posted
-            status=('confirmed' if g.get('status')=='confirmed' else 'projected') if in_lu else 'projected'
+            status=('confirmed' if (_conf or g.get('status')=='confirmed') else 'projected') if in_lu else 'projected'
             form=c['form_pct'] if c.get('form_pct') is not None else 50
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=c['pb']*c['hh']*la_window(c['la'])
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
-                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=_scratched(g,in_lu),status=status,
+                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=_scratched(g,in_lu,_conf),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
