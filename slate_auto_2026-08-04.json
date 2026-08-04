@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T20:22:13Z",
+  "pulled_at": "2026-08-04T20:27:16Z",
   "games": [
     {
       "gamePk": 824805,
@@ -1190,7 +1190,7 @@
     },
     {
       "gamePk": 824161,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T00:10:00Z",
       "matchup": "TOR@HOU",
       "away": {
@@ -1212,10 +1212,56 @@
           "hr9": 0.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.205
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.318
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.165
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.131
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.22
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.149
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.156
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.159
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.156
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
