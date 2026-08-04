@@ -366,6 +366,10 @@ header{position:relative}
 .pc-gated{box-shadow:inset 3px 0 0 var(--cyan)}
 .pc-gated .pname:after{content:'IN PLAY';margin-left:8px;font-family:'Roboto Mono',monospace;font-size:8px;
  letter-spacing:.14em;color:var(--cyan);vertical-align:2px;opacity:.85}
+.prow-off{opacity:.5}
+.prow-off .po{color:var(--dim)}
+.pmeta i{font-style:normal;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.pmeta i.b-live{color:var(--amber)}.pmeta i.b-final{color:var(--dim)}
 </style></head><body><div class="wrap">
 <header>
  <div class="eyebrow">Home-Run Props · <span id="slateDate">June 15, 2026</span> · Kasper blend + matchup</div>
@@ -566,8 +570,19 @@ function applyOdds(){const lines=$('#oddsin').value.split(/\n+/);let ap=0,miss=[
  lines.forEach(line=>{const m=line.match(/([+\-]\d{3,4})/);if(!m)return;const am=parseInt(m[1],10);let nm=line.slice(0,m.index).replace(/\(.*$/,'').replace(/[:|].*$/,'').trim();if(!nm)return;const key=NM(nm);let hit=IDX[key];if(!hit){const c=Object.keys(IDX).find(k=>k===key||k.includes(key)||key.includes(k));if(c)hit=IDX[c];}if(hit){D.players[hit].odds=am;ap++;}else miss.push(nm);});
  refreshAll();const msg=$('#pbmsg');msg.textContent='applied '+ap+(miss.length?(' \u00b7 no match: '+miss.slice(0,5).join(', ')+(miss.length>5?'\u2026':'')):'');msg.style.color=ap?'var(--lime)':'var(--amber)';}
 function kcombos(a,k){const r=[];(function go(s,c){if(c.length===k){r.push(c.slice());return;}for(let i=s;i<a.length;i++){c.push(a[i]);go(i+1,c);c.pop();}})(0,[]);return r;}
-function buildPicker(){const names=Object.keys(D.players).filter(n=>gameSel.has(D.players[n].game)&&avail(D.players[n])==='ok').sort((a,b)=>D.players[b].TOTAL-D.players[a].TOTAL);
- $('#bpick').innerHTML=names.length?names.map(n=>{const p=D.players[n];const ck=selNames.has(n)?' checked':'';return `<label class="prow"><input type="checkbox" class="bchk"${ck} value="${esc(n)}"><span class="pn">${n}</span><span class="pmeta">${p.code} ${(p.gtime||'').replace(/\s*(AM|PM)\s*ET/i,'')}</span><span class="po${p.odds?'':' tbd'}">${oStr(p.odds)}</span></label>`;}).join(''):'<div class="empty" style="padding:22px">No games selected — tap a game above.</div>';}
+// avail() answers "is this bat hazardous to put on a ticket", and it says 'ok' for a game that has
+// ALREADY FINISHED (started && likelyEnded) while saying 'started' for one in progress. The Builder was
+// filtering on avail()==='ok', so after first pitch the picker offered exactly the games that were over
+// and hid the ones still being played -- at 11pm on 2026-08-03 that left WSH@PHI and nothing else.
+// The Builder needs a different question: what is the whole priced field, and which of it is still open?
+function bState(p){ if(isLive(p.game)||(hasStarted(p.gtime)&&!likelyEnded(p.gtime))) return 'live';
+  if(hasStarted(p.gtime)) return 'final'; return 'open'; }
+function bField(){ return Object.keys(D.players).filter(function(n){var p=D.players[n];
+  return p&&p.odds!=null&&!p.out&&!p.void;}); }
+var _bRank={open:0,live:1,final:2};
+function buildPicker(){const names=bField().filter(n=>gameSel.has(D.players[n].game))
+  .sort((a,b)=>(_bRank[bState(D.players[a])]-_bRank[bState(D.players[b])])||(D.players[b].TOTAL-D.players[a].TOTAL));
+ $('#bpick').innerHTML=names.length?names.map(n=>{const p=D.players[n];const ck=selNames.has(n)?' checked':'';const st=bState(p);return `<label class="prow${st!=='open'?' prow-off':''}"><input type="checkbox" class="bchk"${ck} value="${esc(n)}"><span class="pn">${n}</span><span class="pmeta">${p.code} ${st==='open'?(p.gtime||'').replace(/\s*(AM|PM)\s*ET/i,''):('<i class="b-'+st+'">'+(st==='live'?'live':'final')+'</i>')}</span><span class="po${p.odds?'':' tbd'}">${oStr(p.odds)}</span></label>`;}).join(''):'<div class="empty" style="padding:22px">No games selected — tap a game above.</div>';}
 const bSel=()=>[...document.querySelectorAll('.bchk:checked')].map(c=>c.value);
 let gameSel=new Set(Object.values(D.players).map(p=>p.game));const selNames=new Set();
 function gameInfo(){const g={};Object.values(D.players).forEach(p=>{if(!g[p.game])g[p.game]={gmatch:p.gmatch,gtime:p.gtime,status:'confirmed'};if(p.status!=='confirmed'&&!p.out)g[p.game].status='projected';});return g;}
@@ -620,8 +635,7 @@ function gCashP(ps,mode){         // exact P(at least m hit), Poisson-binomial D
   var t=0; for(j=m;j<dp.length;j++)t+=dp[j]; return t;
 }
 function gTier(ds){ var s=0; for(var i=0;i<ds.length;i++) s+=Math.log(ds[i]); return Math.exp(s/ds.length); }
-function gPool(){ return Object.keys(D.players).filter(function(n){var p=D.players[n];
-  return p&&p.odds!=null&&!p.out&&!p.void&&p.TOTAL!=null&&avail(p)==='ok';}); }
+function gPool(){ return bField().filter(function(n){return D.players[n].TOTAL!=null;}); }
 var _gbase={};
 function gBaseline(k,mode){       // {c:P(cash), t:price tier} for random legal builds of this exact shape
   var key=k+':'+mode; if(_gbase[key]!==undefined)return _gbase[key];
@@ -706,6 +720,9 @@ function gAudit(names,mode,stake){
   if(mode==='rr3'&&k===3){ ded+=6; f.push({d:6,t:'a 3-leg round robin by 3s is a straight parlay wearing a costume — one ticket, all three legs'}); }
   if(mode!=='straight'){ var ng=gModeGroups(k,mode).length;
     if(ng>=20){ ded+=5; f.push({d:5,t:ng+' tickets at $'+gNum(stake)+' is $'+gNum(ng*stake)+' out the door before anything happens'}); } }
+  var late=legs.filter(function(p){return bState(p)!=='open';});
+  if(late.length){ f.push({d:0,t:late.length===k?'every one of these games is already underway — this is a post-mortem, not a slip you could place'
+    :late.length+' of these games have already started, so this is not a slip you could place now'}); }
   var wet=legs.filter(function(p){return p.rain;}); 
   if(wet.length>=Math.ceil(k/2)&&wet.length>1){ ded+=5; f.push({d:5,t:'over half the build is sitting under weather'}); }
   f.sort(function(a,b){return b.d-a.d;});
