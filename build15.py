@@ -437,6 +437,22 @@ def ppitT(d):
     return clamp(1+W_PIT*(sum(zs)/len(zs)),1-W_PIT,1+W_PIT) if zs else 1.0
 SLATE={(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
 
+def _scratched(g, in_lu):
+    """Is this bat OUT? Only a CONFIRMED lineup can answer that.
+
+    This used to be a flat `not in_lu`, which treats a PROJECTED lineup as gospel: any bat missing from
+    somebody's guess got stamped scratched and was barred from every ticket (aliveP requires !out). On
+    2026-08-03 not one game had a confirmed lineup -- all eight read 'projected' -- and the guess for
+    TB@COL batted Rumfield 5th. The real card batted MICKEY MONIAK there. Moniak was the 11th-best bat on
+    the board (156.6), started, and hit a home run, and the board had already ruled him out hours earlier
+    off a projection that was simply wrong.
+
+    index.html has always had this guard on the live path -- `if(!posted)return;` -- so the browser never
+    scratched anyone off an unposted lineup. The scorer just never got the same guard. Now it does: no
+    confirmed lineup, no scratches. An unknown bat is available, not dead."""
+    return (not in_lu) if g.get('status') == 'confirmed' else False
+
+
 def wf_of(g):
     # park factor = symmetric weather (tailwind + temp, capped +/-WX_CLAMP) * elevation. Domes -> 1.0.
     # Tailwind is the wind vector PROJECTED onto the plate->CF axis (handles crosswinds / any angle):
@@ -516,7 +532,7 @@ for g in lin['games']:
             powraw=c['pb']*c['hh']*la_window(c['la'])
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
-                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
+                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=_scratched(g,in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
