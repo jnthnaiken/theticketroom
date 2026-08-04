@@ -24504,7 +24504,7 @@
     "precip_src": null
    }
   },
-  "build": "8/3 8:02pm",
+  "build": "8/3 8:07pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24969,7 +24969,8 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 0
+   "confleg": 0,
+   "locked": true
   },
   {
    "name": "Hitting Apogee",
@@ -25034,7 +25035,8 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 0
+   "confleg": 0,
+   "locked": true
   },
   {
    "name": "The Potluck",
@@ -25112,7 +25114,8 @@
     "dome": 2,
     "neu": 2
    },
-   "confleg": 0
+   "confleg": 0,
+   "locked": true
   },
   {
    "name": "The Float",
@@ -25185,44 +25188,10 @@
    "locked": true
   },
   {
-   "name": "The Float",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Hunter Goodman plays in a wind tunnel pointed at the seats, is teeing off (56% hard-hit), keeps the ball in the air (22\u00b0).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 206,
-     "aT": 100,
-     "wf": 1.121,
-     "gmatch": "TB@COL",
-     "gtime": "8:40 PM ET",
-     "game": 7,
-     "late": false,
-     "odds": 270,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Hunter Goodman",
-   "lock": "8:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
-  },
-  {
    "name": "Walking-Around Money",
    "kind": "builder",
    "badge": "\ud83d\udcb0",
-   "note": "Pete Crow-Armstrong is rocketing line drives (53% hard-hit), stays in the launch zone (21\u00b0), sits in the elite power tier (100/100).",
+   "note": "Pete Crow-Armstrong is teeing off (53% hard-hit), stays in the launch zone (21\u00b0), sits in the elite power tier (100/100), riding a hot stretch.",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -25249,6 +25218,41 @@
     "supp": 0,
     "dome": 0,
     "neu": 1
+   },
+   "confleg": 0,
+   "locked": true
+  },
+  {
+   "name": "The Float",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Hunter Goodman plays in a wind tunnel pointed at the seats, is rocketing line drives (56% hard-hit), keeps the ball in the air (22\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 206,
+     "aT": 100,
+     "wf": 1.121,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 270,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Hunter Goodman",
+   "lock": "8:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 0,
+    "neu": 0
    },
    "confleg": 0
   },
@@ -25334,23 +25338,23 @@
  "pool": [
   "James Wood",
   "Esmerlyn Valdez",
+  "Bryce Eldridge",
   "Andr\u00e9s Chaparro",
   "Brandon Lowe",
   "Trent Grisham",
   "Bryce Harper",
+  "Rafael Devers",
+  "Seiya Suzuki",
+  "Shohei Ohtani",
+  "Corey Seager",
+  "Pete Crow-Armstrong",
   "Jake Bauers",
   "Jordan Walker",
+  "Joc Pederson",
   "Hunter Goodman",
-  "Rafael Devers",
-  "Shohei Ohtani",
   "Kazuma Okamoto",
-  "Bryce Eldridge",
   "Jonathan Aranda",
   "Cedric Mullins",
-  "Corey Seager",
-  "Seiya Suzuki",
-  "Pete Crow-Armstrong",
-  "Spencer Jones",
-  "Joc Pederson"
+  "Spencer Jones"
  ]
 }
