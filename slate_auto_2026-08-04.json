@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T19:26:54Z",
+  "pulled_at": "2026-08-04T19:30:29Z",
   "games": [
     {
       "gamePk": 824805,
@@ -798,7 +798,7 @@
     },
     {
       "gamePk": 824084,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-04T23:40:00Z",
       "matchup": "MIN@KC",
       "away": {
@@ -820,10 +820,56 @@
           "hr9": 0.69,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.192
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.171
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.205
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.162
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.154
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.155
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.132
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.375
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.11
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
