@@ -59,7 +59,12 @@ except Exception as e:
 # index.html is the single source of truth for the draft; the archive is what the board shows, by
 # construction, and there is no second implementation to keep in sync. assemble_tickets.assemble()
 # stays as the fallback if Node or the engine is unavailable.
-_same_slate = bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
+# FORCE_REBUILD: a data-fix re-run of a slate that already shipped. Handing the prior board to the engine
+# is what makes the lock rule work on a normal build -- but on a rebuild every game is long final, so every
+# prior ticket would lock and the corrected data would change nothing. Draft this one from scratch instead.
+_force = os.environ.get('FORCE_REBUILD', '').lower() == 'true'
+if _force: print("  (FORCE_REBUILD -> ignoring the prior board; drafting this slate from scratch)")
+_same_slate = (not _force) and bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 if _same_slate:
     D['tickets'] = prevD['tickets']            # hand the prior board to the engine AS PRIOR -> it locks the confirmed ones
     print(f"  (same slate -> {len(D['tickets'])} prior tickets handed to the draft engine)")
