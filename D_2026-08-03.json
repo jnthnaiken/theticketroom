@@ -24504,7 +24504,7 @@
     "precip_src": null
    }
   },
-  "build": "8/4 12:39am",
+  "build": "8/4 12:54am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24645,7 +24645,7 @@
   "date": "2026-08-03",
   "gs": {},
   "pool": 268,
-  "tickets": 1
+  "tickets": 11
  },
  "pool": [
   "James Wood",
@@ -24667,10 +24667,536 @@
  ],
  "tickets": [
   {
+   "name": "Slipping the Surly Bonds",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Wood projects out to 214, Moniak has loft to spare (20\u00b0), and Grisham grades out strong for power (78/100).",
+   "players": [
+    {
+     "name": "James Wood",
+     "team": "Nationals",
+     "total": 213.6,
+     "aT": 100,
+     "wf": 1.023,
+     "gmatch": "WSH@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 240,
+     "status": "confirmed"
+    },
+    {
+     "name": "Mickey Moniak",
+     "team": "Rockies",
+     "total": 156.6,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 390,
+     "status": "confirmed"
+    },
+    {
+     "name": "Trent Grisham",
+     "team": "Yankees",
+     "total": 148.8,
+     "aT": 100,
+     "wf": 1.012,
+     "gmatch": "STL@NYY",
+     "gtime": "7:05 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 355,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "James Wood",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 128.2,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 0,
+    "neu": 2
+   },
+   "confleg": 3
+  },
+  {
+   "name": "Cleared for Launch",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Wood is leaving scorch marks (65% hard-hit), Valdez puts air under the ball (18\u00b0), and Aranda swings with the wind at his back.",
+   "players": [
+    {
+     "name": "James Wood",
+     "team": "Nationals",
+     "total": 213.6,
+     "aT": 100,
+     "wf": 1.023,
+     "gmatch": "WSH@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 240,
+     "status": "confirmed"
+    },
+    {
+     "name": "Esmerlyn Valdez",
+     "team": "Pirates",
+     "total": 153.9,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "PIT@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 400,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jonathan Aranda",
+     "team": "Rays",
+     "total": 153.7,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 395,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "James Wood",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 140.7,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3
+  },
+  {
+   "name": "Booster Ignition",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman gets a yard playing like a launchpad tonight, Okamoto is generating elite exit velo (55% hard-hit), and Seager has textbook lift (18\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 206,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 270,
+     "status": "confirmed"
+    },
+    {
+     "name": "Kazuma Okamoto",
+     "team": "Blue Jays",
+     "total": 157.6,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "TOR@HOU",
+     "gtime": "8:10 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 350,
+     "status": "confirmed"
+    },
+    {
+     "name": "Corey Seager",
+     "team": "Rangers",
+     "total": 142.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "SF@TEX",
+     "gtime": "8:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 385,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "8:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 135.2,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 2,
+    "neu": 0
+   },
+   "confleg": 3
+  },
+  {
+   "name": "Hitting Apogee",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman gets a park that's launching everything tonight, Lowe swings with natural lift (19\u00b0), and Suzuki is connecting solidly (51% hard-hit).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 206,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 270,
+     "status": "confirmed"
+    },
+    {
+     "name": "Brandon Lowe",
+     "team": "Pirates",
+     "total": 154.9,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "PIT@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 345,
+     "status": "confirmed"
+    },
+    {
+     "name": "Seiya Suzuki",
+     "team": "Cubs",
+     "total": 139,
+     "aT": 100,
+     "wf": 1.011,
+     "gmatch": "LAD@CHC",
+     "gtime": "8:05 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 403,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "7:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 138.3,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3
+  },
+  {
+   "name": "Mach Breaker",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Devers is blistering line drives (61% hard-hit), Harper lives in the launch window (17\u00b0), and Mullins has the wind howling out behind him.",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 189.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "SF@TEX",
+     "gtime": "8:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 275,
+     "status": "confirmed"
+    },
+    {
+     "name": "Bryce Harper",
+     "team": "Phillies",
+     "total": 183.8,
+     "aT": 100,
+     "wf": 1.023,
+     "gmatch": "WSH@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 280,
+     "status": "confirmed"
+    },
+    {
+     "name": "Cedric Mullins",
+     "team": "Rays",
+     "total": 153,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 350,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Rafael Devers",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 110.4,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3
+  },
+  {
+   "name": "Punching Through the Ceiling",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Devers is hitting bullets (61% hard-hit), Ohtani brings light-tower raw power (100/100), and Bauers lands at 137 in our model.",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 189.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "SF@TEX",
+     "gtime": "8:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 275,
+     "status": "confirmed"
+    },
+    {
+     "name": "Shohei Ohtani",
+     "team": "Dodgers",
+     "total": 173.8,
+     "aT": 100,
+     "wf": 1.011,
+     "gmatch": "LAD@CHC",
+     "gtime": "8:05 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 325,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jake Bauers",
+     "team": "Brewers",
+     "total": 137.2,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "PIT@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 423,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Rafael Devers",
+   "lock": "7:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 139.1,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 2,
+    "neu": 1
+   },
+   "confleg": 3
+  },
+  {
+   "name": "Under the Lights",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Pete Crow-Armstrong is crushing the baseball (53% hard-hit), stays in the launch zone (21\u00b0), sits in the elite power tier (100/100), riding a hot stretch, and lands at 138 in our model.",
+   "players": [
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 137.8,
+     "aT": 100,
+     "wf": 1.011,
+     "gmatch": "LAD@CHC",
+     "gtime": "8:05 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 423,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Crow-Armstrong",
+   "lock": "8:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1
+  },
+  {
+   "name": "The Anchorage",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "James Wood is squaring up premium contact (65% hard-hit), gets a touch of carry tonight, gets there more on timing than thump (37/100 power).",
+   "players": [
+    {
+     "name": "James Wood",
+     "team": "Nationals",
+     "total": 213.6,
+     "aT": 100,
+     "wf": 1.023,
+     "gmatch": "WSH@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 240,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "James Wood",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1
+  },
+  {
+   "name": "Under Way",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Hunter Goodman has gusts carrying balls over the wall, is punishing the baseball (56% hard-hit), launches it at the right angle (22\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 206,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 270,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Hunter Goodman",
+   "lock": "8:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1
+  },
+  {
+   "name": "Making Headway",
+   "kind": "builder",
+   "badge": "\ud83d\udcb0",
+   "note": "Rafael Devers is making elite contact (61% hard-hit), gets ideal loft (20\u00b0), swings one of the biggest sticks on the board (100/100 power).",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 189.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "SF@TEX",
+     "gtime": "8:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 275,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Rafael Devers",
+   "lock": "8:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 1
+  },
+  {
    "name": "Top Shelf",
    "kind": "chef",
    "badge": "\ud83c\udf7d",
-   "note": "Schwarber catches a small park boost, Caminero carries a solid power grade (62/100), Alvarez is squaring up rockets (59% hard-hit), and Rice projects out to 199.",
+   "note": "Schwarber catches a small park boost, Caminero carries a solid power grade (62/100), Alvarez is scorching the ball (59% hard-hit), and Rice carries a 199 number tonight.",
    "players": [
     {
      "name": "Kyle Schwarber",
