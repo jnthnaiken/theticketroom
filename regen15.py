@@ -63,7 +63,21 @@ except Exception as e:
 # is what makes the lock rule work on a normal build -- but on a rebuild every game is long final, so every
 # prior ticket would lock and the corrected data would change nothing. Draft this one from scratch instead.
 _force = os.environ.get('FORCE_REBUILD', '').lower() == 'true'
-if _force: print("  (FORCE_REBUILD -> ignoring the prior board; drafting this slate from scratch)")
+if _force:
+    print("  (FORCE_REBUILD -> ignoring the prior board; drafting this slate from scratch)")
+    # ...and draft it as of five minutes before the first pitch, not as of right now. See client_assemble.js.
+    def _gmin(gt):
+        import re as _re
+        m = _re.match(r'\s*(\d+):(\d+)\s*(AM|PM)', gt or '', _re.I)
+        if not m: return None
+        h = int(m.group(1)) % 12
+        if m.group(3).upper() == 'PM': h += 12
+        return h * 60 + int(m.group(2))
+    _mins = [x for x in (_gmin((p or {}).get('gtime')) for p in D.get('players', {}).values()) if x is not None]
+    if _mins:
+        _t = max(0, min(_mins) - 5)
+        os.environ['ASOF'] = "%sT%02d:%02d:00-04:00" % (D['meta']['date'], _t // 60, _t % 60)
+        print(f"  (as-of {os.environ['ASOF']} -- five minutes before the first lock)")
 _same_slate = (not _force) and bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date') and prevD.get('tickets'))
 if _same_slate:
     D['tickets'] = prevD['tickets']            # hand the prior board to the engine AS PRIOR -> it locks the confirmed ones
