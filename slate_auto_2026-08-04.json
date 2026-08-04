@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T22:21:50Z",
+  "pulled_at": "2026-08-04T22:26:48Z",
   "games": [
     {
       "gamePk": 824805,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824403,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-04T22:40:00Z",
       "matchup": "NYM@CLE",
       "away": {
@@ -1685,7 +1685,7 @@
     },
     {
       "gamePk": 825054,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T01:40:00Z",
       "matchup": "SD@ARI",
       "away": {
@@ -1696,8 +1696,54 @@
           "hr9": 1.33,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.115
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.072
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.216
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.239
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.16
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.1
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.123
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.07
+          },
+          {
+            "id": 687749,
+            "name": "Jase Bowen",
+            "iso": 0.078
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -1707,10 +1753,56 @@
           "hr9": 0.9,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.229
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.127
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.141
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.195
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.178
+          },
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.12
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.161
+          },
+          {
+            "id": 543510,
+            "name": "James McCann",
+            "iso": 0.154
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
