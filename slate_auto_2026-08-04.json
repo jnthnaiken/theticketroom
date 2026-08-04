@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T19:41:57Z",
+  "pulled_at": "2026-08-04T19:51:59Z",
   "games": [
     {
       "gamePk": 824805,
@@ -1138,7 +1138,7 @@
     },
     {
       "gamePk": 824321,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T00:40:00Z",
       "matchup": "TB@COL",
       "away": {
@@ -1160,10 +1160,56 @@
           "hr9": 0.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.202
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.219
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.288
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.297
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.169
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.161
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.156
+          },
+          {
+            "id": 687597,
+            "name": "Jordan Beck",
+            "iso": 0.122
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
