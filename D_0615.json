@@ -27143,7 +27143,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27223,17 +27223,17 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 486.1019691955234,
-   "slot": 6,
-   "bhand": "L",
+   "slot": null,
+   "bhand": null,
    "hr9": null,
    "wf": 1.13,
-   "pull_tail": -7.632432865407835,
+   "pull_tail": null,
    "game": 13,
    "gmatch": "TB@COL",
    "gtime": "8:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -27251,8 +27251,8 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.191065632086798,
-   "slotT": 0.98,
-   "platT": 1.056,
+   "slotT": 1,
+   "platT": 1,
    "pen_fatigue": -0.52,
    "penT": 0.9584,
    "bg": 0,
@@ -27325,7 +27325,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27416,7 +27416,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27496,7 +27496,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 249.39632804068157,
-   "slot": 5,
+   "slot": 7,
    "bhand": "L",
    "hr9": null,
    "wf": 1.13,
@@ -27507,7 +27507,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27524,7 +27524,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.236130686712082,
-   "slotT": 1,
+   "slotT": 0.96,
    "platT": 1.056,
    "pen_fatigue": -0.52,
    "penT": 0.9584,
@@ -27597,7 +27597,7 @@
    "gtime": "8:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -27689,7 +27689,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27769,7 +27769,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 0,
-   "slot": 7,
+   "slot": 6,
    "bhand": "L",
    "hr9": null,
    "wf": 1.13,
@@ -27780,7 +27780,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27797,7 +27797,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.7,
-   "slotT": 0.96,
+   "slotT": 0.98,
    "platT": 1.056,
    "pen_fatigue": -0.52,
    "penT": 0.9584,
@@ -27871,7 +27871,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -27961,7 +27961,7 @@
    "gtime": "8:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -28052,7 +28052,7 @@
    "gtime": "8:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -28143,7 +28143,7 @@
    "gtime": "8:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -28234,7 +28234,7 @@
    "gtime": "8:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -34430,7 +34430,7 @@
     "precip_src": null
    }
   },
-  "build": "8/4 5:51pm",
+  "build": "8/4 5:54pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -34910,7 +34910,8 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 2
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Booster Ignition",
@@ -34975,143 +34976,14 @@
     "dome": 0,
     "neu": 3
    },
-   "confleg": 2
-  },
-  {
-   "name": "Hitting Apogee",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Goodman has the wind howling out behind him, Cruz is blistering line drives (55% hard-hit), and Valdez finds the home-run trajectory (16\u00b0).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 186.9,
-     "aT": 100,
-     "wf": 1.13,
-     "gmatch": "TB@COL",
-     "gtime": "8:40 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 260,
-     "status": "confirmed"
-    },
-    {
-     "name": "Elly De La Cruz",
-     "team": "Reds",
-     "total": 162.6,
-     "aT": 100,
-     "wf": 1.041,
-     "gmatch": "ATH@CIN",
-     "gtime": "6:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 323,
-     "status": "confirmed"
-    },
-    {
-     "name": "Esmerlyn Valdez",
-     "team": "Pirates",
-     "total": 155.2,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "PIT@MIL",
-     "gtime": "7:40 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 345,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Hunter Goodman",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 115.8,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 2
-   },
-   "confleg": 2
-  },
-  {
-   "name": "Mach Breaker",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Goodman plays in a wind tunnel pointed at the seats, Vargas carries a solid power grade (56/100), and Lowe is scorching the ball (54% hard-hit).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 186.9,
-     "aT": 100,
-     "wf": 1.13,
-     "gmatch": "TB@COL",
-     "gtime": "8:40 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 260,
-     "status": "confirmed"
-    },
-    {
-     "name": "Miguel Vargas",
-     "team": "White Sox",
-     "total": 155.4,
-     "aT": 100,
-     "wf": 1.041,
-     "gmatch": "CWS@BOS",
-     "gtime": "7:10 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 320,
-     "status": "confirmed"
-    },
-    {
-     "name": "Brandon Lowe",
-     "team": "Pirates",
-     "total": 159.7,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "PIT@MIL",
-     "gtime": "7:40 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 300,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Hunter Goodman",
-   "lock": "7:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 104.8,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 2
-   },
-   "confleg": 2
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "The Tailgate Spread",
    "kind": "biggest",
    "badge": "\ud83e\udd6a",
-   "note": "Rice grades to 178 on our board, Trout elevates with ease (23\u00b0), Stowers gets a sliver of help from the park, and Pederson is leaving scorch marks (61% hard-hit).",
+   "note": "Rice grades to 178 on our board, Trout elevates with ease (23\u00b0), Stowers has the yard tilting his way, and Pederson is scorching the ball (61% hard-hit).",
    "players": [
     {
      "name": "Ben Rice",
@@ -35183,13 +35055,14 @@
     "dome": 1,
     "neu": 3
    },
-   "confleg": 4
+   "confleg": 4,
+   "locked": true
   },
   {
    "name": "The Lighthouse",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Junior Caminero gets a park that's launching everything tonight, is lighting up the radar gun (58% hard-hit), has real over-the-fence pop (51/100).",
+   "note": "Junior Caminero has the jet stream pushing toward the seats, is lighting up the radar gun (58% hard-hit), has real over-the-fence pop (51/100).",
    "players": [
     {
      "name": "Junior Caminero",
@@ -35217,13 +35090,144 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 1,
+   "locked": true
+  },
+  {
+   "name": "Hitting Apogee",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman projects out to 187, Cruz plays in a slightly friendly yard, and Valdez has loft to spare (16\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 186.9,
+     "aT": 100,
+     "wf": 1.13,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 260,
+     "status": "confirmed"
+    },
+    {
+     "name": "Elly De La Cruz",
+     "team": "Reds",
+     "total": 162.6,
+     "aT": 100,
+     "wf": 1.041,
+     "gmatch": "ATH@CIN",
+     "gtime": "6:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 323,
+     "status": "confirmed"
+    },
+    {
+     "name": "Esmerlyn Valdez",
+     "team": "Pirates",
+     "total": 155.2,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "PIT@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 345,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 115.8,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 2
+   },
+   "confleg": 2
+  },
+  {
+   "name": "Mach Breaker",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman lands at 187 in our model, Vargas gets a touch of carry tonight, and Lowe keeps the ball in the air (19\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 186.9,
+     "aT": 100,
+     "wf": 1.13,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 260,
+     "status": "confirmed"
+    },
+    {
+     "name": "Miguel Vargas",
+     "team": "White Sox",
+     "total": 155.4,
+     "aT": 100,
+     "wf": 1.041,
+     "gmatch": "CWS@BOS",
+     "gtime": "7:10 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 320,
+     "status": "confirmed"
+    },
+    {
+     "name": "Brandon Lowe",
+     "team": "Pirates",
+     "total": 159.7,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "PIT@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 300,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 104.8,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 2
+   },
+   "confleg": 2
   },
   {
    "name": "The Blue Ribbon",
    "kind": "chef",
    "badge": "\ud83c\udf7d",
-   "note": "Schwarber swings with home-run loft (20\u00b0), Ohtani catches a small park boost, Caminero is launching rockets (58% hard-hit), and Alvarez brings light-tower raw power (100/100).",
+   "note": "Schwarber swings with home-run loft (20\u00b0), Ohtani has the yard tilting his way, Caminero is launching rockets (58% hard-hit), and Alvarez brings light-tower raw power (100/100).",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -35262,7 +35266,7 @@
      "game": 13,
      "late": false,
      "odds": 220,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Yordan Alvarez",
@@ -35295,7 +35299,7 @@
     "dome": 1,
     "neu": 3
    },
-   "confleg": 3
+   "confleg": 4
   }
  ],
  "pool": [
@@ -35306,6 +35310,7 @@
   "Hunter Goodman",
   "Mickey Moniak",
   "Max Muncy",
+  "Junior Caminero",
   "JJ Bleday",
   "Corey Seager",
   "Willson Contreras",
@@ -35314,6 +35319,7 @@
   "Miguel Vargas",
   "Mike Trout",
   "Kyle Stowers",
+  "Joc Pederson",
   "Brandon Lowe",
   "Esmerlyn Valdez",
   "Jordan Walker",
@@ -35321,7 +35327,6 @@
   "Drake Baldwin",
   "Jonathan Aranda",
   "Riley Greene",
-  "Joc Pederson",
   "Jac Caglianone",
   "Kody Clemens",
   "Dominic Canzone",
