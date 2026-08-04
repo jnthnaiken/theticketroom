@@ -1380,7 +1380,15 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       // every parlay is still projected. draftF enforces pairing (2 moons/anchor), the game-time WIN window, and
       // all-or-none demotion -- so risers become anchors correctly and a single-moon anchor can never appear. ----
       if(prior.length){ prior.forEach(function(t){ if(isLocked(t)){ t.locked=true; out.push(t); } }); }   // settled/live singles (a done lunch, etc.) stay verbatim; their bats are already reserved in usedG
-      var draftPool = nonchalk.filter(function(n){ return !usedG[n] && !pinnedP(n); });   // PROJECTED pool: drop confirmed/in-progress (pinned) bats + anything already placed on a locked ticket. Unchanged pool -> draftF re-picks the same anchors (no churn); a weather shift -> risers move in.
+      // The pool for a fresh draft is every bat still BETTABLE: not already placed on a locked ticket, and its
+      // game not yet underway. It used to exclude pinnedP -- which is (confirmed || started) -- so a bat became
+      // undraftable the moment MLB posted it in the lineup. That never bit, because build15 was reading a
+      // PROJECTED lineup file and stamped essentially everybody 'projected' forever. The moment the scorer was
+      // fixed to read MLB's real posted card (2026-08-04), 93 of 109 live bats came back status='confirmed',
+      // pinnedP went true for all of them, the anchor search got an empty pool and the board collapsed to the
+      // Chef's Table alone. Being in tonight's lineup is the strongest thing you can know about a bat -- it is
+      // not a reason to refuse to draft him. Only "already used" and "too late to bet" disqualify.
+      var draftPool = nonchalk.filter(function(n){ return !usedG[n] && !started(n); });
       // ---- ANCHOR SELECTION + SNAKE DRAFT: pick the 4 candidate anchors that maximize combined STRENGTH among
       // ALL sets whose draft fills every parlay within the window -- never a short moon.
       var candA=byS(draftPool).filter(function(n){ return !pending(n) && precipOf(P[n].game)<40; }).slice(0,20); // MULTIPLE anchors per game ALLOWED; strongest 20 projected anchors for the exhaustive 4-set search. 40%+ rain never anchors.
