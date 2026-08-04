@@ -1159,7 +1159,13 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       var al=anchorList.slice().sort(function(a,b){return strength(b)-strength(a);});
       var sidx = wantSalami ? al.length-1 : null;   // salami rides the WEAKEST anchor, only when one is wanted
       var _sal=(sidx!=null)?al[sidx]:null;
-      var pa=byS(pool).filter(function(n){return (al.indexOf(n)<0 || n===_sal) && !pending(n) && precipOf(P[n].game)<50;});
+      // PRIORITY: Chef's Table (chalk, reserved before any of this) -> moon anchors -> SALAMI ANCHOR -> moon
+      // fills -> salami fills. The salami anchor used to be left in the partner pool (`|| n===_sal`), so the moon
+      // fill could eat it and the salami then shipped "only if that anchor wasn't drafted into a moon" -- moons
+      // won and the salami was a leftover. On 2026-08-03 that produced six moons and no salami at all. Every
+      // anchor now holds its seat through the moon fill; the salami is filled last, from what the moons leave,
+      // but it always has its anchor. (draftFx below carries the old shape and is dead -- leaving it be.)
+      var pa=byS(pool).filter(function(n){return al.indexOf(n)<0 && !pending(n) && precipOf(P[n].game)<50;});
       function fits(t,n){ if(t.games[P[n].game])return false; var ts=t.legs.map(tmin); ts.push(tmin(n)); return (Math.max.apply(null,ts)-Math.min.apply(null,ts))<=WIN; }
       function needy(t){ return (t.legs.length-1)<t.need; }
       var pls=[];
@@ -1191,8 +1197,8 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         pls.forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } t.legs=[t.legs[0]]; t.games={}; t.games[P[t.legs[0]].game]=1; });
         pa=byS(pa); fillRound();
       }
-      if(sidx!=null && pa.indexOf(al[sidx])>=0){
-        pa.splice(pa.indexOf(al[sidx]),1);
+      if(sidx!=null){                                   // the salami anchor is reserved, so it is always here
+        var _si=pa.indexOf(al[sidx]); if(_si>=0) pa.splice(_si,1);
         var sg={}; sg[P[al[sidx]].game]=1;
         var sal={rank:sidx,kind:'biggest',badge:'🥪',rr:{struct:"by 2s, 3s & 4",risk:5.5},legs:[al[sidx]],need:3,games:sg};
         while(needy(sal)){ var pk=null; for(var j=0;j<pa.length;j++){ if(fits(sal,pa[j])){pk=pa[j];break;} } if(pk==null)break; sal.legs.push(pk); sal.games[P[pk].game]=1; pa.splice(pa.indexOf(pk),1); }
