@@ -24504,7 +24504,7 @@
     "precip_src": null
    }
   },
-  "build": "8/4 12:54am",
+  "build": "8/4 1:07am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24645,25 +24645,25 @@
   "date": "2026-08-03",
   "gs": {},
   "pool": 268,
-  "tickets": 11
+  "tickets": 13
  },
  "pool": [
   "James Wood",
-  "Hunter Goodman",
-  "Rafael Devers",
-  "Bryce Harper",
-  "Shohei Ohtani",
-  "Kazuma Okamoto",
   "Mickey Moniak",
-  "Brandon Lowe",
+  "Trent Grisham",
   "Esmerlyn Valdez",
   "Jonathan Aranda",
-  "Cedric Mullins",
-  "Trent Grisham",
+  "Hunter Goodman",
+  "Kazuma Okamoto",
   "Corey Seager",
+  "Brandon Lowe",
   "Seiya Suzuki",
-  "Pete Crow-Armstrong",
-  "Jake Bauers"
+  "Rafael Devers",
+  "Bryce Harper",
+  "Cedric Mullins",
+  "Shohei Ohtani",
+  "Jake Bauers",
+  "Pete Crow-Armstrong"
  ],
  "tickets": [
   {
@@ -24729,7 +24729,8 @@
     "dome": 0,
     "neu": 2
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Cleared for Launch",
@@ -24794,7 +24795,8 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Booster Ignition",
@@ -24859,7 +24861,8 @@
     "dome": 2,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Hitting Apogee",
@@ -24924,7 +24927,8 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Mach Breaker",
@@ -24989,7 +24993,8 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Punching Through the Ceiling",
@@ -25054,7 +25059,8 @@
     "dome": 2,
     "neu": 1
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true
   },
   {
    "name": "Under the Lights",
@@ -25088,7 +25094,8 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 1,
+   "locked": true
   },
   {
    "name": "The Anchorage",
@@ -25122,7 +25129,8 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 1,
+   "locked": true
   },
   {
    "name": "Under Way",
@@ -25156,7 +25164,8 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "locked": true
   },
   {
    "name": "Making Headway",
@@ -25190,13 +25199,126 @@
     "dome": 1,
     "neu": 0
    },
+   "confleg": 1,
+   "locked": true
+  },
+  {
+   "name": "The Potluck",
+   "kind": "biggest",
+   "badge": "\ud83e\udd6a",
+   "note": "Walker is scorching the ball (54% hard-hit), Pederson gets ideal loft (21\u00b0), Carrigg swings with the wind at his back, and Lile has enough pop to clear it (51/100 power).",
+   "players": [
+    {
+     "name": "Jordan Walker",
+     "team": "Cardinals",
+     "total": 135.7,
+     "aT": 100,
+     "wf": 1.012,
+     "gmatch": "STL@NYY",
+     "gtime": "7:05 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 423,
+     "status": "confirmed"
+    },
+    {
+     "name": "Joc Pederson",
+     "team": "Rangers",
+     "total": 133,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "SF@TEX",
+     "gtime": "8:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 428,
+     "status": "confirmed"
+    },
+    {
+     "name": "Cole Carrigg",
+     "team": "Rockies",
+     "total": 127.9,
+     "aT": 100,
+     "wf": 1.104,
+     "gmatch": "TB@COL",
+     "gtime": "8:40 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 500,
+     "status": "confirmed"
+    },
+    {
+     "name": "Daylen Lile",
+     "team": "Nationals",
+     "total": 126,
+     "aT": 100,
+     "wf": 1.023,
+     "gmatch": "WSH@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 438,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Jordan Walker",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 5.5,
+    "maxprofit": 1718.9,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 1,
+    "neu": 2
+   },
+   "confleg": 4
+  },
+  {
+   "name": "Ready About",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Jordan Walker is tattooing the baseball (54% hard-hit), gets there more on timing than thump (47/100 power), sits at 136 on our board tonight.",
+   "players": [
+    {
+     "name": "Jordan Walker",
+     "team": "Cardinals",
+     "total": 135.7,
+     "aT": 100,
+     "wf": 1.012,
+     "gmatch": "STL@NYY",
+     "gtime": "7:05 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 423,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Jordan Walker",
+   "lock": "7:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
    "confleg": 1
   },
   {
    "name": "Top Shelf",
    "kind": "chef",
    "badge": "\ud83c\udf7d",
-   "note": "Schwarber catches a small park boost, Caminero carries a solid power grade (62/100), Alvarez is scorching the ball (59% hard-hit), and Rice carries a 199 number tonight.",
+   "note": "Schwarber catches a small park boost, Caminero brings average-plus thump (62/100), Alvarez is leaving scorch marks (59% hard-hit), and Rice carries a 199 number tonight.",
    "players": [
     {
      "name": "Kyle Schwarber",
