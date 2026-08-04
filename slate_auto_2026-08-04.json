@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-04T19:57:00Z",
+  "pulled_at": "2026-08-04T20:00:35Z",
   "games": [
     {
       "gamePk": 824805,
@@ -1058,7 +1058,7 @@
     },
     {
       "gamePk": 822865,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T00:05:00Z",
       "matchup": "SF@TEX",
       "away": {
@@ -1080,10 +1080,56 @@
           "hr9": 1.17,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.252
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.228
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.185
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.164
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.181
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.139
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.188
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.036
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.217
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
