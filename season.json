@@ -3,28 +3,28 @@
  "stake": 1,
  "cats": {
   "moon": {
-   "graded": 166,
+   "graded": 172,
    "won": 27,
-   "units": 359.28,
-   "staked": 332.0
+   "units": 347.28,
+   "staked": 344.0
   },
   "biggest": {
-   "graded": 25,
+   "graded": 26,
    "won": 4,
-   "units": -60.32,
-   "staked": 137.5
+   "units": -65.82,
+   "staked": 143.0
   },
   "late": {
-   "graded": 24,
+   "graded": 25,
    "won": 7,
-   "units": 5.82,
-   "staked": 24
+   "units": 4.82,
+   "staked": 25
   },
   "builder": {
-   "graded": 103,
+   "graded": 107,
    "won": 28,
-   "units": -1.37,
-   "staked": 103
+   "units": -5.37,
+   "staked": 107
   },
   "lunch": {
    "graded": 20,
@@ -33,10 +33,10 @@
    "staked": 20
   },
   "chef": {
-   "graded": 3,
+   "graded": 4,
    "won": 0,
-   "units": -16.5,
-   "staked": 16.5
+   "units": -22.0,
+   "staked": 22.0
   }
  },
  "history": [
@@ -69,7 +69,8 @@
   331.32,
   324.21,
   296.21,
-  292.12
+  292.12,
+  264.12
  ],
  "graded_nights": [
   "2026-06-01",
@@ -129,7 +130,8 @@
   "2026-07-31",
   "2026-08-01",
   "2026-08-02",
-  "2026-08-03"
+  "2026-08-03",
+  "2026-08-04"
  ],
  "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate."
 }
