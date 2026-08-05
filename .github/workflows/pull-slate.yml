@@ -128,8 +128,28 @@ jobs:
         if: success() && steps.verify.outputs.fresh == 'true'
         run: python3 build15.py
 
-      - name: Assemble + inject the board
+      # SAVANT GATE -- the Statcast edge fetches fail SOFT: a timed-out leaderboard
+      # collapses its signal to a neutral default instead of erroring, so the board
+      # still scores and publishes with a term missing, every TOTAL shifts, strength
+      # re-orders and the tickets reshuffle against the last good board. Seen on
+      # 2026-08-05 (_zspray -51% at 3:31pm, _zpvd dead for all 390 bats at 3:32pm --
+      # the chef ticket flipped Schwarber<->Murakami and back). savant_gate.py compares
+      # the distinct-value count of every _z* signal against the last committed board
+      # for this same date; on a collapse we throw THIS board away and keep the
+      # published one, and the next run rebuilds once Savant answers properly.
+      - name: Verify the Savant edge signals survived the pull
+        id: signals
         if: success() && steps.verify.outputs.fresh == 'true'
+        run: |
+          if python3 savant_gate.py "$SLATE_DATE"; then
+            echo "edge signals healthy"
+          else
+            echo "::warning::Savant signals degraded -- discarding this board, keeping the published one."
+            git checkout -- "D_${SLATE_DATE}.json" 2>/dev/null || rm -f "D_${SLATE_DATE}.json"
+          fi
+
+      - name: Assemble + inject the board
+        if: success() && steps.verify.outputs.fresh == 'true' && steps.signals.outputs.signals == 'ok'
         env:
           FORCE_REBUILD: ${{ github.event.inputs.force }}
         run: python3 regen15.py
