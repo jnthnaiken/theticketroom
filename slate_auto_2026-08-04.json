@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-05T03:00:59Z",
+  "pulled_at": "2026-08-05T03:06:43Z",
   "games": [
     {
       "gamePk": 824805,
@@ -1321,13 +1321,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 78\u00b0",
+        "lean": "Neutral",
+        "temp": 77.5,
+        "wind_mph": 1.7,
+        "wind_dir": 140,
+        "tail_mph": 0.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.013
     },
     {
       "gamePk": 822865,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-05T00:05:00Z",
       "matchup": "SF@TEX",
       "away": {
@@ -1404,7 +1411,7 @@
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.225
+            "iso": 0.224
           },
           {
             "id": 608369,
@@ -1419,7 +1426,7 @@
           {
             "id": 677649,
             "name": "Ezequiel Duran",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 694497,
@@ -1678,12 +1685,12 @@
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.295
+            "iso": 0.294
           },
           {
             "id": 681198,
             "name": "TJ Rumfield",
-            "iso": 0.169
+            "iso": 0.171
           },
           {
             "id": 691720,
@@ -1732,7 +1739,7 @@
         "sp": {
           "id": 681190,
           "name": "Randy V\u00e1squez",
-          "hr9": 1.27,
+          "hr9": 1.26,
           "hand": "RHP"
         },
         "lineup": [
@@ -1764,12 +1771,12 @@
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.099
+            "iso": 0.101
           },
           {
             "id": 666023,
             "name": "Freddy Fermin",
-            "iso": 0.122
+            "iso": 0.121
           },
           {
             "id": 630105,
@@ -1789,7 +1796,7 @@
         "sp": {
           "id": 593958,
           "name": "Eduardo Rodriguez",
-          "hr9": 0.87,
+          "hr9": 0.86,
           "hand": "LHP"
         },
         "lineup": [
@@ -1826,7 +1833,7 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.16
+            "iso": 0.158
           },
           {
             "id": 543510,
@@ -1864,7 +1871,7 @@
         "sp": {
           "id": 675512,
           "name": "Troy Melton",
-          "hr9": 1.01,
+          "hr9": 1.0,
           "hand": "RHP"
         },
         "lineup": [
@@ -1901,17 +1908,17 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.384
+            "iso": 0.357
           },
           {
             "id": 595879,
             "name": "Javier B\u00e1ez",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 656716,
             "name": "Zach McKinstry",
-            "iso": 0.113
+            "iso": 0.112
           }
         ],
         "confirmed": true
@@ -1921,7 +1928,7 @@
         "sp": {
           "id": 676106,
           "name": "Emerson Hancock",
-          "hr9": 1.17,
+          "hr9": 1.16,
           "hand": "RHP"
         },
         "lineup": [
@@ -1963,12 +1970,12 @@
           {
             "id": 621493,
             "name": "Taylor Ward",
-            "iso": 0.099
+            "iso": 0.1
           },
           {
             "id": 806068,
             "name": "Colt Emerson",
-            "iso": 0.148
+            "iso": 0.147
           }
         ],
         "confirmed": true
