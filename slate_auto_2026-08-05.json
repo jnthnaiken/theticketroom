@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T18:51:45Z",
+  "pulled_at": "2026-08-05T18:56:45Z",
   "games": [
     {
       "gamePk": 824158,
@@ -60,7 +60,7 @@
           {
             "id": 664702,
             "name": "Myles Straw",
-            "iso": 0.115
+            "iso": 0.114
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 686613,
           "name": "Hunter Brown",
-          "hr9": 0.98,
+          "hr9": 0.97,
           "hand": "RHP"
         },
         "lineup": [
@@ -234,12 +234,12 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.103
+            "iso": 0.102
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 621020,
@@ -278,7 +278,7 @@
         "sp": {
           "id": 687931,
           "name": "Carson Whisenhunt",
-          "hr9": 1.86,
+          "hr9": 1.83,
           "hand": "LHP"
         },
         "lineup": [
@@ -745,7 +745,7 @@
     },
     {
       "gamePk": 823516,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T23:05:00Z",
       "matchup": "STL@NYY",
       "away": {
@@ -756,8 +756,54 @@
           "hr9": 0.76,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.138
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.133
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.192
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.12
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.132
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.122
+          },
+          {
+            "id": 663494,
+            "name": "Bryan Torres",
+            "iso": 0.185
+          },
+          {
+            "id": 699625,
+            "name": "Jimmy Crooks",
+            "iso": 0.163
+          },
+          {
+            "id": 693409,
+            "name": "C\u00e9sar Prieto",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -770,7 +816,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
