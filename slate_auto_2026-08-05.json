@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T22:17:25Z",
+  "pulled_at": "2026-08-05T22:22:27Z",
   "games": [
     {
       "gamePk": 824158,
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 824482,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-05T22:40:00Z",
       "matchup": "ATH@CIN",
       "away": {
@@ -1782,8 +1782,54 @@
           "hr9": 1.27,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.143
+          },
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.141
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.248
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.184
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.151
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.205
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.313
+          },
+          {
+            "id": 680664,
+            "name": "Eduardo Valencia",
+            "iso": 0.483
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",

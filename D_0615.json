@@ -30783,7 +30783,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -30874,7 +30874,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -30965,7 +30965,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31045,7 +31045,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 0,
-   "slot": null,
+   "slot": 8,
    "bhand": null,
    "hr9": null,
    "wf": 1,
@@ -31056,7 +31056,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31073,7 +31073,7 @@
    "psrc": "brl",
    "parkhr": 0.976,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 0.94,
    "platT": 1,
    "pen_fatigue": -0.5,
    "penT": 0.96,
@@ -31147,7 +31147,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31238,7 +31238,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31329,7 +31329,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31420,7 +31420,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31510,7 +31510,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -31602,7 +31602,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bryan Woo",
@@ -31692,7 +31692,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -31783,7 +31783,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -31864,8 +31864,8 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 73.80990697025796,
-   "slot": 8,
-   "bhand": "R",
+   "slot": null,
+   "bhand": null,
    "hr9": null,
    "wf": 1,
    "pull_tail": null,
@@ -31874,7 +31874,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -31892,8 +31892,8 @@
    "psrc": "brl",
    "parkhr": 0.976,
    "mktT": 0.7354429072888706,
-   "slotT": 0.94,
-   "platT": 0.92,
+   "slotT": 1,
+   "platT": 1,
    "pen_fatigue": -0.5,
    "penT": 0.96,
    "bg": 0,
@@ -35704,7 +35704,7 @@
     "precip_src": null
    }
   },
-  "build": "8/5 6:17pm",
+  "build": "8/5 6:22pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36533,7 +36533,8 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 1,
+   "locked": true
   },
   {
    "name": "Cream of the Crop",
