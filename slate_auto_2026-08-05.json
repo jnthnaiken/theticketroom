@@ -1,11 +1,11 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T21:12:11Z",
+  "pulled_at": "2026-08-05T21:17:09Z",
   "games": [
     {
       "gamePk": 824158,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-05T18:10:00Z",
       "matchup": "TOR@HOU",
       "away": {
@@ -224,7 +224,7 @@
           {
             "id": 608348,
             "name": "Carson Kelly",
-            "iso": 0.117
+            "iso": 0.116
           },
           {
             "id": 683737,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 822866,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-08-05T18:35:00Z",
       "matchup": "SF@TEX",
       "away": {
@@ -285,7 +285,7 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 808982,
@@ -325,7 +325,7 @@
           {
             "id": 701852,
             "name": "Drew Cavanaugh",
-            "iso": 0.0
+            "iso": 0.018
           }
         ],
         "confirmed": true
@@ -499,7 +499,7 @@
           {
             "id": 687597,
             "name": "Jordan Beck",
-            "iso": 0.15
+            "iso": 0.148
           },
           {
             "id": 666397,
@@ -795,7 +795,7 @@
         "wind_mph": 7.6,
         "wind_dir": 360,
         "tail_mph": -7.6,
-        "precip": 5
+        "precip": 3
       },
       "wf": 0.992
     },
@@ -1061,7 +1061,7 @@
         "wind_mph": 6.5,
         "wind_dir": 284,
         "tail_mph": 0.1,
-        "precip": 26
+        "precip": 23
       },
       "wf": 1.018
     },
@@ -1194,7 +1194,7 @@
         "wind_mph": 5.3,
         "wind_dir": 144,
         "tail_mph": 3.3,
-        "precip": 15
+        "precip": 16
       },
       "wf": 1.023
     },
@@ -1460,7 +1460,7 @@
         "wind_mph": 4.3,
         "wind_dir": 317,
         "tail_mph": 0.2,
-        "precip": 16
+        "precip": 23
       },
       "wf": 1.011
     },
@@ -1593,13 +1593,13 @@
         "wind_mph": 12.0,
         "wind_dir": 346,
         "tail_mph": -6.2,
-        "precip": 20
+        "precip": 22
       },
       "wf": 0.995
     },
     {
       "gamePk": 823753,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T23:40:00Z",
       "matchup": "PIT@MIL",
       "away": {
@@ -1621,10 +1621,56 @@
           "hr9": 1.08,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.189
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.188
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.164
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.121
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.14
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.182
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.132
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.097
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
