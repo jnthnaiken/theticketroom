@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T19:52:01Z",
+  "pulled_at": "2026-08-05T19:57:13Z",
   "games": [
     {
       "gamePk": 824158,
@@ -102,7 +102,7 @@
           {
             "id": 572233,
             "name": "Christian Walker",
-            "iso": 0.221
+            "iso": 0.222
           },
           {
             "id": 664774,
@@ -152,7 +152,7 @@
           {
             "id": 660271,
             "name": "Shohei Ohtani",
-            "iso": 0.252
+            "iso": 0.251
           },
           {
             "id": 681624,
@@ -162,7 +162,7 @@
           {
             "id": 518692,
             "name": "Freddie Freeman",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 669242,
@@ -202,7 +202,7 @@
         "sp": {
           "id": 684007,
           "name": "Shota Imanaga",
-          "hr9": 1.71,
+          "hr9": 1.7,
           "hand": "LHP"
         },
         "lineup": [
@@ -347,7 +347,7 @@
           {
             "id": 677649,
             "name": "Ezequiel Duran",
-            "iso": 0.185
+            "iso": 0.183
           },
           {
             "id": 607043,
@@ -427,12 +427,12 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.269
+            "iso": 0.276
           },
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.159
+            "iso": 0.157
           },
           {
             "id": 802415,
@@ -467,7 +467,7 @@
         "sp": {
           "id": 608372,
           "name": "Tomoyuki Sugano",
-          "hr9": 1.81,
+          "hr9": 1.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -622,7 +622,7 @@
     },
     {
       "gamePk": 824402,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T22:40:00Z",
       "matchup": "NYM@CLE",
       "away": {
@@ -644,10 +644,56 @@
           "hr9": 1.36,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.058
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.165
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.157
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.212
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.15
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.124
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.102
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.118
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": null
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
