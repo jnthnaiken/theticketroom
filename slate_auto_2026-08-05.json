@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T19:11:48Z",
+  "pulled_at": "2026-08-05T19:16:54Z",
   "games": [
     {
       "gamePk": 824158,
@@ -30,7 +30,7 @@
           {
             "id": 660821,
             "name": "Jes\u00fas S\u00e1nchez",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 543807,
@@ -167,7 +167,7 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.154
+            "iso": 0.152
           },
           {
             "id": 663656,
@@ -219,7 +219,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 608348,
@@ -285,12 +285,12 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.147
+            "iso": 0.146
           },
           {
             "id": 642715,
@@ -417,7 +417,7 @@
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.2
+            "iso": 0.214
           },
           {
             "id": 666018,
@@ -570,7 +570,7 @@
         "wind_mph": 4.9,
         "wind_dir": 141,
         "tail_mph": 1.8,
-        "precip": 15
+        "precip": 14
       },
       "wf": 1.027
     },
@@ -739,7 +739,7 @@
         "wind_mph": 5.9,
         "wind_dir": 187,
         "tail_mph": 5.8,
-        "precip": 46
+        "precip": 29
       },
       "wf": 1.041
     },
@@ -826,7 +826,7 @@
         "wind_mph": 6.8,
         "wind_dir": 157,
         "tail_mph": 5.4,
-        "precip": 11
+        "precip": 14
       },
       "wf": 1.036
     },
@@ -954,13 +954,13 @@
         "wind_mph": 4.9,
         "wind_dir": 265,
         "tail_mph": 4.0,
-        "precip": 12
+        "precip": 14
       },
       "wf": 1.037
     },
     {
       "gamePk": 824082,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T23:40:00Z",
       "matchup": "MIN@KC",
       "away": {
@@ -982,10 +982,56 @@
           "hr9": 1.09,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.19
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.172
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.203
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.163
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.156
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.131
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.153
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.353
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
