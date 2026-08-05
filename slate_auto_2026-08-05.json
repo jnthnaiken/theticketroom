@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T21:30:28Z",
+  "pulled_at": "2026-08-05T21:37:14Z",
   "games": [
     {
       "gamePk": 824158,
@@ -137,7 +137,7 @@
     },
     {
       "gamePk": 824646,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-05T18:20:00Z",
       "matchup": "LAD@CHC",
       "away": {
@@ -1725,7 +1725,7 @@
     },
     {
       "gamePk": 823106,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-06T01:40:00Z",
       "matchup": "DET@SEA",
       "away": {
@@ -1747,10 +1747,56 @@
           "hr9": 0.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.152
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.172
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.253
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.158
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.096
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.147
+          },
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.171
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.099
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.146
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
