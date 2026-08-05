@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T22:22:27Z",
+  "pulled_at": "2026-08-05T22:27:38Z",
   "games": [
     {
       "gamePk": 824158,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 823429,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-08-05T22:40:00Z",
       "matchup": "WSH@PHI",
       "away": {
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 825052,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-06T01:40:00Z",
       "matchup": "SD@ARI",
       "away": {
@@ -1742,8 +1742,54 @@
           "hr9": 0.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.116
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.07
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.216
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.234
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.158
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.101
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.2
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.068
+          },
+          {
+            "id": 687749,
+            "name": "Jase Bowen",
+            "iso": 0.073
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -1756,7 +1802,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
