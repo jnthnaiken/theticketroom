@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T19:22:02Z",
+  "pulled_at": "2026-08-05T19:27:02Z",
   "games": [
     {
       "gamePk": 824158,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 592791,
           "name": "Jameson Taillon",
-          "hr9": 2.96,
+          "hr9": 2.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -40,7 +40,7 @@
           {
             "id": 678218,
             "name": "Brandon Valenzuela",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 669701,
@@ -145,7 +145,7 @@
         "sp": {
           "id": 641778,
           "name": "Eric Lauer",
-          "hr9": 2.09,
+          "hr9": 2.08,
           "hand": "LHP"
         },
         "lineup": [
@@ -278,7 +278,7 @@
         "sp": {
           "id": 687931,
           "name": "Carson Whisenhunt",
-          "hr9": 1.71,
+          "hr9": 1.69,
           "hand": "LHP"
         },
         "lineup": [
@@ -342,7 +342,7 @@
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.223
+            "iso": 0.226
           },
           {
             "id": 677649,
@@ -352,7 +352,7 @@
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.165
+            "iso": 0.164
           },
           {
             "id": 669394,
@@ -447,7 +447,7 @@
           {
             "id": 680700,
             "name": "Richie Palacios",
-            "iso": 0.117
+            "iso": 0.116
           },
           {
             "id": 670764,
@@ -467,7 +467,7 @@
         "sp": {
           "id": 608372,
           "name": "Tomoyuki Sugano",
-          "hr9": 1.84,
+          "hr9": 1.83,
           "hand": "RHP"
         },
         "lineup": [
@@ -535,7 +535,7 @@
     },
     {
       "gamePk": 824806,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T22:35:00Z",
       "matchup": "LAA@BAL",
       "away": {
@@ -557,10 +557,56 @@
           "hr9": 0.82,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": 0.0
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.212
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.176
+          },
+          {
+            "id": 641933,
+            "name": "Tyler O'Neill",
+            "iso": 0.175
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.216
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.262
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.133
+          },
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.144
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -946,8 +992,54 @@
           "hr9": 0.95,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.093
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.189
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.201
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.253
+          },
+          {
+            "id": 807799,
+            "name": "Masataka Yoshida",
+            "iso": 0.126
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.158
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.151
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.191
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.104
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
