@@ -3574,7 +3574,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -3654,8 +3654,8 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 409.1003447850342,
-   "slot": 8,
-   "bhand": "S",
+   "slot": null,
+   "bhand": null,
    "hr9": null,
    "wf": 1.064,
    "pull_tail": null,
@@ -3664,7 +3664,7 @@
    "gtime": "2:20 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -3682,8 +3682,8 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.8664435834213926,
-   "slotT": 0.94,
-   "platT": 1.024,
+   "slotT": 1,
+   "platT": 1,
    "pen_fatigue": 0.08,
    "penT": 1.0064,
    "bg": 0,
@@ -3756,7 +3756,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -3847,7 +3847,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -3937,7 +3937,7 @@
    "gtime": "2:20 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -4029,7 +4029,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -4119,7 +4119,7 @@
    "gtime": "2:20 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -4200,7 +4200,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 176.53880378472965,
-   "slot": 7,
+   "slot": 9,
    "bhand": "R",
    "hr9": null,
    "wf": 1.064,
@@ -4211,7 +4211,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -4228,7 +4228,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.1338232625657776,
-   "slotT": 0.96,
+   "slotT": 0.92,
    "platT": 1.056,
    "pen_fatigue": 0.08,
    "penT": 1.0064,
@@ -4291,7 +4291,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 217.00308569866948,
-   "slot": null,
+   "slot": 7,
    "bhand": null,
    "hr9": null,
    "wf": 1.064,
@@ -4302,7 +4302,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -4319,7 +4319,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.272304852660271,
-   "slotT": 1,
+   "slotT": 0.96,
    "platT": 1,
    "pen_fatigue": 0.08,
    "penT": 1.0064,
@@ -4382,7 +4382,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 207.22900311394338,
-   "slot": 9,
+   "slot": 8,
    "bhand": "R",
    "hr9": null,
    "wf": 1.064,
@@ -4393,7 +4393,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -4410,7 +4410,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.230072641602042,
-   "slotT": 0.92,
+   "slotT": 0.94,
    "platT": 1.056,
    "pen_fatigue": 0.08,
    "penT": 1.0064,
@@ -4484,7 +4484,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -4575,7 +4575,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Eric Lauer",
@@ -4665,7 +4665,7 @@
    "gtime": "2:20 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -35704,7 +35704,7 @@
     "precip_src": null
    }
   },
-  "build": "8/5 12:11pm",
+  "build": "8/5 12:21pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -35894,7 +35894,7 @@
      "game": 2,
      "late": false,
      "odds": 295,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -35914,7 +35914,7 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 2
   },
   {
    "name": "Hitting Apogee",
@@ -35959,7 +35959,7 @@
      "game": 2,
      "late": false,
      "odds": 345,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -35979,7 +35979,7 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 2
   },
   {
    "name": "Mach Breaker",
@@ -36604,7 +36604,9 @@
  ],
  "pool": [
   "Rafael Devers",
+  "Seiya Suzuki",
   "Wyatt Langford",
+  "Pete Crow-Armstrong",
   "Hunter Goodman",
   "Bryce Harper",
   "Munetaka Murakami",
@@ -36612,7 +36614,6 @@
   "Ben Rice",
   "Sal Stewart",
   "Pete Alonso",
-  "Seiya Suzuki",
   "Jonathan Aranda",
   "Coby Mayo",
   "Mike Trout",
@@ -36627,7 +36628,6 @@
   "Matt Olson",
   "Riley Greene",
   "Tyler O'Neill",
-  "Pete Crow-Armstrong",
   "Colson Montgomery",
   "Victor Mesa",
   "Miguel Vargas",
