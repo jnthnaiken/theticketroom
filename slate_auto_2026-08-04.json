@@ -1,7 +1,7 @@
 {
   "date": "2026-08-04",
   "season": "2026",
-  "pulled_at": "2026-08-05T02:52:47Z",
+  "pulled_at": "2026-08-05T02:57:28Z",
   "games": [
     {
       "gamePk": 824805,
@@ -936,7 +936,7 @@
     },
     {
       "gamePk": 824084,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-04T23:40:00Z",
       "matchup": "MIN@KC",
       "away": {
@@ -1466,7 +1466,7 @@
     },
     {
       "gamePk": 824161,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-05T00:10:00Z",
       "matchup": "TOR@HOU",
       "away": {
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 0mph, 75\u00b0",
+        "lean": "Neutral",
+        "temp": 74.7,
+        "wind_mph": 5.8,
+        "wind_dir": 92,
+        "tail_mph": 0.2,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.008
     },
     {
       "gamePk": 825054,
