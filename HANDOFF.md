@@ -391,11 +391,107 @@ Exit 0 = safe to commit+build. Exit 1 = DO NOT COMMIT.
    summary tiles fall back to the June-15 defaults with `undefined` denominators.
    gn MUST be unique per kept game (1..N; doubleheaders keep game 1 only).
 
-### GIT: do NOT run git through the device bridge
-The cloud↔device mount cannot `unlink`, so every git write via `device_bash`
-leaves `.git/index.lock` / `HEAD.lock` / `MERGE_HEAD` behind that then blocks the
-user's native git. Let the USER run all git in their own terminal:
-    git pull --no-rebase --no-edit   # scheduled build auto-commits to main; pull first
-    git push
-The `--no-edit` avoids the merge-message editor. If push is rejected, repeat
-pull+push (the build races you). Assistant work stops at "files written to repo".
+### GIT: ONE way, every day — the assistant commits via the GitHub web UI
+Do NOT hand the user terminal commands, and do NOT run git through the device
+bridge (the cloud↔device mount cannot `unlink`, so a `device_bash` git write leaves
+`.git/index.lock` / `HEAD.lock` behind and blocks their native git). Sessions have
+flip-flopped between these two and it is genuinely annoying. The settled procedure:
+
+1. `device_commit_files` the finished inputs into the repo folder (keeps the user's
+   working copy current) and `device_stage_files` them back to verify byte-identity.
+2. Navigate to `github.com/jnthnaiken/theticketroom/upload/main`, `find` the
+   "Choose your files" input, and `file_upload` the staged paths under
+   `/mnt/user-data/uploads/The Ticket Room/` (10 MB per call; 6 files ≈ 181 KB).
+3. Type the message into the TITLE field (the first click often lands in the
+   extended-description box — check a screenshot), leave "Commit directly to main",
+   click "Commit changes". The button moves after the description clears, so
+   re-screenshot before clicking rather than reusing old coordinates.
+4. Verify from the container: `curl raw.githubusercontent.com/.../main/<file>` and
+   md5 against the local copy. raw/api/github.com are the ONLY hosts that resolve.
+
+Nothing is left for the user to type. Their local copy is already correct, so their
+next `git pull` is a fast-forward.
+
+## 🧊 2026-08-05 — built in the CLOUD sandbox: what changed, and the transfer channel
+
+Built the **2026-08-05** slate (15 games, 391 carded bats, 299 priced, 29 arms) from the
+three live sources. `slate_validate` PASS with 3 soft warnings (Cody Bradford has no Kasper
+line → live HR/9 fallback; Angel Genao / Ronny Simon uncarded). Files written straight into
+the repo folder; the user pushes.
+
+### Source-scrape deltas since 07-11 (saves an hour next time)
+- **Kasper: HH% and LA now render BY DEFAULT** on `?game=<pk>` roster tables. The 3
+  `<select>` column-picker dance in the 07-11 notes is NO LONGER NEEDED. Roster columns are
+  `Hitter Name|Match|Ceil|Zone|kHR|Form|Pit|BIP|ISO|xwOBA|xwOBAc|SwS%|PBrl%|Brl%|SwSp%|FB%|HH%|LA|Likely`.
+  Headers still double-render (`LALA`, `HH%HH%`) → match with `includes()`.
+- Identify a roster table by header containing `Zone Fit` + `kHR`, then take the team code
+  from `up(table,2)[0]` (`"TOR"` / `"vs Hunter Brown"`); skip the highlight table whose
+  label is `Best Matchups`.
+- **Per-game pitcher stats**: tables whose header has `Split` + `CSW%`; pitcher name is
+  `up(table,3)[2]` (the `TEAM / Starter / Name` heading); read the `All` row →
+  `{brl:Brl/BIP%, pbrl:PullBrl%, hh:HardHit%, fb:FB%}`. 15 game pages gave 29 of 30 arms.
+- **RotoWire emits a junk 16th `.lineup.is-mlb` block** ("You may also be interested in…")
+  with no teams/bats — filter on `away && home && bats.length`.
+- **RotoWire SPs can be stale.** It had `Ty Madden` for DET@SEA; StatsAPI probables AND
+  Kasper both said **Drew Anderson**. Cross-check `schedule?...&hydrate=probablePitcher`
+  and patch `roto.json` before assembling — it also silences a validator SP warning.
+- **VegasInsider**: HR props is `document.querySelectorAll('table')[1]` of the RAW server
+  HTML (317 rows; the markets order is Strikeouts / Home Runs / Total Bases / RBI). Cells
+  are `o0.5 +290 +` → last `[+-]\d{2,4}`, drop |v|<100, median across the 5 book columns.
+  ⚠ The 3 MB `fetch`+`DOMParser` **exceeds the 45 s CDP timeout** if done inline: kick it
+  off in a fire-and-forget async IIFE that stashes rows on `window`, then poll.
+
+### ⚠️ The cloud sandbox has NO network to the data sources
+`statsapi.mlb.com`, `api.open-meteo.com`, `baseballsavant.mlb.com` and every paste service
+are blocked. **Only `github.com` / `api.github.com` / `raw.githubusercontent.com` + the
+package registries resolve.** So `build15.py` still cannot run locally — commit the 5 inputs
+and let the Action build (external cron dispatches `build-board` every 30 min, 9 AM–1 AM ET,
+so a push during the window builds on its own; no manual "Run workflow" needed).
+
+### Browser → container transfer: use gzip+base64 in CHUNKS, with SHA per chunk
+The scraped data lives in page `localStorage`; the only way out is `get_page_text`. What
+works, and the traps:
+1. Build a compact **TSV** first (one row per bat: `B\t<matchup>\t<team>\t<name>\t…`, plus
+   `P\t<pitcher>\t…` rows), NOT pretty JSON — 121 KB of JSON became a 44 KB TSV.
+2. `CompressionStream('gzip')` → `btoa` → slice into **6000-char chunks**; emit each into
+   `<pre>@@S@@…@@E@@</pre>` and read with `get_page_text`.
+3. **Transcribing one 36 KB blob silently TRUNCATES at ~23 KB.** Chunk it, and verify every
+   chunk: `crypto.subtle.digest('SHA-256', chunk)` in the page vs `sha256sum` in the
+   container. One chunk came back with a single wrong character (length still exactly 6000,
+   gzip CRC failed) — bisect that chunk at 1500 chars and re-emit only the bad slice.
+4. gzip's CRC is the end-to-end proof: if `gzip.decompress` succeeds, the payload is exact.
+5. `javascript_tool`'s **return** is truncated (~4 KB) and it **refuses to return raw HTML**
+   ("BLOCKED: Cookie/query string data") — return small JSON summaries only.
+
+### 🛑 savant_gate.py — added 2026-08-05, do not remove
+The Statcast fetches in `build15.py` fail SOFT: a timed-out Savant leaderboard
+collapses its signal to a neutral default instead of raising, so the board scores,
+assembles and publishes with an edge term missing. Every TOTAL then shifts a point
+or two, `strength` (which is min-max normalised ACROSS THE POOL) re-orders, and
+tickets reshuffle against the last good board.
+
+Caught live today: the chef ticket flipped Kyle Schwarber <-> Munetaka Murakami for
+~80 minutes. Two separate causes, both real:
+  * 1:56-3:17pm — lineup cards posting. Each posted card marks its non-listed bats
+    `out`; a scratch forces a full re-draft, and because strength is normalised over
+    the surviving pool, dropping five KC bats (Witt, Marte, Rojas, Maile, Tolbert at
+    3:17) re-scaled everyone and flipped the pair back. Schwarber's own status never
+    changed — he sat `projected` all day (PHI 6:40). Other teams' lineups moved him.
+  * 3:31pm — `_zspray` collapsed 149 -> 73 distinct values; one run later `_zpvd` was
+    dead for all 390 bats and the board STILL committed.
+
+`savant_gate.py <date>` now runs between "Score the field" and "Assemble + inject".
+It counts distinct non-null values per `_z*` signal and compares against the last
+committed `D_<date>.json` (`git show HEAD:`) — a same-slate baseline from minutes
+earlier, so no absolute thresholds. Trips when a signal goes to zero, or loses >40%
+of its spread from a base of >=20. On a trip the workflow reverts `D_<date>.json`,
+skips assemble, and leaves the published board alone; the ledger and calibration
+still commit. Backtested over all 34 build transitions on 2026-08-05: it blocks
+exactly 3:31pm and 3:32pm, zero false positives.
+
+Per-pitcher signals sit near ~28 distinct and binary flags at 2, which is why the
+relative check only applies above `MIN_BASE=20`. Don't "simplify" that away.
+
+Rebuild through the day by re-scraping RotoWire once lineups post (all 15 were still
+`Expected Lineup` at 11:53 AM ET) and re-running `slate_assemble.py` — same 5 filenames,
+same-slate rebuild preserves the drafted tickets.
