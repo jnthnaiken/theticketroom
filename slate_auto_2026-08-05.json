@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-05T18:56:45Z",
+  "pulled_at": "2026-08-05T19:06:39Z",
   "games": [
     {
       "gamePk": 824158,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 592791,
           "name": "Jameson Taillon",
-          "hr9": 2.88,
+          "hr9": 2.97,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,12 +82,12 @@
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.315
+            "iso": 0.314
           },
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.147
+            "iso": 0.155
           },
           {
             "id": 662139,
@@ -97,12 +97,12 @@
           {
             "id": 666211,
             "name": "Taylor Trammell",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 572233,
             "name": "Christian Walker",
-            "iso": 0.22
+            "iso": 0.221
           },
           {
             "id": 664774,
@@ -145,7 +145,7 @@
         "sp": {
           "id": 641778,
           "name": "Eric Lauer",
-          "hr9": 2.12,
+          "hr9": 2.1,
           "hand": "LHP"
         },
         "lineup": [
@@ -209,7 +209,7 @@
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.257
+            "iso": 0.26
           },
           {
             "id": 673548,
@@ -244,12 +244,12 @@
           {
             "id": 621020,
             "name": "Dansby Swanson",
-            "iso": 0.19
+            "iso": 0.192
           },
           {
             "id": 621438,
             "name": "Tyrone Taylor",
-            "iso": 0.257
+            "iso": 0.255
           }
         ],
         "confirmed": true
@@ -278,7 +278,7 @@
         "sp": {
           "id": 687931,
           "name": "Carson Whisenhunt",
-          "hr9": 1.83,
+          "hr9": 1.8,
           "hand": "LHP"
         },
         "lineup": [
@@ -310,17 +310,17 @@
           {
             "id": 671083,
             "name": "Buddy Kennedy",
-            "iso": 0.05
+            "iso": 0.047
           },
           {
             "id": 687529,
             "name": "Grant McCray",
-            "iso": 0.12
+            "iso": 0.116
           },
           {
             "id": 678760,
             "name": "Eddys Leonard",
-            "iso": 0.0
+            "iso": 0.334
           },
           {
             "id": 701852,
@@ -362,7 +362,7 @@
           {
             "id": 679822,
             "name": "Justin Foscue",
-            "iso": 0.214
+            "iso": 0.212
           },
           {
             "id": 553869,
@@ -832,7 +832,7 @@
     },
     {
       "gamePk": 824728,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-05T23:10:00Z",
       "matchup": "CWS@BOS",
       "away": {
@@ -843,8 +843,54 @@
           "hr9": 0.94,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.131
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.298
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.241
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.233
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.187
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.142
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.149
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.118
+          },
+          {
+            "id": 691011,
+            "name": "Drew Romo",
+            "iso": 0.15
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -857,7 +903,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
