@@ -1,7 +1,7 @@
 {
   "date": "2026-08-05",
   "season": "2026",
-  "pulled_at": "2026-08-06T02:41:37Z",
+  "pulled_at": "2026-08-06T02:52:02Z",
   "games": [
     {
       "gamePk": 824158,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 823429,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-08-05T22:40:00Z",
       "matchup": "WSH@PHI",
       "away": {
@@ -1026,7 +1026,7 @@
           {
             "id": 664761,
             "name": "Alec Bohm",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 669016,
@@ -1139,7 +1139,7 @@
           {
             "id": 663757,
             "name": "Trent Grisham",
-            "iso": 0.17
+            "iso": 0.168
           },
           {
             "id": 700250,
@@ -1586,16 +1586,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 80\u00b0",
-        "lean": "Neutral",
-        "temp": 80.2,
-        "wind_mph": 2.7,
-        "wind_dir": 318,
-        "tail_mph": -0.1,
-        "precip": 29
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     },
     {
       "gamePk": 823753,
@@ -1761,7 +1754,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.234
+            "iso": 0.233
           },
           {
             "id": 701538,
@@ -1796,19 +1789,19 @@
         "sp": {
           "id": 683352,
           "name": "Mitch Bratt",
-          "hr9": 1.52,
+          "hr9": 1.46,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 663457,
             "name": "Lars Nootbaar",
-            "iso": 0.118
+            "iso": 0.117
           },
           {
             "id": 682998,
             "name": "Corbin Carroll",
-            "iso": 0.227
+            "iso": 0.226
           },
           {
             "id": 672695,
@@ -1833,17 +1826,17 @@
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.179
+            "iso": 0.177
           },
           {
             "id": 682988,
             "name": "Tyler Locklear",
-            "iso": 0.154
+            "iso": 0.185
           },
           {
             "id": 814439,
             "name": "Ryan Waldschmidt",
-            "iso": 0.114
+            "iso": 0.113
           }
         ],
         "confirmed": true
@@ -1908,12 +1901,12 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.313
+            "iso": 0.294
           },
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.468
+            "iso": 0.455
           },
           {
             "id": 656716,
@@ -1928,7 +1921,7 @@
         "sp": {
           "id": 693433,
           "name": "Bryan Woo",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
