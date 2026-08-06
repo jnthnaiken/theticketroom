@@ -1288,7 +1288,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 320.4608308035035,
-   "slot": null,
+   "slot": 7,
    "bhand": null,
    "hr9": null,
    "wf": 1,
@@ -1298,8 +1298,8 @@
    "gtime": "2:10 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jameson Taillon",
@@ -1316,7 +1316,7 @@
    "psrc": "brl",
    "parkhr": 1.012,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 0.96,
    "platT": 1,
    "pen_fatigue": 0.867,
    "penT": 1.06936,
@@ -2383,7 +2383,7 @@
    "slot": 6,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -2455,7 +2455,7 @@
    "mkt_z": 0.5302,
    "blend": 0.3884,
    "baseTotal": 111.7,
-   "TOTAL": 118.7
+   "TOTAL": 118.8
   },
   "Max Muncy": {
    "nm": "Max Muncy",
@@ -2565,7 +2565,7 @@
    "slot": 8,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -2637,7 +2637,7 @@
    "mkt_z": -0.7797,
    "blend": -0.6983,
    "baseTotal": 79.1,
-   "TOTAL": 84.1
+   "TOTAL": 84.2
   },
   "Kyle Tucker": {
    "nm": "Kyle Tucker",
@@ -2656,7 +2656,7 @@
    "slot": 5,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.3639610306789285,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -2728,7 +2728,7 @@
    "mkt_z": 0.3843,
    "blend": 0.4347,
    "baseTotal": 113,
-   "TOTAL": 120.1
+   "TOTAL": 120.2
   },
   "Shohei Ohtani": {
    "nm": "Shohei Ohtani",
@@ -2747,7 +2747,7 @@
    "slot": 1,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.3639610306789285,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -2819,7 +2819,7 @@
    "mkt_z": 3.2694,
    "blend": 3.0478,
    "baseTotal": 191.4,
-   "TOTAL": 203.5
+   "TOTAL": 203.6
   },
   "Enrique Hern\u00e1ndez": {
    "nm": "Enrique Hern\u00e1ndez",
@@ -2838,7 +2838,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -2910,7 +2910,7 @@
    "mkt_z": 0.2909,
    "blend": 0.2378,
    "baseTotal": 107.1,
-   "TOTAL": 113.8
+   "TOTAL": 114
   },
   "Alex Call": {
    "nm": "Alex Call",
@@ -2929,7 +2929,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3001,7 +3001,7 @@
    "mkt_z": 0,
    "blend": -0.0369,
    "baseTotal": 98.9,
-   "TOTAL": 105.1
+   "TOTAL": 105.2
   },
   "Tommy Edman": {
    "nm": "Tommy Edman",
@@ -3020,7 +3020,7 @@
    "slot": 4,
    "bhand": "S",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3092,7 +3092,7 @@
    "mkt_z": 0.7105,
    "blend": 0.4686,
    "baseTotal": 114.1,
-   "TOTAL": 121.3
+   "TOTAL": 121.4
   },
   "Andy Pages": {
    "nm": "Andy Pages",
@@ -3111,7 +3111,7 @@
    "slot": 2,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3183,7 +3183,7 @@
    "mkt_z": 1.3681,
    "blend": 1.1999,
    "baseTotal": 136,
-   "TOTAL": 144.6
+   "TOTAL": 144.7
   },
   "Freddie Freeman": {
    "nm": "Freddie Freeman",
@@ -3202,7 +3202,7 @@
    "slot": 3,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.3639610306789285,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3274,7 +3274,7 @@
    "mkt_z": 0.6219,
    "blend": 0.9319,
    "baseTotal": 128,
-   "TOTAL": 136.1
+   "TOTAL": 136.2
   },
   "Teoscar Hern\u00e1ndez": {
    "nm": "Teoscar Hern\u00e1ndez",
@@ -3293,7 +3293,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3365,7 +3365,7 @@
    "mkt_z": 1.0631,
    "blend": 0.8563,
    "baseTotal": 125.7,
-   "TOTAL": 133.6
+   "TOTAL": 133.7
   },
   "Hunter Feduccia": {
    "nm": "Hunter Feduccia",
@@ -3384,7 +3384,7 @@
    "slot": 9,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.3639610306789285,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3456,7 +3456,7 @@
    "mkt_z": -1.0258,
    "blend": -0.9087,
    "baseTotal": 72.7,
-   "TOTAL": 77.3
+   "TOTAL": 77.4
   },
   "Ben Rortvedt": {
    "nm": "Ben Rortvedt",
@@ -3475,7 +3475,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3566,7 +3566,7 @@
    "slot": 2,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3638,7 +3638,7 @@
    "mkt_z": 2.1802,
    "blend": 1.9318,
    "baseTotal": 158,
-   "TOTAL": 168
+   "TOTAL": 168.1
   },
   "Pedro Ram\u00edrez": {
    "nm": "Pedro Ram\u00edrez",
@@ -3657,7 +3657,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3729,7 +3729,7 @@
    "mkt_z": -0.7797,
    "blend": -0.4936,
    "baseTotal": 85.2,
-   "TOTAL": 90.6
+   "TOTAL": 90.7
   },
   "Carson Kelly": {
    "nm": "Carson Kelly",
@@ -3748,7 +3748,7 @@
    "slot": 4,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3820,7 +3820,7 @@
    "mkt_z": 1.2489,
    "blend": 1.0982,
    "baseTotal": 132.9,
-   "TOTAL": 141.3
+   "TOTAL": 141.4
   },
   "Alex Bregman": {
    "nm": "Alex Bregman",
@@ -3839,7 +3839,7 @@
    "slot": 3,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -3911,7 +3911,7 @@
    "mkt_z": 0.3526,
    "blend": 0.1839,
    "baseTotal": 105.5,
-   "TOTAL": 112.1
+   "TOTAL": 112.3
   },
   "James Triantos": {
    "nm": "James Triantos",
@@ -3930,7 +3930,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4002,7 +4002,7 @@
    "mkt_z": 0,
    "blend": -0.2831,
    "baseTotal": 91.5,
-   "TOTAL": 97.3
+   "TOTAL": 97.4
   },
   "Michael Busch": {
    "nm": "Michael Busch",
@@ -4021,7 +4021,7 @@
    "slot": 5,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.3639610306789285,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4040,7 +4040,7 @@
    "ftrend": "up",
    "odds": 440,
    "soft": true,
-   "why": "Michael Busch gets a park that's launching everything tonight, leans on contact with sneaky pop (33/100), the swing's trending up, and lands at 126 in our model.",
+   "why": "Michael Busch gets a park that's launching everything tonight, leans on contact with sneaky pop (33/100), the swing's trending up, and lands at 127 in our model.",
    "powidx": 33,
    "phr9": 1.0650603708333148,
    "psrc": "brl",
@@ -4093,7 +4093,7 @@
    "mkt_z": 0.6954,
    "blend": 0.6294,
    "baseTotal": 118.9,
-   "TOTAL": 126.4
+   "TOTAL": 126.5
   },
   "Michael Conforto": {
    "nm": "Michael Conforto",
@@ -4112,7 +4112,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4184,7 +4184,7 @@
    "mkt_z": 0,
    "blend": 0.2719,
    "baseTotal": 108.2,
-   "TOTAL": 115
+   "TOTAL": 115.1
   },
   "Tyrone Taylor": {
    "nm": "Tyrone Taylor",
@@ -4203,7 +4203,7 @@
    "slot": 9,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4275,7 +4275,7 @@
    "mkt_z": 0.6219,
    "blend": 0.5933,
    "baseTotal": 117.8,
-   "TOTAL": 125.2
+   "TOTAL": 125.3
   },
   "Ian Happ": {
    "nm": "Ian Happ",
@@ -4294,7 +4294,7 @@
    "slot": 7,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4366,7 +4366,7 @@
    "mkt_z": 1.3478,
    "blend": 1.189,
    "baseTotal": 135.7,
-   "TOTAL": 144.2
+   "TOTAL": 144.4
   },
   "Dansby Swanson": {
    "nm": "Dansby Swanson",
@@ -4385,7 +4385,7 @@
    "slot": 8,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4457,7 +4457,7 @@
    "mkt_z": 1.1264,
    "blend": 0.9767,
    "baseTotal": 129.3,
-   "TOTAL": 137.4
+   "TOTAL": 137.6
   },
   "Pete Crow-Armstrong": {
    "nm": "Pete Crow-Armstrong",
@@ -4476,7 +4476,7 @@
    "slot": 1,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.3639610306789285,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4548,7 +4548,7 @@
    "mkt_z": 1.5589,
    "blend": 1.4182,
    "baseTotal": 142.5,
-   "TOTAL": 151.5
+   "TOTAL": 151.6
   },
   "Nico Hoerner": {
    "nm": "Nico Hoerner",
@@ -4567,7 +4567,7 @@
    "slot": 6,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": 6.363961030678926,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4639,7 +4639,7 @@
    "mkt_z": -1.1652,
    "blend": -1.1556,
    "baseTotal": 65.3,
-   "TOTAL": 69.4
+   "TOTAL": 69.5
   },
   "Miguel Amaya": {
    "nm": "Miguel Amaya",
@@ -4658,7 +4658,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.063,
+   "wf": 1.064,
    "pull_tail": null,
    "game": 2,
    "gmatch": "LAD@CHC",
@@ -4730,7 +4730,7 @@
    "mkt_z": 0,
    "blend": -0.1233,
    "baseTotal": 96.3,
-   "TOTAL": 102.4
+   "TOTAL": 102.5
   },
   "Eddys Leonard": {
    "nm": "Eddys Leonard",
@@ -7294,18 +7294,18 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 486.1019691955234,
-   "slot": null,
-   "bhand": null,
+   "slot": 1,
+   "bhand": "L",
    "hr9": null,
    "wf": 1.124,
-   "pull_tail": null,
+   "pull_tail": -3.997563308076383,
    "game": 4,
    "gmatch": "TB@COL",
    "gtime": "3:10 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tomoyuki Sugano",
@@ -7322,8 +7322,8 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.3,
-   "slotT": 1,
-   "platT": 1,
+   "slotT": 1.08,
+   "platT": 1.056,
    "pen_fatigue": 0.59,
    "penT": 1.0472,
    "bg": 0,
@@ -9481,7 +9481,7 @@
    "slot": 2,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -9553,7 +9553,7 @@
    "mkt_z": 1.6718,
    "blend": 1.8395,
    "baseTotal": 155.2,
-   "TOTAL": 158.5
+   "TOTAL": 158.3
   },
   "Mois\u00e9s Ballesteros": {
    "nm": "Mois\u00e9s Ballesteros",
@@ -9572,7 +9572,7 @@
    "slot": 5,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": 0.32556815445715676,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -9644,7 +9644,7 @@
    "mkt_z": -0.1747,
    "blend": -0.2359,
    "baseTotal": 92.9,
-   "TOTAL": 94.9
+   "TOTAL": 94.8
   },
   "Zach Neto": {
    "nm": "Zach Neto",
@@ -9663,7 +9663,7 @@
    "slot": 1,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -9735,7 +9735,7 @@
    "mkt_z": 1.5044,
    "blend": 1.46,
    "baseTotal": 143.8,
-   "TOTAL": 146.8
+   "TOTAL": 146.7
   },
   "Travis d'Arnaud": {
    "nm": "Travis d'Arnaud",
@@ -9754,7 +9754,7 @@
    "slot": 6,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -9826,7 +9826,7 @@
    "mkt_z": 0.0903,
    "blend": 0.1564,
    "baseTotal": 104.7,
-   "TOTAL": 106.9
+   "TOTAL": 106.8
   },
   "Oswald Peraza": {
    "nm": "Oswald Peraza",
@@ -9845,7 +9845,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -9917,7 +9917,7 @@
    "mkt_z": 0,
    "blend": 0.0322,
    "baseTotal": 101,
-   "TOTAL": 103.1
+   "TOTAL": 103
   },
   "Vaughn Grissom": {
    "nm": "Vaughn Grissom",
@@ -9936,7 +9936,7 @@
    "slot": 4,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10008,7 +10008,7 @@
    "mkt_z": -0.3491,
    "blend": -0.2003,
    "baseTotal": 94,
-   "TOTAL": 96
+   "TOTAL": 95.9
   },
   "Jose Siri": {
    "nm": "Jose Siri",
@@ -10027,7 +10027,7 @@
    "slot": 8,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10099,7 +10099,7 @@
    "mkt_z": 0.7332,
    "blend": 0.7513,
    "baseTotal": 122.5,
-   "TOTAL": 125.1
+   "TOTAL": 125
   },
   "Nolan Schanuel": {
    "nm": "Nolan Schanuel",
@@ -10118,7 +10118,7 @@
    "slot": 3,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": 0.32556815445715676,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10209,7 +10209,7 @@
    "slot": 9,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10300,7 +10300,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10372,7 +10372,7 @@
    "mkt_z": 0,
    "blend": -0.6049,
    "baseTotal": 81.9,
-   "TOTAL": 83.6
+   "TOTAL": 83.5
   },
   "Denzer Guzman": {
    "nm": "Denzer Guzman",
@@ -10391,7 +10391,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10482,7 +10482,7 @@
    "slot": 7,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10554,7 +10554,7 @@
    "mkt_z": 0,
    "blend": -0.1163,
    "baseTotal": 96.5,
-   "TOTAL": 98.5
+   "TOTAL": 98.4
   },
   "Wade Meckler": {
    "nm": "Wade Meckler",
@@ -10573,7 +10573,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10664,7 +10664,7 @@
    "slot": 4,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10736,7 +10736,7 @@
    "mkt_z": 1.8511,
    "blend": 1.546,
    "baseTotal": 146.4,
-   "TOTAL": 149.5
+   "TOTAL": 149.3
   },
   "Pete Alonso": {
    "nm": "Pete Alonso",
@@ -10755,7 +10755,7 @@
    "slot": 2,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10827,7 +10827,7 @@
    "mkt_z": 2.1111,
    "blend": 2.0698,
    "baseTotal": 162.1,
-   "TOTAL": 165.5
+   "TOTAL": 165.3
   },
   "Coby Mayo": {
    "nm": "Coby Mayo",
@@ -10846,7 +10846,7 @@
    "slot": 5,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -10918,7 +10918,7 @@
    "mkt_z": 2.2511,
    "blend": 1.9061,
    "baseTotal": 157.2,
-   "TOTAL": 160.5
+   "TOTAL": 160.3
   },
   "Colton Cowser": {
    "nm": "Colton Cowser",
@@ -10937,7 +10937,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11009,7 +11009,7 @@
    "mkt_z": 0,
    "blend": 0.1016,
    "baseTotal": 103,
-   "TOTAL": 105.2
+   "TOTAL": 105.1
   },
   "Christian Encarnacion-Strand": {
    "nm": "Christian Encarnacion-Strand",
@@ -11028,7 +11028,7 @@
    "slot": 6,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11100,7 +11100,7 @@
    "mkt_z": 0.7874,
    "blend": 0.5928,
    "baseTotal": 117.8,
-   "TOTAL": 120.3
+   "TOTAL": 120.2
   },
   "Yohel Pozo": {
    "nm": "Yohel Pozo",
@@ -11119,7 +11119,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11191,7 +11191,7 @@
    "mkt_z": 0,
    "blend": -0.0575,
    "baseTotal": 98.3,
-   "TOTAL": 100.4
+   "TOTAL": 100.3
   },
   "Gunnar Henderson": {
    "nm": "Gunnar Henderson",
@@ -11210,7 +11210,7 @@
    "slot": 3,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": 0.32556815445715676,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11282,7 +11282,7 @@
    "mkt_z": 0.5302,
    "blend": 0.3212,
    "baseTotal": 109.6,
-   "TOTAL": 111.9
+   "TOTAL": 111.8
   },
   "Carlos Narv\u00e1ez": {
    "nm": "Carlos Narv\u00e1ez",
@@ -11301,7 +11301,7 @@
    "slot": 9,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": -0.9455185755993167,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11373,7 +11373,7 @@
    "mkt_z": -0.5846,
    "blend": -0.7724,
    "baseTotal": 76.8,
-   "TOTAL": 78.4
+   "TOTAL": 78.3
   },
   "Dylan Beavers": {
    "nm": "Dylan Beavers",
@@ -11392,7 +11392,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11464,7 +11464,7 @@
    "mkt_z": 0,
    "blend": -0.1358,
    "baseTotal": 95.9,
-   "TOTAL": 97.9
+   "TOTAL": 97.8
   },
   "Christian Franklin": {
    "nm": "Christian Franklin",
@@ -11483,7 +11483,7 @@
    "slot": 1,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11502,7 +11502,7 @@
    "ftrend": "",
    "odds": 505,
    "soft": true,
-   "why": "Christian Franklin has the yard tilting his way, wins with bat-to-ball over raw pop (0/100), lands at 97 in our model, and on stable footing lately.",
+   "why": "Christian Franklin has the yard tilting his way, wins with bat-to-ball over raw pop (0/100), lands at 96 in our model, and on stable footing lately.",
    "powidx": 0,
    "phr9": 1.0013792142013156,
    "psrc": "brl",
@@ -11555,7 +11555,7 @@
    "mkt_z": 0.2609,
    "blend": -0.1841,
    "baseTotal": 94.5,
-   "TOTAL": 96.5
+   "TOTAL": 96.4
   },
   "Jeremiah Jackson": {
    "nm": "Jeremiah Jackson",
@@ -11574,7 +11574,7 @@
    "slot": 8,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11646,7 +11646,7 @@
    "mkt_z": 0.3652,
    "blend": 0.1686,
    "baseTotal": 105.1,
-   "TOTAL": 107.3
+   "TOTAL": 107.2
   },
   "Jackson Holliday": {
    "nm": "Jackson Holliday",
@@ -11665,7 +11665,7 @@
    "slot": 7,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": 0.32556815445715676,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11737,7 +11737,7 @@
    "mkt_z": -0.7797,
    "blend": -0.6746,
    "baseTotal": 79.8,
-   "TOTAL": 81.5
+   "TOTAL": 81.4
   },
   "Leody Taveras": {
    "nm": "Leody Taveras",
@@ -11756,7 +11756,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.021,
+   "wf": 1.02,
    "pull_tail": null,
    "game": 5,
    "gmatch": "LAA@BAL",
@@ -11828,7 +11828,7 @@
    "mkt_z": -1.0976,
    "blend": -0.9915,
    "baseTotal": 70.3,
-   "TOTAL": 71.8
+   "TOTAL": 71.7
   },
   "Robert Stock": {
    "nm": "Robert Stock",
@@ -16579,7 +16579,7 @@
    "slot": 2,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -16651,7 +16651,7 @@
    "mkt_z": 0.811,
    "blend": 0.4357,
    "baseTotal": 113.1,
-   "TOTAL": 112.6
+   "TOTAL": 112.8
   },
   "Keibert Ruiz": {
    "nm": "Keibert Ruiz",
@@ -16670,7 +16670,7 @@
    "slot": 5,
    "bhand": "S",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -16742,7 +16742,7 @@
    "mkt_z": -0.0147,
    "blend": -0.195,
    "baseTotal": 94.2,
-   "TOTAL": 93.8
+   "TOTAL": 93.9
   },
   "Daylen Lile": {
    "nm": "Daylen Lile",
@@ -16761,7 +16761,7 @@
    "slot": 4,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -16833,7 +16833,7 @@
    "mkt_z": 0.811,
    "blend": 0.6598,
    "baseTotal": 119.8,
-   "TOTAL": 119.3
+   "TOTAL": 119.4
   },
   "CJ Abrams": {
    "nm": "CJ Abrams",
@@ -16852,7 +16852,7 @@
    "slot": 1,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -16871,7 +16871,7 @@
    "ftrend": "",
    "odds": 338,
    "soft": true,
-   "why": "CJ Abrams puts air under the ball (19\u00b0), is driving the ball (47% hard-hit), has real over-the-fence pop (52/100), and the model has him at 144 for the night.",
+   "why": "CJ Abrams puts air under the ball (19\u00b0), is driving the ball (47% hard-hit), has real over-the-fence pop (52/100), and the model has him at 145 for the night.",
    "powidx": 52,
    "phr9": 0.9643369777186905,
    "psrc": "brl",
@@ -16924,7 +16924,7 @@
    "mkt_z": 1.6374,
    "blend": 1.5014,
    "baseTotal": 145,
-   "TOTAL": 144.4
+   "TOTAL": 144.6
   },
   "Jorbit Vivas": {
    "nm": "Jorbit Vivas",
@@ -16943,7 +16943,7 @@
    "slot": 8,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17015,7 +17015,7 @@
    "mkt_z": -0.9225,
    "blend": -0.9518,
    "baseTotal": 71.4,
-   "TOTAL": 71.1
+   "TOTAL": 71.2
   },
   "Jacob Young": {
    "nm": "Jacob Young",
@@ -17034,7 +17034,7 @@
    "slot": 9,
    "bhand": "R",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -3.8567256581192364,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17106,7 +17106,7 @@
    "mkt_z": -1.3637,
    "blend": -1.1056,
    "baseTotal": 66.8,
-   "TOTAL": 66.5
+   "TOTAL": 66.6
   },
   "Nasim Nu\u00f1ez": {
    "nm": "Nasim Nu\u00f1ez",
@@ -17125,7 +17125,7 @@
    "slot": 7,
    "bhand": "S",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17216,7 +17216,7 @@
    "slot": 6,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17288,7 +17288,7 @@
    "mkt_z": 0.1453,
    "blend": 0.1335,
    "baseTotal": 104,
-   "TOTAL": 103.6
+   "TOTAL": 103.7
   },
   "Harry Ford": {
    "nm": "Harry Ford",
@@ -17307,7 +17307,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17379,7 +17379,7 @@
    "mkt_z": 0,
    "blend": -0.237,
    "baseTotal": 92.9,
-   "TOTAL": 92.5
+   "TOTAL": 92.6
   },
   "Andr\u00e9s Chaparro": {
    "nm": "Andr\u00e9s Chaparro",
@@ -17398,7 +17398,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17470,7 +17470,7 @@
    "mkt_z": 0,
    "blend": 0.407,
    "baseTotal": 112.2,
-   "TOTAL": 111.8
+   "TOTAL": 111.9
   },
   "Dylan Crews": {
    "nm": "Dylan Crews",
@@ -17489,7 +17489,7 @@
    "slot": 3,
    "bhand": "R",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -3.8567256581192364,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17561,7 +17561,7 @@
    "mkt_z": 0.2909,
    "blend": 0.3063,
    "baseTotal": 109.2,
-   "TOTAL": 108.8
+   "TOTAL": 108.9
   },
   "Brady House": {
    "nm": "Brady House",
@@ -17580,7 +17580,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17652,7 +17652,7 @@
    "mkt_z": 0,
    "blend": 0.0746,
    "baseTotal": 102.2,
-   "TOTAL": 101.8
+   "TOTAL": 101.9
   },
   "Andrew Pinckney": {
    "nm": "Andrew Pinckney",
@@ -17671,7 +17671,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17743,7 +17743,7 @@
    "mkt_z": 0,
    "blend": -0.3797,
    "baseTotal": 88.6,
-   "TOTAL": 88.2
+   "TOTAL": 88.3
   },
   "Kyle Schwarber": {
    "nm": "Kyle Schwarber",
@@ -17762,7 +17762,7 @@
    "slot": 1,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17834,7 +17834,7 @@
    "mkt_z": 4.4513,
    "blend": 3.9847,
    "baseTotal": 219.5,
-   "TOTAL": 218.6
+   "TOTAL": 218.8
   },
   "Luis Arraez": {
    "nm": "Luis Arraez",
@@ -17853,7 +17853,7 @@
    "slot": 4,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -17925,7 +17925,7 @@
    "mkt_z": -1.0502,
    "blend": -0.7399,
    "baseTotal": 77.8,
-   "TOTAL": 77.5
+   "TOTAL": 77.6
   },
   "Bryson Stott": {
    "nm": "Bryson Stott",
@@ -17944,7 +17944,7 @@
    "slot": 8,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18016,7 +18016,7 @@
    "mkt_z": 0.1735,
    "blend": 0.0738,
    "baseTotal": 102.2,
-   "TOTAL": 101.8
+   "TOTAL": 101.9
   },
   "Brandon Marsh": {
    "nm": "Brandon Marsh",
@@ -18035,7 +18035,7 @@
    "slot": 6,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18107,7 +18107,7 @@
    "mkt_z": 1.2978,
    "blend": 1.1791,
    "baseTotal": 135.4,
-   "TOTAL": 134.9
+   "TOTAL": 135
   },
   "Bryce Harper": {
    "nm": "Bryce Harper",
@@ -18126,7 +18126,7 @@
    "slot": 3,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18198,7 +18198,7 @@
    "mkt_z": 3.0747,
    "blend": 2.7478,
    "baseTotal": 182.4,
-   "TOTAL": 181.7
+   "TOTAL": 181.9
   },
   "Alec Bohm": {
    "nm": "Alec Bohm",
@@ -18217,7 +18217,7 @@
    "slot": 5,
    "bhand": "R",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -3.8567256581192364,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18289,7 +18289,7 @@
    "mkt_z": -0.3491,
    "blend": -0.3207,
    "baseTotal": 90.4,
-   "TOTAL": 90
+   "TOTAL": 90.1
   },
   "J.T. Realmuto": {
    "nm": "J.T. Realmuto",
@@ -18308,7 +18308,7 @@
    "slot": 7,
    "bhand": "R",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -3.8567256581192364,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18380,7 +18380,7 @@
    "mkt_z": -0.1747,
    "blend": -0.1173,
    "baseTotal": 96.5,
-   "TOTAL": 96.1
+   "TOTAL": 96.2
   },
   "Bryan De La Cruz": {
    "nm": "Bryan De La Cruz",
@@ -18399,7 +18399,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18471,7 +18471,7 @@
    "mkt_z": 0,
    "blend": 0.0461,
    "baseTotal": 101.4,
-   "TOTAL": 101
+   "TOTAL": 101.1
   },
   "Justin Crawford": {
    "nm": "Justin Crawford",
@@ -18490,7 +18490,7 @@
    "slot": 9,
    "bhand": "L",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -4.596266658713867,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18562,7 +18562,7 @@
    "mkt_z": -1.0976,
    "blend": -1.1248,
    "baseTotal": 66.3,
-   "TOTAL": 66
+   "TOTAL": 66.1
   },
   "Garrett Stubbs": {
    "nm": "Garrett Stubbs",
@@ -18581,7 +18581,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18653,7 +18653,7 @@
    "mkt_z": 0,
    "blend": -0.1185,
    "baseTotal": 96.4,
-   "TOTAL": 96
+   "TOTAL": 96.1
   },
   "Trea Turner": {
    "nm": "Trea Turner",
@@ -18672,7 +18672,7 @@
    "slot": 2,
    "bhand": "R",
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": -3.8567256581192364,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18744,7 +18744,7 @@
    "mkt_z": 0.3843,
    "blend": 0.2831,
    "baseTotal": 108.5,
-   "TOTAL": 108.1
+   "TOTAL": 108.2
   },
   "Derek Hill": {
    "nm": "Derek Hill",
@@ -18763,7 +18763,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18835,7 +18835,7 @@
    "mkt_z": 0,
    "blend": 0.0069,
    "baseTotal": 100.2,
-   "TOTAL": 99.8
+   "TOTAL": 99.9
   },
   "Edmundo Sosa": {
    "nm": "Edmundo Sosa",
@@ -18854,7 +18854,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 0.996,
+   "wf": 0.997,
    "pull_tail": null,
    "game": 8,
    "gmatch": "WSH@PHI",
@@ -18873,7 +18873,7 @@
    "ftrend": "down",
    "odds": null,
    "soft": true,
-   "why": "Edmundo Sosa wins with bat-to-ball over raw pop (15/100), the model has him at 97 for the night, and the process ahead of the results lately.",
+   "why": "Edmundo Sosa wins with bat-to-ball over raw pop (15/100), the model has him at 98 for the night, and the process ahead of the results lately.",
    "powidx": 15,
    "phr9": 1.0878964819310795,
    "psrc": "brl",
@@ -18926,7 +18926,7 @@
    "mkt_z": 0,
    "blend": -0.0733,
    "baseTotal": 97.8,
-   "TOTAL": 97.4
+   "TOTAL": 97.5
   },
   "Bryan Torres": {
    "nm": "Bryan Torres",
@@ -26043,7 +26043,7 @@
    "slot": 2,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": -2.229434476432182,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26115,7 +26115,7 @@
    "mkt_z": 0.5302,
    "blend": 0.7872,
    "baseTotal": 123.6,
-   "TOTAL": 127.8
+   "TOTAL": 127.7
   },
   "Royce Lewis": {
    "nm": "Royce Lewis",
@@ -26134,7 +26134,7 @@
    "slot": 5,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": -2.229434476432182,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26206,7 +26206,7 @@
    "mkt_z": 1.2684,
    "blend": 1.0258,
    "baseTotal": 130.8,
-   "TOTAL": 135.2
+   "TOTAL": 135.1
   },
   "Tristan Gray": {
    "nm": "Tristan Gray",
@@ -26225,7 +26225,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26297,7 +26297,7 @@
    "mkt_z": 0,
    "blend": -0.0935,
    "baseTotal": 97.2,
-   "TOTAL": 100.5
+   "TOTAL": 100.4
   },
   "Kody Clemens": {
    "nm": "Kody Clemens",
@@ -26316,7 +26316,7 @@
    "slot": 4,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26388,7 +26388,7 @@
    "mkt_z": 0.6954,
    "blend": 0.677,
    "baseTotal": 120.3,
-   "TOTAL": 124.4
+   "TOTAL": 124.3
   },
   "Alan Roden": {
    "nm": "Alan Roden",
@@ -26407,7 +26407,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26479,7 +26479,7 @@
    "mkt_z": 0,
    "blend": -0.228,
    "baseTotal": 93.2,
-   "TOTAL": 96.4
+   "TOTAL": 96.3
   },
   "Austin Martin": {
    "nm": "Austin Martin",
@@ -26498,7 +26498,7 @@
    "slot": 1,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": -2.229434476432182,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26589,7 +26589,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26661,7 +26661,7 @@
    "mkt_z": -1.5292,
    "blend": -1.3207,
    "baseTotal": 60.4,
-   "TOTAL": 62.5
+   "TOTAL": 62.4
   },
   "Victor Caratini": {
    "nm": "Victor Caratini",
@@ -26680,7 +26680,7 @@
    "slot": 6,
    "bhand": "S",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26752,7 +26752,7 @@
    "mkt_z": -0.7797,
    "blend": -0.4223,
    "baseTotal": 87.3,
-   "TOTAL": 90.3
+   "TOTAL": 90.2
   },
   "Josh Bell": {
    "nm": "Josh Bell",
@@ -26771,7 +26771,7 @@
    "slot": 3,
    "bhand": "S",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26843,7 +26843,7 @@
    "mkt_z": -0.0147,
    "blend": 0.1183,
    "baseTotal": 103.6,
-   "TOTAL": 107.1
+   "TOTAL": 107
   },
   "Brooks Lee": {
    "nm": "Brooks Lee",
@@ -26862,7 +26862,7 @@
    "slot": 7,
    "bhand": "S",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -26934,7 +26934,7 @@
    "mkt_z": -0.9225,
    "blend": -0.7033,
    "baseTotal": 78.9,
-   "TOTAL": 81.6
+   "TOTAL": 81.5
   },
   "Ryan Kreidler": {
    "nm": "Ryan Kreidler",
@@ -26953,7 +26953,7 @@
    "slot": 9,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": -2.229434476432182,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27025,7 +27025,7 @@
    "mkt_z": -0.7797,
    "blend": -0.5205,
    "baseTotal": 84.4,
-   "TOTAL": 87.3
+   "TOTAL": 87.2
   },
   "Trevor Larnach": {
    "nm": "Trevor Larnach",
@@ -27044,7 +27044,7 @@
    "slot": 8,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27116,7 +27116,7 @@
    "mkt_z": 0,
    "blend": 0.1317,
    "baseTotal": 104,
-   "TOTAL": 107.5
+   "TOTAL": 107.4
   },
   "Alex Jackson": {
    "nm": "Alex Jackson",
@@ -27135,7 +27135,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27207,7 +27207,7 @@
    "mkt_z": -1.1652,
    "blend": -1.3682,
    "baseTotal": 59,
-   "TOTAL": 61
+   "TOTAL": 60.9
   },
   "Jac Caglianone": {
    "nm": "Jac Caglianone",
@@ -27226,7 +27226,7 @@
    "slot": 3,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": 2.0073918190765747,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27298,7 +27298,7 @@
    "mkt_z": 1.5044,
    "blend": 1.4068,
    "baseTotal": 142.2,
-   "TOTAL": 147
+   "TOTAL": 146.9
   },
   "John Rave": {
    "nm": "John Rave",
@@ -27317,7 +27317,7 @@
    "slot": 8,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": 2.0073918190765747,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27389,7 +27389,7 @@
    "mkt_z": -0.0796,
    "blend": -0.0528,
    "baseTotal": 98.4,
-   "TOTAL": 101.7
+   "TOTAL": 101.6
   },
   "Bobby Witt": {
    "nm": "Bobby Witt",
@@ -27408,7 +27408,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27480,7 +27480,7 @@
    "mkt_z": 1.5044,
    "blend": 1.2227,
    "baseTotal": 136.7,
-   "TOTAL": 141.3
+   "TOTAL": 141.2
   },
   "Michael Massey": {
    "nm": "Michael Massey",
@@ -27499,7 +27499,7 @@
    "slot": 5,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": 2.0073918190765747,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27571,7 +27571,7 @@
    "mkt_z": -0.2291,
    "blend": -0.2619,
    "baseTotal": 92.1,
-   "TOTAL": 95.2
+   "TOTAL": 95.1
   },
   "Nick Loftin": {
    "nm": "Nick Loftin",
@@ -27590,7 +27590,7 @@
    "slot": 7,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": -2.229434476432182,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27662,7 +27662,7 @@
    "mkt_z": -1.0976,
    "blend": -0.9935,
    "baseTotal": 70.2,
-   "TOTAL": 72.6
+   "TOTAL": 72.5
   },
   "Carter Jensen": {
    "nm": "Carter Jensen",
@@ -27681,7 +27681,7 @@
    "slot": 1,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": 2.0073918190765747,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27753,7 +27753,7 @@
    "mkt_z": 0.6219,
    "blend": 0.793,
    "baseTotal": 123.8,
-   "TOTAL": 128
+   "TOTAL": 127.9
   },
   "Isaac Collins": {
    "nm": "Isaac Collins",
@@ -27772,7 +27772,7 @@
    "slot": 6,
    "bhand": "S",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27844,7 +27844,7 @@
    "mkt_z": -0.7797,
    "blend": -0.6902,
    "baseTotal": 79.3,
-   "TOTAL": 82
+   "TOTAL": 81.9
   },
   "Josh Rojas": {
    "nm": "Josh Rojas",
@@ -27863,7 +27863,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -27935,7 +27935,7 @@
    "mkt_z": 0,
    "blend": -0.4587,
    "baseTotal": 86.2,
-   "TOTAL": 89.1
+   "TOTAL": 89
   },
   "Salvador Perez": {
    "nm": "Salvador Perez",
@@ -27954,7 +27954,7 @@
    "slot": 4,
    "bhand": "R",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": -2.229434476432182,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -28026,7 +28026,7 @@
    "mkt_z": 0.7332,
    "blend": 0.6161,
    "baseTotal": 118.5,
-   "TOTAL": 122.5
+   "TOTAL": 122.4
   },
   "Kyle Isbel": {
    "nm": "Kyle Isbel",
@@ -28045,7 +28045,7 @@
    "slot": 9,
    "bhand": "L",
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": 2.0073918190765747,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -28136,7 +28136,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -28208,7 +28208,7 @@
    "mkt_z": 0,
    "blend": -0.0172,
    "baseTotal": 99.5,
-   "TOTAL": 102.9
+   "TOTAL": 102.8
   },
   "Starling Marte": {
    "nm": "Starling Marte",
@@ -28227,7 +28227,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -28299,7 +28299,7 @@
    "mkt_z": 0,
    "blend": 0.0067,
    "baseTotal": 100.2,
-   "TOTAL": 103.6
+   "TOTAL": 103.5
   },
   "Tyler Tolbert": {
    "nm": "Tyler Tolbert",
@@ -28318,7 +28318,7 @@
    "slot": null,
    "bhand": null,
    "hr9": null,
-   "wf": 1.034,
+   "wf": 1.033,
    "pull_tail": null,
    "game": 12,
    "gmatch": "MIN@KC",
@@ -28390,7 +28390,7 @@
    "mkt_z": 0,
    "blend": -0.3349,
    "baseTotal": 90,
-   "TOTAL": 93.1
+   "TOTAL": 93
   },
   "Esmerlyn Valdez": {
    "nm": "Esmerlyn Valdez",
@@ -35510,7 +35510,7 @@
    "2": {
     "emoji": "\u2600\ufe0f",
     "lean": "Boost",
-    "factor": 1.063,
+    "factor": 1.064,
     "park": "LAD@CHC",
     "cond": "9 mph",
     "rain": "21% rain",
@@ -35518,8 +35518,8 @@
     "tail_mph": 9,
     "wind_deg": 210,
     "wind_mph": "9 mph",
-    "temp": 80.6,
-    "precip_src": "slate_auto"
+    "temp": 81,
+    "precip_src": "live"
    },
    "3": {
     "emoji": "\ud83c\udfdf",
@@ -35546,13 +35546,13 @@
     "tail_mph": -2.7,
     "wind_deg": 47,
     "wind_mph": "4 mph",
-    "temp": 73.1,
-    "precip_src": "slate_auto"
+    "temp": 73,
+    "precip_src": "live"
    },
    "5": {
     "emoji": "\u2600\ufe0f",
     "lean": "Neutral",
-    "factor": 1.021,
+    "factor": 1.02,
     "park": "LAA@BAL",
     "cond": "1 mph",
     "rain": "22% rain",
@@ -35560,8 +35560,8 @@
     "tail_mph": -0.4,
     "wind_deg": 326,
     "wind_mph": "1 mph",
-    "temp": 84.1,
-    "precip_src": "slate_auto"
+    "temp": 84,
+    "precip_src": "live"
    },
    "6": {
     "emoji": "\u2600\ufe0f",
@@ -35574,8 +35574,8 @@
     "tail_mph": -6,
     "wind_deg": 2,
     "wind_mph": "6 mph",
-    "temp": 81.7,
-    "precip_src": "slate_auto"
+    "temp": 82,
+    "precip_src": "live"
    },
    "7": {
     "emoji": "\u2600\ufe0f",
@@ -35589,12 +35589,12 @@
     "wind_deg": 286,
     "wind_mph": "4 mph",
     "temp": 87,
-    "precip_src": "slate_auto"
+    "precip_src": "live"
    },
    "8": {
     "emoji": "\u2600\ufe0f",
     "lean": "Neutral",
-    "factor": 0.996,
+    "factor": 0.997,
     "park": "WSH@PHI",
     "cond": "6 mph",
     "rain": "20% rain",
@@ -35602,8 +35602,8 @@
     "tail_mph": -6,
     "wind_deg": 20,
     "wind_mph": "6 mph",
-    "temp": 80.9,
-    "precip_src": "slate_auto"
+    "temp": 81,
+    "precip_src": "live"
    },
    "9": {
     "emoji": "\ud83c\udf27\ufe0f",
@@ -35616,8 +35616,8 @@
     "tail_mph": 2,
     "wind_deg": 129,
     "wind_mph": "5 mph",
-    "temp": 78.7,
-    "precip_src": "slate_auto"
+    "temp": 79,
+    "precip_src": "live"
    },
    "10": {
     "emoji": "\u2600\ufe0f",
@@ -35631,7 +35631,7 @@
     "wind_deg": 221,
     "wind_mph": "7 mph",
     "temp": 85,
-    "precip_src": "slate_auto"
+    "precip_src": "live"
    },
    "11": {
     "emoji": "\u2600\ufe0f",
@@ -35644,13 +35644,13 @@
     "tail_mph": -2.9,
     "wind_deg": 32,
     "wind_mph": "3 mph",
-    "temp": 75.2,
-    "precip_src": "slate_auto"
+    "temp": 75,
+    "precip_src": "live"
    },
    "12": {
     "emoji": "\u2600\ufe0f",
     "lean": "Neutral",
-    "factor": 1.034,
+    "factor": 1.033,
     "park": "MIN@KC",
     "cond": "3 mph",
     "rain": "29% rain",
@@ -35658,8 +35658,8 @@
     "tail_mph": -0.2,
     "wind_deg": 318,
     "wind_mph": "3 mph",
-    "temp": 80.2,
-    "precip_src": "slate_auto"
+    "temp": 80,
+    "precip_src": "live"
    },
    "13": {
     "emoji": "\ud83c\udfdf",
@@ -35704,7 +35704,7 @@
     "precip_src": null
    }
   },
-  "build": "8/5 11:54pm",
+  "build": "8/5 11:59pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -35847,7 +35847,7 @@
   "date": "2026-08-05",
   "gs": {},
   "pool": 390,
-  "gate": 55,
+  "gate": 56,
   "tickets": 14
  },
  "tickets": [
@@ -36545,9 +36545,9 @@
     {
      "name": "Kyle Schwarber",
      "team": "Phillies",
-     "total": 218.6,
+     "total": 218.8,
      "aT": 100,
-     "wf": 0.996,
+     "wf": 0.997,
      "gmatch": "WSH@PHI",
      "gtime": "6:40 PM ET",
      "game": 8,
@@ -36571,9 +36571,9 @@
     {
      "name": "Shohei Ohtani",
      "team": "Dodgers",
-     "total": 203.5,
+     "total": 203.6,
      "aT": 100,
-     "wf": 1.063,
+     "wf": 1.064,
      "gmatch": "LAD@CHC",
      "gtime": "2:20 PM ET",
      "game": 2,
@@ -36640,6 +36640,7 @@
   "Mickey Moniak",
   "Riley Greene",
   "Pete Crow-Armstrong",
+  "Victor Mesa",
   "Miguel Vargas",
   "Ketel Marte",
   "Rafael Devers",
