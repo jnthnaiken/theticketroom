@@ -1,11 +1,11 @@
 {
   "date": "2026-08-06",
   "season": "2026",
-  "pulled_at": "2026-08-06T15:52:43Z",
+  "pulled_at": "2026-08-06T16:37:00Z",
   "games": [
     {
       "gamePk": 824804,
-      "status": "Pre-Game",
+      "status": "In Progress",
       "gameTime": "2026-08-06T16:35:00Z",
       "matchup": "LAA@BAL",
       "away": {
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824481,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-06T16:40:00Z",
       "matchup": "ATH@CIN",
       "away": {
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823754,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-06T18:10:00Z",
       "matchup": "PIT@MIL",
       "away": {
@@ -415,8 +415,54 @@
           "hr9": 1.2,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.073
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.226
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.176
+          },
+          {
+            "id": 682848,
+            "name": "Endy Rodr\u00edguez",
+            "iso": 0.208
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.17
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.091
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.0
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.159
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.147
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -426,10 +472,56 @@
           "hr9": 0.58,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.188
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.186
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.162
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.179
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.142
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.128
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.208
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.087
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -455,8 +547,54 @@
           "hr9": 0.53,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.118
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.211
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.118
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.166
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.101
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.13
+          },
+          {
+            "id": 649966,
+            "name": "Luis Ur\u00edas",
+            "iso": 0.22
+          },
+          {
+            "id": 676914,
+            "name": "Davis Schneider",
+            "iso": 0.137
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.116
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -606,7 +744,7 @@
         "wind_mph": 7.2,
         "wind_dir": 194,
         "tail_mph": 7.2,
-        "precip": 5
+        "precip": 4
       },
       "wf": 1.05
     },
@@ -688,7 +826,7 @@
         "wind_mph": 4.2,
         "wind_dir": 106,
         "tail_mph": -2.3,
-        "precip": 15
+        "precip": 16
       },
       "wf": 1.007
     },
