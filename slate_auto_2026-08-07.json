@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T19:30:29Z",
+  "pulled_at": "2026-08-07T19:36:09Z",
   "games": [
     {
       "gamePk": 823349,
@@ -57,8 +57,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.099
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.114
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.166
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.164
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.21
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.118
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.128
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.057
+          },
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": null
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -394,7 +440,7 @@
     },
     {
       "gamePk": 823836,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-07T23:10:00Z",
       "matchup": "LAA@MIA",
       "away": {
@@ -405,8 +451,54 @@
           "hr9": 1.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.114
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.202
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.111
+          },
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.196
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.142
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.143
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.129
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.146
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.061
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
@@ -419,7 +511,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
