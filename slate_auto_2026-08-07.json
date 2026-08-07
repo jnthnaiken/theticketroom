@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T19:22:41Z",
+  "pulled_at": "2026-08-07T19:30:29Z",
   "games": [
     {
       "gamePk": 823349,
@@ -133,7 +133,7 @@
     },
     {
       "gamePk": 822699,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-07T22:45:00Z",
       "matchup": "CIN@WSH",
       "away": {
@@ -155,10 +155,56 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.264
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.333
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.173
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.169
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.15
+          },
+          {
+            "id": 695670,
+            "name": "Harry Ford",
+            "iso": 0.187
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.039
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.147
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.155
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -261,7 +307,7 @@
     },
     {
       "gamePk": 824727,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-07T23:10:00Z",
       "matchup": "ATH@BOS",
       "away": {
@@ -272,8 +318,54 @@
           "hr9": 1.71,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.087
+          },
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.122
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.2
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.215
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.028
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.375
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.121
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.158
+          },
+          {
+            "id": 680716,
+            "name": "Jonathan Ornelas",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -286,7 +378,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
