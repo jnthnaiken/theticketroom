@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T20:56:44Z",
+  "pulled_at": "2026-08-07T21:00:43Z",
   "games": [
     {
       "gamePk": 823349,
@@ -132,7 +132,7 @@
         "wind_mph": 4.5,
         "wind_dir": 237,
         "tail_mph": 4.4,
-        "precip": 26
+        "precip": 21
       },
       "wf": 1.035
     },
@@ -265,7 +265,7 @@
         "wind_mph": 11.9,
         "wind_dir": 196,
         "tail_mph": 11.9,
-        "precip": 19
+        "precip": 13
       },
       "wf": 1.074
     },
@@ -398,7 +398,7 @@
         "wind_mph": 10.1,
         "wind_dir": 217,
         "tail_mph": 10.0,
-        "precip": 23
+        "precip": 24
       },
       "wf": 1.066
     },
@@ -524,14 +524,14 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
+        "emoji": "\ud83c\udf27\ufe0f",
         "cond": "calm 3mph, 87\u00b0",
         "lean": "Boost",
         "temp": 86.8,
         "wind_mph": 5.5,
         "wind_dir": 137,
         "tail_mph": 2.9,
-        "precip": 39
+        "precip": 51
       },
       "wf": 1.035
     },
@@ -1078,8 +1078,54 @@
           "hr9": 1.06,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.261
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.206
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.136
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.149
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.103
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.193
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.116
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.123
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.189
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
@@ -1148,7 +1194,7 @@
         "wind_mph": 7.0,
         "wind_dir": 158,
         "tail_mph": 2.7,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.033
     },
@@ -1281,7 +1327,7 @@
         "wind_mph": 4.0,
         "wind_dir": 232,
         "tail_mph": 3.7,
-        "precip": 1
+        "precip": 2
       },
       "wf": 1.041
     },
