@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T20:41:30Z",
+  "pulled_at": "2026-08-07T20:51:40Z",
   "games": [
     {
       "gamePk": 823349,
@@ -126,15 +126,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 83\u00b0",
+        "cond": "wind out 4mph, 83\u00b0",
         "lean": "Boost",
-        "temp": 83.2,
-        "wind_mph": 4.9,
-        "wind_dir": 227,
-        "tail_mph": 4.5,
+        "temp": 82.8,
+        "wind_mph": 4.5,
+        "wind_dir": 237,
+        "tail_mph": 4.4,
         "precip": 24
       },
-      "wf": 1.036
+      "wf": 1.035
     },
     {
       "gamePk": 823428,
@@ -259,15 +259,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 14mph, 91\u00b0",
+        "cond": "wind out 12mph, 92\u00b0",
         "lean": "Boost",
-        "temp": 91.4,
-        "wind_mph": 14.2,
-        "wind_dir": 202,
-        "tail_mph": 14.1,
+        "temp": 91.5,
+        "wind_mph": 11.9,
+        "wind_dir": 196,
+        "tail_mph": 11.9,
         "precip": 18
       },
-      "wf": 1.08
+      "wf": 1.074
     },
     {
       "gamePk": 822699,
@@ -394,13 +394,13 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 10mph, 91\u00b0",
         "lean": "Boost",
-        "temp": 91.0,
-        "wind_mph": 11.2,
-        "wind_dir": 241,
-        "tail_mph": 9.6,
+        "temp": 90.9,
+        "wind_mph": 10.1,
+        "wind_dir": 217,
+        "tail_mph": 10.0,
         "precip": 18
       },
-      "wf": 1.065
+      "wf": 1.066
     },
     {
       "gamePk": 823515,
@@ -524,16 +524,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 75\u00b0",
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 87\u00b0",
         "lean": "Boost",
-        "temp": 75.2,
-        "wind_mph": 22.4,
-        "wind_dir": 267,
-        "tail_mph": 6.9,
+        "temp": 86.8,
+        "wind_mph": 5.5,
+        "wind_dir": 137,
+        "tail_mph": 2.9,
         "precip": 45
       },
-      "wf": 1.032
+      "wf": 1.035
     },
     {
       "gamePk": 824727,
@@ -658,15 +658,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 90\u00b0",
+        "cond": "wind out 4mph, 90\u00b0",
         "lean": "Boost",
-        "temp": 89.7,
-        "wind_mph": 7.4,
-        "wind_dir": 275,
-        "tail_mph": 4.8,
+        "temp": 89.9,
+        "wind_mph": 8.2,
+        "wind_dir": 283,
+        "tail_mph": 4.3,
         "precip": 3
       },
-      "wf": 1.046
+      "wf": 1.045
     },
     {
       "gamePk": 823836,
@@ -923,15 +923,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 82\u00b0",
+        "cond": "wind out 3mph, 83\u00b0",
         "lean": "Boost",
-        "temp": 81.7,
+        "temp": 82.7,
         "wind_mph": 3.4,
-        "wind_dir": 176,
-        "tail_mph": 2.5,
+        "wind_dir": 217,
+        "tail_mph": 3.4,
         "precip": 0
       },
-      "wf": 1.026
+      "wf": 1.031
     },
     {
       "gamePk": 823750,
@@ -946,8 +946,54 @@
           "hr9": 1.78,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668885,
+            "name": "Austin Martin",
+            "iso": 0.076
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.222
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.192
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.167
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.234
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.097
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": null
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.112
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.16
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -1096,15 +1142,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 86\u00b0",
+        "cond": "calm 3mph, 86\u00b0",
         "lean": "Boost",
-        "temp": 85.9,
-        "wind_mph": 7.1,
-        "wind_dir": 152,
-        "tail_mph": 2.1,
+        "temp": 85.6,
+        "wind_mph": 7.0,
+        "wind_dir": 158,
+        "tail_mph": 2.7,
         "precip": 1
       },
-      "wf": 1.031
+      "wf": 1.033
     },
     {
       "gamePk": 823024,
@@ -1229,15 +1275,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 89\u00b0",
+        "cond": "wind out 4mph, 88\u00b0",
         "lean": "Boost",
-        "temp": 88.6,
-        "wind_mph": 4.7,
-        "wind_dir": 205,
-        "tail_mph": 4.7,
+        "temp": 88.5,
+        "wind_mph": 4.0,
+        "wind_dir": 232,
+        "tail_mph": 3.7,
         "precip": 1
       },
-      "wf": 1.044
+      "wf": 1.041
     },
     {
       "gamePk": 822863,
@@ -1444,13 +1490,13 @@
         "emoji": "\u26c5",
         "cond": "wind in 5mph, 78\u00b0",
         "lean": "Neutral",
-        "temp": 77.9,
-        "wind_mph": 8.3,
-        "wind_dir": 306,
-        "tail_mph": -4.9,
+        "temp": 78.5,
+        "wind_mph": 8.4,
+        "wind_dir": 304,
+        "tail_mph": -4.7,
         "precip": 0
       },
-      "wf": 0.995
+      "wf": 0.996
     },
     {
       "gamePk": 823103,
@@ -1525,10 +1571,10 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 11mph, 60\u00b0",
         "lean": "Boost",
-        "temp": 60.2,
-        "wind_mph": 11.3,
-        "wind_dir": 279,
-        "tail_mph": 11.0,
+        "temp": 60.5,
+        "wind_mph": 11.1,
+        "wind_dir": 278,
+        "tail_mph": 10.8,
         "precip": 0
       },
       "wf": 1.024
