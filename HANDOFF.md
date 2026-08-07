@@ -495,3 +495,50 @@ relative check only applies above `MIN_BASE=20`. Don't "simplify" that away.
 Rebuild through the day by re-scraping RotoWire once lineups post (all 15 were still
 `Expected Lineup` at 11:53 AM ET) and re-running `slate_assemble.py` — same 5 filenames,
 same-slate rebuild preserves the drafted tickets.
+
+--------------------------------------------------------------------------------
+2026-08-07 — "still seeing yesterday's board": a Pages deploy hung in `waiting`
+--------------------------------------------------------------------------------
+Symptom: theticketroom.live served `"build": "8/6 7:36pm"` all through the 8/7
+morning while `main` was correct the whole time (`index.html` on main read
+`8/7 5:56am`, `D_2026-08-07.json` had 388 players / 13 tickets). Nothing was
+wrong with the scrape, the assemble, the gate, or the commit.
+
+Diagnosis, in the order that actually works:
+  1. `curl raw.githubusercontent.com/.../main/index.html | grep '"build"'` — if
+     main is current, the pipeline is fine and this is a DEPLOY problem. Stop
+     looking at the build.
+  2. Fetch the live site in the browser with a cache-buster and read
+     `last-modified`. That header is the timestamp of the last SUCCESSFUL Pages
+     deploy — on 8/7 it read `Thu, 06 Aug 2026 23:37:18 GMT`.
+  3. Ignore the `pages-build-deployment` workflow entirely. It is the legacy
+     deploy-from-branch builder and its last run was 2026-07-02. All real
+     deploys are `deploy-pages.yml`. I wasted a pass on this.
+  4. Open the newest `Deploy Pages` run. The yellow banner names the blocker:
+     "This workflow is waiting for Deploy Pages #1566 to complete before running."
+  5. `actions/workflows/deploy-pages.yml?query=is%3Awaiting` finds the zombie
+     directly. It was #1566, parked in status **Waiting** for 10h 25m — not
+     queued, not in progress, waiting on the `github-pages` environment.
+
+Why it freezes the site rather than just delaying it: `deploy-pages.yml` uses
+`concurrency: {group: pages, cancel-in-progress: false}`. That guarantees a
+RUNNING deploy finishes, but a run stuck in `waiting` holds the group forever,
+and every deploy pushed after it sits pending until the next push supersedes it
+— cancelled, never run. With a board that rebuilds every ~5 minutes that is an
+infinite supersede loop. The run list is the tell: an unbroken column of
+`cancelled` with no `success` since the freeze began.
+
+Fix: cancel the waiting run. The queue drained immediately — the next queued
+deploy (#1622) went green in ~90s and the live site jumped to `8/7 6:07am`.
+Nothing needs re-pushing; the pending deploy already carries current `main`.
+
+Prevention, now in `pull-slate.yml` as the step "Unstick a hung Pages deploy":
+runs right after checkout on every build, lists `deploy-pages.yml` runs with
+`status=waiting`, and cancels any older than 15 minutes. It needs
+`permissions: actions: write` (added alongside `contents: write`) and is
+`continue-on-error: true` so a watchdog failure can never block a board. It
+lives in `pull-slate.yml` — concurrency group `ticket-room` — precisely because
+anything in the `pages` group would be stuck behind the same jam.
+
+Rule of thumb for next time: board stale on the site + `main` correct = deploy,
+not pipeline. Check `is:waiting` on deploy-pages.yml FIRST.
