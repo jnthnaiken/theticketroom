@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T19:12:37Z",
+  "pulled_at": "2026-08-07T19:17:38Z",
   "games": [
     {
       "gamePk": 823349,
@@ -174,7 +174,7 @@
     },
     {
       "gamePk": 823515,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-07T23:05:00Z",
       "matchup": "ATL@NYY",
       "away": {
@@ -196,10 +196,56 @@
           "hr9": 0.12,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.168
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.29
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.159
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.277
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.182
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.176
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.5
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.16
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
