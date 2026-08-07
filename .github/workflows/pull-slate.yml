@@ -52,6 +52,7 @@ on:
 
 permissions:
   contents: write
+  actions: write   # cancel a Pages deploy that hung in "waiting" -- see the watchdog step
 
 concurrency:
   group: ticket-room
@@ -71,6 +72,36 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+
+      # ------------------------------------------------------------------
+      # PAGES WATCHDOG.  deploy-pages.yml uses concurrency group "pages" with
+      # cancel-in-progress: false, so a running deploy always finishes.  The
+      # failure mode that costs us a day: a run parks in status "waiting" on
+      # the github-pages environment and never starts.  It holds the group
+      # forever, every later deploy queues behind it and is superseded by the
+      # next one, and the site freezes on whatever board was last published.
+      # Seen 2026-08-06: run #1566 sat in "waiting" 10h; the live board stayed
+      # on the 8/6 7:36pm build through the whole 8/7 morning while main was
+      # correct the entire time.  Cancelling the stuck run let the queue drain
+      # and the site went current in ~90 seconds.
+      # This job is in the "ticket-room" group, not "pages", so it can always
+      # run and clear the jam.
+      - name: Unstick a hung Pages deploy
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+        run: |
+          now=$(date -u +%s)
+          gh api "repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/runs?status=waiting&per_page=20" \
+            --jq '.workflow_runs[] | "\(.id) \(.created_at)"' 2>/dev/null | while read -r id created; do
+              age=$(( now - $(date -u -d "$created" +%s) ))
+              # 15 min: a real deploy of one HTML file takes seconds, and a legitimate
+              # queue wait behind a running deploy clears in well under that.
+              if [ "$age" -gt 900 ]; then
+                echo "::warning::Pages deploy $id stuck in waiting for ${age}s -- cancelling so the queue can drain"
+                gh api -X POST "repos/${{ github.repository }}/actions/runs/$id/cancel" >/dev/null 2>&1 || true
+              fi
+            done
 
       - name: Resolve slate date
         run: |
