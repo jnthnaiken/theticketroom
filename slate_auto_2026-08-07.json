@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T22:17:03Z",
+  "pulled_at": "2026-08-07T22:22:05Z",
   "games": [
     {
       "gamePk": 823349,
@@ -1724,7 +1724,7 @@
     },
     {
       "gamePk": 823191,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T02:15:00Z",
       "matchup": "DET@SF",
       "away": {
@@ -1746,10 +1746,56 @@
           "hr9": 0.67,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.184
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.146
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.187
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.226
+          },
+          {
+            "id": 691740,
+            "name": "Daniel Susac",
+            "iso": 0.14
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.112
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.476
+          },
+          {
+            "id": 687529,
+            "name": "Grant McCray",
+            "iso": 0.107
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.021
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
