@@ -26051,7 +26051,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26142,7 +26142,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26233,7 +26233,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26324,7 +26324,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26415,7 +26415,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26505,7 +26505,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -26596,7 +26596,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -26677,7 +26677,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 97.77359585955345,
-   "slot": 7,
+   "slot": 6,
    "bhand": "L",
    "hr9": null,
    "wf": 1.002,
@@ -26688,7 +26688,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26705,7 +26705,7 @@
    "psrc": "brl",
    "parkhr": 0.988,
    "mktT": 0.9324093760663569,
-   "slotT": 0.96,
+   "slotT": 0.98,
    "platT": 0.92,
    "pen_fatigue": 0.53,
    "penT": 1.0424,
@@ -26778,7 +26778,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -26859,7 +26859,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 121.99732018039809,
-   "slot": 6,
+   "slot": 7,
    "bhand": "R",
    "hr9": null,
    "wf": 1.002,
@@ -26870,7 +26870,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -26887,7 +26887,7 @@
    "psrc": "brl",
    "parkhr": 0.988,
    "mktT": 1.0374513928730795,
-   "slotT": 0.98,
+   "slotT": 0.96,
    "platT": 1.056,
    "pen_fatigue": 0.53,
    "penT": 1.0424,
@@ -26961,7 +26961,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Robbie Ray",
@@ -27041,17 +27041,17 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 10.226688736153225,
-   "slot": 9,
-   "bhand": "L",
+   "slot": null,
+   "bhand": null,
    "hr9": null,
    "wf": 1.002,
-   "pull_tail": 1.9294614907189942,
+   "pull_tail": null,
    "game": 12,
    "gmatch": "HOU@SD",
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -27069,8 +27069,8 @@
    "psrc": "brl",
    "parkhr": 0.988,
    "mktT": 0.858879964301651,
-   "slotT": 0.92,
-   "platT": 0.92,
+   "slotT": 1,
+   "platT": 1,
    "pen_fatigue": 0.53,
    "penT": 1.0424,
    "bg": 0,
@@ -27095,7 +27095,7 @@
    "parktrkT": 1,
    "xpowT": 1.105,
    "pvdT": 1,
-   "sprayT": 1.0031836114596864,
+   "sprayT": 1,
    "xptrendT": 1,
    "arsenalT": 1.0045716423494202,
    "_zbg": 0,
@@ -27106,10 +27106,10 @@
    "_zpvd": 0.48895348837208985,
    "_zbtrk": -2.253333333333333,
    "_zpark": null,
-   "_zspray": 0.15918057298431706,
+   "_zspray": 0,
    "_zars": 0.0685746352413019,
    "_zmkt": 0.1,
-   "_mm": 113.2167,
+   "_mm": 112.8574,
    "_mz0": -0.8484441658099227,
    "_edge0": -0.1586120691620218,
    "edge_z": -0.2255,
@@ -35522,7 +35522,7 @@
     "precip_src": "live"
    }
   },
-  "build": "8/7 6:22pm",
+  "build": "8/7 6:36pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36122,10 +36122,45 @@
    "locked": true
   },
   {
+   "name": "One for the Road",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Christian Walker is punishing the baseball (58% hard-hit), swings with natural lift (22\u00b0), carries serious thump (87/100 grade), the timing has come around, and projects out to 149.",
+   "players": [
+    {
+     "name": "Christian Walker",
+     "team": "Astros",
+     "total": 148.5,
+     "aT": 100,
+     "wf": 1.002,
+     "gmatch": "HOU@SD",
+     "gtime": "9:40 PM ET",
+     "game": 12,
+     "late": true,
+     "odds": 355,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Christian Walker",
+   "lock": "9:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1,
+   "locked": true
+  },
+  {
    "name": "Riding the Jet Stream",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Ohtani is blistering line drives (67% hard-hit), Burleson swings with the wind at his back, and Adell swings with natural lift (21\u00b0).",
+   "note": "Ohtani is blistering line drives (67% hard-hit), Burleson swings with the wind at his back, and Adell finds the home-run trajectory (21\u00b0).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -36252,40 +36287,6 @@
    "confleg": 2
   },
   {
-   "name": "One for the Road",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Christian Walker is punishing the baseball (58% hard-hit), finds the home-run trajectory (22\u00b0), carries serious thump (87/100 grade), the timing has come around, and projects out to 149.",
-   "players": [
-    {
-     "name": "Christian Walker",
-     "team": "Astros",
-     "total": 148.5,
-     "aT": 100,
-     "wf": 1.002,
-     "gmatch": "HOU@SD",
-     "gtime": "9:40 PM ET",
-     "game": 12,
-     "late": true,
-     "odds": 355,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Christian Walker",
-   "lock": "9:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 0
-  },
-  {
    "name": "Squared Away",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
@@ -36349,7 +36350,7 @@
      "game": 12,
      "late": true,
      "odds": 275,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Junior Caminero",
@@ -36395,7 +36396,7 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 2
+   "confleg": 3
   }
  ],
  "pool": [
