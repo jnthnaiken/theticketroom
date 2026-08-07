@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T20:06:24Z",
+  "pulled_at": "2026-08-07T20:11:29Z",
   "games": [
     {
       "gamePk": 823349,
@@ -929,7 +929,7 @@
     },
     {
       "gamePk": 824081,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T00:10:00Z",
       "matchup": "CHC@KC",
       "away": {
@@ -949,10 +949,56 @@
           "hr9": 0.39,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.187
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.171
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.199
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.161
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.128
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.15
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.163
+          },
+          {
+            "id": 516782,
+            "name": "Starling Marte",
+            "iso": 0.059
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.15
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
