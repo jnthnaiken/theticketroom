@@ -1,11 +1,11 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T22:12:09Z",
+  "pulled_at": "2026-08-07T22:17:03Z",
   "games": [
     {
       "gamePk": 823349,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-07T22:40:00Z",
       "matchup": "NYM@PIT",
       "away": {
@@ -1551,7 +1551,7 @@
     },
     {
       "gamePk": 823266,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T01:40:00Z",
       "matchup": "HOU@SD",
       "away": {
@@ -1573,10 +1573,56 @@
           "hr9": 1.1,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.123
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.071
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.212
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.068
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.155
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.192
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.177
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.1
+          },
+          {
+            "id": 823550,
+            "name": "Sung-Mun Song",
+            "iso": 0.066
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1592,7 +1638,7 @@
     },
     {
       "gamePk": 823103,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T01:45:00Z",
       "matchup": "TB@SEA",
       "away": {
@@ -1614,10 +1660,56 @@
           "hr9": 1.15,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.098
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.149
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.171
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.248
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.163
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.095
+          },
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.165
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.146
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.157
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
