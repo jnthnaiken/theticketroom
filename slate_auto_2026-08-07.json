@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T19:51:09Z",
+  "pulled_at": "2026-08-07T20:00:55Z",
   "games": [
     {
       "gamePk": 823349,
@@ -710,7 +710,7 @@
     },
     {
       "gamePk": 824566,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-07T23:40:00Z",
       "matchup": "CLE@CWS",
       "away": {
@@ -732,10 +732,56 @@
           "hr9": 1.25,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.13
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.289
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.235
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.254
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.229
+          },
+          {
+            "id": 686668,
+            "name": "Brenton Doyle",
+            "iso": 0.066
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.135
+          },
+          {
+            "id": 700337,
+            "name": "Edgar Quero",
+            "iso": 0.041
+          },
+          {
+            "id": 682668,
+            "name": "Luisangel Acu\u00f1a",
+            "iso": 0.035
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1152,16 +1198,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 61\u00b0",
-        "lean": "Boost",
-        "temp": 60.6,
-        "wind_mph": 11.6,
-        "wind_dir": 281,
-        "tail_mph": 11.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.025
+      "wf": 1.0
     }
   ]
 }
