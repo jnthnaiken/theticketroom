@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-07T20:04:27Z",
+  "pulled_at": "2026-08-07T20:06:24Z",
   "games": [
     {
       "gamePk": 823349,
@@ -1101,7 +1101,7 @@
     },
     {
       "gamePk": 822863,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T00:15:00Z",
       "matchup": "BAL@TEX",
       "away": {
@@ -1123,10 +1123,56 @@
           "hr9": 1.7,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.248
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.225
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.181
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.171
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.183
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.136
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.183
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.186
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.034
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
