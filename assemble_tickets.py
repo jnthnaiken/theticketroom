@@ -141,19 +141,24 @@ def assemble(D):
         _ft = sorted([P[n]['TOTAL'] for n in fullrank if P[n].get('TOTAL') is not None], reverse=True)
         _floor = _ft[min(len(_ft)-1, 39)] if _ft else FLOOR
         cand = [n for n in fullrank if P[n]['TOTAL'] >= _floor]
-    # STRENGTH = 0.65 * normalized TOTAL + 0.35 * normalized market likelihood (implied prob from
-    # the odds), each min-max normalized across whatever set it ranks over. ONE key decides every
-    # role board-wide: Chef's Table seats, anchors, salami, moon legs, builder order.
-    _ipp = lambda o: ((100.0/(o+100.0)) if o > 0 else (abs(o)/(abs(o)+100.0))) if o else 0.0
+    # STRENGTH = normalized TOTAL, nothing else, min-max across whatever set it ranks over.
+    # ONE key decides every role board-wide: Chef's Table seats, anchors, salami, moon legs,
+    # builder order.
+    #
+    # DO NOT add a market term on top. Two reasons, both load-bearing:
+    #   1. TOTAL already carries the market -- the ~50/50 odds/edge blend is baked in via mktT --
+    #      so weighting implied probability again double-counts the price.
+    #   2. The board's colours ARE this key. index.html: confOf = p.TOTAL, and tierOf ranks the
+    #      field into premium(green) / strong(orange) / value(pink) on TOTAL alone. If the draft
+    #      key diverges from TOTAL, the tickets stop agreeing with their own colours.
+    # Tried 65/35 on 2026-08-08 and it showed immediately: five tickets drafted a PINK leg while
+    # ORANGE bats with 12-35 more model sat undrafted (Upper Deck Bound took Valdez m142/+457
+    # next to Walker m177/+300, passing over Ben Rice m154/+422). Reverted same night.
     def _mkstrength(names):
         _Ts = [P[n]['TOTAL'] for n in names] or [0]
-        _Is = [_ipp(P[n]['odds']) for n in names] or [0]
         _tmn, _tmx = min(_Ts), max(_Ts)
-        _imn, _imx = min(_Is), max(_Is)
         def _s(n):
-            nt = (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
-            ni = (_ipp(P[n]['odds']) - _imn) / (_imx - _imn) if _imx > _imn else 0.5
-            return 0.65 * nt + 0.35 * ni
+            return (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
         return _s
     _cstren  = _mkstrength(cand)                      # normalized across the gated pool
     ranked   = sorted(cand, key=lambda n: (_cstren(n), P[n]['TOTAL']), reverse=True)   # best final score first

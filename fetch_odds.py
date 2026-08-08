@@ -36,9 +36,18 @@ METHOD (mirrors the in-browser scraper this replaces)
 USAGE
     python3 fetch_odds.py 2026-08-08              # write the files
     python3 fetch_odds.py 2026-08-08 --probe      # diagnose only, write nothing
+    python3 fetch_odds.py 2026-08-08 --auto       # build mode: refresh until the last
+                                                  # first pitch, and flag the one build
+                                                  # that should commit the closing prices
 """
 import sys, os, json, re, gzip, io, statistics
 import urllib.request, urllib.error
+import datetime
+try:
+    from zoneinfo import ZoneInfo
+    ET = ZoneInfo("America/New_York")
+except Exception:                                  # tzdata missing -> treat runner UTC as ET-4
+    ET = datetime.timezone(datetime.timedelta(hours=-4))
 from html.parser import HTMLParser
 
 URL = "https://www.vegasinsider.com/mlb/odds/player-props/"
@@ -192,10 +201,56 @@ def scrape():
     return status, len(html), len(p.tables), len(tabs), markets, info
 
 
+SNAP_LEAD_MIN = 12      # snapshot window before the last first pitch; > the 5-min build cadence
+
+
+def last_first_pitch(date):
+    """Latest first pitch on the slate, as an ET datetime. None if unknown."""
+    try:
+        games = json.load(open(f"lineups_{date}.json"))["games"]
+    except Exception:
+        return None
+    best = None
+    for g in games:
+        m = re.match(r"(\d{1,2}):(\d{2})\s*([AP])M", (g.get("time") or "").strip(), re.I)
+        if not m:
+            continue
+        h, mi, ap = int(m.group(1)) % 12, int(m.group(2)), m.group(3).upper()
+        if ap == "P":
+            h += 12
+        best = max(best or 0, h * 60 + mi)
+    if best is None:
+        return None
+    d = datetime.date.fromisoformat(date)
+    return datetime.datetime(d.year, d.month, d.day, best // 60, best % 60, tzinfo=ET)
+
+
+def emit(k, v):
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:
+        with open(out, "a") as f:
+            f.write(f"{k}={v}\n")
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     probe = "--probe" in sys.argv
+    auto = "--auto" in sys.argv
     date = args[0] if args else None
+
+    # --auto: stop refreshing once every game is underway. Prices past the last first
+    # pitch are settling/pulled, not a market we want to score on -- and leaving the file
+    # untouched is what makes the closing snapshot stable instead of re-committing all night.
+    snap = False
+    if auto and date:
+        lfp = last_first_pitch(date)
+        if lfp:
+            now = datetime.datetime.now(ET)
+            if now >= lfp:
+                print(f"slate is underway (last first pitch {lfp:%-I:%M %p ET}) -- keeping the closing prices")
+                emit("snapshot", "false")
+                return 0
+            snap = now >= lfp - datetime.timedelta(minutes=SNAP_LEAD_MIN)
 
     try:
         status, nbytes, ntab, nlong, markets, info = scrape()
@@ -244,6 +299,9 @@ def main():
     with open(f"markets_{date}.json", "w") as f:
         json.dump(markets, f, indent=0)
     print(f"wrote odds_{date}.json ({len(odds)}) + markets_{date}.json")
+    if snap:
+        print("::notice::closing odds snapshot -- staging odds/markets for commit")
+    emit("snapshot", "true" if snap else "false")
     return 0
 
 

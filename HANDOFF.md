@@ -204,8 +204,15 @@ edge bites exactly as hard as the market regardless of how thin the edge is
   missing `blend`. The old fixed-40 rank cut is also fallback-only.
 - **Chalk = the Chef's Table.** `CHALK_N=4` bats are reserved for it and barred from
   every other ticket. As of 2026-08-08 those seats are the 4 best by **STRENGTH**
-  (0.65·TOTAL + 0.35·implied, min-max normalized over the gated pool), one per game —
-  *not* the 4 shortest prices. Ranking chef on raw odds double-counted the market, which
+  (normalized TOTAL, min-max over the gated pool), one per game —
+  *not* the 4 shortest prices.
+- **STRENGTH is normalized TOTAL, and must stay that way.** A 65/35 TOTAL/implied key was
+  tried on 2026-08-08 and reverted the same night. It breaks the board's own colours: `confOf =
+  p.TOTAL` and `tierOf` rank the field into premium(green)/strong(orange)/value(pink) on TOTAL
+  alone, so any odds weight in the draft key puts a PINK leg ahead of an ORANGE one on the same
+  ticket. Five tickets did exactly that — Upper Deck Bound drafted Valdez (m142, +457) beside
+  Walker (m177, +300) while Ben Rice (m154, +422) went undrafted. TOTAL already carries the
+  market via `mktT` inside `blend`; weighting implied probability again double-counts it. Ranking chef on raw odds double-counted the market, which
   is already inside TOTAL via `blend`, and let a price move alone take a seat: on
   2026-08-08 Caminero went +334→+250 on a live re-price and displaced Willson Contreras,
   the board's #2 model (204 vs 161), who then landed on no ticket at all.
