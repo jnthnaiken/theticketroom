@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T19:54:57Z",
+  "pulled_at": "2026-08-08T20:00:01Z",
   "games": [
     {
       "gamePk": 823514,
@@ -30,7 +30,7 @@
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.284
+            "iso": 0.283
           },
           {
             "id": 671739,
@@ -889,7 +889,7 @@
     },
     {
       "gamePk": 823752,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T23:10:00Z",
       "matchup": "MIN@MIL",
       "away": {
@@ -900,8 +900,54 @@
           "hr9": 1.21,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668885,
+            "name": "Austin Martin",
+            "iso": 0.079
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.223
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.192
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.173
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.231
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.097
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.75
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.174
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.157
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -914,7 +960,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
