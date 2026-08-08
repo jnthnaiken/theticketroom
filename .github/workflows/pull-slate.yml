@@ -164,9 +164,10 @@ jobs:
       # blocked scrape (<150 HR prices), and continue-on-error means a bad night at
       # VegasInsider can never block a board -- it just builds on the last good prices.
       - name: Refresh odds from VegasInsider
+        id: odds
         if: success() && steps.verify.outputs.fresh == 'true'
         continue-on-error: true
-        run: python3 fetch_odds.py "$SLATE_DATE"
+        run: python3 fetch_odds.py "$SLATE_DATE" --auto
 
       - name: Score the field
         if: success() && steps.verify.outputs.fresh == 'true'
@@ -203,6 +204,15 @@ jobs:
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
           git add slate_auto_*.json D_*.json season.json index.html calibration.jsonl
+          # CLOSING ODDS SNAPSHOT. odds_<date>.json is deliberately NOT staged every build -- it
+          # changes every few minutes and commit_gate.py diffs each staged file, so staging it would
+          # force a Pages deploy all day. fetch_odds.py --auto flags the one build in the window
+          # before the last first pitch; that build commits the closing prices, and the refresh then
+          # stops for the night, so the file stays put instead of re-committing.
+          if [ "${{ steps.odds.outputs.snapshot }}" = "true" ]; then
+            git add "odds_${SLATE_DATE}.json" "markets_${SLATE_DATE}.json" 2>/dev/null || true
+            echo "staged the closing odds snapshot for ${SLATE_DATE}"
+          fi
           # Every build rewrites meta.build and pulled_at, so "staged is non-empty" is not the same
           # as "something happened". At a 5-minute cadence that would publish a Pages deploy every
           # 5 minutes all day to change two timestamps. commit_gate.py checks for a REAL change --
