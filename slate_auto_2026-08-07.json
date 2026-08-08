@@ -1,11 +1,11 @@
 {
   "date": "2026-08-07",
   "season": "2026",
-  "pulled_at": "2026-08-08T00:00:56Z",
+  "pulled_at": "2026-08-08T00:01:49Z",
   "games": [
     {
       "gamePk": 823349,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-07T22:40:00Z",
       "matchup": "NYM@PIT",
       "away": {
@@ -1717,9 +1717,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 79\u00b0",
+        "lean": "Neutral",
+        "temp": 79.0,
+        "wind_mph": 6.9,
+        "wind_dir": 295,
+        "tail_mph": -2.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.003
     },
     {
       "gamePk": 823103,
@@ -1982,7 +1989,7 @@
         "wind_mph": 12.8,
         "wind_dir": 281,
         "tail_mph": 12.3,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.028
     }
