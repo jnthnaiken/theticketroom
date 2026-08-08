@@ -19,4 +19,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Probe VegasInsider
-        run: python3 fetch_odds.py --probe
+        run: python3 fetch_odds.py "$(ls cards_*.json | sed -E 's/.*cards_([0-9-]{10})\.json/\1/' | sort | tail -1)" --probe
