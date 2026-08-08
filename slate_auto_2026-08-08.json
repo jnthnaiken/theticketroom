@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T19:50:03Z",
+  "pulled_at": "2026-08-08T19:54:57Z",
   "games": [
     {
       "gamePk": 823514,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 519242,
           "name": "Chris Sale",
-          "hr9": 0.61,
+          "hr9": 0.6,
           "hand": "LHP"
         },
         "lineup": [
@@ -82,7 +82,7 @@
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.161
+            "iso": 0.16
           },
           {
             "id": 700250,
@@ -117,7 +117,7 @@
           {
             "id": 669224,
             "name": "Austin Wells",
-            "iso": 0.123
+            "iso": 0.121
           }
         ],
         "confirmed": true
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824079,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T23:10:00Z",
       "matchup": "CHC@KC",
       "away": {
@@ -824,10 +824,56 @@
           "hr9": 1.05,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.193
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.169
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.2
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.13
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.161
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.308
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.147
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.094
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.104
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
