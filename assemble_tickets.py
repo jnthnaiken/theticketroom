@@ -13,7 +13,9 @@ RULES (match the code below):
   * Anchors        = strongest by model; MULTIPLE anchors per game allowed (two bats from one
                      game can each lead their own tickets).
   * Per-ticket     = one bat per distinct game; GAME_CAP (=3) bats per game overall.
-  * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY; moons/salami/builders chalk-free.
+  * Chef's Table   = the CHALK_N best bats by STRENGTH (the 65/35 final score), one per game;
+                     reserved out of every other ticket. Not a shortest-odds cut -- the market is
+                     already inside the score, so ranking on raw price double-counted it.
   * Moons          = ~2 per non-salami anchor; anchor + 2 longshots, snake-drafted, legs inside a WIN(=120)-min window.
   * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
   * Anchors        = the parlay anchors as single-leg plays (kind key is still "builder" -- see NAMES).
@@ -24,7 +26,7 @@ import re, datetime
 
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
 NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
-CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
+CHALK_N       = 4                # Chef's Table seats: the 4 best bats by STRENGTH (65/35), one per game, reserved off every other ticket
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
 Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40). Lowered 1.0->0.75 to deepen the pool (more legs -> more moons on fragmented slates).
@@ -123,11 +125,10 @@ def assemble(D):
     elig = [n for n, p in P.items()
             if p.get('odds') and not p.get('out') and not p.get('void') and _precip(n) < 70]   # >=70%% rain -> game out of the pool entirely
     byT  = lambda names: sorted(names, key=lambda n: (P[n]['TOTAL'], P[n]['aT']), reverse=True)   # TOTAL desc; ties broken by aT (base) so the hard 33-cut is deterministic
-    byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
     # POOL (one draft, top-3-per-GAME): the pool is EVERY eligible bat whose model TOTAL clears FLOOR.
-    # Re-sort that pool by odds and pull the CHALK_N shortest (chalk -> lunch/nightcap ONLY); from the rest
+    # Rank that pool by STRENGTH and reserve the CHALK_N best for the Chef's Table; from the rest
     # keep at most TOP-3 per GAME (best-by-model, both teams combined). No fixed size and no backfill -- the floor is the only
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
     GAME_CAP = 4   # at most 4 bats per GAME (both lineups combined); adds z-gate-passing depth so a scratched leg can refill in-gate. Still one bat/game per TICKET (fits()), so no single ticket over-concentrates on one game
@@ -140,13 +141,28 @@ def assemble(D):
         _ft = sorted([P[n]['TOTAL'] for n in fullrank if P[n].get('TOTAL') is not None], reverse=True)
         _floor = _ft[min(len(_ft)-1, 39)] if _ft else FLOOR
         cand = [n for n in fullrank if P[n]['TOTAL'] >= _floor]
-    ranked   = byO(cand)                              # re-sort those 41 by odds
-    # CHEF'S TABLE reservation: the CHALK_N shortest-odds parlay-eligible bats, one per GAME, spanning the
+    # STRENGTH = 0.65 * normalized TOTAL + 0.35 * normalized market likelihood (implied prob from
+    # the odds), each min-max normalized across whatever set it ranks over. ONE key decides every
+    # role board-wide: Chef's Table seats, anchors, salami, moon legs, builder order.
+    _ipp = lambda o: ((100.0/(o+100.0)) if o > 0 else (abs(o)/(abs(o)+100.0))) if o else 0.0
+    def _mkstrength(names):
+        _Ts = [P[n]['TOTAL'] for n in names] or [0]
+        _Is = [_ipp(P[n]['odds']) for n in names] or [0]
+        _tmn, _tmx = min(_Ts), max(_Ts)
+        _imn, _imx = min(_Is), max(_Is)
+        def _s(n):
+            nt = (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
+            ni = (_ipp(P[n]['odds']) - _imn) / (_imx - _imn) if _imx > _imn else 0.5
+            return 0.65 * nt + 0.35 * ni
+        return _s
+    _cstren  = _mkstrength(cand)                      # normalized across the gated pool
+    ranked   = sorted(cand, key=lambda n: (_cstren(n), P[n]['TOTAL']), reverse=True)   # best final score first
+    # CHEF'S TABLE reservation: the CHALK_N best parlay-eligible bats by STRENGTH, one per GAME, spanning the
     # whole slate (no time window). Pulled out here and handed to the all-chalk round robin below; excluding
     # them from `nonchalk` keeps them off every other ticket (anchors, moons, salami, builders, lunch,
     # nightcap) -- so the NEXT-strongest bats become the anchors, then we draft as usual.
     chef_legs, _cgm = [], set()
-    for n in ranked:                                  # shortest odds first
+    for n in ranked:                                  # best final score first (65/35 strength)
         if pend(n) or _precip(n) >= 40:               # same parlay-leg gate as anchors: no pending/carryover, <40% rain
             continue
         g = P[n]['game']
@@ -166,13 +182,8 @@ def assemble(D):
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
-    # STRENGTH = normalized TOTAL, nothing else. TOTAL already carries the market -- the ~50% odds /
-    # 50% edge blend is baked into TOTAL (via mktT) -- so ranking by TOTAL alone avoids double-counting the
-    # odds. This one key decides every role board-wide: anchors, salami, moon legs, and builder order.
-    _Ts   = [P[n]['TOTAL'] for n in nonchalk] or [0]
-    _tmn, _tmx = min(_Ts), max(_Ts)
-    def strength(n):
-        return (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5   # TOTAL alone
+    # STRENGTH over the buildable pool -- same 65/35 key defined above, re-normalized across `nonchalk`.
+    strength = _mkstrength(nonchalk)
     byS = lambda names: sorted(names, key=strength, reverse=True)   # board-wide role/order key
 
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]

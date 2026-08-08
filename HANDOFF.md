@@ -202,8 +202,13 @@ edge bites exactly as hard as the market regardless of how thin the edge is
   `>= Z_GATE (0.75)` SDs above the slate mean (`assemble_tickets.py` ~line 129).
   Scale/slate-independent. `FLOOR=130` is dead — only a fallback if a board is
   missing `blend`. The old fixed-40 rank cut is also fallback-only.
-- **Chalk ban is removed** — `CHALK_N` still defined but `chalk = set()`; the top-4
-  favorites now draft into moons/salami/builders like any other bat.
+- **Chalk = the Chef's Table.** `CHALK_N=4` bats are reserved for it and barred from
+  every other ticket. As of 2026-08-08 those seats are the 4 best by **STRENGTH**
+  (0.65·TOTAL + 0.35·implied, min-max normalized over the gated pool), one per game —
+  *not* the 4 shortest prices. Ranking chef on raw odds double-counted the market, which
+  is already inside TOTAL via `blend`, and let a price move alone take a seat: on
+  2026-08-08 Caminero went +334→+250 on a live re-price and displaced Willson Contreras,
+  the board's #2 model (204 vs 161), who then landed on no ticket at all.
 - `RULES_VERSION = "2026-07-08-redraft4"` in `regen15.py` (bumped 2026-07-08 to force a re-draft).
 
 ## ✅ Both prior "BROKEN" items are FIXED (verified in current code)
