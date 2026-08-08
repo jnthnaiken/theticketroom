@@ -35522,7 +35522,7 @@
     "precip_src": null
    }
   },
-  "build": "8/8 12:56pm",
+  "build": "8/8 12:58pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -35674,57 +35674,42 @@
   "gate": 60,
   "tickets": 14
  },
- "pool": [
-  "Bryce Harper",
-  "Shohei Ohtani",
-  "Hunter Goodman",
-  "Pete Crow-Armstrong",
-  "Drake Baldwin",
-  "Jordan Walker",
-  "Brandon Lowe",
-  "Munetaka Murakami",
-  "Nelson Vel\u00e1zquez",
-  "Junior Caminero",
-  "Pete Alonso",
-  "CJ Abrams",
-  "Kazuma Okamoto",
-  "Ben Rice",
-  "Sal Stewart",
-  "Heliot Ramos",
-  "Jes\u00fas S\u00e1nchez",
-  "Rafael Devers",
-  "Esmerlyn Valdez",
-  "Eugenio Su\u00e1rez",
-  "Seiya Suzuki",
-  "Austin Riley",
-  "Royce Lewis",
-  "Jake Bauers",
-  "Manny Machado",
-  "Jackson Chourio",
-  "Brandon Marsh",
-  "Elly De La Cruz",
-  "Francisco Lindor",
-  "Cal Raleigh",
-  "Jahmai Jones",
-  "Alec Burleson",
-  "Gunnar Henderson",
-  "Christian Encarnacion-Strand",
-  "Colson Montgomery",
-  "Riley Greene",
-  "Corey Seager",
-  "Mike Trout",
-  "Fernando Tatis",
-  "Bryce Eldridge",
-  "Ryan Jeffers",
-  "Miguel Vargas",
-  "Kyle Stowers",
-  "Ian Happ",
-  "Dansby Swanson",
-  "Dominic Canzone",
-  "Jo Adell",
-  "Christian Walker"
- ],
  "tickets": [
+  {
+   "name": "Midday Meal",
+   "kind": "lunch",
+   "badge": "\ud83c\udf71",
+   "note": "Drake Baldwin has gusts carrying balls over the wall, is barreling everything in sight (59% hard-hit), stays in the sweet-spot angle (18\u00b0), and packs a big-league power grade (86/100).",
+   "players": [
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 177.4,
+     "aT": 100,
+     "wf": 1.067,
+     "gmatch": "ATL@NYY",
+     "gtime": "3:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 310,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Drake Baldwin",
+   "lock": "3:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true
+  },
   {
    "name": "Punching Through the Ceiling",
    "kind": "moon",
@@ -35859,7 +35844,7 @@
    "name": "Upper Deck Bound",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Ohtani is blistering line drives (67% hard-hit), Walker plays in a wind tunnel pointed at the seats, and Valdez swings with natural lift (18\u00b0).",
+   "note": "Ohtani is blistering line drives (67% hard-hit), Walker swings with the wind at his back, and Valdez swings with natural lift (18\u00b0).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -35989,7 +35974,7 @@
    "name": "To the Heavens",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Goodman swings with the wind at his back, Lowe is generating elite exit velo (54% hard-hit), and Okamoto puts air under the ball (22\u00b0).",
+   "note": "Goodman has gusts carrying balls over the wall, Lowe is generating elite exit velo (54% hard-hit), and Okamoto puts air under the ball (22\u00b0).",
    "players": [
     {
      "name": "Hunter Goodman",
@@ -36119,7 +36104,7 @@
    "name": "The Charcuterie Board",
    "kind": "biggest",
    "badge": "\ud83e\udd6a",
-   "note": "Crow-Armstrong has loft to spare (22\u00b0), Lewis swings a heavy stick (71/100 power), Machado is teeing off (56% hard-hit), and Marsh swings with the wind at his back.",
+   "note": "Crow-Armstrong has loft to spare (22\u00b0), Lewis swings a heavy stick (71/100 power), Machado is making elite contact (56% hard-hit), and Marsh swings with the wind at his back.",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -36228,43 +36213,9 @@
    "confleg": 0
   },
   {
-   "name": "Midday Meal",
-   "kind": "lunch",
-   "badge": "\ud83c\udf71",
-   "note": "Drake Baldwin has gusts carrying balls over the wall, is hitting absolute lasers (59% hard-hit), stays in the sweet-spot angle (18\u00b0), and packs a big-league power grade (86/100).",
-   "players": [
-    {
-     "name": "Drake Baldwin",
-     "team": "Braves",
-     "total": 177.4,
-     "aT": 100,
-     "wf": 1.067,
-     "gmatch": "ATL@NYY",
-     "gtime": "3:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 310,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Drake Baldwin",
-   "lock": "3:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
-  },
-  {
-   "name": "The Lighthouse",
+   "name": "Squared Away",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
+   "badge": "\u2693\ufe0f",
    "note": "Bryce Harper gets a park that's launching everything tonight, is teeing off (58% hard-hit), sends it skyward (17\u00b0), has plenty of raw power (73/100).",
    "players": [
     {
@@ -36296,9 +36247,9 @@
    "confleg": 0
   },
   {
-   "name": "The Breakwater",
+   "name": "Hold Fast",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
+   "badge": "\u2693\ufe0f",
    "note": "Shohei Ohtani is making elite contact (67% hard-hit), has loft to spare (18\u00b0), carries top-shelf pop (100/100 power grade).",
    "players": [
     {
@@ -36330,9 +36281,9 @@
    "confleg": 0
   },
   {
-   "name": "Chart a Course",
+   "name": "Ground Tackle",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
+   "badge": "\u2693\ufe0f",
    "note": "Hunter Goodman has the wind howling out behind him, is stinging it on a rope (61% hard-hit), launches it at the right angle (23\u00b0).",
    "players": [
     {
@@ -36364,9 +36315,9 @@
    "confleg": 0
   },
   {
-   "name": "The Helm",
+   "name": "Calm Seas",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
+   "badge": "\u2693\ufe0f",
    "note": "Pete Crow-Armstrong is tattooing the baseball (58% hard-hit), stays in the launch zone (22\u00b0), plays in a slightly friendly yard.",
    "players": [
     {
@@ -36475,5 +36426,55 @@
    },
    "confleg": 2
   }
+ ],
+ "pool": [
+  "Bryce Harper",
+  "Shohei Ohtani",
+  "Hunter Goodman",
+  "Pete Crow-Armstrong",
+  "Drake Baldwin",
+  "Jordan Walker",
+  "Brandon Lowe",
+  "Munetaka Murakami",
+  "Nelson Vel\u00e1zquez",
+  "Junior Caminero",
+  "Pete Alonso",
+  "CJ Abrams",
+  "Kazuma Okamoto",
+  "Ben Rice",
+  "Sal Stewart",
+  "Heliot Ramos",
+  "Jes\u00fas S\u00e1nchez",
+  "Rafael Devers",
+  "Esmerlyn Valdez",
+  "Eugenio Su\u00e1rez",
+  "Seiya Suzuki",
+  "Austin Riley",
+  "Royce Lewis",
+  "Jake Bauers",
+  "Manny Machado",
+  "Jackson Chourio",
+  "Brandon Marsh",
+  "Elly De La Cruz",
+  "Francisco Lindor",
+  "Cal Raleigh",
+  "Jahmai Jones",
+  "Alec Burleson",
+  "Gunnar Henderson",
+  "Christian Encarnacion-Strand",
+  "Colson Montgomery",
+  "Riley Greene",
+  "Corey Seager",
+  "Mike Trout",
+  "Fernando Tatis",
+  "Bryce Eldridge",
+  "Ryan Jeffers",
+  "Miguel Vargas",
+  "Kyle Stowers",
+  "Ian Happ",
+  "Dansby Swanson",
+  "Dominic Canzone",
+  "Jo Adell",
+  "Christian Walker"
  ]
 }
