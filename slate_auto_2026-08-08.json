@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T20:20:07Z",
+  "pulled_at": "2026-08-08T20:25:18Z",
   "games": [
     {
       "gamePk": 823514,
@@ -230,12 +230,12 @@
           {
             "id": 655316,
             "name": "Andruw Monasterio",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 642201,
             "name": "Eli White",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 686765,
@@ -353,7 +353,7 @@
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 672640,
@@ -1817,7 +1817,7 @@
     },
     {
       "gamePk": 823102,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-09T01:50:00Z",
       "matchup": "TB@SEA",
       "away": {
@@ -1839,10 +1839,56 @@
           "hr9": 1.06,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.097
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.148
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.169
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.244
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.169
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.094
+          },
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.161
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.145
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
