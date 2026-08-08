@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T18:11:21Z",
+  "pulled_at": "2026-08-08T18:21:46Z",
   "games": [
     {
       "gamePk": 823514,
@@ -648,7 +648,7 @@
     },
     {
       "gamePk": 823188,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T23:15:00Z",
       "matchup": "DET@SF",
       "away": {
@@ -670,10 +670,56 @@
           "hr9": 0.68,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.182
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.145
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.193
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.23
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.417
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.111
+          },
+          {
+            "id": 678760,
+            "name": "Eddys Leonard",
+            "iso": 0.2
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.018
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.019
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -717,16 +763,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 90\u00b0",
-        "lean": "Boost",
-        "temp": 90.4,
-        "wind_mph": 7.7,
-        "wind_dir": 187,
-        "tail_mph": 7.1,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.055
+      "wf": 1.0
     },
     {
       "gamePk": 822864,
