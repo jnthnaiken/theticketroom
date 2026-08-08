@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T18:31:22Z",
+  "pulled_at": "2026-08-08T18:36:24Z",
   "games": [
     {
       "gamePk": 823514,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823426,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T22:05:00Z",
       "matchup": "TOR@PHI",
       "away": {
@@ -425,10 +425,56 @@
           "hr9": 2.1,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.278
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.15
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.243
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.123
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.157
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.168
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.083
+          },
+          {
+            "id": 650559,
+            "name": "Bryan De La Cruz",
+            "iso": 0.333
+          },
+          {
+            "id": 596117,
+            "name": "Garrett Stubbs",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
