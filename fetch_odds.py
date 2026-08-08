@@ -6,15 +6,19 @@ WHY THIS EXISTS
     Until 2026-08-08 the odds were scraped ONCE, by hand, during the morning
     browser build, and never refreshed. `fetch_mlb.py` pulls StatsAPI + weather
     and nothing else, so the server drafted, priced and graded every ticket off
-    morning numbers all day. Measured on 2026-08-08 at 4:45pm ET against the
-    prices actually showing on the board: of the 255 bats in both, 220 (86.3%)
-    had moved, 180 by 40+ cents -- Harper +259 -> +418, Crow-Armstrong +292 ->
-    +440, Baldwin +310 -> +522. Those three carried two moons, the salami, three
-    builders and the whole Lunch Special.
+    morning numbers all day. Measured by this script against the live market at
+    5:35pm ET on 2026-08-08: of the 287 bats in the committed file, 228 (79.4%)
+    had moved -- Schwarber +210 -> +190, Alvarez +255 -> +225, Caminero +334 ->
+    +300. Normal intraday drift, ~1-3 points of implied probability on the
+    movers, but it lands on a board where price decides Chef's Table seats and
+    35% of every strength ranking.
 
     The client could already be re-priced by hand (paste box / per-bat inputs)
-    but it saved to ONE browser's localStorage, so the build, the archive and
-    every other visitor never saw it.
+    but it saved to ONE browser's localStorage. Nothing wrote back, so the
+    build, the archive and every other visitor kept the morning numbers -- and
+    the hand-entered ones could drift away from the real market with nothing to
+    check them (2026-08-08: a browser holding Caminero at +250, against +300 in
+    the market and +334 committed, handed him a Chef's Table seat).
 
 OUTPUT
     odds_<date>.json     {name: american_int}          <- consumed by build15.py
