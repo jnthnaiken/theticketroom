@@ -1,0 +1,22 @@
+name: Odds Probe
+
+# One-off diagnostic: can a GitHub runner (datacenter IP, no JS engine) actually
+# pull the VegasInsider prop tables? Writes nothing. Delete this workflow once
+# fetch_odds.py is wired into pull-slate.yml.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Probe VegasInsider
+        run: python3 fetch_odds.py --probe
