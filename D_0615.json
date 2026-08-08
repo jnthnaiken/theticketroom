@@ -23594,7 +23594,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -23685,7 +23685,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -23776,7 +23776,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -23867,7 +23867,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -23957,7 +23957,7 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -24049,7 +24049,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -24140,7 +24140,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -24231,7 +24231,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -24321,7 +24321,7 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -24413,7 +24413,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -24503,7 +24503,7 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -24595,7 +24595,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Matthew Liberatore",
@@ -24685,7 +24685,7 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -35522,7 +35522,7 @@
     "precip_src": null
    }
   },
-  "build": "8/8 3:40pm",
+  "build": "8/8 3:50pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -35877,10 +35877,176 @@
    "confleg": 2
   },
   {
+   "name": "Ground Tackle",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Hunter Goodman gets a park that's launching everything tonight, is crushing the baseball (61% hard-hit), launches it at the right angle (23\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 181.8,
+     "aT": 100,
+     "wf": 1.058,
+     "gmatch": "COL@STL",
+     "gtime": "7:15 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 300,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Hunter Goodman",
+   "lock": "7:15 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1,
+   "locked": true
+  },
+  {
+   "name": "Liftoff Sequence",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman swings with the wind at his back, Murakami is rocketing line drives (71% hard-hit), and S\u00e1nchez lives in the launch window (17\u00b0).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 181.8,
+     "aT": 100,
+     "wf": 1.058,
+     "gmatch": "COL@STL",
+     "gtime": "7:15 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 300,
+     "status": "projected"
+    },
+    {
+     "name": "Munetaka Murakami",
+     "team": "White Sox",
+     "total": 163.6,
+     "aT": 100,
+     "wf": 0.991,
+     "gmatch": "CLE@CWS",
+     "gtime": "7:15 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 337,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jes\u00fas S\u00e1nchez",
+     "team": "Blue Jays",
+     "total": 149.5,
+     "aT": 100,
+     "wf": 1.031,
+     "gmatch": "TOR@PHI",
+     "gtime": "6:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 374,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "6:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 138,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 3
+   },
+   "confleg": 3,
+   "locked": true
+  },
+  {
+   "name": "To the Heavens",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman carries a 182 number tonight, Lowe has loft to spare (19\u00b0), and Lewis carries serious thump (71/100 grade).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 181.8,
+     "aT": 100,
+     "wf": 1.058,
+     "gmatch": "COL@STL",
+     "gtime": "7:15 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 300,
+     "status": "confirmed"
+    },
+    {
+     "name": "Brandon Lowe",
+     "team": "Pirates",
+     "total": 169,
+     "aT": 100,
+     "wf": 1.063,
+     "gmatch": "NYM@PIT",
+     "gtime": "6:40 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 317,
+     "status": "confirmed"
+    },
+    {
+     "name": "Royce Lewis",
+     "team": "Twins",
+     "total": 147.5,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "MIN@MIL",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 350,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 126.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 2
+  },
+  {
    "name": "Upper Deck Bound",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Ohtani projects out to 194, Valdez sends it skyward (18\u00b0), and Walker is launching rockets (57% hard-hit).",
+   "note": "Ohtani projects out to 194, Valdez keeps the ball in the air (18\u00b0), and Walker is launching rockets (57% hard-hit).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -35945,7 +36111,7 @@
    "name": "Off the Scoreboard",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Ohtani is rocketing line drives (67% hard-hit), Su\u00e1rez gets a yard playing like a launchpad tonight, and Suzuki has loft to spare (21\u00b0).",
+   "note": "Ohtani is making elite contact (67% hard-hit), Su\u00e1rez has the jet stream pushing toward the seats, and Suzuki has loft to spare (21\u00b0).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -36007,140 +36173,10 @@
    "confleg": 1
   },
   {
-   "name": "To the Heavens",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Goodman has the jet stream pushing toward the seats, Lowe is scorching the ball (54% hard-hit), and Lewis lives in the launch window (21\u00b0).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 181.8,
-     "aT": 100,
-     "wf": 1.058,
-     "gmatch": "COL@STL",
-     "gtime": "7:15 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 300,
-     "status": "projected"
-    },
-    {
-     "name": "Brandon Lowe",
-     "team": "Pirates",
-     "total": 169,
-     "aT": 100,
-     "wf": 1.063,
-     "gmatch": "NYM@PIT",
-     "gtime": "6:40 PM ET",
-     "game": 5,
-     "late": false,
-     "odds": 317,
-     "status": "confirmed"
-    },
-    {
-     "name": "Royce Lewis",
-     "team": "Twins",
-     "total": 147.5,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "MIN@MIL",
-     "gtime": "7:10 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 350,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Hunter Goodman",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 126.5,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 1,
-    "neu": 1
-   },
-   "confleg": 1
-  },
-  {
-   "name": "Liftoff Sequence",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Goodman swings with the wind at his back, Murakami is making elite contact (71% hard-hit), and S\u00e1nchez sits in the ideal launch angle (17\u00b0).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 181.8,
-     "aT": 100,
-     "wf": 1.058,
-     "gmatch": "COL@STL",
-     "gtime": "7:15 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 300,
-     "status": "projected"
-    },
-    {
-     "name": "Munetaka Murakami",
-     "team": "White Sox",
-     "total": 163.6,
-     "aT": 100,
-     "wf": 0.991,
-     "gmatch": "CLE@CWS",
-     "gtime": "7:15 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 337,
-     "status": "confirmed"
-    },
-    {
-     "name": "Jes\u00fas S\u00e1nchez",
-     "team": "Blue Jays",
-     "total": 149.5,
-     "aT": 100,
-     "wf": 1.031,
-     "gmatch": "TOR@PHI",
-     "gtime": "6:05 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 374,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Hunter Goodman",
-   "lock": "6:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 138,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 3
-   },
-   "confleg": 2
-  },
-  {
    "name": "The Charcuterie Board",
    "kind": "biggest",
    "badge": "\ud83e\udd6a",
-   "note": "Crow-Armstrong gets a touch of carry tonight, Marsh is squaring up rockets (52% hard-hit), Machado packs respectable power (68/100 grade), and Bauers keeps the ball in the air (19\u00b0).",
+   "note": "Crow-Armstrong gets a touch of carry tonight, Marsh is mashing the ball (52% hard-hit), Machado swings with usable power (68/100), and Bauers swings with natural lift (19\u00b0).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -36283,40 +36319,6 @@
    "confleg": 0
   },
   {
-   "name": "Ground Tackle",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Hunter Goodman has gusts carrying balls over the wall, is leaving scorch marks (61% hard-hit), launches it at the right angle (23\u00b0).",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 181.8,
-     "aT": 100,
-     "wf": 1.058,
-     "gmatch": "COL@STL",
-     "gtime": "7:15 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 300,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Hunter Goodman",
-   "lock": "7:15 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 0
-  },
-  {
    "name": "Calm Seas",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
@@ -36354,7 +36356,7 @@
    "name": "Dry-Aged and Prime",
    "kind": "chef",
    "badge": "\ud83c\udf7d",
-   "note": "Schwarber gets a sliver of help from the park, Contreras is teeing off (57% hard-hit), Olson sits in the elite power tier (100/100), and Alvarez carries a 200 number tonight.",
+   "note": "Schwarber gets a sliver of help from the park, Contreras is teeing off (57% hard-hit), Olson brings light-tower raw power (100/100), and Alvarez grades to 200 on our board.",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -36437,13 +36439,13 @@
   "Esmerlyn Valdez",
   "Jordan Walker",
   "Eugenio Su\u00e1rez",
+  "Hunter Goodman",
   "Brandon Lowe",
   "Munetaka Murakami",
   "Jes\u00fas S\u00e1nchez",
   "Brandon Marsh",
   "Manny Machado",
   "Shohei Ohtani",
-  "Hunter Goodman",
   "Pete Crow-Armstrong",
   "Drake Baldwin",
   "Junior Caminero",

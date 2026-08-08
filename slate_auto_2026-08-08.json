@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T19:40:04Z",
+  "pulled_at": "2026-08-08T19:50:03Z",
   "games": [
     {
       "gamePk": 823514,
@@ -60,7 +60,7 @@
           {
             "id": 805347,
             "name": "Jim Jarvis",
-            "iso": 0.113
+            "iso": 0.112
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.31,
+          "hr9": 1.29,
           "hand": "RHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824726,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-08T20:10:00Z",
       "matchup": "ATH@BOS",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823834,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-08T20:10:00Z",
       "matchup": "LAA@MIA",
       "away": {
@@ -1114,8 +1114,54 @@
           "hr9": 1.74,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.198
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.156
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.204
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.29
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.167
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.164
+          },
+          {
+            "id": 687597,
+            "name": "Jordan Beck",
+            "iso": 0.143
+          },
+          {
+            "id": 671289,
+            "name": "Tyler Freeman",
+            "iso": 0.067
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
