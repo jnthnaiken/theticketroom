@@ -155,6 +155,19 @@ jobs:
               fh.write(f"fresh={'true' if fresh else 'false'}\n")
           PY
 
+      # ODDS REFRESH. Prices move all day and the board ranks on them: 35% of every
+      # strength score, and the Chef's Table seats outright. odds_<date>.json used to be a
+      # single morning snapshot written by hand during the browser scrape -- by 5:35pm on
+      # 2026-08-08, 228 of its 287 bats (79.4%) had moved. Runs BEFORE build15.py so the
+      # whole board scores on current numbers.
+      # Fails SOFT twice over: fetch_odds.py refuses to overwrite the file on a short or
+      # blocked scrape (<150 HR prices), and continue-on-error means a bad night at
+      # VegasInsider can never block a board -- it just builds on the last good prices.
+      - name: Refresh odds from VegasInsider
+        if: success() && steps.verify.outputs.fresh == 'true'
+        continue-on-error: true
+        run: python3 fetch_odds.py "$SLATE_DATE"
+
       - name: Score the field
         if: success() && steps.verify.outputs.fresh == 'true'
         run: python3 build15.py
