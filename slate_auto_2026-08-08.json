@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T19:26:41Z",
+  "pulled_at": "2026-08-08T19:34:57Z",
   "games": [
     {
       "gamePk": 823514,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.32,
+          "hr9": 1.31,
           "hand": "RHP"
         },
         "lineup": [
@@ -97,7 +97,7 @@
           {
             "id": 663757,
             "name": "Trent Grisham",
-            "iso": 0.167
+            "iso": 0.17
           },
           {
             "id": 806146,
@@ -414,8 +414,54 @@
           "hr9": 2.64,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.098
+          },
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.5
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.09
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.162
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.17
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.127
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.125
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.161
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.076
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -1057,7 +1103,7 @@
     },
     {
       "gamePk": 823021,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T23:15:00Z",
       "matchup": "COL@STL",
       "away": {
@@ -1079,10 +1125,56 @@
           "hr9": 1.57,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.139
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.205
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.139
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.192
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.118
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.08
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.118
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.129
+          },
+          {
+            "id": 677592,
+            "name": "Everson Pereira",
+            "iso": 0.213
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
