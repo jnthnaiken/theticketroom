@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
   "season": "2026",
-  "pulled_at": "2026-08-08T19:01:31Z",
+  "pulled_at": "2026-08-08T19:06:44Z",
   "games": [
     {
       "gamePk": 823514,
@@ -531,7 +531,7 @@
     },
     {
       "gamePk": 822701,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-08T22:45:00Z",
       "matchup": "CIN@WSH",
       "away": {
@@ -542,8 +542,54 @@
           "hr9": 0.99,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.232
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.224
+          },
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.1
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.192
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.238
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.153
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.172
+          },
+          {
+            "id": 682622,
+            "name": "Noelvi Marte",
+            "iso": 0.141
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.099
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -553,10 +599,56 @@
           "hr9": 0.28,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.261
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.267
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.148
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.177
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.169
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.091
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.038
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.145
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.153
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
