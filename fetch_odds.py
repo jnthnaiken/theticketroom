@@ -211,6 +211,18 @@ def main():
         for n, v in list(hr.items())[:6]:
             print(f"    {n:24s} {v['price']:+5d}  ({v['books']} books)")
 
+    # compare against whatever is committed, so a probe reports real drift
+    if date and os.path.exists(f"odds_{date}.json"):
+        cur = json.load(open(f"odds_{date}.json"))
+        both = [n for n in hr if n in cur]
+        movers = [(n, cur[n], hr[n]["price"]) for n in both if cur[n] != hr[n]["price"]]
+        movers.sort(key=lambda r: -abs(to_p(r[2]) - to_p(r[1])))
+        print(f"\n  vs committed odds_{date}.json: {len(cur)} there, {len(hr)} scraped, "
+              f"{len(both)} overlap, {len(movers)} moved "
+              f"({100*len(movers)/max(1,len(both)):.1f}%)")
+        for n, a, b in movers[:15]:
+            print(f"    {n:24s} {a:+5d} -> {b:+5d}   ({100*(to_p(b)-to_p(a)):+.2f} pts implied)")
+
     if probe:
         print("probe only — nothing written")
         return 0 if len(hr) >= 150 else 1
