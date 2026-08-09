@@ -26,6 +26,48 @@ checking the pitchers are today's starters, not yesterday's.
 Do NOT propose using the Kasper export or ask the user to run it. Going matchup-by-matchup
 IS the workflow, every single day.
 
+## 🚨 2026-08-08 — the board re-drafted every 5 min for 3 hours. Root cause: a `//` comment.
+
+Read this before you edit `index.html` by hand. It cost a live slate.
+
+**What happened.** A patch to `assembleClient()` left this on one line:
+
+```js
+var _cstren=function(n){...};   // TOTAL alone -- see strength() belowvar ranked=cand.slice().sort(...)
+```
+
+`index.html`'s script block is minified to a handful of enormous lines, so the `//` had no
+newline to terminate it and swallowed the `var ranked=...` declaration that followed. The
+engine then threw `ReferenceError: ranked is not defined` on the first chef-seat loop.
+
+**Why nobody saw it for three hours.** `regen15.py` runs the client engine through
+`client_assemble.js`; on a non-zero exit it prints `!! FALLING BACK to assemble_tickets.py`
+and drafts anyway. `assemble_tickets.assemble()` has no prior board, so it drafted the slate
+FROM SCRATCH on every build — 6:06pm through 8:27pm, a different set of tickets every five
+minutes, long after first pitch. In the browser the same throw meant the page rendered
+whatever the server had last written. It looked like the ticket-lock feature was broken. It
+wasn't; the lock lives in the client engine and the client engine was dead.
+
+**Rules that follow from this.**
+
+1. **Never use `//` inside the `index.html` script block.** Use `/* ... */`. The block is one
+   line for long stretches; a line comment there eats everything after it.
+2. **Syntax-check before publishing `index.html`.** This catches it in one second:
+   ```
+   node -e "const h=require('fs').readFileSync('index.html','utf8');const re=/<script\b[^>]*>([\s\S]*?)<\/script>/gi;let s=null;for(let m;(m=re.exec(h));)if(m[1].includes('__assembleClient'))s=m[1];new Function(s);console.log('OK')"
+   ```
+   Better still, run `node client_assemble.js D_0615.json index.html` and read the output —
+   it prints `N prior -> N tickets (L locked/confirmed, R re-drafted)`.
+3. **The `assemble_tickets.py` fallback is a trap on a live slate.** It is the right
+   behaviour for a cold start and the wrong behaviour once tickets are locked, because it
+   silently re-drafts placed slips. Treat any `!! FALLING BACK` line in an Action log as a
+   P1 — that message means the archive and the screen have both stopped obeying the lock.
+
+**The rollback.** Tickets were restored to the **3:35pm** composition (the last board that
+stood for a meaningful stretch — identical to what the client showed at 5:51pm), handed to
+the fixed engine as prior, re-priced against the 9:02pm market: 14/14 locked, and the 9:07pm
+and 9:12pm auto-builds both preserved it unchanged. Commit `ee6403e`.
+
 ## 🎯 2026-07-11 session — ledger reconciled, doubleheader live-grade FIXED, Kasper method locked
 
 Built the **2026-07-11** board end-to-end (15 games, 388 bats, 13 tickets: 6 moon / 1 salami /
