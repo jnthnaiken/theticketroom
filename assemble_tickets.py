@@ -631,8 +631,23 @@ def assemble(D, now_min=None):
         return _jsround(s * 10) / 10
     # ---- TICKET LOCK, part 2: swap the locked tickets back in, re-priced but NOT re-drafted ----
     if _locked_prior:
-        _fresh = [t for t in tickets
-                  if not any(l['name'] in _locked_bats for l in t['players'])]
+        # A fresh ticket is redundant only if it DUPLICATES something already carried. Dropping
+        # anything that merely SHARES a bat with a locked ticket deleted every anchor single whose
+        # parlay had locked but whose own game had not started (2026-08-09: Murakami's salami locked
+        # at 1:35 and his builder went with it, permanently -- the anchor pass re-made it and this
+        # filter re-deleted it every build). An anchor single is meant to mirror a locked anchor.
+        _kept_names = {t.get('name') for t in _locked_prior}
+        _kept_singles = {t['players'][0]['name'] for t in _locked_prior
+                         if len(t.get('players') or []) == 1}
+
+        def _keep_fresh(t):
+            if t.get('name') in _kept_names:
+                return False                                  # already carried verbatim
+            if len(t['players']) == 1:
+                return t['players'][0]['name'] not in _kept_singles
+            return not any(l['name'] in _locked_bats for l in t['players'])
+
+        _fresh = [t for t in tickets if _keep_fresh(t)]
         # A locked ticket occupies its slot. Take the shape the draft just produced as the target
         # for the night and let the locked ones fill it first, so the board keeps its normal
         # 6 moons / 1 salami / 1 chef / 1 lunch / 1 nightcap / N anchors instead of doubling up.
