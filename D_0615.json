@@ -35613,7 +35613,7 @@
     "precip_src": "slate_auto"
    }
   },
-  "build": "8/9 3:31pm",
+  "build": "8/9 3:37pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -35765,7 +35765,7 @@
   "gs": {},
   "pool": 389,
   "gate": 48,
-  "tickets": 15
+  "tickets": 14
  },
  "tickets": [
   {
@@ -36323,44 +36323,6 @@
    "payout10": 51
   },
   {
-   "name": "Chart a Course",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Pete Crow-Armstrong plays in a wind tunnel pointed at the seats, is crushing the baseball (58% hard-hit), stays in the launch zone (22\u00b0).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 179.8,
-     "aT": 100,
-     "wf": 1.083,
-     "gmatch": "CHC@KC",
-     "gtime": "2:10 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 300,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "2:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 300,
-   "payout10": 40
-  },
-  {
    "name": "Off the Scoreboard",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -36502,7 +36464,7 @@
    "name": "Squared Away",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Munetaka Murakami gets a yard playing like a launchpad tonight, is squaring up premium contact (63% hard-hit), has a swing built for the seats (17\u00b0).",
+   "note": "Munetaka Murakami plays in a wind tunnel pointed at the seats, is squaring up premium contact (63% hard-hit), has a swing built for the seats (17\u00b0).",
    "players": [
     {
      "name": "Munetaka Murakami",
@@ -36540,7 +36502,7 @@
    "name": "Final Pour",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Manny Machado is hammering the ball (56% hard-hit), launches it at the right angle (21\u00b0), catches a small park boost, has plenty of raw power (73/100), and he's squaring more up lately.",
+   "note": "Manny Machado is hammering the ball (56% hard-hit), launches it at the right angle (21\u00b0), catches a small park boost, has the pop to go deep (73/100 power), and he's squaring more up lately.",
    "players": [
     {
      "name": "Manny Machado",
@@ -36574,10 +36536,10 @@
    "payout10": 43.2
   },
   {
-   "name": "Ground Tackle",
+   "name": "Hold Fast",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Shohei Ohtani is squaring up everything (55% hard-hit), swings a heavy stick (72/100 power), lands at 186 in our model.",
+   "note": "Shohei Ohtani is squaring up everything (55% hard-hit), has plenty of raw power (72/100), lands at 186 in our model.",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -36612,6 +36574,7 @@
   }
  ],
  "pool": [
+  "Pete Crow-Armstrong",
   "Brandon Lowe",
   "Kazuma Okamoto",
   "Manny Machado",
