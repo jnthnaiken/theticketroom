@@ -35522,7 +35522,7 @@
     "precip_src": null
    }
   },
-  "build": "8/8 11:57pm",
+  "build": "8/9 12:01am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36362,88 +36362,6 @@
    "payout10": 40
   },
   {
-   "name": "Dry-Aged and Prime",
-   "kind": "chef",
-   "badge": "\ud83c\udf7d",
-   "note": "Schwarber gets a sliver of help from the park, Contreras is teeing off (57% hard-hit), Olson sits in the elite power tier (100/100), and Alvarez carries a 200 number tonight.",
-   "players": [
-    {
-     "name": "Kyle Schwarber",
-     "team": "Phillies",
-     "total": 224.9,
-     "aT": 100,
-     "wf": 1.041,
-     "gmatch": "TOR@PHI",
-     "gtime": "6:05 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 195,
-     "status": "confirmed"
-    },
-    {
-     "name": "Willson Contreras",
-     "team": "Red Sox",
-     "total": 200.5,
-     "aT": 100,
-     "wf": 1.072,
-     "gmatch": "ATH@BOS",
-     "gtime": "4:10 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 250,
-     "status": "confirmed"
-    },
-    {
-     "name": "Matt Olson",
-     "team": "Braves",
-     "total": 201.1,
-     "aT": 100,
-     "wf": 1.076,
-     "gmatch": "ATL@NYY",
-     "gtime": "3:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 252,
-     "status": "confirmed"
-    },
-    {
-     "name": "Yordan Alvarez",
-     "team": "Astros",
-     "total": 209.8,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "HOU@SD",
-     "gtime": "7:15 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 225,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Kyle Schwarber",
-   "lock": "3:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 5.5,
-    "maxprofit": 359.3,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 1,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 3,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 11712,
-   "payout10": 1181.18
-  },
-  {
    "name": "Lights Out",
    "kind": "late",
    "badge": "\ud83c\udf03",
@@ -36480,9 +36398,108 @@
    "priced": 1,
    "parlay_am": 305,
    "payout10": 40.5
+  },
+  {
+   "name": "Dry-Aged and Prime",
+   "kind": "chef",
+   "badge": "\ud83c\udf7d",
+   "note": "Schwarber gets a sliver of help from the park, Alvarez brings light-tower raw power (100/100), Olson is teeing off (66% hard-hit), and Contreras carries a 201 number tonight.",
+   "players": [
+    {
+     "name": "Kyle Schwarber",
+     "team": "Phillies",
+     "total": 224.9,
+     "aT": 100,
+     "wf": 1.041,
+     "gmatch": "TOR@PHI",
+     "gtime": "6:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 195,
+     "status": "confirmed"
+    },
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 209.8,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "HOU@SD",
+     "gtime": "7:15 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 225,
+     "status": "confirmed"
+    },
+    {
+     "name": "Matt Olson",
+     "team": "Braves",
+     "total": 201.1,
+     "aT": 100,
+     "wf": 1.076,
+     "gmatch": "ATL@NYY",
+     "gtime": "3:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 252,
+     "status": "confirmed"
+    },
+    {
+     "name": "Willson Contreras",
+     "team": "Red Sox",
+     "total": 200.5,
+     "aT": 100,
+     "wf": 1.072,
+     "gmatch": "ATH@BOS",
+     "gtime": "4:10 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 250,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Kyle Schwarber",
+   "lock": "3:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 5.5,
+    "maxprofit": 321.7,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 4
   }
  ],
  "pool": [
+  "Bryce Harper",
+  "Rafael Devers",
+  "CJ Abrams",
+  "Sal Stewart",
+  "Pete Alonso",
+  "Shohei Ohtani",
+  "Esmerlyn Valdez",
+  "Jordan Walker",
+  "Eugenio Su\u00e1rez",
+  "Seiya Suzuki",
+  "Hunter Goodman",
+  "Brandon Lowe",
+  "Royce Lewis",
+  "Munetaka Murakami",
+  "Jes\u00fas S\u00e1nchez",
+  "Pete Crow-Armstrong",
+  "Brandon Marsh",
+  "Manny Machado",
+  "Jake Bauers",
+  "Drake Baldwin",
+  "Junior Caminero",
   "Ben Rice",
   "Heliot Ramos",
   "Austin Riley",
