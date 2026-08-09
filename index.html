@@ -1256,7 +1256,18 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       prior.forEach(function(t){
         if(t.kind==='chef')return;/*chef -> rebuilt fresh from _chefLegs (per-leg lock) at emit; never frozen/reverted here*/
         var kind=t.kind, idx=nextIdx(kind);
-        if(isLocked(t)){ plan.push({frozen:true,t:t}); return; }   // PLACED slip -> emit verbatim forever; a leg that later voids just grades as void, the slip itself never changes
+        /* An anchor single is DERIVED: it exists only because its bat anchors a parlay, and it is
+           re-derived from the live anchor set on every build. isLocked() freezes on "every leg
+           confirmed", which fires when the lineup posts -- hours before first pitch, and well
+           before the parlays it mirrors stop re-drafting. So a builder could outlive the anchor
+           role that created it. 2026-08-09: Crow-Armstrong's builder froze at 1:31 when CHC@KC
+           posted; his two moons re-drafted to Ohtani at 1:46; the board then carried FIVE anchors
+           -- a stale Crow-Armstrong plus the four real ones -- where it had carried exactly four,
+           matching the anchor set, every night since 7/25. A builder is therefore frozen by the
+           CLOCK only: once its own game is underway, like every other ticket. Until then it has to
+           earn its place on every build. Parlays are unaffected. */
+        var _bldOpen=(t.kind==='builder')&&(function(){var m=gmin(t.lock);return m==null||_lkNow<m;})();
+        if(isLocked(t) && !_bldOpen){ plan.push({frozen:true,t:t}); return; }   // PLACED slip -> emit verbatim forever; a leg that later voids just grades as void, the slip itself never changes
         var need=t.nlegs||(t.players?t.players.length:1), kept=[], pref=[], gUsed={};
         t.players.forEach(function(l){var n=l.name, isA=(n===t.anchor);
           if(pinnedP(n) && !chalk[n]){/*LOCK = confirmed or already in progress, nothing else. An unconfirmed leg used to be kept here as well (aliveP && inPool), which silently reserved that bat board-wide -- so when some OTHER leg was scratched the refill found every candidate already taken and the anchor got demoted, dropping its intact partner moon with it (2026-08-03: Eldridge scratched -> Wood lost BOTH moons, while the only unplaced bat had missed the z-gate by 0.02). Releasing unconfirmed legs returns them to the pool to be re-drafted around the locked ones, which is the point of the re-draft. Chalk stays excluded: the Chef's Table is reserved first, always.*/
