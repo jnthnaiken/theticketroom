@@ -109,9 +109,42 @@ def gmin(gt):
 
 
 # ---------- selection ----------
-def assemble(D):
+def _now_min_et():
+    """Minutes past midnight, ET."""
+    try:
+        from zoneinfo import ZoneInfo
+        tz = ZoneInfo("America/New_York")
+    except Exception:
+        tz = datetime.timezone(datetime.timedelta(hours=-4))
+    n = datetime.datetime.now(tz)
+    return n.hour * 60 + n.minute
+
+
+def assemble(D, now_min=None):
     P  = D['players']
     gs = D.get('meta', {}).get('gs', {})            # live game-state map
+
+    # ---------- TICKET LOCK: once a ticket's earliest leg is underway, its LEGS ARE FINAL ----------
+    # From that moment it is a placed bet; a re-draft that swaps a leg changes a wager somebody is
+    # already holding. Locked tickets are carried forward verbatim and only RE-PRICED (odds, status,
+    # TOTAL and weather refresh through leg()); their bats leave the pool so the open tickets draft
+    # around them.
+    #   2026-07-09: a RULES_VERSION bump force-re-drafted a confirmed board and swapped a moon leg --
+    #               the ledger had to be hand-corrected by +91.69u.
+    #   2026-08-08: a strength-key change re-drafted SEVEN locked tickets in ONE rebuild. The 3:05
+    #               lunch play went Baldwin -> Rice at 6:06pm, three 6:05 moons changed anchor, and 3
+    #               of the salami's 4 legs turned over. That is what this block exists to stop.
+    # now_min is injectable so tests can pin the clock.
+    _now = _now_min_et() if now_min is None else now_min
+    _prior = D.get('tickets') or []
+    _locked_prior, _locked_bats = [], set()
+    for _t in _prior:
+        _lk = gmin(_t.get('lock'))
+        if _lk is None or _now < _lk:
+            continue
+        _locked_prior.append(_t)
+        for _l in _t.get('players', []):
+            _locked_bats.add(_l['name'])
     susp = lambda n: gs.get(str(P[n]['game'])) == 'susp'
     # pending / carryover = a bat carried from a still-resuming suspended game (or named in the carryover
     # strip). It stays in the pool and CAN be a single (builder), but is barred from every parlay leg --
@@ -182,6 +215,8 @@ def assemble(D):
         g = P[n]['game']
         if _tc.get(g, 0) >= GAME_CAP: continue
         nonchalk.append(n); _tc[g] = _tc.get(g, 0) + 1
+    if _locked_bats:                       # locked tickets own their bats -- open tickets draft around them
+        nonchalk = [n for n in nonchalk if n not in _locked_bats]
     _have = set(nonchalk)
     extra = []                                           # FLOOR is the only gate -> no fixed pool size, no backfill, no sub-floor tier
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
@@ -224,7 +259,7 @@ def assemble(D):
         _doy = datetime.date.fromisoformat(D.get('meta', {}).get('date', '')).timetuple().tm_yday
     except Exception:
         _doy = 0
-    _name_used, _name_ctr = set(), {}
+    _name_used, _name_ctr = {t.get('name') for t in _locked_prior if t.get('name')}, {}   # a locked ticket keeps its name; the draft can't re-issue it
     def name_for(kind):
         pool = NAME_POOLS.get(kind) or ["Ticket"]
         i = _name_ctr.get(kind, 0); _name_ctr[kind] = i + 1
@@ -594,6 +629,42 @@ def assemble(D):
                         for e in range(c + 1, L):
                             s += dec[a] * dec[b] * dec[c] * dec[e]
         return _jsround(s * 10) / 10
+    # ---- TICKET LOCK, part 2: swap the locked tickets back in, re-priced but NOT re-drafted ----
+    if _locked_prior:
+        _fresh = [t for t in tickets
+                  if not any(l['name'] in _locked_bats for l in t['players'])]
+        # A locked ticket occupies its slot. Take the shape the draft just produced as the target
+        # for the night and let the locked ones fill it first, so the board keeps its normal
+        # 6 moons / 1 salami / 1 chef / 1 lunch / 1 nightcap / N anchors instead of doubling up.
+        _target, _lockn, _room, _trim = {}, {}, {}, []
+        for t in tickets:
+            _target[t['kind']] = _target.get(t['kind'], 0) + 1
+        for t in _locked_prior:
+            _lockn[t['kind']] = _lockn.get(t['kind'], 0) + 1
+        for t in _fresh:
+            k = t['kind']
+            _room[k] = _room.get(k, _target.get(k, 0) - _lockn.get(k, 0))
+            if _room[k] > 0:
+                _room[k] -= 1
+                _trim.append(t)
+        _fresh = _trim
+        _kept = []
+        for _t in _locked_prior:
+            _c = dict(_t)
+            _c['players'] = [(leg(l['name']) if l['name'] in P else dict(l))
+                             for l in _t.get('players', [])]
+            _c['nlegs'] = len(_c['players'])
+            if _c['players']:
+                _c['lock'] = min(l['gtime'] for l in _c['players'])
+                _c['has_late'] = any(l['late'] for l in _c['players'])
+            _c['locked'] = True
+            _kept.append(_c)
+        for _t in _kept:                       # a locked ticket's name can't be re-issued
+            _name_used.add(_t.get('name'))
+        tickets[:] = _kept + _fresh
+        print(f"  ticket lock: {len(_kept)} carried forward (re-priced only), "
+              f"{len(tickets) - len(_kept)} open")
+
     for i, t in enumerate(tickets, 1):
         t['n'] = i
         pr = [l for l in t['players'] if l['odds']]

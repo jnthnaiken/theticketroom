@@ -1042,6 +1042,15 @@ drawTickets();drawPlayers();drawTracker();
    kept every parlay seat it already held. Nick Kurtz (+188) was scratched out of the Chef's Table, Caminero (+220)
    was next shortest and took the seat -- while still anchoring both of his moons AND his builder single. Four
    tickets on one bat, which is the exact concentration CHALK_N exists to prevent. */byT(cand.filter(function(n){return !chalk[n];})).forEach(function(n){if(_hv[n])return;var t=P[n].game;if((_TC[t]||0)>=4)return;nonchalk.push(n);_hv[n]=1;_TC[t]=(_TC[t]||0)+1;});/* FLOOR is the only gate -> no backfill */                                          // the buildable 33 -> moons/salami/builders
+    /* TICKET LOCK: once a ticket's earliest leg is underway its LEGS ARE FINAL -- from that moment it is a
+   placed bet, and a re-draft that swaps a leg changes a wager someone already holds. Locked tickets are
+   carried forward verbatim and only RE-PRICED; their bats leave the pool so open tickets draft around them.
+   Mirrors assemble_tickets.py. 2026-08-08: a strength-key change re-drafted SEVEN locked tickets in one
+   rebuild -- the 3:05 lunch play went Baldwin->Rice at 6:06pm. */
+    var _lkNow=nowMin(), _lockedPrior=[], _lockedBats={};
+    (D.tickets||[]).forEach(function(t){var lk=gmin(t.lock); if(lk==null||_lkNow<lk)return;
+      _lockedPrior.push(t); (t.players||[]).forEach(function(l){_lockedBats[l.name]=1;});});
+    if(_lockedPrior.length) nonchalk=nonchalk.filter(function(n){return !_lockedBats[n];});
     D.pool=nonchalk.slice();
     var _poolTeam={}; nonchalk.forEach(function(_pn){var _pc=(P[_pn]||{}).game; if(_pc)_poolTeam[_pc]=(_poolTeam[_pc]||0)+1;});   // distinct pool bats per team -> caps the #42+ span-fill fallback so it can't add a 4th of a team                                                     // Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     if(D.meta)D.meta.pool=Object.keys(D.players).length;if(D.meta)D.meta.gate=cand.length;   /* how many bats cleared the z-gate -- the number that actually explains the board */   // counters denominator = whole scored field (all bats); Players/Tickets use the 33 in D.pool
@@ -1551,7 +1560,28 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     });
     _gseen={};   // generate all notes in ticket order so the board-wide phrase de-dup is deterministic
     out.forEach(function(t){ t.note=cwNote(t.kind, t.players.map(function(l){return l.name;})); });
-    var _rsv={};out.forEach(function(t){if(t.kind==='lunch'||t.kind==='late')t.players.forEach(function(l){_rsv[l.name]=1;});});out=out.filter(function(t){return (t.kind==='lunch'||t.kind==='late')||!t.players.some(function(l){return _rsv[l.name];});});out.forEach(function(t){(t.players||[]).forEach(function(l){var _p=P[l.name];if(_p){l.gtime=_p.gtime;l.late=_p.late;l.gmatch=_p.gmatch;l.game=_p.game;}});});D.tickets=out;
+    var _rsv={};out.forEach(function(t){if(t.kind==='lunch'||t.kind==='late')t.players.forEach(function(l){_rsv[l.name]=1;});});out=out.filter(function(t){return (t.kind==='lunch'||t.kind==='late')||!t.players.some(function(l){return _rsv[l.name];});});out.forEach(function(t){(t.players||[]).forEach(function(l){var _p=P[l.name];if(_p){l.gtime=_p.gtime;l.late=_p.late;l.gmatch=_p.gmatch;l.game=_p.game;}});});if(_lockedPrior.length){
+      var _fresh=out.filter(function(t){return !t.players.some(function(l){return _lockedBats[l.name];});});
+      var _tgt={},_lkn={},_room={},_trim=[];
+      out.forEach(function(t){_tgt[t.kind]=(_tgt[t.kind]||0)+1;});
+      _lockedPrior.forEach(function(t){_lkn[t.kind]=(_lkn[t.kind]||0)+1;});
+      _fresh.forEach(function(t){var k=t.kind;
+        if(_room[k]==null)_room[k]=(_tgt[k]||0)-(_lkn[k]||0);
+        if(_room[k]>0){_room[k]--;_trim.push(t);}});
+      var _kept=_lockedPrior.map(function(t){
+        var c={};for(var k in t)c[k]=t[k];
+        c.players=(t.players||[]).map(function(l){var p=P[l.name];var o={};for(var q in l)o[q]=l[q];
+          if(p){o.odds=p.odds;o.total=p.TOTAL;o.aT=p.aT;o.wf=p.wf;o.status=p.status;
+                o.gtime=p.gtime;o.late=p.late;o.gmatch=p.gmatch;o.game=p.game;}
+          return o;});
+        c.nlegs=c.players.length; c.locked=true;
+        if(c.players.length){c.lock=c.players.map(function(l){return l.gtime;})
+          .sort(function(a,b){return (gmin(a)||0)-(gmin(b)||0);})[0];}
+        return c;});
+      out=_kept.concat(_trim);
+      out.forEach(function(t){ if(typeof priceTicket==='function') priceTicket(t); });
+    }
+    D.tickets=out;
   }
 
   // ---------- fetch + recompute + assemble ----------
