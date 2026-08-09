@@ -1,7 +1,7 @@
 {
   "date": "2026-08-09",
   "season": "2026",
-  "pulled_at": "2026-08-09T17:36:04Z",
+  "pulled_at": "2026-08-09T17:41:30Z",
   "games": [
     {
       "gamePk": 822700,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 663903,
           "name": "Brady Singer",
-          "hr9": 1.68,
+          "hr9": 1.67,
           "hand": "RHP"
         },
         "lineup": [
@@ -60,7 +60,7 @@
           {
             "id": 663647,
             "name": "Ke'Bryan Hayes",
-            "iso": 0.098
+            "iso": 0.097
           }
         ],
         "confirmed": true
@@ -82,12 +82,12 @@
           {
             "id": 694673,
             "name": "Abimelec Ortiz",
-            "iso": 0.333
+            "iso": 0.318
           },
           {
             "id": 677588,
             "name": "Jos\u00e9 Tena",
-            "iso": 0.144
+            "iso": 0.143
           },
           {
             "id": 695734,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823345,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-09T17:35:00Z",
       "matchup": "NYM@PIT",
       "away": {
@@ -419,7 +419,7 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.125
+            "iso": 0.111
           },
           {
             "id": 665489,
@@ -469,7 +469,7 @@
         "sp": {
           "id": 666200,
           "name": "Jes\u00fas Luzardo",
-          "hr9": 0.79,
+          "hr9": 0.78,
           "hand": "LHP"
         },
         "lineup": [
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823513,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-09T17:35:00Z",
       "matchup": "ATL@NYY",
       "away": {
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 823835,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-09T17:40:00Z",
       "matchup": "LAA@MIA",
       "away": {
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824078,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-09T18:10:00Z",
       "matchup": "CHC@KC",
       "away": {
@@ -1796,16 +1796,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 79\u00b0",
-        "lean": "Boost",
-        "temp": 79.2,
-        "wind_mph": 7.6,
-        "wind_dir": 242,
-        "tail_mph": 3.6,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.026
+      "wf": 1.0
     }
   ]
 }
