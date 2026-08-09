@@ -31,7 +31,18 @@ def load_dated(stem, required=True):
     for d in (DATE, _prior(DATE)):
         f = f"{stem}_{d}.json"
         if os.path.exists(f):
-            if d != DATE: print(f"  ({stem}_{DATE}.json missing -> using prior day {d})")
+            if d != DATE:
+                if stem == 'odds':
+                    # 2026-08-09: odds_<date>.json is only committed at the closing snapshot, so a
+                    # build where fetch_odds wrote nothing quietly scored the slate on YESTERDAY'S
+                    # prices. blend is 0.75*mkt_z, so every TOTAL and every tier colour on the board
+                    # was wrong -- and it alternated build to build, which is what made the colours
+                    # strobe. fetch_odds now always leaves a file; if this ever fires again it is a
+                    # real failure, not a fallback.
+                    print(f"::error::build15: odds_{DATE}.json MISSING -- scoring on {stem}_{d}.json, "
+                          f"i.e. YESTERDAY'S PRICES. Every score and colour on this board is wrong.")
+                else:
+                    print(f"  ({stem}_{DATE}.json missing -> using prior day {d})")
             return json.load(open(f))
     if required: raise SystemExit(f"!! missing required input {stem}_{DATE}.json (and prior day)")
     return {}

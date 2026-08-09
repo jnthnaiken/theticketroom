@@ -299,6 +299,44 @@ def main():
     # --auto: stop refreshing once every game is underway. Prices past the last first
     # pitch are settling/pulled, not a market we want to score on -- and leaving the file
     # untouched is what makes the closing snapshot stable instead of re-committing all night.
+    # ---------------------------------------------------------------- ALWAYS LEAVE A FILE
+    # build15's load_dated() falls back to the PRIOR DAY when odds_<date>.json is absent, and
+    # odds_<date>.json is only git-committed at the closing snapshot -- so every build starts from
+    # a checkout without it. Every path through this script that returned WITHOUT writing therefore
+    # handed build15 yesterday's prices, silently. 2026-08-09: from 2:16pm the board alternated
+    # every five minutes between today's market and 8/8's -- 5 of 20 builds were 100% identical to
+    # odds_2026-08-08.json. Abreu read +275 on one build and +474 (his 8/8 number) on the next, and
+    # because blend is 0.75*mkt_z every score and tier colour flipped with it. The merge is
+    # non-destructive, so writing the seed is always better than writing nothing.
+    starts, tnow = bat_first_pitch(date), now_min_et()
+    _lfp = last_first_pitch(date) if date else None
+    _last = (_lfp.hour * 60 + _lfp.minute) if _lfp else None
+
+    def live(n):
+        """Is this bat's price still open for business? Unmapped bats (not in a posted
+        lineup) fall back to the slate: open until the last first pitch, frozen after."""
+        t = starts.get(NKEY(n))
+        if t is None:
+            t = _last
+        return t is None or tnow < t
+
+    prev = {}
+    if date and os.path.exists(f"odds_{date}.json"):
+        prev = json.load(open(f"odds_{date}.json"))
+    if date:
+        # overlay the last board's prices (fresher than the committed file), one entry per
+        # normalized name so an accent spelling can't end up in there twice
+        _seen = {NKEY(n): n for n in prev}
+        for n, v in prior_prices(date).items():
+            prev[_seen.setdefault(NKEY(n), n)] = v
+
+    def persist(reason):
+        if not date or not prev:
+            return
+        with open(f"odds_{date}.json", "w") as f:
+            json.dump(prev, f)
+        print(f"  wrote odds_{date}.json ({len(prev)} carried) -- {reason}")
+
     snap = False
     if auto and date:
         lfp = last_first_pitch(date)
@@ -306,6 +344,7 @@ def main():
             now = datetime.datetime.now(ET)
             if now >= lfp:
                 print(f"slate is underway (last first pitch {lfp:%-I:%M %p ET}) -- keeping the closing prices")
+                persist("slate underway, nothing left to refresh")
                 emit("snapshot", "false")
                 return 0
             snap = now >= lfp - datetime.timedelta(minutes=SNAP_LEAD_MIN)
@@ -314,6 +353,7 @@ def main():
         status, nbytes, ntab, nlong, markets, info = scrape()
     except Exception as e:
         print(f"::error::fetch_odds: {type(e).__name__}: {e}")
+        persist("scrape failed")
         return 2
 
     hr = markets.get("home_runs", {})
@@ -347,27 +387,6 @@ def main():
     if not date:
         print("::error::fetch_odds: need a date to write files")
         return 2
-    starts, tnow = bat_first_pitch(date), now_min_et()
-    _lfp = last_first_pitch(date)
-    _last = (_lfp.hour * 60 + _lfp.minute) if _lfp else None
-
-    def live(n):
-        """Is this bat's price still open for business? Unmapped bats (not in a posted
-        lineup) fall back to the slate: open until the last first pitch, frozen after."""
-        t = starts.get(NKEY(n))
-        if t is None:
-            t = _last
-        return t is None or tnow < t
-
-    prev = {}
-    if os.path.exists(f"odds_{date}.json"):
-        prev = json.load(open(f"odds_{date}.json"))
-    # overlay the last board's prices (fresher than the committed file), one entry per
-    # normalized name so an accent spelling can't end up in there twice
-    _seen = {NKEY(n): n for n in prev}
-    for n, v in prior_prices(date).items():
-        prev[_seen.setdefault(NKEY(n), n)] = v
-
     # COVERAGE GUARD, measured only over bats still open for business. A flat floor of 150
     # was useless: a scrape returning 205 of 306 sailed through and (before the merge below)
     # deleted a hundred prices. Compare like with like -- how many not-yet-started bats did
@@ -376,7 +395,8 @@ def main():
     got = sum(1 for n in hr if live(n))
     if len(hr) < 150 or (want >= 20 and got < 0.85 * want):
         print(f"::warning::fetch_odds: thin scrape ({len(hr)} HR prices; {got} of {want} "
-              f"still-open bats) — leaving odds_{date}.json untouched")
+              f"still-open bats) — not taking these prices")
+        persist("thin scrape refused")
         emit("snapshot", "false")
         return 1
 
