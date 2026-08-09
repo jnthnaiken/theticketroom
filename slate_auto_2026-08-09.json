@@ -1,7 +1,7 @@
 {
   "date": "2026-08-09",
   "season": "2026",
-  "pulled_at": "2026-08-09T21:37:10Z",
+  "pulled_at": "2026-08-09T21:42:12Z",
   "games": [
     {
       "gamePk": 822700,
@@ -1022,7 +1022,7 @@
           {
             "id": 545341,
             "name": "Randal Grichuk",
-            "iso": 0.247
+            "iso": 0.252
           },
           {
             "id": 695731,
@@ -1068,7 +1068,7 @@
     },
     {
       "gamePk": 823751,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-09T18:10:00Z",
       "matchup": "MIN@MIL",
       "away": {
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 822862,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-09T18:35:00Z",
       "matchup": "BAL@TEX",
       "away": {
@@ -1586,15 +1586,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 74\u00b0",
+        "cond": "wind out 10mph, 74\u00b0",
         "lean": "Boost",
         "temp": 73.7,
-        "wind_mph": 10.8,
-        "wind_dir": 266,
-        "tail_mph": 10.8,
+        "wind_mph": 10.9,
+        "wind_dir": 281,
+        "tail_mph": 10.5,
         "precip": 0
       },
-      "wf": 1.043
+      "wf": 1.042
     },
     {
       "gamePk": 825050,
@@ -1618,7 +1618,7 @@
           {
             "id": 681624,
             "name": "Andy Pages",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 518692,
@@ -1765,12 +1765,12 @@
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.238
+            "iso": 0.236
           },
           {
             "id": 656775,
@@ -1873,8 +1873,54 @@
           "hr9": 1.32,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.193
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.305
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.165
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.153
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.184
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.218
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.126
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.15
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.141
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1937,15 +1983,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 80\u00b0",
-        "lean": "Boost",
+        "cond": "calm 1mph, 80\u00b0",
+        "lean": "Neutral",
         "temp": 80.5,
-        "wind_mph": 7.8,
-        "wind_dir": 239,
-        "tail_mph": 4.0,
+        "wind_mph": 6.8,
+        "wind_dir": 262,
+        "tail_mph": 0.9,
         "precip": 2
       },
-      "wf": 1.03
+      "wf": 1.019
     }
   ]
 }
