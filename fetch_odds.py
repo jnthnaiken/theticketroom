@@ -324,11 +324,20 @@ def main():
     if date and os.path.exists(f"odds_{date}.json"):
         prev = json.load(open(f"odds_{date}.json"))
     if date:
-        # overlay the last board's prices (fresher than the committed file), one entry per
-        # normalized name so an accent spelling can't end up in there twice
+        # The committed odds file is AUTHORITATIVE; the board only fills gaps. It used to be the
+        # other way round -- the board overwrote the file -- which made sense while the file was
+        # usually absent, but now that every path writes one it just means a poisoned board
+        # re-poisons a corrected file. 2026-08-09: odds_2026-08-09.json was hand-repaired to each
+        # bat's real pre-first-pitch price and the very next build put Abreu back to +474 (his 8/8
+        # number) because the board still carried it. One entry per normalized name so an accent
+        # spelling can't end up in there twice.
         _seen = {NKEY(n): n for n in prev}
         for n, v in prior_prices(date).items():
-            prev[_seen.setdefault(NKEY(n), n)] = v
+            k = NKEY(n)
+            if k in _seen:
+                continue
+            _seen[k] = n
+            prev[n] = v
 
     def persist(reason):
         if not date or not prev:
