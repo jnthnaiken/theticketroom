@@ -68,6 +68,52 @@ stood for a meaningful stretch — identical to what the client showed at 5:51pm
 the fixed engine as prior, re-priced against the 9:02pm market: 14/14 locked, and the 9:07pm
 and 9:12pm auto-builds both preserved it unchanged. Commit `ee6403e`.
 
+## 💵 2026-08-08 — a bat's price is FROZEN at his own first pitch
+
+Shipped the same night as the crash above, and it is the other half of why the board looked
+insane: the tier colours were strobing every five minutes.
+
+**How a missing price destroys a score.** `build15.py` scores the market half as
+`_zmkt = implied prob if odds else None`, and then `_mz0 = 0.0` when it is None. Zero is not
+"unknown", it is a *value* — and `blend = 0.75*mkt_z + 0.25*edge_z`, so the market is **75%**
+of TOTAL. A bat who loses his price loses ~70 points of TOTAL and ~60 rank places:
+
+```
+Schwarber  mkt_z 4.2498 -> 0    TOTAL 218.8 (#1)  -> 121.6 (#71)
+Harper     mkt_z 3.2160 -> 0    TOTAL 195.3 (#5)  -> 122.0 (#68)
+Ohtani     mkt_z 3.1978 -> 0    TOTAL 194.0 (#6)  -> 122.0 (#68)
+```
+
+`tierOf` paints the top 9 of the field green, 10–32 orange, 33+ pink, so those bats went
+green → pink without anything happening on the field. Every pink bat on the board that night
+had a null price; every green/orange one had a live price. 25 for 25.
+
+**Why prices were disappearing.** The per-build VegasInsider refresh (added earlier the same
+day) *replaced* `odds_<date>.json` with whatever that one scrape returned. The scrape is
+flaky, so the unpriced count bounced 87 → 184 → 87 → 126 → 166 → 186 → 87 every five minutes
+from 5:41pm on; before the refresh went live it sat at exactly 105 all day. The `< 150 prices`
+guard was useless — a scrape returning 205 of 306 sails straight through it.
+
+**The rule now.** A price may be added or updated *before* that bat's game starts. After his
+first pitch it is read-only, and it can never be removed. Two independent reasons:
+once a game is underway the book either pulls the HR prop or reposts it as an in-game number
+(+10000 and worse), which is not the market we drafted against; and a scrape that merely
+*misses* a bat must never be able to zero him out.
+
+Implemented in `fetch_odds.py`:
+- `bat_first_pitch()` maps every bat to his game time from `lineups_<date>.json`; bats not in
+  a posted lineup fall back to the slate's last first pitch.
+- The file is **merged**, never replaced. `markets_<date>.json` too.
+- `prior_prices()` seeds the merge from `D_<date>.json` — the odds file is only git-committed
+  at the closing snapshot, but the board is committed every build, so it is the only reliable
+  record of "what was this bat priced at last time" across the runner's fresh checkouts.
+- Coverage guard is now relative and measured over **still-open** bats only: refuse the write
+  if this scrape found < 85% of the not-yet-started bats already on file. (A flat floor can't
+  work — as games start, a healthy scrape legitimately returns fewer and fewer prices.)
+
+`odds_2026-08-08.json` was rebuilt by hand from the night's `D_2026-08-08.json` history:
+for each bat, the last price observed strictly before his own first pitch. 205 → 304 prices.
+
 ## 🎯 2026-07-11 session — ledger reconciled, doubleheader live-grade FIXED, Kasper method locked
 
 Built the **2026-07-11** board end-to-end (15 games, 388 bats, 13 tickets: 6 moon / 1 salami /

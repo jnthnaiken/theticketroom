@@ -20,7 +20,7 @@ WHY THIS EXISTS
     check them (2026-08-08: a browser holding Caminero at +250, against +300 in
     the market and +334 committed, handed him a Chef's Table seat).
 
-OUTPUT
+OUTPUT  (both files are MERGED, never replaced -- see the price-freeze note below)
     odds_<date>.json     {name: american_int}          <- consumed by build15.py
     markets_<date>.json  {market: {name: {...}}}        <- the side-market log
 
@@ -40,7 +40,7 @@ USAGE
                                                   # first pitch, and flag the one build
                                                   # that should commit the closing prices
 """
-import sys, os, json, re, gzip, io, statistics
+import sys, os, json, re, gzip, io, statistics, unicodedata
 import urllib.request, urllib.error
 import datetime
 try:
@@ -225,6 +225,64 @@ def last_first_pitch(date):
     return datetime.datetime(d.year, d.month, d.day, best // 60, best % 60, tzinfo=ET)
 
 
+# ─────────────────────────────────────────────── per-game price freeze
+# A bat's price is FROZEN at his own game's first pitch. Two reasons, both seen live
+# on 2026-08-08:
+#   1. Once a game is underway the books either pull the HR prop or repost it as an
+#      in-game number (+10000 and worse). That is not the market we drafted or priced
+#      against, and scoring on it is meaningless.
+#   2. A scrape that simply MISSES a bat used to delete his price, and build15 scores a
+#      missing price as mkt_z = 0 -- which is 75% of TOTAL. Bats collapsed ~70 points and
+#      ~60 rank places mid-slate (Harper 195.3 #5 -> 122.0 #68), so the tier colours
+#      strobed every five minutes as the scrape came back full or partial.
+# So: this file is now MERGED, never replaced. A price can be added or updated before
+# first pitch; after first pitch it is read-only, and it can never be removed.
+NKEY = lambda s: ''.join(c for c in unicodedata.normalize('NFKD', s or '')
+                         if not unicodedata.combining(c)).lower().replace('.', '').strip()
+
+
+def bat_first_pitch(date):
+    """{normalized bat name: first pitch, minutes past midnight ET} from lineups_<date>.json."""
+    try:
+        games = json.load(open(f"lineups_{date}.json"))["games"]
+    except Exception:
+        return {}
+    out = {}
+    for g in games:
+        m = re.match(r"(\d{1,2}):(\d{2})\s*([AP])M", (g.get("time") or "").strip(), re.I)
+        if not m:
+            continue
+        h, mi, ap = int(m.group(1)) % 12, int(m.group(2)), m.group(3).upper()
+        if ap == "P":
+            h += 12
+        t = h * 60 + mi
+        for side in ("away_bats", "home_bats"):
+            for nm in (g.get(side) or []):
+                out[NKEY(nm)] = t
+    return out
+
+
+def prior_prices(date):
+    """The last build's prices, read off the dated board.
+
+    odds_<date>.json is only git-committed at the closing snapshot, so on the runner it is
+    usually the MORNING file -- every build starts from a fresh checkout. D_<date>.json, on
+    the other hand, is committed on every build and carries each bat's price verbatim. It is
+    therefore the reliable record of "what was this bat priced at last time", which is what
+    the first-pitch freeze needs in order to hold a 7:00pm price into an 8:15pm build.
+    """
+    try:
+        P = json.load(open(f"D_{date}.json"))["players"]
+    except Exception:
+        return {}
+    return {n: p["odds"] for n, p in P.items() if p.get("odds")}
+
+
+def now_min_et():
+    n = datetime.datetime.now(ET)
+    return n.hour * 60 + n.minute
+
+
 def emit(k, v):
     out = os.environ.get("GITHUB_OUTPUT")
     if out:
@@ -289,16 +347,69 @@ def main():
     if not date:
         print("::error::fetch_odds: need a date to write files")
         return 2
-    if len(hr) < 150:
-        print(f"::warning::fetch_odds: only {len(hr)} HR prices — refusing to overwrite odds_{date}.json")
+    starts, tnow = bat_first_pitch(date), now_min_et()
+    _lfp = last_first_pitch(date)
+    _last = (_lfp.hour * 60 + _lfp.minute) if _lfp else None
+
+    def live(n):
+        """Is this bat's price still open for business? Unmapped bats (not in a posted
+        lineup) fall back to the slate: open until the last first pitch, frozen after."""
+        t = starts.get(NKEY(n))
+        if t is None:
+            t = _last
+        return t is None or tnow < t
+
+    prev = {}
+    if os.path.exists(f"odds_{date}.json"):
+        prev = json.load(open(f"odds_{date}.json"))
+    # overlay the last board's prices (fresher than the committed file), one entry per
+    # normalized name so an accent spelling can't end up in there twice
+    _seen = {NKEY(n): n for n in prev}
+    for n, v in prior_prices(date).items():
+        prev[_seen.setdefault(NKEY(n), n)] = v
+
+    # COVERAGE GUARD, measured only over bats still open for business. A flat floor of 150
+    # was useless: a scrape returning 205 of 306 sailed through and (before the merge below)
+    # deleted a hundred prices. Compare like with like -- how many not-yet-started bats did
+    # we have, and how many did this scrape find?
+    want = sum(1 for n in prev if live(n))
+    got = sum(1 for n in hr if live(n))
+    if len(hr) < 150 or (want >= 20 and got < 0.85 * want):
+        print(f"::warning::fetch_odds: thin scrape ({len(hr)} HR prices; {got} of {want} "
+              f"still-open bats) — leaving odds_{date}.json untouched")
+        emit("snapshot", "false")
         return 1
 
-    odds = {n: v["price"] for n, v in hr.items()}
+    odds, froze, upd, new = dict(prev), 0, 0, 0
+    for n, v in hr.items():
+        if not live(n):
+            froze += 1                      # game underway -> his price is already settled
+            continue
+        if n not in odds:
+            new += 1
+        elif odds[n] != v["price"]:
+            upd += 1
+        odds[n] = v["price"]
     with open(f"odds_{date}.json", "w") as f:
         json.dump(odds, f)
+
+    mk = {}
+    if os.path.exists(f"markets_{date}.json"):
+        try:
+            mk = json.load(open(f"markets_{date}.json"))
+        except Exception:
+            mk = {}
+    for key, rows in markets.items():
+        cur = dict(mk.get(key) or {})
+        for n, v in rows.items():
+            if live(n):
+                cur[n] = v
+        mk[key] = cur
     with open(f"markets_{date}.json", "w") as f:
-        json.dump(markets, f, indent=0)
-    print(f"wrote odds_{date}.json ({len(odds)}) + markets_{date}.json")
+        json.dump(mk, f, indent=0)
+
+    print(f"odds_{date}.json: {len(odds)} prices ({new} new, {upd} moved, {froze} frozen "
+          f"at first pitch, {len(prev)} carried)")
     if snap:
         print("::notice::closing odds snapshot -- staging odds/markets for commit")
     emit("snapshot", "true" if snap else "false")
