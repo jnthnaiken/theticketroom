@@ -7,13 +7,6 @@
 "books": 5,
 "spread": 0.03422
 },
-"Gavin Williams": {
-"line": 7.5,
-"p": 0.59184,
-"price": -145,
-"books": 5,
-"spread": 0.0463
-},
 "Jacob deGrom": {
 "line": 7.5,
 "p": 0.47619,
@@ -35,19 +28,19 @@
 "books": 8,
 "spread": 0.0655
 },
+"Casey Legumina": {
+"line": 1.5,
+"p": 0.43478,
+"price": 130,
+"books": 1,
+"spread": 0.0
+},
 "Gerrit Cole": {
 "line": 5.5,
 "p": 0.57447,
 "price": -135,
 "books": 7,
 "spread": 0.05354
-},
-"Yoshinobu Yamamoto": {
-"line": 5.5,
-"p": 0.52829,
-"price": -112,
-"books": 8,
-"spread": 0.0599
 },
 "Sandy Alcantara": {
 "line": 5.5,
@@ -84,26 +77,12 @@
 "books": 8,
 "spread": 0.03735
 },
-"Michael King": {
-"line": 5.5,
-"p": 0.44346,
-"price": 125,
-"books": 6,
-"spread": 0.20946
-},
 "Walbert Urena": {
 "line": 4.5,
 "p": 0.60784,
 "price": -155,
 "books": 5,
 "spread": 0.05432
-},
-"Landen Roupp": {
-"line": 4.5,
-"p": 0.61089,
-"price": -157,
-"books": 7,
-"spread": 0.04614
 },
 "Jake Bennett": {
 "line": 4.5,
@@ -126,13 +105,6 @@
 "books": 7,
 "spread": 0.13011
 },
-"Peter Lambert": {
-"line": 4.5,
-"p": 0.60317,
-"price": -152,
-"books": 7,
-"spread": 0.06317
-},
 "Robert Gasser": {
 "line": 4.5,
 "p": 0.52607,
@@ -140,26 +112,12 @@
 "books": 7,
 "spread": 0.0614
 },
-"Aaron Nola": {
-"line": 4.5,
-"p": 0.5,
-"price": -100,
-"books": 8,
-"spread": 0.04945
-},
 "Bubba Chandler": {
 "line": 4.5,
 "p": 0.53917,
 "price": -117,
 "books": 7,
 "spread": 0.04921
-},
-"Anthony Kay": {
-"line": 4.5,
-"p": 0.46296,
-"price": 116,
-"books": 5,
-"spread": 0.13587
 },
 "Seth Lugo": {
 "line": 3.5,
@@ -182,77 +140,49 @@
 "books": 9,
 "spread": 0.06714
 },
-"Max Scherzer": {
-"line": 3.5,
-"p": 0.58848,
-"price": -143,
-"books": 7,
-"spread": 0.04604
-},
-"Jackson Jobe": {
-"line": 3.5,
-"p": 0.59184,
-"price": -145,
-"books": 9,
-"spread": 0.0727
-},
-"Brandon Pfaadt": {
-"line": 3.5,
-"p": 0.54751,
-"price": -121,
-"books": 9,
-"spread": 0.06939
-},
 "Kyle Freeland": {
 "line": 3.5,
 "p": 0.54545,
 "price": -120,
 "books": 9,
 "spread": 0.12246
-},
-"Casey Legumina": {
-"line": 1.5,
-"p": 0.43478,
-"price": 130,
-"books": 1,
-"spread": 0.0
 }
 },
 "home_runs": {
-"Owen Caissie": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.02222
-},
-"Otto Lopez": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.0119
-},
-"Shohei Ohtani": {
-"line": 0.5,
-"p": 0.28169,
-"price": 255,
-"books": 5,
-"spread": 0.0533
-},
-"Griffin Conine": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.02222
-},
-"Xavier Edwards": {
+"Tyler Heineman": {
 "line": 0.5,
 "p": 0.0625,
 "price": 1500,
 "books": 3,
-"spread": 0.01111
+"spread": 0.01429
+},
+"Moises Ballesteros": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.01389
+},
+"Zach Neto": {
+"line": 0.5,
+"p": 0.13516,
+"price": 640,
+"books": 4,
+"spread": 0.04848
+},
+"Joe Mack": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.01765
+},
+"Heriberto Hernandez": {
+"line": 0.5,
+"p": 0.1455,
+"price": 587,
+"books": 4,
+"spread": 0.05255
 },
 "Oswald Peraza": {
 "line": 0.5,
@@ -268,12 +198,12 @@
 "books": 4,
 "spread": 0.05072
 },
-"Junior Caminero": {
+"Otto Lopez": {
 "line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 5,
-"spread": 0.06268
+"p": 0.09091,
+"price": 1000,
+"books": 3,
+"spread": 0.0119
 },
 "Josh Lowe": {
 "line": 0.5,
@@ -282,215 +212,26 @@
 "books": 3,
 "spread": 0.00654
 },
-"Travis d'Arnaud": {
+"Owen Caissie": {
 "line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 2,
-"spread": 0.0
-},
-"Yordan Alvarez": {
-"line": 0.5,
-"p": 0.29412,
-"price": 240,
-"books": 5,
-"spread": 0.04089
-},
-"Rafael Devers": {
-"line": 0.5,
-"p": 0.20526,
-"price": 387,
-"books": 4,
-"spread": 0.04691
-},
-"Nolan Schanuel": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
+"p": 0.11111,
+"price": 800,
 "books": 3,
-"spread": 0.01832
+"spread": 0.02222
 },
-"Wade Meckler": {
+"Griffin Conine": {
 "line": 0.5,
-"p": 0.07692,
-"price": 1200,
+"p": 0.11111,
+"price": 800,
 "books": 3,
-"spread": 0.00549
+"spread": 0.02222
 },
-"Brandon Lowe": {
-"line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 5,
-"spread": 0.07519
-},
-"Pete Alonso": {
-"line": 0.5,
-"p": 0.21637,
-"price": 362,
-"books": 4,
-"spread": 0.05233
-},
-"Vaughn Grissom": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.02193
-},
-"Moises Ballesteros": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.01389
-},
-"Cal Raleigh": {
-"line": 0.5,
-"p": 0.22431,
-"price": 346,
-"books": 4,
-"spread": 0.04588
-},
-"Luis Robert": {
-"line": 0.5,
-"p": 0.1522,
-"price": 557,
-"books": 4,
-"spread": 0.06207
-},
-"Dominic Canzone": {
-"line": 0.5,
-"p": 0.19524,
-"price": 412,
-"books": 4,
-"spread": 0.05336
-},
-"Ty France": {
-"line": 0.5,
-"p": 0.16667,
-"price": 500,
-"books": 4,
-"spread": 0.05449
-},
-"Julio Rodriguez": {
-"line": 0.5,
-"p": 0.17434,
-"price": 474,
-"books": 4,
-"spread": 0.05449
-},
-"Jacob Gonzalez": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.00654
-},
-"Bryce Eldridge": {
-"line": 0.5,
-"p": 0.17391,
-"price": 475,
-"books": 4,
-"spread": 0.04167
-},
-"Christian Walker": {
-"line": 0.5,
-"p": 0.18958,
-"price": 427,
-"books": 4,
-"spread": 0.06061
-},
-"Jonathan Aranda": {
-"line": 0.5,
-"p": 0.15813,
-"price": 532,
-"books": 4,
-"spread": 0.04233
-},
-"Ronny Simon": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.02193
-},
-"Manny Machado": {
-"line": 0.5,
-"p": 0.2189,
-"price": 357,
-"books": 4,
-"spread": 0.05641
-},
-"Joc Pederson": {
-"line": 0.5,
-"p": 0.19524,
-"price": 412,
-"books": 4,
-"spread": 0.05348
-},
-"Fernando Tatis": {
-"line": 0.5,
-"p": 0.19728,
-"price": 407,
-"books": 4,
-"spread": 0.05348
-},
-"Endy Rodriguez": {
-"line": 0.5,
-"p": 0.16313,
-"price": 513,
-"books": 4,
-"spread": 0.05185
-},
-"Max Muncy": {
-"line": 0.5,
-"p": 0.14835,
-"price": 574,
-"books": 2,
-"spread": 0.01099
-},
-"Riley Greene": {
-"line": 0.5,
-"p": 0.17029,
-"price": 487,
-"books": 4,
-"spread": 0.04
-},
-"Tyler Heineman": {
+"Xavier Edwards": {
 "line": 0.5,
 "p": 0.0625,
 "price": 1500,
 "books": 3,
-"spread": 0.01429
-},
-"Freddie Freeman": {
-"line": 0.5,
-"p": 0.17091,
-"price": 485,
-"books": 4,
-"spread": 0.04848
-},
-"Heriberto Hernandez": {
-"line": 0.5,
-"p": 0.1455,
-"price": 587,
-"books": 4,
-"spread": 0.05255
-},
-"Joe Mack": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.01765
-},
-"Zach Neto": {
-"line": 0.5,
-"p": 0.13516,
-"price": 640,
-"books": 4,
-"spread": 0.04848
+"spread": 0.01111
 },
 "Jakob Marsee": {
 "line": 0.5,
@@ -499,12 +240,47 @@
 "books": 3,
 "spread": 0.00476
 },
-"Brandon Nimmo": {
+"Mike Trout": {
 "line": 0.5,
-"p": 0.15692,
-"price": 537,
+"p": 0.17787,
+"price": 462,
 "books": 4,
-"spread": 0.03896
+"spread": 0.06355
+},
+"Bryan Reynolds": {
+"line": 0.5,
+"p": 0.16954,
+"price": 490,
+"books": 4,
+"spread": 0.06019
+},
+"Jake Mangum": {
+"line": 0.5,
+"p": 0.06667,
+"price": 1400,
+"books": 3,
+"spread": 0.00476
+},
+"Spencer Horwitz": {
+"line": 0.5,
+"p": 0.16026,
+"price": 524,
+"books": 4,
+"spread": 0.04762
+},
+"Endy Rodriguez": {
+"line": 0.5,
+"p": 0.16313,
+"price": 513,
+"books": 4,
+"spread": 0.05185
+},
+"Jacob Gonzalez": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.00654
 },
 "Javier Sanoja": {
 "line": 0.5,
@@ -513,145 +289,33 @@
 "books": 3,
 "spread": 0.0
 },
-"Mike Trout": {
+"Luis Robert": {
 "line": 0.5,
-"p": 0.17787,
-"price": 462,
-"books": 4,
-"spread": 0.06355
-},
-"Brandon Valenzuela": {
-"line": 0.5,
-"p": 0.16065,
-"price": 522,
-"books": 4,
-"spread": 0.05449
-},
-"Daulton Varsho": {
-"line": 0.5,
-"p": 0.15692,
-"price": 537,
-"books": 4,
-"spread": 0.04762
-},
-"Jackson Merrill": {
-"line": 0.5,
-"p": 0.15268,
-"price": 555,
-"books": 4,
-"spread": 0.05185
-},
-"Corbin Carroll": {
-"line": 0.5,
-"p": 0.16026,
-"price": 524,
-"books": 4,
-"spread": 0.0224
-},
-"Victor Mesa": {
-"line": 0.5,
-"p": 0.14983,
-"price": 567,
-"books": 4,
-"spread": 0.04233
-},
-"Willy Adames": {
-"line": 0.5,
-"p": 0.16026,
-"price": 524,
-"books": 4,
-"spread": 0.06548
-},
-"Andy Pages": {
-"line": 0.5,
-"p": 0.16065,
-"price": 522,
-"books": 4,
-"spread": 0.05714
-},
-"Randy Arozarena": {
-"line": 0.5,
-"p": 0.16179,
-"price": 518,
-"books": 4,
-"spread": 0.04762
-},
-"Tyler O'Neill": {
-"line": 0.5,
-"p": 0.17468,
-"price": 472,
-"books": 4,
-"spread": 0.07453
-},
-"Luis Campusano": {
-"line": 0.5,
-"p": 0.16026,
-"price": 524,
-"books": 4,
-"spread": 0.05714
-},
-"Teoscar Hernandez": {
-"line": 0.5,
-"p": 0.14835,
-"price": 574,
-"books": 4,
-"spread": 0.05255
-},
-"Isaac Paredes": {
-"line": 0.5,
-"p": 0.15472,
-"price": 546,
+"p": 0.1522,
+"price": 557,
 "books": 4,
 "spread": 0.06207
 },
-"Yandy Diaz": {
+"Ronny Simon": {
 "line": 0.5,
-"p": 0.13147,
-"price": 661,
-"books": 4,
-"spread": 0.06417
-},
-"Cedric Mullins": {
-"line": 0.5,
-"p": 0.16313,
-"price": 513,
-"books": 4,
-"spread": 0.05714
-},
-"Mookie Betts": {
-"line": 0.5,
-"p": 0.14074,
-"price": 611,
-"books": 4,
-"spread": 0.05361
-},
-"Gavin Sheets": {
-"line": 0.5,
-"p": 0.13516,
-"price": 640,
-"books": 4,
-"spread": 0.04848
-},
-"Jeremy Pena": {
-"line": 0.5,
-"p": 0.14286,
-"price": 600,
-"books": 4,
-"spread": 0.04848
-},
-"Jose Altuve": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
+"p": 0.09091,
+"price": 1000,
 "books": 3,
-"spread": 0.01389
+"spread": 0.02193
 },
-"Caleb Durbin": {
+"Brandon Lowe": {
 "line": 0.5,
-"p": 0.125,
-"price": 700,
-"books": 3,
-"spread": 0.01056
+"p": 0.24128,
+"price": 314,
+"books": 4,
+"spread": 0.06345
+},
+"Travis d'Arnaud": {
+"line": 0.5,
+"p": 0.1,
+"price": 900,
+"books": 2,
+"spread": 0.0
 },
 "Tyler Soderstrom": {
 "line": 0.5,
@@ -666,6 +330,27 @@
 "price": 900,
 "books": 3,
 "spread": 0.01435
+},
+"Alika Williams": {
+"line": 0.5,
+"p": 0.07692,
+"price": 1200,
+"books": 3,
+"spread": 0.01948
+},
+"Connor Wong": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 4,
+"spread": 0.07656
+},
+"Andruw Monasterio": {
+"line": 0.5,
+"p": 0.16065,
+"price": 522,
+"books": 4,
+"spread": 0.03663
 },
 "Jonah Heim": {
 "line": 0.5,
@@ -688,131 +373,26 @@
 "books": 1,
 "spread": 0.0
 },
-"Ozzie Albies": {
+"Caleb Durbin": {
 "line": 0.5,
-"p": 0.18182,
-"price": 450,
-"books": 4,
-"spread": 0.07343
-},
-"Mauricio Dubon": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
+"p": 0.125,
+"price": 700,
 "books": 3,
-"spread": 0.00226
+"spread": 0.01056
 },
-"Trent Grisham": {
+"Jarren Duran": {
 "line": 0.5,
-"p": 0.16667,
-"price": 500,
+"p": 0.14719,
+"price": 579,
 "books": 4,
-"spread": 0.075
+"spread": 0.07937
 },
-"Drake Baldwin": {
-"line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 4,
-"spread": 0.02786
-},
-"Ronald Acuna": {
-"line": 0.5,
-"p": 0.24695,
-"price": 305,
-"books": 4,
-"spread": 0.06321
-},
-"Taylor Trammell": {
-"line": 0.5,
-"p": 0.15268,
-"price": 555,
-"books": 4,
-"spread": 0.06548
-},
-"Ceddanne Rafaela": {
-"line": 0.5,
-"p": 0.15385,
-"price": 550,
-"books": 4,
-"spread": 0.03896
-},
-"Jacob Wilson": {
+"Jonathan Ornelas": {
 "line": 0.5,
 "p": 0.08621,
 "price": 1060,
 "books": 3,
-"spread": 0.01684
-},
-"Willson Contreras": {
-"line": 0.5,
-"p": 0.27778,
-"price": 260,
-"books": 5,
-"spread": 0.0543
-},
-"Alika Williams": {
-"line": 0.5,
-"p": 0.07692,
-"price": 1200,
-"books": 3,
-"spread": 0.01948
-},
-"Cole Young": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.00735
-},
-"Tommy White": {
-"line": 0.5,
-"p": 0.10753,
-"price": 830,
-"books": 3,
-"spread": 0.0202
-},
-"Kyle Tucker": {
-"line": 0.5,
-"p": 0.13516,
-"price": 640,
-"books": 4,
-"spread": 0.06417
-},
-"Kevin McGonigle": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.01238
-},
-"Eli White": {
-"line": 0.5,
-"p": 0.12132,
-"price": 724,
-"books": 4,
-"spread": 0.06417
-},
-"Ketel Marte": {
-"line": 0.5,
-"p": 0.13516,
-"price": 640,
-"books": 4,
-"spread": 0.07283
-},
-"Gabriel Moreno": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01111
-},
-"Jahmai Jones": {
-"line": 0.5,
-"p": 0.19615,
-"price": 410,
-"books": 4,
-"spread": 0.04482
+"spread": 0.00758
 },
 "Denzer Guzman": {
 "line": 0.5,
@@ -828,19 +408,40 @@
 "books": 4,
 "spread": 0.07873
 },
-"Spencer Horwitz": {
+"Nolan Schanuel": {
 "line": 0.5,
-"p": 0.16026,
-"price": 524,
-"books": 4,
-"spread": 0.04762
-},
-"Xander Bogaerts": {
-"line": 0.5,
-"p": 0.125,
-"price": 700,
+"p": 0.08333,
+"price": 1100,
 "books": 3,
-"spread": 0.01709
+"spread": 0.01832
+},
+"Wade Meckler": {
+"line": 0.5,
+"p": 0.07692,
+"price": 1200,
+"books": 3,
+"spread": 0.00549
+},
+"Vaughn Grissom": {
+"line": 0.5,
+"p": 0.09091,
+"price": 1000,
+"books": 3,
+"spread": 0.02193
+},
+"Masataka Yoshida": {
+"line": 0.5,
+"p": 0.09091,
+"price": 1000,
+"books": 1,
+"spread": 0.0
+},
+"Jahmai Jones": {
+"line": 0.5,
+"p": 0.19615,
+"price": 410,
+"books": 4,
+"spread": 0.04482
 },
 "Henry Bolte": {
 "line": 0.5,
@@ -849,55 +450,6 @@
 "books": 3,
 "spread": 0.01293
 },
-"Andruw Monasterio": {
-"line": 0.5,
-"p": 0.16065,
-"price": 522,
-"books": 4,
-"spread": 0.03663
-},
-"Taylor Ward": {
-"line": 0.5,
-"p": 0.15472,
-"price": 546,
-"books": 4,
-"spread": 0.06548
-},
-"Josh Naylor": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.01238
-},
-"Connor Wong": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 4,
-"spread": 0.07656
-},
-"Dillon Dingler": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.00735
-},
-"Spencer Torkelson": {
-"line": 0.5,
-"p": 0.16398,
-"price": 510,
-"books": 4,
-"spread": 0.075
-},
-"Jarren Duran": {
-"line": 0.5,
-"p": 0.14719,
-"price": 579,
-"books": 4,
-"spread": 0.07937
-},
 "Wilyer Abreu": {
 "line": 0.5,
 "p": 0.17029,
@@ -905,82 +457,61 @@
 "books": 4,
 "spread": 0.03871
 },
-"Cam Smith": {
+"Eli White": {
 "line": 0.5,
-"p": 0.125,
-"price": 700,
-"books": 3,
-"spread": 0.01056
+"p": 0.12132,
+"price": 724,
+"books": 4,
+"spread": 0.06417
 },
-"Jonathan Ornelas": {
+"Tommy White": {
+"line": 0.5,
+"p": 0.10753,
+"price": 830,
+"books": 3,
+"spread": 0.0202
+},
+"Nick Gonzales": {
 "line": 0.5,
 "p": 0.08621,
 "price": 1060,
 "books": 3,
 "spread": 0.00758
 },
-"Jake Cronenworth": {
+"Francisco Lindor": {
 "line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.00585
+"p": 0.19091,
+"price": 424,
+"books": 4,
+"spread": 0.06138
 },
-"Brendan Donovan": {
+"Michael Conforto": {
 "line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.00909
+"p": 0.17588,
+"price": 469,
+"books": 2,
+"spread": 0.02919
 },
-"Jose Tena": {
+"Jac Caglianone": {
+"line": 0.5,
+"p": 0.17787,
+"price": 462,
+"books": 4,
+"spread": 0.06355
+},
+"Miguel Amaya": {
 "line": 0.5,
 "p": 0.125,
 "price": 700,
 "books": 3,
-"spread": 0.02521
+"spread": 0.03175
 },
-"Brady House": {
+"Ian Happ": {
 "line": 0.5,
-"p": 0.13393,
-"price": 647,
-"books": 2,
-"spread": 0.01786
-},
-"Jordan Walker": {
-"line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 5,
-"spread": 0.04519
-},
-"Hunter Goodman": {
-"line": 0.5,
-"p": 0.2439,
-"price": 310,
-"books": 5,
-"spread": 0.0488
-},
-"Royce Lewis": {
-"line": 0.5,
-"p": 0.2189,
-"price": 357,
+"p": 0.16954,
+"price": 490,
 "books": 4,
-"spread": 0.05233
-},
-"Jackson Chourio": {
-"line": 0.5,
-"p": 0.20842,
-"price": 380,
-"books": 4,
-"spread": 0.06593
-},
-"Colson Montgomery": {
-"line": 0.5,
-"p": 0.21315,
-"price": 369,
-"books": 4,
-"spread": 0.04283
+"spread": 0.05739
 },
 "Seiya Suzuki": {
 "line": 0.5,
@@ -988,111 +519,6 @@
 "price": 424,
 "books": 4,
 "spread": 0.05348
-},
-"Sal Stewart": {
-"line": 0.5,
-"p": 0.20142,
-"price": 396,
-"books": 4,
-"spread": 0.0651
-},
-"Miguel Vargas": {
-"line": 0.5,
-"p": 0.19617,
-"price": 410,
-"books": 4,
-"spread": 0.04498
-},
-"Alec Burleson": {
-"line": 0.5,
-"p": 0.17787,
-"price": 462,
-"books": 4,
-"spread": 0.03442
-},
-"Christian Encarnacion-Strand": {
-"line": 0.5,
-"p": 0.17029,
-"price": 487,
-"books": 4,
-"spread": 0.04375
-},
-"Tyler Stephenson": {
-"line": 0.5,
-"p": 0.14815,
-"price": 575,
-"books": 3,
-"spread": 0.03896
-},
-"Pete Crow-Armstrong": {
-"line": 0.5,
-"p": 0.2439,
-"price": 310,
-"books": 5,
-"spread": 0.06268
-},
-"C.J. Abrams": {
-"line": 0.5,
-"p": 0.22222,
-"price": 350,
-"books": 4,
-"spread": 0.03401
-},
-"Brandon Marsh": {
-"line": 0.5,
-"p": 0.18615,
-"price": 437,
-"books": 4,
-"spread": 0.07147
-},
-"Gunnar Henderson": {
-"line": 0.5,
-"p": 0.18182,
-"price": 450,
-"books": 4,
-"spread": 0.04195
-},
-"Eugenio Suarez": {
-"line": 0.5,
-"p": 0.20545,
-"price": 387,
-"books": 4,
-"spread": 0.05348
-},
-"Jo Adell": {
-"line": 0.5,
-"p": 0.2,
-"price": 400,
-"books": 4,
-"spread": 0.03095
-},
-"JJ Bleday": {
-"line": 0.5,
-"p": 0.19615,
-"price": 410,
-"books": 4,
-"spread": 0.03095
-},
-"Corey Seager": {
-"line": 0.5,
-"p": 0.19434,
-"price": 415,
-"books": 4,
-"spread": 0.05348
-},
-"Bryson Stott": {
-"line": 0.5,
-"p": 0.18706,
-"price": 435,
-"books": 4,
-"spread": 0.06138
-},
-"Pedro Ramirez": {
-"line": 0.5,
-"p": 0.09545,
-"price": 948,
-"books": 2,
-"spread": 0.00909
 },
 "Bobby Witt": {
 "line": 0.5,
@@ -1108,167 +534,6 @@
 "books": 4,
 "spread": 0.05336
 },
-"Rhys Hoskins": {
-"line": 0.5,
-"p": 0.19434,
-"price": 415,
-"books": 4,
-"spread": 0.05336
-},
-"Michael Conforto": {
-"line": 0.5,
-"p": 0.17588,
-"price": 469,
-"books": 2,
-"spread": 0.02919
-},
-"Daylen Lile": {
-"line": 0.5,
-"p": 0.18696,
-"price": 435,
-"books": 4,
-"spread": 0.04848
-},
-"Ivan Herrera": {
-"line": 0.5,
-"p": 0.17468,
-"price": 472,
-"books": 4,
-"spread": 0.03442
-},
-"Ian Happ": {
-"line": 0.5,
-"p": 0.16954,
-"price": 490,
-"books": 4,
-"spread": 0.05739
-},
-"Salvador Perez": {
-"line": 0.5,
-"p": 0.15757,
-"price": 535,
-"books": 4,
-"spread": 0.03663
-},
-"Jake Bauers": {
-"line": 0.5,
-"p": 0.21981,
-"price": 355,
-"books": 4,
-"spread": 0.0825
-},
-"Kaelen Culpepper": {
-"line": 0.5,
-"p": 0.19295,
-"price": 418,
-"books": 4,
-"spread": 0.04348
-},
-"Miguel Amaya": {
-"line": 0.5,
-"p": 0.125,
-"price": 700,
-"books": 3,
-"spread": 0.03175
-},
-"Kody Clemens": {
-"line": 0.5,
-"p": 0.17787,
-"price": 462,
-"books": 4,
-"spread": 0.05072
-},
-"Wyatt Langford": {
-"line": 0.5,
-"p": 0.16667,
-"price": 500,
-"books": 4,
-"spread": 0.0561
-},
-"Ryan Jeffers": {
-"line": 0.5,
-"p": 0.17787,
-"price": 462,
-"books": 4,
-"spread": 0.04167
-},
-"Bryan De La Cruz": {
-"line": 0.5,
-"p": 0.18019,
-"price": 455,
-"books": 4,
-"spread": 0.07529
-},
-"Dansby Swanson": {
-"line": 0.5,
-"p": 0.16667,
-"price": 500,
-"books": 4,
-"spread": 0.04833
-},
-"Abimelec Ortiz": {
-"line": 0.5,
-"p": 0.15692,
-"price": 537,
-"books": 4,
-"spread": 0.04848
-},
-"Brice Turang": {
-"line": 0.5,
-"p": 0.16026,
-"price": 524,
-"books": 4,
-"spread": 0.05349
-},
-"JJ Wetherholt": {
-"line": 0.5,
-"p": 0.14835,
-"price": 574,
-"books": 4,
-"spread": 0.04483
-},
-"Josh Bell": {
-"line": 0.5,
-"p": 0.16667,
-"price": 500,
-"books": 4,
-"spread": 0.05449
-},
-"William Contreras": {
-"line": 0.5,
-"p": 0.15757,
-"price": 535,
-"books": 4,
-"spread": 0.05449
-},
-"Dylan Crews": {
-"line": 0.5,
-"p": 0.17262,
-"price": 479,
-"books": 4,
-"spread": 0.06019
-},
-"Carter Jensen": {
-"line": 0.5,
-"p": 0.16398,
-"price": 510,
-"books": 4,
-"spread": 0.05185
-},
-"Andrew Vaughn": {
-"line": 0.5,
-"p": 0.15741,
-"price": 535,
-"books": 4,
-"spread": 0.05714
-},
-"Everson Pereira": {
-"line": 0.5,
-"p": 0.15576,
-"price": 542,
-"books": 4,
-"spread": 0.03367
-},
 "Michael Busch": {
 "line": 0.5,
 "p": 0.17105,
@@ -1276,138 +541,26 @@
 "books": 4,
 "spread": 0.06019
 },
-"Garrett Mitchell": {
+"Jacob Young": {
 "line": 0.5,
-"p": 0.14286,
-"price": 600,
-"books": 4,
-"spread": 0.04762
-},
-"Willi Castro": {
-"line": 0.5,
-"p": 0.13025,
-"price": 668,
-"books": 4,
-"spread": 0.06417
-},
-"Andrew Benintendi": {
-"line": 0.5,
-"p": 0.14835,
-"price": 574,
-"books": 4,
-"spread": 0.04762
-},
-"Jac Caglianone": {
-"line": 0.5,
-"p": 0.17787,
-"price": 462,
-"books": 4,
-"spread": 0.06355
-},
-"Chase DeLauter": {
-"line": 0.5,
-"p": 0.14589,
-"price": 585,
-"books": 4,
-"spread": 0.05349
-},
-"Cole Carrigg": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
+"p": 0.08333,
+"price": 1100,
 "books": 3,
-"spread": 0.02222
+"spread": 0.01948
 },
-"Henry Davis": {
+"Isaac Collins": {
 "line": 0.5,
-"p": 0.15741,
-"price": 535,
-"books": 4,
-"spread": 0.05714
-},
-"Dane Myers": {
-"line": 0.5,
-"p": 0.13333,
-"price": 650,
+"p": 0.09091,
+"price": 1000,
 "books": 3,
-"spread": 0.03704
+"spread": 0.02593
 },
-"Nathan Lukes": {
+"Kyle Isbel": {
 "line": 0.5,
-"p": 0.12917,
-"price": 674,
-"books": 4,
-"spread": 0.06417
-},
-"Francisco Alvarez": {
-"line": 0.5,
-"p": 0.16667,
-"price": 500,
-"books": 4,
-"spread": 0.08333
-},
-"Jake Mangum": {
-"line": 0.5,
-"p": 0.06667,
-"price": 1400,
+"p": 0.07143,
+"price": 1300,
 "books": 3,
-"spread": 0.00476
-},
-"Alex Bregman": {
-"line": 0.5,
-"p": 0.14983,
-"price": 567,
-"books": 4,
-"spread": 0.05714
-},
-"Brett Bateman": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.03879
-},
-"Francisco Lindor": {
-"line": 0.5,
-"p": 0.19091,
-"price": 424,
-"books": 4,
-"spread": 0.06138
-},
-"Nick Gonzales": {
-"line": 0.5,
-"p": 0.08621,
-"price": 1060,
-"books": 3,
-"spread": 0.00758
-},
-"Andres Gimenez": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.01389
-},
-"Jose Fermin": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.01974
-},
-"Dylan Beavers": {
-"line": 0.5,
-"p": 0.12132,
-"price": 724,
-"books": 4,
-"spread": 0.06417
-},
-"Colton Cowser": {
-"line": 0.5,
-"p": 0.13992,
-"price": 615,
-"books": 4,
-"spread": 0.06417
+"spread": 0.0181
 },
 "Carson Kelly": {
 "line": 0.5,
@@ -1416,54 +569,40 @@
 "books": 3,
 "spread": 0.01569
 },
-"Jackson Holliday": {
+"Pete Crow-Armstrong": {
 "line": 0.5,
-"p": 0.11765,
-"price": 750,
+"p": 0.2396,
+"price": 317,
 "books": 4,
-"spread": 0.07071
+"spread": 0.05947
 },
-"Jordan Beck": {
+"Sal Stewart": {
 "line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.00654
-},
-"Bryan Reynolds": {
-"line": 0.5,
-"p": 0.16954,
-"price": 490,
+"p": 0.20142,
+"price": 396,
 "books": 4,
-"spread": 0.06019
+"spread": 0.0651
 },
-"Ezequiel Tovar": {
+"Dansby Swanson": {
 "line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.00585
+"p": 0.16667,
+"price": 500,
+"books": 4,
+"spread": 0.04833
 },
-"Luis Arraez": {
+"Carter Jensen": {
 "line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.0249
+"p": 0.16398,
+"price": 510,
+"books": 4,
+"spread": 0.05185
 },
-"Leody Taveras": {
+"Alex Bregman": {
 "line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.00217
-},
-"Evan Carter": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.00526
+"p": 0.14983,
+"price": 567,
+"books": 4,
+"spread": 0.05714
 },
 "Tyrone Taylor": {
 "line": 0.5,
@@ -1472,96 +611,61 @@
 "books": 4,
 "spread": 0.07656
 },
-"Ezequiel Duran": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.00217
-},
-"TJ Rumfield": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.00309
-},
-"Esmerlyn Valdez": {
-"line": 0.5,
-"p": 0.18706,
-"price": 435,
-"books": 4,
-"spread": 0.07912
-},
-"Braden Montgomery": {
-"line": 0.5,
-"p": 0.11438,
-"price": 774,
-"books": 4,
-"spread": 0.03333
-},
-"Bo Bichette": {
+"Michael Massey": {
 "line": 0.5,
 "p": 0.11111,
 "price": 800,
 "books": 3,
-"spread": 0.01238
+"spread": 0.03297
 },
-"Jorge Polanco": {
+"Nico Hoerner": {
 "line": 0.5,
-"p": 0.16667,
-"price": 500,
-"books": 4,
-"spread": 0.05714
-},
-"Keibert Ruiz": {
-"line": 0.5,
-"p": 0.13516,
-"price": 640,
-"books": 4,
-"spread": 0.0305
-},
-"Jim Jarvis": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
+"p": 0.07692,
+"price": 1200,
 "books": 3,
-"spread": 0.01379
+"spread": 0.01948
 },
-"Noelvi Marte": {
-"line": 0.5,
-"p": 0.12222,
-"price": 718,
-"books": 4,
-"spread": 0.03704
-},
-"Cooper Pratt": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01435
-},
-"Jorbit Vivas": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.03879
-},
-"Tristan Peters": {
+"John Rave": {
 "line": 0.5,
 "p": 0.11111,
 "price": 800,
 "books": 3,
-"spread": 0.01111
+"spread": 0.02674
 },
-"Angel Genao": {
+"Salvador Perez": {
 "line": 0.5,
-"p": 0.10526,
-"price": 850,
+"p": 0.15757,
+"price": 535,
+"books": 4,
+"spread": 0.03663
+},
+"Nick Loftin": {
+"line": 0.5,
+"p": 0.1,
+"price": 900,
 "books": 3,
-"spread": 0.01765
+"spread": 0.01976
+},
+"Pedro Ramirez": {
+"line": 0.5,
+"p": 0.09545,
+"price": 948,
+"books": 2,
+"spread": 0.00909
+},
+"Josh Rojas": {
+"line": 0.5,
+"p": 0.06667,
+"price": 1400,
+"books": 3,
+"spread": 0.0375
+},
+"Brady House": {
+"line": 0.5,
+"p": 0.13393,
+"price": 647,
+"books": 2,
+"spread": 0.01786
 },
 "A.J. Ewing": {
 "line": 0.5,
@@ -1570,19 +674,68 @@
 "books": 3,
 "spread": 0.0
 },
-"Masyn Winn": {
+"C.J. Abrams": {
 "line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.01389
+"p": 0.22222,
+"price": 350,
+"books": 4,
+"spread": 0.03401
 },
-"Marcus Semien": {
+"Bo Bichette": {
 "line": 0.5,
 "p": 0.11111,
 "price": 800,
 "books": 3,
-"spread": 0.01389
+"spread": 0.01238
+},
+"JJ Bleday": {
+"line": 0.5,
+"p": 0.19615,
+"price": 410,
+"books": 4,
+"spread": 0.03095
+},
+"Daylen Lile": {
+"line": 0.5,
+"p": 0.18696,
+"price": 435,
+"books": 4,
+"spread": 0.04848
+},
+"Abimelec Ortiz": {
+"line": 0.5,
+"p": 0.15692,
+"price": 537,
+"books": 4,
+"spread": 0.04848
+},
+"Dylan Crews": {
+"line": 0.5,
+"p": 0.17262,
+"price": 479,
+"books": 4,
+"spread": 0.06019
+},
+"Henry Davis": {
+"line": 0.5,
+"p": 0.15741,
+"price": 535,
+"books": 4,
+"spread": 0.05714
+},
+"Esmerlyn Valdez": {
+"line": 0.5,
+"p": 0.18706,
+"price": 435,
+"books": 4,
+"spread": 0.07912
+},
+"Francisco Alvarez": {
+"line": 0.5,
+"p": 0.16667,
+"price": 500,
+"books": 4,
+"spread": 0.08333
 },
 "Brett Baty": {
 "line": 0.5,
@@ -1590,6 +743,13 @@
 "price": 545,
 "books": 4,
 "spread": 0.075
+},
+"Dane Myers": {
+"line": 0.5,
+"p": 0.13333,
+"price": 650,
+"books": 3,
+"spread": 0.03704
 },
 "Matt McLain": {
 "line": 0.5,
@@ -1605,82 +765,33 @@
 "books": 4,
 "spread": 0.05185
 },
-"Christian Yelich": {
-"line": 0.5,
-"p": 0.14103,
-"price": 609,
-"books": 4,
-"spread": 0.05682
-},
-"Brooks Lee": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.0
-},
-"Kyle Karros": {
+"Marcus Semien": {
 "line": 0.5,
 "p": 0.11111,
 "price": 800,
 "books": 3,
-"spread": 0.0
+"spread": 0.01389
 },
-"Sam Antonacci": {
+"Jorge Polanco": {
 "line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.025
-},
-"Travis Bazzana": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.03879
-},
-"Angel Martinez": {
-"line": 0.5,
-"p": 0.12732,
-"price": 685,
+"p": 0.16667,
+"price": 500,
 "books": 4,
-"spread": 0.07656
+"spread": 0.05714
 },
-"Nolan Arenado": {
+"Keibert Ruiz": {
 "line": 0.5,
-"p": 0.10309,
-"price": 870,
-"books": 3,
-"spread": 0.01111
-},
-"Nathan Church": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01003
-},
-"Munetaka Murakami": {
-"line": 0.5,
-"p": 0.23864,
-"price": 319,
+"p": 0.13516,
+"price": 640,
 "books": 4,
-"spread": 0.05175
+"spread": 0.0305
 },
-"Jose Ramirez": {
+"Jose Tena": {
 "line": 0.5,
-"p": 0.17863,
-"price": 460,
-"books": 4,
-"spread": 0.04348
-},
-"Drew Romo": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
+"p": 0.125,
+"price": 700,
 "books": 3,
-"spread": 0.01587
+"spread": 0.02521
 },
 "Ke'Bryan Hayes": {
 "line": 0.5,
@@ -1696,83 +807,6 @@
 "books": 3,
 "spread": 0.01587
 },
-"Carlos Narvaez": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01003
-},
-"Victor Caratini": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.00735
-},
-"Luke Keaschall": {
-"line": 0.5,
-"p": 0.09524,
-"price": 950,
-"books": 3,
-"spread": 0.00909
-},
-"Luis Lara": {
-"line": 0.5,
-"p": 0.09524,
-"price": 950,
-"books": 3,
-"spread": 0.02193
-},
-"Brayan Rocchio": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.00909
-},
-"Austin Martin": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.00909
-},
-"Jake McCarthy": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.00758
-},
-"Austin Hedges": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.00758
-},
-"Blaze Jordan": {
-"line": 0.5,
-"p": 0.11765,
-"price": 750,
-"books": 3,
-"spread": 0.03175
-},
-"Chase Meidroth": {
-"line": 0.5,
-"p": 0.07143,
-"price": 1300,
-"books": 3,
-"spread": 0.01026
-},
-"Steven Kwan": {
-"line": 0.5,
-"p": 0.06061,
-"price": 1550,
-"books": 3,
-"spread": 0.00987
-},
 "Nasim Nunez": {
 "line": 0.5,
 "p": 0.06061,
@@ -1780,19 +814,47 @@
 "books": 3,
 "spread": 0.00368
 },
-"Nelson Velazquez": {
+"Tyler Stephenson": {
 "line": 0.5,
-"p": 0.20485,
-"price": 388,
-"books": 2,
-"spread": 0.02508
-},
-"Tyler Freeman": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
+"p": 0.14815,
+"price": 575,
 "books": 3,
-"spread": 0.0119
+"spread": 0.03896
+},
+"Jorbit Vivas": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.03879
+},
+"Ceddanne Rafaela": {
+"line": 0.5,
+"p": 0.15385,
+"price": 550,
+"books": 4,
+"spread": 0.03896
+},
+"Eugenio Suarez": {
+"line": 0.5,
+"p": 0.20545,
+"price": 387,
+"books": 4,
+"spread": 0.05348
+},
+"Noelvi Marte": {
+"line": 0.5,
+"p": 0.12222,
+"price": 718,
+"books": 4,
+"spread": 0.03704
+},
+"Jacob Wilson": {
+"line": 0.5,
+"p": 0.08621,
+"price": 1060,
+"books": 3,
+"spread": 0.01684
 },
 "Pedro Pages": {
 "line": 0.5,
@@ -1801,6 +863,251 @@
 "books": 3,
 "spread": 0.01389
 },
+"Jordan Walker": {
+"line": 0.5,
+"p": 0.24695,
+"price": 305,
+"books": 4,
+"spread": 0.03588
+},
+"Hunter Goodman": {
+"line": 0.5,
+"p": 0.2396,
+"price": 317,
+"books": 4,
+"spread": 0.0464
+},
+"Junior Caminero": {
+"line": 0.5,
+"p": 0.24695,
+"price": 305,
+"books": 4,
+"spread": 0.05947
+},
+"Pete Alonso": {
+"line": 0.5,
+"p": 0.21637,
+"price": 362,
+"books": 4,
+"spread": 0.05233
+},
+"Cal Raleigh": {
+"line": 0.5,
+"p": 0.22431,
+"price": 346,
+"books": 4,
+"spread": 0.04588
+},
+"Royce Lewis": {
+"line": 0.5,
+"p": 0.2189,
+"price": 357,
+"books": 4,
+"spread": 0.05233
+},
+"Jackson Chourio": {
+"line": 0.5,
+"p": 0.20842,
+"price": 380,
+"books": 4,
+"spread": 0.06593
+},
+"Joc Pederson": {
+"line": 0.5,
+"p": 0.19524,
+"price": 412,
+"books": 4,
+"spread": 0.05348
+},
+"Gunnar Henderson": {
+"line": 0.5,
+"p": 0.18182,
+"price": 450,
+"books": 4,
+"spread": 0.04195
+},
+"Corey Seager": {
+"line": 0.5,
+"p": 0.19434,
+"price": 415,
+"books": 4,
+"spread": 0.05348
+},
+"Dominic Canzone": {
+"line": 0.5,
+"p": 0.19524,
+"price": 412,
+"books": 4,
+"spread": 0.05336
+},
+"Alec Burleson": {
+"line": 0.5,
+"p": 0.17787,
+"price": 462,
+"books": 4,
+"spread": 0.03442
+},
+"Christian Encarnacion-Strand": {
+"line": 0.5,
+"p": 0.17029,
+"price": 487,
+"books": 4,
+"spread": 0.04375
+},
+"Kaelen Culpepper": {
+"line": 0.5,
+"p": 0.19295,
+"price": 418,
+"books": 4,
+"spread": 0.04348
+},
+"Ivan Herrera": {
+"line": 0.5,
+"p": 0.17468,
+"price": 472,
+"books": 4,
+"spread": 0.03442
+},
+"Jake Bauers": {
+"line": 0.5,
+"p": 0.21981,
+"price": 355,
+"books": 4,
+"spread": 0.0825
+},
+"Ryan Jeffers": {
+"line": 0.5,
+"p": 0.17787,
+"price": 462,
+"books": 4,
+"spread": 0.04167
+},
+"Wyatt Langford": {
+"line": 0.5,
+"p": 0.16667,
+"price": 500,
+"books": 4,
+"spread": 0.0561
+},
+"Kody Clemens": {
+"line": 0.5,
+"p": 0.17787,
+"price": 462,
+"books": 4,
+"spread": 0.05072
+},
+"Julio Rodriguez": {
+"line": 0.5,
+"p": 0.17434,
+"price": 474,
+"books": 4,
+"spread": 0.05449
+},
+"Brandon Nimmo": {
+"line": 0.5,
+"p": 0.15692,
+"price": 537,
+"books": 4,
+"spread": 0.03896
+},
+"Jonathan Aranda": {
+"line": 0.5,
+"p": 0.15813,
+"price": 532,
+"books": 4,
+"spread": 0.04233
+},
+"JJ Wetherholt": {
+"line": 0.5,
+"p": 0.14835,
+"price": 574,
+"books": 4,
+"spread": 0.04483
+},
+"William Contreras": {
+"line": 0.5,
+"p": 0.15757,
+"price": 535,
+"books": 4,
+"spread": 0.05449
+},
+"Brice Turang": {
+"line": 0.5,
+"p": 0.16026,
+"price": 524,
+"books": 4,
+"spread": 0.05349
+},
+"Tyler Freeman": {
+"line": 0.5,
+"p": 0.08333,
+"price": 1100,
+"books": 3,
+"spread": 0.0119
+},
+"Josh Bell": {
+"line": 0.5,
+"p": 0.16667,
+"price": 500,
+"books": 4,
+"spread": 0.05449
+},
+"Victor Mesa": {
+"line": 0.5,
+"p": 0.14983,
+"price": 567,
+"books": 4,
+"spread": 0.04233
+},
+"Andrew Vaughn": {
+"line": 0.5,
+"p": 0.15741,
+"price": 535,
+"books": 4,
+"spread": 0.05714
+},
+"Everson Pereira": {
+"line": 0.5,
+"p": 0.15576,
+"price": 542,
+"books": 4,
+"spread": 0.03367
+},
+"Willi Castro": {
+"line": 0.5,
+"p": 0.13025,
+"price": 668,
+"books": 4,
+"spread": 0.06417
+},
+"Garrett Mitchell": {
+"line": 0.5,
+"p": 0.14286,
+"price": 600,
+"books": 4,
+"spread": 0.04762
+},
+"Blaze Jordan": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.03175
+},
+"Jake McCarthy": {
+"line": 0.5,
+"p": 0.08333,
+"price": 1100,
+"books": 3,
+"spread": 0.00758
+},
+"Randy Arozarena": {
+"line": 0.5,
+"p": 0.16179,
+"price": 518,
+"books": 4,
+"spread": 0.04762
+},
 "David Hamilton": {
 "line": 0.5,
 "p": 0.1,
@@ -1808,117 +1115,12 @@
 "books": 3,
 "spread": 0.02857
 },
-"Justin Crawford": {
+"Luis Lara": {
 "line": 0.5,
 "p": 0.09524,
 "price": 950,
 "books": 3,
-"spread": 0.00909
-},
-"Michael Massey": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.03297
-},
-"John Rave": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.02674
-},
-"Garrett Stubbs": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.00909
-},
-"Bryce Harper": {
-"line": 0.5,
-"p": 0.27778,
-"price": 260,
-"books": 5,
-"spread": 0.04453
-},
-"Nick Loftin": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01976
-},
-"Alejandro Kirk": {
-"line": 0.5,
-"p": 0.15839,
-"price": 531,
-"books": 4,
-"spread": 0.03896
-},
-"Isaac Collins": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.02593
-},
-"Myles Straw": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.0386
-},
-"Josh Rojas": {
-"line": 0.5,
-"p": 0.06667,
-"price": 1400,
-"books": 3,
-"spread": 0.0375
-},
-"J.T. Realmuto": {
-"line": 0.5,
-"p": 0.15385,
-"price": 550,
-"books": 3,
-"spread": 0.07946
-},
-"Josh Smith": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.00585
-},
-"Kyle Isbel": {
-"line": 0.5,
-"p": 0.07143,
-"price": 1300,
-"books": 3,
-"spread": 0.0181
-},
-"Kazuma Okamoto": {
-"line": 0.5,
-"p": 0.23529,
-"price": 325,
-"books": 4,
-"spread": 0.0467
-},
-"Alec Bohm": {
-"line": 0.5,
-"p": 0.15143,
-"price": 560,
-"books": 4,
-"spread": 0.04762
-},
-"Ernie Clement": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.01229
+"spread": 0.02193
 },
 "Ryan Kreidler": {
 "line": 0.5,
@@ -1927,47 +1129,236 @@
 "books": 4,
 "spread": 0.07071
 },
-"Trea Turner": {
+"Victor Caratini": {
 "line": 0.5,
-"p": 0.17316,
-"price": 477,
-"books": 4,
-"spread": 0.06061
-},
-"Nico Hoerner": {
-"line": 0.5,
-"p": 0.07692,
-"price": 1200,
+"p": 0.11765,
+"price": 750,
 "books": 3,
-"spread": 0.01948
+"spread": 0.00735
 },
-"George Springer": {
+"Tyler O'Neill": {
 "line": 0.5,
-"p": 0.19851,
-"price": 404,
+"p": 0.17468,
+"price": 472,
 "books": 4,
-"spread": 0.03661
+"spread": 0.07453
 },
-"Vladimir Guerrero": {
+"Yandy Diaz": {
+"line": 0.5,
+"p": 0.13147,
+"price": 661,
+"books": 4,
+"spread": 0.06417
+},
+"Cole Carrigg": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.02222
+},
+"Cedric Mullins": {
+"line": 0.5,
+"p": 0.16313,
+"price": 513,
+"books": 4,
+"spread": 0.05714
+},
+"Taylor Ward": {
+"line": 0.5,
+"p": 0.15472,
+"price": 546,
+"books": 4,
+"spread": 0.06548
+},
+"Cole Young": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.00735
+},
+"Christian Yelich": {
+"line": 0.5,
+"p": 0.14103,
+"price": 609,
+"books": 4,
+"spread": 0.05682
+},
+"Jose Fermin": {
+"line": 0.5,
+"p": 0.11111,
+"price": 800,
+"books": 3,
+"spread": 0.01974
+},
+"Dylan Beavers": {
+"line": 0.5,
+"p": 0.12132,
+"price": 724,
+"books": 4,
+"spread": 0.06417
+},
+"Masyn Winn": {
+"line": 0.5,
+"p": 0.11111,
+"price": 800,
+"books": 3,
+"spread": 0.01389
+},
+"Brooks Lee": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.0
+},
+"Colton Cowser": {
+"line": 0.5,
+"p": 0.13992,
+"price": 615,
+"books": 4,
+"spread": 0.06417
+},
+"Jordan Beck": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 3,
+"spread": 0.00654
+},
+"Jackson Holliday": {
+"line": 0.5,
+"p": 0.11765,
+"price": 750,
+"books": 4,
+"spread": 0.07071
+},
+"Kyle Karros": {
+"line": 0.5,
+"p": 0.11111,
+"price": 800,
+"books": 3,
+"spread": 0.0
+},
+"Ezequiel Tovar": {
+"line": 0.5,
+"p": 0.11111,
+"price": 800,
+"books": 3,
+"spread": 0.00585
+},
+"Josh Naylor": {
+"line": 0.5,
+"p": 0.11111,
+"price": 800,
+"books": 3,
+"spread": 0.01238
+},
+"Ezequiel Duran": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.00217
+},
+"Nelson Velazquez": {
+"line": 0.5,
+"p": 0.20485,
+"price": 388,
+"books": 2,
+"spread": 0.02508
+},
+"Evan Carter": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.00526
+},
+"Austin Riley": {
+"line": 0.5,
+"p": 0.20638,
+"price": 385,
+"books": 4,
+"spread": 0.05641
+},
+"Heliot Ramos": {
+"line": 0.5,
+"p": 0.19524,
+"price": 412,
+"books": 4,
+"spread": 0.0651
+},
+"Michael Harris": {
+"line": 0.5,
+"p": 0.23016,
+"price": 334,
+"books": 4,
+"spread": 0.06989
+},
+"Austin Wells": {
 "line": 0.5,
 "p": 0.14983,
 "price": 567,
 "books": 4,
-"spread": 0.05714
+"spread": 0.05682
 },
-"Jacob Young": {
+"Austin Martin": {
 "line": 0.5,
-"p": 0.08333,
-"price": 1100,
+"p": 0.1,
+"price": 900,
 "books": 3,
-"spread": 0.01948
+"spread": 0.00909
 },
-"Kyle Schwarber": {
+"Mike Yastrzemski": {
 "line": 0.5,
-"p": 0.33333,
-"price": 200,
-"books": 5,
-"spread": 0.04592
+"p": 0.18525,
+"price": 440,
+"books": 4,
+"spread": 0.06061
+},
+"George Lombard": {
+"line": 0.5,
+"p": 0.11111,
+"price": 800,
+"books": 3,
+"spread": 0.0
+},
+"Cooper Pratt": {
+"line": 0.5,
+"p": 0.1,
+"price": 900,
+"books": 3,
+"spread": 0.01435
+},
+"Luke Keaschall": {
+"line": 0.5,
+"p": 0.09524,
+"price": 950,
+"books": 3,
+"spread": 0.00909
+},
+"Luis Garcia": {
+"line": 0.5,
+"p": 0.17391,
+"price": 475,
+"books": 1,
+"spread": 0.0
+},
+"Ali Sanchez": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.03144
+},
+"Jose Caballero": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.00753
 },
 "Joey Ortiz": {
 "line": 0.5,
@@ -1976,19 +1367,110 @@
 "books": 3,
 "spread": 0.01379
 },
-"Jesus Sanchez": {
+"Ronald Acuna": {
 "line": 0.5,
-"p": 0.22222,
-"price": 350,
+"p": 0.24695,
+"price": 305,
 "books": 4,
-"spread": 0.05641
+"spread": 0.06321
 },
-"Elias Diaz": {
+"Max Muncy": {
+"line": 0.5,
+"p": 0.14835,
+"price": 574,
+"books": 2,
+"spread": 0.01099
+},
+"Willson Contreras": {
+"line": 0.5,
+"p": 0.27047,
+"price": 270,
+"books": 4,
+"spread": 0.04934
+},
+"Ozzie Albies": {
+"line": 0.5,
+"p": 0.18182,
+"price": 450,
+"books": 4,
+"spread": 0.07343
+},
+"Mauricio Dubon": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.00226
+},
+"Jazz Chisholm": {
+"line": 0.5,
+"p": 0.14983,
+"price": 567,
+"books": 4,
+"spread": 0.05682
+},
+"Jim Jarvis": {
+"line": 0.5,
+"p": 0.09091,
+"price": 1000,
+"books": 3,
+"spread": 0.01379
+},
+"Drake Baldwin": {
+"line": 0.5,
+"p": 0.25,
+"price": 300,
+"books": 4,
+"spread": 0.02786
+},
+"Trent Grisham": {
+"line": 0.5,
+"p": 0.16667,
+"price": 500,
+"books": 4,
+"spread": 0.075
+},
+"Ben Rice": {
+"line": 0.5,
+"p": 0.19139,
+"price": 422,
+"books": 4,
+"spread": 0.04545
+},
+"Matt Olson": {
+"line": 0.5,
+"p": 0.27973,
+"price": 257,
+"books": 4,
+"spread": 0.01142
+},
+"TJ Rumfield": {
 "line": 0.5,
 "p": 0.1,
 "price": 900,
 "books": 3,
-"spread": 0.00476
+"spread": 0.00309
+},
+"Jake Burger": {
+"line": 0.5,
+"p": 0.17029,
+"price": 487,
+"books": 4,
+"spread": 0.04704
+},
+"Austin Wynns": {
+"line": 0.5,
+"p": 0.09091,
+"price": 1000,
+"books": 3,
+"spread": 0.00909
+},
+"Nicky Lopez": {
+"line": 0.5,
+"p": 0.04255,
+"price": 2250,
+"books": 3,
+"spread": 0.02037
 },
 "Coby Mayo": {
 "line": 0.5,
@@ -1997,19 +1479,54 @@
 "books": 4,
 "spread": 0.04
 },
+"Leody Taveras": {
+"line": 0.5,
+"p": 0.10526,
+"price": 850,
+"books": 3,
+"spread": 0.00217
+},
+"Carlos Narvaez": {
+"line": 0.5,
+"p": 0.1,
+"price": 900,
+"books": 3,
+"spread": 0.01003
+},
+"Elias Diaz": {
+"line": 0.5,
+"p": 0.1,
+"price": 900,
+"books": 3,
+"spread": 0.00476
+},
+"Nick Fortes": {
+"line": 0.5,
+"p": 0.08333,
+"price": 1100,
+"books": 3,
+"spread": 0.01213
+},
+"Taylor Walls": {
+"line": 0.5,
+"p": 0.08333,
+"price": 1100,
+"books": 3,
+"spread": 0.02083
+},
+"Brendan Donovan": {
+"line": 0.5,
+"p": 0.1,
+"price": 900,
+"books": 3,
+"spread": 0.00909
+},
 "Spencer Jones": {
 "line": 0.5,
 "p": 0.1266,
 "price": 690,
 "books": 4,
 "spread": 0.06417
-},
-"Carson Williams": {
-"line": 0.5,
-"p": 0.09545,
-"price": 948,
-"books": 2,
-"spread": 0.00909
 },
 "Paul Goldschmidt": {
 "line": 0.5,
@@ -2025,18 +1542,11 @@
 "books": 4,
 "spread": 0.04483
 },
-"Matt Olson": {
+"Carson Williams": {
 "line": 0.5,
-"p": 0.28169,
-"price": 255,
-"books": 5,
-"spread": 0.03554
-},
-"Hunter Feduccia": {
-"line": 0.5,
-"p": 0.09524,
-"price": 950,
-"books": 3,
+"p": 0.09545,
+"price": 948,
+"books": 2,
 "spread": 0.00909
 },
 "Liam Hicks": {
@@ -2053,180 +1563,12 @@
 "books": 3,
 "spread": 0.01003
 },
-"Jazz Chisholm": {
+"Nathan Church": {
 "line": 0.5,
-"p": 0.14983,
-"price": 567,
-"books": 4,
-"spread": 0.05682
-},
-"Max Kepler": {
-"line": 0.5,
-"p": 0.10025,
-"price": 898,
-"books": 2,
+"p": 0.1,
+"price": 900,
+"books": 3,
 "spread": 0.01003
-},
-"Ben Rortvedt": {
-"line": 0.5,
-"p": 0.07692,
-"price": 1200,
-"books": 3,
-"spread": 0.02083
-},
-"Taylor Walls": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.02083
-},
-"Ben Rice": {
-"line": 0.5,
-"p": 0.19139,
-"price": 422,
-"books": 4,
-"spread": 0.04545
-},
-"George Lombard": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.0
-},
-"Austin Wells": {
-"line": 0.5,
-"p": 0.14983,
-"price": 567,
-"books": 4,
-"spread": 0.05682
-},
-"Michael Harris": {
-"line": 0.5,
-"p": 0.23016,
-"price": 334,
-"books": 4,
-"spread": 0.06989
-},
-"Ali Sanchez": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.03144
-},
-"Jose Caballero": {
-"line": 0.5,
-"p": 0.10526,
-"price": 850,
-"books": 3,
-"spread": 0.00753
-},
-"Jung Hoo Lee": {
-"line": 0.5,
-"p": 0.07692,
-"price": 1200,
-"books": 3,
-"spread": 0.01399
-},
-"Austin Wynns": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.00909
-},
-"Heliot Ramos": {
-"line": 0.5,
-"p": 0.19524,
-"price": 412,
-"books": 4,
-"spread": 0.0651
-},
-"Osleivis Basabe": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01587
-},
-"Luis Garcia": {
-"line": 0.5,
-"p": 0.17391,
-"price": 475,
-"books": 1,
-"spread": 0.0
-},
-"Mike Yastrzemski": {
-"line": 0.5,
-"p": 0.18525,
-"price": 440,
-"books": 4,
-"spread": 0.06061
-},
-"Austin Riley": {
-"line": 0.5,
-"p": 0.20638,
-"price": 385,
-"books": 4,
-"spread": 0.05641
-},
-"Colt Keith": {
-"line": 0.5,
-"p": 0.10309,
-"price": 870,
-"books": 3,
-"spread": 0.01435
-},
-"Tim Tawa": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01218
-},
-"Lars Nootbaar": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.01662
-},
-"James McCann": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 3,
-"spread": 0.01667
-},
-"Daniel Susac": {
-"line": 0.5,
-"p": 0.08621,
-"price": 1060,
-"books": 1,
-"spread": 0.0
-},
-"Masataka Yoshida": {
-"line": 0.5,
-"p": 0.09091,
-"price": 1000,
-"books": 1,
-"spread": 0.0
-},
-"Jake Burger": {
-"line": 0.5,
-"p": 0.17029,
-"price": 487,
-"books": 4,
-"spread": 0.04704
-},
-"Grant McCray": {
-"line": 0.5,
-"p": 0.10753,
-"price": 830,
-"books": 3,
-"spread": 0.01587
 },
 "Richie Palacios": {
 "line": 0.5,
@@ -2235,131 +1577,12 @@
 "books": 3,
 "spread": 0.00758
 },
-"Tommy Edman": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.00909
-},
-"Drew Cavanaugh": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.00758
-},
-"Drew Gilbert": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.00287
-},
-"Yainer Diaz": {
-"line": 0.5,
-"p": 0.11111,
-"price": 800,
-"books": 3,
-"spread": 0.01389
-},
-"Max Clark": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.01667
-},
-"Eddys Leonard": {
-"line": 0.5,
-"p": 0.1,
-"price": 900,
-"books": 3,
-"spread": 0.02617
-},
-"Nick Fortes": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.01213
-},
-"Geraldo Perdomo": {
-"line": 0.5,
-"p": 0.07407,
-"price": 1250,
-"books": 3,
-"spread": 0.0119
-},
-"Gleyber Torres": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.0119
-},
-"Luis Rengifo": {
-"line": 0.5,
-"p": 0.08621,
-"price": 1060,
-"books": 3,
-"spread": 0.02593
-},
-"Javier Baez": {
-"line": 0.5,
-"p": 0.07692,
-"price": 1200,
-"books": 3,
-"spread": 0.0119
-},
-"Christian Vazquez": {
-"line": 0.5,
-"p": 0.08333,
-"price": 1100,
-"books": 3,
-"spread": 0.0119
-},
-"Ryan Waldschmidt": {
-"line": 0.5,
-"p": 0.07143,
-"price": 1300,
-"books": 3,
-"spread": 0.01954
-},
-"Zach McKinstry": {
-"line": 0.5,
-"p": 0.06667,
-"price": 1400,
-"books": 3,
-"spread": 0.0
-},
-"Sung Mun Song": {
-"line": 0.5,
-"p": 0.08712,
-"price": 1048,
-"books": 2,
-"spread": 0.00758
-},
-"Christian Koss": {
-"line": 0.5,
-"p": 0.07692,
-"price": 1200,
-"books": 3,
-"spread": 0.01026
-},
 "Chandler Simpson": {
 "line": 0.5,
 "p": 0.04762,
 "price": 2000,
 "books": 3,
 "spread": 0.01314
-},
-"Nicky Lopez": {
-"line": 0.5,
-"p": 0.04255,
-"price": 2250,
-"books": 3,
-"spread": 0.02037
 }
 },
 "total_bases": {
@@ -2418,13 +1641,6 @@
 "price": -210,
 "books": 4,
 "spread": 0.07155
-},
-"Carson Williams": {
-"line": 0.5,
-"p": 0.54851,
-"price": -121,
-"books": 2,
-"spread": 0.00611
 },
 "Ozzie Albies": {
 "line": 0.5,
@@ -2538,6 +1754,13 @@
 "books": 5,
 "spread": 0.07261
 },
+"Carson Williams": {
+"line": 0.5,
+"p": 0.54851,
+"price": -121,
+"books": 2,
+"spread": 0.00611
+},
 "Taylor Walls": {
 "line": 0.5,
 "p": 0.53488,
@@ -2545,12 +1768,19 @@
 "books": 5,
 "spread": 0.03326
 },
-"Max Kepler": {
+"Jose Altuve": {
 "line": 0.5,
-"p": 0.55556,
-"price": -125,
-"books": 5,
-"spread": 0.03958
+"p": 0.65028,
+"price": -186,
+"books": 4,
+"spread": 0.23607
+},
+"Isaac Paredes": {
+"line": 0.5,
+"p": 0.62614,
+"price": -167,
+"books": 4,
+"spread": 0.06216
 },
 "Jake Cronenworth": {
 "line": 0.5,
@@ -2558,13 +1788,6 @@
 "price": -171,
 "books": 4,
 "spread": 0.03374
-},
-"Jose Altuve": {
-"line": 0.5,
-"p": 0.65028,
-"price": -186,
-"books": 4,
-"spread": 0.23607
 },
 "Yordan Alvarez": {
 "line": 1.5,
@@ -2580,26 +1803,26 @@
 "books": 2,
 "spread": 0.03118
 },
-"Jackson Merrill": {
-"line": 1.5,
-"p": 0.4211,
-"price": 137,
-"books": 6,
-"spread": 0.24096
-},
-"Isaac Paredes": {
-"line": 0.5,
-"p": 0.62614,
-"price": -167,
-"books": 4,
-"spread": 0.06216
-},
 "Spencer Torkelson": {
 "line": 0.5,
 "p": 0.6063,
 "price": -154,
 "books": 5,
 "spread": 0.04912
+},
+"Javier Baez": {
+"line": 0.5,
+"p": 0.64912,
+"price": -185,
+"books": 5,
+"spread": 0.05787
+},
+"Daniel Susac": {
+"line": 0.5,
+"p": 0.66009,
+"price": -194,
+"books": 2,
+"spread": 0.02193
 },
 "Grant McCray": {
 "line": 0.5,
@@ -2622,12 +1845,12 @@
 "books": 5,
 "spread": 0.18643
 },
-"Javier Baez": {
-"line": 0.5,
-"p": 0.64912,
-"price": -185,
-"books": 5,
-"spread": 0.05787
+"Jackson Merrill": {
+"line": 1.5,
+"p": 0.4211,
+"price": 137,
+"books": 6,
+"spread": 0.24096
 },
 "Luis Rengifo": {
 "line": 0.5,
@@ -2636,19 +1859,12 @@
 "books": 5,
 "spread": 0.06025
 },
-"Christian Walker": {
+"Daulton Varsho": {
 "line": 0.5,
-"p": 0.59677,
-"price": -148,
+"p": 0.6063,
+"price": -154,
 "books": 5,
-"spread": 0.3697
-},
-"Shohei Ohtani": {
-"line": 1.5,
-"p": 0.5585,
-"price": -126,
-"books": 6,
-"spread": 0.12672
+"spread": 0.39296
 },
 "Ben Rortvedt": {
 "line": 0.5,
@@ -2664,47 +1880,12 @@
 "books": 5,
 "spread": 0.05455
 },
-"Lars Nootbaar": {
+"Max Kepler": {
 "line": 0.5,
-"p": 0.60317,
-"price": -152,
+"p": 0.55556,
+"price": -125,
 "books": 5,
-"spread": 0.26599
-},
-"Nolan Arenado": {
-"line": 0.5,
-"p": 0.57447,
-"price": -135,
-"books": 5,
-"spread": 0.25026
-},
-"Jackson Holliday": {
-"line": 0.5,
-"p": 0.59839,
-"price": -149,
-"books": 4,
-"spread": 0.1561
-},
-"Ezequiel Duran": {
-"line": 0.5,
-"p": 0.65789,
-"price": -192,
-"books": 4,
-"spread": 0.02948
-},
-"Yainer Diaz": {
-"line": 0.5,
-"p": 0.64158,
-"price": -179,
-"books": 5,
-"spread": 0.05128
-},
-"Luis Campusano": {
-"line": 0.5,
-"p": 0.60784,
-"price": -155,
-"books": 5,
-"spread": 0.05742
+"spread": 0.03958
 },
 "Gavin Sheets": {
 "line": 0.5,
@@ -2713,12 +1894,47 @@
 "books": 5,
 "spread": 0.06467
 },
-"Daulton Varsho": {
+"Jackson Holliday": {
 "line": 0.5,
-"p": 0.6063,
-"price": -154,
+"p": 0.59839,
+"price": -149,
+"books": 4,
+"spread": 0.1561
+},
+"Yainer Diaz": {
+"line": 0.5,
+"p": 0.64158,
+"price": -179,
 "books": 5,
-"spread": 0.39296
+"spread": 0.05128
+},
+"Christian Walker": {
+"line": 0.5,
+"p": 0.59677,
+"price": -148,
+"books": 5,
+"spread": 0.3697
+},
+"Shohei Ohtani": {
+"line": 1.5,
+"p": 0.5585,
+"price": -126,
+"books": 6,
+"spread": 0.12672
+},
+"Luis Campusano": {
+"line": 0.5,
+"p": 0.60784,
+"price": -155,
+"books": 5,
+"spread": 0.05742
+},
+"Ezequiel Duran": {
+"line": 0.5,
+"p": 0.65789,
+"price": -192,
+"books": 4,
+"spread": 0.02948
 },
 "Tommy White": {
 "line": 1.5,
@@ -2734,19 +1950,19 @@
 "books": 4,
 "spread": 0.03614
 },
-"Jorbit Vivas": {
-"line": 0.5,
-"p": 0.57265,
-"price": -134,
-"books": 5,
-"spread": 0.23954
-},
 "Noelvi Marte": {
 "line": 0.5,
 "p": 0.65517,
 "price": -190,
 "books": 4,
 "spread": 0.04032
+},
+"Pete Crow-Armstrong": {
+"line": 1.5,
+"p": 0.5789,
+"price": -137,
+"books": 6,
+"spread": 0.04969
 },
 "Bryce Harper": {
 "line": 1.5,
@@ -2783,12 +1999,12 @@
 "books": 6,
 "spread": 0.08333
 },
-"Dylan Crews": {
+"Jorbit Vivas": {
 "line": 0.5,
-"p": 0.62963,
-"price": -170,
+"p": 0.57265,
+"price": -134,
 "books": 5,
-"spread": 0.22275
+"spread": 0.23954
 },
 "Sal Stewart": {
 "line": 1.5,
@@ -2818,12 +2034,12 @@
 "books": 5,
 "spread": 0.24113
 },
-"Pete Crow-Armstrong": {
-"line": 1.5,
-"p": 0.5789,
-"price": -137,
-"books": 6,
-"spread": 0.04969
+"Dylan Crews": {
+"line": 0.5,
+"p": 0.62963,
+"price": -170,
+"books": 5,
+"spread": 0.22275
 },
 "Jacob Young": {
 "line": 0.5,
@@ -2839,6 +2055,13 @@
 "books": 7,
 "spread": 0.02676
 },
+"John Rave": {
+"line": 0.5,
+"p": 0.58506,
+"price": -141,
+"books": 5,
+"spread": 0.24286
+},
 "Michael Conforto": {
 "line": 0.5,
 "p": 0.62963,
@@ -2852,13 +2075,6 @@
 "price": -150,
 "books": 5,
 "spread": 0.0308
-},
-"John Rave": {
-"line": 0.5,
-"p": 0.58506,
-"price": -141,
-"books": 5,
-"spread": 0.24286
 },
 "Elly De La Cruz": {
 "line": 1.5,
@@ -2888,19 +2104,19 @@
 "books": 4,
 "spread": 0.01949
 },
-"Nick Loftin": {
-"line": 0.5,
-"p": 0.64912,
-"price": -185,
-"books": 5,
-"spread": 0.2401
-},
 "Trea Turner": {
 "line": 1.5,
 "p": 0.5,
 "price": -100,
 "books": 7,
 "spread": 0.036
+},
+"Nick Loftin": {
+"line": 0.5,
+"p": 0.64912,
+"price": -185,
+"books": 5,
+"spread": 0.2401
 },
 "Jose Tena": {
 "line": 0.5,
@@ -3084,12 +2300,12 @@
 "books": 3,
 "spread": 0.05491
 },
-"Daniel Susac": {
+"Jake Burger": {
 "line": 0.5,
-"p": 0.66009,
-"price": -194,
-"books": 2,
-"spread": 0.02193
+"p": 0.6063,
+"price": -154,
+"books": 5,
+"spread": 0.04158
 },
 "Freddie Freeman": {
 "line": 1.5,
@@ -3175,6 +2391,13 @@
 "books": 6,
 "spread": 0.14273
 },
+"Francisco Lindor": {
+"line": 1.5,
+"p": 0.46512,
+"price": 115,
+"books": 7,
+"spread": 0.1782
+},
 "Alex Bregman": {
 "line": 1.5,
 "p": 0.4673,
@@ -3189,19 +2412,12 @@
 "books": 7,
 "spread": 0.06227
 },
-"Francisco Lindor": {
-"line": 1.5,
-"p": 0.46512,
-"price": 115,
-"books": 7,
-"spread": 0.1782
-},
-"Bryson Stott": {
-"line": 1.5,
-"p": 0.46841,
-"price": 113,
-"books": 6,
-"spread": 0.1523
+"Andres Gimenez": {
+"line": 0.5,
+"p": 0.64793,
+"price": -184,
+"books": 4,
+"spread": 0.03704
 },
 "Fernando Tatis": {
 "line": 1.5,
@@ -3209,6 +2425,13 @@
 "price": 113,
 "books": 6,
 "spread": 0.05284
+},
+"Bryson Stott": {
+"line": 1.5,
+"p": 0.46841,
+"price": 113,
+"books": 6,
+"spread": 0.1523
 },
 "C.J. Abrams": {
 "line": 1.5,
@@ -3231,19 +2454,19 @@
 "books": 5,
 "spread": 0.04845
 },
+"Josh Smith": {
+"line": 0.5,
+"p": 0.58333,
+"price": -140,
+"books": 5,
+"spread": 0.04868
+},
 "Otto Lopez": {
 "line": 1.5,
 "p": 0.46512,
 "price": 115,
 "books": 7,
 "spread": 0.08903
-},
-"A.J. Ewing": {
-"line": 1.5,
-"p": 0.46512,
-"price": 115,
-"books": 5,
-"spread": 0.02802
 },
 "Michael Harris": {
 "line": 1.5,
@@ -3252,12 +2475,12 @@
 "books": 6,
 "spread": 0.04336
 },
-"Drake Baldwin": {
+"A.J. Ewing": {
 "line": 1.5,
-"p": 0.47619,
-"price": 110,
+"p": 0.46512,
+"price": 115,
 "books": 5,
-"spread": 0.03089
+"spread": 0.02802
 },
 "Ronald Acuna": {
 "line": 1.5,
@@ -3265,6 +2488,13 @@
 "price": 110,
 "books": 5,
 "spread": 0.04545
+},
+"Drake Baldwin": {
+"line": 1.5,
+"p": 0.47619,
+"price": 110,
+"books": 5,
+"spread": 0.03089
 },
 "Vladimir Guerrero": {
 "line": 1.5,
@@ -3287,13 +2517,6 @@
 "books": 5,
 "spread": 0.06512
 },
-"Nathan Lukes": {
-"line": 1.5,
-"p": 0.45663,
-"price": 119,
-"books": 6,
-"spread": 0.05206
-},
 "Ernie Clement": {
 "line": 1.5,
 "p": 0.45249,
@@ -3308,12 +2531,19 @@
 "books": 6,
 "spread": 0.14751
 },
-"Mookie Betts": {
+"Nathan Lukes": {
 "line": 1.5,
-"p": 0.47394,
-"price": 111,
+"p": 0.45663,
+"price": 119,
 "books": 6,
-"spread": 0.04418
+"spread": 0.05206
+},
+"Bryan Reynolds": {
+"line": 1.5,
+"p": 0.44053,
+"price": 127,
+"books": 7,
+"spread": 0.10935
 },
 "Jac Caglianone": {
 "line": 1.5,
@@ -3329,6 +2559,13 @@
 "books": 6,
 "spread": 0.04141
 },
+"J.T. Realmuto": {
+"line": 1.5,
+"p": 0.41667,
+"price": 140,
+"books": 5,
+"spread": 0.05045
+},
 "Andruw Monasterio": {
 "line": 1.5,
 "p": 0.4717,
@@ -3336,12 +2573,12 @@
 "books": 7,
 "spread": 0.18793
 },
-"Bryan Reynolds": {
+"Mookie Betts": {
 "line": 1.5,
-"p": 0.44053,
-"price": 127,
-"books": 7,
-"spread": 0.10935
+"p": 0.47394,
+"price": 111,
+"books": 6,
+"spread": 0.04418
 },
 "Ian Happ": {
 "line": 1.5,
@@ -3350,19 +2587,19 @@
 "books": 6,
 "spread": 0.21809
 },
-"Matt Olson": {
-"line": 1.5,
-"p": 0.45663,
-"price": 119,
-"books": 6,
-"spread": 0.05302
-},
 "Yandy Diaz": {
 "line": 1.5,
 "p": 0.45249,
 "price": 121,
 "books": 7,
 "spread": 0.1782
+},
+"Matt Olson": {
+"line": 1.5,
+"p": 0.45663,
+"price": 119,
+"books": 6,
+"spread": 0.05302
 },
 "Andrew Benintendi": {
 "line": 0.5,
@@ -3378,6 +2615,13 @@
 "books": 7,
 "spread": 0.04831
 },
+"Jake McCarthy": {
+"line": 1.5,
+"p": 0.44249,
+"price": 126,
+"books": 6,
+"spread": 0.05066
+},
 "Kevin McGonigle": {
 "line": 1.5,
 "p": 0.44444,
@@ -3385,12 +2629,12 @@
 "books": 5,
 "spread": 0.04743
 },
-"Jake McCarthy": {
+"Kyle Karros": {
 "line": 1.5,
-"p": 0.44249,
-"price": 126,
-"books": 6,
-"spread": 0.05066
+"p": 0.44444,
+"price": 125,
+"books": 5,
+"spread": 0.04395
 },
 "Dansby Swanson": {
 "line": 1.5,
@@ -3406,13 +2650,6 @@
 "books": 5,
 "spread": 0.06787
 },
-"Kyle Karros": {
-"line": 1.5,
-"p": 0.44444,
-"price": 125,
-"books": 5,
-"spread": 0.04395
-},
 "Gunnar Henderson": {
 "line": 1.5,
 "p": 0.44152,
@@ -3427,13 +2664,6 @@
 "books": 6,
 "spread": 0.04176
 },
-"Endy Rodriguez": {
-"line": 1.5,
-"p": 0.43478,
-"price": 130,
-"books": 4,
-"spread": 0.03378
-},
 "Jeremy Pena": {
 "line": 1.5,
 "p": 0.43478,
@@ -3441,12 +2671,12 @@
 "books": 5,
 "spread": 0.04176
 },
-"Kazuma Okamoto": {
+"Endy Rodriguez": {
 "line": 1.5,
-"p": 0.45455,
-"price": 120,
-"books": 5,
-"spread": 0.22359
+"p": 0.43478,
+"price": 130,
+"books": 4,
+"spread": 0.03378
 },
 "Royce Lewis": {
 "line": 1.5,
@@ -3455,11 +2685,11 @@
 "books": 5,
 "spread": 0.0549
 },
-"Tommy Edman": {
+"Kazuma Okamoto": {
 "line": 1.5,
-"p": 0.44053,
-"price": 127,
-"books": 7,
+"p": 0.45455,
+"price": 120,
+"books": 5,
 "spread": 0.22359
 },
 "Nelson Velazquez": {
@@ -3469,26 +2699,12 @@
 "books": 3,
 "spread": 0.02145
 },
-"Blaze Jordan": {
+"Tommy Edman": {
 "line": 1.5,
-"p": 0.45769,
-"price": 118,
-"books": 6,
-"spread": 0.05862
-},
-"Eugenio Suarez": {
-"line": 0.5,
-"p": 0.63768,
-"price": -176,
-"books": 5,
-"spread": 0.26716
-},
-"Corey Seager": {
-"line": 1.5,
-"p": 0.43583,
-"price": 129,
-"books": 6,
-"spread": 0.21733
+"p": 0.44053,
+"price": 127,
+"books": 7,
+"spread": 0.22359
 },
 "Pete Alonso": {
 "line": 1.5,
@@ -3497,6 +2713,20 @@
 "books": 6,
 "spread": 0.22619
 },
+"Corey Seager": {
+"line": 1.5,
+"p": 0.43583,
+"price": 129,
+"books": 6,
+"spread": 0.21733
+},
+"Eugenio Suarez": {
+"line": 0.5,
+"p": 0.63768,
+"price": -176,
+"books": 5,
+"spread": 0.26716
+},
 "Salvador Perez": {
 "line": 1.5,
 "p": 0.43103,
@@ -3504,19 +2734,12 @@
 "books": 7,
 "spread": 0.04229
 },
-"Josh Smith": {
-"line": 0.5,
-"p": 0.58333,
-"price": -140,
-"books": 5,
-"spread": 0.04868
-},
-"Jarren Duran": {
+"Blaze Jordan": {
 "line": 1.5,
-"p": 0.42553,
-"price": 135,
-"books": 7,
-"spread": 0.03378
+"p": 0.45769,
+"price": 118,
+"books": 6,
+"spread": 0.05862
 },
 "Angel Martinez": {
 "line": 1.5,
@@ -3525,12 +2748,12 @@
 "books": 6,
 "spread": 0.07296
 },
-"Jose Fermin": {
+"Jarren Duran": {
 "line": 1.5,
-"p": 0.43478,
-"price": 130,
-"books": 6,
-"spread": 0.02826
+"p": 0.42553,
+"price": 135,
+"books": 7,
+"spread": 0.03378
 },
 "Rafael Devers": {
 "line": 1.5,
@@ -3539,33 +2762,12 @@
 "books": 6,
 "spread": 0.04176
 },
-"Kyle Tucker": {
-"line": 1.5,
-"p": 0.42831,
-"price": 133,
-"books": 6,
-"spread": 0.06083
-},
-"Corbin Carroll": {
-"line": 1.5,
-"p": 0.43863,
-"price": 128,
-"books": 6,
-"spread": 0.04356
-},
-"Alejandro Kirk": {
+"Jose Fermin": {
 "line": 1.5,
 "p": 0.43478,
 "price": 130,
-"books": 7,
-"spread": 0.0463
-},
-"Paul Goldschmidt": {
-"line": 1.5,
-"p": 0.44444,
-"price": 125,
-"books": 7,
-"spread": 0.21296
+"books": 6,
+"spread": 0.02826
 },
 "Daylen Lile": {
 "line": 1.5,
@@ -3574,12 +2776,47 @@
 "books": 5,
 "spread": 0.03923
 },
+"Alejandro Kirk": {
+"line": 1.5,
+"p": 0.43478,
+"price": 130,
+"books": 7,
+"spread": 0.0463
+},
+"Kyle Tucker": {
+"line": 1.5,
+"p": 0.42831,
+"price": 133,
+"books": 6,
+"spread": 0.06083
+},
 "Ben Rice": {
 "line": 0.5,
 "p": 0.6,
 "price": -150,
 "books": 5,
 "spread": 0.25323
+},
+"Corbin Carroll": {
+"line": 1.5,
+"p": 0.43863,
+"price": 128,
+"books": 6,
+"spread": 0.04356
+},
+"Paul Goldschmidt": {
+"line": 1.5,
+"p": 0.44444,
+"price": 125,
+"books": 7,
+"spread": 0.21296
+},
+"Miguel Vargas": {
+"line": 0.5,
+"p": 0.63624,
+"price": -175,
+"books": 4,
+"spread": 0.27176
 },
 "Bryce Eldridge": {
 "line": 1.5,
@@ -3595,13 +2832,6 @@
 "books": 5,
 "spread": 0.23088
 },
-"Miguel Vargas": {
-"line": 0.5,
-"p": 0.63624,
-"price": -175,
-"books": 4,
-"spread": 0.27176
-},
 "Teoscar Hernandez": {
 "line": 1.5,
 "p": 0.42922,
@@ -3616,12 +2846,12 @@
 "books": 4,
 "spread": 0.0386
 },
-"Masataka Yoshida": {
+"Carter Jensen": {
 "line": 1.5,
-"p": 0.41667,
-"price": 140,
-"books": 1,
-"spread": 0.0
+"p": 0.44248,
+"price": 126,
+"books": 5,
+"spread": 0.24435
 },
 "Tyrone Taylor": {
 "line": 1.5,
@@ -3630,6 +2860,13 @@
 "books": 3,
 "spread": 0.0619
 },
+"Masataka Yoshida": {
+"line": 1.5,
+"p": 0.41667,
+"price": 140,
+"books": 1,
+"spread": 0.0
+},
 "Kyle Stowers": {
 "line": 1.5,
 "p": 0.43291,
@@ -3637,19 +2874,26 @@
 "books": 6,
 "spread": 0.20597
 },
-"Carter Jensen": {
-"line": 1.5,
-"p": 0.44248,
-"price": 126,
-"books": 5,
-"spread": 0.24435
-},
 "Tyler Soderstrom": {
 "line": 1.5,
 "p": 0.42735,
 "price": 134,
 "books": 5,
 "spread": 0.06446
+},
+"Wyatt Langford": {
+"line": 1.5,
+"p": 0.42029,
+"price": 138,
+"books": 4,
+"spread": 0.05872
+},
+"Spencer Horwitz": {
+"line": 1.5,
+"p": 0.42373,
+"price": 136,
+"books": 5,
+"spread": 0.03723
 },
 "Brandon Nimmo": {
 "line": 1.5,
@@ -3665,13 +2909,6 @@
 "books": 6,
 "spread": 0.03122
 },
-"Wyatt Langford": {
-"line": 1.5,
-"p": 0.42029,
-"price": 138,
-"books": 4,
-"spread": 0.05872
-},
 "Julio Rodriguez": {
 "line": 1.5,
 "p": 0.43103,
@@ -3679,26 +2916,12 @@
 "books": 5,
 "spread": 0.04132
 },
-"Spencer Horwitz": {
-"line": 1.5,
-"p": 0.42373,
-"price": 136,
-"books": 5,
-"spread": 0.03723
-},
 "Jonah Heim": {
 "line": 1.5,
 "p": 0.42373,
 "price": 136,
 "books": 5,
 "spread": 0.06584
-},
-"Ty France": {
-"line": 0.5,
-"p": 0.62535,
-"price": -167,
-"books": 4,
-"spread": 0.28875
 },
 "William Contreras": {
 "line": 1.5,
@@ -3714,12 +2937,12 @@
 "books": 6,
 "spread": 0.04931
 },
-"Ryan Jeffers": {
-"line": 1.5,
-"p": 0.44444,
-"price": 125,
-"books": 7,
-"spread": 0.19016
+"Ty France": {
+"line": 0.5,
+"p": 0.62535,
+"price": -167,
+"books": 4,
+"spread": 0.28875
 },
 "Jacob Wilson": {
 "line": 1.5,
@@ -3734,6 +2957,13 @@
 "price": 130,
 "books": 7,
 "spread": 0.05528
+},
+"Ryan Jeffers": {
+"line": 1.5,
+"p": 0.44444,
+"price": 125,
+"books": 7,
+"spread": 0.19016
 },
 "Randy Arozarena": {
 "line": 0.5,
@@ -3784,12 +3014,12 @@
 "books": 4,
 "spread": 0.02231
 },
-"Chase DeLauter": {
+"Gabriel Moreno": {
 "line": 1.5,
-"p": 0.41152,
-"price": 143,
-"books": 5,
-"spread": 0.22323
+"p": 0.4193,
+"price": 138,
+"books": 6,
+"spread": 0.2063
 },
 "Brayan Rocchio": {
 "line": 1.5,
@@ -3798,13 +3028,6 @@
 "books": 3,
 "spread": 0.05952
 },
-"Gabriel Moreno": {
-"line": 1.5,
-"p": 0.4193,
-"price": 138,
-"books": 6,
-"spread": 0.2063
-},
 "Brett Bateman": {
 "line": 1.5,
 "p": 0.40914,
@@ -3812,19 +3035,19 @@
 "books": 4,
 "spread": 0.02978
 },
+"Chase DeLauter": {
+"line": 1.5,
+"p": 0.41152,
+"price": 143,
+"books": 5,
+"spread": 0.22323
+},
 "TJ Rumfield": {
 "line": 1.5,
 "p": 0.4,
 "price": 150,
 "books": 4,
 "spread": 0.12264
-},
-"Nick Sogard": {
-"line": 0.5,
-"p": 0.65517,
-"price": -190,
-"books": 5,
-"spread": 0.03542
 },
 "Henry Bolte": {
 "line": 1.5,
@@ -3839,6 +3062,13 @@
 "price": 155,
 "books": 5,
 "spread": 0.08016
+},
+"Nick Sogard": {
+"line": 0.5,
+"p": 0.65517,
+"price": -190,
+"books": 5,
+"spread": 0.03542
 },
 "Dane Myers": {
 "line": 1.5,
@@ -3875,13 +3105,6 @@
 "books": 5,
 "spread": 0.26866
 },
-"J.T. Realmuto": {
-"line": 1.5,
-"p": 0.41667,
-"price": 140,
-"books": 5,
-"spread": 0.05045
-},
 "Javier Sanoja": {
 "line": 0.5,
 "p": 0.64158,
@@ -3910,6 +3133,13 @@
 "books": 3,
 "spread": 0.02699
 },
+"Andrew Vaughn": {
+"line": 0.5,
+"p": 0.65517,
+"price": -190,
+"books": 3,
+"spread": 0.0262
+},
 "Chandler Simpson": {
 "line": 1.5,
 "p": 0.40816,
@@ -3923,13 +3153,6 @@
 "price": 140,
 "books": 5,
 "spread": 0.04829
-},
-"Andrew Vaughn": {
-"line": 0.5,
-"p": 0.65517,
-"price": -190,
-"books": 3,
-"spread": 0.0262
 },
 "Nolan Schanuel": {
 "line": 1.5,
@@ -3951,13 +3174,6 @@
 "price": -140,
 "books": 3,
 "spread": 0.07628
-},
-"Andres Gimenez": {
-"line": 0.5,
-"p": 0.64793,
-"price": -184,
-"books": 4,
-"spread": 0.03704
 },
 "Nick Fortes": {
 "line": 0.5,
@@ -4057,19 +3273,19 @@
 "books": 5,
 "spread": 0.06216
 },
-"Brooks Lee": {
-"line": 0.5,
-"p": 0.62264,
-"price": -165,
-"books": 5,
-"spread": 0.0345
-},
 "Jose Trevino": {
 "line": 0.5,
 "p": 0.63636,
 "price": -175,
 "books": 5,
 "spread": 0.05128
+},
+"Brooks Lee": {
+"line": 0.5,
+"p": 0.62264,
+"price": -165,
+"books": 5,
+"spread": 0.0345
 },
 "Taylor Ward": {
 "line": 0.5,
@@ -4078,19 +3294,19 @@
 "books": 5,
 "spread": 0.04052
 },
+"Dominic Canzone": {
+"line": 0.5,
+"p": 0.62963,
+"price": -170,
+"books": 5,
+"spread": 0.06102
+},
 "Victor Mesa": {
 "line": 0.5,
 "p": 0.62121,
 "price": -164,
 "books": 5,
 "spread": 0.06102
-},
-"Josh Naylor": {
-"line": 0.5,
-"p": 0.62963,
-"price": -170,
-"books": 5,
-"spread": 0.05128
 },
 "Xander Bogaerts": {
 "line": 0.5,
@@ -4099,12 +3315,12 @@
 "books": 5,
 "spread": 0.05355
 },
-"Dominic Canzone": {
+"Josh Naylor": {
 "line": 0.5,
 "p": 0.62963,
 "price": -170,
 "books": 5,
-"spread": 0.06102
+"spread": 0.05128
 },
 "Zach McKinstry": {
 "line": 0.5,
@@ -4120,6 +3336,20 @@
 "books": 5,
 "spread": 0.04974
 },
+"Kyle Isbel": {
+"line": 0.5,
+"p": 0.60784,
+"price": -155,
+"books": 5,
+"spread": 0.06304
+},
+"Brendan Donovan": {
+"line": 0.5,
+"p": 0.6139,
+"price": -159,
+"books": 5,
+"spread": 0.04912
+},
 "Cooper Pratt": {
 "line": 0.5,
 "p": 0.62162,
@@ -4133,34 +3363,6 @@
 "price": -155,
 "books": 5,
 "spread": 0.08001
-},
-"Brendan Donovan": {
-"line": 0.5,
-"p": 0.6139,
-"price": -159,
-"books": 5,
-"spread": 0.04912
-},
-"Kyle Isbel": {
-"line": 0.5,
-"p": 0.60784,
-"price": -155,
-"books": 5,
-"spread": 0.06304
-},
-"Jake Rogers": {
-"line": 0.5,
-"p": 0.6,
-"price": -150,
-"books": 1,
-"spread": 0.0
-},
-"Christian Koss": {
-"line": 0.5,
-"p": 0.59184,
-"price": -145,
-"books": 5,
-"spread": 0.03352
 },
 "Brandon Valenzuela": {
 "line": 0.5,
@@ -4176,12 +3378,19 @@
 "books": 5,
 "spread": 0.17781
 },
-"Travis Bazzana": {
+"Christian Koss": {
 "line": 0.5,
-"p": 0.58506,
-"price": -141,
-"books": 3,
-"spread": 0.02662
+"p": 0.59184,
+"price": -145,
+"books": 5,
+"spread": 0.03352
+},
+"Jake Rogers": {
+"line": 0.5,
+"p": 0.6,
+"price": -150,
+"books": 1,
+"spread": 0.0
 },
 "Cam Smith": {
 "line": 0.5,
@@ -4190,12 +3399,12 @@
 "books": 5,
 "spread": 0.07458
 },
-"Myles Straw": {
+"Travis Bazzana": {
 "line": 0.5,
-"p": 0.6,
-"price": -150,
-"books": 5,
-"spread": 0.05788
+"p": 0.58506,
+"price": -141,
+"books": 3,
+"spread": 0.02662
 },
 "Colt Keith": {
 "line": 0.5,
@@ -4203,6 +3412,13 @@
 "price": -190,
 "books": 5,
 "spread": 0.11972
+},
+"Myles Straw": {
+"line": 0.5,
+"p": 0.6,
+"price": -150,
+"books": 5,
+"spread": 0.05788
 },
 "Richie Palacios": {
 "line": 0.5,
@@ -4218,12 +3434,12 @@
 "books": 5,
 "spread": 0.10938
 },
-"Nicky Lopez": {
+"Nasim Nunez": {
 "line": 0.5,
-"p": 0.55357,
-"price": -124,
+"p": 0.56332,
+"price": -129,
 "books": 5,
-"spread": 0.08159
+"spread": 0.06939
 },
 "Garrett Stubbs": {
 "line": 0.5,
@@ -4232,33 +3448,12 @@
 "books": 4,
 "spread": 0.02351
 },
-"Nasim Nunez": {
+"Nicky Lopez": {
 "line": 0.5,
-"p": 0.56332,
-"price": -129,
+"p": 0.55357,
+"price": -124,
 "books": 5,
-"spread": 0.06939
-},
-"Ryan Waldschmidt": {
-"line": 0.5,
-"p": 0.54499,
-"price": -120,
-"books": 4,
-"spread": 0.05066
-},
-"Taylor Trammell": {
-"line": 0.5,
-"p": 0.52381,
-"price": -110,
-"books": 5,
-"spread": 0.11565
-},
-"Tristan Peters": {
-"line": 0.5,
-"p": 0.52381,
-"price": -110,
-"books": 3,
-"spread": 0.03326
+"spread": 0.08159
 },
 "Willy Adames": {
 "line": 0.5,
@@ -4267,12 +3462,40 @@
 "books": 5,
 "spread": 0.14724
 },
+"Tristan Peters": {
+"line": 0.5,
+"p": 0.52381,
+"price": -110,
+"books": 3,
+"spread": 0.03326
+},
+"Taylor Trammell": {
+"line": 0.5,
+"p": 0.52381,
+"price": -110,
+"books": 5,
+"spread": 0.11565
+},
+"Ryan Waldschmidt": {
+"line": 0.5,
+"p": 0.54499,
+"price": -120,
+"books": 4,
+"spread": 0.05066
+},
 "Austin Hedges": {
 "line": 0.5,
 "p": 0.52716,
 "price": -111,
 "books": 4,
 "spread": 0.03175
+},
+"Willi Castro": {
+"line": 0.5,
+"p": 0.65517,
+"price": -190,
+"books": 5,
+"spread": 0.25901
 },
 "Pedro Pages": {
 "line": 0.5,
@@ -4288,33 +3511,26 @@
 "books": 4,
 "spread": 0.23088
 },
-"Jordan Beck": {
+"Cal Raleigh": {
 "line": 0.5,
-"p": 0.59514,
-"price": -147,
+"p": 0.52381,
+"price": -110,
 "books": 5,
-"spread": 0.05455
+"spread": 0.06775
 },
-"Willi Castro": {
+"Lars Nootbaar": {
 "line": 0.5,
-"p": 0.65517,
-"price": -190,
+"p": 0.60317,
+"price": -152,
 "books": 5,
-"spread": 0.25901
+"spread": 0.24501
 },
-"Tyler Freeman": {
+"Nolan Arenado": {
 "line": 0.5,
-"p": 0.62264,
-"price": -165,
+"p": 0.57447,
+"price": -135,
 "books": 5,
-"spread": 0.26289
-},
-"Luke Keaschall": {
-"line": 0.5,
-"p": 0.65809,
-"price": -192,
-"books": 4,
-"spread": 0.03247
+"spread": 0.23654
 },
 "Mickey Moniak": {
 "line": 0.5,
@@ -4323,6 +3539,20 @@
 "books": 2,
 "spread": 0.01506
 },
+"Tyler Freeman": {
+"line": 0.5,
+"p": 0.62264,
+"price": -165,
+"books": 5,
+"spread": 0.26289
+},
+"Jordan Beck": {
+"line": 0.5,
+"p": 0.59514,
+"price": -147,
+"books": 5,
+"spread": 0.05455
+},
 "Everson Pereira": {
 "line": 0.5,
 "p": 0.57356,
@@ -4330,26 +3560,19 @@
 "books": 4,
 "spread": 0.11849
 },
-"Christian Encarnacion-Strand": {
+"Carlos Narvaez": {
 "line": 0.5,
-"p": 0.59005,
-"price": -144,
+"p": 0.4717,
+"price": 112,
+"books": 5,
+"spread": 0.04794
+},
+"Dylan Beavers": {
+"line": 0.5,
+"p": 0.56984,
+"price": -132,
 "books": 4,
-"spread": 0.07636
-},
-"Colton Cowser": {
-"line": 0.5,
-"p": 0.5,
-"price": -100,
-"books": 5,
-"spread": 0.15027
-},
-"Jake Burger": {
-"line": 0.5,
-"p": 0.6063,
-"price": -154,
-"books": 5,
-"spread": 0.04158
+"spread": 0.29861
 },
 "Tyler O'Neill": {
 "line": 0.5,
@@ -4365,26 +3588,12 @@
 "books": 5,
 "spread": 0.04141
 },
-"Coby Mayo": {
-"line": 0.5,
-"p": 0.51923,
-"price": -108,
-"books": 5,
-"spread": 0.03735
-},
 "Evan Carter": {
 "line": 0.5,
 "p": 0.55556,
 "price": -125,
 "books": 5,
 "spread": 0.05772
-},
-"Ezequiel Tovar": {
-"line": 0.5,
-"p": 0.58506,
-"price": -141,
-"books": 5,
-"spread": 0.03205
 },
 "Colt Emerson": {
 "line": 0.5,
@@ -4393,26 +3602,12 @@
 "books": 4,
 "spread": 0.04708
 },
-"Garrett Mitchell": {
+"Christian Encarnacion-Strand": {
 "line": 0.5,
-"p": 0.59184,
-"price": -145,
-"books": 5,
-"spread": 0.22009
-},
-"Carlos Narvaez": {
-"line": 0.5,
-"p": 0.4717,
-"price": 112,
-"books": 5,
-"spread": 0.04794
-},
-"Matt McLain": {
-"line": 0.5,
-"p": 0.62963,
-"price": -170,
-"books": 5,
-"spread": 0.30666
+"p": 0.59005,
+"price": -144,
+"books": 4,
+"spread": 0.07636
 },
 "Leody Taveras": {
 "line": 0.5,
@@ -4421,6 +3616,20 @@
 "books": 5,
 "spread": 0.25514
 },
+"Coby Mayo": {
+"line": 0.5,
+"p": 0.51923,
+"price": -108,
+"books": 5,
+"spread": 0.03735
+},
+"Ezequiel Tovar": {
+"line": 0.5,
+"p": 0.58506,
+"price": -141,
+"books": 5,
+"spread": 0.03205
+},
 "Kody Clemens": {
 "line": 0.5,
 "p": 0.6,
@@ -4428,19 +3637,33 @@
 "books": 5,
 "spread": 0.14539
 },
+"David Hamilton": {
+"line": 0.5,
+"p": 0.49261,
+"price": 103,
+"books": 5,
+"spread": 0.04534
+},
+"Matt McLain": {
+"line": 0.5,
+"p": 0.62963,
+"price": -170,
+"books": 5,
+"spread": 0.30666
+},
+"Garrett Mitchell": {
+"line": 0.5,
+"p": 0.59184,
+"price": -145,
+"books": 5,
+"spread": 0.22009
+},
 "Ryan Kreidler": {
 "line": 0.5,
 "p": 0.57447,
 "price": -135,
 "books": 5,
 "spread": 0.03292
-},
-"Dylan Beavers": {
-"line": 0.5,
-"p": 0.56984,
-"price": -132,
-"books": 4,
-"spread": 0.29861
 },
 "Jake Bauers": {
 "line": 0.5,
@@ -4463,19 +3686,19 @@
 "books": 5,
 "spread": 0.04108
 },
-"David Hamilton": {
+"Luis Lara": {
 "line": 0.5,
-"p": 0.49261,
-"price": 103,
-"books": 5,
-"spread": 0.04534
+"p": 0.57356,
+"price": -134,
+"books": 4,
+"spread": 0.02992
 },
-"Cal Raleigh": {
+"Sam Antonacci": {
 "line": 0.5,
-"p": 0.52381,
-"price": -110,
-"books": 5,
-"spread": 0.06775
+"p": 0.64912,
+"price": -185,
+"books": 3,
+"spread": 0.14298
 },
 "Braden Montgomery": {
 "line": 0.5,
@@ -4491,6 +3714,13 @@
 "books": 1,
 "spread": 0.0
 },
+"Colson Montgomery": {
+"line": 0.5,
+"p": 0.54545,
+"price": -120,
+"books": 4,
+"spread": 0.24113
+},
 "Chase Meidroth": {
 "line": 0.5,
 "p": 0.55534,
@@ -4498,26 +3728,12 @@
 "books": 4,
 "spread": 0.08903
 },
-"Rhys Hoskins": {
+"Colton Cowser": {
 "line": 0.5,
-"p": 0.55153,
-"price": -123,
-"books": 4,
-"spread": 0.10935
-},
-"Luis Lara": {
-"line": 0.5,
-"p": 0.57356,
-"price": -134,
-"books": 4,
-"spread": 0.02992
-},
-"Sam Antonacci": {
-"line": 0.5,
-"p": 0.64912,
-"price": -185,
-"books": 3,
-"spread": 0.14298
+"p": 0.5,
+"price": -100,
+"books": 5,
+"spread": 0.15027
 },
 "Munetaka Murakami": {
 "line": 0.5,
@@ -4526,385 +3742,28 @@
 "books": 3,
 "spread": 0.22359
 },
-"Colson Montgomery": {
+"Rhys Hoskins": {
 "line": 0.5,
-"p": 0.54545,
-"price": -120,
+"p": 0.55153,
+"price": -123,
 "books": 4,
-"spread": 0.24113
+"spread": 0.10935
+},
+"Luke Keaschall": {
+"line": 0.5,
+"p": 0.65809,
+"price": -192,
+"books": 4,
+"spread": 0.03247
 }
 },
 "rbi": {
-"Dillon Dingler": {
-"line": 0.5,
-"p": 0.38839,
-"price": 157,
-"books": 6,
-"spread": 0.04453
-},
-"Teoscar Hernandez": {
-"line": 0.5,
-"p": 0.38611,
-"price": 159,
-"books": 6,
-"spread": 0.04912
-},
-"Tommy Edman": {
-"line": 0.5,
-"p": 0.367,
-"price": 172,
-"books": 6,
-"spread": 0.03348
-},
-"Max Clark": {
-"line": 0.5,
-"p": 0.32796,
-"price": 205,
-"books": 6,
-"spread": 0.4375
-},
-"Josh Naylor": {
-"line": 0.5,
-"p": 0.32002,
-"price": 212,
-"books": 6,
-"spread": 0.05099
-},
-"Cal Raleigh": {
-"line": 0.5,
-"p": 0.33841,
-"price": 195,
-"books": 6,
-"spread": 0.05539
-},
-"Connor Wong": {
-"line": 0.5,
-"p": 0.35274,
-"price": 183,
-"books": 6,
-"spread": 0.0354
-},
-"Victor Mesa": {
-"line": 0.5,
-"p": 0.3306,
-"price": 202,
-"books": 6,
-"spread": 0.44697
-},
-"Hunter Feduccia": {
-"line": 0.5,
-"p": 0.30777,
-"price": 225,
-"books": 6,
-"spread": 0.5208
-},
-"Xavier Edwards": {
-"line": 0.5,
-"p": 0.32258,
-"price": 210,
-"books": 5,
-"spread": 0.44762
-},
-"Gleyber Torres": {
-"line": 0.5,
-"p": 0.32796,
-"price": 205,
-"books": 6,
-"spread": 0.04442
-},
-"Kevin McGonigle": {
-"line": 0.5,
-"p": 0.34247,
-"price": 192,
-"books": 5,
-"spread": 0.40546
-},
-"Zach McKinstry": {
-"line": 0.5,
-"p": 0.28778,
-"price": 247,
-"books": 6,
-"spread": 0.04248
-},
-"Wade Meckler": {
-"line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 5,
-"spread": 0.09688
-},
-"Otto Lopez": {
-"line": 0.5,
-"p": 0.4,
-"price": 150,
-"books": 5,
-"spread": 0.35784
-},
-"Masataka Yoshida": {
-"line": 0.5,
-"p": 0.37736,
-"price": 165,
-"books": 1,
-"spread": 0.0
-},
-"Randy Arozarena": {
-"line": 0.5,
-"p": 0.33333,
-"price": 200,
-"books": 6,
-"spread": 0.0538
-},
-"Colt Keith": {
-"line": 0.5,
-"p": 0.34602,
-"price": 189,
-"books": 6,
-"spread": 0.08882
-},
-"Eli White": {
-"line": 0.5,
-"p": 0.36814,
-"price": 172,
-"books": 6,
-"spread": 0.58429
-},
-"Junior Caminero": {
-"line": 0.5,
-"p": 0.39763,
-"price": 151,
-"books": 6,
-"spread": 0.05881
-},
-"Javier Sanoja": {
-"line": 0.5,
-"p": 0.29857,
-"price": 235,
-"books": 6,
-"spread": 0.05558
-},
-"Alika Williams": {
-"line": 0.5,
-"p": 0.23529,
-"price": 325,
-"books": 5,
-"spread": 0.06997
-},
-"Jahmai Jones": {
-"line": 0.5,
-"p": 0.3368,
-"price": 197,
-"books": 6,
-"spread": 0.46581
-},
 "Jonathan Ornelas": {
 "line": 0.5,
 "p": 0.24846,
 "price": 302,
 "books": 6,
 "spread": 0.07276
-},
-"Jake Rogers": {
-"line": 0.5,
-"p": 0.40816,
-"price": 145,
-"books": 1,
-"spread": 0.0
-},
-"Julio Rodriguez": {
-"line": 0.5,
-"p": 0.37116,
-"price": 169,
-"books": 6,
-"spread": 0.03196
-},
-"Dominic Canzone": {
-"line": 0.5,
-"p": 0.38839,
-"price": 157,
-"books": 6,
-"spread": 0.04286
-},
-"Jonathan Aranda": {
-"line": 0.5,
-"p": 0.3306,
-"price": 202,
-"books": 6,
-"spread": 0.02764
-},
-"Nick Fortes": {
-"line": 0.5,
-"p": 0.29674,
-"price": 237,
-"books": 5,
-"spread": 0.07258
-},
-"Bryce Eldridge": {
-"line": 0.5,
-"p": 0.34483,
-"price": 190,
-"books": 5,
-"spread": 0.39964
-},
-"Yandy Diaz": {
-"line": 0.5,
-"p": 0.3125,
-"price": 220,
-"books": 6,
-"spread": 0.04902
-},
-"Christian Encarnacion-Strand": {
-"line": 0.5,
-"p": 0.33616,
-"price": 197,
-"books": 6,
-"spread": 0.0418
-},
-"Brendan Donovan": {
-"line": 0.5,
-"p": 0.31025,
-"price": 222,
-"books": 6,
-"spread": 0.06667
-},
-"Gavin Sheets": {
-"line": 0.5,
-"p": 0.28992,
-"price": 245,
-"books": 6,
-"spread": 0.05907
-},
-"Cedric Mullins": {
-"line": 0.5,
-"p": 0.31746,
-"price": 215,
-"books": 6,
-"spread": 0.44697
-},
-"Xander Bogaerts": {
-"line": 0.5,
-"p": 0.30777,
-"price": 225,
-"books": 6,
-"spread": 0.06871
-},
-"Cole Young": {
-"line": 0.5,
-"p": 0.29437,
-"price": 240,
-"books": 6,
-"spread": 0.03985
-},
-"Tim Tawa": {
-"line": 0.5,
-"p": 0.27032,
-"price": 270,
-"books": 6,
-"spread": 0.0494
-},
-"Josh Lowe": {
-"line": 0.5,
-"p": 0.26491,
-"price": 277,
-"books": 6,
-"spread": 0.03771
-},
-"Owen Caissie": {
-"line": 0.5,
-"p": 0.28571,
-"price": 250,
-"books": 5,
-"spread": 0.05127
-},
-"Heriberto Hernandez": {
-"line": 0.5,
-"p": 0.33458,
-"price": 199,
-"books": 6,
-"spread": 0.09536
-},
-"Joe Mack": {
-"line": 0.5,
-"p": 0.29851,
-"price": 235,
-"books": 5,
-"spread": 0.03896
-},
-"Tyler Heineman": {
-"line": 0.5,
-"p": 0.22876,
-"price": 337,
-"books": 6,
-"spread": 0.08245
-},
-"Geraldo Perdomo": {
-"line": 0.5,
-"p": 0.24423,
-"price": 309,
-"books": 6,
-"spread": 0.05646
-},
-"Moises Ballesteros": {
-"line": 0.5,
-"p": 0.28992,
-"price": 245,
-"books": 6,
-"spread": 0.19919
-},
-"Travis d'Arnaud": {
-"line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 3,
-"spread": 0.0571
-},
-"Chandler Simpson": {
-"line": 0.5,
-"p": 0.27778,
-"price": 260,
-"books": 6,
-"spread": 0.04486
-},
-"Taylor Ward": {
-"line": 0.5,
-"p": 0.2837,
-"price": 252,
-"books": 6,
-"spread": 0.53925
-},
-"Denzer Guzman": {
-"line": 0.5,
-"p": 0.28571,
-"price": 250,
-"books": 5,
-"spread": 0.0421
-},
-"Vaughn Grissom": {
-"line": 0.5,
-"p": 0.33333,
-"price": 200,
-"books": 5,
-"spread": 0.20995
-},
-"Cam Smith": {
-"line": 0.5,
-"p": 0.28175,
-"price": 255,
-"books": 6,
-"spread": 0.03933
-},
-"Oswald Peraza": {
-"line": 0.5,
-"p": 0.24585,
-"price": 307,
-"books": 6,
-"spread": 0.06513
-},
-"Drew Cavanaugh": {
-"line": 0.5,
-"p": 0.28439,
-"price": 252,
-"books": 4,
-"spread": 0.51462
 },
 "Nick Sogard": {
 "line": 0.5,
@@ -4913,208 +3772,40 @@
 "books": 6,
 "spread": 0.04403
 },
-"Griffin Conine": {
+"Wilyer Abreu": {
 "line": 0.5,
-"p": 0.35089,
-"price": 185,
+"p": 0.42922,
+"price": 133,
 "books": 6,
-"spread": 0.4303
+"spread": 0.05455
 },
-"Zach Neto": {
+"Jahmai Jones": {
 "line": 0.5,
-"p": 0.33908,
-"price": 195,
+"p": 0.3368,
+"price": 197,
 "books": 6,
-"spread": 0.09965
+"spread": 0.46581
 },
-"Taylor Trammell": {
-"line": 0.5,
-"p": 0.27418,
-"price": 265,
-"books": 6,
-"spread": 0.05675
-},
-"Christian Koss": {
-"line": 0.5,
-"p": 0.26491,
-"price": 277,
-"books": 6,
-"spread": 0.04662
-},
-"Richie Palacios": {
-"line": 0.5,
-"p": 0.24846,
-"price": 302,
-"books": 6,
-"spread": 0.58562
-},
-"Ozzie Albies": {
-"line": 0.5,
-"p": 0.34306,
-"price": 191,
-"books": 6,
-"spread": 0.15712
-},
-"Ronald Acuna": {
-"line": 0.5,
-"p": 0.37749,
-"price": 165,
-"books": 6,
-"spread": 0.10972
-},
-"Amed Rosario": {
-"line": 0.5,
-"p": 0.28992,
-"price": 245,
-"books": 6,
-"spread": 0.17236
-},
-"Colt Emerson": {
-"line": 0.5,
-"p": 0.2411,
-"price": 315,
-"books": 4,
-"spread": 0.01744
-},
-"Michael Harris": {
-"line": 0.5,
-"p": 0.39841,
-"price": 151,
-"books": 6,
-"spread": 0.18312
-},
-"Heliot Ramos": {
-"line": 0.5,
-"p": 0.33333,
-"price": 200,
-"books": 6,
-"spread": 0.05411
-},
-"Matt Olson": {
-"line": 0.5,
-"p": 0.41667,
-"price": 140,
-"books": 6,
-"spread": 0.04074
-},
-"George Lombard": {
-"line": 0.5,
-"p": 0.27027,
-"price": 270,
-"books": 5,
-"spread": 0.04389
-},
-"Austin Wynns": {
-"line": 0.5,
-"p": 0.25974,
-"price": 285,
-"books": 5,
-"spread": 0.06774
-},
-"Drake Baldwin": {
-"line": 0.5,
-"p": 0.367,
-"price": 172,
-"books": 6,
-"spread": 0.06588
-},
-"Carlos Narvaez": {
-"line": 0.5,
-"p": 0.22475,
-"price": 345,
-"books": 6,
-"spread": 0.0849
-},
-"Austin Wells": {
-"line": 0.5,
-"p": 0.241,
-"price": 315,
-"books": 6,
-"spread": 0.0573
-},
-"Spencer Jones": {
+"Alika Williams": {
 "line": 0.5,
 "p": 0.23529,
 "price": 325,
 "books": 5,
-"spread": 0.0573
+"spread": 0.06997
 },
-"Colton Cowser": {
+"Connor Wong": {
 "line": 0.5,
-"p": 0.25321,
-"price": 295,
+"p": 0.35274,
+"price": 183,
 "books": 6,
-"spread": 0.6136
+"spread": 0.0354
 },
-"Trent Grisham": {
+"Eli White": {
 "line": 0.5,
-"p": 0.2967,
-"price": 237,
+"p": 0.36814,
+"price": 172,
 "books": 6,
-"spread": 0.0758
-},
-"Paul Goldschmidt": {
-"line": 0.5,
-"p": 0.33616,
-"price": 197,
-"books": 6,
-"spread": 0.05158
-},
-"Luis Garcia": {
-"line": 0.5,
-"p": 0.32258,
-"price": 210,
-"books": 1,
-"spread": 0.0
-},
-"Andruw Monasterio": {
-"line": 0.5,
-"p": 0.43478,
-"price": 130,
-"books": 5,
-"spread": 0.26102
-},
-"Mike Trout": {
-"line": 0.5,
-"p": 0.32908,
-"price": 204,
-"books": 6,
-"spread": 0.1807
-},
-"Tyler Soderstrom": {
-"line": 0.5,
-"p": 0.32292,
-"price": 210,
-"books": 6,
-"spread": 0.1431
-},
-"Henry Bolte": {
-"line": 0.5,
-"p": 0.28986,
-"price": 245,
-"books": 5,
-"spread": 0.10493
-},
-"Jonah Heim": {
-"line": 0.5,
-"p": 0.32522,
-"price": 207,
-"books": 6,
-"spread": 0.1401
-},
-"Ceddanne Rafaela": {
-"line": 0.5,
-"p": 0.40833,
-"price": 145,
-"books": 6,
-"spread": 0.36364
-},
-"Christian Vazquez": {
-"line": 0.5,
-"p": 0.22876,
-"price": 337,
-"books": 4,
-"spread": 0.01307
+"spread": 0.58429
 },
 "Jarren Duran": {
 "line": 0.5,
@@ -5130,6 +3821,13 @@
 "books": 5,
 "spread": 0.16573
 },
+"Henry Bolte": {
+"line": 0.5,
+"p": 0.28986,
+"price": 245,
+"books": 5,
+"spread": 0.10493
+},
 "Lawrence Butler": {
 "line": 0.5,
 "p": 0.27973,
@@ -5144,19 +3842,453 @@
 "books": 6,
 "spread": 0.03478
 },
-"Willson Contreras": {
+"Tyler Soderstrom": {
 "line": 0.5,
-"p": 0.4844,
-"price": 106,
+"p": 0.32292,
+"price": 210,
 "books": 6,
-"spread": 0.1634
+"spread": 0.1431
 },
-"James McCann": {
+"Jonah Heim": {
 "line": 0.5,
-"p": 0.26667,
-"price": 275,
+"p": 0.32522,
+"price": 207,
+"books": 6,
+"spread": 0.1401
+},
+"Jake Rogers": {
+"line": 0.5,
+"p": 0.40816,
+"price": 145,
+"books": 1,
+"spread": 0.0
+},
+"Ceddanne Rafaela": {
+"line": 0.5,
+"p": 0.40833,
+"price": 145,
+"books": 6,
+"spread": 0.36364
+},
+"Xavier Edwards": {
+"line": 0.5,
+"p": 0.32258,
+"price": 210,
 "books": 5,
-"spread": 0.03344
+"spread": 0.44762
+},
+"Otto Lopez": {
+"line": 0.5,
+"p": 0.4,
+"price": 150,
+"books": 5,
+"spread": 0.35784
+},
+"Owen Caissie": {
+"line": 0.5,
+"p": 0.28571,
+"price": 250,
+"books": 5,
+"spread": 0.05127
+},
+"Heriberto Hernandez": {
+"line": 0.5,
+"p": 0.33458,
+"price": 199,
+"books": 6,
+"spread": 0.09536
+},
+"Dillon Dingler": {
+"line": 0.5,
+"p": 0.38839,
+"price": 157,
+"books": 6,
+"spread": 0.04453
+},
+"Josh Lowe": {
+"line": 0.5,
+"p": 0.26491,
+"price": 277,
+"books": 6,
+"spread": 0.03771
+},
+"Joe Mack": {
+"line": 0.5,
+"p": 0.29851,
+"price": 235,
+"books": 5,
+"spread": 0.03896
+},
+"Moises Ballesteros": {
+"line": 0.5,
+"p": 0.28992,
+"price": 245,
+"books": 6,
+"spread": 0.19919
+},
+"Tyler Heineman": {
+"line": 0.5,
+"p": 0.22876,
+"price": 337,
+"books": 6,
+"spread": 0.08245
+},
+"Griffin Conine": {
+"line": 0.5,
+"p": 0.35089,
+"price": 185,
+"books": 6,
+"spread": 0.4303
+},
+"Zach Neto": {
+"line": 0.5,
+"p": 0.33908,
+"price": 195,
+"books": 6,
+"spread": 0.09965
+},
+"Travis d'Arnaud": {
+"line": 0.5,
+"p": 0.25,
+"price": 300,
+"books": 3,
+"spread": 0.0571
+},
+"Javier Sanoja": {
+"line": 0.5,
+"p": 0.29857,
+"price": 235,
+"books": 6,
+"spread": 0.05558
+},
+"Wade Meckler": {
+"line": 0.5,
+"p": 0.25,
+"price": 300,
+"books": 5,
+"spread": 0.09688
+},
+"Vaughn Grissom": {
+"line": 0.5,
+"p": 0.33333,
+"price": 200,
+"books": 5,
+"spread": 0.20995
+},
+"Denzer Guzman": {
+"line": 0.5,
+"p": 0.28571,
+"price": 250,
+"books": 5,
+"spread": 0.0421
+},
+"Oswald Peraza": {
+"line": 0.5,
+"p": 0.24585,
+"price": 307,
+"books": 6,
+"spread": 0.06513
+},
+"Junior Caminero": {
+"line": 0.5,
+"p": 0.39763,
+"price": 151,
+"books": 6,
+"spread": 0.05881
+},
+"Brian Serven": {
+"line": 0.5,
+"p": 0.30303,
+"price": 230,
+"books": 5,
+"spread": 0.54248
+},
+"Teoscar Hernandez": {
+"line": 0.5,
+"p": 0.38611,
+"price": 159,
+"books": 6,
+"spread": 0.04912
+},
+"Andruw Monasterio": {
+"line": 0.5,
+"p": 0.43478,
+"price": 130,
+"books": 5,
+"spread": 0.26102
+},
+"Matt Olson": {
+"line": 0.5,
+"p": 0.41667,
+"price": 140,
+"books": 6,
+"spread": 0.04074
+},
+"Heliot Ramos": {
+"line": 0.5,
+"p": 0.33333,
+"price": 200,
+"books": 6,
+"spread": 0.05411
+},
+"Michael Harris": {
+"line": 0.5,
+"p": 0.39841,
+"price": 151,
+"books": 6,
+"spread": 0.18312
+},
+"Luis Garcia": {
+"line": 0.5,
+"p": 0.32258,
+"price": 210,
+"books": 1,
+"spread": 0.0
+},
+"Amed Rosario": {
+"line": 0.5,
+"p": 0.28992,
+"price": 245,
+"books": 6,
+"spread": 0.17236
+},
+"Masataka Yoshida": {
+"line": 0.5,
+"p": 0.37736,
+"price": 165,
+"books": 1,
+"spread": 0.0
+},
+"Julio Rodriguez": {
+"line": 0.5,
+"p": 0.37116,
+"price": 169,
+"books": 6,
+"spread": 0.03196
+},
+"Tommy Edman": {
+"line": 0.5,
+"p": 0.367,
+"price": 172,
+"books": 6,
+"spread": 0.03348
+},
+"Dominic Canzone": {
+"line": 0.5,
+"p": 0.38839,
+"price": 157,
+"books": 6,
+"spread": 0.04286
+},
+"Paul Goldschmidt": {
+"line": 0.5,
+"p": 0.33616,
+"price": 197,
+"books": 6,
+"spread": 0.05158
+},
+"Max Clark": {
+"line": 0.5,
+"p": 0.32796,
+"price": 205,
+"books": 6,
+"spread": 0.4375
+},
+"Spencer Jones": {
+"line": 0.5,
+"p": 0.23529,
+"price": 325,
+"books": 5,
+"spread": 0.0573
+},
+"Ozzie Albies": {
+"line": 0.5,
+"p": 0.34306,
+"price": 191,
+"books": 6,
+"spread": 0.15712
+},
+"Kevin McGonigle": {
+"line": 0.5,
+"p": 0.34247,
+"price": 192,
+"books": 5,
+"spread": 0.40546
+},
+"Ronald Acuna": {
+"line": 0.5,
+"p": 0.37749,
+"price": 165,
+"books": 6,
+"spread": 0.10972
+},
+"Randy Arozarena": {
+"line": 0.5,
+"p": 0.33333,
+"price": 200,
+"books": 6,
+"spread": 0.0538
+},
+"Victor Mesa": {
+"line": 0.5,
+"p": 0.3306,
+"price": 202,
+"books": 6,
+"spread": 0.44697
+},
+"George Lombard": {
+"line": 0.5,
+"p": 0.27027,
+"price": 270,
+"books": 5,
+"spread": 0.04389
+},
+"Trent Grisham": {
+"line": 0.5,
+"p": 0.2967,
+"price": 237,
+"books": 6,
+"spread": 0.0758
+},
+"Gleyber Torres": {
+"line": 0.5,
+"p": 0.32796,
+"price": 205,
+"books": 6,
+"spread": 0.04442
+},
+"Jonathan Aranda": {
+"line": 0.5,
+"p": 0.3306,
+"price": 202,
+"books": 6,
+"spread": 0.02764
+},
+"Yandy Diaz": {
+"line": 0.5,
+"p": 0.3125,
+"price": 220,
+"books": 6,
+"spread": 0.04902
+},
+"Nick Fortes": {
+"line": 0.5,
+"p": 0.29674,
+"price": 237,
+"books": 5,
+"spread": 0.07258
+},
+"Bryce Eldridge": {
+"line": 0.5,
+"p": 0.34483,
+"price": 190,
+"books": 5,
+"spread": 0.39964
+},
+"Josh Naylor": {
+"line": 0.5,
+"p": 0.32002,
+"price": 212,
+"books": 6,
+"spread": 0.05099
+},
+"Christian Encarnacion-Strand": {
+"line": 0.5,
+"p": 0.33616,
+"price": 197,
+"books": 6,
+"spread": 0.0418
+},
+"Zach McKinstry": {
+"line": 0.5,
+"p": 0.28778,
+"price": 247,
+"books": 6,
+"spread": 0.04248
+},
+"Gavin Sheets": {
+"line": 0.5,
+"p": 0.28992,
+"price": 245,
+"books": 6,
+"spread": 0.05907
+},
+"Xander Bogaerts": {
+"line": 0.5,
+"p": 0.30777,
+"price": 225,
+"books": 6,
+"spread": 0.06871
+},
+"Hunter Feduccia": {
+"line": 0.5,
+"p": 0.30777,
+"price": 225,
+"books": 6,
+"spread": 0.5208
+},
+"Cedric Mullins": {
+"line": 0.5,
+"p": 0.31746,
+"price": 215,
+"books": 6,
+"spread": 0.44697
+},
+"Brendan Donovan": {
+"line": 0.5,
+"p": 0.31025,
+"price": 222,
+"books": 6,
+"spread": 0.06667
+},
+"Cal Raleigh": {
+"line": 0.5,
+"p": 0.33841,
+"price": 195,
+"books": 6,
+"spread": 0.05539
+},
+"Tim Tawa": {
+"line": 0.5,
+"p": 0.27032,
+"price": 270,
+"books": 6,
+"spread": 0.0494
+},
+"Cole Young": {
+"line": 0.5,
+"p": 0.29437,
+"price": 240,
+"books": 6,
+"spread": 0.03985
+},
+"Colt Keith": {
+"line": 0.5,
+"p": 0.34602,
+"price": 189,
+"books": 6,
+"spread": 0.08882
+},
+"Geraldo Perdomo": {
+"line": 0.5,
+"p": 0.24423,
+"price": 309,
+"books": 6,
+"spread": 0.05646
+},
+"Taylor Ward": {
+"line": 0.5,
+"p": 0.2837,
+"price": 252,
+"books": 6,
+"spread": 0.53925
+},
+"Cam Smith": {
+"line": 0.5,
+"p": 0.28175,
+"price": 255,
+"books": 6,
+"spread": 0.03933
 },
 "Max Muncy": {
 "line": 0.5,
@@ -5165,12 +4297,19 @@
 "books": 5,
 "spread": 0.38455
 },
-"Eddys Leonard": {
+"Chandler Simpson": {
 "line": 0.5,
-"p": 0.2605,
-"price": 284,
+"p": 0.27778,
+"price": 260,
+"books": 6,
+"spread": 0.04486
+},
+"Drew Cavanaugh": {
+"line": 0.5,
+"p": 0.28439,
+"price": 252,
 "books": 4,
-"spread": 0.0829
+"spread": 0.51462
 },
 "Jacob Wilson": {
 "line": 0.5,
@@ -5186,40 +4325,117 @@
 "books": 6,
 "spread": 0.45556
 },
-"Brian Serven": {
+"Willson Contreras": {
 "line": 0.5,
-"p": 0.30303,
-"price": 230,
+"p": 0.4844,
+"price": 106,
+"books": 6,
+"spread": 0.1634
+},
+"Taylor Trammell": {
+"line": 0.5,
+"p": 0.27418,
+"price": 265,
+"books": 6,
+"spread": 0.05675
+},
+"Nolan Arenado": {
+"line": 0.5,
+"p": 0.28992,
+"price": 245,
+"books": 6,
+"spread": 0.04934
+},
+"Christian Koss": {
+"line": 0.5,
+"p": 0.26491,
+"price": 277,
+"books": 6,
+"spread": 0.04662
+},
+"James McCann": {
+"line": 0.5,
+"p": 0.26667,
+"price": 275,
 "books": 5,
-"spread": 0.54248
+"spread": 0.03344
 },
-"Wilyer Abreu": {
+"Colton Cowser": {
 "line": 0.5,
-"p": 0.42922,
-"price": 133,
+"p": 0.25321,
+"price": 295,
 "books": 6,
-"spread": 0.05455
+"spread": 0.6136
 },
-"Nolan Schanuel": {
+"Richie Palacios": {
 "line": 0.5,
-"p": 0.32258,
-"price": 210,
+"p": 0.24846,
+"price": 302,
 "books": 6,
-"spread": 0.07143
+"spread": 0.58562
 },
-"Christian Yelich": {
+"Colt Emerson": {
 "line": 0.5,
-"p": 0.3306,
-"price": 202,
-"books": 6,
-"spread": 0.07271
+"p": 0.2411,
+"price": 315,
+"books": 4,
+"spread": 0.01744
 },
-"Jac Caglianone": {
+"Eddys Leonard": {
 "line": 0.5,
-"p": 0.4,
-"price": 150,
+"p": 0.2605,
+"price": 284,
+"books": 4,
+"spread": 0.0829
+},
+"Austin Wynns": {
+"line": 0.5,
+"p": 0.25974,
+"price": 285,
 "books": 5,
-"spread": 0.01435
+"spread": 0.06774
+},
+"Mookie Betts": {
+"line": 0.5,
+"p": 0.41097,
+"price": 143,
+"books": 6,
+"spread": 0.42423
+},
+"Carlos Narvaez": {
+"line": 0.5,
+"p": 0.22475,
+"price": 345,
+"books": 6,
+"spread": 0.0849
+},
+"Shohei Ohtani": {
+"line": 0.5,
+"p": 0.41667,
+"price": 140,
+"books": 6,
+"spread": 0.24443
+},
+"Lars Nootbaar": {
+"line": 0.5,
+"p": 0.29857,
+"price": 235,
+"books": 6,
+"spread": 0.10718
+},
+"Christian Vazquez": {
+"line": 0.5,
+"p": 0.22876,
+"price": 337,
+"books": 4,
+"spread": 0.01307
+},
+"Mike Trout": {
+"line": 0.5,
+"p": 0.32908,
+"price": 204,
+"books": 6,
+"spread": 0.1807
 },
 "Eugenio Suarez": {
 "line": 0.5,
@@ -5228,61 +4444,12 @@
 "books": 6,
 "spread": 0.14239
 },
-"Kaelen Culpepper": {
+"Brice Turang": {
 "line": 0.5,
-"p": 0.34483,
-"price": 190,
-"books": 5,
-"spread": 0.42742
-},
-"Cooper Pratt": {
-"line": 0.5,
-"p": 0.31746,
-"price": 215,
-"books": 5,
-"spread": 0.03595
-},
-"Josh Rojas": {
-"line": 0.5,
-"p": 0.28571,
-"price": 250,
-"books": 5,
-"spread": 0.05024
-},
-"Michael Busch": {
-"line": 0.5,
-"p": 0.41008,
-"price": 144,
+"p": 0.35714,
+"price": 180,
 "books": 6,
-"spread": 0.20941
-},
-"Bobby Witt": {
-"line": 0.5,
-"p": 0.38248,
-"price": 161,
-"books": 6,
-"spread": 0.17343
-},
-"Alex Bregman": {
-"line": 0.5,
-"p": 0.40747,
-"price": 145,
-"books": 6,
-"spread": 0.15873
-},
-"Kyle Isbel": {
-"line": 0.5,
-"p": 0.27973,
-"price": 257,
-"books": 6,
-"spread": 0.03363
-},
-"Austin Martin": {
-"line": 0.5,
-"p": 0.26316,
-"price": 280,
-"books": 5,
-"spread": 0.58333
+"spread": 0.38316
 },
 "Daylen Lile": {
 "line": 0.5,
@@ -5291,96 +4458,26 @@
 "books": 6,
 "spread": 0.19216
 },
-"Brice Turang": {
-"line": 0.5,
-"p": 0.35714,
-"price": 180,
-"books": 6,
-"spread": 0.38316
-},
-"Dane Myers": {
-"line": 0.5,
-"p": 0.37905,
-"price": 164,
-"books": 6,
-"spread": 0.24
-},
-"Sal Stewart": {
+"Jac Caglianone": {
 "line": 0.5,
 "p": 0.4,
 "price": 150,
 "books": 5,
-"spread": 0.20139
+"spread": 0.01435
 },
-"Noelvi Marte": {
+"Isaac Collins": {
 "line": 0.5,
-"p": 0.3379,
-"price": 196,
+"p": 0.32258,
+"price": 210,
 "books": 6,
-"spread": 0.39171
+"spread": 0.06824
 },
-"Ke'Bryan Hayes": {
+"Seiya Suzuki": {
 "line": 0.5,
-"p": 0.30077,
-"price": 232,
+"p": 0.4211,
+"price": 137,
 "books": 6,
-"spread": 0.50381
-},
-"Dylan Crews": {
-"line": 0.5,
-"p": 0.33732,
-"price": 196,
-"books": 6,
-"spread": 0.17853
-},
-"Andrew Vaughn": {
-"line": 0.5,
-"p": 0.36364,
-"price": 175,
-"books": 5,
-"spread": 0.35501
-},
-"Jose Trevino": {
-"line": 0.5,
-"p": 0.32002,
-"price": 212,
-"books": 6,
-"spread": 0.0418
-},
-"Brooks Lee": {
-"line": 0.5,
-"p": 0.31157,
-"price": 221,
-"books": 6,
-"spread": 0.02564
-},
-"Joey Ortiz": {
-"line": 0.5,
-"p": 0.30769,
-"price": 225,
-"books": 5,
-"spread": 0.04908
-},
-"Pedro Ramirez": {
-"line": 0.5,
-"p": 0.53871,
-"price": -117,
-"books": 2,
-"spread": 0.27742
-},
-"Miguel Amaya": {
-"line": 0.5,
-"p": 0.32796,
-"price": 205,
-"books": 6,
-"spread": 0.03944
-},
-"Nico Hoerner": {
-"line": 0.5,
-"p": 0.38611,
-"price": 159,
-"books": 6,
-"spread": 0.21936
+"spread": 0.16812
 },
 "Dansby Swanson": {
 "line": 0.5,
@@ -5389,20 +4486,6 @@
 "books": 6,
 "spread": 0.0226
 },
-"Nick Loftin": {
-"line": 0.5,
-"p": 0.32002,
-"price": 212,
-"books": 6,
-"spread": 0.02648
-},
-"Luis Arraez": {
-"line": 0.5,
-"p": 0.42553,
-"price": 135,
-"books": 6,
-"spread": 0.40517
-},
 "Carter Jensen": {
 "line": 0.5,
 "p": 0.3367,
@@ -5410,54 +4493,124 @@
 "books": 5,
 "spread": 0.15053
 },
-"Ian Happ": {
+"Andrew Vaughn": {
 "line": 0.5,
-"p": 0.38839,
-"price": 157,
-"books": 6,
-"spread": 0.21786
-},
-"Michael Conforto": {
-"line": 0.5,
-"p": 0.38462,
-"price": 160,
-"books": 3,
-"spread": 0.01634
-},
-"Myles Straw": {
-"line": 0.5,
-"p": 0.27222,
-"price": 267,
-"books": 6,
-"spread": 0.07246
-},
-"Salvador Perez": {
-"line": 0.5,
-"p": 0.39216,
-"price": 155,
-"books": 6,
-"spread": 0.01861
-},
-"Garrett Stubbs": {
-"line": 0.5,
-"p": 0.28986,
-"price": 245,
+"p": 0.36364,
+"price": 175,
 "books": 5,
-"spread": 0.53684
+"spread": 0.35501
 },
-"John Rave": {
+"Michael Massey": {
 "line": 0.5,
-"p": 0.29412,
-"price": 240,
-"books": 6,
-"spread": 0.19726
+"p": 0.35714,
+"price": 180,
+"books": 5,
+"spread": 0.0297
 },
-"Pete Crow-Armstrong": {
+"Noelvi Marte": {
 "line": 0.5,
-"p": 0.44152,
-"price": 126,
+"p": 0.3379,
+"price": 196,
 "books": 6,
-"spread": 0.15569
+"spread": 0.39171
+},
+"Christian Yelich": {
+"line": 0.5,
+"p": 0.3306,
+"price": 202,
+"books": 6,
+"spread": 0.07271
+},
+"Jose Trevino": {
+"line": 0.5,
+"p": 0.32002,
+"price": 212,
+"books": 6,
+"spread": 0.0418
+},
+"Kaelen Culpepper": {
+"line": 0.5,
+"p": 0.34483,
+"price": 190,
+"books": 5,
+"spread": 0.42742
+},
+"Brooks Lee": {
+"line": 0.5,
+"p": 0.31157,
+"price": 221,
+"books": 6,
+"spread": 0.02564
+},
+"Cooper Pratt": {
+"line": 0.5,
+"p": 0.31746,
+"price": 215,
+"books": 5,
+"spread": 0.03595
+},
+"Ke'Bryan Hayes": {
+"line": 0.5,
+"p": 0.30077,
+"price": 232,
+"books": 6,
+"spread": 0.50381
+},
+"Michael Busch": {
+"line": 0.5,
+"p": 0.41008,
+"price": 144,
+"books": 6,
+"spread": 0.20941
+},
+"Braden Montgomery": {
+"line": 0.5,
+"p": 0.25,
+"price": 300,
+"books": 4,
+"spread": 0.03577
+},
+"Dylan Crews": {
+"line": 0.5,
+"p": 0.33732,
+"price": 196,
+"books": 6,
+"spread": 0.17853
+},
+"Dane Myers": {
+"line": 0.5,
+"p": 0.37905,
+"price": 164,
+"books": 6,
+"spread": 0.24
+},
+"Joey Ortiz": {
+"line": 0.5,
+"p": 0.30769,
+"price": 225,
+"books": 5,
+"spread": 0.04908
+},
+"Sal Stewart": {
+"line": 0.5,
+"p": 0.4,
+"price": 150,
+"books": 5,
+"spread": 0.20139
+},
+"Austin Martin": {
+"line": 0.5,
+"p": 0.26316,
+"price": 280,
+"books": 5,
+"spread": 0.58333
+},
+"Miguel Amaya": {
+"line": 0.5,
+"p": 0.32796,
+"price": 205,
+"books": 6,
+"spread": 0.03944
 },
 "Bryan De La Cruz": {
 "line": 0.5,
@@ -5480,12 +4633,12 @@
 "books": 5,
 "spread": 0.04766
 },
-"Michael Massey": {
+"Bobby Witt": {
 "line": 0.5,
-"p": 0.35714,
-"price": 180,
-"books": 5,
-"spread": 0.0297
+"p": 0.38248,
+"price": 161,
+"books": 6,
+"spread": 0.17343
 },
 "Brandon Valenzuela": {
 "line": 0.5,
@@ -5501,12 +4654,12 @@
 "books": 6,
 "spread": 0.3833
 },
-"Seiya Suzuki": {
+"Nick Loftin": {
 "line": 0.5,
-"p": 0.4211,
-"price": 137,
+"p": 0.32002,
+"price": 212,
 "books": 6,
-"spread": 0.16812
+"spread": 0.02648
 },
 "Tyrone Taylor": {
 "line": 0.5,
@@ -5522,19 +4675,89 @@
 "books": 6,
 "spread": 0.07143
 },
-"Isaac Collins": {
+"Nico Hoerner": {
 "line": 0.5,
-"p": 0.32258,
-"price": 210,
+"p": 0.38611,
+"price": 159,
 "books": 6,
-"spread": 0.06824
+"spread": 0.21936
 },
-"Braden Montgomery": {
+"Michael Conforto": {
 "line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 4,
-"spread": 0.03577
+"p": 0.38462,
+"price": 160,
+"books": 3,
+"spread": 0.01634
+},
+"Ian Happ": {
+"line": 0.5,
+"p": 0.38839,
+"price": 157,
+"books": 6,
+"spread": 0.21786
+},
+"Alex Bregman": {
+"line": 0.5,
+"p": 0.40747,
+"price": 145,
+"books": 6,
+"spread": 0.15873
+},
+"Garrett Stubbs": {
+"line": 0.5,
+"p": 0.28986,
+"price": 245,
+"books": 5,
+"spread": 0.53684
+},
+"Pedro Ramirez": {
+"line": 0.5,
+"p": 0.53871,
+"price": -117,
+"books": 2,
+"spread": 0.27742
+},
+"John Rave": {
+"line": 0.5,
+"p": 0.29412,
+"price": 240,
+"books": 6,
+"spread": 0.19726
+},
+"Kyle Isbel": {
+"line": 0.5,
+"p": 0.27973,
+"price": 257,
+"books": 6,
+"spread": 0.03363
+},
+"Pete Crow-Armstrong": {
+"line": 0.5,
+"p": 0.44152,
+"price": 126,
+"books": 6,
+"spread": 0.15569
+},
+"Josh Rojas": {
+"line": 0.5,
+"p": 0.28571,
+"price": 250,
+"books": 5,
+"spread": 0.05024
+},
+"Luis Arraez": {
+"line": 0.5,
+"p": 0.42553,
+"price": 135,
+"books": 6,
+"spread": 0.40517
+},
+"Myles Straw": {
+"line": 0.5,
+"p": 0.27222,
+"price": 267,
+"books": 6,
+"spread": 0.07246
 },
 "Elly De La Cruz": {
 "line": 0.5,
@@ -5543,12 +4766,19 @@
 "books": 6,
 "spread": 0.19108
 },
-"Endy Rodriguez": {
+"Salvador Perez": {
 "line": 0.5,
-"p": 0.37736,
-"price": 165,
+"p": 0.39216,
+"price": 155,
 "books": 6,
-"spread": 0.03477
+"spread": 0.01861
+},
+"Jacob Young": {
+"line": 0.5,
+"p": 0.27973,
+"price": 257,
+"books": 6,
+"spread": 0.03363
 },
 "Jared Young": {
 "line": 0.5,
@@ -5557,13 +4787,6 @@
 "books": 6,
 "spread": 0.17736
 },
-"Cole Carrigg": {
-"line": 0.5,
-"p": 0.36039,
-"price": 177,
-"books": 6,
-"spread": 0.03522
-},
 "Marcus Semien": {
 "line": 0.5,
 "p": 0.3306,
@@ -5571,26 +4794,33 @@
 "books": 6,
 "spread": 0.01811
 },
+"Bo Bichette": {
+"line": 0.5,
+"p": 0.37106,
+"price": 169,
+"books": 6,
+"spread": 0.19108
+},
+"Carson Benge": {
+"line": 0.5,
+"p": 0.37542,
+"price": 166,
+"books": 2,
+"spread": 0.03656
+},
+"Endy Rodriguez": {
+"line": 0.5,
+"p": 0.37736,
+"price": 165,
+"books": 6,
+"spread": 0.03477
+},
 "Brandon Lowe": {
 "line": 0.5,
 "p": 0.40816,
 "price": 145,
 "books": 6,
 "spread": 0.0329
-},
-"Luis Robert": {
-"line": 0.5,
-"p": 0.36298,
-"price": 175,
-"books": 6,
-"spread": 0.06352
-},
-"Jhostynxon Garcia": {
-"line": 0.5,
-"p": 0.30415,
-"price": 229,
-"books": 2,
-"spread": 0.03687
 },
 "Spencer Horwitz": {
 "line": 0.5,
@@ -5613,61 +4843,19 @@
 "books": 6,
 "spread": 0.17889
 },
-"Bo Bichette": {
+"Luis Robert": {
 "line": 0.5,
-"p": 0.37106,
-"price": 169,
+"p": 0.36298,
+"price": 175,
 "books": 6,
-"spread": 0.19108
+"spread": 0.06352
 },
-"Carson Benge": {
+"Jhostynxon Garcia": {
 "line": 0.5,
-"p": 0.37542,
-"price": 166,
+"p": 0.30415,
+"price": 229,
 "books": 2,
-"spread": 0.03656
-},
-"Jake Burger": {
-"line": 0.5,
-"p": 0.34905,
-"price": 186,
-"books": 6,
-"spread": 0.05092
-},
-"Joc Pederson": {
-"line": 0.5,
-"p": 0.33445,
-"price": 199,
-"books": 6,
-"spread": 0.44725
-},
-"Ezequiel Duran": {
-"line": 0.5,
-"p": 0.33732,
-"price": 196,
-"books": 6,
-"spread": 0.09397
-},
-"Jakob Marsee": {
-"line": 0.5,
-"p": 0.26667,
-"price": 275,
-"books": 5,
-"spread": 0.08504
-},
-"Gunnar Henderson": {
-"line": 0.5,
-"p": 0.31498,
-"price": 217,
-"books": 6,
-"spread": 0.06394
-},
-"Kyle Stowers": {
-"line": 0.5,
-"p": 0.40984,
-"price": 144,
-"books": 6,
-"spread": 0.16912
+"spread": 0.03687
 },
 "Jackson Holliday": {
 "line": 0.5,
@@ -5676,12 +4864,47 @@
 "books": 5,
 "spread": 0.05735
 },
-"A.J. Ewing": {
+"Cole Carrigg": {
 "line": 0.5,
-"p": 0.31746,
-"price": 215,
+"p": 0.36039,
+"price": 177,
+"books": 6,
+"spread": 0.03522
+},
+"Joc Pederson": {
+"line": 0.5,
+"p": 0.33445,
+"price": 199,
+"books": 6,
+"spread": 0.44725
+},
+"Jakob Marsee": {
+"line": 0.5,
+"p": 0.26667,
+"price": 275,
 "books": 5,
-"spread": 0.05675
+"spread": 0.08504
+},
+"Nolan Schanuel": {
+"line": 0.5,
+"p": 0.32258,
+"price": 210,
+"books": 6,
+"spread": 0.07143
+},
+"Jake Burger": {
+"line": 0.5,
+"p": 0.34905,
+"price": 186,
+"books": 6,
+"spread": 0.05092
+},
+"Gunnar Henderson": {
+"line": 0.5,
+"p": 0.31498,
+"price": 217,
+"books": 6,
+"spread": 0.06394
 },
 "Jacob Gonzalez": {
 "line": 0.5,
@@ -5697,6 +4920,27 @@
 "books": 5,
 "spread": 0.02852
 },
+"Kyle Stowers": {
+"line": 0.5,
+"p": 0.40984,
+"price": 144,
+"books": 6,
+"spread": 0.16912
+},
+"A.J. Ewing": {
+"line": 0.5,
+"p": 0.31746,
+"price": 215,
+"books": 5,
+"spread": 0.05675
+},
+"Ezequiel Duran": {
+"line": 0.5,
+"p": 0.33732,
+"price": 196,
+"books": 6,
+"spread": 0.09397
+},
 "Bryan Reynolds": {
 "line": 0.5,
 "p": 0.37595,
@@ -5704,12 +4948,12 @@
 "books": 6,
 "spread": 0.04286
 },
-"Esmerlyn Valdez": {
+"Austin Hedges": {
 "line": 0.5,
-"p": 0.36364,
-"price": 175,
+"p": 0.26316,
+"price": 280,
 "books": 5,
-"spread": 0.05577
+"spread": 0.02027
 },
 "JJ Bleday": {
 "line": 0.5,
@@ -5753,12 +4997,19 @@
 "books": 6,
 "spread": 0.03472
 },
-"Jacob Young": {
+"Henry Davis": {
 "line": 0.5,
-"p": 0.27973,
-"price": 257,
-"books": 6,
-"spread": 0.03363
+"p": 0.30303,
+"price": 230,
+"books": 5,
+"spread": 0.04762
+},
+"JJ Wetherholt": {
+"line": 0.5,
+"p": 0.33898,
+"price": 195,
+"books": 5,
+"spread": 0.06193
 },
 "Travis Bazzana": {
 "line": 0.5,
@@ -5774,13 +5025,6 @@
 "books": 4,
 "spread": 0.60386
 },
-"Jorbit Vivas": {
-"line": 0.5,
-"p": 0.27799,
-"price": 260,
-"books": 6,
-"spread": 0.60766
-},
 "Nasim Nunez": {
 "line": 0.5,
 "p": 0.23669,
@@ -5788,12 +5032,19 @@
 "books": 6,
 "spread": 0.06008
 },
-"C.J. Abrams": {
+"Jorbit Vivas": {
 "line": 0.5,
-"p": 0.37713,
-"price": 165,
+"p": 0.27799,
+"price": 260,
 "books": 6,
-"spread": 0.15984
+"spread": 0.60766
+},
+"Drew Romo": {
+"line": 0.5,
+"p": 0.22222,
+"price": 350,
+"books": 3,
+"spread": 0.00505
 },
 "Jorge Polanco": {
 "line": 0.5,
@@ -5802,13 +5053,6 @@
 "books": 6,
 "spread": 0.03843
 },
-"JJ Wetherholt": {
-"line": 0.5,
-"p": 0.33898,
-"price": 195,
-"books": 5,
-"spread": 0.06193
-},
 "Jake Mangum": {
 "line": 0.5,
 "p": 0.30303,
@@ -5816,12 +5060,12 @@
 "books": 6,
 "spread": 0.04033
 },
-"Henry Davis": {
+"Esmerlyn Valdez": {
 "line": 0.5,
-"p": 0.30303,
-"price": 230,
+"p": 0.36364,
+"price": 175,
 "books": 5,
-"spread": 0.04762
+"spread": 0.05577
 },
 "Kyle Karros": {
 "line": 0.5,
@@ -5837,33 +5081,19 @@
 "books": 6,
 "spread": 0.16288
 },
+"Austin Wells": {
+"line": 0.5,
+"p": 0.241,
+"price": 315,
+"books": 6,
+"spread": 0.0573
+},
 "Abimelec Ortiz": {
 "line": 0.5,
 "p": 0.33333,
 "price": 200,
 "books": 5,
 "spread": 0.01815
-},
-"Jim Jarvis": {
-"line": 0.5,
-"p": 0.2381,
-"price": 320,
-"books": 5,
-"spread": 0.05153
-},
-"Austin Hedges": {
-"line": 0.5,
-"p": 0.26316,
-"price": 280,
-"books": 5,
-"spread": 0.02027
-},
-"Drew Romo": {
-"line": 0.5,
-"p": 0.22222,
-"price": 350,
-"books": 3,
-"spread": 0.00505
 },
 "Francisco Alvarez": {
 "line": 0.5,
@@ -5872,19 +5102,19 @@
 "books": 6,
 "spread": 0.06431
 },
+"C.J. Abrams": {
+"line": 0.5,
+"p": 0.37713,
+"price": 165,
+"books": 6,
+"spread": 0.15984
+},
 "Ryan Waldschmidt": {
 "line": 0.5,
 "p": 0.22222,
 "price": 350,
 "books": 5,
 "spread": 0.06832
-},
-"Rhys Hoskins": {
-"line": 0.5,
-"p": 0.33333,
-"price": 200,
-"books": 5,
-"spread": 0.06705
 },
 "Miguel Vargas": {
 "line": 0.5,
@@ -5893,26 +5123,26 @@
 "books": 5,
 "spread": 0.16906
 },
+"Steven Kwan": {
+"line": 0.5,
+"p": 0.25974,
+"price": 285,
+"books": 5,
+"spread": 0.07258
+},
+"Rhys Hoskins": {
+"line": 0.5,
+"p": 0.33333,
+"price": 200,
+"books": 5,
+"spread": 0.06705
+},
 "Chase DeLauter": {
 "line": 0.5,
 "p": 0.34191,
 "price": 192,
 "books": 4,
 "spread": 0.15336
-},
-"Edgar Quero": {
-"line": 0.5,
-"p": 0.2381,
-"price": 320,
-"books": 1,
-"spread": 0.0
-},
-"Jose Fermin": {
-"line": 0.5,
-"p": 0.36496,
-"price": 174,
-"books": 5,
-"spread": 0.04887
 },
 "Munetaka Murakami": {
 "line": 0.5,
@@ -5921,12 +5151,12 @@
 "books": 4,
 "spread": 0.50376
 },
-"Steven Kwan": {
+"Edgar Quero": {
 "line": 0.5,
-"p": 0.25974,
-"price": 285,
-"books": 5,
-"spread": 0.07258
+"p": 0.2381,
+"price": 320,
+"books": 1,
+"spread": 0.0
 },
 "Jose Ramirez": {
 "line": 0.5,
@@ -5935,12 +5165,12 @@
 "books": 5,
 "spread": 0.03931
 },
-"Sam Antonacci": {
+"Brayan Rocchio": {
 "line": 0.5,
-"p": 0.24691,
-"price": 305,
+"p": 0.29412,
+"price": 240,
 "books": 5,
-"spread": 0.01471
+"spread": 0.03175
 },
 "Chase Meidroth": {
 "line": 0.5,
@@ -5948,6 +5178,20 @@
 "price": 300,
 "books": 5,
 "spread": 0.03411
+},
+"Colson Montgomery": {
+"line": 0.5,
+"p": 0.33333,
+"price": 200,
+"books": 5,
+"spread": 0.16667
+},
+"Sam Antonacci": {
+"line": 0.5,
+"p": 0.24691,
+"price": 305,
+"books": 5,
+"spread": 0.01471
 },
 "Angel Martinez": {
 "line": 0.5,
@@ -5963,12 +5207,12 @@
 "books": 5,
 "spread": 0.13462
 },
-"Brayan Rocchio": {
+"Jose Fermin": {
 "line": 0.5,
-"p": 0.29412,
-"price": 240,
+"p": 0.36496,
+"price": 174,
 "books": 5,
-"spread": 0.03175
+"spread": 0.04887
 },
 "Jake McCarthy": {
 "line": 0.5,
@@ -5977,54 +5221,12 @@
 "books": 5,
 "spread": 0.04215
 },
-"Nathan Church": {
-"line": 0.5,
-"p": 0.32258,
-"price": 210,
-"books": 5,
-"spread": 0.03714
-},
-"Jordan Walker": {
-"line": 0.5,
-"p": 0.42831,
-"price": 133,
-"books": 6,
-"spread": 0.16812
-},
 "Willi Castro": {
 "line": 0.5,
 "p": 0.31498,
 "price": 217,
 "books": 6,
 "spread": 0.47899
-},
-"Ivan Herrera": {
-"line": 0.5,
-"p": 0.40656,
-"price": 146,
-"books": 6,
-"spread": 0.16667
-},
-"Alec Burleson": {
-"line": 0.5,
-"p": 0.41667,
-"price": 140,
-"books": 6,
-"spread": 0.14347
-},
-"TJ Rumfield": {
-"line": 0.5,
-"p": 0.32787,
-"price": 205,
-"books": 5,
-"spread": 0.48333
-},
-"Pedro Pages": {
-"line": 0.5,
-"p": 0.29412,
-"price": 240,
-"books": 6,
-"spread": 0.05591
 },
 "Jordan Beck": {
 "line": 0.5,
@@ -6033,6 +5235,34 @@
 "books": 6,
 "spread": 0.49073
 },
+"Jordan Walker": {
+"line": 0.5,
+"p": 0.42831,
+"price": 133,
+"books": 6,
+"spread": 0.16812
+},
+"Ivan Herrera": {
+"line": 0.5,
+"p": 0.40656,
+"price": 146,
+"books": 6,
+"spread": 0.16667
+},
+"Pedro Pages": {
+"line": 0.5,
+"p": 0.29412,
+"price": 240,
+"books": 6,
+"spread": 0.05591
+},
+"Alec Burleson": {
+"line": 0.5,
+"p": 0.41667,
+"price": 140,
+"books": 6,
+"spread": 0.14347
+},
 "Nelson Velazquez": {
 "line": 0.5,
 "p": 0.37106,
@@ -6040,12 +5270,12 @@
 "books": 4,
 "spread": 0.05102
 },
-"Tyler Freeman": {
+"Everson Pereira": {
 "line": 0.5,
-"p": 0.29437,
-"price": 240,
-"books": 6,
-"spread": 0.04965
+"p": 0.30303,
+"price": 230,
+"books": 5,
+"spread": 0.04541
 },
 "Masyn Winn": {
 "line": 0.5,
@@ -6053,6 +5283,20 @@
 "price": 178,
 "books": 6,
 "spread": 0.06334
+},
+"Nathan Church": {
+"line": 0.5,
+"p": 0.32258,
+"price": 210,
+"books": 5,
+"spread": 0.03714
+},
+"Tyler Freeman": {
+"line": 0.5,
+"p": 0.29437,
+"price": 240,
+"books": 6,
+"spread": 0.04965
 },
 "Mickey Moniak": {
 "line": 0.5,
@@ -6068,26 +5312,19 @@
 "books": 6,
 "spread": 0.0303
 },
-"Everson Pereira": {
-"line": 0.5,
-"p": 0.30303,
-"price": 230,
-"books": 5,
-"spread": 0.04541
-},
-"Colson Montgomery": {
-"line": 0.5,
-"p": 0.33333,
-"price": 200,
-"books": 5,
-"spread": 0.16667
-},
 "Andrew Benintendi": {
 "line": 0.5,
 "p": 0.26667,
 "price": 275,
 "books": 5,
 "spread": 0.58947
+},
+"Ryan Kreidler": {
+"line": 0.5,
+"p": 0.28175,
+"price": 255,
+"books": 6,
+"spread": 0.54286
 },
 "Ernie Clement": {
 "line": 0.5,
@@ -6222,13 +5459,6 @@
 "books": 6,
 "spread": 0.22509
 },
-"Ryan Kreidler": {
-"line": 0.5,
-"p": 0.28175,
-"price": 255,
-"books": 6,
-"spread": 0.54286
-},
 "David Hamilton": {
 "line": 0.5,
 "p": 0.27402,
@@ -6285,54 +5515,19 @@
 "books": 5,
 "spread": 0.03922
 },
+"TJ Rumfield": {
+"line": 0.5,
+"p": 0.32787,
+"price": 205,
+"books": 5,
+"spread": 0.48333
+},
 "Blaze Jordan": {
 "line": 0.5,
 "p": 0.38314,
 "price": 161,
 "books": 5,
 "spread": 0.29492
-},
-"Hunter Goodman": {
-"line": 0.5,
-"p": 0.43016,
-"price": 132,
-"books": 6,
-"spread": 0.04845
-},
-"Nolan Arenado": {
-"line": 0.5,
-"p": 0.28992,
-"price": 245,
-"books": 6,
-"spread": 0.1125
-},
-"Shohei Ohtani": {
-"line": 0.5,
-"p": 0.41667,
-"price": 140,
-"books": 6,
-"spread": 0.24075
-},
-"Mookie Betts": {
-"line": 0.5,
-"p": 0.41097,
-"price": 143,
-"books": 6,
-"spread": 0.41988
-},
-"Gabriel Moreno": {
-"line": 0.5,
-"p": 0.34843,
-"price": 187,
-"books": 6,
-"spread": 0.18323
-},
-"Vladimir Guerrero": {
-"line": 0.5,
-"p": 0.37037,
-"price": 170,
-"books": 5,
-"spread": 0.04282
 },
 "Ketel Marte": {
 "line": 0.5,
@@ -6348,110 +5543,19 @@
 "books": 6,
 "spread": 0.16209
 },
-"Luis Campusano": {
+"Gabriel Moreno": {
 "line": 0.5,
-"p": 0.31754,
-"price": 215,
+"p": 0.34843,
+"price": 187,
 "books": 6,
-"spread": 0.1685
+"spread": 0.18323
 },
-"Manny Machado": {
+"Vladimir Guerrero": {
 "line": 0.5,
-"p": 0.40569,
-"price": 146,
-"books": 6,
-"spread": 0.18563
-},
-"Daulton Varsho": {
-"line": 0.5,
-"p": 0.32796,
-"price": 205,
-"books": 6,
-"spread": 0.24483
-},
-"Jose Altuve": {
-"line": 0.5,
-"p": 0.33841,
-"price": 195,
-"books": 6,
-"spread": 0.24242
-},
-"Jeremy Pena": {
-"line": 0.5,
-"p": 0.3125,
-"price": 220,
+"p": 0.37037,
+"price": 170,
 "books": 5,
-"spread": 0.04986
-},
-"Kyle Tucker": {
-"line": 0.5,
-"p": 0.36364,
-"price": 175,
-"books": 6,
-"spread": 0.20478
-},
-"Ben Rortvedt": {
-"line": 0.5,
-"p": 0.28571,
-"price": 250,
-"books": 5,
-"spread": 0.06684
-},
-"Ben Rice": {
-"line": 0.5,
-"p": 0.32002,
-"price": 212,
-"books": 6,
-"spread": 0.1468
-},
-"Mike Yastrzemski": {
-"line": 0.5,
-"p": 0.30536,
-"price": 227,
-"books": 6,
-"spread": 0.07003
-},
-"Ali Sanchez": {
-"line": 0.5,
-"p": 0.22222,
-"price": 350,
-"books": 5,
-"spread": 0.02319
-},
-"Jazz Chisholm": {
-"line": 0.5,
-"p": 0.26667,
-"price": 275,
-"books": 5,
-"spread": 0.08092
-},
-"Jose Caballero": {
-"line": 0.5,
-"p": 0.25,
-"price": 300,
-"books": 6,
-"spread": 0.05316
-},
-"Austin Riley": {
-"line": 0.5,
-"p": 0.33672,
-"price": 197,
-"books": 6,
-"spread": 0.03163
-},
-"Taylor Walls": {
-"line": 0.5,
-"p": 0.22222,
-"price": 350,
-"books": 5,
-"spread": 0.0207
-},
-"Carson Williams": {
-"line": 0.5,
-"p": 0.24405,
-"price": 310,
-"books": 2,
-"spread": 0.0119
+"spread": 0.04282
 },
 "Corbin Carroll": {
 "line": 0.5,
@@ -6460,33 +5564,26 @@
 "books": 6,
 "spread": 0.44762
 },
-"Lars Nootbaar": {
+"Ben Rortvedt": {
 "line": 0.5,
-"p": 0.29857,
-"price": 235,
-"books": 6,
-"spread": 0.15263
+"p": 0.28571,
+"price": 250,
+"books": 5,
+"spread": 0.06684
 },
-"Max Kepler": {
+"Jeremy Pena": {
 "line": 0.5,
-"p": 0.27402,
-"price": 265,
-"books": 6,
-"spread": 0.05548
+"p": 0.3125,
+"price": 220,
+"books": 5,
+"spread": 0.04986
 },
-"Andy Pages": {
+"Jose Altuve": {
 "line": 0.5,
-"p": 0.38692,
-"price": 158,
+"p": 0.33841,
+"price": 195,
 "books": 6,
-"spread": 0.49231
-},
-"Liam Hicks": {
-"line": 0.5,
-"p": 0.32258,
-"price": 210,
-"books": 6,
-"spread": 0.03715
+"spread": 0.24242
 },
 "Sung Mun Song": {
 "line": 0.5,
@@ -6502,6 +5599,104 @@
 "books": 6,
 "spread": 0.06352
 },
+"Manny Machado": {
+"line": 0.5,
+"p": 0.40569,
+"price": 146,
+"books": 6,
+"spread": 0.18563
+},
+"Luis Campusano": {
+"line": 0.5,
+"p": 0.31754,
+"price": 215,
+"books": 6,
+"spread": 0.1685
+},
+"Daulton Varsho": {
+"line": 0.5,
+"p": 0.32796,
+"price": 205,
+"books": 6,
+"spread": 0.24483
+},
+"Max Kepler": {
+"line": 0.5,
+"p": 0.27402,
+"price": 265,
+"books": 6,
+"spread": 0.05548
+},
+"Liam Hicks": {
+"line": 0.5,
+"p": 0.32258,
+"price": 210,
+"books": 6,
+"spread": 0.03715
+},
+"Jose Caballero": {
+"line": 0.5,
+"p": 0.25,
+"price": 300,
+"books": 6,
+"spread": 0.05316
+},
+"Austin Riley": {
+"line": 0.5,
+"p": 0.33672,
+"price": 197,
+"books": 6,
+"spread": 0.03163
+},
+"Mauricio Dubon": {
+"line": 0.5,
+"p": 0.28175,
+"price": 255,
+"books": 6,
+"spread": 0.16051
+},
+"Nicky Lopez": {
+"line": 0.5,
+"p": 0.21053,
+"price": 375,
+"books": 5,
+"spread": 0.02727
+},
+"Jim Jarvis": {
+"line": 0.5,
+"p": 0.2381,
+"price": 320,
+"books": 5,
+"spread": 0.05153
+},
+"Jazz Chisholm": {
+"line": 0.5,
+"p": 0.26667,
+"price": 275,
+"books": 5,
+"spread": 0.08092
+},
+"Ali Sanchez": {
+"line": 0.5,
+"p": 0.22222,
+"price": 350,
+"books": 5,
+"spread": 0.02319
+},
+"Taylor Walls": {
+"line": 0.5,
+"p": 0.22222,
+"price": 350,
+"books": 5,
+"spread": 0.0207
+},
+"Carson Williams": {
+"line": 0.5,
+"p": 0.24405,
+"price": 310,
+"books": 2,
+"spread": 0.0119
+},
 "Pete Alonso": {
 "line": 0.5,
 "p": 0.33616,
@@ -6509,12 +5704,33 @@
 "books": 6,
 "spread": 0.16826
 },
-"Corey Seager": {
+"Mike Yastrzemski": {
 "line": 0.5,
-"p": 0.37736,
-"price": 165,
+"p": 0.30536,
+"price": 227,
 "books": 6,
-"spread": 0.34874
+"spread": 0.07003
+},
+"Ben Rice": {
+"line": 0.5,
+"p": 0.32002,
+"price": 212,
+"books": 6,
+"spread": 0.1468
+},
+"Christian Walker": {
+"line": 0.5,
+"p": 0.34905,
+"price": 186,
+"books": 6,
+"spread": 0.24813
+},
+"Yordan Alvarez": {
+"line": 0.5,
+"p": 0.4266,
+"price": 134,
+"books": 6,
+"spread": 0.42803
 },
 "Coby Mayo": {
 "line": 0.5,
@@ -6523,12 +5739,26 @@
 "books": 6,
 "spread": 0.05633
 },
+"Corey Seager": {
+"line": 0.5,
+"p": 0.37736,
+"price": 165,
+"books": 6,
+"spread": 0.34874
+},
 "Evan Carter": {
 "line": 0.5,
 "p": 0.29437,
 "price": 240,
 "books": 6,
 "spread": 0.48693
+},
+"Riley Greene": {
+"line": 0.5,
+"p": 0.40914,
+"price": 144,
+"books": 6,
+"spread": 0.33844
 },
 "Spencer Torkelson": {
 "line": 0.5,
@@ -6537,12 +5767,12 @@
 "books": 6,
 "spread": 0.06352
 },
-"Riley Greene": {
+"Andy Pages": {
 "line": 0.5,
-"p": 0.40914,
-"price": 144,
+"p": 0.38692,
+"price": 158,
 "books": 6,
-"spread": 0.33844
+"spread": 0.49231
 },
 "Dylan Beavers": {
 "line": 0.5,
@@ -6565,12 +5795,12 @@
 "books": 6,
 "spread": 0.55952
 },
-"Nicky Lopez": {
+"Hunter Goodman": {
 "line": 0.5,
-"p": 0.21053,
-"price": 375,
-"books": 5,
-"spread": 0.02727
+"p": 0.43016,
+"price": 132,
+"books": 6,
+"spread": 0.04845
 },
 "Tyler O'Neill": {
 "line": 0.5,
@@ -6635,26 +5865,12 @@
 "books": 6,
 "spread": 0.47899
 },
-"Christian Walker": {
+"Kyle Tucker": {
 "line": 0.5,
-"p": 0.34905,
-"price": 186,
+"p": 0.36364,
+"price": 175,
 "books": 6,
-"spread": 0.24813
-},
-"Yordan Alvarez": {
-"line": 0.5,
-"p": 0.4266,
-"price": 134,
-"books": 6,
-"spread": 0.42803
-},
-"Isaac Paredes": {
-"line": 0.5,
-"p": 0.33252,
-"price": 201,
-"books": 6,
-"spread": 0.17582
+"spread": 0.20478
 },
 "Luis Rengifo": {
 "line": 0.5,
@@ -6662,6 +5878,13 @@
 "price": 257,
 "books": 6,
 "spread": 0.06229
+},
+"Rafael Devers": {
+"line": 0.5,
+"p": 0.4008,
+"price": 149,
+"books": 6,
+"spread": 0.45238
 },
 "Drew Gilbert": {
 "line": 0.5,
@@ -6691,19 +5914,19 @@
 "books": 6,
 "spread": 0.11526
 },
-"Rafael Devers": {
+"Isaac Paredes": {
 "line": 0.5,
-"p": 0.4008,
-"price": 149,
+"p": 0.33252,
+"price": 201,
 "books": 6,
-"spread": 0.45238
+"spread": 0.17582
 },
-"Mauricio Dubon": {
+"Drake Baldwin": {
 "line": 0.5,
-"p": 0.28175,
-"price": 255,
+"p": 0.367,
+"price": 172,
 "books": 6,
-"spread": 0.16051
+"spread": 0.06588
 }
 }
 }
