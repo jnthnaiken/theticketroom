@@ -23804,7 +23804,7 @@
     "precip_src": "slate_auto"
    }
   },
-  "build": "8/10 7:32pm",
+  "build": "8/10 7:27pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24072,7 +24072,7 @@
      "gtime": "7:45 PM ET",
      "game": 4,
      "late": false,
-     "odds": 424,
+     "odds": 437,
      "status": "confirmed"
     },
     {
@@ -24097,7 +24097,7 @@
    "rr": {
     "struct": "by 2s, 3s & 4",
     "risk": 5.5,
-    "maxprofit": 1112.9,
+    "maxprofit": 1136.5,
     "bytwos": false
    },
    "wxsum": {
@@ -24109,8 +24109,8 @@
    "confleg": 4,
    "locked": true,
    "priced": 4,
-   "parlay_am": 53073,
-   "payout10": 5317.3
+   "parlay_am": 54392,
+   "payout10": 5449.22
   },
   {
    "name": "Upper Deck Bound",
@@ -24154,7 +24154,7 @@
      "gtime": "7:45 PM ET",
      "game": 4,
      "late": false,
-     "odds": 587,
+     "odds": 535,
      "status": "confirmed"
     }
    ],
@@ -24166,7 +24166,7 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 228.6,
+    "maxprofit": 212.7,
     "bytwos": false
    },
    "wxsum": {
@@ -24178,8 +24178,8 @@
    "confleg": 3,
    "locked": true,
    "priced": 3,
-   "parlay_am": 14404,
-   "payout10": 1450.43
+   "parlay_am": 13306,
+   "payout10": 1340.64
   },
   {
    "name": "Off the Scoreboard",
@@ -24223,7 +24223,7 @@
      "gtime": "7:45 PM ET",
      "game": 4,
      "late": false,
-     "odds": 640,
+     "odds": 599,
      "status": "confirmed"
     }
    ],
@@ -24235,7 +24235,7 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 238.9,
+    "maxprofit": 226.7,
     "bytwos": false
    },
    "wxsum": {
@@ -24247,8 +24247,8 @@
    "confleg": 3,
    "locked": true,
    "priced": 3,
-   "parlay_am": 15107,
-   "payout10": 1520.7
+   "parlay_am": 14264,
+   "payout10": 1436.45
   },
   {
    "name": "The Berth",
@@ -24386,7 +24386,7 @@
      "gtime": "7:45 PM ET",
      "game": 4,
      "late": false,
-     "odds": 450,
+     "odds": 424,
      "status": "confirmed"
     },
     {
@@ -24411,7 +24411,7 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 183.8,
+    "maxprofit": 176,
     "bytwos": false
    },
    "wxsum": {
@@ -24423,8 +24423,8 @@
    "confleg": 3,
    "locked": true,
    "priced": 3,
-   "parlay_am": 11364,
-   "payout10": 1146.4
+   "parlay_am": 10822,
+   "payout10": 1092.2
   },
   {
    "name": "Calm Seas",
@@ -24619,7 +24619,7 @@
      "gtime": "7:45 PM ET",
      "game": 4,
      "late": false,
-     "odds": 247,
+     "odds": 242,
      "status": "confirmed"
     },
     {
@@ -24655,8 +24655,74 @@
    },
    "confleg": 4,
    "priced": 4,
-   "parlay_am": 10519,
-   "payout10": 1061.92
+   "parlay_am": 10366,
+   "payout10": 1046.62
+  },
+  {
+   "name": "Second Stage",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alonso has loft to spare (19\u00b0), Seager has the yard tilting his way, and Vilade is barreling up enough (46% hard-hit).",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 170.4,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "BAL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 305,
+     "status": "confirmed"
+    },
+    {
+     "name": "Corey Seager",
+     "team": "Rangers",
+     "total": 166.6,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "TEX@LAA",
+     "gtime": "9:38 PM ET",
+     "game": 5,
+     "late": true,
+     "odds": 312,
+     "status": "confirmed"
+    },
+    {
+     "name": "Ryan Vilade",
+     "team": "Rays",
+     "total": 139.7,
+     "aT": 100,
+     "wf": 1.121,
+     "gmatch": "TB@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 6,
+     "late": true,
+     "odds": 450,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Pete Alonso",
+   "lock": "7:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 151.4,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 3,
+   "locked": true
   }
  ],
  "pool": [
