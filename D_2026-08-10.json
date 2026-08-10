@@ -23804,7 +23804,7 @@
     "precip_src": "slate_auto"
    }
   },
-  "build": "8/10 6:01pm",
+  "build": "8/10 6:03pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -23960,45 +23960,389 @@
   "gate": 37,
   "tickets": 13
  },
- "pool": [
-  "Yordan Alvarez",
-  "Drake Baldwin",
-  "Pete Alonso",
-  "Wilyer Abreu",
-  "Corey Seager",
-  "Willson Contreras",
-  "Tyler Soderstrom",
-  "Wyatt Langford",
-  "Yandy D\u00edaz",
-  "Rafael Devers",
-  "Alec Burleson",
-  "Hunter Goodman",
-  "Bryce Harper",
-  "Mike Trout",
-  "Zach Neto",
-  "Francisco Lindor",
-  "Ryan Vilade",
-  "Royce Lewis",
-  "Andy Pages",
-  "Austin Riley",
-  "Gunnar Henderson",
-  "Jordan Walker",
-  "Corbin Carroll",
-  "Jake Bauers",
-  "Jackson Chourio",
-  "Salvador Perez",
-  "Bryce Eldridge",
-  "Max Muncy",
-  "Tyler O'Neill",
-  "Manny Machado",
-  "Freddie Freeman"
- ],
  "tickets": [
+  {
+   "name": "To the Heavens",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Baldwin has gusts carrying balls over the wall, Burleson is blistering line drives (54% hard-hit), and Lewis has textbook lift (20\u00b0).",
+   "players": [
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 170.2,
+     "aT": 100,
+     "wf": 1.076,
+     "gmatch": "NYM@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 326,
+     "status": "confirmed"
+    },
+    {
+     "name": "Alec Burleson",
+     "team": "Cardinals",
+     "total": 152.5,
+     "aT": 100,
+     "wf": 1.071,
+     "gmatch": "PHI@STL",
+     "gtime": "7:45 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 385,
+     "status": "confirmed"
+    },
+    {
+     "name": "Royce Lewis",
+     "team": "Twins",
+     "total": 142.7,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "BAL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 362,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Drake Baldwin",
+   "lock": "7:15 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 156.2,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 2
+   },
+   "confleg": 3,
+   "locked": true
+  },
+  {
+   "name": "Liftoff Sequence",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Baldwin has the jet stream pushing toward the seats, Harper is punishing the baseball (58% hard-hit), and Henderson gets ideal loft (16\u00b0).",
+   "players": [
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 170.2,
+     "aT": 100,
+     "wf": 1.076,
+     "gmatch": "NYM@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 326,
+     "status": "confirmed"
+    },
+    {
+     "name": "Bryce Harper",
+     "team": "Phillies",
+     "total": 150.7,
+     "aT": 100,
+     "wf": 1.071,
+     "gmatch": "PHI@STL",
+     "gtime": "7:45 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 424,
+     "status": "confirmed"
+    },
+    {
+     "name": "Gunnar Henderson",
+     "team": "Orioles",
+     "total": 140.7,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "BAL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 382,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Drake Baldwin",
+   "lock": "7:15 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 173.7,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 2
+   },
+   "confleg": 3,
+   "locked": true
+  },
+  {
+   "name": "Leaving the Atmosphere",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alonso grades to 169 on our board, Contreras has real over-the-fence pop (51/100), and Lindor stays in the launch zone (20\u00b0).",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 169,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "BAL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 305,
+     "status": "confirmed"
+    },
+    {
+     "name": "Willson Contreras",
+     "team": "Red Sox",
+     "total": 162.5,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "BOS@TOR",
+     "gtime": "7:07 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 318,
+     "status": "confirmed"
+    },
+    {
+     "name": "Francisco Lindor",
+     "team": "Mets",
+     "total": 148.4,
+     "aT": 100,
+     "wf": 1.076,
+     "gmatch": "NYM@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 395,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Pete Alonso",
+   "lock": "7:07 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 139.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 2
+   },
+   "confleg": 3,
+   "locked": true
+  },
+  {
+   "name": "The Whole Tray",
+   "kind": "biggest",
+   "badge": "\ud83e\udd6a",
+   "note": "Abreu carries a 166 number tonight, Riley is lifting everything (18\u00b0), Walker has the wind howling out behind him, and O'Neill is squaring up a good chunk (49% hard-hit).",
+   "players": [
+    {
+     "name": "Wilyer Abreu",
+     "team": "Red Sox",
+     "total": 166.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "BOS@TOR",
+     "gtime": "7:07 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 292,
+     "status": "confirmed"
+    },
+    {
+     "name": "Austin Riley",
+     "team": "Braves",
+     "total": 141.8,
+     "aT": 100,
+     "wf": 1.076,
+     "gmatch": "NYM@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 401,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jordan Walker",
+     "team": "Cardinals",
+     "total": 140.3,
+     "aT": 100,
+     "wf": 1.071,
+     "gmatch": "PHI@STL",
+     "gtime": "7:45 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 437,
+     "status": "confirmed"
+    },
+    {
+     "name": "Tyler O'Neill",
+     "team": "Orioles",
+     "total": 132.6,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "BAL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 424,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Wilyer Abreu",
+   "lock": "7:07 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 5.5,
+    "maxprofit": 1149.3,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 1,
+    "neu": 2
+   },
+   "confleg": 4,
+   "locked": true
+  },
+  {
+   "name": "The Closer",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Rafael Devers is making elite contact (64% hard-hit), drives the ball into the air (22\u00b0), plays in a slightly friendly yard.",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 152.8,
+     "aT": 100,
+     "wf": 1.037,
+     "gmatch": "HOU@SF",
+     "gtime": "9:45 PM ET",
+     "game": 9,
+     "late": true,
+     "odds": 355,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Rafael Devers",
+   "lock": "9:45 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true
+  },
+  {
+   "name": "Second Stage",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alonso has loft to spare (19\u00b0), Seager has the yard tilting his way, and Vilade is barreling up enough (46% hard-hit).",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 169,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "BAL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 305,
+     "status": "confirmed"
+    },
+    {
+     "name": "Corey Seager",
+     "team": "Rangers",
+     "total": 165.1,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "TEX@LAA",
+     "gtime": "9:38 PM ET",
+     "game": 5,
+     "late": true,
+     "odds": 312,
+     "status": "projected"
+    },
+    {
+     "name": "Ryan Vilade",
+     "team": "Rays",
+     "total": 143.7,
+     "aT": 100,
+     "wf": 1.121,
+     "gmatch": "TB@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 6,
+     "late": true,
+     "odds": 424,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Pete Alonso",
+   "lock": "7:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 144.9,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1
+  },
   {
    "name": "Upper Deck Bound",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Alvarez carries a 189 number tonight, Soderstrom is hitting bullets (52% hard-hit), and Goodman is lifting everything (22\u00b0).",
+   "note": "Alvarez lands at 189 in our model, Soderstrom is hitting bullets (52% hard-hit), and Goodman gets under it just right (22\u00b0).",
    "players": [
     {
      "name": "Yordan Alvarez",
@@ -24125,416 +24469,10 @@
    "confleg": 0
   },
   {
-   "name": "To the Heavens",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Baldwin has gusts carrying balls over the wall, Burleson is blistering line drives (54% hard-hit), and Lewis has textbook lift (20\u00b0).",
-   "players": [
-    {
-     "name": "Drake Baldwin",
-     "team": "Braves",
-     "total": 170.2,
-     "aT": 100,
-     "wf": 1.076,
-     "gmatch": "NYM@ATL",
-     "gtime": "7:15 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 326,
-     "status": "confirmed"
-    },
-    {
-     "name": "Alec Burleson",
-     "team": "Cardinals",
-     "total": 152.5,
-     "aT": 100,
-     "wf": 1.071,
-     "gmatch": "PHI@STL",
-     "gtime": "7:45 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 385,
-     "status": "confirmed"
-    },
-    {
-     "name": "Royce Lewis",
-     "team": "Twins",
-     "total": 142.7,
-     "aT": 100,
-     "wf": 1.028,
-     "gmatch": "BAL@MIN",
-     "gtime": "7:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 362,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Drake Baldwin",
-   "lock": "7:15 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 156.2,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 2
-   },
-   "confleg": 3
-  },
-  {
-   "name": "Liftoff Sequence",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Baldwin swings with the wind at his back, Harper is punishing the baseball (58% hard-hit), and Henderson gets ideal loft (16\u00b0).",
-   "players": [
-    {
-     "name": "Drake Baldwin",
-     "team": "Braves",
-     "total": 170.2,
-     "aT": 100,
-     "wf": 1.076,
-     "gmatch": "NYM@ATL",
-     "gtime": "7:15 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 326,
-     "status": "confirmed"
-    },
-    {
-     "name": "Bryce Harper",
-     "team": "Phillies",
-     "total": 150.7,
-     "aT": 100,
-     "wf": 1.071,
-     "gmatch": "PHI@STL",
-     "gtime": "7:45 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 424,
-     "status": "confirmed"
-    },
-    {
-     "name": "Gunnar Henderson",
-     "team": "Orioles",
-     "total": 140.7,
-     "aT": 100,
-     "wf": 1.028,
-     "gmatch": "BAL@MIN",
-     "gtime": "7:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 382,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Drake Baldwin",
-   "lock": "7:15 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 173.7,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 2
-   },
-   "confleg": 3
-  },
-  {
-   "name": "Second Stage",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Alonso has loft to spare (19\u00b0), Seager has the yard tilting his way, and Vilade is barreling up enough (46% hard-hit).",
-   "players": [
-    {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 169,
-     "aT": 100,
-     "wf": 1.028,
-     "gmatch": "BAL@MIN",
-     "gtime": "7:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 305,
-     "status": "confirmed"
-    },
-    {
-     "name": "Corey Seager",
-     "team": "Rangers",
-     "total": 165.1,
-     "aT": 100,
-     "wf": 1.047,
-     "gmatch": "TEX@LAA",
-     "gtime": "9:38 PM ET",
-     "game": 5,
-     "late": true,
-     "odds": 312,
-     "status": "projected"
-    },
-    {
-     "name": "Ryan Vilade",
-     "team": "Rays",
-     "total": 143.7,
-     "aT": 100,
-     "wf": 1.121,
-     "gmatch": "TB@ATH",
-     "gtime": "9:40 PM ET",
-     "game": 6,
-     "late": true,
-     "odds": 424,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Alonso",
-   "lock": "7:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 144.9,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 1
-  },
-  {
-   "name": "Leaving the Atmosphere",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Alonso is crushing the baseball (59% hard-hit), Contreras packs respectable power (51/100 grade), and Lindor has the wind howling out behind him.",
-   "players": [
-    {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 169,
-     "aT": 100,
-     "wf": 1.028,
-     "gmatch": "BAL@MIN",
-     "gtime": "7:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 305,
-     "status": "confirmed"
-    },
-    {
-     "name": "Willson Contreras",
-     "team": "Red Sox",
-     "total": 162.5,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "BOS@TOR",
-     "gtime": "7:07 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 318,
-     "status": "confirmed"
-    },
-    {
-     "name": "Francisco Lindor",
-     "team": "Mets",
-     "total": 148.4,
-     "aT": 100,
-     "wf": 1.076,
-     "gmatch": "NYM@ATL",
-     "gtime": "7:15 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 395,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Alonso",
-   "lock": "7:07 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 139.5,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 2
-   },
-   "confleg": 3
-  },
-  {
-   "name": "The Whole Tray",
-   "kind": "biggest",
-   "badge": "\ud83e\udd6a",
-   "note": "Abreu grades to 166 on our board, Riley gets under it just right (18\u00b0), Walker has the wind howling out behind him, and O'Neill is putting a charge into it (49% hard-hit).",
-   "players": [
-    {
-     "name": "Wilyer Abreu",
-     "team": "Red Sox",
-     "total": 166.3,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "BOS@TOR",
-     "gtime": "7:07 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 292,
-     "status": "confirmed"
-    },
-    {
-     "name": "Austin Riley",
-     "team": "Braves",
-     "total": 141.8,
-     "aT": 100,
-     "wf": 1.076,
-     "gmatch": "NYM@ATL",
-     "gtime": "7:15 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 401,
-     "status": "confirmed"
-    },
-    {
-     "name": "Jordan Walker",
-     "team": "Cardinals",
-     "total": 140.3,
-     "aT": 100,
-     "wf": 1.071,
-     "gmatch": "PHI@STL",
-     "gtime": "7:45 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 437,
-     "status": "confirmed"
-    },
-    {
-     "name": "Tyler O'Neill",
-     "team": "Orioles",
-     "total": 132.6,
-     "aT": 100,
-     "wf": 1.028,
-     "gmatch": "BAL@MIN",
-     "gtime": "7:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 424,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Wilyer Abreu",
-   "lock": "7:07 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 5.5,
-    "maxprofit": 1149.3,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 1,
-    "neu": 2
-   },
-   "confleg": 4
-  },
-  {
-   "name": "The Closer",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Rafael Devers is making elite contact (64% hard-hit), drives the ball into the air (22\u00b0), gets a sliver of help from the park.",
-   "players": [
-    {
-     "name": "Rafael Devers",
-     "team": "Giants",
-     "total": 152.8,
-     "aT": 100,
-     "wf": 1.037,
-     "gmatch": "HOU@SF",
-     "gtime": "9:45 PM ET",
-     "game": 9,
-     "late": true,
-     "odds": 355,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Rafael Devers",
-   "lock": "9:45 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
-  },
-  {
-   "name": "Chart a Course",
+   "name": "Ground Tackle",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Yordan Alvarez is hitting frozen ropes (60% hard-hit), has the yard tilting his way, has the raw juice to clear any wall (100/100 power).",
-   "players": [
-    {
-     "name": "Yordan Alvarez",
-     "team": "Astros",
-     "total": 189.1,
-     "aT": 100,
-     "wf": 1.037,
-     "gmatch": "HOU@SF",
-     "gtime": "9:45 PM ET",
-     "game": 9,
-     "late": true,
-     "odds": 277,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Yordan Alvarez",
-   "lock": "9:45 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
-  },
-  {
-   "name": "The Helm",
-   "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Drake Baldwin has gusts carrying balls over the wall, is barreling everything in sight (59% hard-hit), stays in the sweet-spot angle (18\u00b0).",
+   "badge": "\u2693\ufe0f",
+   "note": "Drake Baldwin has gusts carrying balls over the wall, is barreling everything in sight (59% hard-hit), sends it skyward (18\u00b0).",
    "players": [
     {
      "name": "Drake Baldwin",
@@ -24565,10 +24503,10 @@
    "confleg": 1
   },
   {
-   "name": "Squared Away",
+   "name": "Calm Seas",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
-   "note": "Pete Alonso is crushing it to all fields (59% hard-hit), swings with home-run loft (19\u00b0), plays in a slightly friendly yard.",
+   "badge": "\u2693\ufe0f",
+   "note": "Pete Alonso is crushing it to all fields (59% hard-hit), swings with home-run loft (19\u00b0), catches a small park boost, and packs elite raw power.",
    "players": [
     {
      "name": "Pete Alonso",
@@ -24599,9 +24537,9 @@
    "confleg": 1
   },
   {
-   "name": "Hold Fast",
+   "name": "The Berth",
    "kind": "builder",
-   "badge": "\ud83d\udcb0",
+   "badge": "\u2693\ufe0f",
    "note": "Wilyer Abreu is squaring up rockets (55% hard-hit), carries top-shelf pop (100/100 power grade), recent form points up, projects out to 166.",
    "players": [
     {
@@ -24633,10 +24571,44 @@
    "confleg": 1
   },
   {
+   "name": "Tide's Turn",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Yordan Alvarez is hitting frozen ropes (60% hard-hit), plays in a slightly friendly yard, grades near the top of the slate for power (100/100).",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 189.1,
+     "aT": 100,
+     "wf": 1.037,
+     "gmatch": "HOU@SF",
+     "gtime": "9:45 PM ET",
+     "game": 9,
+     "late": true,
+     "odds": 277,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Yordan Alvarez",
+   "lock": "9:45 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0
+  },
+  {
    "name": "Blue-Chip Plate",
    "kind": "chef",
    "badge": "\ud83c\udf7d",
-   "note": "Caminero lands at 250 in our model, Ohtani gets a sliver of help from the park, Schwarber puts air under the ball (20\u00b0), and Olson carries top-shelf pop (100/100 power grade).",
+   "note": "Caminero projects out to 250, Ohtani gets a sliver of help from the park, Schwarber has textbook lift (20\u00b0), and Olson carries top-shelf pop (100/100 power grade).",
    "players": [
     {
      "name": "Junior Caminero",
@@ -24710,5 +24682,38 @@
    },
    "confleg": 2
   }
+ ],
+ "pool": [
+  "Tyler Soderstrom",
+  "Drake Baldwin",
+  "Alec Burleson",
+  "Royce Lewis",
+  "Bryce Harper",
+  "Gunnar Henderson",
+  "Pete Alonso",
+  "Willson Contreras",
+  "Francisco Lindor",
+  "Wilyer Abreu",
+  "Austin Riley",
+  "Jordan Walker",
+  "Tyler O'Neill",
+  "Yordan Alvarez",
+  "Corey Seager",
+  "Wyatt Langford",
+  "Yandy D\u00edaz",
+  "Rafael Devers",
+  "Hunter Goodman",
+  "Mike Trout",
+  "Zach Neto",
+  "Ryan Vilade",
+  "Andy Pages",
+  "Corbin Carroll",
+  "Jake Bauers",
+  "Jackson Chourio",
+  "Salvador Perez",
+  "Bryce Eldridge",
+  "Max Muncy",
+  "Manny Machado",
+  "Freddie Freeman"
  ]
 }
