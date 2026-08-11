@@ -1,7 +1,7 @@
 {
   "date": "2026-08-11",
   "season": "2026",
-  "pulled_at": "2026-08-11T21:30:53Z",
+  "pulled_at": "2026-08-11T21:32:33Z",
   "games": [
     {
       "gamePk": 824240,
@@ -590,11 +590,6 @@
             "iso": 0.126
           },
           {
-            "id": 672960,
-            "name": "Kazuma Okamoto",
-            "iso": 0.204
-          },
-          {
             "id": 665926,
             "name": "Andr\u00e9s Gim\u00e9nez",
             "iso": 0.123
@@ -603,6 +598,11 @@
             "id": 664702,
             "name": "Myles Straw",
             "iso": 0.108
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.105
           }
         ],
         "confirmed": true
@@ -1524,9 +1524,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 77.6,
+        "wind_mph": 8.6,
+        "wind_dir": 250,
+        "tail_mph": 6.1,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
