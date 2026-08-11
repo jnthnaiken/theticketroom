@@ -456,7 +456,9 @@ const isConf=s=>s==='confirmed';
    All view so the two can never disagree. Nightcap is excluded on purpose: it lives in its own
    collapsible pool and the filter-bar counter has never counted it either. */
 function liveTickets(){return (D.tickets||[]).filter(function(t){var k=t.kind;
-  if(k==='late')return false;
+  if(k==='late')return singleAlive(t);   /* 2026-08-10: the nightcap IS rendered inline in the #tickets grid on the All
+     view, so excluding it made the tile and the filter-bar read 12 while 13 slips sat under them. The 'own collapsible
+     pool' this exclusion was written for is gone. Count exactly what drawTickets() renders. */
   if(k==='lunch')return !t.final&&singleAlive(t);
   if(k==='builder')return singleAlive(t);
   return k==='moon'||k==='biggest'||k==='chef';});}
@@ -1173,7 +1175,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     // ---- LOCKS (shared by both paths): a ticket is LOCKED when every leg is confirmed / in-progress. ----
     var lmap={}, usedG={};
     if(prior.length){
-      prior.forEach(function(t){ if(t.kind!=='chef'&&frozenT(t)&&validT(t)) lmap[tsig(t)]={sig:tsig(t),t:t}; });   // LOCK = whole ticket confirmed, computed fresh from the live lineup
+      prior.forEach(function(t){ if(frozenT(t)&&validT(t)) lmap[tsig(t)]={sig:tsig(t),t:t}; });   // LOCK = whole ticket confirmed, computed fresh from the live lineup
       saveLock(Object.keys(lmap).map(function(k){return lmap[k];}));   // OVERWRITE with only this board's locks -> stale/multi-version locks self-prune every load
       prior.forEach(function(t){ if(lmap[tsig(t)]) t.players.forEach(function(l){usedG[l.name]=1;}); });   // placed legs reserved -> projected tickets can't poach them
     }
@@ -1259,7 +1261,11 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       // ---- PRESERVE locked + confirmed/in-progress parlays; RE-DRAFT the projected parlays via draftF. ----
       var plan=[];
       prior.forEach(function(t){
-        if(t.kind==='chef')return;/*chef -> rebuilt fresh from _chefLegs (per-leg lock) at emit; never frozen/reverted here*/
+        if(t.kind==='chef'&&!isLocked(t))return;/* 2026-08-10: chef seats fill per-leg while the slip is still incomplete; once
+        every seat is confirmed it is a placed 4-leg round robin and freezes like any other slip. It was the ONLY ticket type
+        exempt from the whole-ticket lock, so it alone kept swapping legs after every lineup had posted while the card read
+        CONFIRMED (Blue-Chip Plate went Olson->Alvarez at 6:42pm and again at 6:57pm). The clock lock already caught it at
+        first pitch; this closes the confirmed-but-not-yet-started window. */
         var kind=t.kind, idx=nextIdx(kind);
         /* An anchor single is DERIVED: it exists only because its bat anchors a parlay, and it is
            re-derived from the live anchor set on every build. isLocked() freezes on "every leg
