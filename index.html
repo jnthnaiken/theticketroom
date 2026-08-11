@@ -456,9 +456,7 @@ const isConf=s=>s==='confirmed';
    All view so the two can never disagree. Nightcap is excluded on purpose: it lives in its own
    collapsible pool and the filter-bar counter has never counted it either. */
 function liveTickets(){return (D.tickets||[]).filter(function(t){var k=t.kind;
-  if(k==='late')return singleAlive(t);   /* 2026-08-10: the nightcap IS rendered inline in the #tickets grid on the All
-     view, so excluding it made the tile and the filter-bar read 12 while 13 slips sat under them. The 'own collapsible
-     pool' this exclusion was written for is gone. Count exactly what drawTickets() renders. */
+  if(k==='late')return false;
   if(k==='lunch')return !t.final&&singleAlive(t);
   if(k==='builder')return singleAlive(t);
   return k==='moon'||k==='biggest'||k==='chef';});}
