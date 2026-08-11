@@ -13,12 +13,10 @@ RULES (match the code below):
   * Anchors        = strongest by model; MULTIPLE anchors per game allowed (two bats from one
                      game can each lead their own tickets).
   * Per-ticket     = one bat per distinct game; GAME_CAP (=3) bats per game overall.
-  * Chef's Table   = the CHALK_N best bats by STRENGTH (the 65/35 final score), one per game;
-                     reserved out of every other ticket. Not a shortest-odds cut -- the market is
-                     already inside the score, so ranking on raw price double-counted it.
+  * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY; moons/salami/builders chalk-free.
   * Moons          = ~2 per non-salami anchor; anchor + 2 longshots, snake-drafted, legs inside a WIN(=120)-min window.
   * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
-  * Anchors        = the parlay anchors as single-leg plays (kind key is still "builder" -- see NAMES).
+  * Builders       = leftover / sub-gate bats as single-leg bankroll plays.
   * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (4:00 PM ET).
   * Ticket names   = rotated by day-of-year, no repeats.
 """
@@ -26,7 +24,7 @@ import re, datetime
 
 LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
 NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
-CHALK_N       = 4                # Chef's Table seats: the 4 best bats by STRENGTH (65/35), one per game, reserved off every other ticket
+CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
 Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40). Lowered 1.0->0.75 to deepen the pool (more legs -> more moons on fragmented slates).
@@ -53,12 +51,6 @@ NAME_POOLS = {
         "Heat Shield Off", "Beyond the Bleachers", "Into the Upper Air", "The Apollo",
         "Terminal Climb", "Past Low Earth Orbit",
     ],
-    "chef": [  # all-chalk marquee: fine dining / the favorites' table  (no 'Chef'/'Table' -- section-header words)
-        "Omakase", "The Prix Fixe", "The Degustation", "Five-Course Service",
-        "The Sommelier's Pick", "Michelin Three-Star", "The Reserve List", "Top Shelf",
-        "The Blue Ribbon", "Cream of the Crop", "The A-List", "House Reserve",
-        "Dry-Aged and Prime", "The Priciest Cuts", "Blue-Chip Plate", "The Standing Reservation",
-    ],
     "biggest": [  # the feast / the spread
         "The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats",
         "Family Style", "The Tasting Menu", "Surf and Turf",
@@ -77,18 +69,17 @@ NAME_POOLS = {
         "Midday Meal", "High Noon", "The Blue Plate", "The Noon Whistle", "The Midday Mash",
         "Half-Day Hammer", "The Matinee", "The Early Bird", "Midday Money", "First-Pitch Feast",
     ],
-    # Anchors (kind key stays "builder": season.json, the D_<date>.json archives and grade_night.py
-    # are all keyed on it, and 92 graded nights of ledger history hang off that key. Display only.)
-    "builder": [  # nautical -- the bat the board is built around
-        "Even Keel", "Weigh Anchor", "Holding Ground", "Safe Harbour", "Deep Water",
-        "The Mooring", "Steady as She Goes", "All Hands", "Full Fathom", "The Windlass",
-        "Drop the Hook", "The Ballast", "Sea Legs", "The Keel", "Fair Winds",
-        "Following Sea", "Set the Hook", "The Capstan", "Anchors Aweigh", "Riding the Tide",
-        "High Water", "Made Fast", "Cast Off", "Slack Tide", "Trim the Sail",
-        "Port of Call", "The Bowline", "On Station", "Dockside", "The Waterline",
-        "Shipshape", "The Anchorage", "Under Way", "Making Headway", "Ready About",
-        "Landfall", "The Lighthouse", "The Breakwater", "Chart a Course", "The Helm",
-        "Squared Away", "Hold Fast", "Ground Tackle", "Calm Seas", "The Berth", "Tide's Turn",
+    "builder": [  # bankroll / getting paid
+        "Cash Is King", "Paid in Full", "Bag Secured", "The Sure Thing", "Easy Money",
+        "Stack It High", "Mailbox Money", "Bread Winner", "Walk-Off Wallet", "Petty Cash",
+        "Pay the Rent", "Cha-Ching", "The Day Job", "Clock In, Cash Out",
+        "Grocery Money", "The Side Hustle", "Beer Money", "Coffee's on Me", "The Tip Jar",
+        "Found Money", "Gas Money", "The Down Payment", "Spare Change", "The Nest Egg", "Payday", "House Money",
+        "Keep the Change", "Cover Charge", "The Cushion", "Quick Buck", "In the Black",
+        "The Float", "Walking-Around Money", "The Cookie Jar", "Pocket Money", "The Allowance",
+        "Cashing Out", "The Slow Grind", "Steady Drip", "Singles Add Up", "Chip Stack",
+        "The Vig Killer", "Direct Deposit", "Rainy Day Fund", "The ATM",
+        "Milk Money", "Tab Settled",
     ],
 }
 
@@ -109,42 +100,9 @@ def gmin(gt):
 
 
 # ---------- selection ----------
-def _now_min_et():
-    """Minutes past midnight, ET."""
-    try:
-        from zoneinfo import ZoneInfo
-        tz = ZoneInfo("America/New_York")
-    except Exception:
-        tz = datetime.timezone(datetime.timedelta(hours=-4))
-    n = datetime.datetime.now(tz)
-    return n.hour * 60 + n.minute
-
-
-def assemble(D, now_min=None):
+def assemble(D):
     P  = D['players']
     gs = D.get('meta', {}).get('gs', {})            # live game-state map
-
-    # ---------- TICKET LOCK: once a ticket's earliest leg is underway, its LEGS ARE FINAL ----------
-    # From that moment it is a placed bet; a re-draft that swaps a leg changes a wager somebody is
-    # already holding. Locked tickets are carried forward verbatim and only RE-PRICED (odds, status,
-    # TOTAL and weather refresh through leg()); their bats leave the pool so the open tickets draft
-    # around them.
-    #   2026-07-09: a RULES_VERSION bump force-re-drafted a confirmed board and swapped a moon leg --
-    #               the ledger had to be hand-corrected by +91.69u.
-    #   2026-08-08: a strength-key change re-drafted SEVEN locked tickets in ONE rebuild. The 3:05
-    #               lunch play went Baldwin -> Rice at 6:06pm, three 6:05 moons changed anchor, and 3
-    #               of the salami's 4 legs turned over. That is what this block exists to stop.
-    # now_min is injectable so tests can pin the clock.
-    _now = _now_min_et() if now_min is None else now_min
-    _prior = D.get('tickets') or []
-    _locked_prior, _locked_bats = [], set()
-    for _t in _prior:
-        _lk = gmin(_t.get('lock'))
-        if _lk is None or _now < _lk:
-            continue
-        _locked_prior.append(_t)
-        for _l in _t.get('players', []):
-            _locked_bats.add(_l['name'])
     susp = lambda n: gs.get(str(P[n]['game'])) == 'susp'
     # pending / carryover = a bat carried from a still-resuming suspended game (or named in the carryover
     # strip). It stays in the pool and CAN be a single (builder), but is barred from every parlay leg --
@@ -158,10 +116,11 @@ def assemble(D, now_min=None):
     elig = [n for n, p in P.items()
             if p.get('odds') and not p.get('out') and not p.get('void') and _precip(n) < 70]   # >=70%% rain -> game out of the pool entirely
     byT  = lambda names: sorted(names, key=lambda n: (P[n]['TOTAL'], P[n]['aT']), reverse=True)   # TOTAL desc; ties broken by aT (base) so the hard 33-cut is deterministic
+    byO  = lambda names: sorted(names, key=lambda n: P[n]['odds'])      # shortest first
     tmin = lambda n: gmin(P[n]['gtime']) or 0
 
     # POOL (one draft, top-3-per-GAME): the pool is EVERY eligible bat whose model TOTAL clears FLOOR.
-    # Rank that pool by STRENGTH and reserve the CHALK_N best for the Chef's Table; from the rest
+    # Re-sort that pool by odds and pull the CHALK_N shortest (chalk -> lunch/nightcap ONLY); from the rest
     # keep at most TOP-3 per GAME (best-by-model, both teams combined). No fixed size and no backfill -- the floor is the only
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
     GAME_CAP = 4   # at most 4 bats per GAME (both lineups combined); adds z-gate-passing depth so a scratched leg can refill in-gate. Still one bat/game per TICKET (fits()), so no single ticket over-concentrates on one game
@@ -174,56 +133,25 @@ def assemble(D, now_min=None):
         _ft = sorted([P[n]['TOTAL'] for n in fullrank if P[n].get('TOTAL') is not None], reverse=True)
         _floor = _ft[min(len(_ft)-1, 39)] if _ft else FLOOR
         cand = [n for n in fullrank if P[n]['TOTAL'] >= _floor]
-    # STRENGTH = normalized TOTAL, nothing else, min-max across whatever set it ranks over.
-    # ONE key decides every role board-wide: Chef's Table seats, anchors, salami, moon legs,
-    # builder order.
-    #
-    # DO NOT add a market term on top. Two reasons, both load-bearing:
-    #   1. TOTAL already carries the market -- the ~50/50 odds/edge blend is baked in via mktT --
-    #      so weighting implied probability again double-counts the price.
-    #   2. The board's colours ARE this key. index.html: confOf = p.TOTAL, and tierOf ranks the
-    #      field into premium(green) / strong(orange) / value(pink) on TOTAL alone. If the draft
-    #      key diverges from TOTAL, the tickets stop agreeing with their own colours.
-    # Tried 65/35 on 2026-08-08 and it showed immediately: five tickets drafted a PINK leg while
-    # ORANGE bats with 12-35 more model sat undrafted (Upper Deck Bound took Valdez m142/+457
-    # next to Walker m177/+300, passing over Ben Rice m154/+422). Reverted same night.
-    def _mkstrength(names):
-        _Ts = [P[n]['TOTAL'] for n in names] or [0]
-        _tmn, _tmx = min(_Ts), max(_Ts)
-        def _s(n):
-            return (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5
-        return _s
-    _cstren  = _mkstrength(cand)                      # normalized across the gated pool
-    ranked   = sorted(cand, key=lambda n: (_cstren(n), P[n]['TOTAL']), reverse=True)   # best final score first
-    # CHEF'S TABLE reservation: the CHALK_N best parlay-eligible bats by STRENGTH, one per GAME, spanning the
-    # whole slate (no time window). Pulled out here and handed to the all-chalk round robin below; excluding
-    # them from `nonchalk` keeps them off every other ticket (anchors, moons, salami, builders, lunch,
-    # nightcap) -- so the NEXT-strongest bats become the anchors, then we draft as usual.
-    chef_legs, _cgm = [], set()
-    for n in ranked:                                  # best final score first (65/35 strength)
-        if pend(n) or _precip(n) >= 40:               # same parlay-leg gate as anchors: no pending/carryover, <40% rain
-            continue
-        g = P[n]['game']
-        if g in _cgm:                                 # one bat per GAME -> clean round robin
-            continue
-        chef_legs.append(n); _cgm.add(g)
-        if len(chef_legs) >= CHALK_N:
-            break
-    chalk    = set(chef_legs)                          # reserved for Chef's Table; barred from every other ticket
+    ranked   = byO(cand)                              # re-sort those 41 by odds
+    chalk    = set()                                 # chalk ban removed -- the top-4 favorites now draft into moons/salami/builders like every other bat
     nonchalk, _tc = [], {}
     for n in byT([x for x in cand if x not in chalk]):   # the pool, model order, trimmed to <=3 per GAME (both teams combined)
         g = P[n]['game']
         if _tc.get(g, 0) >= GAME_CAP: continue
         nonchalk.append(n); _tc[g] = _tc.get(g, 0) + 1
-    if _locked_bats:                       # locked tickets own their bats -- open tickets draft around them
-        nonchalk = [n for n in nonchalk if n not in _locked_bats]
     _have = set(nonchalk)
     extra = []                                           # FLOOR is the only gate -> no fixed pool size, no backfill, no sub-floor tier
     D['pool'] = list(nonchalk)   # Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     D.setdefault('meta', {})['pool'] = len(P)   # counters denominator = the whole scored field (all bats, e.g. 243 live); Players/Tickets still use the gated 33 in D['pool']
 
-    # STRENGTH over the buildable pool -- same 65/35 key defined above, re-normalized across `nonchalk`.
-    strength = _mkstrength(nonchalk)
+    # STRENGTH = normalized TOTAL, nothing else. TOTAL already carries the market -- the ~50% odds /
+    # 50% edge blend is baked into TOTAL (via mktT) -- so ranking by TOTAL alone avoids double-counting the
+    # odds. This one key decides every role board-wide: anchors, salami, moon legs, and builder order.
+    _Ts   = [P[n]['TOTAL'] for n in nonchalk] or [0]
+    _tmn, _tmx = min(_Ts), max(_Ts)
+    def strength(n):
+        return (P[n]['TOTAL'] - _tmn) / (_tmx - _tmn) if _tmx > _tmn else 0.5   # TOTAL alone
     byS = lambda names: sorted(names, key=strength, reverse=True)   # board-wide role/order key
 
     cand_t      = [(gmin(P[n]['gtime']) or 0) for n in cand]
@@ -231,10 +159,20 @@ def assemble(D, now_min=None):
     lunch_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) < LUNCH_CUT_MIN}
     night_games = {P[n]['game'] for n in cand if (gmin(P[n]['gtime']) or 0) >= latest - NIGHT_WIN}
 
-    # anchor CANDIDATES: strongest nonchalk by STRENGTH, one per game, never pending/below-floor.
+    # anchor CANDIDATES: strongest nonchalk by STRENGTH, ONE PER GAME (enforced below), never pending/below-floor.
     # The final 4 anchors are chosen from these for the best fittable schedule (see the draft below), so
     # every moon fills three legs -- we never ship a 2-leg moon.
-    cand_anchors = [n for n in byS(nonchalk) if not pend(n) and _precip(n) < 40][:20]   # MULTIPLE anchors per game ALLOWED (no per-game dedup) -- each leads its own ticket; the one-bat-per-game-per-TICKET rule (fits()) + the <=3/game POOL cap bound total exposure. 40%+ rain never anchors. Capped to the strongest 20 so the exhaustive 4-anchor-set search (O(N^4)) stays fast -- no realistic anchor ranks below the 20th-strongest bat.
+    # 2026-08-10: ONE ANCHOR PER GAME. The comment above, the one at the anchor-selection block below, and the README
+    # all say 'one per game'; only the inline note here said otherwise and the code had no dedup at all. On 2026-08-10
+    # that shipped Matt Olson AND Drake Baldwin -- both Braves, both NYM@ATL -- as two of the four anchors, doubling the
+    # board's exposure to one lineup. Mirrored in index.html's candA.
+    _ancg, cand_anchors = set(), []
+    for n in byS(nonchalk):
+        if pend(n) or _precip(n) >= 40: continue
+        _g = P[n]['game']
+        if _g in _ancg: continue
+        _ancg.add(_g); cand_anchors.append(n)
+        if len(cand_anchors) >= 20: break   # MULTIPLE anchors per game ALLOWED (no per-game dedup) -- each leads its own ticket; the one-bat-per-game-per-TICKET rule (fits()) + the <=3/game POOL cap bound total exposure. 40%+ rain never anchors. Capped to the strongest 20 so the exhaustive 4-anchor-set search (O(N^4)) stays fast -- no realistic anchor ranks below the 20th-strongest bat.
 
     tickets, used = [], set()
 
@@ -259,7 +197,7 @@ def assemble(D, now_min=None):
         _doy = datetime.date.fromisoformat(D.get('meta', {}).get('date', '')).timetuple().tm_yday
     except Exception:
         _doy = 0
-    _name_used, _name_ctr = {t.get('name') for t in _locked_prior if t.get('name')}, {}   # a locked ticket keeps its name; the draft can't re-issue it
+    _name_used, _name_ctr = set(), {}
     def name_for(kind):
         pool = NAME_POOLS.get(kind) or ["Ticket"]
         i = _name_ctr.get(kind, 0); _name_ctr[kind] = i + 1
@@ -400,7 +338,7 @@ def assemble(D, now_min=None):
         # Substance only: why each bat can leave the yard. Full-width cards (salami/nightcap/lunch) carry
         # richer two-line notes since they have the room; grid cards (moons/builders) fill two normal lines.
         seed = sum(sum(ord(c) for c in _lastnm(P[n].get('nm', n))) for n in names)
-        WIDE = kind in ('chef', 'biggest', 'late', 'lunch')
+        WIDE = kind in ('biggest', 'late', 'lunch')
         B = 168 if WIDE else 150
         if len(names) == 1:
             a = P[names[0]]
@@ -542,14 +480,6 @@ def assemble(D, now_min=None):
 
     parlays = [t for t in parlays if (len(t['legs']) - 1) >= t['need']]   # ship only fully-filled parlays; dropped bats fall to builders
 
-    # CHEF'S TABLE: the all-chalk 4-man round robin (structured exactly like the salami: by-2s/3s/4, 5.5u
-    # risk). Built from the reserved chalk legs; ships only as a full CHALK_N-leg set and leads the
-    # round-robin trio (Chef's Table -> Moonshots -> Grand Salami) on the board.
-    if len(chef_legs) >= CHALK_N:
-        _cheflegs = sorted(chef_legs, key=lambda n: -P[n]['TOTAL'])   # strongest-first display, like the salami
-        add(name_for("chef"), "chef", "\U0001F37D", _cheflegs,
-            rr={"struct": "by 2s, 3s & 4", "risk": 5.5})
-
     # CANONICAL NAMING: a moon's name is tied to its LEG SET, not its output position.
     # Without this, two moons sharing an anchor can swap names on a rebuild (the partner pairs
     # come out in the opposite order) even though the legs are intact -> looks like legs "moved".
@@ -570,18 +500,6 @@ def assemble(D, now_min=None):
     _lnpick = []
     _nc = [n for n in byS(nonchalk) if P[n]['game'] in night_games and n not in _pused
            and P[n].get('odds') is not None and P[n]['odds'] <= 600]
-    # NIGHTCAP FALLBACK (mirrors index.html __assembleClient). The nightcap drafts dead-last out of whatever
-    # the gated pool has left over -- fine on a normal slate, and on 2026-08-03 it shipped NOTHING. The z-gate
-    # is RELATIVE, so an 8-game card with every lineup posted (113 of 268 bats out) passed only 20; the Chef's
-    # Table took 4 and six moons + the salami + four anchors consumed all 16 that remained. The one true 9:40
-    # nightcap game put ZERO bats through the gate, so `latest` fell back to the 8:40 card and even the night
-    # WINDOW collapsed to 7:40. When the leftover pool is dry, reach into the full priced-and-alive field
-    # inside the TRUE latest-game window. Priority is unchanged -- this still runs after every other ticket.
-    if not _nc:
-        _nlast = max((tmin(n) for n in elig), default=0)
-        _nc = [n for n in byT(elig) if tmin(n) >= _nlast - NIGHT_WIN and n not in _pused and n not in chalk
-               and not pend(n) and _precip(n) < 40
-               and P[n].get('odds') is not None and P[n]['odds'] <= 600]
     if _nc:
         add(name_for("late"), "late", "\U0001f303", [_nc[0]]); _lnpick.append(_nc[0])
     _lc = [n for n in byS(nonchalk) if P[n]['game'] in lunch_games and n not in _pused and n not in _lnpick
@@ -609,7 +527,7 @@ def assemble(D, now_min=None):
     # 2026-07-09: conviction-snub builders removed -- builders = parlay ANCHORS only.
     # (over the ledger window snubs graded -57u vs anchors +9u; snubs were the entire builder bleed)
     for n in _bnames:
-        add(name_for("builder"), "builder", "\u2693\ufe0f", [n])
+        add(name_for("builder"), "builder", "\U0001f4b0", [n])
 
     # price every ticket (same correlation rule the board uses)
     wx = D.get('meta', {}).get('wx', {})
@@ -629,57 +547,6 @@ def assemble(D, now_min=None):
                         for e in range(c + 1, L):
                             s += dec[a] * dec[b] * dec[c] * dec[e]
         return _jsround(s * 10) / 10
-    # ---- TICKET LOCK, part 2: swap the locked tickets back in, re-priced but NOT re-drafted ----
-    if _locked_prior:
-        # A fresh ticket is redundant only if it DUPLICATES something already carried. Dropping
-        # anything that merely SHARES a bat with a locked ticket deleted every anchor single whose
-        # parlay had locked but whose own game had not started (2026-08-09: Murakami's salami locked
-        # at 1:35 and his builder went with it, permanently -- the anchor pass re-made it and this
-        # filter re-deleted it every build). An anchor single is meant to mirror a locked anchor.
-        _kept_names = {t.get('name') for t in _locked_prior}
-        _kept_singles = {t['players'][0]['name'] for t in _locked_prior
-                         if len(t.get('players') or []) == 1}
-
-        def _keep_fresh(t):
-            if t.get('name') in _kept_names:
-                return False                                  # already carried verbatim
-            if len(t['players']) == 1:
-                return t['players'][0]['name'] not in _kept_singles
-            return not any(l['name'] in _locked_bats for l in t['players'])
-
-        _fresh = [t for t in tickets if _keep_fresh(t)]
-        # A locked ticket occupies its slot. Take the shape the draft just produced as the target
-        # for the night and let the locked ones fill it first, so the board keeps its normal
-        # 6 moons / 1 salami / 1 chef / 1 lunch / 1 nightcap / N anchors instead of doubling up.
-        _target, _lockn, _room, _trim = {}, {}, {}, []
-        for t in tickets:
-            _target[t['kind']] = _target.get(t['kind'], 0) + 1
-        for t in _locked_prior:
-            _lockn[t['kind']] = _lockn.get(t['kind'], 0) + 1
-        for t in _fresh:
-            k = t['kind']
-            _room[k] = _room.get(k, _target.get(k, 0) - _lockn.get(k, 0))
-            if _room[k] > 0:
-                _room[k] -= 1
-                _trim.append(t)
-        _fresh = _trim
-        _kept = []
-        for _t in _locked_prior:
-            _c = dict(_t)
-            _c['players'] = [(leg(l['name']) if l['name'] in P else dict(l))
-                             for l in _t.get('players', [])]
-            _c['nlegs'] = len(_c['players'])
-            if _c['players']:
-                _c['lock'] = min(l['gtime'] for l in _c['players'])
-                _c['has_late'] = any(l['late'] for l in _c['players'])
-            _c['locked'] = True
-            _kept.append(_c)
-        for _t in _kept:                       # a locked ticket's name can't be re-issued
-            _name_used.add(_t.get('name'))
-        tickets[:] = _kept + _fresh
-        print(f"  ticket lock: {len(_kept)} carried forward (re-priced only), "
-              f"{len(tickets) - len(_kept)} open")
-
     for i, t in enumerate(tickets, 1):
         t['n'] = i
         pr = [l for l in t['players'] if l['odds']]
