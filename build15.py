@@ -31,18 +31,7 @@ def load_dated(stem, required=True):
     for d in (DATE, _prior(DATE)):
         f = f"{stem}_{d}.json"
         if os.path.exists(f):
-            if d != DATE:
-                if stem == 'odds':
-                    # 2026-08-09: odds_<date>.json is only committed at the closing snapshot, so a
-                    # build where fetch_odds wrote nothing quietly scored the slate on YESTERDAY'S
-                    # prices. blend is 0.75*mkt_z, so every TOTAL and every tier colour on the board
-                    # was wrong -- and it alternated build to build, which is what made the colours
-                    # strobe. fetch_odds now always leaves a file; if this ever fires again it is a
-                    # real failure, not a fallback.
-                    print(f"::error::build15: odds_{DATE}.json MISSING -- scoring on {stem}_{d}.json, "
-                          f"i.e. YESTERDAY'S PRICES. Every score and colour on this board is wrong.")
-                else:
-                    print(f"  ({stem}_{DATE}.json missing -> using prior day {d})")
+            if d != DATE: print(f"  ({stem}_{DATE}.json missing -> using prior day {d})")
             return json.load(open(f))
     if required: raise SystemExit(f"!! missing required input {stem}_{DATE}.json (and prior day)")
     return {}
@@ -91,8 +80,8 @@ pbrl_mult= lambda d: clamp(1 + W_BRL*BRL_SHRINK*(((d.get('brl') if d.get('brl') 
 WX_CLAMP = 0.10     # symmetric cap on the wind+temp part (+/-10%)
 PARK_ELEV= {'COL':5200,'ATH':2000,'ATL':1050,'MIN':815,'KC':750,'PIT':730,'CLE':660,'CHC':600,'DET':600,
             'CIN':490,'STL':465,'LAD':522,'LAA':160,'SD':62,'SF':13,'NYY':55,'NYM':36,'PHI':39,'BOS':20,
-            'BAL':36,'WSH':30,'ARI':1100,'SEA':134,'HOU':80,'MIA':10,'TB':44,'TOR':250,'TEX':545,'MIL':635}
-CF_AZ    = {'ARI':0,'ATL':50,'BAL':30,'BOS':45,'CHC':30,'CWS':38,'CIN':40,'CLE':0,'COL':0,'DET':30,'HOU':20,
+            'BAL':36,'WSH':30,'ARI':1100,'AZ':1100,'SEA':134,'HOU':80,'MIA':10,'TB':44,'TOR':250,'TEX':545,'MIL':635}
+CF_AZ    = {'ARI':0,'AZ':0,'ATL':50,'BAL':30,'BOS':45,'CHC':30,'CWS':38,'CIN':40,'CLE':0,'COL':0,'DET':30,'HOU':20,
             'KC':45,'LAA':40,'LAD':25,'MIA':35,'MIL':30,'MIN':7,'NYM':25,'NYY':15,'ATH':62,'PHI':15,'PIT':70,
             'SD':0,'SF':85,'SEA':60,'STL':30,'TB':50,'TEX':40,'TOR':0,'WSH':30}   # plate->CF bearing (deg); ATH=Vegas placeholder
 FULL={'TOR':'Blue Jays','BOS':'Red Sox','CLE':'Guardians','MIL':'Brewers','MIN':'Twins','TEX':'Rangers','BAL':'Orioles','SEA':'Mariners','NYM':'Mets','PHI':'Phillies','CWS':'White Sox','NYY':'Yankees','SF':'Giants','ATL':'Braves','STL':'Cardinals','KC':'Royals','LAA':'Angels','ATH':'Athletics','COL':'Rockies','CHC':'Cubs','TB':'Rays','LAD':'Dodgers','MIA':'Marlins','PIT':'Pirates','DET':'Tigers','HOU':'Astros','CIN':'Reds','AZ':'Diamondbacks','ARI':'Diamondbacks','WSH':'Nationals','SD':'Padres'}
@@ -117,16 +106,8 @@ def fetch_weather(games, date):
     if not homes: return {}, 'no open parks'
     la=','.join(str(PARK_LL[c][0]) for c in homes); lo=','.join(str(PARK_LL[c][1]) for c in homes)
     try:
-        # PRECIP IS PULLED HERE TOO (added 2026-08-03). It used to come ONLY from fetch_mlb's slate_auto
-        # sidecar; when that per-park call failed the board silently kept the LINEUP FILE's precip (Kasper's
-        # forecast) with no warning. On 2026-08-03 17:17Z every open-air park in slate_auto came back
-        # "weather fetch failed", so PHI/NYY inherited Kasper's 56%/63% against an actual 0-1% forecast --
-        # and since a chef seat is vetoed at >=40% rain, that silently knocked the three shortest prices
-        # (Schwarber +200, Wood +240, Rice +260) off the Chef's Table. precip now rides the same
-        # correct-ET-hour path as temp/wind, so it takes two independent outages to go stale, and
-        # apply_weather() reports its source per game either way.
         u=('https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s'
-           '&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation_probability'
+           '&hourly=temperature_2m,wind_speed_10m,wind_direction_10m'
            '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%%2FNew_York'
            '&start_date=%s&end_date=%s')%(la,lo,date,date)
         d=_getj(u)
@@ -135,7 +116,7 @@ def fetch_weather(games, date):
     locs=d if isinstance(d,list) else [d]; out={}
     for c,loc in zip(homes,locs):
         hh=loc.get('hourly') or {}
-        out[c]={'time':hh.get('time') or [],'t':hh.get('temperature_2m') or [],'ws':hh.get('wind_speed_10m') or [],'wd':hh.get('wind_direction_10m') or [],'pp':hh.get('precipitation_probability') or []}
+        out[c]={'time':hh.get('time') or [],'t':hh.get('temperature_2m') or [],'ws':hh.get('wind_speed_10m') or [],'wd':hh.get('wind_direction_10m') or []}
     return out, 'OK (%d parks)'%len(out)
 def apply_weather(g, wx, date):
     w=wx.get(g.get('home'))
@@ -149,8 +130,6 @@ def apply_weather(g, wx, date):
     if i<len(w['t']) and w['t'][i] is not None: g['temp']=round(w['t'][i])
     if i<len(w['ws']) and w['ws'][i] is not None: g['wind']=str(round(w['ws'][i]))+' mph'
     if i<len(w['wd']) and w['wd'][i] is not None: g['wind_deg']=w['wd'][i]
-    _pp=w.get('pp') or []
-    if i<len(_pp) and _pp[i] is not None: g['precip']=_pp[i]; g['_precip_src']='live'
     return True
 def fetch_hr9(date):
     try:
@@ -446,23 +425,20 @@ _PMED={k:_pmed(k) for k in _PKS}
 def ppitT(d):
     zs=[(d[k]-_PMED[k][0])/_PMED[k][1] for k in _PKS if d.get(k) is not None and _PMED[k][0] is not None]
     return clamp(1+W_PIT*(sum(zs)/len(zs)),1-W_PIT,1+W_PIT) if zs else 1.0
-SLATE={(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
-
-def _scratched(g, in_lu, conf=False):
-    """Is this bat OUT? Only a CONFIRMED lineup can answer that.
-
-    This used to be a flat `not in_lu`, which treats a PROJECTED lineup as gospel: any bat missing from
-    somebody's guess got stamped scratched and was barred from every ticket (aliveP requires !out). On
-    2026-08-03 not one game had a confirmed lineup -- all eight read 'projected' -- and the guess for
-    TB@COL batted Rumfield 5th. The real card batted MICKEY MONIAK there. Moniak was the 11th-best bat on
-    the board (156.6), started, and hit a home run, and the board had already ruled him out hours earlier
-    off a projection that was simply wrong.
-
-    index.html has always had this guard on the live path -- `if(!posted)return;` -- so the browser never
-    scratched anyone off an unposted lineup. The scorer just never got the same guard. Now it does: no
-    confirmed lineup, no scratches. An unknown bat is available, not dead."""
-    return (not in_lu) if (conf or g.get('status') == 'confirmed') else False
-
+# 2026-08-10: slate_auto is keyed with StatsAPI codes (fetch_mlb ALIAS maps AZ->ARI) while cards/lineups/odds
+# use Kasper codes (slate_assemble TEAMMAP maps ARI->AZ) -- the two map Arizona in OPPOSITE directions, so
+# 'COL@AZ' never matched 'COL@ARI' and SLATE.get() returned None on every build, silently, all night. That game
+# got no live weather merge and its 18 posted starters stayed 'projected', so any ticket holding one of them
+# could never lock server-side and stayed re-draftable forever. Canonicalise BOTH sides of the join, and say so
+# out loud when a game still misses -- a lookup that fails every build for eight hours must never be invisible.
+_TEAMK={'ARI':'AZ','OAK':'ATH','SAC':'ATH','CHW':'CWS','WAS':'WSH','SDP':'SD','SFG':'SF','TBR':'TB','KCR':'KC'}
+def _mkey(m):
+    try:
+        _a,_h=(m or '').upper().split('@')
+        return _TEAMK.get(_a,_a)+'@'+_TEAMK.get(_h,_h)
+    except Exception:
+        return (m or '').upper()
+SLATE={_mkey(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
 
 def wf_of(g):
     # park factor = symmetric weather (tailwind + temp, capped +/-WX_CLAMP) * elevation. Domes -> 1.0.
@@ -481,19 +457,6 @@ def wf_of(g):
     wx_w=clamp(1.0+W_WIND*tail+W_TEMP*(temp-70), 1-WX_CLAMP, 1+WX_CLAMP)
     wx_e=1.0+W_ELEV*(PARK_ELEV.get(g.get('home'),0)/1000.0)
     return round(wx_w*wx_e, 3)
-WIND_LEAN_MPH = 6.0   # |tail| above this = wind-driven Boost/Suppress label. Matches fetch_mlb's wind-out emoji
-                      # threshold. PROVISIONAL: pick a data-driven cut once tail_mph has been archived for a few weeks.
-def tail_of(g):
-    # The WIND component alone (mph projected onto plate->CF axis, + = blowing out). Same projection wf_of
-    # uses, factored out so the Boost/Suppress LABEL can key on wind instead of the temp-contaminated wf.
-    if g.get('dome'): return 0.0
-    w=(g.get('wind') or ''); m=re.search(r'(\d+)\s*mph',w); spd=int(m.group(1)) if m else 0
-    deg=g.get('wind_deg')
-    if deg is not None:
-        toward=(deg+180)%360
-        return spd*math.cos(math.radians(toward-CF_AZ.get(g.get('home'),0)))
-    sign=1 if 'Out' in w else (-1 if re.search(r'\bIn\b',w) else 0)
-    return spd*sign
 def gmin(gt):
     m=re.match(r'(\d+):(\d+)\s*(AM|PM)',gt or '')
     return (int(m.group(1))%12+(12 if m.group(3)=='PM' else 0))*60+int(m.group(2)) if m else 0
@@ -512,58 +475,32 @@ def pull_tail_of(home, bh, deg, windstr):                # wind projected onto t
 players={}; gamemeta={}
 for g in lin['games']:
     gn=g['gn']; gm=g['matchup']; gt=g['time']
-    _sa=SLATE.get(gm)                                   # auto-pull (Open-Meteo) weather -> real wind bearing
+    _sa=SLATE.get(_mkey(gm))                            # auto-pull (Open-Meteo) weather -> real wind bearing
+    if _sa is None: print(f"  !! slate_auto MISS for {gm} (keys: {sorted(SLATE)[:3]}...) -- no live weather merge for this game")
     if _sa:
         _wx=_sa.get('weather') or {}
         if _wx.get('wind_dir') is not None: g['wind_deg']=_wx['wind_dir']        # degrees -> cos-projection
         if _wx.get('wind_mph') is not None: g['wind']=str(round(_wx['wind_mph']))+' mph'
         if _wx.get('temp') is not None: g['temp']=_wx['temp']
         if 'dome' in _wx: g['dome']=_wx['dome']
-        if _wx.get('precip') is not None: g['precip']=_wx['precip']; g['_precip_src']='slate_auto'
-    apply_weather(g, WX_LIVE, DATE)                     # live Open-Meteo overrides lineup wind/temp/dir (and precip)
-    # PRECIP PROVENANCE -- shout when a game's rain% is NOT from a live pull. Rain >=40% silently vetoes a
-    # Chef's Table seat and >=50% bars a bat from every parlay leg, so an unverified number here rewrites the
-    # board. 'lineup_file' means BOTH Open-Meteo paths failed and we are flying on the scraped card forecast.
-    if not g.get('dome'):
-        _psrc=g.get('_precip_src') or 'lineup_file'
-        if _psrc!='live':
-            print(f"   !! precip {g.get('precip',0)}% for {gm} came from {_psrc}, not a live pull"
-                  + ("  <-- VETOES CHEF SEATS / PARLAY LEGS" if (g.get('precip') or 0)>=40 else ""))
+        if _wx.get('precip') is not None: g['precip']=_wx['precip']
+    apply_weather(g, WX_LIVE, DATE)                     # live Open-Meteo overrides lineup wind/temp/dir
     wf=wf_of(g); gamemeta[gn]=g
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
-        # THE REAL POSTED LINEUP WINS.
-        # fetch_mlb pulls MLB's actual card into slate_auto_<date>.json on every build -- lineups_posted,
-        # per-side confirmed, and the nine names in order. build15 was reading only the PROJECTED
-        # lineups_<date>.json and using slate_auto for WEATHER ALONE, so the truth was fetched every five
-        # minutes and thrown away. On 2026-08-03 slate_auto had COL batting Moniak 5th (confirmed=True,
-        # lineups_posted=True) while the projection batted Rumfield there; Moniak was the 11th-best bat on
-        # the board, got stamped scratched off the projection, was barred from every ticket, started, and
-        # homered. Worse, lineups_<date>.json is written by slate_assemble.py, which is not a step in the
-        # workflow at all -- so once a day starts, nothing ever refreshes it.
-        # Prefer the pull. Keep the projection only as the fallback for a side MLB has not posted yet.
-        _hand={norm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None
-               for i,b in enumerate(g[side+'_bats'])}
-        _sag=SLATE.get(gm) or {}; _sas=(_sag.get(side) or {})
-        _real=[p.get('name') for p in (_sas.get('lineup') or []) if p.get('name')]
-        _conf=bool(_real) and bool(_sas.get('confirmed')) and bool(_sag.get('lineups_posted'))
-        if _conf and [norm(x) for x in g[side+'_bats']]!=[norm(x) for x in _real]:
-            print(f"  lineup: {gm} {side} -> using MLB's posted card ({len(_real)}), not the projection")
-        if _conf: g[side+'_bats']=_real
         posted={norm(x) for x in g[side+'_bats']}
-        # hands are keyed by NAME, never by slot -- the real card reorders (and adds) bats, so an index
-        # lookup into the projection's hands array would hand somebody else's handedness to the wrong bat.
-        _bhand={norm(b):_hand.get(norm(b)) for b in g[side+'_bats']}
+        _bhand={norm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None for i,b in enumerate(g[side+'_bats'])}
         _slot={norm(b):i+1 for i,b in enumerate(g[side+'_bats'])}
         for c in cards[gm][code]:
             nm=c['name']; n=norm(nm); in_lu=n in posted
-            status=('confirmed' if (_conf or g.get('status')=='confirmed') else 'projected') if in_lu else 'projected'
+            status=('confirmed' if g.get('status')=='confirmed' else 'projected') if in_lu else 'projected'
             form=c['form_pct'] if c.get('form_pct') is not None else 50
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=c['pb']*c['hh']*la_window(c['la'])
+            lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
-                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=_scratched(g,in_lu,_conf),status=status,
+                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
@@ -611,7 +548,7 @@ for r in pool:
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
-_SIG=[('_zxpow',0.346),('_zxwcon',0.288),('_zars',0.366)]   # weights RE-REFIT 2026-08-02 (grouped-CV logistic, SAME 17 signal-complete nights 7/9-7/31). SCALE-FIX of the 8/01 refit: those weights (.47/.47/.06) were fit on the RAW logged signals, but build15 applies _SIG to PER-SLATE Z-SCORED signals (edge+=w*((x-mu)/sd), below). Since arsenal_raw std ~1.19 vs xISO/xwOBAcon ~0.055, a raw-space fit under-weights arsenal ~6-20x -- fitting on RAW reproduces .498/.453/.049 == the old .47/.47/.06 exactly, confirming the bug. Re-fitting in the STANDARDIZED space the model actually uses (per-night z, leave-one-night-out CV, L2) puts arsenal at ~0.37, NOT 0.06; three standardizations (per-night, global, raw*std) all agree ~0.36-0.52. IMPACT (out-of-fold, per-slate z): with .06 the 25/75 edge/market blend added NOTHING over market alone (both 0.628); corrected lifts the blend to 0.632 (+0.004, night-bootstrap P=0.998, 95%CI[.001,.007]), and DROPPING arsenal makes the blend WORSE than market -- arsenal is what carries the edge. xISO/xwOBAcon collinear (r=0.76) so their split is soft (all corrected splits give the same 0.632); the slight power tilt matches the all-time Savant fit (hard-hit% adds over xwOBAcon, 510k games). _edge0 is re-standardized downstream so only RELATIVE weights matter. Priors: .47/.47/.06 (8/01, raw-space fit -- the bug); .13/.50/.37 (7/31, 1-night overfit; its arsenal was ~right for the wrong reason). Revisit as more nights log.
+_SIG=[('_zxpow',0.45),('_zxwcon',0.35),('_zars',0.20)]   # edge rebuilt 2026-07-09: expected-power core (xISO + xwOBAcon) + arsenal; bg/xptrend/pvel/spray/pvd/btrk/park zeroed (calibration AUC<=0.51)
 def _ms(key):
     vals=[r[key] for r in pool if r.get(key) is not None]
     if len(vals)<2: return (0.0,1.0)
@@ -636,7 +573,7 @@ def wxMult(wf):
 _es=_ms('_edge0'); _mks=_ms('_mz0')
 for r in pool:
     ez=(r['_edge0']-_es[0])/_es[1]; mz=(r['_mz0']-_mks[0])/_mks[1]
-    blend=0.75*mz+0.25*ez   # market/edge mix RE-CALIBRATED 2026-08-01 (was 0.5/0.5). Both the AUC sweep (rises with market share, peak ~0.85) AND the 26-night unit-P&L backtest agree 0.5/0.5 is too much edge: in that backtest 0.5/0.5 was the WORST mix (-40u) while 0.7-0.8 market led (+137/+160u). Lean on the market's better calibration but KEEP ~25% edge -- all-market was worse (+24u), i.e. you still need disagreement with the price to generate bets. High parlay variance means the exact point is soft; re-tune on bet P&L as nights accrue (backtest_mix.py).
+    blend=0.5*mz+0.5*ez
     r['edge_z']=round(ez,4); r['mkt_z']=round(mz,4); r['blend']=round(blend,4)
     r['baseTotal']=round(100+30*blend,1)
     r['TOTAL']=round(r['baseTotal']*wxMult(r.get('wf')),1)
@@ -647,23 +584,10 @@ for r in pool:
 
 wx={}
 for gn,g in gamemeta.items():
-    wf=wf_of(g); dome=g.get('dome'); _tail=tail_of(g)
-    # LEAN NOW KEYS ON WIND, NOT wf. wf = 1 + W_WIND*tail + W_TEMP*(temp-70), and in summer the temp term
-    # swamps the wind term: at 82F EVERY wind direction cleared the old wf>1.02 cut, and at 89F a 12mph wind
-    # blowing straight IN still read "Boost". That mislabeled the board (4,300 Boost vs 172 Suppress across the
-    # 40-day archive) and made the badge meaningless -- logged Boost nights homered at 10.79% vs Neutral 10.78%.
-    # wf itself is unchanged (temperature genuinely affects carry); only the LABEL is now honest about wind.
-    lean='Boost' if _tail>=WIND_LEAN_MPH else ('Suppress' if _tail<=-WIND_LEAN_MPH else 'Neutral')
+    wf=wf_of(g); lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral'); dome=g.get('dome')
     wx[str(gn)]={'emoji':("\U0001f3df" if dome else ("☀️" if g.get('precip',0)<30 else "\U0001f327️")),
         'lean':('Neutral' if dome else lean),'factor':wf,'park':g['matchup'],
-        'cond':('Dome' if dome else (g.get('wind','') or 'calm')),'rain':str(g.get('precip',0))+"% rain",'precip':g.get('precip',0),
-        # DIRECTIONAL INPUTS -- archived so weather is testable retroactively. These were computed every night
-        # and then thrown away, which is why the weather term could never be evaluated or repaired (same class of
-        # gap as the calibration _z* schema hole). tail_mph = wind out(+)/in(-) to CF; wind_deg = bearing it blows FROM.
-        'tail_mph':(None if dome else round(_tail,1)),'wind_deg':g.get('wind_deg'),'wind_mph':g.get('wind'),'temp':g.get('temp'),
-        # where this game's rain% actually came from: 'live' (build15's own ET-hour pull), 'slate_auto'
-        # (fetch_mlb's sidecar), or 'lineup_file' (scraped card forecast -- both live paths were down).
-        'precip_src':(None if dome else (g.get('_precip_src') or 'lineup_file'))}
+        'cond':('Dome' if dome else (g.get('wind','') or 'calm')),'rain':str(g.get('precip',0))+"% rain",'precip':g.get('precip',0)}
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
