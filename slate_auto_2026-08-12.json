@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T18:18:10Z",
+  "pulled_at": "2026-08-12T18:22:46Z",
   "games": [
     {
       "gamePk": 823672,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 669358,
           "name": "Shane Baz",
-          "hr9": 0.66,
+          "hr9": 0.65,
           "hand": "RHP"
         },
         "lineup": [
@@ -107,17 +107,17 @@
           {
             "id": 605170,
             "name": "Victor Caratini",
-            "iso": 0.11
+            "iso": 0.108
           },
           {
             "id": 702176,
             "name": "Alan Roden",
-            "iso": 0.02
+            "iso": 0.018
           },
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.149
+            "iso": 0.148
           }
         ],
         "confirmed": true
@@ -153,17 +153,17 @@
           {
             "id": 656941,
             "name": "Kyle Schwarber",
-            "iso": 0.286
+            "iso": 0.285
           },
           {
             "id": 607208,
             "name": "Trea Turner",
-            "iso": 0.151
+            "iso": 0.152
           },
           {
             "id": 547180,
             "name": "Bryce Harper",
-            "iso": 0.243
+            "iso": 0.242
           },
           {
             "id": 650333,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 681517,
           "name": "Kyle Leahy",
-          "hr9": 0.96,
+          "hr9": 0.95,
           "hand": "RHP"
         },
         "lineup": [
@@ -1156,9 +1156,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 72.6,
+        "wind_mph": 7.9,
+        "wind_dir": 227,
+        "tail_mph": 7.8,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
