@@ -1,7 +1,7 @@
 {
   "date": "2026-08-11",
   "season": "2026",
-  "pulled_at": "2026-08-12T02:52:11Z",
+  "pulled_at": "2026-08-12T02:57:13Z",
   "games": [
     {
       "gamePk": 824240,
@@ -1321,15 +1321,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 82\u00b0",
+        "cond": "wind out 7mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 82.4,
-        "wind_mph": 8.9,
-        "wind_dir": 227,
-        "tail_mph": 8.8,
+        "temp": 85.0,
+        "wind_mph": 7.6,
+        "wind_dir": 236,
+        "tail_mph": 7.3,
         "precip": 1
       },
-      "wf": 1.05
+      "wf": 1.048
     },
     {
       "gamePk": 825046,
@@ -1341,7 +1341,7 @@
         "sp": {
           "id": 608372,
           "name": "Tomoyuki Sugano",
-          "hr9": 1.95,
+          "hr9": 1.94,
           "hand": "RHP"
         },
         "lineup": [
@@ -1430,12 +1430,12 @@
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.165
+            "iso": 0.164
           },
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 545121,
@@ -1490,7 +1490,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.279
+            "iso": 0.278
           },
           {
             "id": 689414,
@@ -1586,15 +1586,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 88\u00b0",
+        "cond": "wind out 9mph, 89\u00b0",
         "lean": "Boost",
-        "temp": 88.4,
-        "wind_mph": 11.6,
-        "wind_dir": 227,
-        "tail_mph": 11.3,
+        "temp": 89.1,
+        "wind_mph": 9.9,
+        "wind_dir": 218,
+        "tail_mph": 9.2,
         "precip": 0
       },
-      "wf": 1.067
+      "wf": 1.061
     },
     {
       "gamePk": 823264,
@@ -1719,12 +1719,12 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 4mph, 78\u00b0",
+        "cond": "wind in 4mph, 79\u00b0",
         "lean": "Neutral",
-        "temp": 77.8,
-        "wind_mph": 8.2,
+        "temp": 78.6,
+        "wind_mph": 8.7,
         "wind_dir": 299,
-        "tail_mph": -4.0,
+        "tail_mph": -4.2,
         "precip": 1
       },
       "wf": 0.998
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 686613,
           "name": "Hunter Brown",
-          "hr9": 1.03,
+          "hr9": 1.02,
           "hand": "RHP"
         },
         "lineup": [
@@ -1796,7 +1796,7 @@
         "sp": {
           "id": 687931,
           "name": "Carson Whisenhunt",
-          "hr9": 1.42,
+          "hr9": 1.38,
           "hand": "LHP"
         },
         "lineup": [
@@ -1818,7 +1818,7 @@
           {
             "id": 646240,
             "name": "Rafael Devers",
-            "iso": 0.225
+            "iso": 0.224
           },
           {
             "id": 682674,
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 14mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 61.6,
-        "wind_mph": 14.2,
-        "wind_dir": 258,
-        "tail_mph": 14.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 823917,
@@ -1872,7 +1865,7 @@
         "sp": {
           "id": 608379,
           "name": "Michael Wacha",
-          "hr9": 1.11,
+          "hr9": 1.1,
           "hand": "RHP"
         },
         "lineup": [
@@ -1984,9 +1977,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 6mph, 76\u00b0",
+        "lean": "Boost",
+        "temp": 76.1,
+        "wind_mph": 8.7,
+        "wind_dir": 252,
+        "tail_mph": 5.9,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.03
     }
   ]
 }
