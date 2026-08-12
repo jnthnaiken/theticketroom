@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:03:01Z",
+  "pulled_at": "2026-08-12T19:08:13Z",
   "games": [
     {
       "gamePk": 823672,
@@ -87,12 +87,12 @@
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.232
+            "iso": 0.231
           },
           {
             "id": 686797,
@@ -163,17 +163,17 @@
           {
             "id": 547180,
             "name": "Bryce Harper",
-            "iso": 0.242
+            "iso": 0.244
           },
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.118
+            "iso": 0.12
           },
           {
             "id": 681082,
             "name": "Bryson Stott",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 669016,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 681517,
           "name": "Kyle Leahy",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824967,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-12T19:05:00Z",
       "matchup": "TB@ATH",
       "away": {
@@ -286,7 +286,7 @@
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.166
+            "iso": 0.164
           },
           {
             "id": 666018,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 678022,
           "name": "Jack Perkins",
-          "hr9": 1.76,
+          "hr9": 1.75,
           "hand": "RHP"
         },
         "lineup": [
@@ -1016,7 +1016,7 @@
     },
     {
       "gamePk": 823511,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T23:05:00Z",
       "matchup": "SEA@NYY",
       "away": {
@@ -1038,10 +1038,56 @@
           "hr9": 1.18,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.179
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.286
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.175
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.273
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.156
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.178
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.158
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.123
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.285
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
