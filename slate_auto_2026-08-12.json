@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:28:04Z",
+  "pulled_at": "2026-08-12T19:30:33Z",
   "games": [
     {
       "gamePk": 823672,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824241,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T22:40:00Z",
       "matchup": "CLE@DET",
       "away": {
@@ -813,8 +813,54 @@
           "hr9": 1.42,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.063
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.162
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.148
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.159
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.191
+          },
+          {
+            "id": 656555,
+            "name": "Rhys Hoskins",
+            "iso": 0.205
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.158
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.122
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -827,7 +873,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1160,8 +1206,54 @@
           "hr9": 0.52,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807799,
+            "name": "Masataka Yoshida",
+            "iso": 0.129
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.182
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.18
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.243
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.209
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.152
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.154
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.179
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
@@ -1235,7 +1327,7 @@
     },
     {
       "gamePk": 824883,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T23:15:00Z",
       "matchup": "NYM@ATL",
       "away": {
@@ -1257,10 +1349,56 @@
           "hr9": 1.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.188
+          },
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.18
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.288
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.178
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.2
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.134
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.16
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.142
+          },
+          {
+            "id": 669221,
+            "name": "Sean Murphy",
+            "iso": 0.04
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
