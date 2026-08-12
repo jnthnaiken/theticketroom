@@ -37,6 +37,9 @@ def load_dated(stem, required=True):
     return {}
 
 norm=lambda s:''.join(c for c in unicodedata.normalize('NFKD',s) if not unicodedata.combining(c)).lower().replace('.','').strip()
+# lineup-matching norm: norm() plus the trailing generational suffix. StatsAPI spells out
+# "Jr."/"Sr."/"II"; Kasper cards and RotoWire do not. Mirrors index.html's norm().
+lunorm=lambda s:re.sub(r'\s+(jr|sr|ii|iii|iv)$','',norm(s))
 clamp=lambda x,a,b:max(a,min(b,x))
 fF=lambda f:1.0 if f is None else clamp(1+0.001*(f-50),0.97,1.03)   # form: near-zero token -- coin-flip AUC (0.499), no real HR signal
 pM=lambda w:1.0 if w is None else 1+W_WEATHER*(w-1)
@@ -488,12 +491,35 @@ for g in lin['games']:
     wf=wf_of(g); gamemeta[gn]=g
     for side in ('away','home'):
         code=g[side]; opp_sp=g[('home' if side=='away' else 'away')+'_sp']
-        posted={norm(x) for x in g[side+'_bats']}
-        _bhand={norm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None for i,b in enumerate(g[side+'_bats'])}
-        _slot={norm(b):i+1 for i,b in enumerate(g[side+'_bats'])}
+        posted={lunorm(x) for x in g[side+'_bats']}
+        _bhand={lunorm(b):(g.get(side+'_hands') or [])[i] if i<len(g.get(side+'_hands') or []) else None for i,b in enumerate(g[side+'_bats'])}
+        _slot={lunorm(b):i+1 for i,b in enumerate(g[side+'_bats'])}
+        # ---- POSTED-LINEUP OVERRIDE (2026-08-11): prefer MLB's actual card over RotoWire's projection.
+        # `lin` is the pre-slate RotoWire scrape and NEVER updates, so a late scratch stayed in_lu all
+        # night and `out` was never set -- while the browser, which reads StatsAPI live, flagged him at
+        # once. That split the two engines every night a card changed. 2026-08-11: Tyler Soderstrom was
+        # not on Oakland's posted card; the client dropped him and re-drafted the Grand Salami onto
+        # Corbin Carroll (who homered), but the server never saw the scratch, so when the salami
+        # clock-locked at 9:38 the server's stale composition froze Soderstrom's dead leg in for good.
+        # fetch_mlb.py already hydrates `lineups` into slate_auto AND trims each side to who actually
+        # appeared in the box, so this is data we were fetching every build and only ever reading for
+        # weather. Gate: take MLB's card only when the side is confirmed and carries a full nine --
+        # anything short means the pull is mid-flight, so keep RotoWire rather than mass-flag a lineup
+        # `out`. Slots come from the same card we trust for membership.
+        # Match on lunorm(), NOT norm(): StatsAPI returns "Ronald Acuna Jr." where the cards and
+        # RotoWire carry "Ronald Acuna", so a bare norm() marked 45 bats out on this slate -- almost
+        # all of them suffix mismatches, not scratches. lunorm strips the suffix on both sides and is
+        # a no-op for the RotoWire path (those names are already suffix-less), which is why every
+        # keying above moved to it too.
+        _sl=((_sa or {}).get(side) or {}) if _sa else {}
+        _mlb=[p.get('name') for p in (_sl.get('lineup') or []) if p.get('name')]
+        _posted_ok=bool(_sl.get('confirmed') and len(_mlb)>=9)
+        if _posted_ok:
+            posted={lunorm(x) for x in _mlb}
+            _slot={lunorm(b):i+1 for i,b in enumerate(_mlb)}
         for c in cards[gm][code]:
-            nm=c['name']; n=norm(nm); in_lu=n in posted
-            status=('confirmed' if g.get('status')=='confirmed' else 'projected') if in_lu else 'projected'
+            nm=c['name']; n=lunorm(nm); in_lu=n in posted
+            status=('confirmed' if (_posted_ok or g.get('status')=='confirmed') else 'projected') if in_lu else 'projected'
             form=c['form_pct'] if c.get('form_pct') is not None else 50
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
             powraw=c['pb']*c['hh']*la_window(c['la'])
