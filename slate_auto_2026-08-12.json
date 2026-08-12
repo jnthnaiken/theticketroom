@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T20:01:03Z",
+  "pulled_at": "2026-08-12T20:03:20Z",
   "games": [
     {
       "gamePk": 823672,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 825047,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-12T19:40:00Z",
       "matchup": "COL@ARI",
       "away": {
@@ -439,7 +439,7 @@
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.283
+            "iso": 0.281
           },
           {
             "id": 650489,
@@ -1708,9 +1708,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 72.7,
+        "wind_mph": 8.2,
+        "wind_dir": 225,
+        "tail_mph": 8.2,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
