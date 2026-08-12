@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T20:43:30Z",
+  "pulled_at": "2026-08-12T20:48:36Z",
   "games": [
     {
       "gamePk": 823672,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823017,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-12T18:15:00Z",
       "matchup": "PHI@STL",
       "away": {
@@ -348,12 +348,12 @@
           {
             "id": 691016,
             "name": "Tyler Soderstrom",
-            "iso": 0.231
+            "iso": 0.23
           },
           {
             "id": 680869,
             "name": "Zack Gelof",
-            "iso": 0.211
+            "iso": 0.21
           },
           {
             "id": 666126,
@@ -511,7 +511,7 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 814439,
@@ -561,7 +561,7 @@
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 662139,
@@ -684,12 +684,12 @@
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.201
+            "iso": 0.2
           },
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 683734,
@@ -1032,8 +1032,54 @@
           "hr9": 0.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.261
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.208
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.137
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.115
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.146
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.105
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.24
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.143
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.182
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
