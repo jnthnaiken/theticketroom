@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T22:58:38Z",
+  "pulled_at": "2026-08-12T23:00:56Z",
   "games": [
     {
       "gamePk": 823672,
@@ -970,7 +970,7 @@
           {
             "id": 693304,
             "name": "Nick Gonzales",
-            "iso": 0.092
+            "iso": 0.091
           },
           {
             "id": 682927,
@@ -1144,7 +1144,7 @@
           {
             "id": 665953,
             "name": "Andr\u00e9s Chaparro",
-            "iso": 0.26
+            "iso": 0.257
           },
           {
             "id": 691781,
@@ -1327,7 +1327,7 @@
         "wind_mph": 6.8,
         "wind_dir": 232,
         "tail_mph": 5.4,
-        "precip": 3
+        "precip": 2
       },
       "wf": 1.042
     },
@@ -1592,7 +1592,7 @@
         "wind_mph": 8.2,
         "wind_dir": 279,
         "tail_mph": 5.4,
-        "precip": 2
+        "precip": 3
       },
       "wf": 1.048
     },
@@ -1725,7 +1725,7 @@
         "wind_mph": 7.3,
         "wind_dir": 214,
         "tail_mph": 7.3,
-        "precip": 3
+        "precip": 4
       },
       "wf": 1.036
     },
@@ -1938,16 +1938,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 74\u00b0",
-        "lean": "Boost",
-        "temp": 73.5,
-        "wind_mph": 7.7,
-        "wind_dir": 232,
-        "tail_mph": 7.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.032
+      "wf": 1.0
     }
   ]
 }
