@@ -3,28 +3,28 @@
  "stake": 1,
  "cats": {
   "moon": {
-   "graded": 208,
-   "won": 30,
-   "units": 332.9,
-   "staked": 416.0
+   "graded": 214,
+   "won": 31,
+   "units": 337.33,
+   "staked": 428.0
   },
   "biggest": {
-   "graded": 32,
-   "won": 4,
-   "units": -98.82,
-   "staked": 176.0
+   "graded": 33,
+   "won": 5,
+   "units": -89.2,
+   "staked": 181.5
   },
   "late": {
-   "graded": 31,
+   "graded": 32,
    "won": 7,
-   "units": -1.18,
-   "staked": 31
+   "units": -2.18,
+   "staked": 32
   },
   "builder": {
-   "graded": 131,
-   "won": 32,
-   "units": -14.08,
-   "staked": 131
+   "graded": 135,
+   "won": 35,
+   "units": -6.6,
+   "staked": 135
   },
   "lunch": {
    "graded": 24,
@@ -33,10 +33,10 @@
    "staked": 24
   },
   "chef": {
-   "graded": 10,
+   "graded": 11,
    "won": 2,
-   "units": -33.22,
-   "staked": 55.0
+   "units": -38.72,
+   "staked": 60.5
   }
  },
  "history": [
@@ -76,7 +76,8 @@
   254.49,
   229.09,
   214.81,
-  186.81
+  186.81,
+  201.84
  ],
  "graded_nights": [
   "2026-06-01",
@@ -143,7 +144,8 @@
   "2026-08-07",
   "2026-08-08",
   "2026-08-09",
-  "2026-08-10"
+  "2026-08-10",
+  "2026-08-11"
  ],
  "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet."
 }
