@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:18:16Z",
+  "pulled_at": "2026-08-12T19:23:28Z",
   "games": [
     {
       "gamePk": 823672,
@@ -25,7 +25,7 @@
           {
             "id": 624413,
             "name": "Pete Alonso",
-            "iso": 0.222
+            "iso": 0.221
           },
           {
             "id": 702616,
@@ -35,7 +35,7 @@
           {
             "id": 641933,
             "name": "Tyler O'Neill",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 687637,
@@ -107,12 +107,12 @@
           {
             "id": 605170,
             "name": "Victor Caratini",
-            "iso": 0.109
+            "iso": 0.108
           },
           {
             "id": 702176,
             "name": "Alan Roden",
-            "iso": 0.037
+            "iso": 0.055
           },
           {
             "id": 668952,
@@ -225,7 +225,7 @@
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.204
+            "iso": 0.203
           },
           {
             "id": 701675,
@@ -235,7 +235,7 @@
           {
             "id": 691026,
             "name": "Masyn Winn",
-            "iso": 0.083
+            "iso": 0.082
           },
           {
             "id": 693409,
@@ -343,12 +343,12 @@
           {
             "id": 622268,
             "name": "Donovan Walton",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 691016,
             "name": "Tyler Soderstrom",
-            "iso": 0.229
+            "iso": 0.231
           },
           {
             "id": 680869,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 825047,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-12T19:40:00Z",
       "matchup": "COL@ARI",
       "away": {
@@ -1027,8 +1027,54 @@
           "hr9": 1.48,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.099
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.143
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.172
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.235
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.165
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.109
+          },
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.15
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.14
+          },
+          {
+            "id": 806068,
+            "name": "Colt Emerson",
+            "iso": 0.147
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -1340,16 +1386,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 72.6,
-        "wind_mph": 7.9,
-        "wind_dir": 227,
-        "tail_mph": 7.8,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     }
   ]
 }
