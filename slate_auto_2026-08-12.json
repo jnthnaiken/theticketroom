@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:08:13Z",
+  "pulled_at": "2026-08-12T19:13:11Z",
   "games": [
     {
       "gamePk": 823672,
@@ -97,7 +97,7 @@
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.178
+            "iso": 0.177
           },
           {
             "id": 807712,
@@ -178,7 +178,7 @@
           {
             "id": 669016,
             "name": "Brandon Marsh",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 592663,
@@ -296,17 +296,17 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.277
+            "iso": 0.276
           },
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.155
+            "iso": 0.157
           },
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.245
+            "iso": 0.244
           },
           {
             "id": 676356,
@@ -1103,7 +1103,7 @@
     },
     {
       "gamePk": 822779,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T23:07:00Z",
       "matchup": "BOS@TOR",
       "away": {
@@ -1125,10 +1125,56 @@
           "hr9": 0.85,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807727,
+            "name": "Charles McAdoo",
+            "iso": 0.207
+          },
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.091
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.095
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.105
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.204
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.122
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.126
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.166
+          },
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
