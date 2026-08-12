@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T21:49:19Z",
+  "pulled_at": "2026-08-12T21:53:52Z",
   "games": [
     {
       "gamePk": 823672,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824967,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-12T19:05:00Z",
       "matchup": "TB@ATH",
       "away": {
@@ -383,7 +383,7 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.231
+            "iso": 0.222
           }
         ],
         "confirmed": true
@@ -581,7 +581,7 @@
           {
             "id": 666211,
             "name": "Taylor Trammell",
-            "iso": 0.176
+            "iso": 0.187
           },
           {
             "id": 669397,
@@ -677,7 +677,7 @@
         "sp": {
           "id": 669160,
           "name": "Dustin May",
-          "hr9": 0.68,
+          "hr9": 0.67,
           "hand": "RHP"
         },
         "lineup": [
@@ -1800,9 +1800,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 73.1,
+        "wind_mph": 8.5,
+        "wind_dir": 233,
+        "tail_mph": 8.3,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
