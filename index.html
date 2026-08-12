@@ -1074,6 +1074,11 @@ drawTickets();drawPlayers();drawTracker();
     (D.tickets||[]).forEach(function(t){var lk=gmin(t.lock); if(lk==null||_lkNow<lk)return;
       _lockedPrior.push(t); (t.players||[]).forEach(function(l){_lockedBats[l.name]=1;});});
     if(_lockedPrior.length) nonchalk=nonchalk.filter(function(n){return !_lockedBats[n];});
+    // POOL ORDER: the reclaim above prepends already-placed CONFIRMED bats before the byT pass,
+    // so the pool head was confirmation order, not model order (2026-08-12: Conine 144.5 at #2,
+    // ahead of Olson 188.8). Membership is unchanged -- only the ordering. Everything downstream
+    // re-sorts with byS/byT, so this is the Players tab and any pool-order read.
+    nonchalk=byT(nonchalk);
     D.pool=nonchalk.slice();
     var _poolTeam={}; nonchalk.forEach(function(_pn){var _pc=(P[_pn]||{}).game; if(_pc)_poolTeam[_pc]=(_poolTeam[_pc]||0)+1;});   // distinct pool bats per team -> caps the #42+ span-fill fallback so it can't add a 4th of a team                                                     // Players tab = exactly this 33 (lunch/nightcap chalk are NOT in it)
     if(D.meta)D.meta.pool=Object.keys(D.players).length;if(D.meta)D.meta.gate=cand.length;   /* how many bats cleared the z-gate -- the number that actually explains the board */   // counters denominator = whole scored field (all bats); Players/Tickets use the 33 in D.pool
@@ -1414,6 +1419,16 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
               if(sp<=WIN && sp<bs){bs=sp;bst=c;}}
             if(bst==null)break; legNames.push(bst); gUsed[P[bst].game]=1; usedG[bst]=1; } }
         if(!legNames.length || (need>1 && legNames.length<need)){ if((pl.t.players||[]).every(function(l){var q=P[l.name];return q&&!q.out&&!q.void;}))out.push(pl.t); return; }   // can't refill to full -> keep prior intact; NEVER ship a 1-2 leg orphan moon
+        // LEG ORDER (display): rank the non-anchor legs by strength, anchor pinned first.
+        // Above, `kept` (pinnedP -> confirmed or underway) is preserved in PRIOR order and `pref`
+        // (alive but unconfirmed) is released and re-offered afterwards, so the emitted order was
+        // "whichever stadium posted its card first", not the model. 2026-08-12: Griffin Conine
+        // (TOTAL 144.5) sat ahead of Colson Montgomery (170.3) on Rice's moon purely because Miami
+        // posted before Chicago -- and it would never settle, since once Montgomery confirmed he
+        // joined `kept` in that same wrong slot. Order only: same leg set, same round-robin payout,
+        // and selection is untouched (draftF/cand still sort by byS). But the card, the Players tab
+        // and cwNote all read in leg order, so the note led with the weaker bat.
+        if(need>1 && legNames.length>2) legNames=[legNames[0]].concat(byS(legNames.slice(1)));
         var legs=legNames.map(leg);
         out.push({name:(pl.t.name||cwName(kind,pl.idx)),kind:kind,badge:pl.t.badge,note:"",players:legs,nlegs:legs.length,
           anchor:legNames[0],lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:pl.t.rr?{struct:pl.t.rr.struct,risk:pl.t.rr.risk}:null});
