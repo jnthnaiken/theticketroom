@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:58:49Z",
+  "pulled_at": "2026-08-12T20:01:03Z",
   "games": [
     {
       "gamePk": 823672,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 825047,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-12T19:40:00Z",
       "matchup": "COL@ARI",
       "away": {
@@ -412,7 +412,7 @@
         "sp": {
           "id": 663372,
           "name": "Ryan Feltner",
-          "hr9": 1.97,
+          "hr9": 1.95,
           "hand": "RHP"
         },
         "lineup": [
@@ -544,7 +544,7 @@
         "sp": {
           "id": 687911,
           "name": "Bryan King",
-          "hr9": 1.28,
+          "hr9": 1.26,
           "hand": "LHP"
         },
         "lineup": [
@@ -1708,16 +1708,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 72.7,
-        "wind_mph": 8.2,
-        "wind_dir": 225,
-        "tail_mph": 8.2,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.033
+      "wf": 1.0
     }
   ]
 }
