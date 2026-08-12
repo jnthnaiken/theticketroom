@@ -579,6 +579,25 @@ def assemble(D):
             t['rr']['maxprofit'] = _rrmax(pr, t['rr']['risk'])
             t['rr']['bytwos'] = False
 
+    # ---- MOON PAIRING (display): an anchor's moons sit SIDE BY SIDE. Mirrors index.html's pass.
+    # They are built as a pair and they live or die as a pair, so they have to read as one. A fresh
+    # draft emits them grouped already -- this only guarantees it, and it runs LAST (before the note
+    # pass, so notes stay generated in display order). 2026-08-11: the client had this pass but ran it
+    # BEFORE the locked/fresh merge, which rebuilt the array and threw the grouping away; Matt Olson's
+    # two moons ended up at opposite ends of the board. Keep this the last thing that touches order.
+    _ms = [(i, t) for i, t in enumerate(tickets) if t['kind'] == 'moon']
+    if len(_ms) >= 2:
+        _slots = [i for i, _ in _ms]
+        _grp, _seen = {}, []
+        for _, t in _ms:
+            a = t.get('anchor')
+            if a not in _grp:
+                _grp[a] = []; _seen.append(a)
+            _grp[a].append(t)
+        _ord = [t for a in _seen for t in _grp[a]]
+        for _p, _t in zip(_slots, _ord):
+            tickets[_p] = _t
+
     # final note pass: generate all notes in ticket order so the board-wide phrase de-dup is deterministic
     _gseen.clear()
     for t in tickets:

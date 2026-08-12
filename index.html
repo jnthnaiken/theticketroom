@@ -1627,19 +1627,6 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       });
     })();
     if(_chefLegs.length>=CHALK_N&&!out.some(function(t){return t.kind==='chef';})){var _clegs=_chefLegs.slice().sort(function(a,b){return (P[b].TOTAL||0)-(P[a].TOTAL||0);});var _clegL=_clegs.map(leg);out.push({name:cwName('chef',nextIdx('chef')),kind:'chef',badge:'\uD83C\uDF7D',note:"",players:_clegL,nlegs:_clegL.length,anchor:_clegs[0],lock:lockOf(_clegL),has_late:_clegL.some(function(l){return l.late;}),final:false,rr:{struct:"by 2s, 3s & 4",risk:5.5}});}
-    (function(){   // ---- MOON PAIRING (display): an anchor's two moons sit SIDE BY SIDE.
-      // They are built as a pair and they live or die as a pair (all-or-none), so they have to read as one.
-      // A fresh draft emits them paired already, but a re-draft walks the PRIOR board ticket by ticket, and
-      // once a ticket demotes or re-anchors that order interleaves -- Wood, Goodman, Wood, Goodman. This only
-      // reorders which moon sits in each moon slot; the slots themselves, and every other kind, stay put.
-      var slots=[],ms=[];
-      out.forEach(function(t,i){ if(t.kind==='moon'){ slots.push(i); ms.push(t); } });
-      if(ms.length<2)return;
-      var seen=[],grp={};
-      ms.forEach(function(t){ var a=t.anchor; if(!grp[a]){grp[a]=[];seen.push(a);} grp[a].push(t); });
-      var ord=[]; seen.forEach(function(a){ ord=ord.concat(grp[a]); });
-      slots.forEach(function(p,k){ out[p]=ord[k]; });
-    })();
     out.forEach(function(t){
       var ws={boost:0,supp:0,dome:0,neu:0};
       t.players.forEach(function(l){var w=WXm[String(l.game)]||{}; if(w.cond==='Dome')ws.dome++; else if(w.lean==='Boost')ws.boost++; else if(w.lean==='Suppress')ws.supp++; else ws.neu++;});
@@ -1706,6 +1693,26 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           out.push(c);_cnt[k]=(_cnt[k]||0)+1;_nm[c.name]=1;});})();
       out.forEach(function(t){ if(typeof priceTicket==='function') priceTicket(t); });
     }
+    (function(){   // ---- MOON PAIRING (display): an anchor's two moons sit SIDE BY SIDE.
+      // 2026-08-11: this pass MUST be the last thing that touches `out`. It used to run before the
+      // locked/fresh merge, and `out=_kept.concat(_trim)` plus the shrink-guard's tail `out.push(c)`
+      // both rebuilt the array afterwards, throwing the pairing away. Tonight that split Matt Olson:
+      // his 6:45 moon locked and froze into _kept while his 7:05 moon could not be re-drafted (his bat
+      // was spent on the locked one), so the shrink guard restored it onto the END of the board, past
+      // the builders -- Alonso, Alonso, Olson, Alvarez, Alvarez, Olson. Any anchor whose two moons have
+      // different lock times straddles that boundary, so this recurs until the pass runs last.
+      // They are built as a pair and they live or die as a pair (all-or-none), so they have to read as one.
+      // A fresh draft emits them paired already, but a re-draft walks the PRIOR board ticket by ticket, and
+      // once a ticket demotes or re-anchors that order interleaves -- Wood, Goodman, Wood, Goodman. This only
+      // reorders which moon sits in each moon slot; the slots themselves, and every other kind, stay put.
+      var slots=[],ms=[];
+      out.forEach(function(t,i){ if(t.kind==='moon'){ slots.push(i); ms.push(t); } });
+      if(ms.length<2)return;
+      var seen=[],grp={};
+      ms.forEach(function(t){ var a=t.anchor; if(!grp[a]){grp[a]=[];seen.push(a);} grp[a].push(t); });
+      var ord=[]; seen.forEach(function(a){ ord=ord.concat(grp[a]); });
+      slots.forEach(function(p,k){ out[p]=ord[k]; });
+    })();
     D.tickets=out;
   }
 
