@@ -1,11 +1,11 @@
 {
   "date": "2026-08-11",
   "season": "2026",
-  "pulled_at": "2026-08-12T01:27:42Z",
+  "pulled_at": "2026-08-12T01:30:53Z",
   "games": [
     {
       "gamePk": 824240,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-11T22:40:00Z",
       "matchup": "CLE@DET",
       "away": {
@@ -377,7 +377,7 @@
           {
             "id": 683083,
             "name": "Nasim Nu\u00f1ez",
-            "iso": 0.038
+            "iso": 0.037
           },
           {
             "id": 687605,
@@ -526,7 +526,7 @@
         "emoji": "\u26c5",
         "cond": "wind out 4mph, 84\u00b0",
         "lean": "Boost",
-        "temp": 83.5,
+        "temp": 83.6,
         "wind_mph": 5.7,
         "wind_dir": 244,
         "tail_mph": 3.7,
@@ -668,7 +668,7 @@
     },
     {
       "gamePk": 824886,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-11T23:15:00Z",
       "matchup": "NYM@ATL",
       "away": {
@@ -789,15 +789,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 76\u00b0",
+        "cond": "calm 3mph, 74\u00b0",
         "lean": "Neutral",
-        "temp": 75.6,
+        "temp": 73.9,
         "wind_mph": 3.0,
         "wind_dir": 207,
         "tail_mph": 2.8,
         "precip": 45
       },
-      "wf": 1.018
+      "wf": 1.016
     },
     {
       "gamePk": 823673,
@@ -1057,13 +1057,13 @@
         "emoji": "\u26c5",
         "cond": "wind out 4mph, 77\u00b0",
         "lean": "Boost",
-        "temp": 76.6,
+        "temp": 77.4,
         "wind_mph": 4.7,
         "wind_dir": 199,
         "tail_mph": 4.4,
         "precip": 4
       },
-      "wf": 1.025
+      "wf": 1.027
     },
     {
       "gamePk": 823019,
@@ -1190,7 +1190,7 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 10mph, 96\u00b0",
         "lean": "Boost",
-        "temp": 95.8,
+        "temp": 95.6,
         "wind_mph": 10.2,
         "wind_dir": 213,
         "tail_mph": 10.2,
@@ -1320,20 +1320,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 82\u00b0",
-        "lean": "Boost",
-        "temp": 82.1,
-        "wind_mph": 8.4,
-        "wind_dir": 230,
-        "tail_mph": 8.3,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.047
+      "wf": 1.0
     },
     {
       "gamePk": 825046,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-12T01:40:00Z",
       "matchup": "COL@ARI",
       "away": {
@@ -1586,15 +1579,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 85\u00b0",
+        "cond": "wind out 11mph, 87\u00b0",
         "lean": "Boost",
-        "temp": 85.4,
+        "temp": 86.6,
         "wind_mph": 11.7,
         "wind_dir": 227,
         "tail_mph": 11.4,
         "precip": 0
       },
-      "wf": 1.063
+      "wf": 1.065
     },
     {
       "gamePk": 823264,
@@ -1721,7 +1714,7 @@
         "emoji": "\u26c5",
         "cond": "wind in 4mph, 78\u00b0",
         "lean": "Neutral",
-        "temp": 77.8,
+        "temp": 78.2,
         "wind_mph": 7.8,
         "wind_dir": 301,
         "tail_mph": -4.0,
@@ -1852,9 +1845,9 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 61\u00b0",
+        "cond": "wind out 13mph, 60\u00b0",
         "lean": "Boost",
-        "temp": 60.9,
+        "temp": 60.5,
         "wind_mph": 12.9,
         "wind_dir": 262,
         "tail_mph": 12.9,
@@ -1987,7 +1980,7 @@
         "emoji": "\u26c5",
         "cond": "wind out 6mph, 76\u00b0",
         "lean": "Boost",
-        "temp": 75.5,
+        "temp": 76.0,
         "wind_mph": 8.5,
         "wind_dir": 252,
         "tail_mph": 5.8,
