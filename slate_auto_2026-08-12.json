@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T20:48:36Z",
+  "pulled_at": "2026-08-12T20:54:00Z",
   "games": [
     {
       "gamePk": 823672,
@@ -291,7 +291,7 @@
           {
             "id": 666018,
             "name": "Jonathan Aranda",
-            "iso": 0.146
+            "iso": 0.147
           },
           {
             "id": 691406,
@@ -412,7 +412,7 @@
         "sp": {
           "id": 663372,
           "name": "Ryan Feltner",
-          "hr9": 1.89,
+          "hr9": 1.88,
           "hand": "RHP"
         },
         "lineup": [
@@ -424,7 +424,7 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 681198,
@@ -434,7 +434,7 @@
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.292
+            "iso": 0.29
           },
           {
             "id": 666160,
@@ -469,7 +469,7 @@
         "sp": {
           "id": 518876,
           "name": "Merrill Kelly",
-          "hr9": 1.81,
+          "hr9": 1.8,
           "hand": "RHP"
         },
         "lineup": [
@@ -601,7 +601,7 @@
         "sp": {
           "id": 605288,
           "name": "Adrian Houser",
-          "hr9": 1.35,
+          "hr9": 1.34,
           "hand": "RHP"
         },
         "lineup": [
@@ -643,7 +643,7 @@
           {
             "id": 701852,
             "name": "Drew Cavanaugh",
-            "iso": 0.016
+            "iso": 0.015
           },
           {
             "id": 683766,
@@ -677,7 +677,7 @@
         "sp": {
           "id": 669160,
           "name": "Dustin May",
-          "hr9": 0.62,
+          "hr9": 0.61,
           "hand": "RHP"
         },
         "lineup": [
@@ -694,7 +694,7 @@
           {
             "id": 683734,
             "name": "Andrew Vaughn",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 641343,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 592662,
           "name": "Robbie Ray",
-          "hr9": 1.18,
+          "hr9": 1.17,
           "hand": "LHP"
         },
         "lineup": [
@@ -870,8 +870,54 @@
           "hr9": 0.85,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.126
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.25
+          },
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.143
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.154
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.196
+          },
+          {
+            "id": 701162,
+            "name": "Ben Malgeri",
+            "iso": 0.111
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.17
+          },
+          {
+            "id": 595879,
+            "name": "Javier B\u00e1ez",
+            "iso": 0.104
+          },
+          {
+            "id": 667452,
+            "name": "Corey Julks",
+            "iso": null
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1754,16 +1800,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 72.7,
-        "wind_mph": 8.2,
-        "wind_dir": 225,
-        "tail_mph": 8.2,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.033
+      "wf": 1.0
     }
   ]
 }
