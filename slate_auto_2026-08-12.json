@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T17:07:43Z",
+  "pulled_at": "2026-08-12T17:12:23Z",
   "games": [
     {
       "gamePk": 823672,
@@ -472,8 +472,54 @@
           "hr9": 1.73,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.13
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.229
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.147
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.199
+          },
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.11
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.194
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.123
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.149
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1018,9 +1064,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 73.3,
+        "wind_mph": 8.5,
+        "wind_dir": 227,
+        "tail_mph": 8.4,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
