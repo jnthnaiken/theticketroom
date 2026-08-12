@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:53:16Z",
+  "pulled_at": "2026-08-12T19:58:49Z",
   "games": [
     {
       "gamePk": 823672,
@@ -30,7 +30,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 641933,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824967,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-12T19:05:00Z",
       "matchup": "TB@ATH",
       "away": {
@@ -383,7 +383,7 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.261
+            "iso": 0.25
           }
         ],
         "confirmed": true
@@ -1384,8 +1384,54 @@
           "hr9": 0.69,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.134
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.194
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.113
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.138
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.124
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.174
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.183
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.115
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -1471,8 +1517,54 @@
           "hr9": 1.11,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.225
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.218
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.233
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.21
+          },
+          {
+            "id": 669911,
+            "name": "Michael Toglia",
+            "iso": 0.0
+          },
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.058
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.165
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.082
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.149
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CWS",
