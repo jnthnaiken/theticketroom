@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T18:47:55Z",
+  "pulled_at": "2026-08-12T18:53:00Z",
   "games": [
     {
       "gamePk": 823672,
@@ -112,12 +112,12 @@
           {
             "id": 702176,
             "name": "Alan Roden",
-            "iso": 0.018
+            "iso": 0.037
           },
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.148
+            "iso": 0.147
           }
         ],
         "confirmed": true
@@ -843,7 +843,7 @@
     },
     {
       "gamePk": 823833,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T22:40:00Z",
       "matchup": "PIT@MIA",
       "away": {
@@ -865,10 +865,56 @@
           "hr9": 1.32,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.105
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.15
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.273
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.217
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.106
+          },
+          {
+            "id": 682663,
+            "name": "Agust\u00edn Ram\u00edrez",
+            "iso": 0.106
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.199
+          },
+          {
+            "id": 677870,
+            "name": "Leo Jim\u00e9nez",
+            "iso": 0.074
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.189
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
