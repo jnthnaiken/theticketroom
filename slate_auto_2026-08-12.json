@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T16:36:19Z",
+  "pulled_at": "2026-08-12T16:41:21Z",
   "games": [
     {
       "gamePk": 823672,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824967,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T19:05:00Z",
       "matchup": "TB@ATH",
       "away": {
@@ -293,10 +293,56 @@
           "hr9": 1.76,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.164
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.229
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.212
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.15
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.124
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.096
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.156
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.023
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.261
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
