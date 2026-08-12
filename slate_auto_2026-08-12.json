@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T19:23:28Z",
+  "pulled_at": "2026-08-12T19:28:04Z",
   "games": [
     {
       "gamePk": 823672,
@@ -77,12 +77,12 @@
           {
             "id": 663616,
             "name": "Trevor Larnach",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 668904,
             "name": "Royce Lewis",
-            "iso": 0.186
+            "iso": 0.189
           },
           {
             "id": 605137,
@@ -146,14 +146,14 @@
         "sp": {
           "id": 554430,
           "name": "Zack Wheeler",
-          "hr9": 1.11,
+          "hr9": 1.1,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 656941,
             "name": "Kyle Schwarber",
-            "iso": 0.285
+            "iso": 0.284
           },
           {
             "id": 607208,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 681517,
           "name": "Kyle Leahy",
-          "hr9": 0.93,
+          "hr9": 0.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -311,7 +311,7 @@
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.175
+            "iso": 0.179
           },
           {
             "id": 656775,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 678022,
           "name": "Jack Perkins",
-          "hr9": 1.74,
+          "hr9": 1.73,
           "hand": "RHP"
         },
         "lineup": [
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 823187,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-12T19:45:00Z",
       "matchup": "HOU@SF",
       "away": {
@@ -1386,9 +1386,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 72.6,
+        "wind_mph": 7.9,
+        "wind_dir": 227,
+        "tail_mph": 7.8,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
