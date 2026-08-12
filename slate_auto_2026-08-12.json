@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T18:33:17Z",
+  "pulled_at": "2026-08-12T18:38:14Z",
   "games": [
     {
       "gamePk": 823672,
@@ -40,12 +40,12 @@
           {
             "id": 687637,
             "name": "Dylan Beavers",
-            "iso": 0.092
+            "iso": 0.107
           },
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.25
+            "iso": 0.246
           },
           {
             "id": 665750,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 805673,
           "name": "Zebby Matthews",
-          "hr9": 1.73,
+          "hr9": 1.82,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,7 +82,7 @@
           {
             "id": 668904,
             "name": "Royce Lewis",
-            "iso": 0.184
+            "iso": 0.186
           },
           {
             "id": 605137,
@@ -173,7 +173,7 @@
           {
             "id": 681082,
             "name": "Bryson Stott",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 669016,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 681517,
           "name": "Kyle Leahy",
-          "hr9": 0.95,
+          "hr9": 0.94,
           "hand": "RHP"
         },
         "lineup": [
@@ -1115,16 +1115,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 70.8,
-        "wind_mph": 6.2,
-        "wind_dir": 251,
-        "tail_mph": 4.3,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.016
+      "wf": 1.0
     },
     {
       "gamePk": 823994,
@@ -1156,9 +1149,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 72.6,
+        "wind_mph": 7.9,
+        "wind_dir": 227,
+        "tail_mph": 7.8,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
