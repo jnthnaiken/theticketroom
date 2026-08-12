@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-12T16:30:31Z",
+  "pulled_at": "2026-08-12T16:36:19Z",
   "games": [
     {
       "gamePk": 823672,
@@ -352,7 +352,7 @@
     },
     {
       "gamePk": 823187,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-12T19:45:00Z",
       "matchup": "HOU@SF",
       "away": {
@@ -374,10 +374,56 @@
           "hr9": 1.39,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.146
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.19
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.186
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.224
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.242
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.125
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.256
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.016
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.03
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
