@@ -198,6 +198,15 @@ not pool membership. Opposing-pitcher HR/9 remains a display chip only.
 
 ---
 
+## Grading
+
+`grade_night.py` grades the **baked `D_<date>.json` tickets directly** — it does **not** re-draft.
+From the source: *"Grade the board that ACTUALLY SHIPPED (the baked D_<date>.json tickets). A fresh
+server re-draft here diverges from the live board you bet (different builders), so grade the shipped
+tickets directly."* Whatever is in `D_<date>.json` when it runs is what the ledger books, so the last
+auto build of the night is the one that counts. (`HANDOFF.md` claimed a re-draft; that was stale and is
+corrected there.)
+
 ## Ticket rules
 
 - **Eligible field** = priced bats in the posted lineup, not scratched/voided,
@@ -226,12 +235,15 @@ not pool membership. Opposing-pitcher HR/9 remains a display chip only.
   Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
   their time windows, `<= +600`.
 - **Anchors** — 4 total (3 moon anchors + 1 salami anchor), the strongest *fittable*
-  bats by model `TOTAL`. **ONE MOON ANCHOR PER GAME** (2026-08-10 — the old note here said
-  multiple were allowed, the code followed the note, and the board shipped Olson *and* Baldwin
-  as two of four anchors in NYM@ATL). The **salami anchor is exempt**: the rule caps a single
-  lineup carrying two anchors' worth of exposure, and an anchor's exposure is its *pair* of moons
-  plus a builder, whereas the salami is one slip whose legs already share games with the moons
-  (2026-08-13). The 4 are chosen to maximize clean moons → salami → combined strength.
+  bats by model `TOTAL`. **UP TO `ANCH_PER_GAME` (2) ANCHORS PER GAME** (2026-08-13, owner decision;
+  this replaced the one-per-game rule added 2026-08-10 after Olson *and* Baldwin both anchored in
+  NYM@ATL). Two strong bats in one game may each lead their own pair of moons — no ticket may still
+  carry two bats from one game (`fits()`), so each slip is one anchor's worth of exposure, and
+  `GAME_CAP` still bounds pool bats per game. **The candidate list is built in ROUNDS** — every game's
+  best bat first, then every game's second — because a flat top-20 by strength fills up with *pairs*
+  from time-isolated games, every 4-set then starves, and the board collapses (14 → 8 with 2 moons when
+  this was first tried). The 4 are chosen to maximize clean moons → salami → combined strength, subject
+  to `MOON_SLACK`.
 - **Moons** — **2 per anchor** across 3 anchors = up to **6** moons. Each = an
   anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
   ships both its moons or none; on a thin slate the **weakest anchor** demotes
@@ -251,15 +263,27 @@ not pool membership. Opposing-pitcher HR/9 remains a display chip only.
   divergence this bullet used to warn about no longer exists** (verified 2026-08-13). Practical
   consequence: a strong bat in a game too time-isolated to carry a parlay reaches the board only
   as the lunch special or the nightcap — otherwise not at all.
+- **Completability** — a partner is only taken if the ticket can still be *finished*: enough distinct
+  in-window games must remain for the legs it still needs. `fits()` alone validates a ticket as it
+  stands and will happily strand it — on 2026-08-13 a 3:07 anchor took a 4:05 partner on both moons,
+  which pinned the window and put every 1:10/1:35 game out of reach, so both slips stalled at two legs
+  and the anchor was demoted. Same failure the salami was given seed-based filling for on 2026-07-04.
 - **No TOTAL floor on parlay legs.** `ge75()` keeps the name but its body is
   `a.filter(n => !pending(n))` — it excludes carried/resuming bats and nothing else. The pool
   gate (`Z_GATE`) is the only quality bar.
 
 Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
-`MOONS_PER_ANC=2` (`CHALK_N=4` defined but the ban is off; `FLOOR=130` is a dead
-fallback; note the in-code comments still say "3 per game" but the value is 4).
-Edge weights (`_SIG`, refit 2026-07-31): `xISO 0.13`, `xwOBAcon 0.50`,
-`arsenal 0.37` — market is a flat 0.5 of the blend. Parlay stakes: moon round-robin
+`MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`.
+`CHALK_N=4` is the Chef's Table in `index.html`; `assemble_tickets.py` has `chalk=set()` and builds no
+chef ticket at all. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
+under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
+already carries the market via `mktT`, so an odds weight double-counts).
+⚠️ **Edge weights: the code does NOT match the documented refit.** `build15.py` `_SIG` is
+`_zxpow 0.45 / _zxwcon 0.35 / _zars 0.20` with the comment *"edge rebuilt 2026-07-09 … bg/xptrend/pvel/
+spray/pvd/btrk/park zeroed (calibration AUC<=0.51)"*, and `W_ARS=0.10`. The `xISO 0.13 / xwOBAcon 0.50 /
+arsenal 0.37` refit described above as 2026-07-31 **was never applied to the source** (verified
+2026-08-13). Reconcile deliberately — that is a modelling call, not a doc fix. Market is a flat 0.5 of
+the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon round-robin
 `risk=2.0u`, salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 
 ---
@@ -294,10 +318,11 @@ Behavior that's load-bearing:
   counts a DH HR regardless; the fix is about the live board.
 - **Top-4 per GAME holds everywhere** — the pool and the span-fill fallback, so a
   game can never put a 5th bat on the regular board (chalk in lunch/nightcap exempt).
-- **Builders = anchors + conviction snubs** (unused bats ≥ the weakest drafted leg),
-  emitted live from the drafted tickets. ⚠️ Note this **diverges from the server**,
-  which now emits **anchors only** (snubs removed 2026-07-09) — so the live board can
-  show more builder singles than the baked `D_<date>.json`.
+- **Builders = parlay anchors only**, on **both** engines. Conviction snubs were removed from the
+  server on 2026-07-09 (over the ledger window snubs graded **−57u** vs anchors **+9u**) and the
+  client's snub arm is gone too — its header comment and the `lf`/`usedN`/`lnp` variables survive but
+  the loop that used them does not. **The server/client builder divergence this bullet used to warn
+  about no longer exists** (verified 2026-08-13).
 - **Moon pairing is enforced live.** After the refill, any anchor left with fewer than
   `MOONS_PER_ANC` (2) moons is repaired from the free pool, or demoted whole (never a
   single-moon anchor). A scratched-anchor moon **re-anchors to one replacement** for the

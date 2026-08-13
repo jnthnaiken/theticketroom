@@ -1,4 +1,12 @@
-# The Ticket Room — Handoff / Resume Notes (2026-07-08)
+# The Ticket Room — Handoff / Resume Notes
+
+> ⚠️ **This file is layered by date and older sections contradict newer ones.** Audited 2026-08-13;
+> every superseded claim below is now marked inline. When two sections disagree, **the later date wins**,
+> and the code wins over both. Corrected on 2026-08-13: the Kasper column-picker (HH%/LA render by
+> default), `RULES_VERSION` (removed), conviction-snub builders (removed 07-09), the nine edge signals
+> (only three are live), `grade_night` (does NOT re-draft), and the base64 transfer channel (blocked).
+> Draft rules as of 2026-08-13 live in `README.md` — that file is kept current; this one is a log.
+
 
 Quick-start status so a fresh session can continue without re-deriving context.
 
@@ -157,7 +165,10 @@ renders on the game detail page. Method that worked cleanly on 07-11:
 2. Per game: navigate `kasperbaseball.win/?game=<pk>`, then scrape the hitter roster tables
    (a table is a roster if its headers include `Zone Fit` and `kHR`). Columns present by
    default: Ceiling / Zone Fit / kHR / HR Form / ISO / xwOBA / xwOBAc / SwStr% / PullBrl% /
-   Brl/BIP% / Sweet% / FB%. **HH% and LA are NOT shown by default** — the hitter table has 3
+   Brl/BIP% / Sweet% / FB%. ⚠️ **SUPERSEDED 2026-08-05 — HH% and LA now render BY DEFAULT and the
+   column-picker dance below is NOT needed.** See the 2026-08-05 section near the end of this file; that
+   is the current Kasper method. The paragraph below is kept only as history. ~~**HH% and LA are NOT
+   shown by default**~~ — the hitter table has 3
    `<select>` column-pickers whose options include `HH%` and `LA`; set two of them (native
    value setter + `change` event) so those columns render, then scrape. Team = the
    "TEAM vs Pitcher" heading above each roster table (skip the small unlabeled highlight table —
@@ -191,7 +202,11 @@ Two traps cost most of the session — both DATA-shape issues, not model bugs:
    healthy scores (dozens pass the z-gate) but only 4 tickets, all singles, all tagged
    `game 1`. Fix: number the games sequentially when building `lineups_<date>.json`.
 
-2. **A same-slate rebuild does NOT re-draft — you must bump `RULES_VERSION`.**
+2. ⚠️ **DEAD — `RULES_VERSION` no longer exists.** `regen15.py` was simplified to preserve-and-inject
+   with no version lever (see the 07-11 note above, which contradicts this one). A same-slate rebuild
+   always preserves prior tickets, and the TICKET LOCK (2026-08-08) is now what governs when a slip may
+   be re-drafted at all. Kept as history. ~~A same-slate rebuild does NOT re-draft — you must bump
+   `RULES_VERSION`.~~
    `regen15.py` preserves the prior board's tickets on any same-date rebuild
    (`_same_slate` → carries `prevD['tickets']` forward). So after you FIX a bad input
    and rebuild the same slate, it keeps the OLD (bad) draft. To force one clean
@@ -227,9 +242,12 @@ which is mirrored server+client. Verified on `theticketroom.live` via in-page
 
 - **Leg score = live model TOTAL.** Ticket-leg badge now reads the live `D.players[name].TOTAL`
   (falls back to `p.total`), so the Players-tab score and the Tickets weather-badge score match.
-- **Builders re-derived on every live refresh** — anchors + conviction snubs from the *live*
-  pool, so a bat that enters the pool after the server build (weather shift, e.g. James Wood)
-  lands on the Tickets page, not only the Players tab.
+- **Builders re-derived on every live refresh** — ⚠️ **anchors ONLY as of 2026-07-09**: conviction
+  snubs were removed from the server that day (over the ledger window snubs graded **−57u** vs anchors
+  **+9u**) and the client's snub arm is gone too — its header comment and the `lf`/`usedN`/`lnp`
+  variables survive but the loop that used them does not (verified 2026-08-13). Builders == parlay
+  anchors on both sides. The re-derivation itself still runs every refresh, so a bat that enters the
+  pool after the server build lands on the Tickets page if it becomes an anchor.
 - **Moon pairing enforced live (all-or-none).** After refill, an anchor short of
   `MOONS_PER_ANC`(2) is repaired from the free pool or demoted whole — never a single-moon anchor.
 - **Per-game cap raised 3 → 4** in BOTH `assemble_tickets.py` (`GAME_CAP=4`, ~line 126) and
@@ -275,8 +293,12 @@ edge bites exactly as hard as the market regardless of how thin the edge is
 
 - **Market half** (`mkt_z`) carries everything the books already price — power,
   opposing pitcher, park, weather, platoon, slot, zone, form.
-- **Edge half** = the signals the books miss / are late on. Weights (all reasoned
-  guesses, NOT yet fitted) live in `build15.py` `_SIG`:
+- **Edge half** = the signals the books miss / are late on. ⚠️ **The list below is STALE (verified
+  against `build15.py` 2026-08-13).** `_SIG` now carries only THREE live signals —
+  `_zxpow 0.45`, `_zxwcon 0.35`, `_zars 0.20` — and the code comment reads *"edge rebuilt 2026-07-09:
+  expected-power core (xISO + xwOBAcon) + arsenal; bg/xptrend/pvel/spray/pvd/btrk/park zeroed
+  (calibration AUC<=0.51)"*. Also `W_ARS` is **0.10**, not 0.16. The nine-signal list below describes a
+  model that no longer runs; kept as history of what was tried and zeroed:
   - `_zbg`   bullpen-game/opener flag — **W_BG = 0.20**
   - `_zxpow` expected power (xISO, park-neutral) — **W_XPOW = 0.18**
   - `_zars`  pitch-arsenal matchup (batter RV/100 × pitcher pitch mix) — **W_ARS = 0.16**
@@ -304,7 +326,7 @@ edge bites exactly as hard as the market regardless of how thin the edge is
   is already inside TOTAL via `blend`, and let a price move alone take a seat: on
   2026-08-08 Caminero went +334→+250 on a live re-price and displaced Willson Contreras,
   the board's #2 model (204 vs 161), who then landed on no ticket at all.
-- `RULES_VERSION = "2026-07-08-redraft4"` in `regen15.py` (bumped 2026-07-08 to force a re-draft).
+- ~~`RULES_VERSION`~~ — removed from `regen15.py`; see the correction above.
 
 ## ✅ Both prior "BROKEN" items are FIXED (verified in current code)
 
@@ -389,7 +411,12 @@ rounded to int. cards fields come from the same matchup roster tables.
   `priorGrade` (with a boxscore-fetch guard so a failed fetch never false-voids).
 - **Scratched singles are dropped from the board** (client `singleAlive` filter) — a
   benched builder/lunch/nightcap single disappears instead of showing as a SOLD loss.
-- **`grade_night` now grades the FINAL board, not the pre-game bake** (2026-07-05).
+- ⚠️ **CORRECTED 2026-08-13 — `grade_night.py` does NOT re-draft.** It grades the baked
+  `D_<date>.json` tickets directly. The code says so in as many words: *"Grade the board that ACTUALLY
+  SHIPPED (the baked D_<date>.json tickets). A fresh server re-draft here diverges from the live board
+  you bet (different builders), so grade the shipped tickets directly."* The re-assemble described
+  below was removed; **whatever is in `D_<date>.json` at grading time is what the ledger books.**
+  Kept as history. ~~`grade_night` now grades the FINAL board, not the pre-game bake~~ (2026-07-05).
   Before scoring a night it imports `assemble_tickets`, marks any carded bat that took
   no plate appearance as `out`, and re-runs the draft — so the ledger grades the board
   that actually shipped (same pool the browser re-drafts on), not the tickets baked
@@ -548,7 +575,13 @@ package registries resolve.** So `build15.py` still cannot run locally — commi
 and let the Action build (external cron dispatches `build-board` every 30 min, 9 AM–1 AM ET,
 so a push during the window builds on its own; no manual "Run workflow" needed).
 
-### Browser → container transfer: use gzip+base64 in CHUNKS, with SHA per chunk
+### Browser → container transfer ⚠️ SUPERSEDED 2026-08-10 — base64 IS BLOCKED
+**Current method: plain pipe-delimited text inside `<article><pre>` with `@@S@@`/`@@E@@` sentinels, read
+via `get_page_text`, verified by an in-page SHA-256 printed as spaced hex.** The browser tool classifier
+now blocks base64 returns, raw-HTML returns, external POSTs, and any fetch carrying scraped data, so
+every "opaque blob out" channel below is shut. `get_page_text` has a hard **50,000-char cap** — split
+any payload approaching it. Full method in `claude/transfer-channel-2026-08-10.md`. The section below is
+history. ~~use gzip+base64 in CHUNKS, with SHA per chunk~~
 The scraped data lives in page `localStorage`; the only way out is `get_page_text`. What
 works, and the traps:
 1. Build a compact **TSV** first (one row per bat: `B\t<matchup>\t<team>\t<name>\t…`, plus
