@@ -1,7 +1,7 @@
 {
   "date": "2026-08-13",
   "season": "2026",
-  "pulled_at": "2026-08-13T20:22:43Z",
+  "pulled_at": "2026-08-13T20:27:39Z",
   "games": [
     {
       "gamePk": 824238,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824561,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-13T17:10:00Z",
       "matchup": "CIN@CWS",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823508,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-13T17:35:00Z",
       "matchup": "SEA@NYY",
       "away": {
@@ -495,12 +495,12 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.214
+            "iso": 0.207
           },
           {
             "id": 665862,
             "name": "Jazz Chisholm Jr.",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 676609,
@@ -544,7 +544,7 @@
         "sp": {
           "id": 801139,
           "name": "Payton Tolle",
-          "hr9": 1.05,
+          "hr9": 1.04,
           "hand": "LHP"
         },
         "lineup": [
@@ -561,7 +561,7 @@
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 575929,
@@ -638,12 +638,12 @@
           {
             "id": 678218,
             "name": "Brandon Valenzuela",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 664702,
             "name": "Myles Straw",
-            "iso": 0.114
+            "iso": 0.113
           },
           {
             "id": 664770,
@@ -708,7 +708,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.146
+            "iso": 0.145
           },
           {
             "id": 621020,
@@ -733,7 +733,7 @@
         "sp": {
           "id": 676917,
           "name": "Cade Cavalli",
-          "hr9": 1.04,
+          "hr9": 1.03,
           "hand": "RHP"
         },
         "lineup": [
@@ -760,7 +760,7 @@
           {
             "id": 691781,
             "name": "Brady House",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 678391,
@@ -791,13 +791,13 @@
         "emoji": "\u26c5",
         "cond": "calm 1mph, 91\u00b0",
         "lean": "Boost",
-        "temp": 91.4,
+        "temp": 90.8,
         "wind_mph": 7.8,
         "wind_dir": 307,
         "tail_mph": -1.0,
         "precip": 0
       },
-      "wf": 1.029
+      "wf": 1.028
     },
     {
       "gamePk": 823669,
@@ -922,15 +922,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 4mph, 83\u00b0",
+        "cond": "wind in 4mph, 81\u00b0",
         "lean": "Neutral",
-        "temp": 83.1,
-        "wind_mph": 5.6,
-        "wind_dir": 56,
-        "tail_mph": -3.7,
+        "temp": 80.7,
+        "wind_mph": 4.8,
+        "wind_dir": 49,
+        "tail_mph": -3.6,
         "precip": 6
       },
-      "wf": 1.007
+      "wf": 1.004
     },
     {
       "gamePk": 823995,
@@ -965,13 +965,13 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 6mph, 72\u00b0",
         "lean": "Boost",
-        "temp": 72.4,
-        "wind_mph": 6.3,
-        "wind_dir": 228,
-        "tail_mph": 6.2,
+        "temp": 72.3,
+        "wind_mph": 6.5,
+        "wind_dir": 229,
+        "tail_mph": 6.4,
         "precip": 0
       },
-      "wf": 1.025
+      "wf": 1.026
     },
     {
       "gamePk": 823915,
@@ -1006,7 +1006,7 @@
         "emoji": "\u26c5",
         "cond": "wind out 5mph, 71\u00b0",
         "lean": "Neutral",
-        "temp": 71.3,
+        "temp": 71.2,
         "wind_mph": 6.9,
         "wind_dir": 245,
         "tail_mph": 5.3,
