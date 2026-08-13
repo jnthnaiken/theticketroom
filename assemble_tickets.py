@@ -172,7 +172,7 @@ def assemble(D):
         _g = P[n]['game']
         if _g in _ancg: continue
         _ancg.add(_g); cand_anchors.append(n)
-        if len(cand_anchors) >= 20: break   # MULTIPLE anchors per game ALLOWED (no per-game dedup) -- each leads its own ticket; the one-bat-per-game-per-TICKET rule (fits()) + the <=3/game POOL cap bound total exposure. 40%+ rain never anchors. Capped to the strongest 20 so the exhaustive 4-anchor-set search (O(N^4)) stays fast -- no realistic anchor ranks below the 20th-strongest bat.
+        if len(cand_anchors) >= 20: break   # 2026-08-13: the note that used to sit here said "MULTIPLE anchors per game ALLOWED (no per-game dedup)", contradicting the `_ancg` dedup three lines up. That contradiction is what shipped the 08-10 two-anchors-in-one-game bug. ONE MOON ANCHOR PER GAME; the salami anchor is exempt. Strongest 20 candidates, one per game, feed the exhaustive 4-set search. The one-bat-per-game-per-TICKET rule (fits()) + the <=3/game POOL cap bound total exposure. 40%+ rain never anchors. Capped to the strongest 20 so the exhaustive 4-anchor-set search (O(N^4)) stays fast -- no realistic anchor ranks below the 20th-strongest bat.
 
     tickets, used = [], set()
 
@@ -452,18 +452,12 @@ def assemble(D):
             if _sallegs:
                 break
         if _sallegs:
+            # 2026-08-13: the anchor is the STRONGEST leg, full stop. An earlier pass today slid the label to the
+            # strongest leg in a game no moon had anchored -- that made the slip's weaker bat its anchor (and the
+            # anchor seat is what earns the mirrored builder single). Role rank must be monotone in strength within
+            # a slip. One-anchor-per-game is a MOON rule: an anchor's exposure is its pair of moons plus a builder,
+            # while the salami is a single slip whose legs already share games with the moons. See index.html.
             _sallegs.sort(key=lambda n: -strength(n))
-            # 2026-08-13 -- ONE ANCHOR PER GAME APPLIES TO THE SALAMI TOO. The seed search only enforces
-            # distinct games WITHIN the slip; it never checks whether the game its strongest leg sits in
-            # already carries a moon anchor. Partner legs may share a game with an anchor; the ANCHOR seat
-            # may not, or the board ships two anchors on one lineup. Mirrors the same guard in index.html.
-            _ancg = {P[t['legs'][0]]['game'] for t in pls if t['kind'] == 'moon'}
-            _ai = next((i for i, n in enumerate(_sallegs) if P[n]['game'] not in _ancg), None)
-            if _ai is None:
-                _sallegs = None                                        # every leg is in an already-anchored game -> no salami
-            elif _ai > 0:
-                _sallegs = [_sallegs[_ai]] + [n for j, n in enumerate(_sallegs) if j != _ai]
-        if _sallegs:
             for _n in _sallegs:
                 if _n in pool_av: pool_av.remove(_n)
             pls.append({'rank': sidx if sidx is not None else (len(al) - 1), 'kind': 'biggest', 'badge': "\U0001f96a",

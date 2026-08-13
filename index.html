@@ -1034,8 +1034,24 @@ drawTickets();drawPlayers();drawTracker();
     var cand;
     if(_bl.length>=8){ var _bm=_bl.reduce(function(a,b){return a+b;},0)/_bl.length; var _bsd=Math.sqrt(_bl.reduce(function(a,b){return a+(b-_bm)*(b-_bm);},0)/_bl.length)||1e-9; cand=fullrank.filter(function(n){return P[n].blend!=null&&(P[n].blend-_bm)/_bsd>=Z_GATE;}); }   // Z-THRESHOLD gate on the blended z-score -- MIRRORS assemble_tickets.py so client & server pool identically (replaces the old top-41 TOTAL slice that dropped z-gated bats at #42+)
     else { var _ft=fullrank.map(function(n){return P[n].TOTAL;}).filter(function(x){return x!=null;}).sort(function(a,b){return b-a;}); var _flr=_ft.length?_ft[Math.min(_ft.length-1,39)]:130; cand=fullrank.filter(function(n){return P[n].TOTAL!=null&&P[n].TOTAL>=_flr;}); }   // fallback (no blend): strongest ~40 by TOTAL
-    var _ippC=function(o){return o?(o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)):0;};var _cT=cand.map(function(n){return P[n].TOTAL;}),_cI=cand.map(function(n){return _ippC(P[n].odds);});var _ctmn=Math.min.apply(null,_cT),_ctmx=Math.max.apply(null,_cT),_cimn=Math.min.apply(null,_cI),_cimx=Math.max.apply(null,_cI);var _cstren=function(n){return _ctmx>_ctmn?(P[n].TOTAL-_ctmn)/(_ctmx-_ctmn):0.5;};   /* TOTAL alone -- see strength() below */ var ranked=cand.slice().sort(function(x,y){return (_cstren(y)-_cstren(x))||(P[y].TOTAL-P[x].TOTAL);});   // that pool, best final score first (65/35 strength)
-    var chalk={},_chefLegs=[],_chefG={},_chefKeep={};   // CHEF'S TABLE: reserve the CHALK_N best parlay-eligible bats by STRENGTH (65/35 final score), one per GAME, whole slate (mirrors assemble_tickets.py); excluded from every other ticket
+    var _ippC=function(o){return o?(o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)):0;};var _cT=cand.map(function(n){return P[n].TOTAL;}),_cI=cand.map(function(n){return _ippC(P[n].odds);});var _ctmn=Math.min.apply(null,_cT),_ctmx=Math.max.apply(null,_cT),_cimn=Math.min.apply(null,_cI),_cimx=Math.max.apply(null,_cI);/*_cI/_cimn/_cimx: DEAD since 2026-08-08, when strength dropped its market term. Never read. Do not reintroduce an odds weight here without changing strength() too.*/var _cstren=function(n){return _ctmx>_ctmn?(P[n].TOTAL-_ctmn)/(_ctmx-_ctmn):0.5;};   /* TOTAL alone -- see strength() below */ var ranked=cand.slice().sort(function(x,y){return (_cstren(y)-_cstren(x))||(P[y].TOTAL-P[x].TOTAL);});   // that pool, best first by normalized TOTAL -- the SAME key as strength() below. (The old '65/35' note was stale from 2026-08-08.)
+    /* 2026-08-13 -- ONE BAT, ONE SLIP. `chalk` is a per-build SNAPSHOT of the CHALK_N chef seats, but a parlay
+       freezes when its legs confirm and is never re-drawn, so the two rules are only consistent within one build.
+       The reclaim below already drops a newly-chalk bat from the POOL (the Kurtz/Caminero fix), which stops OPEN
+       tickets drafting him -- but a slip that has already frozen keeps him, and the board then carries one bat on
+       two slips. On 08-13 Contreras was #7 by strength at 12:00pm and a legal salami leg; a real price move carried
+       him to #4 by 12:11pm, after that salami had frozen, and he took a chef seat as well. A placed bet is a fact
+       and the chef seat is still open (seats lock per-leg, at their own first pitch), so the OPEN thing moves: a bat
+       already on a placed parlay is not chef-eligible. No frozen slip is ever edited. */
+    var _placedLeg={};
+    (function(){ (D.tickets||[]).forEach(function(t){
+      if(t.kind!=='moon'&&t.kind!=='biggest')return;
+      var legs=t.players||[]; if(!legs.length)return;
+      var lm=gmin(t.lock);
+      if((lm!=null&&nowMin()>=lm)||legs.every(function(l){return pinnedP(l.name);}))
+        legs.forEach(function(l){_placedLeg[l.name]=1;});
+    }); })();
+    var chalk={},_chefLegs=[],_chefG={},_chefKeep={};   // CHEF'S TABLE: the CHALK_N best parlay-eligible bats by STRENGTH (normalized TOTAL -- NOT a 65/35 blend), one per GAME, whole slate; excluded from every other ticket. NOTE: assemble_tickets.py has chalk=set() and builds NO chef ticket -- the server is not a mirror of this pass.
     /*PER-LEG LOCK: a chef seat freezes only when ITS OWN game starts. Keep prior chef legs whose game is underway (a live leg, or a too-late-to-redraft void that renders a Missed Reservation stamp); every not-yet-started seat stays OPEN to the current shortest chalk, so a shorter name priced after the early games post can still claim it instead of being frozen out by whoever was priced at first pitch.*/(function(){var _pc=(D.tickets||[]).filter(function(t){return t.kind==='chef';})[0];if(!_pc||!_pc.players)return;_pc.players.forEach(function(l){var n=l.name,p=P[n];if(!p||_chefLegs.length>=CHALK_N)return;if(started(n)&&!_chefG[p.game]){_chefLegs.push(n);_chefG[p.game]=1;_chefKeep[n]=1;if(!p.out&&!p.void)chalk[n]=1;}});})();/* 2026-08-10 -- CHEF SEAT HYSTERESIS. The seat was filled purely by rank order, so a seat changed hands on any
        cross at all. On 2026-08-10 the 4th seat went Olson -> Alvarez on a TOTAL gap of 0.1 (190.3 vs 190.4), back to
        Olson on a DEAD TIE at 190.5, and away again -- four flips in half an hour on rounding, while neither bat's
@@ -1046,7 +1062,7 @@ drawTickets();drawPlayers();drawTracker();
     (function(){var _pc=(D.tickets||[]).filter(function(t){return t.kind==='chef';})[0];if(!_pc||!_pc.players)return;
       var CHEF_HYST=0.02, _seat={}; _chefLegs.forEach(function(x){_seat[x]=1;});
       _pc.players.forEach(function(l){var n=l.name,p=P[n];
-        if(!p||p.out||p.void||_seat[n]||_chefKeep[n])return;
+        if(!p||p.out||p.void||_seat[n]||_chefKeep[n]||_placedLeg[n])return;   // _placedLeg: already on a placed parlay -> not chef-eligible
         if(_chefLegs.length>=CHALK_N)return;
         if(pending(n)||precipOf(p.game)>=40)return;
         if(_chefG[p.game])return;
@@ -1059,7 +1075,7 @@ drawTickets();drawPlayers();drawTracker();
         if(_best&&(_cstren(_best)-_cstren(n))>CHEF_HYST)return;   /* a real improvement -> let the fill take it */
         _chefLegs.push(n);_chefG[p.game]=1;chalk[n]=1;_chefKeep[n]=1;_seat[n]=1;
       });})();
-    for(var _cci=0;_cci<ranked.length&&_chefLegs.length<CHALK_N;_cci++){var _ccn=ranked[_cci];if(_chefKeep[_ccn]||pending(_ccn)||precipOf(P[_ccn].game)>=40)continue;var _ccg=P[_ccn].game;if(_chefG[_ccg])continue;_chefLegs.push(_ccn);_chefG[_ccg]=1;chalk[_ccn]=1;}
+    for(var _cci=0;_cci<ranked.length&&_chefLegs.length<CHALK_N;_cci++){var _ccn=ranked[_cci];if(_chefKeep[_ccn]||_placedLeg[_ccn]||pending(_ccn)||precipOf(P[_ccn].game)>=40)continue;var _ccg=P[_ccn].game;if(_chefG[_ccg])continue;_chefLegs.push(_ccn);_chefG[_ccg]=1;chalk[_ccn]=1;}
     var _committed={},_ctTeam={};(D.tickets||[]).forEach(function(_t){if(_t.kind==='late'||_t.kind==='lunch'||_t.kind==='chef')return;(_t.players||[]).forEach(function(_l){var _cn=_l.name,_cp=P[_cn];if(_cp&&!_cp.out&&!_cp.void&&(_cp.status==='confirmed'||started(_cn))&&!_committed[_cn]){_committed[_cn]=1;_ctTeam[_cp.game]=(_ctTeam[_cp.game]||0)+1;}});});var _TC={},_hv={},nonchalk=[];Object.keys(_ctTeam).forEach(function(_k){_TC[_k]=_ctTeam[_k];});Object.keys(_committed).forEach(function(_n){if(!_hv[_n]&&!chalk[_n]&&P[_n]&&P[_n].odds!=null){nonchalk.push(_n);_hv[_n]=1;}});/* !chalk[_n] ADDED 2026-08-04: this reclaim carries already-placed bats forward so a re-draft keeps the board's
    shape, and it used to skip the chalk test that the very next line applies. So a bat that BECOMES chalk mid-slate
    kept every parlay seat it already held. Nick Kurtz (+188) was scratched out of the Chef's Table, Caminero (+220)
@@ -1292,7 +1308,13 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
        PLACED bet and is left alone here. */
     (function(){
       if(!prior.length)return;
-      var pars=prior.filter(function(t){return (t.kind==='moon'||t.kind==='biggest')&&t.anchor&&P[t.anchor];});
+      /* 2026-08-13: MOON anchors only. The rule exists to stop one lineup carrying two anchors' worth of exposure,
+         and an anchor's exposure is its PAIR of moons plus a builder. The Grand Salami is a single slip whose legs
+         already share games with the moons freely, so counting its anchor here made a salami leg compete with a moon
+         anchor for the same game: on 08-13 the salami anchored in Abreu's BOS@TOR, this pass dropped Abreu as the
+         "duplicate", and the board went 14 -> 11 with both of his moons. A salami anchor is a label on a round
+         robin, not a second bet on that lineup. */
+      var pars=prior.filter(function(t){return t.kind==='moon'&&t.anchor&&P[t.anchor];});
       if(!pars.length)return;
       var best={};
       pars.forEach(function(t){var a=t.anchor,g=P[a].game;
@@ -1302,7 +1324,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       if(!Object.keys(drop).length)return;
       var open=prior.filter(function(t){
         var a=t.anchor; if(!a||!drop[a])return false;
-        if(t.kind!=='moon'&&t.kind!=='biggest')return false;
+        if(t.kind!=='moon')return false;   // 2026-08-13: moon anchors only (see above)
         var m=gmin(t.lock); return !(m!=null&&_lkNow>=m);});
       if(!open.length)return;
       var taken={};prior.forEach(function(t){(t.players||[]).forEach(function(l){taken[l.name]=1;});});
@@ -1377,7 +1399,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
          anchored. That shipped two of four anchors on one lineup and rebuilt both slips around Olson's 7:15 window,
          moving their lock from 9:38/9:40 to 7:07. Reserve every game that already carries a live or locked anchor. */
       var _ancGm={};
-      prior.forEach(function(t){ if((t.kind!=='moon'&&t.kind!=='biggest')||!t.anchor||!P[t.anchor])return;
+      prior.forEach(function(t){ if(t.kind!=='moon'||!t.anchor||!P[t.anchor])return;   // 2026-08-13: moon anchors only
         if(isLocked(t)||anchorAlive(t.anchor))_ancGm[P[t.anchor].game]=1; });
       moonAnchors.forEach(function(a){ if(anchorAlive(a))return; var p2=byS(nonchalk);
         for(var i=0;i<p2.length;i++){var c=p2[i]; if(_usedAnch[c]||usedG[c]||pending(c)||precipOf(P[c].game)>=40)continue;
@@ -1519,12 +1541,13 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
            about BATS already on a slip but nothing about which GAMES already carry an anchor. So the salvaged salami
            could anchor in a game a moon already anchored (today: Willson Contreras, BOS@TOR, next to Wilyer Abreu).
            The board looks right for exactly one build -- then the anchor-dedup pass upstream sees two anchors in one
-           game on the carried board, drops the weaker, and takes its moons down with it (14 -> 11). Partner legs may
-           share a game with an anchor; the ANCHOR seat may not. Promote the strongest leg whose game is unanchored. */
-        var _ancG={}; out.forEach(function(t){ if((t.kind==='moon'||t.kind==='biggest')&&t.anchor&&P[t.anchor])_ancG[P[t.anchor].game]=1; });
-        var _ai=-1; for(var _q=0;_q<legNames.length;_q++){ if(!_ancG[P[legNames[_q]].game]){_ai=_q;break;} }
-        if(_ai<0)return;                                                                                // every leg sits in an already-anchored game -> shipping it would break the invariant
-        if(_ai>0)legNames=[legNames[_ai]].concat(legNames.filter(function(_x,_z){return _z!==_ai;}));
+           game on the carried board, drops the weaker, and takes its moons down with it (14 -> 11).
+           SUPERSEDED later the same day: sliding the LABEL was the wrong half. It handed the anchor seat to the
+           slip's weakest-but-unanchored leg -- on 08-13 that made #21 (Chisholm) the anchor of a slip carrying #7
+           (Contreras), and the anchor seat is what earns the mirrored builder single, so the builder went to the
+           weaker bat. ROLE RANK MUST BE MONOTONE IN STRENGTH WITHIN A SLIP: the anchor is legNames[0], always.
+           The collision this was dodging is now fixed at its source -- one-anchor-per-game is scoped to MOON
+           anchors, which is what it was written for (see the anchor-dedup pass above). */
         legNames.forEach(function(n){placed[n]=1; usedG[n]=1;});
         mkParlay('biggest', (ps&&ps.badge)?ps.badge:'🥪', legNames, (ps&&ps.rr)?{struct:ps.rr.struct,risk:ps.rr.risk}:{struct:"by 2s, 3s & 4",risk:5.5});
       })();

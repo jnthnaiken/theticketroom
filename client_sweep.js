@@ -72,6 +72,20 @@ function structural(ts){
   });
   return bad;
 }
+function oneSlip(ts){
+  // 2026-08-13: ONE BAT, ONE SLIP. Chalk (a chef seat) is exclusive -- a chef leg may appear nowhere else.
+  // Every other repeat is legal only for an ANCHOR mirroring onto its own builder / its own pair of moons.
+  var by={}; ts.forEach(function(t){(t.players||[]).forEach(function(l){(by[l.name]=by[l.name]||[]).push(t);});});
+  var bad=[];
+  Object.keys(by).forEach(function(n){
+    var list=by[n]; if(list.length<2)return;
+    if(list.some(function(t){return t.kind==='chef';})){
+      bad.push(n+' on chef + '+list.filter(function(t){return t.kind!=='chef';}).map(function(t){return t.kind;}).join('/')); return; }
+    if(!list.every(function(t){return t.anchor===n;}))
+      bad.push(n+' on '+list.length+' slips as a non-anchor ('+list.map(function(t){return t.kind;}).join('/')+')');
+  });
+  return bad;
+}
 function anchorsEqBuilders(ts){
   var bl=ts.filter(function(t){return t.kind==='builder';}).map(function(t){return t.players[0].name;}).sort();
   var an=[];ts.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&t.anchor&&an.indexOf(t.anchor)<0)an.push(t.anchor);});
@@ -105,7 +119,7 @@ function anchorsEqBuilders(ts){
 
     const D = globalThis.__D;
     D.tickets = JSON.parse(JSON.stringify(globalThis.__D0));
-    const out = { steps: [], viol: { count: 0, integrity: 0, anchors: 0, pairing: 0, structural: 0 }, checks: 0, first: null };
+    const out = { steps: [], viol: { count: 0, integrity: 0, anchors: 0, pairing: 0, structural: 0, oneslip: 0 }, checks: 0, first: null };
     let prevCounts = null, prevBoard = null;
 
     for (const min of steps) {
@@ -113,13 +127,14 @@ function anchorsEqBuilders(ts){
       let err = null;
       try { globalThis.__ac(D); } catch (e) { err = e.message; }
       const ts = D.tickets;
-      const c = counts(ts), pr = pairing(ts), ab = anchorsEqBuilders(ts), st = structural(ts);
-      const rec = { t: min, err, counts: c, moonSeq: pr.seq, split: pr.bad, anchorsOk: ab.ok, structural: st, integrity: [],
+      const c = counts(ts), pr = pairing(ts), ab = anchorsEqBuilders(ts), st = structural(ts), os1 = oneSlip(ts);
+      const rec = { t: min, err, counts: c, moonSeq: pr.seq, split: pr.bad, anchorsOk: ab.ok, structural: st, oneslip: os1, integrity: [],
                     set: ts.map(t => t.name + '::' + sig(t)).sort() };
 
       if (prevCounts && c._total !== prevCounts._total) { out.viol.count++; rec.countDrift = prevCounts._total + '->' + c._total; }
       if (!ab.ok) { out.viol.anchors++; rec.ab = ab; }
       if (st.length) { out.viol.structural += st.length; }
+      if (os1.length) { out.viol.oneslip += os1.length; }
       if (pr.bad.length) { out.viol.pairing++; if (!out.first) out.first = { t: min, seq: pr.seq, split: pr.bad }; }
 
       if (prevBoard) {
@@ -150,6 +165,7 @@ function anchorsEqBuilders(ts){
       (s.anchorsOk ? '' : '  ANCHOR!=BUILDER') +
       (s.integrity.length ? '  ' + s.integrity.join('; ') : '') +
       (s.structural && s.structural.length ? '  STRUCT: ' + s.structural.join('; ') : '') +
+      (s.oneslip && s.oneslip.length ? '  DUP: ' + s.oneslip.join('; ') : '') +
       (s.err ? '  ERR ' + s.err : '') + flag
     );
   }
@@ -159,9 +175,10 @@ function anchorsEqBuilders(ts){
     '  integrity=' + report.viol.integrity +
     '  anchors!=builders=' + report.viol.anchors +
     '  pairing=' + report.viol.pairing +
-    '  structural=' + report.viol.structural);
+    '  structural=' + report.viol.structural +
+    '  one-bat-one-slip=' + report.viol.oneslip);
   if (opt('dump', null)) fs.writeFileSync(opt('dump'), JSON.stringify(report.steps.map(s => ({ t: s.t, set: s.set })), null, 0));
   fs.unlinkSync(TESTFILE);
   await browser.close();
-  process.exit(report.viol.count + report.viol.integrity + report.viol.anchors + report.viol.pairing + report.viol.structural ? 1 : 0);
+  process.exit(report.viol.count + report.viol.integrity + report.viol.anchors + report.viol.pairing + report.viol.structural + report.viol.oneslip ? 1 : 0);
 })();

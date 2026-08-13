@@ -214,31 +214,46 @@ not pool membership. Opposing-pitcher HR/9 remains a display chip only.
   (raised from 3 on 2026-07-04) adds z-gate-passing depth so a scratched parlay leg can
   refill *in-gate* instead of starving the slip; one bat/game per **ticket** still holds,
   so no single ticket over-concentrates on one game.
-- **Chalk ban is removed.** `CHALK_N` is still defined but `chalk = set()`, so the
-  top-4 favorites now draft into moons/salami/builders like any other bat. The
-  lunch special and nightcap simply take the highest-model bat not already on a
-  parlay in their time windows.
+- **Chalk / Chef's Table — the two engines DIFFER here, and the client is the one that ships.**
+  `assemble_tickets.py` has `chalk = set()` and builds **no chef ticket at all**, so on the
+  server the top favourites draft into moons/salami/builders like any other bat.
+  `index.html` — the engine `regen15.py` actually runs — reserves the **`CHALK_N` (4) strongest
+  bats by `strength`, one per game**, as the **Chef's Table** (a 4-leg round robin) and bars them
+  from moons, salami and builders. Chef seats lock **per-leg**, at their own first pitch, and a
+  sitting seat only changes hands if a challenger beats it by `CHEF_HYST` (0.02) of normalised
+  strength. A bat already on a **placed** (frozen or clock-locked) parlay is **not chef-eligible**
+  — a placed bet is a fact and the chef seat is still open, so the open one moves (2026-08-13).
+  Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
+  their time windows, `<= +600`.
 - **Anchors** — 4 total (3 moon anchors + 1 salami anchor), the strongest *fittable*
-  bats by model `TOTAL`. **Multiple anchors from the same game are allowed** (two
-  strong bats in one game can both anchor, each leading tickets whose legs come from
-  *other* games); the `≤4/game` pool cap still bounds total game exposure. The 4 are
-  chosen to maximize clean moons → salami → combined strength.
+  bats by model `TOTAL`. **ONE MOON ANCHOR PER GAME** (2026-08-10 — the old note here said
+  multiple were allowed, the code followed the note, and the board shipped Olson *and* Baldwin
+  as two of four anchors in NYM@ATL). The **salami anchor is exempt**: the rule caps a single
+  lineup carrying two anchors' worth of exposure, and an anchor's exposure is its *pair* of moons
+  plus a builder, whereas the salami is one slip whose legs already share games with the moons
+  (2026-08-13). The 4 are chosen to maximize clean moons → salami → combined strength.
 - **Moons** — **2 per anchor** across 3 anchors = up to **6** moons. Each = an
   anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
   ships both its moons or none; on a thin slate the **weakest anchor** demotes
   rather than ship a lopsided board.
-- **Salami** ("biggest") — led by the **best** anchor and **drafts inside the snake**
-  with the moons (no premium first-pick). The draft snakes **weakest-anchor-first**,
-  reverses each round, so the best anchor picks back-to-back at the turn. If the best
-  anchor can't fill 4 legs in its window it's re-tasked to moons. Demotion candidate
-  on a thin slate.
-- **Builders** (our straight singles) — on the **server** these are the **parlay
-  anchors only**, emitted as singles (no odds cap). The conviction **"snubs"**
-  (unused strong bats) were **removed from the server on 2026-07-09**. ⚠️ **The live
-  client still adds snubs** (anchors + any unused pool bat ≥ the weakest drafted
-  leg) — so the Tickets page in the browser can show more builders than the baked
-  server board. This is a known server/client divergence, not a bug.
-- **75 TOTAL floor** on parlay legs (anchors, partners, salami legs).
+- **Salami** ("biggest") — **MOONS WIN, THE SALAMI IS LEFTOVER.** The moons fill first and the
+  all-or-none demote loop settles; the salami is then built from what they left behind, seed-based
+  (try each candidate as a start seed, strongest first, and complete it to 4 distinct games inside
+  one `WIN`). It ships **only as a full 4-leg set** — never a stub — and its **anchor is its
+  strongest leg**, always: role rank must be monotone in strength *within* a slip, because the
+  anchor seat is what earns the mirrored builder single (2026-08-13). If no 4-game in-window set
+  exists among the leftovers, no salami ships.
+- **Builders** (our straight singles) — the **parlay anchors only**, emitted as singles (no odds
+  cap), in **both** engines. The conviction **"snubs"** (unused strong bats) were removed from the
+  server on 2026-07-09 (over the ledger window snubs graded **−57u** vs anchors **+9u**). The
+  client's snub arm is gone too: its header comment and the `lf` / `usedN` / `lnp` variables
+  survive but the loop that used them does not, so builders == anchors on both sides. **The
+  divergence this bullet used to warn about no longer exists** (verified 2026-08-13). Practical
+  consequence: a strong bat in a game too time-isolated to carry a parlay reaches the board only
+  as the lunch special or the nightcap — otherwise not at all.
+- **No TOTAL floor on parlay legs.** `ge75()` keeps the name but its body is
+  `a.filter(n => !pending(n))` — it excludes carried/resuming bats and nothing else. The pool
+  gate (`Z_GATE`) is the only quality bar.
 
 Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2` (`CHALK_N=4` defined but the ban is off; `FLOOR=130` is a dead
