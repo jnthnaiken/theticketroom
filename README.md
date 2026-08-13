@@ -146,24 +146,30 @@ The **market half** (`mkt_z`) is the standardized market implied probability and
 **nothing else** — no other feature feeds it (the rationale for keeping the edge
 half thin is that the books' price already reflects power, park, pitcher, weather,
 platoon, slot, etc., so those don't need to be re-added). The **edge half** is a
-weighted sum of exactly **three** z-scored signals — this is the live `_SIG` list
-in `build15.py`, **refit 2026-07-31** via grouped-CV logistic regression on the
-calibration log (16 clean nights, 7/9–7/28):
+weighted sum of exactly **five** z-scored signals — this is the live `_SIG` list
+in `build15.py`, **refit 2026-08-13** via grouped-by-game-date CV logistic regression on
+the 2015-2024 Statcast training table (316,463 batter-games / 37,340 HR / 1,840 slates):
 
 | signal | key | weight |
 |---|---|---|
-| expected power (park-neutral xISO, raw) | `_zxpow` | `0.13` |
-| expected contact quality (Kasper xwOBAcon if the sidecar is populated, else Savant xwOBAcon) | `_zxwcon` | `0.50` |
-| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.37` |
+| expected power (park-neutral xISO, raw) | `_zxpow` | `0.029` |
+| expected contact quality (Kasper xwOBAcon if the sidecar is populated, else Savant xwOBAcon) | `_zxwcon` | `0.193` |
+| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.011` |
+| hard-hit rate (Kasper `HH%`) | `_zhh` | `0.432` |
+| launch angle via the `la_window` bell, `exp(-((la-25)/14)^2)` (Kasper `LA`) | `_zla` | `0.335` |
 
-(These were `.45/.35/.20` reasoned guesses before the 7/31 refit — xISO was
-over-weighted and shifted onto xwOBAcon + arsenal. Weights sum to 1.0.)
+(Weights sum to 1.0. They replace the `.45/.35/.20` **reasoned guesses** that had been
+live since 2026-07-09. `HH%` and `LA` were display-only chips until this refit and turned
+out to be the two strongest predictors in the whole table; 3-signal AUC 0.5773 → 5-signal
+0.5962. ⚠️ `_zxpow`/`_zars` were measured through Statcast **proxies** (`b_brl`/`p_brl`)
+that are collinear with hard-hit, so their true weight may be understated — they were kept
+in the basket, not dropped. Repro: `fit_savant.py`, Savant Fit run `31731827046`.)
 
 ⚠️ **The nine-signal edge basket described in older revisions is DEAD.** `_zbg`
 (bullpen game), `_zxptr` (power trend), `_zpvel` (perceived velo), `_zspray`,
 `_zpvd` (velo decline), `_zbtrk` (ball-tracking), `_zpark` (park eye) are all still
 **computed and logged** but are **not** in `_SIG`, so none of them touch `TOTAL`
-(and `W_BTRK`, `W_PVDECL`, `W_XPTREND` are hard-set to `0.0`). Only the three above
+(and `W_BTRK`, `W_PVDECL`, `W_XPTREND` are hard-set to `0.0`). Only the five above
 feed the score.
 
 Both halves are re-standardized before the 0.5/0.5 blend, so the edge bites as
@@ -278,11 +284,11 @@ Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 chef ticket at all. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
-⚠️ **Edge weights: the code does NOT match the documented refit.** `build15.py` `_SIG` is
-`_zxpow 0.45 / _zxwcon 0.35 / _zars 0.20` with the comment *"edge rebuilt 2026-07-09 … bg/xptrend/pvel/
-spray/pvd/btrk/park zeroed (calibration AUC<=0.51)"*, and `W_ARS=0.10`. The `xISO 0.13 / xwOBAcon 0.50 /
-arsenal 0.37` refit described above as 2026-07-31 **was never applied to the source** (verified
-2026-08-13). Reconcile deliberately — that is a modelling call, not a doc fix. Market is a flat 0.5 of
+**Edge weights: code and docs now agree** (2026-08-13). `build15.py` `_SIG` is
+`_zxpow 0.029 / _zxwcon 0.193 / _zars 0.011 / _zhh 0.432 / _zla 0.335`, fitted on the 2015-2024 Statcast
+table (316,463 batter-games). This resolved a long-standing three-way split: `.45/.35/.20` was live in the
+source, an `xISO .13 / xwOBAcon .50 / arsenal .37` refit was documented here but **never applied**, and
+`.346/.288/.366` lived only in `backtest_*.py`. `W_ARS=0.10` is a display term, unrelated. Market is a flat 0.5 of
 the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon round-robin
 `risk=2.0u`, salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 
