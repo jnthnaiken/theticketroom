@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-13T02:00:31Z",
+  "pulled_at": "2026-08-13T02:07:00Z",
   "games": [
     {
       "gamePk": 823672,
@@ -1215,7 +1215,7 @@
           {
             "id": 621493,
             "name": "Taylor Ward",
-            "iso": 0.098
+            "iso": 0.097
           },
           {
             "id": 702284,
@@ -1282,7 +1282,7 @@
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.187
+            "iso": 0.185
           },
           {
             "id": 671277,
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 824562,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-12T23:40:00Z",
       "matchup": "CIN@CWS",
       "away": {
@@ -1618,17 +1618,17 @@
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 668709,
             "name": "JJ Bleday",
-            "iso": 0.231
+            "iso": 0.23
           },
           {
             "id": 553993,
             "name": "Eugenio Su\u00e1rez",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 669911,
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 72\u00b0",
-        "lean": "Boost",
-        "temp": 72.4,
-        "wind_mph": 7.2,
-        "wind_dir": 248,
-        "tail_mph": 5.3,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.022
+      "wf": 1.0
     },
     {
       "gamePk": 823994,
@@ -1988,12 +1981,12 @@
         "cond": "wind out 8mph, 75\u00b0",
         "lean": "Boost",
         "temp": 74.7,
-        "wind_mph": 7.6,
-        "wind_dir": 225,
-        "tail_mph": 7.6,
+        "wind_mph": 8.2,
+        "wind_dir": 223,
+        "tail_mph": 8.2,
         "precip": 1
       },
-      "wf": 1.034
+      "wf": 1.036
     }
   ]
 }
