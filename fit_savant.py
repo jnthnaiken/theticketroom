@@ -17,13 +17,15 @@ directly usable as _SIG weights:
     incomparable and mis-sizes the arsenal term.
   * Cross-validation is GROUPED BY game_date, so no slate is split across folds and a
     single hot night can't leak into its own validation score.
-  * Reported weights are the positive-part-normalized coefficients of the 3-signal core,
-    summing to 1.0 -- the same convention as _SIG.
+  * Reported weights are the positive-part-normalized coefficients, summing to 1.0 -- the
+    same convention as _SIG.
 
 PROXY MAPPING (stated plainly -- these are Statcast analogues, not the live inputs):
     _zxpow   expected power        <- b_brl    (batter barrel rate, trailing window)
     _zxwcon  expected contact qual <- b_xwobacon
     _zars    arsenal / opposing SP <- p_brl    (barrels ALLOWED by the opposing starter)
+    _zhh     hard-hit rate         <- b_hh
+    _zla     launch angle          <- b_la (raw) or the la_window bell -- section 5 picks
 The live model's _zars is batter RV/100 x pitcher pitch mix and its _zxpow is park-neutral
 xISO; neither exists in this table. The opposing-starter *allowed* profile is the closest
 honest stand-in for "how favourable is the arm".
@@ -152,6 +154,46 @@ def main():
     order = np.argsort(-np.abs(coef))
     for i in order:
         print(f'    {feats[i]:14s} {coef[i]:+.4f}')
+
+    # ---------------- 5. what FORM should launch angle enter in ----------------
+    # build15 already owns a bell curve for LA: la_window = exp(-((la-25)/14)^2), i.e. HR-optimal
+    # around 25 degrees and falling off both sides. A raw linear b_la term instead says "higher is
+    # always better", which is false at the extremes. Test both before wiring anything in.
+    hr('5. LAUNCH-ANGLE FORM  (linear vs build15 la_window bell)')
+    d['b_lawin'] = np.exp(-(((d['b_la'] - 25.0) / 14.0) ** 2))
+    Z2 = zbyslate(d, feats + ['b_lawin'])
+    lin = ['b_xwobacon', 'b_brl', 'b_hh', 'b_la']
+    bel = ['b_xwobacon', 'b_brl', 'b_hh', 'b_lawin']
+    a_lin, s_lin, _ = cv_auc(Z2[lin].values, y, groups)
+    a_bel, s_bel, _ = cv_auc(Z2[bel].values, y, groups)
+    print(f'  linear b_la     AUC {a_lin:.4f} +/- {s_lin:.4f}')
+    print(f'  la_window bell  AUC {a_bel:.4f} +/- {s_bel:.4f}')
+    LA_COL = 'b_la' if a_lin >= a_bel else 'b_lawin'
+    print(f'  >>> USE: {LA_COL}   ({"linear" if LA_COL == "b_la" else "la_window bell, as build15 already computes"})')
+
+    # ---------------- 6. the basket we would actually ship ----------------
+    hr('6. FIVE-SIGNAL LIVE BASKET  (contact + power + arsenal + hh + la)')
+    LIVE = [('_zxpow', 'b_brl'), ('_zxwcon', 'b_xwobacon'), ('_zars', 'p_brl'),
+            ('_zhh', 'b_hh'), ('_zla', LA_COL)]
+    lc = [c for _, c in LIVE]
+    a5, s5, c5 = cv_auc(Z2[lc].values, y, groups)
+    print(f'  grouped-CV AUC {a5:.4f} +/- {s5:.4f}\n')
+    for (sig, col), b in zip(LIVE, c5):
+        print(f'    {sig:8s} <- {col:12s} {b:+.4f}')
+    p5 = np.clip(c5, 0, None)
+    if p5.sum() > 0:
+        w5 = p5 / p5.sum()
+        print('\n  >>> _SIG = [' + ', '.join(f"('{s}', {v:.3f})" for (s, _), v in zip(LIVE, w5)) + ']')
+    dropped = [s for (s, _), b in zip(LIVE, c5) if b <= 0]
+    if dropped:
+        print(f'  !!! clipped to zero (did not predict): {", ".join(dropped)}')
+
+    # same basket without the arsenal term, since section 2 showed it adds ~nothing
+    NOARS = [(s, c) for s, c in LIVE if s != '_zars']
+    a4, s4, c4 = cv_auc(Z2[[c for _, c in NOARS]].values, y, groups)
+    p4 = np.clip(c4, 0, None); w4 = p4 / p4.sum() if p4.sum() > 0 else p4
+    print(f'\n  without _zars:  AUC {a4:.4f} +/- {s4:.4f}   (delta {a4-a5:+.4f})')
+    print('  >>> _SIG = [' + ', '.join(f"('{s}', {v:.3f})" for (s, _), v in zip(NOARS, w4)) + ']')
 
     hr('4. CAVEATS -- read before touching _SIG')
     print('  * No odds in this table. These weights optimize "predicts HR", NOT "beats the')
