@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-13T01:46:19Z",
+  "pulled_at": "2026-08-13T01:51:43Z",
   "games": [
     {
       "gamePk": 823672,
@@ -879,7 +879,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.248
+            "iso": 0.247
           },
           {
             "id": 805808,
@@ -1082,7 +1082,7 @@
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.261
+            "iso": 0.26
           },
           {
             "id": 673548,
@@ -1122,7 +1122,7 @@
           {
             "id": 621020,
             "name": "Dansby Swanson",
-            "iso": 0.191
+            "iso": 0.19
           }
         ],
         "confirmed": true
@@ -1159,7 +1159,7 @@
           {
             "id": 695670,
             "name": "Harry Ford",
-            "iso": 0.255
+            "iso": 0.25
           },
           {
             "id": 687605,
@@ -1245,7 +1245,7 @@
           {
             "id": 680977,
             "name": "Brendan Donovan",
-            "iso": 0.155
+            "iso": 0.153
           },
           {
             "id": 663728,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 822779,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-12T23:07:00Z",
       "matchup": "BOS@TOR",
       "away": {
@@ -1373,12 +1373,12 @@
           {
             "id": 702332,
             "name": "Caleb Durbin",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 680776,
             "name": "Jarren Duran",
-            "iso": 0.152
+            "iso": 0.154
           },
           {
             "id": 655316,
@@ -1388,7 +1388,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.083
+            "iso": 0.082
           }
         ],
         "confirmed": true
@@ -1851,20 +1851,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 72\u00b0",
-        "lean": "Boost",
-        "temp": 72.4,
-        "wind_mph": 7.2,
-        "wind_dir": 248,
-        "tail_mph": 5.3,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.022
+      "wf": 1.0
     },
     {
       "gamePk": 823994,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-13T02:10:00Z",
       "matchup": "TEX@LAA",
       "away": {
