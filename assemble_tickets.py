@@ -166,13 +166,21 @@ def assemble(D):
     # all say 'one per game'; only the inline note here said otherwise and the code had no dedup at all. On 2026-08-10
     # that shipped Matt Olson AND Drake Baldwin -- both Braves, both NYM@ATL -- as two of the four anchors, doubling the
     # board's exposure to one lineup. Mirrored in index.html's candA.
+    # 2026-08-13: MULTIPLE ANCHORS PER GAME (owner decision), built in ROUNDS so every game keeps its seat --
+    # a flat top-N by strength fills up with pairs from time-isolated games and every 4-set starves. Mirrors index.html.
+    ANCH_PER_GAME = 2
     _ancg, cand_anchors = set(), []
+    _byG = {}
     for n in byS(nonchalk):
-        if pend(n) or _precip(n) >= 40: continue
-        _g = P[n]['game']
-        if _g in _ancg: continue
-        _ancg.add(_g); cand_anchors.append(n)
-        if len(cand_anchors) >= 20: break   # 2026-08-13: the note that used to sit here said "MULTIPLE anchors per game ALLOWED (no per-game dedup)", contradicting the `_ancg` dedup three lines up. That contradiction is what shipped the 08-10 two-anchors-in-one-game bug. ONE MOON ANCHOR PER GAME; the salami anchor is exempt. Strongest 20 candidates, one per game, feed the exhaustive 4-set search. The one-bat-per-game-per-TICKET rule (fits()) + the <=3/game POOL cap bound total exposure. 40%+ rain never anchors. Capped to the strongest 20 so the exhaustive 4-anchor-set search (O(N^4)) stays fast -- no realistic anchor ranks below the 20th-strongest bat.
+        _byG.setdefault(P[n]['game'], []).append(n)
+    for _r in range(ANCH_PER_GAME):                      # round 0 = every game's best bat, round 1 = every game's second
+        _gs = [g for g in _byG if len(_byG[g]) > _r]
+        _gs.sort(key=lambda g: -strength(_byG[g][_r]))
+        for g in _gs:
+            if len(cand_anchors) >= 20: break            # capped so the exhaustive 4-set search (O(N^4)) stays fast
+            _n = _byG[g][_r]
+            if pend(_n) or _precip(_n) >= 40: continue   # 40%+ rain never anchors
+            _ancg.add(g); cand_anchors.append(_n)
 
     tickets, used = [], set()
 
