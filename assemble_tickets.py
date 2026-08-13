@@ -415,7 +415,12 @@ def assemble(D):
         _fill_round()
         _full = lambda t: (len(t['legs']) - 1) >= t['need']            # clean N-per-anchor: an anchor ships ALL its parlays or none
         while pls and not all(_full(t) for t in pls):
-            drop = max(t['rank'] for t in pls)                          # weakest anchor by strength-index
+            # 2026-08-13: demote the weakest anchor AMONG THOSE THAT ACTUALLY FAILED, not the weakest overall.
+            # When the anchor that cannot fill is a STRONG one (time-isolated game), dropping from the weak end
+            # ate every good anchor beneath him and never removed the culprit -- the set collapsed to zero moons,
+            # and since the search ranks on moon count first, every set containing a strong isolated bat lost.
+            _fail = [t['rank'] for t in pls if not _full(t)]
+            drop = max(_fail) if _fail else max(t['rank'] for t in pls)
             for t in [x for x in pls if x['rank'] == drop]:
                 for n in t['legs'][1:]:
                     if n not in pool_av: pool_av.append(n)
@@ -466,7 +471,11 @@ def assemble(D):
         miss = 0
         return al, pls, miss
 
-    best = None                                                        # exhaustive best-fillable-set search over one-per-game candidates
+    # 2026-08-13: THRESHOLD, not lexicographic. Ranking (moons, salami, strength) strictly in that order made
+    # board SIZE outrank board QUALITY absolutely, so on a fragmented slate the strongest bats could never anchor.
+    # Take the max clean-moon count, then among every set within MOON_SLACK moons of it, the strongest.
+    MOON_SLACK = 2
+    best, _byNM = None, {}                                             # exhaustive best-fillable-set search over one-per-game candidates
     N = len(cand_anchors)
     for ia in range(N):
         for ib in range(ia + 1, N):
@@ -475,9 +484,17 @@ def assemble(D):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
                     sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)
                     n_moons = sum(1 for t in pls if t['kind'] == 'moon')
-                    score = (n_moons, 1 if sal_ok else 0, round(sum(strength(a) for a in al), 4))   # most clean moons first, salami as tiebreak, then strength
-                    if best is None or score > best[0]:
-                        best = (score, al, pls)
+                    # 2026-08-13: score the anchors that SURVIVE the demote loop, not the four we nominally picked --
+                    # otherwise a set scores high on paper while most of its strength never reaches the board.
+                    _surv = {t['legs'][0] for t in pls if t.get('legs')}
+                    tot = round(sum(strength(a) for a in _surv), 4)
+                    cur = _byNM.get(n_moons)
+                    if cur is None or tot > cur[0] or (tot == cur[0] and (1 if sal_ok else 0) > cur[1]):
+                        _byNM[n_moons] = (tot, 1 if sal_ok else 0, al, pls)
+    if _byNM:
+        _mx = max(_byNM)
+        _pick = max((k for k in _byNM if k >= _mx - MOON_SLACK), key=lambda k: (_byNM[k][0], k))
+        best = (None, _byNM[_pick][2], _byNM[_pick][3])
     if best is None:                                                   # fewer than 4 candidates (degenerate slate)
         anchors, parlays, _ = _draft(cand_anchors)
     else:

@@ -965,7 +965,7 @@ drawTickets();drawPlayers();drawTracker();
   var TIP_URL='https://venmo.com/u/TheTicketRoom';
 
   // ---- assembler constants (mirror assembler_src.py) ----
-  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2, LUNCH_CUT=16*60, NIGHT_WIN=60;
+  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=16*60, NIGHT_WIN=60;
 
   (function(){var _ts=document.querySelectorAll('.tipjar');
     for(var _i=0;_i<_ts.length;_i++){
@@ -1267,7 +1267,15 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       fillRound();
       function isFull(t){ return (t.legs.length-1)>=t.need; }   // an anchor ships ALL its moons or none
       while(pls.length && !pls.every(isFull)){
-        var drop=Math.max.apply(null,pls.map(function(t){return t.rank;}));
+        /* 2026-08-13 -- DEMOTE THE ANCHOR THAT FAILED, NOT THE WEAKEST ONE. This dropped the lowest-ranked anchor
+           whenever any ticket was short. When the anchor that CANNOT fill is a STRONG one -- a bat whose game is
+           time-isolated, so no 3 distinct games sit inside WIN around it -- the loop ate every good anchor beneath
+           him and never removed the culprit, ending with pls empty and nM=0. searchBest ranks on clean-moon count
+           first, so EVERY set containing a strong isolated bat scored 0 and lost. Demote the weakest anchor AMONG
+           THOSE THAT ACTUALLY FAILED; the full redraft lets survivors refill, and the culprit goes on a later pass
+           if it still cannot fill. */
+        var _fail=pls.filter(function(t){return !isFull(t);}).map(function(t){return t.rank;});
+        var drop=Math.max.apply(null,_fail.length?_fail:pls.map(function(t){return t.rank;}));
         pls.filter(function(t){return t.rank===drop;}).forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } });
         if(pa.indexOf(al[drop])<0 && !pending(al[drop])) pa.push(al[drop]);
         pls=pls.filter(function(t){return t.rank!==drop;});
@@ -1285,15 +1293,30 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     }
     function searchBest(cands, Ktot, wantSalami, pool){   // best Ktot-anchor set: max filled moons, then salami, then strength
       if(Ktot<=0 || cands.length<Ktot) return null;
-      var best=null, combo=[];
+      /* 2026-08-13 -- THRESHOLD, NOT LEXICOGRAPHIC, AND SCORE WHAT SHIPS.
+         (a) Ranking (moons, salami, strength) strictly in that order made board SIZE outrank board QUALITY
+         absolutely. Now: take the max clean-moon count, then among every set within MOON_SLACK moons of it, the
+         STRONGEST. Bucketing by nM keeps it one pass -- the recursion already runs a full draft per set.
+         (b) `tot` summed the NOMINAL four anchors, but the demote loop drops anchors that cannot fill, so a set
+         could score high on paper while its strength never reached the board. Sum the anchors that ACTUALLY
+         SURVIVE in dr.pls. Measure the outcome, not the intent. */
+      var byNM={}, combo=[];
       function ev(){ var dr=draftF(combo.slice(), wantSalami, pool);
-        var tot=0; combo.forEach(function(a){tot+=strength(a);}); tot=Math.round(tot*10000)/10000;
+        var _an={}; dr.pls.forEach(function(t){ if(t.legs&&t.legs.length)_an[t.legs[0]]=1; });
+        var tot=0; Object.keys(_an).forEach(function(a){tot+=strength(a);}); tot=Math.round(tot*10000)/10000;
         var nM=dr.pls.filter(function(t){return t.kind==='moon';}).length;
         var sOk=dr.pls.some(function(t){return t.kind==='biggest' && (t.legs.length-1)>=t.need;})?1:0;
-        if(best==null||nM>best.nM||(nM===best.nM&&sOk>best.sOk)||(nM===best.nM&&sOk===best.sOk&&tot>best.tot)) best={nM:nM,sOk:sOk,tot:tot,pls:dr.pls};
+        var cur=byNM[nM];
+        if(!cur||tot>cur.tot||(tot===cur.tot&&sOk>cur.sOk)) byNM[nM]={nM:nM,sOk:sOk,tot:tot,pls:dr.pls};
       }
       function rec(start){ if(combo.length===Ktot){ev();return;} for(var i=start;i<cands.length;i++){combo.push(cands[i]);rec(i+1);combo.pop();} }
-      rec(0); return best;
+      rec(0);
+      var _SL=(typeof window!=='undefined'&&window.__MOON_SLACK!=null)?window.__MOON_SLACK:MOON_SLACK;   // window override: test harness only
+      var _ks=Object.keys(byNM).map(Number); if(!_ks.length)return null;
+      var _mx=Math.max.apply(null,_ks), best=null;
+      _ks.forEach(function(k){ if(k < _mx-_SL) return; var r=byNM[k];
+        if(!best||r.tot>best.tot||(r.tot===best.tot&&r.nM>best.nM)) best=r; });
+      return best;
     }
     function emitParlays(best){ if(!best)return; var pl=best.pls.filter(function(t){return (t.legs.length-1)>=t.need;});
       pl.forEach(function(t){ if(t.kind==='moon')mkParlay('moon',t.badge,t.legs,t.rr); });
@@ -1405,6 +1428,33 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         for(var i=0;i<p2.length;i++){var c=p2[i]; if(_usedAnch[c]||usedG[c]||pending(c)||precipOf(P[c].game)>=40)continue;
           if(_ancGm[P[c].game])continue;   /* one anchor per game */
           anchRepl[a]=c; _usedAnch[c]=1; usedG[c]=1; _ancGm[P[c].game]=1; break;} });
+      /* 2026-08-13 -- ANCHOR OVERTAKE. The pass above only fires when an anchor is DEAD (scratched, voided, out of
+         the pool). Nothing ever reconsidered an anchor merely OVERTAKEN by a stronger bat in his own game -- and
+         losing a chef seat is exactly the event that creates one. 08-13, in order:
+             11:31am  chef = Schwarber/Ohtani/Rice/CONTRERAS.  Contreras 165.5, Abreu 155.8.
+                      Contreras is chalk, chalk cannot anchor, so Abreu correctly takes BOS@TOR.   <- right
+             11:42am  the seat flips to Trout. Contreras (159.4) is now the strongest non-chalk Red Sox bat, but
+                      Abreu already owns the slot and is carried forward -- and Contreras lands NOWHERE: not chef,
+                      not anchor, not even a leg. Salvage only picked him up at 12:00, as a salami leg.
+         So the game's anchor stayed the weaker teammate all day. Fix: if the strongest non-chalk bat in a game is
+         not its anchor, hand the slot over -- only while every slip that anchor leads is still OPEN (a placed bet
+         is never re-drafted), and only past a deadband, or this churns on rounding noise the way the chef seat did
+         on 08-10. One anchor per game is preserved: the handover stays inside the game. */
+      var ANCH_HYST=0.02;
+      moonAnchors.forEach(function(a){
+        if(anchRepl[a]||!P[a]||!anchorAlive(a))return;                       // dead anchors handled above
+        var slips=prior.filter(function(t){return t.kind==='moon'&&t.anchor===a;});
+        if(!slips.length)return;
+        if(slips.some(function(t){var m=gmin(t.lock);return isLocked(t)||(m!=null&&_lkNow>=m);}))return;   // placed -> hands off
+        var g=P[a].game;
+        var inG=byS(nonchalk.filter(function(x){
+          return P[x]&&P[x].game===g&&!chalk[x]&&!pending(x)&&anchorAlive(x)&&(x===a||!usedG[x]);}));
+        var top=inG[0];
+        if(!top||top===a)return;                                             // already the strongest in his game
+        if(strength(top)-strength(a)<=ANCH_HYST)return;                      // deadband
+        anchRepl[a]=top; _usedAnch[top]=1; usedG[top]=1;
+        if(typeof console!=='undefined'&&console.log)console.log('[anchor-overtake] '+g+': '+a+' -> '+top);
+      });
       // ---- ANCHOR PASS. Priority is Chef's Table -> moon anchors -> salami anchor -> moon fills -> salami fills.
       // Every anchor claims its seat HERE, before any ticket fills a partner leg, and holds it for the rest of the draft.
       // draftF has always worked this way (its partner pool excludes the anchor list outright); the preserve path never
@@ -1414,7 +1464,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       // left standing. Reserving the anchors is what keeps the board's shape stable across a re-draft.
       var _anchOwn={};
       plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='moon')return;
-        var ma=anchorAlive(pl.t.anchor)?pl.t.anchor:anchRepl[pl.t.anchor];
+        var ma=anchRepl[pl.t.anchor]||(anchorAlive(pl.t.anchor)?pl.t.anchor:null);   // 2026-08-13: anchRepl is authoritative when set -- it now covers OVERTAKES, not just dead anchors, and an overtaken anchor is still alive
         if(ma){ pl.anch=ma; _anchOwn[ma]=1; usedG[ma]=1; } });   // both of an anchor's moons share the one seat -- by design
       plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='biggest')return;
         var sa=pl.t.anchor; if(anchorAlive(sa)&&!_anchOwn[sa]){ pl.anch=sa; _anchOwn[sa]=1; usedG[sa]=1; } });
@@ -1612,9 +1662,17 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           }
         }
         fillRound();
-        function isFull(t){ return (t.legs.length-1)>=t.need; }   // clean N-per-anchor: demote the weakest, FULL REDRAFT -- an anchor ships all its moons or none
+        function isFull(t){ return (t.legs.length-1)>=t.need; }   // clean N-per-anchor: demote the weakest FAILING anchor, FULL REDRAFT
         while(pls.length && !pls.every(isFull)){
-          var drop=Math.max.apply(null,pls.map(function(t){return t.rank;}));
+          /* 2026-08-13 -- DEMOTE THE ANCHOR THAT FAILED, NOT THE WEAKEST ONE. This dropped the lowest-ranked anchor
+           whenever any ticket was short. When the anchor that CANNOT fill is a STRONG one -- a bat whose game is
+           time-isolated, so no 3 distinct games sit inside WIN around it -- the loop ate every good anchor beneath
+           him and never removed the culprit, ending with pls empty and nM=0. searchBest ranks on clean-moon count
+           first, so EVERY set containing a strong isolated bat scored 0 and lost. Demote the weakest anchor AMONG
+           THOSE THAT ACTUALLY FAILED; the full redraft lets survivors refill, and the culprit goes on a later pass
+           if it still cannot fill. */
+        var _fail=pls.filter(function(t){return !isFull(t);}).map(function(t){return t.rank;});
+          var drop=Math.max.apply(null,_fail.length?_fail:pls.map(function(t){return t.rank;}));
           pls.filter(function(t){return t.rank===drop;}).forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } });
           if(pa.indexOf(al[drop])<0 && !pending(al[drop])) pa.push(al[drop]);   // the demoted anchor itself re-enters as a draftable leg
           pls=pls.filter(function(t){return t.rank!==drop;});
