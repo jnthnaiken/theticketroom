@@ -453,6 +453,17 @@ def assemble(D):
                 break
         if _sallegs:
             _sallegs.sort(key=lambda n: -strength(n))
+            # 2026-08-13 -- ONE ANCHOR PER GAME APPLIES TO THE SALAMI TOO. The seed search only enforces
+            # distinct games WITHIN the slip; it never checks whether the game its strongest leg sits in
+            # already carries a moon anchor. Partner legs may share a game with an anchor; the ANCHOR seat
+            # may not, or the board ships two anchors on one lineup. Mirrors the same guard in index.html.
+            _ancg = {P[t['legs'][0]]['game'] for t in pls if t['kind'] == 'moon'}
+            _ai = next((i for i, n in enumerate(_sallegs) if P[n]['game'] not in _ancg), None)
+            if _ai is None:
+                _sallegs = None                                        # every leg is in an already-anchored game -> no salami
+            elif _ai > 0:
+                _sallegs = [_sallegs[_ai]] + [n for j, n in enumerate(_sallegs) if j != _ai]
+        if _sallegs:
             for _n in _sallegs:
                 if _n in pool_av: pool_av.remove(_n)
             pls.append({'rank': sidx if sidx is not None else (len(al) - 1), 'kind': 'biggest', 'badge': "\U0001f96a",

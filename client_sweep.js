@@ -58,6 +58,20 @@ function pairing(ts){
   seq.forEach(function(a){ if(a!==last){ if(runs[a]) bad.push(a); runs[a]=1; last=a; } });
   return {seq:seq,bad:bad.filter(function(v,i,s){return s.indexOf(v)===i;})};
 }
+function structural(ts){
+  // 2026-08-13: a ticket must be a WHOLE ticket. moon>=3 legs, salami>=4, and players must never be
+  // shorter than the nlegs it advertises. The published 08-13 board shipped a 1-leg Grand Salami
+  // carrying nlegs:4 (anchor-dedup rewrote t.players, the "keep prior intact" revert shipped the stub).
+  var bad=[];
+  ts.forEach(function(t){
+    var n=(t.players||[]).length;
+    if(t.kind==='moon'&&n<3)bad.push(t.name+' moon has '+n+' legs');
+    else if(t.kind==='biggest'&&n<4)bad.push(t.name+' salami has '+n+' legs');
+    else if(n<1)bad.push(t.name+' has no legs');
+    if(t.nlegs&&n<t.nlegs)bad.push(t.name+' players='+n+' < nlegs='+t.nlegs);
+  });
+  return bad;
+}
 function anchorsEqBuilders(ts){
   var bl=ts.filter(function(t){return t.kind==='builder';}).map(function(t){return t.players[0].name;}).sort();
   var an=[];ts.forEach(function(t){if((t.kind==='moon'||t.kind==='biggest')&&t.anchor&&an.indexOf(t.anchor)<0)an.push(t.anchor);});
@@ -91,7 +105,7 @@ function anchorsEqBuilders(ts){
 
     const D = globalThis.__D;
     D.tickets = JSON.parse(JSON.stringify(globalThis.__D0));
-    const out = { steps: [], viol: { count: 0, integrity: 0, anchors: 0, pairing: 0 }, checks: 0, first: null };
+    const out = { steps: [], viol: { count: 0, integrity: 0, anchors: 0, pairing: 0, structural: 0 }, checks: 0, first: null };
     let prevCounts = null, prevBoard = null;
 
     for (const min of steps) {
@@ -99,12 +113,13 @@ function anchorsEqBuilders(ts){
       let err = null;
       try { globalThis.__ac(D); } catch (e) { err = e.message; }
       const ts = D.tickets;
-      const c = counts(ts), pr = pairing(ts), ab = anchorsEqBuilders(ts);
-      const rec = { t: min, err, counts: c, moonSeq: pr.seq, split: pr.bad, anchorsOk: ab.ok, integrity: [],
+      const c = counts(ts), pr = pairing(ts), ab = anchorsEqBuilders(ts), st = structural(ts);
+      const rec = { t: min, err, counts: c, moonSeq: pr.seq, split: pr.bad, anchorsOk: ab.ok, structural: st, integrity: [],
                     set: ts.map(t => t.name + '::' + sig(t)).sort() };
 
       if (prevCounts && c._total !== prevCounts._total) { out.viol.count++; rec.countDrift = prevCounts._total + '->' + c._total; }
       if (!ab.ok) { out.viol.anchors++; rec.ab = ab; }
+      if (st.length) { out.viol.structural += st.length; }
       if (pr.bad.length) { out.viol.pairing++; if (!out.first) out.first = { t: min, seq: pr.seq, split: pr.bad }; }
 
       if (prevBoard) {
@@ -134,6 +149,7 @@ function anchorsEqBuilders(ts){
       '  moons[' + s.moonSeq.map(n => n.split(' ').pop()).join(' ') + ']' +
       (s.anchorsOk ? '' : '  ANCHOR!=BUILDER') +
       (s.integrity.length ? '  ' + s.integrity.join('; ') : '') +
+      (s.structural && s.structural.length ? '  STRUCT: ' + s.structural.join('; ') : '') +
       (s.err ? '  ERR ' + s.err : '') + flag
     );
   }
@@ -142,9 +158,10 @@ function anchorsEqBuilders(ts){
   console.log('violations  count=' + report.viol.count +
     '  integrity=' + report.viol.integrity +
     '  anchors!=builders=' + report.viol.anchors +
-    '  pairing=' + report.viol.pairing);
+    '  pairing=' + report.viol.pairing +
+    '  structural=' + report.viol.structural);
   if (opt('dump', null)) fs.writeFileSync(opt('dump'), JSON.stringify(report.steps.map(s => ({ t: s.t, set: s.set })), null, 0));
   fs.unlinkSync(TESTFILE);
   await browser.close();
-  process.exit(report.viol.count + report.viol.integrity + report.viol.anchors + report.viol.pairing ? 1 : 0);
+  process.exit(report.viol.count + report.viol.integrity + report.viol.anchors + report.viol.pairing + report.viol.structural ? 1 : 0);
 })();
