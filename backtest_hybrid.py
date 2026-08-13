@@ -1,3 +1,6 @@
+# ⚠ DEPRECATED 2026-08-13 -- superseded by backtest_true_*.py + .github/workflows/backtest-true.yml.
+# This script grades assemble_tickets.py (NOT the engine that ships), assumes every carded bat took a PA
+# (so refunds grade as losses), and its SIG / MKT_W constants were never the shipped model. Kept as history.
 import json, glob, re, copy, unicodedata
 import numpy as np
 import assemble_tickets as AT
