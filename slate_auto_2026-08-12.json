@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "season": "2026",
-  "pulled_at": "2026-08-13T02:07:00Z",
+  "pulled_at": "2026-08-13T02:11:43Z",
   "games": [
     {
       "gamePk": 823672,
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 823511,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-12T23:05:00Z",
       "matchup": "SEA@NYY",
       "away": {
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 824562,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-12T23:40:00Z",
       "matchup": "CIN@CWS",
       "away": {
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823916,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-13T02:10:00Z",
       "matchup": "KC@LAD",
       "away": {
@@ -1851,13 +1851,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 72\u00b0",
+        "lean": "Boost",
+        "temp": 72.4,
+        "wind_mph": 7.4,
+        "wind_dir": 250,
+        "tail_mph": 5.2,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.022
     },
     {
       "gamePk": 823994,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-13T02:10:00Z",
       "matchup": "TEX@LAA",
       "away": {
