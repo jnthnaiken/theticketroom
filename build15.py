@@ -569,12 +569,12 @@ for r in pool:
     r['_zpark']=r.get('park_trk')
     _tlt=(PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0
     r['_zspray']=(((r['pull']-40.0)/10.0)*(((_tlt-1.0)/0.05)+(clamp(r['pull_tail']/8.0,-1.0,1.0) if r.get('pull_tail') is not None else 0.0))) if r.get('pull') is not None else None
-    r['_zars']=arsenal_raw(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id')))
+    r['_zars']=arsenal_raw(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id'))); r['_zhh']=r.get('hh'); r['_zla']=(la_window(r['la']) if r.get('la') is not None else None)   # hh/la promoted out of display-only into the edge basket, 2026-08-13 refit; la enters through the SAME la_window bell powraw uses (fit: bell 0.5963 vs linear 0.5962)
     r['_zmkt']=(100.0/(r['odds']+100)) if r.get('odds') else None
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
-_SIG=[('_zxpow',0.45),('_zxwcon',0.35),('_zars',0.20)]   # edge rebuilt 2026-07-09: expected-power core (xISO + xwOBAcon) + arsenal; bg/xptrend/pvel/spray/pvd/btrk/park zeroed (calibration AUC<=0.51)
+_SIG=[('_zxpow',0.029),('_zxwcon',0.193),('_zars',0.011),('_zhh',0.432),('_zla',0.335)]   # REFIT 2026-08-13 on the 2015-2024 Statcast table (316,463 batter-games / 37,340 HR / 1,840 slates): grouped-by-game-date CV logistic in per-slate z-space, i.e. the space this loop actually scores in. Replaces the 0.45/0.35/0.20 "reasoned guesses" of 2026-07-09. hh + la added -- they were the two STRONGEST predictors and had been display-only chips. 3-signal AUC 0.5773 -> 5-signal 0.5962. CAVEAT: xpow/ars measured near zero through Statcast PROXIES (b_brl/p_brl) that are collinear with hard-hit; the live inputs (park-neutral xISO, RV/100 x pitch mix) are richer, so their true weight may be understated -- kept in the basket rather than dropped. Repro: fit_savant.py, Savant Fit run 31731827046.
 def _ms(key):
     vals=[r[key] for r in pool if r.get(key) is not None]
     if len(vals)<2: return (0.0,1.0)
