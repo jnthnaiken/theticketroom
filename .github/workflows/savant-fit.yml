@@ -1,0 +1,67 @@
+# ====================================================================================
+# Savant fit -- consumes the training table artifact and reports weights for _SIG.
+#
+# The 2015-04-01..2024-10-01 table (510,301 batter-games / 53,384 HR) was built by the
+# "Savant Training Table" workflow on 2026-08-02 (run 30756466843) and lives ONLY as that
+# run's artifact -- 17.2 MB, 90-day retention, so it expires ~2026-10-31. This workflow
+# downloads it with the run's own token and fits it, so the fit is reproducible from the
+# repo instead of living in someone's head.
+#
+# Nothing here touches the daily board pipeline. It prints to the log and uploads a report.
+#
+# TRIGGER: workflow_dispatch. Default run_id is the full 2015-2024 build.
+# ====================================================================================
+
+name: Savant Fit
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID holding the savant-training artifact"
+        required: true
+        default: "30756466843"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: savant-fit
+  cancel-in-progress: false
+
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scikit-learn
+
+      - name: Download training table
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ github.event.inputs.run_id }}" -n savant-training -D table
+          ls -la table/
+
+      - name: Fit
+        run: |
+          python3 fit_savant.py "table/*.parquet" 2>&1 | tee fit_report.txt
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: savant-fit-report
+          path: fit_report.txt
+          if-no-files-found: warn
+          retention-days: 90
