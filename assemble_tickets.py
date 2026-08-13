@@ -393,6 +393,22 @@ def assemble(D):
             return (max(ts) - min(ts)) <= WIN
         def needy(t):
             return (len(t['legs']) - 1) < t['need']
+        def can_complete(t, n2, pool):
+            # 2026-08-13: fits() validates the ticket AS IT STANDS and never asks whether a further leg is still
+            # reachable, so a greedy-by-strength pick can strand the slip -- a partner in a far game pins the window
+            # and the remaining distinct games fall outside it. Mirrors canComplete() in index.html.
+            left = t['need'] - (len(t['legs']) - 1) - 1
+            if left <= 0: return True
+            legs = t['legs'] + [n2]
+            gg = {P[x]['game'] for x in legs}
+            seen, cnt = set(), 0
+            for m in pool:
+                if m == n2 or P[m]['game'] in gg or P[m]['game'] in seen: continue
+                ts = [tmin(x) for x in legs] + [tmin(m)]
+                if max(ts) - min(ts) > WIN: continue
+                seen.add(P[m]['game']); cnt += 1
+                if cnt >= left: return True
+            return False
         # (no salami pre-fill: moons fill first, then the salami takes leftovers -- see after the demote loop)
         # (no re-task: a salami that cannot fill is dropped by the demote loop below; its legs free up for the moons -- per README)
         def _fill_round():                                             # round-robin: weakest anchor picks first, fills BOTH its tickets before the next
@@ -405,7 +421,7 @@ def assemble(D):
                     for t in sorted([x for x in pls if x['rank'] == r], key=lambda x: len(x['legs'])):
                         if not needy(t):
                             continue
-                        pick = next((n for n in pool_av if fits(t, n)), None)
+                        pick = next((n for n in pool_av if fits(t, n) and can_complete(t, n, pool_av)), None)
                         if pick is None:
                             continue
                         t['legs'].append(pick); t['games'].add(P[pick]['game']); pool_av.remove(pick); progressed = True

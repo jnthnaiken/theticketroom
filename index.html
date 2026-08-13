@@ -1248,6 +1248,26 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       var pls=[];
       for(var ai=0;ai<al.length;ai++){ if(ai===sidx)continue;
         for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'🚀',rr:{struct:"by 2s & 3",risk:2.0},legs:[al[ai]],need:2,games:gm}); } }
+      /* 2026-08-13 -- COMPLETABILITY. fits() validates the ticket AS IT STANDS: distinct game, span <= WIN.
+         It never asked whether a further leg is still reachable after the pick, so filling greedily by strength
+         strands the slip. On 08-13 Contreras (BOS@TOR 3:07) took Crow-Armstrong (CHC@WSH 4:05) as his first
+         partner on BOTH moons, pinning the window to [2:05,5:07] -- his own game barred as a duplicate, 4:05
+         already used on the ticket, and the three 1:10 games plus the 1:35 now OUT of window. Both moons stalled
+         at two legs, he was demoted, and the strongest non-chalk bat on the board fell to a partner leg under a
+         weaker anchor. (That is the whole reason the salami went seed-based on 2026-07-04: "greedy-by-strength
+         alone grabbed a time-isolated bat and stranded the slip". The moon fill never got the same treatment.)
+         Only take a partner that leaves enough distinct in-window games to finish the ticket. */
+      function canComplete(t,n2,pool){
+        var left=t.need-(t.legs.length-1)-1; if(left<=0)return true;
+        var legs=t.legs.concat([n2]), gg={}; legs.forEach(function(x){gg[P[x].game]=1;});
+        var cnt=0, seen={};
+        for(var i=0;i<pool.length;i++){var m=pool[i];
+          if(m===n2||gg[P[m].game]||seen[P[m].game])continue;
+          var ts=legs.concat([m]).map(tmin);
+          if(Math.max.apply(null,ts)-Math.min.apply(null,ts)>WIN)continue;
+          seen[P[m].game]=1; if(++cnt>=left)return true;}
+        return false;
+      }
       function fillRound(){ var rnd=0;
         while(pls.some(needy)){
           var rk={}; pls.forEach(function(t){rk[t.rank]=1;});
@@ -1256,7 +1276,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           order.forEach(function(r){
             pls.filter(function(t){return t.rank===r;}).sort(function(a,b){return a.legs.length-b.legs.length;}).forEach(function(t){
               if(!needy(t))return; var pick=null;
-              for(var i=0;i<pa.length;i++){ if(fits(t,pa[i])){pick=pa[i];break;} }
+              for(var i=0;i<pa.length;i++){ if(fits(t,pa[i])&&canComplete(t,pa[i],pa)){pick=pa[i];break;} }
               if(pick==null)return;
               t.legs.push(pick); t.games[P[pick].game]=1; pa.splice(pa.indexOf(pick),1); prog=true;
             });
