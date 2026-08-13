@@ -1,0 +1,73 @@
+# ====================================================================================
+# backtest_true -- the corrected model-vs-market backtest, runnable from the repo.
+#
+# Fixes the three flaws of backtest_mix.py (2026-08-13 audit):
+#   1. drafts through the REAL client engine (index.html), not assemble_tickets.py
+#   2. TRUE played-sets from StatsAPI boxscores -- DNP legs refund, never a loss
+#   3. a market-only board drafted+graded identically = the price benchmark
+#
+# Pipeline: prep (pick nights + rescore per condition) -> outcomes (StatsAPI PA/HR sets)
+#   -> draft (headless chromium, 148+ cold drafts) -> grade (grade_night.grade_ticket).
+# Nothing here touches the daily board pipeline. Report prints to the log + artifact.
+#
+# TRIGGER: workflow_dispatch only. ~10-15 min.
+# ====================================================================================
+
+name: Backtest True
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backtest-true
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install playwright chromium
+        run: |
+          npm init -y >/dev/null
+          npm i playwright >/dev/null
+          npx playwright install --with-deps chromium
+
+      - name: "Stage 1: nights + condition rescores"
+        run: python3 backtest_true_prep.py
+
+      - name: "Stage 2: true outcomes from StatsAPI"
+        run: python3 backtest_true_outcomes.py
+
+      - name: "Stage 3: cold drafts through the live engine"
+        run: node backtest_true_draft.js
+
+      - name: "Stage 4: grade vs the price benchmark"
+        run: python3 backtest_true_grade.py 2>&1 | tee bt_report.txt
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backtest-true-report
+          path: |
+            bt_report.txt
+            bt_grades.json
+          if-no-files-found: warn
+          retention-days: 90
