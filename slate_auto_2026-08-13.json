@@ -1,11 +1,11 @@
 {
   "date": "2026-08-13",
   "season": "2026",
-  "pulled_at": "2026-08-13T19:47:27Z",
+  "pulled_at": "2026-08-13T19:52:30Z",
   "games": [
     {
       "gamePk": 824238,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-13T17:10:00Z",
       "matchup": "CLE@DET",
       "away": {
@@ -495,7 +495,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.223
+            "iso": 0.214
           },
           {
             "id": 665862,
@@ -608,7 +608,7 @@
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.176
+            "iso": 0.171
           },
           {
             "id": 676391,
@@ -648,7 +648,7 @@
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.103
+            "iso": 0.102
           }
         ],
         "confirmed": true
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 823669,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-13T23:30:00Z",
       "matchup": "PHI@MIN",
       "away": {
@@ -823,10 +823,56 @@
           "hr9": 1.16,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.161
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.281
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.212
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.171
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.188
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.229
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.095
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.177
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.231
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
