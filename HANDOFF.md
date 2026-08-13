@@ -682,4 +682,3 @@ anything in the `pages` group would be stuck behind the same jam.
 
 Rule of thumb for next time: board stale on the site + `main` correct = deploy,
 not pipeline. Check `is:waiting` on deploy-pages.yml FIRST.
-undefined
