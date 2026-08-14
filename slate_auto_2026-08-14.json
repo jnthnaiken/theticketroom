@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T20:37:36Z",
+  "pulled_at": "2026-08-14T20:38:49Z",
   "games": [
     {
       "gamePk": 824643,
@@ -1211,8 +1211,54 @@
           "hr9": 1.09,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.142
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.176
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.239
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.169
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.108
+          },
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.148
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.138
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.026
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": null
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -1435,9 +1481,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 11mph, 60\u00b0",
+        "lean": "Boost",
+        "temp": 60.4,
+        "wind_mph": 11.6,
+        "wind_dir": 280,
+        "tail_mph": 11.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.025
     }
   ]
 }
