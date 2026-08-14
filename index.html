@@ -505,7 +505,7 @@ function drawTickets(){
  const q=(($('#tsearch')||{}).value||'').trim().toLowerCase(),ty=ticketType;
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
  const closed='<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>';
- const noSalami='<div class="closed">\uD83E\uDD6A Not enough meat on the slate to stack a Grand Salami tonight \u2014 the deli came up a few legs short. Back at the slicer tomorrow.</div>';
+
  const lunchLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);
  const builder=D.tickets.filter(t=>t.kind==='builder').filter(match).filter(singleAlive),moon=D.tickets.filter(t=>t.kind==='moon').filter(match),big=D.tickets.filter(t=>t.kind==='biggest').filter(match).sort((a,b)=>a.nlegs-b.nlegs);
   const sec=(cls,label,arr)=>arr.length?('<div class="tsec '+cls+'"><span class="tsech">'+label+'</span><span class="tline"></span></div>'+arr.map(ticketCard).join('')):'';
@@ -971,12 +971,13 @@ drawTickets();drawPlayers();drawTracker();
 
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
-  var SALAMI_TICKET=false;   /* GRAND SALAMI RETIRED 2026-08-14, owner's call. Worst line on the ledger:
-     -100.2u on 192.5 staked (-52.1%) over 35 real slips. MOONS STAY AT 6 -- sidx is left alone on purpose,
-     so the weakest anchor is still held back from leading moons and the moon board is unchanged; the salami
-     is simply not built and its bats stay in the pool. Freeing that anchor to lead two more moons was
-     measured and rejected (8 moons, -10.5u/night over 37 nights, inside noise). Retiring it grades at
-     +0.03u/night (t=0.01) on 23% less stake and lower variance. Flip to true to bring it back. */   /* LUNCH_CUT 16*60 -> 17*60 on 2026-08-13 (mirrors assemble_tickets.py LUNCH_CUT_MIN). At 4:00 PM a 4:05 first
+  /* GRAND SALAMI REMOVED 2026-08-14 (owner's call). Not gated -- deleted. The flag version
+     reserved the weakest anchor via `sidx`, excluded that bat from moon-anchoring and from the
+     partner pool, and then discarded the ticket it was reserved for. Now nothing is reserved:
+     every anchor leads its own pair of moons (8 a night) and those bats draft like any other.
+     Rendering and grading of an EXISTING salami are untouched, so archived boards still show
+     what they shipped and the `biggest` ledger line keeps its 35 real slips. */
+  /* LUNCH_CUT 16*60 -> 17*60 on 2026-08-13 (mirrors assemble_tickets.py LUNCH_CUT_MIN). At 4:00 PM a 4:05 first
      pitch counted as an evening game: on 08-13 CHC@WSH (4:05) could reach only ONE other game inside WIN=120, so
      Abimelec Ortiz (TOTAL 150.7, +463) could neither anchor nor leg any parlay, was blocked from the chef seat by
      Crow-Armstrong in his own game, and then missed the lunch window by FIVE MINUTES -- the best bat on the slate
@@ -1252,14 +1253,12 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     // anchor, and draftF enforces pairing (2 moons/anchor), the game-time window, and all-or-none. Once a parlay
     // game is live we stop re-drafting it -- confirmed/in-progress players are never touched.
     // ---- GENERALIZED DRAFT (shared): from `anchorList` build MOONS_PER_ANC moons per non-salami anchor plus
-    // (if wantSalami) a salami on the weakest, drafting legs from `pool`. Enforces the WIN window (fits), pairing,
+    // drafting legs from `pool`. Enforces the WIN window (fits), pairing,
     // and all-or-none demotion. Used for the full fresh board AND for re-drafting ONLY the projected slots around
     // already-placed (confirmed/locked) parlays -- so a partial slate drafts correctly. ----
     function mkParlay(kind,badge,ns,rr){var legs=ns.map(leg);var idx=nextIdx(kind);out.push({name:cwName(kind,idx),kind:kind,badge:badge,note:"",players:legs,nlegs:legs.length,anchor:ns[0],lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:rr||null});}
-    function draftF(anchorList, wantSalami, pool){
+    function draftF(anchorList, pool){
       var al=anchorList.slice().sort(function(a,b){return strength(b)-strength(a);});
-      var sidx = wantSalami ? al.length-1 : null;   // salami rides the WEAKEST anchor, only when one is wanted
-      var _sal=(sidx!=null)?al[sidx]:null;
       // PRIORITY: Chef's Table (chalk, reserved before any of this) -> moon anchors -> SALAMI ANCHOR -> moon
       // fills -> salami fills. The salami anchor used to be left in the partner pool (`|| n===_sal`), so the moon
       // fill could eat it and the salami then shipped "only if that anchor wasn't drafted into a moon" -- moons
@@ -1270,7 +1269,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       function fits(t,n){ if(t.games[P[n].game])return false; var ts=t.legs.map(tmin); ts.push(tmin(n)); return (Math.max.apply(null,ts)-Math.min.apply(null,ts))<=WIN; }
       function needy(t){ return (t.legs.length-1)<t.need; }
       var pls=[];
-      for(var ai=0;ai<al.length;ai++){ if(ai===sidx)continue;
+      for(var ai=0;ai<al.length;ai++){   // EVERY anchor leads its pair of moons -- nothing is held back
         for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'🚀',rr:{struct:"by 2s & 3",risk:2.0},legs:[al[ai]],need:2,games:gm}); } }
       /* 2026-08-13 -- COMPLETABILITY. fits() validates the ticket AS IT STANDS: distinct game, span <= WIN.
          It never asked whether a further leg is still reachable after the pick, so filling greedily by strength
@@ -1326,16 +1325,9 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         pls.forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } t.legs=[t.legs[0]]; t.games={}; t.games[P[t.legs[0]].game]=1; });
         pa=byS(pa); fillRound();
       }
-      if(SALAMI_TICKET&&sidx!=null){                                   // the salami anchor is reserved, so it is always here
-        var _si=pa.indexOf(al[sidx]); if(_si>=0) pa.splice(_si,1);
-        var sg={}; sg[P[al[sidx]].game]=1;
-        var sal={rank:sidx,kind:'biggest',badge:'🥪',rr:{struct:"by 2s, 3s & 4",risk:5.5},legs:[al[sidx]],need:3,games:sg};
-        while(needy(sal)){ var pk=null; for(var j=0;j<pa.length;j++){ if(fits(sal,pa[j])){pk=pa[j];break;} } if(pk==null)break; sal.legs.push(pk); sal.games[P[pk].game]=1; pa.splice(pa.indexOf(pk),1); }
-        if((sal.legs.length-1)>=sal.need) pls.push(sal);
-      }
       return {al:al, pls:pls};
     }
-    function searchBest(cands, Ktot, wantSalami, pool){   // best Ktot-anchor set: max filled moons, then salami, then strength
+    function searchBest(cands, Ktot, pool){   // best Ktot-anchor set: max filled moons, then strength
       if(Ktot<=0 || cands.length<Ktot) return null;
       /* 2026-08-13 -- THRESHOLD, NOT LEXICOGRAPHIC, AND SCORE WHAT SHIPS.
          (a) Ranking (moons, salami, strength) strictly in that order made board SIZE outrank board QUALITY
@@ -1345,13 +1337,12 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
          could score high on paper while its strength never reached the board. Sum the anchors that ACTUALLY
          SURVIVE in dr.pls. Measure the outcome, not the intent. */
       var byNM={}, combo=[];
-      function ev(){ var dr=draftF(combo.slice(), wantSalami, pool);
+      function ev(){ var dr=draftF(combo.slice(), pool);
         var _an={}; dr.pls.forEach(function(t){ if(t.legs&&t.legs.length)_an[t.legs[0]]=1; });
         var tot=0; Object.keys(_an).forEach(function(a){tot+=strength(a);}); tot=Math.round(tot*10000)/10000;
         var nM=dr.pls.filter(function(t){return t.kind==='moon';}).length;
-        var sOk=dr.pls.some(function(t){return t.kind==='biggest' && (t.legs.length-1)>=t.need;})?1:0;
         var cur=byNM[nM];
-        if(!cur||tot>cur.tot||(tot===cur.tot&&sOk>cur.sOk)) byNM[nM]={nM:nM,sOk:sOk,tot:tot,pls:dr.pls};
+        if(!cur||tot>cur.tot) byNM[nM]={nM:nM,tot:tot,pls:dr.pls};   // salami tiebreak removed with the slip
       }
       function rec(start){ if(combo.length===Ktot){ev();return;} for(var i=start;i<cands.length;i++){combo.push(cands[i]);rec(i+1);combo.pop();} }
       rec(0);
@@ -1364,7 +1355,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     }
     function emitParlays(best){ if(!best)return; var pl=best.pls.filter(function(t){return (t.legs.length-1)>=t.need;});
       pl.forEach(function(t){ if(t.kind==='moon')mkParlay('moon',t.badge,t.legs,t.rr); });
-      pl.forEach(function(t){ if(t.kind==='biggest')mkParlay('biggest',t.badge,t.legs,t.rr); }); }
+}
 
     /* 2026-08-10 -- ONE ANCHOR PER GAME, ON A CARRIED BOARD. Deduping the candidate list (candA) only guards a
        FRESH draft; once a prior board exists the anchor set is INHERITED, so a duplicate that formed earlier rides
@@ -1519,9 +1510,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='moon')return;
         var ma=anchRepl[pl.t.anchor]||(anchorAlive(pl.t.anchor)?pl.t.anchor:null);   // 2026-08-13: anchRepl is authoritative when set -- it now covers OVERTAKES, not just dead anchors, and an overtaken anchor is still alive
         if(ma){ pl.anch=ma; _anchOwn[ma]=1; usedG[ma]=1; } });   // both of an anchor's moons share the one seat -- by design
-      plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='biggest')return;
-        var sa=pl.t.anchor; if(anchorAlive(sa)&&!_anchOwn[sa]){ pl.anch=sa; _anchOwn[sa]=1; usedG[sa]=1; } });
-      var _ord={moon:0,biggest:1,late:2,lunch:3,builder:4};   // Chef -> moon anchors -> salami anchor -> moon fills ->
+         var _ord={moon:0,biggest:1,late:2,lunch:3,builder:4};   // Chef -> moon anchors -> salami anchor -> moon fills ->
       plan.sort(function(a,b){                                  // salami fills. A ticket only loses a leg to a HIGHER priority.
         return (a.frozen?-1:(_ord[a.kind]==null?9:_ord[a.kind])) - (b.frozen?-1:(_ord[b.kind]==null?9:_ord[b.kind])); });
       plan.forEach(function(pl){
@@ -1530,7 +1519,6 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         if(kind==='builder') return;   // non-locked builders are re-derived from the LIVE pool after this loop (locked builders were already emitted verbatim above)
         else if(kind==='late') cand=byS(nonchalk.filter(function(n){return nightG[P[n].game]&&P[n].odds!=null&&P[n].odds<=600;}));
         else if(kind==='lunch') cand=byS(nonchalk.filter(function(n){return lunchG[P[n].game]&&P[n].odds!=null&&P[n].odds<=600;}));
-        else if(kind==='biggest') cand=ge75(byS(nonchalk));
         else cand=ge75(byS(nonchalk));
         if(pl.anch){ var ma=pl.anch;   // moon OR salami: rebuild anchor-first so legNames[0] is still the anchor
           { var nl=[ma], ng={}; ng[P[ma].game]=1;
@@ -1602,61 +1590,6 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           }
         });
       })();
-      // ---- SALAMI SALVAGE / BUILD (leftover): moons win, the Grand Salami is leftover. Build (or rebuild) it HERE
-      // -- after moon pairing+repair -- from bats the final moons/tickets left behind (broader eligible field:
-      // priced, in-lineup, <70% rain, not pending). Covers BOTH cases: (a) a live scratch cost a baked salami a leg
-      // the thin gated pool couldn't refill, and (b) the server's fresh draft shipped no salami at all (its salami
-      // rides a pre-chosen anchor that a deeper pool can absorb into a moon). If a prior salami exists we keep its
-      // still-alive legs for continuity, else we build fresh from the strongest leftovers. Running last means it can
-      // NEVER cannibalize a moon leg. distinct-game + WIN enforced; ships only a full 4-leg slip, never a stub. ----
-      (function(){
-        if(!SALAMI_TICKET)return;   /* 2026-08-14: the SALVAGE path must be off too. It rebuilds the slip from
-          leftovers even when the draft never made one, so gating only the two draft sites leaves the salami
-          quietly resurrecting itself -- exactly what happened on the first pass of this change. */
-        if(out.some(function(t){return t.kind==='biggest';}))return;                                   // salami already shipped
-        var ps=prior.filter(function(t){return t.kind==='biggest'&&!isLocked(t);})[0];                  // prior salami if any (may be absent)
-        var need=ps?(ps.nlegs||(ps.players?ps.players.length:4)):4;
-        var placed={}; out.forEach(function(t){ (t.players||[]).forEach(function(l){placed[l.name]=1;}); });
-        // CHALK IS NOT A LEFTOVER. `elig` is the broad field and does not exclude the Chef's Table four, and this
-        // backstop runs BEFORE the chef ticket is pushed to `out` -- so `placed` doesn't know about them yet and the
-        // four shortest prices on the board look like the strongest unplaced bats going. On 2026-08-04 that shipped a
-        // Grand Salami that was a carbon copy of the Chef's Table (Schwarber/Caminero/Alvarez/Rice, identical legs and
-        // odds), and then the builder pass turned its anchor into a Schwarber single as well. Chalk is reserved for
-        // the Chef's Table, lunch and the nightcap; moons, salami and anchors are chalk-free everywhere else, and
-        // this was the one path that had not been told.
-        var cands=byT(elig).filter(function(n){var p=P[n];return p&&!chalk[n]&&!placed[n]&&!pending(n)&&p.odds!=null;});
-        // SEED-BASED build: greedy-by-strength alone fails when the single strongest leftover sits in a
-        // time-isolated game (e.g. an 11 AM lunch bat) with no in-window partners. Instead try each candidate
-        // as a SEED (strongest first) and complete it to `need` distinct-game legs within the WIN window; the
-        // first seed that yields a full set wins. A prior salami's still-alive legs are tried as the seed first
-        // (continuity), then fresh seeds. spanOk uses the real clock (AM/PM aware), so windows are honored.
-        function build(seed){ var ln=seed.slice(), gg={}; ln.forEach(function(n){gg[P[n].game]=1;});
-          for(var k=0;k<cands.length&&ln.length<need;k++){ var n=cands[k];
-            if(gg[P[n].game]||ln.indexOf(n)>=0)continue; if(!spanOk(ln.concat([n])))continue;
-            ln.push(n); gg[P[n].game]=1; }
-          return ln.length>=need?ln:null; }
-        var pseed=[], psg={};
-        if(ps){ (ps.players||[]).forEach(function(l){ var n=l.name, p=P[n];                             // prior salami's still-alive legs -> preferred seed (continuity)
-          if(!p||p.out||p.void||placed[n]||pending(n))return; if(psg[p.game])return;
-          if(pseed.length&&!spanOk(pseed.concat([n])))return; pseed.push(n); psg[p.game]=1; }); }
-        var legNames = pseed.length?build(pseed):null;                                                  // try the continuity seed first
-        for(var si=0; !legNames && si<cands.length; si++){ legNames=build([cands[si]]); }               // else strongest workable fresh seed
-        if(!legNames)return;                                                                            // no 4 distinct in-window games among leftovers -> no salami (never a stub)
-        legNames.sort(function(a,b){return strength(b)-strength(a);});                                  // strongest -> anchor
-        /* 2026-08-13 -- ONE ANCHOR PER GAME APPLIES HERE TOO. This pass filtered candidates on `placed`, which knows
-           about BATS already on a slip but nothing about which GAMES already carry an anchor. So the salvaged salami
-           could anchor in a game a moon already anchored (today: Willson Contreras, BOS@TOR, next to Wilyer Abreu).
-           The board looks right for exactly one build -- then the anchor-dedup pass upstream sees two anchors in one
-           game on the carried board, drops the weaker, and takes its moons down with it (14 -> 11).
-           SUPERSEDED later the same day: sliding the LABEL was the wrong half. It handed the anchor seat to the
-           slip's weakest-but-unanchored leg -- on 08-13 that made #21 (Chisholm) the anchor of a slip carrying #7
-           (Contreras), and the anchor seat is what earns the mirrored builder single, so the builder went to the
-           weaker bat. ROLE RANK MUST BE MONOTONE IN STRENGTH WITHIN A SLIP: the anchor is legNames[0], always.
-           The collision this was dodging is now fixed at its source -- one-anchor-per-game is scoped to MOON
-           anchors, which is what it was written for (see the anchor-dedup pass above). */
-        legNames.forEach(function(n){placed[n]=1; usedG[n]=1;});
-        mkParlay('biggest', (ps&&ps.badge)?ps.badge:'🥪', legNames, (ps&&ps.rr)?{struct:ps.rr.struct,risk:ps.rr.risk}:{struct:"by 2s, 3s & 4",risk:5.5});
-      })();
       // ---- LIVE BUILDER RE-DERIVATION: builders track the LIVE pool, not the baked set. ----
       // Mirror assemble_tickets.py: builders = shipped-parlay anchors (odds!=null) + any UNUSED pool
       // bat at least as strong as the weakest shipped parlay leg (odds<=600). Re-derived every refresh
@@ -1706,13 +1639,11 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         } })(); /* 2026-08-10: ONE ANCHOR PER GAME. The README and the two comments around the server's cand_anchors both say 'one per game'; only this inline note said otherwise, and the code followed it -- there was no per-game dedup at all. Tonight that shipped Matt Olson AND Drake Baldwin, both Braves in NYM@ATL, as two of the four anchors: the chef swapped Olson out for Alvarez at 6:42pm, which freed Olson into the non-chalk pool, and nothing stopped him joining a game that already had an anchor. Two anchors in one game doubles the board's exposure to a single lineup. Strongest 20 candidates, one per game, for the exhaustive 4-set search. 40%+ rain never anchors. */
       function draftFx(anchorList){   // DEAD (superseded by the hoisted generalized draftF + searchBest); kept only to avoid a large diff
         var al=anchorList.slice().sort(function(a,b){return strength(b)-strength(a);});   // strongest first; al[last] = weakest
-        var sidx = al.length>=4 ? al.length-1 : null;   // MIRROR server _draft: the salami rides the WEAKEST anchor
-        var _sal = (sidx!=null) ? al[sidx] : null;
-        var pa=byS(draftPool).filter(function(n){return (al.indexOf(n)<0 || n===_sal) && !pending(n) && precipOf(P[n].game)<50;});   // keep the salami anchor AS a leg candidate too; 50-69% rain barred from legs. PROJECTED pool only -- confirmed/in-progress/placed bats are pinned out.
+        var pa=byS(draftPool).filter(function(n){return (al.indexOf(n)<0) && !pending(n) && precipOf(P[n].game)<50;});   // keep the salami anchor AS a leg candidate too; 50-69% rain barred from legs. PROJECTED pool only -- confirmed/in-progress/placed bats are pinned out.
         function fits(t,n){ if(t.games[P[n].game])return false; var ts=t.legs.map(tmin); ts.push(tmin(n)); return (Math.max.apply(null,ts)-Math.min.apply(null,ts))<=WIN; }
         function needy(t){ return (t.legs.length-1)<t.need; }
         var pls=[];
-        for(var ai=0;ai<al.length;ai++){ if(ai===sidx)continue;   // two moons per NON-salami anchor; the salami is built AFTER the moons, from what they leave behind (moons win, salami is leftover)
+        for(var ai=0;ai<al.length;ai++){   // two moons per anchor, EVERY anchor -- no seat is reserved
           for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'\uD83D\uDE80',rr:{struct:"by 2s & 3",risk:2.0},legs:[al[ai]],need:2,games:gm}); } }
         function fillRound(){ var rnd=0;
           while(pls.some(needy)){
@@ -1749,23 +1680,15 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           pls.forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } t.legs=[t.legs[0]]; t.games={}; t.games[P[t.legs[0]].game]=1; });   // FULL REDRAFT: return every surviving ticket's legs and rebuild from scratch
           pa=byS(pa); fillRound();
         }
-        if(SALAMI_TICKET&&sidx!=null && pa.indexOf(al[sidx])>=0){   // MOONS WIN, SALAMI IS LEFTOVER: build the salami on the weakest anchor from the legs the moons left behind; ships only if that anchor wasn't drafted into a moon
-          pa.splice(pa.indexOf(al[sidx]),1);
-          var sg={}; sg[P[al[sidx]].game]=1;
-          var sal={rank:sidx,kind:'biggest',badge:'🥪',rr:{struct:"by 2s, 3s & 4",risk:5.5},legs:[al[sidx]],need:3,games:sg};
-          while(needy(sal)){ var pk=null; for(var j=0;j<pa.length;j++){ if(fits(sal,pa[j])){pk=pa[j];break;} } if(pk==null)break; sal.legs.push(pk); sal.games[P[pk].game]=1; pa.splice(pa.indexOf(pk),1); }
-          if((sal.legs.length-1)>=sal.need) pls.push(sal);
-        }
         return {al:al, pls:pls, miss:0};
       }
-      var _best=searchBest(candA, 4, true, draftPool);   // strongest 4-anchor set (3 moon-pairs + salami) that fills within the WIN window (hoisted generalized draft)
+      var _best=searchBest(candA, 4, draftPool);   // strongest 4-anchor set -- FOUR moon-pairs now, no salami seat (hoisted generalized draft)
       var parlays = _best ? _best.pls : [];
       void draftFx;   // reference the dead fn so linters/minifiers keep it harmless
       parlays=parlays.filter(function(t){return (t.legs.length-1)>=t.need;});   // ship ONLY if fully filled: moons exactly 3 legs, salami exactly 4; dropped bats fall to builders via spent
       function mkF(kind,badge,ns,rr){var legs=ns.map(leg);var idx=nextIdx(kind);
         out.push({name:cwName(kind,idx),kind:kind,badge:badge,note:"",players:legs,nlegs:legs.length,anchor:ns[0],lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:rr||null});}
       parlays.forEach(function(t){ if(t.kind==='moon') mkF('moon',t.badge,t.legs,t.rr); });       // moons first (display order)
-      parlays.forEach(function(t){ if(t.kind==='biggest') mkF('biggest',t.badge,t.legs,t.rr); });  // then the salami
       var _plg={}; parlays.forEach(function(t){t.legs.forEach(function(n){_plg[n]=1;});}); var _lnp={};
       /* NIGHTCAP FALLBACK. The nightcap drafts dead-last out of whatever the gated pool has left over --
          correct on a normal slate, and on 2026-08-03 it shipped NOTHING. The z-gate is relative, so an

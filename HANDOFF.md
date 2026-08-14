@@ -9,7 +9,13 @@
 > Draft rules as of 2026-08-14 live in `README.md` — that file is kept current; this one is a log.
 
 
-> **2026-08-14, later: the Grand Salami is retired too** (`SALAMI_TICKET=false`), owner's call.
+> **2026-08-14, later: the Grand Salami is REMOVED** — deleted, not gated — and the board now runs
+> **8 MOONS**. `sidx`/`wantSalami`/`_sal` are gone, nothing is reserved, and those bats draft
+> normally. A flag version shipped first and was rejected: it left the weakest anchor reserved and
+> then discarded its ticket. FOUR construction paths had to go, the sneaky one being the
+> client-side SALVAGE/REBUILD pass. Cost vs the old board: −10.5u/night over 37 graded cold drafts
+> (t = −1.36, inside noise). Rendering/grading of an existing salami and the `biggest` ledger line
+> are untouched. Superseded detail below, kept for the record:
 > Worst line on the ledger: −100.2u on 192.5 staked (−52.1%) over 35 real slips. **Moons stay at
 > 6** — `sidx` is left alone on purpose so the weakest anchor is still held back from moon-anchoring;
 > the slip just is not built and its bats stay in the pool. Builders drop 4 → 3. Retiring it grades

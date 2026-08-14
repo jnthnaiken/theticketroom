@@ -276,8 +276,8 @@ corrected there.)
   slate gated unusually thin at 29). Expect it to occasionally lead with a name that looks
   like it obviously should have been drafted: on 08-13 that is Kyle Schwarber at `TOTAL`
   193.6, the top bat on the slate, whose game sat at 40% rain — which bars anchoring.
-- **Anchors** — 4 total (3 moon anchors + 1 reserved anchor that used to lead the salami; since
-  2026-08-14 that seat is still reserved — it keeps moons at 6 — but nothing is built on it), the strongest *fittable*
+- **Anchors** — 4 total, and since 2026-08-14 **all four lead moons** (8 moons a night); no seat
+  is reserved any more, the salami having been removed. The strongest *fittable*
   bats by model `TOTAL`. **UP TO `ANCH_PER_GAME` (2) ANCHORS PER GAME** (2026-08-13, owner decision;
   this replaced the one-per-game rule added 2026-08-10 after Olson *and* Baldwin both anchored in
   NYM@ATL). Two strong bats in one game may each lead their own pair of moons — no ticket may still
@@ -291,20 +291,26 @@ corrected there.)
   anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
   ships both its moons or none; on a thin slate the **weakest anchor** demotes
   rather than ship a lopsided board.
-- **Salami** ("biggest") — **RETIRED 2026-08-14** (`SALAMI_TICKET=false`). It was the worst line
-  on the ledger: **−100.2u on 192.5 staked (−52.1%) over 35 real slips**. **Moons stay at 6** —
-  `sidx` is deliberately left alone, so the weakest anchor is still held back from leading moons
-  and the moon board is unchanged; the slip is simply not built and its bats stay in the pool.
-  Freeing that anchor to lead two more moons was measured and rejected (8 moons a night, −10.5u
-  a night over 37 graded cold drafts, inside noise). Retiring it grades at **+0.03u/night
-  (t = 0.01)** on **23% less stake** (766u vs 991u) with lower variance, better on 27/37 nights.
-  **Three** build sites are behind the flag — the prior path, the fresh draft, and the
-  client-side salvage/rebuild pass, which will resurrect the slip on its own if you miss it.
-  The section and its view chip are gone too, or the "not enough meat" empty state would print
-  nightly. The `biggest` tracker row and its `season.json` history **stay** — unlike the chef
-  test, those were real bets, really graded; the line stops accruing, it is not erased.
-  Builders drop from 4 to 3 a night, since the retired anchor no longer mirrors.
-  The rules below describe how it worked and apply again if the flag is flipped back.
+- **Salami** ("biggest") — **REMOVED 2026-08-14.** Not gated; the code is deleted. It was the worst line
+  on the ledger: **−100.2u on 192.5 staked (−52.1%) over 35 real slips**.
+  **THE BOARD NOW RUNS 8 MOONS.** `sidx`, `wantSalami` and `_sal` are gone, so **nothing is
+  reserved**: every anchor leads its own pair of moons, and the bats the salami used to take are
+  ordinary members of the draft pool. Builders stay at **4**.
+  A flag-gated version shipped first and was rejected by the owner, correctly: gating only the
+  build left `sidx` reserving the weakest anchor — excluding that bat from moon-anchoring and
+  from the partner pool — and then threw away the ticket it was reserved for. Reserve-then-delete
+  is the worst of both.
+  **Four construction paths were removed**, plus the plan-walk refill, the `kind==='biggest'`
+  candidate branch and both emit hooks: `draftF`'s build, `searchBest`'s salami tiebreak (`sOk`),
+  the fresh-draft leftover build, and — the one that hides — the **client-side SALVAGE/REBUILD
+  pass**, which reconstructs the slip from leftovers even when the draft never made one.
+  The section and view chip are gone; `noSalami` is deleted.
+  **Kept on purpose:** everything that RENDERS or GRADES an existing salami, plus the `biggest`
+  tracker row and its `season.json` history. Unlike the chef test those were real bets, really
+  graded — the line stops accruing, it is not erased, and an archived board still shows what it
+  shipped. A prior board carrying a salami keeps it; only new ones are impossible.
+  Measured cost of 8 moons vs the old 6-moons-plus-salami board: **−10.5u/night** over 37
+  graded cold drafts (t = −1.36, inside noise). The rules below describe how the slip worked.
   **MOONS WIN, THE SALAMI IS LEFTOVER.** The moons fill first and the
   all-or-none demote loop settles; the salami is then built from what they left behind, seed-based
   (try each candidate as a start seed, strongest first, and complete it to 4 distinct games inside
@@ -388,10 +394,10 @@ Behavior that's load-bearing:
   single-moon anchor). A scratched-anchor moon **re-anchors to one replacement** for the
   whole pair; a `spanOk` guard drops any kept leg outside the replacement's game-time
   window, so a re-anchored moon **never exceeds `WIN`** — it refills in-window or demotes.
-- **Salami is leftover — built (or rebuilt) client-side.** ⚠️ **RETIRED 2026-08-14; this whole
-  path is behind `SALAMI_TICKET` and does not run.** It is the third and least obvious build site:
-  gating only the two draft sites leaves it rebuilding the slip from leftovers. Kept for reference.
-  The Grand Salami runs *last*,
+- ~~**Salami is leftover — built (or rebuilt) client-side.**~~ ⚠️ **DELETED 2026-08-14.** It was
+  the least obvious of the four build sites: removing the two draft sites alone leaves this one
+  rebuilding the slip from leftovers. Recorded here so nobody re-adds a partial removal.
+  It used to run *last*,
   after the moons are final, from the bats they leave behind (the broader eligible field,
   priced/in-lineup/<70% rain). It covers both a baked salami that lost a leg to a live
   scratch **and** a slate where the server's fresh draft shipped no salami at all (its
