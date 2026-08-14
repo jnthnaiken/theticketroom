@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T20:02:11Z",
+  "pulled_at": "2026-08-14T20:07:13Z",
   "games": [
     {
       "gamePk": 824643,
@@ -25,7 +25,7 @@
           {
             "id": 671056,
             "name": "Iv\u00e1n Herrera",
-            "iso": 0.141
+            "iso": 0.14
           },
           {
             "id": 676475,
@@ -1062,7 +1062,7 @@
     },
     {
       "gamePk": 824159,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T00:10:00Z",
       "matchup": "SEA@HOU",
       "away": {
@@ -1084,10 +1084,56 @@
           "hr9": 0.95,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.184
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.299
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.161
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.187
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.151
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.129
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.213
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.171
+          },
+          {
+            "id": 543877,
+            "name": "Christian V\u00e1zquez",
+            "iso": 0.108
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
