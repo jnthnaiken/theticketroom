@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T21:47:33Z",
+  "pulled_at": "2026-08-14T21:51:02Z",
   "games": [
     {
       "gamePk": 824643,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824968,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T01:40:00Z",
       "matchup": "TEX@ATH",
       "away": {
@@ -1485,10 +1485,56 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.076
+          },
+          {
+            "id": 805779,
+            "name": "Jacob Wilson",
+            "iso": 0.123
+          },
+          {
+            "id": 691016,
+            "name": "Tyler Soderstrom",
+            "iso": 0.229
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.222
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.132
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.152
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.161
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.187
+          },
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
