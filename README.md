@@ -229,17 +229,42 @@ corrected there.)
   (raised from 3 on 2026-07-04) adds z-gate-passing depth so a scratched parlay leg can
   refill *in-gate* instead of starving the slip; one bat/game per **ticket** still holds,
   so no single ticket over-concentrates on one game.
-- **Chalk / Chef's Table — the two engines DIFFER here, and the client is the one that ships.**
-  `assemble_tickets.py` has `chalk = set()` and builds **no chef ticket at all**, so on the
-  server the top favourites draft into moons/salami/builders like any other bat.
-  `index.html` — the engine `regen15.py` actually runs — reserves the **`CHALK_N` (4) strongest
-  bats by `strength`, one per game**, as the **Chef's Table** (a 4-leg round robin) and bars them
-  from moons, salami and builders. Chef seats lock **per-leg**, at their own first pitch, and a
-  sitting seat only changes hands if a challenger beats it by `CHEF_HYST` (0.02) of normalised
-  strength. A bat already on a **placed** (frozen or clock-locked) parlay is **not chef-eligible**
-  — a placed bet is a fact and the chef seat is still open, so the open one moves (2026-08-13).
+  **Rolling this back was tested and rejected (2026-08-14.)** Cold-drafted on 08-13:
+  3-per-GAME gives pool 23 and **9 tickets** (down from 12) — it costs two moons and a
+  builder — while leaving the undrafted count essentially flat (26 → 24). A literal
+  3-per-TEAM cap (≤6/game, looser than today) gives pool 32 and 25. The cap moves both ends
+  of the board together: tighten the pool and the tickets cannot reach as deep, so the floor
+  rises with the ceiling. `GAME_CAP` stays at **4**.
+- **Chalk — reserved and barred, but no longer bundled into a ticket (2026-08-14).**
+  The **`CHALK_N` (4) strongest bats by `strength`, one per game** are still reserved by
+  `index.html` and still barred from moons, salami and builders. What changed is that they
+  are no longer packaged as the **Chef's Table** round robin: `var CHEF_TICKET=false` gates
+  the emission. The slip was a 13-night test (08-01…08-13) that went **2-11 for −49.72u on
+  71.5 staked**, and those nights have been backed out of the ledger — see *Ledger* below.
+  Seat mechanics are untouched and still run, because they are what decides who is barred:
+  seats lock **per-leg** at their own first pitch, a sitting seat only changes hands if a
+  challenger beats it by `CHEF_HYST` (0.02) of normalised strength, and a bat already on a
+  **placed** (frozen or clock-locked) parlay is **not chalk-eligible** — a placed bet is a
+  fact and the seat is still open, so the open one moves (2026-08-13).
+  A chef slip already **locked** on a placed board is still carried verbatim by the
+  prior-board path; retiring the ticket only stops *new* ones. Flip `CHEF_TICKET` to bring
+  it back. `assemble_tickets.py` never built one (`chalk = set()`) and needs no change.
   Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
   their time windows, `<= +600`.
+- **Family Meal — a display section, not a ticket (2026-08-14).** Occupies the slot the
+  Chef's Table used to hold. A bat is on it when it (a) cleared the pool gate, (b) was not
+  reserved as chalk, (c) landed on no slip, and (d) **scored higher than the weakest bat the
+  board actually drafted** — then the list is capped at **8** by `TOTAL`. Emitted as
+  `D.family` (plus `D.familyFloor`, the weakest drafted `TOTAL`, for auditability).
+  Nothing here is staked, priced as a parlay, or graded; it never touches `season.json`.
+  Clause (d) is the point: without it the section is just "everyone who missed", which runs
+  ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at
+  **0–8, median 6, mean 5.3**. The two looser readings were measured and rejected — the rank
+  window from #1 chalk to the last drafted bat gives **22** on 2026-08-13, and gated-pool-minus-drafted
+  gives **median 20 / max 28** across the sample (it reads as 11 on 08-13 only because that
+  slate gated unusually thin at 29). Expect it to occasionally lead with a name that looks
+  like it obviously should have been drafted: on 08-13 that is Kyle Schwarber at `TOTAL`
+  193.6, the top bat on the slate, whose game sat at 40% rain — which bars anchoring.
 - **Anchors** — 4 total (3 moon anchors + 1 salami anchor), the strongest *fittable*
   bats by model `TOTAL`. **UP TO `ANCH_PER_GAME` (2) ANCHORS PER GAME** (2026-08-13, owner decision;
   this replaced the one-per-game rule added 2026-08-10 after Olson *and* Baldwin both anchored in
@@ -282,8 +307,9 @@ Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`,
 `LUNCH_CUT=17*60` (5:00 PM ET — widened from 16*60 on 2026-08-13; a 4:05 PM game is a matinee, and the
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
-`CHALK_N=4` is the Chef's Table in `index.html`; `assemble_tickets.py` has `chalk=set()` and builds no
-chef ticket at all. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
+`CHALK_N=4` is the chalk reservation in `index.html` — those bats are barred from every ticket;
+since 2026-08-14 they are no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`).
+`assemble_tickets.py` has `chalk=set()` and never built one. `FAM_CAP=8` caps the Family Meal section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
 **Edge weights: code and docs now agree** (2026-08-13). `build15.py` `_SIG` is
@@ -358,9 +384,20 @@ Behavior that's load-bearing:
 
 `season.json` is the source of truth for the running tracker; `grade_night.py` is
 the only thing that writes its history. Current epoch is **since 2026-06-30**
-(running **≈ +331u through 2026-07-31** — moons carry it at ≈ +362u, the salami
-round-robin bleeds at ≈ −44u), rolling forward each morning as the prior night
-settles. Per-category units, win counts, and the history curve are baked into
+(running **+198.46u through 2026-08-13** — moons carry it at ≈ +313u, the salami
+round-robin bleeds at ≈ −100u), rolling forward each morning as the prior night
+settles.
+
+> **Chef backed out, 2026-08-14.** The `chef` category was removed and its 13 nights
+> (08-01…08-13, `graded 13 / won 2 / −49.72u on 71.5 staked`) were unwound from the curve,
+> taking the season from **+148.74u to +198.46u**. This was a real rebuild, not a
+> subtraction of the category total: all 13 slips were re-graded from the archived boards
+> with `grade_night.grade_ticket`, the 12 nights with stored boxscore outcomes reproduced
+> the recorded **−44.22u / 66.0 staked / 2 wins exactly**, so 08-13 is the arithmetic
+> remainder (**−5.50u, 5.5 staked, 0 wins** — a figure that independently matches that
+> board's `rr.risk` of 5.5). Each night's chef net was then subtracted from the cumulative
+> curve **from that night forward**, so `cats` and `history` still reconcile at 198.46.
+> Chef won exactly twice: 08-05 (+5.06u) and 08-09 (+5.72u). Per-category units, win counts, and the history curve are baked into
 the board as `D.meta.season`.
 
 > ⚠️ **The board's big "+Nu" season number is the SUM of the category `units`

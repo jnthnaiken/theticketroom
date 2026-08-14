@@ -31,12 +31,6 @@
    "won": 5,
    "units": -0.79,
    "staked": 26
-  },
-  "chef": {
-   "graded": 13,
-   "won": 2,
-   "units": -49.72,
-   "staked": 71.5
   }
  },
  "history": [
@@ -67,19 +61,19 @@
   349.98,
   338.76,
   331.32,
-  324.21,
-  296.21,
-  292.12,
-  264.12,
-  245.68,
-  258.84,
-  254.49,
-  229.09,
-  214.81,
-  186.81,
-  201.84,
-  176.74,
-  148.74
+  329.71,
+  307.21,
+  308.62,
+  286.12,
+  262.62,
+  281.28,
+  282.43,
+  262.53,
+  242.53,
+  220.03,
+  240.56,
+  220.96,
+  198.46
  ],
  "graded_nights": [
   "2026-06-01",
@@ -151,5 +145,5 @@
   "2026-08-12",
   "2026-08-13"
  ],
- "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet."
+ "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet. | 2026-08-14: Chef's Table RETIRED and its 13 graded nights (08-01..08-13) backed out of the ledger at the owner's direction -- the slip was a test, not a product line. Removed cat: graded 13, won 2, -49.72u on 71.5 staked. All 13 slips were re-graded from the archived boards against the stored boxscore outcomes; the 12 nights with stored outcomes reproduce the recorded -44.22u / 66.0 staked / 2 wins EXACTLY, so 08-13 is the arithmetic remainder (-5.50u, 5.5 staked, 0 wins) and matches that board's rr.risk of 5.5. Each night's chef net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +148.74u -> +198.46u. No other kind touched."
 }

@@ -5,7 +5,8 @@
 > and the code wins over both. Corrected on 2026-08-13: the Kasper column-picker (HH%/LA render by
 > default), `RULES_VERSION` (removed), conviction-snub builders (removed 07-09), the nine edge signals
 > (superseded again 2026-08-13: **five** are live after the Statcast refit), `grade_night` (does NOT re-draft), and the base64 transfer channel (blocked).
-> Draft rules as of 2026-08-13 live in `README.md` — that file is kept current; this one is a log.
+> Superseded again 2026-08-14: the **Chef's Table ticket is retired** (the chalk reservation is not).
+> Draft rules as of 2026-08-14 live in `README.md` — that file is kept current; this one is a log.
 
 
 Quick-start status so a fresh session can continue without re-deriving context.
@@ -314,10 +315,11 @@ edge bites exactly as hard as the market regardless of how thin the edge is
   `>= Z_GATE (0.75)` SDs above the slate mean (`assemble_tickets.py` ~line 129).
   Scale/slate-independent. `FLOOR=130` is dead — only a fallback if a board is
   missing `blend`. The old fixed-40 rank cut is also fallback-only.
-- **Chalk = the Chef's Table.** `CHALK_N=4` bats are reserved for it and barred from
-  every other ticket. As of 2026-08-08 those seats are the 4 best by **STRENGTH**
-  (normalized TOTAL, min-max over the gated pool), one per game —
-  *not* the 4 shortest prices.
+- ~~**Chalk = the Chef's Table.**~~ **SUPERSEDED 2026-08-14 — the ticket is gone, the
+  reservation is not.** `CHALK_N=4` bats are still reserved and still barred from every
+  other ticket; they are simply no longer emitted as a round robin (`CHEF_TICKET=false`).
+  Seat selection is unchanged: as of 2026-08-08 those seats are the 4 best by **STRENGTH**
+  (normalized TOTAL, min-max over the gated pool), one per game — *not* the 4 shortest prices.
 - **STRENGTH is normalized TOTAL, and must stay that way.** A 65/35 TOTAL/implied key was
   tried on 2026-08-08 and reverted the same night. It breaks the board's own colours: `confOf =
   p.TOTAL` and `tierOf` rank the field into premium(green)/strong(orange)/value(pink) on TOTAL
@@ -682,3 +684,63 @@ anything in the `pages` group would be stuck behind the same jam.
 
 Rule of thumb for next time: board stale on the site + `main` correct = deploy,
 not pipeline. Check `is:waiting` on deploy-pages.yml FIRST.
+
+
+---
+
+## 2026-08-14 — Chef's Table retired, Family Meal section added, ledger rebuilt
+
+Three owner decisions, all explicit. Nothing here was inferred.
+
+**1. The Chef's Table ticket is retired.** It was a test. `var CHEF_TICKET=false` in
+`index.html` gates the `out.push()`; the chalk *reservation* above it is deliberately
+untouched, so the top-`CHALK_N` favourites are still barred from moons/salami/builders.
+A chef slip already **locked** on a placed board is still carried verbatim by the
+prior-board path — retiring it only stops new ones. The 10:00→23:00 sweep on the 08-13
+board still reports `n=14` for exactly that reason.
+
+**2. The Family Meal replaces it as a display section.** Not a ticket: nothing staked,
+nothing graded, `season.json` untouched. A bat qualifies when it cleared the pool gate,
+was not chalk, made no slip, and **outscored the weakest bat the board actually drafted**;
+the list is then capped at 8. Emitted as `D.family` / `D.familyFloor`. Named by the owner —
+"orphans" was proposed and rejected.
+
+Sizing evidence, all cold-drafted through the real client engine over the 37 stored nights:
+
+```
+rank window (#1 chalk -> last drafted)   22 on 08-13 alone
+gated pool minus drafted                 min 0  median 20  max 28  mean 19.2
+above weakest drafted                    min 0  median  6  max 20  mean  7.0
+above weakest + cap 8   <- SHIPPING      min 0  median  6  max  8  mean  5.3
+```
+
+The middle rule was recommended first, on 08-13 evidence alone, and that recommendation
+was **wrong**: it reads as 11 that night only because the slate gated thin (pool 29). A
+normal slate gates 40–47 and the tickets absorb ~21, which puts it straight back near 20.
+
+**3. Chef's 13 graded nights were backed out of `season.json`.** Season **+148.74u →
++198.46u**. Method mattered here: rather than subtracting the category total, all 13 slips
+were re-graded from the archived boards, and the 12 nights with stored outcomes reproduced
+the recorded `−44.22u / 66.0 staked / 2 wins` **exactly** — which is what validates the
+remainder for 08-13 (`−5.50u`, matching that board's `rr.risk` of 5.5, since StatsAPI is
+unreachable from the sandbox). Nightly nets were subtracted from the cumulative curve from
+each night forward; `cats` and `history` reconcile at 198.46.
+
+**Also measured, and rejected: rolling `GAME_CAP` back.** The owner asked what a "3 per
+team" rule would do to the undrafted count. 3-per-GAME (the pre-2026-07-04 rule) drops the
+board from 12 tickets to **9** — two moons and a builder — and moves the undrafted count
+only 26 → 24. A literal 3-per-TEAM cap (≤6/game) gives 25. The cap moves both ends of the
+window together. `GAME_CAP` stays at 4.
+
+**Verification before deploy.** Full `client_sweep.js` pass, 10:00→23:00 on 2026-08-13,
+20-minute steps: 383 locked-slip integrity checks, `count=0 integrity=0 anchors!=builders=0
+pairing=0 structural=0 one-bat-one-slip=0` — identical to the unpatched baseline.
+
+**Known behaviour, not a bug.** On a cold 08-13 draft Kyle Schwarber (`TOTAL` 193.6, the
+best bat on the slate) lands in the Family Meal: his game sat at 40% rain, which bars
+anchoring under the rain bands, so he cleared the gate and made nothing. The section will
+sometimes lead with a name that looks like it obviously should have been on a slip.
+
+**Still open.** `drawTracker`'s `defs` array still carries a `chef` row. It is harmless —
+the row only renders when the category exists, and the category is gone — but it should be
+pruned on the next pass.
