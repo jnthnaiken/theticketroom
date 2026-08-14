@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T22:37:53Z",
+  "pulled_at": "2026-08-14T22:43:26Z",
   "games": [
     {
       "gamePk": 824643,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 645261,
           "name": "Sandy Alcantara",
-          "hr9": 0.93,
+          "hr9": 0.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -188,7 +188,7 @@
           {
             "id": 691788,
             "name": "Joe Mack",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 688363,
@@ -240,7 +240,7 @@
           {
             "id": 667472,
             "name": "Dane Myers",
-            "iso": 0.093
+            "iso": 0.092
           },
           {
             "id": 682622,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823346,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-14T22:40:00Z",
       "matchup": "BOS@PIT",
       "away": {
@@ -286,7 +286,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.079
+            "iso": 0.078
           },
           {
             "id": 807799,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 824237,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-14T22:40:00Z",
       "matchup": "CWS@DET",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823591,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -1537,16 +1537,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 79.5,
-        "wind_mph": 9.0,
-        "wind_dir": 240,
-        "tail_mph": 9.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.046
+      "wf": 1.0
     },
     {
       "gamePk": 823913,
