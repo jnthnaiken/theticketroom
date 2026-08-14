@@ -394,7 +394,7 @@ header{position:relative}
 </div><a class="tipjar tip-nav" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
- <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="family">🍳 Family Meal</button><button class="tbtn" data-type="builder">⚓️ Anchors</button><button class="tbtn" data-type="moon">🚀 Moonshots</button><button class="tbtn" data-type="biggest">🥪 Grand Salami</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
+ <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="family">🍳 Family Meal</button><button class="tbtn" data-type="builder">⚓️ Anchors</button><button class="tbtn" data-type="moon">🚀 Moonshots</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
  <div class="grid tgrid" id="tickets"></div>
 </section>
 <section id="v-p" role="tabpanel" aria-labelledby="tab-p" hidden>
@@ -516,7 +516,7 @@ function drawTickets(){
  if(ty==='all'||ty==='family')html+=sec('fam','Family Meal',fam);
  if(ty==='all'||ty==='builder')html+=sec('sug','Anchors',builder);
  if(ty==='all'||ty==='moon')html+=sec('lot','Moonshots',moon);
- if((ty==='all'||ty==='biggest')&&(big.length||!q))html+='<div class="tsec big"><span class="tsech">Grand Salami</span><span class="tline"></span></div>'+(big.length?big.map(ticketCard).join(''):noSalami);
+ if((ty==='all'||ty==='biggest')&&big.length)html+='<div class="tsec big"><span class="tsech">Grand Salami</span><span class="tline"></span></div>'+big.map(ticketCard).join('');   // 2026-08-14: retired -- the section only renders for a salami that actually exists (a settled/carried one). The `noSalami` empty state is gone: with the slip retired it would print every night.
 function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co.bats.length)return '';
  var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr">⚾ homered</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
@@ -970,7 +970,13 @@ drawTickets();drawPlayers();drawTracker();
   var TIP_URL='https://venmo.com/u/TheTicketRoom';
 
   // ---- assembler constants (mirror assembler_src.py) ----
-  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;   /* LUNCH_CUT 16*60 -> 17*60 on 2026-08-13 (mirrors assemble_tickets.py LUNCH_CUT_MIN). At 4:00 PM a 4:05 first
+  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
+  var SALAMI_TICKET=false;   /* GRAND SALAMI RETIRED 2026-08-14, owner's call. Worst line on the ledger:
+     -100.2u on 192.5 staked (-52.1%) over 35 real slips. MOONS STAY AT 6 -- sidx is left alone on purpose,
+     so the weakest anchor is still held back from leading moons and the moon board is unchanged; the salami
+     is simply not built and its bats stay in the pool. Freeing that anchor to lead two more moons was
+     measured and rejected (8 moons, -10.5u/night over 37 nights, inside noise). Retiring it grades at
+     +0.03u/night (t=0.01) on 23% less stake and lower variance. Flip to true to bring it back. */   /* LUNCH_CUT 16*60 -> 17*60 on 2026-08-13 (mirrors assemble_tickets.py LUNCH_CUT_MIN). At 4:00 PM a 4:05 first
      pitch counted as an evening game: on 08-13 CHC@WSH (4:05) could reach only ONE other game inside WIN=120, so
      Abimelec Ortiz (TOTAL 150.7, +463) could neither anchor nor leg any parlay, was blocked from the chef seat by
      Crow-Armstrong in his own game, and then missed the lunch window by FIVE MINUTES -- the best bat on the slate
@@ -1320,7 +1326,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         pls.forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } t.legs=[t.legs[0]]; t.games={}; t.games[P[t.legs[0]].game]=1; });
         pa=byS(pa); fillRound();
       }
-      if(sidx!=null){                                   // the salami anchor is reserved, so it is always here
+      if(SALAMI_TICKET&&sidx!=null){                                   // the salami anchor is reserved, so it is always here
         var _si=pa.indexOf(al[sidx]); if(_si>=0) pa.splice(_si,1);
         var sg={}; sg[P[al[sidx]].game]=1;
         var sal={rank:sidx,kind:'biggest',badge:'🥪',rr:{struct:"by 2s, 3s & 4",risk:5.5},legs:[al[sidx]],need:3,games:sg};
@@ -1604,6 +1610,9 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       // still-alive legs for continuity, else we build fresh from the strongest leftovers. Running last means it can
       // NEVER cannibalize a moon leg. distinct-game + WIN enforced; ships only a full 4-leg slip, never a stub. ----
       (function(){
+        if(!SALAMI_TICKET)return;   /* 2026-08-14: the SALVAGE path must be off too. It rebuilds the slip from
+          leftovers even when the draft never made one, so gating only the two draft sites leaves the salami
+          quietly resurrecting itself -- exactly what happened on the first pass of this change. */
         if(out.some(function(t){return t.kind==='biggest';}))return;                                   // salami already shipped
         var ps=prior.filter(function(t){return t.kind==='biggest'&&!isLocked(t);})[0];                  // prior salami if any (may be absent)
         var need=ps?(ps.nlegs||(ps.players?ps.players.length:4)):4;
@@ -1740,7 +1749,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           pls.forEach(function(t){ for(var z=1;z<t.legs.length;z++){ if(pa.indexOf(t.legs[z])<0) pa.push(t.legs[z]); } t.legs=[t.legs[0]]; t.games={}; t.games[P[t.legs[0]].game]=1; });   // FULL REDRAFT: return every surviving ticket's legs and rebuild from scratch
           pa=byS(pa); fillRound();
         }
-        if(sidx!=null && pa.indexOf(al[sidx])>=0){   // MOONS WIN, SALAMI IS LEFTOVER: build the salami on the weakest anchor from the legs the moons left behind; ships only if that anchor wasn't drafted into a moon
+        if(SALAMI_TICKET&&sidx!=null && pa.indexOf(al[sidx])>=0){   // MOONS WIN, SALAMI IS LEFTOVER: build the salami on the weakest anchor from the legs the moons left behind; ships only if that anchor wasn't drafted into a moon
           pa.splice(pa.indexOf(al[sidx]),1);
           var sg={}; sg[P[al[sidx]].game]=1;
           var sal={rank:sidx,kind:'biggest',badge:'🥪',rr:{struct:"by 2s, 3s & 4",risk:5.5},legs:[al[sidx]],need:3,games:sg};

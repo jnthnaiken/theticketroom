@@ -276,7 +276,8 @@ corrected there.)
   slate gated unusually thin at 29). Expect it to occasionally lead with a name that looks
   like it obviously should have been drafted: on 08-13 that is Kyle Schwarber at `TOTAL`
   193.6, the top bat on the slate, whose game sat at 40% rain — which bars anchoring.
-- **Anchors** — 4 total (3 moon anchors + 1 salami anchor), the strongest *fittable*
+- **Anchors** — 4 total (3 moon anchors + 1 reserved anchor that used to lead the salami; since
+  2026-08-14 that seat is still reserved — it keeps moons at 6 — but nothing is built on it), the strongest *fittable*
   bats by model `TOTAL`. **UP TO `ANCH_PER_GAME` (2) ANCHORS PER GAME** (2026-08-13, owner decision;
   this replaced the one-per-game rule added 2026-08-10 after Olson *and* Baldwin both anchored in
   NYM@ATL). Two strong bats in one game may each lead their own pair of moons — no ticket may still
@@ -290,7 +291,21 @@ corrected there.)
   anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
   ships both its moons or none; on a thin slate the **weakest anchor** demotes
   rather than ship a lopsided board.
-- **Salami** ("biggest") — **MOONS WIN, THE SALAMI IS LEFTOVER.** The moons fill first and the
+- **Salami** ("biggest") — **RETIRED 2026-08-14** (`SALAMI_TICKET=false`). It was the worst line
+  on the ledger: **−100.2u on 192.5 staked (−52.1%) over 35 real slips**. **Moons stay at 6** —
+  `sidx` is deliberately left alone, so the weakest anchor is still held back from leading moons
+  and the moon board is unchanged; the slip is simply not built and its bats stay in the pool.
+  Freeing that anchor to lead two more moons was measured and rejected (8 moons a night, −10.5u
+  a night over 37 graded cold drafts, inside noise). Retiring it grades at **+0.03u/night
+  (t = 0.01)** on **23% less stake** (766u vs 991u) with lower variance, better on 27/37 nights.
+  **Three** build sites are behind the flag — the prior path, the fresh draft, and the
+  client-side salvage/rebuild pass, which will resurrect the slip on its own if you miss it.
+  The section and its view chip are gone too, or the "not enough meat" empty state would print
+  nightly. The `biggest` tracker row and its `season.json` history **stay** — unlike the chef
+  test, those were real bets, really graded; the line stops accruing, it is not erased.
+  Builders drop from 4 to 3 a night, since the retired anchor no longer mirrors.
+  The rules below describe how it worked and apply again if the flag is flipped back.
+  **MOONS WIN, THE SALAMI IS LEFTOVER.** The moons fill first and the
   all-or-none demote loop settles; the salami is then built from what they left behind, seed-based
   (try each candidate as a start seed, strongest first, and complete it to 4 distinct games inside
   one `WIN`). It ships **only as a full 4-leg set** — never a stub — and its **anchor is its
@@ -373,7 +388,10 @@ Behavior that's load-bearing:
   single-moon anchor). A scratched-anchor moon **re-anchors to one replacement** for the
   whole pair; a `spanOk` guard drops any kept leg outside the replacement's game-time
   window, so a re-anchored moon **never exceeds `WIN`** — it refills in-window or demotes.
-- **Salami is leftover — built (or rebuilt) client-side.** The Grand Salami runs *last*,
+- **Salami is leftover — built (or rebuilt) client-side.** ⚠️ **RETIRED 2026-08-14; this whole
+  path is behind `SALAMI_TICKET` and does not run.** It is the third and least obvious build site:
+  gating only the two draft sites leaves it rebuilding the slip from leftovers. Kept for reference.
+  The Grand Salami runs *last*,
   after the moons are final, from the bats they leave behind (the broader eligible field,
   priced/in-lineup/<70% rain). It covers both a baked salami that lost a leg to a live
   scratch **and** a slate where the server's fresh draft shipped no salami at all (its
@@ -395,7 +413,7 @@ Behavior that's load-bearing:
 
 `season.json` is the source of truth for the running tracker; `grade_night.py` is
 the only thing that writes its history. Current epoch is **since 2026-06-30**
-(running **+198.46u through 2026-08-13** — moons carry it at ≈ +313u, the salami
+(running **+196.09u through 2026-08-13**, Family Meal included — moons carry it at ≈ +313u, the salami
 round-robin bleeds at ≈ −100u), rolling forward each morning as the prior night
 settles.
 

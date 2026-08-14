@@ -9,6 +9,17 @@
 > Draft rules as of 2026-08-14 live in `README.md` — that file is kept current; this one is a log.
 
 
+> **2026-08-14, later: the Grand Salami is retired too** (`SALAMI_TICKET=false`), owner's call.
+> Worst line on the ledger: −100.2u on 192.5 staked (−52.1%) over 35 real slips. **Moons stay at
+> 6** — `sidx` is left alone on purpose so the weakest anchor is still held back from moon-anchoring;
+> the slip just is not built and its bats stay in the pool. Builders drop 4 → 3. Retiring it grades
+> at +0.03u/night (t = 0.01) on 23% less stake with lower variance, better on 27/37 nights; the
+> 8-moon variant (freeing that anchor) graded −10.5u/night and was rejected.
+> **THREE build sites** must be gated: the prior path, the fresh draft, and the client-side
+> SALVAGE/REBUILD pass — the third one silently resurrected the slip on the first attempt.
+> The section and view chip are removed; the `biggest` tracker row and ledger history STAY, because
+> unlike the chef test those were real bets. `const noSalami` is now dead code.
+
 Quick-start status so a fresh session can continue without re-deriving context.
 
 ## ⛔ DAILY BUILD WORKFLOW — READ THIS FIRST, DO NOT ASK
