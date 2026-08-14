@@ -1,11 +1,11 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T20:57:19Z",
+  "pulled_at": "2026-08-14T21:00:53Z",
   "games": [
     {
       "gamePk": 824643,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-14T18:20:00Z",
       "matchup": "STL@CHC",
       "away": {
@@ -1440,16 +1440,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 72\u00b0",
-        "lean": "Boost",
-        "temp": 72.3,
-        "wind_mph": 7.8,
-        "wind_dir": 243,
-        "tail_mph": 6.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.025
+      "wf": 1.0
     },
     {
       "gamePk": 823185,
