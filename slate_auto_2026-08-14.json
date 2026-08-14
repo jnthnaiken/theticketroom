@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T22:43:26Z",
+  "pulled_at": "2026-08-14T22:47:52Z",
   "games": [
     {
       "gamePk": 824643,
@@ -153,7 +153,7 @@
           {
             "id": 805300,
             "name": "Jakob Marsee",
-            "iso": 0.103
+            "iso": 0.102
           },
           {
             "id": 669364,
@@ -193,7 +193,7 @@
           {
             "id": 688363,
             "name": "Graham Pauley",
-            "iso": 0.109
+            "iso": 0.108
           }
         ],
         "confirmed": true
@@ -203,7 +203,7 @@
         "sp": {
           "id": 695505,
           "name": "Chase Burns",
-          "hr9": 0.93,
+          "hr9": 0.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -296,12 +296,12 @@
           {
             "id": 668939,
             "name": "Adley Rutschman",
-            "iso": 0.178
+            "iso": 0.177
           },
           {
             "id": 575929,
             "name": "Willson Contreras",
-            "iso": 0.249
+            "iso": 0.248
           },
           {
             "id": 677800,
@@ -429,12 +429,12 @@
           {
             "id": 678246,
             "name": "Miguel Vargas",
-            "iso": 0.235
+            "iso": 0.234
           },
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 695731,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 824399,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "SD@CLE",
       "away": {
@@ -1537,9 +1537,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 79.5,
+        "wind_mph": 9.0,
+        "wind_dir": 240,
+        "tail_mph": 9.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.046
     },
     {
       "gamePk": 823913,
