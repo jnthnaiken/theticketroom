@@ -695,14 +695,18 @@ Three owner decisions, all explicit. Nothing here was inferred.
 **1. The Chef's Table ticket is retired.** It was a test. `var CHEF_TICKET=false` in
 `index.html` gates the `out.push()`; the chalk *reservation* above it is deliberately
 untouched, so the top-`CHALK_N` favourites are still barred from moons/salami/builders.
-A chef slip already **locked** on a placed board is still carried verbatim by the
-prior-board path — retiring it only stops new ones. The 10:00→23:00 sweep on the 08-13
-board still reports `n=14` for exactly that reason.
+Chef is dropped from the board outright: `prior` is filtered before the draft, so a chef
+ticket on a prior board is **not carried**, and no Chef's Table section renders. The first
+cut of this change kept locked chef slips visible — wrong, corrected the same day. The
+10:00→23:00 sweep on the 08-13 board reports `n=13`.
 
 **2. The Family Meal replaces it as a display section.** Not a ticket: nothing staked,
 nothing graded, `season.json` untouched. A bat qualifies when it cleared the pool gate,
 was not chalk, made no slip, and **outscored the weakest bat the board actually drafted**;
-the list is then capped at 8. Emitted as `D.family` / `D.familyFloor`. Named by the owner —
+the list is then capped at 8. Emitted as `D.family` / `D.familyFloor`, where `D.family` holds
+**leg objects in ticket-leg shape** so the section renders through the board's own section
+header, `.slip` shell and `legRow()` — structurally identical to every other card, not bespoke
+markup (the first cut used its own row markup; corrected the same day). Named by the owner —
 "orphans" was proposed and rejected.
 
 Sizing evidence, all cold-drafted through the real client engine over the 37 stored nights:

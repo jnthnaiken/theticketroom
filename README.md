@@ -246,16 +246,20 @@ corrected there.)
   challenger beats it by `CHEF_HYST` (0.02) of normalised strength, and a bat already on a
   **placed** (frozen or clock-locked) parlay is **not chalk-eligible** — a placed bet is a
   fact and the seat is still open, so the open one moves (2026-08-13).
-  A chef slip already **locked** on a placed board is still carried verbatim by the
-  prior-board path; retiring the ticket only stops *new* ones. Flip `CHEF_TICKET` to bring
-  it back. `assemble_tickets.py` never built one (`chalk = set()`) and needs no change.
+  The slip is gone from the board entirely: a chef ticket on a prior board is **dropped, not
+  carried**, and no Chef's Table section renders any more. (The first cut of this change kept
+  locked chef slips on the board; that was wrong and was corrected the same day — a retired
+  ticket must not keep appearing.) Flip `CHEF_TICKET` to bring it back.
+  `assemble_tickets.py` never built one (`chalk = set()`) and needs no change.
   Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
   their time windows, `<= +600`.
 - **Family Meal — a display section, not a ticket (2026-08-14).** Occupies the slot the
   Chef's Table used to hold. A bat is on it when it (a) cleared the pool gate, (b) was not
   reserved as chalk, (c) landed on no slip, and (d) **scored higher than the weakest bat the
   board actually drafted** — then the list is capped at **8** by `TOTAL`. Emitted as
-  `D.family` (plus `D.familyFloor`, the weakest drafted `TOTAL`, for auditability).
+  `D.family` (plus `D.familyFloor`, the weakest drafted `TOTAL`, for auditability) — as **leg
+  objects in the same shape as ticket legs**, so the section renders through the board's own
+  section header, `.slip` shell and `legRow()`, structurally identical to every other card.
   Nothing here is staked, priced as a parlay, or graded; it never touches `season.json`.
   Clause (d) is the point: without it the section is just "everyone who missed", which runs
   ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at
