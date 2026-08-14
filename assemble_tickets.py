@@ -17,12 +17,16 @@ RULES (match the code below):
   * Moons          = ~2 per non-salami anchor; anchor + 2 longshots, snake-drafted, legs inside a WIN(=120)-min window.
   * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
   * Builders       = leftover / sub-gate bats as single-leg bankroll plays.
-  * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (4:00 PM ET).
+  * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (5:00 PM ET, widened 2026-08-13).
   * Ticket names   = rotated by day-of-year, no repeats.
 """
 import re, datetime
 
-LUNCH_CUT_MIN = 16 * 60          # 4:00 PM ET splits the lunch window from night
+LUNCH_CUT_MIN = 17 * 60          # 5:00 PM ET splits the lunch window from night. 2026-08-13: was 16*60,
+                                 # which made a 4:05 PM first pitch an 'evening' game. On 08-13 that cost the
+                                 # board Abimelec Ortiz (TOTAL 150.7, +463): CHC@WSH at 4:05 could reach only
+                                 # ONE other game inside WIN, so he could not anchor or leg any parlay, and he
+                                 # missed the lunch window by FIVE MINUTES. A matinee is a matinee.
 NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
 CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
