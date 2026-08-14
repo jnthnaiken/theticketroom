@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T19:06:47Z",
+  "pulled_at": "2026-08-14T19:12:11Z",
   "games": [
     {
       "gamePk": 824643,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 605280,
           "name": "Clay Holmes",
-          "hr9": 0.6,
+          "hr9": 0.59,
           "hand": "RHP"
         },
         "lineup": [
@@ -929,16 +929,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 12mph, 60\u00b0",
-        "lean": "Boost",
-        "temp": 59.9,
-        "wind_mph": 12.9,
-        "wind_dir": 283,
-        "tail_mph": 12.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     }
   ]
 }
