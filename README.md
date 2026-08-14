@@ -253,16 +253,21 @@ corrected there.)
   `assemble_tickets.py` never built one (`chalk = set()`) and needs no change.
   Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
   their time windows, `<= +600`.
-- **Family Meal — a display section, not a ticket (2026-08-14).** Occupies the slot the
-  Chef's Table used to hold. A bat is on it when it (a) cleared the pool gate, (b) was not
-  reserved as chalk, (c) landed on no slip, and (d) **scored higher than the weakest bat the
-  board actually drafted** — then the list is capped at **8** by `TOTAL`. Emitted as
-  `D.family` (plus `D.familyFloor`, the weakest drafted `TOTAL`, for auditability) — as
-  **one-leg tickets built exactly like `mkBuilder`**, so the section renders **one card per bat
-  through the same `sec()` + `ticketCard()` path as the Anchors section**. They are deliberately
-  kept OUT of `D.tickets`: `grade_night.py` folds `D.tickets` into `season.json`, and these are
-  not bets. They are priced for display by `priceTicket` and never counted as tickets.
-  Nothing here is staked, priced as a parlay, or graded; it never touches `season.json`.
+- **Family Meal — a ticket kind (2026-08-14).** Occupies the slot the Chef's Table used to
+  hold. A bat is on it when it (a) cleared the pool gate, (b) was not reserved as chalk,
+  (c) landed on no slip, and (d) **scored higher than the weakest bat the board actually
+  drafted** — then the list is capped at **`FAM_CAP` (8)** by `TOTAL`.
+  **It is a ticket like any other**: the slips are built into `out` (just before the
+  wxsum/note pass), so they land in `D.tickets`, carry a `cwNote()` description, are priced by
+  `priceTicket`, obey the lock/carry doctrine, and are **folded into `season.json` by
+  `grade_night.py`** at 1u a slip like a builder single. One card per bat, rendered through the
+  same `sec()` + `ticketCard()` path as the Anchors section, with its own **Family Meal row in
+  the season tracker**. `D.familyFloor` records the weakest drafted `TOTAL` for auditability.
+  Two build details matter: family bats are **excluded from the drafted set that sets the
+  floor** (otherwise the section raises its own bar on every pass), and a bat already on a
+  **carried locked** family slip is skipped so the carry is never duplicated.
+  `assemble_tickets.py` does not build them — it is a non-mirroring emergency fallback, same as
+  it was for the chef ticket.
   Clause (d) is the point: without it the section is just "everyone who missed", which runs
   ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at
   **0–8, median 6, mean 5.3**. The two looser readings were measured and rejected — the rank

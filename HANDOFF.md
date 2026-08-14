@@ -700,15 +700,23 @@ ticket on a prior board is **not carried**, and no Chef's Table section renders.
 cut of this change kept locked chef slips visible — wrong, corrected the same day. The
 10:00→23:00 sweep on the 08-13 board reports `n=13`.
 
-**2. The Family Meal replaces it as a display section.** Not a ticket: nothing staked,
-nothing graded, `season.json` untouched. A bat qualifies when it cleared the pool gate,
-was not chalk, made no slip, and **outscored the weakest bat the board actually drafted**;
-the list is then capped at 8. Emitted as `D.family` / `D.familyFloor`, where `D.family` holds
-**one-leg tickets built exactly like `mkBuilder`**, so the section renders **one card per bat
-through the same `sec()` + `ticketCard()` path as Anchors**. Two wrong cuts preceded this, both
-mine: bespoke row markup, then a single multi-leg card. It must look like the Anchors section.
-They stay OUT of `D.tickets` -- `grade_night.py` folds that into `season.json` and these are not
-bets. Named by the owner -- "orphans" was proposed and rejected.
+**2. The Family Meal replaces it, as a REAL TICKET KIND.** A bat qualifies when it cleared
+the pool gate, was not chalk, made no slip, and **outscored the weakest bat the board actually
+drafted**; the list is then capped at `FAM_CAP` (8). The slips are built into `out` just before
+the wxsum/note pass, so they are ordinary tickets: they are in `D.tickets`, they get a
+`cwNote()` description, `priceTicket` prices them, they lock and carry like anything else, and
+`grade_night.py` folds them into `season.json` at 1u a slip. One card per bat through the same
+`sec()` + `ticketCard()` path as Anchors, plus a **Family Meal row in the season tracker**.
+
+Three wrong cuts preceded this, all mine, all the same mistake -- inventing instead of matching:
+bespoke row markup; then a single multi-leg card; then one-card-per-bat but held outside
+`D.tickets` so it had no descriptions and never reached the ledger. **"Like the rest of the
+board" means all the way down.** Named by the owner -- "orphans" was proposed and rejected.
+
+Build details that matter: family bats are excluded from the drafted set that sets the floor
+(otherwise the section raises its own bar every pass), and a bat already on a carried locked
+family slip is skipped so the carry is never duplicated. `assemble_tickets.py` does not build
+them -- non-mirroring emergency fallback, same as it was for chef.
 
 Sizing evidence, all cold-drafted through the real client engine over the 37 stored nights:
 
