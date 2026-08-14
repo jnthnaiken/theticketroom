@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T23:08:20Z",
+  "pulled_at": "2026-08-14T23:12:21Z",
   "games": [
     {
       "gamePk": 824643,
@@ -235,12 +235,12 @@
           {
             "id": 669911,
             "name": "Michael Toglia",
-            "iso": 0.0
+            "iso": 0.143
           },
           {
             "id": 667472,
             "name": "Dane Myers",
-            "iso": 0.092
+            "iso": 0.091
           },
           {
             "id": 682622,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823591,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 824399,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "SD@CLE",
       "away": {
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 822942,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "BAL@TB",
       "away": {
@@ -1476,8 +1476,54 @@
           "hr9": 1.3,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.209
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.168
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.191
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.171
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.174
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.206
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.0
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.163
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1803,9 +1849,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 13mph, 61\u00b0",
+        "lean": "Boost",
+        "temp": 60.8,
+        "wind_mph": 12.8,
+        "wind_dir": 277,
+        "tail_mph": 12.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.03
     }
   ]
 }
