@@ -21771,8 +21771,8 @@
     "factor": 1.046,
     "park": "CLE@DET",
     "cond": "4 mph",
-    "rain": "9% rain",
-    "precip": 9
+    "rain": "1% rain",
+    "precip": 1
    },
    "2": {
     "emoji": "\ud83c\udfdf",
@@ -21789,8 +21789,8 @@
     "factor": 1.018,
     "park": "SEA@NYY",
     "cond": "8 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "5% rain",
+    "precip": 5
    },
    "4": {
     "emoji": "\u2600\ufe0f",
@@ -21798,8 +21798,8 @@
     "factor": 1.002,
     "park": "CIN@CWS",
     "cond": "6 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "13% rain",
+    "precip": 13
    },
    "5": {
     "emoji": "\ud83c\udfdf",
@@ -21816,17 +21816,17 @@
     "factor": 1.027,
     "park": "CHC@WSH",
     "cond": "5 mph",
-    "rain": "0% rain",
-    "precip": 0
+    "rain": "3% rain",
+    "precip": 3
    },
    "7": {
-    "emoji": "\u2600\ufe0f",
+    "emoji": "\ud83c\udf27\ufe0f",
     "lean": "Neutral",
     "factor": 1.005,
     "park": "PHI@MIN",
     "cond": "7 mph",
-    "rain": "4% rain",
-    "precip": 4
+    "rain": "40% rain",
+    "precip": 40
    },
    "8": {
     "emoji": "\u2600\ufe0f",
@@ -21834,8 +21834,8 @@
     "factor": 1.031,
     "park": "TEX@LAA",
     "cond": "6 mph",
-    "rain": "0% rain",
-    "precip": 0
+    "rain": "1% rain",
+    "precip": 1
    },
    "9": {
     "emoji": "\u2600\ufe0f",
@@ -21843,11 +21843,11 @@
     "factor": 1.037,
     "park": "MIL@LAD",
     "cond": "7 mph",
-    "rain": "0% rain",
-    "precip": 0
+    "rain": "1% rain",
+    "precip": 1
    }
   },
-  "build": "8/13 11:57pm",
+  "build": "8/14 12:01am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -22545,162 +22545,10 @@
    "payout10": 6770.47
   },
   {
-   "name": "Hold Fast",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Cal Raleigh is crushing contact at an elite rate (60% hard-hit), packs elite raw power, a 100/100 grade, the bat's heating up.",
-   "players": [
-    {
-     "name": "Cal Raleigh",
-     "team": "Mariners",
-     "total": 163.8,
-     "aT": 100,
-     "wf": 1.018,
-     "gmatch": "SEA@NYY",
-     "gtime": "1:35 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 300,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Cal Raleigh",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 1,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 300,
-   "payout10": 40
-  },
-  {
-   "name": "Ground Tackle",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Trent Grisham is stinging it on a rope (53% hard-hit), stays in the launch zone (23\u00b0), swings a heavy stick (73/100 power), recent form points up.",
-   "players": [
-    {
-     "name": "Trent Grisham",
-     "team": "Yankees",
-     "total": 156.2,
-     "aT": 100,
-     "wf": 1.018,
-     "gmatch": "SEA@NYY",
-     "gtime": "1:35 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 300,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Trent Grisham",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 1,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 300,
-   "payout10": 40
-  },
-  {
-   "name": "Calm Seas",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Wilyer Abreu is blistering line drives (55% hard-hit), has the raw juice to clear any wall (100/100 power), carries a 157 number tonight.",
-   "players": [
-    {
-     "name": "Wilyer Abreu",
-     "team": "Red Sox",
-     "total": 157.3,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "BOS@TOR",
-     "gtime": "3:07 PM ET",
-     "game": 5,
-     "late": false,
-     "odds": 300,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Wilyer Abreu",
-   "lock": "3:07 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 1,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 300,
-   "payout10": 40
-  },
-  {
-   "name": "Weigh Anchor",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Luis Garc\u00eda is hitting line drives (47% hard-hit), gets there more on timing than thump (32/100 power), he's squaring more up lately.",
-   "players": [
-    {
-     "name": "Luis Garc\u00eda",
-     "team": "Yankees",
-     "total": 131.4,
-     "aT": 100,
-     "wf": 1.018,
-     "gmatch": "SEA@NYY",
-     "gtime": "1:35 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 315,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Luis Garc\u00eda",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 1,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 315,
-   "payout10": 41.5
-  },
-  {
    "name": "The Prix Fixe",
    "kind": "chef",
    "badge": "\ud83c\udf7d",
-   "note": "Schwarber keeps the ball in the air (20\u00b0), Rice is leaving scorch marks (65% hard-hit), Crow-Armstrong gets a sliver of help from the park, and Ohtani carries a 160 number tonight.",
+   "note": "Schwarber keeps the ball in the air (20\u00b0), Rice is leaving scorch marks (65% hard-hit), Crow-Armstrong gets a sliver of help from the park, and Ohtani grades to 160 on our board.",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -22815,19 +22663,176 @@
    "parlay_am": 345,
    "payout10": 44.5,
    "locked": true
+  },
+  {
+   "name": "Hold Fast",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Cal Raleigh is crushing contact at an elite rate (60% hard-hit), packs elite raw power, a 100/100 grade, the swing's trending up.",
+   "players": [
+    {
+     "name": "Cal Raleigh",
+     "team": "Mariners",
+     "total": 163.8,
+     "aT": 100,
+     "wf": 1.018,
+     "gmatch": "SEA@NYY",
+     "gtime": "1:35 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 300,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Cal Raleigh",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1
+  },
+  {
+   "name": "Ground Tackle",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Trent Grisham is stinging it on a rope (53% hard-hit), stays in the launch zone (23\u00b0), packs a big-league power grade (73/100).",
+   "players": [
+    {
+     "name": "Trent Grisham",
+     "team": "Yankees",
+     "total": 156.2,
+     "aT": 100,
+     "wf": 1.018,
+     "gmatch": "SEA@NYY",
+     "gtime": "1:35 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 300,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Trent Grisham",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1
+  },
+  {
+   "name": "Calm Seas",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Wilyer Abreu is blistering line drives (55% hard-hit), has the raw juice to clear any wall (100/100 power), projects out to 157.",
+   "players": [
+    {
+     "name": "Wilyer Abreu",
+     "team": "Red Sox",
+     "total": 157.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "BOS@TOR",
+     "gtime": "3:07 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 300,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Wilyer Abreu",
+   "lock": "3:07 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 1
+  },
+  {
+   "name": "Weigh Anchor",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Luis Garc\u00eda is squaring up a good chunk (47% hard-hit), gets there more on timing than thump (32/100 power), he's squaring more up lately.",
+   "players": [
+    {
+     "name": "Luis Garc\u00eda",
+     "team": "Yankees",
+     "total": 131.4,
+     "aT": 100,
+     "wf": 1.018,
+     "gmatch": "SEA@NYY",
+     "gtime": "1:35 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 315,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Luis Garc\u00eda",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1
   }
  ],
  "pool": [
+  "Cal Raleigh",
+  "Wilyer Abreu",
+  "Joc Pederson",
+  "Trent Grisham",
   "Mike Trout",
+  "Spencer Jones",
   "Abimelec Ortiz",
   "Andy Pages",
   "Jake Bauers",
+  "Willson Contreras",
   "Teoscar Hern\u00e1ndez",
+  "Randal Grichuk",
+  "Miguel Vargas",
   "Kody Clemens",
   "CJ Abrams",
   "Bryce Harper",
   "Corey Seager",
   "Seiya Suzuki",
-  "Wyatt Langford"
+  "Brandon Lowe",
+  "Eduardo Valencia",
+  "Kazuma Okamoto",
+  "Spencer Torkelson",
+  "Dillon Dingler",
+  "Jazz Chisholm",
+  "Jo Adell",
+  "Wyatt Langford",
+  "Luis Garc\u00eda",
+  "Nathaniel Lowe",
+  "Esmerlyn Valdez",
+  "Sal Stewart",
+  "JJ Bleday",
+  "Griffin Conine"
  ]
 }
