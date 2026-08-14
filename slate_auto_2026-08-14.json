@@ -1,11 +1,11 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T18:16:34Z",
+  "pulled_at": "2026-08-14T18:21:55Z",
   "games": [
     {
       "gamePk": 824643,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-14T18:20:00Z",
       "matchup": "STL@CHC",
       "away": {
@@ -260,7 +260,7 @@
         "wind_mph": 4.2,
         "wind_dir": 254,
         "tail_mph": 4.2,
-        "precip": 3
+        "precip": 5
       },
       "wf": 1.023
     },
@@ -301,7 +301,7 @@
         "wind_mph": 9.4,
         "wind_dir": 65,
         "tail_mph": -7.7,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.997
     },
@@ -342,7 +342,7 @@
         "wind_mph": 6.1,
         "wind_dir": 163,
         "tail_mph": 4.5,
-        "precip": 6
+        "precip": 5
       },
       "wf": 1.033
     },
@@ -658,16 +658,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 72\u00b0",
-        "lean": "Boost",
-        "temp": 72.1,
-        "wind_mph": 7.6,
-        "wind_dir": 249,
-        "tail_mph": 5.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.022
+      "wf": 1.0
     },
     {
       "gamePk": 823185,
