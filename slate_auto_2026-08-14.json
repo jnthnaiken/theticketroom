@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T19:00:30Z",
+  "pulled_at": "2026-08-14T19:06:47Z",
   "games": [
     {
       "gamePk": 824643,
@@ -13,14 +13,14 @@
         "sp": {
           "id": 669461,
           "name": "Matthew Liberatore",
-          "hr9": 1.56,
+          "hr9": 1.54,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 802139,
             "name": "JJ Wetherholt",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 671056,
@@ -107,12 +107,12 @@
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 621438,
             "name": "Tyrone Taylor",
-            "iso": 0.236
+            "iso": 0.234
           },
           {
             "id": 621020,
@@ -399,7 +399,7 @@
     },
     {
       "gamePk": 823591,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -421,10 +421,56 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.132
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.191
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.118
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.141
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.139
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.181
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.145
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.17
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.137
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -440,7 +486,7 @@
     },
     {
       "gamePk": 824399,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "SD@CLE",
       "away": {
@@ -462,10 +508,56 @@
           "hr9": 1.37,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.062
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.16
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.194
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.21
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.141
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.148
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.097
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.109
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -481,7 +573,7 @@
     },
     {
       "gamePk": 822942,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "BAL@TB",
       "away": {
@@ -503,10 +595,56 @@
           "hr9": 1.72,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.164
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.146
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.058
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.274
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.163
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.239
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.149
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.113
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.083
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
