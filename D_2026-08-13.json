@@ -21883,12 +21883,6 @@
      "won": 5,
      "units": 0.21,
      "staked": 25
-    },
-    "chef": {
-     "graded": 12,
-     "won": 2,
-     "units": -44.22,
-     "staked": 66
     }
    },
    "history": [
@@ -21906,7 +21900,7 @@
     350.06,
     356.64,
     351.1,
-    331,
+    331.0,
     326.16,
     350.47,
     419.66,
@@ -21919,18 +21913,18 @@
     349.98,
     338.76,
     331.32,
-    324.21,
-    296.21,
-    292.12,
-    264.12,
-    245.68,
-    258.84,
-    254.49,
-    229.09,
-    214.81,
-    186.81,
-    201.84,
-    176.74
+    329.71,
+    307.21,
+    308.62,
+    286.12,
+    262.62,
+    281.28,
+    282.43,
+    262.53,
+    242.53,
+    220.03,
+    240.56,
+    220.96
    ],
    "graded_nights": [
     "2026-06-01",
@@ -22001,13 +21995,13 @@
     "2026-08-11",
     "2026-08-12"
    ],
-   "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet."
+   "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet. | 2026-08-14: Chef's Table RETIRED and its 13 graded nights (08-01..08-13) backed out of the ledger at the owner's direction -- the slip was a test, not a product line. Removed cat: graded 13, won 2, -49.72u on 71.5 staked. All 13 slips were re-graded from the archived boards against the stored boxscore outcomes; the 12 nights with stored outcomes reproduce the recorded -44.22u / 66.0 staked / 2 wins EXACTLY, so 08-13 is the arithmetic remainder (-5.50u, 5.5 staked, 0 wins) and matches that board's rr.risk of 5.5. Each night's chef net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +148.74u -> +198.46u. No other kind touched. | 2026-08-14: Family Meal added as a ticket kind and BACKFILLED onto 2026-08-13 at the owner's direction -- the night's board was re-run through the shipped engine with its real tickets handed in as prior (all 13 carried verbatim, the retired chef dropped), which produced 8 family slips off the same pool: Trout +355, Ortiz +463, Pages +355, Bauers +396, Teoscar +405, Clemens +373, Abrams +350, Harper +395. Graded against the 08-13 boxscores (all 8 took a PA; Ortiz homered): 1-7 for -2.37u on 8.0 staked. Season 198.46 -> 196.09. D_2026-08-13.json and the baked board were rewritten to match, so the archive and the ledger agree."
   },
   "date": "2026-08-13",
   "gs": {},
   "pool": 234,
   "gate": 33,
-  "tickets": 14
+  "tickets": 21
  },
  "tickets": [
   {
@@ -22545,92 +22539,10 @@
    "payout10": 6770.47
   },
   {
-   "name": "The Prix Fixe",
-   "kind": "chef",
-   "badge": "\ud83c\udf7d",
-   "note": "Schwarber keeps the ball in the air (20\u00b0), Rice is leaving scorch marks (65% hard-hit), Crow-Armstrong gets a sliver of help from the park, and Ohtani grades to 160 on our board.",
-   "players": [
-    {
-     "name": "Kyle Schwarber",
-     "team": "Phillies",
-     "total": 193.6,
-     "aT": 100,
-     "wf": 1.005,
-     "gmatch": "PHI@MIN",
-     "gtime": "7:30 PM ET",
-     "game": 7,
-     "late": false,
-     "odds": 230,
-     "status": "confirmed"
-    },
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 171.4,
-     "aT": 100,
-     "wf": 1.018,
-     "gmatch": "SEA@NYY",
-     "gtime": "1:35 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 260,
-     "status": "confirmed"
-    },
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 163.9,
-     "aT": 100,
-     "wf": 1.027,
-     "gmatch": "CHC@WSH",
-     "gtime": "4:05 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 300,
-     "status": "confirmed"
-    },
-    {
-     "name": "Shohei Ohtani",
-     "team": "Dodgers",
-     "total": 160.2,
-     "aT": 100,
-     "wf": 1.037,
-     "gmatch": "MIL@LAD",
-     "gtime": "10:10 PM ET",
-     "game": 9,
-     "late": true,
-     "odds": 280,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Kyle Schwarber",
-   "lock": "1:35 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 5.5,
-    "maxprofit": 453.5,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 0,
-    "neu": 2
-   },
-   "confleg": 4,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 17958,
-   "payout10": 1805.76
-  },
-  {
    "name": "Last Train Home",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Joc Pederson is hitting absolute lasers (62% hard-hit), drives the ball into the air (21\u00b0), plays in a slightly friendly yard, and sits in the elite power tier (100/100).",
+   "note": "Joc Pederson is barreling everything in sight (62% hard-hit), drives the ball into the air (21\u00b0), gets a sliver of help from the park, and sits in the elite power tier (100/100).",
    "players": [
     {
      "name": "Joc Pederson",
@@ -22668,7 +22580,7 @@
    "name": "Hold Fast",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Cal Raleigh is crushing contact at an elite rate (60% hard-hit), packs elite raw power, a 100/100 grade, the swing's trending up.",
+   "note": "Cal Raleigh is crushing contact at an elite rate (60% hard-hit), packs elite raw power, a 100/100 grade, the bat's heating up.",
    "players": [
     {
      "name": "Cal Raleigh",
@@ -22696,13 +22608,16 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 300,
+   "payout10": 40
   },
   {
    "name": "Ground Tackle",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Trent Grisham is stinging it on a rope (53% hard-hit), stays in the launch zone (23\u00b0), packs a big-league power grade (73/100).",
+   "note": "Trent Grisham is stinging it on a rope (53% hard-hit), stays in the launch zone (23\u00b0), swings a heavy stick (73/100 power), recent form points up.",
    "players": [
     {
      "name": "Trent Grisham",
@@ -22730,13 +22645,16 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 300,
+   "payout10": 40
   },
   {
    "name": "Calm Seas",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Wilyer Abreu is blistering line drives (55% hard-hit), has the raw juice to clear any wall (100/100 power), projects out to 157.",
+   "note": "Wilyer Abreu is blistering line drives (55% hard-hit), has the raw juice to clear any wall (100/100 power), carries a 157 number tonight.",
    "players": [
     {
      "name": "Wilyer Abreu",
@@ -22764,13 +22682,16 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 300,
+   "payout10": 40
   },
   {
    "name": "Weigh Anchor",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Luis Garc\u00eda is squaring up a good chunk (47% hard-hit), gets there more on timing than thump (32/100 power), he's squaring more up lately.",
+   "note": "Luis Garc\u00eda is hitting line drives (47% hard-hit), gets there more on timing than thump (32/100 power), he's squaring more up lately.",
    "players": [
     {
      "name": "Luis Garc\u00eda",
@@ -22798,7 +22719,306 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 315,
+   "payout10": 41.5
+  },
+  {
+   "name": "Mike Trout",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Mike Trout is consistently barreling up (55% hard-hit), puts air under the ball (23\u00b0), plays in a slightly friendly yard.",
+   "players": [
+    {
+     "name": "Mike Trout",
+     "team": "Angels",
+     "total": 156.2,
+     "aT": 100,
+     "wf": 1.031,
+     "gmatch": "TEX@LAA",
+     "gtime": "10:07 PM ET",
+     "game": 8,
+     "late": true,
+     "odds": 355,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Mike Trout",
+   "lock": "10:07 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 355,
+   "payout10": 45.5
+  },
+  {
+   "name": "Abimelec Ortiz",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Abimelec Ortiz is squaring up premium contact (81% hard-hit), stays in the sweet-spot angle (18\u00b0), has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Abimelec Ortiz",
+     "team": "Nationals",
+     "total": 151,
+     "aT": 100,
+     "wf": 1.027,
+     "gmatch": "CHC@WSH",
+     "gtime": "4:05 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 463,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Abimelec Ortiz",
+   "lock": "4:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 463,
+   "payout10": 56.3
+  },
+  {
+   "name": "Andy Pages",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Andy Pages has textbook lift (22\u00b0), has the yard tilting his way, is squaring up a good chunk (51% hard-hit).",
+   "players": [
+    {
+     "name": "Andy Pages",
+     "team": "Dodgers",
+     "total": 148.1,
+     "aT": 100,
+     "wf": 1.037,
+     "gmatch": "MIL@LAD",
+     "gtime": "10:10 PM ET",
+     "game": 9,
+     "late": true,
+     "odds": 355,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Andy Pages",
+   "lock": "10:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 355,
+   "payout10": 45.5
+  },
+  {
+   "name": "Jake Bauers",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Jake Bauers is hitting absolute lasers (58% hard-hit), sends it skyward (20\u00b0), catches a small park boost.",
+   "players": [
+    {
+     "name": "Jake Bauers",
+     "team": "Brewers",
+     "total": 146.2,
+     "aT": 100,
+     "wf": 1.037,
+     "gmatch": "MIL@LAD",
+     "gtime": "10:10 PM ET",
+     "game": 9,
+     "late": true,
+     "odds": 396,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Jake Bauers",
+   "lock": "10:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 396,
+   "payout10": 49.6
+  },
+  {
+   "name": "Teoscar Hern\u00e1ndez",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Teoscar Hern\u00e1ndez is striking it clean and hard (55% hard-hit), is lifting everything (20\u00b0), gets a sliver of help from the park.",
+   "players": [
+    {
+     "name": "Teoscar Hern\u00e1ndez",
+     "team": "Dodgers",
+     "total": 143.9,
+     "aT": 100,
+     "wf": 1.037,
+     "gmatch": "MIL@LAD",
+     "gtime": "10:10 PM ET",
+     "game": 9,
+     "late": true,
+     "odds": 405,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Teoscar Hern\u00e1ndez",
+   "lock": "10:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 405,
+   "payout10": 50.5
+  },
+  {
+   "name": "Kody Clemens",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Kody Clemens is making elite contact (55% hard-hit), sits in the ideal launch angle (22\u00b0), has the pop to go deep (78/100 power).",
+   "players": [
+    {
+     "name": "Kody Clemens",
+     "team": "Twins",
+     "total": 140.5,
+     "aT": 100,
+     "wf": 1.005,
+     "gmatch": "PHI@MIN",
+     "gtime": "7:30 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 373,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kody Clemens",
+   "lock": "7:30 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 373,
+   "payout10": 47.3
+  },
+  {
+   "name": "CJ Abrams",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "CJ Abrams gets under it just right (19\u00b0), plays in a slightly friendly yard, is driving the ball (48% hard-hit).",
+   "players": [
+    {
+     "name": "CJ Abrams",
+     "team": "Nationals",
+     "total": 138.7,
+     "aT": 100,
+     "wf": 1.027,
+     "gmatch": "CHC@WSH",
+     "gtime": "4:05 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 350,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "CJ Abrams",
+   "lock": "4:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 350,
+   "payout10": 45
+  },
+  {
+   "name": "Bryce Harper",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Bryce Harper is putting a charge into everything (58% hard-hit), has loft to spare (17\u00b0), carries serious thump (72/100 grade).",
+   "players": [
+    {
+     "name": "Bryce Harper",
+     "team": "Phillies",
+     "total": 138.7,
+     "aT": 100,
+     "wf": 1.005,
+     "gmatch": "PHI@MIN",
+     "gtime": "7:30 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 395,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Bryce Harper",
+   "lock": "7:30 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 395,
+   "payout10": 49.5
   }
  ],
  "pool": [
@@ -22834,5 +23054,6 @@
   "Sal Stewart",
   "JJ Bleday",
   "Griffin Conine"
- ]
+ ],
+ "familyFloor": 126.2
 }
