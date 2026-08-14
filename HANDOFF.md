@@ -704,10 +704,11 @@ cut of this change kept locked chef slips visible — wrong, corrected the same 
 nothing graded, `season.json` untouched. A bat qualifies when it cleared the pool gate,
 was not chalk, made no slip, and **outscored the weakest bat the board actually drafted**;
 the list is then capped at 8. Emitted as `D.family` / `D.familyFloor`, where `D.family` holds
-**leg objects in ticket-leg shape** so the section renders through the board's own section
-header, `.slip` shell and `legRow()` — structurally identical to every other card, not bespoke
-markup (the first cut used its own row markup; corrected the same day). Named by the owner —
-"orphans" was proposed and rejected.
+**one-leg tickets built exactly like `mkBuilder`**, so the section renders **one card per bat
+through the same `sec()` + `ticketCard()` path as Anchors**. Two wrong cuts preceded this, both
+mine: bespoke row markup, then a single multi-leg card. It must look like the Anchors section.
+They stay OUT of `D.tickets` -- `grade_night.py` folds that into `season.json` and these are not
+bets. Named by the owner -- "orphans" was proposed and rejected.
 
 Sizing evidence, all cold-drafted through the real client engine over the 37 stored nights:
 

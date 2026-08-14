@@ -257,9 +257,11 @@ corrected there.)
   Chef's Table used to hold. A bat is on it when it (a) cleared the pool gate, (b) was not
   reserved as chalk, (c) landed on no slip, and (d) **scored higher than the weakest bat the
   board actually drafted** — then the list is capped at **8** by `TOTAL`. Emitted as
-  `D.family` (plus `D.familyFloor`, the weakest drafted `TOTAL`, for auditability) — as **leg
-  objects in the same shape as ticket legs**, so the section renders through the board's own
-  section header, `.slip` shell and `legRow()`, structurally identical to every other card.
+  `D.family` (plus `D.familyFloor`, the weakest drafted `TOTAL`, for auditability) — as
+  **one-leg tickets built exactly like `mkBuilder`**, so the section renders **one card per bat
+  through the same `sec()` + `ticketCard()` path as the Anchors section**. They are deliberately
+  kept OUT of `D.tickets`: `grade_night.py` folds `D.tickets` into `season.json`, and these are
+  not bets. They are priced for display by `priceTicket` and never counted as tickets.
   Nothing here is staked, priced as a parlay, or graded; it never touches `season.json`.
   Clause (d) is the point: without it the section is just "everyone who missed", which runs
   ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at

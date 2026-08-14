@@ -497,24 +497,12 @@ function ticketCard(t){const _mp=(t.rr&&t.kind==='chef')?(function(){var L=t.pla
 const tsearch=$('#tsearch');if(tsearch)tsearch.addEventListener('input',drawTickets);
 const ttype=$('#ttype');if(ttype)ttype.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.closest('.tbtn');if(!b)return;ticketType=b.dataset.type;[...ttype.querySelectorAll('.tbtn')].forEach(x=>x.classList.toggle('on',x===b));drawTickets();});
 let ticketType='all';
-/* FAMILY MEAL -- rendered with the board's own parts: the same section header, the same
-   .slip shell, and the same legRow() rows every ticket uses. It is not a ticket (no combined
-   price, nothing staked, nothing graded), so the header carries a count where a parlay
-   carries its odds -- everything else is identical to a Grand Salami or Chef's Table card. */
-function famLegs(q){return (D.family||[]).filter(l=>{const p=D.players[l.name]||{};
- return !q||l.name.toLowerCase().includes(q)||String(p.team||'').toLowerCase().includes(q)||String(l.gmatch||'').toLowerCase().includes(q);});}
-function famCount(q){return famLegs(q).length;}
-function familySection(q){
- const legs=famLegs(q);
- if(!legs.length)return '';
- const lock=legs.slice().sort((a,b)=>gtMin(a.gtime)-gtMin(b.gtime))[0].gtime;
- return '<div class="tsec fam"><span class="tsech">Family Meal</span><span class="tline"></span></div>'+
-  `<div class="slip lunchwide"><div class="top"><div class="toprow">`+
-  `<div class="ttitle"><span class="tbadge">\uD83C\uDF73</span><div class="tname">Family Meal</div></div>`+
-  `<div class="parlay"><div class="od">${legs.length} bats</div><div class="pay">not a ticket</div></div></div>`+
-  `<div class="lockline"><span class="badge">no action</span><span>First pitch ${lock}</span></div>`+
-  `<div class="tnote">Outscored a bat the board drafted and still got no slip.</div>`+
-  `</div><div class="legs">${legs.map(l=>legRow(l,'family')).join('')}</div></div>`;}
+/* FAMILY MEAL -- ONE CARD PER BAT, rendered exactly like the Anchors section: same sec()
+   header, same ticketCard(), same legRow(). D.family holds one-leg tickets built like
+   builders. They are deliberately NOT in D.tickets -- grade_night.py folds D.tickets into
+   season.json and these are not bets, so nothing here is staked, counted or graded. */
+function famTix(q,match){var f=(D.family||[]);f.forEach(priceTicket);return f.filter(match);}
+function famCount(q,match){return famTix(q,match).length;}
 function drawTickets(){
  const q=(($('#tsearch')||{}).value||'').trim().toLowerCase(),ty=ticketType;
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
@@ -526,7 +514,8 @@ function drawTickets(){
  let html='';
  if(ty==='all'&&(lunchLive.length||!q)){html+='<div class="tsec lunch"><span class="tsech">Lunch Special</span><span class="tline"></span></div>'+(lunchLive.length?lunchLive.map(ticketCard).join(''):closed);}
  if(ty==='all'&&!q)html+='<details class="pool"><summary><span class="tag">Late slate</span> Nightcap<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>';
- if(ty==='all'||ty==='family')html+=familySection(q);
+ const fam=famTix(q,match);
+ if(ty==='all'||ty==='family')html+=sec('fam','Family Meal',fam);
  if(ty==='all'||ty==='builder')html+=sec('sug','Anchors',builder);
  if(ty==='all'||ty==='moon')html+=sec('lot','Moonshots',moon);
  if((ty==='all'||ty==='biggest')&&(big.length||!q))html+='<div class="tsec big"><span class="tsech">Grand Salami</span><span class="tline"></span></div>'+(big.length?big.map(ticketCard).join(''):noSalami);
@@ -534,7 +523,7 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr">⚾ homered</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
  $('#tickets').innerHTML=(html||'<div class="closed">No tickets match.</div>')+((ticketType==='all'&&!q)?carryoverStrip():'');
- const n=((ty==='family')?famCount(q):0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
+ const n=((ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
  $('#tcount').textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
 
 function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.game),c=isConf(p.status),av=avail(p);
@@ -1921,7 +1910,11 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       if(!_dp.length){D.family=[];return;}
       var _floor=Math.min.apply(null,_dp.map(_T));
       D.family=_pool.filter(function(n){var p=P[n];return !_dn[n]&&p&&!p.void&&!p.out&&_T(n)>_floor;}).slice(0,FAM_CAP)
-        .map(function(n){var p=P[n];return {name:n,team:p.team,total:p.TOTAL,aT:p.aT,wf:p.wf,gmatch:p.gmatch,gtime:p.gtime,game:p.game,late:!!p.late,odds:p.odds,status:p.status};});   // leg shape, so the section renders through legRow() like every other card
+        .map(function(n){var legs=[leg(n)];   // ONE CARD PER BAT, built exactly like mkBuilder -- the section renders through the same sec()+ticketCard() path as Anchors
+          var ws={boost:0,supp:0,dome:0,neu:0};   // same wxsum/confleg decoration the draft applies to every other ticket (these are not in `out`, so that pass never sees them)
+          legs.forEach(function(l){var w=WXm[String(l.game)]||{}; if(w.cond==='Dome')ws.dome++; else if(w.lean==='Boost')ws.boost++; else if(w.lean==='Suppress')ws.supp++; else ws.neu++;});
+          return {name:n,kind:'family',badge:'\uD83C\uDF73',note:"",players:legs,nlegs:1,anchor:n,lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:null,wxsum:ws,
+            confleg:legs.filter(function(l){var q=P[l.name];return !!(q&&q.status==='confirmed'&&!q.out&&!q.void);}).length};});
       D.familyFloor=_floor;})();
   }
 
