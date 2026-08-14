@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T22:52:59Z",
+  "pulled_at": "2026-08-14T22:55:20Z",
   "games": [
     {
       "gamePk": 824643,
@@ -245,7 +245,7 @@
           {
             "id": 682622,
             "name": "Noelvi Marte",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 680574,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 687562,
           "name": "Jake Bennett",
-          "hr9": 0.59,
+          "hr9": 0.58,
           "hand": "LHP"
         },
         "lineup": [
@@ -348,7 +348,7 @@
           {
             "id": 682927,
             "name": "Ronny Simon",
-            "iso": 0.042
+            "iso": 0.04
           },
           {
             "id": 668804,
@@ -439,7 +439,7 @@
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.137
+            "iso": 0.136
           },
           {
             "id": 695657,
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 822942,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "BAL@TB",
       "away": {
@@ -1068,7 +1068,7 @@
     },
     {
       "gamePk": 822777,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-14T23:15:00Z",
       "matchup": "NYY@TOR",
       "away": {
@@ -1757,16 +1757,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 61\u00b0",
-        "lean": "Boost",
-        "temp": 61.1,
-        "wind_mph": 13.6,
-        "wind_dir": 279,
-        "tail_mph": 13.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.033
+      "wf": 1.0
     }
   ]
 }
