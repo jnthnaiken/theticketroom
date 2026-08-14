@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T17:51:26Z",
+  "pulled_at": "2026-08-14T17:56:21Z",
   "games": [
     {
       "gamePk": 824643,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824479,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-14T22:10:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -160,10 +160,56 @@
           "hr9": 0.94,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.221
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.221
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.227
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.169
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.215
+          },
+          {
+            "id": 669911,
+            "name": "Michael Toglia",
+            "iso": 0.0
+          },
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.093
+          },
+          {
+            "id": 682622,
+            "name": "Noelvi Marte",
+            "iso": 0.138
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.146
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
