@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T19:12:11Z",
+  "pulled_at": "2026-08-14T19:16:45Z",
   "games": [
     {
       "gamePk": 824643,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 669461,
           "name": "Matthew Liberatore",
-          "hr9": 1.54,
+          "hr9": 1.53,
           "hand": "LHP"
         },
         "lineup": [
@@ -82,7 +82,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 608324,
@@ -293,8 +293,54 @@
           "hr9": 0.77,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.092
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.042
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.17
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.308
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.226
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.334
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.094
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.075
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -659,7 +705,7 @@
     },
     {
       "gamePk": 824882,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-14T23:15:00Z",
       "matchup": "ARI@ATL",
       "away": {
@@ -670,8 +716,54 @@
           "hr9": 0.84,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.129
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.239
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.148
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.197
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.192
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.135
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.147
+          },
+          {
+            "id": 682988,
+            "name": "Tyler Locklear",
+            "iso": 0.177
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.116
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -681,10 +773,56 @@
           "hr9": 0.59,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.178
+          },
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.19
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.285
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.199
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.176
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.132
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.167
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.15
+          },
+          {
+            "id": 805347,
+            "name": "Jim Jarvis",
+            "iso": 0.101
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -929,9 +1067,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 60\u00b0",
+        "lean": "Boost",
+        "temp": 59.9,
+        "wind_mph": 12.9,
+        "wind_dir": 283,
+        "tail_mph": 12.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.028
     }
   ]
 }
