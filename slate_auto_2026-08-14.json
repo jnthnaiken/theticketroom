@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T21:17:27Z",
+  "pulled_at": "2026-08-14T21:22:31Z",
   "games": [
     {
       "gamePk": 824643,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 823993,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T01:38:00Z",
       "matchup": "KC@LAA",
       "away": {
@@ -1354,10 +1354,56 @@
           "hr9": 1.47,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.102
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.204
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.112
+          },
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.19
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.125
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.134
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.14
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.117
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.056
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
