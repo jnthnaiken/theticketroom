@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T18:46:38Z",
+  "pulled_at": "2026-08-14T18:52:00Z",
   "games": [
     {
       "gamePk": 824643,
@@ -50,7 +50,7 @@
           {
             "id": 663494,
             "name": "Bryan Torres",
-            "iso": 0.165
+            "iso": 0.164
           },
           {
             "id": 665877,
@@ -266,7 +266,7 @@
     },
     {
       "gamePk": 824237,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-14T22:40:00Z",
       "matchup": "CWS@DET",
       "away": {
@@ -288,10 +288,56 @@
           "hr9": 0.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.135
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.245
+          },
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.14
+          },
+          {
+            "id": 680664,
+            "name": "Eduardo Valencia",
+            "iso": 0.455
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.145
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.196
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.108
+          },
+          {
+            "id": 701162,
+            "name": "Ben Malgeri",
+            "iso": 0.102
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.143
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -699,16 +745,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 12mph, 60\u00b0",
-        "lean": "Boost",
-        "temp": 60.1,
-        "wind_mph": 13.0,
-        "wind_dir": 285,
-        "tail_mph": 12.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     }
   ]
 }
