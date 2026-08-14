@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-14T23:53:07Z",
+  "pulled_at": "2026-08-14T23:55:41Z",
   "games": [
     {
       "gamePk": 824643,
@@ -178,7 +178,7 @@
           {
             "id": 691594,
             "name": "Javier Sanoja",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 683357,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 695505,
           "name": "Chase Burns",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823346,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-14T22:40:00Z",
       "matchup": "BOS@PIT",
       "away": {
@@ -811,7 +811,7 @@
         "sp": {
           "id": 605135,
           "name": "Chris Bassitt",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -955,7 +955,7 @@
           {
             "id": 682998,
             "name": "Corbin Carroll",
-            "iso": 0.238
+            "iso": 0.24
           },
           {
             "id": 672515,
@@ -1123,7 +1123,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.207
+            "iso": 0.2
           }
         ],
         "confirmed": true
@@ -1133,7 +1133,7 @@
         "sp": {
           "id": 669456,
           "name": "Shane Bieber",
-          "hr9": 1.81,
+          "hr9": 1.8,
           "hand": "RHP"
         },
         "lineup": [
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 61\u00b0",
-        "lean": "Boost",
-        "temp": 60.8,
-        "wind_mph": 12.8,
-        "wind_dir": 277,
-        "tail_mph": 12.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.03
+      "wf": 1.0
     }
   ]
 }
