@@ -965,7 +965,12 @@ drawTickets();drawPlayers();drawTracker();
   var TIP_URL='https://venmo.com/u/TheTicketRoom';
 
   // ---- assembler constants (mirror assembler_src.py) ----
-  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=16*60, NIGHT_WIN=60;
+  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;   /* LUNCH_CUT 16*60 -> 17*60 on 2026-08-13 (mirrors assemble_tickets.py LUNCH_CUT_MIN). At 4:00 PM a 4:05 first
+     pitch counted as an evening game: on 08-13 CHC@WSH (4:05) could reach only ONE other game inside WIN=120, so
+     Abimelec Ortiz (TOTAL 150.7, +463) could neither anchor nor leg any parlay, was blocked from the chef seat by
+     Crow-Armstrong in his own game, and then missed the lunch window by FIVE MINUTES -- the best bat on the slate
+     with no legal home. The lunch pick runs LAST (after chef, anchors, moon fills, salami fills) and only takes
+     bats not already on a parlay, so widening the window cannot cannibalise a parlay leg. */
 
   (function(){var _ts=document.querySelectorAll('.tipjar');
     for(var _i=0;_i<_ts.length;_i++){
