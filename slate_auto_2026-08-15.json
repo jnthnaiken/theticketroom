@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T17:20:36Z",
+  "pulled_at": "2026-08-15T17:22:42Z",
   "games": [
     {
       "gamePk": 824239,
@@ -45,7 +45,7 @@
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.221
+            "iso": 0.22
           },
           {
             "id": 805367,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 823588,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T20:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -547,8 +547,54 @@
           "hr9": 1.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.154
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.246
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.155
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.256
+          },
+          {
+            "id": 695670,
+            "name": "Harry Ford",
+            "iso": 0.25
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.157
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.167
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.037
+          },
+          {
+            "id": 687605,
+            "name": "Andrew Pinckney",
+            "iso": 0.375
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYM",
@@ -561,7 +607,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -929,9 +975,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 78.3,
+        "wind_mph": 9.4,
+        "wind_dir": 237,
+        "tail_mph": 9.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.044
     },
     {
       "gamePk": 824966,
