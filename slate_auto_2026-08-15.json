@@ -1,11 +1,11 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T20:03:59Z",
+  "pulled_at": "2026-08-15T20:09:03Z",
   "games": [
     {
       "gamePk": 824239,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-15T17:10:00Z",
       "matchup": "CWS@DET",
       "away": {
@@ -188,7 +188,7 @@
           {
             "id": 677592,
             "name": "Everson Pereira",
-            "iso": 0.23
+            "iso": 0.228
           },
           {
             "id": 686780,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 571510,
           "name": "Matthew Boyd",
-          "hr9": 1.27,
+          "hr9": 1.38,
           "hand": "LHP"
         },
         "lineup": [
@@ -279,7 +279,7 @@
         "sp": {
           "id": 693645,
           "name": "Cam Schlittler",
-          "hr9": 0.85,
+          "hr9": 0.84,
           "hand": "RHP"
         },
         "lineup": [
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823184,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-15T20:05:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -418,7 +418,7 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.203
+            "iso": 0.202
           },
           {
             "id": 694249,
@@ -505,7 +505,7 @@
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": null
+            "iso": 0.0
           },
           {
             "id": 671083,
@@ -1626,9 +1626,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 79\u00b0",
+        "lean": "Boost",
+        "temp": 79.0,
+        "wind_mph": 9.6,
+        "wind_dir": 252,
+        "tail_mph": 6.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.036
     },
     {
       "gamePk": 823990,
@@ -1660,16 +1667,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 79\u00b0",
-        "lean": "Boost",
-        "temp": 78.7,
-        "wind_mph": 8.0,
-        "wind_dir": 234,
-        "tail_mph": 7.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
