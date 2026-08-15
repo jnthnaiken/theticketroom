@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T21:43:58Z",
+  "pulled_at": "2026-08-15T21:49:16Z",
   "games": [
     {
       "gamePk": 824239,
@@ -423,17 +423,17 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.195
+            "iso": 0.193
           },
           {
             "id": 666160,
             "name": "Mickey Moniak",
-            "iso": 0.272
+            "iso": 0.271
           },
           {
             "id": 681198,
             "name": "TJ Rumfield",
-            "iso": 0.158
+            "iso": 0.157
           },
           {
             "id": 650489,
@@ -561,12 +561,12 @@
           {
             "id": 691781,
             "name": "Brady House",
-            "iso": 0.154
+            "iso": 0.167
           },
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 695670,
@@ -1818,7 +1818,7 @@
     },
     {
       "gamePk": 824966,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-16T01:40:00Z",
       "matchup": "TEX@ATH",
       "away": {
@@ -1840,10 +1840,56 @@
           "hr9": 0.96,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.094
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.22
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.09
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.185
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.022
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.139
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.151
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.222
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.132
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
