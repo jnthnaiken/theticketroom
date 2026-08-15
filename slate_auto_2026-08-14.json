@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T02:42:31Z",
+  "pulled_at": "2026-08-15T02:47:36Z",
   "games": [
     {
       "gamePk": 824643,
@@ -1453,15 +1453,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 76\u00b0",
+        "cond": "wind out 9mph, 78\u00b0",
         "lean": "Boost",
-        "temp": 76.3,
-        "wind_mph": 8.7,
-        "wind_dir": 241,
-        "tail_mph": 8.1,
+        "temp": 78.2,
+        "wind_mph": 8.8,
+        "wind_dir": 232,
+        "tail_mph": 8.6,
         "precip": 0
       },
-      "wf": 1.038
+      "wf": 1.042
     },
     {
       "gamePk": 824968,
@@ -1586,15 +1586,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 79\u00b0",
+        "cond": "wind out 8mph, 80\u00b0",
         "lean": "Boost",
-        "temp": 79.1,
-        "wind_mph": 10.1,
-        "wind_dir": 233,
-        "tail_mph": 10.0,
+        "temp": 79.5,
+        "wind_mph": 8.5,
+        "wind_dir": 227,
+        "tail_mph": 8.3,
         "precip": 0
       },
-      "wf": 1.049
+      "wf": 1.043
     },
     {
       "gamePk": 823913,
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 72.6,
+        "wind_mph": 8.3,
+        "wind_dir": 246,
+        "tail_mph": 6.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.026
     },
     {
       "gamePk": 823185,
@@ -1844,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 62.2,
-        "wind_mph": 11.4,
-        "wind_dir": 274,
-        "tail_mph": 11.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     }
   ]
 }
