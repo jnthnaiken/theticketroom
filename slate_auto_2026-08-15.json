@@ -1,11 +1,11 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T19:43:29Z",
+  "pulled_at": "2026-08-15T19:48:10Z",
   "games": [
     {
       "gamePk": 824239,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T17:10:00Z",
       "matchup": "CWS@DET",
       "away": {
@@ -102,7 +102,7 @@
           {
             "id": 679529,
             "name": "Spencer Torkelson",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 701162,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 700241,
           "name": "Michael McGreevy",
-          "hr9": 1.25,
+          "hr9": 1.24,
           "hand": "RHP"
         },
         "lineup": [
@@ -286,7 +286,7 @@
           {
             "id": 663757,
             "name": "Trent Grisham",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 700250,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 823588,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-15T20:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -1194,7 +1194,7 @@
     },
     {
       "gamePk": 823347,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T23:15:00Z",
       "matchup": "BOS@PIT",
       "away": {
@@ -1216,10 +1216,56 @@
           "hr9": 1.53,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.156
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.23
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.171
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.307
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.037
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.166
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.093
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.382
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.074
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
