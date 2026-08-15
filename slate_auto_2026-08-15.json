@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T16:37:48Z",
+  "pulled_at": "2026-08-15T16:40:55Z",
   "games": [
     {
       "gamePk": 824239,
@@ -128,7 +128,7 @@
         "emoji": "\u26c5",
         "cond": "calm 3mph, 82\u00b0",
         "lean": "Neutral",
-        "temp": 82.4,
+        "temp": 82.5,
         "wind_mph": 6.3,
         "wind_dir": 94,
         "tail_mph": -2.8,
@@ -259,15 +259,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 74\u00b0",
+        "cond": "calm 0mph, 75\u00b0",
         "lean": "Neutral",
-        "temp": 73.7,
+        "temp": 75.0,
         "wind_mph": 4.3,
         "wind_dir": 118,
         "tail_mph": -0.2,
         "precip": 14
       },
-      "wf": 1.005
+      "wf": 1.007
     },
     {
       "gamePk": 822775,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823184,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T20:05:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -425,22 +425,68 @@
           "hr9": 0.61,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.124
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.222
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.192
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.143
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.217
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.015
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": null
+          },
+          {
+            "id": 671083,
+            "name": "Buddy Kennedy",
+            "iso": 0.037
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.041
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 8mph, 65\u00b0",
         "lean": "Boost",
-        "temp": 65.4,
+        "temp": 65.0,
         "wind_mph": 8.5,
         "wind_dir": 265,
         "tail_mph": 8.5,
         "precip": 0
       },
-      "wf": 1.023
+      "wf": 1.022
     },
     {
       "gamePk": 823588,
@@ -475,7 +521,7 @@
         "emoji": "\u26c5",
         "cond": "wind in 7mph, 84\u00b0",
         "lean": "Neutral",
-        "temp": 84.0,
+        "temp": 83.7,
         "wind_mph": 7.7,
         "wind_dir": 8,
         "tail_mph": -7.4,
@@ -554,15 +600,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 3mph, 90\u00b0",
+        "cond": "wind out 3mph, 88\u00b0",
         "lean": "Boost",
-        "temp": 89.6,
+        "temp": 88.5,
         "wind_mph": 4.7,
         "wind_dir": 265,
         "tail_mph": 3.3,
         "precip": 11
       },
-      "wf": 1.041
+      "wf": 1.039
     },
     {
       "gamePk": 824400,
@@ -595,13 +641,13 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 79\u00b0",
         "lean": "Neutral",
-        "temp": 79.1,
+        "temp": 79.4,
         "wind_mph": 2.6,
         "wind_dir": 38,
         "tail_mph": -2.0,
         "precip": 2
       },
-      "wf": 1.006
+      "wf": 1.007
     },
     {
       "gamePk": 824157,
@@ -674,15 +720,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 3mph, 83\u00b0",
+        "cond": "wind out 3mph, 81\u00b0",
         "lean": "Boost",
-        "temp": 82.7,
+        "temp": 80.6,
         "wind_mph": 3.2,
         "wind_dir": 192,
         "tail_mph": 3.2,
         "precip": 16
       },
-      "wf": 1.03
+      "wf": 1.027
     },
     {
       "gamePk": 823347,
@@ -715,15 +761,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 80\u00b0",
+        "cond": "calm 1mph, 79\u00b0",
         "lean": "Neutral",
-        "temp": 79.8,
+        "temp": 79.4,
         "wind_mph": 1.6,
         "wind_dir": 8,
         "tail_mph": -0.8,
         "precip": 3
       },
-      "wf": 1.012
+      "wf": 1.011
     },
     {
       "gamePk": 824884,
@@ -756,15 +802,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 94\u00b0",
+        "cond": "calm 2mph, 92\u00b0",
         "lean": "Boost",
-        "temp": 94.3,
+        "temp": 92.5,
         "wind_mph": 4.5,
         "wind_dir": 290,
         "tail_mph": 2.3,
         "precip": 7
       },
-      "wf": 1.044
+      "wf": 1.042
     },
     {
       "gamePk": 823914,
@@ -797,15 +843,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 80\u00b0",
+        "cond": "wind out 7mph, 79\u00b0",
         "lean": "Boost",
-        "temp": 79.5,
+        "temp": 78.8,
         "wind_mph": 9.9,
         "wind_dir": 252,
         "tail_mph": 6.8,
         "precip": 0
       },
-      "wf": 1.038
+      "wf": 1.037
     },
     {
       "gamePk": 823990,
@@ -837,9 +883,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 78.3,
+        "wind_mph": 9.6,
+        "wind_dir": 234,
+        "tail_mph": 9.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.045
     },
     {
       "gamePk": 824966,
@@ -872,15 +925,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 84\u00b0",
+        "cond": "wind out 8mph, 83\u00b0",
         "lean": "Boost",
-        "temp": 83.8,
+        "temp": 83.4,
         "wind_mph": 8.4,
         "wind_dir": 230,
         "tail_mph": 8.3,
         "precip": 0
       },
-      "wf": 1.05
+      "wf": 1.049
     }
   ]
 }
