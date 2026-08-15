@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T02:07:21Z",
+  "pulled_at": "2026-08-15T02:12:00Z",
   "games": [
     {
       "gamePk": 824643,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823346,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-14T22:40:00Z",
       "matchup": "BOS@PIT",
       "away": {
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 823913,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-15T02:10:00Z",
       "matchup": "MIL@LAD",
       "away": {
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 11mph, 62\u00b0",
+        "lean": "Boost",
+        "temp": 62.2,
+        "wind_mph": 11.4,
+        "wind_dir": 274,
+        "tail_mph": 11.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.028
     }
   ]
 }
