@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T22:34:50Z",
+  "pulled_at": "2026-08-15T22:39:26Z",
   "games": [
     {
       "gamePk": 824239,
@@ -613,12 +613,12 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 666182,
             "name": "Bo Bichette",
-            "iso": 0.117
+            "iso": 0.116
           },
           {
             "id": 701807,
@@ -719,7 +719,7 @@
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 665966,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 77.8,
+        "wind_mph": 8.7,
+        "wind_dir": 241,
+        "tail_mph": 8.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.04
     },
     {
       "gamePk": 824966,
@@ -1932,15 +1939,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 83\u00b0",
+        "cond": "wind out 8mph, 82\u00b0",
         "lean": "Boost",
-        "temp": 82.9,
+        "temp": 82.4,
         "wind_mph": 8.3,
         "wind_dir": 234,
         "tail_mph": 8.3,
         "precip": 0
       },
-      "wf": 1.048
+      "wf": 1.047
     }
   ]
 }
