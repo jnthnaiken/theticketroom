@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T18:07:43Z",
+  "pulled_at": "2026-08-15T18:13:14Z",
   "games": [
     {
       "gamePk": 824239,
@@ -45,7 +45,7 @@
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.22
+            "iso": 0.221
           },
           {
             "id": 805367,
@@ -77,7 +77,7 @@
           {
             "id": 650402,
             "name": "Gleyber Torres",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 701678,
@@ -87,7 +87,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.242
+            "iso": 0.241
           },
           {
             "id": 805808,
@@ -755,7 +755,7 @@
     },
     {
       "gamePk": 824480,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T22:40:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -777,10 +777,56 @@
           "hr9": 1.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.219
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.219
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.225
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.166
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.215
+          },
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.09
+          },
+          {
+            "id": 682622,
+            "name": "Noelvi Marte",
+            "iso": 0.136
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.093
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.144
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1113,16 +1159,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 79.6,
-        "wind_mph": 8.3,
-        "wind_dir": 239,
-        "tail_mph": 7.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.042
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
