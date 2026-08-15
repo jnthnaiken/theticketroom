@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T00:42:14Z",
+  "pulled_at": "2026-08-15T00:46:50Z",
   "games": [
     {
       "gamePk": 824643,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824479,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-14T22:10:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -476,12 +476,12 @@
           {
             "id": 650402,
             "name": "Gleyber Torres",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.244
+            "iso": 0.243
           },
           {
             "id": 805808,
@@ -511,12 +511,12 @@
           {
             "id": 701162,
             "name": "Ben Malgeri",
-            "iso": 0.156
+            "iso": 0.212
           },
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.137
+            "iso": 0.173
           }
         ],
         "confirmed": true
@@ -545,7 +545,7 @@
         "sp": {
           "id": 674841,
           "name": "Andrew Alvarez",
-          "hr9": 0.24,
+          "hr9": 0.36,
           "hand": "LHP"
         },
         "lineup": [
@@ -609,12 +609,12 @@
           {
             "id": 805999,
             "name": "A.J. Ewing",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.19
+            "iso": 0.201
           },
           {
             "id": 666182,
@@ -649,7 +649,7 @@
           {
             "id": 620443,
             "name": "Luis Torrens",
-            "iso": 0.136
+            "iso": 0.135
           }
         ],
         "confirmed": true
@@ -678,7 +678,7 @@
         "sp": {
           "id": 650633,
           "name": "Michael King",
-          "hr9": 1.09,
+          "hr9": 1.08,
           "hand": "RHP"
         },
         "lineup": [
@@ -742,17 +742,17 @@
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.062
+            "iso": 0.061
           },
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 682657,
             "name": "Angel Mart\u00ednez",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 663993,
@@ -858,7 +858,7 @@
           {
             "id": 665966,
             "name": "Carlos Narv\u00e1ez",
-            "iso": 0.077
+            "iso": 0.076
           }
         ],
         "confirmed": true
@@ -955,7 +955,7 @@
           {
             "id": 682998,
             "name": "Corbin Carroll",
-            "iso": 0.24
+            "iso": 0.239
           },
           {
             "id": 672515,
@@ -970,7 +970,7 @@
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 545121,
@@ -1093,12 +1093,12 @@
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 671277,
             "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.27
+            "iso": 0.268
           },
           {
             "id": 665862,
@@ -1133,14 +1133,14 @@
         "sp": {
           "id": 669456,
           "name": "Shane Bieber",
-          "hr9": 1.89,
+          "hr9": 1.85,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.069
+            "iso": 0.066
           },
           {
             "id": 664770,
@@ -1208,14 +1208,14 @@
         "sp": {
           "id": 669923,
           "name": "George Kirby",
-          "hr9": 1.15,
+          "hr9": 1.14,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 702284,
             "name": "Cole Young",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 668227,
@@ -1265,7 +1265,7 @@
         "sp": {
           "id": 663567,
           "name": "Peter Lambert",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 61\u00b0",
+        "lean": "Boost",
+        "temp": 60.8,
+        "wind_mph": 11.7,
+        "wind_dir": 275,
+        "tail_mph": 11.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.027
     }
   ]
 }
