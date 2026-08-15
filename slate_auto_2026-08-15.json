@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T19:48:10Z",
+  "pulled_at": "2026-08-15T19:54:00Z",
   "games": [
     {
       "gamePk": 824239,
@@ -1205,8 +1205,54 @@
           "hr9": 0.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807799,
+            "name": "Masataka Yoshida",
+            "iso": 0.123
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.179
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.175
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.246
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.208
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.156
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.152
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.173
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.075
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PIT",
@@ -1483,16 +1529,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 79\u00b0",
-        "lean": "Boost",
-        "temp": 78.7,
-        "wind_mph": 8.0,
-        "wind_dir": 234,
-        "tail_mph": 7.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
