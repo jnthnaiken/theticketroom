@@ -14,8 +14,13 @@
 > normally. A flag version shipped first and was rejected: it left the weakest anchor reserved and
 > then discarded its ticket. FOUR construction paths had to go, the sneaky one being the
 > client-side SALVAGE/REBUILD pass. Cost vs the old board: −10.5u/night over 37 graded cold drafts
-> (t = −1.36, inside noise). Rendering/grading of an existing salami and the `biggest` ledger line
-> are untouched. Superseded detail below, kept for the record:
+> (t = −1.36, inside noise). Rendering/grading of an existing salami is untouched, so archived
+> boards still show what they shipped.
+> **The `biggest` LEDGER LINE was then removed as well** — owner's call, same day, overruling the
+> "those were real bets, the line stops accruing" reasoning below. All 35 slips were unwound by
+> re-grading the archived boards, not by subtracting the category total; the season went
+> **+196.09u → +296.29u** and 192.5u of stake came off the book. Superseded detail below, kept
+> for the record:
 > Worst line on the ledger: −100.2u on 192.5 staked (−52.1%) over 35 real slips. **Moons stay at
 > 6** — `sidx` is left alone on purpose so the weakest anchor is still held back from moon-anchoring;
 > the slip just is not built and its bats stay in the pool. Builders drop 4 → 3. Retiring it grades
@@ -23,8 +28,8 @@
 > 8-moon variant (freeing that anchor) graded −10.5u/night and was rejected.
 > **THREE build sites** must be gated: the prior path, the fresh draft, and the client-side
 > SALVAGE/REBUILD pass — the third one silently resurrected the slip on the first attempt.
-> The section and view chip are removed; the `biggest` tracker row and ledger history STAY, because
-> unlike the chef test those were real bets. `const noSalami` is now dead code.
+> The section and view chip are removed; `const noSalami` is now dead code. (The `biggest` tracker
+> row and ledger history were kept at this stage and removed later the same day — see above.)
 
 Quick-start status so a fresh session can continue without re-deriving context.
 
@@ -147,8 +152,10 @@ Built the **2026-07-11** board end-to-end (15 games, 388 bats, 13 tickets: 6 moo
 324.11 through 07-09, then 07-10 folded +25.95u). Carry these forward:
 
 **1. The board's season total = SUM of category units, NOT `history[-1]`.** `drawTracker()`
-sums `cats.{builder,moon,biggest,lunch,late}.units` for the big "+Nu" number; `history` only
-feeds the sparkline. To correct the displayed total, edit the category `units` AND keep
+sums the `defs` categories — now `cats.{lunch,late,builder,moon,family}.units`, in that order —
+for the big "+Nu" number; `history` only feeds the sparkline. (`biggest` and `chef` are both out
+of `defs`, so neither contributes; a category absent from `defs` is invisible to the total even
+if `season.json` still holds it.) To correct the displayed total, edit the category `units` AND keep
 `history[-1]` consistent (add the same delta to both). We hit this reconciling 07-09.
 
 **2. 07-09 ledger correction (bet board vs re-drafted board).** A mid-slate `RULES_VERSION`
@@ -774,3 +781,38 @@ sometimes lead with a name that looks like it obviously should have been on a sl
 **Still open.** `drawTracker`'s `defs` array still carries a `chef` row. It is harmless —
 the row only renders when the category exists, and the category is gone — but it should be
 pruned on the next pass.
+
+---
+
+## 2026-08-14 (evening) — Family Meal to the bottom, real titles, ledger card cleaned
+
+Four changes, each landed as its own commit against the live `pull-slate` cadence (the owner
+declined to pause it: *"youre just gonna have to be fast"*). What works: `curl` HEAD immediately
+before applying the patch so the base is current, then commit inside the gap. A build landing
+*after* the commit is harmless — it rewrites only the `const D=` line. The killer is one already
+in flight when you pull; that ate two earlier attempts.
+
+**1. Family Meal renders last.** Page sections, tracker `defs`, and the View chip row, all three
+in the same order: lunch → nightcap → anchors → moonshots → family meal. Script `reorder.py`.
+
+**2. Ledger sparkline.** Two separate things, only one of them code. It was *stale* because the
+board had been baked before the salami came off `season.json`; `spark()` auto-scales off
+min/max of the series and re-drew itself correctly on the next build. The real defect was
+`pts=[0].concat(hist)` prepending a zero to a history that already opens with 0 — a dead flat
+segment across the first ~2.5% of the width. Now conditional. Script `sparkfix.py`.
+
+**3. Family Meal titles.** See the README entry. Root cause of BOTH the missing titles and the
+four cards naming the wrong player was the same `name:n` shortcut. Scripts `famname.py`,
+`famrelabel.py` (a title-only relabel of two slips that had locked before the fix, explicitly
+authorised — legs, odds, locks and grading byte-identical), `famnamefix.py` (`Staff Meal` →
+`The Window`; no pool name may contain *family* or *meal*).
+
+**4. The TONIGHT counter on the ledger card** read `4 ⚓️ · 8 🚀 · 0 🥪 · 1 🌃` — it counted the
+retired Grand Salami, a permanent 0, and counted neither the Family Meal nor the Lunch Special,
+so the sections at the top and bottom of the board were both invisible in the one line meant to
+say what is on tonight. Now `1 🍱 · 1 🌃 · 4 ⚓️ · 8 🚀 · 8 🍳`, same five kinds and same order as
+the rows above it. Script `tonightfix.py`.
+
+**Audited and found NOT stale:** `grade_night.py` is kind-agnostic (`cats.setdefault(g['kind'],…)`),
+so the Family Meal folds into `season.json` at 1u a slip with no code change — do not "add family
+support" to it. `assemble_tickets.py` still does not build family slips, by design.

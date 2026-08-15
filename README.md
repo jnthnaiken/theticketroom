@@ -268,6 +268,28 @@ corrected there.)
   **carried locked** family slip is skipped so the carry is never duplicated.
   `assemble_tickets.py` does not build them — it is a non-mirroring emergency fallback, same as
   it was for the chef ticket.
+  **Renders LAST (2026-08-14, owner's call).** One ordering, three places that must agree:
+  page sections in `drawTickets()`, the tracker `defs` array, and the View chip row —
+  Lunch Special → Nightcap → Anchors → Moonshots → (Grand Salami, only if a real one exists) →
+  Family Meal.
+  **Real titles, from its own `NAMES.family` pool (42 names).** The first cut used `name:n`, the
+  bat's own name, which had two consequences. The cards had no titles while every other kind drew
+  from a themed pool; and in the plan walk `family` fell through to the generic
+  `cand=ge75(byS(nonchalk))` refill, which keeps the prior ticket object — name and all — while
+  re-drafting its one leg, so four of eight cards on the 2:31pm board announced a player who was
+  not on them. A family slip is **derived**, exactly like an anchor single, so it now returns
+  early from the plan walk alongside `builder` and is rebuilt from the live pool every build.
+  `liveTickets()` already paired the two kinds; the draft now agrees.
+  Titles bind to the bat the way `mkBuilder` does — a bat that had a family slip on the prior
+  board keeps its title — with one guard: **only ever inherit a name that is in the pool**, since
+  every pre-fix slip was named after a bat and would otherwise carry that forward forever.
+  The pool is back-of-house language, because *family meal* is the restaurant term (the meal the
+  kitchen cooks for the staff before service, not a family dinner): Before Service, The Window,
+  Back of House, Mise en Place, Line Check, Two Minutes Out, Plates Up, Clocked In, Apron On,
+  Knife Roll, Doors in Ten, Eat Standing Up, Nothing Wasted, Shift's Up …
+  **No title may echo its own section**: no name in this pool contains *family* or *meal*
+  (`Staff Meal` was caught and replaced with `The Window`). The section header sits directly
+  above the card.
   Clause (d) is the point: without it the section is just "everyone who missed", which runs
   ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at
   **0–8, median 6, mean 5.3**. The two looser readings were measured and rejected — the rank
@@ -305,10 +327,13 @@ corrected there.)
   the fresh-draft leftover build, and — the one that hides — the **client-side SALVAGE/REBUILD
   pass**, which reconstructs the slip from leftovers even when the draft never made one.
   The section and view chip are gone; `noSalami` is deleted.
-  **Kept on purpose:** everything that RENDERS or GRADES an existing salami, plus the `biggest`
-  tracker row and its `season.json` history. Unlike the chef test those were real bets, really
-  graded — the line stops accruing, it is not erased, and an archived board still shows what it
-  shipped. A prior board carrying a salami keeps it; only new ones are impossible.
+  **Kept:** everything that RENDERS or GRADES an existing salami, so a prior board carrying one
+  keeps it and an archived board still shows what it shipped. Only new ones are impossible.
+  **Removed from the ledger too, later the same day (owner's call).** The first cut kept the
+  `biggest` row and its `season.json` history on the reasoning that those were real bets, unlike
+  the chef test — the owner overruled it and had the line taken out. All 35 slips were unwound by
+  re-grading the archived boards with `grade_night.grade_ticket`, not by subtracting the category
+  total, and `cats`/`history` reconcile: **+196.09u → +296.29u**, 192.5u of stake off the book.
   Measured cost of 8 moons vs the old 6-moons-plus-salami board: **−10.5u/night** over 37
   graded cold drafts (t = −1.36, inside noise). The rules below describe how the slip worked.
   **MOONS WIN, THE SALAMI IS LEFTOVER.** The moons fill first and the
@@ -419,9 +444,21 @@ Behavior that's load-bearing:
 
 `season.json` is the source of truth for the running tracker; `grade_night.py` is
 the only thing that writes its history. Current epoch is **since 2026-06-30**
-(running **+196.09u through 2026-08-13**, Family Meal included — moons carry it at ≈ +313u, the salami
-round-robin bleeds at ≈ −100u), rolling forward each morning as the prior night
-settles.
+(running **+296.29u through 2026-08-13** on 662.0u risked — 436 graded, 80 won, 18% hit,
++45% ROI), rolling forward each morning as the prior night settles. Five categories, and the
+card lists them in board order:
+
+| | record | units | staked |
+|---|---|---|---|
+| 🍱 Lunch | 5–21 | −0.79 | 26 |
+| 🌃 Nightcap | 8–26 | −0.28 | 34 |
+| ⚓️ Anchors | 35–107 | −13.60 | 142 |
+| 🚀 Moonshots | 31–195 | +313.33 | 452.0 |
+| 🍳 Family Meal | 1–7 | −2.37 | 8.0 |
+
+`history` has 40 points against 39 graded nights at or after `since` — the extra is the leading
+0 baseline. (`graded_nights` holds 68 entries because it is the full dedupe log back to 06-01,
+not the ledger window.) There is no `biggest` line any more: see the salami note above.
 
 > **Chef backed out, 2026-08-14.** The `chef` category was removed and its 13 nights
 > (08-01…08-13, `graded 13 / won 2 / −49.72u on 71.5 staked`) were unwound from the curve,
@@ -435,9 +472,10 @@ settles.
 > Chef won exactly twice: 08-05 (+5.06u) and 08-09 (+5.72u). Per-category units, win counts, and the history curve are baked into
 the board as `D.meta.season`.
 
-> ⚠️ **The board's big "+Nu" season number is the SUM of the category `units`
-> (`builder/moon/biggest/lunch/late`), not `history[-1]`.** `history` only feeds the
-> sparkline. To correct the displayed total, edit the category `units` and add the
+> ⚠️ **The board's big "+Nu" season number is the SUM of the `defs` category `units`
+> (now `lunch/late/builder/moon/family`, in that order), not `history[-1]`.** `history` only
+> feeds the sparkline. A category absent from `defs` — `biggest` and `chef` both are — is
+> invisible to the total even if `season.json` still holds it. To correct the displayed total, edit the category `units` and add the
 > same delta to `history[-1]` to keep the curve consistent.
 
 > **Reality check.** Backtesting on the calibration data shows the model does **not**
