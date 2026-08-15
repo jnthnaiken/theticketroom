@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T22:41:38Z",
+  "pulled_at": "2026-08-15T22:44:30Z",
   "games": [
     {
       "gamePk": 824239,
@@ -684,7 +684,7 @@
           {
             "id": 641933,
             "name": "Tyler O'Neill",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 624413,
@@ -766,7 +766,7 @@
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 656775,
@@ -1199,7 +1199,7 @@
     },
     {
       "gamePk": 823671,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "PHI@MIN",
       "away": {
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 77.8,
+        "wind_mph": 7.9,
+        "wind_dir": 241,
+        "tail_mph": 7.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.038
     },
     {
       "gamePk": 824966,
@@ -1868,8 +1875,54 @@
           "hr9": 1.14,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.256
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.166
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.19
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.206
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.173
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.126
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.18
+          },
+          {
+            "id": 642851,
+            "name": "Austin Wynns",
+            "iso": 0.038
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.042
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
