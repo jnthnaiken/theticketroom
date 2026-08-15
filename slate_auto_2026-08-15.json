@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T22:39:26Z",
+  "pulled_at": "2026-08-15T22:41:38Z",
   "games": [
     {
       "gamePk": 824239,
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 824480,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-15T22:40:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -922,15 +922,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 86\u00b0",
+        "cond": "calm 0mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 86.3,
-        "wind_mph": 0.8,
-        "wind_dir": 146,
-        "tail_mph": 0.2,
+        "temp": 84.6,
+        "wind_mph": 3.6,
+        "wind_dir": 137,
+        "tail_mph": 0.4,
         "precip": 18
       },
-      "wf": 1.025
+      "wf": 1.023
     },
     {
       "gamePk": 824400,
@@ -1055,15 +1055,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 79\u00b0",
+        "cond": "calm 2mph, 78\u00b0",
         "lean": "Boost",
-        "temp": 79.1,
-        "wind_mph": 4.7,
-        "wind_dir": 149,
-        "tail_mph": 4.0,
+        "temp": 78.4,
+        "wind_mph": 3.3,
+        "wind_dir": 138,
+        "tail_mph": 2.5,
         "precip": 1
       },
-      "wf": 1.028
+      "wf": 1.021
     },
     {
       "gamePk": 824157,
@@ -1320,15 +1320,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 6mph, 81\u00b0",
+        "cond": "calm 3mph, 80\u00b0",
         "lean": "Boost",
-        "temp": 80.6,
-        "wind_mph": 6.6,
-        "wind_dir": 156,
-        "tail_mph": 5.7,
+        "temp": 79.8,
+        "wind_mph": 3.3,
+        "wind_dir": 160,
+        "tail_mph": 2.9,
         "precip": 13
       },
-      "wf": 1.036
+      "wf": 1.025
     },
     {
       "gamePk": 823347,
@@ -1453,15 +1453,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 81\u00b0",
+        "cond": "calm 0mph, 81\u00b0",
         "lean": "Neutral",
-        "temp": 80.6,
-        "wind_mph": 1.9,
-        "wind_dir": 135,
-        "tail_mph": -0.8,
+        "temp": 80.8,
+        "wind_mph": 1.0,
+        "wind_dir": 153,
+        "tail_mph": -0.1,
         "precip": 2
       },
-      "wf": 1.013
+      "wf": 1.016
     },
     {
       "gamePk": 824884,
@@ -1586,15 +1586,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 91\u00b0",
+        "cond": "calm 0mph, 92\u00b0",
         "lean": "Boost",
-        "temp": 90.9,
-        "wind_mph": 3.0,
-        "wind_dir": 343,
-        "tail_mph": -1.2,
+        "temp": 91.6,
+        "wind_mph": 5.7,
+        "wind_dir": 318,
+        "tail_mph": 0.2,
         "precip": 6
       },
-      "wf": 1.027
+      "wf": 1.033
     },
     {
       "gamePk": 823914,
@@ -1722,8 +1722,8 @@
         "cond": "wind out 8mph, 80\u00b0",
         "lean": "Boost",
         "temp": 80.2,
-        "wind_mph": 10.9,
-        "wind_dir": 251,
+        "wind_mph": 10.7,
+        "wind_dir": 250,
         "tail_mph": 7.6,
         "precip": 0
       },
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 78\u00b0",
-        "lean": "Boost",
-        "temp": 77.8,
-        "wind_mph": 8.7,
-        "wind_dir": 241,
-        "tail_mph": 8.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
@@ -1939,15 +1932,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 82\u00b0",
+        "cond": "wind out 9mph, 82\u00b0",
         "lean": "Boost",
         "temp": 82.4,
-        "wind_mph": 8.3,
-        "wind_dir": 234,
-        "tail_mph": 8.3,
+        "wind_mph": 8.6,
+        "wind_dir": 233,
+        "tail_mph": 8.5,
         "precip": 0
       },
-      "wf": 1.047
+      "wf": 1.048
     }
   ]
 }
