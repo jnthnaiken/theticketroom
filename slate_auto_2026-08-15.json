@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T17:48:03Z",
+  "pulled_at": "2026-08-15T17:52:49Z",
   "games": [
     {
       "gamePk": 824239,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 641743,
           "name": "Anthony Kay",
-          "hr9": 1.15,
+          "hr9": 1.14,
           "hand": "LHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824644,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-15T18:20:00Z",
       "matchup": "STL@CHC",
       "away": {
@@ -1108,9 +1108,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 83.4,
+        "wind_mph": 8.4,
+        "wind_dir": 228,
+        "tail_mph": 8.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.049
     }
   ]
 }
