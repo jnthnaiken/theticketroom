@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T18:33:11Z",
+  "pulled_at": "2026-08-15T18:38:21Z",
   "games": [
     {
       "gamePk": 824239,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 641743,
           "name": "Anthony Kay",
-          "hr9": 1.21,
+          "hr9": 1.2,
           "hand": "LHP"
         },
         "lineup": [
@@ -30,17 +30,17 @@
           {
             "id": 678246,
             "name": "Miguel Vargas",
-            "iso": 0.246
+            "iso": 0.249
           },
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 695657,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 675512,
           "name": "Troy Melton",
-          "hr9": 0.86,
+          "hr9": 0.85,
           "hand": "RHP"
         },
         "lineup": [
@@ -107,12 +107,12 @@
           {
             "id": 701162,
             "name": "Ben Malgeri",
-            "iso": 0.203
+            "iso": 0.2
           },
           {
             "id": 595879,
             "name": "Javier B\u00e1ez",
-            "iso": 0.105
+            "iso": 0.104
           },
           {
             "id": 667452,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 700241,
           "name": "Michael McGreevy",
-          "hr9": 1.21,
+          "hr9": 1.2,
           "hand": "RHP"
         },
         "lineup": [
@@ -173,7 +173,7 @@
           {
             "id": 695491,
             "name": "Joshua B\u00e1ez",
-            "iso": 0.0
+            "iso": 3.0
           },
           {
             "id": 691026,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 571510,
           "name": "Matthew Boyd",
-          "hr9": 1.01,
+          "hr9": 1.12,
           "hand": "LHP"
         },
         "lineup": [
@@ -215,7 +215,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.213
+            "iso": 0.212
           },
           {
             "id": 683737,
@@ -1205,9 +1205,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 79.6,
+        "wind_mph": 8.3,
+        "wind_dir": 239,
+        "tail_mph": 7.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.042
     },
     {
       "gamePk": 824966,
@@ -1239,16 +1246,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 83.4,
-        "wind_mph": 8.4,
-        "wind_dir": 228,
-        "tail_mph": 8.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.049
+      "wf": 1.0
     }
   ]
 }
