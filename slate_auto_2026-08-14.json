@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T01:32:14Z",
+  "pulled_at": "2026-08-15T01:37:14Z",
   "games": [
     {
       "gamePk": 824643,
@@ -629,22 +629,22 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 543760,
             "name": "Marcus Semien",
-            "iso": 0.143
+            "iso": 0.146
           },
           {
             "id": 676724,
             "name": "Jared Young",
-            "iso": 0.182
+            "iso": 0.181
           },
           {
             "id": 620443,
@@ -695,7 +695,7 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 664034,
@@ -757,7 +757,7 @@
           {
             "id": 663993,
             "name": "Nathaniel Lowe",
-            "iso": 0.219
+            "iso": 0.222
           },
           {
             "id": 683953,
@@ -823,12 +823,12 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.137
+            "iso": 0.136
           },
           {
             "id": 691723,
             "name": "Coby Mayo",
-            "iso": 0.219
+            "iso": 0.217
           },
           {
             "id": 641933,
@@ -875,7 +875,7 @@
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 666018,
@@ -915,7 +915,7 @@
           {
             "id": 670764,
             "name": "Taylor Walls",
-            "iso": 0.083
+            "iso": 0.082
           }
         ],
         "confirmed": true
@@ -1037,7 +1037,7 @@
           {
             "id": 573262,
             "name": "Mike Yastrzemski",
-            "iso": 0.167
+            "iso": 0.165
           },
           {
             "id": 663586,
@@ -1083,7 +1083,7 @@
           {
             "id": 663757,
             "name": "Trent Grisham",
-            "iso": 0.201
+            "iso": 0.2
           },
           {
             "id": 700250,
@@ -1155,12 +1155,12 @@
           {
             "id": 543807,
             "name": "George Springer",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.107
+            "iso": 0.125
           },
           {
             "id": 665926,
@@ -1272,12 +1272,12 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.305
+            "iso": 0.304
           },
           {
             "id": 670623,
@@ -1307,12 +1307,12 @@
           {
             "id": 701358,
             "name": "Cam Smith",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 543877,
             "name": "Christian V\u00e1zquez",
-            "iso": 0.108
+            "iso": 0.107
           }
         ],
         "confirmed": true
@@ -1585,16 +1585,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 78\u00b0",
-        "lean": "Boost",
-        "temp": 78.0,
-        "wind_mph": 10.2,
-        "wind_dir": 237,
-        "tail_mph": 10.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.048
+      "wf": 1.0
     },
     {
       "gamePk": 823913,
@@ -1851,9 +1844,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 62\u00b0",
+        "lean": "Boost",
+        "temp": 61.6,
+        "wind_mph": 10.4,
+        "wind_dir": 279,
+        "tail_mph": 10.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.023
     }
   ]
 }
