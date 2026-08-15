@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T19:59:40Z",
+  "pulled_at": "2026-08-15T20:01:08Z",
   "games": [
     {
       "gamePk": 824239,
@@ -183,7 +183,7 @@
           {
             "id": 691458,
             "name": "Blaze Jordan",
-            "iso": 0.111
+            "iso": 0.131
           },
           {
             "id": 677592,
@@ -812,8 +812,54 @@
           "hr9": 1.1,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.101
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.103
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.223
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.287
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.146
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.206
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.186
+          },
+          {
+            "id": 688363,
+            "name": "Graham Pauley",
+            "iso": 0.107
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.227
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
@@ -899,8 +945,54 @@
           "hr9": 0.74,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.145
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.067
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.199
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.23
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.174
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.207
+          },
+          {
+            "id": 669720,
+            "name": "Austin Hays",
+            "iso": 0.135
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.11
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -1395,8 +1487,54 @@
           "hr9": 1.42,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.187
+          },
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.176
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.282
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.175
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.198
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.131
+          },
+          {
+            "id": 657041,
+            "name": "Lane Thomas",
+            "iso": 0.169
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.149
+          },
+          {
+            "id": 669221,
+            "name": "Sean Murphy",
+            "iso": 0.036
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1529,16 +1667,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 79\u00b0",
-        "lean": "Boost",
-        "temp": 78.7,
-        "wind_mph": 8.0,
-        "wind_dir": 234,
-        "tail_mph": 7.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
