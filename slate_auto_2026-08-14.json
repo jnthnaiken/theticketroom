@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T03:00:08Z",
+  "pulled_at": "2026-08-15T03:02:16Z",
   "games": [
     {
       "gamePk": 824643,
@@ -391,9 +391,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 78\u00b0",
+        "lean": "Neutral",
+        "temp": 78.2,
+        "wind_mph": 1.6,
+        "wind_dir": 188,
+        "tail_mph": 0.8,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.015
     },
     {
       "gamePk": 824237,
@@ -517,9 +524,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 83\u00b0",
+        "lean": "Neutral",
+        "temp": 83.4,
+        "wind_mph": 6.2,
+        "wind_dir": 71,
+        "tail_mph": -4.7,
+        "precip": 7
       },
-      "wf": 1.0
+      "wf": 1.004
     },
     {
       "gamePk": 823591,
@@ -1211,7 +1225,7 @@
           {
             "id": 686527,
             "name": "Dominic Canzone",
-            "iso": 0.237
+            "iso": 0.236
           },
           {
             "id": 677594,
@@ -1592,7 +1606,7 @@
         "sp": {
           "id": 688107,
           "name": "Robert Gasser",
-          "hr9": 1.42,
+          "hr9": 1.41,
           "hand": "LHP"
         },
         "lineup": [
@@ -1671,7 +1685,7 @@
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 669242,
@@ -1717,7 +1731,7 @@
     },
     {
       "gamePk": 823185,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-15T02:15:00Z",
       "matchup": "COL@SF",
       "away": {
