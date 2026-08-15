@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T01:52:15Z",
+  "pulled_at": "2026-08-15T01:57:00Z",
   "games": [
     {
       "gamePk": 824643,
@@ -1068,7 +1068,7 @@
     },
     {
       "gamePk": 822777,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-14T23:15:00Z",
       "matchup": "NYY@TOR",
       "away": {
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823185,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-15T02:15:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 62\u00b0",
+        "lean": "Boost",
+        "temp": 61.6,
+        "wind_mph": 10.4,
+        "wind_dir": 279,
+        "tail_mph": 10.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.023
     }
   ]
 }
