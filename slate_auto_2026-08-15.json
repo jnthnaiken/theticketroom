@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T21:29:28Z",
+  "pulled_at": "2026-08-15T21:30:27Z",
   "games": [
     {
       "gamePk": 824239,
@@ -495,7 +495,7 @@
           {
             "id": 678545,
             "name": "Osleivis Basabe",
-            "iso": 0.208
+            "iso": 0.204
           },
           {
             "id": 701852,
@@ -1800,9 +1800,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 82.7,
+        "wind_mph": 8.4,
+        "wind_dir": 228,
+        "tail_mph": 8.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.048
     }
   ]
 }
