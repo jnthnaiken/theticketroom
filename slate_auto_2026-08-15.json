@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T15:30:29Z",
+  "pulled_at": "2026-08-15T15:36:14Z",
   "games": [
     {
       "gamePk": 824239,
@@ -225,7 +225,7 @@
     },
     {
       "gamePk": 822775,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T19:07:00Z",
       "matchup": "NYY@TOR",
       "away": {
@@ -247,10 +247,56 @@
           "hr9": 0.89,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.065
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.101
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.125
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.162
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.202
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.122
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.158
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.072
+          },
+          {
+            "id": 807727,
+            "name": "Charles McAdoo",
+            "iso": 0.162
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
