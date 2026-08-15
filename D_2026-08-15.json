@@ -36303,8 +36303,8 @@
     "factor": 1.046,
     "park": "KC@LAA",
     "cond": "9 mph",
-    "rain": "0% rain",
-    "precip": 0
+    "rain": "1% rain",
+    "precip": 1
    },
    "15": {
     "emoji": "\u2600\ufe0f",
@@ -36316,7 +36316,7 @@
     "precip": 0
    }
   },
-  "build": "8/15 1:27pm",
+  "build": "8/15 1:31pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36582,7 +36582,7 @@
      "gtime": "2:20 PM ET",
      "game": 2,
      "late": false,
-     "odds": 310,
+     "odds": 296,
      "status": "confirmed"
     },
     {
@@ -36595,7 +36595,7 @@
      "gtime": "3:07 PM ET",
      "game": 3,
      "late": false,
-     "odds": 319,
+     "odds": 325,
      "status": "confirmed"
     }
    ],
@@ -36619,8 +36619,8 @@
    "confleg": 3,
    "locked": true,
    "priced": 3,
-   "parlay_am": 6514,
-   "payout10": 661.39
+   "parlay_am": 6380,
+   "payout10": 647.96
   },
   {
    "name": "Out of the Solar System",
@@ -36651,7 +36651,7 @@
      "gtime": "2:20 PM ET",
      "game": 2,
      "late": false,
-     "odds": 314,
+     "odds": 340,
      "status": "confirmed"
     },
     {
@@ -36664,7 +36664,7 @@
      "gtime": "3:07 PM ET",
      "game": 3,
      "late": false,
-     "odds": 390,
+     "odds": 382,
      "status": "confirmed"
     }
    ],
@@ -36688,8 +36688,8 @@
    "confleg": 3,
    "locked": true,
    "priced": 3,
-   "parlay_am": 7710,
-   "payout10": 781.01
+   "parlay_am": 8065,
+   "payout10": 816.51
   },
   {
    "name": "Weigh Anchor",
@@ -36745,7 +36745,7 @@
      "gtime": "4:05 PM ET",
      "game": 4,
      "late": false,
-     "odds": 367,
+     "odds": 355,
      "status": "projected"
     }
    ],
@@ -36764,8 +36764,46 @@
    "confleg": 1,
    "locked": true,
    "priced": 1,
-   "parlay_am": 367,
-   "payout10": 46.7
+   "parlay_am": 355,
+   "payout10": 45.5
+  },
+  {
+   "name": "Clocked In",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Seiya Suzuki puts the ball in the air on a homer plane (21\u00b0), has the yard tilting his way, is squaring up a good chunk (50% hard-hit).",
+   "players": [
+    {
+     "name": "Seiya Suzuki",
+     "team": "Cubs",
+     "total": 149.2,
+     "aT": 100,
+     "wf": 1.039,
+     "gmatch": "STL@CHC",
+     "gtime": "2:20 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 349,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Seiya Suzuki",
+   "lock": "2:20 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 349,
+   "payout10": 44.9,
+   "locked": true
   },
   {
    "name": "Zero Gravity",
@@ -36783,7 +36821,7 @@
      "gtime": "7:10 PM ET",
      "game": 9,
      "late": false,
-     "odds": 334,
+     "odds": 322,
      "status": "projected"
     },
     {
@@ -36809,7 +36847,7 @@
      "gtime": "7:15 PM ET",
      "game": 11,
      "late": false,
-     "odds": 417,
+     "odds": 392,
      "status": "projected"
     }
    ],
@@ -36832,14 +36870,14 @@
    },
    "confleg": 0,
    "priced": 3,
-   "parlay_am": 9369,
-   "payout10": 946.88
+   "parlay_am": 8662,
+   "payout10": 876.17
   },
   {
    "name": "Trajectory Locked",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Buxton has gusts carrying balls over the wall, Riley is scorching the ball (61% hard-hit), and Chourio is more table-setter than slugger (28/100).",
+   "note": "Buxton is mashing the ball (65% hard-hit), Riley has gusts carrying balls over the wall, and Chourio lands at 144 in our model.",
    "players": [
     {
      "name": "Byron Buxton",
@@ -36851,7 +36889,7 @@
      "gtime": "7:10 PM ET",
      "game": 9,
      "late": false,
-     "odds": 334,
+     "odds": 322,
      "status": "projected"
     },
     {
@@ -36864,7 +36902,7 @@
      "gtime": "7:15 PM ET",
      "game": 11,
      "late": false,
-     "odds": 429,
+     "odds": 405,
      "status": "projected"
     },
     {
@@ -36877,7 +36915,7 @@
      "gtime": "7:15 PM ET",
      "game": 12,
      "late": false,
-     "odds": 329,
+     "odds": 334,
      "status": "projected"
     }
    ],
@@ -36900,14 +36938,14 @@
    },
    "confleg": 0,
    "priced": 3,
-   "parlay_am": 9749,
-   "payout10": 984.92
+   "parlay_am": 9149,
+   "payout10": 924.9
   },
   {
    "name": "Sonic Boom",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Bleday catches a small park boost, Alonso is leaving scorch marks (58% hard-hit), and Vaughn stays in the sweet-spot angle (19\u00b0).",
+   "note": "Bleday catches a small park boost, Alonso is teeing off (58% hard-hit), and Vaughn stays in the sweet-spot angle (19\u00b0).",
    "players": [
     {
      "name": "JJ Bleday",
@@ -36919,7 +36957,7 @@
      "gtime": "6:40 PM ET",
      "game": 7,
      "late": false,
-     "odds": 237,
+     "odds": 232,
      "status": "projected"
     },
     {
@@ -36932,7 +36970,7 @@
      "gtime": "6:10 PM ET",
      "game": 6,
      "late": false,
-     "odds": 337,
+     "odds": 355,
      "status": "projected"
     },
     {
@@ -36945,7 +36983,7 @@
      "gtime": "7:15 PM ET",
      "game": 12,
      "late": false,
-     "odds": 417,
+     "odds": 427,
      "status": "projected"
     }
    ],
@@ -36968,14 +37006,14 @@
    },
    "confleg": 0,
    "priced": 3,
-   "parlay_am": 7514,
-   "payout10": 761.38
+   "parlay_am": 7861,
+   "payout10": 796.09
   },
   {
    "name": "The Long Bomb",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Bleday carries a 172 number tonight, Caminero is teeing off (58% hard-hit), and Contreras plays in a slightly friendly yard.",
+   "note": "Bleday carries a 172 number tonight, Caminero is teeing off (58% hard-hit), and Contreras gets a touch of carry tonight.",
    "players": [
     {
      "name": "JJ Bleday",
@@ -36987,7 +37025,7 @@
      "gtime": "6:40 PM ET",
      "game": 7,
      "late": false,
-     "odds": 237,
+     "odds": 232,
      "status": "projected"
     },
     {
@@ -37000,7 +37038,7 @@
      "gtime": "6:10 PM ET",
      "game": 6,
      "late": false,
-     "odds": 310,
+     "odds": 322,
      "status": "projected"
     },
     {
@@ -37036,14 +37074,14 @@
    },
    "confleg": 0,
    "priced": 3,
-   "parlay_am": 6422,
-   "payout10": 652.16
+   "parlay_am": 6513,
+   "payout10": 661.29
   },
   {
    "name": "Rocket Fuel",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Olson gets a park that's launching everything tonight, Su\u00e1rez swings with natural lift (18\u00b0), and Adell is teeing off (54% hard-hit).",
+   "note": "Olson has gusts carrying balls over the wall, Su\u00e1rez swings with natural lift (18\u00b0), and Adell is making elite contact (54% hard-hit).",
    "players": [
     {
      "name": "Matt Olson",
@@ -37055,7 +37093,7 @@
      "gtime": "7:15 PM ET",
      "game": 11,
      "late": false,
-     "odds": 287,
+     "odds": 274,
      "status": "projected"
     },
     {
@@ -37081,7 +37119,7 @@
      "gtime": "7:10 PM ET",
      "game": 8,
      "late": false,
-     "odds": 422,
+     "odds": 446,
      "status": "projected"
     }
    ],
@@ -37104,14 +37142,14 @@
    },
    "confleg": 0,
    "priced": 3,
-   "parlay_am": 8183,
-   "payout10": 828.26
+   "parlay_am": 8272,
+   "payout10": 837.24
   },
   {
    "name": "Thrust Vector",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Olson has gusts carrying balls over the wall, Raleigh is mashing the ball (64% hard-hit), and Machado hits it on the perfect plane (23\u00b0).",
+   "note": "Olson plays in a wind tunnel pointed at the seats, Raleigh is mashing the ball (64% hard-hit), and Machado hits it on the perfect plane (23\u00b0).",
    "players": [
     {
      "name": "Matt Olson",
@@ -37123,7 +37161,7 @@
      "gtime": "7:15 PM ET",
      "game": 11,
      "late": false,
-     "odds": 287,
+     "odds": 274,
      "status": "projected"
     },
     {
@@ -37149,7 +37187,7 @@
      "gtime": "7:10 PM ET",
      "game": 8,
      "late": false,
-     "odds": 456,
+     "odds": 495,
      "status": "projected"
     }
    ],
@@ -37172,14 +37210,14 @@
    },
    "confleg": 0,
    "priced": 3,
-   "parlay_am": 9131,
-   "payout10": 923.09
+   "parlay_am": 9447,
+   "payout10": 954.65
   },
   {
    "name": "Burning the Midnight Oil",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Corey Seager plays in a wind tunnel pointed at the seats, is making thunderous contact (56% hard-hit), has textbook lift (18\u00b0), and grades out strong for power (87/100).",
+   "note": "Corey Seager gets a park that's launching everything tonight, is making thunderous contact (56% hard-hit), has textbook lift (18\u00b0), and grades out strong for power (87/100).",
    "players": [
     {
      "name": "Corey Seager",
@@ -37216,7 +37254,7 @@
    "name": "The Berth",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Byron Buxton gets a yard playing like a launchpad tonight, is barreling everything in sight (65% hard-hit), drives the ball into the air (21\u00b0).",
+   "note": "Byron Buxton swings with the wind at his back, is barreling everything in sight (65% hard-hit), drives the ball into the air (21\u00b0).",
    "players": [
     {
      "name": "Byron Buxton",
@@ -37228,7 +37266,7 @@
      "gtime": "7:10 PM ET",
      "game": 9,
      "late": false,
-     "odds": 334,
+     "odds": 322,
      "status": "projected"
     }
    ],
@@ -37246,14 +37284,14 @@
    },
    "confleg": 0,
    "priced": 1,
-   "parlay_am": 334,
-   "payout10": 43.4
+   "parlay_am": 322,
+   "payout10": 42.2
   },
   {
    "name": "Tide's Turn",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "JJ Bleday plays in a slightly friendly yard, swings with usable power (55/100), is backed at 172 by the projection, holding his level.",
+   "note": "JJ Bleday catches a small park boost, swings with usable power (55/100), grades to 172 on our board, holding his level, +232 carries value.",
    "players": [
     {
      "name": "JJ Bleday",
@@ -37265,7 +37303,7 @@
      "gtime": "6:40 PM ET",
      "game": 7,
      "late": false,
-     "odds": 237,
+     "odds": 232,
      "status": "projected"
     }
    ],
@@ -37283,8 +37321,8 @@
    },
    "confleg": 0,
    "priced": 1,
-   "parlay_am": 237,
-   "payout10": 33.7
+   "parlay_am": 232,
+   "payout10": 33.2
   },
   {
    "name": "Even Keel",
@@ -37302,7 +37340,7 @@
      "gtime": "7:15 PM ET",
      "game": 11,
      "late": false,
-     "odds": 287,
+     "odds": 274,
      "status": "projected"
     }
    ],
@@ -37320,14 +37358,14 @@
    },
    "confleg": 0,
    "priced": 1,
-   "parlay_am": 287,
-   "payout10": 38.7
+   "parlay_am": 274,
+   "payout10": 37.4
   },
   {
    "name": "All Day",
    "kind": "family",
    "badge": "\ud83c\udf73",
-   "note": "Bobby Witt is making elite contact (55% hard-hit), swings with home-run loft (23\u00b0), gets a touch of carry tonight, and packs elite raw power.",
+   "note": "Bobby Witt is tattooing the baseball (55% hard-hit), swings with home-run loft (23\u00b0), has the yard tilting his way, and packs elite raw power.",
    "players": [
     {
      "name": "Bobby Witt",
@@ -37401,7 +37439,7 @@
    "name": "Knife Roll",
    "kind": "family",
    "badge": "\ud83c\udf73",
-   "note": "Ketel Marte gets a yard playing like a launchpad tonight, is squaring up premium contact (53% hard-hit).",
+   "note": "Ketel Marte plays in a wind tunnel pointed at the seats, is squaring up premium contact (53% hard-hit).",
    "players": [
     {
      "name": "Ketel Marte",
@@ -37438,7 +37476,7 @@
    "name": "Plates Up",
    "kind": "family",
    "badge": "\ud83c\udf73",
-   "note": "Wyatt Langford plays in a wind tunnel pointed at the seats, is hammering the ball (55% hard-hit), stays in the launch zone (22\u00b0).",
+   "note": "Wyatt Langford gets a yard playing like a launchpad tonight, is lighting up the radar gun (55% hard-hit), stays in the launch zone (22\u00b0).",
    "players": [
     {
      "name": "Wyatt Langford",
@@ -37472,47 +37510,10 @@
    "payout10": 50.9
   },
   {
-   "name": "Clocked In",
-   "kind": "family",
-   "badge": "\ud83c\udf73",
-   "note": "Seiya Suzuki puts the ball in the air on a homer plane (21\u00b0), catches a small park boost, is driving it with authority (50% hard-hit).",
-   "players": [
-    {
-     "name": "Seiya Suzuki",
-     "team": "Cubs",
-     "total": 149.2,
-     "aT": 100,
-     "wf": 1.039,
-     "gmatch": "STL@CHC",
-     "gtime": "2:20 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 387,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Seiya Suzuki",
-   "lock": "2:20 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 387,
-   "payout10": 48.7
-  },
-  {
    "name": "The Prep Table",
    "kind": "family",
    "badge": "\ud83c\udf73",
-   "note": "Tyler O'Neill is tattooing the baseball (59% hard-hit), puts air under the ball (22\u00b0), carries top-shelf pop (100/100 power grade).",
+   "note": "Tyler O'Neill is blistering line drives (59% hard-hit), puts air under the ball (22\u00b0), carries top-shelf pop (100/100 power grade).",
    "players": [
     {
      "name": "Tyler O'Neill",
@@ -37524,7 +37525,7 @@
      "gtime": "6:10 PM ET",
      "game": 6,
      "late": false,
-     "odds": 355,
+     "odds": 390,
      "status": "projected"
     }
    ],
@@ -37542,8 +37543,8 @@
    },
    "confleg": 0,
    "priced": 1,
-   "parlay_am": 355,
-   "payout10": 45.5
+   "parlay_am": 390,
+   "payout10": 49
   }
  ],
  "pool": [
