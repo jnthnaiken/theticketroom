@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-15T18:57:59Z",
+  "pulled_at": "2026-08-15T19:00:31Z",
   "games": [
     {
       "gamePk": 824239,
@@ -97,7 +97,7 @@
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.48
+            "iso": 0.47
           },
           {
             "id": 679529,
@@ -210,7 +210,7 @@
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 673548,
@@ -888,7 +888,7 @@
     },
     {
       "gamePk": 824400,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "SD@CLE",
       "away": {
@@ -908,10 +908,56 @@
           "hr9": 1.13,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.061
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.158
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.146
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.162
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.222
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.129
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.14
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.108
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.103
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
