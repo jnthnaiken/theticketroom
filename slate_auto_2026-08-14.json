@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T02:00:54Z",
+  "pulled_at": "2026-08-15T02:02:03Z",
   "games": [
     {
       "gamePk": 824643,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 824399,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "SD@CLE",
       "away": {
@@ -752,7 +752,7 @@
           {
             "id": 682657,
             "name": "Angel Mart\u00ednez",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 663993,
@@ -823,7 +823,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 691723,
@@ -1372,12 +1372,12 @@
           {
             "id": 686555,
             "name": "Isaac Collins",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.255
+            "iso": 0.25
           },
           {
             "id": 668942,
@@ -1397,7 +1397,7 @@
         "sp": {
           "id": 680570,
           "name": "Grayson Rodriguez",
-          "hr9": 1.6,
+          "hr9": 1.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 72\u00b0",
+        "lean": "Boost",
+        "temp": 72.0,
+        "wind_mph": 7.8,
+        "wind_dir": 252,
+        "tail_mph": 5.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.022
     },
     {
       "gamePk": 823185,
