@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T01:47:18Z",
+  "pulled_at": "2026-08-15T01:52:15Z",
   "games": [
     {
       "gamePk": 824643,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823346,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-14T22:40:00Z",
       "matchup": "BOS@PIT",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823591,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -710,12 +710,12 @@
           {
             "id": 669134,
             "name": "Luis Campusano",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 657757,
             "name": "Gavin Sheets",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 593428,
@@ -890,12 +890,12 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.273
+            "iso": 0.272
           },
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.163
+            "iso": 0.161
           },
           {
             "id": 683748,
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 824882,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-14T23:15:00Z",
       "matchup": "ARI@ATL",
       "away": {
@@ -950,7 +950,7 @@
           {
             "id": 672695,
             "name": "Geraldo Perdomo",
-            "iso": 0.13
+            "iso": 0.129
           },
           {
             "id": 682998,
@@ -960,7 +960,7 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.15
+            "iso": 0.148
           },
           {
             "id": 606466,
@@ -1012,12 +1012,12 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.283
+            "iso": 0.282
           },
           {
             "id": 671739,
@@ -1265,7 +1265,7 @@
         "sp": {
           "id": 663567,
           "name": "Peter Lambert",
-          "hr9": 0.92,
+          "hr9": 0.91,
           "hand": "RHP"
         },
         "lineup": [
@@ -1340,7 +1340,7 @@
         "sp": {
           "id": 607625,
           "name": "Seth Lugo",
-          "hr9": 1.07,
+          "hr9": 1.06,
           "hand": "RHP"
         },
         "lineup": [
@@ -1357,7 +1357,7 @@
           {
             "id": 695506,
             "name": "Jac Caglianone",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 679845,
@@ -1397,7 +1397,7 @@
         "sp": {
           "id": 680570,
           "name": "Grayson Rodriguez",
-          "hr9": 1.46,
+          "hr9": 1.45,
           "hand": "RHP"
         },
         "lineup": [
@@ -1452,9 +1452,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 76.7,
+        "wind_mph": 8.6,
+        "wind_dir": 233,
+        "tail_mph": 8.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.039
     },
     {
       "gamePk": 824968,
@@ -1473,12 +1480,12 @@
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 608369,
@@ -1523,7 +1530,7 @@
         "sp": {
           "id": 695611,
           "name": "Gage Jump",
-          "hr9": 0.87,
+          "hr9": 0.86,
           "hand": "LHP"
         },
         "lineup": [
@@ -1844,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 61.6,
-        "wind_mph": 10.4,
-        "wind_dir": 279,
-        "tail_mph": 10.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.023
+      "wf": 1.0
     }
   ]
 }
