@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
   "season": "2026",
-  "pulled_at": "2026-08-15T01:41:58Z",
+  "pulled_at": "2026-08-15T01:47:18Z",
   "games": [
     {
       "gamePk": 824643,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823591,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-14T23:10:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -1068,7 +1068,7 @@
     },
     {
       "gamePk": 822777,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-14T23:15:00Z",
       "matchup": "NYY@TOR",
       "away": {
@@ -1452,16 +1452,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 77\u00b0",
-        "lean": "Boost",
-        "temp": 76.7,
-        "wind_mph": 8.6,
-        "wind_dir": 233,
-        "tail_mph": 8.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.039
+      "wf": 1.0
     },
     {
       "gamePk": 824968,
@@ -1598,7 +1591,7 @@
     },
     {
       "gamePk": 823913,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-15T02:10:00Z",
       "matchup": "MIL@LAD",
       "away": {
