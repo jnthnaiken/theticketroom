@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T14:51:31Z",
+  "pulled_at": "2026-08-16T14:56:33Z",
   "games": [
     {
       "gamePk": 822940,
@@ -443,7 +443,7 @@
     },
     {
       "gamePk": 823590,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-16T17:40:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -465,10 +465,56 @@
           "hr9": 0.8,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.129
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.198
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.116
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.144
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.183
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.137
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.114
+          },
+          {
+            "id": 593871,
+            "name": "Jorge Polanco",
+            "iso": 0.086
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.135
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
