@@ -9697,7 +9697,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -9790,7 +9790,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -9883,7 +9883,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -9976,7 +9976,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -10069,7 +10069,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -10162,7 +10162,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -10255,7 +10255,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -10430,7 +10430,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 72.76540045136299,
-   "slot": 6,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1.043,
@@ -10440,7 +10440,7 @@
    "gtime": "1:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -10458,7 +10458,7 @@
    "psrc": "brl",
    "parkhr": 0.994,
    "mktT": 0.9786324786324786,
-   "slotT": 0.98,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.103,
    "penT": 1.00824,
@@ -10523,7 +10523,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 42.96831872882447,
-   "slot": 9,
+   "slot": 6,
    "bhand": "S",
    "hr9": null,
    "wf": 1.043,
@@ -10534,7 +10534,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -10551,7 +10551,7 @@
    "psrc": "brl",
    "parkhr": 0.994,
    "mktT": 0.8611111111111112,
-   "slotT": 0.92,
+   "slotT": 0.98,
    "platT": 1.024,
    "pen_fatigue": 0.103,
    "penT": 1.00824,
@@ -10709,7 +10709,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 86.34824472098289,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1.043,
@@ -10719,8 +10719,8 @@
    "gtime": "1:40 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tanner Bibee",
@@ -10737,7 +10737,7 @@
    "psrc": "brl",
    "parkhr": 0.994,
    "mktT": 0.7783119658119658,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": 0.103,
    "penT": 1.00824,
@@ -36316,7 +36316,7 @@
     "precip": 0
    }
   },
-  "build": "8/16 10:41am",
+  "build": "8/16 10:46am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -37120,7 +37120,7 @@
      "gtime": "1:40 PM ET",
      "game": 6,
      "late": false,
-     "odds": 387,
+     "odds": 390,
      "status": "confirmed"
     }
    ],
@@ -37143,8 +37143,8 @@
    },
    "confleg": 1,
    "priced": 3,
-   "parlay_am": 12041,
-   "payout10": 1214.12
+   "parlay_am": 12116,
+   "payout10": 1221.59
   },
   {
    "name": "Bar's Last Round",
