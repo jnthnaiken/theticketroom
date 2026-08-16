@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T21:01:01Z",
+  "pulled_at": "2026-08-16T21:04:11Z",
   "games": [
     {
       "gamePk": 822940,
@@ -750,7 +750,7 @@
           {
             "id": 608070,
             "name": "Jos\u00e9 Ram\u00edrez",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 666176,
@@ -788,9 +788,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 82\u00b0",
+        "lean": "Boost",
+        "temp": 81.8,
+        "wind_mph": 1.6,
+        "wind_dir": 236,
+        "tail_mph": 0.9,
+        "precip": 23
       },
-      "wf": 1.0
+      "wf": 1.021
     },
     {
       "gamePk": 824236,
@@ -927,7 +934,7 @@
     },
     {
       "gamePk": 824477,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-16T17:40:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -1180,9 +1187,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 8mph, 77\u00b0",
+        "lean": "Neutral",
+        "temp": 76.6,
+        "wind_mph": 11.1,
+        "wind_dir": 322,
+        "tail_mph": -7.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.982
     },
     {
       "gamePk": 824642,
@@ -1309,13 +1323,13 @@
         "emoji": "\u26c5",
         "cond": "calm 0mph, 82\u00b0",
         "lean": "Neutral",
-        "temp": 81.6,
+        "temp": 81.8,
         "wind_mph": 6.6,
         "wind_dir": 298,
         "tail_mph": 0.2,
         "precip": 7
       },
-      "wf": 1.018
+      "wf": 1.019
     },
     {
       "gamePk": 823182,
@@ -1384,7 +1398,7 @@
         "sp": {
           "id": 694918,
           "name": "Blade Tidwell",
-          "hr9": 0.7,
+          "hr9": 0.69,
           "hand": "RHP"
         },
         "lineup": [
@@ -1442,17 +1456,17 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 68\u00b0",
         "lean": "Neutral",
-        "temp": 68.2,
+        "temp": 68.4,
         "wind_mph": 2.1,
         "wind_dir": 103,
         "tail_mph": -2.0,
         "precip": 0
       },
-      "wf": 0.99
+      "wf": 0.991
     },
     {
       "gamePk": 824965,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-08-16T20:05:00Z",
       "matchup": "TEX@ATH",
       "away": {
@@ -1460,7 +1474,7 @@
         "sp": {
           "id": 674003,
           "name": "Cody Bradford",
-          "hr9": 0.67,
+          "hr9": 0.64,
           "hand": "LHP"
         },
         "lineup": [
@@ -1575,13 +1589,13 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 86\u00b0",
         "lean": "Neutral",
-        "temp": 86.4,
+        "temp": 85.9,
         "wind_mph": 6.4,
         "wind_dir": 350,
         "tail_mph": -2.2,
         "precip": 0
       },
-      "wf": 1.017
+      "wf": 1.016
     },
     {
       "gamePk": 823991,
@@ -1593,7 +1607,7 @@
         "sp": {
           "id": 702070,
           "name": "Noah Cameron",
-          "hr9": 0.95,
+          "hr9": 0.94,
           "hand": "LHP"
         },
         "lineup": [
@@ -1726,7 +1740,7 @@
         "sp": {
           "id": 701656,
           "name": "Logan Henderson",
-          "hr9": 1.39,
+          "hr9": 1.37,
           "hand": "RHP"
         },
         "lineup": [
@@ -1838,16 +1852,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 82.9,
-        "wind_mph": 7.7,
-        "wind_dir": 248,
-        "tail_mph": 5.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.039
+      "wf": 1.0
     },
     {
       "gamePk": 824156,
