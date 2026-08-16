@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-16T01:30:42Z",
+  "pulled_at": "2026-08-16T01:35:44Z",
   "games": [
     {
       "gamePk": 824239,
@@ -1490,7 +1490,7 @@
           {
             "id": 672695,
             "name": "Geraldo Perdomo",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 672515,
@@ -1638,7 +1638,7 @@
           {
             "id": 592885,
             "name": "Christian Yelich",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 661388,
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 79.8,
+        "wind_mph": 10.7,
+        "wind_dir": 247,
+        "tail_mph": 8.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.043
     },
     {
       "gamePk": 823990,
@@ -1844,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 78\u00b0",
-        "lean": "Boost",
-        "temp": 78.5,
-        "wind_mph": 7.5,
-        "wind_dir": 243,
-        "tail_mph": 6.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
