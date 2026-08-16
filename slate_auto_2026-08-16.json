@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T21:39:26Z",
+  "pulled_at": "2026-08-16T21:44:28Z",
   "games": [
     {
       "gamePk": 822940,
@@ -1312,7 +1312,7 @@
           {
             "id": 665804,
             "name": "Miguel Amaya",
-            "iso": 0.122
+            "iso": 0.121
           }
         ],
         "confirmed": true
@@ -1543,7 +1543,7 @@
           {
             "id": 680869,
             "name": "Zack Gelof",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 805779,
@@ -1614,7 +1614,7 @@
           {
             "id": 695600,
             "name": "Carter Jensen",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 677951,
@@ -1649,7 +1649,7 @@
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.226
+            "iso": 0.222
           },
           {
             "id": 664728,
@@ -1719,16 +1719,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 83.2,
-        "wind_mph": 8.8,
-        "wind_dir": 254,
-        "tail_mph": 7.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.045
+      "wf": 1.0
     },
     {
       "gamePk": 823912,
@@ -1839,7 +1832,7 @@
           {
             "id": 606192,
             "name": "Teoscar Hern\u00e1ndez",
-            "iso": 0.149
+            "iso": 0.147
           },
           {
             "id": 666163,
@@ -1852,9 +1845,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 6mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 83.2,
+        "wind_mph": 7.7,
+        "wind_dir": 248,
+        "tail_mph": 5.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.04
     },
     {
       "gamePk": 824156,
