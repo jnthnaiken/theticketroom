@@ -922,11 +922,20 @@ const ODDS_KEY='hr_ticket_odds';
 function oddsSig(){return D.meta.pool+'|'+Object.keys(D.players).sort().slice(0,3).join(',');}
 function saveOdds(){try{const o={},hr={};for(const n in D.players){if(D.players[n].odds)o[n]=D.players[n].odds;if(D.players[n].hr)hr[n]=1;}localStorage.setItem(ODDS_KEY,JSON.stringify({sig:oddsSig(),date:D.meta.date,finals:(D.meta.finals||[]),t:Date.now(),odds:o,hr:hr}));const s=$('#osaved');if(s)s.textContent='saved '+nowStr();}catch(e){}}
 function loadOdds(){try{const raw=localStorage.getItem(ODDS_KEY);if(!raw)return 0;const d=JSON.parse(raw);
-  if(d.date&&d.date===D.meta.date){                                                   // same slate day -> HOLD last-known results across refreshes until the next morning's build (new date)
-    if(d.hr){for(const n in d.hr){if(D.players[n])D.players[n].hr=true;}}
-    if(d.finals&&d.finals.length){var f=(D.meta.finals||[]).slice();d.finals.forEach(function(g){if(f.indexOf(g)<0)f.push(g);});D.meta.finals=f;}
-  }
-  if(d.sig!==oddsSig())return 0;                                                       // entered odds restore only when the slate composition matches
+  if(!(d.date&&d.date===D.meta.date))return 0;                                        // a snapshot from another slate never touches this board
+  // ODDSHOLD-2026-08-15 -- NOTHING is carried across a refresh until EVERY game on the slate is final.
+  // While games are still being played a load uses the fresh bake alone. Without this the first build a
+  // tab happens to open on pins its prices for the whole day -- 2026-08-15, one cashed single read +388
+  // on a desktop and +529 on a phone, 1.4u apart, because the live loop re-saved the morning table forever.
+  // Judged on the UNION with the snapshot's own finals: the Action freezes a fully-final slate, so the
+  // last game may never make it into a baked meta.finals.
+  var _g=Object.keys((D.meta&&D.meta.wx)||{}).length;
+  var _f=((D.meta&&D.meta.finals)||[]).slice();
+  (d.finals||[]).forEach(function(g){if(_f.indexOf(g)<0)_f.push(g);});
+  if(!(_g>0&&_f.length>=_g))return 0;
+  D.meta.finals=_f;
+  if(d.hr){for(const n in d.hr){if(D.players[n])D.players[n].hr=true;}}
+  if(d.sig!==oddsSig())return 0;                                                       // odds restore only when the slate composition matches
   let c=0;for(const n in d.odds){if(D.players[n]){D.players[n].odds=d.odds[n];c++;}}return c;}catch(e){return 0;}}
 function clearSaved(){try{localStorage.removeItem(ODDS_KEY);localStorage.removeItem('hr_lock_'+((D.meta&&D.meta.date)||''));}catch(e){}location.reload();}
 $('#btn-oclear').onclick=clearSaved;
