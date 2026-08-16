@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T16:27:00Z",
+  "pulled_at": "2026-08-16T16:30:27Z",
   "games": [
     {
       "gamePk": 822940,
@@ -77,22 +77,22 @@
           {
             "id": 650490,
             "name": "Yandy D\u00edaz",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 666018,
             "name": "Jonathan Aranda",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.269
+            "iso": 0.268
           },
           {
             "id": 668723,
             "name": "Ryan Vilade",
-            "iso": 0.205
+            "iso": 0.203
           },
           {
             "id": 802415,
@@ -1241,7 +1241,7 @@
     },
     {
       "gamePk": 823182,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-16T20:05:00Z",
       "matchup": "COL@SF",
       "away": {
@@ -1263,10 +1263,56 @@
           "hr9": 0.4,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.133
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.223
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.189
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.142
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.2
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.015
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.0
+          },
+          {
+            "id": 671083,
+            "name": "Buddy Kennedy",
+            "iso": 0.033
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.039
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
