@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T14:56:33Z",
+  "pulled_at": "2026-08-16T15:00:54Z",
   "games": [
     {
       "gamePk": 822940,
@@ -454,8 +454,54 @@
           "hr9": 1.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.254
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.361
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.151
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.166
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.166
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.086
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.269
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.162
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.155
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYM",
@@ -1080,16 +1126,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 87\u00b0",
-        "lean": "Boost",
-        "temp": 86.9,
-        "wind_mph": 3.2,
-        "wind_dir": 326,
-        "tail_mph": 0.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.026
+      "wf": 1.0
     },
     {
       "gamePk": 823991,
