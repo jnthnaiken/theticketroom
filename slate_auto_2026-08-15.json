@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-16T02:00:55Z",
+  "pulled_at": "2026-08-16T02:03:32Z",
   "games": [
     {
       "gamePk": 824239,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824157,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "SEA@HOU",
       "away": {
@@ -1271,7 +1271,7 @@
           {
             "id": 668885,
             "name": "Austin Martin",
-            "iso": 0.093
+            "iso": 0.092
           },
           {
             "id": 621439,
@@ -1281,7 +1281,7 @@
           {
             "id": 680777,
             "name": "Ryan Jeffers",
-            "iso": 0.211
+            "iso": 0.209
           },
           {
             "id": 668904,
@@ -1419,7 +1419,7 @@
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.302
+            "iso": 0.3
           },
           {
             "id": 682927,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824884,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T23:15:00Z",
       "matchup": "ARI@ATL",
       "away": {
@@ -1547,7 +1547,7 @@
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.281
+            "iso": 0.282
           },
           {
             "id": 645277,
@@ -1585,9 +1585,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 92\u00b0",
+        "lean": "Boost",
+        "temp": 92.5,
+        "wind_mph": 2.9,
+        "wind_dir": 351,
+        "tail_mph": -1.5,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.029
     },
     {
       "gamePk": 823914,
@@ -1759,7 +1766,7 @@
           {
             "id": 686555,
             "name": "Isaac Collins",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 686681,
@@ -1865,7 +1872,7 @@
         "sp": {
           "id": 669022,
           "name": "MacKenzie Gore",
-          "hr9": 1.14,
+          "hr9": 1.13,
           "hand": "LHP"
         },
         "lineup": [
@@ -1922,7 +1929,7 @@
         "sp": {
           "id": 669372,
           "name": "J.T. Ginn",
-          "hr9": 0.96,
+          "hr9": 0.95,
           "hand": "RHP"
         },
         "lineup": [
