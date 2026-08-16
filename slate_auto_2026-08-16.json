@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T21:24:20Z",
+  "pulled_at": "2026-08-16T21:29:16Z",
   "games": [
     {
       "gamePk": 822940,
@@ -683,7 +683,7 @@
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.144
+            "iso": 0.143
           },
           {
             "id": 630105,
@@ -1240,12 +1240,12 @@
           {
             "id": 701675,
             "name": "Nathan Church",
-            "iso": 0.124
+            "iso": 0.123
           },
           {
             "id": 691026,
             "name": "Masyn Winn",
-            "iso": 0.08
+            "iso": 0.079
           },
           {
             "id": 699625,
@@ -1363,7 +1363,7 @@
           {
             "id": 650489,
             "name": "Willi Castro",
-            "iso": 0.158
+            "iso": 0.157
           },
           {
             "id": 687859,
@@ -1453,9 +1453,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 68.4,
+        "wind_mph": 2.1,
+        "wind_dir": 103,
+        "tail_mph": -2.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.991
     },
     {
       "gamePk": 824965,
@@ -1531,7 +1538,7 @@
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.107
+            "iso": 0.106
           },
           {
             "id": 680869,
@@ -1755,7 +1762,7 @@
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.224
+            "iso": 0.223
           },
           {
             "id": 683734,
@@ -1845,16 +1852,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 83.2,
-        "wind_mph": 7.7,
-        "wind_dir": 248,
-        "tail_mph": 5.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 824156,
@@ -1869,8 +1869,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.135
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.175
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.235
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.167
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.108
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.145
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.135
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.153
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
