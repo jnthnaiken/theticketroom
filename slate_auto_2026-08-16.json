@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T17:24:38Z",
+  "pulled_at": "2026-08-16T17:27:21Z",
   "games": [
     {
       "gamePk": 822940,
@@ -1673,9 +1673,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 86.5,
+        "wind_mph": 7.9,
+        "wind_dir": 248,
+        "tail_mph": 7.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.049
     },
     {
       "gamePk": 823912,
@@ -1690,8 +1697,54 @@
           "hr9": 1.44,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.126
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.098
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.192
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.225
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.16
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.232
+          },
+          {
+            "id": 663604,
+            "name": "Brandon Lockridge",
+            "iso": 0.043
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.126
+          },
+          {
+            "id": 680716,
+            "name": "Jonathan Ornelas",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
