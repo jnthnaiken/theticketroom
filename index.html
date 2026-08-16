@@ -1121,8 +1121,19 @@ drawTickets();drawPlayers();drawTracker();
    Mirrors assemble_tickets.py. 2026-08-08: a strength-key change re-drafted SEVEN locked tickets in one
    rebuild -- the 3:05 lunch play went Baldwin->Rice at 6:06pm. */
     var _lkNow=nowMin(), _lockedPrior=[], _lockedBats={};
-    (D.tickets||[]).forEach(function(t){var lk=gmin(t.lock); if(lk==null||_lkNow<lk)return;
-      _lockedPrior.push(t); (t.players||[]).forEach(function(l){_lockedBats[l.name]=1;});});
+    /* CONFLOCK-2026-08-16 -- a ticket is final once it is CONFIRMED, not only once it is underway.
+       The clock rule alone left a bat confirmed at 4pm for a 9:38 game re-draftable for five and a
+       half hours; that is where the 2026-08-15 Family Meal churned (25 adds / 25 drops, 17 bats
+       through 8 seats, all pre-first-pitch) and where Bobby Witt came off a board already bet.
+       Same condition the lock badge renders, so 🔒 on the board now means 🔒 in the draft. A
+       scratch clears `confirmed`, so the slip unfreezes and refills exactly as it always did. */
+    (D.tickets||[]).forEach(function(t){
+      var lk=gmin(t.lock), _lg=(t.players||[]);
+      var _underway = (lk!=null && _lkNow>=lk);
+      var _allConf  = _lg.length>0 && _lg.every(function(l){
+        var p=P[l.name]; return !!(p && p.status==='confirmed' && !p.out && !p.void); });
+      if(!_underway && !_allConf) return;
+      _lockedPrior.push(t); _lg.forEach(function(l){_lockedBats[l.name]=1;});});
     if(_lockedPrior.length) nonchalk=nonchalk.filter(function(n){return !_lockedBats[n];});
     // POOL ORDER: the reclaim above prepends already-placed CONFIRMED bats before the byT pass,
     // so the pool head was confirmation order, not model order (2026-08-12: Conine 144.5 at #2,
@@ -1752,24 +1763,6 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       });
     })();
     if(CHEF_TICKET&&_chefLegs.length>=CHALK_N&&!out.some(function(t){return t.kind==='chef';})){var _clegs=_chefLegs.slice().sort(function(a,b){return (P[b].TOTAL||0)-(P[a].TOTAL||0);});var _clegL=_clegs.map(leg);out.push({name:cwName('chef',nextIdx('chef')),kind:'chef',badge:'\uD83C\uDF7D',note:"",players:_clegL,nlegs:_clegL.length,anchor:_clegs[0],lock:lockOf(_clegL),has_late:_clegL.some(function(l){return l.late;}),final:false,rr:{struct:"by 2s, 3s & 4",risk:5.5}});}
-    /* FAMPIN-2026-08-15 -- the Family Meal is chosen once and then held.
-       It used to re-qualify every build against a live-re-scored TOTAL and a moving floor, which
-       rotated 17 bats through 8 seats on 2026-08-15 (25 adds / 25 drops over 97 builds). All of it
-       happened BEFORE each seat's first pitch, so the ticket lock never applied. Carrying every
-       prior family slip -- not just the locked ones -- is what actually settles the section. */
-    (function(){
-      if(!prior||!prior.length)return;
-      var _taken={}; out.forEach(function(t){ (t.players||[]).forEach(function(l){_taken[l.name]=1;}); });
-      prior.forEach(function(t){
-        if(!t||t.kind!=='family')return;
-        var _lg=(t.players||[]); if(_lg.length!==1)return;
-        var n=_lg[0].name; if(_taken[n])return;              // drafted elsewhere this build -> free the seat
-        var p=P[n]; if(!p||p.out||p.void)return;             // scratched -> the slip drops, as it always did
-        var c={}; for(var q in t)c[q]=t[q];
-        c.players=[leg(n)]; c.nlegs=1; c.lock=lockOf(c.players);
-        out.push(c); _taken[n]=1;
-      });
-    })();
     /* FAMILY MEAL -- 2026-08-14. The staff meal: what the kitchen ate instead of serving.
        A bat qualifies when it (a) cleared the pool gate, (b) was not reserved as chalk,
        (c) landed on no slip, and (d) scored HIGHER than the weakest bat the board did draft.
@@ -1869,6 +1862,21 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           out.push(c);_cnt[k]=(_cnt[k]||0)+1;_nm[c.name]=1;});})();
       out.forEach(function(t){ if(typeof priceTicket==='function') priceTicket(t); });
     }
+    /* MINTGUARD-2026-08-16 -- a slip may never be CREATED past its own first pitch. The lock rule
+       froze slips that already existed; nothing stopped the drafter minting a new one whose lock had
+       passed -- a bet nobody could have placed, which grade_night.py then books. Moons live and die
+       as a pair, so a late moon takes its anchor's whole run with it. No prior board -> no-op. */
+    (function(){
+      if(!prior||!prior.length)return;
+      var _pn={}; prior.forEach(function(t){ if(t&&t.name)_pn[t.name]=1; });
+      var _now=nowETMin();
+      var _late=out.filter(function(t){ return !_pn[t.name] && t.lock && gmin(t.lock)<=_now; });
+      if(!_late.length)return;
+      var _kill={}; _late.forEach(function(t){ _kill[t.name]=1; });
+      var _anch={}; _late.forEach(function(t){ if(t.kind==='moon'&&t.anchor)_anch[t.anchor]=1; });
+      out.forEach(function(t){ if(t.kind==='moon'&&t.anchor&&_anch[t.anchor])_kill[t.name]=1; });
+      out=out.filter(function(t){ return !_kill[t.name]; });
+    })();
     (function(){   // ---- MOON PAIRING (display): an anchor's two moons sit SIDE BY SIDE.
       // 2026-08-11: this pass MUST be the last thing that touches `out`. It used to run before the
       // locked/fresh merge, and `out=_kept.concat(_trim)` plus the shrink-guard's tail `out.push(c)`
@@ -2058,7 +2066,31 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
   function liveUpdate(){
     var date=D.meta&&D.meta.date; if(!date){stamp('no slate date'); return Promise.resolve();}
     stamp(CACHE?'refreshing weather\u2026':'updating\u2026');
-    var step1 = CACHE ? Promise.resolve(CACHE) : buildCache(date);
+    /* ADOPT-2026-08-16 -- adopt newer server builds instead of re-drafting this tab's load-time board
+       forever. The board is baked in as `const D={...}` and was never re-fetched, so a tab left open
+       kept drafting a ticket set the server had thrown away while the live feeds made it look current
+       and marked its legs confirmed. 2026-08-15: a tab on the 4:34pm board showed "All Day" (Witt)
+       as fully confirmed at ~6:42pm; the server had swapped him out at 4:39pm and graded that.
+       Silent by owner's call -- CONFLOCK freezes anything confirmed, so adoption can only move what
+       is not yet bettable. Fails soft: no network, or a downloaded copy, keeps the baked board. */
+    var step0 = fetch('D_'+date+'.json?cb='+Date.now(),{cache:'no-store'})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(j){
+        if(!j||!j.meta||!j.players||!j.tickets)return;
+        if(j.meta.build===D.meta.build)return;
+        var _hr={}; Object.keys(D.players).forEach(function(n){if(D.players[n].hr)_hr[n]=1;});
+        var _fin=(D.meta.finals||[]).slice(), _gs=D.meta.gs||{}, _lv=(D.meta.live||[]).slice();
+        D.players=j.players; D.pool=j.pool||[]; D.tickets=j.tickets;
+        D.familyFloor=j.familyFloor; D.meta=j.meta;
+        Object.keys(_hr).forEach(function(n){if(D.players[n])D.players[n].hr=true;});
+        D.meta.finals=(D.meta.finals||[]).slice();
+        _fin.forEach(function(g){if(D.meta.finals.indexOf(g)<0)D.meta.finals.push(g);});
+        D.meta.gs=D.meta.gs||{}; Object.keys(_gs).forEach(function(k){if(!(k in D.meta.gs))D.meta.gs[k]=_gs[k];});
+        D.meta.live=(D.meta.live||[]).slice();
+        _lv.forEach(function(g){if(D.meta.live.indexOf(g)<0)D.meta.live.push(g);});
+        CACHE=null;                                        // slate metadata is rebuilt against the new board
+      }).catch(function(){});
+    var step1 = step0.then(function(){ return CACHE ? CACHE : buildCache(date); });
     return step1.then(function(cache){ CACHE=cache;
       return fetchWeather(cache.homes).then(function(hourly){
         var slate=cache.slate, hr9=cache.hr9, wfByGm={}, wxByGm={};
