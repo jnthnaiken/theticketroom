@@ -1,11 +1,11 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T17:52:53Z",
+  "pulled_at": "2026-08-16T17:54:32Z",
   "games": [
     {
       "gamePk": 822940,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-08-16T16:15:00Z",
       "matchup": "BAL@TB",
       "away": {
@@ -20,7 +20,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.135
+            "iso": 0.14
           },
           {
             "id": 624413,
@@ -145,7 +145,7 @@
         "sp": {
           "id": 663776,
           "name": "Patrick Sandoval",
-          "hr9": 0.89,
+          "hr9": 0.88,
           "hand": "LHP"
         },
         "lineup": [
@@ -219,17 +219,17 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.17
+            "iso": 0.172
           },
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 804668,
             "name": "Rafael Flores Jr.",
-            "iso": 0.352
+            "iso": 0.343
           },
           {
             "id": 663968,
@@ -315,7 +315,7 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.157
+            "iso": 0.155
           },
           {
             "id": 543510,
@@ -335,7 +335,7 @@
         "sp": {
           "id": 693821,
           "name": "Bryce Elder",
-          "hr9": 1.42,
+          "hr9": 1.41,
           "hand": "RHP"
         },
         "lineup": [
@@ -347,7 +347,7 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 621566,
@@ -438,7 +438,7 @@
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.18
+            "iso": 0.178
           },
           {
             "id": 806146,
@@ -485,7 +485,7 @@
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.123
+            "iso": 0.122
           },
           {
             "id": 543807,
@@ -543,7 +543,7 @@
         "sp": {
           "id": 663623,
           "name": "Jake Irvin",
-          "hr9": 1.52,
+          "hr9": 1.49,
           "hand": "RHP"
         },
         "lineup": [
@@ -617,7 +617,7 @@
           {
             "id": 666182,
             "name": "Bo Bichette",
-            "iso": 0.116
+            "iso": 0.117
           },
           {
             "id": 701807,
@@ -809,7 +809,7 @@
         "sp": {
           "id": 680732,
           "name": "Sean Burke",
-          "hr9": 1.0,
+          "hr9": 0.99,
           "hand": "RHP"
         },
         "lineup": [
@@ -1719,9 +1719,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 86.5,
+        "wind_mph": 7.9,
+        "wind_dir": 248,
+        "tail_mph": 7.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.049
     },
     {
       "gamePk": 823912,
