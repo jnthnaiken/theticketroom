@@ -3,34 +3,34 @@
  "stake": 1,
  "cats": {
   "moon": {
-   "graded": 234,
+   "graded": 242,
    "won": 32,
-   "units": 312.42,
-   "staked": 468.0
+   "units": 296.42,
+   "staked": 484.0
   },
   "late": {
-   "graded": 35,
+   "graded": 36,
    "won": 9,
-   "units": 4.78,
-   "staked": 35
+   "units": 3.78,
+   "staked": 36
   },
   "builder": {
-   "graded": 146,
+   "graded": 150,
    "won": 36,
-   "units": -14.05,
-   "staked": 146
+   "units": -18.05,
+   "staked": 150
   },
   "lunch": {
-   "graded": 27,
+   "graded": 28,
    "won": 6,
-   "units": 3.21,
-   "staked": 27
+   "units": 2.21,
+   "staked": 28
   },
   "family": {
-   "graded": 16,
-   "won": 1,
-   "units": -10.37,
-   "staked": 16.0
+   "graded": 23,
+   "won": 3,
+   "units": -6.38,
+   "staked": 23.0
   }
  },
  "history": [
@@ -74,7 +74,8 @@
   329.76,
   315.66,
   296.29,
-  295.99
+  295.99,
+  277.98
  ],
  "graded_nights": [
   "2026-06-01",
@@ -145,7 +146,8 @@
   "2026-08-11",
   "2026-08-12",
   "2026-08-13",
-  "2026-08-14"
+  "2026-08-14",
+  "2026-08-15"
  ],
  "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet. | 2026-08-14: Chef's Table RETIRED and its 13 graded nights (08-01..08-13) backed out of the ledger at the owner's direction -- the slip was a test, not a product line. Removed cat: graded 13, won 2, -49.72u on 71.5 staked. All 13 slips were re-graded from the archived boards against the stored boxscore outcomes; the 12 nights with stored outcomes reproduce the recorded -44.22u / 66.0 staked / 2 wins EXACTLY, so 08-13 is the arithmetic remainder (-5.50u, 5.5 staked, 0 wins) and matches that board's rr.risk of 5.5. Each night's chef net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +148.74u -> +198.46u. No other kind touched. | 2026-08-14: Family Meal added as a ticket kind and BACKFILLED onto 2026-08-13 at the owner's direction -- the night's board was re-run through the shipped engine with its real tickets handed in as prior (all 13 carried verbatim, the retired chef dropped), which produced 8 family slips off the same pool: Trout +355, Ortiz +463, Pages +355, Bauers +396, Teoscar +405, Clemens +373, Abrams +350, Harper +395. Graded against the 08-13 boxscores (all 8 took a PA; Ortiz homered): 1-7 for -2.37u on 8.0 staked. Season 198.46 -> 196.09. D_2026-08-13.json and the baked board were rewritten to match, so the archive and the ledger agree. | 2026-08-14: Grand Salami REMOVED from the ledger at the owner's direction, same treatment as the chef test. Dropped cat: graded 35, won 5, -100.20u on 192.5 staked (-52.1%), the worst line on the board. 33 of the 35 slips were re-graded from the archived boards against stored boxscore outcomes (07-01..08-12: -106.40u on 181.5 staked, 4 wins). 08-13 is a confirmed loss -- three of its four legs (N. Lowe, Bleday, Conine) took a plate appearance with zero HR, and a 4-leg round robin cannot cash on fewer than two hits, so the fourth leg (L. Garcia) is irrelevant: -5.50u. 06-30 is therefore the arithmetic remainder (+11.70u on 5.5 staked, 1 win) -- it predates the local archives, the same situation chef's 08-13 was in. Each night's salami net was subtracted from the cumulative curve from that night forward. Season 196.09 -> 296.29; cats and history reconcile. The Salamis row is removed from the board tracker."
 }
