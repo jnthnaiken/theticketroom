@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-16T01:50:51Z",
+  "pulled_at": "2026-08-16T01:55:34Z",
   "games": [
     {
       "gamePk": 824239,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824157,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "SEA@HOU",
       "away": {
@@ -1117,12 +1117,12 @@
           {
             "id": 645302,
             "name": "Victor Robles",
-            "iso": 0.057
+            "iso": 0.056
           },
           {
             "id": 801126,
             "name": "Brock Rodden",
-            "iso": 0.285
+            "iso": 0.25
           }
         ],
         "confirmed": true
@@ -1239,7 +1239,7 @@
           {
             "id": 624641,
             "name": "Edmundo Sosa",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 681082,
@@ -1254,7 +1254,7 @@
           {
             "id": 656537,
             "name": "Derek Hill",
-            "iso": 0.184
+            "iso": 0.183
           }
         ],
         "confirmed": true
@@ -1510,12 +1510,12 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.158
+            "iso": 0.157
           },
           {
             "id": 545121,
             "name": "Ildemaro Vargas",
-            "iso": 0.133
+            "iso": 0.141
           },
           {
             "id": 814439,
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 677976,
           "name": "Randy Dobnak",
-          "hr9": 0.5,
+          "hr9": 0.49,
           "hand": "RHP"
         },
         "lineup": [
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 78.5,
+        "wind_mph": 7.5,
+        "wind_dir": 243,
+        "tail_mph": 6.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.037
     },
     {
       "gamePk": 824966,
@@ -1882,17 +1889,17 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.206
+            "iso": 0.205
           },
           {
             "id": 677649,
             "name": "Ezequiel Duran",
-            "iso": 0.173
+            "iso": 0.171
           },
           {
             "id": 694497,
