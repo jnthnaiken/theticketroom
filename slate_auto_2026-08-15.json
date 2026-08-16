@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-16T01:35:44Z",
+  "pulled_at": "2026-08-16T01:40:27Z",
   "games": [
     {
       "gamePk": 824239,
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 824480,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T22:40:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -913,7 +913,7 @@
           {
             "id": 680574,
             "name": "Matt McLain",
-            "iso": 0.157
+            "iso": 0.155
           }
         ],
         "confirmed": true
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 824400,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "SD@CLE",
       "away": {
@@ -959,7 +959,7 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 664034,
@@ -1036,7 +1036,7 @@
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 672275,
@@ -1046,7 +1046,7 @@
           {
             "id": 690984,
             "name": "Petey Halpin",
-            "iso": 0.1
+            "iso": 0.099
           }
         ],
         "confirmed": true
@@ -1139,17 +1139,17 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.179
+            "iso": 0.182
           },
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.302
+            "iso": 0.301
           },
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.158
+            "iso": 0.165
           },
           {
             "id": 662139,
@@ -1229,7 +1229,7 @@
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.118
+            "iso": 0.117
           },
           {
             "id": 664761,
@@ -1286,12 +1286,12 @@
           {
             "id": 668904,
             "name": "Royce Lewis",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 807712,
@@ -1367,7 +1367,7 @@
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.216
+            "iso": 0.217
           },
           {
             "id": 702332,
@@ -1537,12 +1537,12 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.197
+            "iso": 0.196
           },
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 621566,
@@ -1577,7 +1577,7 @@
           {
             "id": 669221,
             "name": "Sean Murphy",
-            "iso": 0.034
+            "iso": 0.032
           }
         ],
         "confirmed": true
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823990,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-16T01:38:00Z",
       "matchup": "KC@LAA",
       "away": {
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 78.5,
+        "wind_mph": 7.5,
+        "wind_dir": 243,
+        "tail_mph": 6.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.037
     },
     {
       "gamePk": 824966,
