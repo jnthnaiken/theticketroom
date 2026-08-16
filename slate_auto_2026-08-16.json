@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T14:46:35Z",
+  "pulled_at": "2026-08-16T14:51:31Z",
   "games": [
     {
       "gamePk": 822940,
@@ -322,8 +322,54 @@
           "hr9": 1.28,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.279
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.265
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.15
+          },
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.199
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.18
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.154
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.123
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.148
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
@@ -791,7 +837,7 @@
     },
     {
       "gamePk": 823670,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-16T18:10:00Z",
       "matchup": "PHI@MIN",
       "away": {
@@ -813,10 +859,56 @@
           "hr9": 2.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.158
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.278
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.168
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.228
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.186
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.174
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.107
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.108
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.191
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
