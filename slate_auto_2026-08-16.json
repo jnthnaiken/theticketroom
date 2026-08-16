@@ -1,0 +1,711 @@
+{
+  "date": "2026-08-16",
+  "season": "2026",
+  "pulled_at": "2026-08-16T14:21:28Z",
+  "games": [
+    {
+      "gamePk": 822940,
+      "status": "Pre-Game",
+      "gameTime": "2026-08-16T16:15:00Z",
+      "matchup": "BAL@TB",
+      "away": {
+        "abbrev": "BAL",
+        "sp": {
+          "id": 669432,
+          "name": "Trevor Rogers",
+          "hr9": 0.9,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "TB",
+        "sp": {
+          "id": 642547,
+          "name": "Freddy Peralta",
+          "hr9": 1.46,
+          "hand": "RHP"
+        },
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.16
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.143
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.269
+          },
+          {
+            "id": 668723,
+            "name": "Ryan Vilade",
+            "iso": 0.205
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.056
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.176
+          },
+          {
+            "id": 622761,
+            "name": "Jorge Mateo",
+            "iso": 0.14
+          },
+          {
+            "id": 663743,
+            "name": "Nick Fortes",
+            "iso": 0.104
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.081
+          }
+        ],
+        "confirmed": true
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
+    },
+    {
+      "gamePk": 823344,
+      "status": "Pre-Game",
+      "gameTime": "2026-08-16T17:35:00Z",
+      "matchup": "BOS@PIT",
+      "away": {
+        "abbrev": "BOS",
+        "sp": {
+          "id": 663776,
+          "name": "Patrick Sandoval",
+          "hr9": 0.9,
+          "hand": "LHP"
+        },
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.073
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.18
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.217
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.173
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.154
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.174
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.151
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.146
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
+      },
+      "home": {
+        "abbrev": "PIT",
+        "sp": {
+          "id": 669199,
+          "name": "Lake Bachar",
+          "hr9": 1.64,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": true,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 82\u00b0",
+        "lean": "Boost",
+        "temp": 81.7,
+        "wind_mph": 8.2,
+        "wind_dir": 253,
+        "tail_mph": 8.2,
+        "precip": 14
+      },
+      "wf": 1.046
+    },
+    {
+      "gamePk": 824880,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T17:35:00Z",
+      "matchup": "ARI@ATL",
+      "away": {
+        "abbrev": "ARI",
+        "sp": {
+          "id": 647336,
+          "name": "Michael Soroka",
+          "hr9": 0.63,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "ATL",
+        "sp": {
+          "id": 693821,
+          "name": "Bryce Elder",
+          "hr9": 1.44,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 93\u00b0",
+        "lean": "Boost",
+        "temp": 92.8,
+        "wind_mph": 6.5,
+        "wind_dir": 311,
+        "tail_mph": 1.0,
+        "precip": 1
+      },
+      "wf": 1.038
+    },
+    {
+      "gamePk": 822774,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T17:37:00Z",
+      "matchup": "NYY@TOR",
+      "away": {
+        "abbrev": "NYY",
+        "sp": {
+          "id": 677960,
+          "name": "Ryan Weathers",
+          "hr9": 1.28,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "TOR",
+        "sp": {
+          "id": 656302,
+          "name": "Dylan Cease",
+          "hr9": 0.62,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
+    },
+    {
+      "gamePk": 823590,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T17:40:00Z",
+      "matchup": "WSH@NYM",
+      "away": {
+        "abbrev": "WSH",
+        "sp": {
+          "id": 663623,
+          "name": "Jake Irvin",
+          "hr9": 1.52,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "NYM",
+        "sp": {
+          "id": 681035,
+          "name": "Christian Scott",
+          "hr9": 0.8,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 81\u00b0",
+        "lean": "Boost",
+        "temp": 80.9,
+        "wind_mph": 11.6,
+        "wind_dir": 165,
+        "tail_mph": 8.9,
+        "precip": 1
+      },
+      "wf": 1.047
+    },
+    {
+      "gamePk": 824397,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T17:40:00Z",
+      "matchup": "SD@CLE",
+      "away": {
+        "abbrev": "SD",
+        "sp": {
+          "id": 663554,
+          "name": "Casey Mize",
+          "hr9": 0.66,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "CLE",
+        "sp": {
+          "id": 676440,
+          "name": "Tanner Bibee",
+          "hr9": 1.43,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 82\u00b0",
+        "lean": "Neutral",
+        "temp": 81.8,
+        "wind_mph": 3.4,
+        "wind_dir": 259,
+        "tail_mph": 0.6,
+        "precip": 18
+      },
+      "wf": 1.02
+    },
+    {
+      "gamePk": 824236,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T17:40:00Z",
+      "matchup": "CWS@DET",
+      "away": {
+        "abbrev": "CWS",
+        "sp": {
+          "id": 680732,
+          "name": "Sean Burke",
+          "hr9": 1.0,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "DET",
+        "sp": {
+          "id": 623454,
+          "name": "Drew Anderson",
+          "hr9": 1.26,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 79.9,
+        "wind_mph": 6.1,
+        "wind_dir": 237,
+        "tail_mph": 5.4,
+        "precip": 24
+      },
+      "wf": 1.034
+    },
+    {
+      "gamePk": 824477,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T17:40:00Z",
+      "matchup": "MIA@CIN",
+      "away": {
+        "abbrev": "MIA",
+        "sp": {
+          "id": 691587,
+          "name": "Eury P\u00e9rez",
+          "hr9": 1.0,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "CIN",
+        "sp": {
+          "id": 666157,
+          "name": "Nick Lodolo",
+          "hr9": 1.62,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 84.6,
+        "wind_mph": 6.9,
+        "wind_dir": 234,
+        "tail_mph": 6.7,
+        "precip": 25
+      },
+      "wf": 1.045
+    },
+    {
+      "gamePk": 823670,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T18:10:00Z",
+      "matchup": "PHI@MIN",
+      "away": {
+        "abbrev": "PHI",
+        "sp": {
+          "id": 691725,
+          "name": "Andrew Painter",
+          "hr9": 1.68,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "MIN",
+        "sp": {
+          "id": 665152,
+          "name": "Dean Kremer",
+          "hr9": 2.25,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind in 8mph, 79\u00b0",
+        "lean": "Neutral",
+        "temp": 79.1,
+        "wind_mph": 10.9,
+        "wind_dir": 325,
+        "tail_mph": -8.1,
+        "precip": 0
+      },
+      "wf": 0.985
+    },
+    {
+      "gamePk": 824642,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T19:15:00Z",
+      "matchup": "STL@CHC",
+      "away": {
+        "abbrev": "STL",
+        "sp": {
+          "id": 690928,
+          "name": "Hunter Dobbins",
+          "hr9": 1.2,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "CHC",
+        "sp": {
+          "id": 665795,
+          "name": "Edward Cabrera",
+          "hr9": 1.74,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind in 7mph, 80\u00b0",
+        "lean": "Neutral",
+        "temp": 79.8,
+        "wind_mph": 9.4,
+        "wind_dir": 348,
+        "tail_mph": -7.0,
+        "precip": 3
+      },
+      "wf": 0.99
+    },
+    {
+      "gamePk": 823182,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T20:05:00Z",
+      "matchup": "COL@SF",
+      "away": {
+        "abbrev": "COL",
+        "sp": {
+          "id": 687312,
+          "name": "Gabriel Hughes",
+          "hr9": 0.53,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "SF",
+        "sp": {
+          "id": 694918,
+          "name": "Blade Tidwell",
+          "hr9": 0.4,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 68\u00b0",
+        "lean": "Boost",
+        "temp": 67.6,
+        "wind_mph": 8.6,
+        "wind_dir": 263,
+        "tail_mph": 8.6,
+        "precip": 0
+      },
+      "wf": 1.026
+    },
+    {
+      "gamePk": 824965,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T20:05:00Z",
+      "matchup": "TEX@ATH",
+      "away": {
+        "abbrev": "TEX",
+        "sp": {
+          "id": 674003,
+          "name": "Cody Bradford",
+          "hr9": 0.0,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "ATH",
+        "sp": {
+          "id": 682052,
+          "name": "Jacob Lopez",
+          "hr9": 1.54,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 87\u00b0",
+        "lean": "Boost",
+        "temp": 87.3,
+        "wind_mph": 3.5,
+        "wind_dir": 315,
+        "tail_mph": 0.9,
+        "precip": 0
+      },
+      "wf": 1.029
+    },
+    {
+      "gamePk": 823991,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T20:07:00Z",
+      "matchup": "KC@LAA",
+      "away": {
+        "abbrev": "KC",
+        "sp": {
+          "id": 702070,
+          "name": "Noah Cameron",
+          "hr9": 0.97,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "LAA",
+        "sp": {
+          "id": 696270,
+          "name": "Ryan Johnson",
+          "hr9": 2.29,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 84.8,
+        "wind_mph": 7.0,
+        "wind_dir": 248,
+        "tail_mph": 6.2,
+        "precip": 0
+      },
+      "wf": 1.044
+    },
+    {
+      "gamePk": 823912,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T20:10:00Z",
+      "matchup": "MIL@LAD",
+      "away": {
+        "abbrev": "MIL",
+        "sp": {
+          "id": 701656,
+          "name": "Logan Henderson",
+          "hr9": 1.44,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "LAD",
+        "sp": {
+          "id": 669373,
+          "name": "Tarik Skubal",
+          "hr9": 1.0,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind out 6mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 85.0,
+        "wind_mph": 7.3,
+        "wind_dir": 243,
+        "tail_mph": 5.8,
+        "precip": 0
+      },
+      "wf": 1.043
+    },
+    {
+      "gamePk": 824156,
+      "status": "Scheduled",
+      "gameTime": "2026-08-16T23:20:00Z",
+      "matchup": "SEA@HOU",
+      "away": {
+        "abbrev": "SEA",
+        "sp": {
+          "id": 693433,
+          "name": "Bryan Woo",
+          "hr9": 0.88,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "HOU",
+        "sp": {
+          "id": 686613,
+          "name": "Hunter Brown",
+          "hr9": 1.13,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
+    }
+  ]
+}
