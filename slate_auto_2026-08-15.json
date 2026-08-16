@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-16T01:10:44Z",
+  "pulled_at": "2026-08-16T01:15:44Z",
   "games": [
     {
       "gamePk": 824239,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 822941,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T22:10:00Z",
       "matchup": "BAL@TB",
       "away": {
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824157,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "SEA@HOU",
       "away": {
@@ -1452,9 +1452,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 79\u00b0",
+        "lean": "Boost",
+        "temp": 79.2,
+        "wind_mph": 2.0,
+        "wind_dir": 264,
+        "tail_mph": 1.9,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.021
     },
     {
       "gamePk": 824884,
@@ -1844,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 78\u00b0",
-        "lean": "Boost",
-        "temp": 78.5,
-        "wind_mph": 7.5,
-        "wind_dir": 243,
-        "tail_mph": 6.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 824966,
