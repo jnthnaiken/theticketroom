@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T20:15:31Z",
+  "pulled_at": "2026-08-16T20:18:41Z",
   "games": [
     {
       "gamePk": 822940,
@@ -535,7 +535,7 @@
     },
     {
       "gamePk": 823590,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-16T17:40:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -1320,9 +1320,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 82\u00b0",
+        "lean": "Boost",
+        "temp": 82.4,
+        "wind_mph": 5.7,
+        "wind_dir": 288,
+        "tail_mph": 1.2,
+        "precip": 7
       },
-      "wf": 1.0
+      "wf": 1.023
     },
     {
       "gamePk": 823182,
