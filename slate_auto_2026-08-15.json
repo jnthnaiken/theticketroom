@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
   "season": "2026",
-  "pulled_at": "2026-08-16T01:55:34Z",
+  "pulled_at": "2026-08-16T02:00:55Z",
   "games": [
     {
       "gamePk": 824239,
@@ -1159,22 +1159,22 @@
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.148
+            "iso": 0.152
           },
           {
             "id": 572233,
             "name": "Christian Walker",
-            "iso": 0.216
+            "iso": 0.215
           },
           {
             "id": 666211,
             "name": "Taylor Trammell",
-            "iso": 0.18
+            "iso": 0.178
           },
           {
             "id": 701358,
             "name": "Cam Smith",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 543877,
@@ -1199,7 +1199,7 @@
     },
     {
       "gamePk": 823671,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T23:10:00Z",
       "matchup": "PHI@MIN",
       "away": {
@@ -1306,12 +1306,12 @@
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.144
+            "iso": 0.143
           },
           {
             "id": 701785,
             "name": "Kaelen Culpepper",
-            "iso": 0.2
+            "iso": 0.191
           }
         ],
         "confirmed": true
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 823347,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-15T23:15:00Z",
       "matchup": "BOS@PIT",
       "away": {
@@ -1480,7 +1480,7 @@
           {
             "id": 663457,
             "name": "Lars Nootbaar",
-            "iso": 0.106
+            "iso": 0.105
           },
           {
             "id": 682998,
@@ -1585,16 +1585,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 92\u00b0",
-        "lean": "Boost",
-        "temp": 92.5,
-        "wind_mph": 2.9,
-        "wind_dir": 351,
-        "tail_mph": -1.5,
-        "precip": 3
+        "note": "weather fetch failed"
       },
-      "wf": 1.029
+      "wf": 1.0
     },
     {
       "gamePk": 823914,
@@ -1796,7 +1789,7 @@
         "sp": {
           "id": 672282,
           "name": "Reid Detmers",
-          "hr9": 1.13,
+          "hr9": 1.12,
           "hand": "LHP"
         },
         "lineup": [
@@ -1852,15 +1845,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 78\u00b0",
+        "cond": "wind out 8mph, 78\u00b0",
         "lean": "Boost",
-        "temp": 78.5,
-        "wind_mph": 7.5,
+        "temp": 78.3,
+        "wind_mph": 8.5,
         "wind_dir": 243,
-        "tail_mph": 6.9,
+        "tail_mph": 7.8,
         "precip": 0
       },
-      "wf": 1.037
+      "wf": 1.04
     },
     {
       "gamePk": 824966,
@@ -1936,12 +1929,12 @@
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 680869,
             "name": "Zack Gelof",
-            "iso": 0.22
+            "iso": 0.219
           },
           {
             "id": 643446,
@@ -1985,15 +1978,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 84\u00b0",
+        "cond": "wind out 7mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 83.9,
-        "wind_mph": 8.2,
-        "wind_dir": 235,
-        "tail_mph": 8.2,
+        "temp": 85.0,
+        "wind_mph": 7.2,
+        "wind_dir": 234,
+        "tail_mph": 7.2,
         "precip": 0
       },
-      "wf": 1.049
+      "wf": 1.048
     }
   ]
 }
