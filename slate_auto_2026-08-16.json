@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T20:30:55Z",
+  "pulled_at": "2026-08-16T20:33:53Z",
   "games": [
     {
       "gamePk": 822940,
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 824236,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-16T17:40:00Z",
       "matchup": "CWS@DET",
       "away": {
@@ -1453,9 +1453,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 69\u00b0",
+        "lean": "Boost",
+        "temp": 69.3,
+        "wind_mph": 6.4,
+        "wind_dir": 250,
+        "tail_mph": 6.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.021
     },
     {
       "gamePk": 824965,
@@ -1637,12 +1644,12 @@
           {
             "id": 686555,
             "name": "Isaac Collins",
-            "iso": 0.125
+            "iso": 0.126
           },
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.23
+            "iso": 0.235
           },
           {
             "id": 664728,
@@ -1657,7 +1664,7 @@
         "sp": {
           "id": 696270,
           "name": "Ryan Johnson",
-          "hr9": 2.21,
+          "hr9": 2.25,
           "hand": "RHP"
         },
         "lineup": [
