@@ -6,6 +6,11 @@
 > default), `RULES_VERSION` (removed), conviction-snub builders (removed 07-09), the nine edge signals
 > (superseded again 2026-08-13: **five** are live after the Statcast refit), `grade_night` (does NOT re-draft), and the base64 transfer channel (blocked).
 > Superseded again 2026-08-14: the **Chef's Table ticket is retired** (the chalk reservation is not).
+> Superseded again **2026-08-16**: the board now **re-fetches and adopts newer server builds**
+> (it never did before — that is what made a left-open tab bet a ticket the server had dropped);
+> the ticket lock fires on **confirmation** as well as first pitch; a slip can no longer be created
+> after its own first pitch; and `assemble_tickets.py` is **not** a mirror of the rules engine —
+> it has no family/chef logic and no lock at all, so a fallback is a failed build, not a safe one.
 > Draft rules as of 2026-08-14 live in `README.md` — that file is kept current; this one is a log.
 
 
@@ -32,6 +37,47 @@
 > row and ledger history were kept at this stage and removed later the same day — see above.)
 
 Quick-start status so a fresh session can continue without re-deriving context.
+
+## 🛑 2026-08-16 — the board never re-fetched itself. Four fixes, one commit (`edaedd7`).
+
+**The bug that cost a bet.** `index.html` baked the board in as `const D={…}` and **never
+re-fetched `D_<date>.json`**. The live loop refreshed weather, lineups, results and re-drafted —
+all against the load-time copy. A tab left open kept drafting a ticket set the server had thrown
+away hours earlier, while the incoming live data made it look current *and marked its legs
+confirmed*. Reconstructed from the archives: a tab on the 4:34pm board still showed `All Day`
+(Bobby Witt) and rendered it **fully confirmed at ~6:42pm** — the state the owner bets on. The
+server had replaced him with Gary Sánchez at 4:39pm and `grade_night.py` graded that. Same root
+cause as a desktop reading +299.9u while a phone read +301.3u.
+
+**The 4:39pm swap was not itself a bug.** Sánchez went `projected → confirmed` at exactly that
+build (MIL@LAD 7:15 posted); Witt did not confirm until 5:54pm (KC@LAA 9:38). A newly real bat
+displaced a projection — the board doing what it is supposed to do as lineups come out. The tab
+just never heard about it.
+
+| marker | change |
+|---|---|
+| `ADOPT-2026-08-16` | every refresh fetches `D_<date>.json`; a new `meta.build` is adopted whole, with hr flags / `finals` / `gs` / `live` re-applied and `CACHE` nulled. Silent, by owner's call. Fails soft — no network or a downloaded copy keeps the baked board. |
+| `CONFLOCK-2026-08-16` | a prior ticket is carried verbatim when its earliest leg is underway **or when every leg is confirmed and none is out/void**. The freeze previously read the clock alone, leaving a bat confirmed at 4pm for a 9:38 game re-draftable for 5½ hours. |
+| `MINTGUARD-2026-08-16` | a slip may never be *created* past its own first pitch; moons die as a pair; no-op with no prior board. |
+| `FAMPIN-2026-08-15` **removed** | the 08-15 pin stopped the Family Meal re-deriving at all, which also stopped it reacting to lineups posting. Wrong fix, backed out the next morning. |
+
+**⚠️ `assemble_tickets.py` is not a second implementation — do not mirror rules into it.** Audited
+2026-08-16, it is two board redesigns behind: the only `kind` literals it emits are `'moon'` and
+`'biggest'`, its name pools are `biggest/builder/late/lunch/moon`, and it has **zero** matches for
+`_now_min_et`, `_locked_prior`, `_locked_bats`, `_keep_fresh` or `chalk=set()`. So it has **no
+Family Meal, no chef, no prior-board lock — and it still builds a Grand Salami**, retired 08-14 and
+backed out of the ledger. It runs only when `client_assemble.js` is absent or node exits non-zero,
+and then it re-drafts everything from scratch (including tickets whose games are underway), prints
+one warning to the Action log, and commits — and `grade_night.py` books the result into a `biggest`
+category the tracker no longer shows. **Treat a fallback as a failed build.** (This supersedes the
+2026-08-08 note that any lock change "has to land in both".)
+
+**⚠️ `client_sweep.js` cannot see draft churn.** It aborts all network, so `wf` never moves, `TOTAL`
+never moves, nothing ever confirms and no bat ever goes `out` — the conditions that actually reshuffle
+a derived section never occur. That is how 411 green integrity checks coexisted with 17 bats rotating
+through 8 Family Meal seats on 08-15. `test_conf_lock.js` is the replacement shape: it posts lineups
+mid-sweep (at first pitch −3h the nine confirm, everyone else in that game goes `out`, which re-scales
+the pool) and drifts the weather. **Until a harness does that, it certifies nothing in this area.**
 
 ## ⛔ DAILY BUILD WORKFLOW — READ THIS FIRST, DO NOT ASK
 

@@ -108,7 +108,9 @@ lineup's wind/temp and a neutral pitcher term.
   the **additive 50/50 z-score blend** below (**no base, no multiplier stack** —
   the old multiplicative lambdas are still computed but vestigial). Also attaches
   display-only `khr`.
-- **`regen15.py`** — assembles the tickets (via `assemble_tickets.py`) and injects
+- **`regen15.py`** — assembles the tickets by **running the client engine server-side**
+  (`node client_assemble.js <D.json> index.html`, so the archive is drafted by the same code the
+  browser runs) and injects
   `const D = …` into `index.html`. A **same-slate rebuild ALWAYS preserves the prior
   draft** (carries `prevD['tickets']` forward untouched — the live client handles
   confirm / scratch / refill), so a live, confirmed board is never re-drafted out from
@@ -117,8 +119,21 @@ lineup's wind/temp and a neutral pitcher term.
   live — see the 2026-07-11 note in `HANDOFF.md`). *(An older version used a
   `RULES_VERSION` lever to force a re-draft; it was removed after force-re-drafting a
   confirmed 07-09 board and swapping a bet leg.)*
-- **`assemble_tickets.py`** — the ticket rules engine (pool gate, chalk routing,
-  moons/salami/builders, lunch/nightcap, pricing).
+- **`assemble_tickets.py`** — ⚠️ **NOT the rules engine and not a mirror of one.** It runs only
+  when `client_assemble.js` is missing or node exits non-zero. Audited 2026-08-16 and it is two
+  board redesigns behind:
+  - **no Family Meal** and **no chef** — its ticket-name pools are `biggest / builder / late /
+    lunch / moon`, and the only `kind` literals it emits are `'moon'` and `'biggest'`;
+  - **it still builds a Grand Salami** (`kind: 'biggest'`), a section retired 2026-08-14 and
+    backed out of the ledger;
+  - **no prior-board lock of any kind** — `_now_min_et` / `_locked_prior` / `_locked_bats` /
+    `_keep_fresh` are all absent, as is the `chalk=set()` line older revisions cite.
+
+  So a fallback does not ship "the same board with weaker semantics". It ships a board with the
+  Family Meal missing, a retired salami restored, and every ticket re-drafted from scratch
+  including ones whose games are underway — and `grade_night.py` books it, into a `biggest`
+  category the tracker no longer displays. `regen15.py` prints one warning to the Action log and
+  commits anyway. **Do not mirror engine rules into it; treat a fallback as a failed build.**
 - **`calibrate.py`** — per-bat outcome logger → `calibration.jsonl`. Logs every
   model input (power, zone, form, pitcher term, park, weather, **slot, platoon,
   market**), the full Kasper `k_*` extras, opposing-pitcher `p_*` allowed contact,
@@ -222,7 +237,8 @@ corrected there.)
   single only (no parlay legs); `70%+` out of the pool entirely.
 - **Pool gate** — z-THRESHOLD on the blended score: keep every eligible bat whose
   `blend` z-score is **`>= Z_GATE` (0.75) SDs above the slate mean**
-  (`assemble_tickets.py`). Scale/slate-independent — survives any weight change.
+  (`index.html`; `assemble_tickets.py` has its own copy but never runs). Scale/slate-independent
+  — survives any weight change.
   Then trim to **at most 4 per GAME** (best by model, both teams combined — per-team
   would allow 6/game). No fixed size, no backfill. (`FLOOR=130` and the fixed-40 rank
   cut are dead fallbacks, used only if a board is missing `blend`.) The 4-per-game cap
@@ -250,7 +266,7 @@ corrected there.)
   carried**, and no Chef's Table section renders any more. (The first cut of this change kept
   locked chef slips on the board; that was wrong and was corrected the same day — a retired
   ticket must not keep appearing.) Flip `CHEF_TICKET` to bring it back.
-  `assemble_tickets.py` never built one (`chalk = set()`) and needs no change.
+  `assemble_tickets.py` never built one and needs no change.
   Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
   their time windows, `<= +600`.
 - **Family Meal — a ticket kind (2026-08-14).** Occupies the slot the Chef's Table used to
@@ -366,7 +382,7 @@ Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
 `CHALK_N=4` is the chalk reservation in `index.html` — those bats are barred from every ticket;
 since 2026-08-14 they are no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`).
-`assemble_tickets.py` has `chalk=set()` and never built one. `FAM_CAP=8` caps the Family Meal section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
+`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Family Meal section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
 **Edge weights: code and docs now agree** (2026-08-13). `build15.py` `_SIG` is
@@ -381,17 +397,36 @@ the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon rou
 
 ## Live engine (index.html)
 
-Every ~6 minutes the board: refreshes weather + opposing-pitcher HR/9 → updates the
-weather/pitcher **chips** and **re-scores each bat's `TOTAL` from `baseTotal ·
-wxMult(live wf)`** (the weather-free `baseTotal` and `wxMult` are baked/mirrored
-server+client, so the client re-score matches the server bake) → pulls posted lineups
-(confirm / scratch) and results (HRs / finals) → re-drafts on the re-scored numbers →
-grades.
+Every ~6 minutes the board: **re-fetches `D_<date>.json` and adopts it if the build stamp
+moved** → refreshes weather + opposing-pitcher HR/9 → updates the weather/pitcher **chips** and
+**re-scores each bat's `TOTAL` from `baseTotal · wxMult(live wf)`** (the weather-free `baseTotal`
+and `wxMult` are baked/mirrored server+client, so the client re-score matches the server bake) →
+pulls posted lineups (confirm / scratch) and results (HRs / finals) → re-drafts on the re-scored
+numbers → grades.
 
 Behavior that's load-bearing:
 
-- **Lock = whole ticket confirmed.** A ticket locks only when *every* leg is in the
-  posted lineup (or its game is underway) and none is scratched. A locked ticket is
+- 🛑 **The board adopts newer server builds** (`ADOPT-2026-08-16`). Until this shipped, `index.html`
+  baked the board in as `const D={…}` and **never re-fetched it** — the live loop refreshed weather,
+  lineups and results against a load-time copy forever. A tab left open kept drafting a ticket set
+  the server had thrown away while the incoming live data made it look current *and marked its legs
+  confirmed*. On 2026-08-15 a tab on the 4:34pm board showed `All Day` (Bobby Witt) as fully
+  confirmed at ~6:42pm; the server had swapped him for Gary Sánchez at 4:39pm and graded that. Same
+  root cause as a desktop and a phone disagreeing on the season total. Adoption replaces players /
+  pool / tickets / familyFloor / meta and re-applies locally derived state (hr flags, `finals`,
+  `gs`, `live`) on top, then nulls `CACHE`. It is **silent** by owner's call — safe because
+  `CONFLOCK` freezes anything confirmed, so an adoption can only move what is not yet bettable.
+  Fails soft: no network, or a downloaded shareable copy of the page, keeps the baked board.
+- **A slip is never created after its own first pitch** (`MINTGUARD-2026-08-16`). The lock rule
+  froze slips that already existed; nothing stopped the drafter minting a new one whose lock had
+  passed — a bet nobody could have placed, which `grade_night.py` then books. Moons die as a pair,
+  so a late moon takes its anchor's whole run with it. No prior board → no-op.
+
+- **Lock = whole ticket confirmed.** A ticket locks when *every* leg is in the posted lineup and
+  none is scratched, **or** when its earliest leg's game is underway — whichever comes first
+  (`CONFLOCK-2026-08-16`). Until that change the freeze read the clock alone, so a bat confirmed
+  at 4pm for a 9:38 game stayed re-draftable for five and a half hours; 🔒 on the board now means
+  🔒 in the draft. A locked ticket is
   emitted verbatim and never moves; a scratched leg drops it out of "confirmed" and
   the re-draft replaces just that leg while confirmed legs stay pinned. A scratched
   single with no replacement is dropped, never re-shown (`singleAlive` filter — a
@@ -434,6 +469,20 @@ Behavior that's load-bearing:
   graded ledger (`grade_night.py` reads the server board) — the same live-redraft/grading
   divergence that already applies to refilled legs. To make the ledger match exactly,
   rework the server salami to build from leftovers too.
+- **The saved-board snapshot only comes back once the slate is final** (`ODDSHOLD-2026-08-15`).
+  The live loop writes `localStorage['hr_ticket_odds']` on every refresh — HR flags, `finals`, and
+  the whole price table — and `loadOdds()` re-applied all of it over the fresh board on the next
+  page load, which the loop then re-saved. Self-perpetuating: a tab opened on the 9:31am build held
+  9:31am prices until the next morning's date change. On 2026-08-15 that put one cashed single at
+  +388 on a desktop and +529 on a phone, 1.4u apart, off the same ticket. Now **nothing is restored
+  until every game on the slate is final** — while games are live a load uses the fresh bake alone;
+  once the slate completes the hold carries the settled board across refreshes until the next
+  morning. Completeness is judged on the union of the baked `meta.finals` and the snapshot's own,
+  because the Action freezes a fully-final slate and may never bake the last game in. The slate-date
+  check now gates the price restore too (it previously guarded only the results, so a stale blob
+  with a colliding `sig` could reprice a different slate). ⚠️ There is **no exemption for
+  hand-entered odds** — the admin bulk-paste box does not survive a mid-slate reload, by owner's
+  instruction ("i will never hand write the odds").
 - **Badges** read one way: 🔒 *confirmed* · `N/M confirmed` (partial) · *projected*.
 - **No midnight rollover.** Once the calendar passes the slate date, the board
   freezes on that day with its locked/graded tickets and does not reset to projected.
@@ -444,20 +493,20 @@ Behavior that's load-bearing:
 
 `season.json` is the source of truth for the running tracker; `grade_night.py` is
 the only thing that writes its history. Current epoch is **since 2026-06-30**
-(running **+296.29u through 2026-08-13** on 662.0u risked — 436 graded, 80 won, 18% hit,
-+45% ROI), rolling forward each morning as the prior night settles. Five categories, and the
+(running **+277.98u through 2026-08-15** on 721.0u risked — 479 graded, 86 won, 18% hit,
++39% ROI), rolling forward each morning as the prior night settles. Five categories, and the
 card lists them in board order:
 
 | | record | units | staked |
 |---|---|---|---|
-| 🍱 Lunch | 5–21 | −0.79 | 26 |
-| 🌃 Nightcap | 8–26 | −0.28 | 34 |
-| ⚓️ Anchors | 35–107 | −13.60 | 142 |
-| 🚀 Moonshots | 31–195 | +313.33 | 452.0 |
-| 🍳 Family Meal | 1–7 | −2.37 | 8.0 |
+| 🍱 Lunch | 6–22 | +2.21 | 28 |
+| 🌃 Nightcap | 9–27 | +3.78 | 36 |
+| ⚓️ Anchors | 36–114 | −18.05 | 150 |
+| 🚀 Moonshots | 32–210 | +296.42 | 484.0 |
+| 🍳 Family Meal | 3–20 | −6.38 | 23.0 |
 
-`history` has 40 points against 39 graded nights at or after `since` — the extra is the leading
-0 baseline. (`graded_nights` holds 68 entries because it is the full dedupe log back to 06-01,
+`history` has 42 points against 41 graded nights at or after `since` — the extra is the leading
+0 baseline. (`graded_nights` holds 70 entries because it is the full dedupe log back to 06-01,
 not the ledger window.) There is no `biggest` line any more: see the salami note above.
 
 > **Chef backed out, 2026-08-14.** The `chef` category was removed and its 13 nights
