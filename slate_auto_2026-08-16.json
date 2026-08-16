@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T17:12:17Z",
+  "pulled_at": "2026-08-16T17:17:37Z",
   "games": [
     {
       "gamePk": 822940,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 824880,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-16T17:35:00Z",
       "matchup": "ARI@ATL",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 822774,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-16T17:37:00Z",
       "matchup": "NYY@TOR",
       "away": {
@@ -535,7 +535,7 @@
     },
     {
       "gamePk": 823590,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-16T17:40:00Z",
       "matchup": "WSH@NYM",
       "away": {
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 824477,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-16T17:40:00Z",
       "matchup": "MIA@CIN",
       "away": {
@@ -1477,8 +1477,54 @@
           "hr9": 0.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.214
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.17
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.167
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.181
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.203
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.0
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.159
+          },
+          {
+            "id": 642851,
+            "name": "Austin Wynns",
+            "iso": 0.037
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1714,16 +1760,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 85\u00b0",
-        "lean": "Boost",
-        "temp": 84.9,
-        "wind_mph": 8.0,
-        "wind_dir": 243,
-        "tail_mph": 6.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.044
+      "wf": 1.0
     },
     {
       "gamePk": 824156,
