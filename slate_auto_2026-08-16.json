@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T23:18:54Z",
+  "pulled_at": "2026-08-16T23:24:57Z",
   "games": [
     {
       "gamePk": 822940,
@@ -683,12 +683,12 @@
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.142
+            "iso": 0.143
           },
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.064
+            "iso": 0.076
           },
           {
             "id": 592518,
@@ -740,7 +740,7 @@
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.063
+            "iso": 0.062
           },
           {
             "id": 800050,
@@ -1852,20 +1852,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 84\u00b0",
-        "lean": "Boost",
-        "temp": 84.0,
-        "wind_mph": 6.0,
-        "wind_dir": 239,
-        "tail_mph": 5.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.038
+      "wf": 1.0
     },
     {
       "gamePk": 824156,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-16T23:20:00Z",
       "matchup": "SEA@HOU",
       "away": {
