@@ -174,9 +174,20 @@ def weather_for(code, when_iso):
     wind  = H["wind_speed_10m"][i]
     wdir  = H["wind_direction_10m"][i]         # deg the wind blows FROM
     precip= H.get("precipitation_probability", [None]*len(times))[i]
-    # wind blows TOWARD (wdir+180); component along plate->CF axis (+ = out to CF)
-    toward = (wdir + 180) % 360
-    tail   = wind * math.cos(math.radians(toward - cf_bearing))   # mph out to CF
+    # NULL HOURS (WXNULL-2026-08-16) -- Open-Meteo occasionally serves a forecast row with a null field.
+    # On 2026-08-16 at 10:16 ET one park came back with wind_direction_10m = null and `wdir + 180` raised
+    # TypeError, which killed the ENTIRE pull (build-tick #6706) -- 15 games lost to one missing number.
+    # One park's missing wind must never take the slate down: drop the wind term for that park only and
+    # keep whatever else the row did return. wind_dir stays None so the card shows no direction.
+    if wdir is None or wind is None:
+        print(f"   !! {code}: null wind in forecast row {hour} (ET) -- wind term dropped for this park")
+        wind = wind if wind is not None else 0.0
+        wdir = None
+        tail = 0.0
+    else:
+        # wind blows TOWARD (wdir+180); component along plate->CF axis (+ = out to CF)
+        toward = (wdir + 180) % 360
+        tail   = wind * math.cos(math.radians(toward - cf_bearing))   # mph out to CF
     # park factor: carry from tailwind + mild temperature term, bounded
     wf = 1.0 + 0.0035 * tail + 0.0015 * ((temp or 70) - 70)
     wf = max(0.94, min(1.08, round(wf, 3)))
@@ -185,7 +196,7 @@ def weather_for(code, when_iso):
     elif tail >= 6:             emoji = "\u2600\ufe0f"          # ☀ (wind out)
     else:                       emoji = "\u26c5"                # ⛅
     cond = (f"{'wind out' if tail>=3 else 'wind in' if tail<=-3 else 'calm'} "
-            f"{abs(round(tail))}mph, {round(temp)}\u00b0")
+            f"{abs(round(tail))}mph, {round(temp) if temp is not None else '?'}\u00b0")
     return {"dome": False, "emoji": emoji, "cond": cond, "lean": lean, "temp": temp,
             "wind_mph": round(wind, 1), "wind_dir": wdir, "tail_mph": round(tail, 1),
             "precip": precip}, wf
