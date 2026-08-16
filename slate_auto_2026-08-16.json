@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-16T17:07:37Z",
+  "pulled_at": "2026-08-16T17:12:17Z",
   "games": [
     {
       "gamePk": 822940,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 669432,
           "name": "Trevor Rogers",
-          "hr9": 0.88,
+          "hr9": 0.95,
           "hand": "LHP"
         },
         "lineup": [
@@ -70,7 +70,7 @@
         "sp": {
           "id": 642547,
           "name": "Freddy Peralta",
-          "hr9": 1.42,
+          "hr9": 1.41,
           "hand": "RHP"
         },
         "lineup": [
@@ -92,7 +92,7 @@
           {
             "id": 668723,
             "name": "Ryan Vilade",
-            "iso": 0.203
+            "iso": 0.219
           },
           {
             "id": 802415,
@@ -102,12 +102,12 @@
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 622761,
             "name": "Jorge Mateo",
-            "iso": 0.139
+            "iso": 0.137
           },
           {
             "id": 663743,
@@ -1268,8 +1268,54 @@
           "hr9": 1.74,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.253
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.214
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.152
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.198
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.102
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.146
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.188
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.227
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1668,9 +1714,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 84.9,
+        "wind_mph": 8.0,
+        "wind_dir": 243,
+        "tail_mph": 6.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.044
     },
     {
       "gamePk": 824156,
