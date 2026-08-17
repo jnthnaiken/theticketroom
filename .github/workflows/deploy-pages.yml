@@ -9,7 +9,18 @@ name: Deploy Pages
 #   * we publish index.html + CNAME + the LAST FEW D_<date>.json boards, so each
 #     deploy is a few seconds instead of minutes and they stop colliding.
 #
-# 2026-08-17 -- ADOPTFILE. The D_<date>.json files are NOT optional.
+# 2026-08-17 -- ADOPTFILE, ENABLED THEN REVERTED THE SAME DAY. DO NOT RE-ENABLE
+# UNTIL adoption MERGES INSTEAD OF REPLACING. Publishing D_<date>.json makes
+# ADOPT-2026-08-16 actually run -- and adoption does `D.tickets = j.tickets`,
+# which DELETES a confirmed ticket this tab is holding BEFORE CONFLOCK can see
+# it. `prior` is read from D.tickets, so CONFLOCK freezes only what adoption
+# already kept: the 08-16 claim that "CONFLOCK freezes anything confirmed, so
+# adoption can only move what is not bettable" is circular and false. Live proof
+# 2026-08-17: a CONFIRMED Family Meal single (Michael Toglia) was re-derived away
+# and replaced with Eugenio Suarez within minutes of adoption first working.
+# Fix adoption to carry forward every prior ticket that is underway or fully
+# confirmed, THEN restore the staging line below. Original note kept:
+# The D_<date>.json files are NOT optional.
 # `ADOPT-2026-08-16` in index.html does `fetch('D_'+date+'.json?cb=...')` -- a RELATIVE
 # url -- on every live refresh, so an open tab can pick up a newer server board instead
 # of re-drafting its load-time copy forever. This workflow published ONLY index.html,
@@ -24,7 +35,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME', 'D_*.json']
+    paths: ['index.html', 'CNAME']
   workflow_dispatch:
 
 permissions:
@@ -49,9 +60,6 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           [ -f CNAME ] && cp CNAME _site/ || true
-          # newest 3 dated boards -- what ADOPT-2026-08-16 fetches at runtime
-          ls -1 D_[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json 2>/dev/null \
-            | sort | tail -3 | xargs -r -I{} cp {} _site/ || true
           echo "staged:"; ls -la _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
