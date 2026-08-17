@@ -24088,7 +24088,7 @@
     "precip": 1
    }
   },
-  "build": "8/17 6:30pm",
+  "build": "8/17 6:33pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24250,7 +24250,7 @@
   "gs": {},
   "pool": 258,
   "gate": 31,
-  "tickets": 16
+  "tickets": 18
  },
  "tickets": [
   {
@@ -24806,7 +24806,7 @@
    "name": "Sonic Boom",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Buxton gets a yard playing like a launchpad tonight, Freeman is hitting absolute lasers (53% hard-hit), and Vargas swings with usable power (55/100).",
+   "note": "Buxton has gusts carrying balls over the wall, Tucker puts the ball in the air on a homer plane (20\u00b0), and Vargas is driving the ball (48% hard-hit).",
    "players": [
     {
      "name": "Byron Buxton",
@@ -24822,16 +24822,16 @@
      "status": "confirmed"
     },
     {
-     "name": "Freddie Freeman",
+     "name": "Kyle Tucker",
      "team": "Dodgers",
-     "total": 148.6,
+     "total": 142.5,
      "aT": 100,
      "wf": 1.173,
      "gmatch": "LAD@COL",
      "gtime": "8:40 PM ET",
      "game": 10,
      "late": false,
-     "odds": 382,
+     "odds": 392,
      "status": "confirmed"
     },
     {
@@ -24856,7 +24856,7 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 128.6,
+    "maxprofit": 131,
     "bytwos": false
    },
    "wxsum": {
@@ -24867,8 +24867,8 @@
    },
    "confleg": 3,
    "priced": 3,
-   "parlay_am": 7538,
-   "payout10": 763.78,
+   "parlay_am": 7696,
+   "payout10": 779.62,
    "locked": true
   },
   {
@@ -24913,7 +24913,7 @@
    "name": "Zero Gravity",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Muncy has gusts carrying balls over the wall, Valdez is squaring up everything (64% hard-hit), and Caglianone carries a solid power grade (54/100).",
+   "note": "Muncy plays in a wind tunnel pointed at the seats, Valdez is hitting absolute lasers (64% hard-hit), and Caglianone swings with usable power (54/100).",
    "players": [
     {
      "name": "Max Muncy",
@@ -25046,11 +25046,119 @@
    "parlay_am": 7232,
    "payout10": 733.16,
    "locked": true
+  },
+  {
+   "name": "Thrust Vector",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman has gusts carrying balls over the wall, Baldwin is launching rockets (59% hard-hit), and Harper brings average-plus thump (63/100).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 182.8,
+     "aT": 100,
+     "wf": 1.173,
+     "gmatch": "LAD@COL",
+     "gtime": "8:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 270,
+     "status": "projected",
+     "void": true
+    },
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 161.9,
+     "aT": 100,
+     "wf": 1.056,
+     "gmatch": "ATL@MIN",
+     "gtime": "7:40 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 322,
+     "status": "confirmed"
+    },
+    {
+     "name": "Bryce Harper",
+     "team": "Phillies",
+     "total": 149.6,
+     "aT": 100,
+     "wf": 1.02,
+     "gmatch": "MIA@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 324,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 113.4,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 2,
+   "priced": 3,
+   "parlay_am": 6520,
+   "payout10": 662.03,
+   "locked": true
+  },
+  {
+   "name": "Weigh Anchor",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Hunter Goodman gets a park that's launching everything tonight, is making elite contact (61% hard-hit).",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 182.8,
+     "aT": 100,
+     "wf": 1.173,
+     "gmatch": "LAD@COL",
+     "gtime": "8:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 270,
+     "status": "projected",
+     "void": true
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Hunter Goodman",
+   "lock": "8:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 270,
+   "payout10": 37,
+   "locked": true
   }
  ],
  "pool": [
   "Pete Crow-Armstrong",
-  "Kyle Tucker",
   "Michael Toglia",
   "Salvador Perez",
   "Manny Machado",
