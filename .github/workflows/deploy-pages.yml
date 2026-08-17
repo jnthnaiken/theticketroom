@@ -6,13 +6,25 @@ name: Deploy Pages
 # site could never finish deploying and served a stale day. Here:
 #   * concurrency guard (cancel-in-progress: false) lets the running deploy
 #     FINISH and queues only the latest -- no more cancelled/stacked deploys.
-#   * we publish ONLY index.html + CNAME (the board is one self-contained file),
-#     so each deploy is a few seconds instead of minutes and they stop colliding.
+#   * we publish index.html + CNAME + the LAST FEW D_<date>.json boards, so each
+#     deploy is a few seconds instead of minutes and they stop colliding.
+#
+# 2026-08-17 -- ADOPTFILE. The D_<date>.json files are NOT optional.
+# `ADOPT-2026-08-16` in index.html does `fetch('D_'+date+'.json?cb=...')` -- a RELATIVE
+# url -- on every live refresh, so an open tab can pick up a newer server board instead
+# of re-drafting its load-time copy forever. This workflow published ONLY index.html,
+# so that fetch returned the Pages 404 page, `r.ok` was false, the chain resolved to
+# null, and adoption was skipped. It "fails soft", i.e. SILENTLY, which is why it went
+# unnoticed: the fix for the 08-15 stale-tab incident had never once run on the live
+# site. Its harness passed because the harness served the json next to the page.
+# If you ever trim this staging step again, adoption dies silently with it.
+# We keep the newest 3 boards, not all of them: a tab does not roll over at midnight,
+# so yesterday's tab still asks for yesterday's file, but 55 boards is ~45 MB of artifact.
 
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME']
+    paths: ['index.html', 'CNAME', 'D_*.json']
   workflow_dispatch:
 
 permissions:
@@ -32,11 +44,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Stage only the site files (board + custom domain)
+      - name: Stage the site files (board + custom domain + boards the client adopts)
         run: |
           mkdir -p _site
           cp index.html _site/
           [ -f CNAME ] && cp CNAME _site/ || true
+          # newest 3 dated boards -- what ADOPT-2026-08-16 fetches at runtime
+          ls -1 D_[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json 2>/dev/null \
+            | sort | tail -3 | xargs -r -I{} cp {} _site/ || true
+          echo "staged:"; ls -la _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
