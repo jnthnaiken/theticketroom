@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-17T22:00:29Z",
+  "pulled_at": "2026-08-17T22:03:30Z",
   "games": [
     {
       "gamePk": 824514,
@@ -1223,15 +1223,68 @@
           "hr9": 1.83,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.257
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.213
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.141
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.151
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.196
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.101
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.142
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.223
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 71\u00b0",
+        "lean": "Neutral",
+        "temp": 70.8,
+        "wind_mph": 3.8,
+        "wind_dir": 173,
+        "tail_mph": 3.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.012
     },
     {
       "gamePk": 824320,
