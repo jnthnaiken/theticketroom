@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-17T19:17:32Z",
+  "pulled_at": "2026-08-17T19:24:22Z",
   "games": [
     {
       "gamePk": 824514,
@@ -50,7 +50,7 @@
           {
             "id": 691458,
             "name": "Blaze Jordan",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 677592,
@@ -562,7 +562,7 @@
     },
     {
       "gamePk": 823668,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-17T23:40:00Z",
       "matchup": "ATL@MIN",
       "away": {
@@ -584,10 +584,56 @@
           "hr9": 1.55,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.106
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.274
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.209
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.167
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.186
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.233
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.179
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.167
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.055
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
