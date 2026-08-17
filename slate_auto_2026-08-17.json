@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-17T22:55:42Z",
+  "pulled_at": "2026-08-17T23:00:30Z",
   "games": [
     {
       "gamePk": 824514,
@@ -20,7 +20,7 @@
           {
             "id": 695491,
             "name": "Joshua B\u00e1ez",
-            "iso": 0.692
+            "iso": 0.643
           },
           {
             "id": 671056,
@@ -82,7 +82,7 @@
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 663886,
@@ -102,7 +102,7 @@
           {
             "id": 669911,
             "name": "Michael Toglia",
-            "iso": 0.067
+            "iso": 0.063
           },
           {
             "id": 680574,
@@ -173,7 +173,7 @@
           {
             "id": 695491,
             "name": "Joshua B\u00e1ez",
-            "iso": 0.692
+            "iso": 0.643
           },
           {
             "id": 701675,
@@ -215,7 +215,7 @@
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 668709,
@@ -230,7 +230,7 @@
           {
             "id": 669911,
             "name": "Michael Toglia",
-            "iso": 0.067
+            "iso": 0.063
           },
           {
             "id": 680574,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 687064,
           "name": "Brandon Young",
-          "hr9": 1.01,
+          "hr9": 1.0,
           "hand": "RHP"
         },
         "lineup": [
@@ -296,12 +296,12 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 691723,
             "name": "Coby Mayo",
-            "iso": 0.223
+            "iso": 0.225
           },
           {
             "id": 683002,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 663556,
           "name": "Shane McClanahan",
-          "hr9": 0.71,
+          "hr9": 0.7,
           "hand": "LHP"
         },
         "lineup": [
@@ -411,7 +411,7 @@
         "sp": {
           "id": 676083,
           "name": "Janson Junk",
-          "hr9": 1.23,
+          "hr9": 1.22,
           "hand": "RHP"
         },
         "lineup": [
@@ -433,7 +433,7 @@
           {
             "id": 682663,
             "name": "Agust\u00edn Ram\u00edrez",
-            "iso": 0.11
+            "iso": 0.109
           },
           {
             "id": 672640,
@@ -468,19 +468,19 @@
         "sp": {
           "id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "hr9": 0.75,
+          "hr9": 0.74,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 656941,
             "name": "Kyle Schwarber",
-            "iso": 0.29
+            "iso": 0.289
           },
           {
             "id": 607208,
             "name": "Trea Turner",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 547180,
@@ -680,8 +680,39 @@
           "hr9": 1.34,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.148
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.242
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.157
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.126
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.131
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -691,15 +722,68 @@
           "hr9": 0.53,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.07
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.178
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.216
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.245
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.17
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.153
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.172
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.065
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 73.4,
+        "wind_mph": 1.6,
+        "wind_dir": 98,
+        "tail_mph": -1.0,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.002
     },
     {
       "gamePk": 823589,
@@ -912,7 +996,7 @@
           },
           {
             "id": 677951,
-            "name": "Bobby Witt",
+            "name": "Bobby Witt Jr.",
             "iso": 0.166
           },
           {
