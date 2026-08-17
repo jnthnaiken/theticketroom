@@ -52,6 +52,28 @@ def parse_weather(w, home):
     m = re.search(r'Wind\s+(.+)$', w)
     return False, precip, temp, (m.group(1).strip() if m else '')
 
+# ---- PERMANENT ROSTER EXCLUSIONS (owner's call) ----------------------------------
+# `cards`, `kasper_extras` and `odds` are all keyed by NAME ALONE, so two bats sharing a
+# name cannot both be represented: build15 does `players[name]=...` and the later matchup in
+# gn order silently wins (documented 2026-08-12, and it bit again on 2026-08-17 when
+# VegasInsider posted a single "Max Muncy" row at LAD's price that ATH's Muncy inherited).
+# Until players are keyed by (name, team) this is the deliberate fix for the one collision
+# we actually have: drop the bat we will never draft, so the survivor is unambiguous and the
+# outcome no longer depends on scrape/iteration order.
+#   (TEAM, NAME) -> dropped from cards before anything downstream sees it.
+DROP_CARDS = {('ATH', 'Max Muncy')}     # 2026-08-17: keep LAD's Max Muncy, never the Athletics'
+
+def drop_excluded(cards):
+    """Remove permanently-excluded bats from the cards tree. Returns (cards, [dropped])."""
+    dropped = []
+    for mk, teams in cards.items():
+        for tm, bats in list(teams.items()):
+            keep = [b for b in bats if (tc(tm), b.get('name')) not in DROP_CARDS]
+            if len(keep) != len(bats):
+                dropped += [f"{tc(tm)} {b['name']} ({mk})" for b in bats if b not in keep]
+                teams[tm] = keep
+    return cards, dropped
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     if not args:
@@ -61,6 +83,10 @@ def main():
     J = lambda n: json.load(open(os.path.join(base, n)))
     cards, extras, pitch, roto, odds = (J('cards.json'), J('extras.json'),
                                         J('pitch.json'), J('roto.json'), J('odds.json'))
+
+    cards, _dropped = drop_excluded(cards)
+    for _d in _dropped:
+        print(f"  excluded (permanent): {_d}")
 
     pitch_norm = {norm(k): k for k in pitch}
     surname = {}

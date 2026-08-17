@@ -441,7 +441,49 @@ def _mkey(m):
         return _TEAMK.get(_a,_a)+'@'+_TEAMK.get(_h,_h)
     except Exception:
         return (m or '').upper()
-SLATE={_mkey(_g.get('matchup')):_g for _g in (load_dated('slate_auto',required=False).get('games') or [])}
+# ---- DOUBLEHEADER-SAFE SLATE INDEX (2026-08-17) -------------------------------------
+# `SLATE` used to be a dict comprehension keyed by MATCHUP alone. On a doubleheader both
+# halves carry the same key, so the LAST one won -- and the second game of a DH is the one
+# with no posted lineup yet. 2026-08-17: STL@CIN resolved to pk 824478 (Scheduled, confirmed
+# False, lineup []) while pk 824514 in the same file had both sides confirmed with a full
+# nine. Consequences for the WHOLE DAY on that matchup: `_posted_ok` never went true so the
+# 2026-08-11 posted-card override never fired and the board scored game 1 off RotoWire's
+# morning projection (Michael Toglia read `out` all day, and the Family Meal churned on the
+# disagreement between that and the browser, which reads StatsAPI live); and `_sa` is also the
+# weather merge, so game 1 was scored on game 2's 6:40 PM wind/temp/precip row.
+# Now: matchup -> LIST, and the right half is chosen by ET first pitch against the lineups
+# file's own `time`. Same disambiguation regen15.py already bakes into the live grader.
+# Falls back to a confirmed-with-nine entry, then to the first, so a single-game matchup and a
+# missing/odd time behave exactly as before.
+_SLATE_ALL={}
+for _g in (load_dated('slate_auto',required=False).get('games') or []):
+    _SLATE_ALL.setdefault(_mkey(_g.get('matchup')),[]).append(_g)
+SLATE={k:v[0] for k,v in _SLATE_ALL.items()}          # back-compat for any single-game read
+
+def _et_hhmm(iso):
+    """slate_auto gameTime (ISO-Z) -> '1:40 PM' in ET, or None."""
+    try:
+        _d=datetime.datetime.strptime((iso or '').replace('Z','+0000'),'%Y-%m-%dT%H:%M:%S%z')
+        return (_d-datetime.timedelta(hours=4)).strftime('%-I:%M %p')
+    except Exception:
+        return None
+
+def _slate_for(gm, gtime):
+    """Pick the slate_auto entry for THIS game, not just this matchup."""
+    _c=_SLATE_ALL.get(_mkey(gm)) or []
+    if not _c: return None
+    if len(_c)==1: return _c[0]
+    _want=re.sub(r'\s*ET$','',(gtime or '')).strip()
+    for _e in _c:
+        if _want and _et_hhmm(_e.get('gameTime'))==_want:
+            print(f"  DH {gm}: matched pk {_e.get('gamePk')} on first pitch {_want}")
+            return _e
+    for _e in _c:
+        if (_e.get('away') or {}).get('confirmed') and len((_e.get('home') or {}).get('lineup') or [])>=9:
+            print(f"  !! DH {gm}: no time match for '{_want}' -- falling back to the confirmed half, pk {_e.get('gamePk')}")
+            return _e
+    print(f"  !! DH {gm}: no time match for '{_want}' and no confirmed half -- using pk {_c[0].get('gamePk')}")
+    return _c[0]
 
 def wf_of(g):
     # park factor = symmetric weather (tailwind + temp, capped +/-WX_CLAMP) * elevation. Domes -> 1.0.
@@ -478,7 +520,7 @@ def pull_tail_of(home, bh, deg, windstr):                # wind projected onto t
 players={}; gamemeta={}
 for g in lin['games']:
     gn=g['gn']; gm=g['matchup']; gt=g['time']
-    _sa=SLATE.get(_mkey(gm))                            # auto-pull (Open-Meteo) weather -> real wind bearing
+    _sa=_slate_for(gm, gt)                              # DH-safe: this game's row, not just this matchup
     if _sa is None: print(f"  !! slate_auto MISS for {gm} (keys: {sorted(SLATE)[:3]}...) -- no live weather merge for this game")
     if _sa:
         _wx=_sa.get('weather') or {}
