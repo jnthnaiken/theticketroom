@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-17T19:49:35Z",
+  "pulled_at": "2026-08-17T19:54:30Z",
   "games": [
     {
       "gamePk": 824514,
@@ -112,7 +112,7 @@
           {
             "id": 682622,
             "name": "Noelvi Marte",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 663647,
@@ -613,7 +613,7 @@
     },
     {
       "gamePk": 824077,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-17T23:40:00Z",
       "matchup": "ATH@KC",
       "away": {
@@ -635,10 +635,56 @@
           "hr9": 1.08,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.182
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.166
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.218
+          },
+          {
+            "id": 672580,
+            "name": "Maikel Garcia",
+            "iso": 0.112
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.113
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.152
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.171
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.124
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
