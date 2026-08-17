@@ -28,8 +28,14 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 ALIAS = {"AZ":"AZ","ARI":"AZ","CWS":"CWS","CHW":"CWS","ATH":"ATH","SF":"SF","SD":"SD","TB":"TB","KC":"KC","WSH":"WSH"}
 
 def norm(s):
+    """Feed names carry suffixes (\"Bobby Witt Jr.\", \"Michael Harris II\"); every board/input file
+    is suffix-LESS by convention. Strip Jr./Sr./II/III/IV before comparing or a suffixed bat matches
+    neither `homered` nor `played` and his leg silently VOIDS as a benched/DNP refund.
+    Mirrors index.html's norm(), which has always stripped them (2026-08-17)."""
     s = unicodedata.normalize('NFKD', s or '')
-    return ''.join(c for c in s if not unicodedata.combining(c)).lower().replace('.', '').replace(' ', '').strip()
+    s = ''.join(c for c in s if not unicodedata.combining(c)).lower().replace('.', '').strip()
+    s = re.sub(r'\s+(jr|sr|ii|iii|iv)$', '', s)
+    return s.replace(' ', '').strip()
 
 def getj(u):
     with urllib.request.urlopen(u, timeout=30) as r:
