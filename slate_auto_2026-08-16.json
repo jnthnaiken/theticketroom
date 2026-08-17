@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
   "season": "2026",
-  "pulled_at": "2026-08-17T01:30:30Z",
+  "pulled_at": "2026-08-17T01:35:13Z",
   "games": [
     {
       "gamePk": 822940,
@@ -1453,9 +1453,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 0mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 70.2,
+        "wind_mph": 1.1,
+        "wind_dir": 349,
+        "tail_mph": 0.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.001
     },
     {
       "gamePk": 824965,
@@ -1903,7 +1910,7 @@
           {
             "id": 663728,
             "name": "Cal Raleigh",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 642215,
