@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-17T20:02:08Z",
+  "pulled_at": "2026-08-17T20:04:38Z",
   "games": [
     {
       "gamePk": 824514,
@@ -82,7 +82,7 @@
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.214
+            "iso": 0.217
           },
           {
             "id": 663886,
@@ -531,7 +531,7 @@
     },
     {
       "gamePk": 824725,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-17T23:10:00Z",
       "matchup": "ARI@BOS",
       "away": {
@@ -553,10 +553,56 @@
           "hr9": 0.53,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663330,
+            "name": "Jahmai Jones",
+            "iso": 0.153
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.178
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.216
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.245
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.17
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.153
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.172
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.154
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.07
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
