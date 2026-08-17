@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-17T18:03:16Z",
+  "pulled_at": "2026-08-17T18:44:15Z",
   "games": [
     {
       "gamePk": 824514,
@@ -20,7 +20,7 @@
           {
             "id": 695491,
             "name": "Joshua B\u00e1ez",
-            "iso": 1.0
+            "iso": 0.9
           },
           {
             "id": 671056,
@@ -30,7 +30,7 @@
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.211
+            "iso": 0.21
           },
           {
             "id": 676475,
@@ -50,17 +50,17 @@
           {
             "id": 691458,
             "name": "Blaze Jordan",
-            "iso": 0.125
+            "iso": 0.138
           },
           {
             "id": 677592,
             "name": "Everson Pereira",
-            "iso": 0.225
+            "iso": 0.223
           },
           {
             "id": 686780,
             "name": "Pedro Pag\u00e9s",
-            "iso": 0.111
+            "iso": 0.11
           }
         ],
         "confirmed": true
@@ -77,7 +77,7 @@
           {
             "id": 682829,
             "name": "Elly De La Cruz",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 701398,
@@ -92,12 +92,12 @@
           {
             "id": 553993,
             "name": "Eugenio Su\u00e1rez",
-            "iso": 0.211
+            "iso": 0.209
           },
           {
             "id": 667472,
             "name": "Dane Myers",
-            "iso": 0.089
+            "iso": 0.088
           },
           {
             "id": 669911,
@@ -117,7 +117,7 @@
           {
             "id": 663647,
             "name": "Ke'Bryan Hayes",
-            "iso": 0.108
+            "iso": 0.107
           }
         ],
         "confirmed": true
@@ -342,7 +342,7 @@
     },
     {
       "gamePk": 823589,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-17T23:10:00Z",
       "matchup": "SD@NYM",
       "away": {
@@ -364,10 +364,56 @@
           "hr9": 0.99,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.128
+          },
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.196
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.12
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.143
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.133
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.183
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.145
+          },
+          {
+            "id": 593871,
+            "name": "Jorge Polanco",
+            "iso": 0.083
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.18
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
