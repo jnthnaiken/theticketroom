@@ -1,7 +1,7 @@
 {
   "date": "2026-08-17",
   "season": "2026",
-  "pulled_at": "2026-08-18T01:30:28Z",
+  "pulled_at": "2026-08-18T01:36:42Z",
   "games": [
     {
       "gamePk": 824514,
@@ -55,7 +55,7 @@
           {
             "id": 677592,
             "name": "Everson Pereira",
-            "iso": 0.215
+            "iso": 0.213
           },
           {
             "id": 686780,
@@ -648,7 +648,7 @@
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.132
+            "iso": 0.131
           }
         ],
         "confirmed": true
@@ -741,12 +741,12 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.087
+            "iso": 0.085
           },
           {
             "id": 678882,
             "name": "Ceddanne Rafaela",
-            "iso": 0.18
+            "iso": 0.182
           },
           {
             "id": 677800,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823589,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-17T23:10:00Z",
       "matchup": "SD@NYM",
       "away": {
@@ -1012,7 +1012,7 @@
           {
             "id": 677951,
             "name": "Bobby Witt Jr.",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 695506,
@@ -1047,7 +1047,7 @@
           {
             "id": 664728,
             "name": "Kyle Isbel",
-            "iso": 0.107
+            "iso": 0.106
           }
         ],
         "confirmed": true
@@ -1103,17 +1103,17 @@
           {
             "id": 643289,
             "name": "Mauricio Dub\u00f3n",
-            "iso": 0.13
+            "iso": 0.129
           },
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.172
+            "iso": 0.171
           },
           {
             "id": 573262,
             "name": "Mike Yastrzemski",
-            "iso": 0.163
+            "iso": 0.161
           },
           {
             "id": 663586,
@@ -1133,7 +1133,7 @@
         "sp": {
           "id": 641927,
           "name": "Bailey Ober",
-          "hr9": 1.5,
+          "hr9": 1.49,
           "hand": "RHP"
         },
         "lineup": [
@@ -1209,7 +1209,7 @@
         "sp": {
           "id": 622491,
           "name": "Luis Castillo",
-          "hr9": 1.49,
+          "hr9": 1.48,
           "hand": "RHP"
         },
         "lineup": [
@@ -1288,7 +1288,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 664023,
@@ -1298,7 +1298,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.1
+            "iso": 0.101
           },
           {
             "id": 699393,
@@ -1454,16 +1454,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 91\u00b0",
-        "lean": "Boost",
-        "temp": 91.4,
-        "wind_mph": 5.7,
-        "wind_dir": 81,
-        "tail_mph": -0.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.029
+      "wf": 1.0
     }
   ]
 }
