@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T18:57:23Z",
+  "pulled_at": "2026-08-18T19:00:29Z",
   "games": [
     {
       "gamePk": 824803,
@@ -261,7 +261,7 @@
     },
     {
       "gamePk": 822938,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-18T22:40:00Z",
       "matchup": "TOR@TB",
       "away": {
@@ -283,10 +283,56 @@
           "hr9": 1.04,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.057
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.265
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.142
+          },
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.164
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.16
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.233
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.15
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.116
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.079
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
