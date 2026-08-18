@@ -1048,6 +1048,25 @@ drawTickets();drawPlayers();drawTracker();
        through `_kept`. One definition of "the board we came in with", so all three agree by construction. */
     if(D.tickets&&D.tickets.length)D.tickets=D.tickets.filter(function(t){
       return !((t.players||[]).some(function(l){var p=P[l.name];return !p||p.out||p.void;}));});
+    /* BAKED-2026-08-18 -- once the slate's DATE has passed in ET, the board is FINISHED and is emitted
+       verbatim. Owner: "after all games were final last night, salvador perez and toglia got added to
+       the family meal section ... just bake the final board, its not that hard."
+       What actually happened: `nowETMin()` returns MINUTES SINCE ET MIDNIGHT, so at 12:05am it is 5.
+       MINTGUARD -- the pass that refuses to create a slip past its own first pitch -- compares
+       `gmin(t.lock) <= nowETMin()`, and a 7:40pm lock is 1180. `1180 <= 5` is false, so at the stroke
+       of midnight MINTGUARD silently stopped blocking anything and the Family Meal minted cards for
+       games that had ended hours earlier: Michael Toglia ("Clocked In", 1:40pm game) and Salvador
+       Perez ("Apron On", 7:40pm). The server never saw it -- its last build was 11:26pm -- so
+       `D_2026-08-17.json` still reads 17 tickets while the browser tab left open past midnight
+       re-derived itself to 19. Reproduced exactly in replay: that board is 17 tickets at 03:55Z and
+       19 at 04:05Z, and 17 again at every clock with this guard in place.
+       `started()` and `likelyEnded()` already carry a next-day guard; the clock comparisons inside
+       MINTGUARD do not. Rather than bolt the guard onto each comparison, stop re-deriving at all --
+       a finished day has nothing left to draft. */
+    var _slateOver=false;
+    try{ var _tdET=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});
+         _slateOver = !!(D.meta && D.meta.date && _tdET > D.meta.date); }catch(e){}
+    var _baked = _slateOver ? (D.tickets||[]).slice() : null;
     function precipOf(g){var w=WXm[String(g)]||{};var p=w.precip;if(p==null){var m=/(\d+)%/.exec(w.rain||"");p=m?+m[1]:0;}return p;}  // rain% at first pitch
     var names=Object.keys(P);
     var tmin=function(n){return gmin(P[n].gtime);};
@@ -1924,7 +1943,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       var ord=[]; seen.forEach(function(a){ ord=ord.concat(grp[a]); });
       slots.forEach(function(p,k){ out[p]=ord[k]; });
     })();
-    D.tickets=out;
+    D.tickets = (_baked && _baked.length) ? _baked : out;   /* BAKED-2026-08-18: the day is over -- ship the board as it finished */
   }
 
   // ---------- fetch + recompute + assemble ----------
