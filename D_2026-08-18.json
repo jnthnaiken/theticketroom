@@ -8488,7 +8488,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -8581,7 +8581,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -8674,7 +8674,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -8767,7 +8767,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -8860,7 +8860,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -9046,7 +9046,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -9325,7 +9325,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -9418,7 +9418,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -9604,7 +9604,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Gibson",
@@ -36223,7 +36223,7 @@
     "precip": 8
    }
   },
-  "build": "8/18 3:01pm",
+  "build": "8/18 3:02pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36391,6 +36391,44 @@
  },
  "tickets": [
   {
+   "name": "Deep Water",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Kyle Schwarber is denting outfield walls (63% hard-hit), tilts the bat for distance (18\u00b0), sits in the elite power tier (96/100).",
+   "players": [
+    {
+     "name": "Kyle Schwarber",
+     "team": "Phillies",
+     "total": 171.6,
+     "aT": 100,
+     "wf": 0.995,
+     "gmatch": "MIA@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 245,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kyle Schwarber",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 0,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 245,
+   "payout10": 34.5
+  },
+  {
    "name": "Trajectory Locked",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -36407,7 +36445,7 @@
      "game": 4,
      "late": false,
      "odds": 245,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Mike Trout",
@@ -36453,7 +36491,10 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 2,
+   "priced": 3,
+   "parlay_am": 6936,
+   "payout10": 703.59
   },
   {
    "name": "Sonic Boom",
@@ -36472,7 +36513,7 @@
      "game": 4,
      "late": false,
      "odds": 245,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Oneil Cruz",
@@ -36518,7 +36559,10 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 6412,
+   "payout10": 651.22
   },
   {
    "name": "The Long Bomb",
@@ -36583,7 +36627,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 6661,
+   "payout10": 676.15
   },
   {
    "name": "Rocket Fuel",
@@ -36648,7 +36695,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 8652,
+   "payout10": 875.22
   },
   {
    "name": "Thrust Vector",
@@ -36713,7 +36763,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 6872,
+   "payout10": 697.19
   },
   {
    "name": "Crossing the Karman Line",
@@ -36778,7 +36831,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 9803,
+   "payout10": 990.34
   },
   {
    "name": "No Doubter",
@@ -36843,7 +36899,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 8245,
+   "payout10": 834.51
   },
   {
    "name": "Tape Measure Job",
@@ -36908,7 +36967,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 8904,
+   "payout10": 900.36
   },
   {
    "name": "The Witching Hour",
@@ -36942,41 +37004,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "Deep Water",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Kyle Schwarber is denting outfield walls (63% hard-hit), tilts the bat for distance (18\u00b0), sits in the elite power tier (96/100).",
-   "players": [
-    {
-     "name": "Kyle Schwarber",
-     "team": "Phillies",
-     "total": 171.6,
-     "aT": 100,
-     "wf": 0.995,
-     "gmatch": "MIA@PHI",
-     "gtime": "6:40 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 245,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Kyle Schwarber",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 349,
+   "payout10": 44.9
   },
   {
    "name": "The Mooring",
@@ -37010,7 +37041,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 277,
+   "payout10": 37.7
   },
   {
    "name": "Holding Ground",
@@ -37044,7 +37078,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 277,
+   "payout10": 37.7
   },
   {
    "name": "Safe Harbour",
@@ -37078,7 +37115,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 287,
+   "payout10": 38.7
   },
   {
    "name": "Left It Over the Plate",
@@ -37112,7 +37152,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 320,
+   "payout10": 42
   },
   {
    "name": "Hung Slider",
@@ -37146,7 +37189,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 417,
+   "payout10": 51.7
   },
   {
    "name": "The Loud One",
@@ -37180,7 +37226,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 305,
+   "payout10": 40.5
   },
   {
    "name": "Every Bit of It",
@@ -37214,7 +37263,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 395,
+   "payout10": 49.5
   },
   {
    "name": "Middle-Middle",
@@ -37248,7 +37300,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 349,
+   "payout10": 44.9
   },
   {
    "name": "The Meatball",
@@ -37282,7 +37337,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 405,
+   "payout10": 50.5
   },
   {
    "name": "Barrel Found",
@@ -37316,7 +37374,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 322,
+   "payout10": 42.2
   },
   {
    "name": "Cheap Seats",
@@ -37350,13 +37411,15 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 374,
+   "payout10": 47.4
   }
  ],
  "pool": [
   "Munetaka Murakami",
   "Matt Olson",
-  "Kyle Schwarber",
   "Pete Crow-Armstrong",
   "Byron Buxton",
   "Ben Rice",
