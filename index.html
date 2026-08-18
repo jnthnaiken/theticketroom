@@ -1047,7 +1047,26 @@ drawTickets();drawPlayers();drawTracker();
        the other two carrying the dead slip: filtering `prior` alone still let the latch resurrect Weigh Anchor
        through `_kept`. One definition of "the board we came in with", so all three agree by construction. */
     if(D.tickets&&D.tickets.length)D.tickets=D.tickets.filter(function(t){
-      return !((t.players||[]).some(function(l){var p=P[l.name];return !p||p.out||p.void;}));});
+      var _dead=(t.players||[]).some(function(l){var p=P[l.name];return !p||p.out||p.void;});
+      if(!_dead)return true;
+      /* REANCHOR-2026-08-18 -- owner: "shouldnt he have been replaced by colson montgomery or ben rice
+         and the board redrafted?" Yes, and the first cut of this filter made that impossible. It deleted
+         EVERY ticket holding a scratched bat, including OPEN parlays -- before anything read the prior
+         board. MOON ANCHOR CONTINUITY exists precisely to handle a dead anchor (it re-anchors BOTH of
+         his moons onto the SAME replacement) but it walks `prior`, so the slips it needed to repair had
+         already been thrown away. The board just shrank instead: 2026-08-18 19:43Z Byron Buxton was
+         scratched and the board went 4 anchors / 8 moons / 4 builders -> 3 / 6 / 3 and stayed there.
+         A scratch kills a ticket that CANNOT be repaired; it does not kill one that can:
+           - LOCKED slip with a dead leg  -> gone. A placed bet is never re-drafted, and it must not
+             render a scratched player (2026-08-17, Goodman's Thrust Vector / Weigh Anchor).
+           - SINGLE whose only bat is dead -> gone. Nothing to repair.
+           - OPEN parlay -> KEPT here, and repaired downstream: pinnedP/aliveP both require !out && !void
+             so the scratched bat cannot be re-kept, the anchor pass re-anchors if he was the anchor, and
+             the refill takes the next bat from the pool. The revert-to-prior branch also demands every
+             leg alive, so he cannot sneak back that way either. */
+      if(t.locked)return false;
+      if((t.players||[]).length<=1)return false;
+      return true;});
     /* BAKED-2026-08-18 -- once the slate's DATE has passed in ET, the board is FINISHED and is emitted
        verbatim. Owner: "after all games were final last night, salvador perez and toglia got added to
        the family meal section ... just bake the final board, its not that hard."
