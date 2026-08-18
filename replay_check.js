@@ -38,7 +38,14 @@
  *               scratched. Any other disappearance is a violation.
  *   2. NO DUPES no bat sits on two OPEN slips. An anchor legitimately holds both of his
  *               moons and his builder, so anchor legs are exempt; every other leg is not.
- *   3. SHAPE    reports the kind-counts the board settles into. Not a hard failure --
+ *   3. BAKED    once the slate's DATE has passed in ET the day is OVER, so replaying the final
+ *               board the next morning must not change a single ticket. This is its own assertion
+ *               because the chain above cannot reach it: the server stops building before midnight,
+ *               so no chained build ever crosses the boundary. 2026-08-17 shipped a board that grew
+ *               from 17 tickets to 19 at 12:05am -- MINTGUARD compares `gmin(t.lock) <= nowETMin()`,
+ *               and `nowETMin()` is MINUTES SINCE ET MIDNIGHT, so a 7:40pm lock (1180) stopped being
+ *               "late" the instant the clock read 5. Only a browser tab left open overnight saw it.
+ *   4. SHAPE    reports the kind-counts the board settles into. Not a hard failure --
  *               `family` is a leftovers section and is supposed to vary, and scratches
  *               legitimately remove slips -- but churn here means something is wrong.
  *               2026-08-16 runs all 170 builds on ONE shape. That is what healthy looks like.
@@ -239,12 +246,49 @@ function replay(engine, date) {
     if (VERBOSE) console.log(`  ${s.hh}:${s.mm}Z  ${T.length} tickets  ${key}`);
   }
 
+  /* ---- (3) BAKED: the day is over, nothing may move ---- */
+  const nextDay = new Date(new Date(date + 'T00:00:00Z').getTime() + 864e5).toISOString().slice(0, 10);
+  const lastSnap = snaps[snaps.length - 1];
+  const sigList = T => JSON.stringify(T.map(t => [t.kind, t.name, (t.players || []).map(l => [l.name, l.odds])]));
+  /* Two inputs, because they are genuinely different boards and only one of them reproduced the
+     2026-08-17 incident. `carry` is where OUR chain ended; `archived` is the board the server actually
+     committed and therefore the one a browser loads and re-derives overnight. The chained board had
+     drifted to a state where the Family Meal had nothing left to add, so testing it alone reported a
+     clean pass against the very engine that shipped the bug. Test what the tab holds. */
+  const archived = (board(lastSnap).tickets) || [];
+  for (const [label, base] of [['chain', carry], ['archived', archived]]) {
+  const finalSig = sigList(base);
+  /* ET midnight is 04:00Z (EDT), NOT 00:00Z. An earlier cut used 00:05Z and that is 8:05pm ET on the
+     slate's own day -- still live, the board is SUPPOSED to move, and 2026-08-16 duly failed on it.
+     Pick clocks that are unambiguously the next ET morning. 04:30Z = 12:30am ET is the boundary the
+     2026-08-17 bug fired on. */
+  for (const clock of ['04:30', '08:00', '15:00']) {
+    const D2 = board(lastSnap);
+    D2.tickets = JSON.parse(JSON.stringify(base));
+    delete D2.familyFloor;
+    let T2;
+    try { T2 = runBuild(engine, D2, `${nextDay}T${clock}:00Z`).tickets || []; }
+    catch (e) { violations++; console.log(`  BAKED ${clock}Z  ENGINE ERROR: ${e.message}`); continue; }
+    if (sigList(T2) !== finalSig) {
+      violations++;
+      const was = new Set(base.map(t => t.kind + ':' + t.name));
+      const now = new Set(T2.map(t => t.kind + ':' + t.name));
+      const added = [...now].filter(x => !was.has(x)), gone = [...was].filter(x => !now.has(x));
+      console.log(`  BAKED VIOLATION @ ${nextDay} ${clock}Z [${label}]: the finished board changed ` +
+                  `(${base.length} -> ${T2.length} tickets)`);
+      added.forEach(x => console.log(`      + ${x}`));
+      gone.forEach(x => console.log(`      - ${x}`));
+      if (!added.length && !gone.length) console.log('      (same tickets, different legs or prices)');
+    }
+  }
+  }
+
   if (removals.length) {
     console.log(`  -- ${removals.length} scratch-driven removal(s), all accounted for:`);
     removals.forEach(r => console.log(`     ${r}`));
   }
   const shapeList = Object.entries(shapes).sort((a, b) => b[1] - a[1]);
-  console.log(`  ${snaps.length - 1} chained builds | ${violations} violation(s) | ${shapeList.length} board shape(s)`);
+  console.log(`  ${snaps.length - 1} chained builds + 6 post-midnight bake checks | ${violations} violation(s) | ${shapeList.length} board shape(s)`);
   shapeList.slice(0, 5).forEach(([k, n]) => console.log(`     ${String(n).padStart(4)}x  ${k}`));
   if (shapeList.length > 5) console.log(`     ... and ${shapeList.length - 5} more`);
   return { violations, builds: snaps.length - 1 };
@@ -280,6 +324,6 @@ if (!builds) {
   process.exit(0);
 }
 console.log(total === 0
-  ? `PASS -- ${builds} chained builds, no sealed ticket changed, no bat on two open slips.`
+  ? `PASS -- ${builds} chained builds, no sealed ticket changed, no bat on two open slips, finished boards stay baked.`
   : `FAIL -- ${total} violation(s) across ${builds} chained builds.`);
 process.exit(total ? 1 : 0);
