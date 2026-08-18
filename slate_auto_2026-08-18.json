@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T20:03:12Z",
+  "pulled_at": "2026-08-18T20:08:04Z",
   "games": [
     {
       "gamePk": 824803,
@@ -1236,7 +1236,7 @@
     },
     {
       "gamePk": 822859,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T00:05:00Z",
       "matchup": "WSH@TEX",
       "away": {
@@ -1258,10 +1258,56 @@
           "hr9": 1.15,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.211
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.187
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.186
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.165
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.169
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.198
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.138
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.0
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.13
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
