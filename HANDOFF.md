@@ -597,6 +597,26 @@ Exit 0 = safe to commit+build. Exit 1 = DO NOT COMMIT.
    summary tiles fall back to the June-15 defaults with `undefined` denominators.
    gn MUST be unique per kept game (1..N; doubleheaders keep game 1 only).
 
+### BEFORE YOU SHIP A CHANGE TO index.html: `node replay_check.js`
+Run it from the repo root. It replays REAL archived boards through the REAL engine and
+fails the three invariants that keep breaking:
+  1. a locked ticket never changes and only ever leaves the board on a scratch
+  2. no bat on two OPEN slips (an anchor on his own moons/builder is exempt)
+  3. board shape (reported, not enforced -- `family` is leftovers and varies)
+`node replay_check.js` does yesterday+today; pass dates for anything else. Exit 0 = clean.
+
+It works because every build is committed as `D_<date>.json`, so git history IS the corpus,
+and because the replay is CHAINED -- build N's output becomes build N+1's prior, which is
+what production does (regen15.py reads the prior board from index.html's `const D`, not from
+D_<date>.json). Checking each build against its ARCHIVED prior hides exactly the drift this
+is looking for.
+
+Written 2026-08-17 after four bugs in one day, every one a confident diagnosis that was
+wrong or unmeasured. Its numbers: the shrink guard fired 94x in 58 builds with 93 of those
+restores duplicating a bat already on the board; 64 changes to already-locked tickets on
+08-16; and a fix about to ship (FAMLOCK) that changed literally nothing. Sanity-checked by
+pointing it at the pre-fix engine -- 76 violations, exit 1. A test that cannot fail is worthless.
+
 ### GIT: ONE way, every day — the assistant commits via the GitHub web UI
 Do NOT hand the user terminal commands, and do NOT run git through the device
 bridge (the cloud↔device mount cannot `unlink`, so a `device_bash` git write leaves
