@@ -258,11 +258,13 @@ function replay(engine, date) {
   const archived = (board(lastSnap).tickets) || [];
   for (const [label, base] of [['chain', carry], ['archived', archived]]) {
   const finalSig = sigList(base);
-  /* ET midnight is 04:00Z (EDT), NOT 00:00Z. An earlier cut used 00:05Z and that is 8:05pm ET on the
-     slate's own day -- still live, the board is SUPPOSED to move, and 2026-08-16 duly failed on it.
-     Pick clocks that are unambiguously the next ET morning. 04:30Z = 12:30am ET is the boundary the
-     2026-08-17 bug fired on. */
-  for (const clock of ['04:30', '08:00', '15:00']) {
+  /* The board bakes at 3AM ET on the day after the slate (2026-08-18: west coast games can still be
+     in progress at 1am ET, so midnight was too early). These clocks must therefore be past 3am ET,
+     which is 07:00Z under EDT -- NOT past 00:00Z, and not even past 04:00Z. Two earlier cuts of this
+     list got it wrong in both directions: 00:05Z is 8:05pm ET on the slate's OWN day (board is
+     supposed to move) and 04:30Z is 12:30am ET (inside the live west-coast window). 07:30Z = 3:30am
+     ET is the first clock at which the day is genuinely closed. */
+  for (const clock of ['07:30', '12:00', '16:00']) {
     const D2 = board(lastSnap);
     D2.tickets = JSON.parse(JSON.stringify(base));
     delete D2.familyFloor;
