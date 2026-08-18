@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T18:52:47Z",
+  "pulled_at": "2026-08-18T18:57:23Z",
   "games": [
     {
       "gamePk": 824803,
@@ -342,7 +342,7 @@
     },
     {
       "gamePk": 824723,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-18T23:10:00Z",
       "matchup": "ARI@BOS",
       "away": {
@@ -353,8 +353,54 @@
           "hr9": 1.8,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.146
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.241
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.156
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.127
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.156
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.119
+          },
+          {
+            "id": 543510,
+            "name": "James McCann",
+            "iso": 0.153
+          },
+          {
+            "id": 699912,
+            "name": "Jose Fernandez",
+            "iso": 0.095
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.11
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -367,7 +413,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -691,9 +737,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 90\u00b0",
+        "lean": "Boost",
+        "temp": 89.6,
+        "wind_mph": 8.4,
+        "wind_dir": 99,
+        "tail_mph": 1.3,
+        "precip": 8
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
