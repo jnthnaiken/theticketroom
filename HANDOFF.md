@@ -599,11 +599,17 @@ Exit 0 = safe to commit+build. Exit 1 = DO NOT COMMIT.
 
 ### BEFORE YOU SHIP A CHANGE TO index.html: `node replay_check.js`
 Run it from the repo root. It replays REAL archived boards through the REAL engine and
-fails the three invariants that keep breaking:
+fails the invariants that keep breaking:
   1. a locked ticket never changes and only ever leaves the board on a scratch
   2. no bat on two OPEN slips (an anchor on his own moons/builder is exempt)
   3. board shape (reported, not enforced -- `family` is leftovers and varies)
+  4. BAKED: once the slate's date has passed in ET, replaying the final board changes nothing
+  5. ANCHORS: never >4 distinct moon anchors; never an OPEN moon led by a scratched bat; never an
+     anchor shipping ONE moon unless the other is already placed; the anchor set never shrinks below
+     four while moons are still open; at most one `late` and one `lunch`
 `node replay_check.js` does yesterday+today; pass dates for anything else. Exit 0 = clean.
+A full week (`2026-08-12 .. 2026-08-18`) takes ~8 min and is ~1,075 chained builds -- run it in the
+background and check the file, or a 2-minute shell timeout will kill it mid-sweep.
 
 It works because every build is committed as `D_<date>.json`, so git history IS the corpus,
 and because the replay is CHAINED -- build N's output becomes build N+1's prior, which is
@@ -616,6 +622,29 @@ wrong or unmeasured. Its numbers: the shrink guard fired 94x in 58 builds with 9
 restores duplicating a bat already on the board; 64 changes to already-locked tickets on
 08-16; and a fix about to ship (FAMLOCK) that changed literally nothing. Sanity-checked by
 pointing it at the pre-fix engine -- 76 violations, exit 1. A test that cannot fail is worthless.
+
+### 2026-08-18 — REDRAFT: a dead anchor REDRAFTS the board, it does not vacate a seat
+Owner: *"its not about replacing, its about redrafting. from scratch. the board needs to reflect the
+correct draft."* `searchBest` picks the best four-anchor SET **jointly**, so the three survivors are only
+the right three GIVEN the fourth. Patching the hole with "next bat in line" can only re-rank what the old
+set left over. 08-18: Buxton scratched, seat refilled with Crow-Armstrong — only because Montgomery and
+Rice were already spent as legs. A real joint redraft seats Montgomery. 08-17: Goodman died and the patch
+could not refill him, so 72 of 129 builds shipped THREE anchors and six moons.
+
+Now: any still-open moon whose anchor is no longer draftable (scratched / voided / gone from the pool /
+now chalk) throws the OPEN board away and re-runs the fresh joint draft. Locked slips are placed bets —
+emitted verbatim, bats reserved, never re-derived — and `_KT = 4 - committed anchors` so the redraft fills
+only the seats they have not already spent. The old dead-anchor patch is DELETED (its trigger was
+bit-for-bit the new predicate, so it was unreachable); `anchRepl` survives for OVERTAKE only.
+
+Rides along, same class of bug: one builder per anchor (a locked prior builder counted), one nightcap and
+one lunch play (the first cut of the redraft shipped TWO lunch tickets on 199 of 214 builds on 08-15 --
+caught by the harness before it shipped, not by anyone looking), SHAPE REPAIR mints a nightcap a
+scratch killed (a placed single that dies stays dead; an empty SLOT gets drafted), and a name a scratch
+retires is not reused (`_killed`).
+
+Verified: negative control fires 16x on 08-17 against the old engine; 08-12..08-18 clean at 1,075 builds.
+Full write-up: project doc `claude/redraft-2026-08-18.md`.
 
 ### GIT: ONE way, every day — the assistant commits via the GitHub web UI
 Do NOT hand the user terminal commands, and do NOT run git through the device

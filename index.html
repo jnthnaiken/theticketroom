@@ -1046,6 +1046,11 @@ drawTickets();drawPlayers();drawTracker();
        `D.tickets` -- the committed-bat reclaim, the lock latch and `prior` -- and filtering any one of them left
        the other two carrying the dead slip: filtering `prior` alone still let the latch resurrect Weigh Anchor
        through `_kept`. One definition of "the board we came in with", so all three agree by construction. */
+    /* REDRAFT-2026-08-18: the names of the slips a scratch kills. A killed slip is a settled line in the
+       ledger, so its NAME is spent for the night -- SHAPE REPAIR below re-mints the nightcap a scratch took
+       out, and without this it minted it under the dead ticket's own name (2026-08-17: "Nightfall" came back
+       as Andy Pages after Goodman was pulled, so the board showed one ticket that had been two bets). */
+    var _killed={};
     if(D.tickets&&D.tickets.length)D.tickets=D.tickets.filter(function(t){
       var _dead=(t.players||[]).some(function(l){var p=P[l.name];return !p||p.out||p.void;});
       if(!_dead)return true;
@@ -1064,8 +1069,8 @@ drawTickets();drawPlayers();drawTracker();
              so the scratched bat cannot be re-kept, the anchor pass re-anchors if he was the anchor, and
              the refill takes the next bat from the pool. The revert-to-prior branch also demands every
              leg alive, so he cannot sneak back that way either. */
-      if(t.locked)return false;
-      if((t.players||[]).length<=1)return false;
+      if(t.locked){_killed[t.name]=1;return false;}
+      if((t.players||[]).length<=1){_killed[t.name]=1;return false;}
       return true;});
     /* BAKED-2026-08-18 -- once the slate's DATE has passed in ET, the board is FINISHED and is emitted
        verbatim. Owner: "after all games were final last night, salvador perez and toglia got added to
@@ -1284,6 +1289,7 @@ drawTickets();drawPlayers();drawTracker();
     // Goodman's as index 0 all over again. Step forward to the first name nothing on the board is using.
     function cwName(kind,i){var pl=NAMES[kind]||['Ticket'],taken={},k;
       for(k=0;k<out.length;k++) taken[out[k].name]=1;
+      Object.keys(_killed).forEach(function(n){taken[n]=1;});   /* REDRAFT-2026-08-18: a name a scratch retired is not free */
       for(k=0;k<pl.length;k++){var nm=pl[(((doy+i+k)%pl.length)+pl.length)%pl.length]; if(!taken[nm]) return nm;}
       return pl[(((doy+i)%pl.length)+pl.length)%pl.length];}
     function lastNm(s){var t=s.split(' ').filter(function(w){return ['jr','jr.','sr','sr.','ii','iii'].indexOf(w.toLowerCase())<0;});return t.length?t[t.length-1]:s;}
@@ -1539,7 +1545,34 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         t.anchor=repl; t.players=_nl; t.nlegs=_nl.length; });
       if(typeof console!=='undefined'&&console.log)console.log('[anchor-dedup] re-anchored '+open.length+' open slip(s) from '+Object.keys(drop).join(', ')+' -> '+repl);
     })();
-    if(prior.length){
+    /* REDRAFT-2026-08-18 -- A DEAD ANCHOR REDRAFTS THE BOARD, IT DOES NOT VACATE A SEAT.
+       The preserve path treated a scratched anchor as an empty chair: keep the other three, drop the next
+       eligible bat into the hole (MOON ANCHOR CONTINUITY). That is not the draft. searchBest picks the best
+       FOUR-anchor SET JOINTLY -- max clean-moon count, then the strongest set within MOON_SLACK -- so the
+       three survivors are only the right three GIVEN the fourth. 2026-08-18: Buxton was scratched; the seat
+       refilled with Crow-Armstrong purely because Montgomery and Rice had already been spent as legs under
+       the old set. A true joint redraft seats Alvarez/Schwarber/Olson/MONTGOMERY and Crow-Armstrong goes
+       back to being a leg. Patching a seat cannot reach that board -- it can only ever re-rank the leftovers.
+       So: if any anchor of a STILL-OPEN moon is no longer draftable, throw the open board away and re-run the
+       fresh joint draft. Slips that are already LOCKED are placed bets: they are emitted verbatim by the fresh
+       path and their bats stay reserved, and the joint search fills only the seats they have not already spent
+       (see _KT below). Nothing that is locked is ever re-derived. */
+    var _redraftWhy='';
+    var _redraft=(function(){
+      if(!prior.length)return false;
+      return prior.some(function(t){
+        if(t.kind!=='moon'||isLocked(t))return false;
+        var a=t.anchor, r=null;
+        if(!P[a])r='gone from the pool';
+        else if(P[a].out||P[a].void)r='scratched';
+        else if(chalk[a])r='now chalk (top-'+CHALK_N+' cannot anchor)';
+        else if(!(pinnedP(a)||(aliveP(a)&&inPool[a])))r='no longer draftable';
+        if(!r)return false;
+        _redraftWhy=a+': '+r+' (open moon "'+t.name+'")';
+        return true;});
+    })();
+    if(typeof console!=='undefined'&&console.log&&_redraft)console.log('[redraft] '+_redraftWhy+' -> full joint redraft of the open board');
+    if(prior.length && !_redraft){
       // ---- PRESERVE locked + confirmed/in-progress parlays; RE-DRAFT the projected parlays via draftF. ----
       var plan=[];
       prior.forEach(function(t){
@@ -1583,18 +1616,12 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
      anchRepl instead, which re-anchors BOTH of that anchor's moons to the same replacement. */
       var moonAnchors=[]; prior.forEach(function(t){ if(t.kind==='moon'&&!isLocked(t)&&moonAnchors.indexOf(t.anchor)<0)moonAnchors.push(t.anchor); });
       var anchRepl={}, _usedAnch={}; moonAnchors.forEach(function(a){ if(anchorAlive(a))_usedAnch[a]=1; });
-      /* 2026-08-10: the replacement search checked the BAT (already an anchor? already used? pending? rain?) but never
-         the bat's GAME. On 2026-08-10 Alvarez took the chef seat at 6:28pm, which made him chalk; anchorAlive() then
-         failed him and BOTH his moons were re-anchored here -- to Matt Olson, in NYM@ATL, a game Drake Baldwin already
-         anchored. That shipped two of four anchors on one lineup and rebuilt both slips around Olson's 7:15 window,
-         moving their lock from 9:38/9:40 to 7:07. Reserve every game that already carries a live or locked anchor. */
-      var _ancGm={};
-      prior.forEach(function(t){ if(t.kind!=='moon'||!t.anchor||!P[t.anchor])return;   // 2026-08-13: moon anchors only
-        if(isLocked(t)||anchorAlive(t.anchor))_ancGm[P[t.anchor].game]=1; });
-      moonAnchors.forEach(function(a){ if(anchorAlive(a))return; var p2=byS(nonchalk);
-        for(var i=0;i<p2.length;i++){var c=p2[i]; if(_usedAnch[c]||usedG[c]||pending(c)||precipOf(P[c].game)>=40)continue;
-          /* 2026-08-13: one-anchor-per-game bar lifted here too -- a replacement may land in an already-anchored game. */
-          anchRepl[a]=c; _usedAnch[c]=1; usedG[c]=1; _ancGm[P[c].game]=1; break;} });
+      /* REDRAFT-2026-08-18: the DEAD-ANCHOR replacement search that lived here is GONE, not disabled. Its trigger
+         (an open moon whose anchor fails anchorAlive) is now bit-for-bit the _redraft predicate above, so this
+         branch was provably unreachable -- a dead anchor never gets here any more, it redrafts the open board.
+         `_ancGm`, the per-game reservation it kept, went with it: write-only since one-anchor-per-game was lifted.
+         anchRepl survives for OVERTAKE only -- a live anchor handing his slot to a stronger teammate, which is a
+         swap inside one game, not a change to the anchor SET, and so is not a redraft. */
       /* 2026-08-13 -- ANCHOR OVERTAKE. The pass above only fires when an anchor is DEAD (scratched, voided, out of
          the pool). Nothing ever reconsidered an anchor merely OVERTAKEN by a stronger bat in his own game -- and
          losing a chef seat is exactly the event that creates one. 08-13, in order:
@@ -1815,7 +1842,15 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         }
         return {al:al, pls:pls, miss:0};
       }
-      var _best=searchBest(candA, 4, draftPool);   // strongest 4-anchor set -- FOUR moon-pairs now, no salami seat (hoisted generalized draft)
+      /* REDRAFT-2026-08-18: a redraft mid-slate runs with placed bets already on the board. Every LOCKED moon
+         has spent an anchor seat -- its bats are in usedG and out of nonchalk, so that anchor cannot be re-picked
+         and his open partner moon cannot be rebuilt. Search for the seats that are actually still free, or the
+         board ships four NEW anchors on top of the committed ones (7 anchors, 14 moons). Fresh build: 0 locked
+         moons -> _KT = 4, the plain full draft, unchanged. */
+      var _cmA={}; out.forEach(function(t){ if(t.kind==='moon'&&t.anchor)_cmA[t.anchor]=1; });
+      var _KT=Math.max(0,4-Object.keys(_cmA).length);
+      if(typeof console!=='undefined'&&console.log&&_KT<4)console.log('[redraft] '+Object.keys(_cmA).length+' anchor seat(s) already placed -> jointly drafting '+_KT);
+      var _best=_KT?searchBest(candA, _KT, draftPool):null;   // strongest _KT-anchor set -- FOUR moon-pairs now, no salami seat (hoisted generalized draft)
       var parlays = _best ? _best.pls : [];
       void draftFx;   // reference the dead fn so linters/minifiers keep it harmless
       parlays=parlays.filter(function(t){return (t.legs.length-1)>=t.need;});   // ship ONLY if fully filled: moons exactly 3 legs, salami exactly 4; dropped bats fall to builders via spent
@@ -1841,10 +1876,13 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           return _q!=null && _q>=_nlast-NIGHT_WIN && !_plg[n] && !usedG[n] && !chalk[n] && !started(n) && !pending(n)
                  && precipOf(P[n].game)<40 && P[n].odds!=null && P[n].odds<=600;}));
       }
-      if(ncap.length){ mkF('late','\uD83C\uDF03',[ncap[0]]); _lnp[ncap[0]]=1; }
-      var lunchc=byS(draftPool).filter(function(n){return lunchG[P[n].game]&&!_plg[n]&&!_lnp[n]&&P[n].odds!=null&&P[n].odds<=600;}); if(lunchc.length){ mkF('lunch','\uD83C\uDF71',[lunchc[0]]); _lnp[lunchc[0]]=1; }
+      /* REDRAFT-2026-08-18: one nightcap and one lunch play, full stop. On a mid-slate redraft the locked prior
+         nightcap is already sitting in `out` as a placed bet, and minting a fresh one on top of it put TWO late
+         singles on the board. The fresh path never had to check because it only ever ran on an empty board. */
+      if(ncap.length && !out.some(function(t){return t.kind==='late';})){ mkF('late','\uD83C\uDF03',[ncap[0]]); _lnp[ncap[0]]=1; }
+      var lunchc=byS(draftPool).filter(function(n){return lunchG[P[n].game]&&!_plg[n]&&!_lnp[n]&&P[n].odds!=null&&P[n].odds<=600;}); if(lunchc.length && !out.some(function(t){return t.kind==='lunch';})){ mkF('lunch','\uD83C\uDF71',[lunchc[0]]); _lnp[lunchc[0]]=1; }
       var spent={}; parlays.forEach(function(t){ t.legs.forEach(function(n){spent[n]=1;}); });   // only KEPT-parlay bats; dropped anchors/legs become builders
-      (function(){var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});var usedN={};par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){usedN[l.name]=1;});});var lf=Infinity;par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});});if(lf===Infinity)lf=-1;var done={};par.forEach(function(t){if(t.anchor&&!done[t.anchor]&&P[t.anchor].odds!=null){done[t.anchor]=1;mkF('builder','\uD83D\uDCB0',[t.anchor]);}});})();
+      (function(){var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});var usedN={};par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){usedN[l.name]=1;});});var lf=Infinity;par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});});if(lf===Infinity)lf=-1;var done={};out.forEach(function(t){if(t.kind==='builder'){var _ba=t.anchor||((t.players||[])[0]||{}).name;if(_ba)done[_ba]=1;}});/* REDRAFT-2026-08-18: a locked prior builder is already on the board -- minting a second one for the same anchor duplicated the slip */par.forEach(function(t){if(t.anchor&&!done[t.anchor]&&P[t.anchor]&&P[t.anchor].odds!=null){done[t.anchor]=1;mkF('builder','\uD83D\uDCB0',[t.anchor]);}});})();
     }
 
     // ---- post-process: wxsum / confleg / rr.maxprofit ----
@@ -1869,6 +1907,26 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           var legs=ln.map(leg); out.push({name:cwName('moon',nextIdx('moon')),kind:'moon',badge:'🚀',note:"",players:legs,nlegs:legs.length,anchor:a,lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:{struct:"by 2s & 3",risk:2.0}});
           mc[a]++;
         }
+      });
+    })();
+    /* SHAPE REPAIR -- REDRAFT-2026-08-18. The board's shape is fixed: four anchors x two moons, one nightcap,
+       one lunch play. The moon half of that is repaired directly above; the two singles never were, because the
+       preserve path can only re-derive a ticket that is still ON the prior board. So when a nightcap's bat was
+       scratched, A SCRATCH KILLS THE TICKET deleted the slip and nothing ever minted another -- the board ran the
+       rest of the night with no nightcap at all (2026-08-17, Hunter Goodman, 21:45Z onward). A PLACED single that
+       dies stays dead: that is a settled bet. An EMPTY SLOT gets drafted, same as a short anchor. */
+    (function(){
+      var have={}; out.forEach(function(t){have[t.kind]=1;});
+      var pl={}; out.forEach(function(t){(t.players||[]).forEach(function(l){pl[l.name]=1;});});
+      [['late',nightG,'\uD83C\uDF03'],['lunch',lunchG,'\uD83C\uDF71']].forEach(function(spec){
+        var kind=spec[0], gm=spec[1], badge=spec[2];
+        if(have[kind])return;
+        var c=byS(nonchalk).filter(function(n){return gm[P[n].game]&&!pl[n]&&!usedG[n]&&!pending(n)&&!started(n)&&precipOf(P[n].game)<40&&P[n].odds!=null&&P[n].odds<=600;});
+        if(!c.length)return;
+        var legs=[leg(c[0])];
+        out.push({name:cwName(kind,nextIdx(kind)),kind:kind,badge:badge,note:"",players:legs,nlegs:1,anchor:c[0],lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:null});
+        usedG[c[0]]=1;
+        if(typeof console!=='undefined'&&console.log)console.log('[shape-repair] no '+kind+' on the board -> minted '+c[0]);
       });
     })();
     if(CHEF_TICKET&&_chefLegs.length>=CHALK_N&&!out.some(function(t){return t.kind==='chef';})){var _clegs=_chefLegs.slice().sort(function(a,b){return (P[b].TOTAL||0)-(P[a].TOTAL||0);});var _clegL=_clegs.map(leg);out.push({name:cwName('chef',nextIdx('chef')),kind:'chef',badge:'\uD83C\uDF7D',note:"",players:_clegL,nlegs:_clegL.length,anchor:_clegs[0],lock:lockOf(_clegL),has_late:_clegL.some(function(l){return l.late;}),final:false,rr:{struct:"by 2s, 3s & 4",risk:5.5}});}

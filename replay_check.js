@@ -31,8 +31,8 @@
  * Player data (lineups, odds, TOTALs, scratches) comes from each snapshot, so the replay
  * sees the same live inputs the build saw.
  *
- * THE THREE ASSERTIONS
- * --------------------
+ * THE ASSERTIONS
+ * --------------
  *   1. SEALED   a ticket that has locked never changes again -- not its legs, not its
  *               prices -- and only ever leaves the board when one of its own players is
  *               scratched. Any other disappearance is a violation.
@@ -45,6 +45,13 @@
  *               from 17 tickets to 19 at 12:05am -- MINTGUARD compares `gmin(t.lock) <= nowETMin()`,
  *               and `nowETMin()` is MINUTES SINCE ET MIDNIGHT, so a 7:40pm lock (1180) stopped being
  *               "late" the instant the clock read 5. Only a browser tab left open overnight saw it.
+ *   5. ANCHORS  the board never carries more than four distinct moon anchors, never leads an OPEN
+ *               moon with a scratched bat, and never ships an anchor with a single moon unless his
+ *               other one is already a placed bet. This is the postcondition of REDRAFT-2026-08-18:
+ *               a scratched anchor REDRAFTS the open board through the joint searchBest, it does not
+ *               vacate a chair for the next bat in line. Before that fix, 2026-08-17 spent 72 of its
+ *               129 builds on a THREE-anchor, six-moon board because Goodman died and the patch could
+ *               not refill him.
  *   4. SHAPE    reports the kind-counts the board settles into. Not a hard failure --
  *               `family` is a leftovers section and is supposed to vary, and scratches
  *               legitimately remove slips -- but churn here means something is wrong.
@@ -171,7 +178,7 @@ function replay(engine, date) {
 
   let carry = board(snaps[0]).tickets || [];
   const sealed = {};        // name -> { sig, legs }
-  let violations = 0, shapes = {}, removals = [];
+  let violations = 0, shapes = {}, removals = [], prevAnchors = 0;
 
   for (let i = 1; i < snaps.length; i++) {
     const s = snaps[i];
@@ -236,6 +243,52 @@ function replay(engine, date) {
     if (dupes.length) {
       violations++;
       dupes.forEach(n => console.log(`  ${s.hh}:${s.mm}Z  DUPLICATE: ${n} on ${seen[n].join(' + ')}`));
+    }
+
+    /* (5) ANCHOR SET -- the postcondition of REDRAFT-2026-08-18. A scratched anchor must not leave a
+       hole that gets patched: the open board is redrafted, so the board never carries more than four
+       distinct moon anchors, never leads an OPEN moon with a dead bat, and never ships an anchor with
+       one moon unless his other one is a placed bet (all-or-none). */
+    {
+      const anchors = {}, lockedAnchor = {};
+      T.forEach(t => { if (t.kind !== 'moon' || !t.anchor) return;
+        anchors[t.anchor] = (anchors[t.anchor] || 0) + 1;
+        if (t.locked) lockedAnchor[t.anchor] = 1; });
+      const names = Object.keys(anchors);
+      if (names.length > 4) {
+        violations++;
+        console.log(`  ${s.hh}:${s.mm}Z  TOO MANY ANCHORS: ${names.length} -- ${names.join(', ')}`);
+      }
+      T.forEach(t => {
+        if (t.kind !== 'moon' || t.locked || !t.anchor) return;
+        const p = D.players[t.anchor];
+        if (!p || p.out || p.void) {
+          violations++;
+          console.log(`  ${s.hh}:${s.mm}Z  DEAD ANCHOR ON AN OPEN MOON: "${t.name}" led by ${t.anchor}`);
+        }
+      });
+      names.forEach(a => {
+        if (anchors[a] !== 2 && !lockedAnchor[a]) {
+          violations++;
+          console.log(`  ${s.hh}:${s.mm}Z  SHORT ANCHOR: ${a} ships ${anchors[a]} moon(s), none placed`);
+        }
+      });
+      /* THE 2026-08-17 SIGNATURE. A board that carried four anchors and now carries three, while moons are
+         still open, means an anchor died and nothing took his seat -- the exact failure REDRAFT-2026-08-18
+         exists to kill. Baseline 08-17 spent 72 straight builds here. Only checked while something is still
+         open: at the end of the night every moon is locked and the count legitimately reflects what got
+         placed, not what could be drafted. */
+      const openMoon = T.some(t => t.kind === 'moon' && !t.locked);
+      if (prevAnchors >= 4 && names.length < 4 && openMoon) {
+        violations++;
+        console.log(`  ${s.hh}:${s.mm}Z  ANCHOR SET SHRANK: ${prevAnchors} -> ${names.length} ` +
+                    `(${names.join(', ')}) with open moons on the board -- a dead anchor left a hole`);
+      }
+      prevAnchors = Math.max(prevAnchors, names.length);
+      ['late', 'lunch'].forEach(k => {
+        const n = T.filter(t => t.kind === k).length;
+        if (n > 1) { violations++; console.log(`  ${s.hh}:${s.mm}Z  ${n} ${k} tickets -- the board carries exactly one`); }
+      });
     }
 
     /* (3) shape */
