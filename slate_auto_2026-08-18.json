@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T19:37:57Z",
+  "pulled_at": "2026-08-18T19:43:14Z",
   "games": [
     {
       "gamePk": 824803,
@@ -969,7 +969,7 @@
     },
     {
       "gamePk": 823667,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-18T23:40:00Z",
       "matchup": "ATL@MIN",
       "away": {
@@ -991,10 +991,56 @@
           "hr9": 1.78,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.107
+          },
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.156
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.205
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.168
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.23
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.183
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.178
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.052
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.143
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
