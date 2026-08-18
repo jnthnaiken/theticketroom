@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T19:48:03Z",
+  "pulled_at": "2026-08-18T19:52:56Z",
   "games": [
     {
       "gamePk": 824803,
@@ -930,7 +930,7 @@
     },
     {
       "gamePk": 824075,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-18T23:40:00Z",
       "matchup": "ATH@KC",
       "away": {
@@ -950,10 +950,56 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.14
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.175
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.216
+          },
+          {
+            "id": 672580,
+            "name": "Maikel Garcia",
+            "iso": 0.11
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.115
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.15
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.169
+          },
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.182
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.106
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
