@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T20:58:23Z",
+  "pulled_at": "2026-08-18T21:00:40Z",
   "games": [
     {
       "gamePk": 824803,
@@ -132,7 +132,7 @@
         "wind_mph": 7.8,
         "wind_dir": 288,
         "tail_mph": 1.6,
-        "precip": 5
+        "precip": 3
       },
       "wf": 1.031
     },
@@ -796,7 +796,7 @@
         "wind_mph": 8.1,
         "wind_dir": 318,
         "tail_mph": -4.4,
-        "precip": 20
+        "precip": 19
       },
       "wf": 1.007
     },
@@ -1062,7 +1062,7 @@
         "wind_mph": 7.1,
         "wind_dir": 162,
         "tail_mph": 5.2,
-        "precip": 12
+        "precip": 7
       },
       "wf": 1.029
     },
@@ -1079,8 +1079,54 @@
           "hr9": 0.87,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.104
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.22
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.097
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.185
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.08
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.143
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.151
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.13
+          },
+          {
+            "id": 687231,
+            "name": "Darell Hernaiz",
+            "iso": 0.05
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
@@ -1282,7 +1328,7 @@
         "wind_mph": 9.1,
         "wind_dir": 308,
         "tail_mph": -4.7,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.001
     },
@@ -1679,7 +1725,7 @@
         "wind_mph": 7.3,
         "wind_dir": 220,
         "tail_mph": 7.2,
-        "precip": 19
+        "precip": 18
       },
       "wf": 1.031
     },
@@ -1806,7 +1852,7 @@
         "wind_mph": 5.4,
         "wind_dir": 52,
         "tail_mph": -3.3,
-        "precip": 8
+        "precip": 6
       },
       "wf": 1.015
     }

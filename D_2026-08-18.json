@@ -19369,7 +19369,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -19462,7 +19462,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -19544,7 +19544,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 29.578673635587872,
-   "slot": 3,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1.07,
@@ -19554,7 +19554,7 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -19572,7 +19572,7 @@
    "psrc": "hr9",
    "parkhr": 0.982,
    "mktT": 0.7810747553835393,
-   "slotT": 1.04,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": -0.5,
    "penT": 0.96,
@@ -19637,7 +19637,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 64.9063020655165,
-   "slot": null,
+   "slot": 3,
    "bhand": null,
    "hr9": null,
    "wf": 1.07,
@@ -19647,8 +19647,8 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -19665,7 +19665,7 @@
    "psrc": "hr9",
    "parkhr": 0.982,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 1.04,
    "platT": 1,
    "pen_fatigue": -0.5,
    "penT": 0.96,
@@ -19834,7 +19834,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -19916,7 +19916,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 19.893155750770305,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1.07,
@@ -19926,8 +19926,8 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -19944,7 +19944,7 @@
    "psrc": "hr9",
    "parkhr": 0.982,
    "mktT": 0.7,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": -0.5,
    "penT": 0.96,
@@ -20020,7 +20020,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -20102,7 +20102,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 30.42883564350248,
-   "slot": 9,
+   "slot": 8,
    "bhand": "R",
    "hr9": null,
    "wf": 1.07,
@@ -20113,7 +20113,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -20130,7 +20130,7 @@
    "psrc": "hr9",
    "parkhr": 0.982,
    "mktT": 0.7530636372824978,
-   "slotT": 0.92,
+   "slotT": 0.94,
    "platT": 0.92,
    "pen_fatigue": -0.5,
    "penT": 0.96,
@@ -20195,7 +20195,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 33.96569773446479,
-   "slot": 8,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1.07,
@@ -20205,7 +20205,7 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -20223,7 +20223,7 @@
    "psrc": "hr9",
    "parkhr": 0.982,
    "mktT": 0.8795306211892762,
-   "slotT": 0.94,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": -0.5,
    "penT": 0.96,
@@ -20299,7 +20299,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Black",
@@ -36093,8 +36093,8 @@
     "factor": 1.032,
     "park": "NYY@BAL",
     "cond": "8 mph",
-    "rain": "5% rain",
-    "precip": 5
+    "rain": "3% rain",
+    "precip": 3
    },
    "2": {
     "emoji": "\u2600\ufe0f",
@@ -36120,8 +36120,8 @@
     "factor": 1.008,
     "park": "MIA@PHI",
     "cond": "8 mph",
-    "rain": "20% rain",
-    "precip": 20
+    "rain": "19% rain",
+    "precip": 19
    },
    "5": {
     "emoji": "\u2600\ufe0f",
@@ -36156,8 +36156,8 @@
     "factor": 1.029,
     "park": "SD@NYM",
     "cond": "7 mph",
-    "rain": "12% rain",
-    "precip": 12
+    "rain": "7% rain",
+    "precip": 7
    },
    "9": {
     "emoji": "\u2600\ufe0f",
@@ -36183,8 +36183,8 @@
     "factor": 1.022,
     "park": "ATL@MIN",
     "cond": "9 mph",
-    "rain": "2% rain",
-    "precip": 2
+    "rain": "1% rain",
+    "precip": 1
    },
    "12": {
     "emoji": "\ud83c\udfdf",
@@ -36201,8 +36201,8 @@
     "factor": 1.046,
     "park": "CWS@CHC",
     "cond": "7 mph",
-    "rain": "19% rain",
-    "precip": 19
+    "rain": "18% rain",
+    "precip": 18
    },
    "14": {
     "emoji": "\ud83c\udfdf",
@@ -36219,11 +36219,11 @@
     "factor": 1.148,
     "park": "LAD@COL",
     "cond": "5 mph",
-    "rain": "8% rain",
-    "precip": 8
+    "rain": "6% rain",
+    "precip": 6
    }
   },
-  "build": "8/18 4:58pm",
+  "build": "8/18 5:00pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36386,7 +36386,7 @@
   "date": "2026-08-18",
   "gs": {},
   "pool": 388,
-  "gate": 58,
+  "gate": 56,
   "tickets": 21
  },
  "tickets": [
@@ -37195,7 +37195,7 @@
    "name": "Tape Measure Job",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong is crushing the baseball (54% hard-hit), Adell gets under it just right (21\u00b0), and Freeman has gusts carrying balls over the wall.",
+   "note": "Crow-Armstrong is crushing the baseball (54% hard-hit), Adell gets under it just right (21\u00b0), and Freeman plays in a wind tunnel pointed at the seats.",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -37207,7 +37207,7 @@
      "gtime": "8:05 PM ET",
      "game": 13,
      "late": false,
-     "odds": 310,
+     "odds": 292,
      "status": "confirmed"
     },
     {
@@ -37220,7 +37220,7 @@
      "gtime": "6:40 PM ET",
      "game": 2,
      "late": false,
-     "odds": 385,
+     "odds": 379,
      "status": "confirmed"
     },
     {
@@ -37233,7 +37233,7 @@
      "gtime": "8:40 PM ET",
      "game": 15,
      "late": false,
-     "odds": 405,
+     "odds": 450,
      "status": "projected"
     }
    ],
@@ -37256,8 +37256,8 @@
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 9942,
-   "payout10": 1004.19
+   "parlay_am": 10227,
+   "payout10": 1032.72
   },
   {
    "name": "The Long Bomb",
@@ -37275,7 +37275,7 @@
      "gtime": "8:10 PM ET",
      "game": 14,
      "late": false,
-     "odds": 240,
+     "odds": 230,
      "status": "projected"
     },
     {
@@ -37288,7 +37288,7 @@
      "gtime": "6:35 PM ET",
      "game": 1,
      "late": false,
-     "odds": 310,
+     "odds": 334,
      "status": "confirmed"
     },
     {
@@ -37301,7 +37301,7 @@
      "gtime": "6:40 PM ET",
      "game": 5,
      "late": false,
-     "odds": 305,
+     "odds": 312,
      "status": "confirmed"
     }
    ],
@@ -37324,8 +37324,8 @@
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 5546,
-   "payout10": 564.57
+   "parlay_am": 5801,
+   "payout10": 590.07
   },
   {
    "name": "Rocket Fuel",
@@ -37343,7 +37343,7 @@
      "gtime": "8:10 PM ET",
      "game": 14,
      "late": false,
-     "odds": 240,
+     "odds": 230,
      "status": "projected"
     },
     {
@@ -37356,7 +37356,7 @@
      "gtime": "6:35 PM ET",
      "game": 1,
      "late": false,
-     "odds": 395,
+     "odds": 369,
      "status": "confirmed"
     },
     {
@@ -37369,7 +37369,7 @@
      "gtime": "7:40 PM ET",
      "game": 9,
      "late": false,
-     "odds": 335,
+     "odds": 369,
      "status": "confirmed"
     }
    ],
@@ -37392,8 +37392,8 @@
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 7221,
-   "payout10": 732.11
+   "parlay_am": 7159,
+   "payout10": 725.87
   },
   {
    "name": "The Mooring",
@@ -37411,7 +37411,7 @@
      "gtime": "8:10 PM ET",
      "game": 14,
      "late": false,
-     "odds": 240,
+     "odds": 230,
      "status": "projected"
     }
    ],
@@ -37429,8 +37429,8 @@
    },
    "confleg": 0,
    "priced": 1,
-   "parlay_am": 240,
-   "payout10": 34
+   "parlay_am": 230,
+   "payout10": 33
   }
  ],
  "pool": [
@@ -37463,9 +37463,7 @@
   "Vinnie Pasquantino",
   "Jake Burger",
   "Christian Walker",
-  "Austin Riley",
-  "Esmerlyn Valdez",
-  "Royce Lewis"
+  "Austin Riley"
  ],
  "familyFloor": 135.8
 }
