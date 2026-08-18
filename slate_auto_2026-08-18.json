@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T19:52:56Z",
+  "pulled_at": "2026-08-18T19:57:54Z",
   "games": [
     {
       "gamePk": 824803,
@@ -947,8 +947,10 @@
       "home": {
         "abbrev": "KC",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 663738,
+          "name": "Daniel Lynch IV",
+          "hr9": 0.72,
+          "hand": "LHP"
         },
         "lineup": [
           {
@@ -1188,8 +1190,10 @@
       "away": {
         "abbrev": "CWS",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 663542,
+          "name": "Bryan Hudson",
+          "hr9": 0.35,
+          "hand": "LHP"
         },
         "lineup": [],
         "confirmed": false
@@ -1221,7 +1225,7 @@
     },
     {
       "gamePk": 824154,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T00:10:00Z",
       "matchup": "LAA@HOU",
       "away": {
@@ -1232,8 +1236,54 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.097
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.2
+          },
+          {
+            "id": 694384,
+            "name": "Nolan Schanuel",
+            "iso": 0.113
+          },
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.186
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.121
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.131
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.147
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.116
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.053
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -1246,7 +1296,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
