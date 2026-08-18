@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T20:13:08Z",
+  "pulled_at": "2026-08-18T20:18:05Z",
   "games": [
     {
       "gamePk": 824803,
@@ -1242,7 +1242,7 @@
     },
     {
       "gamePk": 823749,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-18T23:40:00Z",
       "matchup": "SEA@MIL",
       "away": {
@@ -1253,8 +1253,54 @@
           "hr9": 1.48,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.131
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.183
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.235
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.168
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.106
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.145
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.142
+          },
+          {
+            "id": 645302,
+            "name": "Victor Robles",
+            "iso": 0.056
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.2
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -1267,7 +1313,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
