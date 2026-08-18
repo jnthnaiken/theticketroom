@@ -24088,7 +24088,7 @@
     "precip": 0
    }
   },
-  "build": "8/17 8:46pm",
+  "build": "8/17 8:51pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24250,7 +24250,7 @@
   "gs": {},
   "pool": 258,
   "gate": 31,
-  "tickets": 16
+  "tickets": 17
  },
  "tickets": [
   {
@@ -25046,13 +25046,51 @@
    "parlay_am": 7232,
    "payout10": 733.16,
    "locked": true
+  },
+  {
+   "name": "On the Fly",
+   "kind": "family",
+   "badge": "\ud83c\udf73",
+   "note": "Pete Crow-Armstrong is making elite contact (58% hard-hit), lives in the launch window (23\u00b0), swings a heavy stick (88/100 power).",
+   "players": [
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 165.2,
+     "aT": 100,
+     "wf": 1.012,
+     "gmatch": "CWS@CHC",
+     "gtime": "8:05 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 260,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Crow-Armstrong",
+   "lock": "8:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 1,
+   "priced": 1,
+   "payout10": 36,
+   "locked": true,
+   "parlay_am": 260
   }
  ],
  "pool": [
-  "Pete Crow-Armstrong",
   "Michael Toglia",
   "Salvador Perez",
   "Manny Machado",
   "Jackson Merrill"
- ]
+ ],
+ "familyFloor": 129
 }
