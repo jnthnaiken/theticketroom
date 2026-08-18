@@ -1,11 +1,11 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-18T19:17:33Z",
+  "pulled_at": "2026-08-18T19:22:31Z",
   "games": [
     {
       "gamePk": 824803,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-18T22:35:00Z",
       "matchup": "NYY@BAL",
       "away": {
@@ -27,10 +27,56 @@
           "hr9": 0.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.136
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.229
+          },
+          {
+            "id": 641933,
+            "name": "Tyler O'Neill",
+            "iso": 0.172
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.223
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.179
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.271
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.135
+          },
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": 0.05
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.075
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -410,8 +456,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.05
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.099
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.121
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.154
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.162
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.201
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.12
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.122
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.07
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
