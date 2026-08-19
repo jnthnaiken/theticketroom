@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T16:30:49Z",
+  "pulled_at": "2026-08-19T16:36:38Z",
   "games": [
     {
       "gamePk": 823342,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 824722,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T20:10:00Z",
       "matchup": "ARI@BOS",
       "away": {
@@ -559,10 +559,56 @@
           "hr9": 1.02,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.084
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.181
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.212
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.252
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.15
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.114
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.166
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.148
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.134
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -967,9 +1013,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 91\u00b0",
+        "lean": "Neutral",
+        "temp": 91.4,
+        "wind_mph": 11.0,
+        "wind_dir": 63,
+        "tail_mph": -5.0,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.015
     }
   ]
 }
