@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-19T03:00:53Z",
+  "pulled_at": "2026-08-19T03:01:54Z",
   "games": [
     {
       "gamePk": 824803,
@@ -1334,7 +1334,7 @@
     },
     {
       "gamePk": 823749,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-18T23:40:00Z",
       "matchup": "SEA@MIL",
       "away": {
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 73\u00b0",
+        "lean": "Boost",
+        "temp": 73.2,
+        "wind_mph": 9.3,
+        "wind_dir": 210,
+        "tail_mph": 9.3,
+        "precip": 19
       },
-      "wf": 1.0
+      "wf": 1.037
     },
     {
       "gamePk": 824154,
