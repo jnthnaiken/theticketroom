@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T19:33:43Z",
+  "pulled_at": "2026-08-19T19:37:49Z",
   "games": [
     {
       "gamePk": 823342,
@@ -215,7 +215,7 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 666182,
@@ -250,7 +250,7 @@
           {
             "id": 620443,
             "name": "Luis Torrens",
-            "iso": 0.159
+            "iso": 0.158
           }
         ],
         "confirmed": true
@@ -326,7 +326,7 @@
           {
             "id": 805347,
             "name": "Jim Jarvis",
-            "iso": 0.094
+            "iso": 0.093
           }
         ],
         "confirmed": true
@@ -383,7 +383,7 @@
           {
             "id": 701785,
             "name": "Kaelen Culpepper",
-            "iso": 0.121
+            "iso": 0.117
           }
         ],
         "confirmed": true
@@ -501,7 +501,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 608348,
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 824801,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T22:35:00Z",
       "matchup": "NYY@BAL",
       "away": {
@@ -814,8 +814,54 @@
           "hr9": 1.37,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.202
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.28
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.261
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.149
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.17
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.169
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.152
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.17
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -828,7 +874,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1383,16 +1429,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 5mph, 92\u00b0",
-        "lean": "Neutral",
-        "temp": 91.5,
-        "wind_mph": 10.0,
-        "wind_dir": 61,
-        "tail_mph": -4.8,
-        "precip": 9
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     }
   ]
 }
