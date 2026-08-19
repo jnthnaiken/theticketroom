@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T18:42:14Z",
+  "pulled_at": "2026-08-19T18:47:14Z",
   "games": [
     {
       "gamePk": 823342,
@@ -173,7 +173,7 @@
           {
             "id": 701538,
             "name": "Jackson Merrill",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 650859,
@@ -311,7 +311,7 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.169
+            "iso": 0.17
           },
           {
             "id": 573262,
@@ -454,7 +454,7 @@
           {
             "id": 671976,
             "name": "Tristan Peters",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 668670,
@@ -972,7 +972,7 @@
     },
     {
       "gamePk": 822937,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T22:40:00Z",
       "matchup": "TOR@TB",
       "away": {
@@ -994,10 +994,56 @@
           "hr9": 0.84,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.057
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.262
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.14
+          },
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.162
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.159
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.149
+          },
+          {
+            "id": 668723,
+            "name": "Ryan Vilade",
+            "iso": 0.232
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.114
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.079
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
