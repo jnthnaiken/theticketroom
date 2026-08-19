@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T23:13:48Z",
+  "pulled_at": "2026-08-19T23:19:19Z",
   "games": [
     {
       "gamePk": 823342,
@@ -609,7 +609,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.108
+            "iso": 0.107
           },
           {
             "id": 678882,
@@ -710,17 +710,17 @@
           {
             "id": 683357,
             "name": "Owen Caissie",
-            "iso": 0.205
+            "iso": 0.203
           },
           {
             "id": 665923,
             "name": "Esteury Ruiz",
-            "iso": 0.207
+            "iso": 0.206
           },
           {
             "id": 691788,
             "name": "Joe Mack",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 691594,
@@ -735,7 +735,7 @@
         "sp": {
           "id": 605400,
           "name": "Aaron Nola",
-          "hr9": 2.01,
+          "hr9": 2.0,
           "hand": "RHP"
         },
         "lineup": [
@@ -811,7 +811,7 @@
         "sp": {
           "id": 701542,
           "name": "Will Warren",
-          "hr9": 1.36,
+          "hr9": 1.35,
           "hand": "RHP"
         },
         "lineup": [
@@ -905,7 +905,7 @@
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 681297,
@@ -951,7 +951,7 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.222
+            "iso": 0.216
           },
           {
             "id": 646240,
@@ -991,7 +991,7 @@
           {
             "id": 683766,
             "name": "Christian Koss",
-            "iso": 0.048
+            "iso": 0.047
           }
         ],
         "confirmed": true
@@ -1084,7 +1084,7 @@
           {
             "id": 802139,
             "name": "JJ Wetherholt",
-            "iso": 0.13
+            "iso": 0.132
           },
           {
             "id": 671056,
@@ -1114,12 +1114,12 @@
           {
             "id": 663494,
             "name": "Bryan Torres",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 691458,
             "name": "Blaze Jordan",
-            "iso": 0.13
+            "iso": 0.128
           },
           {
             "id": 699625,
@@ -1134,7 +1134,7 @@
         "sp": {
           "id": 695505,
           "name": "Chase Burns",
-          "hr9": 0.88,
+          "hr9": 0.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -1166,7 +1166,7 @@
           {
             "id": 669911,
             "name": "Michael Toglia",
-            "iso": 0.105
+            "iso": 0.1
           },
           {
             "id": 668709,
@@ -1210,7 +1210,7 @@
         "sp": {
           "id": 453286,
           "name": "Max Scherzer",
-          "hr9": 2.53,
+          "hr9": 2.51,
           "hand": "RHP"
         },
         "lineup": [
@@ -1247,17 +1247,17 @@
           {
             "id": 669701,
             "name": "Josh Smith",
-            "iso": 0.087
+            "iso": 0.086
           },
           {
             "id": 678218,
             "name": "Brandon Valenzuela",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.159
+            "iso": 0.155
           }
         ],
         "confirmed": true
@@ -1334,7 +1334,7 @@
     },
     {
       "gamePk": 824076,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-19T23:40:00Z",
       "matchup": "ATH@KC",
       "away": {
@@ -1467,7 +1467,7 @@
     },
     {
       "gamePk": 823748,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-19T23:40:00Z",
       "matchup": "SEA@MIL",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 5mph, 92\u00b0",
-        "lean": "Neutral",
-        "temp": 91.6,
-        "wind_mph": 10.7,
-        "wind_dir": 64,
-        "tail_mph": -4.7,
-        "precip": 9
+        "note": "weather fetch failed"
       },
-      "wf": 1.016
+      "wf": 1.0
     }
   ]
 }
