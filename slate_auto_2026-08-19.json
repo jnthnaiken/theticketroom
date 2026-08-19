@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T21:30:30Z",
+  "pulled_at": "2026-08-19T21:33:02Z",
   "games": [
     {
       "gamePk": 823342,
@@ -562,12 +562,12 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.161
+            "iso": 0.164
           },
           {
             "id": 672695,
             "name": "Geraldo Perdomo",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 571448,
@@ -1863,7 +1863,7 @@
     },
     {
       "gamePk": 824318,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-20T00:40:00Z",
       "matchup": "LAD@COL",
       "away": {
@@ -1874,8 +1874,54 @@
           "hr9": 1.7,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.264
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.189
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.153
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.164
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.169
+          },
+          {
+            "id": 500743,
+            "name": "Miguel Rojas",
+            "iso": 0.124
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.137
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.179
+          },
+          {
+            "id": 666163,
+            "name": "Ben Rortvedt",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -1888,7 +1934,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
