@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-19T01:30:56Z",
+  "pulled_at": "2026-08-19T01:36:31Z",
   "games": [
     {
       "gamePk": 824803,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 822938,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-18T22:40:00Z",
       "matchup": "TOR@TB",
       "away": {
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 691946,
           "name": "George Klassen",
-          "hr9": 1.0,
+          "hr9": 0.98,
           "hand": "RHP"
         },
         "lineup": [
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 0mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 85.6,
+        "wind_mph": 5.6,
+        "wind_dir": 90,
+        "tail_mph": -0.0,
+        "precip": 4
       },
-      "wf": 1.0
+      "wf": 1.023
     }
   ]
 }
