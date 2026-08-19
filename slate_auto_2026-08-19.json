@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T22:13:53Z",
+  "pulled_at": "2026-08-19T22:18:13Z",
   "games": [
     {
       "gamePk": 823342,
@@ -125,9 +125,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 76.6,
+        "wind_mph": 8.6,
+        "wind_dir": 237,
+        "tail_mph": 8.4,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.039
     },
     {
       "gamePk": 823587,
@@ -251,9 +258,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 6mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 86.4,
+        "wind_mph": 6.8,
+        "wind_dir": 236,
+        "tail_mph": 5.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.045
     },
     {
       "gamePk": 823664,
@@ -671,7 +685,7 @@
           {
             "id": 805300,
             "name": "Jakob Marsee",
-            "iso": 0.107
+            "iso": 0.106
           },
           {
             "id": 672640,
@@ -721,7 +735,7 @@
         "sp": {
           "id": 605400,
           "name": "Aaron Nola",
-          "hr9": 2.08,
+          "hr9": 2.06,
           "hand": "RHP"
         },
         "lineup": [
@@ -1055,7 +1069,7 @@
     },
     {
       "gamePk": 824476,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-19T22:40:00Z",
       "matchup": "STL@CIN",
       "away": {
