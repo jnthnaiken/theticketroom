@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-19T02:57:11Z",
+  "pulled_at": "2026-08-19T03:00:53Z",
   "games": [
     {
       "gamePk": 824803,
@@ -1718,16 +1718,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 73.2,
-        "wind_mph": 9.3,
-        "wind_dir": 210,
-        "tail_mph": 9.3,
-        "precip": 19
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 824154,
@@ -1828,7 +1821,7 @@
           {
             "id": 572233,
             "name": "Christian Walker",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 666211,
@@ -1878,7 +1871,7 @@
           {
             "id": 660271,
             "name": "Shohei Ohtani",
-            "iso": 0.266
+            "iso": 0.264
           },
           {
             "id": 518692,
@@ -1983,9 +1976,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 3mph, 86\u00b0",
+        "lean": "Neutral",
+        "temp": 86.0,
+        "wind_mph": 4.9,
+        "wind_dir": 47,
+        "tail_mph": -3.3,
+        "precip": 4
       },
-      "wf": 1.0
+      "wf": 1.012
     }
   ]
 }
