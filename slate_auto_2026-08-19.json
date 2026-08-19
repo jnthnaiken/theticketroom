@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T18:37:13Z",
+  "pulled_at": "2026-08-19T18:42:14Z",
   "games": [
     {
       "gamePk": 823342,
@@ -168,7 +168,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.219
+            "iso": 0.221
           },
           {
             "id": 701538,
@@ -373,7 +373,7 @@
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 605170,
@@ -439,7 +439,7 @@
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 695657,
@@ -798,7 +798,7 @@
     },
     {
       "gamePk": 824394,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T22:40:00Z",
       "matchup": "SF@CLE",
       "away": {
@@ -820,10 +820,56 @@
           "hr9": 0.89,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.062
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.147
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.219
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.19
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.136
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.135
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.099
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.116
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.122
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -981,8 +1027,10 @@
       "home": {
         "abbrev": "KC",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 607625,
+          "name": "Seth Lugo",
+          "hr9": 1.03,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
