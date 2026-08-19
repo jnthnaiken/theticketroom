@@ -1,11 +1,11 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-19T01:21:30Z",
+  "pulled_at": "2026-08-19T01:26:48Z",
   "games": [
     {
       "gamePk": 824803,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-18T22:35:00Z",
       "matchup": "NYY@BAL",
       "away": {
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 824475,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-18T22:40:00Z",
       "matchup": "STL@CIN",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 822938,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-18T22:40:00Z",
       "matchup": "TOR@TB",
       "away": {
@@ -1718,16 +1718,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 72.8,
-        "wind_mph": 5.0,
-        "wind_dir": 201,
-        "tail_mph": 4.9,
-        "precip": 19
+        "note": "weather fetch failed"
       },
-      "wf": 1.021
+      "wf": 1.0
     },
     {
       "gamePk": 824154,
