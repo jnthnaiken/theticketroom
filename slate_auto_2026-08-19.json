@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T16:56:54Z",
+  "pulled_at": "2026-08-19T17:00:55Z",
   "games": [
     {
       "gamePk": 823342,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.93,
+          "hr9": 1.86,
           "hand": "RHP"
         },
         "lineup": [
@@ -531,7 +531,7 @@
         "wind_mph": 5.2,
         "wind_dir": 353,
         "tail_mph": -4.2,
-        "precip": 2
+        "precip": 3
       },
       "wf": 0.989
     },
@@ -611,16 +611,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 88\u00b0",
-        "lean": "Boost",
-        "temp": 87.9,
-        "wind_mph": 12.0,
-        "wind_dir": 255,
-        "tail_mph": 10.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.063
+      "wf": 1.0
     },
     {
       "gamePk": 823424,
@@ -782,7 +775,7 @@
         "wind_mph": 7.8,
         "wind_dir": 231,
         "tail_mph": 7.7,
-        "precip": 11
+        "precip": 9
       },
       "wf": 1.041
     },
@@ -1020,7 +1013,7 @@
         "wind_mph": 10.2,
         "wind_dir": 64,
         "tail_mph": -4.5,
-        "precip": 3
+        "precip": 10
       },
       "wf": 1.017
     }
