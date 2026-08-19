@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-19T02:02:01Z",
+  "pulled_at": "2026-08-19T02:06:38Z",
   "games": [
     {
       "gamePk": 824803,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824723,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-18T23:10:00Z",
       "matchup": "ARI@BOS",
       "away": {
@@ -842,17 +842,17 @@
           {
             "id": 691783,
             "name": "Jordan Lawlar",
-            "iso": 0.111
+            "iso": 0.109
           },
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.15
+            "iso": 0.147
           },
           {
             "id": 699912,
             "name": "Jose Fernandez",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 814439,
@@ -950,7 +950,7 @@
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 650859,
@@ -960,12 +960,12 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.194
+            "iso": 0.199
           },
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.22
+            "iso": 0.219
           },
           {
             "id": 701538,
@@ -1108,7 +1108,7 @@
           {
             "id": 671732,
             "name": "Lawrence Butler",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 691777,
@@ -1123,7 +1123,7 @@
           {
             "id": 687231,
             "name": "Darell Hernaiz",
-            "iso": 0.049
+            "iso": 0.048
           }
         ],
         "confirmed": true
@@ -1201,7 +1201,7 @@
     },
     {
       "gamePk": 823667,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-18T23:40:00Z",
       "matchup": "ATL@MIN",
       "away": {
@@ -1321,9 +1321,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 78\u00b0",
+        "lean": "Neutral",
+        "temp": 78.2,
+        "wind_mph": 12.6,
+        "wind_dir": 300,
+        "tail_mph": -4.9,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 0.995
     },
     {
       "gamePk": 823749,
@@ -1382,7 +1389,7 @@
           {
             "id": 801126,
             "name": "Brock Rodden",
-            "iso": 0.167
+            "iso": 0.154
           }
         ],
         "confirmed": true
@@ -1424,12 +1431,12 @@
           {
             "id": 800325,
             "name": "Luis Lara",
-            "iso": 0.091
+            "iso": 0.09
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 687401,
@@ -1504,7 +1511,7 @@
           {
             "id": 695670,
             "name": "Harry Ford",
-            "iso": 0.22
+            "iso": 0.216
           },
           {
             "id": 683083,
@@ -1524,7 +1531,7 @@
         "sp": {
           "id": 615698,
           "name": "Cal Quantrill",
-          "hr9": 1.05,
+          "hr9": 1.04,
           "hand": "RHP"
         },
         "lineup": [
@@ -1673,7 +1680,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 683737,
@@ -1683,12 +1690,12 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.1
+            "iso": 0.099
           },
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.136
+            "iso": 0.134
           },
           {
             "id": 664023,
@@ -1732,14 +1739,14 @@
         "sp": {
           "id": 691946,
           "name": "George Klassen",
-          "hr9": 0.92,
+          "hr9": 0.87,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 685133,
             "name": "Wade Meckler",
-            "iso": 0.096
+            "iso": 0.095
           },
           {
             "id": 545361,
@@ -1796,7 +1803,7 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 670541,
@@ -1806,7 +1813,7 @@
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 514888,
@@ -1864,7 +1871,7 @@
         "sp": {
           "id": 641778,
           "name": "Eric Lauer",
-          "hr9": 1.95,
+          "hr9": 1.93,
           "hand": "LHP"
         },
         "lineup": [
@@ -1886,17 +1893,17 @@
           {
             "id": 571970,
             "name": "Max Muncy",
-            "iso": 0.249
+            "iso": 0.248
           },
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.137
+            "iso": 0.142
           },
           {
             "id": 663656,
@@ -1921,7 +1928,7 @@
         "sp": {
           "id": 663372,
           "name": "Ryan Feltner",
-          "hr9": 1.88,
+          "hr9": 1.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -1958,12 +1965,12 @@
           {
             "id": 687597,
             "name": "Jordan Beck",
-            "iso": 0.129
+            "iso": 0.127
           },
           {
             "id": 690924,
             "name": "Braxton Fulford",
-            "iso": 0.112
+            "iso": 0.109
           },
           {
             "id": 678662,
