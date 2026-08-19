@@ -1,7 +1,7 @@
 {
   "date": "2026-08-18",
   "season": "2026",
-  "pulled_at": "2026-08-19T01:06:22Z",
+  "pulled_at": "2026-08-19T01:11:53Z",
   "games": [
     {
       "gamePk": 824803,
@@ -50,7 +50,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.175
+            "iso": 0.17
           },
           {
             "id": 641857,
@@ -102,7 +102,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.265
+            "iso": 0.262
           },
           {
             "id": 665750,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 824475,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-18T22:40:00Z",
       "matchup": "STL@CIN",
       "away": {
@@ -746,7 +746,7 @@
           {
             "id": 607208,
             "name": "Trea Turner",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 547180,
@@ -756,12 +756,12 @@
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.116
+            "iso": 0.117
           },
           {
             "id": 664761,
             "name": "Alec Bohm",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 681082,
@@ -879,7 +879,7 @@
           {
             "id": 678882,
             "name": "Ceddanne Rafaela",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 677800,
@@ -914,7 +914,7 @@
           {
             "id": 681508,
             "name": "Mickey Gasper",
-            "iso": 0.089
+            "iso": 0.115
           }
         ],
         "confirmed": true
@@ -1209,7 +1209,7 @@
         "sp": {
           "id": 641816,
           "name": "Tyler Mahle",
-          "hr9": 1.29,
+          "hr9": 1.28,
           "hand": "RHP"
         },
         "lineup": [
@@ -1278,12 +1278,12 @@
           {
             "id": 663616,
             "name": "Trevor Larnach",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 680777,
             "name": "Ryan Jeffers",
-            "iso": 0.207
+            "iso": 0.206
           },
           {
             "id": 605137,
@@ -1411,7 +1411,7 @@
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.194
+            "iso": 0.193
           },
           {
             "id": 641343,
@@ -1474,7 +1474,7 @@
         "sp": {
           "id": 800600,
           "name": "Jackson Kent",
-          "hr9": 1.35,
+          "hr9": 1.29,
           "hand": "LHP"
         },
         "lineup": [
@@ -1491,7 +1491,7 @@
           {
             "id": 691781,
             "name": "Brady House",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 695734,
@@ -1531,7 +1531,7 @@
         "sp": {
           "id": 615698,
           "name": "Cal Quantrill",
-          "hr9": 1.1,
+          "hr9": 1.09,
           "hand": "RHP"
         },
         "lineup": [
@@ -1578,7 +1578,7 @@
           {
             "id": 694497,
             "name": "Evan Carter",
-            "iso": 0.13
+            "iso": 0.128
           }
         ],
         "confirmed": true
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 691946,
           "name": "George Klassen",
-          "hr9": 1.08,
+          "hr9": 1.02,
           "hand": "RHP"
         },
         "lineup": [
@@ -1803,7 +1803,7 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 670541,
@@ -1843,7 +1843,7 @@
           {
             "id": 673237,
             "name": "Yainer Diaz",
-            "iso": 0.143
+            "iso": 0.142
           }
         ],
         "confirmed": true
@@ -1903,7 +1903,7 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 663656,
@@ -1928,7 +1928,7 @@
         "sp": {
           "id": 663372,
           "name": "Ryan Feltner",
-          "hr9": 1.84,
+          "hr9": 1.83,
           "hand": "RHP"
         },
         "lineup": [
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 85.6,
-        "wind_mph": 5.6,
-        "wind_dir": 90,
-        "tail_mph": -0.0,
-        "precip": 4
+        "note": "weather fetch failed"
       },
-      "wf": 1.023
+      "wf": 1.0
     }
   ]
 }
