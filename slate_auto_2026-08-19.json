@@ -1,11 +1,11 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T19:27:17Z",
+  "pulled_at": "2026-08-19T19:30:58Z",
   "games": [
     {
       "gamePk": 823342,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-19T16:35:00Z",
       "matchup": "DET@PIT",
       "away": {
@@ -77,12 +77,12 @@
           {
             "id": 687462,
             "name": "Spencer Horwitz",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.222
+            "iso": 0.227
           },
           {
             "id": 668804,
@@ -158,7 +158,7 @@
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.074
+            "iso": 0.073
           },
           {
             "id": 592518,
@@ -424,7 +424,7 @@
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.31
+            "iso": 0.309
           },
           {
             "id": 678246,
@@ -1150,7 +1150,7 @@
     },
     {
       "gamePk": 824076,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T23:40:00Z",
       "matchup": "ATH@KC",
       "away": {
@@ -1170,10 +1170,56 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.139
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.173
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.216
+          },
+          {
+            "id": 672580,
+            "name": "Maikel Garcia",
+            "iso": 0.108
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.116
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.149
+          },
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.182
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.15
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.104
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1337,16 +1383,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 5mph, 92\u00b0",
-        "lean": "Neutral",
-        "temp": 91.5,
-        "wind_mph": 10.0,
-        "wind_dir": 61,
-        "tail_mph": -4.8,
-        "precip": 9
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     }
   ]
 }
