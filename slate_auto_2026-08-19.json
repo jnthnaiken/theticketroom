@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T18:22:21Z",
+  "pulled_at": "2026-08-19T18:27:28Z",
   "games": [
     {
       "gamePk": 823342,
@@ -55,7 +55,7 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.147
+            "iso": 0.145
           },
           {
             "id": 701678,
@@ -97,12 +97,12 @@
           {
             "id": 665833,
             "name": "Oneil Cruz",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 693304,
             "name": "Nick Gonzales",
-            "iso": 0.093
+            "iso": 0.094
           },
           {
             "id": 694378,
@@ -153,7 +153,7 @@
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.152
+            "iso": 0.153
           },
           {
             "id": 630105,
@@ -188,12 +188,12 @@
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.107
+            "iso": 0.109
           },
           {
             "id": 823550,
             "name": "Sung-Mun Song",
-            "iso": 0.063
+            "iso": 0.061
           }
         ],
         "confirmed": true
@@ -203,7 +203,7 @@
         "sp": {
           "id": 476594,
           "name": "Robert Stock",
-          "hr9": 0.55,
+          "hr9": 0.54,
           "hand": "RHP"
         },
         "lineup": [
@@ -235,7 +235,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 683146,
@@ -343,17 +343,17 @@
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.105
+            "iso": 0.106
           },
           {
             "id": 621439,
             "name": "Byron Buxton",
-            "iso": 0.27
+            "iso": 0.269
           },
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 665019,
@@ -383,7 +383,7 @@
           {
             "id": 701785,
             "name": "Kaelen Culpepper",
-            "iso": 0.129
+            "iso": 0.125
           }
         ],
         "confirmed": true
@@ -419,17 +419,17 @@
           {
             "id": 803011,
             "name": "Sam Antonacci",
-            "iso": 0.128
+            "iso": 0.126
           },
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.311
+            "iso": 0.31
           },
           {
             "id": 678246,
             "name": "Miguel Vargas",
-            "iso": 0.248
+            "iso": 0.247
           },
           {
             "id": 643217,
@@ -469,7 +469,7 @@
         "sp": {
           "id": 605280,
           "name": "Clay Holmes",
-          "hr9": 0.57,
+          "hr9": 0.56,
           "hand": "RHP"
         },
         "lineup": [
@@ -744,9 +744,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 87\u00b0",
+        "lean": "Boost",
+        "temp": 86.8,
+        "wind_mph": 7.8,
+        "wind_dir": 270,
+        "tail_mph": 2.0,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.032
     },
     {
       "gamePk": 824801,
@@ -778,16 +785,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 88\u00b0",
-        "lean": "Boost",
-        "temp": 88.5,
-        "wind_mph": 6.5,
-        "wind_dir": 274,
-        "tail_mph": 2.8,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.038
+      "wf": 1.0
     },
     {
       "gamePk": 824394,
@@ -832,7 +832,7 @@
     },
     {
       "gamePk": 824476,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T22:40:00Z",
       "matchup": "STL@CIN",
       "away": {
@@ -854,10 +854,56 @@
           "hr9": 0.89,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.211
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.213
+          },
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.115
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.207
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.17
+          },
+          {
+            "id": 669911,
+            "name": "Michael Toglia",
+            "iso": 0.105
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.218
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.152
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.149
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
