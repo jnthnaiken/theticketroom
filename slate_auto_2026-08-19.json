@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T19:52:29Z",
+  "pulled_at": "2026-08-19T20:00:33Z",
   "games": [
     {
       "gamePk": 823342,
@@ -353,7 +353,7 @@
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.172
+            "iso": 0.175
           },
           {
             "id": 665019,
@@ -454,12 +454,12 @@
           {
             "id": 671976,
             "name": "Tristan Peters",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 668670,
             "name": "Jake Rogers",
-            "iso": 0.134
+            "iso": 0.133
           }
         ],
         "confirmed": true
@@ -476,7 +476,7 @@
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.273
+            "iso": 0.271
           },
           {
             "id": 673548,
@@ -1369,7 +1369,7 @@
     },
     {
       "gamePk": 822860,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-20T00:05:00Z",
       "matchup": "WSH@TEX",
       "away": {
@@ -1391,10 +1391,56 @@
           "hr9": 1.24,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.249
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.188
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.208
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.164
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.167
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.128
+          },
+          {
+            "id": 672284,
+            "name": "Jarred Kelenic",
+            "iso": 0.072
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.155
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.041
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1409,7 +1455,7 @@
     },
     {
       "gamePk": 824155,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-20T00:10:00Z",
       "matchup": "LAA@HOU",
       "away": {
@@ -1431,10 +1477,56 @@
           "hr9": null,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.187
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.295
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.163
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.15
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.124
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.179
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.211
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.174
+          },
+          {
+            "id": 543877,
+            "name": "Christian V\u00e1zquez",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
