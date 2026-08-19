@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-19T20:12:42Z",
+  "pulled_at": "2026-08-19T20:17:43Z",
   "games": [
     {
       "gamePk": 823342,
@@ -439,7 +439,7 @@
           {
             "id": 695731,
             "name": "Braden Montgomery",
-            "iso": 0.131
+            "iso": 0.136
           },
           {
             "id": 695657,
@@ -557,7 +557,7 @@
           {
             "id": 682998,
             "name": "Corbin Carroll",
-            "iso": 0.24
+            "iso": 0.239
           },
           {
             "id": 672515,
@@ -602,7 +602,7 @@
         "sp": {
           "id": 801139,
           "name": "Payton Tolle",
-          "hr9": 1.02,
+          "hr9": 1.01,
           "hand": "LHP"
         },
         "lineup": [
@@ -1369,13 +1369,13 @@
         "wind_mph": 2.2,
         "wind_dir": 276,
         "tail_mph": 1.4,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.021
     },
     {
       "gamePk": 823748,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-19T23:40:00Z",
       "matchup": "SEA@MIL",
       "away": {
@@ -1386,8 +1386,54 @@
           "hr9": 1.18,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.136
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.18
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.236
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.166
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.105
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.143
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.142
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.097
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -1400,7 +1446,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
