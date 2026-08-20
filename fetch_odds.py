@@ -54,6 +54,17 @@ URL = "https://www.vegasinsider.com/mlb/odds/player-props/"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126.0 Safari/537.36")
 MARKETS = ["strikeouts", "home_runs", "total_bases", "rbi"]
+# TABLEID-2026-08-20 -- VegasInsider gives every prop table a stable id. Use it.
+# The old code took `[t for t in tables if len(t) > 20]` and mapped MARKETS onto that list
+# BY POSITION. That holds only while all four tables are long. Today the strikeouts table
+# shrank to 17 rows once the early starters settled, every market shifted up one, and
+# `home_runs` was fed the TOTAL BASES table -- so ~50 bats got o1.5 total-base prices
+# (-110..-200) written into odds_<date>.json as home-run odds, starting 18:22Z. The
+# coverage guard never saw it: total bases had 150 rows, so `len(hr) < 150` passed.
+ID_MARKET = {"table-strikeouts": "strikeouts", "table-home-runs": "home_runs",
+             "table-total-bases": "total_bases", "table-runs-batted-in": "rbi"}
+HR_LINE = 0.5       # a home-run prop is over 0.5. Total bases is 1.5 -- that is the tell.
+HR_MIN_PRICE = 100  # no real pre-game HR price is shorter than this, and none is negative
 MIN_COL = 10        # a book column needs this many prices to count
 TOP_FRAC = 0.60     # one price on >60% of rows = fixed juice, not a market
 
@@ -65,6 +76,7 @@ class Tables(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.tables, self._t, self._r, self._c = [], None, None, None
+        self.ids, self._id = [], None      # TABLEID-2026-08-20: id of each top-level table
         self._depth = 0
 
     def handle_starttag(self, tag, attrs):
@@ -72,6 +84,7 @@ class Tables(HTMLParser):
             self._depth += 1
             if self._depth == 1:
                 self._t = []
+                self._id = dict(attrs).get("id") or ""
         elif self._t is not None and tag == "tr":
             self._r = []
         elif self._t is not None and tag in ("td", "th"):
@@ -83,7 +96,8 @@ class Tables(HTMLParser):
         if tag == "table":
             if self._depth == 1 and self._t is not None:
                 self.tables.append(self._t)
-                self._t = None
+                self.ids.append(self._id or "")
+                self._t = None; self._id = None
             self._depth = max(0, self._depth - 1)
         elif tag == "tr" and self._t is not None and self._r is not None:
             self._t.append(self._r); self._r = None
@@ -191,14 +205,49 @@ def scrape():
     status, html = get_html()
     p = Tables()
     p.feed(html)
-    tabs = [t for t in p.tables if len(t) > 20]          # the four prop tables are long
+    byid = {}
+    for t, tid in zip(p.tables, p.ids):
+        key = ID_MARKET.get(tid)
+        if key and len(t) > 2:
+            byid[key] = t
     markets, info = {}, {}
+    if "home_runs" in byid:                              # id path -- position-proof
+        for key in MARKETS:
+            markets[key], info[key] = (parse_market(byid[key]) if key in byid else ({}, []))
+        return status, len(html), len(p.tables), len(byid), markets, info
+    # fallback: ids gone (site rewrite). Keep the old behaviour but SAY SO -- silence here
+    # is what let the 2026-08-20 shift run for 90 minutes.
+    print("::warning::fetch_odds: no table ids found -- falling back to positional mapping")
+    tabs = [t for t in p.tables if len(t) > 20]          # the four prop tables are long
     for i, key in enumerate(MARKETS):
         if i < len(tabs):
             markets[key], info[key] = parse_market(tabs[i])
         else:
             markets[key], info[key] = {}, []
     return status, len(html), len(p.tables), len(tabs), markets, info
+
+
+def hr_sane(hr):
+    """Is this actually the home-run market? Returns (ok, reason).
+
+    Cheap shape check that catches a wrong-table read even if the ids come back. A home-run
+    prop is over 0.5 and priced as a longshot; total bases is over 1.5 and routinely negative.
+    2026-08-20: this predicate is false for every one of the corrupted builds and true for
+    every good one."""
+    if not hr:
+        return False, "empty"
+    lines = [v.get("line") for v in hr.values() if v.get("line") is not None]
+    if lines:
+        off = sum(1 for l in lines if l != HR_LINE)
+        if off > 0.10 * len(lines):
+            return False, f"{off}/{len(lines)} rows are not an o{HR_LINE} line"
+    prices = [v["price"] for v in hr.values() if v.get("price") is not None]
+    if not prices:
+        return False, "no prices"
+    neg = sum(1 for x in prices if x < HR_MIN_PRICE)
+    if neg:
+        return False, f"{neg} price(s) below +{HR_MIN_PRICE} -- not a home-run market"
+    return True, ""
 
 
 SNAP_LEAD_MIN = 12      # snapshot window before the last first pitch; > the 5-min build cadence
@@ -400,6 +449,13 @@ def main():
     # was useless: a scrape returning 205 of 306 sailed through and (before the merge below)
     # deleted a hundred prices. Compare like with like -- how many not-yet-started bats did
     # we have, and how many did this scrape find?
+    _ok, _why = hr_sane(hr)
+    if not _ok:
+        print(f"::warning::fetch_odds: HR market failed the shape check ({_why}) "
+              f"— not taking these prices")
+        persist("wrong-market scrape refused")
+        emit("snapshot", "false")
+        return 1
     want = sum(1 for n in prev if live(n))
     got = sum(1 for n in hr if live(n))
     if len(hr) < 150 or (want >= 20 and got < 0.85 * want):
