@@ -1400,7 +1400,18 @@ drawTickets();drawPlayers();drawTracker();
        on 08-18. See claude/chalk-odds-2026-08-20.md.
        Unpriced bats are NOT eligible: a null price is unknown, not short, and _ippC would score
        it 0 -- last, not first. Ties in price break to the higher TOTAL so the order is total. */
-    var _chalkIpp=function(n){var o=P[n].odds;return (o===null||o===undefined||o===0)?-1:_ippC(o);};
+    /* CHALKSANE-2026-08-20 -- and the price has to be a PLAUSIBLE home-run price. `odds` is the
+       only input to this ban now, so one bad number picks the seats. It happened the same day:
+       fetch_odds.py mapped the VegasInsider prop tables BY POSITION, the strikeouts table shrank
+       below its row threshold at 18:22Z, every market shifted up one, and ~50 bats were written
+       with TOTAL BASES prices (-110..-200). _ippC reads -157 as a 61% favourite, so the ban went
+       straight to the corrupted names. fetch_odds.py is fixed (tables are keyed by id, and an HR
+       market containing a sub-+100 price is refused), but the client should not depend on the
+       server being right about this. A real pre-game HR prop is never shorter than about +150 and
+       is never negative; anything under +100 is another market, an in-game repost, or a scrape
+       artefact, and it is not evidence that this bat is chalk. */
+    var CHALK_MIN_PRICE=100;
+    var _chalkIpp=function(n){var o=P[n].odds;return (o===null||o===undefined||o<CHALK_MIN_PRICE)?-1:_ippC(o);};
     var _chalkRank=cand.filter(function(n){return _chalkIpp(n)>=0;}).sort(function(x,y){return (_chalkIpp(y)-_chalkIpp(x))||(P[y].TOTAL-P[x].TOTAL);});   /* that pool, SHORTEST PRICE FIRST. This is the chalk-ban order ONLY. It is deliberately NOT the same key as strength()/byS below, which stays on normalized TOTAL and still decides anchor order and the tierOf/confOf colours. `ranked` above is now used by nothing but the CHEF_TICKET hysteresis block, which is dead while the slip is retired. */
     /* 2026-08-13 -- ONE BAT, ONE SLIP. `chalk` is a per-build SNAPSHOT of the CHALK_N chef seats, but a parlay
        freezes when its legs confirm and is never re-drawn, so the two rules are only consistent within one build.
