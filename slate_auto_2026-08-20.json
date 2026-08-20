@@ -1,7 +1,7 @@
 {
   "date": "2026-08-20",
   "season": "2026",
-  "pulled_at": "2026-08-20T20:01:12Z",
+  "pulled_at": "2026-08-20T20:06:15Z",
   "games": [
     {
       "gamePk": 824474,
@@ -448,12 +448,12 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.243
+            "iso": 0.236
           },
           {
             "id": 622268,
             "name": "Donovan Walton",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 687231,
@@ -623,7 +623,7 @@
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 695731,
@@ -709,7 +709,7 @@
           {
             "id": 621493,
             "name": "Taylor Ward",
-            "iso": 0.097
+            "iso": 0.096
           },
           {
             "id": 702284,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 822861,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T00:05:00Z",
       "matchup": "WSH@TEX",
       "away": {
@@ -956,10 +956,56 @@
           "hr9": 1.27,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.206
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.185
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.185
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.162
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.166
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.217
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.134
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.0
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
