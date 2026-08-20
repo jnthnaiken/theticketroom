@@ -252,8 +252,20 @@ corrected there.)
   of the board together: tighten the pool and the tickets cannot reach as deep, so the floor
   rises with the ceiling. `GAME_CAP` stays at **4**.
 - **Chalk — reserved and barred, but no longer bundled into a ticket (2026-08-14).**
-  The **`CHALK_N` (4) strongest bats by `strength`, one per game** are still reserved by
-  `index.html` and still barred from moons, salami and builders. What changed is that they
+  The **`CHALK_N` (4) SHORTEST-PRICED bats** are still reserved by
+  `index.html` and still barred from moons, salami and builders.
+  ⚠️ **The key changed 2026-08-20 (owner's call): shortest odds, not `strength`.** It was
+  normalised TOTAL from 2026-08-08 to 2026-08-20, which meant the "ban the top 4" was banning
+  the four bats the *model* liked, not the four the *market* liked — on 2026-08-18 that put
+  Joshua Báez (+408) and Tyler O'Neill (+388) in a set whose whole purpose is to hold back
+  favourites, and 70% of that day's ban-seats went to a bat outside the four shortest prices.
+  The 2026-08-08 objection (ranking chalk on odds double-counts the market, which is already
+  inside TOTAL via `blend`) applies to a DRAFT key and not to a ban: barring the four shortest
+  prices is a statement about the market, not an attempt to out-predict it. `strength()` and
+  `byS` are untouched, so anchor order and the tierOf/confOf colours are unchanged. Unpriced
+  bats are not eligible (a null price is unknown, not short); ties break to the higher TOTAL.
+  The **one-per-game** constraint and the ≥40% rain skip stay behind `CHEF_TICKET`
+  (CHALKBAN-2026-08-18) — with the slip retired, chalk is simply the top `CHALK_N`. What changed is that they
   are no longer packaged as the **Chef's Table** round robin: `var CHEF_TICKET=false` gates
   the emission. The slip was a 13-night test (08-01…08-13) that went **2-11 for −49.72u on
   71.5 staked**, and those nights have been backed out of the ledger — see *Ledger* below.
@@ -380,7 +392,7 @@ Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`,
 `LUNCH_CUT=17*60` (5:00 PM ET — widened from 16*60 on 2026-08-13; a 4:05 PM game is a matinee, and the
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
-`CHALK_N=4` is the chalk reservation in `index.html` — those bats are barred from every ticket;
+`CHALK_N=4` is the chalk reservation in `index.html` — the four **shortest-priced** bats (2026-08-20; `strength` before that) are barred from every ticket;
 since 2026-08-14 they are no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`).
 `assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Family Meal section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
