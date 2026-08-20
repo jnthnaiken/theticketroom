@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-20T03:00:52Z",
+  "pulled_at": "2026-08-20T03:07:01Z",
   "games": [
     {
       "gamePk": 823342,
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 824155,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-20T00:10:00Z",
       "matchup": "LAA@HOU",
       "away": {
@@ -1786,7 +1786,7 @@
           {
             "id": 672724,
             "name": "Oswald Peraza",
-            "iso": 0.122
+            "iso": 0.121
           }
         ],
         "confirmed": true
@@ -1970,12 +1970,12 @@
           {
             "id": 664954,
             "name": "Brett Sullivan",
-            "iso": 0.205
+            "iso": 0.203
           },
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.122
+            "iso": 0.121
           }
         ],
         "confirmed": true
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 9mph, 89\u00b0",
+        "lean": "Neutral",
+        "temp": 89.2,
+        "wind_mph": 12.1,
+        "wind_dir": 39,
+        "tail_mph": -9.4,
+        "precip": 10
       },
-      "wf": 1.0
+      "wf": 0.996
     }
   ]
 }
