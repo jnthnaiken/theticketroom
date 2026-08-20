@@ -1,7 +1,7 @@
 {
   "date": "2026-08-20",
   "season": "2026",
-  "pulled_at": "2026-08-20T20:36:22Z",
+  "pulled_at": "2026-08-20T20:41:22Z",
   "games": [
     {
       "gamePk": 824474,
@@ -443,7 +443,7 @@
           {
             "id": 666126,
             "name": "Carlos Cortes",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 661531,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824589,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-20T18:10:00Z",
       "matchup": "ATL@CWS",
       "away": {
@@ -756,7 +756,7 @@
           {
             "id": 596142,
             "name": "Gary S\u00e1nchez",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 592885,
@@ -922,15 +922,15 @@
       "weather": {
         "dome": false,
         "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind out 4mph, 81\u00b0",
+        "cond": "wind out 10mph, 84\u00b0",
         "lean": "Boost",
-        "temp": 80.9,
-        "wind_mph": 5.7,
-        "wind_dir": 259,
-        "tail_mph": 3.7,
+        "temp": 83.5,
+        "wind_mph": 9.6,
+        "wind_dir": 211,
+        "tail_mph": 9.6,
         "precip": 55
       },
-      "wf": 1.029
+      "wf": 1.054
     },
     {
       "gamePk": 822861,
@@ -945,8 +945,54 @@
           "hr9": 0.36,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.162
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.361
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.293
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.164
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.161
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.159
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.147
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.036
+          },
+          {
+            "id": 687605,
+            "name": "Andrew Pinckney",
+            "iso": 0.454
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
