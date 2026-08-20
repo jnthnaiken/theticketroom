@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-20T01:21:27Z",
+  "pulled_at": "2026-08-20T01:26:48Z",
   "games": [
     {
       "gamePk": 823342,
@@ -790,16 +790,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 85.6,
-        "wind_mph": 6.6,
-        "wind_dir": 260,
-        "tail_mph": 2.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.033
+      "wf": 1.0
     },
     {
       "gamePk": 824801,
@@ -1202,7 +1195,7 @@
     },
     {
       "gamePk": 822937,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-19T22:40:00Z",
       "matchup": "TOR@TB",
       "away": {
@@ -1746,7 +1739,7 @@
           {
             "id": 685133,
             "name": "Wade Meckler",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 545361,
