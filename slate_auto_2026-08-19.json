@@ -1,7 +1,7 @@
 {
   "date": "2026-08-19",
   "season": "2026",
-  "pulled_at": "2026-08-20T02:00:53Z",
+  "pulled_at": "2026-08-20T02:01:42Z",
   "games": [
     {
       "gamePk": 823342,
@@ -1069,7 +1069,7 @@
     },
     {
       "gamePk": 824476,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-19T22:40:00Z",
       "matchup": "STL@CIN",
       "away": {
@@ -1421,7 +1421,7 @@
           {
             "id": 672580,
             "name": "Maikel Garcia",
-            "iso": 0.106
+            "iso": 0.107
           },
           {
             "id": 686469,
@@ -1502,7 +1502,7 @@
           {
             "id": 647304,
             "name": "Josh Naylor",
-            "iso": 0.104
+            "iso": 0.105
           },
           {
             "id": 702284,
@@ -1871,7 +1871,7 @@
         "sp": {
           "id": 808963,
           "name": "Roki Sasaki",
-          "hr9": 1.65,
+          "hr9": 1.66,
           "hand": "RHP"
         },
         "lineup": [
@@ -1955,7 +1955,7 @@
           {
             "id": 691728,
             "name": "Zac Veen",
-            "iso": 0.412
+            "iso": 0.437
           },
           {
             "id": 681393,
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 9mph, 89\u00b0",
+        "lean": "Neutral",
+        "temp": 89.2,
+        "wind_mph": 12.1,
+        "wind_dir": 39,
+        "tail_mph": -9.4,
+        "precip": 10
       },
-      "wf": 1.0
+      "wf": 0.996
     }
   ]
 }
