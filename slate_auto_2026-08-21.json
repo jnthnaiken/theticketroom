@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T19:22:14Z",
+  "pulled_at": "2026-08-21T19:26:23Z",
   "games": [
     {
       "gamePk": 823746,
@@ -530,7 +530,7 @@
     },
     {
       "gamePk": 824800,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T23:15:00Z",
       "matchup": "TB@BAL",
       "away": {
@@ -552,10 +552,56 @@
           "hr9": 0.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.129
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.229
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.178
+          },
+          {
+            "id": 641933,
+            "name": "Tyler O'Neill",
+            "iso": 0.17
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.204
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.127
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.228
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.141
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.133
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
