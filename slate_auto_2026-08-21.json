@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T19:17:08Z",
+  "pulled_at": "2026-08-21T19:22:14Z",
   "games": [
     {
       "gamePk": 823746,
@@ -379,8 +379,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.107
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.179
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.21
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.25
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.178
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.148
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.153
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.163
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.137
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -398,7 +444,7 @@
     },
     {
       "gamePk": 823830,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T23:10:00Z",
       "matchup": "WSH@MIA",
       "away": {
@@ -420,10 +466,56 @@
           "hr9": 1.34,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.106
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.202
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.277
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.098
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.141
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.219
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.191
+          },
+          {
+            "id": 682663,
+            "name": "Agust\u00edn Ram\u00edrez",
+            "iso": 0.111
+          },
+          {
+            "id": 677870,
+            "name": "Leo Jim\u00e9nez",
+            "iso": 0.066
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
