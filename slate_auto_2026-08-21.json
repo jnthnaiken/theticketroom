@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T21:10:25Z",
+  "pulled_at": "2026-08-21T21:12:48Z",
   "games": [
     {
       "gamePk": 823746,
@@ -112,7 +112,7 @@
           {
             "id": 806198,
             "name": "Cooper Pratt",
-            "iso": 0.093
+            "iso": 0.091
           },
           {
             "id": 800325,
@@ -1504,7 +1504,7 @@
     },
     {
       "gamePk": 823262,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T01:40:00Z",
       "matchup": "MIN@SD",
       "away": {
@@ -1524,10 +1524,56 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.154
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.08
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.198
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.22
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.168
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.109
+          },
+          {
+            "id": 669720,
+            "name": "Austin Hays",
+            "iso": 0.119
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.115
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.073
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
