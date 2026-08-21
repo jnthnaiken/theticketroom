@@ -34807,7 +34807,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -34900,7 +34900,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -34993,7 +34993,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -35086,7 +35086,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -35179,7 +35179,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -35365,7 +35365,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -35458,7 +35458,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -35551,7 +35551,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -35830,7 +35830,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Bubba Chandler",
@@ -36130,7 +36130,7 @@
     "precip": 1
    }
   },
-  "build": "8/21 6:01pm",
+  "build": "8/21 6:04pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -37105,6 +37105,44 @@
    "locked": true
   },
   {
+   "name": "Left It Over the Plate",
+   "kind": "family",
+   "badge": "\ud83d\udca3",
+   "note": "Max Muncy is lighting up the radar gun (56% hard-hit), puts air under the ball (21\u00b0), gets a touch of carry tonight.",
+   "players": [
+    {
+     "name": "Max Muncy",
+     "team": "Dodgers",
+     "total": 164.8,
+     "aT": 100,
+     "wf": 1.041,
+     "gmatch": "PIT@LAD",
+     "gtime": "10:10 PM ET",
+     "game": 15,
+     "late": true,
+     "odds": 300,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Max Muncy",
+   "lock": "10:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 300,
+   "payout10": 40,
+   "locked": true
+  },
+  {
    "name": "No Doubter",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -37244,7 +37282,7 @@
    "name": "The Way Back Machine",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong lands at 157 in our model, Ram\u00edrez puts air under the ball (21\u00b0), and Lowe gets a touch of carry tonight.",
+   "note": "Crow-Armstrong is barreling balls at will (58% hard-hit), Ram\u00edrez gets a yard playing like a launchpad tonight, and Lowe has textbook lift (19\u00b0).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -37312,7 +37350,7 @@
    "name": "Drop the Hook",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Pete Crow-Armstrong is teeing off (58% hard-hit), lives in the launch window (23\u00b0), packs elite raw power, a 100/100 grade.",
+   "note": "Pete Crow-Armstrong is teeing off (58% hard-hit), has the swing plane dialed for liftoff (23\u00b0).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -37344,47 +37382,9 @@
    "priced": 1,
    "parlay_am": 322,
    "payout10": 42.2
-  },
-  {
-   "name": "Left It Over the Plate",
-   "kind": "family",
-   "badge": "\ud83d\udca3",
-   "note": "Max Muncy is blistering line drives (56% hard-hit), has the swing plane dialed for liftoff (21\u00b0), catches a small park boost.",
-   "players": [
-    {
-     "name": "Max Muncy",
-     "team": "Dodgers",
-     "total": 164.8,
-     "aT": 100,
-     "wf": 1.041,
-     "gmatch": "PIT@LAD",
-     "gtime": "10:10 PM ET",
-     "game": 15,
-     "late": true,
-     "odds": 300,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Max Muncy",
-   "lock": "10:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 1,
-   "parlay_am": 300,
-   "payout10": 40
   }
  ],
  "pool": [
-  "Max Muncy",
   "Cal Raleigh",
   "Jos\u00e9 Ram\u00edrez",
   "Pete Crow-Armstrong",

@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T22:00:34Z",
+  "pulled_at": "2026-08-21T22:03:08Z",
   "games": [
     {
       "gamePk": 823746,
@@ -82,7 +82,7 @@
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 661388,
@@ -1729,7 +1729,7 @@
     },
     {
       "gamePk": 823911,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T02:10:00Z",
       "matchup": "PIT@LAD",
       "away": {
@@ -1751,10 +1751,56 @@
           "hr9": 0.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.263
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.165
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.187
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.246
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.175
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.136
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.141
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.151
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.113
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
