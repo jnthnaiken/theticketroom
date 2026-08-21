@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T20:00:12Z",
+  "pulled_at": "2026-08-21T20:03:05Z",
   "games": [
     {
       "gamePk": 823746,
@@ -258,15 +258,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 79\u00b0",
+        "cond": "calm 1mph, 79\u00b0",
         "lean": "Neutral",
-        "temp": 78.9,
+        "temp": 79.1,
         "wind_mph": 4.0,
-        "wind_dir": 74,
-        "tail_mph": -2.1,
+        "wind_dir": 90,
+        "tail_mph": -1.0,
         "precip": 0
       },
-      "wf": 1.006
+      "wf": 1.01
     },
     {
       "gamePk": 823510,
@@ -299,15 +299,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 72\u00b0",
+        "cond": "calm 0mph, 72\u00b0",
         "lean": "Neutral",
         "temp": 71.5,
-        "wind_mph": 4.7,
-        "wind_dir": 71,
-        "tail_mph": -2.6,
+        "wind_mph": 4.1,
+        "wind_dir": 103,
+        "tail_mph": -0.1,
         "precip": 2
       },
-      "wf": 0.993
+      "wf": 1.002
     },
     {
       "gamePk": 824721,
@@ -432,15 +432,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 5mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 71.1,
-        "wind_mph": 5.0,
-        "wind_dir": 27,
-        "tail_mph": -4.8,
+        "cond": "wind in 6mph, 71\u00b0",
+        "lean": "Suppress",
+        "temp": 70.9,
+        "wind_mph": 6.4,
+        "wind_dir": 39,
+        "tail_mph": -6.4,
         "precip": 2
       },
-      "wf": 0.985
+      "wf": 0.979
     },
     {
       "gamePk": 823830,
@@ -607,13 +607,13 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 79\u00b0",
         "lean": "Neutral",
-        "temp": 78.8,
-        "wind_mph": 5.4,
-        "wind_dir": 99,
-        "tail_mph": -1.9,
+        "temp": 78.6,
+        "wind_mph": 4.8,
+        "wind_dir": 101,
+        "tail_mph": -1.6,
         "precip": 0
       },
-      "wf": 1.006
+      "wf": 1.007
     },
     {
       "gamePk": 824559,
@@ -692,15 +692,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 76\u00b0",
-        "lean": "Neutral",
+        "cond": "wind out 4mph, 76\u00b0",
+        "lean": "Boost",
         "temp": 75.5,
-        "wind_mph": 4.6,
-        "wind_dir": 151,
-        "tail_mph": 1.8,
+        "wind_mph": 4.4,
+        "wind_dir": 204,
+        "tail_mph": 4.3,
         "precip": 11
       },
-      "wf": 1.015
+      "wf": 1.023
     },
     {
       "gamePk": 824072,
@@ -733,15 +733,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 90\u00b0",
+        "cond": "calm 3mph, 90\u00b0",
         "lean": "Boost",
-        "temp": 90.4,
-        "wind_mph": 6.1,
-        "wind_dir": 332,
-        "tail_mph": -1.8,
+        "temp": 90.5,
+        "wind_mph": 6.2,
+        "wind_dir": 339,
+        "tail_mph": -2.5,
         "precip": 6
       },
-      "wf": 1.024
+      "wf": 1.022
     },
     {
       "gamePk": 824152,
@@ -785,7 +785,7 @@
     },
     {
       "gamePk": 822857,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T00:15:00Z",
       "matchup": "LAA@TEX",
       "away": {
@@ -807,10 +807,56 @@
           "hr9": 1.16,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.221
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.197
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.203
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.161
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.169
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.183
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.0
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.152
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -854,15 +900,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 91\u00b0",
-        "lean": "Boost",
-        "temp": 91.2,
-        "wind_mph": 10.8,
-        "wind_dir": 84,
-        "tail_mph": -1.1,
+        "cond": "wind in 9mph, 93\u00b0",
+        "lean": "Neutral",
+        "temp": 92.7,
+        "wind_mph": 14.1,
+        "wind_dir": 51,
+        "tail_mph": -8.9,
         "precip": 5
       },
-      "wf": 1.028
+      "wf": 1.003
     },
     {
       "gamePk": 825045,
@@ -979,15 +1025,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 75\u00b0",
+        "cond": "calm 3mph, 76\u00b0",
         "lean": "Neutral",
-        "temp": 75.2,
+        "temp": 76.2,
         "wind_mph": 5.2,
         "wind_dir": 239,
         "tail_mph": 2.7,
         "precip": 1
       },
-      "wf": 1.017
+      "wf": 1.019
     },
     {
       "gamePk": 823911,
@@ -1023,12 +1069,12 @@
         "cond": "wind out 4mph, 81\u00b0",
         "lean": "Boost",
         "temp": 81.1,
-        "wind_mph": 5.0,
-        "wind_dir": 249,
-        "tail_mph": 3.6,
+        "wind_mph": 5.6,
+        "wind_dir": 254,
+        "tail_mph": 3.7,
         "precip": 1
       },
-      "wf": 1.029
+      "wf": 1.03
     },
     {
       "gamePk": 823101,
