@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T18:57:06Z",
+  "pulled_at": "2026-08-21T18:59:01Z",
   "games": [
     {
       "gamePk": 823746,
@@ -263,7 +263,7 @@
     },
     {
       "gamePk": 824721,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T23:10:00Z",
       "matchup": "SF@BOS",
       "away": {
@@ -274,8 +274,54 @@
           "hr9": 0.58,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.127
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.226
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.192
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.191
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.14
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.172
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.111
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.012
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.045
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -288,7 +334,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
