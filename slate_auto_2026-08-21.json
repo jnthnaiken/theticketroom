@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T19:52:30Z",
+  "pulled_at": "2026-08-21T19:57:30Z",
   "games": [
     {
       "gamePk": 823746,
@@ -866,7 +866,7 @@
     },
     {
       "gamePk": 825045,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T01:40:00Z",
       "matchup": "CIN@ARI",
       "away": {
@@ -888,10 +888,56 @@
           "hr9": 0.84,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.143
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.238
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.163
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.127
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.2
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.15
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.104
+          },
+          {
+            "id": 699912,
+            "name": "Jose Fernandez",
+            "iso": 0.103
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
