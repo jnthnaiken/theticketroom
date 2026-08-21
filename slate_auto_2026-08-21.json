@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T19:30:31Z",
+  "pulled_at": "2026-08-21T19:32:23Z",
   "games": [
     {
       "gamePk": 823746,
@@ -617,7 +617,7 @@
     },
     {
       "gamePk": 824559,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T23:40:00Z",
       "matchup": "NYM@CWS",
       "away": {
@@ -639,10 +639,56 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.133
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.303
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.247
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.271
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.217
+          },
+          {
+            "id": 686668,
+            "name": "Brenton Doyle",
+            "iso": 0.08
+          },
+          {
+            "id": 682668,
+            "name": "Luisangel Acu\u00f1a",
+            "iso": 0.032
+          },
+          {
+            "id": 668670,
+            "name": "Jake Rogers",
+            "iso": 0.132
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
