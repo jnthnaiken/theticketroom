@@ -31180,7 +31180,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31273,7 +31273,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31366,7 +31366,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31459,7 +31459,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31552,7 +31552,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31645,7 +31645,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31820,7 +31820,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 176.89939078694204,
-   "slot": 9,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1,
@@ -31830,7 +31830,7 @@
    "gtime": "10:10 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -31848,7 +31848,7 @@
    "psrc": "brl",
    "parkhr": 0.976,
    "mktT": 0.9484310979094722,
-   "slotT": 0.92,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.453,
    "penT": 1.03624,
@@ -31913,7 +31913,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 120.72615798677386,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1,
@@ -31923,8 +31923,8 @@
    "gtime": "10:10 PM ET",
    "late": true,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -31941,7 +31941,7 @@
    "psrc": "brl",
    "parkhr": 0.976,
    "mktT": 0.878337639965547,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": 0.453,
    "penT": 1.03624,
@@ -32017,7 +32017,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -32203,7 +32203,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Emerson Hancock",
@@ -36130,7 +36130,7 @@
     "precip": 1
    }
   },
-  "build": "8/21 6:59pm",
+  "build": "8/21 7:01pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -37143,6 +37143,44 @@
    "locked": true
   },
   {
+   "name": "Drop the Hook",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Pete Crow-Armstrong is teeing off (58% hard-hit), has the swing plane dialed for liftoff (23\u00b0).",
+   "players": [
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 156.9,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CHC@SEA",
+     "gtime": "10:10 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 322,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Crow-Armstrong",
+   "lock": "10:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 322,
+   "payout10": 42.2,
+   "locked": true
+  },
+  {
    "name": "No Doubter",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -37158,7 +37196,7 @@
      "gtime": "8:40 PM ET",
      "game": 11,
      "late": false,
-     "odds": 287,
+     "odds": 277,
      "status": "confirmed"
     },
     {
@@ -37184,7 +37222,7 @@
      "gtime": "10:10 PM ET",
      "game": 15,
      "late": true,
-     "odds": 378,
+     "odds": 360,
      "status": "projected"
     }
    ],
@@ -37207,8 +37245,8 @@
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 7614,
-   "payout10": 771.39
+   "parlay_am": 7132,
+   "payout10": 723.16
   },
   {
    "name": "Splash Hit",
@@ -37227,7 +37265,7 @@
      "game": 14,
      "late": true,
      "odds": 322,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Chase DeLauter",
@@ -37273,7 +37311,7 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 1,
+   "confleg": 2,
    "priced": 3,
    "parlay_am": 9297,
    "payout10": 939.73
@@ -37295,7 +37333,7 @@
      "game": 14,
      "late": true,
      "odds": 322,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Jos\u00e9 Ram\u00edrez",
@@ -37307,7 +37345,7 @@
      "gtime": "8:40 PM ET",
      "game": 11,
      "late": false,
-     "odds": 349,
+     "odds": 346,
      "status": "confirmed"
     },
     {
@@ -37320,7 +37358,7 @@
      "gtime": "10:10 PM ET",
      "game": 15,
      "late": true,
-     "odds": 435,
+     "odds": 440,
      "status": "projected"
     }
    ],
@@ -37341,54 +37379,16 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 1,
+   "confleg": 2,
    "priced": 3,
-   "parlay_am": 10037,
-   "payout10": 1013.71
-  },
-  {
-   "name": "Drop the Hook",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Pete Crow-Armstrong is teeing off (58% hard-hit), has the swing plane dialed for liftoff (23\u00b0).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 156.9,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CHC@SEA",
-     "gtime": "10:10 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 322,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "10:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 1,
-   "parlay_am": 322,
-   "payout10": 42.2
+   "parlay_am": 10063,
+   "payout10": 1016.34
   }
  ],
  "pool": [
   "Cal Raleigh",
   "Junior Caminero",
   "Jos\u00e9 Ram\u00edrez",
-  "Pete Crow-Armstrong",
   "Oneil Cruz",
   "Chase DeLauter",
   "Kody Clemens",
