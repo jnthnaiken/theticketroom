@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T18:31:58Z",
+  "pulled_at": "2026-08-21T18:47:03Z",
   "games": [
     {
       "gamePk": 823746,
@@ -137,7 +137,7 @@
     },
     {
       "gamePk": 823420,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T22:40:00Z",
       "matchup": "STL@PHI",
       "away": {
@@ -146,8 +146,54 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.13
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.14
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.218
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.36
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.124
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.118
+          },
+          {
+            "id": 677592,
+            "name": "Everson Pereira",
+            "iso": 0.21
+          },
+          {
+            "id": 663494,
+            "name": "Bryan Torres",
+            "iso": 0.149
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -160,7 +206,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
