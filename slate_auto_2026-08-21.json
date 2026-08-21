@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T20:52:39Z",
+  "pulled_at": "2026-08-21T20:57:39Z",
   "games": [
     {
       "gamePk": 823746,
@@ -530,7 +530,7 @@
         "wind_mph": 3.3,
         "wind_dir": 70,
         "tail_mph": -3.0,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.99
     },
@@ -882,7 +882,7 @@
         "wind_mph": 2.2,
         "wind_dir": 204,
         "tail_mph": 2.1,
-        "precip": 13
+        "precip": 15
       },
       "wf": 1.016
     },
@@ -1015,7 +1015,7 @@
         "wind_mph": 4.7,
         "wind_dir": 335,
         "tail_mph": -1.6,
-        "precip": 4
+        "precip": 2
       },
       "wf": 1.025
     },
@@ -1164,8 +1164,54 @@
           "hr9": 1.07,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.191
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.195
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.117
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.128
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.206
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.132
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.153
+          },
+          {
+            "id": 518595,
+            "name": "Travis d'Arnaud",
+            "iso": 0.083
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.124
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
