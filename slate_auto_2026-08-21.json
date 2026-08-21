@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T20:27:30Z",
+  "pulled_at": "2026-08-21T20:29:54Z",
   "games": [
     {
       "gamePk": 823746,
@@ -842,7 +842,7 @@
     },
     {
       "gamePk": 824072,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T00:10:00Z",
       "matchup": "DET@KC",
       "away": {
@@ -864,10 +864,56 @@
           "hr9": 0.91,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.18
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.177
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.216
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.149
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.123
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.143
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.169
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.121
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.103
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
