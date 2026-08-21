@@ -67,6 +67,20 @@ HR_LINE = 0.5       # a home-run prop is over 0.5. Total bases is 1.5 -- that is
 HR_MIN_PRICE = 100  # no real pre-game HR price is shorter than this, and none is negative
 MIN_COL = 10        # a book column needs this many prices to count
 TOP_FRAC = 0.60     # one price on >60% of rows = fixed juice, not a market
+# LONEBOOK-2026-08-21 -- one book is not a market. VegasInsider posts a row as soon as a
+# SINGLE book prices a bat, and the median of one observation carries no consensus. That was
+# harmless while price only fed `strength`, but the chalk ban is now keyed on price
+# (CHALKODDS-2026-08-20), so a lone quote can bar the wrong four bats -- and on 2026-08-21 a
+# single Bet365 line (+270 on Jo Adell, the other four books blank or 0) made him the board's
+# #2 bat by TOTAL and anchored two moons plus a builder.
+# The rule: a single-book quote may not imply a HIGHER probability than the 95th percentile of
+# the MULTI-book field. It is a one-way clamp -- a lone price is only ever LENGTHENED, never
+# shortened -- and the bat keeps a price, because deleting one costs ~70 TOTAL points and that
+# cure is worse (2026-08-08). Measured over the 11 archived markets_*.json plus 08-21: it fires
+# twice (Oneil Cruz +320 on 08-14, Jo Adell +270 on 08-21). p90 fires on the same two; p99 on
+# neither. Single-book rows are 5.8% of the field (53 of 906), so this touches ~1 slate in 6.
+LONE_PCTL = 0.95
+LONE_MIN_MULTI = 40   # below this the percentile is noise -- leave lone quotes alone
 
 
 # ─────────────────────────────────────────────────────────── html -> tables
@@ -196,8 +210,24 @@ def parse_market(rows):
         price = to_a(mp)
         if price is None:
             continue
-        out[name] = {"line": modal, "p": round(mp, 5), "price": price,
-                     "books": len(ps), "spread": round(max(ps) - min(ps), 5)}
+        rec = {"line": modal, "p": round(mp, 5), "price": price,
+               "books": len(ps), "spread": round(max(ps) - min(ps), 5)}
+        # NAMEDUP-2026-08-21 -- VegasInsider posts ONE ROW PER BAT, so two players sharing a
+        # name produce two rows and this assignment used to be last-write-wins: whichever row
+        # parsed last silently became that name's price. 2026-08-17 it handed ATH's Max Muncy
+        # LAD's price; 2026-08-21 it did the reverse, overwriting a correct committed +248 with
+        # the Athletics Muncy's +580 on every five-minute refresh. The row carries NO team --
+        # the only image in the name cell is a generic placeholder and data-name is just the
+        # lowercased name -- so the rows CANNOT be told apart here. Keep every candidate and let
+        # the caller resolve against the authoritative committed file.
+        cand = {"price": price, "p": rec["p"], "books": rec["books"]}
+        if name in out:
+            out[name]["alts"].append(cand)
+        else:
+            rec["alts"] = [cand]
+            out[name] = rec
+    for v in out.values():
+        v["dup"] = len(v["alts"])
     return out, colinfo
 
 
@@ -465,16 +495,53 @@ def main():
         emit("snapshot", "false")
         return 1
 
+    # LONEBOOK-2026-08-21: cap single-book quotes at the multi-book field's LONE_PCTL.
+    _multi = sorted(v["p"] for v in hr.values() if v.get("books", 0) >= 2)
+    _cap = None
+    if len(_multi) >= LONE_MIN_MULTI:
+        _cap = _multi[min(len(_multi) - 1, int(LONE_PCTL * len(_multi)))]
+
     odds, froze, upd, new = dict(prev), 0, 0, 0
+    ambig, capped = [], []
     for n, v in hr.items():
         if not live(n):
             froze += 1                      # game underway -> his price is already settled
             continue
+
+        # NAMEDUP-2026-08-21: two bats, one name, no team on the row. Never let an ambiguous
+        # scrape overwrite the committed file -- it is authoritative by this script's own rule.
+        # With a held price, keep the candidate nearest it in PROBABILITY space, so the right
+        # bat still tracks intraday drift. With no held price nothing can disambiguate, so take
+        # the LONGEST candidate: under-rating a bat cannot ban him or make him an anchor.
+        cand = v.get("alts") or [v]
+        if len(cand) > 1:
+            held = prev.get(n)
+            if held is not None:
+                pick = min(cand, key=lambda c: abs(to_p(c["price"]) - to_p(held)))
+            else:
+                pick = min(cand, key=lambda c: c["p"])
+            ambig.append((n, [c["price"] for c in cand], pick["price"], held))
+        else:
+            pick = cand[0]
+
+        price, bks = pick["price"], pick.get("books", 0)
+        if _cap is not None and bks == 1 and pick["p"] > _cap:
+            capped.append((n, price, to_a(_cap)))
+            price = to_a(_cap)
+
         if n not in odds:
             new += 1
-        elif odds[n] != v["price"]:
+        elif odds[n] != price:
             upd += 1
-        odds[n] = v["price"]
+        odds[n] = price
+
+    for n, alts, pick, held in ambig:
+        print(f"::warning::fetch_odds: '{n}' matched {len(alts)} rows {alts} -- "
+              f"ambiguous (no team on the row); kept {pick:+d}"
+              + (f" (nearest held {held:+d})" if held is not None else " (longest; nothing held)"))
+    for n, was, now in capped:
+        print(f"::notice::fetch_odds: '{n}' priced by ONE book at {was:+d} -- "
+              f"above the multi-book {int(LONE_PCTL*100)}th pctl, lengthened to {now:+d}")
     with open(f"odds_{date}.json", "w") as f:
         json.dump(odds, f)
 
@@ -488,7 +555,7 @@ def main():
         cur = dict(mk.get(key) or {})
         for n, v in rows.items():
             if live(n):
-                cur[n] = v
+                cur[n] = {k: x for k, x in v.items() if k != "alts"}
         mk[key] = cur
     with open(f"markets_{date}.json", "w") as f:
         json.dump(mk, f, indent=0)
