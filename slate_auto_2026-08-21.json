@@ -1,11 +1,11 @@
 {
   "date": "2026-08-21",
   "season": "2026",
-  "pulled_at": "2026-08-21T20:03:05Z",
+  "pulled_at": "2026-08-21T20:12:22Z",
   "games": [
     {
       "gamePk": 823746,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-21T20:10:00Z",
       "matchup": "ATL@MIL",
       "away": {
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823510,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-21T23:05:00Z",
       "matchup": "TOR@NYY",
       "away": {
@@ -281,8 +281,54 @@
           "hr9": 1.06,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.042
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.105
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.149
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.163
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.12
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.21
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.156
+          },
+          {
+            "id": 807727,
+            "name": "Charles McAdoo",
+            "iso": 0.151
+          },
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.108
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -295,7 +341,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
