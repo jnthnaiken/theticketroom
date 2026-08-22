@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T19:11:13Z",
+  "pulled_at": "2026-08-22T19:16:12Z",
   "games": [
     {
       "gamePk": 823509,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 527048,
           "name": "Mart\u00edn P\u00e9rez",
-          "hr9": 0.87,
+          "hr9": 0.95,
           "hand": "LHP"
         },
         "lineup": [
@@ -225,7 +225,7 @@
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.227
+            "iso": 0.234
           },
           {
             "id": 683734,
@@ -700,7 +700,7 @@
     },
     {
       "gamePk": 824560,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T23:10:00Z",
       "matchup": "NYM@CWS",
       "away": {
@@ -722,10 +722,56 @@
           "hr9": 1.48,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.124
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.301
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.254
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.178
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.134
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.222
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.132
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.153
+          },
+          {
+            "id": 691011,
+            "name": "Drew Romo",
+            "iso": 0.164
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -990,7 +1036,7 @@
     },
     {
       "gamePk": 824316,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T00:10:00Z",
       "matchup": "CLE@COL",
       "away": {
@@ -1012,10 +1058,56 @@
           "hr9": 0.72,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.193
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.27
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.188
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.154
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.157
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.159
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.109
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.202
+          },
+          {
+            "id": 691728,
+            "name": "Zac Veen",
+            "iso": 0.369
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
