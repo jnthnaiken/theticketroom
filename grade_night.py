@@ -95,10 +95,21 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
     # didn't homer. grade_night only reaches here once EVERY game on the slate is final (all_final gate),
     # so `played` is the complete set of bats who actually took a PA -- a carded bat absent from it was
     # benched, not just un-fetched.
+    # NULLPRICE-2026-08-22: a leg minted while its bat had NO PRICE carries odds=null, and dec()
+    # then dies on `None > 0` -- which is not a grading bug, it is a HARD STOP: grade_night runs
+    # first in pull-slate.yml, so one such leg took down every build for the rest of the day
+    # (2026-08-22: "Cheap Seats"/Jac Caglianone froze the pipeline before the 08-22 board could
+    # be built at all). A leg with no price is not a wager, so VOID it -- the same refund path a
+    # benched bat takes. If that empties the ticket, the existing `not kept` branch refunds the
+    # whole slip. Voiding is also the honest grade: no price was ever shown, so nothing was risked
+    # at a knowable number. This is a backstop; the real fix is not minting an unpriced leg.
     kept = []
     for l in legs:
         nm = norm(l.get('name'))
         hr = nm in homered
+        if l.get('odds') in (None, 0):
+            print(f"  ::warning::void leg with no price: {t.get('name')} / {l.get('name')}")
+            continue
         if not hr and (ppd_void(l) or nm not in played):
             continue                          # postponed game or benched/DNP -> refund (void), not a loss
         kept.append((l, hr))
