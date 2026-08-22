@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T19:30:30Z",
+  "pulled_at": "2026-08-22T19:34:00Z",
   "games": [
     {
       "gamePk": 823509,
@@ -25,12 +25,12 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.093
+            "iso": 0.092
           },
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.146
+            "iso": 0.145
           },
           {
             "id": 543807,
@@ -210,7 +210,7 @@
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.188
+            "iso": 0.186
           },
           {
             "id": 668930,
@@ -961,7 +961,7 @@
     },
     {
       "gamePk": 823100,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T23:15:00Z",
       "matchup": "CHC@SEA",
       "away": {
@@ -983,10 +983,56 @@
           "hr9": null,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680977,
+            "name": "Brendan Donovan",
+            "iso": 0.132
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.176
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.23
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.162
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.102
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.095
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.148
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.14
+          },
+          {
+            "id": 660844,
+            "name": "Leo Rivas",
+            "iso": 0.036
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
