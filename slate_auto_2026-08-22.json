@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T18:57:49Z",
+  "pulled_at": "2026-08-22T19:00:27Z",
   "games": [
     {
       "gamePk": 823509,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 656302,
           "name": "Dylan Cease",
-          "hr9": 0.58,
+          "hr9": 0.57,
           "hand": "RHP"
         },
         "lineup": [
@@ -25,7 +25,7 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.092
+            "iso": 0.093
           },
           {
             "id": 672386,
@@ -87,7 +87,7 @@
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 671277,
@@ -168,7 +168,7 @@
           {
             "id": 671739,
             "name": "Michael Harris II",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 645277,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 701656,
           "name": "Logan Henderson",
-          "hr9": 1.37,
+          "hr9": 1.36,
           "hand": "RHP"
         },
         "lineup": [
@@ -250,7 +250,7 @@
           {
             "id": 806198,
             "name": "Cooper Pratt",
-            "iso": 0.091
+            "iso": 0.09
           }
         ],
         "confirmed": true
@@ -528,7 +528,7 @@
     },
     {
       "gamePk": 822858,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T23:05:00Z",
       "matchup": "LAA@TEX",
       "away": {
@@ -550,10 +550,56 @@
           "hr9": 0.59,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.244
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.194
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.203
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.16
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.17
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.128
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.181
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.0
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.13
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
