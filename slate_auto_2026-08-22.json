@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T18:00:55Z",
+  "pulled_at": "2026-08-22T18:02:34Z",
   "games": [
     {
       "gamePk": 823509,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 656302,
           "name": "Dylan Cease",
-          "hr9": 0.59,
+          "hr9": 0.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,17 +82,17 @@
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.281
+            "iso": 0.279
           },
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 671277,
             "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.262
+            "iso": 0.261
           },
           {
             "id": 682987,
@@ -875,9 +875,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 3mph, 82\u00b0",
+        "lean": "Neutral",
+        "temp": 81.7,
+        "wind_mph": 6.2,
+        "wind_dir": 300,
+        "tail_mph": -3.1,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.007
     }
   ]
 }
