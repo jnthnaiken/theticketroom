@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T19:16:12Z",
+  "pulled_at": "2026-08-22T19:21:12Z",
   "games": [
     {
       "gamePk": 823509,
@@ -55,7 +55,7 @@
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.136
+            "iso": 0.133
           },
           {
             "id": 664702,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 527048,
           "name": "Mart\u00edn P\u00e9rez",
-          "hr9": 0.95,
+          "hr9": 0.94,
           "hand": "LHP"
         },
         "lineup": [
@@ -173,7 +173,7 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 643289,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 701656,
           "name": "Logan Henderson",
-          "hr9": 1.36,
+          "hr9": 1.34,
           "hand": "RHP"
         },
         "lineup": [
@@ -874,7 +874,7 @@
     },
     {
       "gamePk": 823910,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T23:15:00Z",
       "matchup": "PIT@LAD",
       "away": {
@@ -896,10 +896,56 @@
           "hr9": 0.95,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.261
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.163
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.174
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.252
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.137
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.134
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.149
+          },
+          {
+            "id": 677950,
+            "name": "Alek Thomas",
+            "iso": 0.159
+          },
+          {
+            "id": 666163,
+            "name": "Ben Rortvedt",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
