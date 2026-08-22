@@ -12115,7 +12115,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -12208,7 +12208,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -12301,7 +12301,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -12487,7 +12487,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -12569,7 +12569,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 70.87080058695742,
-   "slot": 4,
+   "slot": 3,
    "bhand": "R",
    "hr9": null,
    "wf": 1,
@@ -12580,7 +12580,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -12597,7 +12597,7 @@
    "psrc": "brl",
    "parkhr": 1.0030000000000001,
    "mktT": 0.9404917889587702,
-   "slotT": 1.02,
+   "slotT": 1.04,
    "platT": 1.056,
    "pen_fatigue": 0.337,
    "penT": 1.02696,
@@ -12662,7 +12662,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 8.758944362175837,
-   "slot": 3,
+   "slot": null,
    "bhand": "L",
    "hr9": null,
    "wf": 1,
@@ -12672,7 +12672,7 @@
    "gtime": "7:05 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -12690,7 +12690,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.8247510482180294,
-   "slotT": 1.04,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.337,
    "penT": 1.02696,
@@ -12755,7 +12755,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 204.92186974180777,
-   "slot": 6,
+   "slot": 4,
    "bhand": "L",
    "hr9": null,
    "wf": 1,
@@ -12766,7 +12766,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -12783,7 +12783,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.0405918890588703,
-   "slotT": 0.98,
+   "slotT": 1.02,
    "platT": 0.92,
    "pen_fatigue": 0.337,
    "penT": 1.02696,
@@ -12859,7 +12859,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cody Bradford",
@@ -13220,7 +13220,7 @@
    "iso": "\u2014",
    "iso_used": 0.1,
    "powraw": 0,
-   "slot": 8,
+   "slot": null,
    "bhand": "L",
    "hr9": null,
    "wf": 1,
@@ -13230,7 +13230,7 @@
    "gtime": "7:05 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -13248,7 +13248,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.7861708013044492,
-   "slotT": 0.94,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.337,
    "penT": 1.02696,
@@ -36223,7 +36223,7 @@
     "precip": 1
    }
   },
-  "build": "8/22 5:17pm",
+  "build": "8/22 5:22pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -36927,7 +36927,7 @@
    "name": "Tape Measure Job",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Schwarber is hammering the ball (70% hard-hit), Caminero swings with usable power (51/100), and Trout elevates with ease (22\u00b0).",
+   "note": "Schwarber is hammering the ball (70% hard-hit), Caminero swings with usable power (51/100), and Trout swings on a clean uppercut (22\u00b0).",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -36966,7 +36966,7 @@
      "game": 6,
      "late": false,
      "odds": 395,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -36986,16 +36986,17 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 2,
+   "confleg": 3,
    "priced": 3,
    "parlay_am": 7486,
-   "payout10": 758.6
+   "payout10": 758.6,
+   "locked": true
   },
   {
    "name": "Crossing the Karman Line",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Moniak has the wind howling out behind him, Raleigh is crushing the baseball (60% hard-hit), and O'Neill swings on a clean uppercut (22\u00b0).",
+   "note": "Moniak has the wind howling out behind him, Raleigh is crushing the baseball (60% hard-hit), and O'Neill elevates with ease (22\u00b0).",
    "players": [
     {
      "name": "Mickey Moniak",
@@ -37482,11 +37483,9 @@
   "Byron Buxton",
   "Francisco Lindor",
   "Esmerlyn Valdez",
-  "Junior Caminero",
   "Christian Walker",
   "Jos\u00e9 Ram\u00edrez",
   "Chase DeLauter",
-  "Mike Trout",
   "Rafael Flores",
   "Manny Machado",
   "Jose Siri",
