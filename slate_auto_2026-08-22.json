@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T19:50:20Z",
+  "pulled_at": "2026-08-22T19:56:33Z",
   "games": [
     {
       "gamePk": 823509,
@@ -97,7 +97,7 @@
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.195
+            "iso": 0.193
           },
           {
             "id": 806146,
@@ -163,7 +163,7 @@
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.278
+            "iso": 0.277
           },
           {
             "id": 671739,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 701656,
           "name": "Logan Henderson",
-          "hr9": 1.32,
+          "hr9": 1.31,
           "hand": "RHP"
         },
         "lineup": [
@@ -240,7 +240,7 @@
           {
             "id": 687401,
             "name": "Joey Ortiz",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 800325,
@@ -1274,7 +1274,7 @@
     },
     {
       "gamePk": 825044,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T00:10:00Z",
       "matchup": "CIN@ARI",
       "away": {
@@ -1296,10 +1296,56 @@
           "hr9": 0.59,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.117
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.238
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.161
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.128
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.197
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.152
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.141
+          },
+          {
+            "id": 699912,
+            "name": "Jose Fernandez",
+            "iso": 0.101
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
