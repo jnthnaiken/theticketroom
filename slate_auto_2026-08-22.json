@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T20:11:25Z",
+  "pulled_at": "2026-08-22T20:16:27Z",
   "games": [
     {
       "gamePk": 823509,
@@ -55,7 +55,7 @@
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.133
+            "iso": 0.131
           },
           {
             "id": 664702,
@@ -193,7 +193,7 @@
           {
             "id": 805347,
             "name": "Jim Jarvis",
-            "iso": 0.091
+            "iso": 0.09
           }
         ],
         "confirmed": true
@@ -285,7 +285,7 @@
           {
             "id": 695734,
             "name": "Daylen Lile",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 686611,
@@ -546,8 +546,54 @@
           "hr9": 0.7,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.165
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.137
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.056
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.26
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.156
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.167
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.115
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.146
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.077
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -708,7 +754,7 @@
     },
     {
       "gamePk": 824151,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T23:10:00Z",
       "matchup": "ATH@HOU",
       "away": {
@@ -719,8 +765,54 @@
           "hr9": 1.53,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.098
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.095
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.209
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.145
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.137
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.071
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.178
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.155
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.158
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -730,10 +822,56 @@
           "hr9": 1.18,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.186
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.297
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.164
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.149
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.209
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.126
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.138
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.175
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
