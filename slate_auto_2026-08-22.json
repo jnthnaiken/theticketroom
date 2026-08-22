@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T19:34:00Z",
+  "pulled_at": "2026-08-22T19:36:19Z",
   "games": [
     {
       "gamePk": 823509,
@@ -408,8 +408,10 @@
       "away": {
         "abbrev": "STL",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 687273,
+          "name": "Quinn Mathews",
+          "hr9": 1.0,
+          "hand": "LHP"
         },
         "lineup": [
           {
@@ -1058,8 +1060,54 @@
           "hr9": 0.67,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.188
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.23
+          },
+          {
+            "id": 642715,
+            "name": "Willy Adames",
+            "iso": 0.19
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.188
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.162
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.139
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.054
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.137
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
