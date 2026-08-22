@@ -92,11 +92,31 @@ def main():
     surname = {}
     for k in pitch: surname.setdefault(norm(k).split()[-1] if norm(k) else '', []).append(k)
     def resolve_sp(name):
+        """RotoWire abbreviates a starter ("G. Rodriguez"); Kasper spells him out. Match on
+        surname to recover the full name -- but ONLY when the first names are compatible.
+
+        SPFIRST-2026-08-22: the surname fallback used to accept ANY lone surname match, so a
+        starter Kasper never listed was silently renamed to a DIFFERENT pitcher who happened to
+        share his last name. Today SEA's Kade Anderson became DET's Drew Anderson: CHC's nine
+        bats would have been scored against the wrong arm's barrel profile, and slate_validate's
+        "no pitcher stats" warning was suppressed because the wrong name resolved cleanly.
+        Surnames like Anderson / Perez / Rodriguez / Sanchez make this a recurring hazard.
+
+        A match now requires the roto first token to be either an INITIAL of the candidate's
+        first name ("g" or "g." vs "grayson") or the same first name. Anything else keeps the
+        roto name, which is the correct outcome: an arm Kasper does not cover falls back to
+        live HR/9, and the validator says so."""
         if not name: return None
         n = norm(name)
         if n in pitch_norm: return pitch_norm[n]
-        cand = surname.get(n.split()[-1] if n else '', [])
-        return cand[0] if len(cand) == 1 else name  # else keep roto name (validator warns)
+        parts = n.split()
+        if len(parts) < 2: return name
+        cand = surname.get(parts[-1], [])
+        if len(cand) != 1: return name
+        want, got = parts[0].rstrip('.'), norm(cand[0]).split()[0]
+        if want == got or (len(want) == 1 and got.startswith(want)):
+            return cand[0]
+        return name                       # different person, same surname -> keep roto name
 
     games, errors, gn = [], [], 0
     seen = set()
