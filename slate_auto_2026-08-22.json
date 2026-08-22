@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
   "season": "2026",
-  "pulled_at": "2026-08-22T16:17:04Z",
+  "pulled_at": "2026-08-22T16:21:59Z",
   "games": [
     {
       "gamePk": 823509,
@@ -224,7 +224,7 @@
     },
     {
       "gamePk": 823831,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-22T20:10:00Z",
       "matchup": "WSH@MIA",
       "away": {
@@ -246,10 +246,56 @@
           "hr9": 0.95,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.098
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.273
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.201
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.14
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.11
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.217
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.188
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.145
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.2
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
