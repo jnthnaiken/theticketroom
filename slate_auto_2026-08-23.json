@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T16:14:45Z",
+  "pulled_at": "2026-08-23T16:16:26Z",
   "games": [
     {
       "gamePk": 824799,
@@ -1020,7 +1020,7 @@
     },
     {
       "gamePk": 824315,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T19:10:00Z",
       "matchup": "CLE@COL",
       "away": {
@@ -1031,8 +1031,54 @@
           "hr9": 1.43,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.06
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.154
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.17
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.212
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.111
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.132
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.184
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.115
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -1045,7 +1091,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
