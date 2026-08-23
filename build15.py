@@ -9,13 +9,14 @@ Daily inputs (date = SLATE_DATE env or today ET), each repo-relative:
   cards_<date>.json    Kasper matchup cards   {MATCHUP:{TEAM:[{name,test,zone,form_pct,form_arrow,pb,hh,la},...]}}
   lineups_<date>.json  projected lineups+sched {games:[{gn,matchup,time,away,home,away_sp,home_sp,dome,precip,wind,status,away_bats[],home_bats[]}]}
   odds_<date>.json     consensus HR odds       {name: american}
-  iso_<date>.json      ISO sheet               {name: iso}
+  kasper_extras_<date>.json  Kasper stat sidecar  {name:{khr,xwobacon,iso,fb,swstr,brl_bip,...}} (optional; source of ISO since 2026-08-23)
 
 If a given day's file is missing, falls back to the PRIOR day's file (so a late input
-still builds on real data). ISO falls back to the legacy ISO sheet, then to the floor.
+still builds on real data). ISO comes from the Kasper sidecar; a dated iso_<date>.json
+still wins if one is committed, and the slate median is the last resort.
 season.json is the authoritative ledger (grade_night advances it); we just load it.
 """
-import math, statistics as st, json, unicodedata, re, ast, os, datetime
+import math, statistics as st, json, unicodedata, re, os, datetime
 import cardnotes
 
 def _latest_slate():
@@ -171,19 +172,28 @@ def fetch_hr9(date):
     n=sum(1 for v in out.values() for x in v.values() if x is not None)
     return out, 'OK (%d arms)'%n
 
-# ---- ISO: today's sheet primary, legacy build15 sheet as fallback, then floor ----
-ISO_OLD={}
-try:
-    leg=open('build15_legacy.py').read()
-    ISO_OLD={norm(k):v for k,v in ast.literal_eval(re.search(r'ISO_RAW\s*=\s*(\{.*?\})\n',leg,re.S).group(1)).items()}
-except Exception as e:
-    print(f"  (no legacy ISO fallback: {e})")
-ISO_TODAY={norm(k):v for k,v in load_dated('iso', required=False).items()}
-ISO=dict(ISO_OLD); ISO.update(ISO_TODAY)
-ISO_FLOOR=min(ISO_TODAY.values()) if ISO_TODAY else (min(ISO.values()) if ISO else 0.10)
-
 cards=load_dated('cards'); lin=load_dated('lineups')
 KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
+
+# ---- ISO: Kasper's sidecar is the source (ISOSRC-2026-08-23) ----
+# WHAT THIS REPLACED: a three-step fallback chain in which every step was dead.
+#   1. read ISO_RAW out of build15_legacy.py -- that file is NOT IN THE REPO, so the try block
+#      raised and printed "(no legacy ISO fallback: ...)" on every single build, forever;
+#   2. load iso_<date>.json -- those inputs stop at 2026-06-28 and are no longer produced;
+#   3. fall through to ISO_FLOOR, which with both sources empty is the literal 0.10.
+# Net effect since 2026-07-03: EVERY bat on EVERY board carried iso_used == 0.100 exactly. The
+# card chip rendered "—", calibration.jsonl's `iso` column was a constant, and medI (below) is a
+# median of a constant that nothing reads. Anything comparing actual damage to expected damage
+# was silently comparing a constant to xwOBAcon -- which is what made the first cut of the
+# 2026-08-23 ratio work read backwards.
+# The Kasper sidecar has carried a real per-bat `iso` since 2026-07-11, so it is now the source.
+# A dated iso_<date>.json still wins if one is ever committed again; the floor is now the slate
+# median rather than a hardcoded 0.10, so an unmatched bat sits at par instead of at the bottom.
+ISO_TODAY={norm(k):v for k,v in load_dated('iso', required=False).items()}
+ISO_KASPER={n:v['iso'] for n,v in KEXTRA.items() if isinstance(v.get('iso'),(int,float)) and 0.02<=v['iso']<=0.60}
+ISO=dict(ISO_KASPER); ISO.update(ISO_TODAY)
+ISO_FLOOR=(st.median(sorted(ISO.values())) if ISO else 0.10)
+print(f"  ISO: {len(ISO_KASPER)} from Kasper sidecar, {len(ISO_TODAY)} from iso_<date>.json, floor {ISO_FLOOR:.3f}")
 _USE_KWCON=sum(1 for v in KEXTRA.values() if v.get('xwobacon') is not None)>=20   # per-slate expected-power source: Kasper xwOBAcon when the sidecar is populated, else Savant xwcon (one source per slate -> clean z-score)
 W_PEN=0.08          # bullpen-fatigue: small SEEDED weight, pulled from park/weather (already priced by books)
 W_BG=0.20           # bullpen-GAME boost: opener/TBD opposing "starter" -> proven +11% HR rate (full season) + market-underprice hint
@@ -612,11 +622,13 @@ for r in pool:
     _tlt=(PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0
     r['_zspray']=(((r['pull']-40.0)/10.0)*(((_tlt-1.0)/0.05)+(clamp(r['pull_tail']/8.0,-1.0,1.0) if r.get('pull_tail') is not None else 0.0))) if r.get('pull') is not None else None
     r['_zars']=arsenal_raw(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id'))); r['_zhh']=r.get('hh'); r['_zla']=(la_window(r['la']) if r.get('la') is not None else None)   # hh/la promoted out of display-only into the edge basket, 2026-08-13 refit; la enters through the SAME la_window bell powraw uses (fit: bell 0.5963 vs linear 0.5962)
+    r['_ziso']=((KEXTRA.get(norm(r['nm'])) or {}).get('iso'))   # ACTUAL damage, Kasper sidecar. Pairs with _zxwcon (EXPECTED damage) -- see ISOPAIR-2026-08-23 on _SIG. None for an unmatched bat, so he sits at the slate mean rather than being pushed to a floor.
+    if r['_ziso'] is not None and not (0.02<=r['_ziso']<=0.60): r['_ziso']=None   # scrape artifacts: the sidecar has thrown values of 0 and 3.0
     r['_zmkt']=(100.0/(r['odds']+100)) if r.get('odds') else None
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
-_SIG=[('_zxpow',0.029),('_zxwcon',0.193),('_zars',0.011),('_zhh',0.432),('_zla',0.335)]   # REFIT 2026-08-13 on the 2015-2024 Statcast table (316,463 batter-games / 37,340 HR / 1,840 slates): grouped-by-game-date CV logistic in per-slate z-space, i.e. the space this loop actually scores in. Replaces the 0.45/0.35/0.20 "reasoned guesses" of 2026-07-09. hh + la added -- they were the two STRONGEST predictors and had been display-only chips. 3-signal AUC 0.5773 -> 5-signal 0.5962. CAVEAT: xpow/ars measured near zero through Statcast PROXIES (b_brl/p_brl) that are collinear with hard-hit; the live inputs (park-neutral xISO, RV/100 x pitch mix) are richer, so their true weight may be understated -- kept in the basket rather than dropped. Repro: fit_savant.py, Savant Fit run 31731827046.
+_SIG=[('_zxpow',0.0261),('_zxwcon',0.1737),('_zars',0.0099),('_zhh',0.3888),('_zla',0.3015),('_ziso',0.10)]   # ISOPAIR-2026-08-23: Kasper's ACTUAL damage (_ziso) added alongside EXPECTED damage (_zxwcon, already Kasper xwOBAcon whenever the sidecar is populated) at 0.10, the five 08-13 weights scaled by 0.90 so the basket still sums to 1. Owner's call, and the measurement does NOT support it on its own: over the 23 nights carrying a real Kasper ISO (4,544 rows / 505 HR) the edge basket improves 0.6068 -> 0.6079 while the BLEND slips 0.6192 -> 0.6190; both moves are inside noise at that sample size. Rationale for shipping anyway: actual/expected is Kasper's own third read, ISO ranks 0.5948 standalone (above _zla at 0.5554), and the pair is only measurable at all from 07-11. Reverting is deleting this entry and restoring 0.029/0.193/0.011/0.432/0.335. DO NOT express this as a ratio -- iso/xwOBAcon is monotone in the right direction (HR rate 6.51% -> 13.39% across quintiles) but scores 0.5749, WORSE than either ingredient alone, because the division discards level. Two separate signals beat the ratio (0.6002 vs 0.5967). Full write-up: claude/kasper-screen-2026-08-23.md.   # REFIT 2026-08-13 on the 2015-2024 Statcast table (316,463 batter-games / 37,340 HR / 1,840 slates): grouped-by-game-date CV logistic in per-slate z-space, i.e. the space this loop actually scores in. Replaces the 0.45/0.35/0.20 "reasoned guesses" of 2026-07-09. hh + la added -- they were the two STRONGEST predictors and had been display-only chips. 3-signal AUC 0.5773 -> 5-signal 0.5962. CAVEAT: xpow/ars measured near zero through Statcast PROXIES (b_brl/p_brl) that are collinear with hard-hit; the live inputs (park-neutral xISO, RV/100 x pitch mix) are richer, so their true weight may be understated -- kept in the basket rather than dropped. Repro: fit_savant.py, Savant Fit run 31731827046.
 def _ms(key):
     vals=[r[key] for r in pool if r.get(key) is not None]
     if len(vals)<2: return (0.0,1.0)
