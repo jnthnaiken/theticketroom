@@ -1,0 +1,129 @@
+name: Cleanup Once
+
+# ONE-SHOT, 2026-08-23. Deletes the dead files audited in claude/kasper-screen-2026-08-23.md,
+# then DELETES ITSELF in the same commit so it can never run twice.
+#
+# Explicitly NOT touched, and the reasons, so nobody "tidies" them later:
+#   D_0615.json                 LIVE. build15.py writes it, regen15.py reads it. It is the
+#                               scorer -> assembler handoff, misnamed after a June 15 slate.
+#   cards_/lineups_/odds_/      the corpus. replay_check.js replays archived D_ boards and
+#   pitchers_/kasper_extras_/   calibrate.repair() re-derives nights from D_ + kasper_extras.
+#   D_<date>.json               Deleting these costs the ability to test anything.
+#   slate_auto_2026-08-20..22   build15 reads load_dated('slate_auto') = today or prior day.
+#   assemble_tickets.py         not dead, just dangerous -- retiring it is a behaviour change
+#                               that needs its own decision, not a cleanup.
+#
+# Everything here is recoverable from git history.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ticket-room          # same group as pull-slate.yml, so this can never race a board build
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove dead files
+        run: |
+          set -e
+          git rm --quiet --ignore-unmatch \
+            slate_auto_2026-06-16.json
+            slate_auto_2026-06-17.json
+            slate_auto_2026-06-18.json
+            slate_auto_2026-06-19.json
+            slate_auto_2026-06-20.json
+            slate_auto_2026-06-21.json
+            slate_auto_2026-06-22.json
+            slate_auto_2026-06-23.json
+            slate_auto_2026-06-24.json
+            slate_auto_2026-06-25.json
+            slate_auto_2026-06-26.json
+            slate_auto_2026-06-27.json
+            slate_auto_2026-06-28.json
+            slate_auto_2026-06-29.json
+            slate_auto_2026-06-30.json
+            slate_auto_2026-07-01.json
+            slate_auto_2026-07-02.json
+            slate_auto_2026-07-03.json
+            slate_auto_2026-07-04.json
+            slate_auto_2026-07-05.json
+            slate_auto_2026-07-06.json
+            slate_auto_2026-07-07.json
+            slate_auto_2026-07-08.json
+            slate_auto_2026-07-09.json
+            slate_auto_2026-07-10.json
+            slate_auto_2026-07-11.json
+            slate_auto_2026-07-12.json
+            slate_auto_2026-07-17.json
+            slate_auto_2026-07-18.json
+            slate_auto_2026-07-19.json
+            slate_auto_2026-07-20.json
+            slate_auto_2026-07-21.json
+            slate_auto_2026-07-22.json
+            slate_auto_2026-07-23.json
+            slate_auto_2026-07-24.json
+            slate_auto_2026-07-25.json
+            slate_auto_2026-07-26.json
+            slate_auto_2026-07-27.json
+            slate_auto_2026-07-28.json
+            slate_auto_2026-07-31.json
+            slate_auto_2026-08-01.json
+            slate_auto_2026-08-02.json
+            slate_auto_2026-08-03.json
+            slate_auto_2026-08-04.json
+            slate_auto_2026-08-05.json
+            slate_auto_2026-08-06.json
+            slate_auto_2026-08-07.json
+            slate_auto_2026-08-08.json
+            slate_auto_2026-08-09.json
+            slate_auto_2026-08-10.json
+            slate_auto_2026-08-11.json
+            slate_auto_2026-08-12.json
+            slate_auto_2026-08-13.json
+            slate_auto_2026-08-14.json
+            slate_auto_2026-08-15.json
+            slate_auto_2026-08-16.json
+            slate_auto_2026-08-17.json
+            slate_auto_2026-08-18.json
+            slate_auto_2026-08-19.json
+            iso_2026-06-20.json
+            iso_2026-06-21.json
+            iso_2026-06-22.json
+            iso_2026-06-23.json
+            iso_2026-06-24.json
+            iso_2026-06-25.json
+            iso_2026-06-26.json
+            iso_2026-06-27.json
+            iso_2026-06-28.json
+            hr9_2026-06-21.json
+            sched_2026-06-24.json
+            reconcile_times.py
+            client_sweep.js
+          git rm --quiet --ignore-unmatch .github/workflows/cleanup-once.yml
+
+      - name: Sanity check -- the load-bearing files must still be here
+        run: |
+          set -e
+          for f in D_0615.json build15.py regen15.py calibrate.py grade_night.py index.html \
+                   season.json calibration.jsonl slate_auto_2026-08-22.json; do
+            test -f "$f" || { echo "!! $f is missing -- refusing to commit"; exit 1; }
+          done
+          test "$(ls D_2026-*.json 2>/dev/null | wc -l)" -gt 30 || { echo "!! D_ archive looks wrong"; exit 1; }
+          test "$(ls cards_2026-*.json 2>/dev/null | wc -l)" -gt 30 || { echo "!! cards archive looks wrong"; exit 1; }
+          echo "OK -- $(git diff --cached --name-only | wc -l) files staged for deletion"
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "CLEANUP-2026-08-23: drop dead ISO/hr9/sched inputs, stale slate_auto, reconcile_times.py, client_sweep.js" \
+                     -m "Audited in claude/kasper-screen-2026-08-23.md. The ISO inputs stopped at 06-28 and build15 no longer reads them (ISOSRC-2026-08-23). Historical slate_auto has no consumer -- build15 reads only today's or the prior day's, so the last three are kept. client_sweep.js aborts all network and therefore certifies nothing (see HANDOFF). This workflow deletes itself in the same commit."
+          git push
