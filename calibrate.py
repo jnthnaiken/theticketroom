@@ -136,6 +136,7 @@ def build_rows(D, homered, extras=None, pstats=None):
             "slot": p.get('slot'), "bhand": p.get('bhand'),
             "pen_fatigue": p.get('pen_fatigue'), "penT": p.get('penT'),
             "bg": p.get('bg'), "bgT": p.get('bgT'),
+            "psw": p.get('psw'), "psw_src": p.get('psw_src'), "_zpsw": p.get('_zpsw'),   # PSWSTR-2026-08-23: the opposing starter's SwStr% actually used, and whether it came from the vR/vL platoon split or the All row. This is the column that makes W_PSW fittable -- it is currently the one unfitted weight in _SIG.
             "chase": p.get('chase'), "whiff": p.get('whiff'), "zc": p.get('zc'),          # batter ball-tracking
             "opp_velo": p.get('opp_velo'), "opp_arm": p.get('opp_arm'),                    # opp SP velo/arm
             "park_trk": p.get('park_trk'),                                                 # park hitter's-eye (judgment)

@@ -624,11 +624,52 @@ for r in pool:
     r['_zars']=arsenal_raw(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id'))); r['_zhh']=r.get('hh'); r['_zla']=(la_window(r['la']) if r.get('la') is not None else None)   # hh/la promoted out of display-only into the edge basket, 2026-08-13 refit; la enters through the SAME la_window bell powraw uses (fit: bell 0.5963 vs linear 0.5962)
     r['_ziso']=((KEXTRA.get(norm(r['nm'])) or {}).get('iso'))   # ACTUAL damage, Kasper sidecar. Pairs with _zxwcon (EXPECTED damage) -- see ISOPAIR-2026-08-23 on _SIG. None for an unmatched bat, so he sits at the slate mean rather than being pushed to a floor.
     if r['_ziso'] is not None and not (0.02<=r['_ziso']<=0.60): r['_ziso']=None   # scrape artifacts: the sidecar has thrown values of 0 and 3.0
+    # PSWSTR-2026-08-23: opposing starter's SwStr%, NEGATED so higher = more hittable.
+    # Kasper's read, in his own words: "does Sugano have any swinging miss? no he does not --
+    # these Guardians look to match up well." A low-whiff arm puts more balls in play, and a ball
+    # has to be in play before it can leave the yard. This is the PITCHER's swing-and-miss; the
+    # batter's own SwStr% (cards `swstr`) is a different number and is NOT this signal.
+    # Source is the Kasper sidecar via kasper_pitch_scrape.js. An arm with no scraped SwStr% --
+    # an unlisted spot starter, or a slate scraped before that script existed -- yields None, so
+    # those bats sit at the slate mean. If NO arm on the slate has it, every bat is None, the
+    # edge sum is uniformly scaled by (1-W), and standardization makes that an EXACT no-op
+    # (verified: max |delta| 4.4e-16). So a stale scrape silently reverts to the 5-signal board
+    # rather than corrupting it.
+    # PLATOON SPLIT (owner's call, same day): use the arm's SwStr% against the side this bat
+    # actually hits from, not the blended "All" row. A switch hitter bats OPPOSITE the pitcher's
+    # hand, so he takes the other split. Guarded on sample: a split under MIN_SPLIT_PIT pitches
+    # falls back to All, because the splits are ~half the sample each and a September call-up can
+    # have almost nothing in one of them. Nick Martinez 2026-08-23: All 9.8, vR 9.6, vL 10.1.
+    _parm=PBRL.get(pnorm((r.get('opp') or [''])[0])) or {}
+    _phand=((r.get('opp') or ['',''])[1] or '').upper()[:1]
+    _side=r.get('bhand')
+    if _side=='S': _side='L' if _phand=='R' else ('R' if _phand=='L' else None)
+    _split=_parm.get('vR' if _side=='R' else 'vL') if _side in ('L','R') else None
+    _psw=None
+    if isinstance(_split,dict) and isinstance(_split.get('swstr'),(int,float)) \
+       and (_split.get('pit') or 0)>=MIN_SPLIT_PIT:
+        _psw=_split['swstr']; r['psw_src']='v'+_side
+    elif isinstance(_parm.get('swstr'),(int,float)):
+        _psw=_parm['swstr']; r['psw_src']='all'
+    r['psw']=_psw                                  # display/log: the raw SwStr% actually used
+    r['_zpsw']=(-_psw) if isinstance(_psw,(int,float)) else None
     r['_zmkt']=(100.0/(r['odds']+100)) if r.get('odds') else None
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
-_SIG=[('_zxpow',0.0261),('_zxwcon',0.1737),('_zars',0.0099),('_zhh',0.3888),('_zla',0.3015),('_ziso',0.10)]   # ISOPAIR-2026-08-23: Kasper's ACTUAL damage (_ziso) added alongside EXPECTED damage (_zxwcon, already Kasper xwOBAcon whenever the sidecar is populated) at 0.10, the five 08-13 weights scaled by 0.90 so the basket still sums to 1. Owner's call, and the measurement does NOT support it on its own: over the 23 nights carrying a real Kasper ISO (4,544 rows / 505 HR) the edge basket improves 0.6068 -> 0.6079 while the BLEND slips 0.6192 -> 0.6190; both moves are inside noise at that sample size. Rationale for shipping anyway: actual/expected is Kasper's own third read, ISO ranks 0.5948 standalone (above _zla at 0.5554), and the pair is only measurable at all from 07-11. Reverting is deleting this entry and restoring 0.029/0.193/0.011/0.432/0.335. DO NOT express this as a ratio -- iso/xwOBAcon is monotone in the right direction (HR rate 6.51% -> 13.39% across quintiles) but scores 0.5749, WORSE than either ingredient alone, because the division discards level. Two separate signals beat the ratio (0.6002 vs 0.5967). Full write-up: claude/kasper-screen-2026-08-23.md.   # REFIT 2026-08-13 on the 2015-2024 Statcast table (316,463 batter-games / 37,340 HR / 1,840 slates): grouped-by-game-date CV logistic in per-slate z-space, i.e. the space this loop actually scores in. Replaces the 0.45/0.35/0.20 "reasoned guesses" of 2026-07-09. hh + la added -- they were the two STRONGEST predictors and had been display-only chips. 3-signal AUC 0.5773 -> 5-signal 0.5962. CAVEAT: xpow/ars measured near zero through Statcast PROXIES (b_brl/p_brl) that are collinear with hard-hit; the live inputs (park-neutral xISO, RV/100 x pitch mix) are richer, so their true weight may be understated -- kept in the basket rather than dropped. Repro: fit_savant.py, Savant Fit run 31731827046.
+MIN_SPLIT_PIT=300   # a vR/vL split thinner than this falls back to the arm's All row
+W_PSW=0.06   # PSWSTR-2026-08-23. THE ONE UNFITTED WEIGHT IN _SIG -- set by blast radius, not by evidence.
+             # It CANNOT be fitted yet: pitcher SwStr% exists on exactly 3 archived nights (2026-08-02..04,
+             # 410 rows / 48 HR) because the daily scrape never emitted it, and Savant is unreachable from
+             # the sandbox (403) so no historical substitute can be built. On those 3 nights the term is
+             # flat -- blend AUC 0.5364 -> 0.5356 -- but at 48 HR the standard error is ~0.045, so that
+             # measurement cannot distinguish this signal from nothing, in EITHER direction. Do not cite it.
+             # 0.06 was chosen for how far it moves the board, which IS measurable: ~1.7 of the top 30 and
+             # ~0.7 of the top 8 change per night, max rank shift ~10. Big enough to matter, small enough
+             # that being wrong costs about two bats a night. Revisit once ~3 weeks of slates carry
+             # p_swstr in calibration.jsonl -- that is what PSWSTR was really for. To revert: delete the
+             # _zpsw entry and restore the five weights to 0.029/0.193/0.011/0.432/0.335 x 0.90 for _ziso.
+_SIG=[('_zxpow',0.0245),('_zxwcon',0.1633),('_zars',0.0093),('_zhh',0.3655),('_zla',0.2834),('_ziso',0.0940),('_zpsw',W_PSW)]   # ISOPAIR-2026-08-23: Kasper's ACTUAL damage (_ziso) added alongside EXPECTED damage (_zxwcon, already Kasper xwOBAcon whenever the sidecar is populated) at 0.10, the five 08-13 weights scaled by 0.90 so the basket still sums to 1. Owner's call, and the measurement does NOT support it on its own: over the 23 nights carrying a real Kasper ISO (4,544 rows / 505 HR) the edge basket improves 0.6068 -> 0.6079 while the BLEND slips 0.6192 -> 0.6190; both moves are inside noise at that sample size. Rationale for shipping anyway: actual/expected is Kasper's own third read, ISO ranks 0.5948 standalone (above _zla at 0.5554), and the pair is only measurable at all from 07-11. Reverting is deleting this entry and restoring 0.029/0.193/0.011/0.432/0.335. DO NOT express this as a ratio -- iso/xwOBAcon is monotone in the right direction (HR rate 6.51% -> 13.39% across quintiles) but scores 0.5749, WORSE than either ingredient alone, because the division discards level. Two separate signals beat the ratio (0.6002 vs 0.5967). Full write-up: claude/kasper-screen-2026-08-23.md.   # REFIT 2026-08-13 on the 2015-2024 Statcast table (316,463 batter-games / 37,340 HR / 1,840 slates): grouped-by-game-date CV logistic in per-slate z-space, i.e. the space this loop actually scores in. Replaces the 0.45/0.35/0.20 "reasoned guesses" of 2026-07-09. hh + la added -- they were the two STRONGEST predictors and had been display-only chips. 3-signal AUC 0.5773 -> 5-signal 0.5962. CAVEAT: xpow/ars measured near zero through Statcast PROXIES (b_brl/p_brl) that are collinear with hard-hit; the live inputs (park-neutral xISO, RV/100 x pitch mix) are richer, so their true weight may be understated -- kept in the basket rather than dropped. Repro: fit_savant.py, Savant Fit run 31731827046.
 def _ms(key):
     vals=[r[key] for r in pool if r.get(key) is not None]
     if len(vals)<2: return (0.0,1.0)
