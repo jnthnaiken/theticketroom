@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T14:36:34Z",
+  "pulled_at": "2026-08-23T14:41:35Z",
   "games": [
     {
       "gamePk": 824799,
@@ -103,8 +103,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.134
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.137
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.22
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.199
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.375
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.124
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.117
+          },
+          {
+            "id": 602104,
+            "name": "Ram\u00f3n Ur\u00edas",
+            "iso": 0.158
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -260,7 +306,7 @@
     },
     {
       "gamePk": 824071,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T18:10:00Z",
       "matchup": "DET@KC",
       "away": {
@@ -280,10 +326,56 @@
           "hr9": 0.67,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.141
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.173
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.215
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.153
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.134
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.121
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.137
+          },
+          {
+            "id": 571912,
+            "name": "Luke Maile",
+            "iso": 0.16
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.132
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
