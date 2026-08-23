@@ -1299,7 +1299,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1397,7 +1397,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1495,7 +1495,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1582,7 +1582,7 @@
    "iso": ".243",
    "iso_used": 0.243,
    "powraw": 385.0163151055306,
-   "slot": 5,
+   "slot": 4,
    "bhand": "L",
    "hr9": null,
    "wf": 1.029,
@@ -1593,7 +1593,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1610,7 +1610,7 @@
    "psrc": "brl",
    "parkhr": 1.01185,
    "mktT": 1.3,
-   "slotT": 1,
+   "slotT": 1.02,
    "platT": 1.056,
    "pen_fatigue": -0.297,
    "penT": 0.97624,
@@ -1691,7 +1691,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1789,7 +1789,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1876,7 +1876,7 @@
    "iso": ".206",
    "iso_used": 0.206,
    "powraw": 353.688187793378,
-   "slot": null,
+   "slot": 7,
    "bhand": null,
    "hr9": null,
    "wf": 1.029,
@@ -1886,8 +1886,8 @@
    "gtime": "1:35 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -1904,7 +1904,7 @@
    "psrc": "brl",
    "parkhr": 1.0150000000000001,
    "mktT": 1.2181505857976447,
-   "slotT": 1,
+   "slotT": 0.96,
    "platT": 1,
    "pen_fatigue": -0.297,
    "penT": 0.97624,
@@ -1974,7 +1974,7 @@
    "iso": ".169",
    "iso_used": 0.169,
    "powraw": 306.2384545591899,
-   "slot": 4,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1.029,
@@ -1984,7 +1984,7 @@
    "gtime": "1:35 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -2002,7 +2002,7 @@
    "psrc": "brl",
    "parkhr": 1.02445,
    "mktT": 1.2775682922741747,
-   "slotT": 1.02,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": -0.297,
    "penT": 0.97624,
@@ -2083,7 +2083,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -2170,7 +2170,7 @@
    "iso": ".127",
    "iso_used": 0.127,
    "powraw": 259.2952196470219,
-   "slot": 7,
+   "slot": 5,
    "bhand": "R",
    "hr9": null,
    "wf": 1.029,
@@ -2181,7 +2181,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Nick Martinez",
@@ -2198,7 +2198,7 @@
    "psrc": "brl",
    "parkhr": 1.02445,
    "mktT": 1.3,
-   "slotT": 0.96,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": -0.297,
    "penT": 0.97624,
@@ -37937,7 +37937,7 @@
     "precip": 0
    }
   },
-  "build": "8/23 10:27am",
+  "build": "8/23 10:31am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -38115,6 +38115,158 @@
  },
  "tickets": [
   {
+   "name": "Half-Day Hammer",
+   "kind": "lunch",
+   "badge": "\ud83c\udf71",
+   "note": "Samuel Basallo is consistently barreling up (58% hard-hit), swings on a clean uppercut (18\u00b0), gets a sliver of help from the park, and swings a heavy stick (84/100 power).",
+   "players": [
+    {
+     "name": "Samuel Basallo",
+     "team": "Orioles",
+     "total": 158.4,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "TB@BAL",
+     "gtime": "1:35 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 325,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Samuel Basallo",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 325,
+   "payout10": 42.5
+  },
+  {
+   "name": "Steady as She Goes",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Pete Alonso is hammering the ball (60% hard-hit), stays in the launch zone (19\u00b0), catches a small park boost.",
+   "players": [
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 169.6,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "TB@BAL",
+     "gtime": "1:35 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 284,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Alonso",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 284,
+   "payout10": 38.4
+  },
+  {
+   "name": "Light the Fireworks",
+   "kind": "family",
+   "badge": "\ud83d\udca3",
+   "note": "Coby Mayo puts air under the ball (21\u00b0), has the yard tilting his way, is making consistent contact (51% hard-hit).",
+   "players": [
+    {
+     "name": "Coby Mayo",
+     "team": "Orioles",
+     "total": 141.9,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "TB@BAL",
+     "gtime": "1:35 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 351,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Coby Mayo",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 351,
+   "payout10": 45.1
+  },
+  {
+   "name": "Off the Foul Pole",
+   "kind": "family",
+   "badge": "\ud83d\udca3",
+   "note": "Gunnar Henderson is leaving scorch marks (62% hard-hit), has textbook lift (16\u00b0), gets a touch of carry tonight, swings with usable power (66/100).",
+   "players": [
+    {
+     "name": "Gunnar Henderson",
+     "team": "Orioles",
+     "total": 139.5,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "TB@BAL",
+     "gtime": "1:35 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 418,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Gunnar Henderson",
+   "lock": "1:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 418,
+   "payout10": 51.8
+  },
+  {
    "name": "Crossing the Karman Line",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -38177,13 +38329,16 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7224,
+   "payout10": 732.38
   },
   {
    "name": "No Doubter",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Muncy gets a yard playing like a launchpad tonight, Machado is hitting bullets (56% hard-hit), and Trout has textbook lift (23\u00b0).",
+   "note": "Muncy swings with the wind at his back, Machado is hitting bullets (56% hard-hit), and Trout lives in the launch window (23\u00b0).",
    "players": [
     {
      "name": "Max Muncy",
@@ -38242,7 +38397,10 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7423,
+   "payout10": 752.25
   },
   {
    "name": "Tape Measure Job",
@@ -38261,7 +38419,7 @@
      "game": 1,
      "late": false,
      "odds": 284,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Munetaka Murakami",
@@ -38307,13 +38465,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 7494,
+   "payout10": 759.43
   },
   {
    "name": "Onto the Concourse",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Alonso is barreling balls at will (60% hard-hit), DeLauter has the jet stream pushing toward the seats, and Ortiz is lifting everything (18\u00b0).",
+   "note": "Alonso is barreling balls at will (60% hard-hit), DeLauter has gusts carrying balls over the wall, and Ortiz is lifting everything (18\u00b0).",
    "players": [
     {
      "name": "Pete Alonso",
@@ -38326,7 +38487,7 @@
      "game": 1,
      "late": false,
      "odds": 284,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Chase DeLauter",
@@ -38372,7 +38533,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 11426,
+   "payout10": 1152.58
   },
   {
    "name": "Splash Hit",
@@ -38437,13 +38601,16 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 10106,
+   "payout10": 1020.6
   },
   {
    "name": "The Way Back Machine",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Valdez has gusts carrying balls over the wall, Crow-Armstrong is denting outfield walls (58% hard-hit), and Seager sends it skyward (18\u00b0).",
+   "note": "Valdez gets a yard playing like a launchpad tonight, Crow-Armstrong is denting outfield walls (58% hard-hit), and Seager sends it skyward (18\u00b0).",
    "players": [
     {
      "name": "Esmerlyn Valdez",
@@ -38502,13 +38669,16 @@
     "dome": 2,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 10190,
+   "payout10": 1029.01
   },
   {
    "name": "Goodbye Baseball",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Adell carries a 173 number tonight, Alvarez is lifting everything (22\u00b0), and Montgomery is scorching the ball (61% hard-hit).",
+   "note": "Adell has gusts carrying balls over the wall, Alvarez is rocketing line drives (59% hard-hit), and Montgomery sits in the elite power tier (100/100).",
    "players": [
     {
      "name": "Jo Adell",
@@ -38567,13 +38737,16 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 6913,
+   "payout10": 701.31
   },
   {
    "name": "Touch 'Em All",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Adell swings with the wind at his back, Caminero is impacting the ball at an elite clip (58% hard-hit), and Rice gets under it just right (17\u00b0).",
+   "note": "Adell projects out to 173, Caminero catches a small park boost, and Rice gets ideal loft (17\u00b0).",
    "players": [
     {
      "name": "Jo Adell",
@@ -38632,13 +38805,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7558,
+   "payout10": 765.81
   },
   {
    "name": "Closing Time",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Matt Olson is stinging it on a rope (55% hard-hit), tilts the bat for distance (21\u00b0), has the pop to go deep (83/100 power), grades to 137 on our board, and the bat ticking along.",
+   "note": "Matt Olson is stinging it on a rope (55% hard-hit), tilts the bat for distance (21\u00b0), brings well-above-average pop (83/100 power), and gets bumped to 137 by the model.",
    "players": [
     {
      "name": "Matt Olson",
@@ -38666,41 +38842,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "Half-Day Hammer",
-   "kind": "lunch",
-   "badge": "\ud83c\udf71",
-   "note": "Samuel Basallo is consistently barreling up (58% hard-hit), swings on a clean uppercut (18\u00b0), gets a sliver of help from the park, and swings a heavy stick (84/100 power).",
-   "players": [
-    {
-     "name": "Samuel Basallo",
-     "team": "Orioles",
-     "total": 158.4,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "TB@BAL",
-     "gtime": "1:35 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 325,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Samuel Basallo",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 437,
+   "payout10": 53.7
   },
   {
    "name": "The Mooring",
@@ -38734,47 +38879,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "Steady as She Goes",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Pete Alonso is hammering the ball (60% hard-hit), stays in the launch zone (19\u00b0), catches a small park boost.",
-   "players": [
-    {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 169.6,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "TB@BAL",
-     "gtime": "1:35 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 284,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Alonso",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 275,
+   "payout10": 37.5
   },
   {
    "name": "All Hands",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Esmerlyn Valdez has gusts carrying balls over the wall, is leaving scorch marks (66% hard-hit), keeps the ball in the air (20\u00b0).",
+   "note": "Esmerlyn Valdez has gusts carrying balls over the wall, is teeing off (66% hard-hit), keeps the ball in the air (20\u00b0).",
    "players": [
     {
      "name": "Esmerlyn Valdez",
@@ -38802,13 +38916,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 460,
+   "payout10": 56
   },
   {
    "name": "Sea Legs",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Jo Adell gets a yard playing like a launchpad tonight, is hitting absolute lasers (55% hard-hit), elevates with ease (19\u00b0).",
+   "note": "Jo Adell plays in a wind tunnel pointed at the seats, is hitting absolute lasers (55% hard-hit), has a swing built for the seats (19\u00b0).",
    "players": [
     {
      "name": "Jo Adell",
@@ -38836,13 +38953,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 275,
+   "payout10": 37.5
   },
   {
    "name": "Bleacher Bound",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Jos\u00e9 Ram\u00edrez gets a park that's launching everything tonight, is striking it clean and hard (54% hard-hit), puts air under the ball (21\u00b0).",
+   "note": "Jos\u00e9 Ram\u00edrez gets a yard playing like a launchpad tonight, is striking it clean and hard (54% hard-hit), stays in the sweet-spot angle (21\u00b0).",
    "players": [
     {
      "name": "Jos\u00e9 Ram\u00edrez",
@@ -38870,13 +38990,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 350,
+   "payout10": 45
   },
   {
    "name": "Left It Over the Plate",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Spencer Jones is squaring up everything (72% hard-hit), has the yard tilting his way, packs elite raw power, a 99/100 grade, projects out to 147.",
+   "note": "Spencer Jones is scorching the ball (72% hard-hit), gets a sliver of help from the park.",
    "players": [
     {
      "name": "Spencer Jones",
@@ -38904,13 +39027,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 519,
+   "payout10": 61.9
   },
   {
    "name": "Hung Slider",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Joshua B\u00e1ez is crushing the baseball (96% hard-hit), has loft to spare (21\u00b0), gets a touch of carry tonight, brings light-tower raw power (100/100).",
+   "note": "Joshua B\u00e1ez is squaring up everything (96% hard-hit), has loft to spare (21\u00b0), gets a touch of carry tonight.",
    "players": [
     {
      "name": "Joshua B\u00e1ez",
@@ -38938,13 +39064,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 629,
+   "payout10": 72.9
   },
   {
    "name": "Change the Scoreboard",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Royce Lewis hits it on the perfect plane (21\u00b0), is making consistent contact (51% hard-hit), packs a big-league power grade (80/100).",
+   "note": "Royce Lewis hits it on the perfect plane (21\u00b0), is driving it with authority (51% hard-hit), swings a heavy stick (80/100 power).",
    "players": [
     {
      "name": "Royce Lewis",
@@ -38972,13 +39101,16 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 367,
+   "payout10": 46.7
   },
   {
    "name": "Wrapped Around the Pole",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Freddie Freeman has the jet stream pushing toward the seats, has a swing built for the seats (18\u00b0), is squaring up its share (52% hard-hit).",
+   "note": "Freddie Freeman swings with the wind at his back, swings with natural lift (18\u00b0), is squaring up its share (52% hard-hit).",
    "players": [
     {
      "name": "Freddie Freeman",
@@ -39006,47 +39138,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "Light the Fireworks",
-   "kind": "family",
-   "badge": "\ud83d\udca3",
-   "note": "Coby Mayo stays in the sweet-spot angle (21\u00b0), plays in a slightly friendly yard, is driving it with authority (51% hard-hit).",
-   "players": [
-    {
-     "name": "Coby Mayo",
-     "team": "Orioles",
-     "total": 141.9,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "TB@BAL",
-     "gtime": "1:35 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 351,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Coby Mayo",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 385,
+   "payout10": 48.5
   },
   {
    "name": "Pull Side",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Kody Clemens is teeing off (55% hard-hit), swings with natural lift (22\u00b0), grades out strong for power (84/100), carries a 140 number tonight.",
+   "note": "Kody Clemens is punishing the baseball (55% hard-hit), finds the home-run trajectory (22\u00b0), grades out strong for power (84/100).",
    "players": [
     {
      "name": "Kody Clemens",
@@ -39074,47 +39175,15 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
-  },
-  {
-   "name": "Off the Foul Pole",
-   "kind": "family",
-   "badge": "\ud83d\udca3",
-   "note": "Gunnar Henderson is punishing the baseball (62% hard-hit), finds the home-run trajectory (16\u00b0), catches a small park boost.",
-   "players": [
-    {
-     "name": "Gunnar Henderson",
-     "team": "Orioles",
-     "total": 139.5,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "TB@BAL",
-     "gtime": "1:35 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 418,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Gunnar Henderson",
-   "lock": "1:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 495,
+   "payout10": 59.5
   }
  ],
  "pool": [
   "Max Muncy",
   "Jo Adell",
-  "Pete Alonso",
   "Esmerlyn Valdez",
   "Jos\u00e9 Ram\u00edrez",
   "Yordan Alvarez",
@@ -39123,7 +39192,6 @@
   "Pete Crow-Armstrong",
   "Chase DeLauter",
   "Junior Caminero",
-  "Samuel Basallo",
   "Kazuma Okamoto",
   "Nathaniel Lowe",
   "Abimelec Ortiz",
@@ -39138,9 +39206,7 @@
   "Colson Montgomery",
   "Royce Lewis",
   "Freddie Freeman",
-  "Coby Mayo",
   "Kody Clemens",
-  "Gunnar Henderson",
   "Trent Grisham",
   "Bobby Witt",
   "Bryce Harper",
