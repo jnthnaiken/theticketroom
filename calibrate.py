@@ -59,13 +59,25 @@ def homers_and_finals(date):
 
 def load_extras(date):
     """Load the kasper_extras_<date>.json sidecar (full Kasper stat set), or {} if absent.
-    Looks in cwd first, then alongside this script (so grade_night on the Action finds it too)."""
+    Looks in cwd first, then alongside this script (so grade_night on the Action finds it too).
+
+    KEYED BY norm(name) -- see KEXTRA-2026-08-23. build_rows looks the sidecar up as
+    extras.get(norm(p['nm'])), and load_pitchers has always normalized its keys, but this
+    function returned the file verbatim. Sidecars written from 2026-07-03 onward key on the
+    DISPLAY name ("A.J. Ewing"), so every lookup missed and EVERY k_* column in
+    calibration.jsonl was null from 2026-06-29 forward -- 749 populated rows out of 13,600.
+    The three nights that worked (06-27..06-29) are simply the ones whose files happened to
+    be written pre-normalized. Normalizing off the inner `name` field (falling back to the
+    key) handles both styles and mirrors build15.py's KEXTRA, which is why the live scorer
+    was never affected -- only the fitting dataset."""
     here = os.path.dirname(os.path.abspath(__file__))
     for p in (f"kasper_extras_{date}.json", os.path.join(here, f"kasper_extras_{date}.json")):
         try:
-            return json.load(open(p))
+            raw = json.load(open(p))
         except Exception:
             continue
+        return {norm((v.get('name') if isinstance(v, dict) else None) or k): v
+                for k, v in raw.items() if isinstance(v, dict)}
     return {}
 
 def load_pitchers(date):
@@ -98,7 +110,12 @@ def build_rows(D, homered, extras=None, pstats=None):
     extras = extras or {}
     pstats = pstats or {}
     KX = ("fb", "sweet", "xwobacon", "xwoba", "brl_bip", "swstr",
-          "kstrk", "bip", "pitch", "ceiling", "khr", "likely")   # Kasper-extra columns
+          "kstrk", "bip", "pitch", "ceiling", "khr", "likely",
+          "iso")   # Kasper-extra columns. `iso` added 2026-08-23: the sidecar has carried it
+                   # since 2026-07-11 and it is the ONLY real per-bat ISO available -- the board's
+                   # own iso_used is a constant 0.100 from 2026-07-03 on, because the legacy
+                   # iso_<date>.json inputs stop at 06-28. Anything comparing expected damage
+                   # (xwOBAcon) to actual damage needs this column, not iso_used.
     onkind = {}
     for t in D.get('tickets', []):
         for l in t.get('players', []):
@@ -182,6 +199,26 @@ def logged_dates(path=OUT):
 # daily pitchers_<date>.json keeps including csw/swstr/kscore. Filter on non-null when fitting them.
 SCHEMA_KEYS = ('_zxpow', '_zxwcon', '_zars', '_zmkt')
 
+def _extras_stale(date, rows):
+    """True for a night logged under the pre-2026-08-23 load_extras key bug: its k_* columns
+    are all null even though a sidecar for that date exists AND actually matches bats on the
+    board. SCHEMA_KEYS cannot catch this -- it tests key PRESENCE, and the k_* keys have always
+    been present, just null -- so the historical nights would otherwise stay empty forever.
+
+    The match check is what keeps this idempotent in both directions: a night whose sidecar
+    genuinely covers nobody is NOT flagged, so it can't be rebuilt to the same null rows on
+    every single build. Once repaired, k_xwobacon is non-null and the first test short-circuits."""
+    if any(v is not None for r in rows for k, v in r.items() if k.startswith('k_')):
+        return False          # ANY populated k_ column means this night already went through
+                              # the fixed loader. Testing one named column instead would keep
+                              # re-flagging the 8 early nights whose sidecar carries khr but no
+                              # xwobacon, rewriting the whole file on every build.
+    ex = load_extras(date)
+    if not ex:
+        return False
+    names = {norm(r.get('name') or '') for r in rows}
+    return any(k in names for k in ex)
+
 def repair(path=OUT):
     """Upgrade already-logged nights whose rows predate a build_rows schema change.
     Re-derives every model-input column from the archived board and REUSES the hr
@@ -206,7 +243,8 @@ def repair(path=OUT):
             order.append(d)
         by_date[d].append(r)
     stale = [d for d in order if d and by_date[d]
-             and not all(k in by_date[d][0] for k in SCHEMA_KEYS)]
+             and (not all(k in by_date[d][0] for k in SCHEMA_KEYS)
+                  or _extras_stale(d, by_date[d]))]
     if not stale:
         print("calibration: schema current, nothing to repair")
         return 0
