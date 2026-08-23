@@ -1,11 +1,11 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T17:11:38Z",
+  "pulled_at": "2026-08-23T17:16:39Z",
   "games": [
     {
       "gamePk": 824799,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-23T17:35:00Z",
       "matchup": "TB@BAL",
       "away": {
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823827,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-23T17:40:00Z",
       "matchup": "WSH@MIA",
       "away": {
@@ -1088,8 +1088,54 @@
           "hr9": 1.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.191
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.185
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.157
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.276
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.136
+          },
+          {
+            "id": 687597,
+            "name": "Jordan Beck",
+            "iso": 0.12
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.197
+          },
+          {
+            "id": 690022,
+            "name": "Ryan Ritter",
+            "iso": 0.0
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.122
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1546,7 +1592,7 @@
     },
     {
       "gamePk": 825043,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T20:15:00Z",
       "matchup": "CIN@ARI",
       "away": {
@@ -1568,10 +1614,56 @@
           "hr9": 1.23,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.14
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.235
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.161
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.126
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.203
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.164
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.151
+          },
+          {
+            "id": 543510,
+            "name": "James McCann",
+            "iso": 0.147
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.113
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
