@@ -122,7 +122,7 @@ lineup's wind/temp and a neutral pitcher term.
 - **`assemble_tickets.py`** — ⚠️ **NOT the rules engine and not a mirror of one.** It runs only
   when `client_assemble.js` is missing or node exits non-zero. Audited 2026-08-16 and it is two
   board redesigns behind:
-  - **no Family Meal** and **no chef** — its ticket-name pools are `biggest / builder / late /
+  - **no Dingers** and **no chef** — its ticket-name pools are `biggest / builder / late /
     lunch / moon`, and the only `kind` literals it emits are `'moon'` and `'biggest'`;
   - **it still builds a Grand Salami** (`kind: 'biggest'`), a section retired 2026-08-14 and
     backed out of the ledger;
@@ -130,7 +130,7 @@ lineup's wind/temp and a neutral pitcher term.
     `_keep_fresh` are all absent, as is the `chalk=set()` line older revisions cite.
 
   So a fallback does not ship "the same board with weaker semantics". It ships a board with the
-  Family Meal missing, a retired salami restored, and every ticket re-drafted from scratch
+  Dingers missing, a retired salami restored, and every ticket re-drafted from scratch
   including ones whose games are underway — and `grade_night.py` books it, into a `biggest`
   category the tracker no longer displays. `regen15.py` prints one warning to the Action log and
   commits anyway. **Do not mirror engine rules into it; treat a fallback as a failed build.**
@@ -281,7 +281,7 @@ corrected there.)
   `assemble_tickets.py` never built one and needs no change.
   Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
   their time windows, `<= +600`.
-- **Family Meal — a ticket kind (2026-08-14).** Occupies the slot the Chef's Table used to
+- **Dingers — a ticket kind (2026-08-14, renamed from Family Meal 2026-08-18).** Occupies the slot the Chef's Table used to
   hold. A bat is on it when it (a) cleared the pool gate, (b) was not reserved as chalk,
   (c) landed on no slip, and (d) **scored higher than the weakest bat the board actually
   drafted** — then the list is capped at **`FAM_CAP` (8)** by `TOTAL`.
@@ -289,7 +289,7 @@ corrected there.)
   wxsum/note pass), so they land in `D.tickets`, carry a `cwNote()` description, are priced by
   `priceTicket`, obey the lock/carry doctrine, and are **folded into `season.json` by
   `grade_night.py`** at 1u a slip like a builder single. One card per bat, rendered through the
-  same `sec()` + `ticketCard()` path as the Anchors section, with its own **Family Meal row in
+  same `sec()` + `ticketCard()` path as the Anchors section, with its own **Dingers row in
   the season tracker**. `D.familyFloor` records the weakest drafted `TOTAL` for auditability.
   Two build details matter: family bats are **excluded from the drafted set that sets the
   floor** (otherwise the section raises its own bar on every pass), and a bat already on a
@@ -299,7 +299,7 @@ corrected there.)
   **Renders LAST (2026-08-14, owner's call).** One ordering, three places that must agree:
   page sections in `drawTickets()`, the tracker `defs` array, and the View chip row —
   Lunch Special → Nightcap → Anchors → Moonshots → (Grand Salami, only if a real one exists) →
-  Family Meal.
+  Dingers.
   **Real titles, from its own `NAMES.family` pool (42 names).** The first cut used `name:n`, the
   bat's own name, which had two consequences. The cards had no titles while every other kind drew
   from a themed pool; and in the plan walk `family` fell through to the generic
@@ -311,13 +311,18 @@ corrected there.)
   Titles bind to the bat the way `mkBuilder` does — a bat that had a family slip on the prior
   board keeps its title — with one guard: **only ever inherit a name that is in the pool**, since
   every pre-fix slip was named after a bat and would otherwise carry that forward forever.
-  The pool is back-of-house language, because *family meal* is the restaurant term (the meal the
-  kitchen cooks for the staff before service, not a family dinner): Before Service, The Window,
-  Back of House, Mise en Place, Line Check, Two Minutes Out, Plates Up, Clocked In, Apron On,
-  Knife Roll, Doors in Ten, Eat Standing Up, Nothing Wasted, Shift's Up …
-  **No title may echo its own section**: no name in this pool contains *family* or *meal*
-  (`Staff Meal` was caught and replaced with `The Window`). The section header sits directly
-  above the card.
+  The pool is **ballpark slang** (`DINGERS-2026-08-18` — it replaced a back-of-house kitchen pool
+  that went with the old *Family Meal* name): Gone Yard, Yard Work, Left the Yard, Big Fly,
+  The Jack, Taters, Solo Shot, Curtain Call, The Slow Trot, See Ya, Kiss It Goodbye, Long Gone,
+  Squared Up, On the Screws, Hung Slider, Left It Over the Plate, Middle-Middle, The Meatball,
+  Cheap Seats, Second Deck, Bleacher Bound, Pull Side, Light the Fireworks, One Swing …
+  **No title may echo its own section, and none may collide with another pool** — the moon pool is
+  space-themed but already owns *No Doubter*, *Tape Measure Job*, *The Long Bomb*,
+  *Goodbye Baseball* and *Touch 'Em All*, so the dinger list stays in ballpark-slang register.
+  The section header sits directly above the card.
+  The rename is **display only** — title, emoji and title pool. `kind` is still `'family'`, which is
+  why `season.json` history, `cats`, grading and every archived board still reconcile, and why
+  `FAM_CAP` and `D.familyFloor` keep their names. Do not rename the kind.
   Clause (d) is the point: without it the section is just "everyone who missed", which runs
   ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at
   **0–8, median 6, mean 5.3**. The two looser readings were measured and rejected — the rank
@@ -394,7 +399,7 @@ Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
 `CHALK_N=4` is the chalk reservation in `index.html` — the four **shortest-priced** bats (2026-08-20; `strength` before that) are barred from every ticket;
 since 2026-08-14 they are no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`).
-`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Family Meal section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
+`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Dingers section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
 **Edge weights: code and docs now agree** (2026-08-13). `build15.py` `_SIG` is
@@ -515,7 +520,7 @@ card lists them in board order:
 | 🌃 Nightcap | 9–27 | +3.78 | 36 |
 | ⚓️ Anchors | 36–114 | −18.05 | 150 |
 | 🚀 Moonshots | 32–210 | +296.42 | 484.0 |
-| 🍳 Family Meal | 3–20 | −6.38 | 23.0 |
+| 💣 Dingers | 3–20 | −6.38 | 23.0 |
 
 `history` has 42 points against 41 graded nights at or after `since` — the extra is the leading
 0 baseline. (`graded_nights` holds 70 entries because it is the full dedupe log back to 06-01,

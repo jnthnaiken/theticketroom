@@ -766,7 +766,7 @@ function drawTickets(){
  if(ty==='all'||ty==='builder')html+=sec('sug','Anchors',builder);
  if(ty==='all'||ty==='moon')html+=sec('lot','Moonshots',moon);
  if((ty==='all'||ty==='biggest')&&big.length)html+='<div class="tsec big"><span class="tsech">Grand Salami</span><span class="tline"></span></div>'+big.map(ticketCard).join('');   // 2026-08-14: retired -- the section only renders for a salami that actually exists (a settled/carried one). The `noSalami` empty state is gone: with the slip retired it would print every night.
- if(ty==='all'||ty==='family')html+=sec('fam','Dingers',fam);   /* DINGERS-2026-08-18: renamed from Family Meal (title, emoji and the title pool only -- kind stays 'family' so season.json history and grading keep reconciling) */   // 2026-08-14: Family Meal renders LAST -- owner's call. Page order is lunch -> nightcap -> anchors -> moonshots -> family meal, and the tracker `defs` array plus the View chip row are kept in this same order.
+ if(ty==='all'||ty==='family')html+=sec('fam','Dingers',fam);   /* DINGERS-2026-08-18: renamed from Family Meal (title, emoji and the title pool only -- kind stays 'family' so season.json history and grading keep reconciling) */   // 2026-08-14: Dingers (kind 'family') renders LAST -- owner's call. Page order is lunch -> nightcap -> anchors -> moonshots -> dingers, and the tracker `defs` array plus the View chip row are kept in this same order.
 function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co.bats.length)return '';
  var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr">⚾ homered</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
@@ -2256,7 +2256,7 @@ var _cmA={}, _cmB={};
       /* FLOOR-2026-08-17: the floor is the weakest bat THE BOARD DRAFTED, and that is all it is. This read
          `_pool.filter(_dn)` -- drafted bats that are STILL IN THE POOL -- but `D.pool` is `nonchalk`, and every
          locked bat is filtered out of nonchalk a few hundred lines above. So as the night locks up,
-         pool INTERSECT drafted empties, `!_dp.length` fires, and the ENTIRE Family Meal section returns before
+         pool INTERSECT drafted empties, `!_dp.length` fires, and the ENTIRE Dingers section returns before
          minting anything. Silently: no floor, no cards, no error. On 2026-08-17 it died at 21:45Z and stayed
          dead, which is how Pete Crow-Armstrong -- alive, confirmed, +260, TOTAL 165.2, the strongest bat on the
          slate not on a ticket and 36 points clear of the weakest drafted bat -- ended up on nothing after
@@ -2269,8 +2269,11 @@ var _cmA={}, _cmB={};
         .forEach(function(n){var legs=[leg(n)];
           /* TITLE, not the bat's name. Same rule mkBuilder uses: if this bat already had a family slip on the prior board it keeps
              that title, so titles don't rotate between bats build to build; otherwise take the next name nothing on the board wears.
-             The pool is back-of-house because family meal is the RESTAURANT term -- what the kitchen cooks for the staff before
-             service (owner's clarification 2026-08-14), not a family dinner. */
+             The pool is BALLPARK SLANG (Gone Yard / Big Fly / Hung Slider / Cheap Seats ...). It used to be back-of-house
+             kitchen language, because *family meal* is the restaurant term for what the kitchen cooks for staff before service
+             (owner's clarification 2026-08-14) -- that pool was retired with the name in DINGERS-2026-08-18. Titles are checked
+             against the moon pool, which is space-themed but already owns No Doubter / Tape Measure Job / The Long Bomb /
+             Goodbye Baseball / Touch 'Em All, so the dinger list stays in ballpark-slang register. */
           var _fnm=null,_fi; for(_fi=0;_fi<prior.length;_fi++){var _fp=prior[_fi]; if(_fp&&_fp.kind==='family'&&(_fp.players||[]).length===1&&_fp.players[0].name===n){_fnm=_fp.name;break;}}
           if(_fnm&&(NAMES.family||[]).indexOf(_fnm)<0)_fnm=null;   /* only ever inherit a REAL title. Every family slip built before this change was named after its own bat, so a plain
              bind-to-the-bat would have carried those bat-names forward untouched -- including the four that had already drifted onto the wrong player. A name that is not in the pool is not a title. */
