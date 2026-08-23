@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T17:00:39Z",
+  "pulled_at": "2026-08-23T17:06:34Z",
   "games": [
     {
       "gamePk": 824799,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823507,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-23T17:35:00Z",
       "matchup": "TOR@NYY",
       "away": {
@@ -1240,7 +1240,7 @@
     },
     {
       "gamePk": 823909,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T20:10:00Z",
       "matchup": "PIT@LAD",
       "away": {
@@ -1262,10 +1262,56 @@
           "hr9": 0.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.26
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.162
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.172
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.255
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.134
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.133
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.148
+          },
+          {
+            "id": 677950,
+            "name": "Alek Thomas",
+            "iso": 0.153
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.116
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
