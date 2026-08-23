@@ -8,7 +8,14 @@ Reads five raw intermediates produced by the daily browser scrape+transfer
 (names are the session convention; adjust --dir if you stage them elsewhere):
     cards.json    {MATCHUP:{TEAM:[{name,form_pct,form_arrow,pb,hh,la,zone,test}]}}   (Kasper)
     extras.json   {name:{khr,...}}                                                    (Kasper)
-    pitch.json    {name:{brl,pbrl,hh,fb}}                                             (Kasper)
+    pitch.json    {name:{brl,pbrl,hh,fb, csw,swstr,cs,ball,xwoba,la,bip,pit,
+                         vR:{...},vL:{...}}}                                          (Kasper)
+                  ^ csw/swstr + the vR/vL platoon splits added 2026-08-23 by
+                    kasper_pitch_scrape.js. STRICTLY ADDITIVE: brl/pbrl/hh/fb keep their names
+                    and meaning, this file passes the dict through verbatim, and slate_validate
+                    only checks that starters resolve. build15 scores the flat fields only; the
+                    splits are collected so the platoon matchup becomes measurable later
+                    without a re-scrape.
     roto.json     [{away,home,time,status,away_sp:{name,hand},home_sp,weather,
                     away_bats:[{name,pos,bats}],home_bats:[...]}]                      (RotoWire)
     odds.json     {name: american_int}                                               (VegasInsider, median)

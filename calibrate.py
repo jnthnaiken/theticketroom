@@ -158,9 +158,18 @@ def build_rows(D, homered, extras=None, pstats=None):
             row["k_" + k] = ex.get(k)
         # opposing-pitcher allowed-contact (matchup crossover features); pitcher = p['opp'][0]
         ps = pstats.get(norm((p.get('opp') or [None])[0] or '')) or {}
-        for pk in ("pbrl", "hh", "fb",     # pitcher equivalents of our batter trio: pulled-barrel%, hard-hit%, fly-ball% ALLOWED
-                   "csw", "swstr", "kscore"):  # + strikeout side (CSW%, SwStr%, Kasper K-Score) -- HR-suppressor candidates, logged going forward
+        for pk in ("brl", "pbrl", "hh", "fb",   # pitcher equivalents of our batter stats: barrel%, pulled-barrel%, hard-hit%, fly-ball% ALLOWED
+                   "csw", "swstr", "kscore",    # strikeout side (CSW%, SwStr%, Kasper K-Score) -- the CONTACT-SUPPRESSION read
+                   "cs", "ball", "xwoba"):      # called-strike%, ball%, xwOBA allowed
             row["p_" + pk] = ps.get(pk)
+        # p_brl was missing from this list until 2026-08-23 even though pitchers_<date>.json has
+        # always carried it and build15's pbrl_mult scores it. p_swstr / p_csw were listed from
+        # 2026-08-02 but sat ~empty (469 of 13,600 rows) because the daily scrape never emitted
+        # them -- see kasper_pitch_scrape.js. SwStr% is the field Kasper reads hardest on the
+        # pitcher side: he wants a LOW-whiff starter, because a ball has to be put in play before
+        # it can leave the yard. NOT added to SCHEMA_KEYS, for the reason documented there: the
+        # archived sidecars predating the scrape change cannot supply them, so listing them would
+        # mark every night stale to add permanently-null columns. They populate going forward.
         rows.append(row)
     return rows
 
