@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T15:16:11Z",
+  "pulled_at": "2026-08-23T15:21:10Z",
   "games": [
     {
       "gamePk": 824799,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823827,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T17:40:00Z",
       "matchup": "WSH@MIA",
       "away": {
@@ -415,8 +415,54 @@
           "hr9": 1.17,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.158
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.298
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.145
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.166
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.158
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.08
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.276
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.035
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.149
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
@@ -426,10 +472,56 @@
           "hr9": 1.17,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.139
+          },
+          {
+            "id": 682663,
+            "name": "Agust\u00edn Ram\u00edrez",
+            "iso": 0.109
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.225
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.098
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.197
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.144
+          },
+          {
+            "id": 691277,
+            "name": "Deyvison De Los Santos",
+            "iso": 0.143
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.268
+          },
+          {
+            "id": 640459,
+            "name": "Brian Navarreto",
+            "iso": 0.138
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
