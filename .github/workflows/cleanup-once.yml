@@ -14,6 +14,10 @@ name: Cleanup Once
 #                               that needs its own decision, not a cleanup.
 #
 # Everything here is recoverable from git history.
+#
+# Run #1 failed with exit 127: the file list was written as shell line-continuations with a
+# backslash only on the `git rm` line, so every filename after the first was executed as a
+# command. The list is a heredoc now -- no continuations to get wrong.
 
 on:
   workflow_dispatch:
@@ -33,85 +37,88 @@ jobs:
 
       - name: Remove dead files
         run: |
-          set -e
-          git rm --quiet --ignore-unmatch \
-            slate_auto_2026-06-16.json
-            slate_auto_2026-06-17.json
-            slate_auto_2026-06-18.json
-            slate_auto_2026-06-19.json
-            slate_auto_2026-06-20.json
-            slate_auto_2026-06-21.json
-            slate_auto_2026-06-22.json
-            slate_auto_2026-06-23.json
-            slate_auto_2026-06-24.json
-            slate_auto_2026-06-25.json
-            slate_auto_2026-06-26.json
-            slate_auto_2026-06-27.json
-            slate_auto_2026-06-28.json
-            slate_auto_2026-06-29.json
-            slate_auto_2026-06-30.json
-            slate_auto_2026-07-01.json
-            slate_auto_2026-07-02.json
-            slate_auto_2026-07-03.json
-            slate_auto_2026-07-04.json
-            slate_auto_2026-07-05.json
-            slate_auto_2026-07-06.json
-            slate_auto_2026-07-07.json
-            slate_auto_2026-07-08.json
-            slate_auto_2026-07-09.json
-            slate_auto_2026-07-10.json
-            slate_auto_2026-07-11.json
-            slate_auto_2026-07-12.json
-            slate_auto_2026-07-17.json
-            slate_auto_2026-07-18.json
-            slate_auto_2026-07-19.json
-            slate_auto_2026-07-20.json
-            slate_auto_2026-07-21.json
-            slate_auto_2026-07-22.json
-            slate_auto_2026-07-23.json
-            slate_auto_2026-07-24.json
-            slate_auto_2026-07-25.json
-            slate_auto_2026-07-26.json
-            slate_auto_2026-07-27.json
-            slate_auto_2026-07-28.json
-            slate_auto_2026-07-31.json
-            slate_auto_2026-08-01.json
-            slate_auto_2026-08-02.json
-            slate_auto_2026-08-03.json
-            slate_auto_2026-08-04.json
-            slate_auto_2026-08-05.json
-            slate_auto_2026-08-06.json
-            slate_auto_2026-08-07.json
-            slate_auto_2026-08-08.json
-            slate_auto_2026-08-09.json
-            slate_auto_2026-08-10.json
-            slate_auto_2026-08-11.json
-            slate_auto_2026-08-12.json
-            slate_auto_2026-08-13.json
-            slate_auto_2026-08-14.json
-            slate_auto_2026-08-15.json
-            slate_auto_2026-08-16.json
-            slate_auto_2026-08-17.json
-            slate_auto_2026-08-18.json
-            slate_auto_2026-08-19.json
-            iso_2026-06-20.json
-            iso_2026-06-21.json
-            iso_2026-06-22.json
-            iso_2026-06-23.json
-            iso_2026-06-24.json
-            iso_2026-06-25.json
-            iso_2026-06-26.json
-            iso_2026-06-27.json
-            iso_2026-06-28.json
-            hr9_2026-06-21.json
-            sched_2026-06-24.json
-            reconcile_times.py
-            client_sweep.js
-          git rm --quiet --ignore-unmatch .github/workflows/cleanup-once.yml
+          set -euo pipefail
+          cat > /tmp/droplist.txt <<'LIST'
+          slate_auto_2026-06-16.json
+          slate_auto_2026-06-17.json
+          slate_auto_2026-06-18.json
+          slate_auto_2026-06-19.json
+          slate_auto_2026-06-20.json
+          slate_auto_2026-06-21.json
+          slate_auto_2026-06-22.json
+          slate_auto_2026-06-23.json
+          slate_auto_2026-06-24.json
+          slate_auto_2026-06-25.json
+          slate_auto_2026-06-26.json
+          slate_auto_2026-06-27.json
+          slate_auto_2026-06-28.json
+          slate_auto_2026-06-29.json
+          slate_auto_2026-06-30.json
+          slate_auto_2026-07-01.json
+          slate_auto_2026-07-02.json
+          slate_auto_2026-07-03.json
+          slate_auto_2026-07-04.json
+          slate_auto_2026-07-05.json
+          slate_auto_2026-07-06.json
+          slate_auto_2026-07-07.json
+          slate_auto_2026-07-08.json
+          slate_auto_2026-07-09.json
+          slate_auto_2026-07-10.json
+          slate_auto_2026-07-11.json
+          slate_auto_2026-07-12.json
+          slate_auto_2026-07-17.json
+          slate_auto_2026-07-18.json
+          slate_auto_2026-07-19.json
+          slate_auto_2026-07-20.json
+          slate_auto_2026-07-21.json
+          slate_auto_2026-07-22.json
+          slate_auto_2026-07-23.json
+          slate_auto_2026-07-24.json
+          slate_auto_2026-07-25.json
+          slate_auto_2026-07-26.json
+          slate_auto_2026-07-27.json
+          slate_auto_2026-07-28.json
+          slate_auto_2026-07-31.json
+          slate_auto_2026-08-01.json
+          slate_auto_2026-08-02.json
+          slate_auto_2026-08-03.json
+          slate_auto_2026-08-04.json
+          slate_auto_2026-08-05.json
+          slate_auto_2026-08-06.json
+          slate_auto_2026-08-07.json
+          slate_auto_2026-08-08.json
+          slate_auto_2026-08-09.json
+          slate_auto_2026-08-10.json
+          slate_auto_2026-08-11.json
+          slate_auto_2026-08-12.json
+          slate_auto_2026-08-13.json
+          slate_auto_2026-08-14.json
+          slate_auto_2026-08-15.json
+          slate_auto_2026-08-16.json
+          slate_auto_2026-08-17.json
+          slate_auto_2026-08-18.json
+          slate_auto_2026-08-19.json
+          iso_2026-06-20.json
+          iso_2026-06-21.json
+          iso_2026-06-22.json
+          iso_2026-06-23.json
+          iso_2026-06-24.json
+          iso_2026-06-25.json
+          iso_2026-06-26.json
+          iso_2026-06-27.json
+          iso_2026-06-28.json
+          hr9_2026-06-21.json
+          sched_2026-06-24.json
+          reconcile_times.py
+          client_sweep.js
+          .github/workflows/cleanup-once.yml
+          LIST
+          echo "listed for deletion: $(wc -l < /tmp/droplist.txt)"
+          xargs -a /tmp/droplist.txt git rm --quiet --ignore-unmatch --
 
       - name: Sanity check -- the load-bearing files must still be here
         run: |
-          set -e
+          set -euo pipefail
           for f in D_0615.json build15.py regen15.py calibrate.py grade_night.py index.html \
                    season.json calibration.jsonl slate_auto_2026-08-22.json; do
             test -f "$f" || { echo "!! $f is missing -- refusing to commit"; exit 1; }
@@ -122,6 +129,7 @@ jobs:
 
       - name: Commit
         run: |
+          set -euo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "CLEANUP-2026-08-23: drop dead ISO/hr9/sched inputs, stale slate_auto, reconcile_times.py, client_sweep.js" \
