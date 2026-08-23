@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T15:56:35Z",
+  "pulled_at": "2026-08-23T16:00:39Z",
   "games": [
     {
       "gamePk": 824799,
@@ -398,7 +398,7 @@
         "wind_mph": 7.1,
         "wind_dir": 208,
         "tail_mph": 6.9,
-        "precip": 13
+        "precip": 8
       },
       "wf": 1.035
     },
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 822856,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T18:35:00Z",
       "matchup": "LAA@TEX",
       "away": {
@@ -945,8 +945,54 @@
           "hr9": 0.87,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.195
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.194
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.118
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.125
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.15
+          },
+          {
+            "id": 672569,
+            "name": "Gustavo Campero",
+            "iso": 0.0
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.196
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.0
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.052
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -959,7 +1005,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1096,7 +1142,7 @@
         "wind_mph": 3.1,
         "wind_dir": 30,
         "tail_mph": -3.0,
-        "precip": 13
+        "precip": 11
       },
       "wf": 0.986
     },
