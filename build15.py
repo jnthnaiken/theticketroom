@@ -633,8 +633,15 @@ for r in pool:
     # The ratio form (not the subtraction) is used because xwOBAcon exceeds ISO for 99.56% of bats
     # (24 exceptions in 5,454) so the quotient is well-behaved in (0,1], and it measures better than
     # the gap: standalone AUC 0.5749 vs 0.5170 over the 23 nights with both fields.
-    _xwc=((KEXTRA.get(norm(r['nm'])) or {}).get('xwobacon'))
-    r['_zdmg']=(r['_ziso']/_xwc) if (r['_ziso'] is not None and isinstance(_xwc,(int,float)) and _xwc>0.05) else None
+    _kx=(KEXTRA.get(norm(r['nm'])) or {}); _xwc=_kx.get('xwobacon'); _bip=_kx.get('bip')
+    # SAMPLE GUARD (MIN_DMG_BIP): a ratio of two rate stats is only as trustworthy as the batted-ball
+    # count under it. Unguarded on the 08-21 slate the top of this signal was Will Banfield at 1.392
+    # off FIVE batted balls (iso .103 / xwOBAcon .074) -- pure noise sitting above the whole field.
+    # bip>=40 drops 29 of 375 bats (7.7%, right at the 10th percentile) and moves the top of the
+    # ratio to Brett Sullivan at 0.817 off 56. A guarded-out bat gets None and therefore sits at the
+    # slate mean, which is the same safe fallback an unmatched bat gets -- he is not pushed down.
+    r['_zdmg']=(r['_ziso']/_xwc) if (r['_ziso'] is not None and isinstance(_xwc,(int,float)) and _xwc>0.05
+                                     and isinstance(_bip,(int,float)) and _bip>=MIN_DMG_BIP) else None
     # PSWSTR-2026-08-23: opposing starter's SwStr%, NEGATED so higher = more hittable.
     # Kasper's read, in his own words: "does Sugano have any swinging miss? no he does not --
     # these Guardians look to match up well." A low-whiff arm puts more balls in play, and a ball
@@ -668,6 +675,7 @@ for r in pool:
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
+MIN_DMG_BIP=40      # min batted balls before the iso/xwOBAcon ratio is trusted (DMGRATIO-2026-08-23)
 MIN_SPLIT_PIT=300   # a vR/vL split thinner than this falls back to the arm's All row
 W_PSW=0.06   # PSWSTR-2026-08-23. THE ONE UNFITTED WEIGHT IN _SIG -- set by blast radius, not by evidence.
              # It CANNOT be fitted yet: pitcher SwStr% exists on exactly 3 archived nights (2026-08-02..04,
