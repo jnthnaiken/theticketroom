@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T19:24:54Z",
+  "pulled_at": "2026-08-23T19:30:22Z",
   "games": [
     {
       "gamePk": 824799,
@@ -77,7 +77,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 624413,
@@ -112,12 +112,12 @@
           {
             "id": 681297,
             "name": "Colton Cowser",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.131
+            "iso": 0.13
           }
         ],
         "confirmed": true
@@ -163,7 +163,7 @@
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.219
+            "iso": 0.218
           },
           {
             "id": 676475,
@@ -363,12 +363,12 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.123
+            "iso": 0.121
           },
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.198
+            "iso": 0.196
           },
           {
             "id": 665862,
@@ -429,7 +429,7 @@
           {
             "id": 686611,
             "name": "Dylan Crews",
-            "iso": 0.148
+            "iso": 0.146
           },
           {
             "id": 660688,
@@ -439,7 +439,7 @@
           {
             "id": 677588,
             "name": "Jos\u00e9 Tena",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 678391,
@@ -556,12 +556,12 @@
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.141
+            "iso": 0.147
           },
           {
             "id": 680664,
@@ -704,7 +704,7 @@
           {
             "id": 695720,
             "name": "Tommy White",
-            "iso": 0.076
+            "iso": 0.075
           },
           {
             "id": 691777,
@@ -878,7 +878,7 @@
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.295
+            "iso": 0.294
           },
           {
             "id": 678246,
@@ -964,7 +964,7 @@
           {
             "id": 687093,
             "name": "Vaughn Grissom",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 666139,
@@ -1011,7 +1011,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 694671,
@@ -1101,7 +1101,7 @@
           {
             "id": 694197,
             "name": "Angel Genao",
-            "iso": 0.111
+            "iso": 0.109
           },
           {
             "id": 683953,
@@ -1244,7 +1244,7 @@
           {
             "id": 668800,
             "name": "Andrew Knizner",
-            "iso": 0.272
+            "iso": 0.25
           },
           {
             "id": 813841,
@@ -1717,16 +1717,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 6mph, 87\u00b0",
-        "lean": "Neutral",
-        "temp": 87.4,
-        "wind_mph": 9.4,
-        "wind_dir": 310,
-        "tail_mph": -6.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.005
+      "wf": 1.0
     },
     {
       "gamePk": 825043,
@@ -1862,7 +1855,7 @@
     },
     {
       "gamePk": 823745,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T23:10:00Z",
       "matchup": "ATL@MIL",
       "away": {
@@ -1884,10 +1877,56 @@
           "hr9": 0.81,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.186
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.174
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.124
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.233
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.15
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.141
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.13
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.16
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.097
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
