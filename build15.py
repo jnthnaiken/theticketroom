@@ -594,6 +594,14 @@ mktT=lambda o: 1.0 if not o else clamp(1+W_MKT*((100.0/(o+100))-medImp)/0.06, 1-
 powT=lambda P:clamp(1+0.10*(P-medP)/40,0.90,1.10)   # power is THE driver -> widened to absorb dropped ISO (data: power AUC ~0.66, ISO ~0.55 & 0.88-redundant w/ power; pb x hh x launch)
 # ISO term REMOVED from TOTAL -- weak (AUC ~0.55) and 0.88-redundant with the power index; iso still loaded for display
 zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
+# NAMEERR-2026-08-23: these two sample guards are READ by the enrichment loop below, so they must be
+# bound BEFORE it. They were introduced (531a472, f39cab1) down in the _SIG block, which executes ~35
+# lines LATER -- so build15 died on `NameError: MIN_DMG_BIP` at module level. Nothing caught it: the
+# Action's later steps still commit slate_auto, so four "Auto board build" commits landed on 08-22
+# (04:01Z, 04:42Z, 05:30Z, 05:57Z) while D_2026-08-22.json stopped updating at 03:32Z. The board was
+# frozen, and the commit log said it was building.
+MIN_DMG_BIP=40      # min batted balls before the iso/xwOBAcon ratio is trusted (DMGRATIO-2026-08-23)
+MIN_SPLIT_PIT=300   # a vR/vL split thinner than this falls back to the arm's All row
 for r in pool:
     _opn=pnorm((r.get('opp') or ['',''])[0])
     if _opn in PBRL: r['phr9']=ppitT(PBRL[_opn]); r['psrc']='brl'   # listed arm -> allowed pulled-barrel%/hard-hit%/fly-ball% (pitcher equivalents of batter power)
@@ -675,8 +683,8 @@ for r in pool:
     r['_mm']=round(r['aT']*r['bgT']*r['btrkT']*r['pvT']*r['parktrkT']*r['xpowT']*r['pvdT']*r['sprayT']*r['xptrendT']*r['arsenalT'],4)   # model half = flat anchor x edge signals: bg, ball-track, perceived-velo, park-eye, xpower, velo-decline, spray-park, xpower-trend, pitch-arsenal
 
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
-MIN_DMG_BIP=40      # min batted balls before the iso/xwOBAcon ratio is trusted (DMGRATIO-2026-08-23)
-MIN_SPLIT_PIT=300   # a vR/vL split thinner than this falls back to the arm's All row
+# MIN_DMG_BIP / MIN_SPLIT_PIT are DEFINED ABOVE the enrichment loop (see NAMEERR-2026-08-23)
+# because that loop reads them. Do not move them back down here.
 W_PSW=0.06   # PSWSTR-2026-08-23. THE ONE UNFITTED WEIGHT IN _SIG -- set by blast radius, not by evidence.
              # It CANNOT be fitted yet: pitcher SwStr% exists on exactly 3 archived nights (2026-08-02..04,
              # 410 rows / 48 HR) because the daily scrape never emitted it, and Savant is unreachable from
