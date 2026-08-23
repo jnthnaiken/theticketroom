@@ -1,7 +1,7 @@
 {
   "date": "2026-08-23",
   "season": "2026",
-  "pulled_at": "2026-08-23T16:51:31Z",
+  "pulled_at": "2026-08-23T16:56:39Z",
   "games": [
     {
       "gamePk": 824799,
@@ -1281,7 +1281,7 @@
     },
     {
       "gamePk": 823099,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-23T20:10:00Z",
       "matchup": "CHC@SEA",
       "away": {
@@ -1292,8 +1292,54 @@
           "hr9": 1.82,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.275
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.211
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.151
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.165
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.198
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.099
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.124
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.212
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.11
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
@@ -1306,7 +1352,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1332,8 +1378,54 @@
           "hr9": 1.48,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.11
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.262
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.172
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.23
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.175
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.181
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.049
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.105
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.166
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
