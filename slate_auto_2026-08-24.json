@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
   "season": "2026",
-  "pulled_at": "2026-08-24T21:00:15Z",
+  "pulled_at": "2026-08-24T21:05:17Z",
   "games": [
     {
       "gamePk": 824235,
@@ -658,7 +658,7 @@
     },
     {
       "gamePk": 824964,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T01:40:00Z",
       "matchup": "MIN@ATH",
       "away": {
@@ -669,8 +669,54 @@
           "hr9": 1.77,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.109
+          },
+          {
+            "id": 621439,
+            "name": "Byron Buxton",
+            "iso": 0.26
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.207
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.17
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.228
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.173
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.155
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.187
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -683,7 +729,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
