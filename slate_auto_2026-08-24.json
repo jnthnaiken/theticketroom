@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
   "season": "2026",
-  "pulled_at": "2026-08-24T22:10:36Z",
+  "pulled_at": "2026-08-24T22:15:31Z",
   "games": [
     {
       "gamePk": 824235,
@@ -709,7 +709,7 @@
     },
     {
       "gamePk": 823260,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T01:40:00Z",
       "matchup": "PIT@SD",
       "away": {
@@ -720,8 +720,54 @@
           "hr9": 1.27,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.09
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.282
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.165
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.227
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.333
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.225
+          },
+          {
+            "id": 694377,
+            "name": "Nick Yorke",
+            "iso": 0.074
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.147
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.067
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -734,7 +780,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -894,8 +940,54 @@
           "hr9": 1.12,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.287
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.145
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.238
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.121
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.142
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.147
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.161
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.126
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
