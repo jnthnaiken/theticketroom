@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
   "season": "2026",
-  "pulled_at": "2026-08-24T18:47:05Z",
+  "pulled_at": "2026-08-24T18:57:07Z",
   "games": [
     {
       "gamePk": 824235,
@@ -92,7 +92,7 @@
     },
     {
       "gamePk": 823828,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-24T22:40:00Z",
       "matchup": "BOS@MIA",
       "away": {
@@ -103,8 +103,54 @@
           "hr9": 0.56,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.139
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.175
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.209
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.251
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.173
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.144
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.155
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.145
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.151
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
@@ -117,7 +163,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
