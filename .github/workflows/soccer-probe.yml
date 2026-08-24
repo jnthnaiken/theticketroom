@@ -1,0 +1,65 @@
+name: Soccer Source Probe
+# THROWAWAY -- delete after reading the log. Added 2026-08-24 to answer one question:
+# can the Action runner reach the soccer xG / fixture sources? The container cannot reach
+# ANY of them (nor Kasper/VI/RotoWire/Savant/StatsAPI), so the runner is the only place
+# this can be tested. Read-only: no commits, no writes, no secrets.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe soccer + control hosts
+        run: |
+          set +e
+          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"
+          probe () {
+            label="$1"; url="$2"; marker="$3"
+            code=$(curl -sL -o /tmp/o -w "%{http_code}" -m 25 -A "$UA" "$url")
+            size=$(stat -c%s /tmp/o 2>/dev/null || echo 0)
+            note=""
+            if [ -n "$marker" ]; then
+              if grep -qF "$marker" /tmp/o; then note="marker OK ($marker)"; else note="MARKER MISSING ($marker)"; fi
+            fi
+            printf "%-22s HTTP %-4s %10s bytes   %s\n" "$label" "$code" "$size" "$note"
+          }
+
+          echo "=============== SOCCER xG ==============="
+          probe understat-EPL   "https://understat.com/league/EPL"                    "playersData"
+          probe understat-LaLiga "https://understat.com/league/La_liga"               "playersData"
+          probe fbref-EPL       "https://fbref.com/en/comps/9/Premier-League-Stats"   "stats_standard"
+
+          echo
+          echo "=========== FIXTURES + KICKOFF TIMES ==========="
+          for lg in eng.1 esp.1 ita.1 ger.1 fra.1; do
+            probe "espn-$lg" "https://site.api.espn.com/apis/site/v2/sports/soccer/$lg/scoreboard" "competitions"
+          done
+
+          echo
+          echo "=============== CONTROLS (build15 already uses these) ==============="
+          probe statsapi        "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-08-24" "dates"
+          probe open-meteo      "https://api.open-meteo.com/v1/forecast?latitude=40&longitude=-75&hourly=temperature_2m" "hourly"
+
+          echo
+          echo "=============== SHAPE CHECK: understat payload ==============="
+          curl -sL -m 25 -A "$UA" "https://understat.com/league/EPL" -o /tmp/u
+          echo "bytes: $(stat -c%s /tmp/u 2>/dev/null || echo 0)"
+          grep -o "var [a-zA-Z]*Data" /tmp/u | sort -u | head -10
+          echo "--- first playersData fragment (200 chars) ---"
+          grep -o "playersData.\{0,200\}" /tmp/u | head -1
+
+          echo
+          echo "=============== SHAPE CHECK: espn eng.1 ==============="
+          curl -sL -m 25 -A "$UA" "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard" -o /tmp/e
+          python3 - <<'PY'
+          import json
+          try:
+              d=json.load(open('/tmp/e'))
+              ev=d.get('events',[])
+              print(f"events: {len(ev)}")
+              for e in ev[:5]:
+                  print("  ", e.get('date'), "|", e.get('name'))
+          except Exception as ex:
+              print("parse failed:", ex)
+          PY
