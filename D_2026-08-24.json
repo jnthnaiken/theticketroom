@@ -7669,7 +7669,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -7766,7 +7766,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -7863,7 +7863,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -7949,7 +7949,7 @@
    "iso": ".189",
    "iso_used": 0.189,
    "powraw": 298.2393499559723,
-   "slot": 9,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 0.971,
@@ -7959,7 +7959,7 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -7977,7 +7977,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 0.9810532241999047,
-   "slotT": 0.92,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -8154,7 +8154,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -8240,7 +8240,7 @@
    "iso": ".083",
    "iso_used": 0.083,
    "powraw": 82.95002564750102,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 0.971,
@@ -8250,8 +8250,8 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -8268,7 +8268,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 0.8493713973365137,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -8445,7 +8445,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -8542,7 +8542,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -8639,7 +8639,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -8725,7 +8725,7 @@
    "iso": ".054",
    "iso_used": 0.054,
    "powraw": 4.253950366744359,
-   "slot": 8,
+   "slot": null,
    "bhand": "L",
    "hr9": null,
    "wf": 0.971,
@@ -8735,7 +8735,7 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -8753,7 +8753,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 1,
-   "slotT": 0.94,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -8822,7 +8822,7 @@
    "iso": ".142",
    "iso_used": 0.142,
    "powraw": 145.6506890358379,
-   "slot": null,
+   "slot": 8,
    "bhand": null,
    "hr9": null,
    "wf": 0.971,
@@ -8832,8 +8832,8 @@
    "gtime": "7:40 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Jose Urquidy",
@@ -8850,7 +8850,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 0.94,
    "platT": 1,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -25450,7 +25450,7 @@
     "precip": 1
    }
   },
-  "build": "8/24 4:10pm",
+  "build": "8/24 4:20pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -25625,7 +25625,7 @@
   "date": "2026-08-24",
   "gs": {},
   "pool": 259,
-  "gate": 34,
+  "gate": 35,
   "tickets": 21
  },
  "tickets": [
@@ -25804,7 +25804,7 @@
      "game": 4,
      "late": false,
      "odds": 360,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Mickey Moniak",
@@ -25837,10 +25837,149 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 2,
+   "confleg": 3,
    "priced": 3,
    "parlay_am": 10940,
-   "payout10": 1104
+   "payout10": 1104,
+   "locked": true
+  },
+  {
+   "name": "Onto the Concourse",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Ortiz is hitting it on the screws (83% hard-hit), Seager puts the ball in the air on a homer plane (18\u00b0), and D\u00edaz gets a touch of carry tonight.",
+   "players": [
+    {
+     "name": "Abimelec Ortiz",
+     "team": "Nationals",
+     "total": 162.3,
+     "aT": 100,
+     "wf": 1.014,
+     "gmatch": "COL@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 500,
+     "status": "confirmed"
+    },
+    {
+     "name": "Corey Seager",
+     "team": "Rangers",
+     "total": 147.6,
+     "aT": 100,
+     "wf": 0.971,
+     "gmatch": "TEX@CWS",
+     "gtime": "7:40 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 325,
+     "status": "confirmed"
+    },
+    {
+     "name": "Yandy D\u00edaz",
+     "team": "Rays",
+     "total": 133.4,
+     "aT": 100,
+     "wf": 1.023,
+     "gmatch": "TB@DET",
+     "gtime": "6:40 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 569,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Abimelec Ortiz",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 262.7,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 1,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 3,
+   "parlay_am": 16960,
+   "payout10": 1705.95,
+   "locked": true
+  },
+  {
+   "name": "Splash Hit",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Ortiz is mashing the ball (83% hard-hit), Abreu brings light-tower raw power (100/100), and Langford swings with home-run loft (21\u00b0).",
+   "players": [
+    {
+     "name": "Abimelec Ortiz",
+     "team": "Nationals",
+     "total": 162.3,
+     "aT": 100,
+     "wf": 1.014,
+     "gmatch": "COL@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 500,
+     "status": "confirmed"
+    },
+    {
+     "name": "Wilyer Abreu",
+     "team": "Red Sox",
+     "total": 135.6,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "BOS@MIA",
+     "gtime": "6:40 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 506,
+     "status": "confirmed"
+    },
+    {
+     "name": "Wyatt Langford",
+     "team": "Rangers",
+     "total": 132,
+     "aT": 100,
+     "wf": 0.971,
+     "gmatch": "TEX@CWS",
+     "gtime": "7:40 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 445,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Abimelec Ortiz",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 298.2,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 3,
+   "parlay_am": 19716,
+   "payout10": 1981.62,
+   "locked": true
   },
   {
    "name": "No Doubter",
@@ -25914,7 +26053,7 @@
    "name": "Tape Measure Job",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Valdez catches a small park boost, Ram\u00edrez is hitting frozen ropes (54% hard-hit), and Carroll has the pop to go deep (74/100 power).",
+   "note": "Valdez is impacting the ball at an elite clip (66% hard-hit), Ram\u00edrez has gusts carrying balls over the wall, and Carroll has loft to spare (20\u00b0).",
    "players": [
     {
      "name": "Esmerlyn Valdez",
@@ -25979,146 +26118,10 @@
    "payout10": 1300.91
   },
   {
-   "name": "Onto the Concourse",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Ortiz is hitting it on the screws (83% hard-hit), Seager puts the ball in the air on a homer plane (18\u00b0), and D\u00edaz has the yard tilting his way.",
-   "players": [
-    {
-     "name": "Abimelec Ortiz",
-     "team": "Nationals",
-     "total": 162.3,
-     "aT": 100,
-     "wf": 1.014,
-     "gmatch": "COL@WSH",
-     "gtime": "6:45 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 500,
-     "status": "confirmed"
-    },
-    {
-     "name": "Corey Seager",
-     "team": "Rangers",
-     "total": 147.6,
-     "aT": 100,
-     "wf": 0.971,
-     "gmatch": "TEX@CWS",
-     "gtime": "7:40 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 325,
-     "status": "projected"
-    },
-    {
-     "name": "Yandy D\u00edaz",
-     "team": "Rays",
-     "total": 133.4,
-     "aT": 100,
-     "wf": 1.023,
-     "gmatch": "TB@DET",
-     "gtime": "6:40 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 569,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Abimelec Ortiz",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 262.7,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 1,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 2,
-   "priced": 3,
-   "parlay_am": 16960,
-   "payout10": 1705.95
-  },
-  {
-   "name": "Splash Hit",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Ortiz is mashing the ball (83% hard-hit), Abreu brings light-tower raw power (100/100), and Langford swings with home-run loft (21\u00b0).",
-   "players": [
-    {
-     "name": "Abimelec Ortiz",
-     "team": "Nationals",
-     "total": 162.3,
-     "aT": 100,
-     "wf": 1.014,
-     "gmatch": "COL@WSH",
-     "gtime": "6:45 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 500,
-     "status": "confirmed"
-    },
-    {
-     "name": "Wilyer Abreu",
-     "team": "Red Sox",
-     "total": 135.6,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "BOS@MIA",
-     "gtime": "6:40 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 506,
-     "status": "confirmed"
-    },
-    {
-     "name": "Wyatt Langford",
-     "team": "Rangers",
-     "total": 132,
-     "aT": 100,
-     "wf": 0.971,
-     "gmatch": "TEX@CWS",
-     "gtime": "7:40 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 445,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Abimelec Ortiz",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 298.2,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 1,
-    "neu": 1
-   },
-   "confleg": 2,
-   "priced": 3,
-   "parlay_am": 19716,
-   "payout10": 1981.62
-  },
-  {
    "name": "The Way Back Machine",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong is teeing off (58% hard-hit), Jeffers has gusts carrying balls over the wall, and DeLauter leans on contact with sneaky pop (48/100).",
+   "note": "Crow-Armstrong is scorching the ball (58% hard-hit), Jeffers has the wind howling out behind him, and DeLauter has a swing built for the seats (18\u00b0).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -26186,7 +26189,7 @@
    "name": "Goodbye Baseball",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong projects out to 169, Raleigh carries top-shelf pop (100/100 power grade), and Trout has loft to spare (22\u00b0).",
+   "note": "Crow-Armstrong projects out to 169, Raleigh packs elite raw power, a 100/100 grade, and Trout has loft to spare (22\u00b0).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -26254,7 +26257,7 @@
    "name": "After Hours",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Josh Bell has gusts carrying balls over the wall, has textbook lift (18\u00b0), plays a touch under the power tier (34/100), projects out to 143, and running at his usual clip.",
+   "note": "Josh Bell gets a yard playing like a launchpad tonight, has textbook lift (18\u00b0), leans on contact with sneaky pop (34/100), projects out to 143, and running at his usual clip.",
    "players": [
     {
      "name": "Josh Bell",
@@ -26291,7 +26294,7 @@
    "name": "Steady as She Goes",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Esmerlyn Valdez is rocketing line drives (66% hard-hit), keeps the ball in the air (20\u00b0), catches a small park boost.",
+   "note": "Esmerlyn Valdez is teeing off (66% hard-hit), keeps the ball in the air (20\u00b0), gets a touch of carry tonight.",
    "players": [
     {
      "name": "Esmerlyn Valdez",
@@ -26328,7 +26331,7 @@
    "name": "Full Fathom",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Pete Crow-Armstrong is punishing the baseball (58% hard-hit), lives in the launch window (23\u00b0), packs elite raw power, a 99/100 grade.",
+   "note": "Pete Crow-Armstrong is rocketing line drives (58% hard-hit), lives in the launch window (23\u00b0), sits in the elite power tier (99/100).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -26365,7 +26368,7 @@
    "name": "The Meatball",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Kody Clemens has gusts carrying balls over the wall, is making consistent contact (49% hard-hit), wins with bat-to-ball over raw pop (23/100).",
+   "note": "Kody Clemens has gusts carrying balls over the wall, is barreling a fair share (49% hard-hit), wins with bat-to-ball over raw pop (23/100).",
    "players": [
     {
      "name": "Kody Clemens",
@@ -26402,7 +26405,7 @@
    "name": "Hung Slider",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Jo Adell plays in a wind tunnel pointed at the seats, is hitting absolute lasers (55% hard-hit), is lifting everything (19\u00b0).",
+   "note": "Jo Adell plays in a wind tunnel pointed at the seats, is denting outfield walls (55% hard-hit), is lifting everything (19\u00b0).",
    "players": [
     {
      "name": "Jo Adell",
@@ -26439,7 +26442,7 @@
    "name": "Middle-Middle",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Jackson Merrill is hitting bullets (55% hard-hit), elevates with ease (21\u00b0), plays in a slightly friendly yard.",
+   "note": "Jackson Merrill is hitting bullets (55% hard-hit), elevates with ease (21\u00b0), gets a sliver of help from the park.",
    "players": [
     {
      "name": "Jackson Merrill",
@@ -26476,7 +26479,7 @@
    "name": "Cheap Seats",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Lawrence Butler gets a yard playing like a launchpad tonight, has the swing plane dialed for liftoff (17\u00b0), is catching it flush (49% hard-hit).",
+   "note": "Lawrence Butler has the wind howling out behind him, has the swing plane dialed for liftoff (17\u00b0), is making consistent contact (49% hard-hit).",
    "players": [
     {
      "name": "Lawrence Butler",
@@ -26513,7 +26516,7 @@
    "name": "Left It Over the Plate",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Manny Machado is blistering line drives (56% hard-hit), launches it at the right angle (21\u00b0), catches a small park boost.",
+   "note": "Manny Machado is blistering line drives (56% hard-hit), launches it at the right angle (21\u00b0), has the yard tilting his way.",
    "players": [
     {
      "name": "Manny Machado",
@@ -26550,7 +26553,7 @@
    "name": "Off the Foul Pole",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Bryce Harper is squaring up everything (58% hard-hit), sends it skyward (17\u00b0), has real over-the-fence pop (68/100), gets bumped to 134 by the model.",
+   "note": "Bryce Harper is hitting absolute lasers (58% hard-hit), sends it skyward (17\u00b0), has real over-the-fence pop (68/100).",
    "players": [
     {
      "name": "Bryce Harper",
@@ -26587,7 +26590,7 @@
    "name": "Bleacher Bound",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Rafael Flores is tattooing the baseball (55% hard-hit), tilts the bat for distance (21\u00b0), gets a touch of carry tonight.",
+   "note": "Rafael Flores is stinging it on a rope (55% hard-hit), tilts the bat for distance (21\u00b0), plays in a slightly friendly yard.",
    "players": [
     {
      "name": "Rafael Flores",
@@ -26624,7 +26627,7 @@
    "name": "The Overhang",
    "kind": "family",
    "badge": "\ud83d\udca3",
-   "note": "Nathaniel Lowe gets a yard playing like a launchpad tonight, swings on a clean uppercut (19\u00b0), is making solid contact (50% hard-hit).",
+   "note": "Nathaniel Lowe gets a yard playing like a launchpad tonight, swings on a clean uppercut (19\u00b0), is hitting line drives (50% hard-hit).",
    "players": [
     {
      "name": "Nathaniel Lowe",
@@ -26664,9 +26667,7 @@
   "Ryan Jeffers",
   "Cal Raleigh",
   "Zach Neto",
-  "Joc Pederson",
   "Jos\u00e9 Ram\u00edrez",
-  "Corey Seager",
   "Kody Clemens",
   "Chase DeLauter",
   "Rafael Devers",
@@ -26675,16 +26676,12 @@
   "Mike Trout",
   "Jo Adell",
   "Jackson Merrill",
-  "Mickey Moniak",
   "Lawrence Butler",
   "Manny Machado",
-  "Wilyer Abreu",
   "Bryce Harper",
-  "Yandy D\u00edaz",
   "Rafael Flores",
   "Nathaniel Lowe",
   "Spencer Torkelson",
-  "Wyatt Langford",
   "Ryan Vilade"
  ],
  "familyFloor": 129.5
