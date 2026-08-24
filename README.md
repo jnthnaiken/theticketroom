@@ -161,36 +161,77 @@ The **market half** (`mkt_z`) is the standardized market implied probability and
 **nothing else** — no other feature feeds it (the rationale for keeping the edge
 half thin is that the books' price already reflects power, park, pitcher, weather,
 platoon, slot, etc., so those don't need to be re-added). The **edge half** is a
-weighted sum of exactly **five** z-scored signals — this is the live `_SIG` list
-in `build15.py`, **refit 2026-08-13** via grouped-by-game-date CV logistic regression on
-the 2015-2024 Statcast training table (316,463 batter-games / 37,340 HR / 1,840 slates):
+weighted sum of exactly **five** z-scored signals. This is the live `_SIG` list in
+`build15.py` **as of `DMGRATIO-2026-08-23`** — read it off the source, not off this
+table, if the two ever disagree again:
 
 | signal | key | weight |
 |---|---|---|
-| expected power (park-neutral xISO, raw) | `_zxpow` | `0.029` |
-| expected contact quality (Kasper xwOBAcon if the sidecar is populated, else Savant xwOBAcon) | `_zxwcon` | `0.193` |
-| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.011` |
-| hard-hit rate (Kasper `HH%`) | `_zhh` | `0.432` |
-| launch angle via the `la_window` bell, `exp(-((la-25)/14)^2)` (Kasper `LA`) | `_zla` | `0.335` |
+| hard-hit rate (Kasper `HH%`) | `_zhh` | `0.3655` |
+| launch angle via the `la_window` bell, `exp(-((la-25)/14)^2)` (Kasper `LA`) | `_zla` | `0.2834` |
+| **actual-vs-expected damage** — Kasper `ISO` ÷ `xwOBAcon` | `_zdmg` | `0.2818` |
+| opposing starter's SwStr%, **negated** (higher = more hittable), platoon split | `_zpsw` | `0.06` |
+| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.0093` |
 
-(Weights sum to 1.0. They replace the `.45/.35/.20` **reasoned guesses** that had been
-live since 2026-07-09. `HH%` and `LA` were display-only chips until this refit and turned
-out to be the two strongest predictors in the whole table; 3-signal AUC 0.5773 → 5-signal
-0.5962. ⚠️ `_zxpow`/`_zars` were measured through Statcast **proxies** (`b_brl`/`p_brl`)
-that are collinear with hard-hit, so their true weight may be understated — they were kept
-in the basket, not dropped. Repro: `fit_savant.py`, Savant Fit run `31731827046`.)
+Weights sum to **exactly 1.0000**. `_zhh` / `_zla` / `_zars` still carry their
+**2026-08-13 fitted values** (grouped-by-game-date CV logistic on the 2015-2024
+Statcast table, 316,463 batter-games / 37,340 HR / 1,840 slates; 3-signal AUC 0.5773
+→ 5-signal 0.5962; repro `fit_savant.py`, Savant Fit run `31731827046`). `HH%` and
+`LA` were display-only chips until that refit and turned out to be the two strongest
+predictors in the whole table.
+
+**`_zdmg` (`DMGRATIO-2026-08-23`) — owner's call, and it OVERRODE a measurement.**
+`_zxwcon` (xwOBAcon) and `_zxpow` (park-neutral xISO) came **out** of the basket and
+were replaced by the single ratio `_zdmg = ISO / xwOBAcon`, which inherits their
+combined weight plus `_ziso`'s: `0.0245 + 0.1633 + 0.0940 = 0.2818`. Rationale: this
+is the read Kasper actually makes — hard-hit and launch angle first, then
+actual-vs-expected damage — and carrying the two *levels* **and** the *comparison*
+double-counts the same two columns.
+
+⚠️ **Do not "fix" this back on the strength of `claude/kasper-screen-2026-08-23.md`.**
+That document measures the ratio at standalone AUC **0.5749** against **0.5948** (ISO)
+and **0.5963** (xwOBAcon), and concludes the pair beats the ratio in a fitted basket
+(0.6002 vs 0.5967). It is right, and it was overruled deliberately. The cost is on the
+record too, from the `_SIG` comment itself — 23 nights / 5,454 bats / 563 HR: blend AUC
+**0.6176 → 0.6150**, top-30 hit rate **18.99% → 18.55%**, top-30 ROI **−17.6% → −19.6%**.
+All of it sits inside noise at 563 HR, and none of it tests the proposition the owner
+actually holds, which is that the market half is contaminated by public money and so
+ROI-against-price is the wrong scoreboard. **Revert** = restore
+`('_zxpow',0.0245),('_zxwcon',0.1633),('_ziso',0.0940)` and drop `_zdmg`.
+
+**Sample guard.** `_zdmg` requires `xwOBAcon > 0.05` **and** `bip >= MIN_DMG_BIP` (40
+batted balls); `ISO` outside `0.02–0.60` is rejected as a scrape artifact. A bat that
+fails any guard gets `None` and therefore scores at the **slate mean** — the same safe
+fallback an unmatched bat gets, so it is not pushed down. Unguarded on 08-21 the top of
+this signal was Will Banfield at 1.392 off **five** batted balls. The ratio form (not
+the subtraction) is used because xwOBAcon exceeds ISO for 99.56% of bats, so the
+quotient is well-behaved in (0,1] — and it measures better than the gap, 0.5749 vs 0.5170.
+
+⚠️ **`_zpsw` is the one UNFITTED weight in `_SIG`** (`PSWSTR-2026-08-23`). It could not
+be fitted: pitcher SwStr% exists on 3 archived nights (08-02…04, 410 rows / 48 HR) and
+Savant is unreachable from the sandbox. `0.06` was set by **blast radius** — ~1.7 of the
+top 30 and ~0.7 of the top 8 change per night, max rank shift ~10. It degrades exactly:
+if no arm on the slate carries SwStr%, every bat is `None`, the edge sum is uniformly
+scaled by `(1-W)`, and standardization makes that a no-op to 4.4e-16 — a stale scrape
+reverts to the previous board rather than corrupting it. Revisit once ~3 weeks of slates
+carry `p_swstr` in `calibration.jsonl`.
 
 ⚠️ **The nine-signal edge basket described in older revisions is DEAD.** `_zbg`
 (bullpen game), `_zxptr` (power trend), `_zpvel` (perceived velo), `_zspray`,
 `_zpvd` (velo decline), `_zbtrk` (ball-tracking), `_zpark` (park eye) are all still
 **computed and logged** but are **not** in `_SIG`, so none of them touch `TOTAL`
-(and `W_BTRK`, `W_PVDECL`, `W_XPTREND` are hard-set to `0.0`). Only the five above
-feed the score.
+(and `W_BTRK`, `W_PVDECL`, `W_XPTREND` are hard-set to `0.0`). **Since
+`DMGRATIO-2026-08-23`, `_zxwcon`, `_zxpow` and `_ziso` are on that list too** — computed
+and logged every build so a refit can put them back without a re-scrape, but **not
+scored**. Only the five in the table above feed the score.
 
 Both halves are re-standardized before the 0.5/0.5 blend, so the edge bites as
 hard as the market even when it's thin. There is no `MKT_EXP` exponent anymore.
 
-ISO is **gone** from the math. So is the **power index** as a scoring input:
+ISO is back in the math, but only as the **numerator of `_zdmg`** — it has not been a
+standalone signal since `DMGRATIO-2026-08-23`, and `iso_<date>.json` is still dead
+(the live value comes off the Kasper sidecar, `ISOSRC-2026-08-23`). Gone for good is
+the **power index** as a scoring input:
 `powidx`/`powraw` and the old multiplicative lambdas (`powT`, `zoneT`, `fF`,
 `parkT`, `pM`, `mktT`) and the `_mm` term are all still computed in `build15.py`
 but **no longer feed TOTAL** — vestigial. `powidx` survives only to drive display
@@ -402,11 +443,16 @@ since 2026-08-14 they are no longer bundled into a Chef's Table round robin (`CH
 `assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Dingers section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
-**Edge weights: code and docs now agree** (2026-08-13). `build15.py` `_SIG` is
-`_zxpow 0.029 / _zxwcon 0.193 / _zars 0.011 / _zhh 0.432 / _zla 0.335`, fitted on the 2015-2024 Statcast
-table (316,463 batter-games). This resolved a long-standing three-way split: `.45/.35/.20` was live in the
-source, an `xISO .13 / xwOBAcon .50 / arsenal .37` refit was documented here but **never applied**, and
-`.346/.288/.366` lived only in `backtest_*.py`. `W_ARS=0.10` is a display term, unrelated. Market is a flat 0.5 of
+**Edge weights: code and docs agree** (re-verified against `main` on 2026-08-24).
+`build15.py` `_SIG` is
+`_zars 0.0093 / _zhh 0.3655 / _zla 0.2834 / _zdmg 0.2818 / _zpsw 0.06` — sums to exactly
+1.0000. See the Scoring section above for what `_zdmg` is and why it replaced
+`_zxwcon`/`_zxpow`/`_ziso`. ⚠️ **This README carried the pre-`DMGRATIO` five-signal
+basket (`_zxpow .029 / _zxwcon .193 / _zars .011 / _zhh .432 / _zla .335`) for a day
+after the code moved** — corrected 2026-08-24. The 08-13 refit itself resolved an
+older three-way split: `.45/.35/.20` was live in the source, an
+`xISO .13 / xwOBAcon .50 / arsenal .37` refit was documented here but **never applied**,
+and `.346/.288/.366` lived only in `backtest_*.py`. `W_ARS=0.10` is a display term, unrelated. Market is a flat 0.5 of
 the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon round-robin
 `risk=2.0u`, salami round-robin `risk=5.5u` (singles/builders stake `1u`).
 
