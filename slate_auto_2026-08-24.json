@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
   "season": "2026",
-  "pulled_at": "2026-08-24T22:02:29Z",
+  "pulled_at": "2026-08-24T22:10:36Z",
   "games": [
     {
       "gamePk": 824235,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 823992,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T01:38:00Z",
       "matchup": "CLE@LAA",
       "away": {
@@ -558,10 +558,56 @@
           "hr9": 0.83,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.199
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.194
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.127
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.12
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.19
+          },
+          {
+            "id": 672569,
+            "name": "Gustavo Campero",
+            "iso": 0.142
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.035
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.131
+          },
+          {
+            "id": 518595,
+            "name": "Travis d'Arnaud",
+            "iso": 0.075
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
