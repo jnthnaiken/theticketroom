@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
   "season": "2026",
-  "pulled_at": "2026-08-24T21:55:24Z",
+  "pulled_at": "2026-08-24T22:00:31Z",
   "games": [
     {
       "gamePk": 824235,
@@ -397,7 +397,7 @@
         "wind_mph": 5.7,
         "wind_dir": 312,
         "tail_mph": -1.2,
-        "precip": 6
+        "precip": 5
       },
       "wf": 1.014
     },
@@ -577,7 +577,7 @@
     },
     {
       "gamePk": 825041,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T01:40:00Z",
       "matchup": "CHC@ARI",
       "away": {
@@ -599,10 +599,56 @@
           "hr9": 1.81,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.119
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.24
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.161
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.125
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.117
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.201
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.16
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.147
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -652,7 +698,7 @@
         "wind_mph": 7.8,
         "wind_dir": 213,
         "tail_mph": 6.5,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.033
     },
@@ -958,7 +1004,7 @@
         "wind_mph": 12.8,
         "wind_dir": 277,
         "tail_mph": 12.5,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.031
     }
