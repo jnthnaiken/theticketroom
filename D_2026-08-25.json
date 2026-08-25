@@ -34188,7 +34188,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34286,7 +34286,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34373,7 +34373,7 @@
    "iso": ".167",
    "iso_used": 0.167,
    "powraw": 323.3976845459871,
-   "slot": 6,
+   "slot": 5,
    "bhand": "L",
    "hr9": null,
    "wf": 1,
@@ -34384,7 +34384,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34401,7 +34401,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.9264705882352942,
-   "slotT": 0.98,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": 0.123,
    "penT": 1.00984,
@@ -34482,7 +34482,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34580,7 +34580,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34667,7 +34667,7 @@
    "iso": ".171",
    "iso_used": 0.171,
    "powraw": 187.475036017655,
-   "slot": 5,
+   "slot": 6,
    "bhand": "R",
    "hr9": null,
    "wf": 1,
@@ -34678,7 +34678,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34695,7 +34695,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.9264705882352942,
-   "slotT": 1,
+   "slotT": 0.98,
    "platT": 0.92,
    "pen_fatigue": 0.123,
    "penT": 1.00984,
@@ -34776,7 +34776,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34874,7 +34874,7 @@
    "late": true,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -34961,7 +34961,7 @@
    "iso": ".12",
    "iso_used": 0.12,
    "powraw": 132.27239800432085,
-   "slot": 9,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1,
@@ -34971,7 +34971,7 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -34989,7 +34989,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.830316742081448,
-   "slotT": 0.92,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.123,
    "penT": 1.00984,
@@ -35353,7 +35353,7 @@
    "iso": ".097",
    "iso_used": 0.097,
    "powraw": 66.23323302441361,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1,
@@ -35363,8 +35363,8 @@
    "gtime": "9:40 PM ET",
    "late": true,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Clay Holmes",
@@ -35381,7 +35381,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.8513339762134362,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": 0.123,
    "penT": 1.00984,
@@ -38124,7 +38124,7 @@
     "precip": 0
    }
   },
-  "build": "8/25 6:13pm",
+  "build": "8/25 6:18pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -38759,6 +38759,44 @@
    "locked": true
   },
   {
+   "name": "Full Fathom",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Rafael Devers is making elite contact (64% hard-hit), gets ideal loft (22\u00b0), gets a sliver of help from the park.",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 174.3,
+     "aT": 100,
+     "wf": 1.049,
+     "gmatch": "CIN@SF",
+     "gtime": "9:45 PM ET",
+     "game": 15,
+     "late": true,
+     "odds": 350,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Rafael Devers",
+   "lock": "9:45 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 350,
+   "payout10": 45,
+   "locked": true
+  },
+  {
    "name": "Ballistic Arc",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -38825,44 +38863,6 @@
    "priced": 3,
    "parlay_am": 8303,
    "payout10": 840.31
-  },
-  {
-   "name": "Full Fathom",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Rafael Devers is making elite contact (64% hard-hit), gets ideal loft (22\u00b0), gets a sliver of help from the park.",
-   "players": [
-    {
-     "name": "Rafael Devers",
-     "team": "Giants",
-     "total": 174.3,
-     "aT": 100,
-     "wf": 1.049,
-     "gmatch": "CIN@SF",
-     "gtime": "9:45 PM ET",
-     "game": 15,
-     "late": true,
-     "odds": 350,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Rafael Devers",
-   "lock": "9:45 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 1,
-   "parlay_am": 350,
-   "payout10": 45,
-   "locked": true
   },
   {
    "name": "The Way Back Machine",

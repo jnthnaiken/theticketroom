@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T22:13:13Z",
+  "pulled_at": "2026-08-25T22:17:48Z",
   "games": [
     {
       "gamePk": 824233,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823826,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-25T22:40:00Z",
       "matchup": "BOS@MIA",
       "away": {
@@ -1287,7 +1287,7 @@
     },
     {
       "gamePk": 825042,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "CHC@ARI",
       "away": {
@@ -1309,10 +1309,56 @@
           "hr9": 1.01,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.117
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.239
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.159
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.124
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.114
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.2
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.158
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.145
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.14
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1753,9 +1799,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 16mph, 66\u00b0",
+        "lean": "Boost",
+        "temp": 66.0,
+        "wind_mph": 16.9,
+        "wind_dir": 288,
+        "tail_mph": 15.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.048
     }
   ]
 }
