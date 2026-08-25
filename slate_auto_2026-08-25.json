@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T22:17:48Z",
+  "pulled_at": "2026-08-25T22:21:41Z",
   "games": [
     {
       "gamePk": 824233,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 822693,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-25T22:45:00Z",
       "matchup": "COL@WSH",
       "away": {
@@ -1298,8 +1298,54 @@
           "hr9": 0.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.276
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.209
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.15
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.162
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.202
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.097
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.149
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.241
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.133
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -1580,16 +1626,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 92\u00b0",
-        "lean": "Boost",
-        "temp": 92.4,
-        "wind_mph": 8.6,
-        "wind_dir": 242,
-        "tail_mph": 8.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.064
+      "wf": 1.0
     },
     {
       "gamePk": 823098,
