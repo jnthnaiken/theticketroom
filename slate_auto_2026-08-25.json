@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T23:30:51Z",
+  "pulled_at": "2026-08-25T23:33:12Z",
   "games": [
     {
       "gamePk": 824233,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 663969,
           "name": "Tyler Phillips",
-          "hr9": 1.21,
+          "hr9": 1.22,
           "hand": "RHP"
         },
         "lineup": [
@@ -290,7 +290,7 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.18
+            "iso": 0.181
           },
           {
             "id": 696100,
@@ -335,7 +335,7 @@
         "sp": {
           "id": 674841,
           "name": "Andrew Alvarez",
-          "hr9": 0.43,
+          "hr9": 0.44,
           "hand": "LHP"
         },
         "lineup": [
@@ -448,12 +448,12 @@
           {
             "id": 664774,
             "name": "LaMonte Wade Jr.",
-            "iso": 0.115
+            "iso": 0.117
           },
           {
             "id": 673237,
             "name": "Yainer Diaz",
-            "iso": 0.151
+            "iso": 0.139
           },
           {
             "id": 666211,
@@ -468,7 +468,7 @@
         "sp": {
           "id": 701542,
           "name": "Will Warren",
-          "hr9": 1.46,
+          "hr9": 1.39,
           "hand": "RHP"
         },
         "lineup": [
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 822773,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-25T23:07:00Z",
       "matchup": "KC@TOR",
       "away": {
@@ -888,7 +888,7 @@
           {
             "id": 643289,
             "name": "Mauricio Dub\u00f3n",
-            "iso": 0.125
+            "iso": 0.126
           },
           {
             "id": 671739,
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 16mph, 65\u00b0",
+        "lean": "Boost",
+        "temp": 64.9,
+        "wind_mph": 16.8,
+        "wind_dir": 287,
+        "tail_mph": 15.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.047
     }
   ]
 }
