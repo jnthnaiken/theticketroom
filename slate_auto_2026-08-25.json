@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T19:02:22Z",
+  "pulled_at": "2026-08-25T19:07:19Z",
   "games": [
     {
       "gamePk": 824233,
@@ -339,7 +339,7 @@
     },
     {
       "gamePk": 824881,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T23:15:00Z",
       "matchup": "LAD@ATL",
       "away": {
@@ -350,8 +350,54 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.257
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.161
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.171
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.253
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.133
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.132
+          },
+          {
+            "id": 669743,
+            "name": "Alex Call",
+            "iso": 0.076
+          },
+          {
+            "id": 677950,
+            "name": "Alek Thomas",
+            "iso": 0.149
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -364,7 +410,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
