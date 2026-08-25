@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T21:22:39Z",
+  "pulled_at": "2026-08-25T21:27:39Z",
   "games": [
     {
       "gamePk": 824233,
@@ -1455,7 +1455,7 @@
     },
     {
       "gamePk": 823098,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "PHI@SEA",
       "away": {
@@ -1477,10 +1477,56 @@
           "hr9": 1.09,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.191
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.222
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.164
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.101
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.169
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.142
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.094
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.133
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.143
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
