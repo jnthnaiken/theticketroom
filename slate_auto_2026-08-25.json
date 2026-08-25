@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T18:57:20Z",
+  "pulled_at": "2026-08-25T19:00:31Z",
   "games": [
     {
       "gamePk": 824233,
@@ -132,7 +132,7 @@
     },
     {
       "gamePk": 822693,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T22:45:00Z",
       "matchup": "COL@WSH",
       "away": {
@@ -152,10 +152,56 @@
           "hr9": 0.45,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.252
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.258
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.145
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.165
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.157
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.081
+          },
+          {
+            "id": 695670,
+            "name": "Harry Ford",
+            "iso": 0.2
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.034
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.149
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",

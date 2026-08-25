@@ -6284,7 +6284,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -6467,7 +6467,7 @@
    "iso": ".129",
    "iso_used": 0.129,
    "powraw": 87.73772861098445,
-   "slot": 6,
+   "slot": null,
    "bhand": "S",
    "hr9": null,
    "wf": 1.008,
@@ -6477,7 +6477,7 @@
    "gtime": "6:45 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -6495,7 +6495,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 0.9904141104294478,
-   "slotT": 0.98,
+   "slotT": 1,
    "platT": 1.024,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -6575,7 +6575,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -6672,7 +6672,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -6758,7 +6758,7 @@
    "iso": ".081",
    "iso_used": 0.081,
    "powraw": 59.14899892430202,
-   "slot": null,
+   "slot": 6,
    "bhand": null,
    "hr9": null,
    "wf": 1.008,
@@ -6768,8 +6768,8 @@
    "gtime": "6:45 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -6786,7 +6786,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 0.8307841068917018,
-   "slotT": 1,
+   "slotT": 0.98,
    "platT": 1,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -6855,7 +6855,7 @@
    "iso": ".169",
    "iso_used": 0.169,
    "powraw": 178.96505015607417,
-   "slot": null,
+   "slot": 7,
    "bhand": null,
    "hr9": null,
    "wf": 1.008,
@@ -6865,8 +6865,8 @@
    "gtime": "6:45 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -6883,7 +6883,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 0.96,
    "platT": 1,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -6963,7 +6963,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -7060,7 +7060,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -7146,7 +7146,7 @@
    "iso": ".203",
    "iso_used": 0.203,
    "powraw": 362.7249622501527,
-   "slot": 7,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1.008,
@@ -7156,7 +7156,7 @@
    "gtime": "6:45 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -7174,7 +7174,7 @@
    "psrc": "hr9",
    "parkhr": 1,
    "mktT": 1,
-   "slotT": 0.96,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": 0.6,
    "penT": 1.048,
@@ -7351,7 +7351,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -7448,7 +7448,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Mason Adams",
@@ -38124,7 +38124,7 @@
     "precip": 0
    }
   },
-  "build": "8/25 2:57pm",
+  "build": "8/25 3:01pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -38660,7 +38660,7 @@
      "game": 3,
      "late": false,
      "odds": 500,
-     "status": "projected"
+     "status": "confirmed"
     },
     {
      "name": "Drake Baldwin",
@@ -38693,7 +38693,7 @@
     "dome": 0,
     "neu": 2
    },
-   "confleg": 0
+   "confleg": 1
   },
   {
    "name": "Climbing the Ladder",
