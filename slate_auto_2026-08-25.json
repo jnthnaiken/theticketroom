@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T15:30:51Z",
+  "pulled_at": "2026-08-25T15:36:43Z",
   "games": [
     {
       "gamePk": 824233,
@@ -597,9 +597,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 14mph, 67\u00b0",
+        "lean": "Boost",
+        "temp": 67.0,
+        "wind_mph": 15.4,
+        "wind_dir": 287,
+        "tail_mph": 14.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.045
     }
   ]
 }
