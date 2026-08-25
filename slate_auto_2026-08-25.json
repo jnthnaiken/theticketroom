@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T22:07:50Z",
+  "pulled_at": "2026-08-25T22:13:13Z",
   "games": [
     {
       "gamePk": 824233,
@@ -1701,22 +1701,61 @@
           "hr9": 1.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.14
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.232
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.136
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.2
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.012
+          },
+          {
+            "id": 801501,
+            "name": "Nate Furman",
+            "iso": 0.0
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.231
+          },
+          {
+            "id": 687529,
+            "name": "Grant McCray",
+            "iso": 0.125
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.048
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 16mph, 66\u00b0",
-        "lean": "Boost",
-        "temp": 66.0,
-        "wind_mph": 16.9,
-        "wind_dir": 288,
-        "tail_mph": 15.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.048
+      "wf": 1.0
     }
   ]
 }
