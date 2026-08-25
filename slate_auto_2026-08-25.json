@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T20:37:37Z",
+  "pulled_at": "2026-08-25T20:42:18Z",
   "games": [
     {
       "gamePk": 824233,
@@ -945,8 +945,54 @@
           "hr9": 1.21,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.211
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.194
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.209
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.156
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.175
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.188
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.085
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.05
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.129
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CWS",
@@ -1431,9 +1477,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 14mph, 67\u00b0",
+        "lean": "Boost",
+        "temp": 67.2,
+        "wind_mph": 15.6,
+        "wind_dir": 287,
+        "tail_mph": 14.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.046
     }
   ]
 }
