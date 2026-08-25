@@ -1,11 +1,11 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T23:55:14Z",
+  "pulled_at": "2026-08-25T23:58:24Z",
   "games": [
     {
       "gamePk": 824233,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-25T22:40:00Z",
       "matchup": "TB@DET",
       "away": {
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 15mph, 65\u00b0",
+        "lean": "Boost",
+        "temp": 65.4,
+        "wind_mph": 16.2,
+        "wind_dir": 285,
+        "tail_mph": 15.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.046
     }
   ]
 }
