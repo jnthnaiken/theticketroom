@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T19:07:19Z",
+  "pulled_at": "2026-08-25T19:12:16Z",
   "games": [
     {
       "gamePk": 824233,
@@ -298,7 +298,7 @@
     },
     {
       "gamePk": 823585,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-25T23:10:00Z",
       "matchup": "MIL@NYM",
       "away": {
@@ -320,10 +320,56 @@
           "hr9": 1.07,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.183
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.129
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.15
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.18
+          },
+          {
+            "id": 676572,
+            "name": "Eric Wagaman",
+            "iso": 0.133
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.177
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.137
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.169
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.119
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
