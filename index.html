@@ -1545,7 +1545,17 @@ drawTickets();drawPlayers();drawTracker();
        through 8 seats, all pre-first-pitch) and where Bobby Witt came off a board already bet.
        Same condition the lock badge renders, so 🔒 on the board now means 🔒 in the draft. A
        scratch clears `confirmed`, so the slip unfreezes and refills exactly as it always did. */
+    /* RETIRED KINDS -- 2026-08-25. A retired slip must not reach the board by ANY route, and
+       there are three: the CONFLOCK scan just below (which reads D.tickets DIRECTLY, not
+       `prior`), the `prior` carry, and the localStorage lock restore. Filtering only `prior`
+       left the first one open and four locked dingers kept shipping -- `out.fam=4` with
+       `prior.fam=0`, which is what a half-applied retirement looks like. One predicate, used
+       at all three doors, so the next retirement cannot be half-done either.
+         chef   -- retired 2026-08-14
+         family -- retired 2026-08-25, owner: "i dont care if they are locked" */
+    function retiredKind(k){ return k==='chef' || k==='family'; }
     (D.tickets||[]).forEach(function(t){
+      if(retiredKind(t.kind)) return;   /* never latch, never reserve bats, never re-emit */
       var lk=gmin(t.lock), _lg=(t.players||[]);
       var _underway = (lk!=null && _lkNow>=lk);
       var _allConf  = _lg.length>0 && _lg.every(function(l){
@@ -1677,7 +1687,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     function leg(n){var p=P[n]; return {name:n,team:p.team,total:p.TOTAL,aT:p.aT,wf:p.wf,gmatch:p.gmatch,gtime:p.gtime,game:p.game,late:!!p.late,odds:p.odds,status:p.status};}
     function lockOf(legs){return legs.slice().sort(function(x,y){return gmin(x.gtime)-gmin(y.gtime);})[0].gtime;}
 
-    var prior=(D.tickets||[]).filter(function(t){return t.kind!=='chef';}), out=[], kc={};   // 2026-08-14: chef is retired -- a prior chef is dropped, not carried. Keeping locked ones on the board was wrong: the slip is gone, so it must not render at all.
+    var prior=(D.tickets||[]).filter(function(t){return !retiredKind(t.kind);}), out=[], kc={};   // 2026-08-14: chef is retired -- a prior chef is dropped, not carried. Keeping locked ones on the board was wrong: the slip is gone, so it must not render at all.   // 2026-08-25: dingers get the same treatment, locked ones included.
     function nextIdx(kind){kc[kind]=(kc[kind]==null?-1:kc[kind])+1;return kc[kind];}
     function mkBuilder(n){var legs=[leg(n)];var idx=nextIdx('builder');
       /* 2026-08-10: names were assigned by draft INDEX, so when the anchor order shifted the same bat changed ticket name and a name changed bat -- at 7:12pm Ground Tackle went Baldwin->Alonso, Calm Seas Alonso->Olson, Tide's Turn Olson->Baldwin, i.e. the same three bats rotating through each other's slips. Bind the name to the bat: if this bat already had a builder on the prior board, keep that name. */
@@ -1710,7 +1720,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     loadLock().forEach(function(e){
       if(!e || !e.sig || !e.t || _pSig[e.sig]) return;
       var t=e.t, legs=t.players||[];
-      if(t.kind==='chef' || !legs.length || !validT(t)) return;
+      if(retiredKind(t.kind) || !legs.length || !validT(t)) return;   /* a locked dinger in a viewer's localStorage must not re-admit a retired kind */
       for(var _li=0;_li<legs.length;_li++){
         var _lp=P[legs[_li].name];
         if(!_lp || _lp.out || _lp.void) return;
