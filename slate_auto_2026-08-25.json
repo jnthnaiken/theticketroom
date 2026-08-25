@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-25T21:27:39Z",
+  "pulled_at": "2026-08-25T21:32:41Z",
   "games": [
     {
       "gamePk": 824233,
@@ -1327,7 +1327,7 @@
     },
     {
       "gamePk": 823259,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "PIT@SD",
       "away": {
@@ -1349,10 +1349,56 @@
           "hr9": 1.09,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.162
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.077
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.192
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.221
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.174
+          },
+          {
+            "id": 650859,
+            "name": "Luis Rengifo",
+            "iso": 0.08
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.186
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.108
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.084
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
