@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-26T02:57:17Z",
+  "pulled_at": "2026-08-26T03:00:55Z",
   "games": [
     {
       "gamePk": 824233,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 824556,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-25T23:40:00Z",
       "matchup": "TEX@CWS",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 14mph, 67\u00b0",
-        "lean": "Boost",
-        "temp": 67.1,
-        "wind_mph": 14.3,
-        "wind_dir": 284,
-        "tail_mph": 13.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.043
+      "wf": 1.0
     }
   ]
 }
