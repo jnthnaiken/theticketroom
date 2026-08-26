@@ -106,8 +106,8 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
 .ktag{font-family:'Roboto Mono',monospace;font-size:9.5px;letter-spacing:.15em;
   text-transform:uppercase;color:var(--accent);margin:4px 0 0}
 .cnt{margin-left:auto;text-align:right;font-family:'Roboto Mono',monospace;font-size:9.5px;
-  color:var(--dim);line-height:1.3}
-.cnt b{display:block;color:var(--txt);font-size:16px;font-weight:500}
+  color:var(--dim);line-height:1.3;letter-spacing:.06em}
+.cnt b{font-weight:500;color:var(--dim)}
 
 /* EDGEFADE-2026-08-26, owner: "the gradient on the right sides is covering up the scores of the
    last game." The fade was UNCONDITIONAL, and a mask is positioned against the ELEMENT, not the
@@ -217,7 +217,18 @@ html::-webkit-scrollbar-thumb:hover{background:var(--line2);background-clip:cont
 
 footer{position:relative;z-index:2;border-top:1px solid var(--line);
   padding:12px clamp(22px,4vw,34px);color:var(--dim);font-size:11px;text-align:center}
-footer .in{max-width:1000px;margin:0 auto}
+footer .in{max-width:1000px;margin:0 auto;position:relative}
+.corner{display:flex;gap:8px;justify-content:center;margin-top:11px}
+.corner a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+  font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mut);background:var(--surf);border:1px solid var(--line);border-radius:999px;
+  padding:5px 11px;transition:color .16s ease,border-color .16s ease,background .16s ease}
+.corner a:hover{color:var(--txt);border-color:var(--line2);background:var(--raise)}
+.corner svg{width:11px;height:11px;fill:currentColor;flex:none}
+@media(min-width:920px){
+  .corner{position:absolute;right:0;bottom:-2px;margin-top:0}
+  footer .in{padding-right:250px}
+}
 footer b{color:var(--mut);font-weight:600}
 @media (prefers-reduced-motion:reduce){
   .hole .disc{animation:none}
@@ -302,7 +313,19 @@ footer b{color:var(--mut);font-weight:600}
   Research tools, not advice — the model does not out-predict the market and says so on both
   boards. Always verify odds and team news before you wager. 21+.
   <b>Gambling problem? Call or text 1-800-GAMBLER.</b>
-</div></footer>
+    <div class="corner">
+      <a href="https://x.com/TicketRoomLive" target="_blank" rel="noopener noreferrer"
+         aria-label="The Ticket Room on X">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-7.6 8.7L23.4 22h-6.9l-5.4-7-6.2 7H1.8l8.2-9.3L1 2h7.1l4.9 6.4L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg>
+        @TicketRoomLive
+      </a>
+      <!-- TIPJAR-2026-08-26: moved here from both boards (TIP_URL is now '' in index.html, which
+           removes the pill from their DOM entirely -- the board code already supported that).
+           Simplified: it was a pill plus a "keeps the food free" subtitle on every board page;
+           one word and a coin on one page says the same thing without asking twice a day. -->
+      <a href="https://venmo.com/u/TheTicketRoom" target="_blank" rel="noopener noreferrer">🪙 Tip the kitchen</a>
+    </div>
+  </div></footer>
 
 <script>
 /* ONE feed for both rooms. ESPN carries MLB and soccer in the same shape and ships team logos;
