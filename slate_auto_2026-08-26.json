@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T17:38:05Z",
+  "pulled_at": "2026-08-26T17:43:04Z",
   "games": [
     {
       "gamePk": 824234,
@@ -25,7 +25,7 @@
           {
             "id": 666018,
             "name": "Jonathan Aranda",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 691406,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 675512,
           "name": "Troy Melton",
-          "hr9": 0.98,
+          "hr9": 0.97,
           "hand": "RHP"
         },
         "lineup": [
@@ -97,7 +97,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 656716,
@@ -107,7 +107,7 @@
           {
             "id": 679529,
             "name": "Spencer Torkelson",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 703601,
@@ -1017,9 +1017,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 96\u00b0",
+        "lean": "Boost",
+        "temp": 96.5,
+        "wind_mph": 6.8,
+        "wind_dir": 238,
+        "tail_mph": 6.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.064
     }
   ]
 }
