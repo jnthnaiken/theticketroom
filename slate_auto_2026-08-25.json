@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-26T01:16:51Z",
+  "pulled_at": "2026-08-26T01:22:10Z",
   "games": [
     {
       "gamePk": 824233,
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 824962,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "MIN@ATH",
       "away": {
@@ -1718,16 +1718,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 93\u00b0",
-        "lean": "Boost",
-        "temp": 92.7,
-        "wind_mph": 7.8,
-        "wind_dir": 243,
-        "tail_mph": 7.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.061
+      "wf": 1.0
     },
     {
       "gamePk": 823098,
