@@ -99,7 +99,7 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
   background:radial-gradient(circle,#04060a 62%,#04060ad9 100%)}
 .hole .halo{position:absolute;inset:-8px;border-radius:50%;box-shadow:0 0 26px -4px var(--accent);opacity:.5}
 .hole svg{position:relative;z-index:2;width:24px;height:24px;color:var(--accent)}
-.soc .hole svg{width:26px;height:26px}   /* the goal is wider than tall, so it needs a touch more box than the baseball to carry the same weight */
+.soc .hole svg{width:28px;height:28px}   /* the goal is wider than tall, so it needs a touch more box than the baseball to carry the same weight */
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .cname{font-family:Oswald,sans-serif;font-weight:600;font-size:23px;line-height:1;margin:0;
@@ -292,27 +292,32 @@ footer b{color:var(--mut);font-weight:600}
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <!-- BOXICON-2026-08-26, owner: "it needs to have the same style as the baseball. do a
-               soccer goal if you need to. or the lines of the 18 yd box." then, shown both:
-               "18 yd box one looks best."
+               soccer goal if you need to. or the lines of the 18 yd box." -> "18 yd box one looks
+               best." -> "do the one w the 6 yd box."
                This retires four failed attempts at a BALL (radial spokes, panels clipped at the
                rim, panels held inside the rim, then the emoji). Every one read as a wheel or a cog
                at 24-30px, because at that size five dark shapes around a centre IS a hub and
                spokes; the emoji was legible but abandoned the line-art language the baseball sets.
                A penalty area has no radial symmetry, so it cannot collapse into a wheel at any
-               size, and it is drawn in the baseball's exact idiom: viewBox 100, fill none, stroke
-               currentColor, stroke-width 7, round caps -- one weight, no net, nothing to fill in.
-               ⚠️ THE D BULGES AWAY FROM THE GOAL LINE. The first cut had sweep-flag 0, which
-               curved it down INTO the box and read as a bite taken out of the top edge. The
-               penalty arc sits outside the box, on the midfield side: goal line at y=80, box top
-               at y=40, so the arc must rise toward smaller y -- sweep-flag 1. -->
+               size, and it is drawn in the baseball's idiom: viewBox 100, fill none, stroke
+               currentColor, round caps.
+               ⚠️ THE D BULGES AWAY FROM THE GOAL LINE. The first cut used sweep-flag 0, which
+               curved it down INTO the box and read as a bite out of the top edge. The penalty arc
+               sits outside the box, on the midfield side: goal line at y=80, box top at y=42, so
+               it must rise toward smaller y -- sweep-flag 1.
+               ⚠️ TWO WEIGHTS. The 18-yard box, goal line and D are 7 to match the baseball; the
+               SIX-yard box is 4.6 at .85 opacity. At one weight the two nested rectangles fight
+               and the middle fills in at 26px -- the lighter inner line is what keeps them
+               reading as two boxes rather than a smear. -->
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor"
                stroke-linecap="round" stroke-linejoin="round">
             <g stroke-width="7">
               <path d="M6 80h88"/>
-              <path d="M20 80V40h60v40"/>
-              <path d="M36 40a17 17 0 0 1 28 0"/>
+              <path d="M20 80V42h60v38"/>
+              <path d="M37 42a16 16 0 0 1 26 0"/>
             </g>
-            <circle cx="50" cy="62" r="3.5" fill="currentColor" stroke="none"/>
+            <g stroke-width="4.6" opacity=".85"><path d="M36 80V64h28v16"/></g>
+            <circle cx="50" cy="55" r="3.2" fill="currentColor" stroke="none"/>
           </svg></span>
         <div><h2 class="cname">Soccer</h2><p class="ktag">Anytime goalscorer</p></div>
         <span class="cnt" id="c-soc"></span>
