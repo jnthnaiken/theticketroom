@@ -175,6 +175,10 @@ html::-webkit-scrollbar-thumb:hover{background:var(--line2);background-clip:cont
   border:1px solid var(--line2);border-radius:999px;padding:3px 8px;color:var(--mut)}
 .pill b{color:var(--txt);font-weight:500}
 .pill.pos b{color:var(--lime)}.pill.neg b{color:var(--pink)}
+.pill.lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  display:inline-flex;align-items:center;gap:5px;border-color:var(--line)}
+.pill.lbl .lv{width:5px;height:5px;border-radius:50%;background:var(--lime);
+  box-shadow:0 0 0 3px #4ef08a1f;display:inline-block}
 /* TICKET-2026-08-26, owner: "make it look like an oddschool state fair ticket. and just that
    button is clicked to enter. not the the whole room box."
    The card is a <div> now and THIS is the only link on it. That matters beyond taste: with the
@@ -383,16 +387,49 @@ footer b{color:var(--mut);font-weight:600}
        's-soc','c-soc',' matches','no matches today','FT',16);
 
   /* ledger pills, straight from each board's own payload */
-  [{el:'m-mlb',dir:''},{el:'m-soc',dir:'soccer/'}].forEach(function(r){
+  /* LIVELEDGER-2026-08-26, owner: "the ledger info on the cover page isnt updating with the
+     live ledgers."
+     ledger.json is DERIVED AT DEPLOY TIME from season.json, and season.json is only written when
+     a FINISHED night is folded -- so from first pitch to settle this door sat a whole night
+     behind the boards, which had the live figure on screen the entire time. Confirmed: today's
+     season.json was last touched 2026-08-25 15:08Z.
+     The fix is NOT to grade here. That would be a second copy of gradeTicket/liveCats needing
+     the ticket list and the results feed as well -- the assemble_tickets.py mistake, on the one
+     page that is supposed to be cheap. Instead each board HANDS OVER the number it has already
+     computed (drawTracker -> localStorage, same origin) and this just reads it.
+     ⚠️ THE HAND-OFF IS PER-VIEWER. Someone who has never opened a room has nothing in storage
+     for it, so ledger.json remains the fallback and the honest answer -- a carried season total,
+     which is true, just not current. The pill says which one it is rather than letting the same
+     number quietly mean two things. */
+  function readHandoff(key){
+    try{
+      var j=JSON.parse(localStorage.getItem(key)||'null');
+      if(!j || j.d!==etDate()) return null;                 /* yesterday's hand-off is not today's */
+      if(!(j.t>0) || (Date.now()-j.t) > 12*3600*1000) return null;
+      if(typeof j.u!=='number' || typeof j.g!=='number') return null;
+      return j;
+    }catch(e){ return null; }
+  }
+  [{el:'m-mlb',dir:'',key:'hr_live_ledger'},{el:'m-soc',dir:'soccer/',key:'sr_live_ledger'}].forEach(function(r){
+    var live=readHandoff(r.key);
+    function paint(u,g,w,isLive){
+      var box=document.getElementById(r.el); if(!box||!g) return;
+      box.innerHTML='';
+      box.appendChild(el('span','pill '+(u>=0?'pos':'neg'),'<b>'+(u>=0?'+':'')+u.toFixed(1)+'u</b>'));
+      box.appendChild(el('span','pill',w+'–'+(g-w)));
+      box.appendChild(el('span','pill lbl',isLive?'<i class="lv"></i>live':'thru last night'));
+    }
+    if(live) paint(live.u,live.g,live.w,true);
+    /* Still fetch: the file is the fallback when there is no hand-off, and on a first visit it
+       is all there is. A hand-off, when present, is never overwritten by it -- it is strictly
+       fresher. */
     fetch(r.dir+'ledger.json',{cache:'no-store'})
       .then(function(res){ return res.ok?res.json():null; })
       .then(function(j){
-        if(!j) return;
+        if(!j || live) return;
         var cats=(j.cats)||((j.meta&&j.meta.season||{}).cats)||{}, u=0,g=0,w=0;
         Object.keys(cats).forEach(function(k){ u+=cats[k].units||0; g+=cats[k].graded||0; w+=cats[k].won||0; });
-        var box=document.getElementById(r.el); if(!box||!g) return;
-        box.appendChild(el('span','pill '+(u>=0?'pos':'neg'),'<b>'+(u>=0?'+':'')+u.toFixed(1)+'u</b>'));
-        box.appendChild(el('span','pill',w+'–'+(g-w)));
+        paint(u,g,w,false);
       }).catch(function(){});
   });
 })();
