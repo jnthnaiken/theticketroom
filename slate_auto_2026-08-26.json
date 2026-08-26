@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T22:26:36Z",
+  "pulled_at": "2026-08-26T22:30:28Z",
   "games": [
     {
       "gamePk": 824234,
@@ -285,7 +285,7 @@
           {
             "id": 699302,
             "name": "H\u00e9ctor Rodr\u00edguez",
-            "iso": 0.167
+            "iso": 0.225
           },
           {
             "id": 682829,
@@ -485,7 +485,7 @@
           {
             "id": 687093,
             "name": "Vaughn Grissom",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 695681,
@@ -495,7 +495,7 @@
           {
             "id": 642350,
             "name": "Jose Siri",
-            "iso": 0.183
+            "iso": 0.181
           },
           {
             "id": 666139,
@@ -561,12 +561,12 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.289
+            "iso": 0.287
           },
           {
             "id": 665833,
@@ -724,7 +724,7 @@
           {
             "id": 702222,
             "name": "Justin Crawford",
-            "iso": 0.087
+            "iso": 0.086
           }
         ],
         "confirmed": true
@@ -781,7 +781,7 @@
           {
             "id": 801126,
             "name": "Brock Rodden",
-            "iso": 0.129
+            "iso": 0.125
           }
         ],
         "confirmed": true
@@ -933,7 +933,7 @@
     },
     {
       "gamePk": 822692,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-26T22:45:00Z",
       "matchup": "COL@WSH",
       "away": {
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 6mph, 96\u00b0",
+        "lean": "Boost",
+        "temp": 96.1,
+        "wind_mph": 5.6,
+        "wind_dir": 236,
+        "tail_mph": 5.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.059
     }
   ]
 }
