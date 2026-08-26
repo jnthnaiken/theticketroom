@@ -12,7 +12,13 @@ background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),rad
 .wrap{max-width:1120px;margin:0 auto;padding:24px 18px 72px}
 .eyebrow{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--cyan)}
 h1{font-family:Oswald,sans-serif;font-weight:700;font-size:clamp(32px,5.4vw,52px);line-height:.96;margin:8px 0 0;text-transform:uppercase;
-background:linear-gradient(92deg,#fff 18%,var(--cyan) 60%,var(--violet) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* WORDMARK-2026-08-26, owner: "add that blue gradient youre using on every title but the
+   big white the ticket room on that title". The board's wordmark DID carry a gradient --
+   it just held #fff all the way to 18% and did not reach cyan until 60%, so at the width
+   the word actually occupies it read as plain white with a tint on the last letters.
+   These are the cover page's exact stops, so the front door and both rooms now share one
+   wordmark. Only the ramp changed; the clip-to-text mechanics are untouched. */
+background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tagline{color:var(--mut);font-size:15px;font-style:italic;margin-top:10px}
 .tagline .cite{font-style:normal;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-left:10px;vertical-align:middle}
 .statrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
@@ -739,7 +745,9 @@ function _dec(a){return a>0?1+a/100:1+100/Math.abs(a);}function gradeTicket(t){v
    just reads it. tu/tw/tg/ts here are exactly what the Overall line renders.
    The date is stamped so the cover can reject a stale hand-off, and the key is sport-scoped for
    the same reason ODDS_KEY and LOCK_KEY are (SOCCERLIVE-2026-08-26): both boards share an
-   origin and would otherwise overwrite each other's ledger. */
+   origin and would otherwise overwrite each other's ledger.
+   ⚠️ ENGINE EDIT, NOT A PAYLOAD EDIT. regen15.py swaps only the `const D=...,WX=D.meta.wx;`
+   block, so this survives every board build. That is also why soccer_fork.py can seam it. */
 try{localStorage.setItem('sr_live_ledger',JSON.stringify(
   {d:(D.meta&&D.meta.date)||'',u:tu,w:tw,g:tg,s:ts,t:Date.now()}));}catch(_lle){}
 var cnt=kc.lunch+' 🍱 \u00b7 '+kc.late+' 🌃 \u00b7 '+kc.builder+' ⚓️ \u00b7 '+kc.moon+' 💥';el.innerHTML='<div class="tk-cap">Season<span>'+ts.toFixed(0)+'u risked \u00b7 since '+esc(sn.since||'\u2014')+'</span></div>'+'<div class="tk-body"><div class="tk-graph"><div class="tk-big '+cls+'">'+tus+'</div>'+spark(liveHist(sn))+'</div>'+'<div class="tk-right">'+rows+'<div class="tk-foot">Overall <b>'+tw+'\u2013'+(tg-tw)+'</b> \u00b7 '+hit+' hit \u00b7 '+roi+' ROI</div></div></div>'+'<div class="tk-tonight-wrap"><div class="tk-tonight"><span class="tk-tl">Tonight</span><span class="tk-cnt">'+cnt+'</span></div>'+'<div class="tk-tonight"><span class="tk-tl">Next lock</span><span class="tk-cnt">'+(nl?esc(nl)+' ET':'all locked in')+'</span></div></div>';}
