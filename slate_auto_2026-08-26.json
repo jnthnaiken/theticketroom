@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T18:30:32Z",
+  "pulled_at": "2026-08-26T18:33:35Z",
   "games": [
     {
       "gamePk": 824234,
@@ -77,7 +77,7 @@
           {
             "id": 814430,
             "name": "Brett Callahan",
-            "iso": 0.272
+            "iso": 0.286
           },
           {
             "id": 805808,
@@ -1109,16 +1109,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 97\u00b0",
-        "lean": "Boost",
-        "temp": 96.8,
-        "wind_mph": 6.2,
-        "wind_dir": 240,
-        "tail_mph": 6.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.062
+      "wf": 1.0
     }
   ]
 }
