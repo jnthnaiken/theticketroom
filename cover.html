@@ -99,6 +99,7 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
   background:radial-gradient(circle,#04060a 62%,#04060ad9 100%)}
 .hole .halo{position:absolute;inset:-8px;border-radius:50%;box-shadow:0 0 26px -4px var(--accent);opacity:.5}
 .hole svg{position:relative;z-index:2;width:24px;height:24px;color:var(--accent)}
+.soc .hole svg{width:30px;height:30px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .cname{font-family:Oswald,sans-serif;font-weight:600;font-size:23px;line-height:1;margin:0;
@@ -301,22 +302,28 @@ footer b{color:var(--mut);font-weight:600}
     <div class="card soc">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
-          <!-- BALLICON-2026-08-26, owner: "is that a house? a goal? the other one is a
-               baseball." It was a circle with a lone outlined pentagon floating in it, which
-               reads as a roof. The first replacement -- small outlined pentagon + five long
-               radials -- was worse: a thin hub with five thick evenly-spaced spokes is a
-               STEERING WHEEL, not a ball. Rendered five variants side by side at the real 24px
-               and picked the one that survives that size: a LARGE SOLID pentagon with SHORT,
-               THIN seams. Filling the pentagon is what kills the wheel read -- it becomes the
-               black panel of a ball instead of a hub, and the seams become panel joins rather
-               than spokes. It is a different treatment from the baseball's pure line art, and
-               that is deliberate: line art alone does not survive 24px here.
-               Geometry: regular pentagon, circumradius 19, first vertex at -90 deg; seams from
-               each vertex out to r=32, inside the r=38 circle's 7-wide stroke so they meet it. -->
-          <svg viewBox="0 0 100 100" stroke-linejoin="round" stroke-linecap="round">
-            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
-            <path d="M50.0 31.0L68.1 44.1L61.2 65.4L38.8 65.4L31.9 44.1Z" fill="currentColor" stroke="none"/>
-            <path d="M50.0 31.0L50.0 18.0M68.1 44.1L80.4 40.1M61.2 65.4L68.8 75.9M38.8 65.4L31.2 75.9M31.9 44.1L19.6 40.1" fill="none" stroke="currentColor" stroke-width="4.5"/>
+          <!-- BALLICON-2026-08-26, owner: "is that a house? a goal?" then "looks like a
+               fucking steering wheel". Three wrong answers before the right one, and the failure
+               mode was the same each time: RADIAL SPOKES, or panels CLIPPED at the rim. Either
+               one breaks the circular silhouette, and a broken circle with five things poking out
+               of it reads as a wheel or a cog no matter what sits in the middle.
+               This is the emoji's own layout: a solid ball, a centre pentagon pointing up, and
+               five rim pentagons on the centre pentagon's EDGE midpoints (36 deg off its
+               vertices), each rotated to point outward. Crucially they are held fully INSIDE the
+               rim -- unclipped -- so the green edge stays one unbroken circle and the dark shapes
+               read as panels. Dark is #04060a, the same colour as the portal core behind it, so
+               the panels look punched out of the ball rather than painted on.
+               Rendered at 26 and 30px against the emoji before choosing; it is drawn at 30px
+               (see `.soc .hole svg`) because a FILLED icon needs more room than the baseball's
+               line art to resolve. -->
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="38" fill="currentColor"/>
+            <path d="M50.0 34.0L65.2 45.1L59.4 62.9L40.6 62.9L34.8 45.1Z" fill="#04060a"/>
+            <path d="M55.8 23.3L68.1 19.3L75.7 29.8L68.1 40.2L55.8 36.2Z" fill="#04060a"/>
+            <path d="M77.2 47.3L84.8 57.7L77.2 68.2L64.9 64.2L64.9 51.3Z" fill="#04060a"/>
+            <path d="M61.0 75.0L53.4 85.5L41.1 81.5L41.1 68.5L53.4 64.5Z" fill="#04060a"/>
+            <path d="M29.6 68.2L17.3 64.2L17.3 51.3L29.6 47.3L37.2 57.7Z" fill="#04060a"/>
+            <path d="M26.4 36.2L26.4 23.3L38.7 19.3L46.3 29.8L38.7 40.2Z" fill="#04060a"/>
           </svg></span>
         <div><h2 class="cname">Soccer</h2><p class="ktag">Anytime goalscorer</p></div>
         <span class="cnt" id="c-soc"></span>
