@@ -267,8 +267,22 @@ footer b{color:var(--mut);font-weight:600}
     <div class="card soc">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round">
-            <circle cx="50" cy="50" r="38"/><path d="M50 32l14 10-5 17H41l-5-17z"/>
+          <!-- BALLICON-2026-08-26, owner: "is that a house? a goal? the other one is a
+               baseball." It was a circle with a lone outlined pentagon floating in it, which
+               reads as a roof. The first replacement -- small outlined pentagon + five long
+               radials -- was worse: a thin hub with five thick evenly-spaced spokes is a
+               STEERING WHEEL, not a ball. Rendered five variants side by side at the real 24px
+               and picked the one that survives that size: a LARGE SOLID pentagon with SHORT,
+               THIN seams. Filling the pentagon is what kills the wheel read -- it becomes the
+               black panel of a ball instead of a hub, and the seams become panel joins rather
+               than spokes. It is a different treatment from the baseball's pure line art, and
+               that is deliberate: line art alone does not survive 24px here.
+               Geometry: regular pentagon, circumradius 19, first vertex at -90 deg; seams from
+               each vertex out to r=32, inside the r=38 circle's 7-wide stroke so they meet it. -->
+          <svg viewBox="0 0 100 100" stroke-linejoin="round" stroke-linecap="round">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
+            <path d="M50.0 31.0L68.1 44.1L61.2 65.4L38.8 65.4L31.9 44.1Z" fill="currentColor" stroke="none"/>
+            <path d="M50.0 31.0L50.0 18.0M68.1 44.1L80.4 40.1M61.2 65.4L68.8 75.9M38.8 65.4L31.2 75.9M31.9 44.1L19.6 40.1" fill="none" stroke="currentColor" stroke-width="4.5"/>
           </svg></span>
         <div><h2 class="cname">Soccer</h2><p class="ktag">Anytime goalscorer</p></div>
         <span class="cnt" id="c-soc"></span>
