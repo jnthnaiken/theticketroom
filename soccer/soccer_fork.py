@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 80 + LIVE_SEAM_COUNT          # 80 base + 4 live = 84
+EXPECT_SEAMS = 80 + LIVE_SEAM_COUNT          # 80 base + 5 live = 85
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 

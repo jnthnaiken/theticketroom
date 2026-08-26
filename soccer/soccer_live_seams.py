@@ -4,7 +4,7 @@
 soccer_fork.py takes a small, reviewable diff:
 
     from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
-    EXPECT_SEAMS = 79 + LIVE_SEAM_COUNT          # 79 base + 4 live = 83
+    EXPECT_SEAMS = 80 + LIVE_SEAM_COUNT          # 80 base + 5 live = 85
 
     # ...inside seams(), two EXISTING seams change their REPLACEMENT text only:
     #   add('liveloop',      <unchanged old>, LIVELOOP_NEW)
@@ -119,6 +119,30 @@ def live_seams():
         "d.querySelector('#livebtn').onclick=function(){soccerLive();};",
         1))
 
+    # ---- THE FOURTH DOOR: the console debug handles ---------------------------------------
+    # DEBUGHANDLES-2026-08-26, found by auditing after the owner asked, plainly, whether the
+    # board could re-draft a locked or in-progress ticket. Statically and in production it
+    # cannot: `assembleClient(D)` has exactly ONE call site and it sits inside liveUpdate()'s
+    # body, which the 'liveloop' and 'livebtn-onclick' seams leave with no caller. But
+    # index.html also hangs both functions on `window` for the console and for
+    # backtest_true_draft.js -- so on the soccer board `window.__liveUpdate()` was still a live
+    # path to StatsAPI + Open-Meteo + a baseball re-draft, one paste away.
+    #
+    # Nothing in the page reaches them, so this is a footgun rather than a bug. It goes anyway:
+    # today already produced LIVEBTN (the timer and the boot call killed, the BUTTON missed), and
+    # the honest response to "are you sure it can't re-draft" is to remove the path, not to
+    # explain why nobody would take it. The backtest harness runs against the MLB board, which
+    # keeps its handles; the soccer fork has no harness that wants them.
+    S.append((
+        'debug-handles',
+        "if(typeof window!=='undefined'){ window.__assembleClient=assembleClient; "
+        "window.__liveUpdate=liveUpdate; window.__confirmResults=confirmResults; }",
+        "/* SOCCER: MLB's console handles are NOT exported. __assembleClient re-drafts with "
+        "baseball constants and __liveUpdate fetches StatsAPI -- neither has a caller on this "
+        "board and neither should have a console one either. See soccer_live_seams.py "
+        "'debug-handles'. */",
+        1))
+
     # ---- THE LOOP ITSELF -- MUST BE LAST -------------------------------------------------
     # Function declarations hoist, so soccerLive() is callable from the boot line below it.
     S.append((
@@ -131,4 +155,4 @@ def live_seams():
     return S
 
 
-LIVE_SEAM_COUNT = 4
+LIVE_SEAM_COUNT = 5
