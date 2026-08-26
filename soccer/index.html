@@ -1586,8 +1586,26 @@ drawTickets();drawPlayers();drawTracker();
          chef   -- retired 2026-08-14
          family -- retired 2026-08-25, owner: "i dont care if they are locked" */
     function retiredKind(k){ return k==='chef' || k==='family'; }
+    /* CHALKOFF-2026-08-26 -- owner: "yea no if he's in the top 4 ban he needs to be taken off."
+       CHALKBAN-2026-08-18 barred the top-CHALK_N by price from being DRAFTED, which only ever
+       guarded slips not yet made. It said nothing about a slip that had already frozen, so a bat
+       who drifted into the ban mid-slate kept whatever he was already on.
+       That is what stranded Hunter Goodman today: Byron Buxton (+237) was scratched at 3:34pm,
+       Goodman (+280, price unchanged) became the 4th shortest, his unlocked moons were correctly
+       re-derived away -- and his LOCKED builder stayed, leaving a banned bat sitting alone in an
+       anchor seat. SEAT-LOCK then declined to rebuild his moons precisely because he was chalk,
+       so the board showed 5 anchors, one of them leading nothing.
+       Same treatment, and the same three doors, as the Dingers retirement (owner then: "i dont
+       care if they are locked"): the CONFLOCK scan, the `prior` carry, and the localStorage lock
+       restore. One predicate at all three so this cannot be half-applied either.
+       ⚠️ ANY LEG, not just the anchor -- chalk bars a bat from moons and builders alike, so a
+       chalk bat must not ride as a partner leg either.
+       ⚠️ A REMOVED SLIP DOES NOT GRADE. That is the owner's explicit call, and it is the one real
+       cost: if the slip was placed before the bat became chalk, the ledger will not see it. */
+    function chalkBanned(t){ var lg=(t&&t.players)||[];
+      for(var i=0;i<lg.length;i++){ if(chalk[lg[i].name]) return true; } return false; }
     (D.tickets||[]).forEach(function(t){
-      if(retiredKind(t.kind)) return;   /* never latch, never reserve bats, never re-emit */
+      if(retiredKind(t.kind)||chalkBanned(t)) return;   /* never latch, never reserve bats, never re-emit */
       var lk=gmin(t.lock), _lg=(t.players||[]);
       var _underway = (lk!=null && _lkNow>=lk);
       var _allConf  = _lg.length>0 && _lg.every(function(l){
@@ -1719,7 +1737,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     function leg(n){var p=P[n]; return {name:n,team:p.team,total:p.TOTAL,aT:p.aT,wf:p.wf,gmatch:p.gmatch,gtime:p.gtime,game:p.game,late:!!p.late,odds:p.odds,status:p.status};}
     function lockOf(legs){return legs.slice().sort(function(x,y){return gmin(x.gtime)-gmin(y.gtime);})[0].gtime;}
 
-    var prior=(D.tickets||[]).filter(function(t){return !retiredKind(t.kind);}), out=[], kc={};   // 2026-08-14: chef is retired -- a prior chef is dropped, not carried. Keeping locked ones on the board was wrong: the slip is gone, so it must not render at all.   // 2026-08-25: dingers get the same treatment, locked ones included.
+    var prior=(D.tickets||[]).filter(function(t){return !retiredKind(t.kind)&&!chalkBanned(t);}), out=[], kc={};   // 2026-08-14: chef is retired -- a prior chef is dropped, not carried. Keeping locked ones on the board was wrong: the slip is gone, so it must not render at all.   // 2026-08-25: dingers get the same treatment, locked ones included.
     function nextIdx(kind){kc[kind]=(kc[kind]==null?-1:kc[kind])+1;return kc[kind];}
     function mkBuilder(n){var legs=[leg(n)];var idx=nextIdx('builder');
       /* 2026-08-10: names were assigned by draft INDEX, so when the anchor order shifted the same bat changed ticket name and a name changed bat -- at 7:12pm Ground Tackle went Baldwin->Alonso, Calm Seas Alonso->Olson, Tide's Turn Olson->Baldwin, i.e. the same three bats rotating through each other's slips. Bind the name to the bat: if this bat already had a builder on the prior board, keep that name. */
@@ -1752,7 +1770,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     loadLock().forEach(function(e){
       if(!e || !e.sig || !e.t || _pSig[e.sig]) return;
       var t=e.t, legs=t.players||[];
-      if(retiredKind(t.kind) || !legs.length || !validT(t)) return;   /* a locked dinger in a viewer's localStorage must not re-admit a retired kind */
+      if(retiredKind(t.kind) || chalkBanned(t) || !legs.length || !validT(t)) return;   /* a locked dinger in a viewer's localStorage must not re-admit a retired kind */
       for(var _li=0;_li<legs.length;_li++){
         var _lp=P[legs[_li].name];
         if(!_lp || _lp.out || _lp.void) return;
