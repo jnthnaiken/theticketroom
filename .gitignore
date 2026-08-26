@@ -4,3 +4,9 @@ __pycache__/
 # Savant research puller (build_savant_training.py) — big, regenerable, never commit
 savant_cache/
 *.parquet
+
+# GitHub Pages staging output. deploy-pages.yml builds _site/ on the runner from index.html,
+# cover.html and soccer/; it is also handy to build locally to check the URL layout before a
+# push (2026-08-26, the /mlb/ swap). Either way it is a COPY of files already in the repo --
+# committing it puts a stale duplicate of the whole published site in the repo root.
+_site/
