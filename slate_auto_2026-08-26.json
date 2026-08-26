@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T18:38:52Z",
+  "pulled_at": "2026-08-26T18:43:14Z",
   "games": [
     {
       "gamePk": 824234,
@@ -55,12 +55,12 @@
           {
             "id": 622761,
             "name": "Jorge Mateo",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 656775,
             "name": "Cedric Mullins",
-            "iso": 0.145
+            "iso": 0.144
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 675512,
           "name": "Troy Melton",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -1109,9 +1109,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 97\u00b0",
+        "lean": "Boost",
+        "temp": 96.8,
+        "wind_mph": 6.2,
+        "wind_dir": 240,
+        "tail_mph": 6.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.062
     }
   ]
 }
