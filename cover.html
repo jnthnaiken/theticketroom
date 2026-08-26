@@ -109,14 +109,39 @@ a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .cnt{margin-left:auto;text-align:right;font-family:'Roboto Mono',monospace;font-size:9.5px;
   color:var(--dim);line-height:1.3}
 .cnt b{display:block;color:var(--txt);font-size:16px;font-weight:500}
-.cdesc{color:var(--mut);font-size:13px;margin:0}
 
 .slate{display:flex;gap:6px;overflow-x:auto;padding:9px 0 5px;scrollbar-width:thin;
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   -webkit-mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%);
-  mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%)}
+  mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%);
+  /* SCROLLBARS-2026-08-26, owner: "make the scroll bars opaque or something. they stick out."
+     The thumb sat in --line2 (#2f3b52) on a near-black card, and on a slate that only just
+     overflows the thumb runs nearly the full width -- so it read as a bright rule under the
+     tiles, a horizontal line the design never asked for, on both cards at once.
+     Colour goes; SPACE STAYS. scrollbar-width is still `thin` and the webkit track is still
+     4px tall, so revealing the thumb on hover cannot reflow the strip. The right-edge mask
+     fade is what tells you there is more to see -- the bar was never the affordance. */
+  scrollbar-color:transparent transparent}
 .slate::-webkit-scrollbar{height:4px}
-.slate::-webkit-scrollbar-thumb{background:var(--line2);border-radius:3px}
+.slate::-webkit-scrollbar-track{background:transparent}
+.slate::-webkit-scrollbar-thumb{background:transparent;border-radius:3px;transition:background .18s}
+a.card:hover .slate,a.card:focus-visible .slate{scrollbar-color:var(--line2) transparent}
+a.card:hover .slate::-webkit-scrollbar-thumb,
+a.card:focus-visible .slate::-webkit-scrollbar-thumb{background:var(--line2)}
+
+/* The PAGE scrollbar is the other one that stuck out -- the browser default is a light track
+   down the right edge of a black page. Muted to the card border colour, lifting to --line2 on
+   hover. Deliberately NOT hidden: it is the whole page's position indicator.
+   ⚠️ SCOPED TO html ON PURPOSE. A bare `::-webkit-scrollbar-thumb` matches every scrollable
+   element on the page, .slate included -- and the 3px inset border below, applied to a 4px-tall
+   horizontal bar, eats the thumb entirely, so the strip's hover state would silently render
+   nothing. .slate sets its own colours and would win those, but not `border`. Scope it. */
+html{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+html::-webkit-scrollbar{width:10px}
+html::-webkit-scrollbar-track{background:transparent}
+html::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px;
+  border:3px solid transparent;background-clip:content-box}
+html::-webkit-scrollbar-thumb:hover{background:var(--line2);background-clip:content-box}
 .g{flex:none;min-width:92px;background:var(--raise);border:1px solid var(--line);
   border-radius:7px;padding:6px 8px;font-family:'Roboto Mono',monospace;
   border-top:2px solid color-mix(in srgb,var(--accent) 38%,transparent)}
@@ -189,7 +214,6 @@ footer b{color:var(--mut);font-weight:600}
         <div><h2 class="cname">Baseball</h2><p class="ktag">Home-run props</p></div>
         <span class="cnt" id="c-mlb"></span>
       </div>
-      <p class="cdesc">Every bat in every park tonight, ranked by who runs into one.</p>
       <div class="slate" id="s-mlb"><span class="empty">acquiring slate…</span></div>
       <!-- board reading order, left to right: Lunch -> Nightcap -> Anchors -> Moonshots -->
       <div class="chips"><span class="chip">🍱 Lunch</span><span class="chip">🌃 Nightcap</span>
@@ -207,7 +231,6 @@ footer b{color:var(--mut);font-weight:600}
         <div><h2 class="cname">Soccer</h2><p class="ktag">Anytime goalscorer</p></div>
         <span class="cnt" id="c-soc"></span>
       </div>
-      <p class="cdesc">Who gets on the end of one today, and whether the price has caught up.</p>
       <div class="slate" id="s-soc"><span class="empty">acquiring slate…</span></div>
       <!-- Dingers was retired on the MLB board, so soccer drops its leftover section too.
            Screamers survives as the NAME of the longshot section (kind stays `moon`). -->
