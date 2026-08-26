@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T19:38:52Z",
+  "pulled_at": "2026-08-26T19:43:33Z",
   "games": [
     {
       "gamePk": 824234,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 825039,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-26T19:40:00Z",
       "matchup": "CHC@ARI",
       "away": {
@@ -153,7 +153,7 @@
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.274
+            "iso": 0.273
           },
           {
             "id": 673548,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823988,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-26T20:07:00Z",
       "matchup": "CLE@LAA",
       "away": {
@@ -1661,9 +1661,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 96\u00b0",
+        "lean": "Boost",
+        "temp": 96.0,
+        "wind_mph": 6.5,
+        "wind_dir": 236,
+        "tail_mph": 6.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.062
     }
   ]
 }
