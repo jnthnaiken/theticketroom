@@ -1,0 +1,125 @@
+name: Settle Soccer Night
+
+# Folds a finished soccer board into soccer/soccer_season.json.
+#
+# WHY THIS EXISTS. The published soccer board settles itself in the BROWSER: soccer_live.js runs
+# every three minutes and index.html grades tonight live off D.tickets. All of that is per-tab and
+# dies with the tab. Nothing wrote the night into the ledger, which is how 2026-08-25 was still
+# missing from soccer_season.json a day later while the board itself had been showing its own
+# result correctly the whole time. Tomorrow's board reads that file for its carried figure, so a
+# night that never folds is a night the season silently forgets.
+#
+# THE THREE STEPS ARE DELIBERATELY SEPARATE:
+#   1. already folded?  -> stop. soccer_grade.fold() is idempotent, but re-running the settle
+#                          would rewrite soccer_D.json every hour and churn commits for nothing.
+#   2. soccer_settle.js -> reads ESPN, writes finals/hr/goalmins into soccer_D.json. Exit 0 means
+#                          EVERY match is final; 20 means come back later; 30 means nothing was
+#                          learned (no feed, or every call failed).
+#   3. soccer_grade.py  -> folds. ONLY on exit 0.
+#
+# ⚠️ 20 IS NOT A FAILURE. fold() marks the date in `graded_nights` the moment it runs, and
+# grade_ticket() returns None for a ticket whose match is still open -- so folding a half-final
+# night SILENTLY DROPS every unsettled ticket and can never be redone. Extra time and penalty
+# shootouts are normal; the schedule below simply comes back in an hour.
+#
+# ⚠️ THIS WORKFLOW MUST NOT REBUILD soccer/index.html. The board's baked `meta.season` is the
+# ledger EXCLUDING tonight -- index.html's liveCats() adds tonight's graded tickets on top of it.
+# Rebuild today's board with the post-fold ledger and every ticket counts twice, once carried and
+# once live. The next day's build picks the new figure up on its own. This is the same contract
+# the baseball side has.
+
+on:
+  schedule:
+    # Hourly across the window a European slate can finish in. UCL qualifiers kick at 19:00Z and
+    # can run to ~22:00Z with extra time and penalties; a late La Liga game finishes around
+    # 21:45Z. Every pass is cheap and the guards make repeats free, so the window is generous
+    # rather than tuned -- a missed night costs a day of ledger, a wasted run costs 30 seconds.
+    - cron: '0 20,21,22,23,0,1,2,3,4 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Fold even if a match never went final (abandoned/postponed). A decision, not a retry."
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-settle
+  cancel-in-progress: false
+
+jobs:
+  settle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Is there an unsettled board?
+        id: check
+        run: |
+          cd soccer
+          if [ ! -f soccer_D.json ]; then echo "no soccer_D.json"; echo "go=false" >> $GITHUB_OUTPUT; exit 0; fi
+          DATE=$(python3 -c "import json;print(json.load(open('soccer_D.json'))['meta']['date'])")
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+          if python3 -c "import json,sys;s=json.load(open('soccer_season.json'));sys.exit(0 if '$DATE' in s.get('graded_nights',[]) else 1)"; then
+            echo "$DATE already folded into the ledger -- nothing to do"
+            echo "go=false" >> $GITHUB_OUTPUT
+          else
+            echo "$DATE is unsettled"
+            echo "go=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Settle from the ESPN feed
+        id: settle
+        if: steps.check.outputs.go == 'true'
+        run: |
+          cd soccer
+          set +e
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            node soccer_settle.js soccer_D.json --force
+          else
+            node soccer_settle.js soccer_D.json
+          fi
+          RC=$?
+          set -e
+          echo "rc=$RC" >> $GITHUB_OUTPUT
+          case $RC in
+            0)  echo "every match final -- folding" ;;
+            20) echo "::notice::Soccer slate not finished yet; will retry on the next pass." ;;
+            30) echo "::warning::No usable results feed this pass; not folding." ;;
+            *)  echo "::error::soccer_settle.js exited $RC"; exit $RC ;;
+          esac
+
+      - name: Fold into the season ledger
+        if: steps.settle.outputs.rc == '0'
+        run: |
+          cd soccer
+          python3 soccer_grade.py soccer_D.json --season soccer_season.json
+          # Archive the settled payload under its own date. soccer_D.json is overwritten by the
+          # next day's build, so without this the evidence for a graded night is gone the moment
+          # the next board ships. NOT named D_<date>.json on purpose -- that filename is the
+          # adoption pattern deploy-pages.yml deliberately refuses to publish, and reusing it here
+          # invites someone to stage this directory later. Nothing in soccer/settled/ is served.
+          mkdir -p settled
+          cp soccer_D.json "settled/${{ steps.check.outputs.date }}.json"
+
+      - name: Commit
+        if: steps.settle.outputs.rc == '0'
+        run: |
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add soccer/soccer_season.json soccer/soccer_D.json soccer/settled/
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            git commit -m "Settle soccer ${{ steps.check.outputs.date }}"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+              sleep 5
+            done
+            echo "::error::could not push after 3 attempts"; exit 1
+          fi
