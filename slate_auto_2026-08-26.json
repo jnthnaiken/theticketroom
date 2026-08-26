@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T19:23:40Z",
+  "pulled_at": "2026-08-26T19:28:32Z",
   "games": [
     {
       "gamePk": 824234,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823180,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-26T19:45:00Z",
       "matchup": "CIN@SF",
       "away": {
@@ -1020,7 +1020,7 @@
     },
     {
       "gamePk": 823506,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-26T23:05:00Z",
       "matchup": "HOU@NYY",
       "away": {
@@ -1042,10 +1042,56 @@
           "hr9": 0.53,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.199
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.273
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.271
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.111
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.196
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.116
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.139
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
