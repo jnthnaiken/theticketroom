@@ -77,17 +77,16 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
 
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}
 
-a.card{position:relative;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;
+.card{position:relative;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;
   background:linear-gradient(180deg,var(--surf2),var(--surf));
   border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;
   overflow:hidden;isolation:isolate;
   transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
-a.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.55;
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.55;
   background:radial-gradient(340px 180px at 84% -16%,var(--glow),transparent 66%);transition:opacity .2s ease}
-a.card:hover,a.card:focus-visible{border-color:color-mix(in srgb,var(--accent) 60%,var(--line));
-  transform:translateY(-3px);box-shadow:0 18px 44px -24px var(--accent)}
-a.card:hover::before,a.card:focus-visible::before{opacity:1}
-a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.card:hover,.card:has(.tkt:focus-visible){border-color:color-mix(in srgb,var(--accent) 60%,var(--line));
+  box-shadow:0 18px 44px -24px var(--accent)}
+.card:hover::before,.card:has(.tkt:focus-visible)::before{opacity:1}
 .mlb{--accent:var(--cyan);--accent2:var(--violet);--glow:#26d4f030}
 .soc{--accent:var(--lime);--accent2:var(--amber);--glow:#4ef08a2b}
 
@@ -140,9 +139,9 @@ a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .slate::-webkit-scrollbar{height:4px}
 .slate::-webkit-scrollbar-track{background:transparent}
 .slate::-webkit-scrollbar-thumb{background:transparent;border-radius:3px;transition:background .18s}
-a.card:hover .slate,a.card:focus-visible .slate{scrollbar-color:var(--line2) transparent}
-a.card:hover .slate::-webkit-scrollbar-thumb,
-a.card:focus-visible .slate::-webkit-scrollbar-thumb{background:var(--line2)}
+.card:hover .slate,.card:has(.tkt:focus-visible) .slate{scrollbar-color:var(--line2) transparent}
+.card:hover .slate::-webkit-scrollbar-thumb,
+.card:has(.tkt:focus-visible) .slate::-webkit-scrollbar-thumb{background:var(--line2)}
 
 /* The PAGE scrollbar is the other one that stuck out -- the browser default is a light track
    down the right edge of a black page. Muted to the card border colour, lifting to --line2 on
@@ -170,24 +169,47 @@ html::-webkit-scrollbar-thumb:hover{background:var(--line2);background-clip:cont
 .g.done .row b{color:var(--mut)}
 .empty{font-family:'Roboto Mono',monospace;font-size:10.5px;color:var(--dim);padding:5px 0}
 
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:'Roboto Mono',monospace;font-size:10px;border-radius:999px;padding:3px 8px;
-  background:color-mix(in srgb,var(--accent) 10%,transparent);
-  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
-  color:color-mix(in srgb,var(--accent) 76%,#ffffff)}
-.foot{display:flex;align-items:center;gap:9px;margin-top:2px}
+.foot{display:flex;align-items:center;gap:10px;margin-top:4px;flex-wrap:wrap}
 .led{display:flex;gap:6px;flex-wrap:wrap}
 .pill{font-family:'Roboto Mono',monospace;font-size:10.5px;background:var(--raise);
   border:1px solid var(--line2);border-radius:999px;padding:3px 8px;color:var(--mut)}
 .pill b{color:var(--txt);font-weight:500}
 .pill.pos b{color:var(--lime)}.pill.neg b{color:var(--pink)}
-.go{margin-left:auto;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--accent);white-space:nowrap;
-  border:1px solid color-mix(in srgb,var(--accent) 34%,transparent);border-radius:7px;
-  padding:6px 11px;background:color-mix(in srgb,var(--accent) 8%,transparent);transition:background .2s ease}
-a.card:hover .go{background:color-mix(in srgb,var(--accent) 20%,transparent)}
-.go span{display:inline-block;transition:transform .2s ease}
-a.card:hover .go span{transform:translateX(4px)}
+/* TICKET-2026-08-26, owner: "make it look like an oddschool state fair ticket. and just that
+   button is clicked to enter. not the the whole room box."
+   The card is a <div> now and THIS is the only link on it. That matters beyond taste: with the
+   <a> wrapped round the whole card, dragging the slate strip sideways to read the later games
+   could finish as a navigation, and every score and pill was a click target for a room you might
+   not have meant to enter.
+   The ticket read is a torn stub (dashed perforation + ADMIT ONE) with the notches punched out
+   of the perforation line. The notches are drawn in --surf2 to match the card behind them, so
+   they must stay at the TOP of the card's gradient range; if the ticket ever moves lower they
+   will need the card's own colour at that height. */
+.tkt{--perf:52px;
+  position:relative;margin-left:auto;display:flex;align-items:stretch;flex:none;
+  text-decoration:none;color:inherit;border-radius:9px;overflow:hidden;
+  border:2px solid color-mix(in srgb,var(--accent) 52%,transparent);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 15%,var(--raise)),var(--raise));
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.tkt:hover,.tkt:focus-visible{transform:translateY(-2px) rotate(-.5deg);
+  border-color:var(--accent);box-shadow:0 14px 30px -16px var(--accent)}
+.tkt:active{transform:translateY(0) rotate(0deg)}
+.tkt:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* NO NOTCHES, deliberately. Two attempts at punched semicircles (in --surf2, then --surf)
+   both read as dark BEADS sitting on the border rather than holes bitten out of it, because a
+   real notch needs the 2px accent border to follow the curve and pure CSS will not do that --
+   only a mask can, and mask-composite is exactly the kind of cross-browser coin-flip you do not
+   put on a live front door where failure means the button vanishes. The dashed perforation and
+   the ADMIT ONE stub already read as a ticket without them. */
+.tkt-stub{width:var(--perf);display:grid;place-items:center;text-align:center;
+  font-family:'Roboto Mono',monospace;font-size:8px;line-height:1.35;letter-spacing:.13em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--accent) 78%,#ffffff);
+  border-right:2px dashed color-mix(in srgb,var(--accent) 50%,transparent)}
+.tkt-main{display:flex;align-items:center;gap:10px;padding:11px 16px 11px 13px}
+.tkt-word{font-family:Oswald,sans-serif;font-weight:600;font-size:20px;line-height:1;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--txt)}
+.tkt-arw{font-size:16px;line-height:1;color:var(--accent);transition:transform .18s ease}
+.tkt:hover .tkt-arw{transform:translateX(4px)}
 
 footer{position:relative;z-index:2;border-top:1px solid var(--line);
   padding:12px clamp(22px,4vw,34px);color:var(--dim);font-size:11px;text-align:center}
@@ -195,8 +217,8 @@ footer .in{max-width:1000px;margin:0 auto}
 footer b{color:var(--mut);font-weight:600}
 @media (prefers-reduced-motion:reduce){
   .hole .disc{animation:none}
-  a.card,a.card::before,.go,.go span{transition:none}
-  a.card:hover,a.card:focus-visible{transform:none}
+  .card,.card::before,.tkt,.tkt-arw{transition:none}
+  .tkt:hover,.tkt:focus-visible{transform:none}
 }
 </style>
 </head>
@@ -211,7 +233,7 @@ footer b{color:var(--mut);font-weight:600}
     </div>
     <h1>The Ticket Room</h1>
     <p class="quote">“I’ve failed over and over and over again in my life. And that is why I succeed.”
-      <span class="cite">Michael Jordan · 1997</span></p>
+      <span class="cite">Michael Jordan</span></p>
   </header>
 
   <main class="grid">
@@ -220,7 +242,7 @@ footer b{color:var(--mut);font-weight:600}
          board is staged to /mlb/ by deploy-pages.yml (NOT moved in the repo -- pull-slate
          rebuilds repo index.html every few minutes and would overwrite anything parked
          there). This page is also still served at /cover.html, its original URL. -->
-    <a class="card mlb" href="mlb/">
+    <div class="card mlb">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
@@ -231,13 +253,14 @@ footer b{color:var(--mut);font-weight:600}
       </div>
       <div class="slate" id="s-mlb"><span class="empty">acquiring slate…</span></div>
       <!-- board reading order, left to right: Lunch -> Nightcap -> Anchors -> Moonshots -->
-      <div class="chips"><span class="chip">🍱 Lunch</span><span class="chip">🌃 Nightcap</span>
-        <span class="chip">⚓️ Anchors</span><span class="chip">🚀 Moonshots</span></div>
       <div class="foot"><span class="led" id="m-mlb"></span>
-        <span class="go">Enter <span>→</span></span></div>
-    </a>
+        <a class="tkt" href="mlb/" aria-label="Enter the baseball room">
+          <span class="tkt-stub">Admit<br>One</span>
+          <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">→</span></span>
+        </a></div>
+    </div>
 
-    <a class="card soc" href="soccer/">
+    <div class="card soc">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round">
@@ -247,12 +270,12 @@ footer b{color:var(--mut);font-weight:600}
         <span class="cnt" id="c-soc"></span>
       </div>
       <div class="slate" id="s-soc"><span class="empty">acquiring slate…</span></div>
-      <!-- Dingers was retired on the MLB board, so soccer drops its leftover section too.
-           Screamers survives as the NAME of the longshot section (kind stays `moon`). -->
-      <div class="chips"><span class="chip">⚓️ Anchors</span><span class="chip">💥 Screamers</span></div>
       <div class="foot"><span class="led" id="m-soc"></span>
-        <span class="go">Enter <span>→</span></span></div>
-    </a>
+        <a class="tkt" href="soccer/" aria-label="Enter the soccer room">
+          <span class="tkt-stub">Admit<br>One</span>
+          <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">→</span></span>
+        </a></div>
+    </div>
 
   </main>
 </div>
