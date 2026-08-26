@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-26T01:32:25Z",
+  "pulled_at": "2026-08-26T01:36:57Z",
   "games": [
     {
       "gamePk": 824233,
@@ -158,12 +158,12 @@
           {
             "id": 678882,
             "name": "Ceddanne Rafaela",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.207
+            "iso": 0.206
           },
           {
             "id": 575929,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 822693,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-25T22:45:00Z",
       "matchup": "COL@WSH",
       "away": {
@@ -362,12 +362,12 @@
           {
             "id": 691781,
             "name": "Brady House",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 678391,
             "name": "Jorbit Vivas",
-            "iso": 0.081
+            "iso": 0.08
           },
           {
             "id": 695670,
@@ -495,7 +495,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.113
+            "iso": 0.111
           },
           {
             "id": 682987,
@@ -556,7 +556,7 @@
           {
             "id": 677951,
             "name": "Bobby Witt Jr.",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 686469,
@@ -693,7 +693,7 @@
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.124
+            "iso": 0.126
           },
           {
             "id": 683734,
@@ -878,7 +878,7 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 621566,
@@ -1087,7 +1087,7 @@
           {
             "id": 624413,
             "name": "Pete Alonso",
-            "iso": 0.234
+            "iso": 0.236
           },
           {
             "id": 683002,
@@ -1327,7 +1327,7 @@
         "wind_mph": 8.0,
         "wind_dir": 234,
         "tail_mph": 7.8,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.05
     },
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 8mph, 93\u00b0",
+        "lean": "Boost",
+        "temp": 92.7,
+        "wind_mph": 7.8,
+        "wind_dir": 243,
+        "tail_mph": 7.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.061
     },
     {
       "gamePk": 823098,
