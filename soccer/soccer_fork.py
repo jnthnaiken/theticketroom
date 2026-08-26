@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90
+EXPECT_SEAMS = 86 + LIVE_SEAM_COUNT          # 86 base + 5 live = 91
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -513,6 +513,14 @@ def seams(payload_js):
     add('odds-sign-note',
         '''var od=p.odds; if(od)o.push([1.4,'price',['at a fair +'+od,'priced at +'+od,"you're getting +"+od+' on it','the +'+od+' tag plays','+'+od+' is a number worth taking','+'+od+' carries value','a tidy +'+od+' price']]);''',
         '''var od=p.odds, _so=(od>0?'+':'')+od; if(od)o.push([1.4,'price',['at a fair '+_so,'priced at '+_so,"you're getting "+_so+' on it','the '+_so+' tag plays',_so+' is a number worth taking',_so+' carries value','a tidy '+_so+' price']]);''')
+
+    # ---- 16. THE LIVE-LEDGER HAND-OFF ------------------------------------------------
+    # LIVELEDGER-2026-08-26. index.html now stashes its computed season figure under
+    # 'hr_live_ledger' so the cover page can show a number that moves during a night instead of
+    # the deploy-time ledger.json, which cannot. Both boards share an origin, so the soccer
+    # board must NOT write the baseball key -- same collision the ODDS_KEY / LOCK_KEY seams
+    # exist to prevent, and here it would put soccer P&L on the baseball door.
+    add('live-ledger-key', "localStorage.setItem('hr_live_ledger'", "localStorage.setItem('sr_live_ledger'")
 
     # ---- 14. THE LIVE LOOP -- MUST BE LAST ------------------------------------------
     # ⚠️ ORDER MATTERS. Every seam is counted against the progressively-replaced text, so
