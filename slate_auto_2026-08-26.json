@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T23:01:52Z",
+  "pulled_at": "2026-08-26T23:06:27Z",
   "games": [
     {
       "gamePk": 824234,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823180,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-26T19:45:00Z",
       "matchup": "CIN@SF",
       "away": {
@@ -362,7 +362,7 @@
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.19
+            "iso": 0.182
           },
           {
             "id": 668800,
@@ -816,7 +816,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.129
+            "iso": 0.127
           },
           {
             "id": 678882,
@@ -846,12 +846,12 @@
           {
             "id": 680776,
             "name": "Jarren Duran",
-            "iso": 0.161
+            "iso": 0.16
           },
           {
             "id": 678011,
             "name": "Anthony Seigler",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 657136,
@@ -866,7 +866,7 @@
         "sp": {
           "id": 687473,
           "name": "Ryan Gusto",
-          "hr9": 1.22,
+          "hr9": 1.21,
           "hand": "RHP"
         },
         "lineup": [
@@ -941,7 +941,7 @@
         "sp": {
           "id": 685299,
           "name": "Tanner Gordon",
-          "hr9": 1.88,
+          "hr9": 1.85,
           "hand": "RHP"
         },
         "lineup": [
@@ -978,7 +978,7 @@
           {
             "id": 681393,
             "name": "Connor Norby",
-            "iso": 0.135
+            "iso": 0.133
           },
           {
             "id": 687859,
@@ -998,24 +998,24 @@
         "sp": {
           "id": 663362,
           "name": "Matt Waldron",
-          "hr9": 1.66,
+          "hr9": 1.63,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.249
+            "iso": 0.248
           },
           {
             "id": 694673,
             "name": "Abimelec Ortiz",
-            "iso": 0.25
+            "iso": 0.247
           },
           {
             "id": 686611,
             "name": "Dylan Crews",
-            "iso": 0.144
+            "iso": 0.149
           },
           {
             "id": 695734,
@@ -1147,7 +1147,7 @@
           },
           {
             "id": 671277,
-            "name": "Luis Garc\u00eda Jr.",
+            "name": "Luis Garc\u00eda",
             "iso": 0.271
           },
           {
@@ -1157,7 +1157,7 @@
           },
           {
             "id": 806146,
-            "name": "George Lombard Jr.",
+            "name": "George Lombard",
             "iso": 0.111
           },
           {
@@ -1167,7 +1167,7 @@
           },
           {
             "id": 665862,
-            "name": "Jazz Chisholm Jr.",
+            "name": "Jazz Chisholm",
             "iso": 0.176
           },
           {
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 96\u00b0",
+        "lean": "Boost",
+        "temp": 96.0,
+        "wind_mph": 5.4,
+        "wind_dir": 232,
+        "tail_mph": 5.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.058
     }
   ]
 }
