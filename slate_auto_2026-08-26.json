@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T17:27:48Z",
+  "pulled_at": "2026-08-26T17:35:10Z",
   "games": [
     {
       "gamePk": 824234,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 642547,
           "name": "Freddy Peralta",
-          "hr9": 1.46,
+          "hr9": 1.45,
           "hand": "RHP"
         },
         "lineup": [
@@ -55,7 +55,7 @@
           {
             "id": 622761,
             "name": "Jorge Mateo",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 656775,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 675512,
           "name": "Troy Melton",
-          "hr9": 0.99,
+          "hr9": 0.98,
           "hand": "RHP"
         },
         "lineup": [
@@ -531,7 +531,7 @@
     },
     {
       "gamePk": 823096,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-26T20:10:00Z",
       "matchup": "PHI@SEA",
       "away": {
@@ -542,8 +542,54 @@
           "hr9": 0.81,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.283
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.143
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.234
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.119
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.14
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.145
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.159
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.134
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
@@ -553,10 +599,56 @@
           "hr9": 0.98,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.094
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.189
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.163
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.177
+          },
+          {
+            "id": 621550,
+            "name": "Patrick Wisdom",
+            "iso": 0.098
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.132
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.14
+          },
+          {
+            "id": 640902,
+            "name": "Jhonny Pereda",
+            "iso": 0.081
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.138
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
