@@ -57,8 +57,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Stage the site files (board + custom domain + boards the client adopts)
         run: |
-          mkdir -p _site
-          cp index.html _site/
+          # PATHS-2026-08-26 -- THE SWAP. The site root is the COVER; the baseball board moved
+          # to /mlb/. This is done HERE, in staging, and NOT by moving files in the repo:
+          # pull-slate.yml rebuilds and commits repo `index.html` every few minutes (see its
+          # `git add ... index.html`), so anything parked at that path gets overwritten by the
+          # next board build. The repo layout is owned by the build pipeline; the URL layout is
+          # owned by this step. Keep it that way.
+          mkdir -p _site _site/mlb
+          cp index.html _site/mlb/
           [ -f CNAME ] && cp CNAME _site/ || true
           # SOCCER-2026-08-26 -- the second room. soccer/index.html is built by
           # soccer_fork.py from THIS index.html by named seam replacement, so it is a
@@ -68,10 +74,12 @@ jobs:
           # loop refreshes results in place and deliberately does not adopt a newer file
           # (see the ADOPTFILE note above; the same bug would eat a confirmed soccer slip).
           if [ -f soccer/index.html ]; then mkdir -p _site/soccer && cp soccer/index.html _site/soccer/; fi
-          # The cover page: two doors, one to each room. Lives at /cover.html for now --
-          # moving it to / means moving the baseball board to /mlb/, and that is not a
-          # thing to do while a slate is live and people have the old URL open.
-          [ -f cover.html ] && cp cover.html _site/ || true
+          # The cover page: two doors, one to each room. It IS the front door now.
+          # Also kept at /cover.html, its original URL, so nothing that already points there
+          # breaks -- same file, two paths, no redirect to maintain.
+          # An already-open baseball tab is unaffected: the board never reloads itself (its
+          # live loop patches the DOM in place), so only a hard refresh lands on the cover.
+          if [ -f cover.html ]; then cp cover.html _site/index.html && cp cover.html _site/; fi
           # LEDGER-2026-08-26 -- season totals for the cover's P&L pills, DERIVED here rather
           # than committed, so they can never go stale against season.json.
           # This is NOT D_<date>.json and must never become it: it carries `since` and `cats`
