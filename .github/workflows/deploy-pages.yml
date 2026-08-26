@@ -35,7 +35,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME']
+    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html']
   workflow_dispatch:
 
 permissions:
@@ -60,7 +60,29 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           [ -f CNAME ] && cp CNAME _site/ || true
-          echo "staged:"; ls -la _site/
+          # SOCCER-2026-08-26 -- the second room. soccer/index.html is built by
+          # soccer_fork.py from THIS index.html by named seam replacement, so it is a
+          # published artifact, not a source file. It is self-contained exactly like the
+          # baseball board: one file, its slate baked into `const D`, and a live loop that
+          # reads ESPN directly. It needs NO D_<date>.json staged beside it -- the soccer
+          # loop refreshes results in place and deliberately does not adopt a newer file
+          # (see the ADOPTFILE note above; the same bug would eat a confirmed soccer slip).
+          if [ -f soccer/index.html ]; then mkdir -p _site/soccer && cp soccer/index.html _site/soccer/; fi
+          # The cover page: two doors, one to each room. Lives at /cover.html for now --
+          # moving it to / means moving the baseball board to /mlb/, and that is not a
+          # thing to do while a slate is live and people have the old URL open.
+          [ -f cover.html ] && cp cover.html _site/ || true
+          # LEDGER-2026-08-26 -- season totals for the cover's P&L pills, DERIVED here rather
+          # than committed, so they can never go stale against season.json.
+          # This is NOT D_<date>.json and must never become it: it carries `since` and `cats`
+          # and nothing else. No tickets, no players -- so there is nothing an adoption path
+          # could pick up and re-derive a confirmed slip away from (see the ADOPTFILE note at
+          # the top of this file). If you are tempted to add `tickets` here, read that note
+          # first and then do not.
+          mkledger() { [ -f "$1" ] && [ -d "$(dirname "$2")" ] && python3 -c 'import json,sys; j=json.load(open(sys.argv[1])); json.dump({"since":j.get("since"),"cats":j.get("cats",{})},open(sys.argv[2],"w"))' "$1" "$2" && echo "ledger $2" || echo "skip $1"; }
+          mkledger season.json _site/ledger.json
+          mkledger soccer/soccer_season.json _site/soccer/ledger.json
+          echo "staged:"; ls -laR _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
