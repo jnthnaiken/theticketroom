@@ -99,8 +99,15 @@ def fold(dpath, spath):
         if not g:
             rows.append((t['kind'], t['name'], 'not settled / void', 0.0))
             continue
-        k = g['kind'] if g['kind'] in season['cats'] else 'family'
-        c = season['cats'][k]
+        # BACKOUT-2026-08-26: `family` was retired and BACKED OUT of soccer_season.json, so
+        # cats no longer has that key -- and this line used it as the catch-all bucket for an
+        # unrecognised kind. `season['cats'][k]` would then KeyError and take the whole nightly
+        # fold down, silently leaving the night ungraded, which is the exact failure the settle
+        # workflow exists to prevent. setdefault creates the bucket instead of crashing; an
+        # unexpected kind now shows up in the ledger as itself, which is also more honest than
+        # burying it under someone else's name.
+        k = g['kind']
+        c = season['cats'].setdefault(k, dict(ZERO))
         c['graded'] += 1
         c['won'] += 1 if g['won'] else 0
         c['units'] = c['units'] + g['net']

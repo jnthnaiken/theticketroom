@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 80 + LIVE_SEAM_COUNT          # 80 base + 5 live = 85
+EXPECT_SEAMS = 81 + LIVE_SEAM_COUNT          # 81 base + 5 live = 86
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -129,7 +129,7 @@ def seams(payload_js):
     # multiplier to report, and printing "+0%" forever is a lie with a decimal point on it.
     add('bbadge',
         '<span class="bbadge">🧱 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>',
-        '<span class="bbadge">⚽ ${p.xgmatch!=null?p.xgmatch.toFixed(2):\'—\'}</span>')
+        '<span class="bbadge">🎯 ${p.xgmatch!=null?p.xgmatch.toFixed(2):\'—\'}</span>')
 
     # ---- 5. SPORT NOUNS -------------------------------------------------------------
     add('homered', '⚾ homered', '⚽ scored', 3)   # legend + carry-over strip + player card
@@ -239,7 +239,10 @@ def seams(payload_js):
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
-        """<span class="bbadge">⚽ ${(D.players[p.name]||{}).xgmatch!=null?(D.players[p.name]||{}).xgmatch.toFixed(2):'—'}</span>""")
+        """<span class="bbadge">🎯 ${(D.players[p.name]||{}).xgmatch!=null?(D.players[p.name]||{}).xgmatch.toFixed(2):'—'}</span>""")
+    add('legrow-wbadge',
+        '<span class="wbadge">${wx.emoji} ${_lt.toFixed(1)}</span>',
+        '<span class="wbadge">📊 ${_lt.toFixed(1)}</span>')
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'⚽':fp.void?")
     add('footer-sources',
         'Sources: Kasper matchup cards, Baseball Savant (Statcast), MLB StatsAPI (schedules · HR/9 · live results), '
@@ -252,7 +255,7 @@ def seams(payload_js):
     # call sites with enough context to exclude the prose. The guard caught this (5 != 2).
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
     add('pcount-bats-b', "+' priced bats · '+pool.size", "+' priced players · '+pool.size")
-    add('legend-brick', '<span>🧱 base score</span>', '<span>⚽ xG this match</span>')
+    add('legend-brick', '<span>🧱 base score</span>', '<span>🎯 xG this match</span>')
     # ---- 8. GAME DURATION -----------------------------------------------------------
     # likelyEnded() suppresses the "🚧 in progress" claim once the clock says a game is
     # surely over. +240 is FOUR HOURS PAST FIRST PITCH -- a baseball number. A football match
@@ -359,13 +362,13 @@ def seams(payload_js):
     # re-points to xG in the match (seams 'bbadge' / 'leg-bbadge' / 'legend-brick').
     add('howto-l1-badges',
         '<span class="wbadge">☀️ 174.6</span>\n                <span class="bbadge">🧱 68</span>',
-        '<span class="wbadge">🔄 174.6</span>\n                <span class="bbadge">⚽ 0.68</span>')
+        '<span class="wbadge">📊 174.6</span>\n                <span class="bbadge">🎯 0.68</span>')
     add('howto-l2-badges',
         '<span class="wbadge">🏟 152.2</span><span class="bbadge">🧱 73</span>',
-        '<span class="wbadge">🔄 152.2</span><span class="bbadge">⚽ 0.73</span>')
+        '<span class="wbadge">📊 152.2</span><span class="bbadge">🎯 0.73</span>')
     add('howto-l3-badges',
         '<span class="wbadge" data-cal="10">🏟 148.3</span><span class="bbadge" data-cal="11">🧱 49</span>',
-        '<span class="wbadge" data-cal="10">🔄 148.3</span><span class="bbadge" data-cal="11">⚽ 0.49</span>')
+        '<span class="wbadge" data-cal="10">📊 148.3</span><span class="bbadge" data-cal="11">🎯 0.49</span>')
     add('howto-w1',
         '<span class="lwhere" data-cal="6">Yankees · NYY@BAL · 6:35</span>',
         '<span class="lwhere" data-cal="6">Arsenal · ARS v CHE · 10:00</span>')
