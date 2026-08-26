@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-26T02:17:24Z",
+  "pulled_at": "2026-08-26T02:22:09Z",
   "games": [
     {
       "gamePk": 824233,
@@ -485,7 +485,7 @@
           {
             "id": 671277,
             "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.272
+            "iso": 0.271
           },
           {
             "id": 641355,
@@ -668,7 +668,7 @@
     },
     {
       "gamePk": 823585,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-25T23:10:00Z",
       "matchup": "MIL@NYM",
       "away": {
@@ -1011,7 +1011,7 @@
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.288
+            "iso": 0.286
           },
           {
             "id": 678246,
@@ -1102,12 +1102,12 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.25
+            "iso": 0.247
           },
           {
             "id": 694212,
             "name": "Samuel Basallo",
-            "iso": 0.207
+            "iso": 0.206
           },
           {
             "id": 681047,
@@ -1174,12 +1174,12 @@
           {
             "id": 701675,
             "name": "Nathan Church",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 665877,
             "name": "Jos\u00e9 Ferm\u00edn",
-            "iso": 0.127
+            "iso": 0.126
           }
         ],
         "confirmed": true
@@ -1208,7 +1208,7 @@
         "sp": {
           "id": 668909,
           "name": "Gavin Williams",
-          "hr9": 1.5,
+          "hr9": 1.56,
           "hand": "RHP"
         },
         "lineup": [
@@ -1297,12 +1297,12 @@
           {
             "id": 695681,
             "name": "Christian Moore",
-            "iso": 0.032
+            "iso": 0.121
           },
           {
             "id": 672569,
             "name": "Gustavo Campero",
-            "iso": 0.1
+            "iso": 0.091
           },
           {
             "id": 694203,
@@ -1353,17 +1353,17 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.15
+            "iso": 0.152
           },
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 664023,
@@ -1398,7 +1398,7 @@
         "sp": {
           "id": 694297,
           "name": "Brandon Pfaadt",
-          "hr9": 0.98,
+          "hr9": 0.97,
           "hand": "RHP"
         },
         "lineup": [
@@ -1473,7 +1473,7 @@
         "sp": {
           "id": 694973,
           "name": "Paul Skenes",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -1567,7 +1567,7 @@
           {
             "id": 669134,
             "name": "Luis Campusano",
-            "iso": 0.186
+            "iso": 0.184
           },
           {
             "id": 593428,
@@ -1653,7 +1653,7 @@
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.155
+            "iso": 0.154
           }
         ],
         "confirmed": true
@@ -1663,7 +1663,7 @@
         "sp": {
           "id": 695611,
           "name": "Gage Jump",
-          "hr9": 0.96,
+          "hr9": 0.95,
           "hand": "LHP"
         },
         "lineup": [
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 605400,
           "name": "Aaron Nola",
-          "hr9": 2.08,
+          "hr9": 2.07,
           "hand": "RHP"
         },
         "lineup": [
@@ -1796,7 +1796,7 @@
         "sp": {
           "id": 669923,
           "name": "George Kirby",
-          "hr9": 1.08,
+          "hr9": 1.07,
           "hand": "RHP"
         },
         "lineup": [
@@ -1871,7 +1871,7 @@
         "sp": {
           "id": 663903,
           "name": "Brady Singer",
-          "hr9": 1.7,
+          "hr9": 1.69,
           "hand": "RHP"
         },
         "lineup": [
@@ -1908,7 +1908,7 @@
           {
             "id": 699302,
             "name": "H\u00e9ctor Rodr\u00edguez",
-            "iso": 0.122
+            "iso": 0.119
           },
           {
             "id": 663647,
@@ -1970,7 +1970,7 @@
           {
             "id": 687529,
             "name": "Grant McCray",
-            "iso": 0.125
+            "iso": 0.122
           },
           {
             "id": 683766,
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 14mph, 66\u00b0",
+        "lean": "Boost",
+        "temp": 66.0,
+        "wind_mph": 15.1,
+        "wind_dir": 282,
+        "tail_mph": 14.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.045
     }
   ]
 }
