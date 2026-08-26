@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 81 + LIVE_SEAM_COUNT          # 81 base + 5 live = 86
+EXPECT_SEAMS = 84 + LIVE_SEAM_COUNT          # 84 base + 5 live = 89
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -471,6 +471,38 @@ def seams(payload_js):
         'leg kicks off before the later legs\\u2019 line-ups are published (an hour before '
         'kickoff), so they cannot be confirmed at bet time</div>\':\'\'')
     add('oplog', OPLOG_OLD, OPLOG_NEW)
+
+
+    # ---- 15. ODDS SIGNS -- THE BOARD HAD NEVER SEEN AN ODDS-ON PRICE ------------------
+    # ODDSSIGN-2026-08-26, owner: "mbappes odds read +-250. it should just be -250."
+    #
+    # Three separate places glue a literal '+' onto a price. On the baseball board that is
+    # correct by accident: a home-run prop is never odds-on -- the shortest ever drafted is
+    # around +150 -- so `'+'+odds` has been right for every price the board has ever rendered.
+    # Anytime goalscorer is a different market. A favourite striker is routinely odds-on, and
+    # Kylian Mbappe at -250 is the FIRST negative price this codebase has ever had to print.
+    # All three sites produced "+-250".
+    #
+    # Found by grepping for every "'+'+" in the built file rather than fixing the one the owner
+    # could see -- the ticket header and the card-note generator were both wrong too, and the
+    # note one ("at a fair +-250") sits in prose where it reads worst.
+    #
+    # ⚠️ index.html HAS THE SAME BUG and is deliberately NOT patched here: this script never
+    # writes the MLB board. It is latent there, not harmless -- type a negative price into the
+    # operator console and it renders "+-150" -- so it is worth fixing on that side separately.
+    add('odds-sign',
+        "oddsStr=o=>o?'+'+comma(o):'TBD'",
+        "oddsStr=o=>o?((o>0?'+':'')+comma(o)):'TBD'")
+    # The ticket HEADER price, for a slip with no round robin -- i.e. every anchor single.
+    # The rr branch beside it already gets this right ((_mp>=0?'+':'')), which is what made the
+    # single-leg branch's bare '+' easy to miss.
+    add('odds-sign-header',
+        "(t.parlay_am?('+'+comma(t.parlay_am)):'n/a')",
+        "(t.parlay_am?((t.parlay_am>0?'+':'')+comma(t.parlay_am)):'n/a')")
+    # The seven card-note phrasings, each with the sign baked into the sentence.
+    add('odds-sign-note',
+        '''var od=p.odds; if(od)o.push([1.4,'price',['at a fair +'+od,'priced at +'+od,"you're getting +"+od+' on it','the +'+od+' tag plays','+'+od+' is a number worth taking','+'+od+' carries value','a tidy +'+od+' price']]);''',
+        '''var od=p.odds, _so=(od>0?'+':'')+od; if(od)o.push([1.4,'price',['at a fair '+_so,'priced at '+_so,"you're getting "+_so+' on it','the '+_so+' tag plays',_so+' is a number worth taking',_so+' carries value','a tidy '+_so+' price']]);''')
 
     # ---- 14. THE LIVE LOOP -- MUST BE LAST ------------------------------------------
     # ⚠️ ORDER MATTERS. Every seam is counted against the progressively-replaced text, so
