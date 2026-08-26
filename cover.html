@@ -176,11 +176,11 @@ footer b{color:var(--mut);font-weight:600}
 
   <main class="grid">
 
-    <!-- PATHS-2026-08-26: the baseball board is still at the site ROOT. Moving it to
-         /mlb/ means breaking every URL people already have open, so the cover ships at
-         /cover.html first and the swap happens on a day with no live slate. When it does,
-         this href becomes "mlb/" and nothing else here changes. -->
-    <a class="card mlb" href="./">
+    <!-- PATHS-2026-08-26: the swap is done. This page is the site root; the baseball
+         board is staged to /mlb/ by deploy-pages.yml (NOT moved in the repo -- pull-slate
+         rebuilds repo index.html every few minutes and would overwrite anything parked
+         there). This page is also still served at /cover.html, its original URL. -->
+    <a class="card mlb" href="mlb/">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
