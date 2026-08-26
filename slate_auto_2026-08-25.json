@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-26T04:12:36Z",
+  "pulled_at": "2026-08-26T04:18:01Z",
   "games": [
     {
       "gamePk": 824233,
@@ -1277,7 +1277,7 @@
     },
     {
       "gamePk": 825042,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "CHC@ARI",
       "away": {
@@ -1535,7 +1535,7 @@
     },
     {
       "gamePk": 824962,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "MIN@ATH",
       "away": {
@@ -1661,7 +1661,7 @@
     },
     {
       "gamePk": 823098,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-26T01:40:00Z",
       "matchup": "PHI@SEA",
       "away": {
@@ -1913,7 +1913,7 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "no forecast hour 2026-08-25T21"
+        "note": "weather fetch failed"
       },
       "wf": 1.0
     }
