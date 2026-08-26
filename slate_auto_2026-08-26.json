@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T17:48:13Z",
+  "pulled_at": "2026-08-26T17:52:49Z",
   "games": [
     {
       "gamePk": 824234,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 642547,
           "name": "Freddy Peralta",
-          "hr9": 1.45,
+          "hr9": 1.43,
           "hand": "RHP"
         },
         "lineup": [
@@ -77,7 +77,7 @@
           {
             "id": 814430,
             "name": "Brett Callahan",
-            "iso": 0.3
+            "iso": 0.286
           },
           {
             "id": 805808,
@@ -112,12 +112,12 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.153
+            "iso": 0.151
           },
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.153
+            "iso": 0.152
           }
         ],
         "confirmed": true
@@ -501,8 +501,54 @@
           "hr9": 0.79,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.142
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.222
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.163
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.292
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.231
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.089
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.089
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.323
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.145
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
@@ -1063,9 +1109,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 97\u00b0",
+        "lean": "Boost",
+        "temp": 96.8,
+        "wind_mph": 6.2,
+        "wind_dir": 240,
+        "tail_mph": 6.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.062
     }
   ]
 }
