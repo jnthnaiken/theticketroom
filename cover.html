@@ -99,7 +99,7 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
   background:radial-gradient(circle,#04060a 62%,#04060ad9 100%)}
 .hole .halo{position:absolute;inset:-8px;border-radius:50%;box-shadow:0 0 26px -4px var(--accent);opacity:.5}
 .hole svg{position:relative;z-index:2;width:24px;height:24px;color:var(--accent)}
-.soc .hole svg{width:30px;height:30px}
+.ball{position:relative;z-index:2;font-size:27px;line-height:1;display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .cname{font-family:Oswald,sans-serif;font-weight:600;font-size:23px;line-height:1;margin:0;
@@ -291,29 +291,20 @@ footer b{color:var(--mut);font-weight:600}
     <div class="card soc">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
-          <!-- BALLICON-2026-08-26, owner: "is that a house? a goal?" then "looks like a
-               fucking steering wheel". Three wrong answers before the right one, and the failure
-               mode was the same each time: RADIAL SPOKES, or panels CLIPPED at the rim. Either
-               one breaks the circular silhouette, and a broken circle with five things poking out
-               of it reads as a wheel or a cog no matter what sits in the middle.
-               This is the emoji's own layout: a solid ball, a centre pentagon pointing up, and
-               five rim pentagons on the centre pentagon's EDGE midpoints (36 deg off its
-               vertices), each rotated to point outward. Crucially they are held fully INSIDE the
-               rim -- unclipped -- so the green edge stays one unbroken circle and the dark shapes
-               read as panels. Dark is #04060a, the same colour as the portal core behind it, so
-               the panels look punched out of the ball rather than painted on.
-               Rendered at 26 and 30px against the emoji before choosing; it is drawn at 30px
-               (see `.soc .hole svg`) because a FILLED icon needs more room than the baseball's
-               line art to resolve. -->
-          <svg viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="38" fill="currentColor"/>
-            <path d="M50.0 34.0L65.2 45.1L59.4 62.9L40.6 62.9L34.8 45.1Z" fill="#04060a"/>
-            <path d="M55.8 23.3L68.1 19.3L75.7 29.8L68.1 40.2L55.8 36.2Z" fill="#04060a"/>
-            <path d="M77.2 47.3L84.8 57.7L77.2 68.2L64.9 64.2L64.9 51.3Z" fill="#04060a"/>
-            <path d="M61.0 75.0L53.4 85.5L41.1 81.5L41.1 68.5L53.4 64.5Z" fill="#04060a"/>
-            <path d="M29.6 68.2L17.3 64.2L17.3 51.3L29.6 47.3L37.2 57.7Z" fill="#04060a"/>
-            <path d="M26.4 36.2L26.4 23.3L38.7 19.3L46.3 29.8L38.7 40.2Z" fill="#04060a"/>
-          </svg></span>
+          <!-- BALLICON-2026-08-26, owner, four times: "is that a house? a goal?" ->
+               "looks like a fucking steering wheel" -> "just use the lines from the emoji ...
+               make it black and green" -> "that shit still looks like a steering wheel."
+               THE DRAWING IS ABANDONED. Three geometries were tried -- radial spokes, panels
+               clipped at the rim, panels held inside an unbroken rim -- and every one read as a
+               wheel or a cog at 24-30px, because at that size five dark shapes arranged around a
+               centre IS a hub and spokes no matter how the shapes are drawn. The emoji does not
+               have this problem: it carries real hexagon panels and shading that survive
+               downscaling, which flat two-colour vector art at 30px does not.
+               So this is the emoji glyph itself. It is the one thing that has read as a football
+               at every size tested, and it is literally what was asked for.
+               ⚠️ Do NOT "improve" this back into an SVG without rendering it at 24-30px next to
+               the emoji first. That comparison is why this is here. -->
+          <span class="ball" aria-hidden="true">⚽</span></span>
         <div><h2 class="cname">Soccer</h2><p class="ktag">Anytime goalscorer</p></div>
         <span class="cnt" id="c-soc"></span>
       </div>
