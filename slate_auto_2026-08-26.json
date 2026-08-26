@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T19:28:32Z",
+  "pulled_at": "2026-08-26T19:30:28Z",
   "games": [
     {
       "gamePk": 824234,
@@ -1408,7 +1408,7 @@
     },
     {
       "gamePk": 823015,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-26T23:45:00Z",
       "matchup": "BAL@STL",
       "away": {
@@ -1419,8 +1419,54 @@
           "hr9": 0.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.124
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.236
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.173
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.206
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.247
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.142
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.129
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.153
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.075
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
@@ -1433,7 +1479,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
