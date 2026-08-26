@@ -1263,7 +1263,12 @@ drawTickets();drawPlayers();drawTracker();
   // Paste the destination here to switch it on -- Ko-fi, Buy Me a Coffee, GitHub Sponsors,
   // a Stripe payment link, whatever. Leave it empty and the pill is removed from the DOM: no
   // dead link, no empty box, nothing for a visitor to notice. Only line that needs editing.
-  var TIP_URL='https://venmo.com/u/TheTicketRoom';
+  // TIPJAR-2026-08-26, owner: "move the tip jar from each page to the cover page". Emptied
+  // rather than deleted: the loop below already removes the pill from the DOM when this is
+  // blank -- no dead link, no empty box, nothing to notice -- and leaving the ONE line here
+  // means switching it back on is still a one-line change. The live jar now lives in the
+  // cover page's footer cluster, asked once instead of on every board, every day.
+  var TIP_URL='';
 
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
