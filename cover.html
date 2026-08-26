@@ -110,18 +110,33 @@ a.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   color:var(--dim);line-height:1.3}
 .cnt b{display:block;color:var(--txt);font-size:16px;font-weight:500}
 
+/* EDGEFADE-2026-08-26, owner: "the gradient on the right sides is covering up the scores of the
+   last game." The fade was UNCONDITIONAL, and a mask is positioned against the ELEMENT, not the
+   content -- so once you scrolled to the end of the strip the fade sat on top of the genuinely
+   last match and dimmed the one score you had just scrolled over to read. It was answering
+   "there is more this way" even when there wasn't.
+   Now the fade is a CLAIM ABOUT SCROLL POSITION and is applied only where it is true: `can-r`
+   while there is more to the right, `can-l` once you have scrolled away from the start. At the
+   end of the strip both the last tile and its scoreline are fully opaque. The edges are also
+   tightened from 12% of the strip to a fixed 34px, so even when the fade IS honest it feathers
+   the container edge instead of washing out most of a 92px tile. */
 .slate{display:flex;gap:6px;overflow-x:auto;padding:9px 0 5px;scrollbar-width:thin;
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%);
-  mask-image:linear-gradient(90deg,#000 0,#000 88%,transparent 100%);
   /* SCROLLBARS-2026-08-26, owner: "make the scroll bars opaque or something. they stick out."
      The thumb sat in --line2 (#2f3b52) on a near-black card, and on a slate that only just
      overflows the thumb runs nearly the full width -- so it read as a bright rule under the
      tiles, a horizontal line the design never asked for, on both cards at once.
      Colour goes; SPACE STAYS. scrollbar-width is still `thin` and the webkit track is still
-     4px tall, so revealing the thumb on hover cannot reflow the strip. The right-edge mask
-     fade is what tells you there is more to see -- the bar was never the affordance. */
+     4px tall, so revealing the thumb on hover cannot reflow the strip. The edge fade is what
+     tells you there is more to see -- the bar was never the affordance. */
   scrollbar-color:transparent transparent}
+.slate.can-r{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 34px),transparent 100%);
+             mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 34px),transparent 100%)}
+.slate.can-l{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34px,#000 100%);
+             mask-image:linear-gradient(90deg,transparent 0,#000 34px,#000 100%)}
+.slate.can-l.can-r{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34px,#000 calc(100% - 34px),transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 34px,#000 calc(100% - 34px),transparent 100%)}
 .slate::-webkit-scrollbar{height:4px}
 .slate::-webkit-scrollbar-track{background:transparent}
 .slate::-webkit-scrollbar-thumb{background:transparent;border-radius:3px;transition:background .18s}
@@ -282,10 +297,33 @@ footer b{color:var(--mut);font-weight:600}
     g.appendChild(el('div','st',when));
     return g;
   }
+  /* EDGEFADE-2026-08-26. The fade is a claim about scroll position, so something has to keep it
+     true. `can-r` only while there is more to the right, `can-l` only once scrolled off the
+     start -- so the last match is never dimmed by a gradient promising content that isn't there.
+     The 1px slack absorbs sub-pixel scrollWidth on fractional zoom, where scrollLeft+clientWidth
+     lands a hair under scrollWidth forever and the right fade would never switch off. */
+  function edges(b){
+    if(!b) return;
+    var max=b.scrollWidth-b.clientWidth;
+    b.classList.toggle('can-r', b.scrollLeft < max-1);
+    b.classList.toggle('can-l', b.scrollLeft > 1);
+  }
+  function watchEdges(b){
+    if(b.__watched) return; b.__watched=1;
+    b.addEventListener('scroll',function(){edges(b);},{passive:true});
+    /* Tiles arrive from a fetch and logos load later, both of which change scrollWidth after
+       the first measure. A ResizeObserver on the strip catches the reflow; the window listener
+       covers the browsers that don't have one. */
+    if(typeof ResizeObserver!=='undefined'){ try{ new ResizeObserver(function(){edges(b);}).observe(b); }catch(e){} }
+    window.addEventListener('resize',function(){edges(b);});
+  }
   function fill(id,nodes,msg){
     var b=document.getElementById(id); if(!b) return; b.innerHTML='';
-    if(!nodes.length){ b.appendChild(el('span','empty',msg)); return; }
+    if(!nodes.length){ b.appendChild(el('span','empty',msg)); edges(b); return; }
     nodes.forEach(function(n){ b.appendChild(n); });
+    watchEdges(b); edges(b);
+    /* Logos are lazy and land after layout; re-measure once they have. */
+    setTimeout(function(){edges(b);},400);
   }
   function cnt(id,n,label){ var b=document.getElementById(id); if(b&&n) b.innerHTML='<b>'+n+'</b>'+label; }
 
