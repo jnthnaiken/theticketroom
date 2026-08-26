@@ -1,7 +1,7 @@
 {
   "date": "2026-08-25",
   "season": "2026",
-  "pulled_at": "2026-08-26T02:13:07Z",
+  "pulled_at": "2026-08-26T02:17:24Z",
   "games": [
     {
       "gamePk": 824233,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823826,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-25T22:40:00Z",
       "matchup": "BOS@MIA",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823505,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-25T23:05:00Z",
       "matchup": "HOU@NYY",
       "away": {
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 822773,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-25T23:07:00Z",
       "matchup": "KC@TOR",
       "away": {
@@ -668,7 +668,7 @@
     },
     {
       "gamePk": 823585,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-25T23:10:00Z",
       "matchup": "MIL@NYM",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 14mph, 66\u00b0",
-        "lean": "Boost",
-        "temp": 66.0,
-        "wind_mph": 15.1,
-        "wind_dir": 282,
-        "tail_mph": 14.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.045
+      "wf": 1.0
     }
   ]
 }
