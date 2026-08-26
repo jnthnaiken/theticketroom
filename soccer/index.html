@@ -102,7 +102,7 @@ select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:foc
 .tagrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .podds{font-family:'Roboto Mono',monospace;font-weight:700;font-size:13px;color:var(--gold);background:#2a230d;border:1px solid #5a4a16;border-radius:8px;padding:4px 10px}
 .podds.tbd{color:var(--dim);background:var(--surf2);border-color:var(--line)}
-.st{font-size:11px;border-radius:8px;padding:4px 10px;font-weight:700;letter-spacing:.04em}
+.st{font-size:11px;border-radius:8px;padding:4px 10px;font-weight:700;letter-spacing:.04em}.bal{font-size:1.22em;line-height:1;vertical-align:-.09em}.lst.hit{font-size:15.5px}
 .st.conf{color:#08160e;background:var(--lime)}.st.proj{color:var(--mut);background:var(--surf2);border:1px solid var(--line2)}
 .wxchip{font-size:11.5px;border-radius:8px;padding:4px 10px;border:1px solid var(--line2);background:var(--surf2);color:var(--mut)}
 .wxchip b{color:var(--txt)}
@@ -484,7 +484,7 @@ header{position:relative}
   <div class="head-stats">
    <div class="statrow" id="stats"></div>
    <div class="legend">
-  <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🔄 cover · 🟢 strong sub · 🟡 thin · 🔴 none · ⛅ mild</span><span>🎯 xG this match</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> rotation risk · 🚧 in progress · ❌ no goal · ⚽ scored</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
+  <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🔄 cover · 🟢 strong sub · 🟡 thin · 🔴 none · ⛅ mild</span><span>🎯 xG this match</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> rotation risk · 🚧 in progress · ❌ no goal · <span class="bal">⚽</span> scored</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
  </div>
   </div>
   <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar tip-stack" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
@@ -779,7 +779,7 @@ function drawTickets(){
  if((ty==='all'||ty==='biggest')&&big.length)html+='<div class="tsec big"><span class="tsech">Grand Salami</span><span class="tline"></span></div>'+big.map(ticketCard).join('');   // 2026-08-14: retired -- the section only renders for a salami that actually exists (a settled/carried one). The `noSalami` empty state is gone: with the slip retired it would print every night.
  if(ty==='all')html+=sec('fam','Dingers',fam);   /* DINGERS-2026-08-18: renamed from Family Meal (title, emoji and the title pool only -- kind stays 'family' so season.json history and grading keep reconciling) */   // 2026-08-14: Dingers (kind 'family') renders LAST -- owner's call. Page order is lunch -> nightcap -> anchors -> moonshots -> dingers, and the tracker `defs` array plus the View chip row are kept in this same order.
 function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co.bats.length)return '';
- var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr">⚽ scored</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
+ var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr"><span class="bal">⚽</span> scored</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
  $('#tickets').innerHTML=(html||'<div class="closed">No tickets match.</div>')+((ticketType==='all'&&!q)?carryoverStrip():'');
  const n=((ty==='all'||ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
@@ -795,7 +795,7 @@ function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p),c
  const lc=liftCls(p.wf),lift=lc?`<span class="${p.wf>=1?'u':'d'}">${liftStr(p.wf)}</span>`:`${liftStr(p.wf)}`;
  return `<div class="pc t-${tier}${(_pcPool&&_pcPool.has(name))?' pc-gated':''}" id="p-${cssid(name)}"><div class="ph"><div>
    <div class="pname">${name}</div><div class="psub"><b>${p.team}</b> · vs ${p.opp[0]} ${p.opp[1]} · ${p.game>=11?'<span class="lt">'+p.gtime+'</span>':p.gtime}</div>
-   <div class="tagrow">${p.soft?'<span class="st soft">⚠ soft SP</span>':''}${p.hr?'<span class="st hit">⚽ scored'+((p.goalmins&&p.goalmins.length)?' '+p.goalmins.map(function(m){return m+String.fromCharCode(8242);}).join(', '):'')+'</span>':p.void?'<span class="st void">↩ voided · stake returned</span>':av==='out'?'<span class="st out">🪑 not in lineup</span>':`${sState(p)?'':'<span class="st '+(c?'conf':'proj')+'">'+(c?'✓ confirmed':'⏳ '+p.status)+'</span>'}${sState(p)?'<span class="st haz">'+sState(p)+'</span>':isFinal(p.game)?'<span class="st dead">❌ no goal</span>':av==='started'?'<span class="st prog">🚧 in progress</span>':av==='hazard'?'<span class="st haz">⚠️ not bettable</span>':''}`}
+   <div class="tagrow">${p.soft?'<span class="st soft">⚠ soft SP</span>':''}${p.hr?'<span class="st hit"><span class="bal">⚽</span> scored'+((p.goalmins&&p.goalmins.length)?' '+p.goalmins.map(function(m){return m+String.fromCharCode(8242);}).join(', '):'')+'</span>':p.void?'<span class="st void">↩ voided · stake returned</span>':av==='out'?'<span class="st out">🪑 not in lineup</span>':`${sState(p)?'':'<span class="st '+(c?'conf':'proj')+'">'+(c?'✓ confirmed':'⏳ '+p.status)+'</span>'}${sState(p)?'<span class="st haz">'+sState(p)+'</span>':isFinal(p.game)?'<span class="st dead">❌ no goal</span>':av==='started'?'<span class="st prog">🚧 in progress</span>':av==='hazard'?'<span class="st haz">⚠️ not bettable</span>':''}`}
      <span class="podds${p.odds?'':' tbd'}">${p.odds?('GOAL '+oddsStr(p.odds)):'GOAL TBD'}</span>${formChip}
      <span class="wxchip ${lc}">${wx.emoji} <b>${wx.park}</b> · ${wx.cond}${wx.rain?' · '+wx.rain:''}</span></div></div>
    <div class="ptot">${p.TOTAL.toFixed(1)}<div class="ptbadges"><span class="wbadge">${wx.emoji} ${wx.lean}</span><span class="bbadge">🎯 ${p.xgmatch!=null?p.xgmatch.toFixed(2):'—'}</span></div></div></div>

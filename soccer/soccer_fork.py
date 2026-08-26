@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 84 + LIVE_SEAM_COUNT          # 84 base + 5 live = 89
+EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -132,7 +132,7 @@ def seams(payload_js):
         '<span class="bbadge">🎯 ${p.xgmatch!=null?p.xgmatch.toFixed(2):\'—\'}</span>')
 
     # ---- 5. SPORT NOUNS -------------------------------------------------------------
-    add('homered', '⚾ homered', '⚽ scored', 3)   # legend + carry-over strip + player card
+    add('homered', '⚾ homered', '<span class="bal">⚽</span> scored', 3)   # legend + carry-over strip + player card
     add('nohomer', '❌ no homer', '❌ no goal', 2)
     add('podds',
         "${p.odds?('HR '+oddsStr(p.odds)):'HR TBD'}",
@@ -330,8 +330,8 @@ def seams(payload_js):
     # "just like they do in the box score" applies to the goal itself, not only the
     # substitution. Malen scored three times; "⚽ scored" alone throws two of them away.
     add('scored-minutes',
-        """${p.hr?'<span class="st hit">⚽ scored</span>':p.void?""",
-        """${p.hr?'<span class="st hit">⚽ scored'+((p.goalmins&&p.goalmins.length)?' '+p.goalmins.map(function(m){return m+String.fromCharCode(8242);}).join(', '):'')+'</span>':p.void?""")
+        """${p.hr?'<span class="st hit"><span class="bal">⚽</span> scored</span>':p.void?""",
+        """${p.hr?'<span class="st hit"><span class="bal">⚽</span> scored'+((p.goalmins&&p.goalmins.length)?' '+p.goalmins.map(function(m){return m+String.fromCharCode(8242);}).join(', '):'')+'</span>':p.void?""")
 
     # ---- 12. THE HOW-TO TAB IS STILL BASEBALL ---------------------------------------
     # Found the same way seam group 7 was found: by RENDERING the page and reading it. The
@@ -472,6 +472,16 @@ def seams(payload_js):
         'kickoff), so they cannot be confirmed at bet time</div>\':\'\'')
     add('oplog', OPLOG_OLD, OPLOG_NEW)
 
+
+    add('ball-css',
+        '.st{font-size:11px;border-radius:8px;padding:4px 10px;font-weight:700;letter-spacing:.04em}',
+        '.st{font-size:11px;border-radius:8px;padding:4px 10px;font-weight:700;letter-spacing:.04em}'
+        # .bal wraps the glyph only, so the chip's 11px text is untouched and the badge
+        # does not grow. .lst.hit is the LEG ROW glyph, whose span contains nothing but
+        # the ball -- no template change needed there, which also avoids re-cutting
+        # 'leg-hr-icon' and 'legrow-unres', whose old-strings are chained through each other.
+        '.bal{font-size:1.22em;line-height:1;vertical-align:-.09em}'
+        '.lst.hit{font-size:15.5px}')
 
     # ---- 15. ODDS SIGNS -- THE BOARD HAD NEVER SEEN AN ODDS-ON PRICE ------------------
     # ODDSSIGN-2026-08-26, owner: "mbappes odds read +-250. it should just be -250."
