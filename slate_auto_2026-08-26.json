@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T18:53:23Z",
+  "pulled_at": "2026-08-26T18:58:45Z",
   "games": [
     {
       "gamePk": 824234,
@@ -25,7 +25,7 @@
           {
             "id": 666018,
             "name": "Jonathan Aranda",
-            "iso": 0.141
+            "iso": 0.14
           },
           {
             "id": 691406,
@@ -1155,16 +1155,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 97\u00b0",
-        "lean": "Boost",
-        "temp": 96.8,
-        "wind_mph": 6.2,
-        "wind_dir": 240,
-        "tail_mph": 6.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.062
+      "wf": 1.0
     }
   ]
 }
