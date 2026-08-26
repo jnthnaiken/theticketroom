@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T22:06:16Z",
+  "pulled_at": "2026-08-26T22:11:38Z",
   "games": [
     {
       "gamePk": 824234,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 825039,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-26T19:40:00Z",
       "matchup": "CHC@ARI",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 96\u00b0",
-        "lean": "Boost",
-        "temp": 96.1,
-        "wind_mph": 5.6,
-        "wind_dir": 236,
-        "tail_mph": 5.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.059
+      "wf": 1.0
     }
   ]
 }
