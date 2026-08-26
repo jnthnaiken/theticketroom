@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
   "season": "2026",
-  "pulled_at": "2026-08-26T19:00:57Z",
+  "pulled_at": "2026-08-26T19:03:24Z",
   "games": [
     {
       "gamePk": 824234,
@@ -126,15 +126,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 78\u00b0",
+        "cond": "wind out 10mph, 78\u00b0",
         "lean": "Boost",
         "temp": 78.2,
-        "wind_mph": 9.8,
+        "wind_mph": 10.0,
         "wind_dir": 192,
-        "tail_mph": 9.3,
+        "tail_mph": 9.5,
         "precip": 0
       },
-      "wf": 1.045
+      "wf": 1.046
     },
     {
       "gamePk": 825039,
@@ -395,8 +395,8 @@
         "lean": "Neutral",
         "temp": 73.3,
         "wind_mph": 2.1,
-        "wind_dir": 283,
-        "tail_mph": 2.0,
+        "wind_dir": 288,
+        "tail_mph": 1.9,
         "precip": 0
       },
       "wf": 1.012
@@ -478,15 +478,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 94\u00b0",
+        "cond": "wind out 8mph, 94\u00b0",
         "lean": "Boost",
         "temp": 94.1,
-        "wind_mph": 7.1,
-        "wind_dir": 238,
-        "tail_mph": 6.8,
+        "wind_mph": 7.9,
+        "wind_dir": 230,
+        "tail_mph": 7.8,
         "precip": 0
       },
-      "wf": 1.06
+      "wf": 1.063
     },
     {
       "gamePk": 823255,
@@ -823,8 +823,54 @@
           "hr9": 1.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.218
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.254
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.228
+          },
+          {
+            "id": 669364,
+            "name": "Xavier Edwards",
+            "iso": 0.097
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.114
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.138
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.202
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.186
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.141
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1211,9 +1257,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 0mph, 75\u00b0",
+        "lean": "Neutral",
+        "temp": 75.3,
+        "wind_mph": 5.5,
+        "wind_dir": 125,
+        "tail_mph": -0.3,
+        "precip": 4
       },
-      "wf": 1.0
+      "wf": 1.007
     },
     {
       "gamePk": 823015,
