@@ -1,7 +1,7 @@
 {
   "date": "2026-08-27",
   "season": "2026",
-  "pulled_at": "2026-08-27T15:00:32Z",
+  "pulled_at": "2026-08-27T15:21:23Z",
   "games": [
     {
       "gamePk": 822694,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823014,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-27T18:15:00Z",
       "matchup": "BAL@STL",
       "away": {
@@ -155,13 +155,61 @@
       "home": {
         "abbrev": "STL",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 700669,
+          "name": "Gordon Graceffo",
+          "hr9": 0.71,
+          "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.124
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.135
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.217
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.193
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.293
+          },
+          {
+            "id": 691458,
+            "name": "Blaze Jordan",
+            "iso": 0.12
+          },
+          {
+            "id": 602104,
+            "name": "Ram\u00f3n Ur\u00edas",
+            "iso": 0.136
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.133
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.104
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
