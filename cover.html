@@ -29,22 +29,164 @@ body{
     var(--bg);
   background-attachment:fixed;
 }
-body::before{ /* starfield, static */
-  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;
+/* STARFIELD-2026-08-27. Was twelve 1px dots at .55 opacity -- invisible on a phone.
+   Three depth layers now: 70 far, 26 near (the only ones that twinkle), 10 tinted.
+   All pure CSS gradients, no assets, no canvas, no per-frame JS. */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.85;
   background-image:
-    radial-gradient(1.4px 1.4px at 12% 18%,#ffffffc0,transparent),
-    radial-gradient(1.1px 1.1px at 78% 12%,#ffffff9e,transparent),
-    radial-gradient(1.6px 1.6px at 34% 62%,#ffffffb0,transparent),
-    radial-gradient(1px 1px at 62% 44%,#ffffff8c,transparent),
-    radial-gradient(1.3px 1.3px at 88% 68%,#ffffffa6,transparent),
-    radial-gradient(1px 1px at 22% 86%,#ffffff7a,transparent),
-    radial-gradient(1.2px 1.2px at 52% 8%,#ffffff96,transparent),
-    radial-gradient(1px 1px at 6% 48%,#ffffff70,transparent),
-    radial-gradient(1.5px 1.5px at 94% 30%,#ffffffa0,transparent),
-    radial-gradient(1px 1px at 44% 92%,#ffffff7a,transparent),
-    radial-gradient(1.1px 1.1px at 70% 78%,#ffffff8c,transparent),
-    radial-gradient(1px 1px at 30% 34%,#ffffff66,transparent);
+    radial-gradient(1.17px 1.17px at 52.55% 15.12%,#ffffff71,transparent),
+    radial-gradient(1.04px 1.04px at 50.75% 38.0%,#ffffff80,transparent),
+    radial-gradient(1.2px 1.2px at 18.36% 17.33%,#ffffff58,transparent),
+    radial-gradient(0.91px 0.91px at 4.58% 86.43%,#ffffff84,transparent),
+    radial-gradient(1.19px 1.19px at 77.19% 88.91%,#ffffff8c,transparent),
+    radial-gradient(1.27px 1.27px at 4.34% 30.1%,#ffffff92,transparent),
+    radial-gradient(1.0px 1.0px at 16.54% 0.96%,#ffffff73,transparent),
+    radial-gradient(1.26px 1.26px at 85.31% 57.69%,#ffffff5d,transparent),
+    radial-gradient(0.86px 0.86px at 34.71% 90.48%,#ffffff8f,transparent),
+    radial-gradient(0.94px 0.94px at 98.97% 46.19%,#ffffff85,transparent),
+    radial-gradient(1.06px 1.06px at 86.89% 5.4%,#ffffff8b,transparent),
+    radial-gradient(1.24px 1.24px at 39.12% 41.41%,#ffffff55,transparent),
+    radial-gradient(1.37px 1.37px at 34.63% 69.56%,#ffffff8a,transparent),
+    radial-gradient(0.91px 0.91px at 66.38% 56.43%,#ffffff75,transparent),
+    radial-gradient(0.86px 0.86px at 22.22% 95.61%,#ffffff91,transparent),
+    radial-gradient(1.3px 1.3px at 56.06% 88.74%,#ffffff75,transparent),
+    radial-gradient(1.06px 1.06px at 19.82% 65.76%,#ffffff75,transparent),
+    radial-gradient(1.29px 1.29px at 77.04% 55.81%,#ffffff57,transparent),
+    radial-gradient(1.38px 1.38px at 28.17% 76.67%,#ffffff63,transparent),
+    radial-gradient(1.24px 1.24px at 7.11% 69.73%,#ffffff72,transparent),
+    radial-gradient(1.14px 1.14px at 76.87% 45.84%,#ffffff71,transparent),
+    radial-gradient(0.86px 0.86px at 81.81% 31.4%,#ffffff56,transparent),
+    radial-gradient(1.36px 1.36px at 77.89% 9.68%,#ffffff84,transparent),
+    radial-gradient(1.17px 1.17px at 78.89% 23.35%,#ffffff5c,transparent),
+    radial-gradient(0.84px 0.84px at 66.13% 47.48%,#ffffff74,transparent),
+    radial-gradient(0.85px 0.85px at 73.52% 52.96%,#ffffff6e,transparent),
+    radial-gradient(1.36px 1.36px at 87.88% 92.58%,#ffffff71,transparent),
+    radial-gradient(0.93px 0.93px at 57.83% 23.0%,#ffffff5c,transparent),
+    radial-gradient(1.18px 1.18px at 48.78% 63.34%,#ffffff5b,transparent),
+    radial-gradient(1.2px 1.2px at 70.51% 31.64%,#ffffff7e,transparent),
+    radial-gradient(1.34px 1.34px at 55.79% 2.05%,#ffffff90,transparent),
+    radial-gradient(1.16px 1.16px at 4.53% 60.24%,#ffffff71,transparent),
+    radial-gradient(1.26px 1.26px at 76.75% 7.51%,#ffffff78,transparent),
+    radial-gradient(1.23px 1.23px at 80.55% 19.78%,#ffffff98,transparent),
+    radial-gradient(1.21px 1.21px at 90.94% 17.69%,#ffffff85,transparent),
+    radial-gradient(1.27px 1.27px at 1.19% 65.77%,#ffffff93,transparent),
+    radial-gradient(1.1px 1.1px at 73.71% 34.18%,#ffffff80,transparent),
+    radial-gradient(1.26px 1.26px at 4.25% 62.41%,#ffffff69,transparent),
+    radial-gradient(1.28px 1.28px at 83.92% 14.06%,#ffffff98,transparent),
+    radial-gradient(0.91px 0.91px at 79.39% 24.19%,#ffffff8a,transparent),
+    radial-gradient(1.09px 1.09px at 90.53% 68.78%,#ffffff77,transparent),
+    radial-gradient(1.17px 1.17px at 75.55% 28.52%,#ffffff73,transparent),
+    radial-gradient(0.85px 0.85px at 8.32% 76.84%,#ffffff7f,transparent),
+    radial-gradient(1.01px 1.01px at 38.47% 10.73%,#ffffff56,transparent),
+    radial-gradient(0.81px 0.81px at 19.52% 67.13%,#ffffff81,transparent),
+    radial-gradient(0.9px 0.9px at 26.92% 59.25%,#ffffff8c,transparent),
+    radial-gradient(0.86px 0.86px at 56.0% 16.71%,#ffffff69,transparent),
+    radial-gradient(1.35px 1.35px at 48.67% 86.67%,#ffffff7e,transparent),
+    radial-gradient(1.26px 1.26px at 55.13% 51.22%,#ffffff56,transparent),
+    radial-gradient(0.93px 0.93px at 35.55% 56.91%,#ffffff78,transparent),
+    radial-gradient(1.33px 1.33px at 56.72% 78.98%,#ffffff90,transparent),
+    radial-gradient(1.39px 1.39px at 82.39% 91.39%,#ffffff66,transparent),
+    radial-gradient(0.97px 0.97px at 20.66% 95.04%,#ffffff83,transparent),
+    radial-gradient(1.18px 1.18px at 24.18% 79.98%,#ffffff73,transparent),
+    radial-gradient(1.3px 1.3px at 67.63% 81.83%,#ffffff7c,transparent),
+    radial-gradient(1.12px 1.12px at 3.97% 42.95%,#ffffff82,transparent),
+    radial-gradient(1.1px 1.1px at 67.81% 30.88%,#ffffff5f,transparent),
+    radial-gradient(1.32px 1.32px at 75.14% 43.03%,#ffffff62,transparent),
+    radial-gradient(0.8px 0.8px at 81.98% 87.7%,#ffffff88,transparent),
+    radial-gradient(1.18px 1.18px at 30.17% 30.12%,#ffffff89,transparent),
+    radial-gradient(1.02px 1.02px at 1.87% 22.15%,#ffffff80,transparent),
+    radial-gradient(1.23px 1.23px at 34.15% 72.69%,#ffffff55,transparent),
+    radial-gradient(1.12px 1.12px at 74.23% 11.16%,#ffffff6e,transparent),
+    radial-gradient(1.29px 1.29px at 47.29% 18.71%,#ffffff8d,transparent),
+    radial-gradient(1.22px 1.22px at 80.98% 80.54%,#ffffff5c,transparent),
+    radial-gradient(1.05px 1.05px at 65.1% 46.98%,#ffffff58,transparent),
+    radial-gradient(1.05px 1.05px at 65.75% 2.38%,#ffffff65,transparent),
+    radial-gradient(1.29px 1.29px at 86.15% 93.83%,#ffffff72,transparent),
+    radial-gradient(1.26px 1.26px at 3.4% 51.56%,#ffffff91,transparent),
+    radial-gradient(0.96px 0.96px at 43.58% 88.35%,#ffffff8c,transparent);
 }
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(1.69px 1.69px at 44.12% 18.76%,#ffffffc1,transparent),
+    radial-gradient(1.45px 1.45px at 51.51% 91.98%,#ffffffd0,transparent),
+    radial-gradient(1.77px 1.77px at 38.55% 93.5%,#ffffffef,transparent),
+    radial-gradient(1.53px 1.53px at 36.34% 94.97%,#ffffffeb,transparent),
+    radial-gradient(2.13px 2.13px at 74.92% 64.55%,#ffffffb6,transparent),
+    radial-gradient(2.23px 2.23px at 44.77% 86.41%,#ffffffb8,transparent),
+    radial-gradient(1.65px 1.65px at 31.26% 96.56%,#ffffffef,transparent),
+    radial-gradient(1.77px 1.77px at 97.26% 59.17%,#ffffffd6,transparent),
+    radial-gradient(1.68px 1.68px at 4.3% 34.17%,#ffffffdc,transparent),
+    radial-gradient(1.68px 1.68px at 54.9% 87.22%,#fffffffe,transparent),
+    radial-gradient(1.62px 1.62px at 47.25% 60.68%,#ffffffe5,transparent),
+    radial-gradient(2.06px 2.06px at 44.28% 98.18%,#ffffffd7,transparent),
+    radial-gradient(1.57px 1.57px at 95.03% 78.82%,#ffffffe1,transparent),
+    radial-gradient(1.49px 1.49px at 23.47% 1.53%,#ffffffe8,transparent),
+    radial-gradient(1.71px 1.71px at 32.08% 38.72%,#fffffff8,transparent),
+    radial-gradient(1.76px 1.76px at 94.94% 68.73%,#ffffffdc,transparent),
+    radial-gradient(2.1px 2.1px at 14.01% 31.85%,#ffffffc4,transparent),
+    radial-gradient(2.14px 2.14px at 28.97% 30.99%,#ffffffce,transparent),
+    radial-gradient(1.91px 1.91px at 89.13% 40.39%,#fffffff9,transparent),
+    radial-gradient(2.27px 2.27px at 37.47% 6.18%,#ffffffb9,transparent),
+    radial-gradient(1.7px 1.7px at 32.27% 61.97%,#ffffffbf,transparent),
+    radial-gradient(1.8px 1.8px at 13.12% 43.92%,#ffffffcc,transparent),
+    radial-gradient(2.26px 2.26px at 2.69% 40.42%,#ffffffd0,transparent),
+    radial-gradient(1.42px 1.42px at 6.5% 44.22%,#ffffffca,transparent),
+    radial-gradient(1.98px 1.98px at 53.54% 67.38%,#ffffffc3,transparent),
+    radial-gradient(1.55px 1.55px at 75.62% 3.17%,#ffffffd4,transparent);
+  animation:twinkle 7s ease-in-out infinite alternate;
+}
+.tint{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;
+  filter:hue-rotate(-15deg) saturate(140%);
+  background-image:
+    radial-gradient(1.91px 1.91px at 71.85% 98.87%,#ffffffaa,transparent),
+    radial-gradient(1.66px 1.66px at 50.7% 5.63%,#ffffffb5,transparent),
+    radial-gradient(1.48px 1.48px at 62.0% 67.9%,#ffffff8a,transparent),
+    radial-gradient(1.36px 1.36px at 3.71% 68.52%,#ffffffae,transparent),
+    radial-gradient(1.58px 1.58px at 29.15% 19.31%,#ffffffb1,transparent),
+    radial-gradient(1.7px 1.7px at 62.76% 22.47%,#ffffffb3,transparent),
+    radial-gradient(1.55px 1.55px at 4.42% 11.43%,#ffffffa1,transparent),
+    radial-gradient(1.68px 1.68px at 88.87% 40.0%,#ffffffa8,transparent),
+    radial-gradient(1.88px 1.88px at 77.6% 47.98%,#ffffffb8,transparent),
+    radial-gradient(1.78px 1.78px at 18.07% 1.59%,#ffffff80,transparent);
+  animation:twinkle2 11s ease-in-out infinite alternate;
+}
+@keyframes twinkle{from{opacity:.45}to{opacity:.95}}
+@keyframes twinkle2{from{opacity:.85}to{opacity:.35}}
+
+/* --- space, added 2026-08-27 --------------------------------------------------------
+   Everything here sits at z-index 0 behind the content and is pointer-events:none, so
+   nothing below can be clicked through or covered. No images, no canvas, no rAF loop --
+   three gradient layers and four transform animations, which is what keeps it cheap on a
+   phone. The whole thing collapses to a static field under prefers-reduced-motion. */
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+/* a slow nebula wash, drifting -- gives the field some depth behind the stars */
+.neb{position:absolute;inset:-25%;opacity:.5;filter:blur(42px);
+  background:
+    radial-gradient(46% 34% at 22% 26%,#26d4f01f,transparent 70%),
+    radial-gradient(40% 30% at 78% 32%,#b69dff1c,transparent 70%),
+    radial-gradient(52% 38% at 58% 78%,#4ef08a14,transparent 72%);
+  animation:drift 48s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,1.5%,0) scale(1.06)}}
+/* meteors -- one streak at a time, long gaps. The moonshot the whole board is named for. */
+.met{position:absolute;top:-8%;width:2px;height:120px;border-radius:2px;
+  background:linear-gradient(180deg,transparent,#ffffffdd 42%,#26d4f0 72%,transparent);
+  filter:drop-shadow(0 0 6px #26d4f0aa);opacity:0;transform:rotate(28deg)}
+.met.a{left:14%;animation:shoot 17s linear infinite}
+.met.b{left:58%;animation:shoot 23s linear infinite 8s}
+.met.c{left:84%;animation:shoot 31s linear infinite 15s;background:linear-gradient(180deg,transparent,#ffffffcc 42%,#4ef08a 72%,transparent);filter:drop-shadow(0 0 6px #4ef08a99)}
+@keyframes shoot{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(28deg)}
+  2%{opacity:.95}
+  9%{opacity:0;transform:translate3d(46vw,88vh,0) rotate(28deg)}
+  100%{opacity:0;transform:translate3d(46vw,88vh,0) rotate(28deg)}}
+@media (prefers-reduced-motion:reduce){
+  body::after,.tint{animation:none}
+  .neb{animation:none}
+  .met{display:none}}
+
 .hud{position:fixed;inset:12px;z-index:1;pointer-events:none;border:1px solid #26d4f01f;border-radius:18px}
 .hud i{position:absolute;width:26px;height:26px;border:1.5px solid #26d4f052}
 .hud i:nth-child(1){top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:18px 0 0 0}
@@ -236,9 +378,56 @@ footer b{color:var(--mut);font-weight:600}
   .card,.card::before,.tkt,.tkt-arw{transition:none}
   .tkt:hover,.tkt:focus-visible{transform:none}
 }
+
+/* --- TEAR-2026-08-27 -------------------------------------------------------------------
+   The ENTER control was already drawn as a ticket stub -- dashed perforation, ADMIT ONE.
+   It now behaves like one: hovering starts the tear at the top of the perforation, clicking
+   finishes it and then follows the link. Pure CSS transforms plus one listener; no assets.
+   The rotation origins are at the BOTTOM of each half, so the gap opens as a wedge from the
+   top down -- which is how paper actually goes, and it reads as tearing rather than sliding.
+   Resting state is untouched: no clip-path, no transform, the same clean stub as before. */
+.tkt{transition:box-shadow .18s ease}
+.tkt-stub,.tkt-main{transition:transform .22s cubic-bezier(.2,.8,.3,1),opacity .22s ease,clip-path .22s ease}
+.tkt-stub{transform-origin:bottom right}
+.tkt-main{transform-origin:bottom left}
+/* the ragged fibres, only drawn once the tear starts */
+.tkt:hover .tkt-stub,.tkt:focus-visible .tkt-stub,.tkt.tearing .tkt-stub{
+  clip-path:polygon(0 0,calc(100% - 3px) 0,100% 7%,calc(100% - 4px) 15%,100% 23%,calc(100% - 2px) 31%,
+    100% 39%,calc(100% - 5px) 47%,100% 55%,calc(100% - 2px) 63%,100% 71%,calc(100% - 4px) 79%,
+    100% 87%,calc(100% - 3px) 95%,100% 100%,0 100%)}
+.tkt:hover .tkt-main,.tkt:focus-visible .tkt-main,.tkt.tearing .tkt-main{
+  clip-path:polygon(3px 0,100% 0,100% 100%,3px 100%,0 95%,4px 87%,0 79%,2px 71%,0 63%,5px 55%,
+    0 47%,2px 39%,0 31%,4px 23%,0 15%,3px 7%)}
+/* hover: the tear opens a few degrees and stops -- a threat, not the act */
+.tkt:hover,.tkt:focus-visible{overflow:visible}
+.tkt:hover .tkt-stub,.tkt:focus-visible .tkt-stub{transform:rotate(-2.4deg) translateX(-2px)}
+.tkt:hover .tkt-main,.tkt:focus-visible .tkt-main{transform:rotate(1.4deg) translateX(3px)}
+/* click: it goes all the way, then the link follows.
+   Keyframes rather than transitions so the halves stay SOLID while they separate and only
+   fade at the very end -- with a plain transition they dissolved before the tear read, and
+   the container border was left behind as an empty box, which looks broken rather than torn.
+   So the frame goes with them. */
+.tkt.tearing{overflow:visible;pointer-events:none;border-color:transparent!important;
+  background:transparent!important;box-shadow:none;transition:border-color .16s ease .18s,background .16s ease .18s}
+.tkt.tearing .tkt-stub{animation:tearL .46s cubic-bezier(.25,.6,.3,1) forwards}
+.tkt.tearing .tkt-main{animation:tearR .46s cubic-bezier(.25,.6,.3,1) forwards}
+@keyframes tearL{
+  0%{transform:rotate(-2.4deg) translateX(-2px);opacity:1}
+  55%{transform:rotate(-13deg) translate(-13px,7px);opacity:1}
+  100%{transform:rotate(-26deg) translate(-26px,26px);opacity:0}}
+@keyframes tearR{
+  0%{transform:rotate(1.4deg) translateX(3px);opacity:1}
+  55%{transform:rotate(4deg) translate(11px,-2px);opacity:1}
+  100%{transform:rotate(9deg) translate(26px,-12px);opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .tkt-stub,.tkt-main{transition:none}
+  .tkt:hover .tkt-stub,.tkt:hover .tkt-main,.tkt:focus-visible .tkt-stub,.tkt:focus-visible .tkt-main{transform:none;clip-path:none}
+  .tkt.tearing .tkt-stub,.tkt.tearing .tkt-main{animation:none;transform:none;opacity:1}}
 </style>
 </head>
 <body>
+<div class="sky" aria-hidden="true"><div class="neb"></div><i class="met a"></i><i class="met b"></i><i class="met c"></i></div>
+<div class="tint" aria-hidden="true"></div>
 
 <div class="hud" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
@@ -448,6 +637,26 @@ footer b{color:var(--mut);font-weight:600}
      Both are harmless and each is a one-line removal. They were left in place only so the pills
      could come back without rebuilding the plumbing; if that is not wanted, strip them and
      delete this note with them. */
+})();
+</script>
+
+<script>
+/* TEAR-2026-08-27. Hold the navigation just long enough to finish the tear, then go.
+   Falls straight through on reduced-motion, on a modified click (new tab / middle button),
+   and if anything at all throws -- the link must never stop working because an effect did. */
+(function(){
+  var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  document.querySelectorAll('a.tkt').forEach(function(a){
+    a.addEventListener('click',function(e){
+      try{
+        if(RM||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
+        e.preventDefault();
+        a.classList.add('tearing');
+        var go=function(){ location.href=a.getAttribute('href'); };
+        setTimeout(go,430);
+      }catch(_){ /* let the browser do what it was going to do */ }
+    });
+  });
 })();
 </script>
 </body>
