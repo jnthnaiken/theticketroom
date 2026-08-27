@@ -1,0 +1,216 @@
+name: Build Soccer Board
+
+# ====================================================================================
+# The soccer equivalent of pull-slate.yml, and it works the same way:
+#   MANUAL INPUTS ARE COMMITTED, EVERYTHING ELSE IS AUTOMATED.
+#
+# Baseball commits cards/lineups by hand because Kasper is auth-walled and RotoWire is a page,
+# then the Action fetches odds and weather, scores, drafts, injects and commits. Soccer is the
+# same shape with a different split, forced by what a runner can actually reach:
+#
+#   BROWSER-SCRAPED, committed once per slate  ->  soccer/slates/<date>/
+#       ags.psv        oddschecker anytime-goalscorer prices   (bot-protected)
+#       xg.psv         understat playersData, both seasons     (Cloudflare serves a shell to
+#                                                               the runner -- probed 2026-08-24)
+#       fixtures.json  home/away/kickoff/league/espn per match
+#
+#   FETCHED HERE                              ->  ESPN team sheets
+#       The runner CAN reach ESPN -- that is how soccer_settle.js has been settling nights
+#       unattended since 08-26 -- and team news is the one input that CHANGES during the day.
+#       So it is the one input worth automating, and the reason this workflow exists at all.
+#
+# SLATE DATE = the newest committed soccer/slates/<date>/ags.psv, exactly as baseball takes it
+# from the newest committed cards_<date>.json. Commit a new slate directory and the board rolls
+# onto it; commit nothing and it holds.
+#
+# ⚠️ A SAME-SLATE REBUILD NEVER RE-DRAFTS. It runs soccer_rebuild_cli.js, which re-runs the very
+# function the browser runs (SoccerDraft.redraft) against the PRIOR board: CONFLOCK freezes
+# anything confirmed or underway, MINTGUARD forbids minting past a slip's own kickoff, and open
+# slips are repaired leg by leg. This is regen15.py's rule -- "a same-slate rebuild ALWAYS
+# preserves the prior draft ... so a live, confirmed board is never re-drafted out from under a
+# placed bet" -- and it is the whole reason a cron is safe here. A fresh draft every pass would
+# chase the afternoon's price drift and quietly move a slip somebody backed.
+#
+# ⚠️ IT DOES NOT GRADE. soccer-settle.yml owns the ledger, and the board's baked meta.season is
+# deliberately the ledger EXCLUDING tonight. Rebuilding a board with a post-fold ledger makes
+# every ticket count twice.
+
+on:
+  schedule:
+    # Every 15 minutes across the afternoon and evening a European slate lives in. The commit
+    # gate makes a no-op pass free, and the point of the density is the hour before each kickoff
+    # when the XI lands -- that is the only window where a rebuild changes anything.
+    - cron: '*/15 9-23 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and report, but commit nothing."
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # ------------------------------------------------------------------------------------
+      # Which slate, and is it still open? A night the settle workflow has already folded is
+      # FINISHED -- rebuilding it would re-bake a board whose meta.season now includes itself.
+      # ------------------------------------------------------------------------------------
+      - name: Resolve the slate
+        id: slate
+        run: |
+          cd soccer
+          DATE=$(ls -1d slates/*/ 2>/dev/null | sed 's#slates/##;s#/##' | sort | tail -1)
+          if [ -z "$DATE" ]; then echo "no slate directories"; echo "go=false" >> $GITHUB_OUTPUT; exit 0; fi
+          for f in ags.psv xg.psv fixtures.json; do
+            [ -f "slates/$DATE/$f" ] || { echo "::error::slates/$DATE/$f missing"; exit 1; }
+          done
+          if python3 -c "import json,sys;s=json.load(open('soccer_season.json'));sys.exit(0 if '$DATE' in s.get('graded_nights',[]) else 1)"; then
+            echo "$DATE is already folded into the ledger -- board is finished"
+            echo "go=false" >> $GITHUB_OUTPUT
+          else
+            echo "slate $DATE"
+            echo "date=$DATE" >> $GITHUB_OUTPUT
+            echo "go=true"    >> $GITHUB_OUTPUT
+          fi
+
+      - name: Stage the work directory
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer
+          rm -rf .work && mkdir -p .work
+          cp slates/${{ steps.slate.outputs.date }}/{ags.psv,xg.psv,fixtures.json} .work/
+          cp soccer_*.py soccer_*.js .work/
+          cp soccer_season.json .work/
+          cp ../index.html .work/index_live.html
+          [ -f boards/${{ steps.slate.outputs.date }}.json ] && cp boards/${{ steps.slate.outputs.date }}.json .work/prior.json || true
+
+      # ------------------------------------------------------------------------------------
+      # Team news. 20 = a sheet is not published yet, which is the NORMAL state for most of the
+      # day and for the whole gap between staggered kickoffs. Only a COMPLETE pull is joined --
+      # an XI filter applied while one sheet is missing deletes that match from the board.
+      # ------------------------------------------------------------------------------------
+      - name: Pull ESPN team sheets
+        id: tn
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          set +e
+          node soccer_teamnews_fetch.js fixtures.json teamnews.psv
+          RC=$?
+          set -e
+          echo "rc=$RC" >> $GITHUB_OUTPUT
+          case $RC in
+            0)  echo "every sheet published -- joining to the priced field"
+                python3 soccer_teamnews.py ags.psv teamnews.psv teamnews.json ;;
+            20) echo "::notice::Team sheets not all published yet; drafting without them." ;;
+            30) echo "::warning::ESPN unreachable this pass; drafting without team news." ;;
+            *)  echo "::error::soccer_teamnews_fetch.js exited $RC"; exit $RC ;;
+          esac
+
+      # ------------------------------------------------------------------------------------
+      # Score, then draft. soccer_mock.py writes scored.json and a FRESH tickets.json; if a
+      # prior board exists for this slate that fresh draft is thrown away and replaced by the
+      # preserving re-draft. Exit 10 from the rebuild means nothing moved.
+      # ------------------------------------------------------------------------------------
+      - name: Score and draft
+        id: draft
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          python3 soccer_mock.py
+          if [ -f prior.json ]; then
+            NOW=$(( $(date -u +%H) * 60 + $(date -u +%M) ))
+            set +e
+            node soccer_rebuild_cli.js prior.json scored.json tickets.json \
+                 $([ -f teamnews.json ] && echo "--teamnews teamnews.json") --now $NOW
+            RC=$?
+            set -e
+            echo "rebuild_rc=$RC" >> $GITHUB_OUTPUT
+            if [ $RC -ne 0 ] && [ $RC -ne 10 ]; then echo "::error::rebuild exited $RC"; exit $RC; fi
+            [ $RC -eq 10 ] && echo "draft unchanged"
+          else
+            echo "first build of this slate -- the fresh draft stands"
+            echo "rebuild_rc=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Payload and fork
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          python3 soccer_payload.py scored.json tickets.json xg.psv soccer_D.json \
+                  ${{ steps.slate.outputs.date }} --season soccer_season.json \
+                  $([ -f teamnews.json ] && echo "--teamnews teamnews.json")
+          python3 soccer_fork.py index_live.html soccer_D.json soccer_index.html
+
+      # ------------------------------------------------------------------------------------
+      # THE COMMIT GATE. index.html changes on every build because the payload carries a build
+      # stamp and the MLB board underneath it moves every few minutes -- so "the file differs"
+      # is not "the board moved". Gate on the DRAFT and the PLAYERS, which is what a reader
+      # would notice, exactly as commit_gate.py does on the baseball side.
+      # ------------------------------------------------------------------------------------
+      - name: Did anything a reader would notice change?
+        id: gate
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          if [ ! -f prior.json ]; then echo "first build"; echo "commit=true" >> $GITHUB_OUTPUT; exit 0; fi
+          python3 - <<'PY' >> $GITHUB_OUTPUT
+          import json
+          def sig(p):
+              d = json.load(open(p))
+              t = sorted(x['kind'] + ':' + '+'.join(l['name'] for l in x['players']) for x in d['tickets'])
+              pl = {n: (v.get('odds'), v.get('status'), bool(v.get('out')), bool(v.get('hr')))
+                    for n, v in d['players'].items()}
+              return t, pl
+          a, b = sig('prior.json'), sig('soccer_D.json')
+          print('commit=' + ('true' if a != b else 'false'))
+          if a[0] != b[0]: print('::notice::the draft moved')
+          PY
+          grep '^commit=' $GITHUB_OUTPUT | tail -1
+
+      - name: Publish
+        if: steps.slate.outputs.go == 'true' && steps.gate.outputs.commit == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          cd soccer
+          D=${{ steps.slate.outputs.date }}
+          cp .work/soccer_index.html index.html
+          cp .work/soccer_D.json     soccer_D.json
+          mkdir -p boards && cp .work/soccer_D.json "boards/$D.json"
+          cd ..
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add soccer/index.html soccer/soccer_D.json soccer/boards/
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            git commit -m "Soccer board $D ($(date -u +%H:%MZ))"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+              sleep 5
+            done
+            echo "::error::could not push after 3 attempts"; exit 1
+          fi
+
+      - name: Report
+        if: always() && steps.slate.outputs.go == 'true'
+        run: |
+          echo "slate    ${{ steps.slate.outputs.date }}"
+          echo "teamnews rc=${{ steps.tn.outputs.rc }}  (0 complete / 20 not yet / 30 no feed)"
+          echo "rebuild  rc=${{ steps.draft.outputs.rebuild_rc }}  (10 = draft unchanged)"
+          echo "commit   ${{ steps.gate.outputs.commit }}${{ github.event.inputs.dry_run == 'true' && '  (DRY RUN -- nothing published)' || '' }}"
