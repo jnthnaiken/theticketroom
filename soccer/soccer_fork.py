@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 86 + LIVE_SEAM_COUNT          # 86 base + 5 live = 91
+EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -171,7 +171,13 @@ def seams(payload_js):
     # soccer_season.json and the grader reconcile on it, exactly as DINGERS-2026-08-18 kept
     # 'family' when the section became Dingers. It is a database column. It is never the word
     # for the section, on screen or in prose.
-    add('chip-screamers', 'data-type="moon">🚀 Moonshots', 'data-type="moon">💥 Screamers')
+    # CHIP-SCREAMERS RETIRED 2026-08-27. Its anchor was the View filter's Moonshots button,
+    # and ONEBAR-2026-08-27 deleted that whole row from index.html -- the board is four to
+    # eight slips, you never scroll far enough for a type filter to matter. A seam whose
+    # anchor no longer exists matches 0 times and fails the fork by design, so it is removed
+    # rather than left to rot, and EXPECT_SEAMS drops 91 -> 90 deliberately. The soccer board
+    # still says Screamers everywhere it matters: the section heading (sec-screamers), the
+    # kind table (kind-screamers) and the how-to copy are all separate seams and untouched.
     # The tracker has TWO places that name the kind: the `defs` row list and the "Tonight"
     # counter, which carries its own literal. Seaming only defs left the counter reading
     # "2 \U0001F680" under a row labelled Screamers -- the same one-of-three-render-paths
