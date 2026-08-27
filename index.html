@@ -661,6 +661,26 @@ body::after{
    is confined to .wrap and brings the edge straight back. */
 .nav,.bar{background:none;box-shadow:none}
 
+
+/* --- ONEBAR-2026-08-27 -----------------------------------------------------------------
+   The View filter (All / Anchors / Moonshots) is gone and the ticket search and count move
+   up onto the tab row, so the Tickets tab has ONE sticky row instead of two.
+   Owner's reasoning, and it is right: the board is four to eight slips, you never scroll far
+   enough for a type filter to earn its keep. Deleting it also deletes the second sticky bar,
+   which is what made a transparent header look busy -- two stacked rows of chrome with live
+   content sliding under both.
+   The search sits DIRECTLY after the tabs; only the count is pushed to the far right.
+   The #ttype click handler was already null-guarded (`const ttype=$('#ttype');if(ttype)`) so
+   removing the element is safe and ticketType simply stays 'all'. #tcount is NOT guarded --
+   `$('#tcount').textContent` is a bare deref -- so it is moved, never dropped.
+   :has() keeps both to the Tickets tab: .nav is a PRECEDING sibling of #v-t and so cannot be
+   styled by descent. Where :has() is unsupported they show on every tab -- untidy, never
+   throws, never hides the search. */
+.nav{gap:12px}
+.navfind{width:min(230px,30vw);flex:none}
+.navcount{margin-left:auto;white-space:nowrap}
+.nav:has(~ #v-t[hidden]) .navfind,.nav:has(~ #v-t[hidden]) .navcount{display:none}
+@media(max-width:700px){.navfind{width:100%;order:3}.navcount{order:4}}
 </style></head><body>
 <div class="sky" aria-hidden="true"><div class="neb"></div><i class="met a"></i><i class="met b"></i><i class="met c"></i></div>
 <div class="tint" aria-hidden="true"></div>
@@ -685,10 +705,10 @@ body::after{
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div></div>
+</div><input type="search" id="tsearch" class="navfind" placeholder="Search tickets" aria-label="Search tickets"><span class="count navcount" id="tcount"></span></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
- <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="builder">⚓️ Anchors</button><button class="tbtn" data-type="moon">🚀 Moonshots</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
+ 
  <div class="grid tgrid" id="tickets"></div>
 </section>
 <section id="v-p" role="tabpanel" aria-labelledby="tab-p" hidden>
