@@ -1,11 +1,11 @@
 {
   "date": "2026-08-27",
   "season": "2026",
-  "pulled_at": "2026-08-27T20:06:51Z",
+  "pulled_at": "2026-08-27T20:11:48Z",
   "games": [
     {
       "gamePk": 822694,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-27T17:05:00Z",
       "matchup": "COL@WSH",
       "away": {
@@ -40,7 +40,7 @@
           {
             "id": 681393,
             "name": "Connor Norby",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 687859,
@@ -173,7 +173,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.259
+            "iso": 0.257
           },
           {
             "id": 687637,
@@ -183,7 +183,7 @@
           {
             "id": 691723,
             "name": "Coby Mayo",
-            "iso": 0.22
+            "iso": 0.229
           },
           {
             "id": 681297,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823503,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-27T23:05:00Z",
       "matchup": "HOU@NYY",
       "away": {
@@ -282,8 +282,54 @@
           "hr9": 0.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.188
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.292
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.166
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.152
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.137
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.201
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.161
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.162
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.175
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -296,7 +342,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
