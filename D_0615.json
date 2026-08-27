@@ -1288,7 +1288,7 @@
    "iso": ".263",
    "iso_used": 0.263,
    "powraw": 338.9921917418182,
-   "slot": 2,
+   "slot": null,
    "bhand": "L",
    "hr9": null,
    "wf": 1.058,
@@ -1298,7 +1298,7 @@
    "gtime": "1:05 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -1316,7 +1316,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.2374169040835707,
-   "slotT": 1.06,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": -0.28,
    "penT": 0.9776,
@@ -1495,7 +1495,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -1593,7 +1593,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -1680,7 +1680,7 @@
    "iso": ".087",
    "iso_used": 0.087,
    "powraw": 90.17271692896128,
-   "slot": null,
+   "slot": 8,
    "bhand": null,
    "hr9": null,
    "wf": 1.058,
@@ -1690,8 +1690,8 @@
    "gtime": "1:05 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -1708,7 +1708,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.8411873411873412,
-   "slotT": 1,
+   "slotT": 0.94,
    "platT": 1,
    "pen_fatigue": -0.28,
    "penT": 0.9776,
@@ -1778,7 +1778,7 @@
    "iso": ".093",
    "iso_used": 0.093,
    "powraw": 15.987723368345412,
-   "slot": 9,
+   "slot": 7,
    "bhand": "R",
    "hr9": null,
    "wf": 1.058,
@@ -1789,7 +1789,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -1806,7 +1806,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.8645360487465751,
-   "slotT": 0.92,
+   "slotT": 0.96,
    "platT": 0.92,
    "pen_fatigue": -0.28,
    "penT": 0.9776,
@@ -1887,7 +1887,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -1974,7 +1974,7 @@
    "iso": ".037",
    "iso_used": 0.037,
    "powraw": 4.103138245364619,
-   "slot": 8,
+   "slot": 9,
    "bhand": "S",
    "hr9": null,
    "wf": 1.058,
@@ -1985,7 +1985,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -2002,7 +2002,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.7005537498495246,
-   "slotT": 0.94,
+   "slotT": 0.92,
    "platT": 1.024,
    "pen_fatigue": -0.28,
    "penT": 0.9776,
@@ -2268,7 +2268,7 @@
    "iso": ".196",
    "iso_used": 0.196,
    "powraw": 286.1459794997818,
-   "slot": 7,
+   "slot": 3,
    "bhand": "R",
    "hr9": null,
    "wf": 1.058,
@@ -2279,7 +2279,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -2296,7 +2296,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1,
-   "slotT": 0.96,
+   "slotT": 1.04,
    "platT": 0.92,
    "pen_fatigue": -0.28,
    "penT": 0.9776,
@@ -2366,7 +2366,7 @@
    "iso": ".125",
    "iso_used": 0.125,
    "powraw": 149.29314181204526,
-   "slot": 3,
+   "slot": 2,
    "bhand": "R",
    "hr9": null,
    "wf": 1.058,
@@ -2377,7 +2377,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -2394,7 +2394,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.3,
-   "slotT": 1.04,
+   "slotT": 1.06,
    "platT": 0.92,
    "pen_fatigue": -0.28,
    "penT": 0.9776,
@@ -2475,7 +2475,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Gabriel Hughes",
@@ -17890,7 +17890,7 @@
     "precip": 2
    }
   },
-  "build": "8/27 10:21am",
+  "build": "8/27 10:41am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -18065,7 +18065,7 @@
   "date": "2026-08-27",
   "gs": {},
   "pool": 182,
-  "gate": 24,
+  "gate": 23,
   "tickets": 5
  },
  "tickets": [
@@ -18234,40 +18234,6 @@
    "confleg": 0
   },
   {
-   "name": "First-Pitch Feast",
-   "kind": "lunch",
-   "badge": "\ud83c\udf71",
-   "note": "Abimelec Ortiz has gusts carrying balls over the wall, is making thunderous contact (80% hard-hit), has a swing built for the seats (17\u00b0), and packs a big-league power grade (76/100).",
-   "players": [
-    {
-     "name": "Abimelec Ortiz",
-     "team": "Nationals",
-     "total": 163.1,
-     "aT": 100,
-     "wf": 1.058,
-     "gmatch": "COL@WSH",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 440,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Abimelec Ortiz",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
-  },
-  {
    "name": "Drop the Hook",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
@@ -18300,10 +18266,43 @@
     "neu": 0
    },
    "confleg": 0
+  },
+  {
+   "name": "Midday Meal",
+   "kind": "lunch",
+   "badge": "\ud83c\udf71",
+   "note": "CJ Abrams has gusts carrying balls over the wall, has textbook lift (19\u00b0), is driving the ball (47% hard-hit), swings with usable power (52/100), and sits at 156 on our board tonight.",
+   "players": [
+    {
+     "name": "CJ Abrams",
+     "team": "Nationals",
+     "total": 155.7,
+     "aT": 100,
+     "wf": 1.058,
+     "gmatch": "COL@WSH",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 330,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "CJ Abrams",
+   "lock": "1:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1
   }
  ],
  "pool": [
-  "Abimelec Ortiz",
   "Rafael Devers",
   "Spencer Jones",
   "Matt Olson",
