@@ -648,6 +648,27 @@ body::after{
 .hud i:nth-child(2){top:-1px;right:-1px;border-left:0;border-bottom:0;border-radius:0 18px 0 0}
 .hud i:nth-child(3){bottom:-1px;left:-1px;border-right:0;border-top:0;border-radius:0 0 0 18px}
 .hud i:nth-child(4){bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 18px 0}
+
+/* --- STICKYBLEED-2026-08-27 (frosted) --------------------------------------------------
+   .nav and .bar each carried their own opaque copy of the page background so they could
+   hide content scrolling under them. That copy did not follow SPACE-2026-08-27, and being
+   inside .wrap it stopped at the 1120px content box -- a hard vertical edge with the
+   starfield showing past it.
+   Transparent instead: a thin tint plus a backdrop blur, so the sky reads straight through
+   the bar and the content underneath goes soft rather than disappearing. Full-bleed via
+   ::before, stopping 13px short of the viewport -- the 12px .hud frame plus its border --
+   so a stuck bar slides UNDER the frame instead of cutting it.
+   overflow-x:clip, not hidden: hidden would make body a scroll container and kill sticky. */
+body{overflow-x:clip}
+.nav,.bar{background:none;box-shadow:none}
+.nav::before,.bar::before{content:"";position:absolute;z-index:-1;
+  left:calc(50% - 50vw + 13px);right:calc(50% - 50vw + 13px);top:0;bottom:0;
+  background:color-mix(in srgb,var(--bg) 62%,transparent);
+  -webkit-backdrop-filter:blur(13px) saturate(130%);backdrop-filter:blur(13px) saturate(130%);
+  border-bottom:1px solid #26d4f014}
+.bar::before{top:-16px;border-bottom:0}
+@supports not (backdrop-filter:blur(1px)){
+  .nav::before,.bar::before{background:color-mix(in srgb,var(--bg) 92%,transparent)}}
 </style></head><body>
 <div class="sky" aria-hidden="true"><div class="neb"></div><i class="met a"></i><i class="met b"></i><i class="met c"></i></div>
 <div class="tint" aria-hidden="true"></div>
