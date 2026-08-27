@@ -36,6 +36,19 @@ name: Build Soccer Board
 # every ticket count twice.
 
 on:
+  # DISPATCHFALLBACK-2026-08-27. The cron below has NEVER fired -- one run in this workflow's
+  # life, and that was a manual dispatch. Five and a half hours, ~20 missed slots. Meanwhile
+  # pull-slate.yml's own `*/5` schedule fires all day in this same repo, so it is not that the
+  # scheduler is off; this workflow specifically is not being picked up. Rather than keep waiting
+  # to find out why, listen for the dispatches that DEMONSTRABLY arrive: pull-slate.yml posts
+  # `tick` on every external build-board, and ticker.yml fans `build-tick` every five minutes for
+  # ~25 after it. The concurrency group below collapses the pile-up and the commit gate makes a
+  # no-op pass free, so extra triggers cost nothing.
+  # ⚠️ THIS ONLY COVERS THE EVENING. That dispatch chain runs 16:00-05:59Z because it exists for
+  # baseball. An 11:00Z Saturday kickoff still depends on the cron nobody has seen work -- so this
+  # is a floor under the evening slates, not a fix for the schedule.
+  repository_dispatch:
+    types: [tick, build-tick, build-board, build-soccer]
   schedule:
     # Every 15 minutes across the afternoon and evening a European slate lives in. The commit
     # gate makes a no-op pass free, and the point of the density is the hour before each kickoff
