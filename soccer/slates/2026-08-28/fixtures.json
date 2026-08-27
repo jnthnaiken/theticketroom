@@ -1,0 +1,30 @@
+{
+  "_note": "FIXTURES-2026-08-28. Read off the ESPN scoreboard for each of the five leagues, never assumed: kickoff is UTC minutes past midnight from event.date, and espn[1] is the event id the live loop addresses the match by.",
+  "date": "2026-08-28",
+  "matches": {
+    "racing-santander-v-elche": {
+      "home": "Racing Santander", "away": "Elche",
+      "kickoff": 1020, "league": "La_liga", "espn": ["esp.1", "401882900"]
+    },
+    "bayern-munich-v-vfb-stuttgart": {
+      "home": "Bayern Munich", "away": "VfB Stuttgart",
+      "kickoff": 1110, "league": "Bundesliga", "espn": ["ger.1", "401884817"]
+    },
+    "ac-milan-v-venezia": {
+      "home": "AC Milan", "away": "Venezia",
+      "kickoff": 1125, "league": "Serie_A", "espn": ["ita.1", "401874758"]
+    },
+    "lille-v-paris-saint-germain": {
+      "home": "Lille", "away": "Paris Saint-Germain",
+      "kickoff": 1125, "league": "Ligue_1", "espn": ["fra.1", "401876476"]
+    },
+    "crystal-palace-v-manchester-city": {
+      "home": "Crystal Palace", "away": "Manchester City",
+      "kickoff": 1140, "league": "EPL", "espn": ["eng.1", "401879294"]
+    },
+    "alaves-v-villarreal": {
+      "home": "Alaves", "away": "Villarreal",
+      "kickoff": 1170, "league": "La_liga", "espn": ["esp.1", "401882906"]
+    }
+  }
+}
