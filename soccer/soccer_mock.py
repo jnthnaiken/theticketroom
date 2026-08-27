@@ -13,6 +13,7 @@ INPUTS   ags.psv   match|player|fractional-odds      (oddschecker, best odds)
                    shots|shots90|xGperShot|xA|xA90|key_passes|xGChain   (understat)
 """
 import re, math, unicodedata, json
+import subprocess as _subprocess, os as _os, shutil as _shutil
 from collections import defaultdict
 
 CFG = dict(
@@ -23,17 +24,25 @@ CFG = dict(
 
 SIG = {'npxg90': 0.60, 'xgpershot': 0.20, 'finish90': 0.10, 'xa90': 0.10}
 
-# 2026-08-26. Kickoffs UTC minutes, read off the ESPN scoreboard (not assumed).
-# All five are 19:00Z / 3:00 PM ET.
-KICKOFF = {'real-madrid-v-real-sociedad': 19 * 60, 'aek-athens-v-levski-sofia': 19 * 60,
-           'lyon-v-fenerbahce': 19 * 60, 'nk-celje-v-slovan-bratislava': 19 * 60,
-           'viking-v-dinamo-zagreb': 19 * 60}
-# Only the La Liga tie has understat xG behind it; the four Champions League playoff ties are
-# outside understat's five-league coverage, so 60 of 75 priced names score on the market term
-# alone (has_xg False -> edge_raw 0). Designed fallback, but say it out loud on the board.
-LEAGUE = {'real-madrid-v-real-sociedad': 'La_liga', 'aek-athens-v-levski-sofia': 'UCL_PO',
-          'lyon-v-fenerbahce': 'UCL_PO', 'nk-celje-v-slovan-bratislava': 'UCL_PO',
-          'viking-v-dinamo-zagreb': 'UCL_PO'}
+# FIXTURES-2026-08-27. KICKOFF and LEAGUE used to be hand-edited here every slate, which is a
+# CODE edit to ship DATA -- PIPELINE.md open item 3. They now come from fixtures.json next to
+# the inputs, and the hardcoded dicts below are only the fallback for an old slate directory.
+# Kickoffs are UTC minutes past midnight, read off the ESPN scoreboard, never assumed.
+import os as _os0
+KICKOFF, LEAGUE = {}, {}
+if _os0.path.exists('fixtures.json'):
+    _fx = json.load(open('fixtures.json', encoding='utf-8'))
+    for _m, _d in _fx['matches'].items():
+        KICKOFF[_m] = int(_d['kickoff'])
+        LEAGUE[_m] = _d['league']
+    print(f"  fixtures.json: {len(KICKOFF)} matches, {_fx.get('date')}")
+else:
+    KICKOFF = {'real-madrid-v-real-sociedad': 19 * 60, 'aek-athens-v-levski-sofia': 19 * 60,
+               'lyon-v-fenerbahce': 19 * 60, 'nk-celje-v-slovan-bratislava': 19 * 60,
+               'viking-v-dinamo-zagreb': 19 * 60}
+    LEAGUE = {'real-madrid-v-real-sociedad': 'La_liga', 'aek-athens-v-levski-sofia': 'UCL_PO',
+              'lyon-v-fenerbahce': 'UCL_PO', 'nk-celje-v-slovan-bratislava': 'UCL_PO',
+              'viking-v-dinamo-zagreb': 'UCL_PO'}
 
 
 def norm(s):
@@ -221,65 +230,45 @@ for p in players:
 by_strength = sorted(pool, key=lambda p: (-p['strength'], p['name']))
 
 
-def span_ok(legs):
-    ks = [l['kickoff'] for l in legs]
-    return (max(ks) - min(ks)) <= CFG['WIN']
+# span_ok() and draft() were HERE. Removed STAGE2-2026-08-27 -- see the note below.
+# They are not commented out and not kept 'just in case': a second copy of a rule set is
+# exactly what goes stale. soccer_draft.js is the only draft now.
 
 
-def draft(n_anchors):
-    """Draft with exactly n anchors. Returns [] unless EVERY anchor ships its full pair."""
-    anchors, per_g = [], defaultdict(int)
-    for p in by_strength:
-        if len(anchors) >= n_anchors:
-            break
-        if per_g[p['match']] < CFG['ANCH_PER_GAME']:
-            anchors.append(p)
-            per_g[p['match']] += 1
-    if len(anchors) < n_anchors:
-        return []
-    used = {p['name'] for p in anchors}
-    partners = [p for p in by_strength if p['name'] not in used]
-    out, spent = [], set()
-    for a in anchors:
-        made, local = [], set()
-        for _ in range(CFG['MOONS_PER_ANC']):
-            legs, seen = [a], {a['match']}
-            for cand in partners:
-                if len(legs) == 3:
-                    break
-                if cand['match'] in seen or cand['name'] in spent or cand['name'] in local:
-                    continue
-                if span_ok(legs + [cand]):
-                    legs.append(cand)
-                    seen.add(cand['match'])
-                    local.add(cand['name'])
-            if len(legs) == 3:
-                made.append(legs)
-        if len(made) != CFG['MOONS_PER_ANC']:
-            return []                      # all-or-none: this anchor count does not fit
-        spent |= local
-        for legs in made:
-            out.append(dict(kind='moon', legs=legs, risk=CFG['MOON_RISK']))
-    return out
+# ======================================================================================
+# STAGE2-2026-08-27: THE DRAFT MOVED OUT OF THIS FILE.
+# ======================================================================================
+# It now lives in soccer_draft.js and is invoked through node, exactly the way regen15.py
+# runs client_assemble.js on the baseball side. The reason is the same one, and it is the
+# lesson this codebase has already paid for twice: a draft that exists once in Python for
+# the archive and once in JavaScript for the browser is two implementations of one rule set,
+# and they drift. assemble_tickets.py is the monument to that -- two board redesigns behind,
+# still building a retired Grand Salami, and grade_night.py books whatever it produces.
+#
+# The live board has to re-draft when team news lands (Stage 2), and the only engine that
+# runs in a browser is JavaScript. So JavaScript is where the rules go, and this file calls
+# them rather than keeping a second copy in step by hand.
+#
+# `draft()`, `span_ok()` and the THINSLATE loop above are gone with it. Everything up to and
+# including `strength` stays here: scoring is not drafting, and scored.json is the interface.
+_scored = [{k: v for k, v in p.items() if k != 'legs'} for p in players]
+json.dump(_scored, open('scored.json', 'w'), indent=1)
 
+_cmd = [_shutil.which('node') or 'node',
+        _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'soccer_draft_cli.js'),
+        'scored.json', 'tickets.json']
+if _XI is not None:
+    _cmd.append('teamnews.json')
+_rc = _subprocess.call(_cmd)
+if _rc != 0:
+    raise SystemExit(f'!! soccer_draft_cli.js exited {_rc} -- no board drafted. '
+                     'This is a FAILED BUILD, not a board to publish.')
+tickets = [dict(kind=t['kind'], risk=t['risk'],
+                legs=[dict(l, TOTAL=l['TOTAL']) for l in t['legs']])
+           for t in json.load(open('tickets.json'))]
 
-# THINSLATE-2026-08-26 (owner's call). ANCH was fixed at 4, a number sized for a 15-game MLB
-# slate. Once team news was wired the soccer field fell from 75 priced to 25 actually starting
-# across 5 matches, the all-or-none demote fired on every anchor, and the board minted NOTHING.
-# The fix is to let the board be smaller on a small slate rather than lower Z_GATE until a pool
-# appears -- loosening the gate to hit a target ticket count is fitting the bar to the answer.
-# Take the LARGEST anchor count the pool fully supports.
-tickets = []
-for _n in range(CFG['ANCH'], 0, -1):
-    tickets = draft(_n)
-    if tickets:
-        if _n < CFG['ANCH']:
-            print(f"  thin slate: {CFG['ANCH']} anchors do not fit; drafted {_n}")
-        break
-
-moon_anchors = [t['legs'][0] for t in tickets if t['kind'] == 'moon']
-for a in {p['name']: p for p in moon_anchors}.values():
-    tickets.append(dict(kind='builder', legs=[a], risk=CFG['SINGLE_STAKE']))
+# builders (one per distinct screamer anchor) are minted by soccer_draft.js alongside the
+# moons, so `tickets` already carries them by the time it is read back.
 
 # SCREAMERS-2026-08-26: the leftover section is RETIRED, matching the MLB Dingers retirement
 # (family went 11-80 / -33.34u there). No `family` tickets are minted. "Screamers" is now the
@@ -295,7 +284,7 @@ def price(t):
     return d
 
 
-print("SOCCER BOARD -- 2026-08-26")
+print("SOCCER BOARD")
 print(f"  priced players {len(players)} across {len({p['match'] for p in players})} matches")
 print(f"  xG join: exact {matched['exact']} | token {matched['token']} | missing {matched['missing']}"
       f"  ({100*(matched['exact']+matched['token'])/len(players):.0f}%)")
@@ -320,10 +309,4 @@ for t in tickets:
         l = t['legs'][0]
         print(f"    ⚓️ anchor          {l['name']} ({l['odds']:+d})")
 
-json.dump([{k: v for k, v in p.items() if k != 'legs'} for p in players],
-          open('scored.json', 'w'), indent=1)
-json.dump([{'kind': t['kind'], 'risk': t['risk'],
-            'legs': [{'name': l['name'], 'odds': l['odds'], 'match': l['match'],
-                      'TOTAL': round(l['TOTAL'], 1)} for l in t['legs']]} for t in tickets],
-          open('tickets.json', 'w'), indent=1)
-print("\n  wrote scored.json + tickets.json")
+print("\n  scored.json written here; tickets.json written by soccer_draft.js")

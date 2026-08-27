@@ -1,0 +1,20 @@
+{
+ "_note": "FIXTURES-2026-08-27. Closes PIPELINE.md open item 3: MATCH_LABEL / KICKOFF / LEAGUE / ESPN_EVENT used to be hand-edited inside soccer_mock.py and soccer_payload.py every slate, which is a code edit to ship data. They are data, so they live here. Every field is read off the ESPN scoreboard, never assumed: kickoff is UTC minutes past midnight from event.date, and ev is the ESPN event id the live loop addresses matches by.",
+ "date": "2026-08-27",
+ "matches": {
+  "celta-vigo-v-osasuna": {
+   "home": "Celta Vigo",
+   "away": "Osasuna",
+   "kickoff": 1110,
+   "league": "La_liga",
+   "espn": ["esp.1", "401882924"]
+  },
+  "barcelona-v-athletic-club": {
+   "home": "Barcelona",
+   "away": "Athletic Club",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": ["esp.1", "401882921"]
+  }
+ }
+}

@@ -76,8 +76,88 @@ function soccerLive(){
         render:(typeof refreshAll==='function'?refreshAll:function(){})
       });
     }
-    return soccerLive._i.run();
+    return soccerLive._i.run().then(function(x){ soccerRedraft(); return x; });
   }catch(e){ return Promise.resolve(); }
+}
+
+/* STAGE2-2026-08-27 -- THE LIVE RE-DRAFT ON TEAM NEWS.
+ *
+ * Football XIs publish about an hour before kickoff. A named player who is not in the XI is a
+ * dead leg, and the board should replace him BEFORE kickoff -- that is the trigger the baseball
+ * board answers when a lineup posts. Until now the soccer board could not: its draft lived in
+ * Python and the only drafter in the browser was assembleClient, which is baseball. The rules
+ * now live in soccer_draft.js and both sides call it.
+ *
+ * ⚠️ THIS DOES NOT CALL assembleClient, AND MUST NOT. The 2026-08-26 audit closed four separate
+ * doors into it (timer, boot call, #livebtn, window.__*) and the answer to "are you sure it
+ * cannot re-draft a placed bet" was to remove the path rather than explain why nobody would
+ * take it. Re-opening it here to get a drafter would undo all of that and bring GAME_CAP /
+ * CHALK_N / WIN=120 / rain bands with it.
+ *
+ * THREE GUARDS, and each one is a way this feature could quietly ruin a board:
+ *
+ *  1. EVERY MATCH MUST HAVE PUBLISHED. The XI filter keeps only confirmed starters. If one
+ *     fixture's sheet is out and another's is not, every player in the second still reads
+ *     'projected' -- so an XI-filtered draft would delete that entire match from the board and
+ *     pile the whole card onto the fixture that happened to publish first. Re-draft only when
+ *     all of them are in.
+ *  2. A NON-EMPTY XI. soccer_mock.py's `_XI is None` vs `set()` trap, in the browser: no team
+ *     news means draft the whole field, but an EMPTY XI gates the pool to nothing and mints an
+ *     empty board. Absent and empty are different facts.
+ *  3. NOTHING MOVED, NOTHING DRAFTED. The loop runs every three minutes for the whole night.
+ *     Re-drafting on a signature that has not changed would churn the card against nothing.
+ *
+ * CONFLOCK and MINTGUARD live inside SoccerDraft.redraft() and are tested in test_redraft.js:
+ * a frozen slip is emitted verbatim, and no slip is ever minted past its own kickoff.
+ */
+function soccerRedraft(){
+  try{
+    if(typeof SoccerDraft==='undefined'||typeof D==='undefined'||!D.meta||!D.players) return;
+    if(!D.meta.ko||!Object.keys(D.meta.ko).length) return;   /* board baked before STAGE2 */
+
+    var names=Object.keys(D.players);
+    if(!names.length) return;
+
+    /* guard 1 -- every match on the board has a published sheet */
+    var byGame={};
+    names.forEach(function(n){ var p=D.players[n]; (byGame[p.game]=byGame[p.game]||[]).push(p); });
+    var ready=Object.keys(byGame).every(function(g){
+      return byGame[g].some(function(p){
+        return p.status==='confirmed'||p.status==='benched'||p.out===true;
+      });
+    });
+    if(!ready) return;
+
+    /* guard 2 -- a real XI */
+    var xi={},nxi=0;
+    names.forEach(function(n){ if(D.players[n].status==='confirmed'){ xi[n]=true; nxi++; } });
+    if(!nxi) return;
+
+    /* guard 3 -- team news actually moved since the last pass */
+    var sig=names.map(function(n){
+      var p=D.players[n]; return n+':'+(p.status||'')+(p.out?'!':'');
+    }).join('|');
+    if(sig===soccerRedraft._sig) return;
+    soccerRedraft._sig=sig;
+
+    /* the clock, in UTC minutes past midnight OF THE SLATE DATE -- which is what meta.ko is
+       measured in. Past midnight UTC the raw figure wraps to 0 and every kickoff would look
+       like it is still ahead of us, so a slip could be minted on a match that finished hours
+       ago. The date comparison is the fix, not a nicety. */
+    var d=new Date(), ymd=d.toISOString().slice(0,10);
+    var mins=d.getUTCHours()*60+d.getUTCMinutes();
+    if(ymd>D.meta.date) mins+=24*60;          /* the day rolled: everything is in the past */
+    else if(ymd<D.meta.date) mins=-1;         /* not the slate day yet */
+
+    var r=SoccerDraft.redraft(D,{nowUTCmin:mins,xi:xi});
+    if(!r||!r.changed) return;
+    D.tickets=r.tickets;
+    D.meta.tickets=r.tickets.length;
+    if(typeof stamp==='function'){
+      stamp('team news ✓ '+r.locked+' locked · '+r.repaired+' repaired · '+r.minted+' new');
+    }
+    if(typeof refreshAll==='function') refreshAll();
+  }catch(e){ /* a failed re-draft leaves the baked board exactly as it was */ }
 }
 """
 
@@ -86,6 +166,13 @@ def live_seams():
     """(label, old, new, n) tuples, same shape soccer_fork.seams() builds.
     APPEND THESE LAST -- see the ORDER MATTERS note in the module docstring."""
     js = io.open(os.path.join(HERE, 'soccer_live.js'), encoding='utf-8').read()
+    # STAGE2-2026-08-27. soccer_draft.js rides in on the SAME seam rather than taking one of its
+    # own, so LIVE_SEAM_COUNT and therefore EXPECT_SEAMS are unchanged. That is deliberate: the
+    # seam count is a tripwire for index.html moving underneath the fork, and bumping it for
+    # our own additions is exactly how a real upstream change gets waved through. It goes FIRST
+    # because the glue below calls SoccerDraft, and it is injected at the same (last) position,
+    # so nothing here is counted against any other seam.
+    js = io.open(os.path.join(HERE, 'soccer_draft.js'), encoding='utf-8').read() + '\n' + js
     S = []
 
     # ---- STORAGE NAMESPACE ---------------------------------------------------------------

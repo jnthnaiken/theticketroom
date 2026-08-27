@@ -14,24 +14,34 @@ import json, io, sys, math, itertools, os
 
 # 2026-08-26 -- labels are the ESPN scoreboard displayName, so the card names the club the way
 # the results feed will when it settles.
-MATCH_LABEL = {
-    'real-madrid-v-real-sociedad': ('Real Madrid', 'Real Sociedad'),
-    'aek-athens-v-levski-sofia': ('AEK Athens', 'Levski Sofia'),
-    'lyon-v-fenerbahce': ('Lyon', 'Fenerbahce'),
-    'nk-celje-v-slovan-bratislava': ('NK Celje', 'Slovan Bratislava'),
-    'viking-v-dinamo-zagreb': ('Viking FK', 'Dinamo Zagreb'),
-}
-
-# SOCCERLIVE-2026-08-26. The live loop addresses matches by ESPN EVENT ID, baked here, never
-# resolved at runtime by team name -- ESPN truncates display names ("Hapoel Be'er" for Hapoel
-# Be'er Sheva) and fixture-name matching is the same class of bug as SPFIRST-2026-08-22.
-ESPN_EVENT = {
-    'real-madrid-v-real-sociedad': ('esp.1', '401882919'),
-    'aek-athens-v-levski-sofia': ('uefa.champions_qual', '401909181'),
-    'lyon-v-fenerbahce': ('uefa.champions_qual', '401909203'),
-    'nk-celje-v-slovan-bratislava': ('uefa.champions_qual', '401909194'),
-    'viking-v-dinamo-zagreb': ('uefa.champions_qual', '401909157'),
-}
+# FIXTURES-2026-08-27. MATCH_LABEL and ESPN_EVENT are data, not code -- see fixtures.json and
+# PIPELINE.md open item 3. The literals below are the fallback for a slate directory that
+# predates the file.
+#
+# SOCCERLIVE-2026-08-26. The live loop addresses matches by ESPN EVENT ID, never resolved at
+# runtime by team name -- ESPN truncates display names ("Hapoel Be'er" for Hapoel Be'er Sheva)
+# and fixture-name matching is the same class of bug as SPFIRST-2026-08-22.
+MATCH_LABEL, ESPN_EVENT = {}, {}
+if os.path.exists('fixtures.json'):
+    _fx = json.load(io.open('fixtures.json', encoding='utf-8'))
+    for _m, _d in _fx['matches'].items():
+        MATCH_LABEL[_m] = (_d['home'], _d['away'])
+        ESPN_EVENT[_m] = tuple(_d['espn'])
+else:
+    MATCH_LABEL = {
+        'real-madrid-v-real-sociedad': ('Real Madrid', 'Real Sociedad'),
+        'aek-athens-v-levski-sofia': ('AEK Athens', 'Levski Sofia'),
+        'lyon-v-fenerbahce': ('Lyon', 'Fenerbahce'),
+        'nk-celje-v-slovan-bratislava': ('NK Celje', 'Slovan Bratislava'),
+        'viking-v-dinamo-zagreb': ('Viking FK', 'Dinamo Zagreb'),
+    }
+    ESPN_EVENT = {
+        'real-madrid-v-real-sociedad': ('esp.1', '401882919'),
+        'aek-athens-v-levski-sofia': ('uefa.champions_qual', '401909181'),
+        'lyon-v-fenerbahce': ('uefa.champions_qual', '401909203'),
+        'nk-celje-v-slovan-bratislava': ('uefa.champions_qual', '401909194'),
+        'viking-v-dinamo-zagreb': ('uefa.champions_qual', '401909157'),
+    }
 
 
 def hook_read(avg_min, games):
@@ -151,6 +161,11 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'TOTAL': round(p['TOTAL'], 1),
             'baseTotal': round(p['TOTAL'], 1),
             'blend': p.get('blend'),
+            # STAGE2-2026-08-27: baked so the live re-draft applies the SAME pool gate the bake
+            # did. soccer_draft.js can re-derive it from `blend` and gets the identical number
+            # (same mean/sd over the same field), but a value that is computed twice is a value
+            # that can drift once; this one is computed where it is defined.
+            'gate_z': p.get('gate_z'),
             'mkt_z': p.get('mkt_z'), 'edge_z': p.get('edge_z'),
             'oppxga': None,
             'npxg90': npx,
@@ -213,6 +228,13 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'unresolved': [],
             'espn': {str(gnum[m]): {'lg': ESPN_EVENT[m][0], 'ev': ESPN_EVENT[m][1]}
                      for m in matches if m in ESPN_EVENT},
+            # STAGE2-2026-08-27. Kickoffs, UTC minutes past midnight, keyed by game number.
+            # The live re-draft needs a real clock per match and must not get it by parsing
+            # `gtime` back out of "3:00 PM": that string is ET, carries no date, and the round
+            # trip breaks across DST. CONFLOCK ("has the earliest leg kicked off?") and
+            # MINTGUARD ("is this slip being minted after its own kickoff?") are both
+            # comparisons against this number. Purely additive -- nothing else reads it.
+            'ko': {str(gnum[m]): int(ko_of(m)) for m in matches},
             'build': f'{date} live',
             'face': 'soccer',
             'maxAT': 100,
