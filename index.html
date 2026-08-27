@@ -797,8 +797,27 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  const n=((ty==='all'||ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
  $('#tcount').textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
 
+/* HITRATE-2026-08-27 -- how often bats at this TOTAL have actually homered.
+   NOT a model output and NOT a per-bat probability: it is the empirical rate for the ten-point
+   band, read off calibration.jsonl (64 slates, 2026-06-18..08-26, 14,851 graded bats; field base
+   rate 10.65%). Baked as a constant on purpose -- the board must never depend on reading a 15 MB
+   log at render time, the same reason meta.season is baked rather than derived in the page.
+   >=200 returns null: 96 rows across 64 slates, bouncing 6%-38% by band, too thin to quote.
+   <100 is ONE flat number, not per-band: every band from 30 to 99 sits in a 6.5-8.6% range, so
+   the scale does not separate inside the bottom half and per-band figures would invent precision.
+   These bands are MLB's. The soccer fork seams the chips line out entirely (soccer_fork.py seam
+   'chips'), so they can never be shown against a soccer TOTAL. */
+var HITBANDS=[[100,110,191,1788],[110,120,178,1482],[120,130,188,1285],[130,140,113,1008],
+              [140,150,93,667],[150,160,80,427],[160,170,51,224],[170,180,36,142],[180,200,42,164]];
+var HITLOW=[589,7568];
+function hitRate(t){ if(t==null||t>=200) return null;
+  if(t<100) return HITLOW[0]/HITLOW[1];
+  for(var i=0;i<HITBANDS.length;i++){var b=HITBANDS[i]; if(t>=b[0]&&t<b[1]) return b[2]/b[3];}
+  return null; }
+function houseOdds(t){ var r=hitRate(t); return r==null?'—':'+'+Math.round(100*(1-r)/r); }
+function hitPct(t){ var r=hitRate(t); return r==null?'—':(100*r).toFixed(1)+'%'; }
 function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.game),c=isConf(p.status),av=avail(p);
- const chips=[['Pitcher',(p.phr9!=null?Math.max(0,Math.min(100,Math.round((p.phr9-0.70)/0.60*100))):'—')],['POWER',(p.powidx!=null?p.powidx:'—')],['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—'],['Zone',fmt(p.zonev)],['Park','×'+p.wf]];
+ const chips=[['Pitcher',(p.phr9!=null?Math.max(0,Math.min(100,Math.round((p.phr9-0.70)/0.60*100))):'—')],['POWER',(p.powidx!=null?p.powidx:'—')],['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—'],['Zone',fmt(p.zonev)],['Park','×'+p.wf],['Hit rate',hitPct(p.TOTAL)],['House',houseOdds(p.TOTAL)]];
  const fi=formInfo(p),formChip=fi?`<span class="fchip ${fi.cls}">FORM ${fi.f}% <span class="${fi.acl}">${fi.ar}</span>${fi.emo?' '+fi.emo:''}</span>`:`<span class="fchip f-na">FORM —</span>`;
  const lc=liftCls(p.wf),lift=lc?`<span class="${p.wf>=1?'u':'d'}">${liftStr(p.wf)}</span>`:`${liftStr(p.wf)}`;
  return `<div class="pc t-${tier}${(_pcPool&&_pcPool.has(name))?' pc-gated':''}" id="p-${cssid(name)}"><div class="ph"><div>
