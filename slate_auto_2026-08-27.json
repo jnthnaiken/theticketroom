@@ -1,11 +1,11 @@
 {
   "date": "2026-08-27",
   "season": "2026",
-  "pulled_at": "2026-08-27T14:11:04Z",
+  "pulled_at": "2026-08-27T14:21:03Z",
   "games": [
     {
       "gamePk": 822694,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-27T17:05:00Z",
       "matchup": "COL@WSH",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 0.84,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.186
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.188
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.164
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.152
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.145
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.119
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.194
+          },
+          {
+            "id": 691728,
+            "name": "Zac Veen",
+            "iso": 0.292
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.129
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -30,7 +76,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
