@@ -216,7 +216,13 @@
       var singles = anchorsOnly(byStrength, cfg, opts);
       return {
         tickets: singles, pool: pool, byStrength: byStrength,
-        anchors: singles.length, thin: true, singlesOnly: true,
+        anchors: singles.length,
+        /* `thin` means FEWER ANCHORS THAN ASKED FOR, which is a different fact from
+           `singlesOnly` (no screamer is possible at all). Reporting thin:true whenever the
+           singles path runs made the CLI print "4 anchors do not fit; drafted 4", which is
+           not true and is exactly the kind of confidently-wrong log line that sends the next
+           reader hunting for a pool problem that does not exist. */
+        thin: singles.length < budget, singlesOnly: true,
         matches: mCount, budget: budget
       };
     }
@@ -422,10 +428,20 @@
       if (t.kind === 'moon') {
         claimAnchor(legs[0]);
         legs.slice(1).forEach(function (l) { spentAsPartner[l.name] = true; });
-      } else if (t.kind !== 'builder') {
+      } else if (t.kind === 'builder') {
+        /* A frozen BUILDER spends nobody as a PARTNER -- its single leg is its anchor, and on a
+           moon+builder board that anchor is already claimed by his screamer, so this is a no-op
+           (claimAnchor dedupes by name).
+           ⚠️ IT MUST STILL CLAIM THE ANCHOR SLOT. On a SINGLES-ONLY board (SINGLES-2026-08-27)
+           there are no moons at all, so this was the only place the anchor could be claimed --
+           and skipping it left him absent from `takenAnchors`, free of `freeForPartner`, and
+           minted a SECOND TIME by the fresh draft. Caught 2026-08-27 building the scheduled
+           rebuild: a four-single board came back as seven slips with three players on two
+           tickets each. */
+        claimAnchor(legs[0]);
+      } else {
         legs.forEach(function (l) { spentAsPartner[l.name] = true; });
       }
-      /* a frozen BUILDER spends nobody: its single leg is its anchor */
     });
 
     var gz = gateZ(Object.keys(D.players).map(function (n) { return D.players[n]; }));

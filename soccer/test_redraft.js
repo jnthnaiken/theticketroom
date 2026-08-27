@@ -231,6 +231,39 @@ console.log('=== the board under test ===');
   chk('a board with no meta.ko is left alone', !r.changed && r.tickets === D.tickets, r.why);
 }
 
+
+/* ---------------------------------------------------------------------------------------
+ * 11. SINGLES-ONLY: a frozen BUILDER must claim its anchor slot.
+ *
+ * On a moon+builder board the builder's anchor is already claimed by his screamer, so the
+ * builder claiming nothing is harmless. On a SINGLES-ONLY board (SINGLES-2026-08-27) there are
+ * no moons at all -- so the builder was the ONLY place the anchor could be claimed, and skipping
+ * it left him free for the fresh draft to mint a SECOND time. Found 2026-08-27 wiring the
+ * scheduled rebuild: a four-single board came back as seven slips, three players on two tickets
+ * each. Anything that puts one player on two slips is a bet placed twice.
+ * ------------------------------------------------------------------------------------- */
+{
+  /* two matches only -> the draft is forced down the singles path */
+  const D = board();
+  const keep = new Set(['1', '4']);
+  Object.keys(D.players).forEach(n => { if (!keep.has(String(D.players[n].game))) delete D.players[n]; });
+  D.meta.ko = { '1': KO, '4': KO };
+  Object.keys(D.players).forEach(n => { D.players[n].status = 'confirmed'; });
+  D.tickets = [];
+
+  const seed = SD.redraft(D, { nowUTCmin: KO - 200, xi: XI(D) });
+  chk('a two-match slate drafts singles only', seed.tickets.length > 0
+    && seed.tickets.every(t => t.kind === 'builder'), seed.tickets.map(t => t.kind));
+
+  D.tickets = seed.tickets;
+  const r = SD.redraft(D, { nowUTCmin: KO - 100, xi: XI(D) });
+  const names = r.tickets.map(t => t.players[0].name);
+  chk('re-running it does not mint the same anchors again',
+    names.length === new Set(names).size, names);
+  chk('and the board is unchanged', !r.changed && r.tickets.length === seed.tickets.length,
+    { changed: r.changed, n: r.tickets.length, was: seed.tickets.length });
+}
+
 console.log('');
 console.log(fail ? `${fail} FAILURE(S)` : 'ALL GREEN -- CONFLOCK and MINTGUARD hold');
 process.exit(fail ? 1 : 0);

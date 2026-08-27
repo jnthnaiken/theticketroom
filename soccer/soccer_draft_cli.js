@@ -42,6 +42,10 @@ if (tnPath) {
 }
 
 const res = SD.draft(scored, {}, { xi });
+if (res.singlesOnly) {
+  console.log(`  ${res.matches} match(es) on the slate and a screamer needs ${SD.DEFAULTS.MOON_LEGS} ` +
+              `from different matches -- ANCHOR SINGLES ONLY (SINGLES-2026-08-27)`);
+}
 if (res.thin) {
   console.log(`  thin slate: ${res.budget} anchors do not fit; drafted ${res.anchors}`);
 }
