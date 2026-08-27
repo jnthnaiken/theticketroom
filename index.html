@@ -227,20 +227,11 @@ header{position:relative}
 .head-stats .statrow{margin-top:0}
 .tracker{flex:none;width:360px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:10px 15px 11px}
 .head-right{display:flex;flex-direction:column;align-items:stretch;min-width:0}
-.tipjar{display:none;align-items:center;justify-content:center;gap:9px;margin-top:10px;padding:9px 14px;background:var(--surf);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--txt);transition:.16s}
-.tipjar[href]{display:flex}
-.tip-nav{margin-top:0;flex:none}
-/* wide: the pill rides the sticky tab bar, far right. narrow (<=900, where .head-row stacks):
-   the tab row has no spare width, so it falls back under the season panel instead. Exactly one
-   of the two ever renders -- the other is display:none, not merely offscreen. */
-@media(max-width:900px){.tipjar.tip-nav[href]{display:none}}
-@media(min-width:901px){.tipjar.tip-stack[href]{display:none}}
-.tipjar:hover{border-color:var(--gold);background:var(--surf2);transform:translateY(-1px)}
-.tipjar:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.tj-i{font-size:15px;line-height:1}
-.tj-t{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.09em;font-size:12.5px;font-weight:600;color:var(--gold)}
-.tj-s{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--dim)}
-@media(max-width:400px){.tj-s{display:none}}
+/* TIPJAR-2026-08-27 -- the tip pill and its parts are GONE, not disabled.
+   TIPJAR-2026-08-26 moved the jar to the cover and emptied the URL so the loop stripped
+   the pill from the DOM; the markup, the CSS and the "tip the kitchen / keeps the food
+   free" copy stayed behind and outlived the feature by a day. To bring a jar back, put
+   it on the cover next to the one already there -- not here. */
 .tk-cap{display:flex;justify-content:space-between;align-items:baseline;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:9px}
 .tk-cap span{color:var(--dim);letter-spacing:.05em;text-transform:none}
 .tk-body{display:flex;gap:15px;align-items:center}
@@ -493,7 +484,7 @@ header{position:relative}
   <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild</span><span>🔥 hot park · ❄️ suppressed park</span><span>🧱 base score</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> soft starter · 🚧 in progress · ❌ no homer · ⚾ homered</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
  </div>
   </div>
-  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar tip-stack" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
+  <div class="head-right"><div class="tracker" id="tracker"></div></div>
  </div>
 </header>
 <div class="nav"><div class="tabs" role="tablist">
@@ -501,7 +492,7 @@ header{position:relative}
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><a class="tipjar tip-nav" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
+</div></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="builder">⚓️ Anchors</button><button class="tbtn" data-type="moon">🚀 Moonshots</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
@@ -1254,16 +1245,10 @@ drawTickets();drawPlayers();drawTracker();
   var r2=function(d){return d*Math.PI/180;};
   var CACHE=null;                                   // schedule + HR/9, fetched once
 
-  // ---- TIP JAR ----------------------------------------------------------------------
-  // Paste the destination here to switch it on -- Ko-fi, Buy Me a Coffee, GitHub Sponsors,
-  // a Stripe payment link, whatever. Leave it empty and the pill is removed from the DOM: no
-  // dead link, no empty box, nothing for a visitor to notice. Only line that needs editing.
-  // TIPJAR-2026-08-26, owner: "move the tip jar from each page to the cover page". Emptied
-  // rather than deleted: the loop below already removes the pill from the DOM when this is
-  // blank -- no dead link, no empty box, nothing to notice -- and leaving the ONE line here
-  // means switching it back on is still a one-line change. The live jar now lives in the
-  // cover page's footer cluster, asked once instead of on every board, every day.
-  var TIP_URL='';
+  // ---- TIP JAR -- not here anymore (TIPJAR-2026-08-27) -------------------------------
+  // The jar lives on the cover page, in its footer cluster: asked once instead of on
+  // every board, every day. The board carries no tip markup, no url constant and no
+  // removal loop. Adding one back here would put it in front of a reader mid-slate.
 
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
@@ -1280,12 +1265,6 @@ drawTickets();drawPlayers();drawTracker();
      with no legal home. The lunch pick runs LAST (after chef, anchors, moon fills, salami fills) and only takes
      bats not already on a parlay, so widening the window cannot cannibalise a parlay leg. */
 
-  (function(){var _ts=document.querySelectorAll('.tipjar');
-    for(var _i=0;_i<_ts.length;_i++){
-      if(!TIP_URL){_ts[_i].remove();continue;}   // unset -> out of the DOM entirely
-      _ts[_i].href=TIP_URL;_ts[_i].removeAttribute('hidden');
-    }
-  })();
 
   function gmin(gt){var m=/(\d+):(\d+)\s*(AM|PM)/.exec(gt||''); if(!m)return 0; var h=(+m[1])%12+(m[3]=='PM'?12:0); return h*60+(+m[2]);}
 
