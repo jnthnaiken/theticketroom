@@ -657,6 +657,19 @@ footer b{color:var(--mut);font-weight:600}
       }catch(_){ /* let the browser do what it was going to do */ }
     });
   });
+  /* BFCACHE-2026-08-27. Going into a room and pressing BACK restores this page from the
+     back/forward cache exactly as it was left -- which is mid-tear: both halves finished
+     their keyframes at opacity 0 and the anchor still carries pointer-events:none. So the
+     ticket came back invisible and dead, and only a hard reload brought it back.
+     `pageshow` is the one event that fires on a bfcache restore as well as on a normal
+     load, so the class is cleared there. visibilitychange covers browsers that resume a
+     backgrounded tab without firing pageshow. Both are idempotent and cost nothing. */
+  function untear(){
+    var t=document.querySelectorAll('a.tkt.tearing');
+    for(var i=0;i<t.length;i++) t[i].classList.remove('tearing');
+  }
+  window.addEventListener('pageshow', untear);
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) untear(); });
 })();
 </script>
 </body>
