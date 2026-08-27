@@ -10,7 +10,7 @@ TWO CHIPS HAVE NO DATA and are written as None on purpose so they render "—":
   * oppxga   -- opponent xGA/90, needs understat teamsData
   * sub.park -- the successor's NAME, needs a squad-wide pull
 """
-import json, io, sys, math, itertools, os
+import json, io, sys, math, itertools, os, re, unicodedata
 
 # 2026-08-26 -- labels are the ESPN scoreboard displayName, so the card names the club the way
 # the results feed will when it settles.
@@ -123,9 +123,25 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
         if CLUB.get(n):
             segs = [CLUB[n]] + segs
 
+        # CLUBNORM-2026-08-28. The two sides of this comparison come from different feeds: `x`
+        # is understat's team_title, `lab` is the ESPN scoreboard displayName baked into
+        # fixtures.json. They disagree on punctuation -- understat writes "Paris Saint Germain",
+        # ESPN writes "Paris Saint-Germain" -- and the raw substring test then fails, so Dembele
+        # and Barcola came back with no club and no (H)/(A) on the first 2026-08-28 build.
+        # Compare on a punctuation- and accent-free form. This only ever WIDENS the match, and
+        # the label RETURNED is still `lab`, so the card still names the club ESPN's way.
+        def _nrm(s):
+            s = unicodedata.normalize('NFKD', s or '')
+            s = ''.join(c for c in s if not unicodedata.combining(c))
+            return re.sub(r'[^a-z0-9]+', ' ', s.lower()).strip()
+
         def _side(x):
+            xn = _nrm(x)
+            if not xn:
+                return None
             for lab in (home, away):
-                if x == lab or x in lab or lab in x:
+                ln = _nrm(lab)
+                if xn == ln or xn in ln or ln in xn:
                     return lab
             return None
         t = next((_side(x) for x in segs if _side(x)), None)
