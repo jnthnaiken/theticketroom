@@ -96,7 +96,11 @@ def seams(payload_js):
     add('chips',
         "const chips=[['Pitcher',(p.phr9!=null?Math.max(0,Math.min(100,Math.round((p.phr9-0.70)/0.60*100))):'—')],"
         "['POWER',(p.powidx!=null?p.powidx:'—')],['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—'],"
-        "['Zone',fmt(p.zonev)],['Park','×'+p.wf]];",
+        "['Zone',fmt(p.zonev)],['Park','×'+p.wf],['Hit rate',hitPct(p.TOTAL)],['House',houseOdds(p.TOTAL)]];",
+        # HITRATE-2026-08-27: the two MLB chips are dropped here, not translated. Their bands
+        # are the MLB calibration curve; showing them against a soccer TOTAL would be a
+        # different sport's hit rate wearing this board's numbers. Soccer gets its own when
+        # soccer_season.json has enough graded nights to cut bands from.
         "const chips=[['Defense',(p.oppxga!=null?Math.max(0,Math.min(100,Math.round((p.oppxga-0.80)/1.00*100))):'—')],"
         "['xG90',(p.npxg90!=null?p.npxg90.toFixed(2):'—')],['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—'],"
         "['Shot Qual',(p.xgshot!=null?String(p.xgshot.toFixed(3)).slice(1):'—')],"
