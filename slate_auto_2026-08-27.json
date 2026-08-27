@@ -1,7 +1,7 @@
 {
   "date": "2026-08-27",
   "season": "2026",
-  "pulled_at": "2026-08-27T20:21:46Z",
+  "pulled_at": "2026-08-27T20:30:28Z",
   "games": [
     {
       "gamePk": 822694,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823014,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-27T18:15:00Z",
       "matchup": "BAL@STL",
       "away": {
@@ -158,12 +158,12 @@
           {
             "id": 624413,
             "name": "Pete Alonso",
-            "iso": 0.239
+            "iso": 0.238
           },
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.171
+            "iso": 0.172
           },
           {
             "id": 694212,
@@ -339,8 +339,54 @@
           "hr9": 1.17,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.197
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.278
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.275
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.103
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.191
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.177
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.115
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.138
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
