@@ -227,20 +227,11 @@ header{position:relative}
 .head-stats .statrow{margin-top:0}
 .tracker{flex:none;width:360px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:10px 15px 11px}
 .head-right{display:flex;flex-direction:column;align-items:stretch;min-width:0}
-.tipjar{display:none;align-items:center;justify-content:center;gap:9px;margin-top:10px;padding:9px 14px;background:var(--surf);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--txt);transition:.16s}
-.tipjar[href]{display:flex}
-.tip-nav{margin-top:0;flex:none}
-/* wide: the pill rides the sticky tab bar, far right. narrow (<=900, where .head-row stacks):
-   the tab row has no spare width, so it falls back under the season panel instead. Exactly one
-   of the two ever renders -- the other is display:none, not merely offscreen. */
-@media(max-width:900px){.tipjar.tip-nav[href]{display:none}}
-@media(min-width:901px){.tipjar.tip-stack[href]{display:none}}
-.tipjar:hover{border-color:var(--gold);background:var(--surf2);transform:translateY(-1px)}
-.tipjar:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.tj-i{font-size:15px;line-height:1}
-.tj-t{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.09em;font-size:12.5px;font-weight:600;color:var(--gold)}
-.tj-s{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--dim)}
-@media(max-width:400px){.tj-s{display:none}}
+/* TIPJAR-2026-08-27 -- the tip pill and its parts are GONE, not disabled.
+   TIPJAR-2026-08-26 moved the jar to the cover and emptied the URL so the loop stripped
+   the pill from the DOM; the markup, the CSS and the "tip the kitchen / keeps the food
+   free" copy stayed behind and outlived the feature by a day. To bring a jar back, put
+   it on the cover next to the one already there -- not here. */
 .tk-cap{display:flex;justify-content:space-between;align-items:baseline;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:9px}
 .tk-cap span{color:var(--dim);letter-spacing:.05em;text-transform:none}
 .tk-body{display:flex;gap:15px;align-items:center}
@@ -493,7 +484,7 @@ header{position:relative}
   <span><b style="color:var(--lime)">✓</b> confirmed</span><span><b style="color:var(--dim)">⏳</b> projected</span><span>🔄 cover · 🟢 strong sub · 🟡 thin · 🔴 none · ⛅ mild</span><span>🎯 xG this match</span><span>FORM ↑ rising · → steady · ↓ cooling</span><span><b style="color:var(--amber)">⚠</b> rotation risk · 🚧 in progress · ❌ no goal · <span class="bal">⚽</span> scored</span><span><b style="color:var(--mut)">↩</b> void · refunded</span><span><b style="color:#5cc8ff">↻</b> suspended · resumes</span><span>⛔ no action · PPD/scratch</span>
  </div>
   </div>
-  <div class="head-right"><div class="tracker" id="tracker"></div><a class="tipjar tip-stack" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
+  <div class="head-right"><div class="tracker" id="tracker"></div></div>
  </div>
 </header>
 <div class="nav"><div class="tabs" role="tablist">
@@ -501,7 +492,7 @@ header{position:relative}
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><a class="tipjar tip-nav" target="_blank" rel="noopener noreferrer" hidden><span class="tj-i">🍽</span><span class="tj-t">Tip the kitchen</span><span class="tj-s">keeps the food free</span></a></div>
+</div></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  <div class="bar"><div class="fld">View<div class="ttype" id="ttype"><button class="tbtn on" data-type="all">All</button><button class="tbtn" data-type="builder">⚓️ Anchors</button><button class="tbtn" data-type="moon">💥 Screamers</button></div></div><label class="fld">Find<input type="search" id="tsearch" placeholder="Search"></label><span class="count" id="tcount"></span></div>
@@ -807,6 +798,25 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  const n=((ty==='all'||ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
  $('#tcount').textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
 
+/* HITRATE-2026-08-27 -- how often bats at this TOTAL have actually homered.
+   NOT a model output and NOT a per-bat probability: it is the empirical rate for the ten-point
+   band, read off calibration.jsonl (64 slates, 2026-06-18..08-26, 14,851 graded bats; field base
+   rate 10.65%). Baked as a constant on purpose -- the board must never depend on reading a 15 MB
+   log at render time, the same reason meta.season is baked rather than derived in the page.
+   >=200 returns null: 96 rows across 64 slates, bouncing 6%-38% by band, too thin to quote.
+   <100 is ONE flat number, not per-band: every band from 30 to 99 sits in a 6.5-8.6% range, so
+   the scale does not separate inside the bottom half and per-band figures would invent precision.
+   These bands are MLB's. The soccer fork seams the chips line out entirely (soccer_fork.py seam
+   'chips'), so they can never be shown against a soccer TOTAL. */
+var HITBANDS=[[100,110,191,1788],[110,120,178,1482],[120,130,188,1285],[130,140,113,1008],
+              [140,150,93,667],[150,160,80,427],[160,170,51,224],[170,180,36,142],[180,200,42,164]];
+var HITLOW=[589,7568];
+function hitRate(t){ if(t==null||t>=200) return null;
+  if(t<100) return HITLOW[0]/HITLOW[1];
+  for(var i=0;i<HITBANDS.length;i++){var b=HITBANDS[i]; if(t>=b[0]&&t<b[1]) return b[2]/b[3];}
+  return null; }
+function houseOdds(t){ var r=hitRate(t); return r==null?'—':'+'+Math.round(100*(1-r)/r); }
+function hitPct(t){ var r=hitRate(t); return r==null?'—':(100*r).toFixed(1)+'%'; }
 function sState(p){ if(!p) return '';
  if(p.unres) return p.unres;
  if(!isFinal(p.game) && !isLive(p.game) && likelyEnded(p.gtime)) return '⏱ past full time · result not in yet';
@@ -1259,16 +1269,10 @@ drawTickets();drawPlayers();drawTracker();
   var r2=function(d){return d*Math.PI/180;};
   var CACHE=null;                                   // schedule + HR/9, fetched once
 
-  // ---- TIP JAR ----------------------------------------------------------------------
-  // Paste the destination here to switch it on -- Ko-fi, Buy Me a Coffee, GitHub Sponsors,
-  // a Stripe payment link, whatever. Leave it empty and the pill is removed from the DOM: no
-  // dead link, no empty box, nothing for a visitor to notice. Only line that needs editing.
-  // TIPJAR-2026-08-26, owner: "move the tip jar from each page to the cover page". Emptied
-  // rather than deleted: the loop below already removes the pill from the DOM when this is
-  // blank -- no dead link, no empty box, nothing to notice -- and leaving the ONE line here
-  // means switching it back on is still a one-line change. The live jar now lives in the
-  // cover page's footer cluster, asked once instead of on every board, every day.
-  var TIP_URL='';
+  // ---- TIP JAR -- not here anymore (TIPJAR-2026-08-27) -------------------------------
+  // The jar lives on the cover page, in its footer cluster: asked once instead of on
+  // every board, every day. The board carries no tip markup, no url constant and no
+  // removal loop. Adding one back here would put it in front of a reader mid-slate.
 
   // ---- assembler constants (mirror assembler_src.py) ----
   var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
@@ -1285,12 +1289,6 @@ drawTickets();drawPlayers();drawTracker();
      with no legal home. The lunch pick runs LAST (after chef, anchors, moon fills, salami fills) and only takes
      bats not already on a parlay, so widening the window cannot cannibalise a parlay leg. */
 
-  (function(){var _ts=document.querySelectorAll('.tipjar');
-    for(var _i=0;_i<_ts.length;_i++){
-      if(!TIP_URL){_ts[_i].remove();continue;}   // unset -> out of the DOM entirely
-      _ts[_i].href=TIP_URL;_ts[_i].removeAttribute('hidden');
-    }
-  })();
 
   function gmin(gt){var m=/(\d+):(\d+)\s*(AM|PM)/.exec(gt||''); if(!m)return 0; var h=(+m[1])%12+(m[3]=='PM'?12:0); return h*60+(+m[2]);}
 
@@ -2881,7 +2879,13 @@ var _cmA={}, _cmB={};
       var singles = anchorsOnly(byStrength, cfg, opts);
       return {
         tickets: singles, pool: pool, byStrength: byStrength,
-        anchors: singles.length, thin: true, singlesOnly: true,
+        anchors: singles.length,
+        /* `thin` means FEWER ANCHORS THAN ASKED FOR, which is a different fact from
+           `singlesOnly` (no screamer is possible at all). Reporting thin:true whenever the
+           singles path runs made the CLI print "4 anchors do not fit; drafted 4", which is
+           not true and is exactly the kind of confidently-wrong log line that sends the next
+           reader hunting for a pool problem that does not exist. */
+        thin: singles.length < budget, singlesOnly: true,
         matches: mCount, budget: budget
       };
     }
@@ -3087,10 +3091,20 @@ var _cmA={}, _cmB={};
       if (t.kind === 'moon') {
         claimAnchor(legs[0]);
         legs.slice(1).forEach(function (l) { spentAsPartner[l.name] = true; });
-      } else if (t.kind !== 'builder') {
+      } else if (t.kind === 'builder') {
+        /* A frozen BUILDER spends nobody as a PARTNER -- its single leg is its anchor, and on a
+           moon+builder board that anchor is already claimed by his screamer, so this is a no-op
+           (claimAnchor dedupes by name).
+           ⚠️ IT MUST STILL CLAIM THE ANCHOR SLOT. On a SINGLES-ONLY board (SINGLES-2026-08-27)
+           there are no moons at all, so this was the only place the anchor could be claimed --
+           and skipping it left him absent from `takenAnchors`, free of `freeForPartner`, and
+           minted a SECOND TIME by the fresh draft. Caught 2026-08-27 building the scheduled
+           rebuild: a four-single board came back as seven slips with three players on two
+           tickets each. */
+        claimAnchor(legs[0]);
+      } else {
         legs.forEach(function (l) { spentAsPartner[l.name] = true; });
       }
-      /* a frozen BUILDER spends nobody: its single leg is its anchor */
     });
 
     var gz = gateZ(Object.keys(D.players).map(function (n) { return D.players[n]; }));
