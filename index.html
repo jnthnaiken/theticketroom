@@ -677,10 +677,17 @@ body::after{
    styled by descent. Where :has() is unsupported they show on every tab -- untidy, never
    throws, never hides the search. */
 .nav{gap:12px}
-.navfind{width:min(230px,30vw);flex:none}
-.navcount{margin-left:auto;white-space:nowrap}
-.nav:has(~ #v-t[hidden]) .navfind,.nav:has(~ #v-t[hidden]) .navcount{display:none}
-@media(max-width:700px){.navfind{width:100%;order:3}.navcount{order:4}}
+/* the field keeps its original shape -- the small "Find" caption over a "Search"
+   placeholder -- it has only changed rows. Only the INPUT is width-capped: the label is
+   the flex item, so capping .navfind itself would squash the caption.
+   TCOUNT REMOVED 2026-08-27, owner: the count was noise on a four-slip board. Its element
+   is gone but drawTickets() wrote to it through a BARE deref -- $('#tcount').textContent --
+   which would throw on every redraw, so that one line is guarded rather than deleted; the
+   count is still computed and is one line from coming back if it is ever wanted. */
+.navfind{flex:none;margin-right:auto}
+.navfind input[type=search]{width:min(230px,30vw)}
+.nav:has(~ #v-t[hidden]) .navfind{display:none}
+@media(max-width:700px){.navfind{order:3}.navfind input[type=search]{width:100%}}
 </style></head><body>
 <div class="sky" aria-hidden="true"><div class="neb"></div><i class="met a"></i><i class="met b"></i><i class="met c"></i></div>
 <div class="tint" aria-hidden="true"></div>
@@ -705,7 +712,7 @@ body::after{
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><input type="search" id="tsearch" class="navfind" placeholder="Search tickets" aria-label="Search tickets"><span class="count navcount" id="tcount"></span></div>
+</div><label class="fld navfind">Find<input type="search" id="tsearch" placeholder="Search"></label></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  
@@ -1008,7 +1015,7 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
  $('#tickets').innerHTML=(html||'<div class="closed">No tickets match.</div>')+((ticketType==='all'&&!q)?carryoverStrip():'');
  const n=((ty==='all'||ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
- $('#tcount').textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
+ (($('#tcount')||{})).textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
 
 /* HITRATE-2026-08-27 -- how often bats at this TOTAL have actually homered.
    NOT a model output and NOT a per-bat probability: it is the empirical rate for the ten-point
