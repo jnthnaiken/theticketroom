@@ -121,13 +121,20 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
         hh = [h for _, h in kept]
         K  = len(kept)
         sizes = [2, 3] + ([4] if K >= 4 else [])
+        # RRSTAKE-2026-08-28. `risk` is the TOTAL staked across the round robin -- 2u on a moon,
+        # which is 3 doubles + 1 treble at 0.5u each, NOT 1u each. This added the bare decimal
+        # product for every winning combination, i.e. it settled a 2u slip as though 4u were
+        # down, so every winner was credited roughly double. The stake side was always right;
+        # only the return side was inflated.
+        ncombo = sum(1 for sz in sizes for _ in itertools.combinations(range(K), sz))
+        unit = (risk / ncombo) if ncombo else 0.0
         net = -risk
         for sz in sizes:
             for combo in itertools.combinations(range(K), sz):
                 if all(hh[i] for i in combo):
                     p = 1.0
                     for i in combo: p *= d[i]
-                    net += p
+                    net += unit * p
         return {'kind': t['kind'], 'stake': risk, 'net': round(net, 2), 'won': net > 0}
     # single leg / straight (payout10 path)
     cashed = all(h for _, h in kept)

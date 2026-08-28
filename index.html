@@ -2536,11 +2536,16 @@ var _cmA={}, _cmB={};
 
     // ---- post-process: wxsum / confleg / rr.maxprofit ----
     function a2d(o){return 1+(o>0?o/100:100/Math.abs(o));}
-    function rrmax(legs,risk){var dec=legs.map(function(l){return a2d(l.odds);}),L=dec.length,s=-risk,a,b,c,d;
-      for(a=0;a<L;a++)for(b=a+1;b<L;b++)s+=dec[a]*dec[b];
-      for(a=0;a<L;a++)for(b=a+1;b<L;b++)for(c=b+1;c<L;c++)s+=dec[a]*dec[b]*dec[c];
-      if(L>=4)for(a=0;a<L;a++)for(b=a+1;b<L;b++)for(c=b+1;c<L;c++)for(d=c+1;d<L;d++)s+=dec[a]*dec[b]*dec[c]*dec[d];
-      return Math.round(s*10)/10;}
+    function rrmax(legs,risk){var dec=legs.map(function(l){return a2d(l.odds);}),L=dec.length,s=0,n=0,a,b,c,d;
+      /* RRSTAKE-2026-08-28 -- `risk` is the TOTAL staked across the round robin (2u on a moon),
+         so each of the n combinations carries risk/n. This summed the raw decimal products, i.e.
+         it priced 1u on EVERY combination -- 4u down on a slip that risks 2 -- and so roughly
+         DOUBLED every max-profit figure the board has ever printed. 3 legs by 2s & 3 is four
+         bets at 0.5u, not four at 1u. */
+      for(a=0;a<L;a++)for(b=a+1;b<L;b++){s+=dec[a]*dec[b];n++;}
+      for(a=0;a<L;a++)for(b=a+1;b<L;b++)for(c=b+1;c<L;c++){s+=dec[a]*dec[b]*dec[c];n++;}
+      if(L>=4)for(a=0;a<L;a++)for(b=a+1;b<L;b++)for(c=b+1;c<L;c++)for(d=c+1;d<L;d++){s+=dec[a]*dec[b]*dec[c]*dec[d];n++;}
+      return n?Math.round(((risk/n)*s-risk)*10)/10:0;}
     // ---- FINAL REPAIR (shared, both paths, on the near-final ticket set): pair any LIVE moon anchor still short
     // of MOONS_PER_ANC from the WIDEST pool (any scored bat with odds, alive, in-window, distinct game). Uses
     // out.push directly and runs after both branches, so nothing upstream prevents it. Never ships a short moon. ----
