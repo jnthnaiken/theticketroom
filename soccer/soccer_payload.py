@@ -12,6 +12,14 @@ TWO CHIPS HAVE NO DATA and are written as None on purpose so they render "—":
 """
 import json, io, sys, math, itertools, os, re, unicodedata
 
+# The squad-roster club join reuses the team sheet's matcher rather than growing a second one.
+# soccer_teamnews.py has no module-level side effects and imports nothing from here.
+try:
+    from soccer_teamnews import match_one as _match_one
+except Exception:                                    # pragma: no cover
+    def _match_one(name, squad):
+        return None
+
 # 2026-08-26 -- labels are the ESPN scoreboard displayName, so the card names the club the way
 # the results feed will when it settles.
 # FIXTURES-2026-08-27. MATCH_LABEL and ESPN_EVENT are data, not code -- see fixtures.json and
@@ -56,13 +64,37 @@ def hook_read(avg_min, games):
 
 
 def build(scored_path, tickets_path, xg_path, out_path, date,
-          season_path=None, teamnews_path=None):
+          season_path=None, teamnews_path=None, squads_path=None):
     P = json.load(io.open(scored_path, encoding='utf-8'))
     T = json.load(io.open(tickets_path, encoding='utf-8'))
     TN = (json.load(io.open(teamnews_path, encoding='utf-8'))
           if teamnews_path and os.path.exists(teamnews_path) else {})
     XI, BENCH, ABSENT = TN.get('xi', {}), TN.get('bench', {}), TN.get('absent', {})
     TNGOALS, CLUB = TN.get('goals', {}), TN.get('club', {})
+    # SQUADCLUB-2026-08-28. Owner, on Ferran Torres: *"who ferran torres plays for is just a -"*.
+    #
+    # The club label had exactly one source before team news lands: the club on the player's
+    # UNDERSTAT row, which is the club he played for LAST SEASON. Torres's only row is
+    # Barcelona 2025 and he is now at PSG, so `_side()` correctly refused to place him on
+    # either side of Lille v PSG and the card showed "—". Refusing is right -- printing
+    # "Barcelona" would assert a club he does not play for -- but "—" on the second-shortest
+    # price of the night is not good enough, and it was 31 of 90 players board-wide, because
+    # anyone with no understat row at all has no club either.
+    #
+    # ESPN's per-team ROSTER endpoint is a squad list, not a match document, so unlike the XI
+    # it is available all day, days ahead. That is the missing source. Precedence, strongest
+    # first: the published team sheet (this season, this fixture) > the squad roster (this
+    # season) > the understat row (last season). Matching is soccer_teamnews.match_one -- the
+    # same surname-anchored, tie-refusing join the team sheet uses, deliberately reused rather
+    # than written twice.
+    SQUADS = {}
+    if squads_path and os.path.exists(squads_path):
+        for line in io.open(squads_path, encoding='utf-8'):
+            c = line.rstrip('\n').split('|')
+            if len(c) >= 3 and c[0]:
+                SQUADS.setdefault(c[0], []).append((c[2], c[1]))
+        print(f'    squads: {sum(len(v) for v in SQUADS.values())} roster names '
+              f'across {len(SQUADS)} matches')
     LIVE = {m for m, st in (TN.get('status') or {}).items()
             if st.get('espn') not in ('STATUS_SCHEDULED', 'STATUS_FULL_TIME',
                                       'STATUS_POSTPONED', 'STATUS_CANCELED')}
@@ -122,6 +154,10 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
         segs = [x.strip() for x in str(p.get('team') or '').split(',') if x.strip()]
         if CLUB.get(n):
             segs = [CLUB[n]] + segs
+        elif SQUADS.get(p['match']):
+            _hit = _match_one(n, SQUADS[p['match']])
+            if _hit:
+                segs = [_hit[1]] + segs
 
         # CLUBNORM-2026-08-28. The two sides of this comparison come from different feeds: `x`
         # is understat's team_title, `lab` is the ESPN scoreboard displayName baked into
@@ -690,12 +726,14 @@ def _depersonalise(clause, name):
 
 
 if __name__ == '__main__':
-    raw, argv, sp, tn = sys.argv[1:], [], None, None
+    raw, argv, sp, tn, sq = sys.argv[1:], [], None, None, None
     i = 0
     while i < len(raw):
-        if raw[i] in ('--season', '--teamnews'):
+        if raw[i] in ('--season', '--teamnews', '--squads'):
             if raw[i] == '--season':
                 sp = raw[i + 1]
+            elif raw[i] == '--squads':
+                sq = raw[i + 1]
             else:
                 tn = raw[i + 1]
             i += 2
@@ -705,4 +743,4 @@ if __name__ == '__main__':
     if len(argv) != 5:
         sys.exit('usage: soccer_payload.py <scored.json> <tickets.json> <xg.psv> <out.json> '
                  '<date> [--season S.json] [--teamnews T.json]')
-    build(*argv, season_path=sp, teamnews_path=tn)
+    build(*argv, season_path=sp, teamnews_path=tn, squads_path=sq)
