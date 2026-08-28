@@ -37,7 +37,8 @@
     MOONS_PER_ANC: 2,
     ANCH_PER_GAME: 2,
     MOON_RISK: 2.0,
-    SINGLE_STAKE: 1.0
+    SINGLE_STAKE: 1.0,
+    LEFTOVER_CAP: 8      // LEFTOVERS-2026-08-28: most gated-but-undrafted players shipped as singles
   };
 
   function cfgOf(o) {
@@ -204,6 +205,32 @@
     return out;
   }
 
+  /* LEFTOVERS-2026-08-28 -- owner's call. A player who CLEARED THE GATE and then made no slip is
+   * a bet the board found and dropped on the floor. On a thin XI that is most of the pool: on
+   * 2026-08-28, nine players cleared the gate, two anchors needed ten distinct names so the board
+   * fell to ONE anchor, and four gated players went nowhere -- Antonio Martinez, Lucas Boye,
+   * Aitor Manas, Luis Diaz. Ship them as straight singles.
+   *
+   * They are `builder` kind on purpose. It is the shape they already are (one leg, SINGLE_STAKE),
+   * it renders through the same card path, and soccer_grade.py folds it into the ledger with no
+   * change -- exactly the reasoning MLB used when the Family Meal was made a real ticket kind
+   * rather than bespoke markup. A NEW kind would need the renderer, the grader and the tracker.
+   *
+   * MINTGUARD is not re-checked here and must not be: redraft() only ever hands this function a
+   * field already filtered by placeable(), so a leftover in a match that has kicked off never
+   * reaches the draft. On a first build there is no clock and nothing has started.
+   *
+   * Capped, because the point is the bets the draft nearly made, not a second players tab. */
+  function leftoverSingles(byStrength, used, cfg) {
+    var out = [];
+    for (var i = 0; i < byStrength.length && out.length < cfg.LEFTOVER_CAP; i++) {
+      var p = byStrength[i];
+      if (used[p.name]) continue;
+      out.push({ kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE });
+    }
+    return out;
+  }
+
   function draft(players, cfgIn, opts) {
     var cfg = cfgOf(cfgIn);
     opts = opts || {};
@@ -225,6 +252,8 @@
     }
     if (mCount < cfg.MOON_LEGS) {
       var singles = anchorsOnly(byStrength, cfg, opts);
+      var usedS = {}; singles.forEach(function (t) { usedS[t.legs[0].name] = true; });
+      singles = singles.concat(leftoverSingles(byStrength, usedS, cfg));
       return {
         tickets: singles, pool: pool, byStrength: byStrength,
         anchors: singles.length,
@@ -253,8 +282,13 @@
       builders.push({ kind: 'builder', legs: [a], risk: cfg.SINGLE_STAKE });
     });
 
+    var used = {};
+    tickets.forEach(function (t) { t.legs.forEach(function (l) { used[l.name] = true; }); });
+    builders.forEach(function (t) { used[t.legs[0].name] = true; });
+    var extras = leftoverSingles(byStrength, used, cfg);
+
     return {
-      tickets: tickets.concat(builders),
+      tickets: tickets.concat(builders, extras),
       pool: pool,
       byStrength: byStrength,
       anchors: usedN,
