@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T20:12:16Z",
+  "pulled_at": "2026-08-28T20:17:39Z",
   "games": [
     {
       "gamePk": 824638,
@@ -92,7 +92,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 664023,
@@ -1478,16 +1478,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 63\u00b0",
-        "lean": "Boost",
-        "temp": 63.4,
-        "wind_mph": 14.4,
-        "wind_dir": 289,
-        "tail_mph": 13.2,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.036
+      "wf": 1.0
     }
   ]
 }
