@@ -34,8 +34,18 @@
  * THE ASSERTIONS
  * --------------
  *   1. SEALED   a ticket that has locked never changes again -- not its legs, not its
- *               prices -- and only ever leaves the board when one of its own players is
- *               scratched. Any other disappearance is a violation.
+ *               prices -- and only ever leaves the board for one of TWO lawful reasons:
+ *               one of its own players is scratched, or one of them is in that build's
+ *               chalk ban (CHALKOFF-2026-08-26: "if he's in the top 4 ban he needs to be
+ *               taken off ... i dont care if they are locked"). Any other disappearance
+ *               is a violation, and a locked slip that CHANGES always is -- CHALKOFF
+ *               removes, it never rewrites.
+ *               REPLAYCHALK-2026-08-28: the ban is READ FROM THE ENGINE (D.meta.chalk,
+ *               published by CHALKOBS-2026-08-28), never recomputed here. A harness that
+ *               reimplements the rule it is testing is the assemble_tickets.py mistake in
+ *               the worst possible place. If the field is absent the set is empty and
+ *               this assertion behaves exactly as it did before -- stricter, never
+ *               looser, which is the only safe direction for a test to fail in.
  *   2. NO DUPES no bat sits on two OPEN slips. An anchor legitimately holds both of his
  *               moons and his builder, so anchor legs are exempt; every other leg is not.
  *   3. BAKED    once the slate's DATE has passed in ET the day is OVER, so replaying the final
@@ -207,8 +217,13 @@ function replay(engine, date) {
           const p = D.players[n];
           return !p || p.out || p.void;
         });
+        /* REPLAYCHALK-2026-08-28: the OTHER lawful removal. Read off the build that did it. */
+        const bannedNow = new Set(((D.meta || {}).chalk) || []);
+        const banned = sealed[nm].legs.filter(n => bannedNow.has(n));
         if (scratched.length) {
           removals.push(`${s.hh}:${s.mm}Z  "${nm}" removed -- scratched: ${scratched.join(', ')}`);
+        } else if (banned.length) {
+          removals.push(`${s.hh}:${s.mm}Z  "${nm}" removed -- now chalk (CHALKOFF): ${banned.join(', ')}`);
         } else {
           violations++;
           console.log(`  ${s.hh}:${s.mm}Z  SEALED TICKET VANISHED: "${nm}" -- every leg still alive`);
@@ -339,7 +354,7 @@ function replay(engine, date) {
   }
 
   if (removals.length) {
-    console.log(`  -- ${removals.length} scratch-driven removal(s), all accounted for:`);
+    console.log(`  -- ${removals.length} lawful removal(s) (scratch or chalk ban), all accounted for:`);
     removals.forEach(r => console.log(`     ${r}`));
   }
   const shapeList = Object.entries(shapes).sort((a, b) => b[1] - a[1]);
