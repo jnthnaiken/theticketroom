@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T22:30:27Z",
+  "pulled_at": "2026-08-28T22:36:58Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1020,12 +1020,12 @@
           },
           {
             "id": 660670,
-            "name": "Ronald Acu\u00f1a",
+            "name": "Ronald Acu\u00f1a Jr.",
             "iso": 0.173
           },
           {
             "id": 671739,
-            "name": "Michael Harris",
+            "name": "Michael Harris II",
             "iso": 0.195
           },
           {
@@ -1742,8 +1742,54 @@
           "hr9": 1.17,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.127
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.238
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.124
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.228
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.254
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.133
+          },
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": 0.069
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.143
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.075
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1892,16 +1938,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 63\u00b0",
-        "lean": "Boost",
-        "temp": 63.1,
-        "wind_mph": 13.5,
-        "wind_dir": 286,
-        "tail_mph": 12.6,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     }
   ]
 }
