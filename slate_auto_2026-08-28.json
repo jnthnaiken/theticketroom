@@ -1,11 +1,11 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T21:30:54Z",
+  "pulled_at": "2026-08-28T21:36:42Z",
   "games": [
     {
       "gamePk": 824638,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-28T18:20:00Z",
       "matchup": "CIN@CHC",
       "away": {
@@ -1685,7 +1685,7 @@
     },
     {
       "gamePk": 824960,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T01:40:00Z",
       "matchup": "BAL@ATH",
       "away": {
@@ -1707,15 +1707,68 @@
           "hr9": 1.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.102
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.097
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.199
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.146
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.074
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.163
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.148
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.17
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.148
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 82.7,
+        "wind_mph": 6.3,
+        "wind_dir": 225,
+        "tail_mph": 6.1,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.04
     },
     {
       "gamePk": 823178,
