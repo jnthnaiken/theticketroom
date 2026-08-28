@@ -66,29 +66,93 @@
     s = s.toLowerCase().replace(/[.'’ʼ\-]/g, ' ');
     return s.replace(/\s+/g, ' ').trim();
   }
+  /* PUNCT-2026-08-28. TWO normalisations, not one, and this file was the only join that had
+   * one. soccer_teamnews.py has carried nrm() (punctuation DELETED) and nrm_sp() (punctuation
+   * SPACED) since 08-25 with the reason written down: ESPN writes "Nico O'Reilly", the odds
+   * feed writes "Nico OReilly". Spacing gives ['nico','reilly'] against ['nico','oreilly'];
+   * deleting gives ['nico','oreilly'] against ['nico','oreilly']. Neither normalisation wins
+   * both cases alone, so try both.
+   *
+   * This file had only the spaced form, so the SERVER said Nico O'Reilly was in the Manchester
+   * City XI on 2026-08-28 and the BROWSER, running the same rule set out of the same page,
+   * said he was out of the squad. That is the drift the header of this file warns about:
+   * two implementations of one rule, disagreeing on the same screen. */
+  function normDel(s) {
+    s = String(s == null ? '' : s);
+    s = s.replace(/[øØæÆåÅßłŁđĐðÐþÞœŒıİħŧ]/g, function (c) { return XLIT[c] || c; });
+    if (s.normalize) s = s.normalize('NFKD').replace(/[̀-ͯ]/g, '');
+    s = s.toLowerCase().replace(/[.'’ʼ\-]/g, '');
+    return s.replace(/\s+/g, ' ').trim();
+  }
   function toks(s) {
     return norm(s).split(' ').filter(function (w) { return w.length > 2; });
   }
-  function matchOne(feedName, candidates) {
-    var fn = norm(feedName);
-    var ft = toks(feedName), fset = {};
-    ft.forEach(function (t) { fset[t] = 1; });
+  function toksDel(s) {
+    return normDel(s).split(' ').filter(function (w) { return w.length > 2; });
+  }
+  function formsOf(s) { return [toks(s), toksDel(s)]; }
 
-    var exact = candidates.filter(function (c) { return norm(c) === fn; });
+  function matchOne(feedName, candidates) {
+    var fNorms = [norm(feedName), normDel(feedName)];
+    var fForms = formsOf(feedName);
+
+    var exact = candidates.filter(function (c) {
+      return fNorms.indexOf(norm(c)) >= 0 || fNorms.indexOf(normDel(c)) >= 0;
+    });
     if (exact.length === 1) return exact[0];
     if (exact.length > 1) return null;              // ambiguous -> never guess
 
     var hits = candidates.filter(function (c) {
-      var ct = toks(c);
-      if (!ct.length || !ft.length) return false;
-      if (!fset[ct[ct.length - 1]]) return false;   // SURNAME ANCHOR
-      var cset = {};
-      ct.forEach(function (t) { cset[t] = 1; });
-      var cInF = ct.every(function (t) { return fset[t]; });
-      var fInC = ft.every(function (t) { return cset[t]; });
-      return cInF || fInC;
+      var cForms = formsOf(c);
+      for (var i = 0; i < fForms.length; i++) {
+        var ft = fForms[i];
+        if (!ft.length) continue;
+        var fset = {};
+        ft.forEach(function (t) { fset[t] = 1; });
+        for (var j = 0; j < cForms.length; j++) {
+          var ct = cForms[j];
+          if (!ct.length) continue;
+          if (!fset[ct[ct.length - 1]]) continue;   // SURNAME ANCHOR
+          var cset = {};
+          ct.forEach(function (t) { cset[t] = 1; });
+          var cInF = ct.every(function (t) { return fset[t]; });
+          var fInC = ft.every(function (t) { return cset[t]; });
+          if (cInF || fInC) return true;
+        }
+      }
+      return false;
     });
     return hits.length === 1 ? hits[0] : null;
+  }
+
+  /* UNMATCHED-2026-08-28. matchOne() REFUSING is three different facts collapsed into one:
+   * he is not in the squad, or the two spellings disagree, or the name is ambiguous. Only the
+   * first of those is `out` -- and `out` refunds the leg and pulls the slip off the board.
+   *
+   * ESPN writes "Toni Martinez" where the odds feed writes "Antonio Martinez". The surname
+   * anchor holds, but neither token set contains the other ('antonio' is not in the ESPN
+   * tokens, 'toni' is not in the board's), so matchOne refuses -- and applyMatch's
+   * `else if (!who)` then asserted p.out on a man who was in the starting XI. On 2026-08-28
+   * that deleted "Back Post" from a live board IN THE READER'S BROWSER, off a board file that
+   * carried the ticket correctly. The server-side join (soccer_teamnews.py) got the same fix.
+   *
+   * The guard: if SOMEBODY of that surname is on the complete sheet, we do not know which
+   * player he is, but we do know we may not call him absent.
+   *
+   * SURNAME TO SURNAME, deliberately, and not "the surname appears anywhere in the other
+   * name". The loose form held "Matias Fernandez-Pardo" (genuinely not in the Lille squad on
+   * 08-28) against PSG's "Dro Fernandez", because 'fernandez' is a token of the hyphenated
+   * double-barrel. Holding a man who really is out keeps a dead leg draftable, which is the
+   * failure the redraft exists to prevent -- so the guard is narrow: last token against last
+   * token, tried under both normalisations, which is exactly what "same surname" means. */
+  function surnameHits(name, candidates) {
+    var nLast = formsOf(name).map(function (t) { return t.length ? t[t.length - 1] : null; });
+    return candidates.some(function (c) {
+      var cLast = formsOf(c).map(function (t) { return t.length ? t[t.length - 1] : null; });
+      return nLast.some(function (a) {
+        return a && cLast.indexOf(a) >= 0;
+      });
+    });
   }
 
   /* ---- ESPN shapes ----------------------------------------------------------------
@@ -212,12 +276,15 @@
       /* --- squad sheet --------------------------------------------------------------- */
       var sq = squadOf(summary);
       if (sq.complete) {
+        var sqAll = Object.keys(sq.all);
         names.forEach(function (n) {
           var p = D.players[n];
-          var who = matchOne(n, Object.keys(sq.all));
+          var who = matchOne(n, sqAll);
           if (who && sq.xi[who]) { p.status = 'confirmed'; p.out = false; }
+          /* UNMATCHED-2026-08-28: a refused join is UNKNOWN, not absent. He only goes `out`
+             when the complete sheet carries nobody of that surname. See surnameHits(). */
           else if (who && sq.bench[who]) { p.status = 'benched'; p.out = false; }
-          else if (!who && !p.hr) { p.out = true; }
+          else if (!who && !p.hr && !surnameHits(n, sqAll)) { p.out = true; }
           /* a man who SCORED is on the sheet by definition, whatever the join said */
           if (p.hr) { p.out = false; p.status = 'confirmed'; }
         });
@@ -271,7 +338,7 @@
     return { run: run, applyMatch: applyMatch };
   }
 
-  var api = { makeLive: makeLive, matchOne: matchOne, goalsOf: goalsOf,
+  var api = { makeLive: makeLive, matchOne: matchOne, goalsOf: goalsOf, surnameHits: surnameHits,
               squadOf: squadOf, isScoringGoal: isScoringGoal, norm: norm, POLL_MS: POLL_MS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.SoccerLive = api;

@@ -75,6 +75,31 @@ def match_one(name, squad):
     return best if (best and ties == 1) else None
 
 
+def surname_hits(name, squad):
+    """How many squad members share this player's SURNAME token.
+
+    UNMATCHED-2026-08-28. match_one() returning None conflates two facts the board must not
+    treat alike: "he is nowhere on the team sheet" and "he IS on the sheet but the join refused".
+    The second is common -- oddschecker priced "Antonio Martinez", ESPN's sheet says
+    "Toni Martínez", the surname anchors but the token overlap is 1 and any second Martínez ties
+    it, so match_one refuses. He was then asserted ABSENT and his single was killed while he was
+    starting (2026-08-28, "Back Post"). Same shape as the 08-17 Jr./Sr. suffix bug and the
+    Paris Saint-Germain hyphen: a name that fails to join looks exactly like a player who is not
+    playing, and it fails in the direction that silently removes a live bet.
+
+    A surname hit means the sheet plausibly contains him, so absence must NOT be asserted."""
+    n = 0
+    for cand, _ in squad:
+        for ot in forms(name):
+            if not ot:
+                continue
+            last = ot[-1]
+            if any(last in ct for ct in forms(cand)):
+                n += 1
+                break
+    return n
+
+
 def build(ags_path, tn_path, out_path):
     priced = defaultdict(list)
     for line in io.open(ags_path, encoding='utf-8'):
@@ -97,7 +122,7 @@ def build(ags_path, tn_path, out_path):
             goals[c[1]].append((c[2], int(c[3])))
 
     out = {'xi': {}, 'bench': {}, 'absent': {}, 'unplaced': [], 'status': status,
-           'goals': {}, 'trusted': {}, 'club': {}}
+           'goals': {}, 'trusted': {}, 'club': {}, 'unmatched': {}}
     for m, names in priced.items():
         sq = squads.get(m, [])
         placed = {}
@@ -125,8 +150,14 @@ def build(ags_path, tn_path, out_path):
                 out['xi'][n] = m
             elif st == 'SUB':
                 out['bench'][n] = m
+            elif trusted and not surname_hits(n, sq):
+                out['absent'][n] = m          # complete sheet, nobody of that surname -> really out
             elif trusted:
-                out['absent'][n] = m
+                # UNMATCHED-2026-08-28: the sheet HAS someone of that surname and the join
+                # refused. Unknown, not absent -- he stays draftable and this shouts about it.
+                out['unmatched'][n] = m
+                print(f'  ::warning::{m}: "{n}" did not join a complete team sheet '
+                      f'but the surname is on it -- left draftable, NOT marked out')
             else:
                 out['unplaced'].append(n)
         print(f'  {m:28s} XI {sum(1 for n in names if out["xi"].get(n)==m):2d} · '

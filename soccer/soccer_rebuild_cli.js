@@ -85,6 +85,12 @@ if (tn) {
     console.error('!! teamnews.json carries an EMPTY xi -- refusing to gate the pool to nothing');
     process.exit(3);
   }
+  /* UNMATCHED-2026-08-28. A priced name that could not be joined to a published sheet is
+     UNKNOWN, not benched -- soccer_teamnews.py now keeps those out of `absent` and lists them
+     here. Treat them as eligible: refusing to draft a man because two spellings disagree is the
+     worse error, and it already cost "Back Post" (Toni Martinez, starting) on 2026-08-28. */
+  const UNM = tn.unmatched || {};
+
   /* XIPARTIAL-2026-08-28. soccer_teamnews.py already records, per match, whether the sheet is
      COMPLETE (`trusted`: eleven starters a side) and maps every classified player to his match.
      Both facts were being thrown away here: the XI collapsed to a flat name set and was applied
@@ -92,7 +98,7 @@ if (tn) {
      delete that match from the board. Neither is right. Scope the filter to the matches that
      HAVE published, and leave the rest alone. */
   const TRUST = tn.trusted || {};
-  const slugOf = n => XI[n] || BENCH[n] || ABSENT[n] || null;
+  const slugOf = n => XI[n] || BENCH[n] || ABSENT[n] || UNM[n] || null;
   xiMatches = {};
   Object.keys(D.players).forEach(n => {
     const sl = slugOf(n);
@@ -104,7 +110,8 @@ if (tn) {
     p.status = XI[n] ? 'confirmed' : BENCH[n] ? 'benched' : p.status;
     if (ABSENT[n]) p.out = true;
   });
-  xi = SD.nameSet(Object.keys(XI));
+  xi = SD.nameSet(Object.keys(XI).concat(Object.keys(UNM)));
+  if (Object.keys(UNM).length) console.log('  unmatched but kept draftable: ' + Object.keys(UNM).join(', '));
   console.log(`  team news: ${Object.keys(XI).length} confirmed XI, ` +
               `${Object.keys(BENCH).length} benched, ${Object.keys(ABSENT).length} out of squad` +
               `  (sheets published for ${Object.keys(xiMatches).length} match(es))`);
