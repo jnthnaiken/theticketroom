@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T19:17:21Z",
+  "pulled_at": "2026-08-28T19:21:54Z",
   "games": [
     {
       "gamePk": 824638,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 695076,
           "name": "Rhett Lowder",
-          "hr9": 1.32,
+          "hr9": 1.31,
           "hand": "RHP"
         },
         "lineup": [
@@ -92,12 +92,12 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.161
+            "iso": 0.162
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.207
+            "iso": 0.206
           },
           {
             "id": 663538,
@@ -618,7 +618,7 @@
     },
     {
       "gamePk": 822769,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-28T23:15:00Z",
       "matchup": "SEA@TOR",
       "away": {
@@ -638,10 +638,56 @@
           "hr9": 0.56,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.073
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.118
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.091
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.155
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.164
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.207
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.117
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.116
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.157
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1067,9 +1113,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 85.7,
+        "wind_mph": 5.2,
+        "wind_dir": 200,
+        "tail_mph": 4.0,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.037
     },
     {
       "gamePk": 823178,
