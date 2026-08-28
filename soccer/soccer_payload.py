@@ -336,12 +336,13 @@ def shape_ticket(t, players, i, voice, apps):
         })
     out_legs.sort(key=lambda l: -(l['total'] or 0))
     pool = NAMES.get(kind, NAMES['family'])
+    tname = pool[i % len(pool)]
     anchor = out_legs[0]['name'] if out_legs else None
     return {
-        'name': pool[i % len(pool)],
+        'name': tname,
         'kind': kind,
         'badge': BADGE.get(kind, '🎟'),
-        'note': voice.ticket_note(out_legs, players, apps),
+        'note': voice.ticket_note(out_legs, players, apps, tname),
         'players': out_legs,
         'nlegs': len(out_legs),
         'anchor': anchor,
@@ -357,14 +358,90 @@ def shape_ticket(t, players, i, voice, apps):
     }
 
 
-def _pick(options, key):
-    h = 0
+def _h(key):
+    """FNV-1a. Any stable hash would do; the point is that it is STABLE. A note that
+    reshuffles itself between builds is a diff nobody can review, and this board rebuilds
+    every fifteen minutes."""
+    h = 2166136261
     for ch in key:
-        h = (h * 131 + ord(ch)) & 0xFFFFFFFF
-    return options[h % len(options)]
+        h = ((h ^ ord(ch)) * 16777619) & 0xFFFFFFFF
+    return h
+
+
+def _pick(options, key):
+    """Deterministic variety: same key -> same phrasing on every build."""
+    return options[_h(key) % len(options)]
+
+
+def _rot(seq, key, pin_last=('price',)):
+    """Deterministic rotation of an angle list, with the weak angles pinned to the back.
+
+    VOICE-2026-08-28. This is the fix for the real complaint. `angles()` returns candidates in
+    a FIXED priority order -- rate, quality, volume, finish, minutes, price -- and the caller
+    took the first unused one, so the highest-xG man on every slip led with "runs 0.xx xG a 90"
+    and the board read like a mail merge. Rotating by the SLIP as well as the player means the
+    same striker leads on his shot quality on one ticket and his minutes on the next, without
+    any clause ever ceasing to be true of him.
+    """
+    # VOICE-2026-08-28b: rotating the WHOLE list let 'price' come out first, and "Kane -200"
+    # is not a reason to back anybody -- it is the fact the reader can already see in the odds
+    # column two inches to the right. Hold it (and anything else named in pin_last) at the
+    # back so it stays a filler clause, and rotate only the angles that say something about
+    # the player.
+    head = [x for x in seq if x[0] not in pin_last]
+    tail = [x for x in seq if x[0] in pin_last]
+    if not head:
+        return list(tail)
+    n = _h(key) % len(head)
+    return head[n:] + head[:n] + tail
+
+
+# --------------------------------------------------------------------------------------
+# VOICE-2026-08-28. Owner: *"ticket descriptions need way more creativity. reference the
+# scottish announcer with colorful language for inspiration. need variety. no one wants to
+# read the same bland bullshit on every ticket."*
+#
+# So: the register of Scottish football commentary -- idiomatic, physical, unimpressed by its
+# own cleverness. Not an impersonation of any real commentator, and no invented quotes.
+#
+# THE HARD RULE IS UNCHANGED AND MATTERS MORE NOW: every clause is a restatement of a number
+# that is actually in the payload. Colour is allowed in HOW a fact is said, never in WHAT is
+# claimed. "He lives in there, 0.69 xG a 90" is the same fact as "runs 0.69 xG a 90"; "he'll
+# score tonight" is not a fact at all and must never appear. Comparative claims are out too --
+# `_hi()` only means "at or above this slate's 60th percentile", which is not "the best on the
+# card", so nothing in these banks says that.
+#
+# Three sources of variety, in order of how much they actually help:
+#   1. THE LEAD ANGLE ROTATES PER SLIP (_rot). Biggest win by far: the same player opens on a
+#      different true fact on a different ticket.
+#   2. Eight to eleven phrasings per angle instead of two or three.
+#   3. The SENTENCE FRAME varies -- comma list, two short sentences, a colon after a short
+#      opener -- so even two notes built from the same angles do not scan alike.
+# --------------------------------------------------------------------------------------
+
+OPENERS_3 = ['Three that can all find it', 'Three names, one afternoon', 'If all three turn up',
+             'Everything has to land', 'The lot has to come off', 'Three to hear the net rustle',
+             'All three or nothing', 'Three goals, three grounds', 'Nothing here is a formality',
+             'Hold your nerve', 'Three that fancy it']
+OPENERS_1 = ['One name', 'Straight up', 'Nothing fancy', 'The plain one', 'No frills',
+             'Just the one', 'Keep it simple']
+
+FRAMES_3 = ['{a}, {b}, and {c}.', '{o}: {a}, {b}, {c}.', '{a}. {b}, and {c}.',
+            '{o} — {a}, {b}, and {c}.', '{a} and {b}. {c}.', '{a}; {b}; {c}.']
+FRAMES_2 = ['{a} and {b}.', '{o}: {a}, {b}.', '{a}, and {b}.', '{o} \u2014 {a}, and {b}.']
 
 
 class Voice:
+    """Writes the prose. Holds the slate's own distribution so 'high' means high TONIGHT.
+
+    A fixed threshold would call 0.30 xG90 good in June and good in a Champions League
+    qualifier, which is how you end up describing every player as dangerous.
+
+    Two registers. A CARD has room for a full sentence; a TICKET note is clamped to two lines
+    by `.tnote` and carries three legs, so it gets the same fact in a shorter form. Same angle
+    selection, same numbers, different length -- not a different claim.
+    """
+
     def __init__(self, P):
         self.q = {}
         for k in ('npxg90', 'xgpershot', 'shots90'):
@@ -374,99 +451,205 @@ class Voice:
     def _hi(self, k, v):
         return v is not None and self.q.get(k) is not None and v >= self.q[k]
 
-    def angles(self, p, avg, who, brief=False):
+    def angles(self, p, avg, who, salt='', lead=False):
+        """[(key, brief, full)] for one player, best-first. `who` is how to name him.
+
+        Every entry restates a number that is on the payload. Nothing here predicts anything.
+        """
         out = []
         npx, xps, sh = p.get('npxg90'), p.get('xgpershot'), p.get('shots90')
         fin, odds = p.get('finish90'), p.get('odds')
         comp = ('the Champions League playoff round' if p.get('league') == 'UCL_PO'
                 else 'his league')
+        k = who + salt
+
+        # VOICE-2026-08-28c. Some phrasings put the player in the OBJECT ("the manager leaves
+        # Kane on", "+150 for Pulisic", "there is a goal in Kane most weeks"). Those are fine
+        # mid-sentence, but if one LEADS, every later clause -- which `_depersonalise` has
+        # reduced to a bare verb phrase -- attaches itself to the wrong subject: "The manager
+        # leaves Harry Kane on ... and is not one for hitting them from forty yards" says it of
+        # the manager. So when this call is producing the opening clause, choose only from the
+        # forms where the player is the subject, and fall back to the whole bank if a given
+        # angle has none.
+        def say(opts, kk):
+            if lead:
+                subj = [o for o in opts if o.startswith(who + ' ')]
+                if subj:
+                    return _pick(subj, kk)
+            return _pick(opts, kk)
+
         if npx is None:
-            if brief:
-                out.append(('noxg', _pick([
-                    f'{who} has no xG behind him',
-                    f'{who} has no model behind him',
-                    f'{who} rides the price alone',
-                ], who)))
-            else:
-                out.append(('noxg', _pick([
-                    f'{who} has no top-five xG history behind him, so that price is the whole argument',
-                    f'{who} sits outside Understat\'s five leagues — {comp} is not covered — so the market is carrying him',
-                    f'{who} is unscored on the edge half and rides the market alone',
-                ], who)))
+            out.append(('noxg',
+                        say([f'{who} has no xG behind him',
+                               f'{who} rides the price alone',
+                               f'nothing on {who} but the price',
+                               f'{who} is unmodelled',
+                               f'no numbers on {who} at all',
+                               f'{who} on trust'], k + 'n'),
+                        say([f'{who} has no top-five xG history behind him, so that price is the whole argument',
+                               f"{who} sits outside Understat's five leagues — {comp} is not covered — so the market is carrying him",
+                               f'there is no model on {who} at all; the price is doing the talking',
+                               f'{who} is unscored on the edge half and rides the market alone',
+                               f'{who} arrives with no xG whatsoever, so the price is doing the talking',
+                               f'{who} has nothing behind him but the number beside his name',
+                               f'{who} is a blank on the model half, which leaves the market to argue for him'], k + 'N')))
             if odds:
-                out.append(('price', f'{who} is {odds:+d}' if brief else
-                            _pick([f'{who} is the shortest of them at {odds:+d}',
-                                   f'{who} is priced {odds:+d}'], who + 'p')))
+                out.append(('price',
+                            say([f'{who} at {odds:+d}', f'{odds:+d} for {who}',
+                                   f'{who} is {odds:+d}'], k + 'p'),
+                            say([f'{who} is priced {odds:+d}',
+                                   f'the book has {who} at {odds:+d}'], k + 'P')))
             return out
+
         if self._hi('npxg90', npx):
-            out.append(('rate', f'{who} runs {npx:.2f} xG a 90' if brief else _pick([
-                f'{who} runs {npx:.2f} non-penalty xG a 90',
-                f'{who} is generating {npx:.2f} xG every 90 he plays',
-                f'{who} carries {npx:.2f} xG a 90 into it',
-            ], who)))
+            out.append(('rate',
+                        say([f'{who} at {npx:.2f} xG a 90',
+                               f'{who} lives in there — {npx:.2f} a 90',
+                               f'{who} carries {npx:.2f} a 90',
+                               f'{who} has a goal in him, {npx:.2f} a 90',
+                               f'{who} keeps turning up: {npx:.2f} a 90',
+                               f'{who} is a menace at {npx:.2f} a 90',
+                               f'{npx:.2f} xG a 90 for {who}',
+                               f'{who} in the right postcode, {npx:.2f} a 90'], k + 'r'),
+                        say([f'{who} is generating {npx:.2f} non-penalty xG every ninety he plays',
+                               f'{who} spends his afternoons where the ball drops — {npx:.2f} non-penalty xG a 90',
+                               f'{who} does not need many invitations: {npx:.2f} non-penalty xG a 90',
+                               f'{who} is worth {npx:.2f} xG a 90 before anyone kicks a ball',
+                               f'there is a goal in {who} most weeks, {npx:.2f} non-penalty xG a 90',
+                               f'{who} runs {npx:.2f} non-penalty xG a 90'], k + 'R')))
         if self._hi('xgpershot', xps):
-            out.append(('quality', f'{who} is at {xps:.2f} xG a shot' if brief else _pick([
-                f'{who} gets into the right positions — {xps:.2f} xG a shot',
-                f'{who} takes the better chance at {xps:.2f} xG a shot',
-                f'{who} shoots from where it counts ({xps:.2f} xG a shot)',
-            ], who + 'q')))
+            out.append(('quality',
+                        say([f'{who} {xps:.2f} xG a shot',
+                               f'{who} picks his moment, {xps:.2f} a shot',
+                               f'{who} does not waste them — {xps:.2f} a shot',
+                               f'{who} is fussy: {xps:.2f} a shot',
+                               f'{who} shoots from the good places ({xps:.2f})',
+                               f'{xps:.2f} xG a shot for {who}'], k + 'q'),
+                        say([f'{who} shoots from where it counts — {xps:.2f} xG a shot',
+                               f'{who} is not one for hitting them from forty yards: {xps:.2f} xG a shot',
+                               f'{who} gets himself into the right positions, {xps:.2f} xG a shot',
+                               f'every attempt {who} takes is worth {xps:.2f} xG'], k + 'Q')))
         if self._hi('shots90', sh):
-            out.append(('volume', f'{who} shoots {sh:.1f} a 90' if brief else _pick([
-                f'{who} gets {sh:.1f} attempts away every 90',
-                f'{who} shoots {sh:.1f} times a 90',
-            ], who + 'v')))
+            out.append(('volume',
+                        say([f'{who} {sh:.1f} shots a 90',
+                               f'{who} will have a go — {sh:.1f} a 90',
+                               f'{who} lets fly {sh:.1f} times a 90',
+                               f'{who} rattles off {sh:.1f} a 90',
+                               f'{who} does not need asking twice, {sh:.1f} a 90'], k + 'v'),
+                        say([f'{who} gets {sh:.1f} attempts away every ninety',
+                               f'{who} is never shy — {sh:.1f} shots a 90',
+                               f'{who} will pull the trigger {sh:.1f} times a game'], k + 'V')))
         if fin is not None and fin >= 0.05:
-            out.append(('finish', f'{who} is +{fin:.2f} on his xG' if brief else
-                        f'{who} has been beating his xG by {fin:.2f} a 90'))
+            out.append(('finish',
+                        say([f'{who} +{fin:.2f} on his xG',
+                               f'{who} is beating the numbers, +{fin:.2f}',
+                               f'{who} has been burying them, +{fin:.2f} a 90',
+                               f'{who} ahead of his xG by {fin:.2f}'], k + 'f'),
+                        say([f'{who} has been finishing better than the chances deserve, +{fin:.2f} a 90 on his xG',
+                               f'{who} is {fin:.2f} a 90 to the good on his xG',
+                               f'the ones that fall to {who} have been going in — +{fin:.2f} a 90 over his xG'], k + 'F')))
         elif fin is not None and fin <= -0.08:
-            out.append(('finish', f'{who} is {fin:.2f} under his xG' if brief else
-                        f'{who} sits {abs(fin):.2f} a 90 short of his xG, which is a case for him '
-                        f'only if you believe that regresses'))
+            out.append(('finish',
+                        say([f'{who} {fin:.2f} under his xG',
+                               f'{who} has been wasteful, {fin:.2f} a 90',
+                               f'{who} owed goals — {abs(fin):.2f} a 90 short',
+                               f'{who} {abs(fin):.2f} a 90 light on his xG'], k + 'f'),
+                        say([f'{who} is {abs(fin):.2f} a 90 short of his xG, which is a case for him only if you think that turns',
+                               f'the chances have been falling to {who} and not going in — {abs(fin):.2f} a 90 under his xG'], k + 'F')))
         if avg:
             if avg >= 75:
-                out.append(('mins', f'{who} plays the ninety' if brief else _pick([
-                    f'{who} plays the full ninety ({avg:.0f} minutes an appearance)',
-                    f'{who} is on the pitch {avg:.0f} minutes a game',
-                ], who + 'm')))
+                out.append(('mins',
+                            say([f'{who} plays the ninety',
+                                   f'{who} never comes off',
+                                   f'{who} is on for the lot',
+                                   f'{who} sees out the ninety',
+                                   f'{who} does not get hooked',
+                                   f'{who} is there at the death'], k + 'm'),
+                            say([f'{who} plays the full ninety, {avg:.0f} minutes an appearance',
+                                   f'{who} is on the pitch {avg:.0f} minutes a game, so he will be there at the death',
+                                   f'the manager leaves {who} on — {avg:.0f} minutes an appearance',
+                                   f'{who} does not come off — {avg:.0f} minutes an appearance',
+                                   f'{who} sees out the ninety more often than not, {avg:.0f} minutes a game',
+                                   f'{who} is still on the pitch when it matters, {avg:.0f} minutes an appearance'], k + 'M')))
             else:
-                out.append(('mins', f'{who} is a {avg:.0f}-minute man' if brief else
-                            f'{who} averages only {avg:.0f} minutes an appearance'))
+                out.append(('mins',
+                            say([f'{who} a {avg:.0f}-minute man',
+                                   f'{who} usually gets the hook ({avg:.0f}′)',
+                                   f'{who} wants it early — {avg:.0f}′ a game',
+                                   f'{who} off around {avg:.0f}′'], k + 'm'),
+                            say([f'{who} averages {avg:.0f} minutes an appearance, so he wants it before the hour',
+                                   f'{who} tends to come off around the {avg:.0f}-minute mark',
+                                   f'{who} averages only {avg:.0f} minutes an appearance',
+                                   f'{who} gets the hook about the {avg:.0f}-minute mark, so he needs it early',
+                                   f'{who} is rarely there at the end — {avg:.0f} minutes an appearance'], k + 'M')))
         if not out:
-            out.append(('rate', f'{who} runs {npx:.2f} xG a 90' if brief else
+            out.append(('rate', f'{who} at {npx:.2f} xG a 90',
                         f'{who} runs {npx:.2f} non-penalty xG a 90'))
         if odds:
-            out.append(('price', f'{who} is {odds:+d}' if brief else f'{who} is priced {odds:+d}'))
+            out.append(('price',
+                        say([f'{who} at {odds:+d}', f'{odds:+d} for {who}',
+                               f'{who} is {odds:+d}'], k + 'p'),
+                        say([f'{who} is priced {odds:+d}',
+                               f'the book has {who} at {odds:+d}'], k + 'P')))
         return out
 
-    def ticket_note(self, legs, players, apps):
+    def ticket_note(self, legs, players, apps, tname=''):
+        """One sentence naming what each leg is FOR, in slip order, no angle used twice."""
+        # a three-leg slip gets one clause per leg or the note overruns the two-line clamp;
+        # a single (anchor / screamer) has the room for two and reads thin with one.
         per = 1 if len(legs) >= 3 else 2
         used, bits = set(), []
         for l in legs:
             p = players.get(l['name'])
             if not p:
                 continue
-            cands = self.angles(p, apps.get(l['name']), _surname(l['name']), brief=True)
+            sur = _surname(l['name'])
+            # Two passes over the SAME angle list: identical keys in identical order (the
+            # rotation depends only on the keys), so index-free key lookup is safe.
+            lead_of = {a[0]: a for a in self.angles(p, apps.get(l['name']), sur,
+                                                    salt=tname, lead=True)}
+            cands = _rot(self.angles(p, apps.get(l['name']), sur, salt=tname), tname + sur)
             took = 0
-            for k, c in cands:
-                if k in used:
+            for key, brief, full in cands:
+                if key in used:
                     continue
-                used.add(k)
-                bits.append(c if took == 0 else _depersonalise(c, _surname(l['name'])))
+                used.add(key)
+                # A THREE-leg slip is three clauses inside a two-line clamp, so it gets the
+                # short forms. A single carries one player and has room for the long ones, and
+                # read like a telegram without them: "Haaland -105 - 0.69 xG a 90 for him."
+                if took == 0:
+                    _k, brief, full = lead_of.get(key, (key, brief, full))
+                    bits.append(brief if per == 1 else full)
+                else:
+                    bits.append(_depersonalise(brief if per == 1 else full, sur))
                 took += 1
                 if took == per:
                     break
             if not took and cands:
-                bits.append(cands[0][1])
-        return _sentence(bits)
+                bits.append(cands[0][1] if per == 1 else cands[0][2])
+        if not bits:
+            return ''
+        if len(bits) >= 3:
+            body = _pick(FRAMES_3, tname + 'f3').format(
+                a=bits[0], b=bits[1], c=', '.join(bits[2:]), o=_pick(OPENERS_3, tname + 'o3'))
+        elif len(bits) == 2:
+            body = _pick(FRAMES_2, tname + 'f2').format(
+                a=bits[0], b=bits[1], o=_pick(OPENERS_1, tname + 'o1'))
+        else:
+            body = bits[0] + '.'
+        body = re.sub(r'(?<=\. )([a-z])', lambda m: m.group(1).upper(), body)
+        return body[0].upper() + body[1:]
 
     def why(self, p, avg):
+        """Two or three clauses on one card, full name first, then the name drops away."""
         n = p['name']
         keep, used = [], set()
-        for k, c in self.angles(p, avg, n):
-            if k in used:
+        lead_of = {a[0]: a for a in self.angles(p, avg, n, lead=True)}
+        for key, _brief, full in _rot(self.angles(p, avg, n), n + 'card'):
+            if key in used:
                 continue
-            used.add(k)
-            keep.append(_depersonalise(c, n) if keep else c)
+            used.add(key)
+            keep.append(_depersonalise(full, n) if keep else lead_of.get(key, (0, 0, full))[2])
             if len(keep) == 3:
                 break
         return _sentence(keep)
@@ -491,7 +674,19 @@ def _surname(name):
 
 
 def _depersonalise(clause, name):
-    return clause[len(name) + 1:] if clause.startswith(name + ' ') else clause
+    """Second and third clauses drop the name: 'Duro shoots 3.1 times' -> 'shoots 3.1 times'.
+
+    VOICE-2026-08-28: the phrase banks now include forms where the name is an OBJECT rather
+    than the subject ('nothing on Duro but the price', '+180 for Duro'). Stripping a LEADING
+    name no longer covers those, and leaving them alone printed the surname twice in one
+    sentence. A non-leading occurrence becomes 'him', which is grammatical in every bank entry
+    precisely because the name is only ever an object there.
+    """
+    if clause.startswith(name + ' '):
+        return clause[len(name) + 1:]
+    if name in clause:
+        return clause.replace(name, 'him', 1)
+    return clause
 
 
 if __name__ == '__main__':

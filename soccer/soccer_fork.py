@@ -202,9 +202,15 @@ def seams(payload_js):
     add('tracker-retired',
         "defs.push(['family','💣','Dingers'])",
         "defs.push(['family','🗄','Retired'])")
+    # LEGENDMODEL-2026-08-28. Owner: *"replace the recycled emoji for cover with the bar chart
+    # emoji and model."* 📊 is the wbadge -- the model score on every card and every leg row --
+    # and it was the one glyph on the board with no legend entry at all, while 🔄 "cover" was
+    # MLB vocabulary for a lane soccer labels in words on the card anyway ("often hooked late",
+    # "70′"). The seam now also swallows the trailing "ild", so the stranded weather word
+    # "⛅ mild" goes with it rather than dangling off a line about substitutes.
     add('legend',
-        '🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ m',
-        '🔄 cover · 🟢 strong sub · 🟡 thin · 🔴 none · ⛅ m')
+        '🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild',
+        '📊 model · 🟢 strong sub · 🟡 thin · 🔴 none')
 
     # ---- 6. THINGS THAT ARE MLB-FITTED AND MUST NOT SILENTLY CARRY OVER --------------
     # GCAL turns a TOTAL into P(homers) for the Builder tab's grade. It was fitted on MLB
