@@ -70,10 +70,21 @@
   function buildPool(players, cfg, opts) {
     opts = opts || {};
     var xi = opts.xi || null, excl = opts.exclude || {};
+    /* XIPARTIAL-2026-08-28 -- THE XI FILTER IS PER MATCH, NOT PER SLATE.
+     * `xiMatches` is the set of match keys whose team sheet has actually published. A player in
+     * a match that has NOT published is UNKNOWN, not benched, so he stays eligible; only inside
+     * a published match does "not in the XI" mean "do not draft him".
+     * Before this, one unpublished sheet meant the whole slate had to wait -- and on a staggered
+     * card (2026-08-28: kickoffs 17:00Z through 19:30Z, sheets landing ~1h before each) the set
+     * is NEVER complete while the early matches are still mintable. The board therefore never
+     * re-drafted a benched player at all. Omit `xiMatches` and the old all-or-nothing behaviour
+     * is exactly preserved, which is what every existing caller and test relies on. */
+    var xiM = opts.xiMatches || null;
+    var gated = function (p) { return !xiM || !!xiM[String(p.match)]; };
     var elig = players.filter(function (p) {
       if (p.gate_z == null || p.gate_z < cfg.Z_GATE) return false;
       if (excl[p.name]) return false;
-      if (xi && !xi[p.name]) return false;
+      if (xi && gated(p) && !xi[p.name]) return false;
       return true;
     });
     elig.sort(function (a, b) {
@@ -402,7 +413,10 @@
     if (now == null) return { tickets: D.tickets, changed: false, why: 'no clock supplied' };
     if (!Object.keys(KO).length) return { tickets: D.tickets, changed: false, why: 'no kickoffs baked (meta.ko)' };
 
-    var xi = opts.xi || null;
+    var xi = opts.xi || null, xiM = opts.xiMatches || null;
+    /* XIPARTIAL-2026-08-28: see buildPool. A player whose match has no published
+       sheet is UNKNOWN, and unknown is not a dead leg. */
+    var xiKnown = function (p) { return !xiM || !!xiM[String(p.game)]; };
     var prior = (D.tickets || []).slice();
     var frozen = [], open = [];
     prior.forEach(function (t) {
@@ -487,7 +501,7 @@
     var alive = {};
     Object.keys(D.players).forEach(function (n) {
       var p = D.players[n];
-      alive[n] = !p.out && !p.void && p.odds != null && (!xi || xi[n]);
+      alive[n] = !p.out && !p.void && p.odds != null && (!xi || !xiKnown(p) || xi[n]);
     });
 
     var groups = {}, orderedAnchors = [];
@@ -515,7 +529,7 @@
 
       /* candidate partners, strongest first: the gated pool minus the anchor and anything
          already committed anywhere on the card */
-      var cands = withStrength(buildPool(field, cfg, { xi: xi, exclude: usedPartners }))
+      var cands = withStrength(buildPool(field, cfg, { xi: xi, xiMatches: xiM, exclude: usedPartners }))
         .filter(function (p) { return p.name !== an; });
 
       var fixed = [], ok = true, localUsed = {};
@@ -558,7 +572,7 @@
     var budget = Math.max(0, cfg.ANCH - Object.keys(takenAnchors).length);
     var remaining = field.filter(function (p) { return !usedPartners[p.name] && !takenAnchors[p.name]; });
     var res = budget > 0
-      ? draft(remaining, cfg, { xi: xi, anchorBudget: budget, anchorMatchCounts: anchorMatchCounts,
+      ? draft(remaining, cfg, { xi: xi, xiMatches: xiM, anchorBudget: budget, anchorMatchCounts: anchorMatchCounts,
                                 slateMatches: Object.keys(KO).length })
       : { tickets: [], pool: [], anchors: 0, thin: false };
 

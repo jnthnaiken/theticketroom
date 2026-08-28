@@ -78,27 +78,42 @@ Object.keys(D.players).forEach(n => {
 /* ---- team news ---------------------------------------------------------------------------
  * Same contract as everywhere else: absent means "no team news", and the whole priced field is
  * eligible. An EMPTY xi is a different fact and must never be treated as the first. */
-let xi = null;
+let xi = null, xiMatches = null;
 if (tn) {
   const XI = tn.xi || {}, BENCH = tn.bench || {}, ABSENT = tn.absent || {};
   if (!Object.keys(XI).length) {
     console.error('!! teamnews.json carries an EMPTY xi -- refusing to gate the pool to nothing');
     process.exit(3);
   }
+  /* XIPARTIAL-2026-08-28. soccer_teamnews.py already records, per match, whether the sheet is
+     COMPLETE (`trusted`: eleven starters a side) and maps every classified player to his match.
+     Both facts were being thrown away here: the XI collapsed to a flat name set and was applied
+     to the whole slate, so one unpublished sheet meant either wait (the old workflow's rc=20) or
+     delete that match from the board. Neither is right. Scope the filter to the matches that
+     HAVE published, and leave the rest alone. */
+  const TRUST = tn.trusted || {};
+  const slugOf = n => XI[n] || BENCH[n] || ABSENT[n] || null;
+  xiMatches = {};
+  Object.keys(D.players).forEach(n => {
+    const sl = slugOf(n);
+    if (sl && TRUST[sl] !== false) xiMatches[String(D.players[n].game)] = true;
+  });
   Object.keys(D.players).forEach(n => {
     const p = D.players[n];
+    if (!xiMatches[String(p.game)]) return;      /* sheet not out -> he stays 'projected' */
     p.status = XI[n] ? 'confirmed' : BENCH[n] ? 'benched' : p.status;
     if (ABSENT[n]) p.out = true;
   });
   xi = SD.nameSet(Object.keys(XI));
   console.log(`  team news: ${Object.keys(XI).length} confirmed XI, ` +
-              `${Object.keys(BENCH).length} benched, ${Object.keys(ABSENT).length} out of squad`);
+              `${Object.keys(BENCH).length} benched, ${Object.keys(ABSENT).length} out of squad` +
+              `  (sheets published for ${Object.keys(xiMatches).length} match(es))`);
 } else {
   console.log('  team news: none supplied -- the prior draft stands on the whole priced field');
 }
 
 const before = (D.tickets || []).map(t => t.kind + ':' + t.players.map(l => l.name).join('+')).sort();
-const r = SD.redraft(D, { nowUTCmin: now, xi });
+const r = SD.redraft(D, { nowUTCmin: now, xi, xiMatches });
 
 console.log(`  reprice: ${repriced} moved, ${frozenPrice} frozen (match underway)`);
 console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.minted} new` +
