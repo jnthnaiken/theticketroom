@@ -108,6 +108,9 @@ jobs:
           cd soccer
           rm -rf .work && mkdir -p .work
           cp slates/${{ steps.slate.outputs.date }}/{ags.psv,xg.psv,fixtures.json} .work/
+          # squads.psv is SQUADCLUB-2026-08-28 and is optional: slate directories committed before
+          # it existed do not have one, and the payload simply falls back to the understat club.
+          cp slates/${{ steps.slate.outputs.date }}/squads.psv .work/ 2>/dev/null || true
           cp soccer_*.py soccer_*.js .work/
           cp soccer_season.json .work/
           cp ../index.html .work/index_live.html
@@ -148,7 +151,15 @@ jobs:
           cd soccer/.work
           python3 soccer_mock.py
           if [ -f prior.json ]; then
-            NOW=$(( $(date -u +%H) * 60 + $(date -u +%M) ))
+            # OCTAL-2026-08-28. `date -u +%H` prints a LEADING ZERO, and bash arithmetic reads a
+            # leading-zero literal as OCTAL -- so 08 and 09 are not numbers and the step died with
+            # "value too great for base (error token is \"08\")". 00-07 parse fine as octal, 10+ has
+            # no zero, so the ONLY casualties were the hours 08 and 09 -- and this build ran green
+            # every other hour of the day, which is why it went unnoticed. Measured 2026-08-28:
+            # 29 consecutive failures, 08:00Z through 09:55Z, green again at 10:00Z. That window is
+            # 4:00-5:59 AM ET, i.e. the first hour of the morning cover the owner asked for.
+            # 10# forces base ten.
+            NOW=$(( 10#$(date -u +%H) * 60 + 10#$(date -u +%M) ))
             set +e
             node soccer_rebuild_cli.js prior.json scored.json tickets.json \
                  $([ -f teamnews.json ] && echo "--teamnews teamnews.json") --now $NOW
@@ -168,7 +179,8 @@ jobs:
           cd soccer/.work
           python3 soccer_payload.py scored.json tickets.json xg.psv soccer_D.json \
                   ${{ steps.slate.outputs.date }} --season soccer_season.json \
-                  $([ -f teamnews.json ] && echo "--teamnews teamnews.json")
+                  $([ -f teamnews.json ] && echo "--teamnews teamnews.json") \
+                  $([ -f squads.psv ] && echo "--squads squads.psv")
           python3 soccer_fork.py index_live.html soccer_D.json soccer_index.html
 
       # ------------------------------------------------------------------------------------
