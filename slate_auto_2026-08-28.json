@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T20:36:37Z",
+  "pulled_at": "2026-08-28T20:46:58Z",
   "games": [
     {
       "gamePk": 824638,
@@ -77,12 +77,12 @@
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.273
+            "iso": 0.272
           },
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.21
+            "iso": 0.209
           },
           {
             "id": 683737,
@@ -1384,8 +1384,54 @@
           "hr9": 1.46,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.065
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.287
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.162
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.229
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.089
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.305
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.089
+          },
+          {
+            "id": 694377,
+            "name": "Nick Yorke",
+            "iso": 0.073
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
@@ -1529,16 +1575,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 82.7,
-        "wind_mph": 6.3,
-        "wind_dir": 225,
-        "tail_mph": 6.1,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 823178,
