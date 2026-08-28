@@ -9,25 +9,39 @@ def _dec(am):
 
 
 def _rrnet(dec, mask, risk):
+    # RRSTAKE-2026-08-28. `risk` is the TOTAL staked across the round robin -- 2u on a moon, which
+    # is 3 doubles + 1 treble at 0.5u each, NOT 1u each. Adding the bare decimal product settled a
+    # 2u slip as though 4u were down and credited every winner roughly double. Mirrors the same
+    # fix in grade_night.py and index.html's rrmax().
     K = len(dec)
+    ncombo = _ncombo(K)
+    unit = (risk / ncombo) if ncombo else 0.0
     s = -risk
     for a in range(K):
         for b in range(a + 1, K):
             if mask[a] and mask[b]:
-                s += dec[a] * dec[b]
+                s += unit * dec[a] * dec[b]
     for a in range(K):
         for b in range(a + 1, K):
             for c in range(b + 1, K):
                 if mask[a] and mask[b] and mask[c]:
-                    s += dec[a] * dec[b] * dec[c]
+                    s += unit * dec[a] * dec[b] * dec[c]
     if K >= 4:
         for a in range(K):
             for b in range(a + 1, K):
                 for c in range(b + 1, K):
                     for d in range(c + 1, K):
                         if mask[a] and mask[b] and mask[c] and mask[d]:
-                            s += dec[a] * dec[b] * dec[c] * dec[d]
+                            s += unit * dec[a] * dec[b] * dec[c] * dec[d]
     return s
+
+
+def _ncombo(K):
+    """Combinations a 'by 2s & 3' round robin actually places (plus 4s when the slip is that
+    wide) -- the denominator the total risk is split across."""
+    import math
+    sizes = [2, 3] + ([4] if K >= 4 else [])
+    return sum(math.comb(K, z) for z in sizes if K >= z)
 
 
 def grade_ticket(t, players, finals, stake_base=1.0):

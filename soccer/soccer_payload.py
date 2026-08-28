@@ -331,20 +331,24 @@ def _r1(x):
 
 
 def rr_maxprofit(legs, risk):
+    # RRSTAKE-2026-08-28. `risk` is the TOTAL across the round robin (2u on a moon = four bets at
+    # 0.5u), so divide by the combination count instead of pricing 1u on each. See index.html's
+    # rrmax(); this was overstating every printed max profit by about 2x.
     dec = [_dec(l['odds']) for l in legs if l.get('odds')]
     L = len(dec)
-    s = -risk
+    s = 0.0
+    n = 0
     for a in range(L):
         for b in range(a + 1, L):
-            s += dec[a] * dec[b]
+            s += dec[a] * dec[b]; n += 1
     for a in range(L):
         for b in range(a + 1, L):
             for c in range(b + 1, L):
-                s += dec[a] * dec[b] * dec[c]
+                s += dec[a] * dec[b] * dec[c]; n += 1
     if L >= 4:
         for a, b, c, d in itertools.combinations(range(L), 4):
-            s += dec[a] * dec[b] * dec[c] * dec[d]
-    return _r1(s)
+            s += dec[a] * dec[b] * dec[c] * dec[d]; n += 1
+    return _r1((risk / n) * s - risk) if n else 0.0
 
 
 def _rr_block(legs, risk):

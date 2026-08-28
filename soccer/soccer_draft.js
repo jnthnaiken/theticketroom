@@ -323,14 +323,19 @@
 
   /* Round-robin max profit. Ported from soccer_payload.rr_maxprofit (which is itself
      index.html's rrmax): every 2-leg and 3-leg combination, minus the total risk. */
+  /* RRSTAKE-2026-08-28. `risk` is the TOTAL staked across the round robin -- 2u on a moon, which
+     is 3 doubles + 1 treble at 0.5u each, NOT 1u each. Summing the bare decimal products priced
+     4u on a slip that risks 2 and roughly DOUBLED every max profit the board printed. Fixed in
+     lockstep with index.html's rrmax(), soccer_payload.rr_maxprofit(), grade_night.py and
+     soccer_grade._rrnet -- five copies of one formula, which is its own lesson. */
   function rrMaxProfit(legs, risk) {
     var dec = legs.filter(function (l) { return l.odds; }).map(function (l) { return a2d(l.odds); });
-    var L = dec.length, s = -risk, a, b, c, d;
-    for (a = 0; a < L; a++) for (b = a + 1; b < L; b++) s += dec[a] * dec[b];
-    for (a = 0; a < L; a++) for (b = a + 1; b < L; b++) for (c = b + 1; c < L; c++) s += dec[a] * dec[b] * dec[c];
+    var L = dec.length, s = 0, n = 0, a, b, c, d;
+    for (a = 0; a < L; a++) for (b = a + 1; b < L; b++) { s += dec[a] * dec[b]; n++; }
+    for (a = 0; a < L; a++) for (b = a + 1; b < L; b++) for (c = b + 1; c < L; c++) { s += dec[a] * dec[b] * dec[c]; n++; }
     if (L >= 4) for (a = 0; a < L; a++) for (b = a + 1; b < L; b++) for (c = b + 1; c < L; c++)
-      for (d = c + 1; d < L; d++) s += dec[a] * dec[b] * dec[c] * dec[d];
-    return Math.floor(s * 10 + 0.5) / 10;
+      for (d = c + 1; d < L; d++) { s += dec[a] * dec[b] * dec[c] * dec[d]; n++; }
+    return n ? Math.floor(((risk / n) * s - risk) * 10 + 0.5) / 10 : 0;
   }
 
   function legOf(name, src) {
