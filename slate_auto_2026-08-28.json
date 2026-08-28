@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T20:46:58Z",
+  "pulled_at": "2026-08-28T20:52:00Z",
   "games": [
     {
       "gamePk": 824638,
@@ -398,7 +398,7 @@
         "wind_mph": 4.8,
         "wind_dir": 56,
         "tail_mph": -4.3,
-        "precip": 4
+        "precip": 7
       },
       "wf": 1.004
     },
@@ -664,7 +664,7 @@
         "wind_mph": 7.2,
         "wind_dir": 171,
         "tail_mph": 6.0,
-        "precip": 3
+        "precip": 9
       },
       "wf": 1.032
     },
@@ -1194,7 +1194,7 @@
         "wind_mph": 6.0,
         "wind_dir": 345,
         "tail_mph": -5.2,
-        "precip": 1
+        "precip": 4
       },
       "wf": 0.995
     },
@@ -1211,8 +1211,54 @@
           "hr9": 0.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.245
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.188
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.205
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.157
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.172
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.127
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.194
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.042
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.155
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -1575,9 +1621,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 82.7,
+        "wind_mph": 6.3,
+        "wind_dir": 225,
+        "tail_mph": 6.1,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.04
     },
     {
       "gamePk": 823178,
@@ -1609,16 +1662,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 63\u00b0",
-        "lean": "Boost",
-        "temp": 63.2,
-        "wind_mph": 13.8,
-        "wind_dir": 290,
-        "tail_mph": 12.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     }
   ]
 }
