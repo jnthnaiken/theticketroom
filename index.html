@@ -1089,7 +1089,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('.leg');if(!b)ret
 function selectTab(k){['t','p','b','o','h'].forEach(x=>{const on=x===k,tb=$('#tab-'+x),v=$('#v-'+x);if(tb)tb.setAttribute('aria-selected',on);if(v)v.hidden=!on;});if(k==='b'){renderGameChips();buildPicker();}if(k==='o')renderAdmin();if(k==='h'&&window.htDraw)requestAnimationFrame(window.htDraw);window.scrollTo({top:0,behavior:'smooth'});}
 $('#tab-t').onclick=()=>selectTab('t');$('#tab-p').onclick=()=>selectTab('p');$('#tab-b').onclick=()=>selectTab('b');$('#tab-o').onclick=()=>selectTab('o');$('#tab-h').onclick=()=>selectTab('h');
 const a2d=a=>a>0?1+a/100:1+100/Math.abs(a),d2a=d=>d>=2?Math.round((d-1)*100):Math.round(-100/(d-1));
-function _slateDay(){try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(D.meta&&D.meta.date){if(_td<D.meta.date)return -1;if(_td>D.meta.date)return 1;}}catch(e){}return 0;}function gtMin(gt){const m=(gt||'').match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return null;let h=(+m[1])%12;if(/pm/i.test(m[3]))h+=12;return h*60+(+m[2]);}
+function _slateDay(B){/* SLATEDAY-2026-08-28: measure the board we were GIVEN. Defaults to the baked board so hasStarted()/likelyEnded() are unchanged; assembleClient passes its own D, which server-side is NOT the baked one. */B=B||D;try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(B.meta&&B.meta.date){if(_td<B.meta.date)return -1;if(_td>B.meta.date)return 1;}}catch(e){}return 0;}function gtMin(gt){const m=(gt||'').match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return null;let h=(+m[1])%12;if(/pm/i.test(m[3]))h+=12;return h*60+(+m[2]);}
 function nowETMin(){const s=new Date().toLocaleString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit'});let p=s.split(':'),H=+p[0],M=+p[1];if(H===24)H=0;return H*60+M;}
 function hasStarted(gt){var _d=_slateDay();if(_d)return _d>0;const g=gtMin(gt);return g==null?false:nowETMin()>=g;}
 function isFinal(g){return (D.meta.finals||[]).indexOf(g)>=0;}function isLive(g){return !!(D.meta.gs&&D.meta.gs[String(g)]==='live')||(D.meta.live||[]).indexOf(g)>=0;}
@@ -1619,7 +1619,7 @@ drawTickets();drawPlayers();drawTracker();
     var names=Object.keys(P);
     var tmin=function(n){return gmin(P[n].gtime);};
     function nowMin(){var s=new Date().toLocaleString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit'});var pp=s.split(':');var H=+pp[0],M=+pp[1];if(H===24)H=0;return H*60+M;}
-    function started(n){var m=tmin(n); if(m==null)return false; var _d=_slateDay();if(_d)return _d>0; return nowMin()>=m;}
+    function started(n){var m=tmin(n); if(m==null)return false; /* SLATEDAY-2026-08-28: _slateDay(D) -- D here is assembleClient's PARAMETER and shadows the baked board. regen15.py injects after the draft, so on the first build of a new slate date the baked date is yesterday's; reading it marked every bat started, emptied the draft pool and dropped the board onto the assemble_tickets.py fallback. */var _d=_slateDay(D);if(_d)return _d>0; return nowMin()>=m;}
     function pinnedP(n){var p=P[n]; return !!(p && !p.out && !p.void && (p.status==='confirmed' || started(n)));}
     function aliveP(n){var p=P[n]; return !!(p && !p.out && !p.void);}
     
