@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T19:27:29Z",
+  "pulled_at": "2026-08-28T19:30:27Z",
   "games": [
     {
       "gamePk": 824638,
@@ -20,7 +20,7 @@
           {
             "id": 667472,
             "name": "Dane Myers",
-            "iso": 0.105
+            "iso": 0.104
           },
           {
             "id": 682829,
@@ -60,7 +60,7 @@
           {
             "id": 699302,
             "name": "H\u00e9ctor Rodr\u00edguez",
-            "iso": 0.215
+            "iso": 0.211
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 656849,
           "name": "David Peterson",
-          "hr9": 0.89,
+          "hr9": 0.88,
           "hand": "LHP"
         },
         "lineup": [
@@ -846,8 +846,54 @@
           "hr9": 1.13,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.126
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.17
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.206
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.245
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.17
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.142
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.191
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.16
+          },
+          {
+            "id": 678011,
+            "name": "Anthony Seigler",
+            "iso": 0.156
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -1154,9 +1200,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 65\u00b0",
+        "lean": "Boost",
+        "temp": 64.8,
+        "wind_mph": 13.3,
+        "wind_dir": 293,
+        "tail_mph": 11.7,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
