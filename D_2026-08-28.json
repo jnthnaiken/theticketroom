@@ -38204,7 +38204,7 @@
   "gs": {},
   "pool": 387,
   "gate": 53,
-  "tickets": 11
+  "tickets": 14
  },
  "tickets": [
   {
@@ -38249,7 +38249,7 @@
    "name": "The Keel",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Hunter Goodman is rocketing line drives (55% hard-hit), launches it at the right angle (22\u00b0), gets a touch of carry tonight.",
+   "note": "Hunter Goodman is leaving scorch marks (55% hard-hit), launches it at the right angle (22\u00b0), gets a touch of carry tonight.",
    "players": [
     {
      "name": "Hunter Goodman",
@@ -38277,7 +38277,7 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0,
+   "confleg": 1,
    "priced": 1,
    "parlay_am": 272,
    "payout10": 37.2,
@@ -38353,10 +38353,10 @@
    "locked": true
   },
   {
-   "name": "Star Sailor",
+   "name": "Heat Shield Off",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Goodman is launching rockets (55% hard-hit), Alvarez catches a small park boost, and Jensen carries serious thump (81/100 grade).",
+   "note": "Goodman is hitting absolute lasers (55% hard-hit), S\u00e1nchez has a swing built for the seats (19\u00b0), and Abreu plays in a slightly friendly yard.",
    "players": [
     {
      "name": "Hunter Goodman",
@@ -38372,59 +38372,59 @@
      "status": "confirmed"
     },
     {
-     "name": "Yordan Alvarez",
-     "team": "Astros",
-     "total": 178.8,
+     "name": "Gary S\u00e1nchez",
+     "team": "Brewers",
+     "total": 146.3,
      "aT": 100,
-     "wf": 1.03,
-     "gmatch": "HOU@NYM",
-     "gtime": "7:10 PM ET",
-     "game": 5,
+     "wf": 1,
+     "gmatch": "TEX@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 10,
      "late": false,
-     "odds": 252,
+     "odds": 372,
      "status": "projected"
     },
     {
-     "name": "Carter Jensen",
-     "team": "Royals",
-     "total": 143.7,
+     "name": "Wilyer Abreu",
+     "team": "Red Sox",
+     "total": 145.5,
      "aT": 100,
-     "wf": 0.999,
-     "gmatch": "KC@CLE",
-     "gtime": "7:10 PM ET",
-     "game": 4,
+     "wf": 1.024,
+     "gmatch": "BOS@NYY",
+     "gtime": "7:15 PM ET",
+     "game": 7,
      "late": false,
-     "odds": 375,
+     "odds": 390,
      "status": "confirmed"
     }
    ],
    "nlegs": 3,
    "anchor": "Hunter Goodman",
-   "lock": "7:10 PM ET",
+   "lock": "7:15 PM ET",
    "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 53.3,
+    "maxprofit": 71.1,
     "bytwos": false
    },
    "wxsum": {
     "boost": 2,
     "supp": 0,
-    "dome": 0,
-    "neu": 1
+    "dome": 1,
+    "neu": 0
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 6187,
-   "payout10": 628.67
+   "parlay_am": 8596,
+   "payout10": 869.61
   },
   {
    "name": "The Way Back Machine",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Murakami is leaving scorch marks (66% hard-hit), Baldwin hits it on the perfect plane (19\u00b0), and Muncy carries top-shelf pop (100/100 power grade).",
+   "note": "Murakami elevates with ease (18\u00b0), Caminero is leaving scorch marks (58% hard-hit), and Muncy sits in the elite power tier (100/100).",
    "players": [
     {
      "name": "Munetaka Murakami",
@@ -38440,16 +38440,16 @@
      "status": "projected"
     },
     {
-     "name": "Drake Baldwin",
-     "team": "Braves",
-     "total": 167.8,
+     "name": "Junior Caminero",
+     "team": "Rays",
+     "total": 163.3,
      "aT": 100,
-     "wf": 1.048,
-     "gmatch": "COL@ATL",
-     "gtime": "7:15 PM ET",
-     "game": 9,
+     "wf": 1,
+     "gmatch": "SD@TB",
+     "gtime": "7:10 PM ET",
+     "game": 6,
      "late": false,
-     "odds": 282,
+     "odds": 252,
      "status": "confirmed"
     },
     {
@@ -38474,25 +38474,25 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 49.5,
+    "maxprofit": 46,
     "bytwos": false
    },
    "wxsum": {
-    "boost": 2,
+    "boost": 1,
     "supp": 0,
-    "dome": 0,
+    "dome": 1,
     "neu": 1
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 5695,
-   "payout10": 579.49
+   "parlay_am": 5240,
+   "payout10": 533.98
   },
   {
    "name": "Goodbye Baseball",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Murakami is tattooing the baseball (66% hard-hit), Seager swings with home-run loft (18\u00b0), and Trout gets a park that's launching everything tonight.",
+   "note": "Murakami is tattooing the baseball (66% hard-hit), Seager swings with home-run loft (18\u00b0), and Trout has gusts carrying balls over the wall.",
    "players": [
     {
      "name": "Munetaka Murakami",
@@ -38560,7 +38560,359 @@
    "name": "Ballistic Arc",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Encarnacion-Strand has gusts carrying balls over the wall, Valdez is blistering line drives (67% hard-hit), and Carroll has textbook lift (20\u00b0).",
+   "note": "Alvarez is launching rockets (60% hard-hit), Baldwin swings on a clean uppercut (19\u00b0), and Clemens has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 178.8,
+     "aT": 100,
+     "wf": 1.03,
+     "gmatch": "HOU@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 252,
+     "status": "projected"
+    },
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 167.8,
+     "aT": 100,
+     "wf": 1.048,
+     "gmatch": "COL@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 282,
+     "status": "confirmed"
+    },
+    {
+     "name": "Kody Clemens",
+     "team": "Twins",
+     "total": 161.4,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "CWS@MIN",
+     "gtime": "8:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 350,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Yordan Alvarez",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 51.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 2,
+   "priced": 3,
+   "parlay_am": 5951,
+   "payout10": 605.09
+  },
+  {
+   "name": "Orbital Insertion",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Alvarez is squaring up rockets (60% hard-hit), Montgomery gets a sliver of help from the park, and Acu\u00f1a gets ideal loft (16\u00b0).",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 178.8,
+     "aT": 100,
+     "wf": 1.03,
+     "gmatch": "HOU@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 252,
+     "status": "projected"
+    },
+    {
+     "name": "Colson Montgomery",
+     "team": "White Sox",
+     "total": 164.7,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "CWS@MIN",
+     "gtime": "8:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 325,
+     "status": "projected"
+    },
+    {
+     "name": "Ronald Acu\u00f1a",
+     "team": "Braves",
+     "total": 147.9,
+     "aT": 100,
+     "wf": 1.048,
+     "gmatch": "COL@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 340,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Yordan Alvarez",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 55.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 6482,
+   "payout10": 658.24
+  },
+  {
+   "name": "Star Sailor",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Encarnacion-Strand has the wind howling out behind him, Pederson is teeing off (62% hard-hit), and Vargas lands at 140 in our model.",
+   "players": [
+    {
+     "name": "Christian Encarnacion-Strand",
+     "team": "Orioles",
+     "total": 174.9,
+     "aT": 100,
+     "wf": 1.097,
+     "gmatch": "BAL@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 250,
+     "status": "projected"
+    },
+    {
+     "name": "Joc Pederson",
+     "team": "Rangers",
+     "total": 168.6,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "TEX@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 266,
+     "status": "projected"
+    },
+    {
+     "name": "Miguel Vargas",
+     "team": "White Sox",
+     "total": 139.7,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "CWS@MIN",
+     "gtime": "8:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 410,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Christian Encarnacion-Strand",
+   "lock": "7:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 55.3,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 6433,
+   "payout10": 653.31
+  },
+  {
+   "name": "The Closer",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Rafael Devers is making elite contact (61% hard-hit), drives the ball into the air (20\u00b0), plays in a slightly friendly yard, and carries serious thump (87/100 grade).",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 145.6,
+     "aT": 100,
+     "wf": 1.035,
+     "gmatch": "AZ@SF",
+     "gtime": "10:15 PM ET",
+     "game": 15,
+     "late": true,
+     "odds": 425,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Rafael Devers",
+   "lock": "10:15 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 425,
+   "payout10": 52.5
+  },
+  {
+   "name": "Drop the Hook",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Munetaka Murakami is hitting bullets (66% hard-hit), elevates with ease (18\u00b0), catches a small park boost.",
+   "players": [
+    {
+     "name": "Munetaka Murakami",
+     "team": "White Sox",
+     "total": 181.9,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "CWS@MIN",
+     "gtime": "8:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 270,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Munetaka Murakami",
+   "lock": "8:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 270,
+   "payout10": 37
+  },
+  {
+   "name": "Sea Legs",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Yordan Alvarez is hitting frozen ropes (60% hard-hit), has the yard tilting his way, has the raw juice to clear any wall (100/100 power).",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 178.8,
+     "aT": 100,
+     "wf": 1.03,
+     "gmatch": "HOU@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 252,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Yordan Alvarez",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 252,
+   "payout10": 35.2
+  },
+  {
+   "name": "Fair Winds",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Christian Encarnacion-Strand has gusts carrying balls over the wall, sends it skyward (20\u00b0), is connecting solidly (49% hard-hit).",
+   "players": [
+    {
+     "name": "Christian Encarnacion-Strand",
+     "team": "Orioles",
+     "total": 174.9,
+     "aT": 100,
+     "wf": 1.097,
+     "gmatch": "BAL@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 250,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Christian Encarnacion-Strand",
+   "lock": "9:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 250,
+   "payout10": 35
+  },
+  {
+   "name": "The Slingshot",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Encarnacion-Strand projects out to 175, Valdez gets ideal loft (20\u00b0), and Carroll catches a small park boost.",
    "players": [
     {
      "name": "Christian Encarnacion-Strand",
@@ -38623,185 +38975,6 @@
    "priced": 3,
    "parlay_am": 8304,
    "payout10": 840.35
-  },
-  {
-   "name": "Orbital Insertion",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Encarnacion-Strand has gusts carrying balls over the wall, Vargas grades to 140 on our board, and Neto is making solid contact (52% hard-hit).",
-   "players": [
-    {
-     "name": "Christian Encarnacion-Strand",
-     "team": "Orioles",
-     "total": 174.9,
-     "aT": 100,
-     "wf": 1.097,
-     "gmatch": "BAL@ATH",
-     "gtime": "9:40 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 250,
-     "status": "projected"
-    },
-    {
-     "name": "Miguel Vargas",
-     "team": "White Sox",
-     "total": 139.7,
-     "aT": 100,
-     "wf": 1.047,
-     "gmatch": "CWS@MIN",
-     "gtime": "8:10 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 410,
-     "status": "projected"
-    },
-    {
-     "name": "Zach Neto",
-     "team": "Angels",
-     "total": 135.7,
-     "aT": 100,
-     "wf": 1.06,
-     "gmatch": "PHI@LAA",
-     "gtime": "9:38 PM ET",
-     "game": 13,
-     "late": true,
-     "odds": 390,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Christian Encarnacion-Strand",
-   "lock": "8:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 71.7,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 3,
-   "parlay_am": 8646,
-   "payout10": 874.65
-  },
-  {
-   "name": "The Closer",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Rafael Devers is punishing the baseball (61% hard-hit), gets ideal loft (20\u00b0), has the yard tilting his way, packs a big-league power grade (87/100), and is backed at 146 by the projection.",
-   "players": [
-    {
-     "name": "Rafael Devers",
-     "team": "Giants",
-     "total": 145.6,
-     "aT": 100,
-     "wf": 1.035,
-     "gmatch": "AZ@SF",
-     "gtime": "10:15 PM ET",
-     "game": 15,
-     "late": true,
-     "odds": 425,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Rafael Devers",
-   "lock": "10:15 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 1,
-   "parlay_am": 425,
-   "payout10": 52.5
-  },
-  {
-   "name": "Drop the Hook",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Munetaka Murakami is hitting bullets (66% hard-hit), elevates with ease (18\u00b0), plays in a slightly friendly yard.",
-   "players": [
-    {
-     "name": "Munetaka Murakami",
-     "team": "White Sox",
-     "total": 181.9,
-     "aT": 100,
-     "wf": 1.047,
-     "gmatch": "CWS@MIN",
-     "gtime": "8:10 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 270,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Munetaka Murakami",
-   "lock": "8:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 1,
-   "parlay_am": 270,
-   "payout10": 37
-  },
-  {
-   "name": "Sea Legs",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Christian Encarnacion-Strand gets a yard playing like a launchpad tonight, sends it skyward (20\u00b0), is hitting it hard enough (49% hard-hit).",
-   "players": [
-    {
-     "name": "Christian Encarnacion-Strand",
-     "team": "Orioles",
-     "total": 174.9,
-     "aT": 100,
-     "wf": 1.097,
-     "gmatch": "BAL@ATH",
-     "gtime": "9:40 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 250,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Christian Encarnacion-Strand",
-   "lock": "9:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "priced": 1,
-   "parlay_am": 250,
-   "payout10": 35
   }
  ],
  "pool": [
