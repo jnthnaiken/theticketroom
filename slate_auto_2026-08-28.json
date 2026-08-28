@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T19:12:16Z",
+  "pulled_at": "2026-08-28T19:17:21Z",
   "games": [
     {
       "gamePk": 824638,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 695076,
           "name": "Rhett Lowder",
-          "hr9": 1.24,
+          "hr9": 1.32,
           "hand": "RHP"
         },
         "lineup": [
@@ -40,7 +40,7 @@
           {
             "id": 553993,
             "name": "Eugenio Su\u00e1rez",
-            "iso": 0.202
+            "iso": 0.201
           },
           {
             "id": 668709,
@@ -70,24 +70,24 @@
         "sp": {
           "id": 656849,
           "name": "David Peterson",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 691718,
             "name": "Pete Crow-Armstrong",
-            "iso": 0.274
+            "iso": 0.273
           },
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.211
+            "iso": 0.21
           },
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.149
+            "iso": 0.155
           },
           {
             "id": 608324,
@@ -724,8 +724,54 @@
           "hr9": 1.38,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.182
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.162
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.276
+          },
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.173
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.195
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.122
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.153
+          },
+          {
+            "id": 669221,
+            "name": "Sean Murphy",
+            "iso": 0.104
+          },
+          {
+            "id": 673490,
+            "name": "Ha-Seong Kim",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -743,7 +789,7 @@
     },
     {
       "gamePk": 823504,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-28T23:15:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -765,10 +811,56 @@
           "hr9": 0.8,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.2
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.278
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.146
+          },
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.195
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.125
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.177
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.136
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.114
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -975,16 +1067,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 85.7,
-        "wind_mph": 5.2,
-        "wind_dir": 200,
-        "tail_mph": 4.0,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.037
+      "wf": 1.0
     },
     {
       "gamePk": 823178,
@@ -1016,9 +1101,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 65\u00b0",
+        "lean": "Boost",
+        "temp": 64.8,
+        "wind_mph": 13.3,
+        "wind_dir": 293,
+        "tail_mph": 11.7,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
