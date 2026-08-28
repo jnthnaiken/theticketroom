@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T20:17:39Z",
+  "pulled_at": "2026-08-28T20:22:17Z",
   "games": [
     {
       "gamePk": 824638,
@@ -102,7 +102,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.095
+            "iso": 0.096
           },
           {
             "id": 699393,
@@ -1154,7 +1154,7 @@
     },
     {
       "gamePk": 823744,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-28T23:40:00Z",
       "matchup": "TEX@MIL",
       "away": {
@@ -1176,10 +1176,56 @@
           "hr9": 1.3,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.177
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.194
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.229
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.124
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.143
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.132
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.156
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.094
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.096
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1478,9 +1524,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 13mph, 63\u00b0",
+        "lean": "Boost",
+        "temp": 63.4,
+        "wind_mph": 14.4,
+        "wind_dir": 289,
+        "tail_mph": 13.2,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.036
     }
   ]
 }
