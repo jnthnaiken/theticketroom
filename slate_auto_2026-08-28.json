@@ -1,11 +1,11 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-28T21:26:40Z",
+  "pulled_at": "2026-08-28T21:30:54Z",
   "games": [
     {
       "gamePk": 824638,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-28T18:20:00Z",
       "matchup": "CIN@CHC",
       "away": {
@@ -92,7 +92,7 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.161
+            "iso": 0.16
           },
           {
             "id": 664023,
@@ -102,7 +102,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.096
+            "iso": 0.095
           },
           {
             "id": 699393,
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 823985,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T01:38:00Z",
       "matchup": "PHI@LAA",
       "away": {
@@ -1620,10 +1620,56 @@
           "hr9": 1.03,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.195
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.193
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.092
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.141
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.116
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.108
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.147
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.129
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.049
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1667,16 +1713,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 82.7,
-        "wind_mph": 6.3,
-        "wind_dir": 225,
-        "tail_mph": 6.1,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.04
+      "wf": 1.0
     },
     {
       "gamePk": 823178,
