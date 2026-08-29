@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T18:12:08Z",
+  "pulled_at": "2026-08-29T18:16:47Z",
   "games": [
     {
       "gamePk": 823539,
@@ -310,7 +310,7 @@
     },
     {
       "gamePk": 823665,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T18:10:00Z",
       "matchup": "CWS@MIN",
       "away": {
@@ -443,7 +443,7 @@
     },
     {
       "gamePk": 823011,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T18:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -1740,9 +1740,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 85.9,
+        "wind_mph": 4.4,
+        "wind_dir": 246,
+        "tail_mph": 4.0,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.038
     }
   ]
 }
