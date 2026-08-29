@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T17:12:10Z",
+  "pulled_at": "2026-08-29T17:16:43Z",
   "games": [
     {
       "gamePk": 823539,
@@ -20,17 +20,17 @@
           {
             "id": 663330,
             "name": "Jahmai Jones",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 678882,
             "name": "Ceddanne Rafaela",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.208
+            "iso": 0.214
           },
           {
             "id": 575929,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 607074,
           "name": "Carlos Rod\u00f3n",
-          "hr9": 0.66,
+          "hr9": 0.82,
           "hand": "LHP"
         },
         "lineup": [
@@ -202,7 +202,7 @@
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 571970,
@@ -841,7 +841,7 @@
     },
     {
       "gamePk": 823177,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T20:05:00Z",
       "matchup": "ARI@SF",
       "away": {
@@ -861,10 +861,56 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.149
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.236
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.194
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.133
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.143
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.01
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.244
+          },
+          {
+            "id": 801501,
+            "name": "Nate Furman",
+            "iso": 0.0
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.07
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -987,8 +1033,54 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.243
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.237
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.157
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.176
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.147
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.172
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.166
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.079
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.034
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1213,9 +1305,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 80\u00b0",
+        "lean": "Neutral",
+        "temp": 79.8,
+        "wind_mph": 3.3,
+        "wind_dir": 340,
+        "tail_mph": -2.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.007
     },
     {
       "gamePk": 822936,
