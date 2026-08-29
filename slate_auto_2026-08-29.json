@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T23:00:33Z",
+  "pulled_at": "2026-08-29T23:03:12Z",
   "games": [
     {
       "gamePk": 823539,
@@ -1506,7 +1506,7 @@
     },
     {
       "gamePk": 822936,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "SD@TB",
       "away": {
@@ -1758,16 +1758,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 77\u00b0",
-        "lean": "Neutral",
-        "temp": 76.9,
-        "wind_mph": 3.2,
-        "wind_dir": 321,
-        "tail_mph": -0.1,
-        "precip": 12
+        "note": "weather fetch failed"
       },
-      "wf": 1.01
+      "wf": 1.0
     },
     {
       "gamePk": 823741,
