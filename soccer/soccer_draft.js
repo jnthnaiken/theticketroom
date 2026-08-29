@@ -826,17 +826,34 @@
        from scratch every pass: seat what fits against ANCH, reseat the rest. soccer_mock mints
        moon / builder / family only, so 'lunch' and 'late' can only have come from this block --
        reading them back and reconsidering them is safe. */
-    var seatsFree = cfg.ANCH - Object.keys(moonAnchorOnBoard).length;
+    /* 🚨 AN ANCHOR IS DEFINED BY ITS SCREAMERS. ANCHORISMOONS-2026-08-29.
+     * Owner: "if there a 4 anchors then there are at least 4 moons. where is guiarasy moon?"
+     *
+     * ORPHANSURPLUS's `seatsFree` branch is GONE. It seated a moonless single as the 4th anchor
+     * whenever ANCH had room -- which produced a board advertising four anchors and three sets of
+     * screamers, and no answer to "where is his moon?". The seat is not what makes a man an
+     * anchor; the moons are. A single with nothing behind it is a leftover at ANY anchor count.
+     *
+     * ⚠️ SO WHAT WAS THE OWNER ASKING BEFORE? "cause right now we have 3. how is there a leftover
+     * if there is 3?" was a question about the THREE, not an instruction to promote the leftover.
+     * The real answer is that the 4th seat is empty because no 4th anchor can be BUILT: team news
+     * took out the partners in the two remaining unstarted matches, and MINTGUARD bars drafting
+     * into the sixteen already underway. A board that cannot fill the seat shows three anchors and
+     * puts the odd single where the owner told me to put it on 2026-08-29 -- the lunch special.
+     * Reseating it is not hiding the empty seat; the empty seat is the honest state.
+     *
+     * ⚠️ STILL NOT STICKY (kept from ORPHANSURPLUS). Single-leg slips are re-classified from
+     * scratch every pass -- 'builder', 'lunch' and 'late' are all reconsidered -- so a single that
+     * BACKS a moon again returns to the anchors instead of being stranded in lunch forever. The
+     * first cut only converted builder -> lunch and could never come back. */
     out.forEach(function (t) {
       if (!outHasMoons) return;
       if (t.kind !== 'builder' && t.kind !== 'lunch' && t.kind !== 'late') return;
       var legs = t.players || [];
       if (legs.length !== 1) return;
-      var n = legs[0].name;
-      if (moonAnchorOnBoard[n]) { t.kind = 'builder'; return; }   // backs a screamer -- a real anchor
-      var was = t.kind, p = D.players[n] || {};
-      if (seatsFree > 0) { seatsFree--; t.kind = 'builder'; }     // a seat is open: he IS an anchor
-      else t.kind = p.late ? 'late' : 'lunch';
+      var n = legs[0].name, was = t.kind;
+      t.kind = moonAnchorOnBoard[n] ? 'builder'             // backs a screamer -- a real anchor
+             : ((D.players[n] || {}).late ? 'late' : 'lunch');
       if (t.kind !== was) reseated.push({ name: n, from: was, kind: t.kind });
     });
 
