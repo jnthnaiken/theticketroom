@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T22:48:05Z",
+  "pulled_at": "2026-08-29T22:53:07Z",
   "games": [
     {
       "gamePk": 823539,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823501,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-29T23:15:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 823177,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-29T20:05:00Z",
       "matchup": "ARI@SF",
       "away": {
@@ -1342,7 +1342,7 @@
           {
             "id": 694197,
             "name": "Angel Genao",
-            "iso": 0.086
+            "iso": 0.084
           },
           {
             "id": 595978,
@@ -1403,7 +1403,7 @@
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.149
+            "iso": 0.151
           },
           {
             "id": 662139,
@@ -1418,7 +1418,7 @@
           {
             "id": 666211,
             "name": "Taylor Trammell",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 669397,
@@ -1493,9 +1493,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 79\u00b0",
+        "lean": "Neutral",
+        "temp": 78.8,
+        "wind_mph": 3.4,
+        "wind_dir": 349,
+        "tail_mph": -2.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.004
     },
     {
       "gamePk": 822936,
@@ -1519,7 +1526,7 @@
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.081
+            "iso": 0.08
           },
           {
             "id": 592518,
@@ -1751,20 +1758,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 77\u00b0",
-        "lean": "Neutral",
-        "temp": 76.9,
-        "wind_mph": 3.2,
-        "wind_dir": 321,
-        "tail_mph": -0.1,
-        "precip": 12
+        "note": "weather fetch failed"
       },
-      "wf": 1.01
+      "wf": 1.0
     },
     {
       "gamePk": 823741,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-29T23:15:00Z",
       "matchup": "TEX@MIL",
       "away": {
