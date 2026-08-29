@@ -127,6 +127,9 @@ console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.mint
             (r.demoted && r.demoted.length ? ` · ${r.demoted.length} demoted` : '') +
             `  -> ${r.changed ? 'CHANGED' : 'unchanged'}`);
 (r.demoted || []).forEach(d => console.log(`    demoted ${d.anchor}: ${d.why}`));
+/* ORPHANSECTION-2026-08-29 -- say it out loud. A single that loses its screamers moves to the
+   lunch/nightcap section instead of standing there looking like a fifth anchor. */
+(r.reseated || []).forEach(x => console.log(`    reseated ${x.name} -> ${x.kind} (no screamer behind it)`));
 
 const out = r.tickets.map(t => ({
   kind: t.kind,

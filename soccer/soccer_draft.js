@@ -759,6 +759,65 @@
     var mintedT = build(res.tickets.map(function (t) { return { kind: t.kind, legs: t.legs, risk: t.risk }; }));
 
     var out = frozen.concat(repairedT, mintedT);
+
+    /* ==================================================================================
+     * ORPHANSECTION-2026-08-29 -- a single with no moons behind it is a LUNCH SPECIAL or a
+     * NIGHTCAP, not an anchor.
+     * ==================================================================================
+     * Owner: "then use the lunch special and nightcap. thats what theyre for."
+     *
+     * How the orphan appears: team news kills an anchor's partners, his PAIR cannot be rebuilt
+     * (all-or-none), so the group is demoted -- but his BUILDER has already latched under
+     * CONFLOCK because its only leg is confirmed, so it is emitted verbatim and survives him.
+     * LEFTOVERANCHOR-2026-08-28 then correctly refuses to let that moonless builder hold a seat
+     * against ANCH, the budget frees, and the fresh draft mints a replacement anchor. The card
+     * is right and every rule fired as written -- but it SHOWS five names where ANCH is four,
+     * because a lone builder is drawn exactly like an anchor. That is the question the owner
+     * asked on 2026-08-26 about the baseball board (`stranded-anchor-2026-08-26.md`), where the
+     * options were listed and "move the orphan, keep the bet" was the safest. This is that move,
+     * with the section he named.
+     *
+     * ⚠️ THE BET IS NOT TOUCHED. Same player, same stake, same price, SAME TITLE -- only the
+     * section changes. Renaming a live slip is REDRAFT-2026-08-18's failure ("the board showed
+     * one ticket that had been two bets"), so the title rides along even though it came from the
+     * builder pool.
+     *
+     * lunch vs nightcap is the board's OWN flag: soccer_payload.py stamps
+     * `late = et_min(kickoff) >= 17*60` on every player and rowOf() already carries it, so the
+     * cutoff is defined once and this module still reads no clock. It matches the section copy
+     * the fork writes -- Lunch Special is "one player, best model score in an EARLY KICKOFF",
+     * and the nightcap's empty state is "no LATE play posted right now".
+     *
+     * `soccer_grade.py` KINDS already contains 'lunch' and 'late', and soccer_payload's ledger
+     * `cats` already counts them, so a relabelled slip grades and books exactly as before. It
+     * also retires the fork's `lunch-empty` copy ("the scorer drafts anchors and screamers
+     * only"), which stops being true the first time this fires.
+     */
+    var moonAnchorOnBoard = {}, outHasMoons = false;
+    out.forEach(function (t) {
+      if (t.kind === 'moon' && (t.players || []).length) {
+        moonAnchorOnBoard[t.players[0].name] = true; outHasMoons = true;
+      }
+    });
+    var reseated = [];
+    /* ⚠️ NOT ON A SINGLES-ONLY BOARD. SINGLES-2026-08-27: a thin slate (two matches) mints
+       BUILDERS AND NOTHING ELSE, and there every builder IS an anchor -- "no moon behind it" is
+       true of all of them and means the opposite of orphaned. Same guard the frozen-builder
+       branch above uses (`boardHasMoons`), measured on the FINISHED board. Caught by
+       test_redraft "a two-match slate drafts singles only", which this turned into four lunch
+       specials on the first cut. */
+    out.forEach(function (t) {
+      if (!outHasMoons) return;
+      if (t.kind !== 'builder') return;
+      var legs = t.players || [];
+      if (legs.length !== 1) return;
+      var n = legs[0].name;
+      if (moonAnchorOnBoard[n]) return;                 // still backs a screamer -- a real anchor
+      var p = D.players[n] || {};
+      t.kind = p.late ? 'late' : 'lunch';
+      reseated.push({ name: n, kind: t.kind });
+    });
+
     var sig = function (ts) {
       return ts.map(function (t) {
         return t.kind + ':' + (t.players || []).map(function (l) { return l.name; }).join('+');
@@ -783,6 +842,7 @@
       minted: mintedT.length,
       released: releasedN,
       demoted: demoted,
+      reseated: reseated,
       anchors: Object.keys(takenAnchors).length + (res.anchors || 0),
       thin: !!res.thin,
       poolSize: (res.pool || []).length

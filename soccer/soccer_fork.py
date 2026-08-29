@@ -453,14 +453,20 @@ def seams(payload_js):
         REFETCH_NEW)
     # LUNCH-EMPTY-2026-08-25: the baseball board's empty lunch tray says today's meal "already
     # got served and cleared". On the soccer board that sentence is false every single day --
-    # soccer_mock.py mints moon / builder / family only, so a lunch special is never drafted and
     # nothing was ever served. The board is not allowed to assert something that did not happen;
     # the nightcap's own empty state ("no late play posted right now") is already fine as-is.
+    #
+    # ORPHANSECTION-2026-08-29 -- the replacement text said "the scorer drafts anchors and
+    # screamers only", which STOPPED BEING TRUE today: a single whose screamers die to team news
+    # is now reseated into the lunch special (early kickoff) or the nightcap (late) rather than
+    # left standing as a fifth anchor. So the empty state must describe when a lunch special
+    # appears, not claim one never can. Same rule as the sentence it replaced: do not assert
+    # something the board cannot back up.
     add('lunch-empty',
         '🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. '
         'Fresh tray tomorrow morning.',
-        '🍽️ No lunch special on the soccer board yet — the scorer drafts anchors and '
-        'screamers only.')
+        '🍽️ No lunch special right now — one appears when a single is left without its '
+        'screamers.')
     # ---- 13. COUNTERS AND THE TIMING WARNING ARE BASEBALL-SHAPED --------------------
     # TEAMNEWS-2026-08-25, all three found by freezing the page clock at 1:30 PM ET (one
     # fixture underway, three not) and reading the board, which is the only way any of this
