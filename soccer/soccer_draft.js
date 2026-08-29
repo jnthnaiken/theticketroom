@@ -786,6 +786,84 @@
      * also retires the fork's `lunch-empty` copy ("the scorer drafts anchors and screamers
      * only"), which stops being true the first time this fires.
      */
+    /* ==================================================================================
+     * FINALREPAIR-2026-08-29 -- NEVER SHIP A SHORT MOON. Port of index.html's FINAL REPAIR.
+     * ==================================================================================
+     * Owner: "now jonathan david only has one moon. what is the fucking problem. its the same
+     * fucking draft system as baseball" -- then: "minus the chalkban".
+     *
+     * He is right that it is the same system, and this is the piece soccer never got.
+     * index.html:2665, verbatim:
+     *
+     *     FINAL REPAIR (shared, both paths, on the near-final ticket set): pair any LIVE moon
+     *     anchor still short of MOONS_PER_ANC from the WIDEST pool (any scored bat with odds,
+     *     alive, in-window, distinct game). Uses out.push directly and runs after both branches,
+     *     so nothing upstream prevents it. NEVER SHIPS A SHORT MOON.
+     *
+     * ⚠️ THE POINT IS THE **WIDEST** POOL. Everything above this -- repair `cands`, the fresh
+     * draft -- draws from buildPool(), i.e. Z_GATE + GAME_CAP + the XI filter. When team news
+     * kills a partner late in a staggered card that pool is nearly empty, the pair cannot be
+     * rebuilt, the group demotes, and the anchor ships ONE moon. Measured 2026-08-29: David lost
+     * "Curled Home" and the board fell to 8 slips with three anchors holding 2/1/1 moons, while
+     * fourteen priced, alive, unstarted players sat in the field unused because they were below
+     * the gate. The gate decides who is worth ANCHORING. It is not a reason to ship a lopsided
+     * anchor.
+     *
+     * ⚠️ MINUS THE CHALK BAN, per the owner. Baseball filters `!chalk[n]`; soccer has no chalk
+     * ban (CHALK_N is not a soccer constant at all), so that clause is simply absent.
+     *
+     * ⚠️ ONE DELIBERATE DIFFERENCE FROM BASEBALL: placeable(). The baseball filter is
+     * `!pl[n] && n!==a && !chalk[n] && !P[n].out && !P[n].void && P[n].odds!=null` -- it does NOT
+     * exclude a bat whose game has started, unlike the shape-repair block twenty lines below it
+     * which does test `started(n)`. Soccer keeps MINTGUARD here, because minting a leg out of a
+     * match already underway is a bet nobody could have placed and the owner has that rule in
+     * writing. So: widest pool, but still placeable.
+     *
+     * Runs BEFORE the ORPHANSECTION block below on purpose, so a single that gets its screamers
+     * back is counted as a real anchor and never reseated to the lunch special. */
+    var moonCnt = {}, onSlip = {};
+    out.forEach(function (t) {
+      var legs = t.players || [];
+      if (t.kind === 'moon' && legs.length) moonCnt[legs[0].name] = (moonCnt[legs[0].name] || 0) + 1;
+      legs.forEach(function (l) { onSlip[l.name] = true; });
+    });
+    var topped = [];
+    Object.keys(moonCnt).forEach(function (an) {
+      var ap = D.players[an];
+      if (!ap || !alive[an] || !pinnable(an)) return;      // a dead anchor is not topped up
+      var guard = 0;
+      while (moonCnt[an] < cfg.MOONS_PER_ANC && guard++ < cfg.MOONS_PER_ANC) {
+        var rows = [rowOf(an)], seenG = {};
+        seenG[String(ap.game)] = true;
+        /* ⚠️ "ALIVE" IS alive[], NOT `!out && !void`. Baseball writes the filter as
+           `!P[n].out && !P[n].void && P[n].odds!=null` because a scratched bat is exactly what
+           `out` means there. On the soccer board a man dropped from a published XI is not
+           flagged `out` -- he is simply absent from `xi`, and only alive[] (which folds in
+           XIPARTIAL's per-match `xiKnown`) knows that. The first cut of this port used the
+           baseball spelling literally and re-drafted LUKA JOVIC, the very leg team news had just
+           removed, back onto a fresh moon -- caught by test_redraft "the dropped leg appears
+           nowhere". Widest pool means no Z_GATE and no GAME_CAP. It does not mean benched. */
+        var cnd = Object.keys(D.players).filter(function (n) {
+          return !onSlip[n] && n !== an && alive[n] && placeable(n);
+        }).sort(function (x, y) {
+          var dx = (D.players[y].TOTAL || 0) - (D.players[x].TOTAL || 0);
+          return dx || (x < y ? -1 : x > y ? 1 : 0);
+        });
+        for (var ci = 0; ci < cnd.length && rows.length < 3; ci++) {
+          var n = cnd[ci], r = rowOf(n);
+          if (seenG[String(D.players[n].game)]) continue;
+          if (!spanOk(rows.concat([r]), cfg)) continue;
+          rows.push(r); seenG[String(D.players[n].game)] = true;
+        }
+        if (rows.length < 3) break;
+        rows.forEach(function (r) { onSlip[r.name] = true; });
+        out.push(mkTicket('moon', rows.map(function (r) { return legOf(r.name, D.players[r.name]); }),
+                          cfg.MOON_RISK, pickName('moon', null), koOf, D.players));
+        moonCnt[an]++;
+        topped.push({ anchor: an, legs: rows.map(function (r) { return r.name; }) });
+      }
+    });
+
     var moonAnchorOnBoard = {}, outHasMoons = false;
     out.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) {
@@ -918,6 +996,7 @@
       released: releasedN,
       demoted: demoted,
       reseated: reseated,
+      topped: topped,
       anchors: Object.keys(takenAnchors).length + (res.anchors || 0),
       thin: !!res.thin,
       poolSize: (res.pool || []).length

@@ -244,7 +244,18 @@ console.log('=== the board under test ===');
 }
 
 /* ---------------------------------------------------------------------------------------
- * 7. A frozen slip's players are SPENT -- one player, one slip.
+ * 7. A frozen slip's PARTNERS are SPENT -- one player, one slip. THE ANCHOR IS NOT.
+ *
+ * 🚨 This used to spend the anchor too: `frozenNames` was every leg of the frozen moon, and any
+ * new slip naming one of them failed. That is not the rule. PIPELINE.md states it directly --
+ * "Frozen slips are emitted verbatim and their PARTNERS are spent. An anchor is *not* spent: he
+ * carries both his screamers and his builder, and blocking him from himself demotes a pair he is
+ * already anchoring." MOONS_PER_ANC is 2, so an anchor holding one frozen moon MUST be able to
+ * take a second.
+ * The proxy passed only because nothing topped a short anchor back up. FINALREPAIR-2026-08-29
+ * (the port of index.html's FINAL REPAIR, "never ships a short moon") does, and it correctly
+ * paired Mbappe -- frozen on Top Corner with Beljo and Jovic -- onto a second moon with Openda
+ * and Varga. Different partners, same anchor. Test the rule, not the proxy.
  * ------------------------------------------------------------------------------------- */
 {
   const D = board();
@@ -252,11 +263,16 @@ console.log('=== the board under test ===');
   const other = D.tickets.filter(t => t !== t0);
   D.tickets = [t0];                                  // one frozen screamer, room for more
   const r = SD.redraft(D, { nowUTCmin: KO - 120, xi: XI(D) });
-  const frozenNames = SD.nameSet(t0.players.map(l => l.name));
+  const anchorName = t0.players[0].name;
+  const frozenPartners = SD.nameSet(t0.players.slice(1).map(l => l.name));
   const minted = r.tickets.slice(r.locked);
-  const reuse = minted.filter(t => t.players.some(l => frozenNames[l.name]));
-  chk('no minted slip re-uses a player from the frozen one', reuse.length === 0,
+  const reuse = minted.filter(t => t.players.some(l => frozenPartners[l.name]));
+  chk('no new slip re-uses a PARTNER from the frozen one', reuse.length === 0,
     reuse.map(t => t.players.map(l => l.name)));
+  const anchorMoons = r.tickets.filter(t => t.kind === 'moon' && t.players[0].name === anchorName);
+  chk('and the frozen anchor is topped back up to MOONS_PER_ANC',
+    anchorMoons.length === SD.DEFAULTS.MOONS_PER_ANC,
+    anchorMoons.map(t => t.players.map(l => l.name)));
   void other;
 }
 
