@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T17:41:20Z",
+  "pulled_at": "2026-08-29T17:46:49Z",
   "games": [
     {
       "gamePk": 823539,
@@ -55,7 +55,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.122
+            "iso": 0.121
           },
           {
             "id": 642201,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 607074,
           "name": "Carlos Rod\u00f3n",
-          "hr9": 0.8,
+          "hr9": 0.79,
           "hand": "LHP"
         },
         "lineup": [
@@ -192,12 +192,12 @@
           {
             "id": 660271,
             "name": "Shohei Ohtani",
-            "iso": 0.254
+            "iso": 0.253
           },
           {
             "id": 518692,
             "name": "Freddie Freeman",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 605141,
@@ -227,12 +227,12 @@
           {
             "id": 676439,
             "name": "Hunter Feduccia",
-            "iso": 0.111
+            "iso": 0.11
           },
           {
             "id": 677950,
             "name": "Alek Thomas",
-            "iso": 0.135
+            "iso": 0.134
           }
         ],
         "confirmed": true
@@ -242,7 +242,7 @@
         "sp": {
           "id": 672456,
           "name": "Keider Montero",
-          "hr9": 0.93,
+          "hr9": 0.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -310,7 +310,7 @@
     },
     {
       "gamePk": 823665,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-29T18:10:00Z",
       "matchup": "CWS@MIN",
       "away": {
@@ -1616,16 +1616,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 80.3,
-        "wind_mph": 6.9,
-        "wind_dir": 182,
-        "tail_mph": 4.6,
-        "precip": 7
+        "note": "weather fetch failed"
       },
-      "wf": 1.032
+      "wf": 1.0
     },
     {
       "gamePk": 823741,
