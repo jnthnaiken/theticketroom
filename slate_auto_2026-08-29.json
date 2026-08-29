@@ -1,11 +1,11 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T17:07:03Z",
+  "pulled_at": "2026-08-29T17:12:10Z",
   "games": [
     {
       "gamePk": 823539,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T17:05:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -177,7 +177,7 @@
     },
     {
       "gamePk": 824230,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T17:10:00Z",
       "matchup": "LAD@DET",
       "away": {
@@ -1213,16 +1213,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 80\u00b0",
-        "lean": "Neutral",
-        "temp": 79.8,
-        "wind_mph": 3.3,
-        "wind_dir": 340,
-        "tail_mph": -2.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.007
+      "wf": 1.0
     },
     {
       "gamePk": 822936,
@@ -1559,9 +1552,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 80.5,
+        "wind_mph": 10.3,
+        "wind_dir": 231,
+        "tail_mph": 10.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.051
     },
     {
       "gamePk": 823986,
