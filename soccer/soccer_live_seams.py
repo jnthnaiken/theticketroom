@@ -96,11 +96,24 @@ function soccerLive(){
  *
  * THREE GUARDS, and each one is a way this feature could quietly ruin a board:
  *
- *  1. EVERY MATCH MUST HAVE PUBLISHED. The XI filter keeps only confirmed starters. If one
- *     fixture's sheet is out and another's is not, every player in the second still reads
- *     'projected' -- so an XI-filtered draft would delete that entire match from the board and
- *     pile the whole card onto the fixture that happened to publish first. Re-draft only when
- *     all of them are in.
+ *  1. AT LEAST ONE MATCH MUST HAVE PUBLISHED, and the XI filter is scoped to the matches that
+ *     HAVE. The original concern is real and unchanged: the XI filter keeps only confirmed
+ *     starters, so applying it slate-wide while one sheet is missing deletes that entire match
+ *     from the board and piles the whole card onto whichever fixture published first.
+ *
+ *     🚨 XIPARTIALGATE-2026-08-29. The answer to that was "re-draft only when all of them are
+ *     in", and on a real card that is never. Football XIs land about an hour before kickoff, so
+ *     a slate spanning 11:30Z-19:30Z (2026-08-29: 22 fixtures) has SOME sheet outstanding for
+ *     essentially the whole day -- the page therefore never re-drafted on team news at all.
+ *     Beto was named on Everton's bench at ~13:00Z and rode a live moon to kickoff behind this
+ *     guard. XIPARTIAL-2026-08-28 already solved this properly inside soccer_draft.js:
+ *     `buildPool` takes `xiMatches` and gates a player ONLY inside a match whose sheet is out;
+ *     a player in an unpublished match is UNKNOWN, not benched, and stays eligible. That is the
+ *     same shape soccer_rebuild_cli.js has used on the server since 08-28. This makes the page
+ *     agree with it instead of standing in front of it.
+ *
+ *     Omitting `xiMatches` restores the old all-or-nothing behaviour exactly, which is what
+ *     every existing caller and test relies on -- so this is additive, not a change of contract.
  *  2. A NON-EMPTY XI. soccer_mock.py's `_XI is None` vs `set()` trap, in the browser: no team
  *     news means draft the whole field, but an EMPTY XI gates the pool to nothing and mints an
  *     empty board. Absent and empty are different facts.
@@ -118,15 +131,17 @@ function soccerRedraft(){
     var names=Object.keys(D.players);
     if(!names.length) return;
 
-    /* guard 1 -- every match on the board has a published sheet */
+    /* guard 1 -- at least one match has published, and the filter is scoped to those */
     var byGame={};
     names.forEach(function(n){ var p=D.players[n]; (byGame[p.game]=byGame[p.game]||[]).push(p); });
-    var ready=Object.keys(byGame).every(function(g){
-      return byGame[g].some(function(p){
+    var xiMatches={},nready=0;
+    Object.keys(byGame).forEach(function(g){
+      var pub=byGame[g].some(function(p){
         return p.status==='confirmed'||p.status==='benched'||p.out===true;
       });
+      if(pub){ xiMatches[String(g)]=true; nready++; }
     });
-    if(!ready) return;
+    if(!nready) return;
 
     /* guard 2 -- a real XI */
     var xi={},nxi=0;
@@ -149,7 +164,7 @@ function soccerRedraft(){
     if(ymd>D.meta.date) mins+=24*60;          /* the day rolled: everything is in the past */
     else if(ymd<D.meta.date) mins=-1;         /* not the slate day yet */
 
-    var r=SoccerDraft.redraft(D,{nowUTCmin:mins,xi:xi});
+    var r=SoccerDraft.redraft(D,{nowUTCmin:mins,xi:xi,xiMatches:xiMatches});
     if(!r||!r.changed) return;
     D.tickets=r.tickets;
     D.meta.tickets=r.tickets.length;
