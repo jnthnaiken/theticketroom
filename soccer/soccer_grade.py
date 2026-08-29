@@ -109,15 +109,6 @@ def fold(dpath, spath):
     players = D['players']
     night, rows = 0.0, []
     for t in D['tickets']:
-        # LEFTOVERBACKOUT-2026-08-29: a slip explicitly BACKED OUT of the ledger is never folded.
-        # Today this cannot fire -- fold() already refuses a date in graded_nights and 2026-08-28
-        # is in it -- but it is what makes the flag mean something the day someone re-grades from
-        # the archive or --force folds. A marker nothing enforces is how a correction gets quietly
-        # undone six weeks later. The slip stays ON the board: it shipped, and the archive is the
-        # record of what the room actually showed.
-        if t.get('backedout'):
-            rows.append((t['kind'], t['name'], 'backed out', 0.0))
-            continue
         g = grade_ticket(t, players, finals)
         if not g:
             rows.append((t['kind'], t['name'], 'not settled / void', 0.0))
