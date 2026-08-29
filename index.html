@@ -1849,14 +1849,23 @@ drawTickets();drawPlayers();drawTracker();
        So: a locked slip is evicted only when the chalk bat is its own ANCHOR. That keeps 08-26
        exactly (a banned bat does not hold an anchor seat) and stops the market unwinding bets
        that were already struck. */
+    /* CHALKOFF-2026-08-26: ANY LEG, not just the anchor, LOCKED INCLUDED. Owner: "yea no if
+       he's in the top 4 ban he needs to be taken off", and an exemption was proposed then and
+       rejected -- "exemption was the wrong direction. Removal is the rule." Same call as the
+       Dingers pull ("i dont care if they are locked"), and lock-latch-2026-08-17 states the
+       principle: do not conflate "a locked ticket is never re-derived" with "a locked ticket
+       survives anything."
+       CHALKLOCK-2026-08-29 briefly made a locked slip judged on `lg[0]` alone. It is reverted:
+       it was the rejected exemption, and it was not protecting anything. The slip it was
+       written for -- Murakami's "Climbing the Ladder", locked, no banned bat, deleted at
+       2026-08-28 23:12Z -- survives without it, because the real cause was CHALKSEAT faking a
+       vacated seat (UNCHALKSEATFIX) and the sibling kill not exempting locked slips (MINTLOCK).
+       Replayed on that exact transition: reverted, Climbing the Ladder survives and "The Way
+       Back Machine" -- which really did carry Caminero -- comes off, which is the ban working.
+       LOCKEVICT-2026-08-29 asks the same question of `_chalkEver`, the night's union, at the
+       localStorage door. Two sets, one dispatch -- a second copy of it is how 08-28 happened. */
     function chalkBannedIn(t,set){ var lg=(t&&t.players)||[];
-      if(t&&t.locked) return !!(lg.length&&set[lg[0].name]);
       for(var i=0;i<lg.length;i++){ if(set[lg[i].name]) return true; } return false; }
-    /* LOCKEVICT-2026-08-29: the dispatch above is EXTRACTED, not duplicated. `chalkBanned` is the
-       live ban; the localStorage latch asks the same question of `_chalkEver`, the union of every
-       ban this slate has settled on. Two sets, one rule -- a locked slip is judged on its ANCHOR
-       (CHALKLOCK-2026-08-29: a placed bet is not unwound because a PARTNER went chalk), an open
-       one on any leg. A second copy of this dispatch is how 2026-08-28 happened. */
     function chalkBanned(t){ return chalkBannedIn(t,chalk); }
     (D.tickets||[]).forEach(function(t){
       if(retiredKind(t.kind)||chalkBanned(t)) return;   /* never latch, never reserve bats, never re-emit */
