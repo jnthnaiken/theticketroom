@@ -119,7 +119,14 @@ def build(ags_path, tn_path, out_path):
             squads[c[1]].append((c[3], c[4]))
             clubs[c[3]] = c[2]
         elif c[0] == 'G':
-            goals[c[1]].append((c[2], int(c[3])))
+            # STOPPAGE-2026-08-28. ESPN writes an added-time goal's minute as '90+2', and the
+            # int() this used to do raised ValueError and killed the whole join -- so the FIRST
+            # stoppage-time goal of any slate failed every subsequent build (31 consecutive
+            # failures from 20:41Z on 08-28, and the last green pass before it wiped the team
+            # news off the live board). The minute is only ever concatenated with a prime for
+            # display, and soccer_live.js already carries ESPN's clock as a STRING, so keep the
+            # string here too: '90+2' renders as 90+2' and says exactly what happened.
+            goals[c[1]].append((c[2], c[3].strip()))
 
     out = {'xi': {}, 'bench': {}, 'absent': {}, 'unplaced': [], 'status': status,
            'goals': {}, 'trusted': {}, 'club': {}, 'unmatched': {}}
