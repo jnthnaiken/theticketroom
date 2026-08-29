@@ -190,6 +190,14 @@ function replay(engine, date) {
   const sealed = {};        // name -> { sig, legs }
   let violations = 0, shapes = {}, removals = [], prevAnchors = 0;
 
+  /* REPLAYCARRY-2026-08-29: the meta fields regen15.py hands forward on a same-slate
+     build. They were being discarded here, because `meta` was rebuilt from the archived
+     snapshot while only `tickets` was carried -- so in replay every build looked like the
+     first of the slate. meta.chalk is the previous ban (CHALKSETTLE-2026-08-29 intersects
+     it with today's to decide what it EVICTS for) and meta.chalkever is the night's chalk
+     union (LOCKEVICT-2026-08-29). Add a field here when regen15.py starts carrying it. */
+  const CARRY_META = ['chalk', 'chalkever'];
+  let carryMeta = {};
   for (let i = 1; i < snaps.length; i++) {
     const s = snaps[i];
     /* a build stamped 00:41Z belongs to the NEXT calendar day in UTC */
@@ -199,12 +207,16 @@ function replay(engine, date) {
     const clock = `${day}T${s.hh}:${s.mm}:00Z`;
     const D = board(s);
     D.tickets = JSON.parse(JSON.stringify(carry));
+    /* REPLAYCARRY-2026-08-29: and the meta production carries, or the chain silently
+       replays a slate that never happened -- see CARRY_META above. */
+    if (D.meta) for (const k of CARRY_META) if (carryMeta[k] != null) D.meta[k] = carryMeta[k];
     delete D.familyFloor;
 
     let T;
     try { T = runBuild(engine, D, clock).tickets || []; }
     catch (e) { console.log(`  ${s.hh}:${s.mm}Z  ENGINE ERROR: ${e.message}`); violations++; continue; }
     carry = T;
+    if (D.meta) { carryMeta = {}; for (const k of CARRY_META) if (D.meta[k] != null) carryMeta[k] = D.meta[k]; }
 
     const live = {};
     T.forEach(t => { live[t.name] = t; });
