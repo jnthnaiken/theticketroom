@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T02:57:59Z",
+  "pulled_at": "2026-08-29T03:00:30Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823013,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-29T00:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -1606,7 +1606,7 @@
         "sp": {
           "id": 691725,
           "name": "Andrew Painter",
-          "hr9": 1.58,
+          "hr9": 1.57,
           "hand": "RHP"
         },
         "lineup": [
@@ -1710,7 +1710,7 @@
           {
             "id": 623168,
             "name": "Tyler Heineman",
-            "iso": 0.048
+            "iso": 0.049
           }
         ],
         "confirmed": true
@@ -1828,12 +1828,12 @@
           {
             "id": 691777,
             "name": "Max Muncy",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 666126,
             "name": "Carlos Cortes",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 641680,
@@ -1904,12 +1904,12 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.152
+            "iso": 0.165
           },
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 545121,
@@ -1929,7 +1929,7 @@
         "sp": {
           "id": 694918,
           "name": "Blade Tidwell",
-          "hr9": 1.02,
+          "hr9": 1.26,
           "hand": "RHP"
         },
         "lineup": [
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 65\u00b0",
+        "lean": "Neutral",
+        "temp": 64.8,
+        "wind_mph": 6.7,
+        "wind_dir": 244,
+        "tail_mph": 6.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.014
     }
   ]
 }
