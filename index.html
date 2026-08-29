@@ -2965,7 +2965,28 @@ var _cmA={}, _cmB={};
     return getJSON(SA+'/schedule?sportId=1&date='+date+'&hydrate=lineups,team').then(function(sch){
       var games=(sch.dates&&sch.dates[0]?sch.dates[0].games:[])||[]; D.meta.gs=D.meta.gs||{};
       var homered=[], finals=(D.meta.finals||[]).slice();
-      var expectGt={}; Object.keys(D.players).forEach(function(n){var p=D.players[n]; if(p.gmatch&&!(p.gmatch in expectGt))expectGt[p.gmatch]=p.gtime;});
+      /* DHALIAS-2026-08-29 -- expectGt MUST carry the SAME alias key g2i does, or the
+         doubleheader guard below is dead. The guard reads expectGt[gm] where `gm` is the
+         ALIAS-NORMALISED matchup (code(away)+'@'+code(home)); this map was keyed by the RAW
+         board gmatch only. For any team code() rewrites -- ALIAS = CHW->CWS, AZ->ARI,
+         OAK/SAC->ATH, WAS->WSH, SDP->SD, TBR->TB, KCR->KC, SFG->SF -- the lookup missed,
+         _want came back '', and `if(_want&&_got&&...)` was FALSE, so BOTH halves of the
+         doubleheader fell through and the later one won. g2i already had this alias line
+         (its comment even cites 'LAA@AZ -> LAA@ARI'); expectGt never got it.
+         Measured 2026-08-29, AZ@SF doubleheader (4:05 PM / 10:05 PM ET):
+             BOS@NYY  expectGt['BOS@NYY']='1:05 PM'   -> 7:15 PM half SKIPPED, correct
+             ARI@SF   expectGt['ARI@SF']=undefined     -> BOTH halves fell through
+         The 10:05 half ran last and rewrote every AZ@SF player's gtime from 4:05 PM to
+         10:05 PM. STAR SAILOR (Goodman 4:10, Devers 4:05, Witt 4:10 -- a 5-minute span)
+         then measured 355 minutes and raised the >155 lineup-timing flag out of nowhere,
+         on a slip assemble_tickets.py had built inside WIN=120. Devers is in game 1: the
+         board lists Merrill Kelly as his opposing starter and Kelly starts the 4:05.
+         The flag was the symptom people saw. The real exposure is the rest of this loop --
+         gs, finals and HR were all being taken from the wrong half, which is precisely what
+         the guard's own comment says it exists to prevent. */
+      var expectGt={}; Object.keys(D.players).forEach(function(n){var p=D.players[n]; if(!p.gmatch)return;
+        if(!(p.gmatch in expectGt))expectGt[p.gmatch]=p.gtime;
+        var pr=p.gmatch.split('@'); if(pr.length===2){var alt=code(pr[0])+'@'+code(pr[1]); if(!(alt in expectGt))expectGt[alt]=p.gtime;}});
       var gmCount={}; games.forEach(function(gg){try{var _gm=code(gg.teams.away.team.abbreviation)+'@'+code(gg.teams.home.team.abbreviation); gmCount[_gm]=(gmCount[_gm]||0)+1;}catch(e){}});
       var etOf=function(gg){if(!gg.gameDate)return null;try{return new Date(gg.gameDate).toLocaleString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',hour12:true}).replace(/[\u202f\s]+/g,' ').trim();}catch(e){return null;}};
       return Promise.all(games.map(function(g){
