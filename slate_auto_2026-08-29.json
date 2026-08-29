@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T22:28:00Z",
+  "pulled_at": "2026-08-29T22:30:28Z",
   "games": [
     {
       "gamePk": 823539,
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 822770,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-29T19:07:00Z",
       "matchup": "SEA@TOR",
       "away": {
@@ -1194,7 +1194,7 @@
           {
             "id": 695734,
             "name": "Daylen Lile",
-            "iso": 0.178
+            "iso": 0.177
           },
           {
             "id": 686611,
@@ -1312,7 +1312,7 @@
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.059
+            "iso": 0.058
           },
           {
             "id": 800050,
@@ -1352,7 +1352,7 @@
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.117
+            "iso": 0.116
           }
         ],
         "confirmed": true
@@ -1388,17 +1388,17 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.287
+            "iso": 0.293
           },
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 514888,
@@ -2110,9 +2110,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 82\u00b0",
+        "lean": "Boost",
+        "temp": 82.3,
+        "wind_mph": 4.3,
+        "wind_dir": 223,
+        "tail_mph": 4.3,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
