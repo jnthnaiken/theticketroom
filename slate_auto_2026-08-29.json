@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T16:30:54Z",
+  "pulled_at": "2026-08-29T16:37:35Z",
   "games": [
     {
       "gamePk": 823539,
@@ -1028,8 +1028,54 @@
           "hr9": 1.39,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.059
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.16
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.141
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.165
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.178
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.152
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.089
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.124
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1134,7 +1180,7 @@
     },
     {
       "gamePk": 822936,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "SD@TB",
       "away": {
@@ -1156,10 +1202,56 @@
           "hr9": 1.04,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.163
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.14
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.248
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.16
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.055
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.164
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.109
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.151
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.074
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1174,7 +1266,7 @@
     },
     {
       "gamePk": 824874,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "COL@ATL",
       "away": {
@@ -1185,8 +1277,54 @@
           "hr9": 1.75,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.183
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.18
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.293
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.15
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.14
+          },
+          {
+            "id": 650489,
+            "name": "Willi Castro",
+            "iso": 0.161
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.262
+          },
+          {
+            "id": 687597,
+            "name": "Jordan Beck",
+            "iso": 0.112
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.126
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -1199,7 +1337,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "note": "weather fetch failed"
