@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T17:30:35Z",
+  "pulled_at": "2026-08-29T17:36:42Z",
   "games": [
     {
       "gamePk": 823539,
@@ -269,7 +269,7 @@
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.348
+            "iso": 0.342
           },
           {
             "id": 679529,
@@ -1242,8 +1242,54 @@
           "hr9": 0.96,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.193
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.289
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.164
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.15
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.135
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.207
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.157
+          },
+          {
+            "id": 669397,
+            "name": "Nick Allen",
+            "iso": 0.083
+          },
+          {
+            "id": 543877,
+            "name": "Christian V\u00e1zquez",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYM",
@@ -1692,16 +1738,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 85\u00b0",
-        "lean": "Boost",
-        "temp": 85.3,
-        "wind_mph": 4.8,
-        "wind_dir": 242,
-        "tail_mph": 4.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.039
+      "wf": 1.0
     }
   ]
 }
