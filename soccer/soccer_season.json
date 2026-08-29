@@ -6,7 +6,7 @@
   5.3,
   9.12,
   7.119999999999999,
-  8.615238095238094
+  6.415238095238094
  ],
  "graded_nights": [
   "2026-08-24",
@@ -29,10 +29,10 @@
    "staked": 0.0
   },
   "builder": {
-   "graded": 11,
-   "won": 6,
-   "units": 1.7523809523809524,
-   "staked": 11.0
+   "graded": 8,
+   "won": 4,
+   "units": -0.4476190476190478,
+   "staked": 8.0
   },
   "moon": {
    "graded": 8,
@@ -42,5 +42,5 @@
   }
  },
  "stake": 1,
- "backout_note": "family (leftover singles) retired and BACKED OUT 2026-08-26, owner's call: 6 graded / 2 won / +0.25u on 6.0u staked, across 2026-08-24 (+0.80u) and 2026-08-25 (-0.55u). Same treatment the MLB board gave Dingers on 08-25. 08-25's three slips were re-graded from the archived payload and reproduced exactly; 08-24 has no archived payload and was taken as recorded. cats.family is GONE, so index.html's conditional tracker row cannot render it, and history was unwound by the same amounts so the season figure and the Overall line agree."
+ "backout_note": "family (leftover singles) retired and BACKED OUT 2026-08-26, owner's call: 6 graded / 2 won / +0.25u on 6.0u staked, across 2026-08-24 (+0.80u) and 2026-08-25 (-0.55u). Same treatment the MLB board gave Dingers on 08-25. 08-25's three slips were re-graded from the archived payload and reproduced exactly; 08-24 has no archived payload and was taken as recorded. cats.family is GONE, so index.html's conditional tracker row cannot render it, and history was unwound by the same amounts so the season figure and the Overall line agree.\n\nLEFTOVERBACKOUT-2026-08-29: the three LEFTOVER SINGLES on 2026-08-28 -- Back Post (Antonio Martinez +200), Near Post (Lucas Boye +200), The Nine (Luis Diaz +120) -- backed out of the ledger, owner's call. They anchored nothing; the section was retired by UNLEFTOVER-2026-08-28 as the MLB `family` retirement in a different coat. 3 graded / 2 won / +2.20u on 3.0u staked, so this REMOVES a winning line -- deliberately: the retirement rests on 12 nights and 91 units (family went 11-80, -33.34u, -36.6% ROI) and three tickets is not evidence against it. Antonio Martinez was still `projected` on the settled board, a single on a man who never got a confirmed start (the lock-side half of that is OUTSQUAD-2026-08-29). cats.builder 11/6 +1.7524u on 11.0 -> 8/4 -0.4476u on 8.0; history tail 8.6152 -> 6.4152. The slips are FLAGGED `backedout` in boards/2026-08-28.json rather than deleted -- they shipped, and the archive is the record of what the room showed. 2026-08-28 stays in graded_nights because it was graded."
 }
