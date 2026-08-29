@@ -1864,7 +1864,42 @@ drawTickets();drawPlayers();drawTracker();
        Back Machine" -- which really did carry Caminero -- comes off, which is the ban working.
        LOCKEVICT-2026-08-29 asks the same question of `_chalkEver`, the night's union, at the
        localStorage door. Two sets, one dispatch -- a second copy of it is how 08-28 happened. */
-    function chalkBannedIn(t,set){ var lg=(t&&t.players)||[];
+    /* 🚨 LOCKNOREDRAFT-2026-08-29 -- A LOCKED TICKET DOES NOT REDRAFT. THE BAN DOES NOT REACH IT.
+       Owner, after three of his locked slips were deleted mid-slate:
+           "if. a. ticket. is. locked. it. doesnt. redraft. what is so hard to grasp there?"
+       Traced through the archive: Matt Olson's price shortened +285 -> +205 at 2026-08-29 18:22Z
+       in a market-wide move (203 of 388 bats repriced; the whole Atlanta game came in together).
+       That made him the shortest of the four, CHALKOFF evicted every slip he was on -- "Goodbye
+       Baseball", "The Ballast" and "Touch 'Em All", ALL THREE ALREADY LOCKED -- and the joint
+       redraft re-seated Ronald Acuna. Not a blip: 13 consecutive builds in the ban at a flat +205.
+       The engine did exactly what it was written to do. That rule is now overruled.
+       CHALKOFF-2026-08-26's own block already named this as its one real cost -- "⚠️ A REMOVED SLIP
+       DOES NOT GRADE ... if the slip was placed before the bat became chalk, the ledger will not
+       see it" -- and that is the objection: three placed bets deleted, none of which will grade.
+       ⚠️ NOT THE REJECTED EXEMPTION, AND NOT CHALKLOCK. Both of those kept judging a locked slip by
+       WHICH leg was chalk (anchor only). Today defeats that anyway -- Olson WAS the anchor of all
+       three. This is the flat rule instead, and it is the older one: lock-latch-2026-08-17, "once
+       true, `locked` stays true", and REDRAFT-2026-08-18, "slips that are already LOCKED are placed
+       bets: they are emitted verbatim by the fresh path".
+       ⚠️ WHAT THE BAN STILL DOES, UNCHANGED. CHALKBAN-2026-08-18 still bars a top-CHALK_N bat from
+       being DRAFTED -- he anchors nothing new, legs nothing new, every mint filter still reads
+       `chalk`. CHALKOFF still evicts him from any OPEN slip, which is the Goodman case the owner
+       actually ruled on ("sitting ALONE IN AN ANCHOR SEAT"). Only a bet already struck is left alone.
+       ⚠️ ONE PREDICATE, THREE DOORS -- as the block above insists, "so this cannot be half-applied".
+       `chalkBannedIn` is the single dispatch behind the CONFLOCK scan, the `prior` carry (and so
+       CHALKSEAT and the joint-redraft trigger, which only ever see a seat this filter vacated) and
+       the localStorage latch. `t.locked` is the CARRIED flag at all three, so a slip merely about
+       to lock this build is still evicted -- it was open when the ban caught it, which is right.
+       MEASURED on the archive with replay_check.js, chained, 4 dates / 456 builds, 0 violations:
+       08-27, 08-28 and 08-29 come back byte-identical in shape to the current engine (today stays
+       builder:4 late:1 lunch:1 moon:8 across all 50 builds, and Olson's three bets survive).
+       08-26 is the only day that moves: 96 of 131 builds go builder:4 -> builder:5, which is
+       Hunter Goodman's locked builder surviving. moon:8 throughout, so the four real anchors keep
+       full pairs -- the board is not short, it carries one extra placed single. A seat-vacating
+       companion (LOCKSEAT) was written for that and measured as a NO-OP on this corpus, so it was
+       not shipped. */
+    function chalkBannedIn(t,set){ if(t&&t.locked) return false;
+      var lg=(t&&t.players)||[];
       for(var i=0;i<lg.length;i++){ if(set[lg[i].name]) return true; } return false; }
     function chalkBanned(t){ return chalkBannedIn(t,chalk); }
     (D.tickets||[]).forEach(function(t){
