@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T15:05:57Z",
+  "pulled_at": "2026-08-29T15:10:57Z",
   "games": [
     {
       "gamePk": 823539,
@@ -438,7 +438,7 @@
     },
     {
       "gamePk": 824637,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T18:20:00Z",
       "matchup": "CIN@CHC",
       "away": {
@@ -449,8 +449,54 @@
           "hr9": 1.11,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.208
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.208
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.215
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.214
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.167
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.2
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.153
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.09
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.155
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -463,7 +509,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
