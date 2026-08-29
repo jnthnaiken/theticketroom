@@ -1,11 +1,11 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T20:02:47Z",
+  "pulled_at": "2026-08-29T20:11:54Z",
   "games": [
     {
       "gamePk": 823539,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-08-29T17:05:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -355,12 +355,12 @@
           {
             "id": 805367,
             "name": "Chase Meidroth",
-            "iso": 0.128
+            "iso": 0.129
           },
           {
             "id": 671976,
             "name": "Tristan Peters",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 668670,
@@ -382,7 +382,7 @@
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.11
+            "iso": 0.111
           },
           {
             "id": 686797,
@@ -422,7 +422,7 @@
           {
             "id": 805805,
             "name": "Walker Jenkins",
-            "iso": 0.2
+            "iso": 0.167
           }
         ],
         "confirmed": true
@@ -525,7 +525,7 @@
           {
             "id": 676475,
             "name": "Alec Burleson",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 691023,
@@ -540,7 +540,7 @@
           {
             "id": 665877,
             "name": "Jos\u00e9 Ferm\u00edn",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 669357,
@@ -621,7 +621,7 @@
           {
             "id": 624431,
             "name": "Jose Trevino",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 670770,
@@ -717,7 +717,7 @@
         "sp": {
           "id": 807739,
           "name": "Kade Anderson",
-          "hr9": 2.7,
+          "hr9": 2.57,
           "hand": "LHP"
         },
         "lineup": [
@@ -744,12 +744,12 @@
           {
             "id": 663728,
             "name": "Cal Raleigh",
-            "iso": 0.174
+            "iso": 0.181
           },
           {
             "id": 702284,
             "name": "Cole Young",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 621493,
@@ -774,7 +774,7 @@
         "sp": {
           "id": 667755,
           "name": "Jos\u00e9 Soriano",
-          "hr9": 0.81,
+          "hr9": 0.86,
           "hand": "RHP"
         },
         "lineup": [
@@ -841,7 +841,7 @@
     },
     {
       "gamePk": 823177,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T20:05:00Z",
       "matchup": "ARI@SF",
       "away": {
@@ -906,7 +906,7 @@
         "sp": {
           "id": 683363,
           "name": "Matt Wilkinson",
-          "hr9": 1.59,
+          "hr9": 1.42,
           "hand": "LHP"
         },
         "lineup": [
@@ -1013,7 +1013,7 @@
     },
     {
       "gamePk": 822690,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T20:05:00Z",
       "matchup": "MIA@WSH",
       "away": {
@@ -1028,12 +1028,12 @@
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.233
+            "iso": 0.231
           },
           {
             "id": 669364,
@@ -1078,7 +1078,7 @@
         "sp": {
           "id": 676917,
           "name": "Cade Cavalli",
-          "hr9": 1.03,
+          "hr9": 1.02,
           "hand": "RHP"
         },
         "lineup": [
@@ -1146,7 +1146,7 @@
     },
     {
       "gamePk": 824392,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "KC@CLE",
       "away": {
@@ -1279,7 +1279,7 @@
     },
     {
       "gamePk": 823582,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "HOU@NYM",
       "away": {
@@ -1294,7 +1294,7 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.193
+            "iso": 0.196
           },
           {
             "id": 670541,
@@ -1412,7 +1412,7 @@
     },
     {
       "gamePk": 822936,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "SD@TB",
       "away": {
@@ -1544,7 +1544,7 @@
     },
     {
       "gamePk": 824874,
-      "status": "Delayed Start",
+      "status": "Warmup",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "COL@ATL",
       "away": {
@@ -1664,9 +1664,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 83\u00b0",
+        "lean": "Boost",
+        "temp": 82.7,
+        "wind_mph": 3.3,
+        "wind_dir": 160,
+        "tail_mph": 1.1,
+        "precip": 4
       },
-      "wf": 1.0
+      "wf": 1.023
     },
     {
       "gamePk": 823741,
