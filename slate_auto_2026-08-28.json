@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T01:17:38Z",
+  "pulled_at": "2026-08-29T01:22:40Z",
   "games": [
     {
       "gamePk": 824638,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 822935,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-28T23:10:00Z",
       "matchup": "SD@TB",
       "away": {
@@ -1725,7 +1725,7 @@
         "wind_mph": 7.6,
         "wind_dir": 225,
         "tail_mph": 7.6,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.052
     },
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 76\u00b0",
-        "lean": "Boost",
-        "temp": 76.1,
-        "wind_mph": 6.7,
-        "wind_dir": 228,
-        "tail_mph": 6.6,
-        "precip": 4
+        "note": "weather fetch failed"
       },
-      "wf": 1.032
+      "wf": 1.0
     },
     {
       "gamePk": 823178,
@@ -1984,9 +1977,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 65\u00b0",
+        "lean": "Neutral",
+        "temp": 64.9,
+        "wind_mph": 7.4,
+        "wind_dir": 270,
+        "tail_mph": 7.4,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.018
     }
   ]
 }
