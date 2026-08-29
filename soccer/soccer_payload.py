@@ -387,12 +387,23 @@ def shape_ticket(t, players, i, voice, apps, used=None):
     pool = NAMES.get(kind, NAMES['family'])
     if used is None:
         used = set()
-    tname = None
-    for k in range(len(pool)):                      # start where the index says, then walk
-        cand = pool[(i + k) % len(pool)]
-        if cand not in used:
-            tname = cand
-            break
+    # NAMECARRY-2026-08-29: USE THE TITLE THE DRAFT ASSIGNED, when there is one.
+    # soccer_draft.js owns naming (REDRAFT-2026-08-18): a surviving slip keeps its title, a
+    # repaired slip keeps it through `priorName`, and a dead slip's name is spent for the night.
+    # This function used to ignore all of that and derive the title from `i`, the ticket's array
+    # INDEX -- so any reordering of the board (a demotion, a reseat, a new anchor) silently
+    # reassigned titles between live bets. Carried names still go through `used`, so TITLEDUP's
+    # guarantee (unique per board) is unchanged; a carried name that would collide falls through
+    # to the pool walk below rather than shipping a duplicate.
+    tname = t.get('name')
+    if tname and tname in used:
+        tname = None
+    if tname is None:
+        for k in range(len(pool)):                  # start where the index says, then walk
+            cand = pool[(i + k) % len(pool)]
+            if cand not in used:
+                tname = cand
+                break
     if tname is None:                               # pool exhausted -- never silently collide
         tname = '%s %d' % (pool[i % len(pool)], i + 1)
     used.add(tname)

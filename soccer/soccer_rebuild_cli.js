@@ -131,8 +131,19 @@ console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.mint
    lunch/nightcap section instead of standing there looking like a fifth anchor. */
 (r.reseated || []).forEach(x => console.log(`    reseated ${x.name} -> ${x.kind} (no screamer behind it)`));
 
+/* NAMECARRY-2026-08-29 -- THE TITLE MUST TRAVEL. soccer_draft.js does REDRAFT-2026-08-18
+   properly: a surviving slip keeps its own title, a repaired slip keeps it via `priorName`, and a
+   dead slip's name is SPENT for the night. All of that was thrown away right here -- this object
+   never carried `name`, so soccer_payload.shape_ticket re-derived every title from the ticket's
+   ARRAY INDEX and titles were reassigned by POSITION on every build.
+   Measured 2026-08-29: "Top Corner" was Guirassy + Edouard + Awoniyi at 11:47Z and Schick +
+   Awoniyi + Tietz at 17:26Z; "Runs the Channel" moved from Guirassy's single to David's; "The
+   Poacher" from David's to Boga's. That is REDRAFT-2026-08-18's own words -- "the board showed
+   one ticket that had been two bets" -- with the engine's fix intact and discarded at the file
+   boundary. */
 const out = r.tickets.map(t => ({
   kind: t.kind,
+  name: t.name,
   risk: (t.rr && t.rr.risk) || (t.kind === 'moon' ? SD.DEFAULTS.MOON_RISK : SD.DEFAULTS.SINGLE_STAKE),
   legs: t.players.map(l => ({
     name: l.name, odds: l.odds,

@@ -811,6 +811,42 @@
       reseated.push({ name: n, kind: t.kind });
     });
 
+    /* ==================================================================================
+     * SHORTLAST-2026-08-29 -- an anchor that is short a screamer sorts to the BOTTOM.
+     * ==================================================================================
+     * Owner: "leave it then but put it at the bottom so the other anchor's moons arent split up."
+     *
+     * When team news kills a pair that cannot be repaired (MINTGUARD leaves no legal partner once
+     * the window has kicked off), an anchor can finish the day with ONE moon instead of
+     * MOONS_PER_ANC. That slip is a real bet and stays -- the owner ruled on that directly. But
+     * emitted in place it lands BETWEEN two complete anchors' pairs, so the screamers section
+     * reads pair / single / pair and the pairs no longer sit together.
+     *
+     * So: stable sort, complete anchors first, short anchors last. Nothing else moves --
+     * `(a.i - b.i)` keeps every other slip in the order the draft emitted it.
+     *
+     * ⚠️ SAFE ONLY BECAUSE TITLES NO LONGER RIDE ON POSITION. soccer_payload.shape_ticket used to
+     * derive every title from the ticket's ARRAY INDEX, so any reorder renamed live slips --
+     * REDRAFT-2026-08-18's exact failure. See NAMECARRY-2026-08-29: the title the draft assigned
+     * here now travels in tickets.json and the payload uses it. Do not reintroduce an ordering
+     * change without that carry in place.
+     * `sig()` sorts before comparing, so a pure reorder is correctly reported as UNCHANGED and
+     * does not churn a commit. */
+    var moonCount = {};
+    out.forEach(function (t) {
+      if (t.kind === 'moon' && (t.players || []).length) {
+        var a = t.players[0].name; moonCount[a] = (moonCount[a] || 0) + 1;
+      }
+    });
+    var isShortAnchor = function (t) {
+      var legs = t.players || []; if (!legs.length) return false;
+      var c = moonCount[legs[0].name] || 0;
+      return c > 0 && c < cfg.MOONS_PER_ANC;      /* 0 moons = a lunch/nightcap, its own section */
+    };
+    out = out.map(function (t, i) { return { t: t, i: i, s: isShortAnchor(t) ? 1 : 0 }; })
+             .sort(function (a, b) { return (a.s - b.s) || (a.i - b.i); })
+             .map(function (x) { return x.t; });
+
     var sig = function (ts) {
       return ts.map(function (t) {
         return t.kind + ':' + (t.players || []).map(function (l) { return l.name; }).join('+');
