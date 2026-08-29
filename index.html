@@ -2035,22 +2035,24 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
            not assumed: replaying 2026-08-26 19:34Z, "Full Fathom" came back as Pete Alonso
            after Hunter Goodman was evicted. Exactly the 2026-08-17 "Nightfall" failure. */
         _killed[t.name]=1;
-        /* CHALKSEATFIX-2026-08-29 -- ONLY IF THE ANCHOR HIMSELF IS CHALK.
-           chalkBanned() is true when ANY LEG is banned, which is right (CHALKOFF: "ANY LEG,
-           not just the anchor"). The SEAT is a different question. Recording t.anchor here
-           claimed a seat was empty whenever a PARTNER went chalk, and the anchor was still
-           sitting in it -- the engine logged "Munetaka Murakami: now chalk" about a bat
-           priced +266 while the ban was Olson/Alonso/Caminero/Schwarber. That false trigger
-           ran the full joint redraft, which throws the open board away, and it took
-           "Climbing the Ladder" with it: a LOCKED slip carrying no chalk bat at all.
-           2026-08-28 23:12Z, one price move (Caminero 258->231, nobody else on either slip
-           moved a cent), two placed bets deleted, and Murakami left leading nothing for the
-           next sixteen builds.
-           A chalk PARTNER kills that slip under CHALKOFF and the pair is then repaired leg
-           by leg by the machinery built for it. It must never escalate to a board-wide
-           redraft. Only a chalk ANCHOR actually empties a seat -- Coby Mayo at 19:17Z, who
-           really was the fourth shortest price, which is the case CHALKSEAT was written for. */
-        if(t.kind==='moon'&&t.anchor&&chalk[t.anchor])_chalkSeat[t.anchor]=1;
+        /* UNCHALKSEATFIX-2026-08-29 -- this line briefly read
+               if(t.kind==='moon'&&t.anchor&&chalk[t.anchor])_chalkSeat[t.anchor]=1;
+           so that only a chalk ANCHOR recorded a vacated seat. It was written to stop a
+           chalk PARTNER (Caminero 258->231) triggering the joint redraft that deleted
+           Murakami's locked "Climbing the Ladder". Real problem, wrong fix, and it made a
+           claim that measurement does not support -- that the pair is repaired leg by leg
+           instead. It is not: when CHALKOFF evicts an anchor's moons for a chalk PARTNER,
+           those slips leave `prior` first, so _chalkSeat is empty AND the open-moon scan
+           below has nothing left to scan. No redraft runs and the anchor is left leading
+           nothing. Replaying 2026-08-23 with that line: 15 builds at 3 anchors / 6 moons,
+           15:57Z to 16:52Z; with this one: 214 builds, one shape, 4 anchors, 0 violations.
+           2026-08-27 went 120x builder:1 moon:2 -> 125x builder:2 moon:4, twice the board.
+           It was also never load-bearing. MINTLOCK-2026-08-29 (the sibling kill exempts
+           locked slips) and CHALKLOCK-2026-08-29 (a locked slip is judged on its ANCHOR)
+           are what actually make the joint redraft safe for placed bets: 2026-08-28 with
+           those two and this line back to normal replays 104 builds, 0 violations, and
+           Murakami keeps both locked moons through 23:12Z. */
+        if(t.kind==='moon'&&t.anchor)_chalkSeat[t.anchor]=1;
         return false; }
       return true;});
     /* BUILDERBADGE-2026-08-26 (part 2). Fixing the mint site alone does not fix TODAY: a
