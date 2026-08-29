@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T18:00:55Z",
+  "pulled_at": "2026-08-29T18:06:44Z",
   "games": [
     {
       "gamePk": 823539,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 607074,
           "name": "Carlos Rod\u00f3n",
-          "hr9": 0.78,
+          "hr9": 0.77,
           "hand": "LHP"
         },
         "lineup": [
@@ -264,12 +264,12 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.224
+            "iso": 0.223
           },
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.342
+            "iso": 0.338
           },
           {
             "id": 679529,
@@ -443,7 +443,7 @@
     },
     {
       "gamePk": 823011,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-29T18:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -1699,9 +1699,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 81\u00b0",
+        "lean": "Boost",
+        "temp": 80.7,
+        "wind_mph": 10.3,
+        "wind_dir": 229,
+        "tail_mph": 10.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.051
     },
     {
       "gamePk": 823986,
