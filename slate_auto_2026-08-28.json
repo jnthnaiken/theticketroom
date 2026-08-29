@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T02:32:28Z",
+  "pulled_at": "2026-08-29T02:38:00Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1372,7 +1372,7 @@
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.219
+            "iso": 0.218
           },
           {
             "id": 805367,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823013,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-08-29T00:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -1552,7 +1552,7 @@
           {
             "id": 691023,
             "name": "Jordan Walker",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 665877,
@@ -1623,7 +1623,7 @@
           {
             "id": 547180,
             "name": "Bryce Harper",
-            "iso": 0.24
+            "iso": 0.239
           },
           {
             "id": 650333,
@@ -1719,15 +1719,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 89\u00b0",
+        "cond": "wind out 6mph, 92\u00b0",
         "lean": "Boost",
-        "temp": 89.2,
+        "temp": 91.5,
         "wind_mph": 6.2,
         "wind_dir": 232,
         "tail_mph": 6.1,
         "precip": 0
       },
-      "wf": 1.05
+      "wf": 1.053
     },
     {
       "gamePk": 824960,
@@ -1776,12 +1776,12 @@
           {
             "id": 681047,
             "name": "Christian Franklin",
-            "iso": 0.066
+            "iso": 0.065
           },
           {
             "id": 687637,
             "name": "Dylan Beavers",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 665966,
@@ -1796,7 +1796,7 @@
         "sp": {
           "id": 682052,
           "name": "Jacob Lopez",
-          "hr9": 1.39,
+          "hr9": 1.38,
           "hand": "LHP"
         },
         "lineup": [
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 78\u00b0",
-        "lean": "Boost",
-        "temp": 78.5,
-        "wind_mph": 5.5,
-        "wind_dir": 207,
-        "tail_mph": 4.6,
-        "precip": 7
+        "note": "weather fetch failed"
       },
-      "wf": 1.029
+      "wf": 1.0
     },
     {
       "gamePk": 823178,
@@ -1904,12 +1897,12 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.141
+            "iso": 0.139
           },
           {
             "id": 545121,
@@ -1929,7 +1922,7 @@
         "sp": {
           "id": 694918,
           "name": "Blade Tidwell",
-          "hr9": 0.8,
+          "hr9": 0.78,
           "hand": "RHP"
         },
         "lineup": [
@@ -1985,15 +1978,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 64\u00b0",
+        "cond": "wind out 7mph, 65\u00b0",
         "lean": "Neutral",
-        "temp": 64.0,
+        "temp": 64.8,
         "wind_mph": 7.4,
         "wind_dir": 272,
         "tail_mph": 7.3,
         "precip": 1
       },
-      "wf": 1.017
+      "wf": 1.018
     }
   ]
 }
