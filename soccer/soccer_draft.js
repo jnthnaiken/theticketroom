@@ -529,19 +529,7 @@
       }
     });
 
-    /* LIVEFIELD-2026-08-29. The gate is measured over the field that can still be BET, not over
-       every name the day priced. gate_z is a z-score of `blend` and Z_GATE is a cut in SDs above
-       the mean -- so including matches that have already kicked off lets players nobody can back
-       any more set the bar for the ones you can. On a staggered card that is not a rounding
-       error: the finished matches are a third of the slate by mid-afternoon, and if they skew
-       strong the gate rises and thins a pool it has no stake in (or the reverse). MINTGUARD
-       already refuses to draft those players; this makes the measurement agree with the draft.
-       Falls back to the whole field if nothing is ahead of the clock, so a board built before
-       the first kickoff, or replayed with no clock, is bit-for-bit what it was. */
-    var liveField = Object.keys(D.players).map(function (n) { return D.players[n]; })
-      .filter(function (p) { var k = koOf(p.game); return k != null && now < k; });
-    if (liveField.length < 2) liveField = Object.keys(D.players).map(function (n) { return D.players[n]; });
-    var gz = gateZ(liveField);
+    var gz = gateZ(Object.keys(D.players).map(function (n) { return D.players[n]; }));
     function rowOf(n) {
       var p = D.players[n], ko = koOf(p.game);
       return {
