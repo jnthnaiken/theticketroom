@@ -786,54 +786,6 @@
      * also retires the fork's `lunch-empty` copy ("the scorer drafts anchors and screamers
      * only"), which stops being true the first time this fires.
      */
-    /* ==================================================================================
-     * SALVAGE-2026-08-29 -- A LIVE MAN DOES NOT VANISH BECAUSE HIS SLIP DIED.
-     * ==================================================================================
-     * Owner: "so why no wissa as a special? or wissa as a anchor w one moon. please make sure the
-     * draft is correct and no one is getting dropped for some bullshit."
-     *
-     * The pair is ALL-OR-NONE, so when one leg is dropped from a squad and no legal replacement
-     * exists the whole group demotes -- and it takes the group's HEALTHY legs with it. They are
-     * confirmed starters, still priced, still perfectly good bets, and they left the board without
-     * anyone deciding they should.
-     *
-     * Measured across 2026-08-29, comparing the morning board's legs to the live one:
-     *     Alexander Isak    confirmed  +138   dropped
-     *     Jeremie Boga      confirmed  +162   dropped
-     *     Mikel Oyarzabal   confirmed  +145   dropped
-     *     Yoane Wissa       confirmed  +230   dropped   (the one he asked about)
-     * against Kean / Richarlison / Osula / Pinamonti / Beto / Sulc / Fofana / Edouard / Panichelli,
-     * who are out or benched and SHOULD be gone.
-     *
-     * So: after repair and mint, every man who was on a slip the board PUBLISHED, is still alive
-     * and priced, and did not make the finished card, comes back as a single. ORPHANSECTION below
-     * then files him -- he anchors no moon, so he lands in the lunch special or the nightcap,
-     * which is the section the owner named for exactly this.
-     *
-     * ⚠️ MINTGUARD DOES NOT APPLY, and this is the one place that is true. MINTGUARD forbids
-     * CREATING a slip after its own kickoff because it would be a bet nobody could have placed.
-     * This creates no selection -- the man was already published on this board, at this price,
-     * before his match started; the slip around him died, he did not. Dropping him is what
-     * rewrites history. Everything else the draft mints still goes through placeable().
-     *
-     * ⚠️ THIS IS NOT LEFTOVERS-2026-08-28, which minted singles for every gated player the draft
-     * never used and was backed out by UNLEFTOVER because those singles froze and ate the repair
-     * pool. This runs AFTER repair and mint, on the finished board, and only for men the board
-     * had already published -- so it cannot take a partner away from anything. */
-    var onBoardNow = {};
-    out.forEach(function (t) { (t.players || []).forEach(function (l) { onBoardNow[l.name] = true; }); });
-    var salvaged = [];
-    (D.tickets || []).forEach(function (t) {
-      (t.players || []).forEach(function (l) {
-        var n = l.name, p = D.players[n];
-        if (onBoardNow[n] || !alive[n] || !p || p.out || p.void || p.odds == null) return;
-        onBoardNow[n] = true;
-        out.push(mkTicket('builder', [legOf(n, p)], cfg.SINGLE_STAKE,
-                          pickName('builder', null), koOf, D.players));
-        salvaged.push(n);
-      });
-    });
-
     var moonAnchorOnBoard = {}, outHasMoons = false;
     out.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) {
@@ -966,7 +918,6 @@
       released: releasedN,
       demoted: demoted,
       reseated: reseated,
-      salvaged: salvaged,
       anchors: Object.keys(takenAnchors).length + (res.anchors || 0),
       thin: !!res.thin,
       poolSize: (res.pool || []).length
