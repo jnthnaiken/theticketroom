@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T02:22:54Z",
+  "pulled_at": "2026-08-29T02:27:52Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 823744,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-28T23:40:00Z",
       "matchup": "TEX@MIL",
       "away": {
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 78\u00b0",
+        "lean": "Boost",
+        "temp": 78.5,
+        "wind_mph": 5.5,
+        "wind_dir": 207,
+        "tail_mph": 4.6,
+        "precip": 7
       },
-      "wf": 1.0
+      "wf": 1.029
     },
     {
       "gamePk": 823178,
@@ -1977,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 64\u00b0",
-        "lean": "Neutral",
-        "temp": 64.0,
-        "wind_mph": 7.4,
-        "wind_dir": 272,
-        "tail_mph": 7.3,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.017
+      "wf": 1.0
     }
   ]
 }
