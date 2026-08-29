@@ -793,22 +793,51 @@
       }
     });
     var reseated = [];
-    /* ⚠️ NOT ON A SINGLES-ONLY BOARD. SINGLES-2026-08-27: a thin slate (two matches) mints
-       BUILDERS AND NOTHING ELSE, and there every builder IS an anchor -- "no moon behind it" is
-       true of all of them and means the opposite of orphaned. Same guard the frozen-builder
-       branch above uses (`boardHasMoons`), measured on the FINISHED board. Caught by
-       test_redraft "a two-match slate drafts singles only", which this turned into four lunch
-       specials on the first cut. */
+    /* 🚨 ONLY THE SURPLUS IS A LEFTOVER. ORPHANSURPLUS-2026-08-29.
+     * Owner: "cause right now we have 3. how is there a leftover if there is 3?"
+     *
+     * He is right, and this is what his original ruling actually said. "then use the lunch
+     * special and nightcap. thats what theyre for" was the answer to "why are there 5 soccer
+     * anchors?" -- the sections exist for the name that is SURPLUS TO ANCH. The first cut of
+     * this block reseated ANY moonless single, which fires just as happily when the board is
+     * UNDER strength: on 2026-08-29 the board finished with three moon anchors against ANCH=4,
+     * one seat standing empty, and Guirassy -- a cashed single, not a surplus name -- sitting in
+     * the lunch special anyway. A board showing 3 anchors has no leftover by definition.
+     *
+     * ⚠️ THIS IS NOT COSMETIC. `soccer_grade.py` KINDS and soccer_payload's ledger `cats` book by
+     * kind, so reseating moved a WINNING anchor single out of the ⚓️ column into 🍱: the season
+     * line went from "Anchors 8-5 +3.6u / Lunch 0-0" to "Anchors 7-5 +2.8u / Lunch 1-0 +0.8u"
+     * for a bet that never stopped being an anchor.
+     *
+     * So: count the seats a moon anchor is actually holding, and reseat only the moonless singles
+     * that cannot claim a free one. Emit order decides who gets the seat, which is draft strength
+     * order -- frozen first, then repaired, then minted.
+     *
+     * ⚠️ NOT ON A SINGLES-ONLY BOARD. SINGLES-2026-08-27: a thin slate (two matches) mints
+     * BUILDERS AND NOTHING ELSE, and there every builder IS an anchor -- "no moon behind it" is
+     * true of all of them and means the opposite of orphaned. Same guard the frozen-builder
+     * branch above uses (`boardHasMoons`), measured on the FINISHED board. Caught by
+     * test_redraft "a two-match slate drafts singles only", which this turned into four lunch
+     * specials on the first cut. */
+    /* ⚠️ DERIVED FROM THE BOARD'S CURRENT SHAPE, NEVER STICKY. The first cut only converted
+       'builder' -> lunch, so once a single had been reseated the PRIOR board handed it back as
+       kind 'lunch' and it could never return to the anchors even when a seat reopened -- which is
+       exactly the state the owner was looking at. Single-leg slips are therefore RE-CLASSIFIED
+       from scratch every pass: seat what fits against ANCH, reseat the rest. soccer_mock mints
+       moon / builder / family only, so 'lunch' and 'late' can only have come from this block --
+       reading them back and reconsidering them is safe. */
+    var seatsFree = cfg.ANCH - Object.keys(moonAnchorOnBoard).length;
     out.forEach(function (t) {
       if (!outHasMoons) return;
-      if (t.kind !== 'builder') return;
+      if (t.kind !== 'builder' && t.kind !== 'lunch' && t.kind !== 'late') return;
       var legs = t.players || [];
       if (legs.length !== 1) return;
       var n = legs[0].name;
-      if (moonAnchorOnBoard[n]) return;                 // still backs a screamer -- a real anchor
-      var p = D.players[n] || {};
-      t.kind = p.late ? 'late' : 'lunch';
-      reseated.push({ name: n, kind: t.kind });
+      if (moonAnchorOnBoard[n]) { t.kind = 'builder'; return; }   // backs a screamer -- a real anchor
+      var was = t.kind, p = D.players[n] || {};
+      if (seatsFree > 0) { seatsFree--; t.kind = 'builder'; }     // a seat is open: he IS an anchor
+      else t.kind = p.late ? 'late' : 'lunch';
+      if (t.kind !== was) reseated.push({ name: n, from: was, kind: t.kind });
     });
 
     /* ==================================================================================
