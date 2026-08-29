@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T02:02:46Z",
+  "pulled_at": "2026-08-29T02:07:25Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 823504,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-28T23:15:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 64\u00b0",
+        "lean": "Neutral",
+        "temp": 64.0,
+        "wind_mph": 7.4,
+        "wind_dir": 272,
+        "tail_mph": 7.3,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.017
     }
   ]
 }
