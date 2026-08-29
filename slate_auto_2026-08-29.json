@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T18:30:56Z",
+  "pulled_at": "2026-08-29T18:36:43Z",
   "games": [
     {
       "gamePk": 823539,
@@ -254,7 +254,7 @@
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 805808,
@@ -318,7 +318,7 @@
         "sp": {
           "id": 607200,
           "name": "Erick Fedde",
-          "hr9": 1.67,
+          "hr9": 1.66,
           "hand": "RHP"
         },
         "lineup": [
@@ -382,12 +382,12 @@
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.11
+            "iso": 0.111
           },
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 665019,
@@ -483,7 +483,7 @@
           {
             "id": 663968,
             "name": "Jake Mangum",
-            "iso": 0.088
+            "iso": 0.087
           },
           {
             "id": 804668,
@@ -576,7 +576,7 @@
     },
     {
       "gamePk": 824637,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-29T18:20:00Z",
       "matchup": "CIN@CHC",
       "away": {
@@ -584,7 +584,7 @@
         "sp": {
           "id": 671096,
           "name": "Andrew Abbott",
-          "hr9": 1.24,
+          "hr9": 1.23,
           "hand": "LHP"
         },
         "lineup": [
@@ -663,17 +663,17 @@
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.095
+            "iso": 0.096
           },
           {
             "id": 807713,
             "name": "Matt Shaw",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 621438,
@@ -1740,9 +1740,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 85.9,
+        "wind_mph": 4.4,
+        "wind_dir": 246,
+        "tail_mph": 4.0,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.038
     }
   ]
 }
