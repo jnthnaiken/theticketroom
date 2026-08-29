@@ -117,9 +117,34 @@ jobs:
           [ -f boards/${{ steps.slate.outputs.date }}.json ] && cp boards/${{ steps.slate.outputs.date }}.json .work/prior.json || true
 
       # ------------------------------------------------------------------------------------
-      # Team news. 20 = a sheet is not published yet, which is the NORMAL state for most of the
-      # day and for the whole gap between staggered kickoffs. Only a COMPLETE pull is joined --
-      # an XI filter applied while one sheet is missing deletes that match from the board.
+      # Team news. 20 = at least one sheet is not published yet, which is the NORMAL state for
+      # most of the day and for the WHOLE gap between staggered kickoffs.
+      #
+      # 🚨 XIPARTIALGATE-2026-08-29. This step used to join ONLY on rc 0, on the reasoning that
+      # "an XI filter applied while one sheet is missing deletes that match from the board".
+      # That reasoning was made obsolete by XIPARTIAL-2026-08-28 and never revisited here, so the
+      # per-match fix shipped that day was DEAD CODE on every real card:
+      #
+      #   soccer_teamnews.py   already decides `trusted` PER MATCH (xi_h == 11 and xi_a == 11)
+      #                        and refuses to assert `absent` for any match whose sheet is
+      #                        incomplete -- those names come back as `unplaced`, not out.
+      #   soccer_rebuild_cli.js already builds `xiMatches` from that per-match trust and passes
+      #                        it to SoccerDraft.redraft(), so a player in an UNPUBLISHED match
+      #                        stays 'projected' and fully draftable.
+      #
+      # Both halves were built for exactly this input. Only this `case` kept them from ever
+      # seeing it. Football XIs land about an hour before kickoff, so on a card that spans
+      # 11:30Z to 19:30Z rc is 20 for essentially the entire slate and the board never applied
+      # team news at all. Measured on 2026-08-29 (22 fixtures, 8 sheets published at 13:45Z):
+      #
+      #   rebuild @13:10Z, no teamnews   -> "Outside the Box" = Schick / Burkardt / BETO  (a sub)
+      #   rebuild @13:10Z, this change   -> Beto dropped, moon repaired to
+      #                                     Guirassy / Schick / Burkardt          rc 0, CHANGED
+      #
+      # Beto was named on Everton's bench at ~13:00Z and rode a live moon to kickoff because
+      # this gate ate the half-hour window in which the slip was still repairable.
+      #
+      # 30 still drafts without team news: no feed at all is a different fact from a partial one.
       # ------------------------------------------------------------------------------------
       - name: Pull ESPN team sheets
         id: tn
@@ -134,7 +159,18 @@ jobs:
           case $RC in
             0)  echo "every sheet published -- joining to the priced field"
                 python3 soccer_teamnews.py ags.psv teamnews.psv teamnews.json ;;
-            20) echo "::notice::Team sheets not all published yet; drafting without them." ;;
+            20) echo "::notice::Some sheets not published yet; joining the ones that ARE (per-match trust)."
+                python3 soccer_teamnews.py ags.psv teamnews.psv teamnews.json
+                # ⚠️ NOT PEDANTRY. Before the first sheet of the day lands, rc is ALSO 20 and the
+                # join classifies nobody. soccer_rebuild_cli.js exits 3 on an empty `xi` -- on
+                # purpose, because an empty XI gates the pool to nothing and mints an empty board
+                # -- and the draft step below treats any rc other than 0/10 as a build failure.
+                # "No sheet has published" is the same fact as "no team news", so drop the file
+                # and let the rebuild run unfiltered, exactly as it did before this change.
+                if ! python3 -c "import json,sys;sys.exit(0 if json.load(open('teamnews.json')).get('xi') else 1)"; then
+                  echo "::notice::No sheet has published yet -- dropping the empty join."
+                  rm -f teamnews.json
+                fi ;;
             30) echo "::warning::ESPN unreachable this pass; drafting without team news." ;;
             *)  echo "::error::soccer_teamnews_fetch.js exited $RC"; exit $RC ;;
           esac
