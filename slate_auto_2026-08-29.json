@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T16:47:36Z",
+  "pulled_at": "2026-08-29T16:52:14Z",
   "games": [
     {
       "gamePk": 823539,
@@ -177,7 +177,7 @@
     },
     {
       "gamePk": 824230,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-29T17:10:00Z",
       "matchup": "LAD@DET",
       "away": {
@@ -1508,9 +1508,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 85\u00b0",
+        "lean": "Boost",
+        "temp": 85.3,
+        "wind_mph": 4.8,
+        "wind_dir": 242,
+        "tail_mph": 4.5,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.039
     }
   ]
 }
