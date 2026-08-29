@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T16:16:38Z",
+  "pulled_at": "2026-08-29T16:22:01Z",
   "games": [
     {
       "gamePk": 823539,
@@ -720,8 +720,54 @@
           "hr9": 3.18,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.188
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.226
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.16
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.099
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.174
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.143
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.092
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.13
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
@@ -914,7 +960,7 @@
     },
     {
       "gamePk": 824392,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T20:10:00Z",
       "matchup": "KC@CLE",
       "away": {
@@ -925,8 +971,54 @@
           "hr9": 0.62,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.192
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.171
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.217
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.148
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.146
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.127
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.12
+          },
+          {
+            "id": 683090,
+            "name": "Matthew Lugo",
+            "iso": 0.0
+          },
+          {
+            "id": 571912,
+            "name": "Luke Maile",
+            "iso": 0.138
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -939,7 +1031,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1064,16 +1156,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 85\u00b0",
-        "lean": "Boost",
-        "temp": 84.8,
-        "wind_mph": 1.7,
-        "wind_dir": 157,
-        "tail_mph": 0.5,
-        "precip": 7
+        "note": "weather fetch failed"
       },
-      "wf": 1.024
+      "wf": 1.0
     },
     {
       "gamePk": 823741,
