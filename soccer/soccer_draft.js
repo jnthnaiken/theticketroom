@@ -29,7 +29,18 @@
   'use strict';
 
   var DEFAULTS = {
-    WIN: 180,            // minutes: widest kickoff span one slip may bridge (MLB uses 120)
+    /* WIN60-2026-08-29. Was 180. The owner: "soccer's game time window needs to be 60 min.
+       this isnt working for me at 180 and all slips with lineup risks. makes it impossible to
+       place a slip."
+       WHY 180 DOES NOT WORK ON A FOOTBALL CARD. Team sheets publish about an hour before each
+       kickoff, so a slip bridging three hours is NEVER fully confirmed at one moment: by the time
+       the last leg's XI is known the first leg has been playing for two hours, and the bet cannot
+       be placed as one slip any more. A 60-minute span means every leg's sheet lands inside the
+       same hour, so the whole slip resolves its lineup risk together and is placeable while all
+       three matches are still ahead of you. Baseball uses 120 and does not have this problem
+       because lineups post on a much longer runway.
+       Keep this in step with CFG['WIN'] in soccer_mock.py -- two copies, one rule. */
+    WIN: 60,             // minutes: widest kickoff span one slip may bridge (MLB uses 120)
     Z_GATE: 0.75,        // pool gate, in SDs of blend above the slate mean
     GAME_CAP: 4,         // most pool players from any one match
     ANCH: 4,             // anchor TARGET -- see THINSLATE below, this is a ceiling not a promise

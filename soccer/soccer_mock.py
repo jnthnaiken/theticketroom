@@ -17,7 +17,12 @@ import subprocess as _subprocess, os as _os, shutil as _shutil
 from collections import defaultdict
 
 CFG = dict(
-    WIN=180, Z_GATE=0.75, GAME_CAP=4, CHALK_N=0,
+    # WIN60-2026-08-29 -- was 180. MUST match DEFAULTS.WIN in soccer_draft.js; two copies, one
+    # rule. Team sheets land ~1h before kickoff, so a slip spanning three hours is never fully
+    # confirmed at any one moment -- by the time the last leg's XI is known the first leg has
+    # been playing for two hours and the slip can no longer be placed. 60 keeps every leg's
+    # lineup risk inside the same hour. See the note on DEFAULTS.WIN for the owner's wording.
+    WIN=60, Z_GATE=0.75, GAME_CAP=4, CHALK_N=0,
     ANCH=4, MOONS_PER_ANC=2, ANCH_PER_GAME=2, FAM_CAP=8,
     MOON_RISK=2.0, SINGLE_STAKE=1.0,
 )

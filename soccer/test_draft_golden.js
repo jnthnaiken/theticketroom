@@ -82,7 +82,7 @@ const anchorNames = [...new Set(moons.map(t => t.legs[0].name))];
 
 inv('every moon has exactly 3 legs', moons.every(t => t.legs.length === 3));
 inv('no moon repeats a match', moons.every(t => new Set(t.legs.map(l => l.match)).size === 3));
-inv('every moon fits WIN=180', moons.every(t => SD.spanOk(t.legs, SD.DEFAULTS)));
+inv('every moon fits WIN=' + SD.DEFAULTS.WIN, moons.every(t => SD.spanOk(t.legs, SD.DEFAULTS)));
 inv('each anchor ships exactly MOONS_PER_ANC',
   anchorNames.every(n => moons.filter(t => t.legs[0].name === n).length === SD.DEFAULTS.MOONS_PER_ANC));
 inv('builders == moon anchors, one each',
