@@ -82,6 +82,19 @@ _same_slate = (not _force) and bool(prevD and (prevD.get('meta') or {}).get('dat
 if _same_slate:
     D['tickets'] = prevD['tickets']            # hand the prior board to the engine AS PRIOR -> it locks the confirmed ones
     print(f"  (same slate -> {len(D['tickets'])} prior tickets handed to the draft engine)")
+    # LOCKEVICT-2026-08-29: carry the night's CHALK UNION too. `meta` comes fresh from build15 on
+    # every build, so without this the union resets every five minutes and remembers nothing. The
+    # engine reads it, unions today's ban into it, and republishes it; the ONLY consumer is the
+    # localStorage latch, which uses it to refuse to resurrect a slip CHALKOFF already evicted.
+    # (2026-08-28: Alvarez was banned at 21:36Z and his three slips died; by 23:12Z he was 252 and
+    # out of the ban, and any tab that had been closed through that window put "Sea Legs" back on
+    # a board the server publishes without it -- through every hard refresh, since localStorage
+    # survives one.) Guarded by _same_slate for the same reason the tickets are: a ban belongs to
+    # one slate, and a new date correctly starts empty.
+    _ever = (prevD.get('meta') or {}).get('chalkever')
+    if _ever:
+        D.setdefault('meta', {})['chalkever'] = _ever
+        print(f"  (carried the night's chalk union: {len(_ever)} bat(s))")
 
 json.dump(D, open(DJSON, 'w'), indent=1)       # the engine reads/writes this file in place
 
