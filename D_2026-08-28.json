@@ -38202,15 +38202,15 @@
   },
   "date": "2026-08-28",
   "gs": {},
+  "pool": 387,
+  "gate": 55,
+  "tickets": 14,
   "chalk": [
    "Pete Alonso",
    "Matt Olson",
    "Junior Caminero",
    "Kyle Schwarber"
-  ],
-  "pool": 387,
-  "gate": 55,
-  "tickets": 12
+  ]
  },
  "tickets": [
   {
@@ -38431,7 +38431,7 @@
    "name": "Drop the Hook",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Munetaka Murakami is hitting bullets (66% hard-hit), elevates with ease (18\u00b0), has the yard tilting his way.",
+   "note": "Munetaka Murakami is hitting bullets (66% hard-hit), elevates with ease (18\u00b0), catches a small park boost.",
    "players": [
     {
      "name": "Munetaka Murakami",
@@ -38466,10 +38466,79 @@
    "locked": true
   },
   {
+   "name": "Climbing the Ladder",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Murakami is punishing the baseball (66% hard-hit), Chaparro gets ideal loft (23\u00b0), and Bauers leans on contact with sneaky pop (36/100).",
+   "players": [
+    {
+     "name": "Munetaka Murakami",
+     "team": "White Sox",
+     "total": 185.7,
+     "aT": 100,
+     "wf": 1.046,
+     "gmatch": "CWS@MIN",
+     "gtime": "8:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 266,
+     "status": "confirmed"
+    },
+    {
+     "name": "Andr\u00e9s Chaparro",
+     "team": "Nationals",
+     "total": 134.9,
+     "aT": 100,
+     "wf": 1.001,
+     "gmatch": "MIA@WSH",
+     "gtime": "6:45 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 370,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jake Bauers",
+     "team": "Brewers",
+     "total": 144.8,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "TEX@MIL",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 310,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Munetaka Murakami",
+   "lock": "6:45 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 59,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 3,
+   "parlay_am": 6953,
+   "payout10": 705.28,
+   "locked": true
+  },
+  {
    "name": "The Closer",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Rafael Devers is punishing the baseball (61% hard-hit), gets ideal loft (20\u00b0), gets a sliver of help from the park, carries serious thump (87/100 grade), and carries a 139 number tonight.",
+   "note": "Rafael Devers is making elite contact (61% hard-hit), drives the ball into the air (20\u00b0), gets a sliver of help from the park, and swings a heavy stick (87/100 power).",
    "players": [
     {
      "name": "Rafael Devers",
@@ -38504,10 +38573,116 @@
    "locked": true
   },
   {
+   "name": "Beyond the Bleachers",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Murakami is hammering the ball (66% hard-hit), Alvarez sits in the elite power tier (100/100), and Baldwin puts air under the ball (19\u00b0).",
+   "players": [
+    {
+     "name": "Munetaka Murakami",
+     "team": "White Sox",
+     "total": 185.7,
+     "aT": 100,
+     "wf": 1.046,
+     "gmatch": "CWS@MIN",
+     "gtime": "8:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 252,
+     "status": "confirmed"
+    },
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 175.1,
+     "aT": 100,
+     "wf": 1.013,
+     "gmatch": "HOU@NYM",
+     "gtime": "7:10 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 252,
+     "status": "confirmed"
+    },
+    {
+     "name": "Drake Baldwin",
+     "team": "Braves",
+     "total": 164.1,
+     "aT": 100,
+     "wf": 1.042,
+     "gmatch": "COL@ATL",
+     "gtime": "7:15 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 291,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Munetaka Murakami",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 42.2,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 3,
+   "parlay_am": 4745,
+   "payout10": 484.46
+  },
+  {
+   "name": "Fair Winds",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Christian Encarnacion-Strand gets a yard playing like a launchpad tonight, has loft to spare (20\u00b0), is connecting solidly (49% hard-hit).",
+   "players": [
+    {
+     "name": "Christian Encarnacion-Strand",
+     "team": "Orioles",
+     "total": 167.2,
+     "aT": 100,
+     "wf": 1.082,
+     "gmatch": "BAL@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 247,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Christian Encarnacion-Strand",
+   "lock": "9:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 247,
+   "payout10": 34.7,
+   "locked": true
+  },
+  {
    "name": "The Slingshot",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Encarnacion-Strand lands at 167 in our model, Clemens puts air under the ball (22\u00b0), and Nimmo packs respectable power (64/100 grade).",
+   "note": "Encarnacion-Strand grades to 167 on our board, Clemens puts air under the ball (22\u00b0), and Nimmo packs respectable power (64/100 grade).",
    "players": [
     {
      "name": "Christian Encarnacion-Strand",
@@ -38573,48 +38748,10 @@
    "locked": true
   },
   {
-   "name": "Fair Winds",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Christian Encarnacion-Strand gets a yard playing like a launchpad tonight, has loft to spare (20\u00b0), is connecting solidly (49% hard-hit).",
-   "players": [
-    {
-     "name": "Christian Encarnacion-Strand",
-     "team": "Orioles",
-     "total": 167.2,
-     "aT": 100,
-     "wf": 1.082,
-     "gmatch": "BAL@ATH",
-     "gtime": "9:40 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 247,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Christian Encarnacion-Strand",
-   "lock": "9:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 247,
-   "payout10": 34.7,
-   "locked": true
-  },
-  {
    "name": "Star Sailor",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Encarnacion-Strand has gusts carrying balls over the wall, Valdez is blistering line drives (67% hard-hit), and Carroll has textbook lift (20\u00b0).",
+   "note": "Encarnacion-Strand swings with the wind at his back, Valdez is teeing off (67% hard-hit), and Carroll has the pop to go deep (78/100 power).",
    "players": [
     {
      "name": "Christian Encarnacion-Strand",
@@ -38683,7 +38820,7 @@
    "name": "Goodbye Baseball",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Mayo has the wind howling out behind him, Seager is stinging it on a rope (57% hard-hit), and Trout has loft to spare (23\u00b0).",
+   "note": "Mayo has gusts carrying balls over the wall, Seager is stinging it on a rope (57% hard-hit), and Trout has loft to spare (23\u00b0).",
    "players": [
     {
      "name": "Coby Mayo",
@@ -38746,6 +38883,44 @@
    "priced": 3,
    "parlay_am": 5773,
    "payout10": 587.3,
+   "locked": true
+  },
+  {
+   "name": "The Ballast",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Coby Mayo gets a yard playing like a launchpad tonight, is generating elite exit velo (54% hard-hit), puts air under the ball (22\u00b0).",
+   "players": [
+    {
+     "name": "Coby Mayo",
+     "team": "Orioles",
+     "total": 175.7,
+     "aT": 100,
+     "wf": 1.082,
+     "gmatch": "BAL@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 246,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Coby Mayo",
+   "lock": "9:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 246,
+   "payout10": 34.6,
    "locked": true
   },
   {
@@ -38816,44 +38991,6 @@
    "parlay_am": 7296,
    "payout10": 739.57,
    "locked": true
-  },
-  {
-   "name": "The Ballast",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Coby Mayo gets a yard playing like a launchpad tonight, is generating elite exit velo (54% hard-hit), puts air under the ball (22\u00b0).",
-   "players": [
-    {
-     "name": "Coby Mayo",
-     "team": "Orioles",
-     "total": 175.7,
-     "aT": 100,
-     "wf": 1.082,
-     "gmatch": "BAL@ATH",
-     "gtime": "9:40 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 246,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Coby Mayo",
-   "lock": "9:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 246,
-   "payout10": 34.6,
-   "locked": true
   }
  ],
  "pool": [
@@ -38862,7 +38999,6 @@
   "Max Muncy",
   "Jac Caglianone",
   "Ronald Acu\u00f1a",
-  "Jake Bauers",
   "Carter Jensen",
   "Bobby Witt",
   "Mickey Moniak",
@@ -38876,7 +39012,6 @@
   "Ian Happ",
   "Vinnie Pasquantino",
   "Christian Walker",
-  "Andr\u00e9s Chaparro",
   "Jo Adell",
   "Kazuma Okamoto",
   "Paul Goldschmidt",
