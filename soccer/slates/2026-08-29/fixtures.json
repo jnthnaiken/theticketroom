@@ -1,0 +1,226 @@
+{
+  "_note": "FIXTURES-2026-08-29. Read off the ESPN scoreboard for each of the five leagues, never assumed: kickoff is UTC minutes past midnight from event.date, and espn[1] is the event id the live loop addresses the match by.",
+  "date": "2026-08-29",
+  "matches": {
+    "liverpool-v-nottingham-forest": {
+      "home": "Liverpool",
+      "away": "Nottingham Forest",
+      "kickoff": 690,
+      "league": "EPL",
+      "espn": [
+        "eng.1",
+        "401879314"
+      ]
+    },
+    "afc-bournemouth-v-everton": {
+      "home": "AFC Bournemouth",
+      "away": "Everton",
+      "kickoff": 840,
+      "league": "EPL",
+      "espn": [
+        "eng.1",
+        "401879296"
+      ]
+    },
+    "coventry-city-v-hull-city": {
+      "home": "Coventry City",
+      "away": "Hull City",
+      "kickoff": 840,
+      "league": "EPL",
+      "espn": [
+        "eng.1",
+        "401879316"
+      ]
+    },
+    "tottenham-hotspur-v-newcastle-united": {
+      "home": "Tottenham Hotspur",
+      "away": "Newcastle United",
+      "kickoff": 990,
+      "league": "EPL",
+      "espn": [
+        "eng.1",
+        "401879312"
+      ]
+    },
+    "levante-v-real-betis": {
+      "home": "Levante",
+      "away": "Real Betis",
+      "kickoff": 900,
+      "league": "La_liga",
+      "espn": [
+        "esp.1",
+        "401882902"
+      ]
+    },
+    "real-sociedad-v-espanyol": {
+      "home": "Real Sociedad",
+      "away": "Espanyol",
+      "kickoff": 1020,
+      "league": "La_liga",
+      "espn": [
+        "esp.1",
+        "401882898"
+      ]
+    },
+    "sevilla-v-atletico-madrid": {
+      "home": "Sevilla",
+      "away": "Atlético Madrid",
+      "kickoff": 1170,
+      "league": "La_liga",
+      "espn": [
+        "esp.1",
+        "401882897"
+      ]
+    },
+    "fiorentina-v-frosinone": {
+      "home": "Fiorentina",
+      "away": "Frosinone",
+      "kickoff": 990,
+      "league": "Serie_A",
+      "espn": [
+        "ita.1",
+        "401874942"
+      ]
+    },
+    "monza-v-udinese": {
+      "home": "Monza",
+      "away": "Udinese",
+      "kickoff": 990,
+      "league": "Serie_A",
+      "espn": [
+        "ita.1",
+        "401874749"
+      ]
+    },
+    "sassuolo-v-torino": {
+      "home": "Sassuolo",
+      "away": "Torino",
+      "kickoff": 990,
+      "league": "Serie_A",
+      "espn": [
+        "ita.1",
+        "401874743"
+      ]
+    },
+    "juventus-v-parma": {
+      "home": "Juventus",
+      "away": "Parma",
+      "kickoff": 1125,
+      "league": "Serie_A",
+      "espn": [
+        "ita.1",
+        "401874746"
+      ]
+    },
+    "1-fc-union-berlin-v-eintracht-frankfurt": {
+      "home": "1. FC Union Berlin",
+      "away": "Eintracht Frankfurt",
+      "kickoff": 810,
+      "league": "Bundesliga",
+      "espn": [
+        "ger.1",
+        "401884811"
+      ]
+    },
+    "fc-cologne-v-tsg-hoffenheim": {
+      "home": "FC Cologne",
+      "away": "TSG Hoffenheim",
+      "kickoff": 810,
+      "league": "Bundesliga",
+      "espn": [
+        "ger.1",
+        "401884810"
+      ]
+    },
+    "mainz-v-sc-paderborn-07": {
+      "home": "Mainz",
+      "away": "SC Paderborn 07",
+      "kickoff": 810,
+      "league": "Bundesliga",
+      "espn": [
+        "ger.1",
+        "401884812"
+      ]
+    },
+    "rb-leipzig-v-borussia-monchengladbach": {
+      "home": "RB Leipzig",
+      "away": "Borussia Mönchengladbach",
+      "kickoff": 810,
+      "league": "Bundesliga",
+      "espn": [
+        "ger.1",
+        "401884815"
+      ]
+    },
+    "sv-elversberg-v-bayer-leverkusen": {
+      "home": "SV ELVERSBERG",
+      "away": "Bayer Leverkusen",
+      "kickoff": 810,
+      "league": "Bundesliga",
+      "espn": [
+        "ger.1",
+        "401884809"
+      ]
+    },
+    "borussia-dortmund-v-hamburg-sv": {
+      "home": "Borussia Dortmund",
+      "away": "Hamburg SV",
+      "kickoff": 990,
+      "league": "Bundesliga",
+      "espn": [
+        "ger.1",
+        "401884816"
+      ]
+    },
+    "strasbourg-v-lens": {
+      "home": "Strasbourg",
+      "away": "Lens",
+      "kickoff": 915,
+      "league": "Ligue_1",
+      "espn": [
+        "fra.1",
+        "401876477"
+      ]
+    },
+    "aj-auxerre-v-angers": {
+      "home": "AJ Auxerre",
+      "away": "Angers",
+      "kickoff": 1125,
+      "league": "Ligue_1",
+      "espn": [
+        "fra.1",
+        "401876484"
+      ]
+    },
+    "brest-v-toulouse": {
+      "home": "Brest",
+      "away": "Toulouse",
+      "kickoff": 1125,
+      "league": "Ligue_1",
+      "espn": [
+        "fra.1",
+        "401876483"
+      ]
+    },
+    "lorient-v-troyes": {
+      "home": "Lorient",
+      "away": "Troyes",
+      "kickoff": 1125,
+      "league": "Ligue_1",
+      "espn": [
+        "fra.1",
+        "401876482"
+      ]
+    },
+    "lyon-v-le-havre-ac": {
+      "home": "Lyon",
+      "away": "Le Havre AC",
+      "kickoff": 1125,
+      "league": "Ligue_1",
+      "espn": [
+        "fra.1",
+        "401876481"
+      ]
+    }
+  }
+}
