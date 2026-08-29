@@ -378,9 +378,25 @@
    * ======================================================================================
    * The rules are the baseball board's, because they are about BETS, not about a sport:
    *
-   *   CONFLOCK   a slip is frozen once every leg is confirmed, OR its earliest leg has kicked
-   *              off. A frozen slip is emitted verbatim and its players are spent -- a placed
-   *              bet is a fact and nothing may re-draft it. (index.html, 2026-08-16.)
+   *   CONFLOCK   a slip is frozen once EVERY LEG IS CONFIRMED. A frozen slip is emitted verbatim
+   *              and its players are spent -- a placed bet is a fact and nothing may re-draft it.
+   *              (index.html, 2026-08-16.)
+   *
+   *              🚨 CONFLOCK-2026-08-29. It used to ALSO freeze once the earliest leg had kicked
+   *              off. The owner's rule: "the slip shouldnt be frozen until ALL legs are
+   *              confirmed." The kickoff branch froze slips that had never been fully confirmed --
+   *              on 2026-08-29 "From Distance" carried Beto, named on Everton's bench an hour
+   *              before HIS OWN 14:00Z kickoff, and the slip locked at 13:30Z because two OTHER
+   *              legs (Leverkusen, Frankfurt) kicked off first. A benched striker then rode a live
+   *              moon that no rule could touch. Confirmation is the thing being waited on, so
+   *              confirmation is what closes the slip.
+   *
+   *              THIS DOES NOT RE-OPEN A PLACED BET. A slip whose repair is impossible and whose
+   *              own match is underway STANDS (groupUnderway/standAsIs in redraft) instead of
+   *              being demoted, so nothing that was live during the slate ever leaves the board;
+   *              MINTGUARD below still forbids drawing a replacement out of a match that has
+   *              already started. Repair it if you can, grade it if you cannot, never delete it.
+   *              test_redraft scenarios 5-6 and test_stage2_page scenario 3 pin exactly that.
    *   MINTGUARD  a slip is never CREATED after its own earliest kickoff. A bet nobody could
    *              have placed still grades, and on this board a screamer dies as a pair, so a
    *              late mint takes its anchor's whole run with it. Implemented as a pool
@@ -405,23 +421,19 @@
        underway, NONE SCRATCHED"), and the baseball engine says it in code -- pinnedP() is
        `!p.out && !p.void && (p.status==='confirmed' || started(n))`. This is that clause, in the
        same shape, so the two rooms state one rule.
-       ⚠️ NOT AN UNLOCK. `t.locked` above is a latch and is untouched, and the KICKOFF branch
-       below is untouched, so a placed bet is never unwound and a late team-news wobble cannot
-       flip a slip on and off the board. This reaches only the window before a slip has ever
-       locked, which is exactly when the board is still entitled to repair itself. */
+       ⚠️ NOT AN UNLOCK. `t.locked` above is a latch and is untouched, so a placed bet is never
+       unwound and a late team-news wobble cannot flip a slip on and off the board. This reaches
+       only the window before a slip has ever locked, which is exactly when the board is still
+       entitled to repair itself.
+       CONFLOCK-2026-08-29: the kickoff branch that used to follow is GONE -- see the rule block
+       above. `allConf` is now the whole test, and a live slip that cannot be repaired is held by
+       standAsIs() in redraft() rather than by freezing it here, so "cannot be re-drafted" and
+       "cannot be repaired" stay separate facts. */
     var allConf = legs.every(function (l) {
       var p = D.players[l.name];
       return p && p.status === 'confirmed' && !p.out && !p.void;
     });
-    if (allConf) return true;
-    var lo = Infinity;
-    legs.forEach(function (l) { var k = koOf(l.game); if (k != null && k < lo) lo = k; });
-    if (isFinite(lo) && nowUTCmin >= lo) return true;
-    /* belt and braces: the feed says a leg's match is running or done, whatever the clock says */
-    var gs = (D.meta && D.meta.gs) || {}, fin = (D.meta && D.meta.finals) || [];
-    return legs.some(function (l) {
-      return gs[String(l.game)] === 'live' || fin.indexOf(l.game) >= 0;
-    });
+    return allConf;
   }
 
   /* gate_z is recomputed rather than trusted from the bake, because the bake's value was
@@ -529,6 +541,25 @@
       if (ko == null || now >= ko) return false;
       return true;
     }
+    /* PINNABLE. placeable() MINUS the kickoff clause. MINTGUARD's own wording is that a player
+       whose match is underway "can never join a NEW or REPAIRED leg, so no slip is never
+       created past its own kickoff" -- it is about CREATING a bet nobody could have placed.
+       A leg that is ALREADY on the slip staying exactly where it is creates nothing. Applying
+       MINTGUARD to it instead deletes a live, correct leg the moment its own match starts, and
+       because the anchor check below is the same test, it demotes the whole anchor group and
+       takes two healthy screamers and a builder down with the one bad leg. That is the exact
+       opposite of the doctrine three lines up -- "the re-draft replaces just that leg while
+       CONFIRMED LEGS STAY PINNED". Out / void / unpriced still disqualify, and the XI filter
+       still runs through alive[]. */
+    function pinnable(n) {
+      var p = D.players[n];
+      if (!p || p.out || p.void) return false;
+      if (p.odds == null) return false;
+      return true;
+    }
+    function freeToPin(n) {
+      return pinnable(n) && !spentAsPartner[n] && !takenAnchors[n] && !spentAsSingle[n];
+    }
     /* available as a PARTNER: placeable, not spent on a frozen slip, and not an anchor */
     function freeForPartner(n) {
       return placeable(n) && !spentAsPartner[n] && !takenAnchors[n] && !spentAsSingle[n];
@@ -562,23 +593,80 @@
     });
 
     var repaired = [], usedPartners = {}, demoted = [];
+
+    /* ⚠️ NEVER DELETE A BET THAT WAS ALREADY LIVE.  CONFLOCK-2026-08-29 freezes a slip only when
+     * every leg is confirmed, so a slip carrying one unconfirmed leg stays OPEN past its own
+     * kickoff and reaches the repair below. That is the point -- it is what gets a benched man
+     * off the card. But repair can fail: once every match on the slate is underway MINTGUARD
+     * leaves no legal replacement, and the old code answered that by DEMOTING the group, which
+     * takes a slip that has been published and bettable for an hour off the board entirely.
+     *
+     * That is the ledger mistake in `ledger-rule-2026-08-29.md`, in the engine instead of a
+     * back-out script: a slip that was live during the slate is a fact, and the answer to "I
+     * cannot fix it" is to GRADE it, not to pretend it was never there. OUTSQUAD's own test says
+     * the same thing -- "the out player is STILL on his slip -- a placed bet is not unwound, it
+     * is graded".
+     *
+     * So: repair first, and only if repair is impossible does an UNDERWAY group stand as it is.
+     * A group that has not kicked off yet still demotes, exactly as before -- nothing has been
+     * placed on it. */
+    function groupUnderway(g) {
+      var lo = Infinity;
+      [].concat(g.moons, g.builders).forEach(function (t) {
+        (t.players || []).forEach(function (l) {
+          var k = koOf(l.game); if (k != null && k < lo) lo = k;
+        });
+      });
+      if (!isFinite(lo)) return false;
+      if (now >= lo) return true;
+      /* the feed can say a match is running before the clock does */
+      var gs = (D.meta && D.meta.gs) || {}, fin = (D.meta && D.meta.finals) || [];
+      return [].concat(g.moons, g.builders).some(function (t) {
+        return (t.players || []).some(function (l) {
+          return gs[String(l.game)] === 'live' || fin.indexOf(l.game) >= 0;
+        });
+      });
+    }
+    function standAsIs(g, why) {
+      [].concat(g.moons, g.builders).forEach(function (t) { t.locked = true; frozen.push(t); });
+      claimAnchor(g.anchor);
+      g.moons.forEach(function (t) {
+        (t.players || []).slice(1).forEach(function (l) { spentAsPartner[l.name] = true; });
+      });
+      stood.push({ anchor: g.anchor.name, why: why });
+    }
+    var stood = [];
+
     orderedAnchors.forEach(function (an) {
       var g = groups[an];
       var already = !!takenAnchors[an];          // he already anchors a frozen slip
-      if (!alive[an] || !placeable(an) || spentAsPartner[an]) {
+      if (!alive[an] || !pinnable(an) || spentAsPartner[an]) {
+        if (groupUnderway(g)) { standAsIs(g, 'anchor not startable, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'anchor is no longer startable' }); return;
       }
       if (!already && (anchorMatchCounts[String(g.anchor.game)] || 0) >= cfg.ANCH_PER_GAME) {
+        if (groupUnderway(g)) { standAsIs(g, 'match at ANCH_PER_GAME, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'match already at ANCH_PER_GAME' }); return;
       }
       if (!already && Object.keys(takenAnchors).length >= cfg.ANCH) {
+        if (groupUnderway(g)) { standAsIs(g, 'anchor budget full, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'anchor budget full' }); return;
       }
 
       /* candidate partners, strongest first: the gated pool minus the anchor and anything
          already committed anywhere on the card */
+      /* ANCHORS ARE NEVER PARTNERS. A cold draft gets this for free -- anchors are seated first
+         and removed from the partner pool -- but the repair path walks anchor groups one at a
+         time, so an anchor whose OWN group has not been reached yet is still absent from
+         `takenAnchors` and `freeForPartner` happily hands him to somebody else's moon. He then
+         anchors his own two screamers as well, and the board ships one man on four slips with
+         three moons under a MOONS_PER_ANC of 2. Measured 2026-08-29: repairing Schick's moon
+         drafted Serhou Guirassy as its third leg, and Guirassy came out anchoring three.
+         `groups[name]` is truthy exactly for the anchors of the open groups, which is the set
+         to exclude. Scoped to `cands` on purpose -- `field` and the fresh draft below are
+         untouched, so a DEMOTED anchor can still be re-drafted. */
       var cands = withStrength(buildPool(field, cfg, { xi: xi, xiMatches: xiM, exclude: usedPartners }))
-        .filter(function (p) { return p.name !== an; });
+        .filter(function (p) { return p.name !== an && !groups[p.name]; });
 
       var fixed = [], ok = true, localUsed = {};
       for (var i = 0; i < g.moons.length && ok; i++) {
@@ -587,7 +675,7 @@
         /* PIN the legs that are still good, in their original order */
         t.players.slice(1).forEach(function (l) {
           if (legs.length >= 3) return;
-          if (!alive[l.name] || !freeForPartner(l.name)) return;
+          if (!alive[l.name] || !freeToPin(l.name)) return;
           if (seen[String(l.game)] || usedPartners[l.name] || localUsed[l.name]) return;
           if (!spanOk(legs.concat([rowOf(l.name)]), cfg)) return;
           legs.push(rowOf(l.name)); seen[String(l.game)] = true; localUsed[l.name] = true;
@@ -603,6 +691,7 @@
       }
 
       if (!ok || fixed.length !== g.moons.length) {
+        if (groupUnderway(g)) { standAsIs(g, 'could not repair, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'could not repair the pair' });
         return;
       }
@@ -664,13 +753,24 @@
         return t.kind + ':' + (t.players || []).map(function (l) { return l.name; }).join('+');
       }).sort().join('|');
     };
+    /* RELEASED means "left the board", and it used to be reported as `open.length` -- every slip
+       that was not frozen at the TOP of the pass, whether or not it survived. That was only ever
+       right because the old CONFLOCK froze everything at kickoff, so `open` was empty exactly
+       when nothing could be lost. With CONFLOCK-2026-08-29 a slip can be open, be repaired or
+       stand, and still be on the board at the end -- so count what actually went missing. */
+    var sigOf1 = function (t) {
+      return t.kind + ':' + (t.players || []).map(function (l) { return l.name; }).join('+');
+    };
+    var outSet = {};
+    out.forEach(function (t) { outSet[sigOf1(t)] = true; });
+    var releasedN = prior.filter(function (t) { return !outSet[sigOf1(t)]; }).length;
     return {
       tickets: out,
       changed: sig(out) !== sig(prior),
       locked: frozen.length,
       repaired: repairedT.length,
       minted: mintedT.length,
-      released: open.length,
+      released: releasedN,
       demoted: demoted,
       anchors: Object.keys(takenAnchors).length + (res.anchors || 0),
       thin: !!res.thin,
