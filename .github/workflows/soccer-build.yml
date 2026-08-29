@@ -243,7 +243,18 @@ jobs:
         run: |
           cd soccer/.work
           if [ ! -f prior.json ]; then echo "first build"; echo "commit=true" >> $GITHUB_OUTPUT; exit 0; fi
-          python3 - <<'PY' >> $GITHUB_OUTPUT
+          # 🚨 GATEOUT-2026-08-29. This block used to be redirected straight into $GITHUB_OUTPUT
+          # (`python3 - <<'PY' >> $GITHUB_OUTPUT`), so EVERY line python printed was parsed as a
+          # `key=value` output. `commit=...` is fine. `::notice::the draft moved` is not, and the
+          # runner answers "Invalid format '::notice::the draft moved'" / "Unable to process file
+          # command 'output' successfully" and FAILS THE STEP.
+          # That notice prints on exactly one condition -- `a[0] != b[0]`, THE TICKETS CHANGED --
+          # so like RCTRAP above it was armed only on the passes that matter and slept through
+          # every quiet one. Found 2026-08-29 the moment RCTRAP was fixed and a genuinely changed
+          # redraft reached this step for the first time: two landmines in series, both hiding
+          # behind "the draft did not move today".
+          # Workflow annotations belong on STDOUT. $GITHUB_OUTPUT takes key=value and nothing else.
+          python3 - <<'PY' > gate.txt
           import json
           def sig(p):
               d = json.load(open(p))
@@ -255,7 +266,9 @@ jobs:
           print('commit=' + ('true' if a != b else 'false'))
           if a[0] != b[0]: print('::notice::the draft moved')
           PY
-          grep '^commit=' $GITHUB_OUTPUT | tail -1
+          grep '^commit=' gate.txt >> "$GITHUB_OUTPUT"
+          grep '^::' gate.txt || true
+          echo "gate: $(grep '^commit=' gate.txt | tail -1)"
 
       - name: Publish
         if: steps.slate.outputs.go == 'true' && steps.gate.outputs.commit == 'true' && github.event.inputs.dry_run != 'true'
