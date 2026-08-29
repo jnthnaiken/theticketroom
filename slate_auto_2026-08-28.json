@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T02:38:00Z",
+  "pulled_at": "2026-08-29T02:42:40Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823013,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-29T00:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -1722,12 +1722,12 @@
         "cond": "wind out 6mph, 92\u00b0",
         "lean": "Boost",
         "temp": 91.5,
-        "wind_mph": 6.2,
-        "wind_dir": 232,
-        "tail_mph": 6.1,
+        "wind_mph": 6.4,
+        "wind_dir": 231,
+        "tail_mph": 6.3,
         "precip": 0
       },
-      "wf": 1.053
+      "wf": 1.054
     },
     {
       "gamePk": 824960,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 76.7,
+        "wind_mph": 5.2,
+        "wind_dir": 198,
+        "tail_mph": 3.9,
+        "precip": 7
       },
-      "wf": 1.0
+      "wf": 1.024
     },
     {
       "gamePk": 823178,
@@ -1978,15 +1985,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 65\u00b0",
+        "cond": "wind out 6mph, 65\u00b0",
         "lean": "Neutral",
         "temp": 64.8,
-        "wind_mph": 7.4,
-        "wind_dir": 272,
-        "tail_mph": 7.3,
+        "wind_mph": 6.7,
+        "wind_dir": 244,
+        "tail_mph": 6.3,
         "precip": 1
       },
-      "wf": 1.018
+      "wf": 1.014
     }
   ]
 }
