@@ -240,7 +240,16 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'why': VOICE.why(p, avg),
         }
 
-    T = [shape_ticket(t, players, i, VOICE, avg_min) for i, t in enumerate(T)]
+    # TITLEDUP-2026-08-29. shape_ticket() named a slip `pool[i % len(pool)]` off its GLOBAL
+    # index, so two slips of the same kind whose indices are congruent mod the pool length get
+    # the SAME title. builder's pool is 10 long, so builders at index 1 and 11 both came back
+    # "The Poacher" -- seen the moment CONFLOCK-2026-08-29 reordered the card (builders landed
+    # at 1/5/8/11 instead of 2/5/8/11). That is REDRAFT-2026-08-18's failure exactly: "the board
+    # showed one ticket that had been two bets". Titles are how the owner refers to a slip, so
+    # they have to be unique on a board. One shared `used` set, and each slip takes the first
+    # free title from its own pool starting at the index it would have had.
+    _used = set()
+    T = [shape_ticket(t, players, i, VOICE, avg_min, _used) for i, t in enumerate(T)]
 
     GAME_CAP = 4
     gated = [x for x in sorted(P, key=lambda x: -x['TOTAL'])
@@ -356,7 +365,7 @@ def _rr_block(legs, risk):
             'maxprofit': rr_maxprofit(legs, risk), 'bytwos': False}
 
 
-def shape_ticket(t, players, i, voice, apps):
+def shape_ticket(t, players, i, voice, apps, used=None):
     kind = t['kind']
     legs = t.get('legs') or t.get('players') or []
     out_legs = []
@@ -376,7 +385,17 @@ def shape_ticket(t, players, i, voice, apps):
         })
     out_legs.sort(key=lambda l: -(l['total'] or 0))
     pool = NAMES.get(kind, NAMES['family'])
-    tname = pool[i % len(pool)]
+    if used is None:
+        used = set()
+    tname = None
+    for k in range(len(pool)):                      # start where the index says, then walk
+        cand = pool[(i + k) % len(pool)]
+        if cand not in used:
+            tname = cand
+            break
+    if tname is None:                               # pool exhausted -- never silently collide
+        tname = '%s %d' % (pool[i % len(pool)], i + 1)
+    used.add(tname)
     anchor = out_legs[0]['name'] if out_legs else None
     return {
         'name': tname,
