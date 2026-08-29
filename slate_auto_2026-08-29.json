@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T21:42:48Z",
+  "pulled_at": "2026-08-29T21:47:27Z",
   "games": [
     {
       "gamePk": 823539,
@@ -875,7 +875,7 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.067
+            "iso": 0.066
           },
           {
             "id": 672386,
@@ -943,7 +943,7 @@
         "sp": {
           "id": 518876,
           "name": "Merrill Kelly",
-          "hr9": 1.67,
+          "hr9": 1.66,
           "hand": "RHP"
         },
         "lineup": [
@@ -1027,7 +1027,7 @@
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.138
+            "iso": 0.133
           },
           {
             "id": 701852,
@@ -1132,17 +1132,17 @@
           {
             "id": 669364,
             "name": "Xavier Edwards",
-            "iso": 0.095
+            "iso": 0.094
           },
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.247
+            "iso": 0.246
           },
           {
             "id": 672640,
             "name": "Otto Lopez",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 805300,
@@ -1199,12 +1199,12 @@
           {
             "id": 686611,
             "name": "Dylan Crews",
-            "iso": 0.146
+            "iso": 0.145
           },
           {
             "id": 660688,
             "name": "Keibert Ruiz",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 691781,
@@ -1265,12 +1265,12 @@
           {
             "id": 695506,
             "name": "Jac Caglianone",
-            "iso": 0.216
+            "iso": 0.215
           },
           {
             "id": 521692,
             "name": "Salvador Perez",
-            "iso": 0.15
+            "iso": 0.152
           },
           {
             "id": 679845,
@@ -1450,7 +1450,7 @@
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.255
+            "iso": 0.253
           },
           {
             "id": 666182,
@@ -1465,7 +1465,7 @@
           {
             "id": 676724,
             "name": "Jared Young",
-            "iso": 0.168
+            "iso": 0.175
           },
           {
             "id": 543760,
@@ -1593,7 +1593,7 @@
           {
             "id": 689414,
             "name": "Liam Hicks",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 802415,
@@ -1603,7 +1603,7 @@
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.163
+            "iso": 0.162
           },
           {
             "id": 680700,
@@ -1658,7 +1658,7 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 696100,
@@ -1903,7 +1903,7 @@
     },
     {
       "gamePk": 824961,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-30T02:05:00Z",
       "matchup": "BAL@ATH",
       "away": {
@@ -1914,8 +1914,54 @@
           "hr9": 0.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.122
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.236
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.172
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.246
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.201
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.142
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.225
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.152
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.132
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -1925,15 +1971,68 @@
           "hr9": 1.69,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.1
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.095
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.196
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.143
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.073
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.16
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.159
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.146
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.178
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 81\u00b0",
+        "lean": "Boost",
+        "temp": 80.7,
+        "wind_mph": 9.7,
+        "wind_dir": 228,
+        "tail_mph": 9.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.049
     },
     {
       "gamePk": 823986,
