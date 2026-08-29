@@ -974,8 +974,29 @@
       var c = moonCount[legs[0].name] || 0;
       return c > 0 && c < cfg.MOONS_PER_ANC;      /* 0 moons = a lunch/nightcap, its own section */
     };
-    out = out.map(function (t, i) { return { t: t, i: i, s: isShortAnchor(t) ? 1 : 0 }; })
-             .sort(function (a, b) { return (a.s - b.s) || (a.i - b.i); })
+    /* ⚠️ AND KEEP EACH ANCHOR'S SLIPS TOGETHER. ANCHORGROUP-2026-08-29.
+       Owner: "oskarson and davids moons arent next to each other now. 1 of each are next to
+       each other."
+       FINALREPAIR pushes a topped-up moon onto the END of `out`, so an anchor's second screamer
+       landed after everyone else's and the screamers section read Schick / Schick / David /
+       Oskarsson / David / Oskarsson. Sorting on `s` alone could not fix it: once the top-up has
+       run nobody IS short, so SHORTLAST no longer moves anything.
+       Sort key is (short?, the anchor's FIRST appearance, original index) -- so complete anchors
+       come first in the order the draft seated them, every anchor's slips are contiguous, and
+       within an anchor the emit order is untouched. Still a stable display sort and still
+       invisible to `sig()`, which sorts before comparing. */
+    var anchorFirst = {};
+    out.forEach(function (t, i) {
+      var legs = t.players || []; if (!legs.length) return;
+      var a = legs[0].name;
+      if (anchorFirst[a] == null) anchorFirst[a] = i;
+    });
+    var groupKey = function (t) {
+      var legs = t.players || [];
+      return legs.length ? anchorFirst[legs[0].name] : 1e9;
+    };
+    out = out.map(function (t, i) { return { t: t, i: i, s: isShortAnchor(t) ? 1 : 0, g: groupKey(t) }; })
+             .sort(function (a, b) { return (a.s - b.s) || (a.g - b.g) || (a.i - b.i); })
              .map(function (x) { return x.t; });
 
     var sig = function (ts) {
