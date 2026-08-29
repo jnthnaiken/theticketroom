@@ -19,12 +19,13 @@
  *    soccer_draft_cli.js and reads tickets.json back. There is no second drafter to disagree
  *    with. What this file is still worth is a REGRESSION PIN, and that is what it now is.
  *
- * ⚠️ THE COMPARISON IS SPLIT ON PURPOSE. LEFTOVERS-2026-08-28 added leftover singles after this
- * golden was cut, so the drafter legitimately emits one more ticket than shipped that night. The
- * dishonest fix is to re-cut the golden from today's output, which asserts nothing on the day it
- * is written. Instead: MOONS AND THEIR BUILDERS are still compared against the shipped golden,
- * strictly -- a historical claim nobody is going to re-cut -- and LEFTOVER SINGLES are asserted
- * STRUCTURALLY, by the rules they must obey rather than by the values they happen to have today.
+ * ⚠️ THE COMPARISON IS SPLIT, and the split now doubles as the retirement guard.
+ * LEFTOVERS-2026-08-28 briefly added a leftover-singles section after this golden was cut; it was
+ * a section SCREAMERS-2026-08-26 had already retired, and UNLEFTOVER-2026-08-28 backed it out.
+ * `core` is the moons and the builders that back them -- compared strictly against what shipped
+ * that night. `leftovers` is everything else, and it MUST BE EMPTY: a single-leg builder whose
+ * player anchors no moon is the retired section coming back under a new name, which is exactly
+ * how it got past every existing check the first time.
  *
  * Inputs are the COMMITTED artifacts of that night, not re-derived:
  *     scored.json    every priced player with TOTAL / gate_z / kickoff  (soccer_mock.py output)
@@ -84,27 +85,21 @@ inv('no moon repeats a match', moons.every(t => new Set(t.legs.map(l => l.match)
 inv('every moon fits WIN=180', moons.every(t => SD.spanOk(t.legs, SD.DEFAULTS)));
 inv('each anchor ships exactly MOONS_PER_ANC',
   anchorNames.every(n => moons.filter(t => t.legs[0].name === n).length === SD.DEFAULTS.MOONS_PER_ANC));
-/* TESTPIN-2026-08-28: was 'builders == moon anchors, one each'. True until LEFTOVERS-2026-08-28
-   made `builder` mean two things -- an anchor's builder, and a gated player shipped as a straight
-   single. Restated so it still pins the first without being wrong about the second. */
-inv('every moon anchor has exactly one builder',
-  anchorNames.every(n => builders.filter(t => t.legs[0].name === n).length === 1));
-inv('every other builder is a leftover single',
-  builders.filter(t => anchorNames.indexOf(t.legs[0].name) < 0).length === leftovers.length);
+inv('builders == moon anchors, one each',
+  JSON.stringify(builders.map(t => t.legs[0].name).sort()) === JSON.stringify([...anchorNames].sort()));
 
-/* LEFTOVER SINGLES -- asserted by the rules they must obey, never by today's values. */
-inv('leftovers are one-leg builders at SINGLE_STAKE',
-  leftovers.every(t => t.kind === 'builder' && t.legs.length === 1 && t.risk === SD.DEFAULTS.SINGLE_STAKE));
-inv('leftovers come from the gated pool',
-  leftovers.every(t => got.pool.some(p => p.name === t.legs[0].name)));
-inv('a leftover is on no other slip', (() => {
-  const elsewhere = {};
-  core.forEach(t => t.legs.forEach(l => { elsewhere[l.name] = true; }));
-  return leftovers.every(t => !elsewhere[t.legs[0].name]);
-})());
-inv('no leftover is drafted twice',
-  new Set(leftovers.map(t => t.legs[0].name)).size === leftovers.length);
-inv('leftovers respect LEFTOVER_CAP', leftovers.length <= SD.DEFAULTS.LEFTOVER_CAP);
+/* UNLEFTOVER-2026-08-28 -- THE LEFTOVER SECTION STAYS RETIRED, and this is the guard that says so.
+   SCREAMERS-2026-08-26 retired it to match the MLB Dingers retirement ("its just bleeding money" --
+   family went 11-80, -33.34u, -36.6% ROI). LEFTOVERS-2026-08-28 brought it back as `kind: builder`
+   instead of `kind: family`, which is why every existing retirement check looked straight past it
+   and why it took the owner noticing to catch it: "bro there is no leftover section anymore".
+   A retirement nothing tests is a retirement that gets undone. So: on this fixture the drafter
+   ships MOONS and their ANCHOR BUILDERS and nothing else. A single-leg builder whose player
+   anchors no moon is the section coming back, whatever it is called. */
+inv('no ticket beyond the moons and their anchor builders (the leftover section stays retired)',
+  leftovers.length === 0);
+inv('every builder backs a moon anchor',
+  builders.every(t => anchorNames.indexOf(t.legs[0].name) >= 0));
 inv('no partner used twice across the board', (() => {
   const seen = {};
   for (const t of moons) for (const l of t.legs.slice(1)) { if (seen[l.name]) return false; seen[l.name] = true; }
@@ -123,6 +118,5 @@ inv('GAME_CAP respected in pool', (() => {
 
 console.log('');
 console.log(fail ? `${fail} FAILURE(S)`
-  : `ALL GREEN -- soccer_draft.js reproduces the 2026-08-26 board`
-    + ` (${core.length} shipped slips` + (leftovers.length ? `, plus ${leftovers.length} leftover single(s)` : '') + `)`);
+  : `ALL GREEN -- soccer_draft.js reproduces the 2026-08-26 board (${core.length} shipped slips)`);
 process.exit(fail ? 1 : 0);

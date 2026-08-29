@@ -37,8 +37,7 @@
     MOONS_PER_ANC: 2,
     ANCH_PER_GAME: 2,
     MOON_RISK: 2.0,
-    SINGLE_STAKE: 1.0,
-    LEFTOVER_CAP: 8      // LEFTOVERS-2026-08-28: most gated-but-undrafted players shipped as singles
+    SINGLE_STAKE: 1.0
   };
 
   function cfgOf(o) {
@@ -205,31 +204,16 @@
     return out;
   }
 
-  /* LEFTOVERS-2026-08-28 -- owner's call. A player who CLEARED THE GATE and then made no slip is
-   * a bet the board found and dropped on the floor. On a thin XI that is most of the pool: on
-   * 2026-08-28, nine players cleared the gate, two anchors needed ten distinct names so the board
-   * fell to ONE anchor, and four gated players went nowhere -- Antonio Martinez, Lucas Boye,
-   * Aitor Manas, Luis Diaz. Ship them as straight singles.
-   *
-   * They are `builder` kind on purpose. It is the shape they already are (one leg, SINGLE_STAKE),
-   * it renders through the same card path, and soccer_grade.py folds it into the ledger with no
-   * change -- exactly the reasoning MLB used when the Family Meal was made a real ticket kind
-   * rather than bespoke markup. A NEW kind would need the renderer, the grader and the tracker.
-   *
-   * MINTGUARD is not re-checked here and must not be: redraft() only ever hands this function a
-   * field already filtered by placeable(), so a leftover in a match that has kicked off never
-   * reaches the draft. On a first build there is no clock and nothing has started.
-   *
-   * Capped, because the point is the bets the draft nearly made, not a second players tab. */
-  function leftoverSingles(byStrength, used, cfg) {
-    var out = [];
-    for (var i = 0; i < byStrength.length && out.length < cfg.LEFTOVER_CAP; i++) {
-      var p = byStrength[i];
-      if (used[p.name]) continue;
-      out.push({ kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE });
-    }
-    return out;
-  }
+  /* UNLEFTOVER-2026-08-28. leftoverSingles() lived here and is GONE, not disabled.
+   * SCREAMERS-2026-08-26 retired the leftover section to match the MLB Dingers retirement
+   * ("its just bleeding money" -- family went 11-80, -33.34u, -36.6% ROI, and its 12 graded
+   * nights were backed out of season.json). LEFTOVERS-2026-08-28 was that section again in a
+   * different coat: every gated player who made no slip, one unit each, capped at eight. On a
+   * healthy board that is six extra singles a night at +200 to +350 -- the dross beneath the
+   * draft, which is exactly what was retired. It escaped notice because it minted `builder`
+   * rather than `family`, so every check enforcing the retirement looked past it.
+   * The thin-slate answer is anchorsOnly() below: ship THE ANCHORS as singles. Not the leftovers.
+   */
 
   function draft(players, cfgIn, opts) {
     var cfg = cfgOf(cfgIn);
@@ -252,8 +236,6 @@
     }
     if (mCount < cfg.MOON_LEGS) {
       var singles = anchorsOnly(byStrength, cfg, opts);
-      var usedS = {}; singles.forEach(function (t) { usedS[t.legs[0].name] = true; });
-      singles = singles.concat(leftoverSingles(byStrength, usedS, cfg));
       return {
         tickets: singles, pool: pool, byStrength: byStrength,
         anchors: singles.length,
@@ -282,13 +264,8 @@
       builders.push({ kind: 'builder', legs: [a], risk: cfg.SINGLE_STAKE });
     });
 
-    var used = {};
-    tickets.forEach(function (t) { t.legs.forEach(function (l) { used[l.name] = true; }); });
-    builders.forEach(function (t) { used[t.legs[0].name] = true; });
-    var extras = leftoverSingles(byStrength, used, cfg);
-
     return {
-      tickets: tickets.concat(builders, extras),
+      tickets: tickets.concat(builders),
       pool: pool,
       byStrength: byStrength,
       anchors: usedN,
@@ -472,8 +449,9 @@
     var spentAsPartner = {}, takenAnchors = {}, anchorMatchCounts = {}, spentAsSingle = {};
     /* LEFTOVERANCHOR-2026-08-28: which frozen builders are REALLY anchors. A builder backs an
        anchor when a moon on this board names him, or when there are no moons at all and the
-       board is singles-only. Anything else is a LEFTOVERS-2026-08-28 single, which anchors
-       nothing and must not spend a seat against ANCH. */
+       board is singles-only. Any other single-leg builder anchors nothing and must not spend
+       a seat against ANCH. (Written for LEFTOVERS-2026-08-28, backed out by
+       UNLEFTOVER-2026-08-28; kept because it is true of any such builder, whatever mints it.) */
     var frozenMoonAnchor = {};
     frozen.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) frozenMoonAnchor[t.players[0].name] = true;
@@ -500,10 +478,11 @@
            minted a SECOND TIME by the fresh draft. Caught 2026-08-27 building the scheduled
            rebuild: a four-single board came back as seven slips with three players on two
            tickets each. */
-        /* LEFTOVERANCHOR-2026-08-28: only if he anchors something. LEFTOVER_CAP is 8 and ANCH
-           is 4, so eight frozen leftovers used to claim eight seats against a budget of four and
-           zero it out -- no repair, no mint, for the rest of the night. A leftover is spent
-           (not re-mintable, not draftable as a partner) without spending a seat. */
+        /* LEFTOVERANCHOR-2026-08-28: only if he anchors something. Under the (since backed
+           out) leftover section, eight frozen singles could claim eight seats against an ANCH
+           budget of four and zero it out -- no repair, no mint, for the rest of the night. Such
+           a builder is spent (not re-mintable, not draftable as a partner) without taking a
+           seat. */
         if (frozenMoonAnchor[legs[0].name] || !boardHasMoons) claimAnchor(legs[0]);
         else spentAsSingle[legs[0].name] = true;
       } else {
