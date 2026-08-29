@@ -17,8 +17,28 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 
-const FILE = process.argv[2] || '/tmp/stage2_pre.html';
-const D0 = JSON.parse(fs.readFileSync(process.argv[3] || '/tmp/pre_D.json', 'utf8'));
+/* TESTPIN-2026-08-28. These used to default to /tmp/stage2_pre.html and /tmp/pre_D.json --
+   files nothing in the repo creates. Run without arguments, the test died on ENOENT with a raw
+   stack trace before a single assertion executed, which is how it sat "failing" on main without
+   anyone learning anything from it. It now builds its own page from the PINNED fixture (the same
+   one test_redraft.js and test_draft_golden.js use) via soccer_fork.py, exactly as the workflow
+   does. Explicit arguments still override, so a built board can still be pointed at. */
+const path = require('path');
+const { execFileSync } = require('child_process');
+const FIXTURE = path.join(__dirname, 'fixtures', '2026-08-26', 'soccer_D.json');
+let FILE = process.argv[2], PAYLOAD = process.argv[3];
+if (!FILE || !PAYLOAD) {
+  PAYLOAD = PAYLOAD || FIXTURE;
+  FILE = FILE || path.join(require('os').tmpdir(), 'stage2_pre_fixture.html');
+  const base = path.join(__dirname, '..', 'index.html');
+  if (!fs.existsSync(base)) {
+    console.error('!! ' + base + ' is missing -- cannot fork a soccer page to test');
+    process.exit(2);
+  }
+  execFileSync('python3', [path.join(__dirname, 'soccer_fork.py'), base, PAYLOAD, FILE],
+               { cwd: __dirname, stdio: 'inherit' });
+}
+const D0 = JSON.parse(fs.readFileSync(PAYLOAD, 'utf8'));
 const KO = 19 * 60;                                   // every match kicks off 19:00Z
 const DATE = D0.meta.date;
 

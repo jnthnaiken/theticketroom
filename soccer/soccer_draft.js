@@ -469,7 +469,16 @@
      * PARTNERS outright, but its anchor is not spent -- he is still the anchor of his own other
      * slips, and blocking him from himself is what made the first cut demote Mbappe off a pair
      * he was already anchoring. Anchors are tracked separately, against the budget instead. */
-    var spentAsPartner = {}, takenAnchors = {}, anchorMatchCounts = {};
+    var spentAsPartner = {}, takenAnchors = {}, anchorMatchCounts = {}, spentAsSingle = {};
+    /* LEFTOVERANCHOR-2026-08-28: which frozen builders are REALLY anchors. A builder backs an
+       anchor when a moon on this board names him, or when there are no moons at all and the
+       board is singles-only. Anything else is a LEFTOVERS-2026-08-28 single, which anchors
+       nothing and must not spend a seat against ANCH. */
+    var frozenMoonAnchor = {};
+    frozen.forEach(function (t) {
+      if (t.kind === 'moon' && (t.players || []).length) frozenMoonAnchor[t.players[0].name] = true;
+    });
+    var boardHasMoons = (D.tickets || []).some(function (t) { return t.kind === 'moon'; });
     function claimAnchor(l) {
       if (takenAnchors[l.name]) return;
       takenAnchors[l.name] = true;
@@ -491,7 +500,12 @@
            minted a SECOND TIME by the fresh draft. Caught 2026-08-27 building the scheduled
            rebuild: a four-single board came back as seven slips with three players on two
            tickets each. */
-        claimAnchor(legs[0]);
+        /* LEFTOVERANCHOR-2026-08-28: only if he anchors something. LEFTOVER_CAP is 8 and ANCH
+           is 4, so eight frozen leftovers used to claim eight seats against a budget of four and
+           zero it out -- no repair, no mint, for the rest of the night. A leftover is spent
+           (not re-mintable, not draftable as a partner) without spending a seat. */
+        if (frozenMoonAnchor[legs[0].name] || !boardHasMoons) claimAnchor(legs[0]);
+        else spentAsSingle[legs[0].name] = true;
       } else {
         legs.forEach(function (l) { spentAsPartner[l.name] = true; });
       }
@@ -522,7 +536,7 @@
     }
     /* available as a PARTNER: placeable, not spent on a frozen slip, and not an anchor */
     function freeForPartner(n) {
-      return placeable(n) && !spentAsPartner[n] && !takenAnchors[n];
+      return placeable(n) && !spentAsPartner[n] && !takenAnchors[n] && !spentAsSingle[n];
     }
     var field = Object.keys(D.players).filter(freeForPartner).map(rowOf);
 
@@ -609,7 +623,7 @@
 
     /* ---- FRESH DRAFT for whatever anchor budget is still unspent ----------------------- */
     var budget = Math.max(0, cfg.ANCH - Object.keys(takenAnchors).length);
-    var remaining = field.filter(function (p) { return !usedPartners[p.name] && !takenAnchors[p.name]; });
+    var remaining = field.filter(function (p) { return !usedPartners[p.name] && !takenAnchors[p.name] && !spentAsSingle[p.name]; });
     var res = budget > 0
       ? draft(remaining, cfg, { xi: xi, xiMatches: xiM, anchorBudget: budget, anchorMatchCounts: anchorMatchCounts,
                                 slateMatches: Object.keys(KO).length })
