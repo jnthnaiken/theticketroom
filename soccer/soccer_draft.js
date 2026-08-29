@@ -812,12 +812,19 @@
      * ⚠️ MINUS THE CHALK BAN, per the owner. Baseball filters `!chalk[n]`; soccer has no chalk
      * ban (CHALK_N is not a soccer constant at all), so that clause is simply absent.
      *
-     * ⚠️ ONE DELIBERATE DIFFERENCE FROM BASEBALL: placeable(). The baseball filter is
-     * `!pl[n] && n!==a && !chalk[n] && !P[n].out && !P[n].void && P[n].odds!=null` -- it does NOT
-     * exclude a bat whose game has started, unlike the shape-repair block twenty lines below it
-     * which does test `started(n)`. Soccer keeps MINTGUARD here, because minting a leg out of a
-     * match already underway is a bet nobody could have placed and the owner has that rule in
-     * writing. So: widest pool, but still placeable.
+     * ⚠️ NO MINTGUARD HERE, AND THAT IS DELIBERATE -- IT IS WHAT BASEBALL DOES.
+     * The baseball filter is `!pl[n] && n!==a && !chalk[n] && !P[n].out && !P[n].void &&
+     * P[n].odds!=null`, and its anchor test is `pinnedP(a) || (aliveP(a) && inPool[a])`. NEITHER
+     * excludes a bat whose game has started -- unlike the SHAPE REPAIR block twenty lines below
+     * it, which does test `started(n)`. That asymmetry is in the baseball engine on purpose:
+     * shape repair MINTS A NEW SECTION, while final repair COMPLETES A SHAPE the board already
+     * committed to when it seated the anchor. The pair is one bet in two halves; finishing it is
+     * not creating a new one.
+     * The first cut of this port added placeable() anyway. The owner had authorised exactly one
+     * deviation -- "minus the chalkban" -- and that was a second one, so it came straight back
+     * out. It was also not academic: it is precisely why David stayed on one moon after his own
+     * 18:45Z kickoff. Everything ELSE the draft mints still goes through placeable(); this block
+     * alone follows baseball.
      *
      * Runs BEFORE the ORPHANSECTION block below on purpose, so a single that gets its screamers
      * back is counted as a real anchor and never reseated to the lunch special. */
@@ -844,7 +851,7 @@
            removed, back onto a fresh moon -- caught by test_redraft "the dropped leg appears
            nowhere". Widest pool means no Z_GATE and no GAME_CAP. It does not mean benched. */
         var cnd = Object.keys(D.players).filter(function (n) {
-          return !onSlip[n] && n !== an && alive[n] && placeable(n);
+          return !onSlip[n] && n !== an && alive[n];
         }).sort(function (x, y) {
           var dx = (D.players[y].TOTAL || 0) - (D.players[x].TOTAL || 0);
           return dx || (x < y ? -1 : x > y ? 1 : 0);
