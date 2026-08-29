@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T17:56:44Z",
+  "pulled_at": "2026-08-29T18:00:55Z",
   "games": [
     {
       "gamePk": 823539,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 687562,
           "name": "Jake Bennett",
-          "hr9": 0.7,
+          "hr9": 0.69,
           "hand": "LHP"
         },
         "lineup": [
@@ -576,7 +576,7 @@
     },
     {
       "gamePk": 824637,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-08-29T18:20:00Z",
       "matchup": "CIN@CHC",
       "away": {
@@ -858,8 +858,10 @@
       "home": {
         "abbrev": "SF",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 683363,
+          "name": "Matt Wilkinson",
+          "hr9": 1.59,
+          "hand": "LHP"
         },
         "lineup": [
           {
@@ -1502,9 +1504,9 @@
       "away": {
         "abbrev": "COL",
         "sp": {
-          "id": 663372,
-          "name": "Ryan Feltner",
-          "hr9": 1.75,
+          "id": 688642,
+          "name": "Zach Agnos",
+          "hr9": 1.07,
           "hand": "RHP"
         },
         "lineup": [
@@ -1616,9 +1618,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 80.3,
+        "wind_mph": 6.9,
+        "wind_dir": 182,
+        "tail_mph": 4.6,
+        "precip": 5
       },
-      "wf": 1.0
+      "wf": 1.032
     },
     {
       "gamePk": 823741,
@@ -1690,16 +1699,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 80.7,
-        "wind_mph": 10.3,
-        "wind_dir": 229,
-        "tail_mph": 10.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.051
+      "wf": 1.0
     },
     {
       "gamePk": 823986,
