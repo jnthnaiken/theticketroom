@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T20:47:35Z",
+  "pulled_at": "2026-08-29T20:52:35Z",
   "games": [
     {
       "gamePk": 823539,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823501,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T23:15:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -149,8 +149,54 @@
           "hr9": 0.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663330,
+            "name": "Jahmai Jones",
+            "iso": 0.16
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.167
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.212
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.24
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.139
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.153
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.125
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.128
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.141
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -163,7 +209,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -312,7 +358,7 @@
     },
     {
       "gamePk": 823665,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-29T18:10:00Z",
       "matchup": "CWS@MIN",
       "away": {
@@ -460,7 +506,7 @@
           {
             "id": 687462,
             "name": "Spencer Horwitz",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 664040,
@@ -793,7 +839,7 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.093
+            "iso": 0.092
           },
           {
             "id": 543807,
@@ -915,7 +961,7 @@
           {
             "id": 687551,
             "name": "Drew Gilbert",
-            "iso": 0.149
+            "iso": 0.147
           },
           {
             "id": 646240,
@@ -955,7 +1001,7 @@
           {
             "id": 683766,
             "name": "Christian Koss",
-            "iso": 0.07
+            "iso": 0.069
           }
         ],
         "confirmed": true
@@ -1393,7 +1439,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.164
+            "iso": 0.163
           }
         ],
         "confirmed": true
@@ -1444,7 +1490,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.216
+            "iso": 0.214
           },
           {
             "id": 701538,
@@ -1666,16 +1712,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 77\u00b0",
-        "lean": "Neutral",
-        "temp": 77.2,
-        "wind_mph": 3.6,
-        "wind_dir": 353,
-        "tail_mph": -2.0,
-        "precip": 4
+        "note": "weather fetch failed"
       },
-      "wf": 1.004
+      "wf": 1.0
     },
     {
       "gamePk": 823741,
@@ -1880,9 +1919,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 86\u00b0",
+        "lean": "Boost",
+        "temp": 85.9,
+        "wind_mph": 6.2,
+        "wind_dir": 296,
+        "tail_mph": 1.5,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.029
     }
   ]
 }
