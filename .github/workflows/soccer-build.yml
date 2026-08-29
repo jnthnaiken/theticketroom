@@ -203,7 +203,19 @@ jobs:
             set -e
             echo "rebuild_rc=$RC" >> $GITHUB_OUTPUT
             if [ $RC -ne 0 ] && [ $RC -ne 10 ]; then echo "::error::rebuild exited $RC"; exit $RC; fi
-            [ $RC -eq 10 ] && echo "draft unchanged"
+            # 🚨 RCTRAP-2026-08-29. This WAS `[ $RC -eq 10 ] && echo "draft unchanged"`, and that
+            # is the last command of the script, so the STEP inherits its status. When RC is 10
+            # (nothing moved) the test passes and the step exits 0 -- but when RC is 0, i.e. THE
+            # DRAFT ACTUALLY CHANGED THE BOARD, the test is false, the AND-list returns 1, and the
+            # step fails before Payload / Publish ever run. A landmine that fires only on the
+            # passes that matter: every quiet pass is RC 10 and green, so it sat unnoticed until
+            # 2026-08-29, when the first genuinely changed redraft of the day (6 locked, 3
+            # repaired, 3 new, 2 demoted -- the pass that took four out-of-squad men off live
+            # moons) wrote its tickets.json and then threw the whole build away.
+            #     $ bash -e -c 'RC=0;  [ $RC -eq 10 ] && echo x'; echo $?   -> 1
+            #     $ bash -e -c 'RC=10; [ $RC -eq 10 ] && echo x'; echo $?   -> 0
+            # An `if` has no status to leak. Never end a step on a bare `&&`.
+            if [ $RC -eq 10 ]; then echo "draft unchanged"; fi
           else
             echo "first build of this slate -- the fresh draft stands"
             echo "rebuild_rc=0" >> $GITHUB_OUTPUT
