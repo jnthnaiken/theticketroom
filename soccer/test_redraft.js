@@ -186,30 +186,61 @@ console.log('=== the board under test ===');
 }
 
 /* ---------------------------------------------------------------------------------------
- * 5. CONFLOCK by clock -- once the earliest leg is underway the slip freezes even with an
- *    unconfirmed leg on it. This is the case that matters live: a bet is placeable right up
- *    to kickoff, so from kickoff the board must stop moving it.
+ * 5. CONFLOCK FREEZES ON CONFIRMATION AND ON NOTHING ELSE. THE CLOCK IS NOT A FREEZE RULE.
+ *
+ * 🚨 THIS SCENARIO USED TO ASSERT THE OPPOSITE, and that is how the board shipped benched men.
+ * It read "CONFLOCK by clock -- once the earliest leg is underway the slip freezes even with an
+ * unconfirmed leg on it", which is exactly the branch the owner had deleted the same day:
+ * "the slip shouldnt be froxen until ALL legs are confirmed." Nobody updated the test. Instead
+ * standAsIs() was added to redraft() to keep it green -- engine behaviour invented to satisfy a
+ * stale assertion -- and on 2026-08-29 that put Kean, Richarlison, Osula and Pinamonti on live
+ * moons hours after their squads were announced without them. STANDASIS-2026-08-29.
+ *
+ * A GREEN TEST IS NOT EVIDENCE THAT A RULE IS RIGHT. It records what somebody once believed.
+ * When the owner changes a rule the test changes with it; it does not get propped up.
  * ------------------------------------------------------------------------------------- */
 {
+  /* (a) every leg confirmed -> frozen, kickoff or no kickoff. THIS is the protection a placed
+     bet actually has, and it needs no help from the clock. */
   const D = board();
-  const t0 = D.tickets.find(t => t.kind === 'moon');
-  D.players[t0.players[2].name].status = 'projected';
   const r = SD.redraft(D, { nowUTCmin: KO + 5, xi: XI(D) });
-  chk('after kickoff every slip is frozen', r.locked === D.tickets.length, r);
-  chk('after kickoff nothing is minted or released', r.minted === 0 && r.released === 0, r);
-  chk('after kickoff the board is unchanged', !r.changed, names(r.tickets));
+  chk('an ALL-CONFIRMED slip is frozen after kickoff', r.locked === D.tickets.length, r);
+  chk('and nothing is minted or released', r.minted === 0 && r.released === 0, r);
+  chk('and the board is unchanged', !r.changed, names(r.tickets));
+
+  /* (b) one unconfirmed leg -> NOT frozen, even with every match underway. It is open, so the
+     board tries to repair it; MINTGUARD leaves no legal replacement after kickoff, so it
+     demotes and LEAVES THE BOARD. Short a slip beats dead on the page. */
+  const D2 = board();
+  const t0 = D2.tickets.find(t => t.kind === 'moon');
+  const loose = t0.players[2].name;
+  D2.players[loose].status = 'projected';
+  const r2 = SD.redraft(D2, { nowUTCmin: KO + 5, xi: XI(D2) });
+  chk('a slip with an unconfirmed leg is NOT frozen after kickoff',
+    r2.locked < D2.tickets.length, r2.locked);
+  chk('it is not repaired either -- MINTGUARD blocks every replacement', r2.repaired === 0, r2);
+  chk('so it leaves the board rather than riding it dead',
+    !r2.tickets.some(t => (t.players || []).some(l => l.name === loose)),
+    r2.tickets.map(t => t.players.map(l => l.name)));
+  chk('and nothing is minted to replace it after kickoff', r2.minted === 0, r2);
 }
 
 /* ---------------------------------------------------------------------------------------
- * 6. The feed can freeze a slip on its own, without the clock.
+ * 6. THE FEED IS NOT A FREEZE RULE EITHER. Same correction as 5 -- this asserted that
+ *    `meta.gs = live` froze a slip on its own. Only confirmation freezes.
  * ------------------------------------------------------------------------------------- */
 {
   const D = board();
   const t0 = D.tickets.find(t => t.kind === 'moon');
-  D.players[t0.players[2].name].status = 'projected';
+  const loose = t0.players[2].name;
+  D.players[loose].status = 'projected';
   D.meta.gs[String(t0.players[0].game)] = 'live';    // feed says the anchor's match is running
   const r = SD.redraft(D, { nowUTCmin: KO - 120, xi: XI(D) });
-  chk('a live match freezes its slips even before the clock says so', r.released === 0, r);
+  chk('a "live" feed flag does not freeze a slip that is not fully confirmed',
+    r.locked < D.tickets.length, r.locked);
+  chk('and the unconfirmed leg does not survive on the board',
+    !r.tickets.some(t => (t.players || []).some(l => l.name === loose)),
+    r.tickets.map(t => t.players.map(l => l.name)));
 }
 
 /* ---------------------------------------------------------------------------------------

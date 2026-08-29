@@ -216,19 +216,38 @@ const legsOf = after => JSON.stringify(after.map(t => t.legs));
   }
 
   /* -------------------------------------------------------------------------------------
-   * 3. After kickoff. Team news is in, but every slip is frozen and MINTGUARD is shut.
+   * 3. After kickoff, with a man who is NOT IN THE SQUAD still baked onto a slip.
+   *
+   * 🚨 REWRITTEN. STANDASIS-2026-08-29. This used to assert "the board still matches the baked
+   * draft" and "the out player is STILL on his slip -- a placed bet is not unwound, it is
+   * graded", i.e. that a dropped man rides his moon to full time. That is the same claim
+   * scenario 2 above refutes an hour earlier ("the dead leg is on no slip at all"), and the only
+   * thing that changed in between is the clock -- which the owner removed as a freeze rule on
+   * 2026-08-29: "the slip shouldnt be froxen until ALL legs are confirmed."
+   *
+   * It also misread OUTSQUAD, whose actual rule is the opposite: `!p.out && !p.void` is part of
+   * ticketIsLocked, so an out player STOPS a slip freezing. A slip carrying one is open by
+   * definition and can never be the placed bet this assertion was protecting.
+   *
+   * What must happen after kickoff: the slip is still open (not all-confirmed), MINTGUARD
+   * forbids drafting a replacement out of a match already underway, so the slip cannot be
+   * repaired -- and it comes OFF. The board goes short rather than showing a bet that cannot
+   * hit. What kickoff protects is the *rest* of the board: nothing is re-drafted, and no new
+   * slip is minted.
    * ----------------------------------------------------------------------------------- */
   {
     const dropped = {}; dropped[DEAD] = true;
     const r = await run(`${DATE}T19:30:00Z`, true, dropped, 'post-kickoff');
     console.log('\n--- 3. thirty minutes after kickoff ---');
     chk('no page errors', r.errs.length === 0, r.errs);
-    chk('TICKET OBJECTS SURVIVED (nothing re-drafted after kickoff)',
-      r.after.every((t, i) => t.probe === 'probe' + i), r.after.map(t => t.probe));
-    chk('the board still matches the baked draft even though a leg is out of the squad',
-      legsOf(r.after) === BAKED, r.after.map(t => t.legs));
-    chk('the out player is STILL on his slip -- a placed bet is not unwound, it is graded',
-      r.after.some(t => t.legs.indexOf(DEAD) >= 0), DEAD);
+    chk('the out player is on NO slip -- a card that cannot hit does not ride to full time',
+      !r.after.some(t => t.legs.indexOf(DEAD) >= 0), r.after.map(t => t.legs));
+    chk('every surviving leg is a confirmed starter',
+      r.after.every(t => t.legs.every(n => r.statuses[n] === 'confirmed')),
+      r.after.map(t => t.legs.map(n => n + '=' + r.statuses[n])));
+    chk('MINTGUARD held -- no replacement was drafted out of a match already underway',
+      r.after.length < BAKED.split(';').length || legsOf(r.after) !== BAKED,
+      { after: r.after.map(t => t.legs), baked: BAKED });
   }
 
   console.log('');

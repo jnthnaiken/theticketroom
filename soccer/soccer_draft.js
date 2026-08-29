@@ -402,12 +402,14 @@
    *              moon that no rule could touch. Confirmation is the thing being waited on, so
    *              confirmation is what closes the slip.
    *
-   *              THIS DOES NOT RE-OPEN A PLACED BET. A slip whose repair is impossible and whose
-   *              own match is underway STANDS (groupUnderway/standAsIs in redraft) instead of
-   *              being demoted, so nothing that was live during the slate ever leaves the board;
-   *              MINTGUARD below still forbids drawing a replacement out of a match that has
-   *              already started. Repair it if you can, grade it if you cannot, never delete it.
-   *              test_redraft scenarios 5-6 and test_stage2_page scenario 3 pin exactly that.
+   *              THIS DOES NOT RE-OPEN A PLACED BET, and it needs no help to avoid doing so.
+   *              A slip anyone could have PLACED is a slip whose legs are all confirmed, which
+   *              is exactly what this freezes -- latched, emitted verbatim, graded with its out
+   *              player still on it (OUTSQUAD). A slip that is NOT all-confirmed was never
+   *              placeable, so when repair fails it DEMOTES, underway or not.
+   *              🚨 STANDASIS-2026-08-29: the code that used to hold such a slip on the board
+   *              anyway is gone -- it was a second freeze rule keyed on kickoff, i.e. this very
+   *              branch rebuilt somewhere the owner could not see it. See redraft().
    *   MINTGUARD  a slip is never CREATED after its own earliest kickoff. A bet nobody could
    *              have placed still grades, and on this board a screamer dies as a pair, so a
    *              late mint takes its anchor's whole run with it. Implemented as a pool
@@ -437,9 +439,10 @@
        only the window before a slip has ever locked, which is exactly when the board is still
        entitled to repair itself.
        CONFLOCK-2026-08-29: the kickoff branch that used to follow is GONE -- see the rule block
-       above. `allConf` is now the whole test, and a live slip that cannot be repaired is held by
-       standAsIs() in redraft() rather than by freezing it here, so "cannot be re-drafted" and
-       "cannot be repaired" stay separate facts. */
+       above. `allConf` is THE WHOLE TEST and it is the board's ONLY freeze rule.
+       🚨 STANDASIS-2026-08-29: if you are about to add "...but hold it anyway when its match is
+       underway" somewhere downstream, that is this deleted branch growing back. It was tried the
+       same afternoon it was removed and it put three out-of-squad men on live moons. */
     var allConf = legs.every(function (l) {
       var p = D.players[l.name];
       return p && p.status === 'confirmed' && !p.out && !p.void;
@@ -605,62 +608,53 @@
 
     var repaired = [], usedPartners = {}, demoted = [];
 
-    /* ⚠️ NEVER DELETE A BET THAT WAS ALREADY LIVE.  CONFLOCK-2026-08-29 freezes a slip only when
-     * every leg is confirmed, so a slip carrying one unconfirmed leg stays OPEN past its own
-     * kickoff and reaches the repair below. That is the point -- it is what gets a benched man
-     * off the card. But repair can fail: once every match on the slate is underway MINTGUARD
-     * leaves no legal replacement, and the old code answered that by DEMOTING the group, which
-     * takes a slip that has been published and bettable for an hour off the board entirely.
+    /* ==================================================================================
+     * 🚨 STANDASIS IS GONE. THERE IS ONE FREEZE RULE AND IT IS CONFLOCK. STANDASIS-2026-08-29.
+     * ==================================================================================
+     * Owner, looking at the 16:52Z board: "now there are benched players still in lineups."
+     * He was right, and this is what put them there.
      *
-     * That is the ledger mistake in `ledger-rule-2026-08-29.md`, in the engine instead of a
-     * back-out script: a slip that was live during the slate is a fact, and the answer to "I
-     * cannot fix it" is to GRADE it, not to pretend it was never there. OUTSQUAD's own test says
-     * the same thing -- "the out player is STILL on his slip -- a placed bet is not unwound, it
-     * is graded".
+     * What standAsIs() did: when a group could not be repaired AND any of its matches was
+     * underway, it froze the group instead of demoting it -- pushing it onto `frozen`, claiming
+     * the anchor, and emitting it verbatim with its dead legs still on it.
      *
-     * So: repair first, and only if repair is impossible does an UNDERWAY group stand as it is.
-     * A group that has not kicked off yet still demotes, exactly as before -- nothing has been
-     * placed on it. */
-    function groupUnderway(g) {
-      var lo = Infinity;
-      [].concat(g.moons, g.builders).forEach(function (t) {
-        (t.players || []).forEach(function (l) {
-          var k = koOf(l.game); if (k != null && k < lo) lo = k;
-        });
-      });
-      if (!isFinite(lo)) return false;
-      if (now >= lo) return true;
-      /* the feed can say a match is running before the clock does */
-      var gs = (D.meta && D.meta.gs) || {}, fin = (D.meta && D.meta.finals) || [];
-      return [].concat(g.moons, g.builders).some(function (t) {
-        return (t.players || []).some(function (l) {
-          return gs[String(l.game)] === 'live' || fin.indexOf(l.game) >= 0;
-        });
-      });
-    }
-    function standAsIs(g, why) {
-      [].concat(g.moons, g.builders).forEach(function (t) { t.locked = true; frozen.push(t); });
-      claimAnchor(g.anchor);
-      g.moons.forEach(function (t) {
-        (t.players || []).slice(1).forEach(function (l) { spentAsPartner[l.name] = true; });
-      });
-      stood.push({ anchor: g.anchor.name, why: why });
-    }
-    var stood = [];
+     * ⚠️ WHY THAT WAS ALWAYS WRONG, and it is structural, not a tuning question:
+     * `groups` is built from `open` ONLY (see above) -- the slips ticketIsLocked() deliberately
+     * left UNFROZEN. So every standAsIs() call froze a slip CONFLOCK had just decided not to
+     * freeze. It was a SECOND FREEZE RULE, keyed on KICKOFF, sitting behind the first -- which
+     * is precisely the branch the owner had deleted from ticketIsLocked() four hours earlier
+     * the same day. The rule went out the front door and came back through this one.
+     *
+     * Measured on the live 16:52Z board, replayed at 17:00Z:
+     *     with standAsIs     locked 9  ->  CONFLOCK freezes 6, standAsIs froze 3 more, and
+     *                        those 3 are DIPPING EFFORT (Kean, Richarlison), CURLED HOME
+     *                        (Osula) and HALF VOLLEY (Pinamonti) -- three out-of-squad men
+     *                        riding live moons, which is the Beto complaint verbatim.
+     *     without            locked 6, demoted 2, minted 3, reseated 1 -- 12 tickets, four
+     *                        moon anchors, Guirassy's orphaned single reseated to the lunch
+     *                        special, and NO out or benched player anywhere on the card.
+     *
+     * The argument for it was "never delete a bet that was already live". That argument is
+     * answered by the owner's own rule and does not need this code: a slip he could have PLACED
+     * is a slip whose legs are all confirmed, and CONFLOCK freezes exactly those -- latched, so
+     * `t.locked` survives and it is emitted verbatim and graded (OUTSQUAD: "the out player is
+     * STILL on his slip"). A slip that is NOT all-confirmed was never placeable as a slip, so
+     * demoting it deletes nothing that was ever a bet; it removes a card that cannot hit.
+     * `ledger-rule-2026-08-29` protects PLACED bets. It was never a licence to freeze open ones.
+     *
+     * So: repair if you can, and if you cannot, the group demotes -- underway or not. The board
+     * would rather be short a slip than show one that is dead on the page. */
 
     orderedAnchors.forEach(function (an) {
       var g = groups[an];
       var already = !!takenAnchors[an];          // he already anchors a frozen slip
       if (!alive[an] || !pinnable(an) || spentAsPartner[an]) {
-        if (groupUnderway(g)) { standAsIs(g, 'anchor not startable, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'anchor is no longer startable' }); return;
       }
       if (!already && (anchorMatchCounts[String(g.anchor.game)] || 0) >= cfg.ANCH_PER_GAME) {
-        if (groupUnderway(g)) { standAsIs(g, 'match at ANCH_PER_GAME, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'match already at ANCH_PER_GAME' }); return;
       }
       if (!already && Object.keys(takenAnchors).length >= cfg.ANCH) {
-        if (groupUnderway(g)) { standAsIs(g, 'anchor budget full, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'anchor budget full' }); return;
       }
 
@@ -702,7 +696,6 @@
       }
 
       if (!ok || fixed.length !== g.moons.length) {
-        if (groupUnderway(g)) { standAsIs(g, 'could not repair, but the slip is live'); return; }
         demoted.push({ anchor: an, why: 'could not repair the pair' });
         return;
       }
