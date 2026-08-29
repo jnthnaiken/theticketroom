@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T00:07:00Z",
+  "pulled_at": "2026-08-29T00:12:19Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 823666,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-08-29T00:10:00Z",
       "matchup": "CWS@MIN",
       "away": {
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 61.8,
-        "wind_mph": 11.7,
-        "wind_dir": 278,
-        "tail_mph": 11.4,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     }
   ]
 }
