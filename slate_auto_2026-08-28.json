@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T02:52:35Z",
+  "pulled_at": "2026-08-29T02:57:59Z",
   "games": [
     {
       "gamePk": 824638,
@@ -1424,7 +1424,7 @@
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 668904,
@@ -1434,7 +1434,7 @@
           {
             "id": 663616,
             "name": "Trevor Larnach",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 701785,
@@ -1606,7 +1606,7 @@
         "sp": {
           "id": 691725,
           "name": "Andrew Painter",
-          "hr9": 1.59,
+          "hr9": 1.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -1663,7 +1663,7 @@
         "sp": {
           "id": 672282,
           "name": "Reid Detmers",
-          "hr9": 1.0,
+          "hr9": 0.99,
           "hand": "LHP"
         },
         "lineup": [
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 824960,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-29T01:40:00Z",
       "matchup": "BAL@ATH",
       "away": {
@@ -1756,7 +1756,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.123
+            "iso": 0.122
           },
           {
             "id": 691723,
@@ -1796,7 +1796,7 @@
         "sp": {
           "id": 682052,
           "name": "Jacob Lopez",
-          "hr9": 1.38,
+          "hr9": 1.36,
           "hand": "LHP"
         },
         "lineup": [
@@ -1894,12 +1894,12 @@
           {
             "id": 672695,
             "name": "Geraldo Perdomo",
-            "iso": 0.121
+            "iso": 0.122
           },
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.195
+            "iso": 0.198
           },
           {
             "id": 694374,
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 65\u00b0",
-        "lean": "Neutral",
-        "temp": 64.8,
-        "wind_mph": 6.7,
-        "wind_dir": 244,
-        "tail_mph": 6.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.014
+      "wf": 1.0
     }
   ]
 }
