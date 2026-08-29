@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-29T15:46:39Z",
+  "pulled_at": "2026-08-29T15:51:41Z",
   "games": [
     {
       "gamePk": 823539,
@@ -443,7 +443,7 @@
     },
     {
       "gamePk": 823011,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-29T18:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -454,8 +454,54 @@
           "hr9": 1.48,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.139
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.221
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.161
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.088
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.225
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.088
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.288
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.143
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.065
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
@@ -468,7 +514,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
