@@ -42,6 +42,28 @@ const D0 = JSON.parse(fs.readFileSync(PAYLOAD, 'utf8'));
 const KO = 19 * 60;                                   // every match kicks off 19:00Z
 const DATE = D0.meta.date;
 
+/* STAGE2KO-2026-08-29 -- THE FORKED PAGE HAD NO KICKOFFS, so the live loop never reached the
+ * drafter and scenario 2 could not possibly pass. Dumping D.meta out of the running page gave
+ * `date, finals, gs` and no `ko`, and soccerRedraft()'s first guard is
+ *     if(!D.meta.ko||!Object.keys(D.meta.ko).length) return;   // board baked before STAGE2
+ * The pinned fixture is 2026-08-26 and boards baked before STAGE2-2026-08-27 carry no meta.ko --
+ * test_redraft.js documents exactly this and synthesises them in three lines. This file already
+ * declares KO above and builds all three scenario clocks from it; it simply never wrote the value
+ * into the payload it forks from, so it has been asking the page to repair a board an hour before
+ * a kickoff the page did not know about.
+ * The FIXTURE ON DISK IS NOT TOUCHED -- it is the committed artifact and immutable by design
+ * (TESTPIN-2026-08-28). The kickoffs go into a temp copy, and that copy is what is forked. */
+if (!D0.meta.ko || !Object.keys(D0.meta.ko).length) {
+  D0.meta.ko = {};
+  Object.keys(D0.players).forEach(n => { D0.meta.ko[String(D0.players[n].game)] = KO; });
+  PAYLOAD = path.join(require('os').tmpdir(), 'stage2_payload_ko.json');
+  fs.writeFileSync(PAYLOAD, JSON.stringify(D0));
+  console.log(`  (kickoffs synthesised at 19:00Z for ${Object.keys(D0.meta.ko).length} matches -- `
+    + `the pinned 2026-08-26 board predates STAGE2 and carries none)`);
+  execFileSync('python3', [path.join(__dirname, 'soccer_fork.py'), path.join(__dirname, '..', 'index.html'),
+                           PAYLOAD, FILE], { cwd: __dirname, stdio: 'inherit' });
+}
+
 /* every board name, grouped by game, so the stub can publish a real-looking team sheet */
 const byGame = {};
 Object.keys(D0.players).forEach(n => {

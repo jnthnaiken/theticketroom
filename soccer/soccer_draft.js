@@ -393,9 +393,25 @@
     if (t.locked) return true;
     var legs = t.players || [];
     if (!legs.length) return false;
+    /* OUTSQUAD-2026-08-29 -- `!p.out && !p.void` IS PART OF THE RULE, and was missing.
+       `status` is set to 'confirmed' the first time a player appears in a posted sheet and is
+       never taken back; being DROPPED from the squad is recorded on `out`. Testing status alone
+       therefore read "every leg confirmed" for a slip carrying a man who was not in the XI, so it
+       locked, went into `frozen`, and the leg-level repair below -- which already excludes
+       `p.out` via alive[] -- never saw it. 2026-08-29, test_stage2_page scenario 2: team news
+       lands an hour before kickoff, the card correctly shows the dropped man as out, and his slip
+       is untouchable anyway with a full replacement pool available.
+       CONFLOCK's definition has always said otherwise ("every leg in the posted lineup / game
+       underway, NONE SCRATCHED"), and the baseball engine says it in code -- pinnedP() is
+       `!p.out && !p.void && (p.status==='confirmed' || started(n))`. This is that clause, in the
+       same shape, so the two rooms state one rule.
+       ⚠️ NOT AN UNLOCK. `t.locked` above is a latch and is untouched, and the KICKOFF branch
+       below is untouched, so a placed bet is never unwound and a late team-news wobble cannot
+       flip a slip on and off the board. This reaches only the window before a slip has ever
+       locked, which is exactly when the board is still entitled to repair itself. */
     var allConf = legs.every(function (l) {
       var p = D.players[l.name];
-      return p && p.status === 'confirmed';
+      return p && p.status === 'confirmed' && !p.out && !p.void;
     });
     if (allConf) return true;
     var lo = Infinity;
