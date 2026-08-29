@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "season": "2026",
-  "pulled_at": "2026-08-29T01:47:28Z",
+  "pulled_at": "2026-08-29T01:52:47Z",
   "games": [
     {
       "gamePk": 824638,
@@ -582,7 +582,7 @@
           {
             "id": 673237,
             "name": "Yainer Diaz",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 666211,
@@ -592,7 +592,7 @@
           {
             "id": 676369,
             "name": "Nelson Vel\u00e1zquez",
-            "iso": 0.191
+            "iso": 0.188
           }
         ],
         "confirmed": true
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 822935,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-28T23:10:00Z",
       "matchup": "SD@TB",
       "away": {
@@ -710,17 +710,17 @@
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.105
+            "iso": 0.106
           },
           {
             "id": 669720,
             "name": "Austin Hays",
-            "iso": 0.1
+            "iso": 0.099
           },
           {
             "id": 666023,
             "name": "Freddy Fermin",
-            "iso": 0.113
+            "iso": 0.112
           },
           {
             "id": 630105,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 822769,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-08-28T23:15:00Z",
       "matchup": "SEA@TOR",
       "away": {
@@ -879,7 +879,7 @@
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 665489,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 823666,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-08-29T00:10:00Z",
       "matchup": "CWS@MIN",
       "away": {
@@ -1473,7 +1473,7 @@
         "sp": {
           "id": 683003,
           "name": "Jared Jones",
-          "hr9": 1.5,
+          "hr9": 1.49,
           "hand": "RHP"
         },
         "lineup": [
@@ -1542,7 +1542,7 @@
           {
             "id": 671056,
             "name": "Iv\u00e1n Herrera",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 676475,
@@ -1557,7 +1557,7 @@
           {
             "id": 665877,
             "name": "Jos\u00e9 Ferm\u00edn",
-            "iso": 0.12
+            "iso": 0.121
           },
           {
             "id": 701675,
@@ -1746,7 +1746,7 @@
           {
             "id": 677942,
             "name": "Blaze Alexander",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 624413,
@@ -1756,7 +1756,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.124
+            "iso": 0.123
           },
           {
             "id": 691723,
@@ -1796,7 +1796,7 @@
         "sp": {
           "id": 682052,
           "name": "Jacob Lopez",
-          "hr9": 1.44,
+          "hr9": 1.42,
           "hand": "LHP"
         },
         "lineup": [
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 65\u00b0",
-        "lean": "Neutral",
-        "temp": 64.9,
-        "wind_mph": 7.4,
-        "wind_dir": 270,
-        "tail_mph": 7.4,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.018
+      "wf": 1.0
     }
   ]
 }
