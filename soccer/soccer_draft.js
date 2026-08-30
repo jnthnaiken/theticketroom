@@ -693,6 +693,29 @@
       var cands = withStrength(buildPool(field, cfg, { xi: xi, xiMatches: xiM, exclude: usedPartners }))
         .filter(function (p) { return p.name !== an && !groups[p.name]; });
 
+      /* 🚨 REPAIRWIDE-2026-08-30 -- REPAIR DRAWS FROM THE SAME WIDE POOL THE TOP-UP DOES.
+       * Owner, on losing a leg that had already scored: "why get rid of aubamayeng though?"
+       * `cands` above is `buildPool`, so leg repair is GATED while the pair top-up below is not.
+       * On a thin field that asymmetry does not merely fail to repair -- it DESTROYS the slip,
+       * and the all-or-none pair rule takes its partner slip with it.
+       * Measured 2026-08-30 18:07Z: Anssumane Fati went out of Monaco's squad. Repairing his
+       * leg needed one man from a third match, unstarted, above Z_GATE -- there were three such
+       * men on the whole card and they spanned two matches. Repair failed, the pair was demoted,
+       * and PIERRE-EMERICK AUBAMEYANG WENT WITH IT -- a pinned leg that had already SCORED, 17'.
+       * The board then re-minted around him. A leg that has hit is the last thing a re-draft
+       * should be allowed to throw away.
+       * So when the gated pool cannot finish a slip, fall through to the same field the top-up
+       * uses: ALIVE (so the XI filter still applies -- benched is still benched) and PLACEABLE
+       * (so MINTGUARD still holds), just without Z_GATE and GAME_CAP. Owner's 2026-08-30 ruling
+       * -- "leave it ungated, just for soccer though, the pool seems to be smaller" -- was made
+       * about exactly this shape of field; this is the same rule reaching the same problem one
+       * block earlier, where it saves the pinned legs instead of replacing them.
+       * ⚠️ GATED FIRST, ALWAYS. The wide list is a FALLBACK, never a preference: a slip that can
+       * be finished from the pool the model actually likes is finished from it, and this only
+       * runs when the alternative is deleting the bet. */
+      var wide = withStrength(field.filter(function (p) { return alive[p.name]; }))
+        .filter(function (p) { return p.name !== an && !groups[p.name]; });
+
       var fixed = [], ok = true, localUsed = {};
       for (var i = 0; i < g.moons.length && ok; i++) {
         var t = g.moons[i];
@@ -705,13 +728,16 @@
           if (!spanOk(legs.concat([rowOf(l.name)]), cfg)) return;
           legs.push(rowOf(l.name)); seen[String(l.game)] = true; localUsed[l.name] = true;
         });
-        /* REFILL whatever the pins left short */
-        for (var c = 0; c < cands.length && legs.length < 3; c++) {
-          var cd = cands[c];
-          if (seen[cd.match] || usedPartners[cd.name] || localUsed[cd.name]) continue;
-          if (!spanOk(legs.concat([cd]), cfg)) continue;
-          legs.push(cd); seen[cd.match] = true; localUsed[cd.name] = true;
-        }
+        /* REFILL whatever the pins left short -- the gated pool first, the wide field only if
+           the slip would otherwise die (REPAIRWIDE-2026-08-30). */
+        [cands, wide].forEach(function (list) {
+          for (var c = 0; c < list.length && legs.length < 3; c++) {
+            var cd = list[c];
+            if (seen[cd.match] || usedPartners[cd.name] || localUsed[cd.name]) continue;
+            if (!spanOk(legs.concat([cd]), cfg)) continue;
+            legs.push(cd); seen[cd.match] = true; localUsed[cd.name] = true;
+          }
+        });
         if (legs.length !== 3) ok = false; else fixed.push({ t: t, legs: legs });
       }
 

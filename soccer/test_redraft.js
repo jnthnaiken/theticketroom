@@ -85,30 +85,59 @@ console.log('=== the board under test ===');
 }
 
 /* ---------------------------------------------------------------------------------------
- * 2. A slip that CANNOT be repaired dies, and says why.
+ * 2. A THIN GATED POOL NO LONGER KILLS THE SLIP -- REPAIRWIDE-2026-08-30.
  *
- * On the real 2026-08-25 slate the gated pool is SIX. Freeze one screamer and its two partners
- * are spent; drop a leg from the other and there is no legal third leg left -- a partner has to
- * come from a third match, inside WIN, out of a pool that no longer has one. The honest outcome
- * is that the slip dies. All-or-none normally demotes the anchor's whole pair, but his other
- * moon is a PLACED BET and frozen, so it stands: a bet already struck is a fact, and the
- * all-or-none rule is about what to mint, not about what to unwind.
+ * 🚨 REWRITTEN. This used to assert the opposite: on the real 2026-08-25 slate the gated pool is
+ * SIX, so freezing one screamer spends its partners, dropping a leg from the other leaves no
+ * legal third leg, and "the honest outcome is that the slip dies".
+ *
+ * It is not the honest outcome any more, and 2026-08-30 showed why in the worst possible way:
+ * Fati went out of Monaco's squad, the gated pool could not supply a third leg, the slip died --
+ * and it took PIERRE-EMERICK AUBAMEYANG with it, a pinned leg that had already SCORED. Owner:
+ * "why get rid of aubamayeng though?" Repair now falls through to the same wide field the pair
+ * top-up has always used (alive, placeable, ungated), so the pinned legs are kept and only the
+ * dead one is swapped. Deleting a bet is the last resort, not the first.
+ * ------------------------------------------------------------------------------------- */
+{
+  const D = board();
+  const t0 = D.tickets.find(t => t.kind === 'moon');
+  const victim = t0.players[2].name;
+  const anchor = t0.players[0].name, keep = t0.players[1].name;
+  D.players[victim].status = 'projected';
+  const r = SD.redraft(D, { nowUTCmin: KO - 120, xi: XI(D) });
+  chk('the open slip was released, the rest stayed frozen', r.released === 1 && r.locked === D.tickets.length - 1, r);
+  chk('REPAIRED from the wide field instead of dying', r.repaired === 1 && r.demoted.length === 0,
+    { repaired: r.repaired, demoted: r.demoted });
+  const fixedT = r.tickets.find(t => !t.locked && t.kind === 'moon');
+  chk('the anchor and the healthy partner were PINNED, not re-drafted',
+    !!fixedT && fixedT.players[0].name === anchor && fixedT.players.some(l => l.name === keep),
+    fixedT && fixedT.players.map(l => l.name));
+  chk('the slip is whole again -- three legs, three matches', !!fixedT && fixedT.players.length === 3 &&
+    new Set(fixedT.players.map(l => l.game)).size === 3, fixedT && fixedT.players.map(l => l.name + '@' + l.game));
+  const stillFrozen = r.tickets.filter(t => t.locked && t.kind === 'moon');
+  chk('the frozen slips are untouched', stillFrozen.length === 1 && r.tickets.some(t => t.locked && t.kind === 'builder'),
+    names(r.tickets));
+  chk('the dropped leg appears nowhere', !r.tickets.some(t => t.players.some(l => l.name === victim)), victim);
+}
+
+/* ---------------------------------------------------------------------------------------
+ * 2b. WHEN EVEN THE WIDE FIELD HAS NOBODY, the slip still dies and still says why.
+ *
+ * REPAIRWIDE widens the last resort; it does not remove it. Kill everyone who is not already on
+ * a slip -- `alive` is false for an out player, so the wide list is empty too -- and the old
+ * behaviour must come straight back, reason recorded.
  * ------------------------------------------------------------------------------------- */
 {
   const D = board();
   const t0 = D.tickets.find(t => t.kind === 'moon');
   const victim = t0.players[2].name;
   D.players[victim].status = 'projected';
+  const onSlip = new Set(D.tickets.flatMap(t => t.players.map(l => l.name)));
+  Object.keys(D.players).forEach(n => { if (!onSlip.has(n)) D.players[n].out = true; });
   const r = SD.redraft(D, { nowUTCmin: KO - 120, xi: XI(D) });
-  chk('the open slip was released, the rest stayed frozen', r.released === 1 && r.locked === D.tickets.length - 1, r);
-  chk('it could not be repaired on a six-player pool, and the reason is recorded',
+  chk('with nobody alive to draw on, the slip dies and the reason is recorded',
     r.repaired === 0 && r.demoted.length === 1 && /repair/.test(r.demoted[0].why), r.demoted);
-  /* TESTPIN-2026-08-28: was `tickets.length === 2`, a count proxy that LEFTOVERS-2026-08-28
-     invalidated. The claim is that the two SURVIVING frozen slips are untouched. */
-  const stillFrozen = r.tickets.filter(t => t.locked && t.kind === 'moon');
-  chk('the frozen slips are untouched', stillFrozen.length === 1 && r.tickets.some(t => t.locked && t.kind === 'builder'),
-    names(r.tickets));
-  chk('the dropped leg appears nowhere', !r.tickets.some(t => t.players.some(l => l.name === victim)), victim);
+  chk('the dropped leg still appears nowhere', !r.tickets.some(t => t.players.some(l => l.name === victim)), victim);
 }
 
 /* ---------------------------------------------------------------------------------------
