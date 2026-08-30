@@ -35,7 +35,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html']
+    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html', 'soccer/soccer_D.json']
   workflow_dispatch:
 
 permissions:
@@ -74,6 +74,18 @@ jobs:
           # loop refreshes results in place and deliberately does not adopt a newer file
           # (see the ADOPTFILE note above; the same bug would eat a confirmed soccer slip).
           if [ -f soccer/index.html ]; then mkdir -p _site/soccer && cp soccer/index.html _site/soccer/; fi
+          # ONEAUTHOR-2026-08-30 -- STAGE THE SOCCER BOARD SO THE PAGE CAN ADOPT IT.
+          # The note above says adoption must not be re-enabled "UNTIL adoption MERGES INSTEAD OF
+          # REPLACING", because `D.tickets = j.tickets` once deleted a confirmed slip out of a
+          # live tab. That condition is met for SOCCER only, and from the other side: the soccer
+          # page no longer drafts at all (soccerRedraft is defined but never invoked), so every
+          # slip it holds is a slip the server published and replacing its board cannot delete a
+          # bet. soccerAdopt() also carries any locked slip the incoming board fails to name, and
+          # logs it, so the failure mode that caused the 08-17 revert is loud instead of silent.
+          # The BASEBALL board is untouched -- index.html still drafts client-side, so D_<date>.json
+          # stays unstaged and ADOPT-2026-08-16 stays dead there. Do not "tidy" this into a loop
+          # that stages both; they are two different decisions.
+          if [ -f soccer/soccer_D.json ]; then cp soccer/soccer_D.json _site/soccer/; fi
           # The cover page: two doors, one to each room. It IS the front door now.
           # Also kept at /cover.html, its original URL, so nothing that already points there
           # breaks -- same file, two paths, no redirect to maintain.
