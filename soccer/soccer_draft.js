@@ -106,6 +106,13 @@
     var xiM = opts.xiMatches || null;
     var gated = function (p) { return !xiM || !!xiM[String(p.match)]; };
     var elig = players.filter(function (p) {
+      /* WRONGCLUB-2026-08-30. `out` means NOT IN THE SQUAD (OUTSQUAD-2026-08-29) and it must
+         keep a man out of the FRESH draft too, not only the live one. redraft()'s alive[] has
+         always honoured it; buildPool never asked, so a player the squad file proved absent was
+         still fully draftable and Nicolas Jackson -- an Aston Villa forward -- anchored
+         Chelsea v Brighton on 2026-08-30. Rows without the field are undefined and fall
+         through unchanged, so every earlier slate and the 08-26 golden board are untouched. */
+      if (p.out || p.void) return false;
       if (p.gate_z == null || p.gate_z < cfg.Z_GATE) return false;
       if (excl[p.name]) return false;
       if (xi && gated(p) && !xi[p.name]) return false;
