@@ -87,16 +87,49 @@ def surname_hits(name, squad):
     Paris Saint-Germain hyphen: a name that fails to join looks exactly like a player who is not
     playing, and it fails in the direction that silently removes a live bet.
 
-    A surname hit means the sheet plausibly contains him, so absence must NOT be asserted."""
+    A surname hit means the sheet plausibly contains him, so absence must NOT be asserted.
+
+    COMPOUNDSUR-2026-08-30. The surname-token test alone misses two shapes the two feeds
+    disagree on constantly, and BOTH make a real squad member read as absent:
+
+        compound surname   oddschecker "Jaden Philogene-Bidace"  ESPN "Jaden Philogene"
+        extra surname      oddschecker "Giovane Nascimento"      ESPN "Giovane"
+                           oddschecker "Emersonn Silva"          ESPN "Emersonn"
+                           oddschecker "Kevin Macedo"            ESPN "Kevin"
+                           oddschecker "Gustavo Nunes Gomes"     ESPN "Gustavo Nunes"
+
+    Anchoring on the LAST token cannot see any of them -- `bidace`, `nascimento`, `silva`,
+    `macedo`, `gomes` are simply not on the sheet, though the men are. So for the ABSENCE test
+    the anchor is dropped: ANY token in common is a hit. `forms()` already yields the SPACED
+    form, so a hyphenated surname is split and `philogene` is an exact token on both sides --
+    no substring test is needed and none is used.
+
+    ⚠️ SUBSTRING CONTAINMENT WAS TRIED AND REVERTED THE SAME HOUR. `jack` is inside `jackson`,
+    so Brighton's Jack Hinshelwood gave Nicolas Jackson a hit and the gate stopped seeing the
+    one player it was built to catch. Exact tokens only.
+
+    ⚠️ THIS IS DELIBERATELY LOOSE AND IT ONLY EVER ADDS HITS. It cannot create a false join --
+    match_one() still does the joining and is untouched. All it can do is make absence HARDER
+    to assert, which is the only safe direction: a missed hit kills a live bet, a spurious hit
+    merely declines to kill one. Same reasoning as the docstring above, one level down.
+    """
     n = 0
     for cand, _ in squad:
+        hit = False
         for ot in forms(name):
             if not ot:
                 continue
-            last = ot[-1]
-            if any(last in ct for ct in forms(cand)):
-                n += 1
+            for ct in forms(cand):
+                for a in ot:
+                    if a in ct:
+                        hit = True
+                        break
+                if hit:
+                    break
+            if hit:
                 break
+        if hit:
+            n += 1
     return n
 
 
