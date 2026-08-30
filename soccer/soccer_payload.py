@@ -95,6 +95,22 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                 SQUADS.setdefault(c[0], []).append((c[2], c[1]))
         print(f'    squads: {sum(len(v) for v in SQUADS.values())} roster names '
               f'across {len(SQUADS)} matches')
+    # WRONGCLUB-2026-08-30 -- see soccer_mock.py for the incident. squads.psv proves a priced
+    # player is in NEITHER squad; OUTSQUAD-2026-08-29 already says that fact is recorded on
+    # `out`, so it is recorded there and every consumer inherits it: buildPool drops him,
+    # ticketIsLocked refuses to freeze him, and grading VOIDS his leg rather than losing it --
+    # which is right, the bet was never placeable. Asserted only on surname_hits() == 0.
+    WRONGCLUB = set()
+    if SQUADS:
+        from soccer_teamnews import surname_hits as _sur
+        for _p in P:
+            _sq = SQUADS.get(_p['match'])
+            if _sq and _sur(_p['name'], _sq) == 0:
+                WRONGCLUB.add(_p['name'])
+        if WRONGCLUB:
+            print(f'    wrong club: {len(WRONGCLUB)} priced in neither squad -> out: '
+                  + ', '.join(sorted(WRONGCLUB)))
+
     LIVE = {m for m, st in (TN.get('status') or {}).items()
             if st.get('espn') not in ('STATUS_SCHEDULED', 'STATUS_FULL_TIME',
                                       'STATUS_POSTPONED', 'STATUS_CANCELED')}
@@ -206,7 +222,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'hr': bool(TNGOALS.get(n)),
             'goalmins': TNGOALS.get(n, []),
             'status': ('confirmed' if n in XI else 'benched' if n in BENCH else 'projected'),
-            'out': n in ABSENT,
+            'out': (n in ABSENT) or (n in WRONGCLUB),
             'soft': False, 'form': None,
             'aT': 100, 'wf': 1.0, 'khr': None, 'powidx': None, 'phr9': None, 'zonev': None,
             'odds': p.get('odds'),
