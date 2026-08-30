@@ -995,7 +995,7 @@ let ticketType='all';
 function drawTickets(){
  const q=(($('#tsearch')||{}).value||'').trim().toLowerCase(),ty=ticketType;
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
- const closed='<div class="closed">🍽️ No lunch special right now — one appears when a single is left without its screamers.</div>';
+ const closed='<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>';
 
  const lunchLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);
  /* SEAT-LOCK 2026-08-19 (display): a builder whose bat holds no moons is a stranded anchor single --
