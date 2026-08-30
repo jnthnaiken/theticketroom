@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-30T02:30:29Z",
+  "pulled_at": "2026-08-30T02:37:18Z",
   "games": [
     {
       "gamePk": 823539,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823501,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-29T23:15:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -1113,7 +1113,7 @@
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.144
+            "iso": 0.143
           },
           {
             "id": 545121,
@@ -1189,15 +1189,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 15mph, 63\u00b0",
+        "cond": "wind out 13mph, 63\u00b0",
         "lean": "Boost",
         "temp": 63.1,
-        "wind_mph": 15.6,
-        "wind_dir": 286,
-        "tail_mph": 14.6,
+        "wind_mph": 13.4,
+        "wind_dir": 280,
+        "tail_mph": 12.9,
         "precip": 0
       },
-      "wf": 1.041
+      "wf": 1.035
     },
     {
       "gamePk": 822690,
@@ -1587,16 +1587,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 79\u00b0",
-        "lean": "Neutral",
-        "temp": 78.8,
-        "wind_mph": 3.4,
-        "wind_dir": 349,
-        "tail_mph": -2.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.004
+      "wf": 1.0
     },
     {
       "gamePk": 822936,
@@ -2121,12 +2114,12 @@
         "cond": "wind out 11mph, 80\u00b0",
         "lean": "Boost",
         "temp": 79.5,
-        "wind_mph": 11.1,
-        "wind_dir": 232,
-        "tail_mph": 11.0,
+        "wind_mph": 10.9,
+        "wind_dir": 233,
+        "tail_mph": 10.8,
         "precip": 0
       },
-      "wf": 1.053
+      "wf": 1.052
     },
     {
       "gamePk": 823986,
@@ -2180,7 +2173,7 @@
           {
             "id": 592663,
             "name": "J.T. Realmuto",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 702222,
@@ -2195,7 +2188,7 @@
         "sp": {
           "id": 696270,
           "name": "Ryan Johnson",
-          "hr9": 2.11,
+          "hr9": 2.1,
           "hand": "RHP"
         },
         "lineup": [
@@ -2250,16 +2243,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 80\u00b0",
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 80\u00b0",
         "lean": "Boost",
         "temp": 80.3,
-        "wind_mph": 5.9,
-        "wind_dir": 241,
-        "tail_mph": 5.5,
+        "wind_mph": 7.2,
+        "wind_dir": 240,
+        "tail_mph": 6.8,
         "precip": 0
       },
-      "wf": 1.035
+      "wf": 1.039
     }
   ]
 }
