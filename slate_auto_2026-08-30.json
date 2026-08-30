@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T22:18:22Z",
+  "pulled_at": "2026-08-30T22:23:48Z",
   "games": [
     {
       "gamePk": 822688,
@@ -1332,7 +1332,7 @@
     },
     {
       "gamePk": 823580,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-30T19:10:00Z",
       "matchup": "HOU@NYM",
       "away": {
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 76\u00b0",
-        "lean": "Neutral",
-        "temp": 75.6,
-        "wind_mph": 3.0,
-        "wind_dir": 306,
-        "tail_mph": -0.3,
-        "precip": 22
+        "note": "weather fetch failed"
       },
-      "wf": 1.007
+      "wf": 1.0
     }
   ]
 }
