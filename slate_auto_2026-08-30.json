@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T16:30:32Z",
+  "pulled_at": "2026-08-30T16:36:39Z",
   "games": [
     {
       "gamePk": 822688,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 674841,
           "name": "Andrew Alvarez",
-          "hr9": 0.53,
+          "hr9": 0.52,
           "hand": "LHP"
         },
         "lineup": [
@@ -87,7 +87,7 @@
           {
             "id": 665953,
             "name": "Andr\u00e9s Chaparro",
-            "iso": 0.276
+            "iso": 0.273
           },
           {
             "id": 695734,
@@ -1286,7 +1286,7 @@
     },
     {
       "gamePk": 823580,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-30T19:10:00Z",
       "matchup": "HOU@NYM",
       "away": {
@@ -1297,8 +1297,54 @@
           "hr9": 2.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.194
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.293
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.162
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.151
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.205
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.134
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.155
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.173
+          },
+          {
+            "id": 669397,
+            "name": "Nick Allen",
+            "iso": 0.081
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYM",
@@ -1311,7 +1357,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
