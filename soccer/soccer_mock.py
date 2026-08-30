@@ -22,7 +22,14 @@ CFG = dict(
     # confirmed at any one moment -- by the time the last leg's XI is known the first leg has
     # been playing for two hours and the slip can no longer be placed. 60 keeps every leg's
     # lineup risk inside the same hour. See the note on DEFAULTS.WIN for the owner's wording.
-    WIN=60, Z_GATE=0.75, GAME_CAP=4, CHALK_N=0,
+    #
+    # WIN75 / ZGATE70-2026-08-30 -- owner: "just loosen both gates to .7 and 75 minutes". The
+    # 08-30 card drafted NOTHING at 60/0.75: draftN is all-or-none and picks anchors
+    # strength-first, so Lautaro Martinez -- the strongest man on the slate, in a ko-1125 window
+    # holding only two pool matches -- zeroed every attempt down to n=1. Lazio's best gated at
+    # +0.74 and Aubameyang was 75 minutes out; both new numbers clear exactly those margins.
+    # BOTH VALUES MUST MATCH DEFAULTS IN soccer_draft.js. See claude/soccer-2026-08-30-emptydraft.md.
+    WIN=75, Z_GATE=0.70, GAME_CAP=4, CHALK_N=0,
     ANCH=4, MOONS_PER_ANC=2, ANCH_PER_GAME=2, FAM_CAP=8,
     MOON_RISK=2.0, SINGLE_STAKE=1.0,
 )
