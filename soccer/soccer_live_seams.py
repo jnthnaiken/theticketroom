@@ -137,7 +137,25 @@ function soccerRedraft(){
     var xiMatches={},nready=0;
     Object.keys(byGame).forEach(function(g){
       var pub=byGame[g].some(function(p){
-        return p.status==='confirmed'||p.status==='benched'||p.out===true;
+        /* 🚨 OUTNOTSHEET-2026-08-30. `||p.out===true` used to be a third clause here and it
+           deleted a live anchor's whole run. PUBLICATION IS A TEAM-NEWS FACT. When this guard
+           was written `out` could only be set by soccer_teamnews.py inside a match whose sheet
+           had published, so it was a fair proxy. WRONGCLUB-2026-08-30 gave `out` a SECOND
+           meaning -- "not in his club's squad", a season-long fact stamped on the row at build
+           time, hours before any sheet exists. One such name then asserted that his whole match
+           had published. Inside a match falsely marked published NOBODY is confirmed, so
+           buildPool's `xi && gated(p) && !xi[p.name]` gated out every player in it, and any
+           open slip needing a leg there could not be repaired and died.
+           MEASURED on the 2026-08-30 board at 16:29Z: 13 of 15 matches marked published against
+           10 real sheets; games 11/13/14 had ZERO confirmed players; Lautaro Martinez's two
+           screamers and his builder were deleted, 9 tickets -> 6. With the clause gone,
+           xiMatches is 10, the three slips repair, and redraft reports changed:false.
+           The server never had this bug -- soccer_rebuild_cli.js builds xiMatches from
+           soccer_teamnews.py's per-fixture `trusted` map and has never consulted `out`. This is
+           the page catching back up to it, which is the whole point of one shared engine.
+           Nothing is lost: a genuinely published sheet always names a confirmed or benched
+           player, so the two remaining clauses cover every real case. */
+        return p.status==='confirmed'||p.status==='benched';
       });
       if(pub){ xiMatches[String(g)]=true; nready++; }
     });
