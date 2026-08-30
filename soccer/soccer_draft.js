@@ -854,6 +854,50 @@
       if (t.kind === 'moon' && legs.length) moonCnt[legs[0].name] = (moonCnt[legs[0].name] || 0) + 1;
       legs.forEach(function (l) { onSlip[l.name] = true; });
     });
+    /* 🚨 REPAIRPAIR-2026-08-30 -- AN ANCHOR WHO LOST BOTH SCREAMERS IS STILL AN ANCHOR.
+     * Owner, on Anssumane Fati going out of Monaco's squad and nobody arriving to replace him:
+     * "is there a reason fati isnt getting replaced?" -- then "yes" to re-pairing from the
+     * ungated field.
+     * `moonCnt` is built by walking `out` and counting MOONS, so an anchor whose pair was
+     * demoted whole has NO ENTRY and the top-up below never looks at him. That is the exact
+     * case that needs it most. Measured 2026-08-30 18:12Z: Fati went `out` and Andrea Pinamonti
+     * was benched, so BOTH of Lautaro Martinez's screamers failed repair -- the gated pool had
+     * three men left in unstarted matches spanning only TWO matches and a screamer needs three
+     * -- the all-or-none pair rule took the pair, and he was left as a stranded single. The
+     * ungated top-up had candidates the whole time (games 14 and 15 are full of alive, priced
+     * men, just none above Z_GATE) and could not reach him, because he had dropped out of the
+     * list it iterates.
+     * A builder on the board IS the board's commitment to that anchor, so seed him at zero and
+     * let the same block below rebuild his pair.
+     * ⚠️ MINTGUARD APPLIES TO A FROM-ZERO RE-PAIR, and this is the one place it must. The
+     * top-up deliberately skips `placeable()` when COMPLETING a pair -- "finishing it is not
+     * creating a new one" -- but re-pairing from nothing creates two brand-new slips, and a
+     * slip built out of matches already underway is a bet nobody could have placed. So the
+     * anchor and every candidate must still be ahead of the clock here. Pair completion is
+     * untouched and behaves exactly as before. */
+    var zeroMoon = {};
+    /* ⚠️ TWO RULES ALREADY DEMOTED HIM, AND BOTH HAVE TO BE READ TO FIND HIM AGAIN.
+     * ORPHANSECTION-2026-08-29 reseats a moonless single into the lunch/nightcap section, and
+     * that `kind` PERSISTS on the board -- Lautaro's surviving slip came back as `lunch`, not
+     * `builder`. LEFTOVERANCHOR-2026-08-28 then spends him as a single rather than an anchor,
+     * because `frozenMoonAnchor` is false once his moons are gone. So a demoted anchor is
+     * invisible under both his kind AND his anchor status, and looking for a builder finds
+     * nothing. Match the SHAPE instead: one leg, still ahead of the clock, still alive.
+     * The ANCH budget is the guard that keeps this honest -- a genuine lunch special is only
+     * ever promoted when the board is actually SHORT of anchors, which is exactly the state a
+     * demoted pair leaves behind. A full board promotes nobody. */
+    var _anchorsNow = Object.keys(takenAnchors).length + (res.anchors || 0);
+    out.forEach(function (t) {
+      var legs = t.players || [];
+      if (legs.length !== 1) return;
+      if (t.kind === 'moon') return;
+      var an = legs[0].name;
+      if (moonCnt[an] != null) return;
+      if (_anchorsNow >= cfg.ANCH) return;
+      if (!alive[an] || !placeable(an)) return;
+      moonCnt[an] = 0; zeroMoon[an] = true; _anchorsNow++;
+    });
+
     var topped = [];
     /* 🚨 TOPUPORDER-2026-08-30. THE ANCHORS ARE TOPPED UP STRONGEST FIRST, NOT IN THE ORDER
        THEY HAPPEN TO SIT IN `out`.
@@ -882,6 +926,7 @@
     }).forEach(function (an) {
       var ap = D.players[an];
       if (!ap || !alive[an] || !pinnable(an)) return;      // a dead anchor is not topped up
+      if (zeroMoon[an] && !placeable(an)) return;          // REPAIRPAIR: MINTGUARD on a new pair
       var guard = 0;
       while (moonCnt[an] < cfg.MOONS_PER_ANC && guard++ < cfg.MOONS_PER_ANC) {
         var rows = [rowOf(an)], seenG = {};
@@ -895,7 +940,9 @@
            removed, back onto a fresh moon -- caught by test_redraft "the dropped leg appears
            nowhere". Widest pool means no Z_GATE and no GAME_CAP. It does not mean benched. */
         var cnd = Object.keys(D.players).filter(function (n) {
-          return !onSlip[n] && n !== an && alive[n];
+          /* REPAIRPAIR-2026-08-30: `placeable` only for a from-zero re-pair -- see above. A pair
+             being COMPLETED keeps the widest pool exactly as it always has. */
+          return !onSlip[n] && n !== an && alive[n] && (!zeroMoon[an] || placeable(n));
         }).sort(function (x, y) {
           var dx = (D.players[y].TOTAL || 0) - (D.players[x].TOTAL || 0);
           return dx || (x < y ? -1 : x > y ? 1 : 0);
