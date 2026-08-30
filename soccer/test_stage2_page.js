@@ -1,9 +1,20 @@
-/* test_stage2_page.js -- the live re-draft, IN THE BUILT PAGE, under a frozen clock.
+/* test_stage2_page.js -- THE PAGE DOES NOT DRAFT, IN THE BUILT PAGE, under a frozen clock.
  *
- * The unit tests (test_redraft.js) prove the rules. This proves the WIRING: that soccer_draft.js
- * is actually reachable inside soccer/index.html, that soccerRedraft() is called by the live
- * loop, that its three guards fire in the right order, and that a board on screen moves when
- * team news lands and stops moving at kickoff.
+ * 🚨 REWRITTEN FOR ONEAUTHOR-2026-08-30. This file used to prove the opposite: that
+ * soccerRedraft() was wired into the live loop and that the board on screen MOVED when team news
+ * landed. That was STAGE2-2026-08-27's contract and it is retired. Owner, after betting a slip
+ * the server did not hold: "the page and server evaluate at different instants with different
+ * team news, so their frozen sets can still differ, yea this doesnt work for me, fix it".
+ *
+ * The contract now: the server is the only author of the board. The page renders what was
+ * published, adopts a newer published board when one appears, and never mints, repairs or tops
+ * up a slip of its own. What this file proves is that the page LEAVES THE BOARD ALONE while the
+ * live loop does its other work -- results, goal minutes, confirmed/out status, the renderer --
+ * and that adoption swaps the board without eating a bet.
+ *
+ * The audit method is unchanged and is the whole point: TAG THE ACTUAL TICKET OBJECTS. A
+ * signature comparison would pass a re-draft that happened to reproduce the same slips; a tag
+ * that survives proves the array was never replaced.
  *
  * This is the check the 2026-08-26 audit asked for. That audit's method is the one used here:
  * TAG THE ACTUAL TICKET OBJECTS. A signature comparison would pass a re-draft that happened to
@@ -100,7 +111,7 @@ const chk = (label, ok, detail) => {
   if (!ok) { fail++; if (detail !== undefined) console.log('      ' + JSON.stringify(detail)); }
 };
 
-async function run(atISO, publish, dropped, label) {
+async function run(atISO, publish, dropped, label, serveBoard, pre, pageFile) {
   const b = await chromium.launch();
   const ctx = await b.newContext({ viewport: { width: 1280, height: 1000 } });
 
@@ -108,7 +119,7 @@ async function run(atISO, publish, dropped, label) {
      class D extends R{constructor(...a){if(!a.length)super(F);else super(...a);}static now(){return F;}}
      window.Date=D;})();`);
 
-  const payload = { publish, dropped, byGame, evToGame, DATE };
+  const payload = { publish, dropped, byGame, evToGame, DATE, serveBoard: serveBoard || null };
   await ctx.addInitScript(`window.__STUB=${JSON.stringify(payload)};
     (()=>{
       const S=window.__STUB;
@@ -120,10 +131,16 @@ async function run(atISO, publish, dropped, label) {
                 {team:{abbreviation:'A'+g},roster:mk(names.slice(half))}];
       }
       window.__espnCalls=0;
+      window.__boardCalls=0;
       window.fetch=function(u){
         u=String(u);
         if(u.indexOf('espn')>=0) window.__espnCalls++;
         let body={};
+        if(u.indexOf('soccer_D.json')>=0){
+          window.__boardCalls++;
+          if(!S.serveBoard) return Promise.resolve({ok:false,status:404,json:()=>Promise.resolve(null)});
+          return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve(S.serveBoard)});
+        }
         if(u.indexOf('/scoreboard')>=0){
           body={events:Object.keys(S.evToGame).map(ev=>({
             id:ev,status:{type:{completed:false,state:'pre'}},
@@ -143,17 +160,27 @@ async function run(atISO, publish, dropped, label) {
   const net = [];
   p.on('request', r => { const u = r.url(); if (!u.startsWith('file:')) net.push(u.slice(0, 80)); });
 
-  await p.goto('file://' + FILE, { waitUntil: 'load' });
+  await p.goto('file://' + (pageFile || FILE), { waitUntil: 'load' });
   /* tag the ticket objects the way the 2026-08-26 audit did */
   await p.evaluate(() => { (D.tickets || []).forEach((t, i) => { t.__probe = 'probe' + i; }); });
   const before = await p.evaluate(() => (D.tickets || []).map(t => ({
     name: t.name, kind: t.kind, probe: t.__probe, legs: t.players.map(l => l.name)
   })));
 
-  await p.evaluate(() => (typeof soccerLive === 'function' ? soccerLive() : null));
+  if (pre) await p.evaluate(pre);
+  /* ⚠️ CLOSURE-2026-08-30. This used to read
+       await p.evaluate(() => (typeof soccerLive === 'function' ? soccerLive() : null));
+     and it has NEVER ONCE FIRED. soccerLive() lives inside the page's module closure, so at
+     global scope `typeof soccerLive` is 'undefined' and the ternary quietly evaluated to null.
+     Every scenario in this file has only ever observed the BOOT pass, which the LIVELOOP seam
+     starts on its own (`soccerLive(); setInterval(soccerLive, 3*60*1000)`). That is the right
+     thing to observe -- it is what a reader's tab actually does -- so the call is gone rather
+     than replaced, and the waits below are what give the boot pass time to finish. */
   await p.waitForTimeout(1200);
 
   const espnCalls = await p.evaluate(() => window.__espnCalls || 0);
+  const boardCalls = await p.evaluate(() => window.__boardCalls || 0);
+  const build = await p.evaluate(() => (D.meta && D.meta.build) || null);
   const after = await p.evaluate(() => (D.tickets || []).map(t => ({
     name: t.name, kind: t.kind, probe: t.__probe, locked: !!t.locked, legs: t.players.map(l => l.name)
   })));
@@ -164,7 +191,7 @@ async function run(atISO, publish, dropped, label) {
   });
 
   await b.close();
-  return { before, after, statuses, errs, net, espnCalls };
+  return { before, after, statuses, errs, net, espnCalls, boardCalls, build };
 }
 
 const BAKED = JSON.stringify(D0.tickets.map(t => t.players.map(l => l.name)));
@@ -189,68 +216,83 @@ const legsOf = after => JSON.stringify(after.map(t => t.legs));
 
   /* -------------------------------------------------------------------------------------
    * 2. One hour out, sheets published, one baked leg is NOT in the squad.
-   *    The board must repair that slip: anchor kept, healthy partner pinned, dead leg swapped.
+   *    ONEAUTHOR: the page MARKS him out and leaves the board alone. Replacing him is the
+   *    server's job on its next build; until then the card renders its own
+   *    "🪑 Out of lineup: X — will not hit as built" banner, so the reader sees the dead leg
+   *    rather than a silently different bet.
    * ----------------------------------------------------------------------------------- */
   {
     const dropped = {}; dropped[DEAD] = true;
     const r = await run(`${DATE}T18:00:00Z`, true, dropped, 'team-news');
     console.log('\n--- 2. team news lands an hour before kickoff ---');
     chk('no page errors', r.errs.length === 0, r.errs);
-    chk('the dropped man is marked out of the squad', /!$/.test(r.statuses[DEAD] || ''), r.statuses[DEAD]);
-    /* the boot pass fires before the tag can be applied, so the witness is the BAKED payload */
-    chk('the board moved off the baked draft', legsOf(r.after) !== BAKED, r.after.map(t => t.legs));
     chk('ESPN was read', r.espnCalls > 0, r.espnCalls);
-
-    const same = r.after.find(t => t.name === target.name);
-    chk('the repaired slip kept its name', !!same, r.after.map(t => t.name));
-    if (same) {
-      chk('the anchor survived', same.legs.indexOf(ANCHOR) >= 0, same.legs);
-      chk('the healthy partner stayed pinned', same.legs.indexOf(KEEP) >= 0, same.legs);
-      chk('the dead leg was replaced, not dropped', same.legs.length === 3 && same.legs.indexOf(DEAD) < 0, same.legs);
-    }
-    chk('the dead leg is on no slip at all',
-      !r.after.some(t => t.legs.indexOf(DEAD) >= 0), r.after.map(t => t.legs));
-    chk('every remaining leg is a confirmed starter',
-      r.after.every(t => t.legs.every(n => r.statuses[n] === 'confirmed')),
-      r.after.map(t => t.legs.map(n => n + '=' + r.statuses[n])));
+    chk('the dropped man is marked out of the squad', /!$/.test(r.statuses[DEAD] || ''), r.statuses[DEAD]);
+    chk('THE PAGE DID NOT RE-DRAFT -- board still matches the published one',
+      legsOf(r.after) === BAKED, r.after.map(t => t.legs));
+    chk('TICKET OBJECTS SURVIVED -- the array was never replaced',
+      r.after.every((t, i) => t.probe === 'probe' + i) && r.after.length === r.before.length,
+      r.after.map(t => t.probe));
+    chk('the dropped man is still ON his slip, visible, not swapped behind the reader',
+      r.after.some(t => t.legs.indexOf(DEAD) >= 0), r.after.map(t => t.legs));
   }
 
   /* -------------------------------------------------------------------------------------
-   * 3. After kickoff, with a man who is NOT IN THE SQUAD still baked onto a slip.
-   *
-   * 🚨 REWRITTEN. STANDASIS-2026-08-29. This used to assert "the board still matches the baked
-   * draft" and "the out player is STILL on his slip -- a placed bet is not unwound, it is
-   * graded", i.e. that a dropped man rides his moon to full time. That is the same claim
-   * scenario 2 above refutes an hour earlier ("the dead leg is on no slip at all"), and the only
-   * thing that changed in between is the clock -- which the owner removed as a freeze rule on
-   * 2026-08-29: "the slip shouldnt be froxen until ALL legs are confirmed."
-   *
-   * It also misread OUTSQUAD, whose actual rule is the opposite: `!p.out && !p.void` is part of
-   * ticketIsLocked, so an out player STOPS a slip freezing. A slip carrying one is open by
-   * definition and can never be the placed bet this assertion was protecting.
-   *
-   * What must happen after kickoff: the slip is still open (not all-confirmed), MINTGUARD
-   * forbids drafting a replacement out of a match already underway, so the slip cannot be
-   * repaired -- and it comes OFF. The board goes short rather than showing a bet that cannot
-   * hit. What kickoff protects is the *rest* of the board: nothing is re-drafted, and no new
-   * slip is minted.
+   * 3. After kickoff, same picture. Nothing about the clock lets the page start drafting.
    * ----------------------------------------------------------------------------------- */
   {
     const dropped = {}; dropped[DEAD] = true;
     const r = await run(`${DATE}T19:30:00Z`, true, dropped, 'post-kickoff');
     console.log('\n--- 3. thirty minutes after kickoff ---');
     chk('no page errors', r.errs.length === 0, r.errs);
-    chk('the out player is on NO slip -- a card that cannot hit does not ride to full time',
-      !r.after.some(t => t.legs.indexOf(DEAD) >= 0), r.after.map(t => t.legs));
-    chk('every surviving leg is a confirmed starter',
-      r.after.every(t => t.legs.every(n => r.statuses[n] === 'confirmed')),
-      r.after.map(t => t.legs.map(n => n + '=' + r.statuses[n])));
-    chk('MINTGUARD held -- no replacement was drafted out of a match already underway',
-      r.after.length < BAKED.split(';').length || legsOf(r.after) !== BAKED,
-      { after: r.after.map(t => t.legs), baked: BAKED });
+    chk('the board is still the published one', legsOf(r.after) === BAKED, r.after.map(t => t.legs));
+    chk('TICKET OBJECTS SURVIVED', r.after.every((t, i) => t.probe === 'probe' + i),
+      r.after.map(t => t.probe));
+    chk('nothing was minted', r.after.length === r.before.length,
+      { after: r.after.length, before: r.before.length });
+  }
+
+  /* -------------------------------------------------------------------------------------
+   * 4. ADOPTION. A newer board is published while the tab is open.
+   *
+   * This is the half ADOPTFILE-2026-08-17 could not have: deploy-pages.yml refused to stage the
+   * board file "UNTIL adoption MERGES INSTEAD OF REPLACING", because `D.tickets = j.tickets`
+   * deleted a CONFIRMED slip out of a live tab. With the page no longer drafting, the tab can
+   * only be holding slips the server also holds -- but the carry is asserted here anyway, and
+   * loudly, because that is the failure that cost a bet.
+   * ----------------------------------------------------------------------------------- */
+  {
+    /* The tab loads a board with one slip LOCKED. The server then publishes a board that has
+       moved on AND does not carry that slip. Adoption must take the new board and keep the bet. */
+    const bakedLocked = JSON.parse(JSON.stringify(D0));
+    const bet = bakedLocked.tickets[bakedLocked.tickets.length - 1];
+    bet.locked = true;
+    const lockedPage = path.join(require('os').tmpdir(), 'stage2_adopt_fixture.html');
+    const lockedPayload = path.join(require('os').tmpdir(), 'stage2_adopt_payload.json');
+    fs.writeFileSync(lockedPayload, JSON.stringify(bakedLocked));
+    execFileSync('python3', [path.join(__dirname, 'soccer_fork.py'),
+                             path.join(__dirname, '..', 'index.html'), lockedPayload, lockedPage],
+                 { cwd: __dirname, stdio: 'ignore' });
+
+    const served = JSON.parse(JSON.stringify(D0));
+    served.meta.build = 'TEST-NEWER-BUILD';
+    served.tickets = served.tickets.slice(0, -1);        /* the bet is NOT on the new board */
+
+    const r = await run(`${DATE}T18:00:00Z`, true, {}, 'adopt', served, null, lockedPage);
+
+    console.log('\n--- 4. a newer board is published while the tab is open ---');
+    chk('no page errors', r.errs.length === 0, r.errs);
+    chk('the page asked for the published board', r.boardCalls > 0, r.boardCalls);
+    chk('ADOPTED -- the tab is now on the newly published build',
+      r.build === 'TEST-NEWER-BUILD', { build: r.build });
+    chk('THE LOCKED SLIP THE NEW BOARD OMITTED WAS KEPT -- a placed bet is never adopted away',
+      r.after.some(t => t.name === bet.name), { bet: bet.name, on: r.after.map(t => t.name) });
+    chk('and nothing else was invented alongside it',
+      r.after.length === served.tickets.length + 1,
+      { after: r.after.length, served: served.tickets.length });
   }
 
   console.log('');
-  console.log(fail ? `${fail} FAILURE(S)` : 'ALL GREEN -- Stage 2 works in the built page');
+  console.log(fail ? `${fail} FAILURE(S)` : 'ALL GREEN -- the page renders the published board and never authors one');
   process.exit(fail ? 1 : 0);
 })();

@@ -76,7 +76,84 @@ function soccerLive(){
         render:(typeof refreshAll==='function'?refreshAll:function(){})
       });
     }
-    return soccerLive._i.run().then(function(x){ soccerRedraft(); return x; });
+    return soccerAdopt().then(function(){
+      return soccerLive._i.run();
+    });
+  }catch(e){ return Promise.resolve(); }
+}
+
+/* 🚨 ONEAUTHOR-2026-08-30 -- THE SERVER IS THE ONLY AUTHOR OF THE BOARD.
+ *
+ * Owner, after a slip he had money on turned out not to be the slip the server held:
+ * "the page and server evaluate at different instants with different team news, so their frozen
+ * sets can still differ, yea this doesnt work for me, fix it".
+ *
+ * WHAT WENT WRONG. soccerRedraft() let the PAGE mint, repair and top up slips. The server does
+ * the same work every few minutes from its own inputs. Both are correct under the rules and they
+ * do not have to agree: 2026-08-30 the owner's tab topped Kylian Mbappe's pair first and took
+ * Moussa Sylla, leaving Jude Bellingham as the strongest man free for Esteban Lepaul's pair, and
+ * he placed Lepaul + Bellingham + Rashford off a card stamped LOCKED. The server had Sylla frozen
+ * on Lepaul's slip already, so its top-up fell to Santos Matheus Cunha and it published a
+ * different board. Bellingham scored; Sylla did not. Same slate, same minute, 3.03u apart, and
+ * the board never graded the bet he actually had on. TOPUPORDER-2026-08-30 pinned the anchor
+ * order, which removes one source of that; it cannot remove the other, because the two callers
+ * genuinely run at different instants against different team news.
+ *
+ * SO THE PAGE STOPS DRAFTING. It renders the published board and nothing else. Every slip on
+ * screen is a slip the server wrote down, which is the only property that makes a card safe to
+ * bet from.
+ *
+ * ⚠️ THIS RETIRES STAGE2's PAGE-SIDE RE-DRAFT, deliberately. Its job -- swap a leg the team sheet
+ * has just dropped -- now belongs to the server alone, which rebuilds every ~5 minutes, and the
+ * card already renders "🪑 Out of lineup: X — will not hit as built" the moment the live feed
+ * marks a leg absent. A benched leg is therefore VISIBLE immediately and REPLACED within one
+ * build, instead of being replaced instantly on screen and never in the record.
+ *
+ * ⚠️ AND IT MAKES ADOPTION SAFE, which is the other half. ADOPTFILE-2026-08-17 turned adoption on
+ * for baseball and reverted it the same day: `D.tickets = j.tickets` deleted a CONFIRMED Family
+ * Meal single (Michael Toglia) out of a live tab before CONFLOCK could see it, and the standing
+ * instruction in deploy-pages.yml is "Fix adoption to carry forward every prior ticket that is
+ * underway or fully confirmed, THEN restore the staging line." That condition is met here from
+ * the other side: a page that never invents a slip can only be holding slips the server also
+ * holds, so replacing the tab's board with the server's can never delete a bet. The carry below
+ * is still written out explicitly rather than assumed -- a locked slip the incoming board does
+ * not name is KEPT, and says so in the console, because that combination now means something is
+ * wrong upstream and must never be silent again.
+ *
+ * Fails soft in every direction: no network, a 404, a downloaded copy, or a build stamp that has
+ * not moved all leave the baked board exactly as it is. */
+function soccerAdopt(){
+  try{
+    if(typeof D==='undefined'||!D.meta||!D.meta.date) return Promise.resolve();
+    return fetch('soccer_D.json?cb='+Date.now(),{cache:'no-store'})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){
+        if(!j||!j.meta||!j.players||!j.tickets) return;
+        if(j.meta.build===D.meta.build) return;               /* nothing new published */
+        /* live facts this tab has already seen outrank a board that was written before them */
+        var _hr={}; Object.keys(D.players).forEach(function(n){
+          if(D.players[n].hr){ _hr[n]={hr:true,goalmins:(D.players[n].goalmins||[]).slice()}; }
+        });
+        var _locked={}; (D.tickets||[]).forEach(function(t){ if(t.locked) _locked[t.name]=t; });
+        D.players=j.players; D.pool=j.pool||[]; D.tickets=j.tickets; D.meta=j.meta;
+        Object.keys(_hr).forEach(function(n){
+          if(D.players[n]){ D.players[n].hr=true; D.players[n].goalmins=_hr[n].goalmins; }
+        });
+        /* ADOPTFILE's condition, stated out loud: a slip this tab had FROZEN must survive the
+           swap. With the page no longer drafting this should never fire; if it does, the boards
+           have diverged upstream and the bet wins the argument. */
+        var have={}; D.tickets.forEach(function(t){ have[t.name]=true; });
+        Object.keys(_locked).forEach(function(nm){
+          if(!have[nm]){
+            D.tickets.push(_locked[nm]);
+            if(typeof console!=='undefined')
+              console.log('ONEAUTHOR: kept a locked slip the published board does not carry:',nm);
+          }
+        });
+        D.meta.tickets=D.tickets.length;
+        if(typeof CACHE!=='undefined') CACHE=null;
+        if(typeof stamp==='function') stamp('board '+j.meta.build);
+      }).catch(function(){});
   }catch(e){ return Promise.resolve(); }
 }
 
