@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T18:52:13Z",
+  "pulled_at": "2026-08-30T18:56:55Z",
   "games": [
     {
       "gamePk": 822688,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823502,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-08-30T17:35:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -1199,7 +1199,7 @@
     },
     {
       "gamePk": 823010,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-08-30T18:15:00Z",
       "matchup": "PIT@STL",
       "away": {
@@ -1759,16 +1759,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 75\u00b0",
-        "lean": "Boost",
-        "temp": 75.4,
-        "wind_mph": 6.8,
-        "wind_dir": 163,
-        "tail_mph": 4.6,
-        "precip": 13
+        "note": "weather fetch failed"
       },
-      "wf": 1.024
+      "wf": 1.0
     }
   ]
 }
