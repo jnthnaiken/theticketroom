@@ -95,6 +95,21 @@ if _same_slate:
     if _ever:
         D.setdefault('meta', {})['chalkever'] = _ever
         print(f"  (carried the night's chalk union: {len(_ever)} bat(s))")
+    # RETRACTEDCARRY-2026-08-30: carry `meta.retracted` the same way, for the same reason.
+    # RETRACTED-2026-08-29 shipped the READER half only -- the localStorage latch reads
+    # `D.meta.retracted` and declines to resurrect a signature listed there -- but nothing ever
+    # put it in the next build's `meta`, and `meta` comes fresh from build15 every five minutes.
+    # So a signature written into the published board survived exactly ONE build, and any tab
+    # that loaded outside that window put the withdrawn slip back. That is what happened on
+    # 2026-08-30: the board was repaired by hand at 18:55Z, "Set the Hook" (Esmerlyn Valdez) was
+    # withdrawn, the owner's tab re-admitted it out of his own lock store, and the page showed a
+    # fifth anchor the server does not carry. Same shape and same guard as `chalkever` above:
+    # one slate, read in exactly ONE place, one power -- decline to resurrect a slip the
+    # published board does not have. It reaches no draft decision and cannot change the board.
+    _retr = (prevD.get('meta') or {}).get('retracted')
+    if _retr:
+        D.setdefault('meta', {})['retracted'] = _retr
+        print(f"  (carried the night's retracted signatures: {len(_retr)})")
 
 json.dump(D, open(DJSON, 'w'), indent=1)       # the engine reads/writes this file in place
 
