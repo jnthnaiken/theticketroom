@@ -152,6 +152,18 @@ console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.mint
 const out = r.tickets.map(t => ({
   kind: t.kind,
   name: t.name,
+  /* LOCKCARRY-2026-08-30. NAMECARRY's failure, one field over, and this one drops PLACED BETS.
+     soccer_draft.js sets `t.locked = true` the moment CONFLOCK freezes a slip -- and it died
+     right here, because this object never carried it. soccer_payload then hardcoded
+     'locked': False, so every build read the board back with NO slip locked, recomputed the
+     freeze from scratch, and a slip that had frozen an hour earlier was open again.
+     `ticketIsLocked` opens with `if (t.locked) return true;` and calls it "a latch ... so a
+     placed bet is never unwound". There was no latch. The one line that would have made it one
+     was missing, so OUTSQUAD's `!p.out` clause -- correct on a slip that has NEVER locked --
+     reached slips that had, and team news dropping a single leg unfroze the whole bet and
+     redrafted it. Measured 2026-08-30: `locked` was 0 on all 14 builds of the day while slips
+     came and went underneath live matches. */
+  locked: !!t.locked,
   risk: (t.rr && t.rr.risk) || (t.kind === 'moon' ? SD.DEFAULTS.MOON_RISK : SD.DEFAULTS.SINGLE_STAKE),
   legs: t.players.map(l => ({
     name: l.name, odds: l.odds,

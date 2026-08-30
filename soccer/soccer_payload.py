@@ -435,7 +435,10 @@ def shape_ticket(t, players, i, voice, apps, used=None):
         'lock': min((l['gtime'] for l in out_legs if l['gtime']), default=''),
         'has_late': False,
         'final': False,
-        'locked': False,
+        # LOCKCARRY-2026-08-30 -- was hardcoded False, which threw the CONFLOCK latch away
+        # on every single build. See soccer_rebuild_cli.js for the incident. A fresh draft
+        # has no locks and legitimately sends nothing, so the default stays False.
+        'locked': bool(t.get('locked')),
         'rr': (_rr_block(out_legs, t.get('risk', 2.0)) if len(out_legs) >= 3 else None),
         'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
         'confleg': sum(1 for l in out_legs if players.get(l['name'], {}).get('status') == 'confirmed'),
