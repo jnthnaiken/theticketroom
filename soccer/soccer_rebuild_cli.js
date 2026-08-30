@@ -65,6 +65,14 @@ let repriced = 0, frozenPrice = 0;
 Object.keys(D.players).forEach(n => {
   const p = D.players[n], s = byName[n];
   if (!s) return;
+  /* WRONGCLUB-2026-08-30. `out` is carried across BEFORE the price freeze and it only ever
+     goes false->true. "Is he in this fixture's squad at all" is not a price and not a property
+     of the prior board -- it is a fact the scoring pass newly learned from squads.psv, exactly
+     like team news below. Without this the flag died here: soccer_mock marked Nicolas Jackson
+     out, the fresh draft dropped him, and then the same-slate rebuild read `out` off the PRIOR
+     payload -- where it was false -- and put an Aston Villa forward straight back on a
+     Chelsea v Brighton screamer. Never cleared, so team news and OUTSQUAD keep the last word. */
+  if (s.out) p.out = true;
   const ko = koOf(p.game);
   if (ko != null && now >= ko) { frozenPrice++; return; }      // his match is underway
   if (p.odds !== s.odds || p.TOTAL !== Math.round(s.TOTAL * 10) / 10) repriced++;
