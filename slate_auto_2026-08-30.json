@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T16:36:39Z",
+  "pulled_at": "2026-08-30T16:42:06Z",
   "games": [
     {
       "gamePk": 822688,
@@ -50,7 +50,7 @@
           {
             "id": 677870,
             "name": "Leo Jim\u00e9nez",
-            "iso": 0.062
+            "iso": 0.063
           },
           {
             "id": 805300,
@@ -813,8 +813,54 @@
           "hr9": 1.2,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.158
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.08
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.186
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.222
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.181
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.105
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.075
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.112
+          },
+          {
+            "id": 823550,
+            "name": "Sung-Mun Song",
+            "iso": 0.061
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
@@ -1483,16 +1529,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 77\u00b0",
-        "lean": "Boost",
-        "temp": 76.7,
-        "wind_mph": 9.4,
-        "wind_dir": 220,
-        "tail_mph": 9.3,
-        "precip": 25
+        "note": "weather fetch failed"
       },
-      "wf": 1.042
+      "wf": 1.0
     }
   ]
 }
