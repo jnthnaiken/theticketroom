@@ -219,13 +219,54 @@ try:
 except FileNotFoundError:
     print('  team news: none on disk -- drafting from the whole priced field')
 
+# WRONGCLUB-2026-08-30. A priced player who is in NEITHER squad must not be drafted.
+# Owner: *"that makes us look fucking retarded. fix it."*
+#
+# 2026-08-30 shipped Nicolas Jackson as an ANCHOR of Chelsea v Brighton -- 2 screamers and a
+# builder -- and he plays for ASTON VILLA, who were not on the slate. ESPN and Sofascore agree
+# to the man on both squads; oddschecker priced him anyway. squads.psv already held the proof
+# and its only consumer was the CLUB LABEL, so `_side()` printed "--" and the drafter never
+# asked. Same file, one more reader.
+#
+# ⚠️ ABSENCE IS ASSERTED ONLY ON surname_hits() == 0 -- UNMATCHED-2026-08-28's rule, which
+# exists because "the join refused" and "he is not playing" look identical and the second one
+# silently kills a live bet. A surname that merely fails to JOIN (Philogene-Bidace vs ESPN's
+# Philogene) still hits, so he stays in the field and only loses his club label.
+#
+# ⚠️ NO squads.psv MEANS NO GATE, never an empty one -- the `_XI is None` trap three lines up,
+# same shape. squads.psv is an optional input the workflow does not hard-error on.
+_ABSENT = set()
+if _os0.path.exists('squads.psv'):
+    from soccer_teamnews import surname_hits as _sur
+    _SQ = {}
+    for _line in open('squads.psv', encoding='utf-8'):
+        _c = _line.rstrip('\n').split('|')
+        if len(_c) >= 3 and _c[0]:
+            _SQ.setdefault(_c[0], []).append((_c[2], _c[1]))
+    for _p in players:
+        _sq = _SQ.get(_p['match'])
+        if _sq and _sur(_p['name'], _sq) == 0:
+            _ABSENT.add(_p['name'])
+            # ⚠️ THE FLAG IS WHAT COUNTS, NOT THE PYTHON POOL BELOW. soccer_mock does not draft
+            # -- it writes scored.json and shells out to soccer_draft_cli.js, which rebuilds the
+            # pool in JS. Filtering the local `pool` list only changes this file's printout. The
+            # row itself has to carry the fact, and `out` is the field OUTSQUAD-2026-08-29
+            # already defined for exactly this.
+            _p['out'] = True
+    print(f'  squads: {sum(len(v) for v in _SQ.values())} roster names across {len(_SQ)} matches'
+          f' -- {len(_ABSENT)} priced player(s) in NEITHER squad, not draftable'
+          + (': ' + ', '.join(sorted(_ABSENT)) if _ABSENT else ''))
+else:
+    print('  squads: none on disk -- no wrong-club gate')
+
 bl = [p['blend'] for p in players]
 m = sum(bl) / len(bl)
 sd = math.sqrt(sum((x - m) ** 2 for x in bl) / (len(bl) - 1)) or 1.0
 for p in players:
     p['gate_z'] = (p['blend'] - m) / sd
 
-pool = [p for p in players if p['gate_z'] >= CFG['Z_GATE'] and (_XI is None or p['name'] in _XI)]
+pool = [p for p in players if p['gate_z'] >= CFG['Z_GATE'] and (_XI is None or p['name'] in _XI)
+        and p['name'] not in _ABSENT]
 pool.sort(key=lambda p: (-p['TOTAL'], p['name']))
 capped, per_match = [], defaultdict(int)
 for p in pool:
