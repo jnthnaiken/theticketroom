@@ -39,9 +39,22 @@
        same hour, so the whole slip resolves its lineup risk together and is placeable while all
        three matches are still ahead of you. Baseball uses 120 and does not have this problem
        because lineups post on a much longer runway.
-       Keep this in step with CFG['WIN'] in soccer_mock.py -- two copies, one rule. */
-    WIN: 60,             // minutes: widest kickoff span one slip may bridge (MLB uses 120)
-    Z_GATE: 0.75,        // pool gate, in SDs of blend above the slate mean
+       Keep this in step with CFG['WIN'] in soccer_mock.py -- two copies, one rule.
+
+       WIN75 / ZGATE70-2026-08-30. Owner: "just loosen both gates to .7 and 75 minutes".
+       WHAT FORCED IT. The 2026-08-30 card (15 matches) drafted NOTHING at 60 / 0.75. draftN picks
+       anchors strength-first and is all-or-none, and the strongest player is in every attempt
+       down to n=1 -- so one unfillable top name zeroes the whole board. Lautaro Martinez
+       (TOTAL 201.6, strongest on the slate by 34) sat in Cagliari-Inter at ko 1125, and only TWO
+       pool matches lay within 60 minutes of him; a screamer needs three from three. The two that
+       would have opened the window each missed by a hair: Lazio-Genoa's best man gated at +0.74
+       against a 0.75 bar, and Aubameyang at ko 1050 was 75 minutes out against a 60-minute span.
+       Both new numbers clear exactly those two margins. The 08-29 reasoning below still holds --
+       75 minutes still lands every leg's sheet inside roughly one hour -- this widens it by a
+       quarter hour, it does not go back to 180.
+       See claude/soccer-2026-08-30-emptydraft.md. */
+    WIN: 75,             // minutes: widest kickoff span one slip may bridge (MLB uses 120)
+    Z_GATE: 0.70,        // pool gate, in SDs of blend above the slate mean
     GAME_CAP: 4,         // most pool players from any one match
     ANCH: 4,             // anchor TARGET -- see THINSLATE below, this is a ceiling not a promise
     MOON_LEGS: 3,        // legs on a screamer, each from a DIFFERENT match
