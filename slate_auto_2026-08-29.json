@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
   "season": "2026",
-  "pulled_at": "2026-08-30T00:03:25Z",
+  "pulled_at": "2026-08-30T00:08:30Z",
   "games": [
     {
       "gamePk": 823539,
@@ -20,7 +20,7 @@
           {
             "id": 663330,
             "name": "Jahmai Jones",
-            "iso": 0.159
+            "iso": 0.157
           },
           {
             "id": 678882,
@@ -30,7 +30,7 @@
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 575929,
@@ -153,7 +153,7 @@
           {
             "id": 663330,
             "name": "Jahmai Jones",
-            "iso": 0.159
+            "iso": 0.157
           },
           {
             "id": 678882,
@@ -163,7 +163,7 @@
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 575929,
@@ -1136,8 +1136,54 @@
           "hr9": null,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.246
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.236
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.193
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.133
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.222
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.191
+          },
+          {
+            "id": 687529,
+            "name": "Grant McCray",
+            "iso": 0.128
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.129
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.069
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1541,9 +1587,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 79\u00b0",
+        "lean": "Neutral",
+        "temp": 78.8,
+        "wind_mph": 3.4,
+        "wind_dir": 349,
+        "tail_mph": -2.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.004
     },
     {
       "gamePk": 822936,
@@ -1832,7 +1885,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 694671,
@@ -2064,16 +2117,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 79\u00b0",
-        "lean": "Boost",
-        "temp": 78.6,
-        "wind_mph": 10.6,
-        "wind_dir": 229,
-        "tail_mph": 10.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.049
+      "wf": 1.0
     },
     {
       "gamePk": 823986,
