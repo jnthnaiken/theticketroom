@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T16:56:40Z",
+  "pulled_at": "2026-08-30T17:00:36Z",
   "games": [
     {
       "gamePk": 822688,
@@ -82,7 +82,7 @@
           {
             "id": 694673,
             "name": "Abimelec Ortiz",
-            "iso": 0.219
+            "iso": 0.217
           },
           {
             "id": 665953,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824959,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-30T20:05:00Z",
       "matchup": "BAL@ATH",
       "away": {
@@ -1487,10 +1487,56 @@
           "hr9": 2.28,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.102
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.094
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.192
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.143
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.159
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.07
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.144
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.25
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.144
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
