@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T22:38:28Z",
+  "pulled_at": "2026-08-30T22:43:53Z",
   "games": [
     {
       "gamePk": 822688,
@@ -1572,7 +1572,7 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.294
+            "iso": 0.288
           },
           {
             "id": 675961,
@@ -1700,7 +1700,7 @@
           {
             "id": 642350,
             "name": "Jose Siri",
-            "iso": 0.173
+            "iso": 0.171
           },
           {
             "id": 672724,
@@ -1718,16 +1718,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 88\u00b0",
-        "lean": "Boost",
-        "temp": 87.7,
-        "wind_mph": 7.3,
-        "wind_dir": 239,
-        "tail_mph": 6.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.051
+      "wf": 1.0
     },
     {
       "gamePk": 824636,
@@ -1851,16 +1844,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 76\u00b0",
-        "lean": "Neutral",
-        "temp": 75.6,
-        "wind_mph": 3.0,
-        "wind_dir": 306,
-        "tail_mph": -0.3,
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 75\u00b0",
+        "lean": "Boost",
+        "temp": 75.0,
+        "wind_mph": 9.9,
+        "wind_dir": 188,
+        "tail_mph": 9.2,
         "precip": 22
       },
-      "wf": 1.007
+      "wf": 1.04
     }
   ]
 }
