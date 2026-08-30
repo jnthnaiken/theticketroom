@@ -855,7 +855,31 @@
       legs.forEach(function (l) { onSlip[l.name] = true; });
     });
     var topped = [];
-    Object.keys(moonCnt).forEach(function (an) {
+    /* 🚨 TOPUPORDER-2026-08-30. THE ANCHORS ARE TOPPED UP STRONGEST FIRST, NOT IN THE ORDER
+       THEY HAPPEN TO SIT IN `out`.
+       `Object.keys(moonCnt)` is insertion order, and `moonCnt` is filled by walking `out` --
+       frozen slips, then repaired, then minted, then the fresh draft. WHICH SLIPS ARE FROZEN
+       DEPENDS ON THE INSTANT THE CALLER RUNS, so the page and the server reach this block with
+       different anchor order and the top-up is a first-come draw over one shared candidate list.
+       Same slate, same minute, two different boards.
+       MEASURED 2026-08-30, and this is the incident: the owner's tab topped Kylian Mbappe first,
+       took Moussa Sylla (124.8, game 8, distinct from Mbappe's game 6), and Esteban Lepaul's pair
+       then took the strongest man left -- Jude Bellingham -- giving the slip he actually placed,
+       Lepaul + Bellingham + Rashford. The server had Sylla already frozen on Lepaul's slip, so
+       Mbappe's top-up skipped Bellingham (same match as the anchor, blocked by `seenG`) and fell
+       to Santos Matheus Cunha. Neither board is wrong under the rule; they simply arrived here in
+       a different order, and only one of them is what the owner had money on.
+       Sorting by TOTAL then name is the ordering `withStrength` already uses everywhere else in
+       this file, so both callers now walk the anchors identically whatever their frozen set.
+       ⚠️ THIS DOES NOT GATE THE TOP-UP. Owner's ruling, 2026-08-30: "leave it ungated, just for
+       soccer though, the pool seems to be smaller" -- on a 225-name card with 15-37 through
+       Z_GATE, gating the pair completion would demote anchors rather than finish them. The
+       "widest pool means no Z_GATE and no GAME_CAP" rule below stands exactly as written; this
+       changes only the ORDER in which anchors draw from it. */
+    Object.keys(moonCnt).sort(function (x, y) {
+      var dx = (D.players[y] ? D.players[y].TOTAL || 0 : 0) - (D.players[x] ? D.players[x].TOTAL || 0 : 0);
+      return dx || (x < y ? -1 : x > y ? 1 : 0);
+    }).forEach(function (an) {
       var ap = D.players[an];
       if (!ap || !alive[an] || !pinnable(an)) return;      // a dead anchor is not topped up
       var guard = 0;
