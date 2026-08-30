@@ -1,7 +1,7 @@
 {
   "date": "2026-08-30",
   "season": "2026",
-  "pulled_at": "2026-08-30T20:37:28Z",
+  "pulled_at": "2026-08-30T20:42:04Z",
   "games": [
     {
       "gamePk": 822688,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824876,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-30T17:35:00Z",
       "matchup": "COL@ATL",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823502,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-30T17:35:00Z",
       "matchup": "BOS@NYY",
       "away": {
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824393,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-08-30T17:40:00Z",
       "matchup": "KC@CLE",
       "away": {
@@ -689,12 +689,12 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.163
+            "iso": 0.165
           },
           {
             "id": 518692,
@@ -1092,7 +1092,7 @@
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 607043,
@@ -1144,7 +1144,7 @@
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 641343,
@@ -1453,15 +1453,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 80\u00b0",
+        "cond": "wind out 9mph, 79\u00b0",
         "lean": "Boost",
-        "temp": 79.7,
-        "wind_mph": 9.8,
-        "wind_dir": 215,
-        "tail_mph": 9.7,
+        "temp": 78.8,
+        "wind_mph": 9.2,
+        "wind_dir": 209,
+        "tail_mph": 9.2,
         "precip": 7
       },
-      "wf": 1.048
+      "wf": 1.045
     },
     {
       "gamePk": 824959,
@@ -1542,7 +1542,7 @@
           {
             "id": 643446,
             "name": "Jeff McNeil",
-            "iso": 0.094
+            "iso": 0.097
           },
           {
             "id": 680869,
@@ -1586,15 +1586,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 82\u00b0",
+        "cond": "calm 3mph, 82\u00b0",
         "lean": "Boost",
-        "temp": 82.2,
-        "wind_mph": 3.9,
-        "wind_dir": 239,
-        "tail_mph": 3.9,
+        "temp": 81.8,
+        "wind_mph": 2.8,
+        "wind_dir": 225,
+        "tail_mph": 2.7,
         "precip": 0
       },
-      "wf": 1.032
+      "wf": 1.027
     },
     {
       "gamePk": 823987,
@@ -1606,7 +1606,7 @@
         "sp": {
           "id": 554430,
           "name": "Zack Wheeler",
-          "hr9": 1.36,
+          "hr9": 1.35,
           "hand": "RHP"
         },
         "lineup": [
@@ -1710,7 +1710,7 @@
           {
             "id": 694203,
             "name": "Denzer Guzman",
-            "iso": 0.125
+            "iso": 0.124
           }
         ],
         "confirmed": true
@@ -1721,13 +1721,13 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 7mph, 89\u00b0",
         "lean": "Boost",
-        "temp": 89.3,
-        "wind_mph": 7.6,
-        "wind_dir": 230,
-        "tail_mph": 7.5,
+        "temp": 88.8,
+        "wind_mph": 7.3,
+        "wind_dir": 227,
+        "tail_mph": 7.2,
         "precip": 0
       },
-      "wf": 1.055
+      "wf": 1.054
     },
     {
       "gamePk": 824636,
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 75\u00b0",
+        "lean": "Boost",
+        "temp": 75.3,
+        "wind_mph": 6.7,
+        "wind_dir": 200,
+        "tail_mph": 6.6,
+        "precip": 14
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
