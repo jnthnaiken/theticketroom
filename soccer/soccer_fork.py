@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27)
+EXPECT_SEAMS = 84 + LIVE_SEAM_COUNT          # 84 base + 5 live = 89 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -451,22 +451,22 @@ def seams(payload_js):
         'can change as lineups post — the board re-fetches itself every few minutes\n'
         '        and adopts the newer draft.',
         REFETCH_NEW)
-    # LUNCH-EMPTY-2026-08-25: the baseball board's empty lunch tray says today's meal "already
-    # got served and cleared". On the soccer board that sentence is false every single day --
-    # nothing was ever served. The board is not allowed to assert something that did not happen;
-    # the nightcap's own empty state ("no late play posted right now") is already fine as-is.
+    # LUNCHEMPTY-2026-08-30 -- SEAM REMOVED, the soccer board inherits baseball's empty tray.
+    # Owner: *"they dont need that explanation when there isnt a lunch special. what does the
+    # baseball one say? why wouldnt you use that?"*
     #
-    # ORPHANSECTION-2026-08-29 -- the replacement text said "the scorer drafts anchors and
-    # screamers only", which STOPPED BEING TRUE today: a single whose screamers die to team news
-    # is now reseated into the lunch special (early kickoff) or the nightcap (late) rather than
-    # left standing as a fifth anchor. So the empty state must describe when a lunch special
-    # appears, not claim one never can. Same rule as the sentence it replaced: do not assert
-    # something the board cannot back up.
-    add('lunch-empty',
-        '🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. '
-        'Fresh tray tomorrow morning.',
-        '🍽️ No lunch special right now — one appears when a single is left without its '
-        'screamers.')
+    # LUNCH-EMPTY-2026-08-25 seamed it because baseball's line asserts today's meal "already got
+    # served and cleared" and on soccer nothing ever WAS served -- the drafter had no lunch
+    # special at all. ORPHANSECTION-2026-08-29 ended that: a single whose screamers die to team
+    # news is now reseated into the lunch special, and 2026-08-29 shipped one -- First Match On,
+    # Guirassy, which CASHED. The premise the seam rested on is gone, so the seam goes with it
+    # rather than being rewritten a third time. The replacement it carried was a mechanical
+    # explanation of the drafter in a voice the rest of the board does not use; the nightcap's
+    # empty state was never seamed and reads correctly on both boards for the same reason.
+    #
+    # ⚠️ The rule this leaves behind: seam the soccer board only where a baseball sentence is
+    # FALSE here, and re-check the seam when the rule underneath it changes. Do not invent a
+    # second voice for a section baseball already has words for.
     # ---- 13. COUNTERS AND THE TIMING WARNING ARE BASEBALL-SHAPED --------------------
     # TEAMNEWS-2026-08-25, all three found by freezing the page clock at 1:30 PM ET (one
     # fixture underway, three not) and reading the board, which is the only way any of this
