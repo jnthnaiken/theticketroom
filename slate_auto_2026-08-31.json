@@ -1,7 +1,7 @@
 {
   "date": "2026-08-31",
   "season": "2026",
-  "pulled_at": "2026-08-31T18:56:33Z",
+  "pulled_at": "2026-08-31T19:00:34Z",
   "games": [
     {
       "gamePk": 824911,
@@ -173,7 +173,7 @@
     },
     {
       "gamePk": 824719,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-31T22:45:00Z",
       "matchup": "SEA@BOS",
       "away": {
@@ -184,8 +184,54 @@
           "hr9": 1.04,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.185
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.222
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.157
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.182
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.097
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.091
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.141
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.136
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -195,10 +241,56 @@
           "hr9": 1.01,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.097
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.188
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.164
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.212
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.139
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.137
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.157
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.101
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.126
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
