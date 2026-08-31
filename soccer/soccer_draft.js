@@ -170,32 +170,66 @@
     var k;
     for (k in reservedAnchorMatches) if (reservedAnchorMatches.hasOwnProperty(k)) perG[k] = reservedAnchorMatches[k];
 
-    for (var i = 0; i < byStrength.length && anchors.length < n; i++) {
-      var p = byStrength[i];
-      if ((perG[p.match] || 0) < cfg.ANCH_PER_GAME) { anchors.push(p); perG[p.match] = (perG[p.match] || 0) + 1; }
-    }
-    if (anchors.length < n) return [];
-
-    var used = nameSet(anchors);
-    var partners = byStrength.filter(function (p) { return !used[p.name]; });
-
-    var out = [], spent = {};
-    for (var a = 0; a < anchors.length; a++) {
-      var anc = anchors[a], made = [], local = {};
-      for (var m = 0; m < cfg.MOONS_PER_ANC; m++) {
-        var legs = [anc], seen = {}; seen[anc.match] = true;
-        for (var c = 0; c < partners.length && legs.length < 3; c++) {
-          var cand = partners[c];
-          if (seen[cand.match] || spent[cand.name] || local[cand.name]) continue;
-          if (spanOk(legs.concat([cand]), cfg)) { legs.push(cand); seen[cand.match] = true; local[cand.name] = true; }
-        }
-        if (legs.length === 3) made.push(legs);
+    /* SKIPUNFILLABLE-2026-08-31 -- AN ANCHOR WHO CANNOT BE PAIRED IS PASSED OVER, NOT FATAL.
+       The body below is UNCHANGED. What is new is the loop around it: when a chosen anchor cannot
+       fill both screamers, he is struck off and the NEXT candidate by strength takes his chair,
+       and the whole pairing pass is re-run from the top. Every attempt therefore still reserves
+       the COMPLETE anchor set out of `partners` before any pair is built -- which is the
+       invariant "no anchor appears as a partner", and re-deriving partners per candidate instead
+       breaks it (measured: test_redraft's leg-repair case seeded a board carrying Dion Beljo as
+       both an anchor and a partner on someone else's screamer).
+       WHY: draftN was all-or-none over the whole SET, and the strongest player is in every attempt
+       right down to n=1, so ONE unpairable top name zeroed the entire board -- Lautaro Martinez on
+       2026-08-30 (ko 1125, two matches inside WIN) and Donyell Malen on 2026-08-31 (ko 990: only
+       990 and 1050 are inside WIN, and a screamer needs three DIFFERENT matches).
+       claude/soccer-2026-08-30-emptydraft.md ends by naming this exact recurrence and this exact
+       question. 08-30 was answered by tuning (WIN75/ZGATE70) because the two blocking partners sat
+       within a few hundredths of the bars. No tuning reaches 08-31: Malen's window holds two
+       matches at ANY Z_GATE, and opening it needs WIN >= 135 -- a slip spanning two and a quarter
+       hours, which is the thing WIN60-2026-08-29 was written to stop.
+       ALL-OR-NONE IS NOT WEAKENED. It was always a rule about ONE ANCHOR -- "an anchor that ships
+       one moon instead of two is a lopsided board" -- and that still holds exactly: an anchor
+       seats with MOONS_PER_ANC screamers or does not seat at all. What changes is only that his
+       failure no longer condemns the other three. n is still stepped down by the caller when the
+       pool genuinely cannot seat n, so THINSLATE still reports the honest number.
+       The skipped player is not deleted: he is not an anchor, so he stays in `partners` and can
+       still be drafted as a leg of somebody else's screamer -- which is where an unpairable man
+       belongs. With nothing unpairable the loop runs exactly once and the draft is bit-identical;
+       the 2026-08-26 golden board reproduces unchanged. */
+    var struck = {};
+    for (var attempt = 0; attempt <= byStrength.length; attempt++) {
+      anchors = []; perG = {};
+      for (k in reservedAnchorMatches) if (reservedAnchorMatches.hasOwnProperty(k)) perG[k] = reservedAnchorMatches[k];
+      for (var i = 0; i < byStrength.length && anchors.length < n; i++) {
+        var p = byStrength[i];
+        if (struck[p.name]) continue;
+        if ((perG[p.match] || 0) < cfg.ANCH_PER_GAME) { anchors.push(p); perG[p.match] = (perG[p.match] || 0) + 1; }
       }
-      if (made.length !== cfg.MOONS_PER_ANC) return [];      // this anchor count does not fit
-      for (var q in local) if (local.hasOwnProperty(q)) spent[q] = true;
-      made.forEach(function (legs) { out.push({ kind: 'moon', legs: legs, risk: cfg.MOON_RISK }); });
+      if (anchors.length < n) return [];
+
+      var used = nameSet(anchors);
+      var partners = byStrength.filter(function (p) { return !used[p.name]; });
+
+      var out = [], spent = {}, failed = null;
+      for (var a = 0; a < anchors.length; a++) {
+        var anc = anchors[a], made = [], local = {};
+        for (var m = 0; m < cfg.MOONS_PER_ANC; m++) {
+          var legs = [anc], seen = {}; seen[anc.match] = true;
+          for (var c = 0; c < partners.length && legs.length < 3; c++) {
+            var cand = partners[c];
+            if (seen[cand.match] || spent[cand.name] || local[cand.name]) continue;
+            if (spanOk(legs.concat([cand]), cfg)) { legs.push(cand); seen[cand.match] = true; local[cand.name] = true; }
+          }
+          if (legs.length === 3) made.push(legs);
+        }
+        if (made.length !== cfg.MOONS_PER_ANC) { failed = anc; break; }   // strike him, retry the set
+        for (var q in local) if (local.hasOwnProperty(q)) spent[q] = true;
+        made.forEach(function (legs) { out.push({ kind: 'moon', legs: legs, risk: cfg.MOON_RISK }); });
+      }
+      if (!failed) return out;
+      struck[failed.name] = true;
     }
-    return out;
+    return [];
   }
 
   /* ---- THE DRAFT ------------------------------------------------------------------------
