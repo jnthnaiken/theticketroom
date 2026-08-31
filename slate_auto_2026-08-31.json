@@ -1,7 +1,7 @@
 {
   "date": "2026-08-31",
   "season": "2026",
-  "pulled_at": "2026-08-31T19:56:31Z",
+  "pulled_at": "2026-08-31T20:00:34Z",
   "games": [
     {
       "gamePk": 824911,
@@ -797,7 +797,7 @@
     },
     {
       "gamePk": 822855,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-01T00:05:00Z",
       "matchup": "ATH@TEX",
       "away": {
@@ -808,8 +808,54 @@
           "hr9": 0.92,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.1
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.096
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.191
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.144
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.076
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.157
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.142
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.176
+          },
+          {
+            "id": 687231,
+            "name": "Darell Hernaiz",
+            "iso": 0.045
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -822,7 +868,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
