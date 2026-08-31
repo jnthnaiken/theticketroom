@@ -135,9 +135,17 @@ console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.mint
             (r.demoted && r.demoted.length ? ` · ${r.demoted.length} demoted` : '') +
             `  -> ${r.changed ? 'CHANGED' : 'unchanged'}`);
 (r.demoted || []).forEach(d => console.log(`    demoted ${d.anchor}: ${d.why}`));
-/* ORPHANSECTION-2026-08-29 -- say it out loud. A single that loses its screamers moves to the
-   lunch/nightcap section instead of standing there looking like a fifth anchor. */
-(r.reseated || []).forEach(x => console.log(`    reseated ${x.name} -> ${x.kind} (no screamer behind it)`));
+/* UNORPHAN-2026-08-31 replaced the reseat with a mint, so this says the new thing out loud.
+   The line here used to read "A single that loses its screamers moves to the lunch/nightcap
+   section instead of standing there looking like a fifth anchor" -- that rule is gone, on the
+   owner's call that it was never a baseball rule. A moonless single is a builder and renders
+   under Anchors, exactly as index.html:1006 says. `r.reseated` is still returned and is now
+   always empty; a log line describing a deleted rule is how the next reader loses an hour.
+   SHAPEREPAIR-2026-08-31 is what fills the specials now, minting one single from the FIELD into
+   any empty section -- baseball's SHAPE REPAIR (index.html:2755). Worth a line because it is a
+   NEW BET appearing on the board, which is exactly what the demoted/repaired lines above are
+   for. */
+(r.shaped || []).forEach(x => console.log(`    shape repair: no ${x.kind} on the board -> minted ${x.name}`));
 
 /* NAMECARRY-2026-08-29 -- THE TITLE MUST TRAVEL. soccer_draft.js does REDRAFT-2026-08-18
    properly: a surviving slip keeps its own title, a repaired slip keeps it via `priorName`, and a

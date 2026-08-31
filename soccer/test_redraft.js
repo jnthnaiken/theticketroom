@@ -79,9 +79,34 @@ console.log('=== the board under test ===');
   chk('every frozen slip survives unchanged but for the lock flag', priorSigs === keptSigs,
     { prior: D0.tickets.length, lockedNow: r.tickets.filter(t => t.locked).length });
   chk('nothing that was frozen was re-drafted', r.repaired === 0 && r.released === 0, r);
-  chk('anything new is a leftover single, never a moon',
-    r.tickets.filter(t => !t.locked).every(t => t.kind === 'builder' && t.players.length === 1),
-    r.tickets.filter(t => !t.locked).map(t => t.kind + ':' + t.players.length));
+  /* ⚠️ REWRITTEN FOR SHAPEREPAIR-2026-08-31, and made STRICTER, not looser.
+     This asserted `kind === 'builder'` because it was written while LEFTOVERS-2026-08-28 was on
+     the board and a leftover builder was the only new slip that could appear. UNLEFTOVER backed
+     that section out the next day, so from then on the assertion was passing vacuously -- there
+     were no unlocked slips at all -- and it would have gone on passing if leftovers ever came
+     back, since a leftover IS a single-leg builder. It guarded nothing.
+     SHAPEREPAIR mints at most one lunch and one nightcap into empty sections, from the whole
+     field, one leg each. So spell out both retirements and the new cap as separate claims:
+     nothing new is a moon (the draft did not run over the frozen board), nothing new is a
+     single-leg BUILDER (that is the leftover section, whatever it is called -- the same test
+     test_draft_golden.js applies to draft()), and the specials are capped at one apiece. */
+  const fresh = r.tickets.filter(t => !t.locked);
+  const freshKinds = fresh.map(t => t.kind);
+  chk('nothing new is a moon', !freshKinds.includes('moon'), freshKinds);
+  chk('nothing new is a leftover builder (the retired section stays retired)',
+    !freshKinds.includes('builder'), freshKinds);
+  chk('anything new is a single-leg special', fresh.every(t =>
+    (t.kind === 'lunch' || t.kind === 'late') && t.players.length === 1),
+    fresh.map(t => t.kind + ':' + t.players.length));
+  chk('at most one lunch and one nightcap',
+    freshKinds.filter(k => k === 'lunch').length <= 1 && freshKinds.filter(k => k === 'late').length <= 1,
+    freshKinds);
+  /* and it is a slip the board could actually place: alive, priced, and its match still to
+     kick off (MINTGUARD). A mint that fails this is a bet nobody could have made. */
+  chk('the minted special is placeable', fresh.every(t => {
+    const p = D.players[t.players[0].name];
+    return p && !p.out && !p.void && p.odds != null && (D.meta.ko[String(p.game)] > KO - 120);
+  }), fresh.map(t => t.players[0].name));
 }
 
 /* ---------------------------------------------------------------------------------------
@@ -395,6 +420,119 @@ console.log('=== the board under test ===');
     names.length === new Set(names).size, names);
   chk('and the board is unchanged', !r.changed && r.tickets.length === seed.tickets.length,
     { changed: r.changed, n: r.tickets.length, was: seed.tickets.length });
+}
+
+/* ---------------------------------------------------------------------------------------
+ * SHAPEREPAIR-2026-08-31 -- THE SPECIALS ARE MINTED ONCE AND THEN THEY STAY PUT.
+ *
+ * The board's shape carries one lunch special and one nightcap, and until now the only way into
+ * those sections was to be drafted as an anchor and then lose your screamers. So when the last
+ * anchor died the board shipped NOTHING, with a full field of alive priced men in matches that
+ * had not kicked off. shape-repair mints one single into each empty section instead.
+ *
+ * 🚨 THIS SCENARIO IS THE CHURN IT ALMOST SHIPPED WITH, and the reason a one-pass test is not
+ * enough. Feeding the patched redraft its own output three times grew the board by one slip per
+ * pass, forever:
+ *
+ *     pass1  lunch   | Early Doors       = Yamal
+ *     pass2  builder | Early Doors       = Yamal      + lunch | Lunchtime Kickoff = Gyokeres
+ *     pass3  builder | Early Doors       = Yamal      + builder | Lunchtime Kickoff = Gyokeres
+ *                                                     + lunch | The Twelve Thirty = Havertz
+ *
+ * The anchor-group split re-emits EVERY single-leg slip as `kind: 'builder'`, and ORPHANSECTION
+ * -- the thing that turns it back into a lunch -- was guarded on `!outHasMoons`, a fact about the
+ * BOARD standing in for a fact about the SLATE. On a moonless multi-match board it returned early,
+ * the board forgot the slip had ever been a special, and shape-repair minted another.
+ *
+ * A build that adds a slip every five minutes is REDRAFT-2026-08-18's failure shape -- "the board
+ * showed one ticket that had been two bets" -- so assert STABILITY UNDER ITERATION, not just the
+ * first pass.
+ * ------------------------------------------------------------------------------------- */
+{
+  const D = board();
+  Object.keys(D.players).forEach(n => { D.players[n].status = 'confirmed'; });
+  D.tickets = [];
+  const seed = SD.redraft(D, { nowUTCmin: KO - 200, xi: XI(D) });
+  const lunches = t => t.filter(x => x.kind === 'lunch').length;
+  chk('a full slate mints exactly one lunch special', lunches(seed.tickets) === 1,
+    seed.tickets.map(t => t.kind));
+  chk('and it is a real title, not the pickName fallback',
+    seed.tickets.filter(t => t.kind === 'lunch').every(t => t.name && t.name !== 'Ticket'),
+    seed.tickets.filter(t => t.kind === 'lunch').map(t => t.name));
+
+  let cur = seed.tickets, churned = null;
+  for (let pass = 2; pass <= 4 && !churned; pass++) {
+    D.tickets = cur;
+    const r = SD.redraft(D, { nowUTCmin: KO - 200 + pass, xi: XI(D) });
+    if (r.tickets.length !== cur.length || lunches(r.tickets) !== 1) {
+      churned = { pass: pass, was: cur.length, now: r.tickets.length, lunches: lunches(r.tickets) };
+    }
+    cur = r.tickets;
+  }
+  chk('re-running it three more times mints nothing further', churned === null, churned);
+
+  /* 🚨 AND AGAIN WITH THE SPECIAL LEFT OPEN, WHICH IS THE CASE THE FIXTURE HIDES.
+     Above, every player is `confirmed`, so CONFLOCK freezes the minted lunch and it never enters
+     the repair path. On a real board it usually IS open -- and there the anchor-group split files
+     it under `g.builders` (that split is on leg count, not kind) and the repair used to re-emit it
+     with `kind: 'builder'` hardcoded. It came back a builder, the specials section read empty,
+     shape repair minted a fresh one, and the board grew by a slip every build. Measured on the
+     live 2026-08-31 board: 4 tix -> 5 -> 6.
+     That was invisible while ORPHANSECTION existed, because the reclassify relabelled it 'lunch'
+     again a few lines later -- which is exactly how a repair that lies about a slip's kind
+     survived in the file. Two different masks over one bug, so assert it under both. */
+  const O = board();
+  Object.keys(O.players).forEach(n => { O.players[n].status = 'confirmed'; });
+  O.tickets = [];
+  let s3 = SD.redraft(O, { nowUTCmin: KO - 200, xi: XI(O) });
+  const lunchMan = (s3.tickets.filter(t => t.kind === 'lunch')[0] || { players: [{}] }).players[0].name;
+  chk('the open-slip scenario actually minted a lunch to test', !!lunchMan, lunchMan);
+  /* ⚠️ OPEN, NOT DROPPED. Clearing his `confirmed` unfreezes the slip -- but if the XI is ALSO
+     rebuilt from the confirmed set he falls out of `alive[]` and is correctly replaced, which is
+     team news working and not the bug under test. So iterate with NO team news (`xi: null`): he
+     is alive and draftable, his slip is simply not frozen. */
+  O.players[lunchMan].status = 'projected';        // no longer confirmed -> open, not frozen
+  let cur3 = s3.tickets, grew = null;
+  for (let pass = 2; pass <= 4 && !grew; pass++) {
+    O.tickets = cur3;
+    const r = SD.redraft(O, { nowUTCmin: KO - 200 + pass, xi: null });
+    if (r.tickets.length !== cur3.length) grew = { pass: pass, was: cur3.length, now: r.tickets.length };
+    cur3 = r.tickets;
+  }
+  chk('an OPEN lunch special survives repair without changing kind', grew === null, grew);
+  chk('...and it is still a lunch, not a builder',
+    cur3.some(t => t.kind === 'lunch' && t.players[0].name === lunchMan),
+    cur3.map(t => t.kind + ':' + t.players.map(p => p.name).join('+')));
+
+  /* and the same claim on the board this was written for: every anchor gone. */
+  const E = board();
+  Object.keys(E.players).forEach(n => { E.players[n].status = 'confirmed'; });
+  E.tickets = [];
+  const s2 = SD.redraft(E, { nowUTCmin: KO - 200, xi: XI(E) });
+  const anchorNames = new Set(s2.tickets.filter(t => t.kind === 'moon').map(t => t.players[0].name));
+  E.tickets = s2.tickets;
+  anchorNames.forEach(n => { E.players[n].out = true; });
+  const dead = SD.redraft(E, { nowUTCmin: KO - 150, xi: XI(E) });
+  chk('with every anchor struck the board is NOT empty', dead.tickets.length > 0,
+    dead.tickets.map(t => t.kind));
+  /* ⚠️ NOT "only specials survive". The first cut of this assertion said that and was simply
+     wrong about the fixture: with the old anchors struck the draft correctly seats a NEW one off
+     the remaining field, which is the repair working. What must hold is narrower and is the
+     actual claim -- no struck man is anywhere on the board, and the specials section still
+     carries its single. */
+  chk('...and no struck anchor is anywhere on the board',
+    dead.tickets.every(t => t.players.every(p => !anchorNames.has(p.name))),
+    dead.tickets.map(t => t.kind + ':' + t.players.map(p => p.name).join('+')));
+  chk('...and the lunch special is still one leg, and not an anchor',
+    dead.tickets.filter(t => t.kind === 'lunch').length === 1
+    && dead.tickets.filter(t => t.kind === 'lunch').every(t => t.players.length === 1),
+    dead.tickets.map(t => t.kind + ':' + t.players.length));
+  /* UNORPHAN-2026-08-31: a 🍱 is its own bet and is never adopted as a stranded anchor. If the
+     promotion block ever matches SHAPE again, the lunch player picks up two screamers here. */
+  chk('...and the lunch player anchors no screamer', (() => {
+    const l = dead.tickets.filter(t => t.kind === 'lunch')[0];
+    return !l || !dead.tickets.some(t => t.kind === 'moon' && t.players[0].name === l.players[0].name);
+  })(), dead.tickets.filter(t => t.kind === 'moon').map(t => t.players[0].name));
 }
 
 console.log('');

@@ -357,9 +357,18 @@
               'Outside the Box', 'Dipping Effort', 'Curled Home', 'Half Volley', 'Thirty Yards',
               'Into the Roof', 'No Backlift'],
     builder: ['Target Man', 'The Poacher', 'Six-Yard Box', 'Back Post', 'Near Post', 'The Nine',
-              'First Time', 'Gets Across', 'Runs the Channel', 'Shoulder of the Last Man']
+              'First Time', 'Gets Across', 'Runs the Channel', 'Shoulder of the Last Man'],
+    /* SHAPEREPAIR-2026-08-31. Until now the drafter could only MINT moons and builders --
+       ORPHANSECTION reaches 'lunch' and 'late' by rewriting `t.kind` on a slip that already
+       carries a builder's title. A minted special has no title to inherit and pickName() fell
+       through to its `|| ['Ticket']` fallback, shipping a slip called "Ticket" -- and
+       NAMECARRY-2026-08-29 makes that stick, because soccer_payload.shape_ticket USES the title
+       the draft assigned. Copied EXACTLY from soccer_payload.py's NAMES; two copies, one rule,
+       same as WIN / Z_GATE across DEFAULTS and soccer_mock.CFG. Change one, change both. */
+    lunch:   ['Early Doors', 'Lunchtime Kickoff', 'The Twelve Thirty', 'First Match On'],
+    late:    ['Under Lights', 'Last One On', 'The Late Kickoff', 'Sunday Night']
   };
-  var BADGE = { moon: '💥', builder: '⚓️' };
+  var BADGE = { moon: '💥', builder: '⚓️', lunch: '🍱', late: '🌃' };
 
   function a2d(o) { return o > 0 ? 1 + o / 100 : 1 + 100 / Math.abs(o); }
 
@@ -785,7 +794,15 @@
         repaired.push({ kind: 'moon', legs: f.legs, risk: cfg.MOON_RISK, priorName: f.t.name });
       });
       g.builders.forEach(function (b) {
-        repaired.push({ kind: 'builder', legs: [rowOf(an)], risk: cfg.SINGLE_STAKE, priorName: b.name });
+        /* ⚠️ `b.kind`, NOT 'builder'. SHAPEREPAIR-2026-08-31. The group split above files every
+           single-leg slip under `builders`, so a 🍱 lunch special or a 🌃 nightcap arrives here
+           too -- and hardcoding the kind turned it back into a builder on every build. That was
+           masked for as long as ORPHANSECTION existed to relabel it a few lines later, and stood
+           up the moment UNORPHAN removed the relabel: the specials section emptied, shape repair
+           minted a fresh single into it, and the board grew by one slip every five minutes.
+           A repair swaps a LEG. It does not get to change what kind of bet the slip is. */
+        repaired.push({ kind: b.kind || 'builder', legs: [rowOf(an)], risk: cfg.SINGLE_STAKE,
+                        priorName: b.name });
       });
     });
 
@@ -936,21 +953,27 @@
      * anchor and every candidate must still be ahead of the clock here. Pair completion is
      * untouched and behaves exactly as before. */
     var zeroMoon = {};
-    /* ⚠️ TWO RULES ALREADY DEMOTED HIM, AND BOTH HAVE TO BE READ TO FIND HIM AGAIN.
-     * ORPHANSECTION-2026-08-29 reseats a moonless single into the lunch/nightcap section, and
-     * that `kind` PERSISTS on the board -- Lautaro's surviving slip came back as `lunch`, not
-     * `builder`. LEFTOVERANCHOR-2026-08-28 then spends him as a single rather than an anchor,
-     * because `frozenMoonAnchor` is false once his moons are gone. So a demoted anchor is
-     * invisible under both his kind AND his anchor status, and looking for a builder finds
-     * nothing. Match the SHAPE instead: one leg, still ahead of the clock, still alive.
-     * The ANCH budget is the guard that keeps this honest -- a genuine lunch special is only
-     * ever promoted when the board is actually SHORT of anchors, which is exactly the state a
-     * demoted pair leaves behind. A full board promotes nobody. */
+    /* A DEMOTED ANCHOR IS A BUILDER, AND THAT IS HOW WE FIND HIM AGAIN.
+     * REPAIRPAIR-2026-08-30's case is real and measured: when both of Lautaro Martinez's
+     * screamers failed repair the all-or-none pair rule took them, `moonCnt` had no entry for
+     * him, and the ungated top-up below -- which had candidates the whole time -- could not
+     * reach him. A builder on the board IS the board's commitment to that anchor, so seed him at
+     * zero and let the same block rebuild his pair.
+     *
+     * ⚠️ NARROWED BY UNORPHAN-2026-08-31. This used to match one-leg SHAPE rather than kind,
+     * because ORPHANSECTION had relabelled the demoted anchor 'lunch' and looking for a builder
+     * found nothing. That relabel is gone, so the kind is honest again -- and matching shape is
+     * exactly what turned a minted lunch special into a full anchor with two screamers on the
+     * next build. A 🍱 or 🌃 is NOT a stranded anchor: it is its own bet, in its own section,
+     * and it is not promoted into the anchors by a top-up. It stays one leg for the night.
+     *
+     * The ANCH budget still guards this -- a board that is not short of anchors promotes
+     * nobody. */
     var _anchorsNow = Object.keys(takenAnchors).length + (res.anchors || 0);
     out.forEach(function (t) {
       var legs = t.players || [];
       if (legs.length !== 1) return;
-      if (t.kind === 'moon') return;
+      if (t.kind !== 'builder') return;
       var an = legs[0].name;
       if (moonCnt[an] != null) return;
       if (_anchorsNow >= cfg.ANCH) return;
@@ -1022,76 +1045,91 @@
       }
     });
 
-    var moonAnchorOnBoard = {}, outHasMoons = false;
-    out.forEach(function (t) {
-      if (t.kind === 'moon' && (t.players || []).length) {
-        moonAnchorOnBoard[t.players[0].name] = true; outHasMoons = true;
-      }
-    });
+    /* UNORPHAN-2026-08-31. THE ORPHANSECTION RECLASSIFY LIVED HERE AND IS GONE, NOT DISABLED.
+     * Owner: "orphan is not part of baseball, get rid of it. especially if its messing things up."
+     *
+     * ORPHANSECTION-2026-08-29 / ORPHANSURPLUS / ANCHORISMOONS rewrote a moonless single-leg
+     * slip's `kind` to 'lunch' or 'late'. Baseball had the same question and answered it the
+     * other way, and the answer is still in index.html:1006 with nothing calling it:
+     *
+     *     const _stranded=t=>t.kind==='builder'&&t.anchor&&!_mAnch[t.anchor];
+     *     /* ... it is a real placed builder and it grades as one. So it renders under Anchors
+     *        again, where its own kind always said it belonged. `_stranded` is left defined;
+     *        nothing else calls it. *(/)
+     *
+     * Baseball's 🍱 and 🌃 are not where demoted anchors go -- they are minted from the FIELD by
+     * SHAPE REPAIR (index.html:2755). Soccer took the demotion and never took the mint.
+     * SHAPEREPAIR-2026-08-31 adds the mint; this removes the demotion.
+     *
+     * It was also the ratchet. The relabel PERSISTS onto the next build's prior board, so the
+     * promotion block below had to match a slip's SHAPE rather than its kind to find a demoted
+     * anchor again -- which meant it adopted ANY single-leg slip as a zero-moon anchor and
+     * FINALREPAIR built it a pair. Reproduced on the unpatched engine: a lunch special becomes a
+     * full anchor with two screamers on the next build, 7 slips to 9. With the relabel gone a
+     * moonless single IS a builder, so that block looks for a builder again.
+     *
+     * `reseated` stays and is now always empty: soccer_rebuild_cli.js and the workflow read it,
+     * and a key that vanishes is a crash somewhere I have not looked. */
     var reseated = [];
-    /* 🚨 ONLY THE SURPLUS IS A LEFTOVER. ORPHANSURPLUS-2026-08-29.
-     * Owner: "cause right now we have 3. how is there a leftover if there is 3?"
+
+    /* ==================================================================================
+     * 🚨 THE SPECIALS ARE PART OF THE SHAPE. SHAPEREPAIR-2026-08-31.
+     * ==================================================================================
+     * Owner: "yea it shouldnt be only anchors that can fall through to the specials."
      *
-     * He is right, and this is what his original ruling actually said. "then use the lunch
-     * special and nightcap. thats what theyre for" was the answer to "why are there 5 soccer
-     * anchors?" -- the sections exist for the name that is SURPLUS TO ANCH. The first cut of
-     * this block reseated ANY moonless single, which fires just as happily when the board is
-     * UNDER strength: on 2026-08-29 the board finished with three moon anchors against ANCH=4,
-     * one seat standing empty, and Guirassy -- a cashed single, not a surplus name -- sitting in
-     * the lunch special anyway. A board showing 3 anchors has no leftover by definition.
+     * ORPHANSECTION above RECLASSIFIES a single that is already in `out`; it never mints one. The
+     * only thing that can BE such a single is an anchor's builder, so the lunch special and the
+     * nightcap were reachable by exactly one route -- be drafted as an anchor, then lose your
+     * screamers. When the anchor dies his builder dies with him and nothing is left to fall
+     * through: on 2026-08-31, with Raphinha struck out, the board redrafted to ZERO tickets while
+     * 24 alive priced players sat in two matches that had not kicked off.
      *
-     * ⚠️ THIS IS NOT COSMETIC. `soccer_grade.py` KINDS and soccer_payload's ledger `cats` book by
-     * kind, so reseating moved a WINNING anchor single out of the ⚓️ column into 🍱: the season
-     * line went from "Anchors 8-5 +3.6u / Lunch 0-0" to "Anchors 7-5 +2.8u / Lunch 1-0 +0.8u"
-     * for a bet that never stopped being an anchor.
+     * This is index.html's SHAPE REPAIR (REDRAFT-2026-08-18) in soccer's spelling -- "The board's
+     * shape is fixed ... A PLACED single that dies stays dead: that is a settled bet. An EMPTY
+     * SLOT gets drafted, same as a short anchor." One per empty section, from the whole field,
+     * which is the same cap that block states: "one nightcap and one lunch play, full stop."
      *
-     * So: count the seats a moon anchor is actually holding, and reseat only the moonless singles
-     * that cannot claim a free one. Emit order decides who gets the seat, which is draft strength
-     * order -- frozen first, then repaired, then minted.
+     * ⚠️ NOT UNLEFTOVER-2026-08-28. That minted a single for EVERY gated player who made no slip,
+     * capped at eight -- six a night on a healthy board. This mints at most one, and only into a
+     * section that is empty. Measured over the five committed boards: 3 slips, -1.00u, which is
+     * not a sample and is recorded in shaperepair_fix.py only so nobody mistakes it for evidence.
      *
-     * ⚠️ NOT ON A SINGLES-ONLY BOARD. SINGLES-2026-08-27: a thin slate (two matches) mints
-     * BUILDERS AND NOTHING ELSE, and there every builder IS an anchor -- "no moon behind it" is
-     * true of all of them and means the opposite of orphaned. Same guard the frozen-builder
-     * branch above uses (`boardHasMoons`), measured on the FINISHED board. Caught by
-     * test_redraft "a two-match slate drafts singles only", which this turned into four lunch
-     * specials on the first cut. */
-    /* ⚠️ DERIVED FROM THE BOARD'S CURRENT SHAPE, NEVER STICKY. The first cut only converted
-       'builder' -> lunch, so once a single had been reseated the PRIOR board handed it back as
-       kind 'lunch' and it could never return to the anchors even when a seat reopened -- which is
-       exactly the state the owner was looking at. Single-leg slips are therefore RE-CLASSIFIED
-       from scratch every pass: seat what fits against ANCH, reseat the rest. soccer_mock mints
-       moon / builder / family only, so 'lunch' and 'late' can only have come from this block --
-       reading them back and reconsidering them is safe. */
-    /* 🚨 AN ANCHOR IS DEFINED BY ITS SCREAMERS. ANCHORISMOONS-2026-08-29.
-     * Owner: "if there a 4 anchors then there are at least 4 moons. where is guiarasy moon?"
+     * ⚠️ THE GUARD IS THE SLATE, NOT THE BOARD. `outHasMoons` is false both on a two-match
+     * singles-only slate -- where every builder IS an anchor, and reclassifying "turned it into
+     * four lunch specials on the first cut" -- and on a board that drafted nothing, which is the
+     * case this exists for. So ask the slate directly, which is SINGLES-2026-08-27's own test.
      *
-     * ORPHANSURPLUS's `seatsFree` branch is GONE. It seated a moonless single as the 4th anchor
-     * whenever ANCH had room -- which produced a board advertising four anchors and three sets of
-     * screamers, and no answer to "where is his moon?". The seat is not what makes a man an
-     * anchor; the moons are. A single with nothing behind it is a leftover at ANY anchor count.
-     *
-     * ⚠️ SO WHAT WAS THE OWNER ASKING BEFORE? "cause right now we have 3. how is there a leftover
-     * if there is 3?" was a question about the THREE, not an instruction to promote the leftover.
-     * The real answer is that the 4th seat is empty because no 4th anchor can be BUILT: team news
-     * took out the partners in the two remaining unstarted matches, and MINTGUARD bars drafting
-     * into the sixteen already underway. A board that cannot fill the seat shows three anchors and
-     * puts the odd single where the owner told me to put it on 2026-08-29 -- the lunch special.
-     * Reseating it is not hiding the empty seat; the empty seat is the honest state.
-     *
-     * ⚠️ STILL NOT STICKY (kept from ORPHANSURPLUS). Single-leg slips are re-classified from
-     * scratch every pass -- 'builder', 'lunch' and 'late' are all reconsidered -- so a single that
-     * BACKS a moon again returns to the anchors instead of being stranded in lunch forever. The
-     * first cut only converted builder -> lunch and could never come back. */
-    out.forEach(function (t) {
-      if (!outHasMoons) return;
-      if (t.kind !== 'builder' && t.kind !== 'lunch' && t.kind !== 'late') return;
-      var legs = t.players || [];
-      if (legs.length !== 1) return;
-      var n = legs[0].name, was = t.kind;
-      t.kind = moonAnchorOnBoard[n] ? 'builder'             // backs a screamer -- a real anchor
-             : ((D.players[n] || {}).late ? 'late' : 'lunch');
-      if (t.kind !== was) reseated.push({ name: n, from: was, kind: t.kind });
-    });
+     * `alive[]` and not `!p.out`: a man dropped from a published XI is not flagged `out` on this
+     * board, and the first cut of the REPAIRWIDE port used the baseball spelling literally and
+     * re-drafted the very leg team news had just removed. `freeForPartner()` carries MINTGUARD
+     * (no slip created past its own kickoff) and the partner / anchor / burnt-single exclusions.
+     * TOTAL order with a name tiebreak, so the pick is deterministic and testable. */
+    var shaped = [];
+    if (Object.keys(KO).length >= cfg.MOON_LEGS) {
+      var haveKind = {}, onBoard = {};
+      out.forEach(function (t) {
+        haveKind[t.kind] = true;
+        (t.players || []).forEach(function (l) { onBoard[l.name] = true; });
+      });
+      [['lunch', false], ['late', true]].forEach(function (spec) {
+        var kind = spec[0], wantLate = spec[1];
+        if (haveKind[kind]) return;
+        var c = Object.keys(D.players).filter(function (n) {
+          return !onBoard[n] && alive[n] && freeForPartner(n) &&
+                 !!(D.players[n].late) === wantLate;
+        }).sort(function (x, y) {
+          var dx = (D.players[y].TOTAL || 0) - (D.players[x].TOTAL || 0);
+          return dx || (x < y ? -1 : x > y ? 1 : 0);
+        });
+        if (!c.length) return;
+        var n = c[0];
+        out.push(mkTicket(kind, [legOf(n, D.players[n])], cfg.SINGLE_STAKE,
+                          pickName(kind, null), koOf, D.players));
+        onBoard[n] = true;
+        haveKind[kind] = true;
+        shaped.push({ name: n, kind: kind });
+      });
+    }
 
     /* ==================================================================================
      * SHORTLAST-2026-08-29 -- an anchor that is short a screamer sorts to the BOTTOM.
@@ -1175,6 +1213,7 @@
       released: releasedN,
       demoted: demoted,
       reseated: reseated,
+      shaped: shaped,
       topped: topped,
       anchors: Object.keys(takenAnchors).length + (res.anchors || 0),
       thin: !!res.thin,
