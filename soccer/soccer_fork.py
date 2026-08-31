@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 84 + LIVE_SEAM_COUNT          # 84 base + 5 live = 89 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30)
+EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -84,6 +84,27 @@ def seams(payload_js):
     add('tagline',
         '“Every strike brings me closer to the next home run.”<span class="cite">— Babe Ruth</span>',
         '“If you think before you shoot, you’ve already missed.”<span class="cite">— Gerd Müller</span>')
+
+    # PSA-2026-08-31. Owner: "we need to put a psa at the top of the two ticket rooms too that
+    # tells people to wait to place a ticket until all players on it are confirmed, the board
+    # will redraft as lineups release, and vegas odds and live weather update."
+    # The banner itself is in index.html and forks over with everything else -- only the two
+    # BASEBALL-SPECIFIC facts are swapped here, and they are swapped because they are not true of
+    # this board, not for flavour:
+    #   * "a posted lineup" -> "a published XI", which is what this board actually reads
+    #     (soccer_teamnews.py, TRUST-2026-08-25: eleven starters a side before a sheet is
+    #     believed at all).
+    #   * "the weather updates" is DROPPED. The soccer board carries no weather -- there is no
+    #     precip band, no wx chip, and wxsum is zeroed by mkTicket. Promising a reader that
+    #     something updates when the board does not even display it is a lie in the one place
+    #     that is meant to stop him betting on a stale card.
+    add('psa',
+        'confirmed in a posted lineup. Until then this board keeps re-drafting: '
+        'as lineups drop, Vegas odds move and the weather updates, legs get swapped and slips can '
+        'leave the card entirely.',
+        'confirmed in a published XI. Until then this board keeps re-drafting: '
+        'as team news lands and the odds move, legs get swapped and slips can '
+        'leave the card entirely.')
 
     # ---- 3. THE FIVE CHIPS ----------------------------------------------------------
     # Owner's call 2026-08-24: direct one-for-one analogues of the MLB five, so the card
