@@ -214,10 +214,19 @@ jobs:
             # 29 consecutive failures, 08:00Z through 09:55Z, green again at 10:00Z. That window is
             # 4:00-5:59 AM ET, i.e. the first hour of the morning cover the owner asked for.
             # 10# forces base ten.
-            NOW=$(( 10#$(date -u +%H) * 60 + 10#$(date -u +%M) ))
+            # 🚨 SLATECLOCK-2026-08-31 -- `--now` IS GONE, DELIBERATELY. This computed wall-clock
+            # UTC minutes (0..1439) and handed them to a comparison against `kickoff`, which is
+            # minutes past midnight UTC OF THE SLATE DATE and legally exceeds 1440 (MLS kicks off
+            # 00:30Z = 1470). Two bases, one comparison, so MINTGUARD could not tell "before the
+            # match" from "during it" for any late kickoff -- and after midnight it read every
+            # FINISHED match on the current slate as unstarted, which measured as six new slips
+            # minted into completed games on the 2026-08-31 board. soccer_rebuild_cli.js now
+            # derives the clock from the prior board's own meta.date. Do not reintroduce this
+            # line; if you need to pin the clock, pass a SLATE-RELATIVE --now.
+            # (The OCTAL-2026-08-28 note below is kept: it is why `10#` was here at all.)
             set +e
             node soccer_rebuild_cli.js prior.json scored.json tickets.json \
-                 $([ -f teamnews.json ] && echo "--teamnews teamnews.json") --now $NOW
+                 $([ -f teamnews.json ] && echo "--teamnews teamnews.json")
             RC=$?
             set -e
             echo "rebuild_rc=$RC" >> $GITHUB_OUTPUT
