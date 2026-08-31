@@ -1,11 +1,11 @@
 {
   "date": "2026-08-31",
   "season": "2026",
-  "pulled_at": "2026-08-31T18:30:31Z",
+  "pulled_at": "2026-08-31T18:36:37Z",
   "games": [
     {
       "gamePk": 824911,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-31T22:05:00Z",
       "matchup": "SF@ATL",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 0.96,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.147
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.234
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.19
+          },
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.241
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.132
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.125
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.174
+          },
+          {
+            "id": 801501,
+            "name": "Nate Furman",
+            "iso": 0.0
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.067
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -30,7 +76,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
