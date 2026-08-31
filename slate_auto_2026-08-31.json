@@ -1,7 +1,7 @@
 {
   "date": "2026-08-31",
   "season": "2026",
-  "pulled_at": "2026-08-31T18:36:37Z",
+  "pulled_at": "2026-08-31T18:46:40Z",
   "games": [
     {
       "gamePk": 824911,
@@ -214,7 +214,7 @@
     },
     {
       "gamePk": 822689,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-31T22:45:00Z",
       "matchup": "MIA@WSH",
       "away": {
@@ -236,10 +236,56 @@
           "hr9": 1.57,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.239
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.214
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.268
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.176
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.164
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.085
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.148
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.17
+          },
+          {
+            "id": 687605,
+            "name": "Andrew Pinckney",
+            "iso": 0.278
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
