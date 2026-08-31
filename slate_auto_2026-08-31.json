@@ -1,7 +1,7 @@
 {
   "date": "2026-08-31",
   "season": "2026",
-  "pulled_at": "2026-08-31T19:00:34Z",
+  "pulled_at": "2026-08-31T19:06:34Z",
   "games": [
     {
       "gamePk": 824911,
@@ -92,7 +92,7 @@
     },
     {
       "gamePk": 824473,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-31T22:40:00Z",
       "matchup": "SD@CIN",
       "away": {
@@ -114,10 +114,56 @@
           "hr9": 1.7,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.229
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.208
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.223
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.211
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.177
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.206
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.151
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.089
+          },
+          {
+            "id": 695490,
+            "name": "Edwin Arroyo",
+            "iso": 0.037
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -133,7 +179,7 @@
     },
     {
       "gamePk": 822932,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-08-31T22:40:00Z",
       "matchup": "NYM@TB",
       "away": {
@@ -155,10 +201,56 @@
           "hr9": 1.6,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.162
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.143
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.257
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.158
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.054
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.149
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.169
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.107
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.071
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
