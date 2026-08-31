@@ -1,0 +1,56 @@
+{
+ "_note": "FIXTURES-2026-08-31. Read off the ESPN scoreboard for each of the five leagues, never assumed: kickoff is UTC minutes past midnight from event.date, and espn[1] is the event id the live loop addresses the match by. Bundesliga and Ligue 1 have no fixtures on this date.",
+ "date": "2026-08-31",
+ "matches": {
+  "lecce-v-as-roma": {
+   "home": "Lecce",
+   "away": "AS Roma",
+   "kickoff": 990,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874945"
+   ]
+  },
+  "osasuna-v-getafe": {
+   "home": "Osasuna",
+   "away": "Getafe",
+   "kickoff": 1050,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882901"
+   ]
+  },
+  "atalanta-v-bologna": {
+   "home": "Atalanta",
+   "away": "Bologna",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874970"
+   ]
+  },
+  "aston-villa-v-arsenal": {
+   "home": "Aston Villa",
+   "away": "Arsenal",
+   "kickoff": 1140,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879295"
+   ]
+  },
+  "barcelona-v-rayo-vallecano": {
+   "home": "Barcelona",
+   "away": "Rayo Vallecano",
+   "kickoff": 1170,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882903"
+   ]
+  }
+ }
+}
