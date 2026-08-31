@@ -123,12 +123,29 @@ async function run(atISO, publish, dropped, label, serveBoard, pre, pageFile) {
   await ctx.addInitScript(`window.__STUB=${JSON.stringify(payload)};
     (()=>{
       const S=window.__STUB;
+      /* TRUSTPARITY-2026-08-31. This stub's job, per the comment on byGame above, is to
+         "publish a real-looking team sheet". It used to emit only the PRICED names in the game
+         -- eight and seven a side on the pinned fixture -- and soccer_live.js believed it,
+         because squadOf() asked only that both rosters be non-empty. It now holds the server's
+         bar (TRUST-2026-08-25: eleven starters a side), so a seven-man sheet is correctly
+         disbelieved and nobody is marked out of squad.
+         That is the fix working, not a regression. ESPN fills 'rosters' with the matchday squad
+         while every starter flag is still false, and believing THAT is what showed Raphinha
+         benched while he was starting -- and, one branch lower, is what let a one-name stub
+         assert 'out' on a man who was playing. (No backticks in here: this whole stub lives
+         inside a template literal.) So pad each side to a real XI. The filler names
+         cannot collide with the priced field, so matchOne() ignores them and the scenario under
+         test -- does the PAGE re-draft when a man is dropped -- is unchanged. */
       function squad(g){
         if(!S.publish) return [];
         const names=S.byGame[g]||[]; const half=Math.ceil(names.length/2);
-        const mk=list=>list.filter(n=>!S.dropped[n]).map((n,i)=>({athlete:{displayName:n},starter:true}));
-        return [{team:{abbreviation:'H'+g},roster:mk(names.slice(0,half))},
-                {team:{abbreviation:'A'+g},roster:mk(names.slice(half))}];
+        const mk=(list,side)=>{
+          const r=list.filter(n=>!S.dropped[n]).map(n=>({athlete:{displayName:n},starter:true}));
+          for(let i=r.length;i<11;i++) r.push({athlete:{displayName:'Reserve '+side+g+' '+i},starter:true});
+          return r;
+        };
+        return [{team:{abbreviation:'H'+g},roster:mk(names.slice(0,half),'H')},
+                {team:{abbreviation:'A'+g},roster:mk(names.slice(half),'A')}];
       }
       window.__espnCalls=0;
       window.__boardCalls=0;

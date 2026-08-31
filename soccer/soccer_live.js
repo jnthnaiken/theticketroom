@@ -195,11 +195,34 @@
     return out;
   }
   /* Squad sheet. `out` REFUNDS a leg at grading, so it is the strong claim and is asserted
-   * only when BOTH teams published a non-empty roster -- absent from a sheet we never saw is
-   * not the same fact as absent from the sheet. Same standard soccer_payload.py applies. */
+   * only when BOTH teams published a sheet we are willing to believe -- absent from a sheet we
+   * never saw is not the same fact as absent from the sheet.
+   *
+   * TRUSTPARITY-2026-08-31 -- ELEVEN A SIDE, the same bar soccer_teamnews.py has used since
+   * TRUST-2026-08-25 (`trusted = (xi_h == 11 and xi_a == 11)`). This line used to ask only that
+   * both rosters be NON-EMPTY, while its own comment claimed parity with the server. It was not
+   * parity, and the gap is not theoretical: ESPN fills `rosters` with the matchday squad while
+   * every `starter` flag is still false, so in the window before the XI lands a match reads 22
+   * named / ZERO starters a side -- and the old predicate called that complete. Every priced
+   * player in it then took the `sq.bench[who]` branch and the board showed him BENCHED (owner,
+   * 2026-08-31: "why did raphinha show up as benched for a bit? and then confirmed" -- he was
+   * starting, formationPlace 9, and flipped the moment the flags landed).
+   *
+   * That branch sets `p.out = false` and is survivable. The one below it is not: a stub sheet
+   * (ESPN had Barcelona at ONE name at 18:54Z tonight) let `!who && !surnameHits` assert `out`
+   * on a man who is playing, refunding his leg and pulling a live slip off the board IN THE
+   * READER'S BROWSER -- UNMATCHED-2026-08-28's failure through a different door. That fix
+   * hardened the JOIN; this hardens what the join is run against.
+   *
+   * Failing this bar skips the whole squad block, so status stays `projected`: it can never
+   * newly kill a leg, only decline to. */
   function squadOf(summary) {
     var rs = (summary && summary.rosters) || [];
-    var complete = rs.length >= 2 && rs.every(function (r) { return ((r.roster) || []).length > 0; });
+    var complete = rs.length >= 2 && rs.every(function (r) {
+      var st = 0;
+      ((r.roster) || []).forEach(function (pl) { if (pl.starter) st++; });
+      return st === 11;
+    });
     var xi = {}, bench = {}, all = {};
     rs.forEach(function (r) {
       ((r.roster) || []).forEach(function (pl) {
