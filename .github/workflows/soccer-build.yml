@@ -72,7 +72,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 🚨 DEPLOYTOKEN-2026-08-31 -- THE BOARD WAS REACHING THE REPO AND NOT THE SITE.
+      # A push made with the default GITHUB_TOKEN does not trigger any further workflow run.
+      # This job's Publish step commits soccer/index.html and soccer/soccer_D.json, both of
+      # which are in deploy-pages.yml's `paths:` -- and NONE of those commits has ever started
+      # a deploy. The soccer board only ever went live when some OTHER commit did: an MLB
+      # index.html change from pull-slate.yml, which checks out with `secrets.GH_PAT ||
+      # github.token` and therefore DOES trigger downstream workflows.
+      # PIPELINE open item 8 closed on exactly that coincidence -- "every soccer-settle hour
+      # sits inside pull-slate's window, where MAX_STALE_MIN = 25 guarantees an index.html
+      # commit, and therefore a deploy, within 25 minutes". That is true only while baseball is
+      # still building. On 2026-08-31 the MLB slate was finished and frozen by 03:00Z, its
+      # auto-builds were touching nothing but slate_auto_<date>.json, and the 14:08Z soccer
+      # board sat committed and undeployed until it was pushed out by a hand dispatch. Every
+      # team-news repair for the rest of that slate would have done the same.
+      # Same pattern as pull-slate.yml, falling back to github.token when no PAT is set: the
+      # push still works without one, it just does not deploy -- which is today's behaviour.
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
