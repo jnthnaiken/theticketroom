@@ -2681,6 +2681,28 @@ var _cmA={}, _cmB={};
            is exactly why he fell out of the candidate list in the first place. Alive and not chalk is
            the real test -- an anchor is allowed on his builder and both his moons. */
         return !_cmA[a] && P[a] && !P[a].out && !P[a].void && !chalk[a]; });
+      /* SEATCAP-2026-08-30 -- FOUR SEATS, AND `_forced` HAS TO FIT IN THEM.
+         SEAT-LOCK above is correct that a locked builder is a placed bet holding an anchor seat, but
+         it never checked how many such claims exist. `_KT` below is floored at 0, which clamps the
+         ARITHMETIC and not the LIST -- and the list is what searchBest seats. On 2026-08-30 Coby Mayo
+         drifted 252->260 for one build, the ban took Juan Soto's two open moons (his builder stayed,
+         placed), Esmerlyn Valdez was drafted into the freed seat and his builder locked as well. When
+         Mayo settled back and Soto left the ban, BOTH held a locked builder and no locked moon, so
+         both were forced: 3 placed seats + 2 forced = 5 anchors, 10 moons, 17 tickets, for the next
+         23 builds. replay_check calls it TOO MANY ANCHORS and it is right.
+         The eviction is untouched -- see chalkchurn-2026-08-29: withholding it leaves a hole, because
+         the eviction is what triggers the repair. This caps the REFILL instead, which is the only
+         direction that document leaves open. `byS` is the board's own strength order (the key candA
+         and searchBest already rank on), so the seat goes to the bat the draft rates highest rather
+         than to whoever happened to hold it -- no incumbency, nothing read back from a previous ban.
+         The bat who yields keeps his locked builder verbatim; he just does not also take a pair of
+         moons. That is the builder:5 / moon:8 shape LOCKNOREDRAFT-2026-08-29 already measured. */
+      var _seats=Math.max(0,4-Object.keys(_cmA).length);
+      if(_forced.length>_seats){
+        var _drop=byS(_forced).slice(_seats);
+        _forced=byS(_forced).slice(0,_seats);
+        if(typeof console!=='undefined'&&console.log)console.log('[seatcap] '+Object.keys(_cmA).length+' seat(s) held by placed moons -> only '+_seats+' left; '+_drop.join(', ')+' keep(s) the locked builder without moons');
+      }
       var _KT=Math.max(0,4-Object.keys(_cmA).length-_forced.length);
       if(typeof console!=='undefined'&&console.log&&_KT<4)console.log('[redraft] '+Object.keys(_cmA).length+' anchor seat(s) already placed -> jointly drafting '+_KT);
       var _best=(_KT||_forced.length)?searchBest(candA, _KT, draftPool, _forced):null;   // strongest _KT-anchor set -- FOUR moon-pairs now, no salami seat (hoisted generalized draft)

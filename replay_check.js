@@ -195,8 +195,14 @@ function replay(engine, date) {
      snapshot while only `tickets` was carried -- so in replay every build looked like the
      first of the slate. meta.chalk is the previous ban (CHALKSETTLE-2026-08-29 intersects
      it with today's to decide what it EVICTS for) and meta.chalkever is the night's chalk
-     union (LOCKEVICT-2026-08-29). Add a field here when regen15.py starts carrying it. */
-  const CARRY_META = ['chalk', 'chalkever'];
+     union (LOCKEVICT-2026-08-29). Add a field here when regen15.py starts carrying it.
+     REPLAYRETRACT-2026-08-30: meta.retracted joined that list with RETRACTEDCARRY-2026-08-30 --
+     the signatures the board has withdrawn for the night, read by the localStorage latch. Server
+     side it changes nothing (the latch is a no-op with no localStorage, so this replay cannot
+     observe it either way) but the chain must carry what production carries, or the next field
+     that DOES bite replays against a slate that never happened -- which is exactly how the
+     harness stayed blind to CHALKSETTLE until REPLAYCARRY-2026-08-29. */
+  const CARRY_META = ['chalk', 'chalkever', 'retracted'];
   let carryMeta = {};
   for (let i = 1; i < snaps.length; i++) {
     const s = snaps[i];
