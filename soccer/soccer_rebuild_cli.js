@@ -18,7 +18,14 @@
  * open slips leg by leg.
  *
  *   node soccer_rebuild_cli.js <prior board.json> <scored.json> <out tickets.json> \
- *        [--teamnews teamnews.json] [--now <UTC minutes past midnight>]
+ *        [--teamnews teamnews.json] [--now <minutes past midnight UTC OF THE SLATE DATE>]
+ *
+ * ⚠️ SLATECLOCK-2026-08-31 -- `--now` IS SLATE-RELATIVE, NOT WALL-CLOCK, and may exceed 1440.
+ * It is on the same basis as `kickoff` in fixtures.json, which soccer_payload's et_dt() defines
+ * as minutes past midnight UTC OF THE SLATE DATE. MLS kicks off at 00:30Z = 1470. Omit the flag
+ * and this file computes it from the real clock and the prior board's own meta.date, which is
+ * what the workflow now does; pass it only from a test or a hand run, where it has always meant
+ * this.
  *
  * There is no first-build path here on purpose: with no prior board there is nothing to preserve,
  * and soccer_draft_cli.js is the right tool. The workflow picks between them.
@@ -57,8 +64,45 @@ if (!D.meta || !D.meta.ko || !Object.keys(D.meta.ko).length) {
 const byName = {};
 scored.forEach(p => { byName[p.name] = p; });
 
-const now = flag('--now') != null ? Number(flag('--now')) : null;
-if (now == null || !isFinite(now)) { console.error('!! --now is required (UTC minutes past midnight)'); process.exit(2); }
+/* 🚨 SLATECLOCK-2026-08-31 -- THE CLOCK MUST BE ON THE SLATE'S BASIS, NOT THE WALL'S.
+   `kickoff` is minutes past midnight UTC OF THE SLATE DATE (soccer_payload.et_dt builds it that
+   way), so it legally exceeds 1440 -- MLS kicks off 00:30Z = 1470. `now` used to be wall-clock
+   UTC 0..1439, straight out of the workflow's `date -u`, and MINTGUARD compares the two
+   directly (`if (ko == null || now >= ko) return false`).
+   Measured: with ko 1470, a slip minted identically at now=1400 (70 min BEFORE kickoff) and at
+   now=60 (30 min INTO the match) -- past 1440 the guard cannot tell one from the other, ever.
+   The same arithmetic the other way is a hole that was already live on the European board: after
+   midnight the clock wraps and the slate does not, so at now=15 the 2026-08-31 board minted SIX
+   slips into matches that had finished hours earlier. Only the graded-night skip was covering
+   it, which depends on settling beating the first post-midnight build.
+   soccer_draft.js is fine and is not touched -- it takes `nowUTCmin` opaquely and every test
+   already passes it slate-relative. The bug was this caller manufacturing a wall-clock number. */
+function slateRelativeNow(slateDate) {
+  var d = new Date();
+  var wall = d.getUTCHours() * 60 + d.getUTCMinutes();
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(slateDate || ''));
+  if (!m) return wall;                       /* no usable slate date -> old behaviour, loudly */
+  var slate = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+  var today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+  var offDays = Math.round((today - slate) / 86400000);
+  return wall + 1440 * offDays;
+}
+var now;
+if (flag('--now') != null) {
+  /* taken VERBATIM: `--now` has always meant slate-relative minutes and every test passes it
+     that way (nowUTCmin: KO - 120). Do not "correct" it here or they all shift. */
+  now = Number(flag('--now'));
+  if (!isFinite(now)) { console.error('!! --now must be a number (minutes past slate midnight UTC)'); process.exit(2); }
+} else {
+  if (!D.meta || !D.meta.date) {
+    console.error('!! no --now and the prior board carries no meta.date -- cannot place the clock');
+    process.exit(2);
+  }
+  now = slateRelativeNow(D.meta.date);
+  var _off = Math.round((now - (new Date().getUTCHours() * 60 + new Date().getUTCMinutes())) / 1440);
+  console.log(`  clock: slate ${D.meta.date}, now ${now} min past slate midnight UTC`
+              + (_off ? `  (+${_off}d past the slate date)` : ''));
+}
 const koOf = g => { const v = (D.meta.ko || {})[String(g)]; return v == null ? null : Number(v); };
 
 let repriced = 0, frozenPrice = 0;
