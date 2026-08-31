@@ -697,6 +697,11 @@ body::after{
 .navfind input[type=search]{width:min(230px,30vw);display:block}
 .nav:has(~ #v-t[hidden]) .navfind{display:none}
 @media(max-width:700px){.navfind{order:3}.navfind input[type=search]{width:100%}}
+.psa{display:flex;gap:10px;align-items:flex-start;margin:14px 0 2px;padding:11px 14px;border:1px solid var(--line2);border-left:3px solid var(--amber);border-radius:10px;background:linear-gradient(90deg,#ffc24d14,transparent 60%);color:var(--mut);font-size:13px;line-height:1.5}
+.psa .psa-i{color:var(--amber);font-size:14px;line-height:1.4;flex:0 0 auto}
+.psa b{color:var(--txt);font-weight:600}
+.psa .psa-k{color:var(--lime);font-weight:700}
+@media(max-width:560px){.psa{font-size:12.5px;padding:10px 12px}}
 </style></head><body>
 <div class="sky" aria-hidden="true"><div class="neb"></div><i class="met a"></i><i class="met b"></i><i class="met c"></i></div>
 <div class="tint" aria-hidden="true"></div>
@@ -706,6 +711,7 @@ body::after{
  <div class="eyebrow">Home-Run Props · <span id="slateDate">June 15, 2026</span> · Kasper blend + matchup</div>
  <h1>The Ticket Room</h1>
  <div class="tagline">“Every strike brings me closer to the next home run.”<span class="cite">— Babe Ruth</span></div>
+ <div class="psa"><span class="psa-i">⚠️</span><div><b>Wait for the <span class="psa-k">✓</span> before you place.</b> A ticket is only final once every player on it is confirmed in a posted lineup. Until then this board keeps re-drafting: as lineups drop, Vegas odds move and the weather updates, legs get swapped and slips can leave the card entirely. What you see now is a projection, not the bet.</div></div>
  <div class="head-row">
   <div class="head-stats">
    <div class="statrow" id="stats"></div>
