@@ -25,9 +25,17 @@ from collections import defaultdict
 # Letters NFKD will not decompose, because they are letters in their own right rather than a
 # base plus a combining mark. Without this "Kasper Hogh" never reaches "Kasper Hogh" and a
 # STARTING Celtic forward was classified as unplaced. Scandinavian squads make this routine.
+# CURLYQUOTE-2026-08-31. ESPN writes `Konan N’Dri` with U+2019 RIGHT SINGLE QUOTATION MARK,
+# not the ASCII apostrophe both nrm() and nrm_sp() strip. His tokens came out as `n’dri` where
+# the priced `Konan NDri` gives `ndri`, so match_one never joined him and he sat in `unmatched`
+# all night while he was on Lecce's bench. Folded to the plain apostrophe HERE so both
+# normalisers get it for free -- the same reason ø is in this table rather than in nrm().
+# Caught only because FIRSTNAME below made absence assertable for him, which turned a silent
+# non-join into a live false absence. U+02BC (ʼ) is the same character class and is included.
 XLAT = str.maketrans({'ø': 'o', 'æ': 'ae', 'œ': 'oe', 'ß': 'ss',
                       'đ': 'd', 'ð': 'd', 'þ': 'th', 'ł': 'l',
-                      'ı': 'i', 'å': 'a'})
+                      'ı': 'i', 'å': 'a',
+                      '’': "'", 'ʼ': "'", '‘': "'"})
 
 
 def nrm(s):
@@ -112,6 +120,34 @@ def surname_hits(name, squad):
     match_one() still does the joining and is untouched. All it can do is make absence HARDER
     to assert, which is the only safe direction: a missed hit kills a live bet, a spurious hit
     merely declines to kill one. Same reasoning as the docstring above, one level down.
+
+        🚨 FIRSTNAME-2026-08-31. "ANY token in common" is too loose in ONE direction that matters:
+    a shared GIVEN name between two different men. 2026-08-31, Villa v Arsenal, sheet fully
+    published 11+9 both sides: `Gabriel Jesus` was priced, was NOT in the XI and NOT on the
+    bench -- he was not in the squad at all -- and `gabriel` hit `Gabriel Magalhaes`, who was
+    starting. One shared first name, so absence was never asserted and a man who was not at the
+    ground rode a live screamer to its lock. That is the WRONGCLUB-2026-08-30 harm arriving
+    through the other door.
+
+    The discriminator is NOT "ignore first names" -- three of COMPOUNDSUR's five cases are
+    first-name-only matches (`Giovane`, `Emersonn`, `Kevin`). What separates them is CONTAINMENT:
+    the sheet name is a token SUBSET of the priced name (or vice versa). Two different men who
+    merely share a given name are a subset of neither.
+
+        Jaden Philogene-Bidace / Jaden Philogene   {jaden,philogene} <= {jaden,philogene,bidace}   hit
+        Giovane Nascimento     / Giovane           {giovane}         <= {giovane,nascimento}       hit
+        Gustavo Nunes Gomes    / Gustavo Nunes     {gustavo,nunes}   <= {gustavo,nunes,gomes}      hit
+        Gabriel Jesus          / Gabriel Magalhaes neither is a subset of the other            NO hit
+
+    Subset ALONE is not enough: it would break the case this gate was built for.
+    `Antonio Martinez` / `Toni Martinez` is a subset of neither, but they ARE the same man and
+    UNMATCHED-2026-08-28 exists because asserting his absence killed a live single. So a shared
+    SURNAME token still counts on its own -- the last token of either name appearing in the
+    other's tokens.
+
+    ⚠️ Still exact tokens, so the reverted substring bug stays reverted: `jack` (Hinshelwood)
+    neither equals nor is a subset involving `jackson`, and the gate keeps catching Nicolas
+    Jackson, which is the one player it was built for.
     """
     n = 0
     for cand, _ in squad:
@@ -119,11 +155,15 @@ def surname_hits(name, squad):
         for ot in forms(name):
             if not ot:
                 continue
+            os_ = set(ot)
             for ct in forms(cand):
-                for a in ot:
-                    if a in ct:
-                        hit = True
-                        break
+                cs = set(ct)
+                if not cs:
+                    continue
+                if os_ <= cs or cs <= os_:          # containment either direction
+                    hit = True
+                elif ot[-1] in cs or ct[-1] in os_:  # shared surname token
+                    hit = True
                 if hit:
                     break
             if hit:
