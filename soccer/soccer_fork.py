@@ -99,10 +99,10 @@ def seams(payload_js):
     #     something updates when the board does not even display it is a lie in the one place
     #     that is meant to stop him betting on a stale card.
     add('psa',
-        'confirmed in a posted lineup. Until then this board keeps re-drafting: '
+        'confirmed in a posted lineup. This board keeps re-drafting: '
         'as lineups drop, Vegas odds move and the weather updates, legs get swapped and slips can '
         'leave the card entirely.',
-        'confirmed in a published XI. Until then this board keeps re-drafting: '
+        'confirmed in a published XI. This board keeps re-drafting: '
         'as team news lands and the odds move, legs get swapped and slips can '
         'leave the card entirely.')
 
