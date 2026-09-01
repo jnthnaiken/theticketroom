@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T19:21:47Z",
+  "pulled_at": "2026-09-01T19:26:47Z",
   "games": [
     {
       "gamePk": 824472,
@@ -479,7 +479,7 @@
         "wind_mph": 3.2,
         "wind_dir": 98,
         "tail_mph": -1.9,
-        "precip": 22
+        "precip": 28
       },
       "wf": 0.987
     },
@@ -653,13 +653,13 @@
         "wind_mph": 7.4,
         "wind_dir": 273,
         "tail_mph": 0.5,
-        "precip": 4
+        "precip": 5
       },
       "wf": 1.029
     },
     {
       "gamePk": 824070,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-01T23:40:00Z",
       "matchup": "MIA@KC",
       "away": {
@@ -681,10 +681,56 @@
           "hr9": 0.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.188
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.167
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.215
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.149
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.137
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.148
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.118
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.121
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -735,7 +781,7 @@
         "wind_mph": 7.6,
         "wind_dir": 236,
         "tail_mph": 6.8,
-        "precip": 3
+        "precip": 2
       },
       "wf": 1.057
     },
