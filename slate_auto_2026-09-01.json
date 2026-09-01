@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T19:57:04Z",
+  "pulled_at": "2026-09-01T20:00:48Z",
   "games": [
     {
       "gamePk": 824472,
@@ -125,16 +125,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 96\u00b0",
-        "lean": "Boost",
-        "temp": 96.1,
-        "wind_mph": 3.9,
-        "wind_dir": 280,
-        "tail_mph": 2.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.046
+      "wf": 1.0
     },
     {
       "gamePk": 823340,
@@ -258,16 +251,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 88\u00b0",
-        "lean": "Boost",
-        "temp": 88.1,
-        "wind_mph": 10.9,
-        "wind_dir": 259,
-        "tail_mph": 10.8,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 1.065
+      "wf": 1.0
     },
     {
       "gamePk": 822929,
@@ -523,16 +509,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 88\u00b0",
-        "lean": "Boost",
-        "temp": 88.1,
-        "wind_mph": 10.7,
-        "wind_dir": 280,
-        "tail_mph": -1.9,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.021
+      "wf": 1.0
     },
     {
       "gamePk": 824716,
@@ -656,16 +635,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 66\u00b0",
-        "lean": "Neutral",
-        "temp": 66.1,
-        "wind_mph": 3.2,
-        "wind_dir": 98,
-        "tail_mph": -1.9,
-        "precip": 28
+        "note": "weather fetch failed"
       },
-      "wf": 0.987
+      "wf": 1.0
     },
     {
       "gamePk": 822687,
@@ -743,16 +715,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 96\u00b0",
-        "lean": "Boost",
-        "temp": 96.3,
-        "wind_mph": 6.8,
-        "wind_dir": 243,
-        "tail_mph": 5.7,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.059
+      "wf": 1.0
     },
     {
       "gamePk": 823661,
@@ -830,16 +795,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 88\u00b0",
-        "lean": "Boost",
-        "temp": 88.2,
-        "wind_mph": 7.4,
-        "wind_dir": 273,
-        "tail_mph": 0.5,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 1.029
+      "wf": 1.0
     },
     {
       "gamePk": 824070,
@@ -917,16 +875,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 100\u00b0",
-        "lean": "Boost",
-        "temp": 99.7,
-        "wind_mph": 11.7,
-        "wind_dir": 200,
-        "tail_mph": 10.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.08
+      "wf": 1.0
     },
     {
       "gamePk": 824633,
@@ -1004,20 +955,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 92\u00b0",
-        "lean": "Boost",
-        "temp": 91.8,
-        "wind_mph": 7.6,
-        "wind_dir": 236,
-        "tail_mph": 6.8,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.057
+      "wf": 1.0
     },
     {
       "gamePk": 822854,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T00:05:00Z",
       "matchup": "ATH@TEX",
       "away": {
@@ -1028,8 +972,54 @@
           "hr9": 0.96,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.099
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.19
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.143
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.177
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.074
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.095
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.155
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.141
+          },
+          {
+            "id": 672016,
+            "name": "Denzel Clarke",
+            "iso": 0.019
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TEX",
@@ -1039,10 +1029,56 @@
           "hr9": 1.08,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.233
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.179
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.196
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.159
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.175
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.189
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.1
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.122
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.165
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1125,16 +1161,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 85.7,
-        "wind_mph": 1.6,
-        "wind_dir": 180,
-        "tail_mph": 1.6,
-        "precip": 3
+        "note": "weather fetch failed"
       },
-      "wf": 1.029
+      "wf": 1.0
     },
     {
       "gamePk": 823984,
@@ -1166,16 +1195,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 77\u00b0",
-        "lean": "Boost",
-        "temp": 77.3,
-        "wind_mph": 7.1,
-        "wind_dir": 229,
-        "tail_mph": 7.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.035
+      "wf": 1.0
     },
     {
       "gamePk": 825038,
@@ -1247,16 +1269,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 70.1,
-        "wind_mph": 6.2,
-        "wind_dir": 251,
-        "tail_mph": 4.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     }
   ]
 }
