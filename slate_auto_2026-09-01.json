@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T19:36:55Z",
+  "pulled_at": "2026-09-01T19:41:53Z",
   "games": [
     {
       "gamePk": 824472,
@@ -884,7 +884,7 @@
     },
     {
       "gamePk": 824633,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-01T23:40:00Z",
       "matchup": "MIL@CHC",
       "away": {
@@ -906,10 +906,56 @@
           "hr9": 1.39,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.291
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.217
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.182
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.233
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.099
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.152
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.133
+          },
+          {
+            "id": 681230,
+            "name": "BJ Murray Jr.",
+            "iso": null
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.19
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
