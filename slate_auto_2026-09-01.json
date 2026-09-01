@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T19:11:43Z",
+  "pulled_at": "2026-09-01T19:16:42Z",
   "games": [
     {
       "gamePk": 824472,
@@ -92,7 +92,7 @@
     },
     {
       "gamePk": 823340,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-01T22:40:00Z",
       "matchup": "SF@PIT",
       "away": {
@@ -114,10 +114,56 @@
           "hr9": 0.87,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.136
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.225
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.159
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.089
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.221
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.291
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.14
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.072
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -317,8 +363,54 @@
           "hr9": 1.07,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.191
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.227
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.157
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.188
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.096
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.14
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": null
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.126
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.1
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
