@@ -8,32 +8,50 @@ def _dec(am):
     return 1 + am / 100.0 if am > 0 else 1 + 100.0 / abs(am)
 
 
-def _rrnet(dec, mask, risk):
-    # RRSTAKE-2026-08-28. `risk` is the TOTAL staked across the round robin -- 2u on a moon, which
-    # is 3 doubles + 1 treble at 0.5u each, NOT 1u each. Adding the bare decimal product settled a
-    # 2u slip as though 4u were down and credited every winner roughly double. Mirrors the same
-    # fix in grade_night.py and index.html's rrmax().
-    K = len(dec)
-    ncombo = _ncombo(K)
-    unit = (risk / ncombo) if ncombo else 0.0
-    s = -risk
-    for a in range(K):
-        for b in range(a + 1, K):
-            if mask[a] and mask[b]:
-                s += unit * dec[a] * dec[b]
-    for a in range(K):
-        for b in range(a + 1, K):
-            for c in range(b + 1, K):
-                if mask[a] and mask[b] and mask[c]:
-                    s += unit * dec[a] * dec[b] * dec[c]
-    if K >= 4:
-        for a in range(K):
-            for b in range(a + 1, K):
-                for c in range(b + 1, K):
-                    for d in range(c + 1, K):
-                        if mask[a] and mask[b] and mask[c] and mask[d]:
-                            s += unit * dec[a] * dec[b] * dec[c] * dec[d]
-    return s
+def _combos(L):
+    """Every parlay a 'by 2s & 3' round robin places over L legs (plus the 4-fold when the slip is
+    that wide). Enumerated over the ORIGINAL leg count, because that is what the stake was split
+    across at placement -- a leg voiding hours later cannot change the denominator."""
+    import itertools
+    sizes = [2, 3] + ([4] if L >= 4 else [])
+    return [c for z in sizes if L >= z for c in itertools.combinations(range(L), z)]
+
+
+def _rrnet(dec, state, mask, risk):
+    """RRVOID-2026-09-01 -- A VOID LEG REDUCES ITS PARLAYS. IT DOES NOT MOVE MONEY ONTO THE SURVIVORS.
+
+    What this replaced took only the SURVIVING legs and re-derived the whole round robin over them,
+    so `ncombo` shrank while `risk` did not:
+      * ONE void on a 3-leg 2u moon put the full 2u on the single remaining double -- four times the
+        0.5u actually placed.
+      * TWO voids left ncombo at 0, unit at 0.0, and returned -risk unconditionally, so a slip whose
+        one surviving leg scored was booked as a full loss, and booked by the still-alive check
+        BEFORE that leg's match was final.
+    Worked example (-138/+350/+260 at 2u, the real 'From Distance' slip):
+        one void, both survivors score    +13.52 booked  ->   +8.87 real
+        two voids, survivor scores         -2.00 booked  ->   +1.09 real
+
+    The book settles by REDUCTION: a void leg drops out of every parlay it is on and that parlay pays
+    on what is left; a parlay whose every leg voided refunds its own stake. `state` is 'h'/'m'/'v'
+    per ORIGINAL leg; `mask` says which legs count as winners for this evaluation.
+    A slip with no void leg is arithmetically identical to the RRSTAKE-2026-08-28 loop this replaces.
+    Keep in lockstep with grade_night.py grade_ticket() and rrnet() in index.html."""
+    L = len(state)
+    cs = _combos(L)
+    if not cs:
+        return 0.0
+    unit = risk / len(cs)
+    ret = 0.0
+    for combo in cs:
+        live = [i for i in combo if state[i] != 'v']
+        if not live:
+            ret += 1.0                                  # every leg on this parlay voided -> stake back
+        elif all(mask[i] for i in live):
+            p = 1.0
+            for i in live:
+                p *= dec[i]
+            ret += p
+    return unit * ret - risk
 
 
 def _ncombo(K):
@@ -48,12 +66,19 @@ def grade_ticket(t, players, finals, stake_base=1.0):
     legs = t.get('players') or []
     if not legs:
         return None
-    kept = []
+    state, decs, kept = [], [], []
     for l in legs:
         p = players.get(l['name'], {})
         hr = bool(p.get('hr'))
+        if l.get('odds') in (None, 0):
+            # NULLPRICE-2026-08-22, ported from grade_night.py. A leg minted with no price is not a
+            # wager, and _dec(None) raises TypeError -- which here would take the whole settle run
+            # down and leave the night ungraded. Void it, the same refund a scratched leg takes.
+            print(f"  ::warning::void leg with no price: {t.get('name')} / {l.get('name')}")
+            state.append('v'); decs.append(1.0); continue
         if not hr and (p.get('void') or p.get('out')):
-            continue
+            state.append('v'); decs.append(_dec(l['odds'])); continue
+        state.append('h' if hr else 'm'); decs.append(_dec(l['odds']))
         kept.append({'odds': l.get('odds'), 'game': l.get('game'), 'hr': hr})
     if not kept:
         return None
@@ -62,14 +87,19 @@ def grade_ticket(t, players, finals, stake_base=1.0):
     cashed = all(x['hr'] for x in kept)
     rr = t.get('rr')
     if rr:
-        dec = [_dec(x['odds']) for x in kept]
         risk = rr.get('risk', 2.0)
-        still = [x['hr'] or not is_final(x['game']) for x in kept]
-        if _rrnet(dec, still, risk) <= 0:
-            return {'kind': t['kind'], 'stake': risk, 'net': -risk, 'won': False}
+        hit = [s == 'h' for s in state]
+        still = [hit[i] or (state[i] != 'v' and not is_final(legs[i].get('game')))
+                 for i in range(len(state))]
+        # A dead slip settles at what it actually returns, NOT at a flat -risk: under reduction it
+        # can still owe the refund from its all-void combinations. The flat -risk was also what made
+        # this file disagree with a partially-cashing round robin on the board.
+        if _rrnet(decs, state, still, risk) <= 0:
+            net = _rrnet(decs, state, hit, risk)
+            return {'kind': t['kind'], 'stake': risk, 'net': net, 'won': False}
         if not fin:
             return None
-        net = _rrnet(dec, [x['hr'] for x in kept], risk)
+        net = _rrnet(decs, state, hit, risk)
         return {'kind': t['kind'], 'stake': risk, 'net': net, 'won': net > 0}
     if not cashed and not fin:
         return None
