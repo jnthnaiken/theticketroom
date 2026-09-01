@@ -61,7 +61,12 @@ def results_for(date):
         ds, ab = (st.get('detailedState') or ''), (st.get('abstractGameState') or '')
         if re.search('postpon', ds, re.I):
             for sd in ('away', 'home'):
-                try: ppd.add(g['teams'][sd]['team']['abbreviation'])
+                try:
+                    _tm = g['teams'][sd]['team']
+                    # PPDNAME-2026-09-01: every spelling a board leg might use. `abbreviation` is what
+                    # this set used to hold alone; `teamName` ("Giants") is what the legs actually carry.
+                    for _k in ('abbreviation', 'teamName', 'clubName', 'name'):
+                        if _tm.get(_k): ppd.add(str(_tm[_k]).strip().upper())
                 except Exception: pass
             continue
         if not (re.search('final|completed|over', ds, re.I) or ab.lower() == 'final'):
@@ -87,8 +92,13 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
     if not legs:
         return None
     def ppd_void(l):
-        code = (l.get('team') or l.get('code') or '')[:3].upper()
-        return code in ppd_codes
+        # PPDNAME-2026-09-01: a board leg carries the FULL club name ("Giants"), not a team code, so
+        # `raw[:3]` was "GIA" and could never match a StatsAPI abbreviation ("SF") -- this predicate
+        # was dead, and a postponement only ever voided through the `nm not in played` path below.
+        # results_for() now collects both spellings of every postponed club; match either, and keep
+        # the 3-char prefix so an older board that really does carry a code still works.
+        raw = (l.get('team') or l.get('code') or '').strip().upper()
+        return bool(raw) and (raw in ppd_codes or raw[:3] in ppd_codes)
     # leg state: True=HR, False=miss, None=void(refund). A leg VOIDS (refund, never a loss) when its
     # game was postponed OR the batter took no plate appearance in his final game (benched / late
     # scratch / DNP). This mirrors the live board's gradeTicket(), which voids any out/void leg that
@@ -103,42 +113,63 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
     # benched bat takes. If that empties the ticket, the existing `not kept` branch refunds the
     # whole slip. Voiding is also the honest grade: no price was ever shown, so nothing was risked
     # at a knowable number. This is a backstop; the real fix is not minting an unpriced leg.
-    kept = []
+    # RRVOID-2026-09-01 -- A VOID LEG REDUCES ITS PARLAYS. IT DOES NOT MOVE MONEY ONTO THE SURVIVORS.
+    # `risk` is split across the combinations of the ORIGINAL legs at placement time. What this
+    # replaced deleted the void legs and re-derived the whole round robin over the K survivors, so
+    # the denominator shrank while `risk` did not:
+    #   * ONE void on a 3-leg 2u moon put the full 2u on the single surviving double -- 4x the 0.5u
+    #     actually placed. Worked example (-138/+350/+260, 2u, both survivors score): +13.52 booked
+    #     against a real +8.87.
+    #   * TWO voids left `ncombo` at 0, `unit` at 0.0, and `net = -risk` UNCONDITIONALLY -- a full 2u
+    #     loss booked even when the one surviving leg homered, and booked by the still-alive check
+    #     before that leg's game was even final. Same example: -2.00 booked against a real +1.09.
+    # The book settles it by reduction: a void leg drops out of every parlay it is on and that parlay
+    # pays on what is left; a parlay whose every leg voided refunds its own stake. That is what this
+    # does. A slip with NO void leg is arithmetically identical to the RRSTAKE-2026-08-28 loop this
+    # replaces -- verified over every hit/miss/void combination -- so no clean night re-grades.
+    # Keep in lockstep with rrnet() in index.html and _rrnet() in soccer/soccer_grade.py.
+    state, decs = [], []
     for l in legs:
         nm = norm(l.get('name'))
         hr = nm in homered
         if l.get('odds') in (None, 0):
             print(f"  ::warning::void leg with no price: {t.get('name')} / {l.get('name')}")
-            continue
+            state.append('void'); decs.append(1.0); continue
         if not hr and (ppd_void(l) or nm not in played):
-            continue                          # postponed game or benched/DNP -> refund (void), not a loss
-        kept.append((l, hr))
-    if not kept:
+            state.append('void'); decs.append(dec(l['odds'])); continue   # postponed / benched / DNP -> refund
+        state.append('hit' if hr else 'miss'); decs.append(dec(l['odds']))
+    if all(s == 'void' for s in state):
         return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': None}   # whole ticket voided
     if t.get('rr'):
         risk = float(t['rr'].get('risk') or 0)
-        d  = [dec(l['odds']) for l, _ in kept]
-        hh = [h for _, h in kept]
-        K  = len(kept)
-        sizes = [2, 3] + ([4] if K >= 4 else [])
+        L = len(state)
+        sizes = [2, 3] + ([4] if L >= 4 else [])
         # RRSTAKE-2026-08-28. `risk` is the TOTAL staked across the round robin -- 2u on a moon,
         # which is 3 doubles + 1 treble at 0.5u each, NOT 1u each. This added the bare decimal
         # product for every winning combination, i.e. it settled a 2u slip as though 4u were
         # down, so every winner was credited roughly double. The stake side was always right;
         # only the return side was inflated.
-        ncombo = sum(1 for sz in sizes for _ in itertools.combinations(range(K), sz))
-        unit = (risk / ncombo) if ncombo else 0.0
-        net = -risk
-        for sz in sizes:
-            for combo in itertools.combinations(range(K), sz):
-                if all(hh[i] for i in combo):
-                    p = 1.0
-                    for i in combo: p *= d[i]
-                    net += unit * p
+        combos = [c for sz in sizes if L >= sz for c in itertools.combinations(range(L), sz)]
+        if not combos:
+            return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': None}   # too few legs to place a round robin
+        unit = risk / len(combos)
+        ret = 0.0
+        for combo in combos:
+            live = [i for i in combo if state[i] != 'void']
+            if not live:
+                ret += 1.0                                  # every leg on this parlay voided -> its stake comes back
+            elif all(state[i] == 'hit' for i in live):
+                p = 1.0
+                for i in live: p *= decs[i]
+                ret += p
+        net = unit * ret - risk
         return {'kind': t['kind'], 'stake': risk, 'net': round(net, 2), 'won': net > 0}
     # single leg / straight (payout10 path)
+    kept = [(l, state[k] == 'hit') for k, l in enumerate(legs) if state[k] != 'void']
     cashed = all(h for _, h in kept)
-    pay10 = t.get('payout10')
+    # A REDUCED straight re-prices off its surviving legs -- the baked payout10 is for the full set.
+    # Mirrors index.html: `var p10=(t.payout10&&!voided)?t.payout10:10*kept.reduce(...)`.
+    pay10 = t.get('payout10') if len(kept) == len(legs) else None
     if pay10 is None:
         dd = 1.0
         for l, _ in kept: dd *= dec(l['odds'])
