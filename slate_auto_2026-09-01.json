@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T21:37:33Z",
+  "pulled_at": "2026-09-01T21:41:20Z",
   "games": [
     {
       "gamePk": 824472,
@@ -1679,7 +1679,7 @@
     },
     {
       "gamePk": 823908,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T02:10:00Z",
       "matchup": "STL@LAD",
       "away": {
@@ -1690,8 +1690,54 @@
           "hr9": 1.26,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.116
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.132
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.211
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.188
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.314
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": null
+          },
+          {
+            "id": 602104,
+            "name": "Ram\u00f3n Ur\u00edas",
+            "iso": 0.164
+          },
+          {
+            "id": 695336,
+            "name": "Thomas Saggese",
+            "iso": 0.086
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -1704,7 +1750,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
