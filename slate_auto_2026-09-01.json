@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T21:07:13Z",
+  "pulled_at": "2026-09-01T21:12:23Z",
   "games": [
     {
       "gamePk": 824472,
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824313,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T00:40:00Z",
       "matchup": "BAL@COL",
       "away": {
@@ -1487,10 +1487,56 @@
           "hr9": 0.94,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.184
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.253
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.288
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.147
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.178
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.134
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.188
+          },
+          {
+            "id": 691182,
+            "name": "Adael Amador",
+            "iso": 0.4
+          },
+          {
+            "id": 691728,
+            "name": "Zac Veen",
+            "iso": 0.226
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
