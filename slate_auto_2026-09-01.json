@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T20:57:37Z",
+  "pulled_at": "2026-09-01T21:00:43Z",
   "games": [
     {
       "gamePk": 824472,
@@ -1344,8 +1344,54 @@
           "hr9": 1.09,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.124
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.278
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.239
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.182
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.221
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.273
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.187
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.127
+          },
+          {
+            "id": 691011,
+            "name": "Drew Romo",
+            "iso": 0.15
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -1460,7 +1506,7 @@
     },
     {
       "gamePk": 823984,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T01:38:00Z",
       "matchup": "NYY@LAA",
       "away": {
@@ -1482,10 +1528,56 @@
           "hr9": 1.26,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.196
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.187
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.091
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.14
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.109
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.094
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.141
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.119
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.054
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1569,9 +1661,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 69.8,
+        "wind_mph": 6.1,
+        "wind_dir": 260,
+        "tail_mph": 3.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.012
     }
   ]
 }
