@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T20:27:04Z",
+  "pulled_at": "2026-09-01T20:30:29Z",
   "games": [
     {
       "gamePk": 824472,
@@ -1033,8 +1033,54 @@
           "hr9": 1.42,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.195
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.172
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.129
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.224
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.138
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.143
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.11
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.128
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.101
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -1241,7 +1287,7 @@
     },
     {
       "gamePk": 824148,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T00:10:00Z",
       "matchup": "CWS@HOU",
       "away": {
@@ -1263,10 +1309,56 @@
           "hr9": 2.7,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.197
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.288
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.16
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.149
+          },
+          {
+            "id": 664774,
+            "name": "LaMonte Wade Jr.",
+            "iso": 0.14
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.202
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.157
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.153
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.178
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
