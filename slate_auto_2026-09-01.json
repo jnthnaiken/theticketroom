@@ -1,11 +1,11 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-01T18:30:32Z",
+  "pulled_at": "2026-09-01T18:37:06Z",
   "games": [
     {
       "gamePk": 824472,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-01T22:40:00Z",
       "matchup": "SD@CIN",
       "away": {
@@ -27,10 +27,56 @@
           "hr9": 1.71,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.212
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.207
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.223
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.209
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.15
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.147
+          },
+          {
+            "id": 682877,
+            "name": "Juan Brito",
+            "iso": 0.079
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.087
+          },
+          {
+            "id": 695490,
+            "name": "Edwin Arroyo",
+            "iso": 0.035
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -296,7 +342,7 @@
     },
     {
       "gamePk": 823661,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-01T23:40:00Z",
       "matchup": "DET@MIN",
       "away": {
@@ -318,10 +364,56 @@
           "hr9": 0.57,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.118
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.189
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.228
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.215
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.164
+          },
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.157
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.162
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.172
+          },
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.333
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -649,16 +741,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 69.5,
-        "wind_mph": 6.2,
-        "wind_dir": 251,
-        "tail_mph": 4.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.014
+      "wf": 1.0
     }
   ]
 }
