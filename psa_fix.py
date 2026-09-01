@@ -65,9 +65,9 @@ s = s.replace(STYLE_END, CSS + STYLE_END, 1)
 PSA = (
     '\n <div class="psa"><span class="psa-i">⚠️</span><div><b>Wait for the '
     '<span class="psa-k">✓</span> before you place.</b> A ticket is only final once every '
-    'player on it is confirmed in a posted lineup. Until then this board keeps re-drafting: '
+    'player on it is confirmed in a posted lineup. This board keeps re-drafting: '
     'as lineups drop, Vegas odds move and the weather updates, legs get swapped and slips can '
-    'leave the card entirely. What you see now is a projection, not the bet.</div></div>'
+    'leave the card entirely. What you see until then is a projection, not the final ticket.</div></div>'
 )
 ANCHOR = ('<div class="tagline">“Every strike brings me closer to the next home run.”'
           '<span class="cite">— Babe Ruth</span></div>')
