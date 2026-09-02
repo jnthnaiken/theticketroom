@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T19:17:01Z",
+  "pulled_at": "2026-09-02T19:22:00Z",
   "games": [
     {
       "gamePk": 824470,
@@ -107,7 +107,7 @@
           {
             "id": 682877,
             "name": "Juan Brito",
-            "iso": 0.125
+            "iso": 0.123
           },
           {
             "id": 680574,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822686,
-      "status": "Delayed",
+      "status": "In Progress",
       "gameTime": "2026-09-02T17:05:00Z",
       "matchup": "ATL@WSH",
       "away": {
@@ -279,7 +279,7 @@
         "sp": {
           "id": 682052,
           "name": "Jacob Lopez",
-          "hr9": 1.52,
+          "hr9": 1.51,
           "hand": "LHP"
         },
         "lineup": [
@@ -378,12 +378,12 @@
           {
             "id": 683227,
             "name": "Cody Freeman",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 643376,
             "name": "Danny Jansen",
-            "iso": 0.165
+            "iso": 0.164
           }
         ],
         "confirmed": true
@@ -468,7 +468,7 @@
         "sp": {
           "id": 608372,
           "name": "Tomoyuki Sugano",
-          "hr9": 1.93,
+          "hr9": 1.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -1102,7 +1102,7 @@
     },
     {
       "gamePk": 824068,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T23:40:00Z",
       "matchup": "MIA@KC",
       "away": {
@@ -1124,10 +1124,56 @@
           "hr9": 0.9,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.188
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.166
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.213
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.148
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.135
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.156
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.168
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.193
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
