@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T15:30:34Z",
+  "pulled_at": "2026-09-02T15:37:24Z",
   "games": [
     {
       "gamePk": 824470,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822851,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T18:35:00Z",
       "matchup": "ATH@TEX",
       "away": {
@@ -293,10 +293,56 @@
           "hr9": 0.34,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.174
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.184
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.197
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.159
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.189
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.231
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.168
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.094
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.165
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
