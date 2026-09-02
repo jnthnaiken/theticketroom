@@ -501,7 +501,7 @@ def main():
     if len(_multi) >= LONE_MIN_MULTI:
         _cap = _multi[min(len(_multi) - 1, int(LONE_PCTL * len(_multi)))]
 
-    odds, froze, upd, new = dict(prev), 0, 0, 0
+    odds, froze, upd, new, held = dict(prev), 0, 0, 0, 0
     ambig, capped = [], []
     for n, v in hr.items():
         if not live(n):
@@ -529,11 +529,17 @@ def main():
             capped.append((n, price, to_a(_cap)))
             price = to_a(_cap)
 
+        # PRICEONCE-2026-09-02 -- WRITTEN ONCE. A bat with no price gets one; a bat who
+        # already has one keeps it for the rest of the slate. The board then drafts
+        # against the prices it SHOWED, which is also the honest thing for a card
+        # somebody is betting off. See this file's header for the measurement.
         if n not in odds:
             new += 1
-        elif odds[n] != price:
-            upd += 1
-        odds[n] = price
+            odds[n] = price
+        else:
+            if odds[n] != price:
+                upd += 1                # counted, NOT applied -- the move is logged only
+            held += 1
 
     for n, alts, pick, held in ambig:
         print(f"::warning::fetch_odds: '{n}' matched {len(alts)} rows {alts} -- "
@@ -560,8 +566,8 @@ def main():
     with open(f"markets_{date}.json", "w") as f:
         json.dump(mk, f, indent=0)
 
-    print(f"odds_{date}.json: {len(odds)} prices ({new} new, {upd} moved, {froze} frozen "
-          f"at first pitch, {len(prev)} carried)")
+    print(f"odds_{date}.json: {len(odds)} prices ({new} new, {held} held by PRICEONCE "
+          f"[{upd} would have moved], {froze} frozen at first pitch, {len(prev)} carried)")
     if snap:
         print("::notice::closing odds snapshot -- staging odds/markets for commit")
     emit("snapshot", "true" if snap else "false")
