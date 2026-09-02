@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T20:30:33Z",
+  "pulled_at": "2026-09-02T20:32:26Z",
   "games": [
     {
       "gamePk": 824470,
@@ -301,7 +301,7 @@
           {
             "id": 641680,
             "name": "Jonah Heim",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 643446,
@@ -708,7 +708,7 @@
           {
             "id": 702284,
             "name": "Cole Young",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 642215,
@@ -1210,8 +1210,54 @@
           "hr9": 1.36,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.14
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.157
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.144
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.176
+          },
+          {
+            "id": 680664,
+            "name": "Eduardo Valencia",
+            "iso": 0.324
+          },
+          {
+            "id": 814430,
+            "name": "Brett Callahan",
+            "iso": 0.188
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.158
+          },
+          {
+            "id": 807726,
+            "name": "John Peck",
+            "iso": 0.0
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.099
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIN",
@@ -1460,7 +1506,7 @@
     },
     {
       "gamePk": 824147,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-03T00:10:00Z",
       "matchup": "CWS@HOU",
       "away": {
@@ -1471,8 +1517,54 @@
           "hr9": 0.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.123
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.274
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.237
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.179
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.13
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.222
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.128
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.185
+          },
+          {
+            "id": 691011,
+            "name": "Drew Romo",
+            "iso": 0.148
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -1485,7 +1577,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
