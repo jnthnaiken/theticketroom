@@ -2971,6 +2971,7 @@ var _cmA={}, _cmB={};
       var ord=[]; seen.forEach(function(a){ ord=ord.concat(grp[a]); });
       slots.forEach(function(p,k){ out[p]=ord[k]; });
     })();
+    /* ANCHORISMOONS-2026-09-02 -- AN ANCHOR IS DEFINED BY ITS MOONS. Port of the soccer rule (ORPHANSECTION/ANCHORISMOONS-2026-08-29, owner: "a single-leg slip with no moon behind it is a leftover"). The client mints a builder from the anchor list, and when that bat's moon pair cannot be built -- typically because a LOCKED moon already owns him as a leg -- the builder was left standing and rendered as a fifth anchor section leading nothing, with the bat on two slips at once (ONE BAT, ONE SLIP, 2026-08-13). 2026-09-02: Munetaka Murakami, "Slack Tide", while he was a leg on Rafael Devers's "Terminal Climb". A LOCKED builder is a PLACED BET and is never touched. */(function(){var _mA={},_drop=[];out.forEach(function(t){if(t.kind==='moon'&&t.anchor)_mA[t.anchor]=1;});out=out.filter(function(t){if(t.kind!=='builder')return true;var _b=(((t.players||[])[0])||{}).name||t.anchor;if(!_b||_mA[_b])return true;if(t.locked)return true;_drop.push(t.name+' ('+_b+')');return false;});if(_drop.length&&typeof console!=='undefined'&&console.log)console.log('[anchorismoons] builder with no moon behind it -> dropped: '+_drop.join(', '));})();
     D.tickets = (_baked && _baked.length) ? _baked : out;   /* BAKED-2026-08-18: the day is over -- ship the board as it finished */
   }
 
