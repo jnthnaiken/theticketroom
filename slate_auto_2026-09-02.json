@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T20:07:20Z",
+  "pulled_at": "2026-09-02T20:12:41Z",
   "games": [
     {
       "gamePk": 824470,
@@ -125,16 +125,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 90\u00b0",
-        "lean": "Boost",
-        "temp": 90.0,
-        "wind_mph": 5.2,
-        "wind_dir": 223,
-        "tail_mph": 5.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.048
+      "wf": 1.0
     },
     {
       "gamePk": 822686,
@@ -193,7 +186,7 @@
           {
             "id": 673490,
             "name": "Ha-Seong Kim",
-            "iso": 0.0
+            "iso": 0.01
           }
         ],
         "confirmed": true
@@ -301,7 +294,7 @@
           {
             "id": 641680,
             "name": "Jonah Heim",
-            "iso": 0.174
+            "iso": 0.183
           },
           {
             "id": 643446,
@@ -485,7 +478,7 @@
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.285
+            "iso": 0.287
           },
           {
             "id": 681198,
@@ -544,7 +537,7 @@
         "sp": {
           "id": 691725,
           "name": "Andrew Painter",
-          "hr9": 1.54,
+          "hr9": 1.52,
           "hand": "RHP"
         },
         "lineup": [
@@ -668,7 +661,7 @@
     },
     {
       "gamePk": 824717,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-02T20:10:00Z",
       "matchup": "SEA@BOS",
       "away": {
