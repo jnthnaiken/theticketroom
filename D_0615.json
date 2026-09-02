@@ -40949,7 +40949,7 @@
     "precip": 0
    }
   },
-  "build": "9/2 6:18pm",
+  "build": "9/2 6:23pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -41142,7 +41142,7 @@
    "Hunter Goodman"
   ],
   "chalkstate": {
-   "b": "9/2 6:18pm",
+   "b": "9/2 6:23pm",
    "s": {
     "Pete Alonso": {
      "v": 1,
@@ -41519,74 +41519,6 @@
    "payout10": 1039.5
   },
   {
-   "name": "Heat Shield Off",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong is scorching the ball (58% hard-hit), Caglianone swings with usable power (63/100), and Goldschmidt plays in a slightly friendly yard.",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 169.5,
-     "aT": 100,
-     "wf": 1.079,
-     "gmatch": "MIL@CHC",
-     "gtime": "7:40 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 285,
-     "status": "confirmed"
-    },
-    {
-     "name": "Jac Caglianone",
-     "team": "Royals",
-     "total": 150.4,
-     "aT": 100,
-     "wf": 1.096,
-     "gmatch": "MIA@KC",
-     "gtime": "7:40 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 370,
-     "status": "confirmed"
-    },
-    {
-     "name": "Paul Goldschmidt",
-     "team": "Yankees",
-     "total": 142,
-     "aT": 100,
-     "wf": 1.039,
-     "gmatch": "NYY@LAA",
-     "gtime": "9:38 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 450,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "7:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 80.3,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 2,
-   "priced": 3,
-   "parlay_am": 9852,
-   "payout10": 995.23
-  },
-  {
    "name": "Burning the Midnight Oil",
    "kind": "late",
    "badge": "\ud83c\udf03",
@@ -41775,6 +41707,74 @@
    "priced": 1,
    "parlay_am": 340,
    "payout10": 44
+  },
+  {
+   "name": "Heat Shield Off",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Crow-Armstrong is scorching the ball (58% hard-hit), Caglianone swings with usable power (63/100), and Goldschmidt plays in a slightly friendly yard.",
+   "players": [
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 169.5,
+     "aT": 100,
+     "wf": 1.079,
+     "gmatch": "MIL@CHC",
+     "gtime": "7:40 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 285,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jac Caglianone",
+     "team": "Royals",
+     "total": 150.4,
+     "aT": 100,
+     "wf": 1.096,
+     "gmatch": "MIA@KC",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 370,
+     "status": "confirmed"
+    },
+    {
+     "name": "Paul Goldschmidt",
+     "team": "Yankees",
+     "total": 142,
+     "aT": 100,
+     "wf": 1.039,
+     "gmatch": "NYY@LAA",
+     "gtime": "9:38 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 450,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Pete Crow-Armstrong",
+   "lock": "7:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 80.3,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 2,
+   "priced": 3,
+   "parlay_am": 9852,
+   "payout10": 995.23
   },
   {
    "name": "Into the Upper Air",
