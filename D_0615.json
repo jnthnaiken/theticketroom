@@ -40949,7 +40949,7 @@
     "precip": 0
    }
   },
-  "build": "9/2 6:08pm",
+  "build": "9/2 6:13pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -41135,8 +41135,14 @@
   },
   "date": "2026-09-02",
   "gs": {},
+  "chalkever": [
+   "Pete Alonso",
+   "Coby Mayo",
+   "Shohei Ohtani",
+   "Hunter Goodman"
+  ],
   "chalkstate": {
-   "b": "9/2 6:08pm",
+   "b": "9/2 6:13pm",
    "s": {
     "Pete Alonso": {
      "v": 1,
@@ -41162,70 +41168,10 @@
    "Shohei Ohtani",
    "Hunter Goodman"
   ],
-  "chalkever": [
-   "Pete Alonso",
-   "Coby Mayo",
-   "Shohei Ohtani",
-   "Hunter Goodman"
-  ],
   "pool": 417,
   "gate": 56,
   "tickets": 13
  },
- "pool": [
-  "Matt Olson",
-  "Munetaka Murakami",
-  "Kyle Schwarber",
-  "Yordan Alvarez",
-  "Pete Crow-Armstrong",
-  "Gunnar Henderson",
-  "Samuel Basallo",
-  "Bobby Witt",
-  "Rafael Devers",
-  "Fernando Tatis",
-  "Luis Robert",
-  "Colson Montgomery",
-  "JJ Bleday",
-  "Jac Caglianone",
-  "Riley Greene",
-  "Junior Caminero",
-  "Bryce Eldridge",
-  "Kody Clemens",
-  "Kazuma Okamoto",
-  "Drake Baldwin",
-  "Gary S\u00e1nchez",
-  "Salvador Perez",
-  "Carter Jensen",
-  "Heriberto Hern\u00e1ndez",
-  "Sal Stewart",
-  "Jackson Merrill",
-  "Ty France",
-  "Paul Goldschmidt",
-  "Vinnie Pasquantino",
-  "Elly De La Cruz",
-  "Brandon Lowe",
-  "Ronald Acu\u00f1a",
-  "Seiya Suzuki",
-  "Abimelec Ortiz",
-  "Mike Trout",
-  "Juan Soto",
-  "Jackson Chourio",
-  "Heliot Ramos",
-  "Wyatt Langford",
-  "Oneil Cruz",
-  "Jake Burger",
-  "Nolan Gorman",
-  "Royce Lewis",
-  "Austin Riley",
-  "Andr\u00e9s Chaparro",
-  "Miguel Vargas",
-  "Victor Mesa",
-  "Wilyer Abreu",
-  "Corbin Carroll",
-  "Corey Seager",
-  "Francisco Lindor",
-  "Andrew Vaughn"
- ],
  "tickets": [
   {
    "name": "Orbital Insertion",
@@ -41290,7 +41236,11 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 9665,
+   "payout10": 976.5
   },
   {
    "name": "Star Sailor",
@@ -41355,7 +41305,11 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 9014,
+   "payout10": 911.4
   },
   {
    "name": "Going Supersonic",
@@ -41420,7 +41374,11 @@
     "dome": 2,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 6940,
+   "payout10": 704.02
   },
   {
    "name": "The Slingshot",
@@ -41485,78 +41443,17 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
-  },
-  {
-   "name": "Heat Shield Off",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong projects out to 170, Caglianone is teeing off (68% hard-hit), and Goldschmidt gets ideal loft (21\u00b0).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 169.5,
-     "aT": 100,
-     "wf": 1.079,
-     "gmatch": "MIL@CHC",
-     "gtime": "7:40 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 285,
-     "status": "confirmed"
-    },
-    {
-     "name": "Jac Caglianone",
-     "team": "Royals",
-     "total": 150.4,
-     "aT": 100,
-     "wf": 1.096,
-     "gmatch": "MIA@KC",
-     "gtime": "7:40 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 370,
-     "status": "confirmed"
-    },
-    {
-     "name": "Paul Goldschmidt",
-     "team": "Yankees",
-     "total": 142,
-     "aT": 100,
-     "wf": 1.039,
-     "gmatch": "NYY@LAA",
-     "gtime": "9:38 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 450,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "7:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 80.3,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 2
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 8371,
+   "payout10": 847.08
   },
   {
    "name": "Beyond the Bleachers",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong is teeing off (58% hard-hit), Greene gets a sliver of help from the park, and Pasquantino packs a big-league power grade (83/100).",
+   "note": "Crow-Armstrong is teeing off (58% hard-hit), Greene plays in a slightly friendly yard, and Pasquantino grades out strong for power (83/100).",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -41615,7 +41512,79 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 10295,
+   "payout10": 1039.5
+  },
+  {
+   "name": "Heat Shield Off",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Crow-Armstrong is scorching the ball (58% hard-hit), Caglianone swings with usable power (63/100), and Goldschmidt catches a small park boost.",
+   "players": [
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 169.5,
+     "aT": 100,
+     "wf": 1.079,
+     "gmatch": "MIL@CHC",
+     "gtime": "7:40 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 285,
+     "status": "confirmed"
+    },
+    {
+     "name": "Jac Caglianone",
+     "team": "Royals",
+     "total": 150.4,
+     "aT": 100,
+     "wf": 1.096,
+     "gmatch": "MIA@KC",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 370,
+     "status": "confirmed"
+    },
+    {
+     "name": "Paul Goldschmidt",
+     "team": "Yankees",
+     "total": 142,
+     "aT": 100,
+     "wf": 1.039,
+     "gmatch": "NYY@LAA",
+     "gtime": "9:38 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 450,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Pete Crow-Armstrong",
+   "lock": "7:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 80.3,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 2,
+   "priced": 3,
+   "parlay_am": 9852,
+   "payout10": 995.23
   },
   {
    "name": "Into the Upper Air",
@@ -41680,7 +41649,201 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 12255,
+   "payout10": 1235.52
+  },
+  {
+   "name": "Burning the Midnight Oil",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Mike Trout is consistently barreling up (54% hard-hit), swings with natural lift (23\u00b0), plays in a slightly friendly yard, and grades near the top of the slate for power (100/100).",
+   "players": [
+    {
+     "name": "Mike Trout",
+     "team": "Angels",
+     "total": 137.9,
+     "aT": 100,
+     "wf": 1.039,
+     "gmatch": "NYY@LAA",
+     "gtime": "9:38 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 470,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Mike Trout",
+   "lock": "9:38 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 470,
+   "payout10": 57
+  },
+  {
+   "name": "Following Sea",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Munetaka Murakami is making thunderous contact (65% hard-hit), sends it skyward (19\u00b0), sits in the elite power tier (100/100), projects out to 171.",
+   "players": [
+    {
+     "name": "Munetaka Murakami",
+     "team": "White Sox",
+     "total": 170.9,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CWS@HOU",
+     "gtime": "8:10 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 272,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Munetaka Murakami",
+   "lock": "8:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 272,
+   "payout10": 37.2
+  },
+  {
+   "name": "Set the Hook",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Yordan Alvarez is hitting frozen ropes (60% hard-hit), gets under it just right (22\u00b0), grades near the top of the slate for power (100/100).",
+   "players": [
+    {
+     "name": "Yordan Alvarez",
+     "team": "Astros",
+     "total": 170.4,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CWS@HOU",
+     "gtime": "8:10 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 262,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Yordan Alvarez",
+   "lock": "8:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 262,
+   "payout10": 36.2
+  },
+  {
+   "name": "The Capstan",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Pete Crow-Armstrong plays in a wind tunnel pointed at the seats, is crushing the baseball (58% hard-hit), stays in the launch zone (23\u00b0).",
+   "players": [
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 169.5,
+     "aT": 100,
+     "wf": 1.079,
+     "gmatch": "MIL@CHC",
+     "gtime": "7:40 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 285,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Pete Crow-Armstrong",
+   "lock": "7:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 285,
+   "payout10": 38.5
+  },
+  {
+   "name": "Anchors Aweigh",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Bobby Witt gets a park that's launching everything tonight, finds the home-run trajectory (23\u00b0), is connecting solidly (50% hard-hit).",
+   "players": [
+    {
+     "name": "Bobby Witt",
+     "team": "Royals",
+     "total": 158.5,
+     "aT": 100,
+     "wf": 1.096,
+     "gmatch": "MIA@KC",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 340,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Bobby Witt",
+   "lock": "7:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 340,
+   "payout10": 44
   },
   {
    "name": "The Apollo",
@@ -41745,177 +41908,46 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
-  },
-  {
-   "name": "Burning the Midnight Oil",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Mike Trout is consistently barreling up (54% hard-hit), swings with natural lift (23\u00b0), plays in a slightly friendly yard, and has the raw juice to clear any wall (100/100 power).",
-   "players": [
-    {
-     "name": "Mike Trout",
-     "team": "Angels",
-     "total": 137.9,
-     "aT": 100,
-     "wf": 1.039,
-     "gmatch": "NYY@LAA",
-     "gtime": "9:38 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 470,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Mike Trout",
-   "lock": "9:38 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
-  },
-  {
-   "name": "Following Sea",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Munetaka Murakami is making thunderous contact (65% hard-hit), sends it skyward (19\u00b0), sits in the elite power tier (100/100), projects out to 171.",
-   "players": [
-    {
-     "name": "Munetaka Murakami",
-     "team": "White Sox",
-     "total": 170.9,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CWS@HOU",
-     "gtime": "8:10 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 272,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Munetaka Murakami",
-   "lock": "8:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 1
-  },
-  {
-   "name": "Set the Hook",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Yordan Alvarez is hitting frozen ropes (60% hard-hit), gets under it just right (22\u00b0), grades near the top of the slate for power (100/100).",
-   "players": [
-    {
-     "name": "Yordan Alvarez",
-     "team": "Astros",
-     "total": 170.4,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CWS@HOU",
-     "gtime": "8:10 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 262,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Yordan Alvarez",
-   "lock": "8:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 1
-  },
-  {
-   "name": "The Capstan",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Pete Crow-Armstrong plays in a wind tunnel pointed at the seats, is crushing the baseball (58% hard-hit), stays in the launch zone (23\u00b0).",
-   "players": [
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 169.5,
-     "aT": 100,
-     "wf": 1.079,
-     "gmatch": "MIL@CHC",
-     "gtime": "7:40 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 285,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Pete Crow-Armstrong",
-   "lock": "7:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
-  },
-  {
-   "name": "Anchors Aweigh",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Bobby Witt gets a park that's launching everything tonight, finds the home-run trajectory (23\u00b0), is connecting solidly (50% hard-hit).",
-   "players": [
-    {
-     "name": "Bobby Witt",
-     "team": "Royals",
-     "total": 158.5,
-     "aT": 100,
-     "wf": 1.096,
-     "gmatch": "MIA@KC",
-     "gtime": "7:40 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 340,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Bobby Witt",
-   "lock": "7:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 11813,
+   "payout10": 1191.3
   }
+ ],
+ "pool": [
+  "Matt Olson",
+  "Kyle Schwarber",
+  "Gunnar Henderson",
+  "Samuel Basallo",
+  "Fernando Tatis",
+  "Luis Robert",
+  "JJ Bleday",
+  "Jac Caglianone",
+  "Drake Baldwin",
+  "Sal Stewart",
+  "Jackson Merrill",
+  "Ty France",
+  "Paul Goldschmidt",
+  "Elly De La Cruz",
+  "Ronald Acu\u00f1a",
+  "Abimelec Ortiz",
+  "Juan Soto",
+  "Jackson Chourio",
+  "Heliot Ramos",
+  "Wyatt Langford",
+  "Oneil Cruz",
+  "Jake Burger",
+  "Nolan Gorman",
+  "Royce Lewis",
+  "Austin Riley",
+  "Andr\u00e9s Chaparro",
+  "Miguel Vargas",
+  "Victor Mesa",
+  "Wilyer Abreu",
+  "Corbin Carroll",
+  "Corey Seager",
+  "Francisco Lindor",
+  "Andrew Vaughn"
  ]
 }
