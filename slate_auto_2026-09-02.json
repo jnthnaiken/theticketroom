@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T17:00:37Z",
+  "pulled_at": "2026-09-02T17:06:30Z",
   "games": [
     {
       "gamePk": 824470,
@@ -13,14 +13,14 @@
         "sp": {
           "id": 663554,
           "name": "Casey Mize",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 669392,
@@ -50,17 +50,17 @@
           {
             "id": 669720,
             "name": "Austin Hays",
-            "iso": 0.096
+            "iso": 0.108
           },
           {
             "id": 669134,
             "name": "Luis Campusano",
-            "iso": 0.172
+            "iso": 0.171
           },
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.077
+            "iso": 0.076
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 682227,
           "name": "Brandon Williamson",
-          "hr9": 1.55,
+          "hr9": 1.52,
           "hand": "LHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822686,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-02T17:05:00Z",
       "matchup": "ATL@WSH",
       "away": {
@@ -501,8 +501,54 @@
           "hr9": 1.56,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.28
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.138
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.235
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.115
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.149
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.154
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.084
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.135
+          },
+          {
+            "id": 650559,
+            "name": "Bryan De La Cruz",
+            "iso": 0.178
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
@@ -576,7 +622,7 @@
     },
     {
       "gamePk": 824717,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T20:10:00Z",
       "matchup": "SEA@BOS",
       "away": {
@@ -598,10 +644,56 @@
           "hr9": 1.2,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.115
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.221
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.162
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.209
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.139
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.135
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.161
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.107
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -652,7 +744,7 @@
         "wind_mph": 10.8,
         "wind_dir": 232,
         "tail_mph": 10.3,
-        "precip": 4
+        "precip": 7
       },
       "wf": 1.07
     },
@@ -733,7 +825,7 @@
         "wind_mph": 10.7,
         "wind_dir": 244,
         "tail_mph": 4.7,
-        "precip": 7
+        "precip": 4
       },
       "wf": 1.053
     },
