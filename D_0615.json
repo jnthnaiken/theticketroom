@@ -40949,7 +40949,7 @@
     "precip": 0
    }
   },
-  "build": "9/2 6:13pm",
+  "build": "9/2 6:18pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -41142,7 +41142,7 @@
    "Hunter Goodman"
   ],
   "chalkstate": {
-   "b": "9/2 6:13pm",
+   "b": "9/2 6:18pm",
    "s": {
     "Pete Alonso": {
      "v": 1,
@@ -41522,7 +41522,7 @@
    "name": "Heat Shield Off",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Crow-Armstrong is scorching the ball (58% hard-hit), Caglianone swings with usable power (63/100), and Goldschmidt catches a small park boost.",
+   "note": "Crow-Armstrong is scorching the ball (58% hard-hit), Caglianone swings with usable power (63/100), and Goldschmidt plays in a slightly friendly yard.",
    "players": [
     {
      "name": "Pete Crow-Armstrong",
@@ -41587,79 +41587,10 @@
    "payout10": 995.23
   },
   {
-   "name": "Into the Upper Air",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Witt grades to 159 on our board, Devers gets under it just right (22\u00b0), and Suzuki has the wind howling out behind him.",
-   "players": [
-    {
-     "name": "Bobby Witt",
-     "team": "Royals",
-     "total": 158.5,
-     "aT": 100,
-     "wf": 1.096,
-     "gmatch": "MIA@KC",
-     "gtime": "7:40 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 340,
-     "status": "confirmed"
-    },
-    {
-     "name": "Rafael Devers",
-     "team": "Giants",
-     "total": 158.2,
-     "aT": 100,
-     "wf": 1.09,
-     "gmatch": "SF@PIT",
-     "gtime": "6:40 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 420,
-     "status": "confirmed"
-    },
-    {
-     "name": "Seiya Suzuki",
-     "team": "Cubs",
-     "total": 139.9,
-     "aT": 100,
-     "wf": 1.079,
-     "gmatch": "MIL@CHC",
-     "gtime": "7:40 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 440,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Bobby Witt",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 97.1,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 3,
-   "locked": true,
-   "priced": 3,
-   "parlay_am": 12255,
-   "payout10": 1235.52
-  },
-  {
    "name": "Burning the Midnight Oil",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Mike Trout is consistently barreling up (54% hard-hit), swings with natural lift (23\u00b0), plays in a slightly friendly yard, and grades near the top of the slate for power (100/100).",
+   "note": "Mike Trout is consistently barreling up (54% hard-hit), swings with natural lift (23\u00b0), gets a sliver of help from the park, and grades near the top of the slate for power (100/100).",
    "players": [
     {
      "name": "Mike Trout",
@@ -41844,6 +41775,75 @@
    "priced": 1,
    "parlay_am": 340,
    "payout10": 44
+  },
+  {
+   "name": "Into the Upper Air",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Witt grades to 159 on our board, Devers gets under it just right (22\u00b0), and Suzuki has the wind howling out behind him.",
+   "players": [
+    {
+     "name": "Bobby Witt",
+     "team": "Royals",
+     "total": 158.5,
+     "aT": 100,
+     "wf": 1.096,
+     "gmatch": "MIA@KC",
+     "gtime": "7:40 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 340,
+     "status": "confirmed"
+    },
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 158.2,
+     "aT": 100,
+     "wf": 1.09,
+     "gmatch": "SF@PIT",
+     "gtime": "6:40 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 420,
+     "status": "confirmed"
+    },
+    {
+     "name": "Seiya Suzuki",
+     "team": "Cubs",
+     "total": 139.9,
+     "aT": 100,
+     "wf": 1.079,
+     "gmatch": "MIL@CHC",
+     "gtime": "7:40 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 440,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Bobby Witt",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 97.1,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 12255,
+   "payout10": 1235.52
   },
   {
    "name": "The Apollo",
