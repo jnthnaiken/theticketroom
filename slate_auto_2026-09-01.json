@@ -1,7 +1,7 @@
 {
   "date": "2026-09-01",
   "season": "2026",
-  "pulled_at": "2026-09-02T03:37:17Z",
+  "pulled_at": "2026-09-02T03:42:00Z",
   "games": [
     {
       "gamePk": 824472,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 824148,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-02T00:10:00Z",
       "matchup": "CWS@HOU",
       "away": {
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824313,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-02T00:40:00Z",
       "matchup": "BAL@COL",
       "away": {
@@ -1618,7 +1618,7 @@
           {
             "id": 641355,
             "name": "Cody Bellinger",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 671277,
@@ -1670,7 +1670,7 @@
           {
             "id": 687263,
             "name": "Zach Neto",
-            "iso": 0.197
+            "iso": 0.196
           },
           {
             "id": 545361,
@@ -1710,7 +1710,7 @@
           {
             "id": 623168,
             "name": "Tyler Heineman",
-            "iso": 0.053
+            "iso": 0.052
           }
         ],
         "confirmed": true
@@ -1838,7 +1838,7 @@
           {
             "id": 691783,
             "name": "Jordan Lawlar",
-            "iso": 0.194
+            "iso": 0.191
           },
           {
             "id": 814439,
@@ -1908,12 +1908,12 @@
           {
             "id": 602104,
             "name": "Ram\u00f3n Ur\u00edas",
-            "iso": 0.203
+            "iso": 0.2
           },
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.121
+            "iso": 0.157
           },
           {
             "id": 701675,
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 74\u00b0",
+        "lean": "Boost",
+        "temp": 73.7,
+        "wind_mph": 6.4,
+        "wind_dir": 252,
+        "tail_mph": 4.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.021
     }
   ]
 }
