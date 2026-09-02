@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T21:30:29Z",
+  "pulled_at": "2026-09-02T21:32:46Z",
   "games": [
     {
       "gamePk": 824470,
@@ -480,7 +480,7 @@
           {
             "id": 681393,
             "name": "Connor Norby",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 696100,
@@ -638,7 +638,7 @@
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.137
+            "iso": 0.16
           },
           {
             "id": 545121,
@@ -693,7 +693,7 @@
           {
             "id": 677594,
             "name": "Julio Rodr\u00edguez",
-            "iso": 0.158
+            "iso": 0.157
           },
           {
             "id": 647304,
@@ -1730,7 +1730,7 @@
     },
     {
       "gamePk": 823983,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-03T01:38:00Z",
       "matchup": "NYY@LAA",
       "away": {
@@ -1752,10 +1752,56 @@
           "hr9": 0.99,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.196
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.185
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.09
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.139
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.107
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.123
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.141
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.118
+          },
+          {
+            "id": 518595,
+            "name": "Travis d'Arnaud",
+            "iso": 0.069
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
