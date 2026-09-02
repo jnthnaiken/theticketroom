@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-02T18:41:39Z",
+  "pulled_at": "2026-09-02T18:46:39Z",
   "games": [
     {
       "gamePk": 824470,
@@ -117,7 +117,7 @@
           {
             "id": 695490,
             "name": "Edwin Arroyo",
-            "iso": 0.042
+            "iso": 0.041
           }
         ],
         "confirmed": true
@@ -291,12 +291,12 @@
           {
             "id": 680869,
             "name": "Zack Gelof",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 671732,
             "name": "Lawrence Butler",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 641680,
@@ -842,7 +842,7 @@
     },
     {
       "gamePk": 822931,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-02T22:40:00Z",
       "matchup": "NYM@TB",
       "away": {
@@ -864,10 +864,56 @@
           "hr9": 1.37,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.167
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.142
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.252
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.157
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.053
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.227
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.148
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.106
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.073
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
