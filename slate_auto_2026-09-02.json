@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-03T01:22:12Z",
+  "pulled_at": "2026-09-03T01:24:52Z",
   "games": [
     {
       "gamePk": 824470,
@@ -788,9 +788,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 9mph, 72\u00b0",
+        "lean": "Suppress",
+        "temp": 71.8,
+        "wind_mph": 10.9,
+        "wind_dir": 75,
+        "tail_mph": -9.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.97
     },
     {
       "gamePk": 823339,
@@ -927,7 +934,7 @@
     },
     {
       "gamePk": 822931,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-02T22:40:00Z",
       "matchup": "NYM@TB",
       "away": {
@@ -1059,7 +1066,7 @@
     },
     {
       "gamePk": 824390,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-02T22:40:00Z",
       "matchup": "TOR@CLE",
       "away": {
