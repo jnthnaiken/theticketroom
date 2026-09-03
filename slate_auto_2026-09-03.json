@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T20:11:37Z",
+  "pulled_at": "2026-09-03T20:16:41Z",
   "games": [
     {
       "gamePk": 823337,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824632,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-03T23:15:00Z",
       "matchup": "MIL@CHC",
       "away": {
@@ -547,8 +547,54 @@
           "hr9": 1.3,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.2
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.17
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.131
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.22
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.139
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.152
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.151
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.134
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -561,7 +607,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
