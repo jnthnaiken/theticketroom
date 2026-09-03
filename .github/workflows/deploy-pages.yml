@@ -54,7 +54,29 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # DEPLOYSLOW-2026-09-03 -- A FULL CLONE WAS THE WHOLE COST OF THE DEPLOY, and it froze the
+      # site for sixteen hours while every board build succeeded. This repo carries
+      # calibration.jsonl (24.5 MB) plus ~200 D_<date>.json boards at ~0.8 MB each, so a
+      # depth-less checkout fetched hundreds of MB of history in order to stage SEVEN files. That
+      # made a deploy 4-5 minutes against a board that rebuilds every ~4, so every deploy was
+      # superseded before Pages published it: last deployment 09-03 00:52Z, live board stuck at
+      # `9/2 8:47pm`, run #6118 holding the group for 10h59m and #6119 cancelled mid-run.
+      # ⚠️ `cancel-in-progress: false` does NOT prevent this -- a Pages DEPLOYMENT is superseded
+      # on GitHub's side regardless, and the pending run is cancelled when a third queues.
+      # ⚠️ The sparse list must name every path the staging step below reads. Add a file there,
+      # add it here in the SAME commit -- the `[ -f ]` guards make a missing file silent.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            index.html
+            CNAME
+            cover.html
+            season.json
+            soccer/index.html
+            soccer/soccer_D.json
+            soccer/soccer_season.json
       - name: Stage the site files (board + custom domain + boards the client adopts)
         run: |
           # PATHS-2026-08-26 -- THE SWAP. The site root is the COVER; the baseball board moved
