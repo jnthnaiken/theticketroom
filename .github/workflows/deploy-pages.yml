@@ -4,8 +4,9 @@ name: Deploy Pages
 # Replaces the automatic "deploy from branch" flow, which cancels its own
 # in-progress deploy on every push -- so with the ~6-min scratch re-drafts the
 # site could never finish deploying and served a stale day. Here:
-#   * concurrency guard (cancel-in-progress: false) lets the running deploy
-#     FINISH and queues only the latest -- no more cancelled/stacked deploys.
+#   * concurrency guard -- see DEPLOYTHRASH-2026-09-03 below. The original claim here
+#     (that cancel-in-progress: false "lets the running deploy FINISH") was WRONG and
+#     livelocked the site for sixteen hours on 2026-09-03. It is now `true`.
 #   * we publish index.html + CNAME + the LAST FEW D_<date>.json boards, so each
 #     deploy is a few seconds instead of minutes and they stop colliding.
 #
@@ -43,9 +44,22 @@ permissions:
   pages: write
   id-token: write
 
+# DEPLOYTHRASH-2026-09-03 -- `false` LIVELOCKED THIS WORKFLOW. The intent (see the header) was
+# "let the running deploy FINISH and queue only the latest". That is not what GitHub does for the
+# github-pages environment: a WAITING request preempts the RUNNING one, and the run dies with
+#   "Canceling since a higher priority waiting request for pages exists"
+# With a board that pushes index.html every ~4 minutes, every deploy was cancelled by the next
+# one's waiting request and NOTHING published for sixteen hours -- including a manual run that had
+# already finished its work in 59s. Measured on 09-03: #6119 4m14s cancelled, #6120 5m41s
+# cancelled, #6121 3m21s, #6122 59s cancelled, #6123 4m51s, #6124 pending.
+# `true` makes the newest push cancel the older run IMMEDIATELY and start, so there is never a
+# waiting request to preempt anything. Safe here only because DEPLOYSLOW-2026-09-03 got the deploy
+# down to ~60s against a ~4-minute build cadence: the newest board always has time to publish.
+# ⚠️ If the deploy ever creeps back above the build interval this inverts and nothing publishes
+# again. The invariant to protect is DEPLOY DURATION < BUILD INTERVAL, not the flag.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
