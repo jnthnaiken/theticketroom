@@ -54,9 +54,16 @@ if (!D.meta || !D.meta.ko || !Object.keys(D.meta.ko).length) {
 }
 
 /* ---- refresh what is knowable -----------------------------------------------------------
- * PRICES move all afternoon and the model rides them, so odds / TOTAL / blend / gate_z are
- * taken from the fresh scoring pass. Everything else about a player -- his club, his match, his
- * kickoff -- is a property of the slate and is already right on the prior board.
+ * PRICEONCE-SOCCER-2026-09-03 -- A PRICE IS WRITTEN ONCE PER SLATE. This block used to say
+ * "prices move all afternoon and the model rides them" and refresh odds / TOTAL / blend /
+ * gate_z on every build. Owner's rule: soccer and football price ONE TIME at build, like
+ * baseball (PRICEONCE-2026-09-02), and a TOTAL may only move for live reasons such as
+ * weather. The whole price-derived group is held together, because blend is half market
+ * term -- showing a held price while scoring a fresh one is worse than either.
+ *
+ * What still refreshes every build: `out`, team news / XI eligibility, live results and
+ * grading. Everything else about a player -- his club, his match, his kickoff -- is a
+ * property of the slate and is already right on the prior board.
  *
  * ⚠️ A player who has KICKED OFF keeps his baked price. That is the baseball price freeze
  * (PRICEFREEZE-2026-08-17): once his match is underway the number he was bet at is the number
@@ -105,7 +112,7 @@ if (flag('--now') != null) {
 }
 const koOf = g => { const v = (D.meta.ko || {})[String(g)]; return v == null ? null : Number(v); };
 
-let repriced = 0, frozenPrice = 0;
+let heldPrice = 0, wouldMove = 0, frozenPrice = 0;
 Object.keys(D.players).forEach(n => {
   const p = D.players[n], s = byName[n];
   if (!s) return;
@@ -119,12 +126,10 @@ Object.keys(D.players).forEach(n => {
   if (s.out) p.out = true;
   const ko = koOf(p.game);
   if (ko != null && now >= ko) { frozenPrice++; return; }      // his match is underway
-  if (p.odds !== s.odds || p.TOTAL !== Math.round(s.TOTAL * 10) / 10) repriced++;
-  p.odds = s.odds;
-  p.TOTAL = Math.round(s.TOTAL * 10) / 10;
-  p.baseTotal = p.TOTAL;
-  p.blend = s.blend;
-  p.gate_z = s.gate_z;
+  /* PRICEONCE-SOCCER-2026-09-03: the move is COUNTED, not applied. He already has a
+     price from the first build of this slate and it is the number the card showed. */
+  if (p.odds !== s.odds || p.TOTAL !== Math.round(s.TOTAL * 10) / 10) wouldMove++;
+  heldPrice++;
 });
 
 /* ---- team news ---------------------------------------------------------------------------
@@ -174,7 +179,8 @@ if (tn) {
 const before = (D.tickets || []).map(t => t.kind + ':' + t.players.map(l => l.name).join('+')).sort();
 const r = SD.redraft(D, { nowUTCmin: now, xi, xiMatches });
 
-console.log(`  reprice: ${repriced} moved, ${frozenPrice} frozen (match underway)`);
+console.log(`  price: ${heldPrice} held by PRICEONCE [${wouldMove} would have moved], `
+          + `${frozenPrice} frozen (match underway)`);
 console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.minted} new` +
             (r.demoted && r.demoted.length ? ` · ${r.demoted.length} demoted` : '') +
             `  -> ${r.changed ? 'CHANGED' : 'unchanged'}`);
