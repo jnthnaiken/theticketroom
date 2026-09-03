@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
   "season": "2026",
-  "pulled_at": "2026-09-03T01:41:48Z",
+  "pulled_at": "2026-09-03T01:47:09Z",
   "games": [
     {
       "gamePk": 824470,
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 823339,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-02T22:40:00Z",
       "matchup": "SF@PIT",
       "away": {
@@ -1863,7 +1863,7 @@
     },
     {
       "gamePk": 823906,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-03T02:10:00Z",
       "matchup": "STL@LAD",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 71.2,
-        "wind_mph": 5.8,
-        "wind_dir": 254,
-        "tail_mph": 3.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     }
   ]
 }
