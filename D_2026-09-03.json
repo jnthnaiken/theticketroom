@@ -24335,7 +24335,7 @@
     "precip": 0
    }
   },
-  "build": "9/3 12:12pm",
+  "build": "9/3 12:16pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -24523,8 +24523,14 @@
   },
   "date": "2026-09-03",
   "gs": {},
+  "chalkever": [
+   "Yordan Alvarez",
+   "Pete Crow-Armstrong",
+   "Pete Alonso",
+   "Cal Raleigh"
+  ],
   "chalkstate": {
-   "b": "9/3 12:12pm",
+   "b": "9/3 12:16pm",
    "s": {
     "Yordan Alvarez": {
      "v": 1,
@@ -24550,186 +24556,16 @@
    "Pete Alonso",
    "Cal Raleigh"
   ],
-  "chalkever": [
-   "Yordan Alvarez",
-   "Pete Crow-Armstrong",
-   "Pete Alonso",
-   "Cal Raleigh"
-  ],
   "pool": 250,
   "gate": 36,
   "tickets": 14
  },
- "pool": [
-  "Kyle Stowers",
-  "Rafael Devers",
-  "Wilyer Abreu",
-  "Coby Mayo",
-  "Oneil Cruz",
-  "Heriberto Hern\u00e1ndez",
-  "Bobby Witt",
-  "Carter Jensen",
-  "Jac Caglianone",
-  "Brandon Lowe",
-  "Griffin Conine",
-  "Shohei Ohtani",
-  "Jake Bauers",
-  "Joshua B\u00e1ez",
-  "Munetaka Murakami",
-  "Junior Caminero",
-  "Seiya Suzuki",
-  "Will Smith",
-  "Teoscar Hern\u00e1ndez",
-  "Bryce Eldridge",
-  "Sean Keys",
-  "Colson Montgomery",
-  "Roman Anthony",
-  "Jake Burger",
-  "Jes\u00fas S\u00e1nchez",
-  "Jackson Chourio",
-  "Ian Happ",
-  "Christian Encarnacion-Strand",
-  "Corey Seager",
-  "Michael Busch",
-  "Victor Mesa",
-  "Mookie Betts"
- ],
  "tickets": [
-  {
-   "name": "Star Sailor",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Stowers lands at 179 in our model, Bauers swings with natural lift (20\u00b0), and Anthony has the yard tilting his way.",
-   "players": [
-    {
-     "name": "Kyle Stowers",
-     "team": "Marlins",
-     "total": 179.4,
-     "aT": 100,
-     "wf": 1.088,
-     "gmatch": "MIA@KC",
-     "gtime": "7:40 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 290,
-     "status": "projected"
-    },
-    {
-     "name": "Jake Bauers",
-     "team": "Brewers",
-     "total": 146.4,
-     "aT": 100,
-     "wf": 1.04,
-     "gmatch": "MIL@CHC",
-     "gtime": "7:15 PM ET",
-     "game": 5,
-     "late": false,
-     "odds": 388,
-     "status": "projected"
-    },
-    {
-     "name": "Roman Anthony",
-     "team": "Red Sox",
-     "total": 138.3,
-     "aT": 100,
-     "wf": 1.027,
-     "gmatch": "BOS@BAL",
-     "gtime": "7:15 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 410,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Kyle Stowers",
-   "lock": "7:15 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 78.4,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0
-  },
-  {
-   "name": "Going Supersonic",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Stowers has loft to spare (20\u00b0), Caminero is hammering the ball (58% hard-hit), and Suzuki gets a touch of carry tonight.",
-   "players": [
-    {
-     "name": "Kyle Stowers",
-     "team": "Marlins",
-     "total": 179.4,
-     "aT": 100,
-     "wf": 1.088,
-     "gmatch": "MIA@KC",
-     "gtime": "7:40 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 290,
-     "status": "projected"
-    },
-    {
-     "name": "Junior Caminero",
-     "team": "Rays",
-     "total": 142.4,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "TB@TEX",
-     "gtime": "8:05 PM ET",
-     "game": 7,
-     "late": false,
-     "odds": 300,
-     "status": "projected"
-    },
-    {
-     "name": "Seiya Suzuki",
-     "team": "Cubs",
-     "total": 141.1,
-     "aT": 100,
-     "wf": 1.04,
-     "gmatch": "MIL@CHC",
-     "gtime": "7:15 PM ET",
-     "game": 5,
-     "late": false,
-     "odds": 388,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Kyle Stowers",
-   "lock": "7:15 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 63.1,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 0
-  },
   {
    "name": "The Slingshot",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Devers is tattooing the baseball (64% hard-hit), Murakami gets under it just right (19\u00b0), and S\u00e1nchez catches a small park boost.",
+   "note": "Devers is tattooing the baseball (64% hard-hit), Murakami sits in the ideal launch angle (19\u00b0), and S\u00e1nchez gets a touch of carry tonight.",
    "players": [
     {
      "name": "Rafael Devers",
@@ -24788,7 +24624,11 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 10243,
+   "payout10": 1034.33
   },
   {
    "name": "Heat Shield Off",
@@ -24853,13 +24693,229 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "locked": true,
+   "priced": 3,
+   "parlay_am": 15117,
+   "payout10": 1521.65
+  },
+  {
+   "name": "The Matinee",
+   "kind": "lunch",
+   "badge": "\ud83c\udf71",
+   "note": "Oneil Cruz is squaring up everything (65% hard-hit), catches a small park boost, brings well-above-average pop (85/100 power), the bat's heating up, and gets bumped to 156 by the model.",
+   "players": [
+    {
+     "name": "Oneil Cruz",
+     "team": "Pirates",
+     "total": 156.3,
+     "aT": 100,
+     "wf": 1.041,
+     "gmatch": "SF@PIT",
+     "gtime": "12:35 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 305,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Oneil Cruz",
+   "lock": "12:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 305,
+   "payout10": 40.5
+  },
+  {
+   "name": "The Capstan",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Rafael Devers is punishing the baseball (64% hard-hit), drives the ball into the air (22\u00b0), gets a sliver of help from the park.",
+   "players": [
+    {
+     "name": "Rafael Devers",
+     "team": "Giants",
+     "total": 167.8,
+     "aT": 100,
+     "wf": 1.041,
+     "gmatch": "SF@PIT",
+     "gtime": "12:35 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 313,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Rafael Devers",
+   "lock": "12:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 313,
+   "payout10": 41.3
+  },
+  {
+   "name": "Star Sailor",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Stowers lands at 179 in our model, Bauers swings with natural lift (20\u00b0), and Anthony has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Kyle Stowers",
+     "team": "Marlins",
+     "total": 179.4,
+     "aT": 100,
+     "wf": 1.088,
+     "gmatch": "MIA@KC",
+     "gtime": "7:40 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 290,
+     "status": "projected"
+    },
+    {
+     "name": "Jake Bauers",
+     "team": "Brewers",
+     "total": 146.4,
+     "aT": 100,
+     "wf": 1.04,
+     "gmatch": "MIL@CHC",
+     "gtime": "7:15 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 388,
+     "status": "projected"
+    },
+    {
+     "name": "Roman Anthony",
+     "team": "Red Sox",
+     "total": 138.3,
+     "aT": 100,
+     "wf": 1.027,
+     "gmatch": "BOS@BAL",
+     "gtime": "7:15 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 410,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Kyle Stowers",
+   "lock": "7:15 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 78.4,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 9606,
+   "payout10": 970.63
+  },
+  {
+   "name": "Going Supersonic",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Stowers keeps the ball in the air (20\u00b0), Caminero is squaring up rockets (58% hard-hit), and Suzuki gets a sliver of help from the park.",
+   "players": [
+    {
+     "name": "Kyle Stowers",
+     "team": "Marlins",
+     "total": 179.4,
+     "aT": 100,
+     "wf": 1.088,
+     "gmatch": "MIA@KC",
+     "gtime": "7:40 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 290,
+     "status": "projected"
+    },
+    {
+     "name": "Junior Caminero",
+     "team": "Rays",
+     "total": 142.4,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "TB@TEX",
+     "gtime": "8:05 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 300,
+     "status": "projected"
+    },
+    {
+     "name": "Seiya Suzuki",
+     "team": "Cubs",
+     "total": 141.1,
+     "aT": 100,
+     "wf": 1.04,
+     "gmatch": "MIL@CHC",
+     "gtime": "7:15 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 388,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Kyle Stowers",
+   "lock": "7:15 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 63.1,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7513,
+   "payout10": 761.28
   },
   {
    "name": "Beyond the Bleachers",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Abreu is squaring up premium contact (55% hard-hit), Jensen has the jet stream pushing toward the seats, and Burger gets ideal loft (20\u00b0).",
+   "note": "Abreu is squaring up premium contact (55% hard-hit), Jensen swings with the wind at his back, and Burger gets ideal loft (20\u00b0).",
    "players": [
     {
      "name": "Wilyer Abreu",
@@ -24918,7 +24974,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 9260,
+   "payout10": 936
   },
   {
    "name": "Into the Upper Air",
@@ -24983,7 +25042,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7874,
+   "payout10": 797.4
   },
   {
    "name": "The Apollo",
@@ -25048,7 +25110,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 8477,
+   "payout10": 857.74
   },
   {
    "name": "Terminal Climb",
@@ -25113,13 +25178,16 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 8764,
+   "payout10": 886.39
   },
   {
    "name": "Bar's Last Round",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Shohei Ohtani is crushing the baseball (55% hard-hit), gets a sliver of help from the park, swings with usable power (64/100), grades to 148 on our board, and ready to break a quiet stretch.",
+   "note": "Shohei Ohtani is leaving scorch marks (55% hard-hit), gets a sliver of help from the park, swings with usable power (64/100), grades to 148 on our board, and ready to break a quiet stretch.",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -25147,47 +25215,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "The Matinee",
-   "kind": "lunch",
-   "badge": "\ud83c\udf71",
-   "note": "Oneil Cruz is leaving scorch marks (65% hard-hit), catches a small park boost, carries serious thump (85/100 grade), the bat's heating up, and gets bumped to 156 by the model.",
-   "players": [
-    {
-     "name": "Oneil Cruz",
-     "team": "Pirates",
-     "total": 156.3,
-     "aT": 100,
-     "wf": 1.041,
-     "gmatch": "SF@PIT",
-     "gtime": "12:35 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 305,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Oneil Cruz",
-   "lock": "12:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 300,
+   "payout10": 40
   },
   {
    "name": "Set the Hook",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Kyle Stowers gets a park that's launching everything tonight, is hitting bullets (65% hard-hit), swings with natural lift (20\u00b0).",
+   "note": "Kyle Stowers has gusts carrying balls over the wall, is hitting bullets (65% hard-hit), swings with natural lift (20\u00b0).",
    "players": [
     {
      "name": "Kyle Stowers",
@@ -25215,41 +25252,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "The Capstan",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Rafael Devers is punishing the baseball (64% hard-hit), drives the ball into the air (22\u00b0), gets a sliver of help from the park.",
-   "players": [
-    {
-     "name": "Rafael Devers",
-     "team": "Giants",
-     "total": 167.8,
-     "aT": 100,
-     "wf": 1.041,
-     "gmatch": "SF@PIT",
-     "gtime": "12:35 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 313,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Rafael Devers",
-   "lock": "12:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 290,
+   "payout10": 39
   },
   {
    "name": "Anchors Aweigh",
@@ -25283,7 +25289,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 300,
+   "payout10": 40
   },
   {
    "name": "Riding the Tide",
@@ -25317,7 +25326,38 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 318,
+   "payout10": 41.8
   }
+ ],
+ "pool": [
+  "Kyle Stowers",
+  "Wilyer Abreu",
+  "Coby Mayo",
+  "Heriberto Hern\u00e1ndez",
+  "Bobby Witt",
+  "Carter Jensen",
+  "Jac Caglianone",
+  "Brandon Lowe",
+  "Griffin Conine",
+  "Shohei Ohtani",
+  "Jake Bauers",
+  "Joshua B\u00e1ez",
+  "Junior Caminero",
+  "Seiya Suzuki",
+  "Will Smith",
+  "Teoscar Hern\u00e1ndez",
+  "Bryce Eldridge",
+  "Roman Anthony",
+  "Jake Burger",
+  "Jackson Chourio",
+  "Ian Happ",
+  "Christian Encarnacion-Strand",
+  "Corey Seager",
+  "Michael Busch",
+  "Victor Mesa",
+  "Mookie Betts"
  ]
 }
