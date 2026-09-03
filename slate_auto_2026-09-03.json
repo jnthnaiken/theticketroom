@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T22:02:17Z",
+  "pulled_at": "2026-09-03T22:07:12Z",
   "games": [
     {
       "gamePk": 823337,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 823095,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T01:40:00Z",
       "matchup": "ATH@SEA",
       "away": {
@@ -945,8 +945,54 @@
           "hr9": 1.7,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.115
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.197
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.139
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.181
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.1
+          },
+          {
+            "id": 683021,
+            "name": "Michael Stefanic",
+            "iso": 0.063
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.286
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.16
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
@@ -956,10 +1002,56 @@
           "hr9": 1.8,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.193
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.232
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.156
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.187
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.096
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.138
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.75
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.126
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
