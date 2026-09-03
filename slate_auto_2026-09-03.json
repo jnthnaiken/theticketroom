@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T20:41:45Z",
+  "pulled_at": "2026-09-03T20:46:51Z",
   "games": [
     {
       "gamePk": 823337,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824388,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-03T17:10:00Z",
       "matchup": "TOR@CLE",
       "away": {
@@ -235,7 +235,7 @@
           {
             "id": 694197,
             "name": "Angel Genao",
-            "iso": 0.11
+            "iso": 0.108
           },
           {
             "id": 683953,
@@ -680,8 +680,54 @@
           "hr9": 0.85,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.234
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.223
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.139
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.234
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.142
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.12
+          },
+          {
+            "id": 682663,
+            "name": "Agust\u00edn Ram\u00edrez",
+            "iso": 0.095
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.175
+          },
+          {
+            "id": 688363,
+            "name": "Graham Pauley",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
