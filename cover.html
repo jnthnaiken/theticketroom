@@ -231,6 +231,11 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
 .card:hover::before,.card:has(.tkt:focus-visible)::before{opacity:1}
 .mlb{--accent:var(--cyan);--accent2:var(--violet);--glow:#26d4f030}
 .soc{--accent:var(--lime);--accent2:var(--amber);--glow:#4ef08a2b}
+    /* NFL-2026-09-03. Third room, third accent pair. cyan/violet and lime/amber were
+       taken, so football gets amber/pink -- the only remaining pair in :root that does
+       not repeat a PRIMARY. No new colour was invented for it. */
+    .nfl{--accent:var(--amber);--accent2:var(--pink);--glow:#ffc24d2b}
+    .nfl .hole svg{width:28px;height:28px}
 
 .chead{display:flex;align-items:center;gap:14px}
 .hole{position:relative;width:64px;height:64px;flex:none;display:grid;place-items:center}
@@ -519,7 +524,45 @@ footer b{color:var(--mut);font-weight:600}
         </a></div>
     </div>
 
-  </main>
+  <div class="card nfl">
+      <div class="chead">
+        <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
+          <!-- GOALPOST-2026-09-03. Drawn in the same idiom the baseball sets and the soccer box
+               follows: viewBox 100, fill none, stroke currentColor, round caps, ground line at
+               y=80 so all three icons share a horizon.
+               ⚠️ NOT A BALL, FOR THE REASON BOXICON-2026-08-26 RECORDS. Four attempts at a
+               soccer ball all read as a wheel or a cog at 24-30px, because five dark shapes
+               around a centre IS a hub and spokes. A prolate ball with laces is the same trap
+               with worse odds -- at 28px the laces become a smear and the outline becomes an
+               eye. Goalposts have no radial symmetry at all, so they cannot collapse into a
+               wheel at any size, and the tuning-fork silhouette is unmistakable in one weight.
+               ⚠️ TWO WEIGHTS, same as the soccer icon. Posts and crossbar are 7 to match the
+               baseball; the ground line and hashes are 4.6 at .85 so the uprights stay the
+               subject and the field does not fight them. -->
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor"
+               stroke-linecap="round" stroke-linejoin="round">
+            <g stroke-width="7">
+              <path d="M50 80V52"/>
+              <path d="M26 52h48"/>
+              <path d="M26 52V20"/>
+              <path d="M74 52V20"/>
+            </g>
+            <g stroke-width="4.6" opacity=".85">
+              <path d="M6 80h88"/>
+              <path d="M22 88h8M46 88h8M70 88h8"/>
+            </g>
+          </svg></span>
+        <div><h2 class="cname">Football</h2><p class="ktag">Anytime touchdown</p></div>
+        <span class="cnt" id="c-nfl"></span>
+      </div>
+      <div class="slate" id="s-nfl"><span class="empty">acquiring slate…</span></div>
+      <div class="foot">
+        <a class="tkt" href="nfl/" aria-label="Enter the football room">
+          <span class="tkt-stub">Admit<br>One</span>
+          <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">&rarr;</span></span>
+        </a></div>
+    </div>
+    </main>
 </div>
 
 <footer><div class="in">
@@ -623,6 +666,9 @@ footer b{color:var(--mut);font-weight:600}
   load(['soccer/esp.1','soccer/eng.1','soccer/ita.1','soccer/ger.1','soccer/fra.1',
         'soccer/uefa.champions','soccer/uefa.champions_qual'],
        's-soc','c-soc',' matches','no matches today','FT',16);
+  /* Same ESPN shape as the other two -- football/nfl carries logos and the identical
+     event envelope, so no new tile code. Fails soft and silent like its siblings. */
+  load(['football/nfl'],'s-nfl','c-nfl',' games','no games today','Final',16);
 
   /* LEDGERPILLS-2026-08-26, owner: "lets get rid of the ledger tracker on the cover page.
      itll look cleaner wihtout it." Removed outright rather than hidden: the pills, the
