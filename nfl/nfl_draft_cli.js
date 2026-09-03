@@ -42,7 +42,7 @@ if (!Draft || !Draft.draft) { console.error('!! soccer_draft.js exported no draf
 
 /* The vocabulary is the ONLY cosmetic fork. NAMES/BADGE are exported on the api object precisely
    so a second sport can re-point them without touching the draft. */
-Draft.NAMES.moon = ['Paydirt', 'Six Points', 'The Pylon', 'Front of the End Zone', 'Play Action',
+Draft.NAMES.moon = ['Six Points', 'Money Down', 'The Pylon', 'Front of the End Zone', 'Play Action',
                     'Goal to Go', 'The Fade', 'Crossing Route', 'Chunk Play', 'Twelve Personnel',
                     'Empty Backfield', 'The Rollout'];
 Draft.NAMES.builder = ['The Workhorse', 'Bell Cow', 'Goal Line Back', 'Red Zone Target',
