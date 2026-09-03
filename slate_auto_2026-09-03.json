@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T23:30:06Z",
+  "pulled_at": "2026-09-03T23:36:59Z",
   "games": [
     {
       "gamePk": 823337,
@@ -125,9 +125,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 78\u00b0",
+        "lean": "Neutral",
+        "temp": 78.5,
+        "wind_mph": 7.7,
+        "wind_dir": 165,
+        "tail_mph": 0.7,
+        "precip": 24
       },
-      "wf": 1.0
+      "wf": 1.015
     },
     {
       "gamePk": 824388,
@@ -431,7 +438,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 702332,
@@ -488,7 +495,7 @@
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 687952,
@@ -569,12 +576,12 @@
           {
             "id": 592885,
             "name": "Christian Yelich",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 687401,
@@ -594,7 +601,7 @@
         "sp": {
           "id": 592332,
           "name": "Kevin Gausman",
-          "hr9": 1.15,
+          "hr9": 1.14,
           "hand": "RHP"
         },
         "lineup": [
