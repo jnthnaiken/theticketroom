@@ -1,0 +1,168 @@
+name: Build NFL Board
+
+# Rebuilds the football room and commits nfl/index.html.
+#
+# ⚠️ PRICEONCE (claude/priceonce-doctrine.md). Owner's rule: "soccer and football price ONE TIME
+# at build, like baseball. any changes in model total would be due to live weather updates etc."
+# nfl_mock.py merges slates/<date>/atd.psv into slates/<date>/prices.json HOLDING every existing
+# entry and appending only new names, and prices.json is COMMITTED. So this cron may run as often
+# as it likes and no price already on the board can move -- the merge enforces the rule, not the
+# scrape. What legitimately moves a TOTAL is weather, refreshed every pass by nfl_wx.py.
+#
+# ⚠️ IT DOES NOT GRADE. There is no football ledger yet; meta.season is whatever season.json
+# holds, which is nothing. When a settle workflow arrives it owns the ledger, and the board's
+# baked meta.season must stay the ledger EXCLUDING the current week or every ticket counts twice
+# (soccer-build.yml learned this).
+
+on:
+  # DISPATCHFALLBACK-2026-08-27, inherited. soccer-build.yml records that its `schedule:` has
+  # essentially never fired in this repo while pull-slate.yml's */5 fires all day, so it listens
+  # for the dispatches that demonstrably arrive instead. Same here. The commit gate makes a no-op
+  # pass free, so extra triggers cost nothing.
+  repository_dispatch:
+    types: [tick, build-tick, build-board, build-nfl]
+  schedule:
+    # Sunday only, and dense through the American afternoon: 12:00-21:00Z is 8am-5pm ET, which
+    # covers the inactives reports (90 minutes before each kickoff) for the 13:00 and 16:25
+    # waves. That is the only window where a rebuild changes anything -- prices are frozen, so
+    # the movement is weather and scratches.
+    - cron: '*/20 12-23 * * 0'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and report, but commit nothing."
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfl-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 🚨 DEPLOYTOKEN-2026-08-31. A push made with the default GITHUB_TOKEN does not trigger any
+      # further workflow run. This job commits nfl/index.html, which IS in deploy-pages.yml's
+      # `paths:` -- and without a PAT that commit will never start a deploy. The soccer board sat
+      # committed-and-undeployed for exactly this reason and only went live when some OTHER
+      # commit happened to fire the deploy. Falls back to github.token: the push still works, it
+      # just does not deploy.
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy scikit-learn
+
+      # --------------------------------------------------------------------------------------
+      # Which slate? The newest slates/<date>/ directory, and only if that Sunday has not passed.
+      # --------------------------------------------------------------------------------------
+      - name: Resolve the slate
+        id: slate
+        run: |
+          cd nfl
+          DATE=$(ls -1d slates/*/ 2>/dev/null | sed 's#slates/##;s#/##' | sort | tail -1)
+          if [ -z "$DATE" ]; then echo "no slate directories"; echo "go=false" >> $GITHUB_OUTPUT; exit 0; fi
+          for f in atd.psv fixtures.json; do
+            [ -f "slates/$DATE/$f" ] || { echo "::error::nfl/slates/$DATE/$f missing"; exit 1; }
+          done
+          TODAY=$(date -u -d 'today - 1 day' +%F)   # a slate stays live through its own night
+          if [ "$DATE" \< "$TODAY" ]; then
+            echo "$DATE is in the past -- nothing to rebuild"
+            echo "go=false" >> $GITHUB_OUTPUT
+          else
+            SEASON=$(python3 -c "import json;print(json.load(open('slates/$DATE/fixtures.json'))['season'])")
+            WEEK=$(python3 -c "import json;print(json.load(open('slates/$DATE/fixtures.json'))['week'])")
+            echo "slate $DATE (season $SEASON week $WEEK)"
+            echo "date=$DATE"     >> $GITHUB_OUTPUT
+            echo "season=$SEASON" >> $GITHUB_OUTPUT
+            echo "week=$WEEK"     >> $GITHUB_OUTPUT
+            echo "go=true"        >> $GITHUB_OUTPUT
+          fi
+
+      - name: Stage the work directory
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nfl
+          rm -rf .work && mkdir -p .work
+          cp slates/${{ steps.slate.outputs.date }}/atd.psv .work/
+          cp slates/${{ steps.slate.outputs.date }}/fixtures.json .work/
+          # prices.json is the PRICEONCE ledger. Absent on the first build of a slate, which is
+          # the only time a price may be written.
+          cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
+          cp nfl_*.py .work/
+          cp nfl_draft_cli.js depth_prior.csv depth_model.json nfl_model.json .work/
+          cp ../soccer/soccer_draft.js .work/     # ONE DRAFT, THREE SPORTS
+          cp ../index.html .work/index_live.html
+          [ -f ../season.json ] && cp ../season.json .work/ || true
+
+      # ⚠️ WEATHER IS THE ONLY SANCTIONED SOURCE OF TOTAL MOVEMENT. A miss here is silent in the
+      # payload (every factor falls back to ~1.0), so it is logged loudly and never fatal.
+      - name: Stadium weather
+        if: steps.slate.outputs.go == 'true'
+        continue-on-error: true
+        run: cd nfl/.work && python3 nfl_wx.py fixtures.json wx.json
+
+      - name: Score, draft, payload, fork
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nfl/.work
+          python3 nfl_mock.py ${{ steps.slate.outputs.season }} ${{ steps.slate.outputs.week }} \
+                  --atd atd.psv --fixtures fixtures.json --prices prices.json --out scored.json
+          node nfl_draft_cli.js scored.json fixtures.json tickets.json
+          python3 nfl_payload.py scored.json tickets.json fixtures.json nfl_D.json \
+                  $([ -f wx.json ] && echo "--wx wx.json") \
+                  $([ -f season.json ] && echo "--season season.json") \
+                  --build "$(TZ=America/New_York date '+%-m/%-d %-I:%M%P')"
+          python3 nfl_fork.py index_live.html nfl_D.json nfl_index.html
+
+      # --------------------------------------------------------------------------------------
+      # THE COMMIT GATE.
+      # ⚠️ GATE ON THE SCORED PAYLOAD, NOT JUST THE NAMES. soccer-build.yml gates on "the DRAFT
+      # and the PLAYERS", and on 2026-09-03 that suppressed a real republish: a corrected xg.psv
+      # moved every TOTAL on the soccer board while the four ticket names stayed identical, so
+      # the gate called it unchanged and the live board served the pre-correction scores for
+      # hours. A score IS what a reader notices -- it is the number on the chip. Hash the
+      # tickets AND every player's TOTAL and odds.
+      # --------------------------------------------------------------------------------------
+      - name: Did anything a reader would notice change?
+        id: gate
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nfl/.work
+          NEW=$(python3 nfl_sig.py nfl_D.json)
+          OLD=$([ -f ../nfl_D.json ] && python3 nfl_sig.py ../nfl_D.json || echo "")
+          echo "new=$NEW"
+          echo "old=$OLD"
+          if [ "$NEW" = "$OLD" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "nothing a reader would notice moved"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish
+        if: steps.slate.outputs.go == 'true' && steps.gate.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          cd nfl
+          cp .work/nfl_index.html index.html
+          cp .work/nfl_D.json    nfl_D.json
+          cp .work/prices.json   slates/${{ steps.slate.outputs.date }}/prices.json
+          cd ..
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nfl/index.html nfl/nfl_D.json nfl/slates/${{ steps.slate.outputs.date }}/prices.json
+          git diff --cached --quiet && { echo "nothing staged"; exit 0; }
+          git commit -m "NFL board ${{ steps.slate.outputs.date }} ($(date -u +%H:%MZ))"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+            sleep $((i*5))
+          done
+          echo "::error::could not push after 3 attempts"; exit 1
