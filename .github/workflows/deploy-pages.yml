@@ -36,7 +36,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html', 'soccer/soccer_D.json']
+    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html']
   workflow_dispatch:
 
 permissions:
@@ -91,6 +91,7 @@ jobs:
             soccer/index.html
             soccer/soccer_D.json
             soccer/soccer_season.json
+            nfl/index.html
       - name: Stage the site files (board + custom domain + boards the client adopts)
         run: |
           # PATHS-2026-08-26 -- THE SWAP. The site root is the COVER; the baseball board moved
@@ -122,6 +123,19 @@ jobs:
           # stays unstaged and ADOPT-2026-08-16 stays dead there. Do not "tidy" this into a loop
           # that stages both; they are two different decisions.
           if [ -f soccer/soccer_D.json ]; then cp soccer/soccer_D.json _site/soccer/; fi
+          # NFL-2026-09-03 -- the third room. nfl/index.html is built by nfl_fork.py from THIS
+          # index.html by named seam replacement (45 seams), so like the soccer board it is a
+          # published artifact, not a source file, and it is self-contained: one file with its
+          # slate baked into `const D`.
+          # ⚠️ THREE PLACES, ONE COMMIT. The trigger `paths:` above decides whether a push to this
+          # file deploys AT ALL; the sparse-checkout decides whether the runner can SEE it; this
+          # step decides whether it is staged. Miss any one and the `[ -f ]` guard below makes the
+          # failure SILENT -- the deploy goes green and the room 404s, which is exactly what
+          # happened on the first push of nfl/index.html.
+          # No D_<date>.json and no ledger yet: the football room has no graded weeks, so
+          # season.json has nothing to derive from. Add the ledger line WITH its sparse entry when
+          # the first Sunday settles.
+          if [ -f nfl/index.html ]; then mkdir -p _site/nfl && cp nfl/index.html _site/nfl/; fi
           # The cover page: two doors, one to each room. It IS the front door now.
           # Also kept at /cover.html, its original URL, so nothing that already points there
           # breaks -- same file, two paths, no redirect to maintain.
