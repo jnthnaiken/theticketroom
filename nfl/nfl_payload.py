@@ -156,7 +156,11 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             name=t['name'], kind=t['kind'], badge=t['badge'],
             note=note_for(t['kind'], t['legs'], P),
             players=legs, nlegs=len(legs), anchor=t['anchor'],
-            lock=lock['gtime'], has_late=any(l['late'] for l in legs), final=False,
+            # ⚠️ NO ' ET' HERE. The renderer emits `<span>Lock ${t.lock} ET</span>` and appends
+            # the zone itself, so a lock string carrying it renders "Lock 1:00 PM ET ET".
+            # Same class of defect as the tracker ET-ET the owner caught on the MLB board.
+            lock=re.sub(r'\s*ET\s*$', '', lock['gtime']),
+            has_late=any(l['late'] for l in legs), final=False,
             rr=(dict(struct='by 2s & 3', risk=t['risk'],
                      maxprofit=rr_maxprofit(t['legs'], t['risk']), bytwos=False)
                 if len(legs) > 1 else None),

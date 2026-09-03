@@ -86,6 +86,28 @@ if (noKO.length) {
 
 const res = Draft.draft(players, CFG, { koOf: m => KO[m], slateMatches: Object.keys(fx.matches).length });
 
+/* THE TWO SINGLES. soccer_draft.draft() returns moons + anchor builders and nothing else --
+   the lunch/nightcap slots are minted downstream in both existing rooms. Football's equivalents
+   are the EARLY WINDOW (first kickoff wave) and SUNDAY NIGHT (the last), and the 20:20 game
+   matters here beyond garnish: it is the one game that structurally CANNOT field a moon, so
+   without this its whole card is unrepresented on the board. Best free bat in each wave, never
+   one already on a slip. */
+(function () {
+  const used = new Set();
+  res.tickets.forEach(t => t.legs.forEach(l => used.add(l.name)));
+  const waveOf = m => KO[m];
+  const first = Math.min(...Object.values(KO)), last = Math.max(...Object.values(KO));
+  [['lunch', first], ['late', last]].forEach(([kind, wave]) => {
+    if (wave === first && wave === last) return;          // single-wave slate: no split to make
+    const cand = res.byStrength.filter(p => waveOf(p.match) === wave && !used.has(p.name));
+    if (!cand.length) { console.log(`no free bat in the ${kind} wave -- slot left empty`); return; }
+    const pick = cand[0];
+    used.add(pick.name);
+    res.tickets.push({ kind, legs: [pick], risk: CFG.SINGLE_STAKE });
+    console.log(`${kind}: ${pick.name} (${pick.odds > 0 ? '+' : ''}${pick.odds})`);
+  });
+})();
+
 const waves = {};
 Object.keys(KO).forEach(k => { waves[KO[k]] = (waves[KO[k]] || 0) + 1; });
 console.log(`pool ${res.pool.length} of ${players.length} priced  |  anchors ${res.anchors}/${res.budget}`

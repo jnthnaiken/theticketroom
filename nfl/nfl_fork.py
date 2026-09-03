@@ -23,7 +23,7 @@ vocabulary, the five chips, the MLB-fitted calibration, and the game clock.
 """
 import json, sys
 
-EXPECT_SEAMS = 45     # 44 named + 1 payload (6 added on a SECOND pass, from grepping the OUTPUT)
+EXPECT_SEAMS = 50     # 49 named + 1 payload (6 from a second pass grepping the OUTPUT, 5 more from RENDERING it)
 
 def seams(payload_js):
     S = []
@@ -161,6 +161,25 @@ def seams(payload_js):
                        "t:'Model chance', d:'The model\u2019s own probability that he finds the "
                        "end zone, before the price.'")
     add('howto-n1', '>Babe Ruth</span>', '>Jerry Rice</span>')
+
+    # ---- 10. THIRD PASS: the SECTION HEADERS, found by rendering the page --------------
+    # The how-to seam renamed the sections in the instructions but not the sections
+    # themselves, so the board rendered "LUNCH SPECIAL" and "NIGHTCAP" over football cards.
+    # Only visible by loading it -- exactly why soccer_fork.py says build it and read it.
+    add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Lunch Special</span>',
+                     '<div class="tsec lunch"><span class="tsech">Early Window</span>')
+    add('sec-nightcap', '<span class="tag">Late slate</span> Nightcap<span class="chev">',
+                        '<span class="tag">Late slate</span> Sunday Night<span class="chev">')
+    add('tracker-lunch', "['lunch','🍱','Lunch'],['late','🌃','Nightcap']",
+                         "['lunch','🍱','Early'],['late','🌃','Sunday Night']")
+    add('kind-lunch',
+        '<b>Lunch Special</b><span>One bat, best model score in an afternoon game. '
+        'Only appears when the slate starts before 5 PM ET.</span>',
+        '<b>Early Window</b><span>One player, best model score in the first kickoff wave.</span>')
+    add('kind-nightcap', '<b>Nightcap</b><span>Same idea for the last window of the night.</span>',
+        '<b>Sunday Night</b><span>Same idea for the last kickoff. It is the one game that cannot '
+        'field a parlay \u2014 three legs need three distinct games \u2014 so it gets a single or '
+        'nothing.</span>')
     return S
 
 
