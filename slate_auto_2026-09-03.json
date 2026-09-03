@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T19:41:28Z",
+  "pulled_at": "2026-09-03T19:46:32Z",
   "games": [
     {
       "gamePk": 823337,
@@ -173,7 +173,7 @@
           {
             "id": 815873,
             "name": "Sean Keys",
-            "iso": 0.103
+            "iso": 0.1
           },
           {
             "id": 669701,
@@ -358,7 +358,7 @@
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 662139,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824796,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-03T23:15:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -414,8 +414,54 @@
           "hr9": 0.67,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.134
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.22
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.163
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.211
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.136
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.135
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.159
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.149
+          },
+          {
+            "id": 643396,
+            "name": "Isiah Kiner-Falefa",
+            "iso": 0.082
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -428,7 +474,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
