@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T19:56:39Z",
+  "pulled_at": "2026-09-03T20:00:36Z",
   "games": [
     {
       "gamePk": 823337,
@@ -230,12 +230,12 @@
           {
             "id": 663993,
             "name": "Nathaniel Lowe",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 694197,
             "name": "Angel Genao",
-            "iso": 0.111
+            "iso": 0.11
           },
           {
             "id": 683953,
@@ -311,12 +311,12 @@
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.219
+            "iso": 0.22
           },
           {
             "id": 805367,
             "name": "Chase Meidroth",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 671976,
@@ -336,14 +336,14 @@
         "sp": {
           "id": 686613,
           "name": "Hunter Brown",
-          "hr9": 1.05,
+          "hr9": 1.03,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 670541,
@@ -480,7 +480,7 @@
         "emoji": "\u26c5",
         "cond": "calm 0mph, 86\u00b0",
         "lean": "Boost",
-        "temp": 86.4,
+        "temp": 86.2,
         "wind_mph": 2.1,
         "wind_dir": 288,
         "tail_mph": 0.4,
@@ -519,19 +519,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 77\u00b0",
+        "cond": "calm 1mph, 76\u00b0",
         "lean": "Neutral",
-        "temp": 76.8,
+        "temp": 76.2,
         "wind_mph": 5.2,
         "wind_dir": 110,
         "tail_mph": -0.9,
         "precip": 4
       },
-      "wf": 1.007
+      "wf": 1.006
     },
     {
       "gamePk": 824069,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-03T23:40:00Z",
       "matchup": "MIA@KC",
       "away": {
@@ -553,10 +553,56 @@
           "hr9": 1.16,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.2
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.164
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.213
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.154
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.133
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.169
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.113
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.12
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -681,15 +727,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 70\u00b0",
+        "cond": "wind out 4mph, 71\u00b0",
         "lean": "Neutral",
-        "temp": 70.3,
+        "temp": 70.8,
         "wind_mph": 6.2,
         "wind_dir": 255,
         "tail_mph": 4.0,
         "precip": 0
       },
-      "wf": 1.014
+      "wf": 1.015
     }
   ]
 }
