@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
   "season": "2026",
-  "pulled_at": "2026-09-03T22:00:33Z",
+  "pulled_at": "2026-09-03T22:02:17Z",
   "games": [
     {
       "gamePk": 823337,
@@ -974,7 +974,7 @@
     },
     {
       "gamePk": 823907,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T02:10:00Z",
       "matchup": "STL@LAD",
       "away": {
@@ -996,10 +996,56 @@
           "hr9": 0.85,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.131
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.176
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.145
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.161
+          },
+          {
+            "id": 669257,
+            "name": "Will Smith",
+            "iso": 0.134
+          },
+          {
+            "id": 500743,
+            "name": "Miguel Rojas",
+            "iso": 0.123
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.127
+          },
+          {
+            "id": 669743,
+            "name": "Alex Call",
+            "iso": 0.072
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.17
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
