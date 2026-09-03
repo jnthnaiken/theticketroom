@@ -41,8 +41,17 @@ def _get(url, dest, cache='.cache'):
         urllib.request.urlretrieve(url, p)
     return p
 
-def load_pbp(season):
-    p=_get(f'{NFLVERSE}/pbp/play_by_play_{season}.csv.gz', f'pbp{season}.csv.gz')
+def load_pbp(season, required=True):
+    """A season that has not kicked off yet has NO pbp asset -- nflverse 404s rather than
+    publishing an empty file. That is the normal state every September and it must not be an
+    error: week 1 is built entirely from the prior season by design (see the cold-start note
+    above). Returns an empty frame with the right columns so every caller downstream is
+    unchanged."""
+    try:
+        p=_get(f'{NFLVERSE}/pbp/play_by_play_{season}.csv.gz', f'pbp{season}.csv.gz')
+    except Exception as e:
+        if required: raise
+        return pd.DataFrame(columns=PBP_COLS)
     d=pd.read_csv(p, usecols=PBP_COLS, low_memory=False)
     d=d[d.season_type=='REG'].copy()
     for c in ['rush_attempt','pass_attempt','rush_touchdown','pass_touchdown','touchdown']:
@@ -53,6 +62,72 @@ def load_roster(season):
     p=_get(f'{NFLVERSE}/weekly_rosters/roster_weekly_{season}.csv', f'ros{season}.csv')
     r=pd.read_csv(p, usecols=['season','week','team','position','full_name','gsis_id'], low_memory=False)
     return r.dropna(subset=['gsis_id'])
+
+def load_depth(season, before=None):
+    """The ESPN-derived depth chart. Schema changed in 2025 (dt/team/pos_abb/pos_rank); 2024 and
+    earlier use season/club_code/week/depth_team and are NOT read here -- the prior table was
+    measured on the new schema and mixing them would silently mis-rank."""
+    p=_get(f'{NFLVERSE}/depth_charts/depth_charts_{season}.csv', f'dc{season}.csv')
+    d=pd.read_csv(p, low_memory=False)
+    if 'pos_abb' not in d.columns:
+        return pd.DataFrame(columns=['pid','pos','pos_rank'])
+    d['dt']=pd.to_datetime(d.dt,errors='coerce')
+    if before is not None: d=d[d.dt<before]
+    if not len(d): return pd.DataFrame(columns=['pid','pos','pos_rank'])
+    d=d[d.dt==d.dt.max()]
+    d=d[d.pos_abb.isin(['RB','WR','TE','QB','FB'])].copy()
+    # DEPTHFB-2026-09-02: FB IS ITS OWN LADDER and must not be folded into RB before the rank is
+    # read. It was, and every team's fullback came out as an "RB1" worth 17 touches a game --
+    # Riley Nowakowski, Patrick Ricard and Brady Russell all priced as lead backs on the first
+    # build. Measured separately, FB1 is 0.7 touches a game.
+    d['pos']=d.pos_abb
+    d=d.dropna(subset=['gsis_id']).sort_values('pos_rank').drop_duplicates('gsis_id')
+    return d.rename(columns={'gsis_id':'pid'})[['pid','pos','pos_rank']]
+
+
+def apply_depth(out, season, model='depth_model.json'):
+    """DEPTHPRIOR-2026-09-02 -- the rookie hole, closed.
+
+    The board scored a player off last season's usage, so on the 2026 week-1 roster it could see
+    395 of 905 skill players: every rookie and every man who did not touch the ball last year was
+    invisible, on the one weekend that group matters most. Tennessee's listed back did not exist
+    to it.
+
+    Measured on 2025 (week-1 depth chart -> that season's weeks 1-6):
+      * a player WITH a prior-season figure does best on a BLEND -- R2 0.770, against 0.738 for
+        prior usage alone and 0.544 for the slot alone. The depth chart is what catches the
+        veteran who lost his job over the summer.
+      * a player with NO history gets 0.60x the slot average, not the slot average. A rookie
+        listed RB1 in September is not a workhorse: rookies at depth rank 1-2 averaged 3.9
+        touches a game and 40% scored in weeks 1-6, against 12.4 and 73% for the slot at large.
+        Handing him the veteran number would have been worse than omitting him.
+
+    ⚠️ ONLY applied when the usage basis is `prior` (i.e. week 1). Once there are in-season snaps
+    the observed figure is the real thing and the depth chart is not an improvement on it -- the
+    blend was fitted prior-season-to-next-season and that is the only case it is licensed for.
+    """
+    import json as _json, os as _os
+    if not _os.path.exists(model): return out
+    M=_json.load(open(model))
+    dp=pd.DataFrame(M['depth_prior'])[['pos','pos_rank','tchpg','i10pg']].rename(
+        columns={'tchpg':'d_tch','i10pg':'d_i10'})
+    dc=load_depth(season).merge(dp,on=['pos','pos_rank'],how='left')
+    o=out.merge(dc[['pid','pos_rank','d_tch','d_i10']],on='pid',how='left')
+    has=o.d_tch.notna()
+    vt,vi=M['vet_tch'],M['vet_i10']; nt,ni=M['new_tch'],M['new_i10']
+    prior=(o.basis=='prior')&has
+    o.loc[prior,'tchpg']=(vt['coef'][0]*o.loc[prior,'tchpg']+vt['coef'][1]*o.loc[prior,'d_tch']
+                          +vt['intercept']).clip(lower=0)
+    o.loc[prior,'i10pg']=(vi['coef'][0]*o.loc[prior,'i10pg']+vi['coef'][1]*o.loc[prior,'d_i10']
+                          +vi['intercept']).clip(lower=0)
+    o.loc[prior,'basis']='prior+depth'
+    new=(o.basis=='none')&has
+    o.loc[new,'tchpg']=(nt['coef'][0]*o.loc[new,'d_tch']+nt['intercept']).clip(lower=0)
+    o.loc[new,'i10pg']=(ni['coef'][0]*o.loc[new,'d_i10']+ni['intercept']).clip(lower=0)
+    o.loc[new,'basis']='depth'
+    o['i10_share']=np.where(o.tchpg>0,(o.i10pg/o.tchpg).clip(0,1),0.0)
+    return o
+
 
 def load_sched():
     p=_get(SCHED,'games.csv')
@@ -88,8 +163,8 @@ def rz_trips(pbp):
     return a.rename(columns={'posteam':'team'})[['team','rz_pg']]
 
 def build(season, week, min_games=MIN_GAMES):
-    pbp=load_pbp(season)
-    cur=pbp[pbp.week<week]
+    pbp=load_pbp(season, required=False)
+    cur=pbp[pbp.week<week] if len(pbp) else pbp
     t_cur=touch_rows(cur) if len(cur) else None
     u_cur=usage_from(t_cur,'season') if t_cur is not None and len(t_cur) else pd.DataFrame()
     if len(u_cur): u_cur=u_cur[u_cur.basis_games>=min_games]
@@ -134,6 +209,7 @@ def build(season, week, min_games=MIN_GAMES):
     out['basis']=out.basis.fillna('none'); out['basis_games']=out.basis_games.fillna(0)
     out['indoor']=out.roof.isin(['dome','closed']).astype(int)
     out['wind']=np.where(out.indoor==1,0,out.wind.fillna(0))
+    out=apply_depth(out, season)
     return out.sort_values('tchpg',ascending=False).reset_index(drop=True)
 
 if __name__=='__main__':
