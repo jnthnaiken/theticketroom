@@ -40491,7 +40491,7 @@
     "precip": 0
    }
   },
-  "build": "9/4 5:00pm",
+  "build": "9/4 5:04pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40682,7 +40682,7 @@
   "date": "2026-09-04",
   "gs": {},
   "chalkstate": {
-   "b": "9/4 5:00pm",
+   "b": "9/4 5:04pm",
    "s": {}
   },
   "chalk": [],
@@ -40900,78 +40900,10 @@
    "payout10": 627.76
   },
   {
-   "name": "Heat Shield Off",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Goodman keeps the ball in the air (22\u00b0), Raleigh is leaving scorch marks (63% hard-hit), and Ohtani catches a small park boost.",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 187.6,
-     "aT": 100,
-     "wf": 1.181,
-     "gmatch": "STL@COL",
-     "gtime": "8:40 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 280,
-     "status": "confirmed"
-    },
-    {
-     "name": "Cal Raleigh",
-     "team": "Mariners",
-     "total": 163.3,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "ATH@SEA",
-     "gtime": "10:10 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 320,
-     "status": "projected"
-    },
-    {
-     "name": "Shohei Ohtani",
-     "team": "Dodgers",
-     "total": 158.9,
-     "aT": 100,
-     "wf": 1.032,
-     "gmatch": "WSH@LAD",
-     "gtime": "10:10 PM ET",
-     "game": 15,
-     "late": true,
-     "odds": 275,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Hunter Goodman",
-   "lock": "8:40 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 50.9,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 3,
-   "parlay_am": 5885,
-   "payout10": 598.5
-  },
-  {
    "name": "The Early Bird",
    "kind": "lunch",
    "badge": "\ud83c\udf71",
-   "note": "Jos\u00e9 Ram\u00edrez is consistently barreling up (54% hard-hit), puts air under the ball (21\u00b0), plays in a slightly friendly yard, and carries a solid power grade (57/100).",
+   "note": "Jos\u00e9 Ram\u00edrez is consistently barreling up (54% hard-hit), puts air under the ball (21\u00b0), gets a sliver of help from the park, and swings with usable power (57/100).",
    "players": [
     {
      "name": "Jos\u00e9 Ram\u00edrez",
@@ -41158,10 +41090,78 @@
    "payout10": 34
   },
   {
+   "name": "Heat Shield Off",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Goodman keeps the ball in the air (22\u00b0), Raleigh is leaving scorch marks (63% hard-hit), and Ohtani catches a small park boost.",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 187.6,
+     "aT": 100,
+     "wf": 1.181,
+     "gmatch": "STL@COL",
+     "gtime": "8:40 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 280,
+     "status": "confirmed"
+    },
+    {
+     "name": "Cal Raleigh",
+     "team": "Mariners",
+     "total": 163.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "ATH@SEA",
+     "gtime": "10:10 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 320,
+     "status": "projected"
+    },
+    {
+     "name": "Shohei Ohtani",
+     "team": "Dodgers",
+     "total": 158.9,
+     "aT": 100,
+     "wf": 1.032,
+     "gmatch": "WSH@LAD",
+     "gtime": "10:10 PM ET",
+     "game": 15,
+     "late": true,
+     "odds": 275,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Hunter Goodman",
+   "lock": "8:40 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 50.9,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 3,
+   "parlay_am": 5885,
+   "payout10": 598.5
+  },
+  {
    "name": "The Apollo",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Montgomery has gusts carrying balls over the wall, Bauers is squaring up rockets (58% hard-hit), and Jensen lands at 154 in our model.",
+   "note": "Montgomery swings with the wind at his back, Bauers is generating elite exit velo (58% hard-hit), and Jensen has the pop to go deep (82/100 power).",
    "players": [
     {
      "name": "Colson Montgomery",
@@ -41230,7 +41230,7 @@
    "name": "Into the Upper Air",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Montgomery swings with the wind at his back, Moniak is striking it clean and hard (52% hard-hit), and Caminero brings average-plus thump (54/100).",
+   "note": "Montgomery is mashing the ball (62% hard-hit), Moniak has textbook lift (20\u00b0), and Caminero lands at 157 in our model.",
    "players": [
     {
      "name": "Colson Montgomery",
@@ -41367,7 +41367,7 @@
    "name": "Terminal Climb",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Alvarez is squaring up premium contact (61% hard-hit), Okamoto has gusts carrying balls over the wall, and Burleson gets ideal loft (17\u00b0).",
+   "note": "Alvarez is squaring up premium contact (61% hard-hit), Okamoto swings with the wind at his back, and Burleson gets ideal loft (17\u00b0).",
    "players": [
     {
      "name": "Yordan Alvarez",
@@ -41435,7 +41435,7 @@
    "name": "Nightfall",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Ben Rice is hitting absolute lasers (64% hard-hit), puts the ball in the air on a homer plane (17\u00b0), brings light-tower raw power (100/100), and on a clear upswing.",
+   "note": "Ben Rice is hitting absolute lasers (64% hard-hit), puts the ball in the air on a homer plane (17\u00b0), carries top-shelf pop (100/100 power grade), and on a clear upswing.",
    "players": [
     {
      "name": "Ben Rice",
