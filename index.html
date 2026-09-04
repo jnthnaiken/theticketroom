@@ -1532,7 +1532,24 @@ drawTickets();drawPlayers();drawTracker();
   // removal loop. Adding one back here would put it in front of a reader mid-slate.
 
   // ---- assembler constants (mirror assembler_src.py) ----
-  var GATE_N=33, CHALK_N=4, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
+  /* CHALKUNBAN-2026-09-04 -- CHALK_N 4 -> 0. Owner, after reading the ledger: "i want to look
+     at unbanning the top 4 again" / "just do it. i dont need a backtest".
+     The ban's machinery is LEFT IN PLACE and 0 disables it, the way CHEF_TICKET=false
+     retired the Chef's Table -- flip back to 4 to restore it in one character.
+     With CHALK_N=0 the fill loop never runs, so `chalk` stays empty and every consumer
+     (CHALKOFF's eviction, the mint filters, the redraft triggers) sees an empty set.
+     CHALKSTREAK-2026-09-02 carries the PRIOR ban forward for CHALK_STREAK builds, so it
+     would have held yesterday's four for one more build -- its own `_ban.length>CHALK_N`
+     overflow trim empties the ban on the FIRST build instead, and logs one warning as it
+     does. From the second build on, chalkstate is {} and it is silent.
+     ASSEMBLE_TICKETS.PY ALREADY HAD NO BAN (`chalk = set()`), so this closes a
+     divergence between the live engine and the server fallback rather than opening one.
+     EVIDENCE, so the next reader does not have to re-derive it: the cold-draft test over
+     61 boards (claude/chalk-colddraft-2026-08-24.md) came back +2.34u/night, t=+0.57 --
+     null. The ledger since is 94% carried by five nights, and the -134u drawdown of the
+     season ran 07-20..08-15, entirely PRE-ban. There is no measured case either way; this
+     is the owner's call on a null result, not a finding. */
+  var GATE_N=33, CHALK_N=0, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
   /* GRAND SALAMI REMOVED 2026-08-14 (owner's call). Not gated -- deleted. The flag version
      reserved the weakest anchor via `sidx`, excluded that bat from moon-anchoring and from the
      partner pool, and then discarded the ticket it was reserved for. Now nothing is reserved:
