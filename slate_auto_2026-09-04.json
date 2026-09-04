@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T22:51:59Z",
+  "pulled_at": "2026-09-04T22:56:57Z",
   "games": [
     {
       "gamePk": 824424,
@@ -265,7 +265,7 @@
         "wind_mph": 4.3,
         "wind_dir": 291,
         "tail_mph": -1.5,
-        "precip": 2
+        "precip": 4
       },
       "wf": 1.003
     },
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823338,
-      "status": "Delayed Start",
+      "status": "Warmup",
       "gameTime": "2026-09-04T22:45:00Z",
       "matchup": "LAA@PIT",
       "away": {
@@ -797,7 +797,7 @@
         "wind_mph": 4.1,
         "wind_dir": 248,
         "tail_mph": 3.2,
-        "precip": 8
+        "precip": 7
       },
       "wf": 1.034
     },
@@ -1195,7 +1195,7 @@
         "wind_mph": 8.3,
         "wind_dir": 239,
         "tail_mph": 7.7,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.058
     },
@@ -1725,7 +1725,7 @@
         "wind_mph": 12.1,
         "wind_dir": 118,
         "tail_mph": 5.7,
-        "precip": 3
+        "precip": 2
       },
       "wf": 1.051
     },
@@ -1875,8 +1875,54 @@
           "hr9": 0.47,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.268
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.253
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.14
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.235
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.163
+          },
+          {
+            "id": 691002,
+            "name": "Yohandy Morales",
+            "iso": 0.5
+          },
+          {
+            "id": 695670,
+            "name": "Harry Ford",
+            "iso": 0.187
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.145
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.035
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
