@@ -120,6 +120,42 @@ def _prod(it):
 
 
 ZERO = {'graded': 0, 'won': 0, 'units': 0.0, 'staked': 0.0}
+
+
+def _stamp(t, g):
+    """STAMPBOARD-2026-09-04. Write a decided ticket's outcome onto the ticket.
+
+    ⚠️ WRITE-ONLY. grade_ticket() never reads these, so a stamped board re-grades identically and
+    soccer_unfold.py's reconciliation stays valid. Do not start reading them back as input."""
+    t['final'] = True
+    t['won'] = bool(g['won'])
+    t['net'] = round(g['net'], 3)
+    t['stake'] = g['stake']
+
+
+def stamp(dpath):
+    """Re-derive a board's ticket outcomes and stamp them, WITHOUT touching the ledger.
+
+    For nights folded before STAMPBOARD existed. Pure function of the board, so it is safe on
+    every board on every pass; an already-stamped board comes out byte-identical. Returns True
+    if anything changed."""
+    before = io.open(dpath, encoding='utf-8').read()
+    D = json.loads(before)
+    finals = set((D.get('meta') or {}).get('finals') or [])
+    if not finals:
+        return False
+    n = 0
+    for t in D.get('tickets') or []:
+        g = grade_ticket(t, D['players'], finals)
+        if g:
+            _stamp(t, g)
+            n += 1
+    after = json.dumps(D, indent=1, ensure_ascii=False)
+    if after == before:
+        return False
+    io.open(dpath, 'w', encoding='utf-8').write(after)
+    print(f'  stamped {os.path.basename(dpath)}: {n} ticket(s)')
+    return True
 KINDS = ('lunch', 'late', 'builder', 'moon', 'family')
 
 
@@ -157,11 +193,14 @@ def fold(dpath, spath):
         c['units'] = c['units'] + g['net']
         c['staked'] = c['staked'] + g['stake']
         night += g['net']
+        _stamp(t, g)
         rows.append((t['kind'], t['name'], 'WON ' if g['won'] else 'lost', g['net']))
     season['history'].append((season['history'][-1] if season['history'] else 0) + night)
     season.setdefault('graded_nights', []).append(date)
     season['since'] = min(season.get('since', date), date)
     json.dump(season, io.open(spath, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+    # STAMPBOARD-2026-09-04. The board records its own result, not just the ledger's copy of it.
+    json.dump(D, io.open(dpath, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     print(f'graded {date}: {night:+.2f}u')
     for k, n, r, u in rows:
         print(f'    {k:8s} {n:20s} {r:18s} {u:+7.2f}u')
@@ -179,4 +218,9 @@ if __name__ == '__main__':
         sys.exit('usage: soccer_grade.py <D.json> [--season PATH]')
     sp = sys.argv[sys.argv.index('--season') + 1] if '--season' in sys.argv \
         else os.path.join(os.path.dirname(os.path.abspath(args[0])) or '.', 'soccer_season.json')
+    if '--stamp' in sys.argv:
+        # STAMPBOARD-2026-09-04 backfill. Ledger untouched; exit 0 whether or not anything moved.
+        changed = [a for a in args if stamp(a)]
+        print(f'stamp: {len(changed)}/{len(args)} board(s) changed')
+        sys.exit(0)
     fold(args[0], sp)
