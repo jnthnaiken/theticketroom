@@ -1328,6 +1328,69 @@
        enforces (three DISTINCT matches, the WIN span), most balanced legal one wins.
        ⚠️ Only when BOTH of his screamers are OPEN. A CONFLOCK-frozen slip is a placed bet and its
        legs are settled; a pair with one frozen half is left exactly as it is. */
+    /* ONEMANONESLIP-2026-09-04 -- AN ANCHOR IS NEVER A PARTNER ON SOMEONE ELSE'S SLIP.
+       Owner: "dude why is mbappe a moon leg after being chosen as an anchor?" He was on FOUR --
+       a partner on Demirovic's Upper Ninety, plus his own two screamers and his own builder.
+       "ONE PLAYER, ONE SLIP -- WITH THE ANCHOR EXCEPTION ... the only legal repeat is an anchor
+       mirroring onto his own builder" (index.html), and here his own screamers too. A fourth leg
+       on another man's ticket is not that.
+       ⚠️ THE 2026-08-29 GUARD ONLY STOPS HIM BEING ADDED. `ANCHORS ARE NEVER PARTNERS` filters
+       the repair's candidate pool and works -- no repair HANDS an anchor to another anchor's
+       slip. But leg repair only replaces DEAD legs, so a live one is pinned where it already was
+       and the board never revisits it. Whatever build first seated him there is preserved for the
+       rest of the slate. Same root as ANCHORSET and PAIRBALANCE above; same answer, same place.
+       The swap is minimal: the slip keeps its anchor, its title and its leg count, and exactly
+       one name changes -- to the strongest free man who is on no ticket, placeable (MINTGUARD),
+       not an anchor, and who keeps the slip's three DISTINCT matches and the WIN span.
+       ⚠️ NO LEGAL REPLACEMENT -> THE LEG STAYS. A duplicated man is bad; a two-leg screamer or
+       one that breaks the three-match rule is worse.
+       ⚠️ A LOCKED SLIP IS NEVER TOUCHED -- that is a placed bet and its legs are settled. */
+    (function () {
+      var _anch = {};
+      out.forEach(function (t) {
+        if (t.kind !== 'moon') return;
+        var legs = t.players || []; if (!legs.length) return;
+        _anch[t.anchor || legs[0].name] = 1;
+      });
+      var _onBoard = {};
+      out.forEach(function (t) { (t.players || []).forEach(function (l) { _onBoard[l.name] = 1; }); });
+      var _legal = function (names) {
+        var rows = names.map(rowOf), seen = {}, i;
+        for (i = 0; i < rows.length; i++) {
+          if (seen[rows[i].match]) return false;
+          seen[rows[i].match] = 1;
+        }
+        return spanOk(rows, cfg);
+      };
+      out.forEach(function (t, ti) {
+        if (t.kind !== 'moon' || t.locked) return;
+        var legs = t.players || []; if (legs.length < 2) return;
+        var an = t.anchor || legs[0].name;
+        var names = legs.map(function (l) { return l.name; });
+        var changed = false;
+        for (var i = 1; i < names.length; i++) {
+          if (!_anch[names[i]] || names[i] === an) continue;      /* his own anchor leg is legal */
+          var repl = Object.keys(D.players).filter(function (n) {
+            return !_onBoard[n] && !_anch[n] && alive[n] && placeable(n);
+          }).sort(function (a, b) {
+            var ta = D.players[a].TOTAL || 0, tb = D.players[b].TOTAL || 0;
+            if (tb !== ta) return tb - ta;
+            return a < b ? -1 : a > b ? 1 : 0;
+          });
+          for (var r = 0; r < repl.length; r++) {
+            var trial = names.slice(); trial[i] = repl[r];
+            if (!_legal(trial)) continue;
+            _onBoard[repl[r]] = 1; delete _onBoard[names[i]];
+            names = trial; changed = true; break;
+          }
+        }
+        if (changed) {
+          out[ti] = mkTicket('moon', names.map(function (n) { return legOf(n, D.players[n]); }),
+                             t.risk != null ? t.risk : cfg.MOON_RISK, t.name, koOf, D.players);
+        }
+      });
+    })();
+
     if (cfg.MOONS_PER_ANC === 2 && cfg.MOON_LEGS === 3) {
       var _pbIx = {};
       out.forEach(function (t, i) {
