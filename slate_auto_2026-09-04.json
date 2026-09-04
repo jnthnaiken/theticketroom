@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T19:46:45Z",
+  "pulled_at": "2026-09-04T19:52:17Z",
   "games": [
     {
       "gamePk": 824424,
@@ -25,7 +25,7 @@
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 701678,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 671106,
           "name": "Logan Allen",
-          "hr9": 1.76,
+          "hr9": 1.65,
           "hand": "LHP"
         },
         "lineup": [
@@ -97,7 +97,7 @@
           {
             "id": 663993,
             "name": "Nathaniel Lowe",
-            "iso": 0.197
+            "iso": 0.196
           },
           {
             "id": 694197,
@@ -280,7 +280,7 @@
         "lineup": [
           {
             "id": 660670,
-            "name": "Ronald Acu\u00f1a",
+            "name": "Ronald Acu\u00f1a Jr.",
             "iso": 0.173
           },
           {
@@ -867,7 +867,7 @@
     },
     {
       "gamePk": 824067,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T00:10:00Z",
       "matchup": "TOR@KC",
       "away": {
@@ -889,10 +889,56 @@
           "hr9": 0.73,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.211
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.164
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.213
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.154
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.134
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.153
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.166
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.119
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.119
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1064,16 +1110,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 70.9,
-        "wind_mph": 6.1,
-        "wind_dir": 246,
-        "tail_mph": 4.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.017
+      "wf": 1.0
     },
     {
       "gamePk": 823093,
