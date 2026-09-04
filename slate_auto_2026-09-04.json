@@ -1,11 +1,11 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T21:56:16Z",
+  "pulled_at": "2026-09-04T22:00:29Z",
   "games": [
     {
       "gamePk": 824424,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-04T18:10:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -20,7 +20,7 @@
           {
             "id": 650402,
             "name": "Gleyber Torres",
-            "iso": 0.118
+            "iso": 0.117
           },
           {
             "id": 805808,
@@ -117,7 +117,7 @@
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.12
+            "iso": 0.125
           }
         ],
         "confirmed": true
@@ -1726,7 +1726,7 @@
     },
     {
       "gamePk": 823905,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T02:10:00Z",
       "matchup": "WSH@LAD",
       "away": {
@@ -1748,10 +1748,56 @@
           "hr9": 0.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.132
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.174
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.147
+          },
+          {
+            "id": 669257,
+            "name": "Will Smith",
+            "iso": 0.132
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.24
+          },
+          {
+            "id": 500743,
+            "name": "Miguel Rojas",
+            "iso": 0.122
+          },
+          {
+            "id": 669743,
+            "name": "Alex Call",
+            "iso": 0.072
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.127
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.164
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
