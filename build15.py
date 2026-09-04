@@ -173,7 +173,52 @@ def fetch_hr9(date):
     return out, 'OK (%d arms)'%n
 
 cards=load_dated('cards'); lin=load_dated('lineups')
-KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',required=False).values() if v.get('name')}
+# 🚨 KEXTRAKEY-2026-09-04 -- KEXTRA WAS EMPTY ON EVERY BUILD, SILENTLY, AND TOOK FOUR THINGS WITH IT.
+# This read:
+#     KEXTRA={norm(v['name']):v for v in load_dated('kasper_extras',...).values() if v.get('name')}
+# kasper_extras_<date>.json is keyed BY NAME -- {"Brandon Nimmo": {"khr": 52}} -- exactly as the
+# header contract at the top of this file says. The values carry no 'name' field, so `.values()`
+# yielded {"khr": 52}, `v.get('name')` was None for every entry, the comprehension filtered all of
+# them out, and KEXTRA came back {} no matter how good the file was. Measured on 2026-09-04:
+# 416 entries in, 416 names matching the board EXACTLY (zero join misses), 0 landing.
+#
+# It fails soft in four places at once, which is why it survived:
+#     khr (line ~579)  -> None for every bat; the 🧱 base-score chip renders "-"   <- the visible one
+#     ISO_KASPER       -> {} -> ISO {} -> ISO_FLOOR falls back to the literal 0.10, which is the
+#                         EXACT regression ISOSRC-2026-08-23 was written to end. Board carried
+#                         iso "—" x416 and _ziso null x416.
+#     _USE_KWCON       -> False -> expected power silently switches off Kasper xwOBAcon onto
+#                         Savant xwcon (verified: _zxwcon == xwcon, 369/416, same 186 distinct)
+#     _zdmg            -> null x416; the DMGRATIO-2026-08-23 damage ratio is simply not computed.
+# Nothing raised, nothing warned: the input is required=False and every consumer has a floor.
+#
+# The name is the KEY. Older files repeated it inside the value, so both shapes are accepted.
+# Keyed under BOTH norms because the two call sites disagree and always have: line ~579 looks up
+# with lunorm(), lines ~624/633/644 with norm(). Suffix-less inputs make those identical today,
+# which is the only reason that has never bitten -- it is not a guarantee, so satisfy both.
+_KX_RAW=load_dated('kasper_extras',required=False)
+KEXTRA={}
+for _k,_v in _KX_RAW.items():
+    if not isinstance(_v,dict): continue
+    _n=_v.get('name') or _k
+    KEXTRA[norm(_n)]=_v; KEXTRA[lunorm(_n)]=_v
+# COVERAGE, OUT LOUD. This file is optional and every consumer floors, so a shape change or a
+# thinned-out scrape is invisible unless the build says so. Print what actually landed, and refuse
+# to build if a populated file contributed literally nothing -- that is a broken contract, not a
+# thin slate. Per-field zeroes are warnings: a khr-only sidecar still builds, it just scores worse.
+_KX_COV={f:sum(1 for v in _KX_RAW.values() if isinstance(v,dict) and v.get(f) is not None)
+         for f in ('khr','iso','xwobacon','bip')}
+print(f"  kasper_extras: {len(_KX_RAW)} entries -> {len(KEXTRA)} keys  " +
+      "  ".join(f"{f}={_KX_COV[f]}" for f in ('khr','iso','xwobacon','bip')))
+if _KX_RAW and not KEXTRA:
+    raise SystemExit("!! kasper_extras_%s.json has %d entries but NONE parsed -- the file shape "
+                     "changed under KEXTRA. Board would lose khr, ISO, xwOBAcon and _zdmg."
+                     % (DATE,len(_KX_RAW)))
+for _f,_why in (('khr','the base-score chip renders "-"'),
+                ('iso','ISO falls back to the slate floor and _zdmg goes dark'),
+                ('xwobacon','expected power falls back to Savant xwcon')):
+    if _KX_RAW and not _KX_COV[_f]:
+        print(f"  ::warning:: kasper_extras carries no {_f} for any bat -- {_why}")
 
 # ---- ISO: Kasper's sidecar is the source (ISOSRC-2026-08-23) ----
 # WHAT THIS REPLACED: a three-step fallback chain in which every step was dead.
