@@ -92,7 +92,16 @@ game's roster tables. Accumulate across all games (N varies daily — 15 on a fu
 then compile the three sidecars:
 - `cards_<date>.json`  — per bat: name, form_pct, form_arrow, pb, hh, la, zone (roster
   columns: Zone Fit / kHR / HR Form / PullBrl% / HH% / LA).
-- `kasper_extras_<date>.json` — per bat: `khr` (the 🧱 base-score badge), rounded int.
+- `kasper_extras_<date>.json` — per bat: **`khr`, `iso`, `xwobacon`, `bip`** — ALL FOUR, off
+  the same roster table (columns `KHR` / `ISO` / `XWOBAC` / `BIP`; `khr` is the 🧱 base-score
+  badge, rounded to int; the other three stay as read). ⚠️ **KEXTRAKEY-2026-09-04 — do not
+  thin this back to khr-only.** This section said "khr, rounded int" from the start, but
+  `ISOSRC-2026-08-23` made `build15.py` take ISO from this same sidecar, and `DMGRATIO-2026-08-23`
+  added `xwobacon`+`bip`. Nobody updated this line, so a khr-only file shipped every day and
+  `ISO_KASPER`, `_USE_KWCON` and `_zdmg` were all silently dead — ISO floored to the literal
+  0.10 for every bat, which is the exact bug ISOSRC existed to fix. The build now prints
+  `kasper_extras: N entries -> N keys  khr= iso= xwobacon= bip=` and warns on any zero. If you
+  see a zero there, the scrape is thin — go back and get the column.
 - `pitchers_<date>.json` — per opposing starter: brl, pbrl, hh, fb (pitcher / Top Slate
   Pitchers table).
 Strip ALL name suffixes (Jr./Sr./II/III). The browser localStorage may hold a prior day's
@@ -455,7 +464,7 @@ A missing one silently falls back to the **prior day**, which then mismatches th
 | `cards_<date>.json` | **yes** | Kasper matchup pages | `{MATCHUP:{TEAM:[{name,form_pct,form_arrow,pb,hh,la,zone,test}]}}` |
 | `lineups_<date>.json` | **yes** | **RotoWire (MANUAL)** | see below — this is the #1 trap |
 | `odds_<date>.json` | **yes** | VegasInsider HR props | `{name: american}` |
-| `kasper_extras_<date>.json` | optional | Kasper matchup pages | carries `khr` (the 🧱 base-score badge) |
+| `kasper_extras_<date>.json` | optional *(but see note)* | Kasper matchup pages | `{name:{khr,iso,xwobacon,bip}}` — **all four**. Optional to the loader, not to the model: without `iso`/`xwobacon`/`bip` the ISO source, `_USE_KWCON` and `_zdmg` all go dark and the board still builds. |
 | `pitchers_<date>.json` | optional | Kasper "Top Slate Pitchers" | `{name:{brl,pbrl,hh,fb}}`; unlisted arms → live HR/9 |
 
 **`lineups_<date>.json` is NOT auto-pulled.** `fetch_mlb.py` only writes `slate_auto`
@@ -473,9 +482,18 @@ pages KEEP suffixes → strip them when building cards/extras. VegasInsider and 
 historical files are already suffix-less. (Stripping on 07-03 lifted odds coverage
 241→248 and khr 330→337.)
 
-**khr sourcing.** Kasper's Export is "under construction," so `kasper_extras` is now
-hand-built by reading the KHR column off each of the 13 matchup pages (`?game=<pk>`),
-rounded to int. cards fields come from the same matchup roster tables.
+**kasper_extras sourcing.** Kasper's Export is "under construction," so `kasper_extras` is
+hand-built off each matchup page (`?game=<pk>`), same roster tables as cards. Read FOUR
+columns per bat, not one: `KHR` → `khr` (rounded int), `ISO` → `iso`, `XWOBAC` → `xwobacon`,
+`BIP` → `bip`. Full default header, 2026-09-04:
+`HITTER NAME|MATCH|CEIL|ZONE|KHR|FORM|PIT|BIP|ISO|XWOBA|XWOBAC|SWS%|PBRL%|BRL%|SWSP%|FB%|HH%|LA|Likely`
+— note `XWOBA` and `XWOBAC` are different columns and it is `XWOBAC` you want. Identify a
+roster table by `KHR`+`ISO`+`XWOBAC`+`BIP` in its header and skip the 3-row *Best Matchups*
+highlight table, whose header is identical. Strip the `▸` prefix and the `LHB/RHB/SHB` suffix
+off each name, then the generational suffixes.
+`iso` outside 0.02–0.60 is dropped by `build15.py` and falls back to the slate median; `bip`
+below `MIN_DMG_BIP` (40) means no `_zdmg` for that bat. Both are normal — a full slate lands
+around iso 402/416 and bip≥40 373/416.
 
 ## 🩹 Grading / behavior fixes (this session)
 
@@ -574,7 +592,7 @@ Exit 0 = safe to commit+build. Exit 1 = DO NOT COMMIT.
 
 ### The 5-file contract build15.py actually consumes
 - `cards_<d>.json`         `{MATCHUP:{TEAM:[{name,form_pct,form_arrow,pb,hh,la,zone,test}]}}`
-- `kasper_extras_<d>.json` `{name:{khr,...}}`
+- `kasper_extras_<d>.json` `{name:{khr,iso,xwobacon,bip}}`   ← all four; khr-only is a thin scrape, see above
 - `odds_<d>.json`          `{name: american_int}`   (number, not string)
 - `pitchers_<d>.json`      `{name:{brl,pbrl,hh,fb}}`
 - `lineups_<d>.json`       `{"date":<d>, "games":[ per-game ]}`   ← OBJECT, not a bare list
