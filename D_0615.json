@@ -21656,7 +21656,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -21742,7 +21742,7 @@
    "iso": ".061",
    "iso_used": 0.061,
    "powraw": 0,
-   "slot": 5,
+   "slot": 6,
    "bhand": "L",
    "hr9": null,
    "wf": 1,
@@ -21753,7 +21753,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -21770,7 +21770,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.7,
-   "slotT": 1,
+   "slotT": 0.98,
    "platT": 1.056,
    "pen_fatigue": 0.22,
    "penT": 1.0176,
@@ -21850,7 +21850,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -22141,7 +22141,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -22335,7 +22335,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -22529,7 +22529,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -22723,7 +22723,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -22809,7 +22809,7 @@
    "iso": ".241",
    "iso_used": 0.241,
    "powraw": 577.5647308062617,
-   "slot": 6,
+   "slot": 5,
    "bhand": "L",
    "hr9": null,
    "wf": 1,
@@ -22820,7 +22820,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -22837,7 +22837,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.1653160058332472,
-   "slotT": 0.98,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": 0.22,
    "penT": 1.0176,
@@ -22917,7 +22917,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Kumar Rocker",
@@ -40370,8 +40370,8 @@
     "factor": 1.041,
     "park": "MIL@CIN",
     "cond": "9 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "2% rain",
+    "precip": 2
    },
    "3": {
     "emoji": "\u2600\ufe0f",
@@ -40379,8 +40379,8 @@
     "factor": 1.009,
     "park": "ATL@PHI",
     "cond": "6 mph",
-    "rain": "3% rain",
-    "precip": 3
+    "rain": "2% rain",
+    "precip": 2
    },
    "4": {
     "emoji": "\u2600\ufe0f",
@@ -40388,8 +40388,8 @@
     "factor": 1.039,
     "park": "LAA@PIT",
     "cond": "2 mph",
-    "rain": "21% rain",
-    "precip": 21
+    "rain": "19% rain",
+    "precip": 19
    },
    "5": {
     "emoji": "\u2600\ufe0f",
@@ -40397,8 +40397,8 @@
     "factor": 1.032,
     "park": "BOS@BAL",
     "cond": "5 mph",
-    "rain": "8% rain",
-    "precip": 8
+    "rain": "7% rain",
+    "precip": 7
    },
    "6": {
     "emoji": "\u2600\ufe0f",
@@ -40424,8 +40424,8 @@
     "factor": 1.062,
     "park": "MIN@CWS",
     "cond": "10 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "3% rain",
+    "precip": 3
    },
    "9": {
     "emoji": "\ud83c\udfdf",
@@ -40460,8 +40460,8 @@
     "factor": 1.181,
     "park": "STL@COL",
     "cond": "10 mph",
-    "rain": "4% rain",
-    "precip": 4
+    "rain": "3% rain",
+    "precip": 3
    },
    "13": {
     "emoji": "\u2600\ufe0f",
@@ -40491,7 +40491,7 @@
     "precip": 0
    }
   },
-  "build": "9/4 5:30pm",
+  "build": "9/4 5:36pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40682,7 +40682,7 @@
   "date": "2026-09-04",
   "gs": {},
   "chalkstate": {
-   "b": "9/4 5:30pm",
+   "b": "9/4 5:36pm",
    "s": {}
   },
   "chalk": [],
@@ -41230,7 +41230,7 @@
    "name": "Into the Upper Air",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Montgomery is mashing the ball (62% hard-hit), Moniak has textbook lift (20\u00b0), and Caminero lands at 157 in our model.",
+   "note": "Montgomery is squaring up rockets (62% hard-hit), Moniak has textbook lift (20\u00b0), and Caminero lands at 157 in our model.",
    "players": [
     {
      "name": "Colson Montgomery",
@@ -41269,7 +41269,7 @@
      "game": 9,
      "late": false,
      "odds": 285,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -41289,10 +41289,11 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 2,
+   "confleg": 3,
    "priced": 3,
    "parlay_am": 5982,
-   "payout10": 608.2
+   "payout10": 608.2,
+   "locked": true
   },
   {
    "name": "Past Low Earth Orbit",
@@ -41471,10 +41472,8 @@
  ],
  "pool": [
   "Kazuma Okamoto",
-  "Mickey Moniak",
   "Cal Raleigh",
   "Shohei Ohtani",
-  "Junior Caminero",
   "Alec Burleson",
   "Corey Seager",
   "Jordan Walker",
