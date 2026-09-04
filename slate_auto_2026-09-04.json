@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T19:26:47Z",
+  "pulled_at": "2026-09-04T19:30:27Z",
   "games": [
     {
       "gamePk": 824424,
@@ -55,12 +55,12 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.181
+            "iso": 0.179
           },
           {
             "id": 595879,
             "name": "Javier B\u00e1ez",
-            "iso": 0.117
+            "iso": 0.116
           }
         ],
         "confirmed": true
@@ -70,7 +70,7 @@
         "sp": {
           "id": 671106,
           "name": "Logan Allen",
-          "hr9": 1.8,
+          "hr9": 1.76,
           "hand": "LHP"
         },
         "lineup": [
@@ -399,7 +399,7 @@
     },
     {
       "gamePk": 823338,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T22:45:00Z",
       "matchup": "LAA@PIT",
       "away": {
@@ -410,8 +410,54 @@
           "hr9": 1.99,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.195
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.184
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.089
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.146
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.117
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.115
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.166
+          },
+          {
+            "id": 624428,
+            "name": "Adam Frazier",
+            "iso": 0.11
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PIT",
@@ -424,7 +470,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
