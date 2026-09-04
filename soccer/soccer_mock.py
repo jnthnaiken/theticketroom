@@ -111,11 +111,15 @@ for _k, _v in _prev.items():
     _m, _n = _k.split('|', 1)
     odds[(_m, _n)] = int(_v)
 _pnew = _pheld = _pwould = 0
+# SLATEROSTER-2026-09-04. THE SLATE, in ags.psv's own order. The ledger says what a name COSTS;
+# this says who is on the card tonight. Collected in the loop that already reads the file.
+slate = []
 for line in open('ags.psv', encoding='utf-8'):
     if not line.strip():
         continue
     match, name, f = line.strip().split('|')
     am = frac_to_am(f)
+    slate.append((match, name))
     if (match, name) not in odds:
         odds[(match, name)] = am                 # ADD: rule (1), and it must stay open
         _pnew += 1
@@ -217,10 +221,19 @@ def shrink(players, keys, k=SHRINK_K):
 
 players = []
 matched = {'exact': 0, 'token': 0, 'missing': 0}
-for (match, name), am in odds.items():
-    # PRICELEDGER-SOCCER-2026-09-04. The ledger is per-slate so every key belongs to this slate
-    # by construction; this is defence against a hand-edited or mis-copied prices.json, where an
-    # unknown match key was a KeyError on LEAGUE[match] that took the whole build down.
+for match, name in slate:
+    am = odds[(match, name)]
+    # SLATEROSTER-2026-09-04. This walked `odds` -- the LEDGER -- which made a (match, name) key
+    # permanent: once priced, never removable, because nothing ever deletes from prices.json. The
+    # 2026-09-04 board carried a stale PSG card for Bradley Barcola at +120 through two rebuilds
+    # AFTER the row was dropped from ags.psv, scored him twice, and let the ghost overwrite his
+    # real Liverpool entry in soccer_D.json's name-keyed dict. The merge above is unchanged --
+    # ADD when absent, HOLD when present, never update -- because the owner's insert-only rule is
+    # about the PRICE. A ledger key with no ags.psv row is now simply unused.
+    #
+    # The warning below is unreachable from the ledger now and is kept for a hand-edited ags.psv
+    # naming a match fixtures.json does not carry: that was a KeyError on LEAGUE[match] that took
+    # the whole build down.
     if match not in LEAGUE or match not in KICKOFF:
         print(f'  ::warning::prices.json carries {match}|{name}, which is not on this slate -- skipped')
         continue
