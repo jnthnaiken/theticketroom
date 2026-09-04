@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
+EXPECT_SEAMS = 86 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -349,15 +349,30 @@ def seams(payload_js):
     #
     # Verifying one surface and calling the feature done is the mistake this pair of seams
     # exists to record. THREE render paths carry player state: pCard, legRow, ticketCard.
-    # SUPERSUBLEG-2026-09-04. The leg row is a GLYPH renderer (.lst), separate from the .st
-    # chip that SUPERSUBSEAM fixed -- so a carried leg cashed on the ticket as a bare '⚽'
-    # beside the replaced player's name, with nothing to say it was the substitute who
-    # scored. Owner: "still not seeing ueda." Surname only; the goal minute is on the card.
+    # SUBROW-2026-09-04. The glyph is a glyph again. Hanging the successor's surname off the
+    # ball read as an annotation on the man who came OFF; he is a player on this ticket now
+    # and gets his own row below, see 'leg-subrow'.
     add('legrow-unres',
         """${fp.hr?'⚽':fp.void?'↩':fp.out?'🪑':fp.pending?'↻':isFinal(p.game)?'❌'""",
-        """${sState(fp)?'⏱':fp.hr?('⚽'+((fp.carry&&fp.carry.length)?'<span class=\"lcarry\">'"""
-        """+String(fp.carry[fp.carry.length-1].to).split(' ').pop()+'</span>':'')):fp.void?'↩'"""
-        """:fp.out?'🪑':fp.pending?'↻':isFinal(p.game)?'❌'""")
+        """${sState(fp)?'⏱':fp.hr?'⚽':fp.void?'↩':fp.out?'🪑':fp.pending?'↻':isFinal(p.game)?'❌'""")
+
+    # SUBROW-2026-09-04. Owner: "put ueda under giroud and do his full name, like any other
+    # player on a ticket, and in front of his name put a red and green subtitute emoji."
+    #
+    # ⚠️ NO SUCH EMOJI EXISTS. 🔄/🔁 are blue-grey, 🔺🔻 are both red, ⬆️⬇️ render blue on most
+    # platforms. So the icon is the broadcast substitution mark drawn as two arrows and
+    # coloured by CSS -- ▲ lime, ▼ pink -- the same green/red pair CASHED and SOLD use, and it
+    # renders identically everywhere, which no emoji does.
+    #
+    # It goes in as the FIRST child of .lmeta rather than as a new grid child: .leg places
+    # .nm/.lmeta/.meter on explicit rows and .od spans 1/3 in one rule and 1 in another, so a
+    # real grid row would mean renumbering every sibling on every leg -- including the legs on
+    # boards with no substitution in them. .lmeta is flex-wrap; flex-basis:100% claims a line.
+    add('leg-subrow',
+        """<span class="lmeta"><span class="wbadge">""",
+        """<span class="lmeta">${(fp.carry&&fp.carry.length)?'<span class="subrow">"""
+        """<span class="subico"><i>\u25b2</i><i>\u25bc</i></span>'+esc(fp.carry[fp.carry.length-1].to)"""
+        """+'</span>':''}<span class="wbadge">""")
     # A slip whose every leg sits in an ended-but-unpublished match is not "projected" --
     # nothing about it is still a projection. t.unres is the count of such legs (soccer_payload).
     # The badge must count legs through sState too, not a baked field -- otherwise a slip whose
@@ -537,10 +552,20 @@ def seams(payload_js):
         # 'leg-hr-icon' and 'legrow-unres', whose old-strings are chained through each other.
         '.bal{font-size:1.22em;line-height:1;vertical-align:-.09em}'
         '.lst.hit{font-size:15.5px}'
-        # SUPERSUBLEG-2026-09-04. .lst.hit is 15.5px for the ball; the successor's surname
-        # must not inherit that or it dwarfs the player name it sits next to.
-        '.lcarry{font-size:12px;font-weight:700;margin-left:3px;opacity:.85;'
-        'vertical-align:.06em;letter-spacing:.01em}')
+        # SUBROW-2026-09-04. The successor's own line. Sized to read as a name and not as a
+        # badge -- 14px/600 against the leg name's 15px/600 -- so it is legible as "the man
+        # this leg is on now" without competing with the man who started.
+        # SUBROW-2026-09-04 (alignment). Owner: "line it up so the emoji lines up with
+        # giroud's name." .lmeta and .nm both start at grid-column 2, so the row begins
+        # under the leg's STATUS GLYPH, not under the name. 26px = the .lst.hit glyph (19px
+        # rendered) plus .nm's 7px flex gap, which is where the name text actually starts.
+        '.subrow{flex-basis:100%;display:flex;align-items:center;gap:7px;padding-left:26px;'
+        'font-size:14px;font-weight:600;color:var(--txt);margin:1px 0 2px}'
+        '.subico{display:inline-flex;flex-direction:column;line-height:.68;font-size:10.5px;'
+        'font-style:normal;letter-spacing:0}'
+        '.subico i{font-style:normal}'
+        '.subico i:first-child{color:var(--lime)}'
+        '.subico i:last-child{color:var(--pink)}')
 
     # ---- 15. ODDS SIGNS -- THE BOARD HAD NEVER SEEN AN ODDS-ON PRICE ------------------
     # ODDSSIGN-2026-08-26, owner: "mbappes odds read +-250. it should just be -250."
