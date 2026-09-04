@@ -1,11 +1,11 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T15:00:54Z",
+  "pulled_at": "2026-09-04T15:06:48Z",
   "games": [
     {
       "gamePk": 824424,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T18:10:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 0.91,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.12
+          },
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.139
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.154
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.218
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.175
+          },
+          {
+            "id": 701162,
+            "name": "Ben Malgeri",
+            "iso": 0.141
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.188
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.181
+          },
+          {
+            "id": 595879,
+            "name": "Javier B\u00e1ez",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -27,10 +73,56 @@
           "hr9": 1.88,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.058
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.162
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.145
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.164
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.197
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.108
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.126
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.126
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.113
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -604,9 +696,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 70.3,
+        "wind_mph": 6.4,
+        "wind_dir": 252,
+        "tail_mph": 4.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.016
     },
     {
       "gamePk": 823093,
