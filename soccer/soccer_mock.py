@@ -93,12 +93,39 @@ def zscores(vals):
 
 standardize = zscores
 
-odds = {}
+# PRICELEDGER-SOCCER-2026-09-04 -- INSERT ONLY, NEVER UPDATE. Owner: "build it so a name can
+# only ever be inserted, never updated." ags.psv is MERGED into the committed per-slate
+# prices.json rather than read as gospel; existing entries are HELD, new names are appended, and
+# the merged ledger is written back so the next build has something to hold.
+#
+# It lives HERE, and not in soccer_rebuild_cli.js where PRICEONCE-SOCCER-2026-09-03 put it,
+# because this is where the board's numbers come from. The rebuild CLI writes tickets.json only;
+# soccer_payload.py rebuilds soccer_D.json from scored.json with no prior-board awareness, so a
+# fresh ags.psv moved every price on the card whatever the re-draft held. Same shape as
+# nfl_mock.py's load_prices(), on purpose -- one idea, not two.
+PRICES = 'prices.json'
+odds, _prev = {}, {}
+if _os.path.exists(PRICES):
+    _prev = json.load(open(PRICES, encoding='utf-8'))
+for _k, _v in _prev.items():
+    _m, _n = _k.split('|', 1)
+    odds[(_m, _n)] = int(_v)
+_pnew = _pheld = _pwould = 0
 for line in open('ags.psv', encoding='utf-8'):
     if not line.strip():
         continue
     match, name, f = line.strip().split('|')
-    odds[(match, name)] = frac_to_am(f)
+    am = frac_to_am(f)
+    if (match, name) not in odds:
+        odds[(match, name)] = am                 # ADD: rule (1), and it must stay open
+        _pnew += 1
+    else:
+        if odds[(match, name)] != am:
+            _pwould += 1                         # the move is COUNTED, not applied
+        _pheld += 1
+json.dump({f'{m}|{n}': v for (m, n), v in sorted(odds.items())},
+          open(PRICES, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+print(f'  prices: {_pnew} new, {_pheld} held by PRICEONCE [{_pwould} would have moved]')
 
 xg_exact, xg_tok = defaultdict(list), defaultdict(list)
 for line in open('xg.psv', encoding='utf-8'):
@@ -191,6 +218,12 @@ def shrink(players, keys, k=SHRINK_K):
 players = []
 matched = {'exact': 0, 'token': 0, 'missing': 0}
 for (match, name), am in odds.items():
+    # PRICELEDGER-SOCCER-2026-09-04. The ledger is per-slate so every key belongs to this slate
+    # by construction; this is defence against a hand-edited or mis-copied prices.json, where an
+    # unknown match key was a KeyError on LEAGUE[match] that took the whole build down.
+    if match not in LEAGUE or match not in KICKOFF:
+        print(f'  ::warning::prices.json carries {match}|{name}, which is not on this slate -- skipped')
+        continue
     recs, how = lookup(name)
     matched['missing' if how is None else how] += 1
     p = dict(name=name, match=match, league=LEAGUE[match], odds=am,
