@@ -154,6 +154,40 @@
     return (hi - lo) <= cfg.WIN;
   }
 
+  /* COMPLETABILITY-2026-09-04, ported from index.html's canComplete() (added there 2026-08-13).
+   *
+   * spanOk() validates a screamer AS IT STANDS -- distinct matches, span <= WIN. It never asks
+   * whether a THIRD leg is still reachable after the pick, so filling by strength can strand the
+   * slip on its own second leg. The baseball incident it was written for: Contreras (3:07) took
+   * Crow-Armstrong (4:05) as his first partner on BOTH moons, pinning the window to [2:05, 5:07]
+   * -- his own game barred as a duplicate, 4:05 already on the ticket, and the three 1:10 games
+   * and the 1:35 now out of window. Both moons stalled at two legs, he was demoted, and the
+   * strongest bat on the board fell to a partner leg under a weaker anchor.
+   *
+   * ⚠️ IT COUNTS DISTINCT MATCHES, NOT PLAYERS. Every remaining leg has to come from a match this
+   * screamer does not already hold, so five in-window candidates from one match are worth exactly
+   * one leg. Counting players would say "plenty left" and strand the slip anyway, which is the
+   * bug wearing a lookahead.
+   *
+   * Cheap by construction: it stops as soon as it has found `left` usable matches.
+   */
+  function canComplete(t, cand, pool, cfg) {
+    var left = cfg.MOON_LEGS - t.legs.length - 1;
+    if (left <= 0) return true;
+    var legs = t.legs.concat([cand]);
+    var used = {};
+    legs.forEach(function (x) { used[x.match] = true; });
+    var cnt = 0, seen = {};
+    for (var i = 0; i < pool.length; i++) {
+      var m = pool[i];
+      if (m === cand || used[m.match] || seen[m.match]) continue;
+      if (!spanOk(legs.concat([m]), cfg)) continue;
+      seen[m.match] = true;
+      if (++cnt >= left) return true;
+    }
+    return false;
+  }
+
   /* ---- DRAFT AT EXACTLY n ANCHORS --------------------------------------------------------
    * ALL-OR-NONE, and that is deliberate: an anchor that ships one moon instead of two is a
    * lopsided board, so the whole attempt is thrown away and the caller steps n down. Ported
@@ -247,6 +281,9 @@
               var cand = avail[c];
               if (t.seen[cand.match]) continue;
               if (!spanOk(t.legs.concat([cand]), cfg)) continue;
+              /* COMPLETABILITY-2026-09-04: never take a partner that leaves too few distinct
+                 in-window matches to finish this screamer. */
+              if (!canComplete(t, cand, avail, cfg)) continue;
               t.legs.push(cand); t.seen[cand.match] = true;
               avail.splice(c, 1); progress = true;
               return;
