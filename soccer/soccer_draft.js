@@ -210,23 +210,65 @@
       var used = nameSet(anchors);
       var partners = byStrength.filter(function (p) { return !used[p.name]; });
 
-      var out = [], spent = {}, failed = null;
+      /* SNAKEDRAFT-2026-09-04 -- AN ANCHOR'S SCREAMERS FILL TOGETHER, NOT ONE THEN THE OTHER.
+         This block used to run `for m` over the anchor's moons and, inside it, walk the
+         strength-sorted `partners` from the top -- so moon 1 took the two best legal partners and
+         moon 2 took the next two. Moon 1 was stronger than moon 2 by construction on every anchor
+         of every board this file has drafted (2026-09-13 football: Hampton 177.5/170.9 against
+         149.7/149.6, a 49-point gap). Owner: "it looks like it is drafting one of an anchor's
+         moons entirely before drafting the other. thats not how it works."
+         It is index.html's fillRound(), which baseball has always used and which this file never
+         got because it was ported from soccer_mock.draft(): rounds rather than a sequential fill,
+         the anchor order reversed every other round, and within an anchor the moon holding FEWER
+         legs picks first. Removing a pick from the shared pool at once keeps BOTH old invariants
+         -- a partner is used at most once board-wide (was `spent`) and an anchor's two moons never
+         share one (was `local`). */
+      var out = [], failed = null;
+      var avail = partners.slice(), shells = [];
       for (var a = 0; a < anchors.length; a++) {
-        var anc = anchors[a], made = [], local = {};
         for (var m = 0; m < cfg.MOONS_PER_ANC; m++) {
-          var legs = [anc], seen = {}; seen[anc.match] = true;
-          for (var c = 0; c < partners.length && legs.length < 3; c++) {
-            var cand = partners[c];
-            if (seen[cand.match] || spent[cand.name] || local[cand.name]) continue;
-            if (spanOk(legs.concat([cand]), cfg)) { legs.push(cand); seen[cand.match] = true; local[cand.name] = true; }
-          }
-          if (legs.length === 3) made.push(legs);
+          var sh = { rank: a, anc: anchors[a], legs: [anchors[a]], seen: {} };
+          sh.seen[anchors[a].match] = true;
+          shells.push(sh);
         }
-        if (made.length !== cfg.MOONS_PER_ANC) { failed = anc; break; }   // strike him, retry the set
-        for (var q in local) if (local.hasOwnProperty(q)) spent[q] = true;
-        made.forEach(function (legs) { out.push({ kind: 'moon', legs: legs, risk: cfg.MOON_RISK }); });
       }
-      if (!failed) return out;
+      var needy = function (t) { return t.legs.length < cfg.MOON_LEGS; };
+      for (var rnd = 0; shells.some(needy); rnd++) {
+        var order = [];
+        for (var r0 = 0; r0 < anchors.length; r0++) order.push(r0);
+        if (rnd % 2) order.reverse();
+        var progress = false;
+        order.forEach(function (r) {
+          shells.filter(function (t) { return t.rank === r; })
+                .sort(function (x, y) { return x.legs.length - y.legs.length; })
+                .forEach(function (t) {
+            if (!needy(t)) return;
+            for (var c = 0; c < avail.length; c++) {
+              var cand = avail[c];
+              if (t.seen[cand.match]) continue;
+              if (!spanOk(t.legs.concat([cand]), cfg)) continue;
+              t.legs.push(cand); t.seen[cand.match] = true;
+              avail.splice(c, 1); progress = true;
+              return;
+            }
+          });
+        });
+        if (!progress) break;
+      }
+      /* ALL-OR-NONE, unchanged in meaning. Strike the WEAKEST anchor among those that actually
+         failed, not the first one found: index.html records (2026-08-13) that demoting the wrong
+         anchor eats every good one beneath it and ends with an empty board. */
+      var short = {};
+      shells.forEach(function (t) { if (needy(t)) short[t.anc.name] = true; });
+      for (var a2 = anchors.length - 1; a2 >= 0; a2--) {
+        if (short[anchors[a2].name]) { failed = anchors[a2]; break; }
+      }
+      if (!failed) {
+        shells.forEach(function (t) {
+          out.push({ kind: 'moon', legs: t.legs, risk: cfg.MOON_RISK });
+        });
+        return out;
+      }
       struck[failed.name] = true;
     }
     return [];

@@ -28,9 +28,26 @@
  * how it got past every existing check the first time.
  *
  * Inputs are the COMMITTED artifacts of that night, not re-derived:
- *     scored.json    every priced player with TOTAL / gate_z / kickoff  (soccer_mock.py output)
- *     teamnews.json  the XI that night                                  (soccer_teamnews.py output)
- *     tickets.json   what the board actually shipped                    <- the assertion
+ *     scored.json        every priced player with TOTAL / gate_z / kickoff  (soccer_mock.py)
+ *     teamnews.json      the XI that night                                  (soccer_teamnews.py)
+ *     tickets.json       what the board actually shipped                    <- HISTORY, never edited
+ *     tickets_snake.json what the drafter produces after SNAKEDRAFT-2026-09-04 <- the assertion
+ *
+ * ⚠️ SNAKEDRAFT-2026-09-04 DELIBERATELY MOVED THE ALLOCATION, so this file's original claim --
+ * "soccer_draft.js still produces the board that actually shipped" -- is now false ON PURPOSE for
+ * WHICH LEG LANDS ON WHICH MOON. The drafter used to fill an anchor's first screamer to three legs
+ * and then start the second, so moon 1 always held the two strongest legal partners; it now fills
+ * the pair in rounds, the way index.html's fillRound() always has. Owner: "it looks like it is
+ * drafting one of an anchor's moons entirely before drafting the other. thats not how it works."
+ *
+ * tickets.json IS NOT RE-BLESSED. TESTPIN-2026-08-28 pinned it precisely so a build could not
+ * overwrite it -- "a golden master whose golden is overwritten is not a golden master" -- and that
+ * argument applies with more force to a deliberate rule change than to an accidental one. It stays
+ * the record of what shipped, and everything that did NOT change is still asserted against it:
+ * ticket count, kinds, stakes, and the anchor set. Only the two leg-placement assertions move to
+ * tickets_snake.json, which is pinned the same way and is equally immutable from here.
+ *
+ * If a future change moves the allocation again, this file should fail again. That is the job.
  */
 const fs = require('fs');
 const path = require('path');
@@ -42,7 +59,8 @@ const J = n => JSON.parse(fs.readFileSync(path.join(FIXTURE, n), 'utf8'));
 
 const scored = J('scored.json');
 const tn = J('teamnews.json');
-const want = J('tickets.json');
+const want = J('tickets.json');          /* history: count, kinds, stakes, anchors */
+const wantLegs = J('tickets_snake.json'); /* SNAKEDRAFT-2026-09-04: which leg lands on which moon */
 
 const xi = SD.nameSet(Object.keys(tn.xi || {}));
 const got = SD.draft(scored, {}, { xi });
@@ -68,10 +86,15 @@ const leftovers = got.tickets.filter(t => core.indexOf(t) < 0);
 eq('ticket count (moons + anchor builders)', core.length, want.length);
 eq('kinds', core.map(t => t.kind), want.map(t => t.kind));
 eq('stakes', core.map(t => t.risk), want.map(t => t.risk));
+/* SNAKEDRAFT-2026-09-04: allocation is pinned to tickets_snake.json, not to what shipped. */
 eq('legs (name+odds, in order)',
   core.map(t => t.legs.map(l => [l.name, l.odds])),
-  want.map(t => t.legs.map(l => [l.name, l.odds])));
-eq('leg matches', core.map(t => t.legs.map(l => l.match)), want.map(t => t.legs.map(l => l.match)));
+  wantLegs.map(t => t.legs.map(l => [l.name, l.odds])));
+eq('leg matches', core.map(t => t.legs.map(l => l.match)), wantLegs.map(t => t.legs.map(l => l.match)));
+eq('anchors unchanged from what shipped',
+  core.filter(t => t.kind === 'moon').map(t => t.legs[0].name),
+  want.filter(t => t.kind === 'moon').map(t => t.legs[0].name));
+
 
 /* structural invariants that hold regardless of the golden file */
 const inv = (label, ok) => { console.log(`${ok ? 'PASS' : 'FAIL'}  ${label}`); if (!ok) fail++; };
@@ -85,6 +108,19 @@ inv('no moon repeats a match', moons.every(t => new Set(t.legs.map(l => l.match)
 inv('every moon fits WIN=' + SD.DEFAULTS.WIN, moons.every(t => SD.spanOk(t.legs, SD.DEFAULTS)));
 inv('each anchor ships exactly MOONS_PER_ANC',
   anchorNames.every(n => moons.filter(t => t.legs[0].name === n).length === SD.DEFAULTS.MOONS_PER_ANC));
+/* The pair an anchor ships must be BALANCED, which is the whole point of the round fill. Before
+   SNAKEDRAFT the gap between an anchor's two moons ran to 49 TOTAL points on the 2026-09-13
+   football board; index.html's own boards sit at 3-4. */
+inv('an anchor\'s two moons are drafted level, not front-loaded', (() => {
+  const M = got.tickets.filter(t => t.kind === 'moon');
+  const byA = {};
+  M.forEach(t => { (byA[t.legs[0].name] = byA[t.legs[0].name] || []).push(t); });
+  return Object.keys(byA).every(a => {
+    const s = byA[a].map(t => t.legs.slice(1).reduce((x, l) => x + (l.TOTAL || 0), 0));
+    if (s.length < 2) return true;
+    return Math.abs(s[0] - s[1]) <= Math.max(s[0], s[1]) * 0.25;
+  });
+})());
 inv('builders == moon anchors, one each',
   JSON.stringify(builders.map(t => t.legs[0].name).sort()) === JSON.stringify([...anchorNames].sort()));
 
