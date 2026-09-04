@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T21:11:14Z",
+  "pulled_at": "2026-09-04T21:16:15Z",
   "games": [
     {
       "gamePk": 824424,
@@ -25,12 +25,12 @@
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 693307,
@@ -1455,7 +1455,7 @@
     },
     {
       "gamePk": 823256,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T01:40:00Z",
       "matchup": "NYY@SD",
       "away": {
@@ -1477,10 +1477,56 @@
           "hr9": 1.16,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.165
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.084
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.184
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.22
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.177
+          },
+          {
+            "id": 669720,
+            "name": "Austin Hays",
+            "iso": 0.106
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.104
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.168
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.076
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
