@@ -292,6 +292,23 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     else:
         print('    ledger: no prior season file -- board opens at 0-0')
 
+    # 🚨 BUILDSTAMP-2026-09-04 -- A STAMP THAT NEVER MOVES IS NOT A STAMP.
+    # This was `'build': f'{date} live'` -- the SAME string, "2026-09-04 live", on every build of
+    # the slate, from the first pass to the last. That is what ADOPTSIG-2026-09-04 had to route
+    # around: the live seam's adopt guard read `if(j.meta.build===D.meta.build) return;`, which was
+    # true on every poll, so a tab never adopted anything after page load -- through every team
+    # sheet, every demoted anchor, every replaced leg. ADOPTSIG fixed the seam by comparing the
+    # BOARD instead, which is the half that had to be right; this fixes the stamp on its own terms,
+    # because anything else reading it was equally blind. The page renders it (" · build <x>") and
+    # the seam prints it on adopt ("board <x>") -- both were showing a constant.
+    # UTC to match this workflow's own commit titles ("Soccer board 2026-09-04 (21:00Z)"), so a
+    # board on screen can be tied to the commit that produced it by eye.
+    # Nothing gates on this. soccer-build.yml's commit gate compares the ticket set and per-player
+    # (odds, status, out, hr) and never looks at meta.build, so a moving stamp cannot cause a
+    # spurious publish -- verified before shipping. Do not reintroduce a constant here.
+    from datetime import datetime as _dtnow, timezone as _tzutc
+    _build_stamp = f"{date} {_dtnow.now(_tzutc.utc):%H:%M}Z"
+
     D = {
         'players': players,
         'tickets': T,
@@ -312,7 +329,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             # MINTGUARD ("is this slip being minted after its own kickoff?") are both
             # comparisons against this number. Purely additive -- nothing else reads it.
             'ko': {str(gnum[m]): int(ko_of(m)) for m in matches},
-            'build': f'{date} live',
+            'build': _build_stamp,
             'face': 'soccer',
             'maxAT': 100,
             'date': date,
