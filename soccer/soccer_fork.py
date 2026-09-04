@@ -366,9 +366,15 @@ def seams(payload_js):
     # ---- 11. SHOW THE GOAL MINUTES ---------------------------------------------------
     # "just like they do in the box score" applies to the goal itself, not only the
     # substitution. Malen scored three times; "⚽ scored" alone throws two of them away.
+    # SUPERSUBSEAM-2026-09-04. The label follows the carry. With SUPERSUB, `p.hr` goes true on
+    # the row of the man who was REPLACED -- Giroud's row cashes off Ueda's 73rd-minute header --
+    # and "⚽ scored" there would put one player's goal in another's mouth on a board about who
+    # scored. Surname only, matching the successor lane's bold token. The minute stays the GOAL's;
+    # the substitution minute lives in the lane ("Ueda · on for him 57′") and printing both in one
+    # row is how a reader concludes Ueda came on at 73'.
     add('scored-minutes',
         """${p.hr?'<span class="st hit"><span class="bal">⚽</span> scored</span>':p.void?""",
-        """${p.hr?'<span class="st hit"><span class="bal">⚽</span> scored'+((p.goalmins&&p.goalmins.length)?' '+p.goalmins.map(function(m){return m+String.fromCharCode(8242);}).join(', '):'')+'</span>':p.void?""")
+        """${p.hr?'<span class="st hit"><span class="bal">⚽</span> '+((p.carry&&p.carry.length)?String(p.carry[p.carry.length-1].to).split(' ').pop():'scored')+((p.goalmins&&p.goalmins.length)?' '+p.goalmins.map(function(m){return m+String.fromCharCode(8242);}).join(', '):'')+'</span>':p.void?""")
 
     # ---- 12. THE HOW-TO TAB IS STILL BASEBALL ---------------------------------------
     # Found the same way seam group 7 was found: by RENDERING the page and reading it. The

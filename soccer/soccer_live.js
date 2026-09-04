@@ -11,7 +11,7 @@
  *              D.meta.finals   (game numbers that are OVER -- see the finality rule below)
  *              D.meta.results  (score, for display)
  *              D.meta.gs       ('live' per game, which isLive() reads)
- *              p.hr / p.goalmins / p.status / p.out / p.unres
+ *              p.hr / p.goalmins / p.status / p.out / p.unres / p.carry
  *            then calls refreshAll().
  *   DOES NOT grade. index.html ALREADY grades tonight live off D.tickets (gradeTicket /
  *            liveCats / liveHist) -- that is why the 08-24 board showed 3-3 once its fixtures
@@ -235,6 +235,39 @@
     return { complete: complete, xi: xi, bench: bench, all: all };
   }
 
+  /* SUPERSUB-2026-09-04. Who replaced whom, by ESPN displayName, with the minute.
+   *
+   * DIRECTION COMES FROM THE ROSTER. `subbedOutFor` on a player's row names the man who came on
+   * for him -- an explicit statement, where keyEvent participant ORDER is a convention I have
+   * observed once. Reading the order backwards would carry every bet to the man leaving the
+   * pitch, which is worse than not carrying at all, so the order is never trusted: keyEvents
+   * supply the MINUTE and nothing else, and only for a pair the roster already agrees on.
+   *
+   * The minute is display. A carry with no minute still grades. */
+  function subsOf(summary) {
+    var map = {};
+    ((summary && summary.rosters) || []).forEach(function (r) {
+      ((r.roster) || []).forEach(function (pl) {
+        var off = (pl.athlete || {}).displayName;
+        var on = pl.subbedOutFor && pl.subbedOutFor.athlete
+                 && pl.subbedOutFor.athlete.displayName;
+        if (off && on) map[off] = { to: on, min: null };
+      });
+    });
+    ((summary && summary.keyEvents) || []).forEach(function (k) {
+      var ty = (k.type || {});
+      if (!/substitution/i.test(String(ty.type || ty.text || ''))) return;
+      var ps = k.participants || [];
+      var a = ps[0] && ps[0].athlete && ps[0].athlete.displayName;
+      var b = ps[1] && ps[1].athlete && ps[1].athlete.displayName;
+      var mn = String((k.clock && k.clock.displayValue) || '').replace(/'/g, '').trim();
+      if (!mn) return;
+      if (b && map[b] && map[b].to === a) map[b].min = mn;
+      else if (a && map[a] && map[a].to === b) map[a].min = mn;
+    });
+    return map;
+  }
+
   /* ---- the loop ------------------------------------------------------------------- */
   function makeLive(env) {
     var D = env.D, fetchJSON = env.fetchJSON;
@@ -312,6 +345,46 @@
           if (p.hr) { p.out = false; p.status = 'confirmed'; }
         });
       }
+
+      /* --- SUPERSUB-2026-09-04: the bet follows the substitution ----------------------
+       * Runs AFTER the squad block on purpose. That block is what establishes `out` -- and a
+       * man who never came on is refunded, not carried. Reaching this line means we already
+       * know he took the field.
+       *
+       * `gl` is matched by ESPN name here, NOT through matchOne against board names: the
+       * successor is almost never a board player (Ueda was not), so the board-name join that
+       * settles a normal goal would discard exactly the goal we came for. */
+      var subs = subsOf(summary);
+      var sheet = Object.keys(sq.all);
+      names.forEach(function (n) {
+        var p = D.players[n];
+        if (p.hr) return;                       /* he scored himself; there is nothing to carry */
+        var espnName = matchOne(n, sheet);
+        if (!espnName) return;                  /* UNKNOWN, not absent -- never carry off a bad join */
+        var hop = subs[espnName], chain = [], guard = 0;
+        while (hop && guard++ < 6) {            /* cascades, as Super Sub does */
+          chain.push(hop);
+          hop = subs[hop.to];
+        }
+        if (!chain.length) return;              /* he was never substituted off */
+        var mins = [];
+        chain.forEach(function (h) {
+          gl.forEach(function (ev) { if (norm(ev.name) === norm(h.to)) mins.push(ev.min); });
+        });
+        p.carry = chain.map(function (h) { return { to: h.to, min: h.min }; });
+        /* The successor lane finally has a successor to name. sub.park is the bold token --
+           soccer_payload.py wrote the squad status there because the name "needs a squad-wide
+           pull"; the pull is the feed we are already holding. */
+        if (p.sub) {
+          var last = chain[chain.length - 1];
+          var toks = String(last.to).trim().split(/\s+/);
+          p.sub.park = toks[toks.length - 1];
+          p.sub.cond = 'on for him' + (last.min ? ' ' + last.min + String.fromCharCode(8242) : '');
+        }
+        if (mins.length) {
+          p.hr = true; p.goalmins = mins; p.out = false; p.status = 'confirmed';
+        }
+      });
 
       /* --- unres: we have data now, so stop saying we do not ------------------------- */
       if (done && summary) {
