@@ -3452,32 +3452,45 @@ var _cmA={}, _cmB={};
           shells.push(sh);
         }
       }
-      var needy = function (t) { return t.legs.length < cfg.MOON_LEGS; };
-      for (var rnd = 0; shells.some(needy); rnd++) {
-        var order = [];
-        for (var r0 = 0; r0 < anchors.length; r0++) order.push(r0);
-        if (rnd % 2) order.reverse();
-        var progress = false;
-        order.forEach(function (r) {
-          shells.filter(function (t) { return t.rank === r; })
-                .sort(function (x, y) { return x.legs.length - y.legs.length; })
-                .forEach(function (t) {
-            if (!needy(t)) return;
-            for (var c = 0; c < avail.length; c++) {
-              var cand = avail[c];
-              if (t.seen[cand.match]) continue;
-              if (!spanOk(t.legs.concat([cand]), cfg)) continue;
-              /* COMPLETABILITY-2026-09-04: never take a partner that leaves too few distinct
-                 in-window matches to finish this screamer. */
-              if (!canComplete(t, cand, avail, cfg)) continue;
-              t.legs.push(cand); t.seen[cand.match] = true;
-              avail.splice(c, 1); progress = true;
-              return;
-            }
-          });
-        });
-        if (!progress) break;
+      /* DRAFTORDER-2026-09-04 -- THE DRAFT, AS THE OWNER SPELLED IT OUT.
+         "you have your whole draft pool, the top 4 are your anchors, place them where they go on
+         the board and then cross them off the list. then going down the remaining draft pool
+         list, the 1st pick goes to the 1st moon of the worst of the anchors, then 1st pick of 2nd
+         moon, 2nd pick of 1st moon, 2nd pick of 2nd moon. now those 4 players have been crossed
+         off the draft pool list. then the same for the next worst anchor and so on."
+         WORST ANCHOR PICKS FIRST and takes four consecutive picks alternating across his two
+         screamers; every pick is struck from the pool as it is made. The weakest anchor is
+         compensated with the strongest partners, which is what makes the four tickets comparable
+         instead of front-loaded.
+         WHAT THIS REPLACES: SNAKEDRAFT-2026-09-04's round-robin. That fixed the original
+         complaint -- one moon filled before the other -- but kept the STRONGEST anchor picking
+         first, so the best anchor also drew the best partners and the spread across tickets
+         survived. Measured on this field: worst anchor Demirovic now draws Barcola 150.3 /
+         Dembele 149.9 / Mbappe 154.7 / Doue 140.6 while Undav 192.3 takes the weaker half.
+         ⚠️ ONE AMENDMENT, and it is not a liberty with the rule: a pick is the next man in pool
+         order who is LEGAL IN THAT SLOT. A screamer needs MOON_LEGS legs from that many DISTINCT
+         matches inside the WIN span, so the literal next name is sometimes unplaceable there and
+         taking him anyway would build a slip nobody could place.
+         TWO INVARIANTS FALL OUT OF "CROSS THEM OFF" FOR FREE, and both were live bugs today: an
+         anchor is never a partner (anchors are gone before `partners` is built) and no man is on
+         two slips (each pick is spliced out of `avail` as it is taken). */
+      for (var ai = anchors.length - 1; ai >= 0; ai--) {          /* worst anchor first */
+        var mine = shells.filter(function (t) { return t.rank === ai; });
+        var slots = (cfg.MOON_LEGS - 1) * mine.length;            /* 2 partners x 2 screamers */
+        for (var sl = 0; sl < slots; sl++) {
+          var t = mine[sl % mine.length];                         /* moon1, moon2, moon1, moon2 */
+          for (var c = 0; c < avail.length; c++) {
+            var cand = avail[c];
+            if (t.seen[cand.match]) continue;
+            if (!spanOk(t.legs.concat([cand]), cfg)) continue;
+            if (!canComplete(t, cand, avail, cfg)) continue;
+            t.legs.push(cand); t.seen[cand.match] = true;
+            avail.splice(c, 1);
+            break;
+          }
+        }
       }
+      var needy = function (t) { return t.legs.length < cfg.MOON_LEGS; };
       /* ALL-OR-NONE, unchanged in meaning. Strike the WEAKEST anchor among those that actually
          failed, not the first one found: index.html records (2026-08-13) that demoting the wrong
          anchor eats every good one beneath it and ends with an empty board. */
@@ -3687,6 +3700,21 @@ var _cmA={}, _cmB={};
   }
 
   function mkTicket(kind, legs, risk, name, koOf, players) {
+    /* ANCHORID-2026-09-04 -- A TICKET REMEMBERS THE ANCHOR IT WAS DRAFTED WITH.
+       `anchor` was stamped as `out[0].name` -- whoever sorted HIGHEST after the display sort
+       below. Legs arrive anchor-first, so that agreed with the draft only while the anchor
+       outscored every partner. The moment a partner's TOTAL crept past his anchor's, the sort put
+       him on top and the ticket was SILENTLY RE-LABELLED as his.
+       Measured: nudging Ousmane Dembele 0.1 above Deniz Undav, nothing else changed, re-labelled
+       Top Corner to Dembele and took the board to FIVE moon anchors against ANCH=4 -- a phantom
+       anchor nobody drafted, with a builder minted for him.
+       This is the ROOT of three separate reports on 2026-09-04: Ermedin Demirovic 'becoming an
+       anchor' with no builder (he was Kylian Mbappe's PARTNER, 155.5 against 154.7, and the label
+       moved to him), Mbappe then reading as a leg on his own screamer, and that pair never being
+       balanced because its new 'anchor' was never drafted with a second moon.
+       The sort stays -- it is the DISPLAY order and a card reads strongest-first -- but identity
+       no longer rides on it. */
+    var anchorName = legs.length ? legs[0].name : null;
     var out = legs.slice().sort(function (a, b) { return (b.total || 0) - (a.total || 0); });
     return {
       name: name,
@@ -3695,7 +3723,7 @@ var _cmA={}, _cmB={};
       note: '',
       players: out,
       nlegs: out.length,
-      anchor: out.length ? out[0].name : null,
+      anchor: anchorName,
       lock: lockOf(out, koOf),
       has_late: false,
       final: false,
@@ -3824,7 +3852,7 @@ var _cmA={}, _cmB={};
        UNLEFTOVER-2026-08-28; kept because it is true of any such builder, whatever mints it.) */
     var frozenMoonAnchor = {};
     frozen.forEach(function (t) {
-      if (t.kind === 'moon' && (t.players || []).length) frozenMoonAnchor[t.players[0].name] = true;
+      if (t.kind === 'moon' && (t.players || []).length) frozenMoonAnchor[t.anchor || t.players[0].name] = true;
     });
     var boardHasMoons = (D.tickets || []).some(function (t) { return t.kind === 'moon'; });
     function claimAnchor(l) {
@@ -3928,7 +3956,7 @@ var _cmA={}, _cmB={};
     var groups = {}, orderedAnchors = [];
     open.forEach(function (t) {
       if (!t.players || !t.players.length) return;
-      var a = t.players[0].name;
+      var a = t.anchor || t.players[0].name;   /* ANCHORID-2026-09-04: identity, not position */
       if (!groups[a]) { groups[a] = { anchor: t.players[0], moons: [], builders: [] }; orderedAnchors.push(a); }
       if (t.kind === 'moon') groups[a].moons.push(t);
       else groups[a].builders.push(t);
@@ -4234,7 +4262,7 @@ var _cmA={}, _cmB={};
     var moonCnt = {}, onSlip = {};
     out.forEach(function (t) {
       var legs = t.players || [];
-      if (t.kind === 'moon' && legs.length) moonCnt[legs[0].name] = (moonCnt[legs[0].name] || 0) + 1;
+      if (t.kind === 'moon' && legs.length) { var _mn = t.anchor || legs[0].name; moonCnt[_mn] = (moonCnt[_mn] || 0) + 1; }
       legs.forEach(function (l) { onSlip[l.name] = true; });
     });
     /* 🚨 REPAIRPAIR-2026-08-30 -- AN ANCHOR WHO LOST BOTH SCREAMERS IS STILL AN ANCHOR.
@@ -4635,12 +4663,12 @@ var _cmA={}, _cmB={};
     var moonCount = {};
     out.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) {
-        var a = t.players[0].name; moonCount[a] = (moonCount[a] || 0) + 1;
+        var a = t.anchor || t.players[0].name; moonCount[a] = (moonCount[a] || 0) + 1;
       }
     });
     var isShortAnchor = function (t) {
       var legs = t.players || []; if (!legs.length) return false;
-      var c = moonCount[legs[0].name] || 0;
+      var c = moonCount[t.anchor || legs[0].name] || 0;
       return c > 0 && c < cfg.MOONS_PER_ANC;      /* 0 moons = a lunch/nightcap, its own section */
     };
     /* ⚠️ AND KEEP EACH ANCHOR'S SLIPS TOGETHER. ANCHORGROUP-2026-08-29.
@@ -4657,12 +4685,12 @@ var _cmA={}, _cmB={};
     var anchorFirst = {};
     out.forEach(function (t, i) {
       var legs = t.players || []; if (!legs.length) return;
-      var a = legs[0].name;
+      var a = t.anchor || legs[0].name;
       if (anchorFirst[a] == null) anchorFirst[a] = i;
     });
     var groupKey = function (t) {
       var legs = t.players || [];
-      return legs.length ? anchorFirst[legs[0].name] : 1e9;
+      return legs.length ? anchorFirst[t.anchor || legs[0].name] : 1e9;
     };
     out = out.map(function (t, i) { return { t: t, i: i, s: isShortAnchor(t) ? 1 : 0, g: groupKey(t) }; })
              .sort(function (a, b) { return (a.s - b.s) || (a.g - b.g) || (a.i - b.i); })
