@@ -1311,6 +1311,78 @@
       });
     })();
 
+    /* PAIRBALANCE-2026-09-04 -- AN ANCHOR'S TWO SCREAMERS ARE BALANCED, NOT ONE STRONG AND ONE
+       LEFTOVER. Owner: "looks like two of the anchors' moons were full drafted before the other
+       moon of those 2 anchors." On that board Demirovic ran 146.4 against 115.3 and Mbappe 136.2
+       against 117.3, while Undav (9.6) and Barcola (2.9) were fine.
+       SNAKEDRAFT-2026-09-04 fixed this in draftN, and a fresh draft on that same field still
+       proves it -- gaps of 9.3 and 8.0. But draftN is only reached when a seat is drafted from
+       scratch. The top-up mints an anchor's missing screamer ALONE, out of whatever partners are
+       left once everything else is allocated, which is sequential by construction; the leg-level
+       repair then re-emits those legs forever (`repaired: 12, topped: 0, changed: false`).
+       Same root as ANCHORSET above and the same answer: the invariant gets an owner at the end of
+       the pipeline, where every mint path has already run.
+
+       This moves NOBODY on or off the board. It re-splits an anchor's own four partners across
+       his own two slips -- three possible halvings, each checked for the same legality draftN
+       enforces (three DISTINCT matches, the WIN span), most balanced legal one wins.
+       ⚠️ Only when BOTH of his screamers are OPEN. A CONFLOCK-frozen slip is a placed bet and its
+       legs are settled; a pair with one frozen half is left exactly as it is. */
+    if (cfg.MOONS_PER_ANC === 2 && cfg.MOON_LEGS === 3) {
+      var _pbIx = {};
+      out.forEach(function (t, i) {
+        if (t.kind !== 'moon') return;
+        var legs = t.players || []; if (!legs.length) return;
+        var a = t.anchor || legs[0].name;
+        if (!_pbIx[a]) _pbIx[a] = { open: [], any: 0 };
+        _pbIx[a].any++;
+        if (!t.locked) _pbIx[a].open.push(i);
+      });
+      var _pbTot = function (l) { return (D.players[l.name] || {}).TOTAL || 0; };
+      var _pbLegal = function (names) {
+        var rows = names.map(rowOf), seen = {}, i;
+        for (i = 0; i < rows.length; i++) {
+          if (seen[rows[i].match]) return false;
+          seen[rows[i].match] = 1;
+        }
+        return spanOk(rows, cfg);
+      };
+      Object.keys(_pbIx).forEach(function (a) {
+        var rec = _pbIx[a];
+        if (rec.any !== 2 || rec.open.length !== 2) return;   /* both screamers, both open */
+        var t0 = out[rec.open[0]], t1 = out[rec.open[1]];
+        var l0 = t0.players || [], l1 = t1.players || [];
+        if (l0.length !== 3 || l1.length !== 3) return;
+        var anchorName = a;
+        var parts = [l0[1].name, l0[2].name, l1[1].name, l1[2].name];
+        var cur = Math.abs((_pbTot(l0[1]) + _pbTot(l0[2])) / 2 - (_pbTot(l1[1]) + _pbTot(l1[2])) / 2);
+        var pairs = [[0, 1], [0, 2], [0, 3]], best = null;
+        pairs.forEach(function (pick) {
+          var A2 = [parts[pick[0]], parts[pick[1]]];
+          var B2 = parts.filter(function (p) { return A2.indexOf(p) < 0; });
+          if (!_pbLegal([anchorName].concat(A2)) || !_pbLegal([anchorName].concat(B2))) return;
+          var ta = (D.players[A2[0]].TOTAL + D.players[A2[1]].TOTAL) / 2;
+          var tb = (D.players[B2[0]].TOTAL + D.players[B2[1]].TOTAL) / 2;
+          var g = Math.abs(ta - tb);
+          if (!best || g < best.g) best = { g: g, A: (ta >= tb ? A2 : B2), B: (ta >= tb ? B2 : A2) };
+        });
+        if (!best || best.g >= cur - 1e-9) return;            /* already as good as it gets */
+        /* The slip currently holding the strongest partner keeps the strongest pair, so a title
+           stays with the same lead bat and the card does not appear to reshuffle. */
+        var lead0 = Math.max(_pbTot(l0[1]), _pbTot(l0[2]));
+        var lead1 = Math.max(_pbTot(l1[1]), _pbTot(l1[2]));
+        var first = lead0 >= lead1 ? t0 : t1, second = lead0 >= lead1 ? t1 : t0;
+        var fi = lead0 >= lead1 ? rec.open[0] : rec.open[1];
+        var si = lead0 >= lead1 ? rec.open[1] : rec.open[0];
+        out[fi] = mkTicket('moon', [anchorName].concat(best.A).map(function (n) {
+          return legOf(n, D.players[n]); }), first.risk != null ? first.risk : cfg.MOON_RISK,
+          first.name, koOf, D.players);
+        out[si] = mkTicket('moon', [anchorName].concat(best.B).map(function (n) {
+          return legOf(n, D.players[n]); }), second.risk != null ? second.risk : cfg.MOON_RISK,
+          second.name, koOf, D.players);
+      });
+    }
+
     var moonCount = {};
     out.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) {
