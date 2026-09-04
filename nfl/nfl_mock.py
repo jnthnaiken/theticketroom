@@ -92,6 +92,16 @@ def load_prices(atd_path, prices_path):
             if prices[key] != am:
                 would += 1          # counted, NOT applied
             held += 1
+    # PRICELEDGER-2026-09-04: the merge was computed and then THROWN AWAY. score() read
+    # prices.json and never wrote it, which broke PRICEONCE at both ends. Loudly: the Publish
+    # step's `cp .work/prices.json slates/<date>/prices.json` failed on the first build of every
+    # slate, and runs 3 and 5 died there with a clean scorer, a clean draft and a clean fork
+    # behind them. Quietly, and far worse: with nothing ever committed there is no prior ledger
+    # to hold, so every build would have re-read atd.psv as gospel, `n_held` would have stayed 0
+    # forever, and the doctrine the header of this file states -- "never CHANGED once set" --
+    # would have been decoration. The dict IS the ledger; write it back where it was read from.
+    if prices_path:
+        json.dump(prices, open(prices_path, 'w', encoding='utf-8'), indent=1, sort_keys=True)
     return prices, new, held, would
 
 def model_prob(df, model='nfl_model.json'):
