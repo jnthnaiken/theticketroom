@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T22:11:22Z",
+  "pulled_at": "2026-09-04T22:16:22Z",
   "games": [
     {
       "gamePk": 824424,
@@ -312,7 +312,7 @@
     },
     {
       "gamePk": 823418,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-04T22:40:00Z",
       "matchup": "ATL@PHI",
       "away": {
@@ -1813,7 +1813,7 @@
     },
     {
       "gamePk": 823093,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T02:10:00Z",
       "matchup": "ATH@SEA",
       "away": {
@@ -1835,10 +1835,56 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.194
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.23
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.157
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.186
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.096
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.136
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.126
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.334
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
