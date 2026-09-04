@@ -1506,7 +1506,7 @@
    "anchor": "Olivier Giroud",
    "lock": "2:45 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": true,
    "rr": null,
    "wxsum": {
@@ -1517,7 +1517,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": true,
+   "net": 1.7,
+   "stake": 1.0
   },
   {
    "name": "Target Man",
@@ -1543,7 +1546,7 @@
    "anchor": "Orri Steinn Oskarsson",
    "lock": "3:00 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": true,
    "rr": null,
    "wxsum": {
@@ -1554,7 +1557,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   },
   {
    "name": "The Poacher",
@@ -1580,7 +1586,7 @@
    "anchor": "Mikel Oyarzabal",
    "lock": "3:00 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": true,
    "rr": null,
    "wxsum": {
@@ -1591,7 +1597,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   }
  ],
  "pool": [

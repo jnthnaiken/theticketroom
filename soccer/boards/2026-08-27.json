@@ -4738,7 +4738,7 @@
    "anchor": "Raphinha",
    "lock": "3:00 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -4749,7 +4749,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": true,
+   "net": 1.0,
+   "stake": 1.0
   },
   {
    "name": "The Poacher",
@@ -4775,7 +4778,7 @@
    "anchor": "Lamine Yamal",
    "lock": "3:00 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -4786,7 +4789,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   },
   {
    "name": "Six-Yard Box",
@@ -4812,7 +4818,7 @@
    "anchor": "Raul Garcia",
    "lock": "2:30 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -4823,7 +4829,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   },
   {
    "name": "Back Post",
@@ -4849,7 +4858,7 @@
    "anchor": "Williot Swedberg",
    "lock": "2:30 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -4860,7 +4869,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   }
  ],
  "pool": [

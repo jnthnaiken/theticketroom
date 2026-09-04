@@ -3671,7 +3671,7 @@
    "anchor": "Raphinha",
    "lock": "2:45 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": true,
    "rr": {
     "struct": "by 2s & 3",
@@ -3687,7 +3687,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": false,
+   "net": -2.0,
+   "stake": 2
   },
   {
    "name": "From Distance",
@@ -3739,7 +3742,7 @@
    "anchor": "Raphinha",
    "lock": "2:45 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": true,
    "rr": {
     "struct": "by 2s & 3",
@@ -3755,7 +3758,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": false,
+   "net": -2.0,
+   "stake": 2
   },
   {
    "name": "Six-Yard Box",
@@ -3781,7 +3787,7 @@
    "anchor": "Raphinha",
    "lock": "3:30 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": true,
    "rr": null,
    "wxsum": {
@@ -3792,7 +3798,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": true,
+   "net": 0.725,
+   "stake": 1.0
   }
  ],
  "pool": [

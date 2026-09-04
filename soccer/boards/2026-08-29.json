@@ -1671,7 +1671,7 @@
    "blend": -0.096924844945748,
    "gate_z": -0.1115473770720784,
    "mkt_z": -0.19375938990301997,
-   "edge_z": -0.0000902999884760257,
+   "edge_z": -9.02999884760257e-05,
    "oppxga": null,
    "npxg90": 0.31270422535211273,
    "xgshot": 0.14092765685019204,
@@ -15972,7 +15972,7 @@
    "anchor": "Patrik Schick",
    "lock": "10:00 AM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": {
     "struct": "by 2s & 3",
@@ -15988,7 +15988,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": false,
+   "net": -2.0,
+   "stake": 2
   },
   {
    "name": "From Distance",
@@ -16040,7 +16043,7 @@
    "anchor": "Patrik Schick",
    "lock": "9:30 AM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": {
     "struct": "by 2s & 3",
@@ -16056,7 +16059,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": true,
+   "net": 0.952,
+   "stake": 2
   },
   {
    "name": "Six-Yard Box",
@@ -16082,7 +16088,7 @@
    "anchor": "Patrik Schick",
    "lock": "9:30 AM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -16093,7 +16099,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": true,
+   "net": 1.05,
+   "stake": 1.0
   },
   {
    "name": "First Match On",
@@ -16119,7 +16128,7 @@
    "anchor": "Serhou Guirassy",
    "lock": "12:30 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -16130,7 +16139,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": true,
+   "net": 0.752,
+   "stake": 1.0
   },
   {
    "name": "Runs the Channel",
@@ -16156,7 +16168,7 @@
    "anchor": "Jonathan David",
    "lock": "2:45 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -16167,7 +16179,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   },
   {
    "name": "Dipping Effort",
@@ -16219,7 +16234,7 @@
    "anchor": "Jonathan David",
    "lock": "2:45 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": {
     "struct": "by 2s & 3",
@@ -16235,7 +16250,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": true,
+   "net": 1.57,
+   "stake": 2
   },
   {
    "name": "Upper Ninety",
@@ -16287,7 +16305,7 @@
    "anchor": "Jonathan David",
    "lock": "2:45 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": {
     "struct": "by 2s & 3",
@@ -16303,7 +16321,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": false,
+   "net": -2.0,
+   "stake": 2
   },
   {
    "name": "Off the Underside",
@@ -16355,7 +16376,7 @@
    "anchor": "Orri Steinn Oskarsson",
    "lock": "12:30 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": {
     "struct": "by 2s & 3",
@@ -16371,7 +16392,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": false,
+   "net": -2.0,
+   "stake": 2
   },
   {
    "name": "The Nine",
@@ -16397,7 +16421,7 @@
    "anchor": "Orri Steinn Oskarsson",
    "lock": "1:00 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -16408,7 +16432,10 @@
    },
    "confleg": 1,
    "unres": 0,
-   "priced": 1
+   "priced": 1,
+   "won": true,
+   "net": 1.5,
+   "stake": 1.0
   },
   {
    "name": "Postage Stamp",
@@ -16460,7 +16487,7 @@
    "anchor": "Orri Steinn Oskarsson",
    "lock": "12:30 PM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": {
     "struct": "by 2s & 3",
@@ -16476,7 +16503,10 @@
    },
    "confleg": 3,
    "unres": 0,
-   "priced": 3
+   "priced": 3,
+   "won": true,
+   "net": 2.125,
+   "stake": 2
   }
  ],
  "pool": [
