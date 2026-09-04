@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T19:36:48Z",
+  "pulled_at": "2026-09-04T19:41:46Z",
   "games": [
     {
       "gamePk": 824424,
@@ -486,7 +486,7 @@
     },
     {
       "gamePk": 824797,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T23:05:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -497,8 +497,54 @@
           "hr9": 0.58,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.153
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.216
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.181
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.21
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.151
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.134
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.158
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.11
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -508,10 +554,56 @@
           "hr9": 0.63,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.115
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.223
+          },
+          {
+            "id": 673357,
+            "name": "Luis Robert Jr.",
+            "iso": 0.189
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.233
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.18
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.239
+          },
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.123
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.071
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.132
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
