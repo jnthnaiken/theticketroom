@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T18:36:36Z",
+  "pulled_at": "2026-09-04T18:41:54Z",
   "games": [
     {
       "gamePk": 824424,
@@ -632,7 +632,7 @@
     },
     {
       "gamePk": 824311,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T00:40:00Z",
       "matchup": "STL@COL",
       "away": {
@@ -654,10 +654,56 @@
           "hr9": 1.68,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.189
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.249
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.285
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.151
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.177
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.129
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.117
+          },
+          {
+            "id": 691182,
+            "name": "Adael Amador",
+            "iso": 0.444
+          },
+          {
+            "id": 691728,
+            "name": "Zac Veen",
+            "iso": 0.294
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -742,16 +788,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 71\u00b0",
-        "lean": "Neutral",
-        "temp": 70.7,
-        "wind_mph": 6.4,
-        "wind_dir": 252,
-        "tail_mph": 4.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.016
+      "wf": 1.0
     },
     {
       "gamePk": 823093,
