@@ -9,9 +9,16 @@ name: Build NFL Board
 # as it likes and no price already on the board can move -- the merge enforces the rule, not the
 # scrape. What legitimately moves a TOTAL is weather, refreshed every pass by nfl_wx.py.
 #
-# ⚠️ IT DOES NOT GRADE. There is no football ledger yet; meta.season is whatever season.json
-# holds, which is nothing. When a settle workflow arrives it owns the ledger, and the board's
-# baked meta.season must stay the ledger EXCLUDING the current week or every ticket counts twice
+# ⚠️ IT DOES NOT GRADE, BUT IT HAS ITS OWN LEDGER (OWNLEDGER-2026-09-04). This block used to
+# say "meta.season is whatever season.json holds, WHICH IS NOTHING" -- an assumption stated as
+# a fact, and wrong. The staging step below copied `../season.json`, the BASEBALL ledger, and
+# nfl_payload.py baked it in verbatim: the football room published 88 graded nights since
+# 2026-06-30 and +529.8u on 1066u risked, under football labels, on a slate that has not
+# kicked off. Owner: "football needs its own ledger. its showing baseball right now."
+# nfl_season.json is now that ledger, opening 0-0, staged under its own NAME so no future
+# edit can hand this room the baseball file by matching a filename.
+# When a settle workflow arrives it owns nfl_season.json, and the board's baked meta.season
+# must stay the ledger EXCLUDING the current week or every ticket counts twice
 # (soccer-build.yml learned this).
 
 on:
@@ -101,7 +108,9 @@ jobs:
           cp nfl_draft_cli.js depth_prior.csv depth_model.json nfl_model.json .work/
           cp ../soccer/soccer_draft.js .work/     # ONE DRAFT, THREE SPORTS
           cp ../index.html .work/index_live.html
-          [ -f ../season.json ] && cp ../season.json .work/ || true
+          # OWNLEDGER-2026-09-04. THE FOOTBALL LEDGER, and never `../season.json`, which is
+          # baseball's. Kept under its own name in .work/ for the same reason.
+          cp nfl_season.json .work/
 
       # ⚠️ WEATHER IS THE ONLY SANCTIONED SOURCE OF TOTAL MOVEMENT. A miss here is silent in the
       # payload (every factor falls back to ~1.0), so it is logged loudly and never fatal.
@@ -119,7 +128,7 @@ jobs:
           node nfl_draft_cli.js scored.json fixtures.json tickets.json
           python3 nfl_payload.py scored.json tickets.json fixtures.json nfl_D.json \
                   $([ -f wx.json ] && echo "--wx wx.json") \
-                  $([ -f season.json ] && echo "--season season.json") \
+                  --season nfl_season.json \
                   --build "$(TZ=America/New_York date '+%-m/%-d %-I:%M%P')"
           python3 nfl_fork.py index_live.html nfl_D.json nfl_index.html
 
@@ -158,7 +167,8 @@ jobs:
           cd ..
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add nfl/index.html nfl/nfl_D.json nfl/slates/${{ steps.slate.outputs.date }}/prices.json
+          git add nfl/index.html nfl/nfl_D.json nfl/nfl_season.json \
+                  nfl/slates/${{ steps.slate.outputs.date }}/prices.json
           git diff --cached --quiet && { echo "nothing staged"; exit 0; }
           git commit -m "NFL board ${{ steps.slate.outputs.date }} ($(date -u +%H:%MZ))"
           for i in 1 2 3; do
