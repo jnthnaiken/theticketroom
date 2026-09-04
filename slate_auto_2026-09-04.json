@@ -1,11 +1,11 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T17:00:35Z",
+  "pulled_at": "2026-09-04T17:06:47Z",
   "games": [
     {
       "gamePk": 824424,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-09-04T18:10:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -614,16 +614,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 20mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 86.2,
-        "wind_mph": 22.0,
-        "wind_dir": 158,
-        "tail_mph": 20.4,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 1.08
+      "wf": 1.0
     },
     {
       "gamePk": 823256,
