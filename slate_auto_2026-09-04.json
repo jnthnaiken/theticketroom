@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T23:43:52Z",
+  "pulled_at": "2026-09-04T23:48:30Z",
   "games": [
     {
       "gamePk": 824424,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824387,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-04T23:15:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -469,7 +469,7 @@
         "sp": {
           "id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "hr9": 0.71,
+          "hr9": 0.7,
           "hand": "LHP"
         },
         "lineup": [
@@ -545,7 +545,7 @@
         "sp": {
           "id": 696270,
           "name": "Ryan Johnson",
-          "hr9": 1.96,
+          "hr9": 1.95,
           "hand": "RHP"
         },
         "lineup": [
@@ -634,7 +634,7 @@
           {
             "id": 804606,
             "name": "Konnor Griffin",
-            "iso": 0.128
+            "iso": 0.129
           },
           {
             "id": 663968,
@@ -685,7 +685,7 @@
           {
             "id": 701350,
             "name": "Roman Anthony",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 681508,
@@ -811,7 +811,7 @@
         "sp": {
           "id": 683363,
           "name": "Matt Wilkinson",
-          "hr9": 1.42,
+          "hr9": 2.08,
           "hand": "LHP"
         },
         "lineup": [
@@ -944,7 +944,7 @@
         "sp": {
           "id": 684007,
           "name": "Shota Imanaga",
-          "hr9": 1.96,
+          "hr9": 1.95,
           "hand": "LHP"
         },
         "lineup": [
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 824067,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T00:10:00Z",
       "matchup": "TOR@KC",
       "away": {
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 73.4,
+        "wind_mph": 6.0,
+        "wind_dir": 255,
+        "tail_mph": 3.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.019
     },
     {
       "gamePk": 823093,
