@@ -64,6 +64,10 @@ on:
         description: "Settle only this date (YYYY-MM-DD). Blank = every unsettled board."
         required: false
         default: ""
+      regrade:
+        description: "REGRADE-2026-09-04. Take `date` back OUT of the ledger first, then settle and fold it again under today's rules. Requires an explicit date. For a rule change, not a retry."
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -85,6 +89,29 @@ jobs:
       # Which boards are unsettled? Oldest first, so a backlog drains in order and the ledger
       # curve is built in the sequence the nights actually happened.
       # ------------------------------------------------------------------------------------
+      # ------------------------------------------------------------------------------------
+      # REGRADE-2026-09-04. Runs BEFORE the finder, and before soccer_settle.js -- the settle
+      # script rewrites `hr` from the live feed, and soccer_unfold.py can only reconcile a board
+      # that still describes the grades that were folded. Unfold removes the date from
+      # graded_nights, so the finder below then picks it up as unsettled by the ordinary path
+      # and the rest of this workflow does not need to know a regrade happened.
+      # ------------------------------------------------------------------------------------
+      - name: Unfold the night being regraded
+        if: github.event.inputs.regrade == 'true'
+        run: |
+          cd soccer
+          D="${{ github.event.inputs.date }}"
+          if [ -z "$D" ]; then
+            echo "::error::regrade requires an explicit date -- refusing to guess which night to unwind."
+            exit 1
+          fi
+          if [ ! -f "boards/$D.json" ]; then
+            echo "::error::no archived board at soccer/boards/$D.json"
+            exit 1
+          fi
+          python3 soccer_unfold.py "boards/$D.json" --season soccer_season.json \
+            --reason "regrade dispatched by ${{ github.actor }} (run ${{ github.run_id }})"
+
       - name: Find unsettled boards
         id: find
         run: |
