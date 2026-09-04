@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T20:16:58Z",
+  "pulled_at": "2026-09-04T20:22:26Z",
   "games": [
     {
       "gamePk": 824424,
@@ -30,7 +30,7 @@
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 693307,
@@ -326,7 +326,7 @@
         "lineup": [
           {
             "id": 660670,
-            "name": "Ronald Acu\u00f1a",
+            "name": "Ronald Acu\u00f1a Jr.",
             "iso": 0.173
           },
           {
@@ -809,8 +809,54 @@
           "hr9": 1.98,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.291
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.213
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.151
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.185
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.198
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.096
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.149
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.241
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.13
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
@@ -1299,16 +1345,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 74\u00b0",
-        "lean": "Neutral",
-        "temp": 73.6,
-        "wind_mph": 6.4,
-        "wind_dir": 290,
-        "tail_mph": -2.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.998
+      "wf": 1.0
     },
     {
       "gamePk": 823905,
