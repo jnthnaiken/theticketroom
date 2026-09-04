@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T21:46:08Z",
+  "pulled_at": "2026-09-04T21:51:31Z",
   "games": [
     {
       "gamePk": 824424,
@@ -55,7 +55,7 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 595879,
@@ -1517,8 +1517,54 @@
           "hr9": 0.66,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663494,
+            "name": "Bryan Torres",
+            "iso": 0.133
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.129
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.184
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.217
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": 0.23
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.355
+          },
+          {
+            "id": 669357,
+            "name": "Nolan Gorman",
+            "iso": 0.13
+          },
+          {
+            "id": 695336,
+            "name": "Thomas Saggese",
+            "iso": 0.176
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -1708,16 +1754,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 72\u00b0",
-        "lean": "Neutral",
-        "temp": 71.7,
-        "wind_mph": 6.2,
-        "wind_dir": 251,
-        "tail_mph": 4.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.018
+      "wf": 1.0
     },
     {
       "gamePk": 823093,
