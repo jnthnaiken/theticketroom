@@ -3,28 +3,28 @@
  "stake": 1,
  "cats": {
   "moon": {
-   "graded": 374,
+   "graded": 382,
    "won": 51,
-   "units": 540.47,
-   "staked": 748.0
+   "units": 524.47,
+   "staked": 764.0
   },
   "late": {
-   "graded": 55,
+   "graded": 56,
    "won": 13,
-   "units": 3.85,
-   "staked": 55
+   "units": 2.85,
+   "staked": 56
   },
   "builder": {
-   "graded": 222,
+   "graded": 226,
    "won": 56,
-   "units": -3.7,
-   "staked": 222
+   "units": -7.7,
+   "staked": 226
   },
   "lunch": {
-   "graded": 41,
+   "graded": 42,
    "won": 6,
-   "units": -10.79,
-   "staked": 41
+   "units": -11.79,
+   "staked": 42
   }
  },
  "history": [
@@ -87,7 +87,8 @@
   557.29,
   548.28,
   538.31,
-  529.83
+  529.83,
+  507.83
  ],
  "graded_nights": [
   "2026-06-01",
@@ -177,7 +178,8 @@
   "2026-08-30",
   "2026-08-31",
   "2026-09-01",
-  "2026-09-02"
+  "2026-09-02",
+  "2026-09-03"
  ],
  "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet. | 2026-08-14: Chef's Table RETIRED and its 13 graded nights (08-01..08-13) backed out of the ledger at the owner's direction -- the slip was a test, not a product line. Removed cat: graded 13, won 2, -49.72u on 71.5 staked. All 13 slips were re-graded from the archived boards against the stored boxscore outcomes; the 12 nights with stored outcomes reproduce the recorded -44.22u / 66.0 staked / 2 wins EXACTLY, so 08-13 is the arithmetic remainder (-5.50u, 5.5 staked, 0 wins) and matches that board's rr.risk of 5.5. Each night's chef net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +148.74u -> +198.46u. No other kind touched. | 2026-08-14: Family Meal added as a ticket kind and BACKFILLED onto 2026-08-13 at the owner's direction -- the night's board was re-run through the shipped engine with its real tickets handed in as prior (all 13 carried verbatim, the retired chef dropped), which produced 8 family slips off the same pool: Trout +355, Ortiz +463, Pages +355, Bauers +396, Teoscar +405, Clemens +373, Abrams +350, Harper +395. Graded against the 08-13 boxscores (all 8 took a PA; Ortiz homered): 1-7 for -2.37u on 8.0 staked. Season 198.46 -> 196.09. D_2026-08-13.json and the baked board were rewritten to match, so the archive and the ledger agree. | 2026-08-14: Grand Salami REMOVED from the ledger at the owner's direction, same treatment as the chef test. Dropped cat: graded 35, won 5, -100.20u on 192.5 staked (-52.1%), the worst line on the board. 33 of the 35 slips were re-graded from the archived boards against stored boxscore outcomes (07-01..08-12: -106.40u on 181.5 staked, 4 wins). 08-13 is a confirmed loss -- three of its four legs (N. Lowe, Bleday, Conine) took a plate appearance with zero HR, and a 4-leg round robin cannot cash on fewer than two hits, so the fourth leg (L. Garcia) is irrelevant: -5.50u. 06-30 is therefore the arithmetic remainder (+11.70u on 5.5 staked, 1 win) -- it predates the local archives, the same situation chef's 08-13 was in. Each night's salami net was subtracted from the cumulative curve from that night forward. Season 196.09 -> 296.29; cats and history reconcile. The Salamis row is removed from the board tracker. | 2026-08-17: SUFFIX GRADING BUG. grade_night.norm()/calibrate.norm() did not strip Jr./Sr./II/III, so a bat whose StatsAPI name carries a suffix matched neither `homered` nor `played` and his leg VOIDED as a benched/DNP refund. index.html's norm() has always stripped them, which is why the live board and the ledger disagreed. 14 tickets over 10 graded nights re-graded off the feed: moon +18.00 (08-16 Rocket Fuel, Burger+Witt double, -2.00 -> +16.00), builder -3.00, late -1.00, family -1.00, lunch -1.00 (voids that were really losses). Net +12.00u; 293.71 -> 305.71. The 08-13 `biggest` slip was excluded: that category was unwound off the ledger on 08-14. norm() fixed in both files. | 2026-08-25: DINGERS (kind 'family') RETIRED and its 12 graded nights (08-13..08-24) backed out of the ledger at the owner's direction -- \"its just bleeding money\". Removed cat: graded 91, won 11, -33.34u on 91.0 staked (-36.6% ROI), the worst line on the board and the only kind materially negative on a real sample (lunch is -4.79u on 35). All 91 slips were re-graded offline and reproduce the recorded cat EXACTLY -- 91 graded / 11 won / -33.34u / 91.0 staked -- from the archived boards for structure and payout10, and calibration.jsonl for each bat's hr that night (grade_night's results_for() needs statsapi, which the build container cannot reach). 08-13 re-grades to -2.37u, matching this file's own 2026-08-14 backfill note to the cent. The two slips in the log that the ledger never folded are both the unpriced-leg void: Cheap Seats / Jac Caglianone (08-21) and Wrapped Around the Pole / CJ Abrams (08-24) -- 93 logged, 91 graded. Each night's dinger net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +450.30u -> +483.64u. No other kind touched. The mint is off in index.html (DINGERS=false); a dinger already LOCKED on a placed board is still carried, exactly as the retired chef slip is.\n\nWAYBACK-2026-08-29: \"The Way Back Machine\" (Murakami + Junior Caminero + Max Muncy) was removed from the 2026-08-28 board at 23:12Z by CHALKOFF when Caminero drifted into the top-4 ban -- correct, \"ANY LEG, locked included\". CHALKLOCK-2026-08-29 shipped at 00:44Z, judged a locked slip on its ANCHOR only, and re-admitted it hours after every game was final; grade_night folded the night at 05:27Z with it on, and the revert (ae546a5b) landed at 05:42Z, too late. The slip is a 2u moon round robin, all three legs 0 HR, so it graded a clean -2.00u. Backed out of both the board and the ledger: cats.moon 335/45 +489.82u on 670.0 -> 334/45 +491.82u on 668.0; the night -22.00u -> -20.00u; season history tail -> 488.67. Verified by re-running grade_night.grade_ticket() with homered/played rebuilt from calibration.jsonl, which reproduced the recorded -22.00u exactly before anything was changed. 2026-08-28 stays in graded_nights -- it was graded. This is NOT the soccer-leftover case: those slips were published and bettable and stay in the ledger; this one had already been removed during the slate and only reappeared because of a code change. | 2026-09-02: 09-01 moon 'The Apollo' RESTORED TO THE LEDGER as a correction. The slip (2u round robin by 2s & 3 -- Kyle Stowers +269 / JJ Bleday +300 / Coby Mayo +300, anchored by Stowers) was on the board from the 5:58pm build and LOCKED from 6:43pm, then DELETED at 6:58pm when Baltimore posted a card without Mayo and assembleClient's scratch filter dropped the whole locked slip. A removed slip does not grade, so the ledger recorded nothing -- not a loss, an absence. Restoring it in D_2026-09-01.json was attempted and is IMPOSSIBLE after the fact: grade_night.py runs unconditionally and FIRST in pull-slate.yml, above the `fresh` gate, so the night folded on the 1:08am build minutes after the last out; there is no window. Graded through the live grade_ticket with RRVOID in force: Stowers 4 PA / 1 HR, Bleday 4 PA / 0 HR, Mayo NO plate appearance -> his leg VOIDS and the slip reduces onto the survivors. 4 combinations at 0.5u; the two carried by Stowers alone return 3.69 each; 1.845 - 2.00 = -0.16u. Under the pre-RRVOID rule it books a flat -2.00, so RRVOID is worth +1.84u here -- its first live money. moon: graded 365->366, staked 730.0->732.0, units 543.11->542.95; history[-1] carried the same -0.16 so the tracker total and the sparkline agree. ROOT CAUSE STILL LIVE: the scratch filter deletes a LOCKED slip wholesale (`if(t.locked){_killed[t.name]=1;return false;}`). CHALKLOCK-2026-08-29 fixed this exact shape on the chalk path; the scratch path never got it. Until it does, a scratched non-anchor leg destroys the record of a placed bet and it cannot be put back."
 }
