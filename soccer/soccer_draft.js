@@ -787,6 +787,40 @@
      * So: repair if you can, and if you cannot, the group demotes -- underway or not. The board
      * would rather be short a slip than show one that is dead on the page. */
 
+    /* ANCHORSET-2026-09-04 -- THE SEATS ARE CHOSEN BY STRENGTH, NOT BY WHO HELD THEM LAST PASS.
+       This loop used to run in `orderedAnchors` insertion order and let each prior anchor take a
+       seat until the budget ran out, so incumbency beat strength and the FIELD never competed at
+       all -- the fresh draft below only ever saw the leftovers. Owner: "the anchors should be
+       chosen first, not backfilled in."
+       Contenders are every prior open anchor who is still startable, PLUS the free field, ranked
+       by TOTAL exactly as withStrength() ranks them (strength is min-max normalised TOTAL, so the
+       orders are identical; the name tie-break matches too). Frozen anchors are NOT contenders --
+       they are forced, and their seats are already spent in `takenAnchors`.
+       ⚠️ A prior anchor is tested with pinnable(), not placeable(): a man whose match is underway
+       keeps the seat he already holds, which is the same distinction the loop below draws. Free
+       players come from `field`, which is placeable() and therefore MINTGUARD-clean. */
+    var _seats = Math.max(0, cfg.ANCH - Object.keys(takenAnchors).length);
+    var _cand = [], _seenC = {};
+    orderedAnchors.forEach(function (an) {
+      var g = groups[an];
+      if (!g || !g.moons.length) return;                 /* a moonless single anchors nothing */
+      if (!alive[an] || !pinnable(an) || spentAsPartner[an]) return;
+      if (_seenC[an]) return;
+      _seenC[an] = 1; _cand.push(rowOf(an));
+    });
+    field.forEach(function (p) { if (!_seenC[p.name]) { _seenC[p.name] = 1; _cand.push(p); } });
+    _cand.sort(function (a, b) {
+      if (b.TOTAL !== a.TOTAL) return b.TOTAL - a.TOTAL;
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
+    var _keep = {}, _keptN = 0, _perGA = {}, _pk;
+    for (_pk in anchorMatchCounts) if (anchorMatchCounts.hasOwnProperty(_pk)) _perGA[_pk] = anchorMatchCounts[_pk];
+    for (var _ci = 0; _ci < _cand.length && _keptN < _seats; _ci++) {
+      var _c = _cand[_ci], _gk = String(_c.game);
+      if ((_perGA[_gk] || 0) >= cfg.ANCH_PER_GAME) continue;
+      _keep[_c.name] = 1; _keptN++; _perGA[_gk] = (_perGA[_gk] || 0) + 1;
+    }
+
     orderedAnchors.forEach(function (an) {
       var g = groups[an];
       var already = !!takenAnchors[an];          // he already anchors a frozen slip
@@ -795,6 +829,13 @@
       }
       if (!already && (anchorMatchCounts[String(g.anchor.game)] || 0) >= cfg.ANCH_PER_GAME) {
         demoted.push({ anchor: an, why: 'match already at ANCH_PER_GAME' }); return;
+      }
+      /* ANCHORSET-2026-09-04. He kept his seat last pass; that is not a reason to keep it now.
+         `_keep` is the top of (prior open anchors + free field) by strength, already capped at
+         the unspent budget and at ANCH_PER_GAME, so this subsumes the budget test below -- which
+         stays as a belt-and-braces invariant rather than the thing doing the work. */
+      if (!already && !_keep[an]) {
+        demoted.push({ anchor: an, why: 'outranked for an anchor seat' }); return;
       }
       if (!already && Object.keys(takenAnchors).length >= cfg.ANCH) {
         demoted.push({ anchor: an, why: 'anchor budget full' }); return;
@@ -1231,6 +1272,45 @@
      * change without that carry in place.
      * `sig()` sorts before comparing, so a pure reorder is correctly reported as UNCHANGED and
      * does not churn a commit. */
+    /* ANCHORSET-2026-09-04 -- ONE ANCHOR, ONE BUILDER. STATED ONCE, ENFORCED ONCE, HERE.
+       draft() guarantees "one builder per distinct moon anchor" the moment it mints a group, and
+       until now NOTHING re-checked it afterwards -- so every other path that can put a moon on
+       the board was free to break it and none of them minted the single:
+         * the leg-level repair re-emits `g.builders` from the PRIOR board, so a group that
+           arrived without a builder keeps arriving without one;
+         * FINALREPAIR / the top-up mints an anchor's SECOND screamer and no builder at all --
+           that is how Nikola Krstovic and Lamine Yamal (2026-08-31) and Jeremie Boga and Pavel
+           Sulc (2026-08-29) each carried two screamers with no entry in the Anchors section;
+         * on 2026-09-04 it was Ermedin Demirovic, and redraft() reported `changed:false` on
+           every pass, so it could never heal.
+       Owner: "if demirovic is an anchor for moons then why isnt he in the anchors section" /
+       "fix from the root, not a bandaid". The root is that the invariant had no owner. Putting it
+       at the END of the pipeline means every mint path -- repair, top-up, fresh draft, shape
+       repair, and anything added later -- is covered by construction rather than by remembering.
+
+       ⚠️ placeable(), NOT pinnable(). This MINTS a slip, so MINTGUARD applies: an anchor whose
+       match is already underway does not get a new single, because nobody could have placed it.
+       That board stays one short, which is the correct outcome and not a failure to repair.
+       ⚠️ A SPECIAL IS NOT A BUILDER. Only `kind === 'builder'` counts, so an anchor who also
+       holds a lunch special still gets his builder -- SHAPEREPAIR-2026-08-31's distinction,
+       preserved rather than re-litigated. */
+    (function () {
+      var _mc = {}, _bc = {}, _dupes = [];
+      out.forEach(function (t) {
+        var legs = t.players || []; if (!legs.length) return;
+        var a = t.anchor || legs[0].name;
+        if (t.kind === 'moon') _mc[a] = (_mc[a] || 0) + 1;
+        else if (t.kind === 'builder') { _bc[a] = (_bc[a] || 0) + 1; if (_bc[a] > 1) _dupes.push(t); }
+      });
+      if (_dupes.length) out = out.filter(function (t) { return _dupes.indexOf(t) < 0; });
+      Object.keys(_mc).forEach(function (a) {
+        if (_bc[a]) return;
+        if (!alive[a] || !placeable(a)) return;
+        out.push(mkTicket('builder', [legOf(a, D.players[a])], cfg.SINGLE_STAKE,
+                          pickName('builder', null), koOf, D.players));
+      });
+    })();
+
     var moonCount = {};
     out.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) {
