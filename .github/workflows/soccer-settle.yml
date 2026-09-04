@@ -174,8 +174,33 @@ jobs:
           done
           echo "folded=$FOLDED" >> $GITHUB_OUTPUT
 
+      # ------------------------------------------------------------------------------------
+      # STAMPBOARD-2026-09-04. fold() stamps the board it grades, so every night from here on
+      # records its own `final` / `won` / `net` / `stake`. The nights already in graded_nights
+      # will never be reopened by the finder above -- that is what graded_nights is for -- so
+      # they are backfilled here instead.
+      #
+      # Runs on EVERY pass on purpose. stamp() is a pure function of the board: no network, no
+      # ledger, and an already-stamped board comes out byte-identical, so this is a no-op from
+      # the second pass onward and self-heals any night added later.
+      # ------------------------------------------------------------------------------------
+      - name: Stamp settled boards with their own result
+        id: stamp
+        run: |
+          cd soccer
+          if ! ls boards/*.json >/dev/null 2>&1; then
+            echo "no archived boards"; echo "stamped=false" >> $GITHUB_OUTPUT; exit 0
+          fi
+          python3 soccer_grade.py --stamp boards/*.json | tee stamp.txt
+          if git -C .. diff --quiet -- soccer/boards/; then
+            echo "stamped=false" >> $GITHUB_OUTPUT
+          else
+            echo "stamped=true"  >> $GITHUB_OUTPUT
+          fi
+          rm -f stamp.txt
+
       - name: Commit
-        if: steps.run.outputs.folded != ''
+        if: steps.run.outputs.folded != '' || steps.stamp.outputs.stamped == 'true'
         run: |
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
@@ -183,7 +208,12 @@ jobs:
           if git diff --staged --quiet; then
             echo "nothing changed"
           else
-            git commit -m "Settle soccer${{ steps.run.outputs.folded }}"
+            # STAMPBOARD-2026-09-04. "Settle soccer" over a commit that settled nothing is
+            # a lie in the log, and a stamp-only pass settles nothing by definition.
+            FOLDED="${{ steps.run.outputs.folded }}"
+            if [ -n "$FOLDED" ]; then MSG="Settle soccer$FOLDED";
+            else MSG="Stamp settled soccer boards with their own result"; fi
+            git commit -m "$MSG"
             for i in 1 2 3; do
               git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
               sleep 5
