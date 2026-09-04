@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T23:18:17Z",
+  "pulled_at": "2026-09-04T23:23:44Z",
   "games": [
     {
       "gamePk": 824424,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824387,
-      "status": "Delayed Start",
+      "status": "Warmup",
       "gameTime": "2026-09-04T23:15:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -279,7 +279,7 @@
         "sp": {
           "id": 675660,
           "name": "Shane Drohan",
-          "hr9": 0.82,
+          "hr9": 0.81,
           "hand": "LHP"
         },
         "lineup": [
@@ -311,12 +311,12 @@
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.149
+            "iso": 0.151
           },
           {
             "id": 806198,
@@ -412,7 +412,7 @@
         "sp": {
           "id": 519242,
           "name": "Chris Sale",
-          "hr9": 0.5,
+          "hr9": 0.49,
           "hand": "LHP"
         },
         "lineup": [
@@ -506,12 +506,12 @@
           {
             "id": 650559,
             "name": "Bryan De La Cruz",
-            "iso": 0.188
+            "iso": 0.184
           },
           {
             "id": 592663,
             "name": "J.T. Realmuto",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 656537,
@@ -545,7 +545,7 @@
         "sp": {
           "id": 696270,
           "name": "Ryan Johnson",
-          "hr9": 1.99,
+          "hr9": 1.96,
           "hand": "RHP"
         },
         "lineup": [
@@ -562,7 +562,7 @@
           {
             "id": 685133,
             "name": "Wade Meckler",
-            "iso": 0.089
+            "iso": 0.088
           },
           {
             "id": 687093,
@@ -614,12 +614,12 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.228
+            "iso": 0.227
           },
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 693304,
@@ -752,7 +752,7 @@
           {
             "id": 673357,
             "name": "Luis Robert Jr.",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 624413,
@@ -811,7 +811,7 @@
         "sp": {
           "id": 683363,
           "name": "Matt Wilkinson",
-          "hr9": 0.77,
+          "hr9": 0.75,
           "hand": "LHP"
         },
         "lineup": [
@@ -828,12 +828,12 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.114
+            "iso": 0.111
           },
           {
             "id": 808982,
@@ -868,19 +868,19 @@
         "sp": {
           "id": 690997,
           "name": "Nolan McLean",
-          "hr9": 0.87,
+          "hr9": 0.86,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.261
+            "iso": 0.26
           },
           {
             "id": 666182,
@@ -944,7 +944,7 @@
         "sp": {
           "id": 684007,
           "name": "Shota Imanaga",
-          "hr9": 1.98,
+          "hr9": 1.96,
           "hand": "LHP"
         },
         "lineup": [
@@ -1001,7 +1001,7 @@
         "sp": {
           "id": 676083,
           "name": "Janson Junk",
-          "hr9": 1.05,
+          "hr9": 1.04,
           "hand": "RHP"
         },
         "lineup": [
@@ -1013,12 +1013,12 @@
           {
             "id": 672640,
             "name": "Otto Lopez",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.229
+            "iso": 0.228
           },
           {
             "id": 691594,
@@ -1718,16 +1718,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 91\u00b0",
-        "lean": "Boost",
-        "temp": 90.9,
-        "wind_mph": 12.1,
-        "wind_dir": 118,
-        "tail_mph": 5.7,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.051
+      "wf": 1.0
     },
     {
       "gamePk": 823256,
