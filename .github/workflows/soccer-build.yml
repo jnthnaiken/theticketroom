@@ -127,6 +127,11 @@ jobs:
           cd soccer
           rm -rf .work && mkdir -p .work
           cp slates/${{ steps.slate.outputs.date }}/{ags.psv,xg.psv,fixtures.json} .work/
+          # PRICELEDGER-SOCCER-2026-09-04. The committed per-slate price ledger. A price is
+          # INSERTED once and never updated, and this file is what makes that survive a build.
+          # Absent on the first build of a slate -- soccer_mock.py creates it -- so the copy is
+          # allowed to fail.
+          cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
           # squads.psv is SQUADCLUB-2026-08-28 and is optional: slate directories committed before
           # it existed do not have one, and the payload simply falls back to the understat club.
           cp slates/${{ steps.slate.outputs.date }}/squads.psv .work/ 2>/dev/null || true
@@ -306,10 +311,13 @@ jobs:
           cp .work/soccer_index.html index.html
           cp .work/soccer_D.json     soccer_D.json
           mkdir -p boards && cp .work/soccer_D.json "boards/$D.json"
+          # PRICELEDGER-SOCCER-2026-09-04 -- the ledger goes back beside the slate it prices.
+          mkdir -p "slates/$D" && cp .work/prices.json "slates/$D/prices.json"
           cd ..
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
-          git add soccer/index.html soccer/soccer_D.json soccer/boards/
+          git add soccer/index.html soccer/soccer_D.json soccer/boards/ \
+                  "soccer/slates/$D/prices.json"
           if git diff --staged --quiet; then
             echo "nothing changed"
           else
