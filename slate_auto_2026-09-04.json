@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T19:56:56Z",
+  "pulled_at": "2026-09-04T20:00:31Z",
   "games": [
     {
       "gamePk": 824424,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 672456,
           "name": "Keider Montero",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -70,7 +70,7 @@
         "sp": {
           "id": 671106,
           "name": "Logan Allen",
-          "hr9": 1.65,
+          "hr9": 1.62,
           "hand": "LHP"
         },
         "lineup": [
@@ -102,12 +102,12 @@
           {
             "id": 694197,
             "name": "Angel Genao",
-            "iso": 0.108
+            "iso": 0.107
           },
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.126
+            "iso": 0.129
           },
           {
             "id": 672275,
@@ -117,7 +117,7 @@
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.113
+            "iso": 0.114
           }
         ],
         "confirmed": true
@@ -291,7 +291,7 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.161
+            "iso": 0.163
           },
           {
             "id": 621566,
@@ -746,7 +746,7 @@
     },
     {
       "gamePk": 824554,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T23:40:00Z",
       "matchup": "MIN@CWS",
       "away": {
@@ -768,10 +768,56 @@
           "hr9": 1.61,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.121
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.233
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.268
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.177
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.219
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.127
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.188
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.127
+          },
+          {
+            "id": 691019,
+            "name": "Kyle Teel",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
