@@ -349,9 +349,15 @@ def seams(payload_js):
     #
     # Verifying one surface and calling the feature done is the mistake this pair of seams
     # exists to record. THREE render paths carry player state: pCard, legRow, ticketCard.
+    # SUPERSUBLEG-2026-09-04. The leg row is a GLYPH renderer (.lst), separate from the .st
+    # chip that SUPERSUBSEAM fixed -- so a carried leg cashed on the ticket as a bare '⚽'
+    # beside the replaced player's name, with nothing to say it was the substitute who
+    # scored. Owner: "still not seeing ueda." Surname only; the goal minute is on the card.
     add('legrow-unres',
         """${fp.hr?'⚽':fp.void?'↩':fp.out?'🪑':fp.pending?'↻':isFinal(p.game)?'❌'""",
-        """${sState(fp)?'⏱':fp.hr?'⚽':fp.void?'↩':fp.out?'🪑':fp.pending?'↻':isFinal(p.game)?'❌'""")
+        """${sState(fp)?'⏱':fp.hr?('⚽'+((fp.carry&&fp.carry.length)?'<span class=\"lcarry\">'"""
+        """+String(fp.carry[fp.carry.length-1].to).split(' ').pop()+'</span>':'')):fp.void?'↩'"""
+        """:fp.out?'🪑':fp.pending?'↻':isFinal(p.game)?'❌'""")
     # A slip whose every leg sits in an ended-but-unpublished match is not "projected" --
     # nothing about it is still a projection. t.unres is the count of such legs (soccer_payload).
     # The badge must count legs through sState too, not a baked field -- otherwise a slip whose
@@ -530,7 +536,11 @@ def seams(payload_js):
         # the ball -- no template change needed there, which also avoids re-cutting
         # 'leg-hr-icon' and 'legrow-unres', whose old-strings are chained through each other.
         '.bal{font-size:1.22em;line-height:1;vertical-align:-.09em}'
-        '.lst.hit{font-size:15.5px}')
+        '.lst.hit{font-size:15.5px}'
+        # SUPERSUBLEG-2026-09-04. .lst.hit is 15.5px for the ball; the successor's surname
+        # must not inherit that or it dwarfs the player name it sits next to.
+        '.lcarry{font-size:12px;font-weight:700;margin-left:3px;opacity:.85;'
+        'vertical-align:.06em;letter-spacing:.01em}')
 
     # ---- 15. ODDS SIGNS -- THE BOARD HAD NEVER SEEN AN ODDS-ON PRICE ------------------
     # ODDSSIGN-2026-08-26, owner: "mbappes odds read +-250. it should just be -250."
