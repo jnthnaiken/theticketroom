@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-04T17:47:14Z",
+  "pulled_at": "2026-09-04T17:52:08Z",
   "games": [
     {
       "gamePk": 824424,
@@ -179,7 +179,7 @@
     },
     {
       "gamePk": 824471,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-04T22:10:00Z",
       "matchup": "MIL@CIN",
       "away": {
@@ -201,10 +201,56 @@
           "hr9": 1.29,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.111
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.203
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.219
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.174
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.204
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.215
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.148
+          },
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.24
+          },
+          {
+            "id": 695490,
+            "name": "Edwin Arroyo",
+            "iso": 0.041
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
