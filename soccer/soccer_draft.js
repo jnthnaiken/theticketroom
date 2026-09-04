@@ -910,7 +910,21 @@
       if (!_gateOK(_r)) { _seenC[an] = 1; return; }      /* below the gate: he does not hold it */
       _seenC[an] = 1; _cand.push(_r);
     });
-    field.forEach(function (p) { if (!_seenC[p.name]) { _seenC[p.name] = 1; if (_gateOK(p)) _cand.push(p); } });
+    /* ANCHORALIVE-2026-09-04 -- AND HE HAS TO BE PLAYING. Owner: "jude is way the fuck down the
+       list, how is an anchor?" -- because this branch checked nothing. `field` is built from
+       placeable(), which asks "in the squad, priced, not yet kicked off" and deliberately says
+       nothing about the team sheet; that is alive()'s job, and the prior-anchor branch three lines
+       up has always tested it. This one never did, so every BENCHED man was a candidate to anchor.
+       Measured tonight with the sheets in: _keep came back
+         ["Deniz Undav", "Ermedin Demirovic", "Kylian Mbappe", "Bradley Barcola"]
+       -- Demirovic and Barcola benched, and they are the two whose benching OPENED the seats. A
+       benched man is never actually drafted (every mint path checks alive), but he has already
+       spent a seat against ANCH and a slot against ANCH_PER_GAME right here. Two of four seats and
+       the g2/g4 slots went to men who could not play, Desire Doue (#3, gate_z 1.63) was never
+       reserved, the repair spent him as a partner, and the last seat fell down the list to Jude
+       Bellingham at #14. ANCHORGATE and ANCHORFIRST both shipped without this and could not help:
+       the reservation they protect was being handed to men who were not playing. */
+    field.forEach(function (p) { if (!_seenC[p.name]) { _seenC[p.name] = 1; if (alive[p.name] && _gateOK(p)) _cand.push(p); } });
     _cand.sort(function (a, b) {
       if (b.TOTAL !== a.TOTAL) return b.TOTAL - a.TOTAL;
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;

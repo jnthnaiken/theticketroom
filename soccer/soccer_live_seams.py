@@ -129,7 +129,29 @@ function soccerAdopt(){
       .then(function(r){ return r.ok?r.json():null; })
       .then(function(j){
         if(!j||!j.meta||!j.players||!j.tickets) return;
-        if(j.meta.build===D.meta.build) return;               /* nothing new published */
+        /* ADOPTSIG-2026-09-04 -- ADOPT ON THE BOARD, NOT ON A STAMP THAT NEVER MOVES.
+           This used to read `if(j.meta.build===D.meta.build) return;`. meta.build is the string
+           "2026-09-04 live" and is IDENTICAL on every build of the slate, so the guard was true on
+           every poll and a tab never adopted anything after page load -- through every team sheet,
+           every demoted anchor, every replaced leg. Owner: "why is godts still an anchor?" -- he
+           was not, on the published board; he was on the tab, which had stopped listening.
+           That defeats ONEAUTHOR-2026-08-30, whose whole point is that "every slip on screen is a
+           slip the server wrote down": it was, just not the current one, with nothing saying so.
+           So compare the BOARD. Ticket set (kind, title, legs in order, locked) plus a digest of
+           every player's status/out/void/hr, so a board whose slips are unchanged but whose team
+           news has moved is still adopted and the tick marks follow. Identical board in, identical
+           signature out, no adopt -- the no-churn property the stamp was reaching for, now keyed on
+           what actually changed. */
+        var _bsig=function(o){
+          var ts=(o.tickets||[]).map(function(t){
+            return t.kind+'|'+t.name+'|'+(t.players||[]).map(function(l){return l.name;}).join('>')+'|'+(t.locked?1:0);
+          }).join(';');
+          var P=o.players||{}, ns=Object.keys(P).sort(), ps=[];
+          for(var i=0;i<ns.length;i++){ var p=P[ns[i]];
+            ps.push(ns[i]+':'+(p.status||'')+(p.out?'O':'')+(p.void?'V':'')+(p.hr?'H':'')); }
+          return ts+'||'+ps.join(',');
+        };
+        if(_bsig(j)===_bsig(D)) return;                       /* the board has not moved */
         /* live facts this tab has already seen outrank a board that was written before them */
         var _hr={}; Object.keys(D.players).forEach(function(n){
           if(D.players[n].hr){ _hr[n]={hr:true,goalmins:(D.players[n].goalmins||[]).slice()}; }
