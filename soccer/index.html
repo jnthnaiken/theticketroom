@@ -3423,6 +3423,17 @@ var _cmA={}, _cmB={};
       for (var i = 0; i < byStrength.length && anchors.length < n; i++) {
         var p = byStrength[i];
         if (struck[p.name]) continue;
+        /* ANCHORGATE-2026-09-04 -- AN ANCHOR SEAT IS NOT OPEN TO EVERYONE ON THE LIST.
+           Owner, on DRAFTWIDE's first live board: "in no world should mika godts be an anchor on
+           this board" -- gate_z 0.545 against Z_GATE 0.7, anchoring three of thirteen slips.
+           DRAFTWIDE widens the POOL when the gated one cannot fill the budget, and this loop
+           takes anchors off the top of whatever list it is handed, so widening the list silently
+           widened who could anchor. That was never the intent and never the rule anywhere else:
+           REPAIRWIDE and the top-up both reach the ungated field for LEGS AROUND AN ANCHOR THAT
+           WAS ALREADY CHOSEN. An anchor carries three slips; a partner carries one leg of one.
+           `anchorEligible` is the set a caller will allow to anchor. Absent -- which is every
+           first-pass gated draft -- this is a no-op and the draft is byte-identical. */
+        if (opts.anchorEligible && !opts.anchorEligible[p.name]) continue;
         if ((perG[p.match] || 0) < cfg.ANCH_PER_GAME) { anchors.push(p); perG[p.match] = (perG[p.match] || 0) + 1; }
       }
       if (anchors.length < n) return [];
@@ -3626,8 +3637,16 @@ var _cmA={}, _cmB={};
       var widePool = buildPool(players, wideCfg, opts);
       if (widePool.length > pool.length) {
         var wideByStrength = withStrength(widePool);
+        /* ANCHORGATE-2026-09-04. The retry widens the pool for PARTNERS only -- the anchor seats
+           stay restricted to the men who cleared the gate on their own. This is the correction to
+           what DRAFTWIDE shipped: its commit claimed "no ungated man anchors anything" on the
+           strength of five observed cases, which was an observation dressed up as a guarantee.
+           Now it is the guarantee, enforced in draftN, and it is what the change should always
+           have said -- the re-draft failed for want of PARTNERS, not for want of anchors. */
+        var wideOpts = {}; for (var _ok in opts) if (opts.hasOwnProperty(_ok)) wideOpts[_ok] = opts[_ok];
+        wideOpts.anchorEligible = nameSet(pool.map(function (p) { return p.name; }));
         for (var w = budget; w > usedN; w--) {
-          var wt = draftN(wideByStrength, w, cfg, opts);
+          var wt = draftN(wideByStrength, w, cfg, wideOpts);
           if (wt.length) {
             tickets = wt; usedN = w; pool = widePool; byStrength = wideByStrength;
             break;
@@ -4053,15 +4072,31 @@ var _cmA={}, _cmB={};
        keeps the seat he already holds, which is the same distinction the loop below draws. Free
        players come from `field`, which is placeable() and therefore MINTGUARD-clean. */
     var _seats = Math.max(0, cfg.ANCH - Object.keys(takenAnchors).length);
+    /* ANCHORGATE-2026-09-04 -- AND THE SAME RULE GOVERNS HOLDING A SEAT, NOT ONLY TAKING ONE.
+       Gating draftN alone is not enough, and the live board proved it inside one build: DRAFTWIDE
+       seated Mika Godts (gate_z 0.545) once, and from then on he was an INCUMBENT -- this loop
+       re-elects prior anchors, so a seat granted wrongly is preserved for the rest of the night.
+       A rule that only guards the door and not the room is defeated by a single bad build, which
+       is exactly what happened. So the gate is stated once and applied at both places a seat can
+       be granted: here, and in draftN.
+       ⚠️ FROZEN ANCHORS ARE NOT AFFECTED. They never enter `_cand` -- their seats are already
+       spent in `takenAnchors` -- so a placed bet still rides, CONFLOCK unchanged.
+       ⚠️ MEASURED BEFORE SHIPPING, because the last claim in this area was an observation dressed
+       up as a guarantee: across every committed board x 3 clocks, the ONLY anchor this demotes is
+       Godts. No historical board ever seated an ungated anchor, so there is no churn to trade
+       against -- the gate has always been the de facto rule and this is it written down. */
+    var _gateOK = function (r) { return r && r.gate_z != null && r.gate_z >= cfg.Z_GATE; };
     var _cand = [], _seenC = {};
     orderedAnchors.forEach(function (an) {
       var g = groups[an];
       if (!g || !g.moons.length) return;                 /* a moonless single anchors nothing */
       if (!alive[an] || !pinnable(an) || spentAsPartner[an]) return;
       if (_seenC[an]) return;
-      _seenC[an] = 1; _cand.push(rowOf(an));
+      var _r = rowOf(an);
+      if (!_gateOK(_r)) { _seenC[an] = 1; return; }      /* below the gate: he does not hold it */
+      _seenC[an] = 1; _cand.push(_r);
     });
-    field.forEach(function (p) { if (!_seenC[p.name]) { _seenC[p.name] = 1; _cand.push(p); } });
+    field.forEach(function (p) { if (!_seenC[p.name]) { _seenC[p.name] = 1; if (_gateOK(p)) _cand.push(p); } });
     _cand.sort(function (a, b) {
       if (b.TOTAL !== a.TOTAL) return b.TOTAL - a.TOTAL;
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
@@ -4106,8 +4141,17 @@ var _cmA={}, _cmB={};
          `groups[name]` is truthy exactly for the anchors of the open groups, which is the set
          to exclude. Scoped to `cands` on purpose -- `field` and the fresh draft below are
          untouched, so a DEMOTED anchor can still be re-drafted. */
+      /* ANCHORFIRST-2026-09-04 -- ...AND NOT THE ANCHORS OF THE BOARD BEING DRAFTED NOW EITHER.
+         `groups[p.name]` is the PRIOR board's anchors, which is what this guard could know about
+         when it was written. `_keep` is the set ANCHORSET just CHOSE, and until now nothing
+         stopped the repair from spending those men as partners before the draft could seat them.
+         That is what put Godts on the board tonight: Demirovic and Barcola were benched, `_keep`
+         chose Dembele and Doue for the empty seats, the repair handed both to Undav's and
+         Mbappe's screamers, and the seats fell through to Kvaratskhelia and then to Godts.
+         Owner: "the top 4 are your anchors, place them where they go on the board and then cross
+         them off the list." This is the crossing-off. */
       var cands = withStrength(buildPool(field, cfg, { xi: xi, xiMatches: xiM, exclude: usedPartners }))
-        .filter(function (p) { return p.name !== an && !groups[p.name]; });
+        .filter(function (p) { return p.name !== an && !groups[p.name] && !_keep[p.name]; });
 
       /* 🚨 REPAIRWIDE-2026-08-30 -- REPAIR DRAWS FROM THE SAME WIDE POOL THE TOP-UP DOES.
        * Owner, on losing a leg that had already scored: "why get rid of aubamayeng though?"
@@ -4129,8 +4173,10 @@ var _cmA={}, _cmB={};
        * ⚠️ GATED FIRST, ALWAYS. The wide list is a FALLBACK, never a preference: a slip that can
        * be finished from the pool the model actually likes is finished from it, and this only
        * runs when the alternative is deleting the bet. */
+      /* ANCHORFIRST-2026-09-04. The wide fallback reserves the chosen anchors too -- otherwise
+         the gated list refuses a man and the ungated one hands him straight over. */
       var wide = withStrength(field.filter(function (p) { return alive[p.name]; }))
-        .filter(function (p) { return p.name !== an && !groups[p.name]; });
+        .filter(function (p) { return p.name !== an && !groups[p.name] && !_keep[p.name]; });
 
       var fixed = [], ok = true, localUsed = {};
       for (var i = 0; i < g.moons.length && ok; i++) {
@@ -4140,6 +4186,10 @@ var _cmA={}, _cmB={};
         t.players.slice(1).forEach(function (l) {
           if (legs.length >= 3) return;
           if (!alive[l.name] || !freeToPin(l.name)) return;
+          /* ANCHORFIRST-2026-09-04. He was a partner here last pass and has since won an anchor
+             seat, so he is not pinned back into it. The slip refills from the next candidate the
+             same way it would for any other lost leg. */
+          if (_keep[l.name]) return;
           if (seen[String(l.game)] || usedPartners[l.name] || localUsed[l.name]) return;
           if (!spanOk(legs.concat([rowOf(l.name)]), cfg)) return;
           legs.push(rowOf(l.name)); seen[String(l.game)] = true; localUsed[l.name] = true;
