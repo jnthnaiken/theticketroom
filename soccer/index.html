@@ -3597,6 +3597,45 @@ var _cmA={}, _cmB={};
       if (tickets.length) { usedN = n; break; }
     }
 
+    /* DRAFTWIDE-2026-09-04 -- THE FRESH DRAFT REACHES THE SAME FIELD EVERY OTHER PATH REACHES.
+       Owner, asking whether the board redrafts as lineups come out. It does for a benched
+       PARTNER -- all 17 on tonight's board swap cleanly and the card holds its shape. It did NOT
+       for a benched ANCHOR: his group was demoted and nothing replaced it, so the board ran 10
+       tickets on 3 anchors for the rest of the night, at each of the four anchors in turn.
+       The pool is why, not the order. `buildPool` drops everyone under Z_GATE and caps GAME_CAP
+       per match, which is right for the first draft of a full field and wrong for a re-draft,
+       because the board has already eaten that pool -- 89 priced men, ~22 over the gate, 21 of
+       them already on tickets. Demote an anchor and the five men left cannot form one legal
+       group (Openda kicks off 120' early, so WIN bars him; four men in three matches cannot fill
+       six distinct-match legs). The ladder fails at every rung and returns nothing.
+       ⚠️ EVERY OTHER PATH ALREADY FALLS THROUGH. REPAIRWIDE-2026-08-30 gave leg repair the wide
+       field on the owner's ruling "leave it ungated, just for soccer", and the pair top-up was
+       never gated. The fresh draft was the only one still treating the gate as fatal -- and the
+       only one that runs when an anchor must be REPLACED rather than repaired.
+       So: gated first, always; widen ONLY if the budget is short, and keep the wider board ONLY
+       if it seats MORE anchors. It can never return less than the gated attempt did.
+       ⚠️ ONLY Z_GATE LIFTS -- NARROWER THAN REPAIRWIDE, WHICH LIFTS GAME_CAP TOO. Measured:
+       GAME_CAP alone fixes none of the four benched-anchor cases, Z_GATE alone fixes all four,
+       and the collateral is identical either way. The per-match cap was never the constraint, so
+       it stays on. out/void still bar a man out of the squad (WRONGCLUB), the per-match XI filter
+       still benches him (XIPARTIAL), and callers pass a field that is already alive and
+       placeable, so MINTGUARD is untouched. */
+    if (usedN < budget) {
+      var wideCfg = {}; for (var _wk in cfg) if (cfg.hasOwnProperty(_wk)) wideCfg[_wk] = cfg[_wk];
+      wideCfg.Z_GATE = -Infinity;
+      var widePool = buildPool(players, wideCfg, opts);
+      if (widePool.length > pool.length) {
+        var wideByStrength = withStrength(widePool);
+        for (var w = budget; w > usedN; w--) {
+          var wt = draftN(wideByStrength, w, cfg, opts);
+          if (wt.length) {
+            tickets = wt; usedN = w; pool = widePool; byStrength = wideByStrength;
+            break;
+          }
+        }
+      }
+    }
+
     /* one builder per distinct moon anchor, in first-seen order */
     var seenA = {}, builders = [];
     tickets.forEach(function (t) {
