@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T19:00:26Z",
+  "pulled_at": "2026-09-05T19:05:02Z",
   "games": [
     {
       "gamePk": 823577,
@@ -651,9 +651,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 88\u00b0",
+        "lean": "Neutral",
+        "temp": 88.3,
+        "wind_mph": 8.1,
+        "wind_dir": 346,
+        "tail_mph": -4.8,
+        "precip": 8
       },
-      "wf": 1.0
+      "wf": 1.011
     },
     {
       "gamePk": 824795,
@@ -698,7 +705,7 @@
     },
     {
       "gamePk": 822850,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T23:05:00Z",
       "matchup": "TB@TEX",
       "away": {
@@ -720,10 +727,56 @@
           "hr9": 1.11,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 592626,
+            "name": "Joc Pederson",
+            "iso": 0.243
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.186
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.194
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.157
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.183
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.185
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.126
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.082
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.161
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -738,7 +791,7 @@
     },
     {
       "gamePk": 824066,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T23:10:00Z",
       "matchup": "TOR@KC",
       "away": {
@@ -760,10 +813,56 @@
           "hr9": 1.05,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.212
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.169
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.212
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.153
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.141
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.166
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.186
+          },
+          {
+            "id": 668942,
+            "name": "Josh Rojas",
+            "iso": 0.11
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.118
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1067,9 +1166,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 92\u00b0",
+        "lean": "Boost",
+        "temp": 91.6,
+        "wind_mph": 2.2,
+        "wind_dir": 24,
+        "tail_mph": -2.0,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.025
     },
     {
       "gamePk": 823904,
