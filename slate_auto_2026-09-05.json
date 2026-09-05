@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T18:44:56Z",
+  "pulled_at": "2026-09-05T18:49:57Z",
   "games": [
     {
       "gamePk": 823577,
@@ -485,7 +485,7 @@
     },
     {
       "gamePk": 824468,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T22:40:00Z",
       "matchup": "MIL@CIN",
       "away": {
@@ -507,10 +507,56 @@
           "hr9": 1.27,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.231
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.201
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.217
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.214
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.173
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.211
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.143
+          },
+          {
+            "id": 699115,
+            "name": "Carlos Jorge",
+            "iso": 0.0
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.155
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -689,7 +735,7 @@
     },
     {
       "gamePk": 824145,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T23:15:00Z",
       "matchup": "ARI@HOU",
       "away": {
@@ -700,8 +746,54 @@
           "hr9": 1.05,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.14
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.115
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.168
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.195
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.227
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.187
+          },
+          {
+            "id": 596146,
+            "name": "Max Kepler",
+            "iso": 0.102
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.153
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.113
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -714,7 +806,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
