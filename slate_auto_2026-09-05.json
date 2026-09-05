@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T21:40:49Z",
+  "pulled_at": "2026-09-05T21:46:09Z",
   "games": [
     {
       "gamePk": 823577,
@@ -82,7 +82,7 @@
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.257
+            "iso": 0.256
           },
           {
             "id": 666182,
@@ -163,7 +163,7 @@
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.155
+            "iso": 0.157
           },
           {
             "id": 608324,
@@ -245,7 +245,7 @@
           {
             "id": 688363,
             "name": "Graham Pauley",
-            "iso": 0.147
+            "iso": 0.145
           },
           {
             "id": 691594,
@@ -270,7 +270,7 @@
     },
     {
       "gamePk": 823419,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T22:05:00Z",
       "matchup": "ATL@PHI",
       "away": {
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824389,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T22:10:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -1805,16 +1805,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 81.3,
-        "wind_mph": 6.7,
-        "wind_dir": 250,
-        "tail_mph": 4.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     },
     {
       "gamePk": 823094,
