@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-05T02:12:07Z",
+  "pulled_at": "2026-09-05T02:16:45Z",
   "games": [
     {
       "gamePk": 824424,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824471,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-04T22:10:00Z",
       "matchup": "MIL@CIN",
       "away": {
@@ -1348,7 +1348,7 @@
           {
             "id": 672695,
             "name": "Geraldo Perdomo",
-            "iso": 0.116
+            "iso": 0.115
           },
           {
             "id": 682998,
@@ -1440,7 +1440,7 @@
           {
             "id": 673237,
             "name": "Yainer Diaz",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 664774,
@@ -1485,7 +1485,7 @@
           {
             "id": 543807,
             "name": "George Springer",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 665489,
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 608331,
           "name": "Max Fried",
-          "hr9": 0.3,
+          "hr9": 0.29,
           "hand": "LHP"
         },
         "lineup": [
@@ -1818,7 +1818,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.22
+            "iso": 0.223
           },
           {
             "id": 701538,
@@ -1828,7 +1828,7 @@
           {
             "id": 669720,
             "name": "Austin Hays",
-            "iso": 0.106
+            "iso": 0.105
           },
           {
             "id": 593428,
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 73.0,
+        "wind_mph": 5.2,
+        "wind_dir": 260,
+        "tail_mph": 3.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.015
     },
     {
       "gamePk": 823093,
