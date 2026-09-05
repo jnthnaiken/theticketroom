@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-05T03:17:03Z",
+  "pulled_at": "2026-09-05T03:21:36Z",
   "games": [
     {
       "gamePk": 824424,
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 824311,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-05T00:40:00Z",
       "matchup": "STL@COL",
       "away": {
@@ -1618,7 +1618,7 @@
           {
             "id": 671056,
             "name": "Iv\u00e1n Herrera",
-            "iso": 0.128
+            "iso": 0.134
           },
           {
             "id": 676475,
@@ -1813,7 +1813,7 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 664034,
@@ -1823,7 +1823,7 @@
           {
             "id": 701538,
             "name": "Jackson Merrill",
-            "iso": 0.176
+            "iso": 0.177
           },
           {
             "id": 669720,
@@ -1872,7 +1872,7 @@
         "sp": {
           "id": 800600,
           "name": "Jackson Kent",
-          "hr9": 0.4,
+          "hr9": 0.39,
           "hand": "LHP"
         },
         "lineup": [
@@ -1936,12 +1936,12 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 606192,
@@ -1971,12 +1971,12 @@
           {
             "id": 663656,
             "name": "Kyle Tucker",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 571771,
             "name": "Enrique Hern\u00e1ndez",
-            "iso": 0.164
+            "iso": 0.16
           }
         ],
         "confirmed": true
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 72.7,
+        "wind_mph": 5.9,
+        "wind_dir": 259,
+        "tail_mph": 3.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.016
     },
     {
       "gamePk": 823093,
@@ -2035,12 +2042,12 @@
           {
             "id": 691777,
             "name": "Max Muncy",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 622268,
             "name": "Donovan Walton",
-            "iso": 0.171
+            "iso": 0.169
           },
           {
             "id": 675961,
@@ -2055,7 +2062,7 @@
         "sp": {
           "id": 669302,
           "name": "Logan Gilbert",
-          "hr9": 1.43,
+          "hr9": 1.42,
           "hand": "RHP"
         },
         "lineup": [
@@ -2097,12 +2104,12 @@
           {
             "id": 703155,
             "name": "Lazaro Montes",
-            "iso": 0.3
+            "iso": 0.272
           },
           {
             "id": 801126,
             "name": "Brock Rodden",
-            "iso": 0.085
+            "iso": 0.084
           }
         ],
         "confirmed": true
