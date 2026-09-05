@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-05T01:42:40Z",
+  "pulled_at": "2026-09-05T01:47:19Z",
   "games": [
     {
       "gamePk": 824424,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823338,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-09-04T22:45:00Z",
       "matchup": "LAA@PIT",
       "away": {
@@ -1984,13 +1984,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 72\u00b0",
+        "lean": "Neutral",
+        "temp": 72.5,
+        "wind_mph": 6.0,
+        "wind_dir": 255,
+        "tail_mph": 3.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.017
     },
     {
       "gamePk": 823093,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T02:10:00Z",
       "matchup": "ATH@SEA",
       "away": {
