@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T17:00:55Z",
+  "pulled_at": "2026-09-05T17:07:13Z",
   "games": [
     {
       "gamePk": 823577,
@@ -86,7 +86,7 @@
         "wind_mph": 7.9,
         "wind_dir": 350,
         "tail_mph": -6.5,
-        "precip": 0
+        "precip": 1
       },
       "wf": 0.991
     },
@@ -160,8 +160,54 @@
           "hr9": 1.06,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.224
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.237
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.225
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.138
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.12
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.193
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.172
+          },
+          {
+            "id": 688363,
+            "name": "Graham Pauley",
+            "iso": 0.147
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -295,7 +341,7 @@
         "wind_mph": 4.0,
         "wind_dir": 344,
         "tail_mph": -0.3,
-        "precip": 4
+        "precip": 2
       },
       "wf": 1.006
     },
@@ -336,7 +382,7 @@
         "wind_mph": 7.8,
         "wind_dir": 78,
         "tail_mph": -6.1,
-        "precip": 10
+        "precip": 8
       },
       "wf": 1.004
     },
@@ -573,9 +619,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 85\u00b0",
+        "lean": "Neutral",
+        "temp": 84.8,
+        "wind_mph": 8.7,
+        "wind_dir": 305,
+        "tail_mph": -5.0,
+        "precip": 5
       },
-      "wf": 1.0
+      "wf": 1.005
     },
     {
       "gamePk": 824310,
