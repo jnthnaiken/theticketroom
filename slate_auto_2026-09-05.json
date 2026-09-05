@@ -1,11 +1,11 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T20:10:24Z",
+  "pulled_at": "2026-09-05T20:15:20Z",
   "games": [
     {
       "gamePk": 823577,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T20:10:00Z",
       "matchup": "SF@NYM",
       "away": {
@@ -20,22 +20,22 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.244
+            "iso": 0.24
           },
           {
             "id": 646240,
             "name": "Rafael Devers",
-            "iso": 0.252
+            "iso": 0.258
           },
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 678545,
             "name": "Osleivis Basabe",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 806367,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 804267,
           "name": "Zac Thornton",
-          "hr9": 1.03,
+          "hr9": 1.16,
           "hand": "LHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823823,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T20:10:00Z",
       "matchup": "CHC@MIA",
       "away": {
@@ -158,7 +158,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.211
+            "iso": 0.21
           },
           {
             "id": 683737,
@@ -1292,8 +1292,54 @@
           "hr9": 0.76,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.208
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.151
+          },
+          {
+            "id": 642708,
+            "name": "Amed Rosario",
+            "iso": 0.184
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.269
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.153
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.11
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.198
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.135
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.126
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
