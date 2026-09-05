@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-05T02:06:44Z",
+  "pulled_at": "2026-09-05T02:12:07Z",
   "games": [
     {
       "gamePk": 824424,
@@ -936,7 +936,7 @@
     },
     {
       "gamePk": 823824,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-04T23:10:00Z",
       "matchup": "CHC@MIA",
       "away": {
@@ -1864,7 +1864,7 @@
     },
     {
       "gamePk": 823905,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T02:10:00Z",
       "matchup": "WSH@LAD",
       "away": {
@@ -1984,20 +1984,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 73\u00b0",
-        "lean": "Neutral",
-        "temp": 73.0,
-        "wind_mph": 5.2,
-        "wind_dir": 260,
-        "tail_mph": 3.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     },
     {
       "gamePk": 823093,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T02:10:00Z",
       "matchup": "ATH@SEA",
       "away": {
