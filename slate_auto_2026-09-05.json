@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T19:20:10Z",
+  "pulled_at": "2026-09-05T19:25:12Z",
   "games": [
     {
       "gamePk": 823577,
@@ -1143,7 +1143,7 @@
     },
     {
       "gamePk": 823257,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T23:15:00Z",
       "matchup": "NYY@SD",
       "away": {
@@ -1165,10 +1165,56 @@
           "hr9": 1.21,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.164
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.103
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.182
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.224
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.176
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.182
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.109
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.075
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.08
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
