@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T20:30:26Z",
+  "pulled_at": "2026-09-05T20:35:50Z",
   "games": [
     {
       "gamePk": 823577,
@@ -173,7 +173,7 @@
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.197
+            "iso": 0.196
           },
           {
             "id": 663538,
@@ -1222,8 +1222,54 @@
           "hr9": 1.25,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.121
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.237
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.265
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.176
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.223
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.138
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.126
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.186
+          },
+          {
+            "id": 668670,
+            "name": "Jake Rogers",
+            "iso": 0.134
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1621,16 +1667,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 80.8,
-        "wind_mph": 6.5,
-        "wind_dir": 254,
-        "tail_mph": 4.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     },
     {
       "gamePk": 823094,
