@@ -26,6 +26,15 @@ def norm(s):
     return ''.join(c for c in unicodedata.normalize('NFKD', s or '')
                    if not unicodedata.combining(c)).lower().replace('.', '').strip()
 
+# DROPSCOPE-2026-09-05: a permanently-excluded bat must not survive anywhere in a slate.
+# The assembler prunes him; this is the independent check that it actually ran, so a
+# hand-rolled or half-reassembled slate can never quietly put him back in the pool.
+try:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from slate_assemble import DROP_BATS, tc
+except Exception:                       # validator must still run standalone
+    DROP_BATS, tc = set(), (lambda c: (c or '').upper())
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     base = '.'
@@ -161,6 +170,41 @@ def main():
                 dup = sorted(x for x in set(gns) if gns.count(x) > 1)
                 E(f"gn values are NOT unique (duplicates {dup}). build15 keys gamemeta/wx by "
                   f"str(gn); collisions drop games and crash the ticket renderer on wx.emoji.")
+
+    # ---- permanent exclusions must not survive anywhere (DROPSCOPE-2026-09-05) ----
+    if DROP_BATS:
+        for bad_tm, bad_nm in sorted(DROP_BATS):
+            bad_tm = tc(bad_tm)
+            if isinstance(cards, dict):
+                for mk, teams in cards.items():
+                    for tk, arr in (teams or {}).items():
+                        if tc(tk) != bad_tm or not isinstance(arr, list):
+                            continue
+                        if any(isinstance(c, dict) and c.get('name') == bad_nm for c in arr):
+                            E(f"permanently-excluded bat {bad_tm} {bad_nm} is still in "
+                              f"cards[{mk}][{tk}] — slate_assemble.drop_excluded did not run")
+            if isinstance(lineups, dict):
+                for g in (lineups.get('games') or []):
+                    if not isinstance(g, dict):
+                        continue
+                    for side, bk in (('away', 'away_bats'), ('home', 'home_bats')):
+                        if tc(g.get(side)) == bad_tm and bad_nm in (g.get(bk) or []):
+                            E(f"permanently-excluded bat {bad_tm} {bad_nm} is still in "
+                              f"{g.get('matchup','?')}.{bk} — he would take a lineup slot and be "
+                              f"scored off the surviving team's card")
+            # extras/odds are name-keyed: flag only when NO kept bat carries the name, which
+            # means whatever is there can only be the excluded player's numbers.
+            kept = any(isinstance(c, dict) and c.get('name') == bad_nm
+                       for mk, teams in (cards or {}).items()
+                       for tk, arr in (teams or {}).items() if isinstance(arr, list)
+                       for c in arr)
+            if not kept:
+                if isinstance(extras, dict) and bad_nm in extras:
+                    E(f"kasper_extras[{bad_nm!r}] survives with no kept card — those are the "
+                      f"excluded {bad_tm} bat's numbers")
+                if isinstance(odds, dict) and bad_nm in odds:
+                    W(f"odds[{bad_nm!r}] survives with no kept card (inert, but the scrape "
+                      f"should not have kept the excluded {bad_tm} row)")
 
     report(date, errors, warnings)
     return 1 if errors else 0

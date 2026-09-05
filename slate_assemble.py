@@ -67,19 +67,94 @@ def parse_weather(w, home):
 # Until players are keyed by (name, team) this is the deliberate fix for the one collision
 # we actually have: drop the bat we will never draft, so the survivor is unambiguous and the
 # outcome no longer depends on scrape/iteration order.
-#   (TEAM, NAME) -> dropped from cards before anything downstream sees it.
-DROP_CARDS = {('ATH', 'Max Muncy')}     # 2026-08-17: keep LAD's Max Muncy, never the Athletics'
+#   (TEAM, NAME) -> dropped from EVERY name-keyed surface before anything downstream sees it.
+DROP_BATS = {('ATH', 'Max Muncy')}      # 2026-08-17: keep LAD's Max Muncy, never the Athletics'
+DROP_CARDS = DROP_BATS                  # back-compat alias; the exclusion is no longer cards-only
 
-def drop_excluded(cards):
-    """Remove permanently-excluded bats from the cards tree. Returns (cards, [dropped])."""
-    dropped = []
+def drop_excluded(cards, extras=None, roto=None):
+    """Remove permanently-excluded bats from every surface build15 reads.
+
+    ⚠️ DROPSCOPE-2026-09-05 — the 2026-08-17 implementation pruned `cards` ONLY, and the owner's
+    instruction was that the bat is out of the pool, full stop. Pruning cards alone left two
+    silent leaks, both of which score the wrong player with no warning anywhere:
+
+      * `kasper_extras` is keyed by NAME ALONE, so whichever matchup page the daily scrape
+        visited LAST owned the entry. On 2026-09-05 ATH@SEA is game 15 and WSH@LAD is game 14,
+        so the Athletics' Muncy overwrote the Dodgers': khr 45 vs 54, bip 226 vs 1382,
+        iso .171 vs .244, xwobacon .329 vs .424 — every column materially wrong, feeding
+        `_ziso`, `_zxwcon` and `_zdmg` for a bat the board actually drafts.
+      * `lineups` still listed him whenever the Athletics started him, so an ATH lineup slot
+        would be scored off the SURVIVING team's card and extras entirely.
+
+    Extras entries may now carry an optional "team" (stripped before write). An untagged entry
+    for an excluded name is resolved when only one of the colliding teams is on the slate, and
+    is a HARD ERROR when both are — it must never be guessed again.
+
+    Returns (cards, extras, roto, [dropped], [errors]).
+    """
+    dropped, errs = [], []
+    extras = {} if extras is None else extras
+    roto = [] if roto is None else roto
+
+    drop_by_name = {}
+    for tm, nm in DROP_BATS:
+        drop_by_name.setdefault(nm, set()).add(tc(tm))
+
+    slate_teams = set()
+    for g in roto:
+        slate_teams.add(tc(g.get('away'))); slate_teams.add(tc(g.get('home')))
+
+    # 1) cards
     for mk, teams in cards.items():
         for tm, bats in list(teams.items()):
-            keep = [b for b in bats if (tc(tm), b.get('name')) not in DROP_CARDS]
+            keep = [b for b in bats if (tc(tm), b.get('name')) not in DROP_BATS]
             if len(keep) != len(bats):
-                dropped += [f"{tc(tm)} {b['name']} ({mk})" for b in bats if b not in keep]
+                dropped += [f"cards {tc(tm)} {b['name']} ({mk})" for b in bats if b not in keep]
                 teams[tm] = keep
-    return cards, dropped
+
+    # which teams still card each name, AFTER the prune above
+    survivors = {}
+    for mk, teams in cards.items():
+        for tm, bats in teams.items():
+            for b in bats:
+                survivors.setdefault(b.get('name'), set()).add(tc(tm))
+
+    # 2) lineups — an excluded bat must never occupy a lineup slot
+    for g in roto:
+        for side, bk in (('away', 'away_bats'), ('home', 'home_bats')):
+            tm, arr = tc(g.get(side)), (g.get(bk) or [])
+            keep = [b for b in arr if (tm, b.get('name')) not in DROP_BATS]
+            if len(keep) != len(arr):
+                dropped += [f"lineup {tm} {b['name']}" for b in arr if b not in keep]
+                g[bk] = keep
+
+    # 3) extras — name-keyed, so resolve through the optional team tag
+    for nm, bad_teams in drop_by_name.items():
+        e = extras.get(nm)
+        if e is None:
+            continue
+        tag = tc(e.get('team')) if isinstance(e, dict) and e.get('team') else None
+        if tag:
+            if tag in bad_teams:
+                extras.pop(nm)
+                dropped.append(f"extras {tag} {nm}")
+            continue
+        others = survivors.get(nm, set()) - bad_teams
+        if not others:
+            extras.pop(nm)            # nobody we keep carries this name
+            dropped.append(f"extras {nm} (no surviving card)")
+        elif bad_teams & slate_teams:
+            errs.append(
+                f"kasper_extras[{nm!r}] is UNTAGGED and AMBIGUOUS: excluded "
+                f"{'/'.join(sorted(bad_teams))} is on this slate alongside kept "
+                f"{'/'.join(sorted(others))}, so the entry may be either bat's. The daily scrape "
+                f"must emit \"team\" on extras entries (see HANDOFF) — refusing to guess.")
+
+    for e in extras.values():         # strip the transport-only tag
+        if isinstance(e, dict):
+            e.pop('team', None)
+
+    return cards, extras, roto, dropped, errs
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -91,7 +166,7 @@ def main():
     cards, extras, pitch, roto, odds = (J('cards.json'), J('extras.json'),
                                         J('pitch.json'), J('roto.json'), J('odds.json'))
 
-    cards, _dropped = drop_excluded(cards)
+    cards, extras, roto, _dropped, _derrs = drop_excluded(cards, extras, roto)
     for _d in _dropped:
         print(f"  excluded (permanent): {_d}")
 
@@ -125,7 +200,7 @@ def main():
             return cand[0]
         return name                       # different person, same surname -> keep roto name
 
-    games, errors, gn = [], [], 0
+    games, errors, gn = [], list(_derrs), 0
     seen = set()
     for g in roto:
         away, home = tc(g['away']), tc(g['home'])

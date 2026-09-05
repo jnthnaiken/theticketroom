@@ -102,6 +102,11 @@ then compile the three sidecars:
   0.10 for every bat, which is the exact bug ISOSRC existed to fix. The build now prints
   `kasper_extras: N entries -> N keys  khr= iso= xwobacon= bip=` and warns on any zero. If you
   see a zero there, the scrape is thin — go back and get the column.
+  ⚠️ **DROPSCOPE-2026-09-05 — every extras entry MUST carry `"team"`** (the Kasper roster
+  table's own team code). `slate_assemble.py` strips the tag before writing the dated file, so
+  the shipped contract is unchanged — the tag exists only so a permanently-excluded bat can be
+  told apart from the bat we keep. Without it the assembler **hard-errors and refuses to build**
+  on any name collision. See the DROPSCOPE block under "PERMANENT ROSTER EXCLUSIONS" below.
 - `pitchers_<date>.json` — per opposing starter: brl, pbrl, hh, fb (pitcher / Top Slate
   Pitchers table).
 Strip ALL name suffixes (Jr./Sr./II/III). The browser localStorage may hold a prior day's
@@ -494,6 +499,51 @@ off each name, then the generational suffixes.
 `iso` outside 0.02–0.60 is dropped by `build15.py` and falls back to the slate median; `bip`
 below `MIN_DMG_BIP` (40) means no `_zdmg` for that bat. Both are normal — a full slate lands
 around iso 402/416 and bip≥40 373/416.
+
+## 🚫 PERMANENT ROSTER EXCLUSIONS — `DROP_BATS` covers cards, lineups AND extras
+
+`slate_assemble.DROP_BATS` is the owner's standing list of bats that are **out of the pool, full
+stop**. Today it is one entry: `('ATH', 'Max Muncy')` — the Athletics' Muncy, never the Dodgers'
+(owner's call 2026-08-17, restated 2026-09-05: *"ive said before to drop the athletics muncy from
+the pool permanently. we will never use him"*).
+
+⚠️ **DROPSCOPE-2026-09-05 — the 08-17 implementation pruned `cards` ONLY, and that is not what
+"out of the pool" means.** Two surfaces still carried him, both silent, both scoring a bat the
+board actually drafts:
+
+- **`kasper_extras` is keyed by NAME ALONE**, so whichever matchup page the daily scrape visited
+  LAST owned the entry. On 2026-09-05 ATH@SEA is game 15 and WSH@LAD is game 14, so the
+  Athletics' Muncy overwrote the Dodgers': **khr 45 vs 54, bip 226 vs 1382, iso .171 vs .244,
+  xwobacon .329 vs .424** — every column wrong, feeding `_ziso`, `_zxwcon` and `_zdmg` for a bat
+  on a live ticket. Nothing warned. It was caught by eye, not by any check.
+- **`lineups` still listed him** whenever the Athletics started him, so an ATH lineup slot would
+  be scored off the *surviving* team's card and extras entirely.
+
+Now: `drop_excluded(cards, extras, roto)` prunes **cards, lineups and extras** and returns its own
+hard errors. Because extras have no team of their own, the scrape tags each entry with `"team"`
+(stripped before write). An untagged entry for an excluded name is resolved when only one of the
+colliding teams is on the slate, and is a **HARD ERROR when both are — it is never guessed.**
+`slate_validate.py` re-checks the shipped files independently, so a hand-rolled or
+half-reassembled slate cannot put him back.
+
+Verified 2026-09-05, four cases plus a negative control:
+
+| case | result |
+|---|---|
+| extras untagged, ATH and LAD both on slate | **exit 1**, refuses to guess |
+| extras tagged `LAD` (the survivor) | clean, LAD's numbers kept |
+| extras tagged `ATH` (the 09-05 bug) | entry dropped, 418 → 417 extras |
+| tagged `LAD` + ATH actually starts him | lineup slot removed, hands stay aligned |
+| **negative control:** him hand-added back to cards + lineups | `slate_validate` **exit 1**, both surfaces named |
+
+**`odds` cannot be fixed this way** — VegasInsider posts no team, and on 2026-09-05 it published
+two `Max Muncy` rows (the 08-17 bug again). Scrape rule: on a duplicate name, **keep the row with
+the most book quotes** — the bat the market actually prices broadly is the one playing. That
+picked LAD correctly (4 books, median +345) over ATH (2 books, +700). An odds entry with no
+surviving card is inert, and `slate_validate` warns on it.
+
+**To exclude another bat: add the `(TEAM, NAME)` pair to `DROP_BATS` and nothing else.** All three
+surfaces and both gates follow from that one line.
 
 ## 🩹 Grading / behavior fixes (this session)
 
