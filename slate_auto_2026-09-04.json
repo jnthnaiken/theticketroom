@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-05T01:19:17Z",
+  "pulled_at": "2026-09-05T01:23:57Z",
   "games": [
     {
       "gamePk": 824424,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823418,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-04T22:40:00Z",
       "matchup": "ATL@PHI",
       "away": {
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 72\u00b0",
+        "lean": "Neutral",
+        "temp": 72.5,
+        "wind_mph": 6.0,
+        "wind_dir": 255,
+        "tail_mph": 3.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.017
     },
     {
       "gamePk": 823093,
