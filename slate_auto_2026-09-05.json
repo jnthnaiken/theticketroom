@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T19:10:06Z",
+  "pulled_at": "2026-09-05T19:15:07Z",
   "games": [
     {
       "gamePk": 823577,
@@ -414,8 +414,54 @@
           "hr9": 0.9,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.116
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.151
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.174
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.217
+          },
+          {
+            "id": 701162,
+            "name": "Ben Malgeri",
+            "iso": 0.131
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.192
+          },
+          {
+            "id": 807726,
+            "name": "John Peck",
+            "iso": 0.083
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.097
+          },
+          {
+            "id": 595879,
+            "name": "Javier B\u00e1ez",
+            "iso": 0.116
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -571,7 +617,7 @@
         "wind_mph": 4.0,
         "wind_dir": 357,
         "tail_mph": -1.2,
-        "precip": 3
+        "precip": 6
       },
       "wf": 1.008
     },
@@ -704,7 +750,7 @@
         "wind_mph": 8.1,
         "wind_dir": 346,
         "tail_mph": -4.8,
-        "precip": 8
+        "precip": 5
       },
       "wf": 1.011
     },
