@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T22:41:06Z",
+  "pulled_at": "2026-09-05T22:46:31Z",
   "games": [
     {
       "gamePk": 823577,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 824468,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T22:40:00Z",
       "matchup": "MIL@CIN",
       "away": {
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824795,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T23:05:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824066,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T23:10:00Z",
       "matchup": "TOR@KC",
       "away": {
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 81.4,
-        "wind_mph": 6.9,
-        "wind_dir": 251,
-        "tail_mph": 4.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     },
     {
       "gamePk": 823094,
