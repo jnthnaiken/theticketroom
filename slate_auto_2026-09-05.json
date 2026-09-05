@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T18:49:57Z",
+  "pulled_at": "2026-09-05T18:55:27Z",
   "games": [
     {
       "gamePk": 823577,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824389,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T22:10:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -425,10 +425,56 @@
           "hr9": 0.78,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.057
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.189
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.143
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.161
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.154
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.11
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.102
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.116
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -694,7 +740,7 @@
     },
     {
       "gamePk": 824553,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T23:10:00Z",
       "matchup": "MIN@CWS",
       "away": {
@@ -705,8 +751,54 @@
           "hr9": 1.22,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.116
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.157
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.226
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.167
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.169
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.229
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.184
+          },
+          {
+            "id": 694224,
+            "name": "Gabriel Gonzalez",
+            "iso": 0.0
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.151
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CWS",
@@ -719,7 +811,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -977,16 +1069,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 81.4,
-        "wind_mph": 6.2,
-        "wind_dir": 255,
-        "tail_mph": 4.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     },
     {
       "gamePk": 823094,
