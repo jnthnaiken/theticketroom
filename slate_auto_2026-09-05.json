@@ -1,11 +1,11 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T22:46:31Z",
+  "pulled_at": "2026-09-05T22:51:13Z",
   "games": [
     {
       "gamePk": 823577,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-05T20:10:00Z",
       "matchup": "SF@NYM",
       "away": {
@@ -77,7 +77,7 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.197
+            "iso": 0.196
           },
           {
             "id": 665742,
@@ -117,7 +117,7 @@
           {
             "id": 683146,
             "name": "Brett Baty",
-            "iso": 0.118
+            "iso": 0.12
           }
         ],
         "confirmed": true
@@ -183,7 +183,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.145
+            "iso": 0.143
           },
           {
             "id": 624424,
@@ -193,7 +193,7 @@
           {
             "id": 665804,
             "name": "Miguel Amaya",
-            "iso": 0.129
+            "iso": 0.128
           }
         ],
         "confirmed": true
@@ -210,7 +210,7 @@
           {
             "id": 669065,
             "name": "Kyle Stowers",
-            "iso": 0.223
+            "iso": 0.23
           },
           {
             "id": 681715,
@@ -220,7 +220,7 @@
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 672640,
@@ -290,7 +290,7 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.173
+            "iso": 0.182
           },
           {
             "id": 621566,
@@ -335,7 +335,7 @@
         "sp": {
           "id": 554430,
           "name": "Zack Wheeler",
-          "hr9": 1.29,
+          "hr9": 1.35,
           "hand": "RHP"
         },
         "lineup": [
@@ -352,12 +352,12 @@
           {
             "id": 547180,
             "name": "Bryce Harper",
-            "iso": 0.232
+            "iso": 0.231
           },
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.114
+            "iso": 0.115
           },
           {
             "id": 664761,
@@ -411,7 +411,7 @@
         "sp": {
           "id": 664285,
           "name": "Framber Valdez",
-          "hr9": 0.89,
+          "hr9": 0.88,
           "hand": "LHP"
         },
         "lineup": [
@@ -428,17 +428,17 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.182
+            "iso": 0.181
           },
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 701162,
             "name": "Ben Malgeri",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 679529,
@@ -468,7 +468,7 @@
         "sp": {
           "id": 800048,
           "name": "Parker Messick",
-          "hr9": 0.83,
+          "hr9": 0.82,
           "hand": "LHP"
         },
         "lineup": [
@@ -515,7 +515,7 @@
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.127
+            "iso": 0.126
           }
         ],
         "confirmed": true
@@ -544,14 +544,14 @@
         "sp": {
           "id": 579328,
           "name": "Yusei Kikuchi",
-          "hr9": 1.47,
+          "hr9": 1.43,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 687263,
             "name": "Zach Neto",
-            "iso": 0.194
+            "iso": 0.193
           },
           {
             "id": 545361,
@@ -601,19 +601,19 @@
         "sp": {
           "id": 677952,
           "name": "Braxton Ashcraft",
-          "hr9": 1.18,
+          "hr9": 1.17,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 804606,
             "name": "Konnor Griffin",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 699013,
             "name": "Esmerlyn Valdez",
-            "iso": 0.279
+            "iso": 0.277
           },
           {
             "id": 668804,
@@ -623,7 +623,7 @@
           {
             "id": 665833,
             "name": "Oneil Cruz",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 693304,
@@ -694,12 +694,12 @@
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.131
+            "iso": 0.137
           },
           {
             "id": 683734,
             "name": "Andrew Vaughn",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 669003,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 671096,
           "name": "Andrew Abbott",
-          "hr9": 1.27,
+          "hr9": 1.33,
           "hand": "LHP"
         },
         "lineup": [
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823257,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T23:15:00Z",
       "matchup": "NYY@SD",
       "away": {
@@ -1851,9 +1851,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 81\u00b0",
+        "lean": "Boost",
+        "temp": 81.4,
+        "wind_mph": 6.9,
+        "wind_dir": 251,
+        "tail_mph": 4.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.034
     },
     {
       "gamePk": 823094,
