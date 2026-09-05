@@ -1,0 +1,216 @@
+{
+ "_note": "FIXTURES-2026-09-05. Read off the ESPN scoreboard endpoint per league, never assumed: home/away from competitors[].homeAway (ESPN's own title lists the AWAY side first and would invert every one of these), kickoff is UTC minutes past midnight from event.date, espn[1] is the event id the live loop addresses the match by. Saturday top-five card, 21 matches, 780 -> 1140. Owner: 'pretend no games have started yet' -- so the six fixtures already underway at scrape time (fiorentina 780, the five Bundesliga 810s) are INCLUDED, and the first build of a fresh slate is a cold draft with no prior board and therefore no MINTGUARD clock, which is exactly that instruction. Their oddschecker markets were still serving full 15-name pre-match prices when harvested, checked per fixture rather than assumed. ONE fixture is deliberately omitted: newcastle-united-v-afc-bournemouth (690) had already FINISHED, and a slip on a settled result is not a board -- it books a known outcome into the ledger. That is the only exclusion and it is about the result being known, not about the clock.",
+ "date": "2026-09-05",
+ "matches": {
+  "brentford-v-sunderland": {
+   "home": "Brentford",
+   "away": "Sunderland",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879311"
+   ]
+  },
+  "brighton-hove-albion-v-leeds-united": {
+   "home": "Brighton & Hove Albion",
+   "away": "Leeds United",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879290"
+   ]
+  },
+  "fulham-v-crystal-palace": {
+   "home": "Fulham",
+   "away": "Crystal Palace",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879289"
+   ]
+  },
+  "manchester-city-v-coventry-city": {
+   "home": "Manchester City",
+   "away": "Coventry City",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879287"
+   ]
+  },
+  "nottingham-forest-v-tottenham-hotspur": {
+   "home": "Nottingham Forest",
+   "away": "Tottenham Hotspur",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401878780"
+   ]
+  },
+  "hull-city-v-aston-villa": {
+   "home": "Hull City",
+   "away": "Aston Villa",
+   "kickoff": 990,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401878781"
+   ]
+  },
+  "athletic-club-v-atletico-madrid": {
+   "home": "Athletic Club",
+   "away": "Atlético Madrid",
+   "kickoff": 855,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882895"
+   ]
+  },
+  "rayo-vallecano-v-racing-santander": {
+   "home": "Rayo Vallecano",
+   "away": "Racing Santander",
+   "kickoff": 990,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882889"
+   ]
+  },
+  "villarreal-v-deportivo": {
+   "home": "Villarreal",
+   "away": "Deportivo",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882887"
+   ]
+  },
+  "schalke-04-v-bayern-munich": {
+   "home": "Schalke 04",
+   "away": "Bayern Munich",
+   "kickoff": 990,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884801"
+   ]
+  },
+  "internazionale-v-napoli": {
+   "home": "Internazionale",
+   "away": "Napoli",
+   "kickoff": 960,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874937"
+   ]
+  },
+  "as-roma-v-atalanta": {
+   "home": "AS Roma",
+   "away": "Atalanta",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874781"
+   ]
+  },
+  "lens-v-lorient": {
+   "home": "Lens",
+   "away": "Lorient",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876473"
+   ]
+  },
+  "le-havre-ac-v-brest": {
+   "home": "Le Havre AC",
+   "away": "Brest",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876474"
+   ]
+  },
+  "nice-v-le-mans": {
+   "home": "Nice",
+   "away": "Le Mans",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876470"
+   ]
+  },
+  "bayer-leverkusen-v-1-fc-union-berlin": {
+   "home": "Bayer Leverkusen",
+   "away": "1. FC Union Berlin",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884806"
+   ]
+  },
+  "borussia-monchengladbach-v-sv-elversberg": {
+   "home": "Borussia Mönchengladbach",
+   "away": "SV Elversberg",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884804"
+   ]
+  },
+  "sc-paderborn-07-v-sc-freiburg": {
+   "home": "SC Paderborn 07",
+   "away": "SC Freiburg",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884800"
+   ]
+  },
+  "tsg-hoffenheim-v-borussia-dortmund": {
+   "home": "TSG Hoffenheim",
+   "away": "Borussia Dortmund",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884807"
+   ]
+  },
+  "werder-bremen-v-rb-leipzig": {
+   "home": "Werder Bremen",
+   "away": "RB Leipzig",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884802"
+   ]
+  },
+  "fiorentina-v-torino": {
+   "home": "Fiorentina",
+   "away": "Torino",
+   "kickoff": 780,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874939"
+   ]
+  }
+ }
+}
