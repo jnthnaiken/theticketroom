@@ -1,11 +1,11 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T19:45:40Z",
+  "pulled_at": "2026-09-05T19:50:17Z",
   "games": [
     {
       "gamePk": 823577,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T20:10:00Z",
       "matchup": "SF@NYM",
       "away": {
@@ -1396,9 +1396,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 92\u00b0",
+        "lean": "Boost",
+        "temp": 91.6,
+        "wind_mph": 2.2,
+        "wind_dir": 24,
+        "tail_mph": -2.0,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.025
     },
     {
       "gamePk": 823904,
