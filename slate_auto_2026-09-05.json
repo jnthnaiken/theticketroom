@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T21:51:20Z",
+  "pulled_at": "2026-09-05T21:56:18Z",
   "games": [
     {
       "gamePk": 823577,
@@ -20,7 +20,7 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.233
+            "iso": 0.231
           },
           {
             "id": 646240,
@@ -55,12 +55,12 @@
           {
             "id": 687529,
             "name": "Grant McCray",
-            "iso": 0.111
+            "iso": 0.109
           },
           {
             "id": 683766,
             "name": "Christian Koss",
-            "iso": 0.1
+            "iso": 0.099
           }
         ],
         "confirmed": true
@@ -87,7 +87,7 @@
           {
             "id": 666182,
             "name": "Bo Bichette",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 701807,
@@ -168,12 +168,12 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.184
+            "iso": 0.183
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 663538,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 687473,
           "name": "Ryan Gusto",
-          "hr9": 1.13,
+          "hr9": 1.12,
           "hand": "RHP"
         },
         "lineup": [
@@ -1811,7 +1811,7 @@
     },
     {
       "gamePk": 823094,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-06T01:40:00Z",
       "matchup": "ATH@SEA",
       "away": {
@@ -1833,10 +1833,56 @@
           "hr9": 1.12,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.193
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.227
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.156
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.195
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.097
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.125
+          },
+          {
+            "id": 621493,
+            "name": "Taylor Ward",
+            "iso": 0.089
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.137
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
