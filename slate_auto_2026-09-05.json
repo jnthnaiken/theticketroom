@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T19:40:12Z",
+  "pulled_at": "2026-09-05T19:45:40Z",
   "games": [
     {
       "gamePk": 823577,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823823,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-05T20:10:00Z",
       "matchup": "CHC@MIA",
       "away": {
@@ -824,8 +824,54 @@
           "hr9": 1.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 702616,
+            "name": "Jackson Holliday",
+            "iso": 0.121
+          },
+          {
+            "id": 677942,
+            "name": "Blaze Alexander",
+            "iso": 0.113
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.178
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.231
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.195
+          },
+          {
+            "id": 677008,
+            "name": "Heston Kjerstad",
+            "iso": 0.0
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.231
+          },
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.138
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.151
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1350,16 +1396,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 92\u00b0",
-        "lean": "Boost",
-        "temp": 91.6,
-        "wind_mph": 2.2,
-        "wind_dir": 24,
-        "tail_mph": -2.0,
-        "precip": 3
+        "note": "weather fetch failed"
       },
-      "wf": 1.025
+      "wf": 1.0
     },
     {
       "gamePk": 823904,
