@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
   "season": "2026",
-  "pulled_at": "2026-09-05T02:46:09Z",
+  "pulled_at": "2026-09-05T02:51:33Z",
   "games": [
     {
       "gamePk": 824424,
@@ -524,16 +524,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 83.4,
-        "wind_mph": 7.1,
-        "wind_dir": 281,
-        "tail_mph": 0.5,
-        "precip": 3
+        "note": "weather fetch failed"
       },
-      "wf": 1.022
+      "wf": 1.0
     },
     {
       "gamePk": 823338,
@@ -1465,7 +1458,7 @@
     },
     {
       "gamePk": 824067,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-05T00:10:00Z",
       "matchup": "TOR@KC",
       "away": {
