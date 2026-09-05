@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T16:51:38Z",
+  "pulled_at": "2026-09-05T16:56:42Z",
   "games": [
     {
       "gamePk": 823577,
@@ -92,7 +92,7 @@
     },
     {
       "gamePk": 823823,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T20:10:00Z",
       "matchup": "CHC@MIA",
       "away": {
@@ -103,8 +103,54 @@
           "hr9": 1.62,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.29
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.211
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.155
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.184
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.197
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.096
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.147
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.238
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
@@ -117,7 +163,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
