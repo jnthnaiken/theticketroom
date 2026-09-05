@@ -36680,7 +36680,7 @@
    "iso": ".244",
    "iso_used": 0.244,
    "powraw": 535.6380276119298,
-   "slot": 4,
+   "slot": null,
    "bhand": "L",
    "hr9": null,
    "wf": 1.047,
@@ -36690,8 +36690,8 @@
    "gtime": "9:10 PM ET",
    "late": true,
    "rain": false,
-   "out": false,
-   "status": "confirmed",
+   "out": true,
+   "status": "projected",
    "void": false,
    "opp": [
     "Cade Cavalli",
@@ -36708,7 +36708,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.3,
-   "slotT": 1.02,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": -0.6,
    "penT": 0.952,
@@ -37068,7 +37068,7 @@
    "iso": ".198",
    "iso_used": 0.198,
    "powraw": 316.08221627589126,
-   "slot": 5,
+   "slot": 4,
    "bhand": "L",
    "hr9": null,
    "wf": 1.047,
@@ -37096,7 +37096,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.0202402927555945,
-   "slotT": 1,
+   "slotT": 1.02,
    "platT": 1.056,
    "pen_fatigue": -0.6,
    "penT": 0.952,
@@ -37165,7 +37165,7 @@
    "iso": ".091",
    "iso_used": 0.091,
    "powraw": 51.871493518026476,
-   "slot": 9,
+   "slot": 8,
    "bhand": null,
    "hr9": null,
    "wf": 1.047,
@@ -37193,7 +37193,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.749736564805058,
-   "slotT": 0.92,
+   "slotT": 0.94,
    "platT": 1,
    "pen_fatigue": -0.6,
    "penT": 0.952,
@@ -37262,7 +37262,7 @@
    "iso": ".099",
    "iso_used": 0.099,
    "powraw": 177.62694856718173,
-   "slot": 8,
+   "slot": 6,
    "bhand": "L",
    "hr9": null,
    "wf": 1.047,
@@ -37290,7 +37290,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.9054142204827137,
-   "slotT": 0.94,
+   "slotT": 0.98,
    "platT": 1.056,
    "pen_fatigue": -0.6,
    "penT": 0.952,
@@ -37747,7 +37747,7 @@
    "iso": ".135",
    "iso_used": 0.135,
    "powraw": 143.29356537688966,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1.047,
@@ -37757,8 +37757,8 @@
    "gtime": "9:10 PM ET",
    "late": true,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cade Cavalli",
@@ -37775,7 +37775,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.186799501867995,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": -0.6,
    "penT": 0.952,
@@ -37844,7 +37844,7 @@
    "iso": ".188",
    "iso_used": 0.188,
    "powraw": 223.8053462959719,
-   "slot": 6,
+   "slot": 5,
    "bhand": "R",
    "hr9": null,
    "wf": 1.047,
@@ -37872,7 +37872,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.1202132412518837,
-   "slotT": 0.98,
+   "slotT": 1,
    "platT": 0.92,
    "pen_fatigue": -0.6,
    "penT": 0.952,
@@ -40672,8 +40672,8 @@
     "factor": 1.047,
     "park": "WSH@LAD",
     "cond": "7 mph",
-    "rain": "0% rain",
-    "precip": 0
+    "rain": "4% rain",
+    "precip": 4
    },
    "15": {
     "emoji": "\ud83c\udfdf",
@@ -40685,7 +40685,7 @@
     "precip": 0
    }
   },
-  "build": "9/5 7:07pm",
+  "build": "9/5 7:12pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40878,13 +40878,13 @@
   "date": "2026-09-05",
   "gs": {},
   "chalkstate": {
-   "b": "9/5 7:07pm",
+   "b": "9/5 7:12pm",
    "s": {}
   },
   "chalk": [],
   "chalkever": [],
   "pool": 418,
-  "gate": 59,
+  "gate": 58,
   "tickets": 14
  },
  "tickets": [
@@ -41531,75 +41531,6 @@
    "locked": true
   },
   {
-   "name": "The Apollo",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Raleigh brings light-tower raw power (100/100), Muncy plays in a slightly friendly yard, and Walker carries a 141 number tonight.",
-   "players": [
-    {
-     "name": "Cal Raleigh",
-     "team": "Mariners",
-     "total": 170.4,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "ATH@SEA",
-     "gtime": "9:40 PM ET",
-     "game": 15,
-     "late": true,
-     "odds": 290,
-     "status": "confirmed"
-    },
-    {
-     "name": "Max Muncy",
-     "team": "Dodgers",
-     "total": 159.6,
-     "aT": 100,
-     "wf": 1.047,
-     "gmatch": "WSH@LAD",
-     "gtime": "9:10 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 345,
-     "status": "confirmed"
-    },
-    {
-     "name": "Jordan Walker",
-     "team": "Cardinals",
-     "total": 141.2,
-     "aT": 100,
-     "wf": 1.161,
-     "gmatch": "STL@COL",
-     "gtime": "8:10 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 358,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Cal Raleigh",
-   "lock": "8:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 65.5,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 3,
-   "priced": 3,
-   "parlay_am": 7849,
-   "payout10": 794.86,
-   "locked": true
-  },
-  {
    "name": "Terminal Climb",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -41667,6 +41598,74 @@
    "parlay_am": 8149,
    "payout10": 824.85,
    "locked": true
+  },
+  {
+   "name": "Past the Event Horizon",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Raleigh is generating elite exit velo (61% hard-hit), B\u00e1ez has the wind howling out behind him, and Ortiz puts air under the ball (19\u00b0).",
+   "players": [
+    {
+     "name": "Cal Raleigh",
+     "team": "Mariners",
+     "total": 170.4,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "ATH@SEA",
+     "gtime": "9:40 PM ET",
+     "game": 15,
+     "late": true,
+     "odds": 290,
+     "status": "confirmed"
+    },
+    {
+     "name": "Joshua B\u00e1ez",
+     "team": "Cardinals",
+     "total": 142.7,
+     "aT": 100,
+     "wf": 1.161,
+     "gmatch": "STL@COL",
+     "gtime": "8:10 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 410,
+     "status": "confirmed"
+    },
+    {
+     "name": "Abimelec Ortiz",
+     "team": "Nationals",
+     "total": 134.9,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "WSH@LAD",
+     "gtime": "9:10 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 625,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Cal Raleigh",
+   "lock": "8:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 112.7,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 3,
+   "priced": 3,
+   "parlay_am": 14320,
+   "payout10": 1442.02
   }
  ],
  "pool": [
@@ -41681,6 +41680,7 @@
   "Jackson Chourio",
   "Sal Stewart",
   "Joshua B\u00e1ez",
+  "Jordan Walker",
   "Paul Goldschmidt",
   "Drake Baldwin",
   "Joc Pederson",

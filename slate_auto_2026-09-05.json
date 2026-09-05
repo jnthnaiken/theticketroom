@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T23:06:43Z",
+  "pulled_at": "2026-09-05T23:11:59Z",
   "games": [
     {
       "gamePk": 823577,
@@ -458,7 +458,7 @@
           {
             "id": 595879,
             "name": "Javier B\u00e1ez",
-            "iso": 0.114
+            "iso": 0.113
           }
         ],
         "confirmed": true
@@ -719,7 +719,7 @@
           {
             "id": 596142,
             "name": "Gary S\u00e1nchez",
-            "iso": 0.22
+            "iso": 0.219
           },
           {
             "id": 666152,
@@ -766,7 +766,7 @@
           {
             "id": 553993,
             "name": "Eugenio Su\u00e1rez",
-            "iso": 0.211
+            "iso": 0.209
           },
           {
             "id": 624431,
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 822850,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T23:05:00Z",
       "matchup": "TB@TEX",
       "away": {
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824066,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T23:10:00Z",
       "matchup": "TOR@KC",
       "away": {
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 824553,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-05T23:10:00Z",
       "matchup": "MIN@CWS",
       "away": {
@@ -1816,11 +1816,6 @@
             "iso": 0.173
           },
           {
-            "id": 571970,
-            "name": "Max Muncy",
-            "iso": 0.237
-          },
-          {
             "id": 663656,
             "name": "Kyle Tucker",
             "iso": 0.133
@@ -1831,19 +1826,24 @@
             "iso": 0.148
           },
           {
-            "id": 690976,
-            "name": "Alex Freeland",
-            "iso": 0.079
-          },
-          {
             "id": 676439,
             "name": "Hunter Feduccia",
             "iso": 0.107
           },
           {
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.079
+          },
+          {
             "id": 669743,
             "name": "Alex Call",
             "iso": 0.077
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.157
           }
         ],
         "confirmed": true
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 81.4,
-        "wind_mph": 6.9,
-        "wind_dir": 251,
-        "tail_mph": 4.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     },
     {
       "gamePk": 823094,
