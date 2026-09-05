@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
   "season": "2026",
-  "pulled_at": "2026-09-05T19:35:13Z",
+  "pulled_at": "2026-09-05T19:40:12Z",
   "games": [
     {
       "gamePk": 823577,
@@ -756,7 +756,7 @@
     },
     {
       "gamePk": 824795,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-05T23:05:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -767,8 +767,54 @@
           "hr9": 0.94,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.148
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.23
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.209
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.108
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.149
+          },
+          {
+            "id": 643396,
+            "name": "Isiah Kiner-Falefa",
+            "iso": 0.08
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.157
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.149
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.119
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -781,7 +827,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
