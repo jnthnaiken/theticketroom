@@ -294,11 +294,23 @@ for i, p in enumerate(grp):
     p['TOTAL'] = 100 + 30 * p['blend']
 
 _XI = None
+_TRUSTED = None
 try:
     _tn = json.load(open('teamnews.json', encoding='utf-8'))
     _XI = set(_tn.get('xi', {}))
-    print(f"  team news: drafting from {len(_XI)} confirmed starters "
-          f"({len(_tn.get('bench', {}))} benched, {len(_tn.get('absent', {}))} out of squad)")
+    # XIPARTIALMOCK-2026-09-05 -- see soccer_draft_cli.js. The per-match XI rule
+    # (XIPARTIALGATE-2026-08-29) never reached this file; the pool gate below was a flat,
+    # slate-wide `p['name'] in _XI`, so once ANY sheet published every player whose own match had
+    # not published was dropped. This is the COLD-DRAFT path, i.e. the first build of a slate.
+    # Measured 2026-09-05 (21 matches, 12 sheets out): 52 gated, flat admits 12, per-match 39.
+    # `trusted` is per match from soccer_teamnews.py; older files lack it, so fall back to the
+    # matches carrying any classified player -- never to an empty set, which disables the filter.
+    _TRUSTED = {m for m, t in (_tn.get('trusted') or {}).items() if t}
+    if not _tn.get('trusted'):
+        _TRUSTED = set(_tn.get('xi', {}).values()) | set(_tn.get('bench', {}).values())
+    print(f"  team news: {len(_XI)} confirmed starters across {len(_TRUSTED)} published sheet(s) "
+          f"({len(_tn.get('bench', {}))} benched, {len(_tn.get('absent', {}))} out of squad); "
+          f"matches without a sheet stay draftable")
 except FileNotFoundError:
     print('  team news: none on disk -- drafting from the whole priced field')
 
@@ -348,7 +360,10 @@ sd = math.sqrt(sum((x - m) ** 2 for x in bl) / (len(bl) - 1)) or 1.0
 for p in players:
     p['gate_z'] = (p['blend'] - m) / sd
 
-pool = [p for p in players if p['gate_z'] >= CFG['Z_GATE'] and (_XI is None or p['name'] in _XI)
+# XIPARTIALMOCK-2026-09-05: per MATCH, not slate-wide. Mirrors soccer_draft.js buildPool().
+pool = [p for p in players
+        if p['gate_z'] >= CFG['Z_GATE']
+        and (_XI is None or p['name'] in _XI or p['match'] not in _TRUSTED)
         and p['name'] not in _ABSENT]
 pool.sort(key=lambda p: (-p['TOTAL'], p['name']))
 capped, per_match = [], defaultdict(int)

@@ -25,7 +25,7 @@ if (!scoredPath || !outPath) {
 
 const scored = JSON.parse(fs.readFileSync(scoredPath, 'utf8'));
 
-let xi = null;
+let xi = null, xiMatches = null;
 if (tnPath) {
   const tn = JSON.parse(fs.readFileSync(tnPath, 'utf8'));
   const keys = Object.keys(tn.xi || {});
@@ -36,12 +36,36 @@ if (tnPath) {
     process.exit(3);
   }
   xi = SD.nameSet(keys);
-  console.log(`  team news: drafting from ${keys.length} confirmed starters`);
+
+  /* 🚨 XIPARTIALCOLD-2026-09-05 -- THE COLD DRAFT NEVER PASSED xiMatches.
+     buildPool() has taken a per-match `xiMatches` since XIPARTIAL-2026-08-28 and warns in as many
+     words: "Omit `xiMatches` and the old all-or-nothing behaviour is exactly preserved." This file
+     omitted it. soccer_rebuild_cli.js -- the LIVE path -- builds and passes it, so the per-match
+     rule was live on every redraft and absent from every FIRST build of a slate, the one pass with
+     no prior board behind it.
+     On a staggered card, once any sheet publishes every player whose own match has not published
+     is filtered out slate-wide. Football XIs land ~1h before kickoff, so the cold draft could only
+     ever see the earliest matches. Measured 2026-09-05 (21 matches, 12 sheets out, 9 not): 52
+     gated men, 12 admitted; per-match admits 39. The 27 discarded were the top of the board --
+     Harry Kane at gate_z +5.21, the highest on the slate, Donyell Malen +3.83, Lautaro Martinez,
+     Mikautadze, Olise -- all in later, still-open kickoffs. It anchored gate_z +1.51 instead,
+     because that man's sheet had landed. BOTH halves are required: soccer_mock.py's own pool gate
+     had the same flat filter (XIPARTIALMOCK-2026-09-05) and either one alone still excludes them.
+     `trusted` is per match; absent (older files) -> derive from the matches carrying any
+     classified player, never `{}`, which would mean "nothing published" and re-disable it. */
+  const TRUST = tn.trusted || {};
+  xiMatches = {};
+  Object.keys(TRUST).forEach(m => { if (TRUST[m] !== false) xiMatches[m] = true; });
+  if (!Object.keys(xiMatches).length) {
+    [tn.xi, tn.bench, tn.absent].forEach(o => Object.values(o || {}).forEach(m => { if (m) xiMatches[m] = true; }));
+  }
+  console.log(`  team news: ${keys.length} confirmed starters across ` +
+              `${Object.keys(xiMatches).length} published sheet(s); matches without one stay draftable`);
 } else {
   console.log('  team news: none supplied -- drafting from the whole priced field');
 }
 
-const res = SD.draft(scored, {}, { xi });
+const res = SD.draft(scored, {}, { xi, xiMatches });
 if (res.singlesOnly) {
   console.log(`  ${res.matches} match(es) on the slate and a screamer needs ${SD.DEFAULTS.MOON_LEGS} ` +
               `from different matches -- ANCHOR SINGLES ONLY (SINGLES-2026-08-27)`);
