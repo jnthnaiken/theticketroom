@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T15:26:33Z",
+  "pulled_at": "2026-09-06T15:30:32Z",
   "games": [
     {
       "gamePk": 824469,
@@ -1032,8 +1032,54 @@
           "hr9": 1.36,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.061
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.122
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.096
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.16
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.212
+          },
+          {
+            "id": 815873,
+            "name": "Sean Keys",
+            "iso": 0.167
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.101
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.111
+          },
+          {
+            "id": 678218,
+            "name": "Brandon Valenzuela",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
@@ -1108,7 +1154,7 @@
     },
     {
       "gamePk": 822848,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-06T18:35:00Z",
       "matchup": "TB@TEX",
       "away": {
@@ -1130,10 +1176,56 @@
           "hr9": 1.05,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.181
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.184
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.239
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.156
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.192
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.183
+          },
+          {
+            "id": 681351,
+            "name": "Logan O'Hoppe",
+            "iso": 0.086
+          },
+          {
+            "id": 683227,
+            "name": "Cody Freeman",
+            "iso": 0.078
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.173
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
