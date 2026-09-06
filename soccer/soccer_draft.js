@@ -717,21 +717,24 @@
      * slips, and blocking him from himself is what made the first cut demote Mbappe off a pair
      * he was already anchoring. Anchors are tracked separately, against the budget instead. */
     var spentAsPartner = {}, takenAnchors = {}, anchorMatchCounts = {}, spentAsSingle = {};
+    /* `spentAsSingle` is ALWAYS EMPTY since ANCHORCAP-2026-09-06 -- it was the "spent but
+       seatless" bucket for a builder that claimed no anchor slot, and every frozen builder
+       claims one now. Its three read sites already test `takenAnchors` alongside it, so the
+       protection it gave (not re-draftable as a partner) is unchanged. Left declared rather
+       than ripped out: the reads stay honest and a future kind that needs the bucket has it. */
     /* LEFTOVERANCHOR-2026-08-28: which frozen builders are REALLY anchors. A builder backs an
        anchor when a moon on this board names him, or when there are no moons at all and the
        board is singles-only. Any other single-leg builder anchors nothing and must not spend
        a seat against ANCH. (Written for LEFTOVERS-2026-08-28, backed out by
        UNLEFTOVER-2026-08-28; kept because it is true of any such builder, whatever mints it.) */
-    var frozenMoonAnchor = {};
-    frozen.forEach(function (t) {
-      if (t.kind === 'moon' && (t.players || []).length) frozenMoonAnchor[t.anchor || t.players[0].name] = true;
-    });
     /* ANCHORCAP-2026-09-06 -- FOUR ANCHORS IS A CAP, NOT AN AVERAGE.
        Owner: "i want it not possible for there to be more than 4 anchors."
 
-       `frozenMoonAnchor` above only sees moons that SURVIVED to be frozen, so it answers
-       "are this man's screamers still live?" while the seat question is "was he ever an
-       anchor?". Those come apart the moment team news kills a partner: the pair is demoted
+       The seat used to be gated on `frozenMoonAnchor` -- a map of the moons that SURVIVED to
+       be frozen, built right here and now deleted along with `boardHasMoons`, since nothing
+       reads either one any more. It answered "are this man's screamers still live?" when the
+       seat question is "was he ever an anchor?". Those come apart the moment team news kills
+       a partner: the pair is demoted
        all-or-none, his builder has already latched under CONFLOCK because his own leg is
        confirmed, and he falls out of frozenMoonAnchor -- so the seat frees and the fresh
        draft mints a REPLACEMENT alongside him. Board shows five names against ANCH=4.
@@ -742,22 +745,27 @@
        and Amine Gouiri was minted into the freed seat. Five anchors, 14 slips, and it stayed
        that way for the rest of the afternoon.
 
-       The board's own history answers the seat question: a builder anchors something if a
-       moon on the PRIOR board named him, whether or not that moon is still alive. So the
-       stranded man keeps the seat he was drafted into and nobody is minted on top of him.
+       So a frozen builder now claims its seat UNCONDITIONALLY. The stranded man keeps the
+       seat he was drafted into and nobody is minted on top of him.
 
-       ⚠️ This does NOT re-open LEFTOVERANCHOR-2026-08-28's hazard (eight frozen singles
-       claiming eight seats and zeroing the budget for the night). A single that was never a
-       moon anchor on the prior board still claims nothing -- that guard keeps its original
-       job and only stops misfiring on men who really were anchors.
+       ⚠️ Why unconditional is safe, and why the narrower test is not. The first cut asked
+       whether a moon on the PRIOR board named him. That fixes the rebuild where the screamers
+       die, but by the NEXT pass the moonless builder is all that is left of him, he stops
+       qualifying, and the fifth is minted all over again -- measured: deleting the fifth from
+       the live board brought him straight back one pass later. Unconditional is also simply
+       TRUE of this engine: every `kind === 'builder'` slip is an anchor's builder by
+       construction (one per distinct moon anchor at the draft, one per moon anchor again at
+       the ANCHORSET end-of-pipeline invariant), and SHAPEREPAIR-2026-08-31 mints SPECIALS,
+       never builders -- a 🍱/🌃 lands in the `else` branch below and still claims nothing.
+
+       ⚠️ This does NOT re-open LEFTOVERANCHOR-2026-08-28's hazard -- eight frozen singles
+       claiming eight seats and zeroing the budget for the night. That hazard came from the
+       leftover section, which UNLEFTOVER-2026-08-28 backed out; nothing mints a seatless
+       single any more. If a future change starts minting builders that anchor nothing, this
+       is the line that has to be narrowed again, and `spentAsSingle` is still there for it.
        ⚠️ THE BET IS NOT TOUCHED. Same player, same stake, same price, same title, same kind,
        same section, same grading. The only thing that changes is that his seat stays his. */
-    var priorMoonAnchor = {};
-    (D.tickets || []).forEach(function (t) {
-      var legs = t.players || t.legs || [];
-      if (t.kind === 'moon' && legs.length) priorMoonAnchor[t.anchor || legs[0].name] = true;
-    });
-    var boardHasMoons = (D.tickets || []).some(function (t) { return t.kind === 'moon'; });
+
     function claimAnchor(l) {
       if (takenAnchors[l.name]) return;
       takenAnchors[l.name] = true;
@@ -784,8 +792,13 @@
            budget of four and zero it out -- no repair, no mint, for the rest of the night. Such
            a builder is spent (not re-mintable, not draftable as a partner) without taking a
            seat. */
-        if (frozenMoonAnchor[legs[0].name] || priorMoonAnchor[legs[0].name] || !boardHasMoons) claimAnchor(legs[0]);   /* ANCHORCAP-2026-09-06 */
-        else spentAsSingle[legs[0].name] = true;
+        /* ANCHORCAP-2026-09-06: A FROZEN BUILDER ALWAYS CLAIMS ITS SEAT. See the block above.
+           The first cut of this asked whether a moon on the PRIOR board named him, which fixed
+           the rebuild where his screamers die but NOT the one after it -- by then the moonless
+           builder is all that is left, he stops claiming, and the fifth anchor is minted again.
+           Measured: deleting the fifth from the live board brought him straight back on the very
+           next pass. The steady state is what has to hold, so the seat is unconditional. */
+        claimAnchor(legs[0]);
       } else {
         legs.forEach(function (l) { spentAsPartner[l.name] = true; });
       }
