@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T21:43:10Z",
+  "pulled_at": "2026-09-06T21:48:11Z",
   "games": [
     {
       "gamePk": 824469,
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 822848,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-06T18:35:00Z",
       "matchup": "TB@TEX",
       "away": {
@@ -1235,7 +1235,7 @@
           {
             "id": 802415,
             "name": "Chandler Simpson",
-            "iso": 0.051
+            "iso": 0.052
           },
           {
             "id": 676356,
@@ -1404,7 +1404,7 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.185
+            "iso": 0.192
           },
           {
             "id": 687859,
@@ -1480,7 +1480,7 @@
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.113
+            "iso": 0.112
           },
           {
             "id": 643446,
@@ -1520,7 +1520,7 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.262
+            "iso": 0.258
           }
         ],
         "confirmed": true
@@ -1530,7 +1530,7 @@
         "sp": {
           "id": 693433,
           "name": "Bryan Woo",
-          "hr9": 1.06,
+          "hr9": 1.05,
           "hand": "RHP"
         },
         "lineup": [
@@ -1605,7 +1605,7 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.32,
+          "hr9": 1.31,
           "hand": "RHP"
         },
         "lineup": [
@@ -1632,7 +1632,7 @@
           {
             "id": 665862,
             "name": "Jazz Chisholm Jr.",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 691176,
@@ -1662,7 +1662,7 @@
         "sp": {
           "id": 650633,
           "name": "Michael King",
-          "hr9": 0.97,
+          "hr9": 0.96,
           "hand": "RHP"
         },
         "lineup": [
@@ -1679,7 +1679,7 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.192
+            "iso": 0.193
           },
           {
             "id": 664034,
@@ -1718,15 +1718,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 11mph, 87\u00b0",
+        "cond": "wind in 6mph, 84\u00b0",
         "lean": "Neutral",
-        "temp": 87.1,
-        "wind_mph": 11.4,
-        "wind_dir": 357,
-        "tail_mph": -11.4,
+        "temp": 84.0,
+        "wind_mph": 6.9,
+        "wind_dir": 335,
+        "tail_mph": -6.3,
         "precip": 5
       },
-      "wf": 0.986
+      "wf": 0.999
     },
     {
       "gamePk": 824552,
@@ -1853,13 +1853,13 @@
         "emoji": "\u26c5",
         "cond": "wind in 12mph, 74\u00b0",
         "lean": "Suppress",
-        "temp": 73.7,
+        "temp": 74.1,
         "wind_mph": 12.5,
-        "wind_dir": 35,
-        "tail_mph": -12.5,
+        "wind_dir": 29,
+        "tail_mph": -12.3,
         "precip": 0
       },
-      "wf": 0.962
+      "wf": 0.963
     },
     {
       "gamePk": 823903,
@@ -1892,15 +1892,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 74\u00b0",
+        "cond": "calm 2mph, 73\u00b0",
         "lean": "Neutral",
-        "temp": 73.5,
-        "wind_mph": 3.4,
-        "wind_dir": 349,
-        "tail_mph": -2.8,
+        "temp": 72.6,
+        "wind_mph": 1.8,
+        "wind_dir": 7,
+        "tail_mph": -1.7,
         "precip": 11
       },
-      "wf": 0.996
+      "wf": 0.998
     }
   ]
 }
