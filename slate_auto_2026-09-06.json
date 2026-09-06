@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T17:06:44Z",
+  "pulled_at": "2026-09-06T17:11:20Z",
   "games": [
     {
       "gamePk": 824469,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823417,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-06T17:10:00Z",
       "matchup": "ATL@PHI",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824794,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-06T17:35:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823336,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-06T17:35:00Z",
       "matchup": "LAA@PIT",
       "away": {
@@ -1661,9 +1661,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 76\u00b0",
+        "lean": "Neutral",
+        "temp": 75.7,
+        "wind_mph": 4.4,
+        "wind_dir": 336,
+        "tail_mph": -2.9,
+        "precip": 5
       },
-      "wf": 1.0
+      "wf": 0.998
     }
   ]
 }
