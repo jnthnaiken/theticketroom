@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T20:22:11Z",
+  "pulled_at": "2026-09-06T20:26:41Z",
   "games": [
     {
       "gamePk": 824469,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824794,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-06T17:35:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 824385,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-06T17:40:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -960,12 +960,12 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.168
+            "iso": 0.169
           },
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 682998,
@@ -1245,12 +1245,12 @@
           {
             "id": 622761,
             "name": "Jorge Mateo",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.207
+            "iso": 0.205
           },
           {
             "id": 663743,
@@ -1277,7 +1277,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 679822,
@@ -1287,7 +1287,7 @@
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 694671,
@@ -1434,7 +1434,7 @@
           {
             "id": 664954,
             "name": "Brett Sullivan",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 605353,
@@ -1473,7 +1473,7 @@
         "sp": {
           "id": 695611,
           "name": "Gage Jump",
-          "hr9": 0.97,
+          "hr9": 0.96,
           "hand": "LHP"
         },
         "lineup": [
@@ -1537,7 +1537,7 @@
           {
             "id": 668227,
             "name": "Randy Arozarena",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 686527,
@@ -1547,12 +1547,12 @@
           {
             "id": 677594,
             "name": "Julio Rodr\u00edguez",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 663728,
             "name": "Cal Raleigh",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 641487,
@@ -1605,7 +1605,7 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.3,
+          "hr9": 1.38,
           "hand": "RHP"
         },
         "lineup": [
@@ -1669,17 +1669,17 @@
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.164
+            "iso": 0.169
           },
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.075
+            "iso": 0.085
           },
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.187
+            "iso": 0.193
           },
           {
             "id": 664034,
@@ -1891,9 +1891,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 74\u00b0",
+        "lean": "Neutral",
+        "temp": 74.3,
+        "wind_mph": 2.7,
+        "wind_dir": 312,
+        "tail_mph": -0.8,
+        "precip": 5
       },
-      "wf": 1.0
+      "wf": 1.004
     }
   ]
 }
