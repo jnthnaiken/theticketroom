@@ -68,6 +68,8 @@ def parse_weather(w, home):
 # we actually have: drop the bat we will never draft, so the survivor is unambiguous and the
 # outcome no longer depends on scrape/iteration order.
 #   (TEAM, NAME) -> dropped from EVERY name-keyed surface before anything downstream sees it.
+ODDS_ALIAS = {'Leonardo Bernal': 'Leo Bernal'}
+
 DROP_BATS = {('ATH', 'Max Muncy')}      # 2026-08-17: keep LAD's Max Muncy, never the Athletics'
 DROP_CARDS = DROP_BATS                  # back-compat alias; the exclusion is no longer cards-only
 
@@ -169,6 +171,42 @@ def main():
     cards, extras, roto, _dropped, _derrs = drop_excluded(cards, extras, roto)
     for _d in _dropped:
         print(f"  excluded (permanent): {_d}")
+
+    # ---- ODDS NAME ALIASES ---------------------------------------------------------
+    # ODDSALIAS-2026-09-06: VegasInsider posts a handful of bats under a legal/long form
+    # that Kasper never uses, and norm() cannot bridge them (it strips accents and dots,
+    # not different given names). Every one of these was hand-patched into odds.json on
+    # the morning of the build -- Leonardo/Leo Bernal five days running -- which is exactly
+    # the kind of memory-resident fix this file exists to kill. The rewrite is applied to
+    # the ODDS side only (cards/extras/lineups stay Kasper-spelled), it never clobbers a
+    # key that is already present, and it prints what it did so a silent rename is visible.
+    #   VegasInsider spelling -> Kasper spelling
+    for _vi, _k in ODDS_ALIAS.items():
+        if _vi in odds and _k not in odds:
+            odds[_k] = odds.pop(_vi)
+            print(f"  odds alias: {_vi} -> {_k}")
+
+    # ODDSJOIN-2026-09-06: the same morning, VegasInsider had "Sung Mun Song" where Kasper
+    # has "Sung-Mun Song". norm() strips accents and dots but NOT hyphens, so the two never
+    # joined and SD's bat would have been priced at nothing and silently fallen out of the
+    # pool -- no error, no warning, just a missing player. Hyphenated given names (Ha-Seong,
+    # Sung-Mun, Hao-Yu, Jung Hoo) make this recurring, so reconcile the whole class instead
+    # of aliasing them one at a time: an odds key that matches NO card exactly is rewritten
+    # to the card spelling when the hyphen/space-insensitive form resolves to exactly ONE
+    # card name. Uniqueness-gated (an ambiguous form is left alone) and printed.
+    # build15 keys ODDS by norm(), so an accent-only difference ("Yandy Diaz" vs "Yandy Díaz")
+    # ALREADY joins and must not be touched -- rewriting those would churn the file and bury
+    # the one rename that matters. Only odds keys that fail to join under norm() are candidates.
+    _cardnames = {b['name'] for tm in cards.values() for arr in tm.values() for b in arr}
+    _cardnorm  = {norm(_n) for _n in _cardnames}
+    _loose = {}
+    for _n in _cardnames:
+        _loose.setdefault(' '.join(norm(_n).replace('-', ' ').split()), []).append(_n)
+    for _o in [k for k in odds if norm(k) not in _cardnorm]:
+        _cand = _loose.get(' '.join(norm(_o).replace('-', ' ').split()), [])
+        if len(_cand) == 1 and _cand[0] not in odds:
+            odds[_cand[0]] = odds.pop(_o)
+            print(f"  odds join: {_o} -> {_cand[0]}")
 
     pitch_norm = {norm(k): k for k in pitch}
     surname = {}
