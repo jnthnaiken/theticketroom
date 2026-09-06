@@ -726,6 +726,37 @@
     frozen.forEach(function (t) {
       if (t.kind === 'moon' && (t.players || []).length) frozenMoonAnchor[t.anchor || t.players[0].name] = true;
     });
+    /* ANCHORCAP-2026-09-06 -- FOUR ANCHORS IS A CAP, NOT AN AVERAGE.
+       Owner: "i want it not possible for there to be more than 4 anchors."
+
+       `frozenMoonAnchor` above only sees moons that SURVIVED to be frozen, so it answers
+       "are this man's screamers still live?" while the seat question is "was he ever an
+       anchor?". Those come apart the moment team news kills a partner: the pair is demoted
+       all-or-none, his builder has already latched under CONFLOCK because his own leg is
+       confirmed, and he falls out of frozenMoonAnchor -- so the seat frees and the fresh
+       draft mints a REPLACEMENT alongside him. Board shows five names against ANCH=4.
+
+       Measured on 2026-09-06: at 14:26Z the board was four anchors, two screamers each.
+       At 14:50Z the Ligue 1 and Premier League sheets landed, Danny Welbeck was BENCHED off
+       Esteban Lepaul's `Curled Home`, Lepaul's pair went all-or-none, his builder latched --
+       and Amine Gouiri was minted into the freed seat. Five anchors, 14 slips, and it stayed
+       that way for the rest of the afternoon.
+
+       The board's own history answers the seat question: a builder anchors something if a
+       moon on the PRIOR board named him, whether or not that moon is still alive. So the
+       stranded man keeps the seat he was drafted into and nobody is minted on top of him.
+
+       ⚠️ This does NOT re-open LEFTOVERANCHOR-2026-08-28's hazard (eight frozen singles
+       claiming eight seats and zeroing the budget for the night). A single that was never a
+       moon anchor on the prior board still claims nothing -- that guard keeps its original
+       job and only stops misfiring on men who really were anchors.
+       ⚠️ THE BET IS NOT TOUCHED. Same player, same stake, same price, same title, same kind,
+       same section, same grading. The only thing that changes is that his seat stays his. */
+    var priorMoonAnchor = {};
+    (D.tickets || []).forEach(function (t) {
+      var legs = t.players || t.legs || [];
+      if (t.kind === 'moon' && legs.length) priorMoonAnchor[t.anchor || legs[0].name] = true;
+    });
     var boardHasMoons = (D.tickets || []).some(function (t) { return t.kind === 'moon'; });
     function claimAnchor(l) {
       if (takenAnchors[l.name]) return;
@@ -753,7 +784,7 @@
            budget of four and zero it out -- no repair, no mint, for the rest of the night. Such
            a builder is spent (not re-mintable, not draftable as a partner) without taking a
            seat. */
-        if (frozenMoonAnchor[legs[0].name] || !boardHasMoons) claimAnchor(legs[0]);
+        if (frozenMoonAnchor[legs[0].name] || priorMoonAnchor[legs[0].name] || !boardHasMoons) claimAnchor(legs[0]);   /* ANCHORCAP-2026-09-06 */
         else spentAsSingle[legs[0].name] = true;
       } else {
         legs.forEach(function (l) { spentAsPartner[l.name] = true; });
