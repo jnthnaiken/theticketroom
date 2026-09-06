@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T17:11:20Z",
+  "pulled_at": "2026-09-06T17:16:23Z",
   "games": [
     {
       "gamePk": 824469,
@@ -35,12 +35,12 @@
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.217
+            "iso": 0.223
           },
           {
             "id": 669003,
             "name": "Garrett Mitchell",
-            "iso": 0.149
+            "iso": 0.153
           },
           {
             "id": 668930,
@@ -50,7 +50,7 @@
           {
             "id": 806198,
             "name": "Cooper Pratt",
-            "iso": 0.103
+            "iso": 0.102
           },
           {
             "id": 666310,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 663903,
           "name": "Brady Singer",
-          "hr9": 1.62,
+          "hr9": 1.68,
           "hand": "RHP"
         },
         "lineup": [
@@ -153,17 +153,17 @@
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.262
+            "iso": 0.261
           },
           {
             "id": 671739,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 605400,
           "name": "Aaron Nola",
-          "hr9": 1.95,
+          "hr9": 1.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 824385,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-06T17:40:00Z",
       "matchup": "DET@CLE",
       "away": {
@@ -1465,7 +1465,7 @@
     },
     {
       "gamePk": 823091,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-06T20:10:00Z",
       "matchup": "ATH@SEA",
       "away": {
@@ -1476,8 +1476,54 @@
           "hr9": 0.97,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.114
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.107
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.214
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.143
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.138
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.169
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.17
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.168
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.267
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
@@ -1490,7 +1536,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1516,8 +1562,54 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.267
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.15
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.26
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.199
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.174
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.149
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.106
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.147
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SD",
