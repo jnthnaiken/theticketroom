@@ -40467,8 +40467,8 @@
     "factor": 0.988,
     "park": "ATL@PHI",
     "cond": "6 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "2% rain",
+    "precip": 2
    },
    "3": {
     "emoji": "\u2600\ufe0f",
@@ -40503,8 +40503,8 @@
     "factor": 0.972,
     "park": "SF@NYM",
     "cond": "9 mph",
-    "rain": "4% rain",
-    "precip": 4
+    "rain": "6% rain",
+    "precip": 6
    },
    "7": {
     "emoji": "\ud83c\udfdf",
@@ -40521,8 +40521,8 @@
     "factor": 1.047,
     "park": "TOR@KC",
     "cond": "5 mph",
-    "rain": "1% rain",
-    "precip": 1
+    "rain": "2% rain",
+    "precip": 2
    },
    "9": {
     "emoji": "\ud83c\udfdf",
@@ -40588,7 +40588,7 @@
     "precip": 5
    }
   },
-  "build": "9/6 12:57pm",
+  "build": "9/6 1:00pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40783,7 +40783,7 @@
   "date": "2026-09-06",
   "gs": {},
   "chalkstate": {
-   "b": "9/6 12:57pm",
+   "b": "9/6 1:00pm",
    "s": {}
   },
   "chalk": [],
@@ -41183,75 +41183,6 @@
    "payout10": 676.2
   },
   {
-   "name": "The Apollo",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Olson is hitting frozen ropes (66% hard-hit), B\u00e1ez plays in a wind tunnel pointed at the seats, and Witt stays in the launch zone (23\u00b0).",
-   "players": [
-    {
-     "name": "Matt Olson",
-     "team": "Braves",
-     "total": 174.2,
-     "aT": 100,
-     "wf": 0.988,
-     "gmatch": "ATL@PHI",
-     "gtime": "1:10 PM ET",
-     "game": 2,
-     "late": false,
-     "odds": 275,
-     "status": "confirmed"
-    },
-    {
-     "name": "Joshua B\u00e1ez",
-     "team": "Cardinals",
-     "total": 165.1,
-     "aT": 100,
-     "wf": 1.153,
-     "gmatch": "STL@COL",
-     "gtime": "3:10 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 295,
-     "status": "confirmed"
-    },
-    {
-     "name": "Bobby Witt",
-     "team": "Royals",
-     "total": 146.7,
-     "aT": 100,
-     "wf": 1.047,
-     "gmatch": "TOR@KC",
-     "gtime": "2:10 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 385,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Matt Olson",
-   "lock": "1:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 60,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 3,
-   "priced": 3,
-   "parlay_am": 7084,
-   "payout10": 718.41,
-   "locked": true
-  },
-  {
    "name": "Made Fast",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
@@ -41325,6 +41256,75 @@
    "priced": 1,
    "parlay_am": 305,
    "payout10": 40.5,
+   "locked": true
+  },
+  {
+   "name": "The Apollo",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Olson is hitting frozen ropes (66% hard-hit), B\u00e1ez plays in a wind tunnel pointed at the seats, and Witt stays in the launch zone (23\u00b0).",
+   "players": [
+    {
+     "name": "Matt Olson",
+     "team": "Braves",
+     "total": 174.2,
+     "aT": 100,
+     "wf": 0.988,
+     "gmatch": "ATL@PHI",
+     "gtime": "1:10 PM ET",
+     "game": 2,
+     "late": false,
+     "odds": 275,
+     "status": "confirmed"
+    },
+    {
+     "name": "Joshua B\u00e1ez",
+     "team": "Cardinals",
+     "total": 165.1,
+     "aT": 100,
+     "wf": 1.153,
+     "gmatch": "STL@COL",
+     "gtime": "3:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 295,
+     "status": "confirmed"
+    },
+    {
+     "name": "Bobby Witt",
+     "team": "Royals",
+     "total": 146.7,
+     "aT": 100,
+     "wf": 1.047,
+     "gmatch": "TOR@KC",
+     "gtime": "2:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 385,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Matt Olson",
+   "lock": "1:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 60,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 3,
+   "parlay_am": 7084,
+   "payout10": 718.41,
    "locked": true
   },
   {
