@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T22:28:37Z",
+  "pulled_at": "2026-09-06T22:30:51Z",
   "games": [
     {
       "gamePk": 824469,
@@ -657,16 +657,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 10mph, 76\u00b0",
-        "lean": "Suppress",
-        "temp": 75.5,
-        "wind_mph": 10.3,
-        "wind_dir": 13,
-        "tail_mph": -10.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.973
+      "wf": 1.0
     },
     {
       "gamePk": 823578,
@@ -1332,7 +1325,7 @@
     },
     {
       "gamePk": 824309,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-06T19:10:00Z",
       "matchup": "STL@COL",
       "away": {
