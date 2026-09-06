@@ -401,6 +401,10 @@ def _rr_block(legs, risk):
 def shape_ticket(t, players, i, voice, apps, used=None):
     kind = t['kind']
     legs = t.get('legs') or t.get('players') or []
+    # ANCHORCARRY-2026-09-06: capture the anchor in DRAFT order, before the display sort below.
+    # soccer_draft_cli.js emits `legs` anchor-first and carries no explicit `anchor` field, so
+    # legs[0] IS the seated anchor. `t.get('anchor')` covers a prior board being carried back in.
+    _anchor_name = t.get('anchor') or (legs[0].get('name') if legs else None)
     out_legs = []
     for l in legs:
         src = players.get(l['name'], {})
@@ -440,7 +444,26 @@ def shape_ticket(t, players, i, voice, apps, used=None):
     if tname is None:                               # pool exhausted -- never silently collide
         tname = '%s %d' % (pool[i % len(pool)], i + 1)
     used.add(tname)
-    anchor = out_legs[0]['name'] if out_legs else None
+    # ANCHORCARRY-2026-09-06: CARRY the anchor the draft assigned, do not re-derive it.
+    #
+    # `out_legs` was sorted by TOTAL for DISPLAY four lines above. The anchor is the man the
+    # draft seated, which is legs[0] in DRAFT order -- soccer_draft.js is careful about exactly
+    # this and grabs `legs[0].name` BEFORE its own display sort, then ships it as `anchor`.
+    # Reading `out_legs[0]` here threw that away and relabelled the slip with whichever leg
+    # happened to have the highest TOTAL.
+    #
+    # It stayed invisible because until today the anchor WAS always the strongest man on his
+    # own slip, so the two agreed on every board from 08-27 to 09-05 (checked: distinct anchors
+    # == moons/2, zero singles, on all six). On 2026-09-06 Lamine Yamal (TOTAL 172.2) was drafted
+    # as a LEG on Benjamin Sesko's slip (169.3) and took the label, which published a board
+    # reading FIVE distinct moon anchors against ANCH=4, with Yamal and Sesko each showing a
+    # single moon instead of a pair. The draft itself was correct -- the same engine run locally
+    # on the same inputs seats four anchors and gives Sesko both slips.
+    #
+    # Same shape as NAMECARRY above: a field the draft owns must be carried, not recomputed.
+    anchor = _anchor_name
+    if anchor is None or not any(l['name'] == anchor for l in out_legs):
+        anchor = out_legs[0]['name'] if out_legs else None
     return {
         'name': tname,
         'kind': kind,
