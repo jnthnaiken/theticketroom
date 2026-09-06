@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T19:11:33Z",
+  "pulled_at": "2026-09-06T19:16:52Z",
   "games": [
     {
       "gamePk": 824469,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824794,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-06T17:35:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -368,7 +368,7 @@
           {
             "id": 677956,
             "name": "Rece Hinds",
-            "iso": 0.083
+            "iso": 0.108
           },
           {
             "id": 665750,
@@ -439,7 +439,7 @@
           {
             "id": 694208,
             "name": "Mois\u00e9s Ballesteros",
-            "iso": 0.114
+            "iso": 0.113
           },
           {
             "id": 695681,
@@ -545,7 +545,7 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.63,
+          "hr9": 1.59,
           "hand": "RHP"
         },
         "lineup": [
@@ -700,12 +700,12 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.223
+            "iso": 0.219
           },
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 678545,
@@ -895,12 +895,12 @@
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.243
+            "iso": 0.242
           },
           {
             "id": 691788,
             "name": "Joe Mack",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 672640,
@@ -1017,7 +1017,7 @@
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 514888,
@@ -1132,7 +1132,7 @@
         "sp": {
           "id": 677976,
           "name": "Randy Dobnak",
-          "hr9": 0.74,
+          "hr9": 0.73,
           "hand": "RHP"
         },
         "lineup": [
@@ -1250,7 +1250,7 @@
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 663743,
@@ -1845,16 +1845,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 3mph, 74\u00b0",
-        "lean": "Neutral",
-        "temp": 74.4,
-        "wind_mph": 4.2,
-        "wind_dir": 342,
-        "tail_mph": -3.1,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 0.996
+      "wf": 1.0
     }
   ]
 }
