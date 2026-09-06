@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T19:52:04Z",
+  "pulled_at": "2026-09-06T19:56:41Z",
   "games": [
     {
       "gamePk": 824469,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823417,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-06T17:10:00Z",
       "matchup": "ATL@PHI",
       "away": {
@@ -235,7 +235,7 @@
           {
             "id": 681082,
             "name": "Bryson Stott",
-            "iso": 0.145
+            "iso": 0.146
           },
           {
             "id": 669016,
@@ -301,12 +301,12 @@
           {
             "id": 596115,
             "name": "Trevor Story",
-            "iso": 0.104
+            "iso": 0.103
           },
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 702332,
@@ -511,12 +511,12 @@
           {
             "id": 694378,
             "name": "Jacob Gonzalez",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.136
+            "iso": 0.135
           }
         ],
         "confirmed": true
@@ -614,7 +614,7 @@
           {
             "id": 683953,
             "name": "Travis Bazzana",
-            "iso": 0.137
+            "iso": 0.136
           },
           {
             "id": 666176,
@@ -695,7 +695,7 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.186
+            "iso": 0.185
           },
           {
             "id": 813841,
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 824142,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-06T18:10:00Z",
       "matchup": "ARI@HOU",
       "away": {
@@ -1022,12 +1022,12 @@
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 572233,
             "name": "Christian Walker",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 676369,
@@ -1082,7 +1082,7 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.061
+            "iso": 0.06
           },
           {
             "id": 664770,
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 822848,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-06T18:35:00Z",
       "matchup": "TB@TEX",
       "away": {
@@ -1340,7 +1340,7 @@
         "sp": {
           "id": 681517,
           "name": "Kyle Leahy",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -1397,7 +1397,7 @@
         "sp": {
           "id": 685299,
           "name": "Tanner Gordon",
-          "hr9": 1.69,
+          "hr9": 1.67,
           "hand": "RHP"
         },
         "lineup": [
@@ -1444,7 +1444,7 @@
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.123
+            "iso": 0.122
           }
         ],
         "confirmed": true
@@ -1891,9 +1891,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 3mph, 74\u00b0",
+        "lean": "Neutral",
+        "temp": 74.4,
+        "wind_mph": 4.2,
+        "wind_dir": 342,
+        "tail_mph": -3.1,
+        "precip": 5
       },
-      "wf": 1.0
+      "wf": 0.996
     }
   ]
 }
