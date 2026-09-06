@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T20:16:48Z",
+  "pulled_at": "2026-09-06T20:22:11Z",
   "games": [
     {
       "gamePk": 824469,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824794,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-06T17:35:00Z",
       "matchup": "BOS@BAL",
       "away": {
@@ -358,7 +358,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.234
+            "iso": 0.232
           },
           {
             "id": 683002,
@@ -582,7 +582,7 @@
           {
             "id": 701162,
             "name": "Ben Malgeri",
-            "iso": 0.132
+            "iso": 0.13
           },
           {
             "id": 703601,
@@ -592,7 +592,7 @@
           {
             "id": 807726,
             "name": "John Peck",
-            "iso": 0.056
+            "iso": 0.052
           }
         ],
         "confirmed": true
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 823578,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-06T17:40:00Z",
       "matchup": "SF@NYM",
       "away": {
@@ -1012,7 +1012,7 @@
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.286
+            "iso": 0.285
           },
           {
             "id": 670623,
@@ -1117,7 +1117,7 @@
           {
             "id": 665926,
             "name": "Andr\u00e9s Gim\u00e9nez",
-            "iso": 0.111
+            "iso": 0.11
           },
           {
             "id": 678218,
@@ -1164,7 +1164,7 @@
           {
             "id": 679845,
             "name": "Nick Loftin",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 686555,
@@ -1272,7 +1272,7 @@
           {
             "id": 677649,
             "name": "Ezequiel Duran",
-            "iso": 0.181
+            "iso": 0.18
           },
           {
             "id": 608369,
@@ -1282,7 +1282,7 @@
           {
             "id": 679822,
             "name": "Justin Foscue",
-            "iso": 0.237
+            "iso": 0.241
           },
           {
             "id": 607043,
@@ -1367,22 +1367,22 @@
           {
             "id": 699024,
             "name": "Leo Bernal",
-            "iso": 0.191
+            "iso": 0.182
           },
           {
             "id": 695491,
             "name": "Joshua B\u00e1ez",
-            "iso": 0.352
+            "iso": 0.347
           },
           {
             "id": 669357,
             "name": "Nolan Gorman",
-            "iso": 0.13
+            "iso": 0.128
           },
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.196
+            "iso": 0.194
           },
           {
             "id": 701675,
@@ -1397,7 +1397,7 @@
         "sp": {
           "id": 685299,
           "name": "Tanner Gordon",
-          "hr9": 1.67,
+          "hr9": 1.65,
           "hand": "RHP"
         },
         "lineup": [
@@ -1485,12 +1485,12 @@
           {
             "id": 643446,
             "name": "Jeff McNeil",
-            "iso": 0.107
+            "iso": 0.106
           },
           {
             "id": 680869,
             "name": "Zack Gelof",
-            "iso": 0.214
+            "iso": 0.213
           },
           {
             "id": 671732,
@@ -1530,7 +1530,7 @@
         "sp": {
           "id": 693433,
           "name": "Bryan Woo",
-          "hr9": 1.09,
+          "hr9": 1.08,
           "hand": "RHP"
         },
         "lineup": [
@@ -1542,7 +1542,7 @@
           {
             "id": 686527,
             "name": "Dominic Canzone",
-            "iso": 0.225
+            "iso": 0.224
           },
           {
             "id": 677594,
@@ -1605,14 +1605,14 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.13,
+          "hr9": 1.3,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.267
+            "iso": 0.266
           },
           {
             "id": 641355,
@@ -1622,7 +1622,7 @@
           {
             "id": 671277,
             "name": "Luis Garc\u00eda Jr.",
-            "iso": 0.26
+            "iso": 0.259
           },
           {
             "id": 682987,
@@ -1662,7 +1662,7 @@
         "sp": {
           "id": 650633,
           "name": "Michael King",
-          "hr9": 1.0,
+          "hr9": 0.99,
           "hand": "RHP"
         },
         "lineup": [
@@ -1891,16 +1891,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 74\u00b0",
-        "lean": "Neutral",
-        "temp": 74.3,
-        "wind_mph": 2.7,
-        "wind_dir": 312,
-        "tail_mph": -0.8,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 1.004
+      "wf": 1.0
     }
   ]
 }
