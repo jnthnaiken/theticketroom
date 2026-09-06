@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T19:46:43Z",
+  "pulled_at": "2026-09-06T19:52:04Z",
   "games": [
     {
       "gamePk": 824469,
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 824142,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-06T18:10:00Z",
       "matchup": "ARI@HOU",
       "away": {
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 822848,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-06T18:35:00Z",
       "matchup": "TB@TEX",
       "away": {
@@ -1891,16 +1891,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 3mph, 74\u00b0",
-        "lean": "Neutral",
-        "temp": 74.4,
-        "wind_mph": 4.2,
-        "wind_dir": 342,
-        "tail_mph": -3.1,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 0.996
+      "wf": 1.0
     }
   ]
 }
