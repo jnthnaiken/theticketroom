@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T21:33:17Z",
+  "pulled_at": "2026-09-06T21:38:49Z",
   "games": [
     {
       "gamePk": 824469,
@@ -1277,7 +1277,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.182
+            "iso": 0.19
           },
           {
             "id": 679822,
@@ -1382,7 +1382,7 @@
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.192
+            "iso": 0.19
           },
           {
             "id": 701675,
@@ -1515,7 +1515,7 @@
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 661531,
@@ -1597,7 +1597,7 @@
     },
     {
       "gamePk": 823253,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-06T20:10:00Z",
       "matchup": "NYY@SD",
       "away": {
@@ -1891,16 +1891,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 74\u00b0",
-        "lean": "Neutral",
-        "temp": 73.5,
-        "wind_mph": 3.4,
-        "wind_dir": 349,
-        "tail_mph": -2.8,
-        "precip": 11
+        "note": "weather fetch failed"
       },
-      "wf": 0.996
+      "wf": 1.0
     }
   ]
 }
