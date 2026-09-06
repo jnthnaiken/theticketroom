@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T17:00:34Z",
+  "pulled_at": "2026-09-06T17:06:44Z",
   "games": [
     {
       "gamePk": 824469,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 690986,
           "name": "Kyle Harrison",
-          "hr9": 1.56,
+          "hr9": 1.55,
           "hand": "LHP"
         },
         "lineup": [
@@ -112,12 +112,12 @@
           {
             "id": 682877,
             "name": "Juan Brito",
-            "iso": 0.119
+            "iso": 0.133
           },
           {
             "id": 699302,
             "name": "H\u00e9ctor Rodr\u00edguez",
-            "iso": 0.217
+            "iso": 0.214
           }
         ],
         "confirmed": true
@@ -1661,16 +1661,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 76\u00b0",
-        "lean": "Neutral",
-        "temp": 75.7,
-        "wind_mph": 4.4,
-        "wind_dir": 336,
-        "tail_mph": -2.9,
-        "precip": 5
+        "note": "weather fetch failed"
       },
-      "wf": 0.998
+      "wf": 1.0
     }
   ]
 }

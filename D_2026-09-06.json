@@ -40584,11 +40584,11 @@
     "factor": 1.013,
     "park": "WSH@LAD",
     "cond": "4 mph",
-    "rain": "5% rain",
-    "precip": 5
+    "rain": "16% rain",
+    "precip": 16
    }
   },
-  "build": "9/6 1:00pm",
+  "build": "9/6 1:07pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40783,7 +40783,7 @@
   "date": "2026-09-06",
   "gs": {},
   "chalkstate": {
-   "b": "9/6 1:00pm",
+   "b": "9/6 1:07pm",
    "s": {}
   },
   "chalk": [],
@@ -41115,74 +41115,6 @@
    "locked": true
   },
   {
-   "name": "Beyond the Bleachers",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Burleson projects out to 180, Caminero brings fringe-average pop (45/100), and Rice is making elite contact (64% hard-hit).",
-   "players": [
-    {
-     "name": "Alec Burleson",
-     "team": "Cardinals",
-     "total": 179.9,
-     "aT": 100,
-     "wf": 1.153,
-     "gmatch": "STL@COL",
-     "gtime": "3:10 PM ET",
-     "game": 11,
-     "late": false,
-     "odds": 250,
-     "status": "confirmed"
-    },
-    {
-     "name": "Junior Caminero",
-     "team": "Rays",
-     "total": 151.1,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "TB@TEX",
-     "gtime": "2:35 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 320,
-     "status": "confirmed"
-    },
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 149.2,
-     "aT": 100,
-     "wf": 0.985,
-     "gmatch": "NYY@SD",
-     "gtime": "4:10 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 360,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 3,
-   "anchor": "Alec Burleson",
-   "lock": "2:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s & 3",
-    "risk": 2,
-    "maxprofit": 56.9,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 1,
-    "neu": 1
-   },
-   "confleg": 2,
-   "priced": 3,
-   "parlay_am": 6662,
-   "payout10": 676.2
-  },
-  {
    "name": "Made Fast",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
@@ -41257,6 +41189,74 @@
    "parlay_am": 305,
    "payout10": 40.5,
    "locked": true
+  },
+  {
+   "name": "Beyond the Bleachers",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Burleson projects out to 180, Caminero brings fringe-average pop (45/100), and Rice is making elite contact (64% hard-hit).",
+   "players": [
+    {
+     "name": "Alec Burleson",
+     "team": "Cardinals",
+     "total": 179.9,
+     "aT": 100,
+     "wf": 1.153,
+     "gmatch": "STL@COL",
+     "gtime": "3:10 PM ET",
+     "game": 11,
+     "late": false,
+     "odds": 250,
+     "status": "confirmed"
+    },
+    {
+     "name": "Junior Caminero",
+     "team": "Rays",
+     "total": 151.1,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "TB@TEX",
+     "gtime": "2:35 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 320,
+     "status": "confirmed"
+    },
+    {
+     "name": "Ben Rice",
+     "team": "Yankees",
+     "total": 149.2,
+     "aT": 100,
+     "wf": 0.985,
+     "gmatch": "NYY@SD",
+     "gtime": "4:10 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 360,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 3,
+   "anchor": "Alec Burleson",
+   "lock": "2:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2,
+    "maxprofit": 56.9,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 2,
+   "priced": 3,
+   "parlay_am": 6662,
+   "payout10": 676.2
   },
   {
    "name": "The Apollo",
