@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-06T15:46:24Z",
+  "pulled_at": "2026-09-06T15:51:18Z",
   "games": [
     {
       "gamePk": 824469,
@@ -1286,7 +1286,7 @@
     },
     {
       "gamePk": 824309,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-06T19:10:00Z",
       "matchup": "STL@COL",
       "away": {
@@ -1308,10 +1308,56 @@
           "hr9": 1.73,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.186
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.118
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.189
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.161
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.245
+          },
+          {
+            "id": 691182,
+            "name": "Adael Amador",
+            "iso": 0.32
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.19
+          },
+          {
+            "id": 605353,
+            "name": "Vimael Mach\u00edn",
+            "iso": null
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
