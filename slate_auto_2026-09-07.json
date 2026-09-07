@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-07T14:47:05Z",
+  "pulled_at": "2026-09-07T14:52:04Z",
   "games": [
     {
       "gamePk": 823415,
@@ -663,17 +663,65 @@
     },
     {
       "gamePk": 824229,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-07T19:10:00Z",
       "matchup": "MIN@DET",
       "away": {
         "abbrev": "MIN",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 657746,
+          "name": "Joe Ryan",
+          "hr9": 1.22,
+          "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.115
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.189
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.226
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.233
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.167
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.166
+          },
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.154
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.154
+          },
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.154
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -686,7 +734,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
