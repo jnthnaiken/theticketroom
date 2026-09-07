@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-07T01:01:02Z",
+  "pulled_at": "2026-09-07T01:06:39Z",
   "games": [
     {
       "gamePk": 824469,
@@ -125,9 +125,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 10mph, 76\u00b0",
+        "lean": "Suppress",
+        "temp": 76.3,
+        "wind_mph": 10.3,
+        "wind_dir": 30,
+        "tail_mph": -10.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.974
     },
     {
       "gamePk": 823417,
@@ -650,9 +657,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 10mph, 76\u00b0",
+        "lean": "Suppress",
+        "temp": 75.5,
+        "wind_mph": 10.3,
+        "wind_dir": 13,
+        "tail_mph": -10.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.973
     },
     {
       "gamePk": 823578,
@@ -776,9 +790,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 6mph, 72\u00b0",
+        "lean": "Neutral",
+        "temp": 72.2,
+        "wind_mph": 6.3,
+        "wind_dir": 27,
+        "tail_mph": -6.3,
+        "precip": 6
       },
-      "wf": 1.0
+      "wf": 0.981
     },
     {
       "gamePk": 823822,
@@ -1431,9 +1452,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 88\u00b0",
+        "lean": "Boost",
+        "temp": 88.5,
+        "wind_mph": 4.1,
+        "wind_dir": 68,
+        "tail_mph": -1.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.022
     },
     {
       "gamePk": 823091,
@@ -1814,7 +1842,7 @@
           {
             "id": 691019,
             "name": "Kyle Teel",
-            "iso": 0.113
+            "iso": 0.152
           }
         ],
         "confirmed": true
