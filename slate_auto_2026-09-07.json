@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-07T13:57:09Z",
+  "pulled_at": "2026-09-07T14:00:32Z",
   "games": [
     {
       "gamePk": 823415,
@@ -46,7 +46,7 @@
     },
     {
       "gamePk": 823820,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-07T17:10:00Z",
       "matchup": "NYM@MIA",
       "away": {
@@ -68,10 +68,56 @@
           "hr9": 1.13,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.228
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.241
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.233
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.137
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.119
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.147
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.188
+          },
+          {
+            "id": 688363,
+            "name": "Graham Pauley",
+            "iso": 0.141
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.167
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
