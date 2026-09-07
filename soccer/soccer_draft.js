@@ -421,10 +421,23 @@
        supports rather than lowering a bar until something appears" -- only the trigger now
        tests what it always meant to test. WIN itself is NOT relaxed: a 135-minute slip is
        still not a bet this board makes. */
-    var _kos = [];
+    /* ⚠️ ONE KICKOFF PER MATCH, AND DO NOT DEDUPE THE TIMES. WINMATCH-2026-09-07.
+       The first cut of this collected DISTINCT kickoff VALUES, which is the same thing as
+       distinct matches only when every match kicks off at its own minute. Soccer is like that.
+       NFL is NOT: week 1 is 8 games at 13:00, 4 at 16:25 and 1 at 20:20, so the distinct-value
+       list is [780, 985, 1220], its only triple spans 440 against WIN=60, and this test wrongly
+       concluded "no screamer is possible" on a slate with EIGHT simultaneous games. It took the
+       NFL board from 14 slips to 6 -- all eight moons gone -- for the 40 minutes this was live.
+       A screamer needs MOON_LEGS distinct MATCHES inside WIN; three different games kicking at
+       the same minute span ZERO and are the easiest legal screamer there is. So: one entry per
+       MATCH, keeping repeats of the same kickoff. `nfl-build.yml` runs this very file
+       ("ONE DRAFT, THREE SPORTS"), so a soccer-shaped assumption here silently reshapes the
+       football board. */
+    var _mk = {}, _kos = [];
     (pool && pool.length ? pool : players).forEach(function (p) {
-      if (p.kickoff != null && _kos.indexOf(p.kickoff) < 0) _kos.push(p.kickoff);
+      if (p.kickoff != null && _mk[p.match] === undefined) _mk[p.match] = p.kickoff;
     });
+    for (var _m in _mk) if (Object.prototype.hasOwnProperty.call(_mk, _m)) _kos.push(_mk[_m]);
     _kos.sort(function (a, b) { return a - b; });
     var _winOk = false;
     for (var _i = 0; _i + cfg.MOON_LEGS - 1 < _kos.length; _i++) {
