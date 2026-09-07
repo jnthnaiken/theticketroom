@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-07T00:46:49Z",
+  "pulled_at": "2026-09-07T00:51:30Z",
   "games": [
     {
       "gamePk": 824469,
@@ -1780,12 +1780,12 @@
           {
             "id": 701785,
             "name": "Kaelen Culpepper",
-            "iso": 0.156
+            "iso": 0.154
           },
           {
             "id": 805805,
             "name": "Walker Jenkins",
-            "iso": 0.16
+            "iso": 0.154
           }
         ],
         "confirmed": true
@@ -1850,9 +1850,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 10mph, 74\u00b0",
+        "lean": "Suppress",
+        "temp": 73.6,
+        "wind_mph": 10.1,
+        "wind_dir": 21,
+        "tail_mph": -9.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.972
     },
     {
       "gamePk": 823903,
