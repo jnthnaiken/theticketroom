@@ -402,7 +402,35 @@
       var seenM = {}; mCount = 0;
       players.forEach(function (p) { if (!seenM[p.match]) { seenM[p.match] = 1; mCount++; } });
     }
-    if (mCount < cfg.MOON_LEGS) {
+    /* WINSINGLES-2026-09-07 -- "NO SCREAMER IS POSSIBLE" IS A WINDOW QUESTION, NOT A COUNT.
+       SINGLES-2026-08-27 falls back to anchor singles when no screamer can exist, and tests
+       that with `mCount < MOON_LEGS` -- fewer matches on the slate than a screamer has legs.
+       But a screamer also needs its MOON_LEGS distinct matches to sit inside WIN (spanOk),
+       so a slate can have plenty of matches and still support no legal screamer at all.
+       Those two conditions agreed on every slate until today and the count was doing the
+       window's job by luck.
+
+       2026-09-07: four matches -- 990, 1020, 1125, 1170 -- in two pairs 105 minutes apart.
+       Every one of the four possible triples spans 135-180 against WIN=75, so draftN returned
+       [] at every anchor count, `mCount < MOON_LEGS` was false (4 < 3), the singles path never
+       ran and the board minted NOTHING. Silently: no error, no warning, an empty card.
+
+       The fix asks the real question. In a SORTED list of distinct kickoffs the tightest set
+       of k is always k CONSECUTIVE entries, so one linear scan settles it exactly. Same
+       fallback, same anchorsOnly(), same owner's ruling -- "ship what the slate actually
+       supports rather than lowering a bar until something appears" -- only the trigger now
+       tests what it always meant to test. WIN itself is NOT relaxed: a 135-minute slip is
+       still not a bet this board makes. */
+    var _kos = [];
+    (pool && pool.length ? pool : players).forEach(function (p) {
+      if (p.kickoff != null && _kos.indexOf(p.kickoff) < 0) _kos.push(p.kickoff);
+    });
+    _kos.sort(function (a, b) { return a - b; });
+    var _winOk = false;
+    for (var _i = 0; _i + cfg.MOON_LEGS - 1 < _kos.length; _i++) {
+      if (_kos[_i + cfg.MOON_LEGS - 1] - _kos[_i] <= cfg.WIN) { _winOk = true; break; }
+    }
+    if (mCount < cfg.MOON_LEGS || !_winOk) {
       var singles = anchorsOnly(byStrength, cfg, opts);
       return {
         tickets: singles, pool: pool, byStrength: byStrength,
