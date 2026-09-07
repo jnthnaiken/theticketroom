@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-07T03:02:30Z",
+  "pulled_at": "2026-09-07T03:07:28Z",
   "games": [
     {
       "gamePk": 824469,
@@ -657,9 +657,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 10mph, 76\u00b0",
+        "lean": "Suppress",
+        "temp": 75.5,
+        "wind_mph": 10.3,
+        "wind_dir": 13,
+        "tail_mph": -10.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.973
     },
     {
       "gamePk": 823578,
@@ -1886,12 +1893,12 @@
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.231
+            "iso": 0.236
           },
           {
             "id": 691781,
             "name": "Brady House",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 695734,
@@ -1901,7 +1908,7 @@
           {
             "id": 695670,
             "name": "Harry Ford",
-            "iso": 0.18
+            "iso": 0.189
           },
           {
             "id": 696285,
@@ -1921,7 +1928,7 @@
         "sp": {
           "id": 680736,
           "name": "Justin Wrobleski",
-          "hr9": 1.37,
+          "hr9": 1.44,
           "hand": "LHP"
         },
         "lineup": [
