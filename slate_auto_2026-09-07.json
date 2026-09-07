@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-07T13:21:11Z",
+  "pulled_at": "2026-09-07T13:26:12Z",
   "games": [
     {
       "gamePk": 823415,
@@ -166,7 +166,7 @@
     },
     {
       "gamePk": 824062,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-07T18:10:00Z",
       "matchup": "ARI@KC",
       "away": {
@@ -175,8 +175,54 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.114
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.197
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.169
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.19
+          },
+          {
+            "id": 666971,
+            "name": "Lourdes Gurriel Jr.",
+            "iso": 0.08
+          },
+          {
+            "id": 545121,
+            "name": "Ildemaro Vargas",
+            "iso": 0.131
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.149
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.173
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
@@ -189,7 +235,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
