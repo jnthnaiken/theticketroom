@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-07T21:42:30Z",
+  "pulled_at": "2026-09-07T21:47:23Z",
   "games": [
     {
       "gamePk": 823415,
@@ -801,7 +801,7 @@
     },
     {
       "gamePk": 824229,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-07T19:10:00Z",
       "matchup": "MIN@DET",
       "away": {
@@ -836,7 +836,7 @@
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 668904,
@@ -942,7 +942,7 @@
         "sp": {
           "id": 663623,
           "name": "Jake Irvin",
-          "hr9": 1.56,
+          "hr9": 1.54,
           "hand": "RHP"
         },
         "lineup": [
@@ -979,7 +979,7 @@
           {
             "id": 660688,
             "name": "Keibert Ruiz",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 678391,
@@ -1036,12 +1036,12 @@
           {
             "id": 687957,
             "name": "Dustin Harris",
-            "iso": 0.062
+            "iso": 0.06
           },
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.102
+            "iso": 0.101
           },
           {
             "id": 806956,
@@ -1055,11 +1055,11 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 7mph, 98\u00b0",
+        "cond": "wind in 6mph, 98\u00b0",
         "lean": "Neutral",
         "temp": 97.6,
-        "wind_mph": 8.9,
-        "wind_dir": 317,
+        "wind_mph": 9.0,
+        "wind_dir": 316,
         "tail_mph": -6.5,
         "precip": 1
       },
@@ -1191,12 +1191,12 @@
         "cond": "wind out 12mph, 75\u00b0",
         "lean": "Boost",
         "temp": 75.1,
-        "wind_mph": 12.9,
+        "wind_mph": 12.4,
         "wind_dir": 284,
-        "tail_mph": 12.2,
+        "tail_mph": 11.7,
         "precip": 0
       },
-      "wf": 1.05
+      "wf": 1.049
     },
     {
       "gamePk": 823902,
@@ -1273,19 +1273,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 81\u00b0",
+        "cond": "wind out 4mph, 81\u00b0",
         "lean": "Boost",
         "temp": 81.2,
-        "wind_mph": 2.4,
-        "wind_dir": 229,
-        "tail_mph": 2.2,
+        "wind_mph": 5.7,
+        "wind_dir": 252,
+        "tail_mph": 3.9,
         "precip": 2
       },
-      "wf": 1.024
+      "wf": 1.03
     },
     {
       "gamePk": 824958,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-08T02:05:00Z",
       "matchup": "TOR@ATH",
       "away": {
@@ -1307,22 +1307,68 @@
           "hr9": 1.46,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.112
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.105
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.211
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.142
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.136
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.167
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.168
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.165
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.177
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 83\u00b0",
+        "cond": "wind in 3mph, 83\u00b0",
         "lean": "Neutral",
         "temp": 83.0,
-        "wind_mph": 3.6,
-        "wind_dir": 4,
-        "tail_mph": -2.0,
+        "wind_mph": 4.4,
+        "wind_dir": 15,
+        "tail_mph": -3.1,
         "precip": 0
       },
-      "wf": 1.012
+      "wf": 1.009
     }
   ]
 }
