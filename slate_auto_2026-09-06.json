@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
   "season": "2026",
-  "pulled_at": "2026-09-07T02:57:31Z",
+  "pulled_at": "2026-09-07T03:00:35Z",
   "games": [
     {
       "gamePk": 824469,
@@ -1871,7 +1871,7 @@
         "sp": {
           "id": 674841,
           "name": "Andrew Alvarez",
-          "hr9": 0.49,
+          "hr9": 0.48,
           "hand": "LHP"
         },
         "lineup": [
@@ -1940,7 +1940,7 @@
           {
             "id": 605141,
             "name": "Mookie Betts",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 669257,
@@ -1975,7 +1975,7 @@
           {
             "id": 571771,
             "name": "Enrique Hern\u00e1ndez",
-            "iso": 0.146
+            "iso": 0.143
           }
         ],
         "confirmed": true
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 72\u00b0",
+        "lean": "Neutral",
+        "temp": 72.2,
+        "wind_mph": 5.7,
+        "wind_dir": 42,
+        "tail_mph": -5.5,
+        "precip": 21
       },
-      "wf": 1.0
+      "wf": 0.984
     }
   ]
 }
