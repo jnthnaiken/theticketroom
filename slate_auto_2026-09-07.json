@@ -1,11 +1,11 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-07T18:56:39Z",
+  "pulled_at": "2026-09-07T19:00:56Z",
   "games": [
     {
       "gamePk": 823415,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-07T17:05:00Z",
       "matchup": "ATL@PHI",
       "away": {
@@ -30,7 +30,7 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 621566,
@@ -153,7 +153,7 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 665742,
@@ -335,7 +335,7 @@
         "sp": {
           "id": 678394,
           "name": "Brayan Bello",
-          "hr9": 0.98,
+          "hr9": 0.97,
           "hand": "RHP"
         },
         "lineup": [
@@ -347,7 +347,7 @@
           {
             "id": 681508,
             "name": "Mickey Gasper",
-            "iso": 0.223
+            "iso": 0.222
           },
           {
             "id": 668939,
@@ -485,7 +485,7 @@
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 691723,
@@ -571,7 +571,7 @@
           {
             "id": 666971,
             "name": "Lourdes Gurriel Jr.",
-            "iso": 0.08
+            "iso": 0.079
           },
           {
             "id": 545121,
@@ -601,7 +601,7 @@
         "sp": {
           "id": 702070,
           "name": "Noah Cameron",
-          "hr9": 0.92,
+          "hr9": 0.91,
           "hand": "LHP"
         },
         "lineup": [
@@ -689,7 +689,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.21
+            "iso": 0.209
           },
           {
             "id": 608324,
@@ -699,12 +699,12 @@
           {
             "id": 621438,
             "name": "Tyrone Taylor",
-            "iso": 0.232
+            "iso": 0.237
           },
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.095
+            "iso": 0.094
           },
           {
             "id": 807713,
@@ -1088,16 +1088,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 85.8,
-        "wind_mph": 7.1,
-        "wind_dir": 257,
-        "tail_mph": 4.4,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.039
+      "wf": 1.0
     },
     {
       "gamePk": 824958,
