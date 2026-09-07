@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-07T19:46:51Z",
+  "pulled_at": "2026-09-07T19:51:54Z",
   "games": [
     {
       "gamePk": 823415,
@@ -173,7 +173,7 @@
           {
             "id": 543760,
             "name": "Marcus Semien",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 805999,
@@ -215,7 +215,7 @@
           {
             "id": 681715,
             "name": "Heriberto Hern\u00e1ndez",
-            "iso": 0.239
+            "iso": 0.238
           },
           {
             "id": 665052,
@@ -285,7 +285,7 @@
           {
             "id": 687263,
             "name": "Zach Neto",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 545361,
@@ -433,17 +433,17 @@
           {
             "id": 682657,
             "name": "Angel Mart\u00ednez",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 681807,
             "name": "David Fry",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 694197,
             "name": "Angel Genao",
-            "iso": 0.1
+            "iso": 0.099
           },
           {
             "id": 595978,
@@ -633,7 +633,7 @@
           {
             "id": 679845,
             "name": "Nick Loftin",
-            "iso": 0.148
+            "iso": 0.146
           },
           {
             "id": 670231,
@@ -746,17 +746,17 @@
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.135
+            "iso": 0.134
           },
           {
             "id": 683734,
             "name": "Andrew Vaughn",
-            "iso": 0.146
+            "iso": 0.145
           },
           {
             "id": 592885,
@@ -878,7 +878,7 @@
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.142
+            "iso": 0.143
           },
           {
             "id": 650402,
@@ -888,7 +888,7 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 693307,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 823175,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-08T00:10:00Z",
       "matchup": "STL@SF",
       "away": {
@@ -1078,8 +1078,54 @@
           "hr9": 1.22,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663494,
+            "name": "Bryan Torres",
+            "iso": 0.126
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.138
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.181
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.211
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": 0.167
+          },
+          {
+            "id": 669357,
+            "name": "Nolan Gorman",
+            "iso": 0.14
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.342
+          },
+          {
+            "id": 695336,
+            "name": "Thomas Saggese",
+            "iso": 0.19
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -1092,7 +1138,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
