@@ -1,0 +1,132 @@
+# 🚨 CI-2026-09-08 -- SOMETHING HAS TO RUN THE TESTS.
+#
+# Until this file existed, NOTHING did. soccer-build.yml, nfl-build.yml and pull-slate.yml invoke
+# no test at all, and there was no CI workflow in the repo. Every test here only ran when a human
+# typed its name.
+#
+# What that cost, measured 2026-09-08: test_redraft.js is byte-identical to the version that
+# shipped on 2026-08-31 and is ALL GREEN against the engine of that date. It has been red on main
+# ever since, through eight doctrine changes -- ANCHORSET, ANCHORFIRST, DRAFTORDER, DRAFTWIDE,
+# ANCHORGATE, SNAKEDRAFT (09-04), ANCHORCAP (09-06), ONEGAMESINGLES (09-08) -- and nobody heard
+# about it, because nothing was listening. test_draft_golden.js went from 2 red to 7 the same way.
+#
+# ⚠️ NAMING TRAP, AND IT IS LIVE IN THIS REPO. `soccer/*_fix.py` are ONE-SHOT PATCH SCRIPTS from
+# past sessions, not tests -- test_redraft_fix.py is the script that PATCHED test_redraft.js, and
+# running it would rewrite a test file inside CI. They are excluded by suffix, not by listing them,
+# so a new one cannot sneak in.
+#
+# ⚠️ QUARANTINE IS DELIBERATE AND LOUD. Two suites are red on main today for reasons that are
+# doctrine questions, not bugs (see claude/testredraft-stale-2026-09-08.md). They run on every
+# push and their result is printed, but they do not fail the build -- because a CI that is red on
+# day one and stays red teaches everyone to ignore it, which is the failure we are fixing, not a
+# fix. Emptying QUARANTINE is the goal; adding to it needs a reason written down here.
+
+name: Tests
+
+# ⚠️ THE PATH FILTER IS LOAD-BEARING, NOT TIDINESS. The boards live in the repo and are rewritten
+# every few minutes by three build workflows -- soccer/index.html, soccer/soccer_D.json,
+# soccer/boards/, soccer/slates/, nfl/, and the root index.html and D_*.json are all DATA that
+# changes all day. A bare `soccer/**` trigger would run this suite every five minutes, forever,
+# and burn the runner budget on a slate that has not touched a line of code.
+# So: trigger on CODE, exclude the data, and keep a DAILY run as the backstop. The daily one is
+# what covers the awkward case -- index.html is both the MLB engine AND the MLB board, so it
+# cannot be watched by path without watching every build. A code change there is caught within a
+# day, or immediately by opening a PR, or by hand with workflow_dispatch.
+on:
+  push:
+    paths:
+      - 'soccer/**'
+      - 'nfl/**'
+      - 'build15.py'
+      - 'test_suffixkey.py'
+      - 'commit_gate.py'
+      - '.github/workflows/tests.yml'
+      - '!soccer/boards/**'
+      - '!soccer/slates/**'
+      - '!soccer/settled/**'
+      - '!soccer/index.html'
+      - '!soccer/soccer_D.json'
+      - '!soccer/soccer_season.json'
+      - '!nfl/slates/**'
+      - '!nfl/index.html'
+      - '!nfl/nfl_D.json'
+      - '!nfl/nfl_season.json'
+  pull_request:
+  schedule:
+    - cron: '17 11 * * *'        # 11:17Z daily -- the backstop for index.html and anything the
+                                 # path filter cannot watch. Quiet hour: no board builds land here.
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # ------------------------------------------------------------------------------------
+      # Discovery, not a hand-kept list: a test added tomorrow runs tomorrow. That is the whole
+      # point -- a list is a thing to forget to update, which is how we got here.
+      # ------------------------------------------------------------------------------------
+      - name: What are we running?
+        id: find
+        run: |
+          # QUARANTINE -- red on main for a reason that is written down. See the header.
+          #   soccer/test_redraft.js      4/59, stale since 2026-08-31 (ANCHORSET / ANCHORFIRST)
+          #   soccer/test_draft_golden.js 7 failures, golden master predates DRAFTORDER-09-04
+          QUARANTINE="soccer/test_redraft.js soccer/test_draft_golden.js"
+          echo "quarantine=$QUARANTINE" >> $GITHUB_OUTPUT
+          # `*_fix.py` are patch scripts, NOT tests -- see the header.
+          ALL=$(find . -name 'test_*.js' -o -name 'test_*.py' \
+                | grep -v '_fix\.py$' | grep -v '/node_modules/' | sed 's|^\./||' | sort)
+          echo "  found:"; for f in $ALL; do echo "    $f"; done
+          {
+            echo "all<<EOF"
+            echo "$ALL"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      # ------------------------------------------------------------------------------------
+      # Each test runs from ITS OWN directory. They are written that way: the python ones import
+      # their module from cwd (test_mononym imports soccer_teamnews), and the node ones resolve
+      # fixtures off __dirname. Running them from the repo root passes some and breaks others.
+      # ------------------------------------------------------------------------------------
+      - name: Run the suite
+        run: |
+          FAILED=""; PASSED=""; QUAR=""
+          for t in ${{ steps.find.outputs.all }}; do
+            skip=""
+            for q in ${{ steps.find.outputs.quarantine }}; do [ "$t" = "$q" ] && skip=1; done
+            d=$(dirname "$t"); b=$(basename "$t")
+            case "$b" in *.js) CMD="node $b";; *.py) CMD="python3 $b";; esac
+            echo "::group::$t"
+            if ( cd "$d" && timeout 300 $CMD ); then
+              if [ -n "$skip" ]; then QUAR="$QUAR $t(green!)"; else PASSED="$PASSED $t"; fi
+            else
+              if [ -n "$skip" ]; then QUAR="$QUAR $t(red)"; else FAILED="$FAILED $t"; fi
+            fi
+            echo "::endgroup::"
+          done
+
+          echo
+          echo "================ RESULT ================"
+          for t in $PASSED; do echo "  pass        $t"; done
+          for t in $QUAR;   do echo "  quarantine  $t"; done
+          for t in $FAILED; do echo "  FAIL        $t"; done
+          echo "========================================"
+
+          # A quarantined suite that has gone GREEN is news: take it off the list.
+          case "$QUAR" in
+            *"(green!)"*) echo "::notice::a quarantined suite is passing -- take it off the QUARANTINE list" ;;
+          esac
+
+          if [ -n "$FAILED" ]; then
+            echo "::error::failing:$FAILED"
+            exit 1
+          fi
+          echo "all non-quarantined suites pass"
