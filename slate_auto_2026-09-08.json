@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T19:52:10Z",
+  "pulled_at": "2026-09-08T19:57:37Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1104,8 +1104,10 @@
       "away": {
         "abbrev": "TEX",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 615698,
+          "name": "Cal Quantrill",
+          "hr9": 1.02,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -1244,16 +1246,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 87\u00b0",
-        "lean": "Boost",
-        "temp": 87.2,
-        "wind_mph": 7.3,
-        "wind_dir": 259,
-        "tail_mph": 4.3,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.041
+      "wf": 1.0
     }
   ]
 }
