@@ -22,14 +22,35 @@ the third time in one day that a correction stopped one layer short of the reade
 
 A night that grades moves meta.season and now republishes, which is what should happen -- the
 tracker is baked into the page.
+
+🚨 AND IT COVERS THE PROSE (PROSESIG-2026-09-08), WHICH IS THE FOURTH TIME.
+Owner, after NFLVOICE shipped and the board did not change: "still seeing one sentence on football
+tickets." He was right. The whole of nfl_voice.py reached the repo, CI went green on it, and the
+site went on serving `9/8 8:41am` -- because this signature covered every NUMBER a reader notices
+and not one WORD of what he actually reads. A build whose only change is the write-ups produced a
+byte-identical signature, the gate returned "nothing a reader would notice moved", and Publish was
+skipped.
+
+Read the two paragraphs above: a corrected xg.psv (09-03), then the season ledger (09-04, called
+out there as "the third time in one day that a correction stopped one layer short of the reader"),
+now the prose. Every one of them is the same mistake -- the gate is a list of things somebody
+remembered, and it goes stale the moment the payload gains a field.
+
+⚠️ THE RULE THIS SETTLES: if it is rendered, it is in the signature. `note` is the sentence under
+a ticket and `why` is the sentence on a player card; both are on the page in 14px type and both
+are now hashed. If a future field is added to the payload and shown to a reader, it belongs here
+too, and the test below is what will notice it is missing.
 """
 import hashlib, json, sys
 
 def sig(path):
     d = json.load(open(path, encoding='utf-8'))
-    t = [(x['kind'], x['name'], [l['name'] for l in x['players']], x.get('parlay_am'))
+    # PROSESIG-2026-09-08: `note` and `why` are RENDERED. See the header.
+    t = [(x['kind'], x['name'], [l['name'] for l in x['players']], x.get('parlay_am'),
+          x.get('note'))
          for x in d['tickets']]
-    p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf')) for k, v in d['players'].items())
+    p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf'), v.get('why'))
+               for k, v in d['players'].items())
     # LEDGERSIG-2026-09-04. The season panel is baked into the page and is the biggest number on
     # it; a ledger that changed without republishing left the site showing the old one.
     led = (d.get('meta') or {}).get('season') or {}
