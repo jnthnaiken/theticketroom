@@ -324,17 +324,52 @@ jobs:
           # redraft reached this step for the first time: two landmines in series, both hiding
           # behind "the draft did not move today".
           # Workflow annotations belong on STDOUT. $GITHUB_OUTPUT takes key=value and nothing else.
+          # 🚨 GATEJS-2026-09-08 -- A CODE FIX IS ALSO SOMETHING A READER NOTICES.
+          # This gate compared the PAYLOAD and nothing else, so soccer/index.html was republished
+          # only when the board DATA moved. Every other thing the page is made of -- the injected
+          # soccer_live.js and soccer_draft.js, the fork's own template -- could be fixed, tested,
+          # committed and green, and still never reach a reader, because the slate it was fixed
+          # for had a quiet minute.
+          # MEASURED 2026-09-08: the JRJOIN client fix landed at 8ccaf4e, the workflow ran clean
+          # 21 seconds later, the gate said commit=false, and the board went on printing
+          # "🪑 Out of lineup: Vinicius Jr" over a live screamer for a man in Real Madrid's XI --
+          # with the fix for that exact banner sitting in the repo, unpublished, 22 minutes from
+          # kickoff. A fix that cannot ship is not a fix.
+          # The second test is the PAGE WITH THE PAYLOAD EXCISED. Verified before shipping that
+          # this is stable across builds: three consecutive published boards (17:52Z, 17:57Z,
+          # 18:11Z) are BYTE-IDENTICAL once `const D={...}` is cut out, all 492,564 characters of
+          # them. So it cannot fire on per-build noise -- only on code or template that actually
+          # changed. And the Publish step still ends on `git diff --staged --quiet`, so a gate
+          # that says true over an identical tree commits nothing.
           python3 - <<'PY' > gate.txt
-          import json
+          import json, os
           def sig(p):
               d = json.load(open(p))
               t = sorted(x['kind'] + ':' + '+'.join(l['name'] for l in x['players']) for x in d['tickets'])
               pl = {n: (v.get('odds'), v.get('status'), bool(v.get('out')), bool(v.get('hr')))
                     for n, v in d['players'].items()}
               return t, pl
+          def shell(p):
+              """The page minus its payload: template + every injected module."""
+              h = open(p, encoding='utf-8', errors='replace').read()
+              i = h.find('const D={')
+              if i < 0:
+                  return h
+              j = i + len('const D=')
+              _, end = json.JSONDecoder().raw_decode(h[j:])
+              return h[:i] + '<<PAYLOAD>>' + h[j + end:]
           a, b = sig('prior.json'), sig('soccer_D.json')
-          print('commit=' + ('true' if a != b else 'false'))
+          moved = a != b
+          # cwd is soccer/.work, so ../index.html is the PUBLISHED soccer page.
+          code = False
+          if os.path.exists('../index.html'):
+              try:
+                  code = shell('../index.html') != shell('soccer_index.html')
+              except Exception:
+                  code = True          # cannot tell them apart -> publish, never silently skip
+          print('commit=' + ('true' if (moved or code) else 'false'))
           if a[0] != b[0]: print('::notice::the draft moved')
+          if code and not moved: print('::notice::board data unchanged, page code changed -- publishing')
           PY
           grep '^commit=' gate.txt >> "$GITHUB_OUTPUT"
           grep '^::' gate.txt || true
