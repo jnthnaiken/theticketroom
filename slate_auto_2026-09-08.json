@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T21:22:37Z",
+  "pulled_at": "2026-09-08T21:27:38Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1420,7 +1420,7 @@
     },
     {
       "gamePk": 823092,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T01:40:00Z",
       "matchup": "TEX@SEA",
       "away": {
@@ -1440,10 +1440,56 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.19
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.223
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.153
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.194
+          },
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.123
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.096
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.137
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.215
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.082
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
