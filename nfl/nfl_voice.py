@@ -15,7 +15,7 @@ WHAT IS BORROWED FROM soccer_payload.Voice, deliberately and by name:
   * _pick / _h        -- deterministic variety: same key, same phrasing, every build
   * _rot              -- rotate the angle order per player AND per slip, so the same back does
                          not lead with touches on every card (VOICE-2026-08-28's actual fix)
-  * lead / _depersonalise / brief-vs-full registers
+  * lead-vs-fragment registers (soccer's brief/full pair, renamed for what they now do)
 It is a COPY, not an import: soccer_payload does module-level work on import (it reads
 fixtures.json off the cwd), so importing it from the football build would run a soccer pipeline.
 The helpers below are twenty lines and the duplication is honest; the alternative is a shared
@@ -65,29 +65,18 @@ def _rot(seq, key, pin_last=('price',), pin_first=()):
     return first + head[i:] + head[:i] + tail
 
 
-def _depersonalise(clause, name):
-    """Second and third clauses drop the name: 'Price is on 16.5 touches' -> 'is on 16.5 touches'.
-
-    Only a LEADING name is stripped. The phrase banks include forms where the man is the object
-    ('nothing on Price but the price'), and gutting those mid-sentence produces rubbish.
-    """
-    for form in (name, name.split()[-1]):
-        if clause.startswith(form + ' '):
-            return clause[len(form) + 1:]
-    # ⚠️ AND THE POSSESSIVE, WHEREVER IT SITS. The phrase banks carry forms where the man is
-    # neither subject nor object but an owner -- "the market has Price's offence down for 20.8"
-    # -- and a leading-name strip cannot see those. Left alone, a card said "Rhamondre
-    # Stevenson" three times in one sentence, which is exactly the mail-merge read this module
-    # exists to kill. Second and later clauses use "his" instead.
-    for form in (name, name.split()[-1]):
-        for poss in (form + "'s", form + "\u2019s"):
-            if poss in clause:
-                return clause.replace(poss, 'his', 1)
-    # ⚠️ POSSESSIVES ONLY. A first cut also swapped a bare mid-clause name for "he" and produced
-    # "the model puts he in the end zone" -- the name is in OBJECT position there and English
-    # wants "him". Rather than guess the case, leave those alone: a repeated surname reads worse
-    # than nothing but far better than a grammar error, and the rotation makes it rare.
-    return clause
+# 🗑️ `_depersonalise()` LIVED HERE AND IS GONE, 2026-09-08c. It stripped a leading name off a
+# second or third clause -- "Price is on 16.5 touches" -> "is on 16.5 touches" -- and rewrote a
+# possessive to "his", after a card printed "Rhamondre Stevenson" three times in one sentence.
+# It was the right fix for the register that RECITED numbers, where every clause was a full
+# sentence about the man and the name had to be scrubbed back out afterwards.
+#
+# The rewrite removed the need rather than the symptom: `angles()` now returns a LEAD (names him,
+# used once, first) and a FRAGMENT (nameless by construction, used for every later clause), so
+# there is no name left to strip. A helper with no callers is worse than no helper -- it reads as
+# a live safety net, so the next person writing a phrase bank assumes the scrub will catch a name
+# they drop into a fragment. It will not. test_nfl_voice asserts the property at the source
+# instead: "no fragment carries the player name", checked over every angle of every man.
 
 
 def _sentence(bits):
@@ -197,334 +186,270 @@ class Voice:
         return self.band_all.get(key, (None, None))
 
     # ---------------------------------------------------------------------------------------
+    # 🚨 NFLVOICE-2026-09-08c -- THE CARD ALREADY PRINTS THE NUMBERS. STOP READING THEM OUT.
+    # ---------------------------------------------------------------------------------------
+    # Owner, twice: "i said creative. are you trying to put me to sleep?" then "more variety and
+    # there is still no creativity". Both right, and the second time I went and looked at the
+    # rendered card instead of the payload. It shows, in a stat strip two inches above the prose:
+    #
+    #     Touches 16.5 · Inside 10 1.25 · GL share 0.076 · Weather x0.998 · Team total 23.8
+    #     +130 · Model 169 · 27.9%
+    #
+    # Every number the write-up was reciting is ALREADY ON THE SCREEN. So the sentence had no job.
+    # No amount of new adjectives fixes that -- "sees 0.4 a game from close range" and "is in the
+    # picture when the field runs out" are the same non-contribution in different clothes, which
+    # is exactly why the second rewrite read no better than the first.
+    #
+    # THE JOB IS INTERPRETATION. What does 16.5 touches and 1.25 inside the ten MEAN? It means the
+    # offence runs through him and they trust him at the goal line. The chart cannot say that; it
+    # is the only thing the sentence can add. A number appears here only when the number IS the
+    # point -- a contrast, or a superlative the strip cannot show because it has nothing to
+    # compare against.
+    #
+    # AND SHAPE IS HALF OF VOICE. Every clause was subject-verb-number, joined by "and". Real
+    # writing varies LENGTH and STRUCTURE: a four-word fragment against a long clause is what
+    # makes rhythm. So each angle now carries a LEAD (a full sentence, names him) and a FRAG (a
+    # fragment, no name), and a card is a lead plus one or two fragments -- full stops, not commas.
+    #
+    # ⚠️ EVERY CLAUSE IS STILL EARNED BY A NUMBER ON THE PAYLOAD, and there are still no matchup
+    # claims. "They trust him near the stripe" is what i10pg being top-of-position MEANS. It is
+    # not a forecast, not an opinion about a defence, and not a fact the model did not measure.
     def angles(self, p, who, salt='', lead=False):
-        """[(key, brief, full)] for one player, best-first. `who` is how to name him.
-
-        Every entry restates a number that is on the payload. Nothing here predicts anything.
-        """
+        """[(key, lead_sentence, fragment)] for one player, best-first."""
         out = []
         k = str(who) + str(salt)
         pos = (p.get('pos') or p.get('bhand') or '').upper()
         touch_word, role = _ROLE.get(pos, ('touches', 'player'))
-        i10 = p.get('i10pg')
-        tch = p.get('tchpg')
-        shr = p.get('i10_share')
-        imp = p.get('imp')
-        pm = p.get('p_model')
-        odds = p.get('odds')
-        basis = str(p.get('basis') or '')
-        bg = p.get('basis_games')
+        i10, tch = p.get('i10pg'), p.get('tchpg')
+        shr, imp = p.get('i10_share'), p.get('imp')
+        pm, odds = p.get('p_model'), p.get('odds')
+        basis, bg = str(p.get('basis') or ''), p.get('basis_games')
         i10_hi, i10_top = self._band(pos, 'i10pg')
         tch_hi, tch_top = self._band(pos, 'tchpg')
-        shr_hi, _shr_top = self._band(pos, 'i10_share')
-        mx = self.max_by_pos.get((pos or '').upper(), {})
+        shr_hi, _ = self._band(pos, 'i10_share')
+        mx = self.max_by_pos.get(pos, {})
 
         def is_max(val, key):
             m = mx.get(key)
             return isinstance(val, (int, float)) and isinstance(m, (int, float)) and val >= m - 1e-9
 
-        def say(opts, kk):
-            """Prefer a phrasing where he is the SUBJECT when this clause leads the sentence."""
-            if lead:
-                subj = [o for o in opts if o.startswith(str(who) + ' ')]
-                if subj:
-                    return _pick(subj, kk)
-            return _pick(opts, kk)
+        def hi(v, b):   return isinstance(v, (int, float)) and b is not None and v >= b
+        def lo(v, b):   return isinstance(v, (int, float)) and b is not None and v < b
+        def pick(o, kk): return _pick(o, kk)
 
-        # ==================================================================================
-        # 🚨 COMBOS FIRST -- WHERE TWO NUMBERS SAY SOMETHING NEITHER SAYS ALONE.
-        # ==================================================================================
-        # Owner, on the first cut: "i said creative. are you trying to put me to sleep?"
-        # He was right and this block is the answer. Everything below the combos maps ONE number
-        # to a paraphrase of itself -- "0.4 looks a game inside the ten" -- so a card was three
-        # facts with conjunctions between them. That is variety, not writing.
-        # A COMBO is the sentence a person would actually say: eighteen touches and none of them
-        # near the stripe is not two facts, it is ONE OBSERVATION, and it is the interesting one.
-        # They are unshifted by _rot (pin_first) because when a combo fires it is the best line on
-        # the card and burying it third is how you get a boring board.
-        #
-        # ⚠️ STILL NO MATCHUP CLAIMS AND STILL NO PREDICTION. Every combo restates two numbers
-        # that are on the payload and draws the arithmetic conclusion. "Volume without the short
-        # field" is what 18.0 and 0.2 MEAN; it is not a forecast and not an opinion about a
-        # defence. If you add one, it must survive that test.
-        # ⚠️ A COMBO IS THE LOUDEST LINE ON THE CARD, SO IT NEEDS THE MAXIMUM, NOT A BAND.
-        # First cut used the 85th-percentile band and, with three or four men per position, that
-        # is most of them: "AJ Barner does the lot" went out about a tight end on 4.6 targets a
-        # game, and Hunter Henry was "the whole offence" on 4.8. Exactly the mistake the
-        # superlative gate already fixed once -- made again, one layer up, in the emphatic
-        # register where it reads worst. `is_max` for the loud half of every combo.
-        combo_hi_i10 = is_max(i10, 'i10pg') and i10_top is not None and i10 >= i10_top
-        combo_lo_i10 = i10_hi is not None and isinstance(i10, (int, float)) and i10 < i10_hi
-        combo_hi_tch = is_max(tch, 'tchpg') and tch_top is not None and tch >= tch_top
-        combo_lo_tch = tch_hi is not None and isinstance(tch, (int, float)) and tch < tch_hi
+        top_i10, top_tch = is_max(i10, 'i10pg'), is_max(tch, 'tchpg')
+        hi_i10, hi_tch = hi(i10, i10_hi), hi(tch, tch_hi)
+        lo_i10, lo_tch = lo(i10, i10_hi), lo(tch, tch_hi)
+        nolog = basis.startswith('depth') and not bg
 
-        # THE BELL COW -- gets it constantly AND gets it where it counts.
-        if combo_hi_tch and combo_hi_i10:
-            out.append(('combo',
-                        say([f'{who} tops the {role}s for work AND for the short field',
-                             f'{who} leads the {role}s both ways — {tch:.1f} a game, {i10:.1f} inside the ten',
-                             f'volume and the short field both belong to {who}',
-                             f'no {role} here does more of either than {who}'], k + 'c1'),
-                        say([f'{who} leads the {role}s twice over: {tch:.1f} {touch_word} a game and {i10:.1f} of them inside the ten, so he is not waiting on a long one',
-                             f'no other {role} on this card does more of both — {tch:.1f} a game for {who}, and {i10:.1f} of it inside the ten',
-                             f'{who} is the busiest {role} here and the one they go to when the field runs out: {tch:.1f} a game, {i10:.1f} inside the ten'], k + 'C1')))
+        # ---- THE HEADLINE. One of these, and it is the reason he is on the board. -----------
+        if nolog:
+            out.append(('story',
+                pick([f'{who} is a depth chart with a price on it',
+                      f'{who} is a projection, not a player — nobody has seen him do this',
+                      f'{who} arrives on the board without a game to his name',
+                      f'{who} is a slot on a depth chart that the book has put odds on'], k + 'h1'),
+                pick(['nobody has seen him do it yet', 'the game log is empty',
+                      'a role, not a record', 'all projection, no evidence',
+                      'not one snap behind the numbers'], k + 'f1')))
+        elif top_tch and top_i10:
+            out.append(('story',
+                pick([f'the offence runs through {who}, and they trust him when it gets short',
+                      f'{who} does the carrying and takes the goal-line work as well',
+                      f'{who} is the bell cow here in every sense',
+                      f'everything goes through {who}, right down to the last ten yards'], k + 'h2'),
+                pick(['the workload and the short field, both his', 'nobody here does more of either',
+                      'volume and the goal line in one man', 'he does not share the good part'], k + 'f2')))
+        elif top_tch and lo_i10:
+            out.append(('story',
+                pick([f'{who} does the work and somebody else finishes it',
+                      f'{who} moves the chains; the short field belongs to somebody else',
+                      f'{who} carries it between the twenties and hands the last ten yards over',
+                      f'all that volume for {who}, and almost none of it where it pays'], k + 'h3'),
+                pick(['plenty of the ball, none of the good bit', 'a chain-mover, not a finisher',
+                      'the work without the reward', 'he gets there and then watches'], k + 'f3')))
+        elif top_i10 and lo_tch:
+            out.append(('story',
+                pick([f'{who} barely plays, and plays where it counts',
+                      f'{who} is kept for the short field',
+                      f'{who} is a specialist — they bring him on to score',
+                      f'{who} does not do much, but what he does is close range'], k + 'h4'),
+                pick(['a specialist, not a workhorse', 'kept back for the short field',
+                      'he is on for one reason', 'cameo work, scoring work'], k + 'f4')))
+        elif top_i10:
+            out.append(('story',
+                pick([f'when the field runs out, it goes to {who}',
+                      f'{who} is the one they trust from a yard',
+                      f'nobody in his shirt sees more of the goal line than {who}',
+                      f'{who} is first in the queue near the stripe'], k + 'h5'),
+                pick(['first in the queue near the stripe', 'the goal-line man',
+                      'they trust him from a yard', 'the short field is his'], k + 'f5')))
+        elif top_tch:
+            out.append(('story',
+                pick([f'{who} is not coming off the field',
+                      f'the ball finds {who} more than anyone in his shirt',
+                      f'{who} is the engine of this offence',
+                      f'everything runs through {who}'], k + 'h6'),
+                pick(['he never leaves the field', 'the ball keeps finding him',
+                      'the engine of it', 'nobody in his shirt sees it more'], k + 'f6')))
 
-        # VOLUME WITHOUT THE SHORT FIELD -- the trap the old note could not see.
-        elif combo_hi_tch and combo_lo_i10:
-            out.append(('combo',
-                        say([f'{who} gets it {tch:.1f} times a game and almost never inside the ten',
-                             f'all that work and none of it near the stripe — {i10:.1f} a game for {who}',
-                             f'{who} carries the load between the twenties, {i10:.1f} inside the ten'], k + 'c2'),
-                        say([f'{who} gets it {tch:.1f} times a game and just {i10:.1f} of those come inside the ten -- volume without the short field, so he is scoring from range',
-                             f'{tch:.1f} {touch_word} a game for {who} and only {i10:.1f} inside the ten: he moves the chains, somebody else finishes'], k + 'C2')))
+        # ---- WHAT KIND OF BET THIS IS. --------------------------------------------------------
+        if hi_i10 and not top_i10:
+            out.append(('kind',
+                pick([f'{who} gets his share of the short field',
+                      f'{who} is in the huddle when it gets to goal-to-go',
+                      f'{who} does not need a long one'], k + 'k1'),
+                pick(['no seventy-yarder required', 'he gets his share of the short field',
+                      'goal-to-go is not new to him', 'the cheap kind of touchdown is available'], k + 'k2')))
+        elif lo_i10 and not lo_tch:
+            out.append(('kind',
+                pick([f'{who} is scoring from range or not at all',
+                      f'{who} has to go the long way',
+                      f'nobody is handing {who} a one-yard gift'], k + 'k3'),
+                pick(['it has to be a long one', 'the long way round',
+                      'no gimme from a yard', 'distance or nothing'], k + 'k4')))
+        elif lo_tch:
+            out.append(('kind',
+                pick([f'{who} needs the play called for him',
+                      f'this is a bet on one snap going {who}\'s way',
+                      f'{who} has to make his cameo count'], k + 'k5'),
+                pick(['one snap has to go his way', 'the play has to be called for him',
+                      'a cameo that has to count', 'he needs the design, not the volume'], k + 'k6')))
 
-        # THE SPECIALIST -- barely plays, but plays where the points are.
-        elif combo_lo_tch and combo_hi_i10:
-            out.append(('combo',
-                        say([f'{who} barely plays, and plays where it counts',
-                             f'{tch:.1f} a game for {who}, {i10:.1f} of it inside the ten',
-                             f'{who} is kept for the short field'], k + 'c3'),
-                        say([f'{who} is on only {tch:.1f} {touch_word} a game but {i10:.1f} of them are inside the ten -- a specialist, not a workhorse',
-                             f'{who} does not play much, {tch:.1f} a game, and the club keeps him for the part that scores: {i10:.1f} inside the ten'], k + 'C3')))
+        # ---- ROLE, when the share says something the raw count does not. ----------------------
+        if hi(shr, shr_hi) and is_max(shr, 'i10_share') and not (top_i10 and lo_tch):
+            pct = int(round((shr or 0) * 100))
+            out.append(('role',
+                pick([f'more of {who}\'s work happens inside the ten than any {role} here',
+                      f'{who} is used nearer the stripe than the other {role}s',
+                      f'the club saves {who} for the part of the field that scores'], k + 'r1'),
+                pick(['used nearer the stripe than the rest', f'the most goal-line-weighted {role} here',
+                      'his job is the last ten yards'], k + 'r2')))
 
-        # PRICED LIKE A STARTER, PROJECTED OFF A CHART. The sharpest thing on tomorrow's board.
-        if (basis.startswith('depth') and not bg
-                and isinstance(odds, int) and odds <= 200):
-            out.append(('combo2',
-                        say([f'{who} is priced like a starter and has never played a down',
-                             f'no game log at all, and the book still wants {odds:+d} on {who}',
-                             f'{who} is a depth chart with a price on it'], k + 'c4'),
-                        say([f'{who} is priced at {odds:+d} on the strength of a depth chart -- there is no game log behind him at all',
-                             f'the book has {who} at {odds:+d} and he has not taken a snap: every number on this card is a role, not a record'], k + 'C4')))
-
-        # --- THE GOAL LINE. The one number that is actually about scoring a touchdown. --------
-        if isinstance(i10, (int, float)) and i10 > 0:
-            if is_max(i10, 'i10pg') and i10_top is not None and i10 >= i10_top:
-                out.append(('goalline',
-                            say([f'{who} tops the {role}s for goal-line work — {i10:.1f} a game inside the ten',
-                                 f'no {role} here sees more inside the ten than {who}',
-                                 f'{i10:.1f} looks a game inside the ten for {who}',
-                                 f'{who} gets {i10:.1f} cracks at it from close range',
-                                 f'{who} is on the field when it gets tight — {i10:.1f} inside the ten'], k + 'g'),
-                            say([f'{who} sees {i10:.1f} looks a game inside the ten, more goal-line work than any {role} on the card',
-                                 f'{who} does more inside the ten than any other {role} on the board, {i10:.1f} a game',
-                                 f'{who} gets {i10:.1f} cracks a game from inside the ten, which is where this bet is won',
-                                 f'{who} is on the field when the field gets short: {i10:.1f} looks a game inside the ten'], k + 'G')))
-            elif i10_hi is not None and i10 >= i10_hi:
-                out.append(('goalline',
-                            say([f'{who} gets his share of the short field, {i10:.1f} a game',
-                                 f'{i10:.1f} a game inside the ten for {who}',
-                                 f'{who} is in the huddle when the field runs out',
-                                 f'{who} is around it near the stripe — {i10:.1f} a game',
-                                 f'the short field is not new to {who}'], k + 'g'),
-                            say([f'{who} takes {i10:.1f} touches a game inside the ten, so he does not need a seventy-yarder',
-                                 f'{who} is in the picture when the field runs out — {i10:.1f} looks a game inside the ten',
-                                 f'{who} gets {i10:.1f} a game from close range, which is the cheap way to score one'], k + 'G')))
-            else:
-                out.append(('goalline',
-                            say([f'{who} has to go the long way — {i10:.1f} a game inside the ten',
-                                 f'{i10:.1f} inside the ten: {who} is not the short-yardage answer',
-                                 f'{who} is a stranger to the short field, {i10:.1f} a game',
-                                 f'nobody is handing {who} a one-yard gift'], k + 'g'),
-                            say([f'{who} sees only {i10:.1f} touches a game inside the ten, so this is a drive-length bet rather than a goal-line one',
-                                 f'{who} is light near the stripe at {i10:.1f} a game — he needs the long one',
-                                 f'{who} gets {i10:.1f} a game inside the ten, so he is scoring from distance or not at all'], k + 'G')))
-        elif i10 == 0:
-            out.append(('goalline',
-                        say([f'{who} has no goal-line work at all',
-                             f'nothing inside the ten for {who}',
-                             f'{who} is not a short-yardage answer'], k + 'g'),
-                        say([f'{who} has not taken a touch inside the ten, so every yard of this has to come from distance',
-                             f'nothing at all inside the ten for {who} — he scores the long way or not at all'], k + 'G')))
-
-        # --- SHARE. Of his own work, how much of it happens where the points are. ------------
-        if (isinstance(shr, (int, float)) and shr > 0 and shr_hi is not None and shr >= shr_hi
-                and is_max(shr, 'i10_share')):
-            pct = int(round(shr * 100))
-            out.append(('share',
-                        say([f'{pct}% of {who}\'s work is inside the ten',
-                             f'{who} works nearer the stripe than the other {role}s — {pct}% of his touches',
-                             f'{pct}% of what {who} gets is close range'], k + 's'),
-                        say([f'{pct}% of {who}\'s touches come inside the ten, a bigger share than the other {role}s here',
-                             f'{who} is used where it counts — {pct}% of his work is inside the ten',
-                             f'{pct}% of {who}\'s touches happen inside the ten'], k + 'S')))
-
-        # --- VOLUME, said in the language of the position. ------------------------------------
-        if isinstance(tch, (int, float)) and tch > 0:
-            if is_max(tch, 'tchpg') and tch_top is not None and tch >= tch_top:
-                out.append(('volume',
-                            say([f'{who} is the engine, {tch:.1f} a game',
-                                 f'everything runs through {who} — {tch:.1f} a game',
-                                 f'{who} carries the load, {tch:.1f} a game',
-                                 f'no {role} on this card sees it more than {who}',
-                                 f'{who} is not coming off the field'], k + 'v'),
-                            say([f'{who} is the workhorse here, {tch:.1f} {touch_word} a game',
-                                 f'{who} gets {tch:.1f} {touch_word} a game, as much as any {role} on the card',
-                                 f'the ball goes through {who} — {tch:.1f} {touch_word} a game'], k + 'V')))
-            elif tch_hi is not None and tch >= tch_hi:
-                out.append(('volume',
-                            say([f'{who} on {tch:.1f} {touch_word} a game',
-                                 f'{tch:.1f} a game through {who}',
-                                 f'{who} sees the ball {tch:.1f} times a game'], k + 'v'),
-                            say([f'{who} is on {tch:.1f} {touch_word} a game',
-                                 f'{who} sees the ball {tch:.1f} times a game as the {role}'], k + 'V')))
-            else:
-                out.append(('volume',
-                            say([f'{who} is a bit-part at {tch:.1f} a game',
-                                 f'{tch:.1f} a game — {who} has to make it count',
-                                 f'{who} is a cameo, {tch:.1f} {touch_word} a game',
-                                 f'not much comes {who}\'s way, {tch:.1f} a game'], k + 'v'),
-                            say([f'{who} is on only {tch:.1f} {touch_word} a game, so the one he gets has to be the right one',
-                                 f'{who} is a cameo at {tch:.1f} {touch_word} a game — this is a bet on a single snap',
-                                 f'{tch:.1f} {touch_word} a game means {who} needs the play called for him'], k + 'V')))
-
-        # --- ENVIRONMENT. The implied total is the board's only game-level term. --------------
-        # ⚠️ ONLY WHEN THE SLATE ACTUALLY SPREADS, and the superlative only for the side that
-        # holds the maximum. See the note in __init__: a two-game slate put both totals in the
-        # "top" band and every card claimed the highest-implied game on the slate.
+        # ---- THE GAME. Only when the slate spreads; only the extremes are worth a clause. -----
         if isinstance(imp, (int, float)) and self.imp_spread >= 1.0:
-            top = self.imp_max is not None and abs(imp - self.imp_max) < 0.05
-            bot = self.imp_min is not None and abs(imp - self.imp_min) < 0.05
-            if top:
+            if self.imp_max is not None and abs(imp - self.imp_max) < 0.05:
                 out.append(('game',
-                            say([f'{who} is in the highest-implied game on the board',
-                                 f'{who}\'s side is implied for {imp:.1f}, the most on the slate',
-                                 f'nobody is expected to score more than {who}\'s offence',
-                                 f'{imp:.1f} implied for {who}\'s side, top of the card'], k + 'e'),
-                            say([f'{who} is in the highest-implied game on the board — {imp:.1f} for his side',
-                                 f'{who}\'s offence is down for {imp:.1f}, more than anybody else today',
-                                 f'no offence on this slate is implied for more than {who}\'s {imp:.1f}'], k + 'E')))
-            elif bot:
+                    pick([f'{who} is in the loudest game on the board',
+                          f'nobody is expected to score more than {who}\'s side',
+                          f'{who} is in the one everybody expects points from'], k + 'g1'),
+                    pick(['in the loudest game on the board', 'points to go round in this one',
+                          'the highest-implied side on the card'], k + 'g2')))
+            elif self.imp_min is not None and abs(imp - self.imp_min) < 0.05:
                 out.append(('game',
-                            say([f'{who}\'s side is implied for only {imp:.1f}',
-                                 f'just {imp:.1f} implied for {who}\'s offence',
-                                 f'{who} is in the quietest game on the board'], k + 'e'),
-                            say([f'{who}\'s side is implied for only {imp:.1f}, the lowest on the card, so there may not be many to share out',
-                                 f'the market gives {who}\'s offence just {imp:.1f} — this is a bet on one of a small number'], k + 'E')))
-            else:
-                out.append(('game',
-                            say([f'{who}\'s side is implied for {imp:.1f}',
-                                 f'{imp:.1f} implied for {who}\'s offence'], k + 'e'),
-                            say([f'{who}\'s side is implied for {imp:.1f}',
-                                 f'the market has {who}\'s offence down for {imp:.1f}'], k + 'E')))
+                    pick([f'{who} is in the quietest game on the card',
+                          f'there may not be many to share out where {who} is playing',
+                          f'{who}\'s side is expected to score least of anybody'], k + 'g3'),
+                    pick(['the quietest game on the card', 'not many to go round',
+                          'the lowest-implied side here'], k + 'g4')))
 
-        # --- THE MODEL'S OWN NUMBER. ----------------------------------------------------------
+        # ---- THE MODEL, as a verdict rather than a percentage. --------------------------------
         if isinstance(pm, (int, float)):
             pct = pm * 100
-            out.append(('model',
-                        say([f'the model likes {who} at {pct:.0f}%',
-                             f'{who} scores {pct:.0f}% of the time by the model',
-                             f'{pct:.0f}% on the model for {who}',
-                             f'the model is not shy about {who} — {pct:.0f}%'], k + 'm'),
-                        say([f'the model puts {who} in the end zone {pct:.0f}% of the time',
-                             f'{who} comes out at {pct:.0f}% to find it',
-                             f'{pct:.0f}% of the time the model has {who} scoring this'], k + 'M')))
+            if pct >= 25:
+                out.append(('model',
+                    pick([f'the model is not shy about {who}',
+                          f'{who} is one of the model\'s favourites tonight',
+                          f'the model likes {who} a lot'], k + 'm1'),
+                    pick(['the model likes him a lot', 'one of its favourites tonight',
+                          'the model is not shy here'], k + 'm2')))
+            elif pct < 12:
+                out.append(('model',
+                    pick([f'the model is cool on {who}',
+                          f'{who} is a long shot by the model as well as the book',
+                          f'the model does not love {who} either'], k + 'm3'),
+                    pick(['the model is cool on him', 'a long shot on both counts',
+                          'the numbers do not love him either'], k + 'm4')))
 
-        # --- WHAT THE NUMBERS REST ON. A caveat, and it goes last. ----------------------------
-        if basis.startswith('depth') and (bg == 0 or bg is None):
-            out.append(('basis',
-                        say([f'{who} has no game log at all — this is the depth chart',
-                             f'nothing but a depth chart behind {who}',
-                             f'{who} is projected off his slot, not off snaps'], k + 'b'),
-                        say([f'{who} has no game log behind him at all: every number here comes off the depth chart, not off anything he has done',
-                             f'nothing but a depth chart behind {who} — treat the numbers as a role, not a record'], k + 'B')))
-        elif isinstance(bg, int) and 0 < bg <= 5:
-            out.append(('basis',
-                        say([f'{who} on {bg} games of evidence',
-                             f'only {bg} games behind {who}'], k + 'b'),
-                        say([f'{who} has only {bg} games behind these numbers, so read them lightly',
-                             f'{bg} games is all the evidence there is on {who}'], k + 'B')))
-
-        # --- PRICE. Pinned last by _rot. -------------------------------------------------------
-        if isinstance(odds, int):
-            out.append(('price',
-                        say([f'{who} at {odds:+d}', f'{odds:+d} for {who}', f'{who} is {odds:+d}'], k + 'p'),
-                        say([f'{who} is priced {odds:+d}', f'the book has {who} at {odds:+d}'], k + 'P')))
+        # ---- PRICE, last, and only when it disagrees with something. --------------------------
+        if isinstance(odds, int) and isinstance(pm, (int, float)):
+            imp_p = (100.0 / (odds + 100.0)) if odds > 0 else (-odds / (-odds + 100.0))
+            if pm - imp_p >= 0.05:
+                out.append(('price',
+                    pick([f'the book has {who} longer than the model does',
+                          f'{who} is priced worse than the model rates him'], k + 'p1'),
+                    pick(['longer than the model makes him', 'the book is behind the model here'], k + 'p2')))
+            elif imp_p - pm >= 0.05:
+                out.append(('price',
+                    pick([f'the book is shorter on {who} than the model is',
+                          f'{who} is priced better than the model rates him'], k + 'p3'),
+                    pick(['shorter than the model makes him', 'the book rates him above the model'], k + 'p4')))
 
         if not out:
-            out.append(('rate', f'{who} is on the card', f'{who} is priced and on the card'))
+            out.append(('kind', f'{who} is on the card', 'priced and on the card'))
         return out
 
     # ---------------------------------------------------------------------------------------
     def why(self, p):
-        """Two or three clauses on one card: full name first, then the name drops away."""
+        """A lead sentence, then one or two FRAGMENTS. Full stops, not commas.
+
+        Length is deliberately uneven -- some men get one line, some get three -- because a board
+        where every card is the same length reads like a form even when the words differ."""
         n = p.get('name') or p.get('nm')
-        keep, used = [], set()
-        # ⚠️ SUBJECT-FIRST FOR EVERY CLAUSE, not just the leading one. soccer's why() picks the
-        # non-lead clauses from the whole bank for variety, and on this board that put an
-        # OBJECT-position phrasing in clause three -- "the model puts Echo Wide in the end zone
-        # 28% of the time" -- which _depersonalise deliberately will not touch, so the card said
-        # his name twice. Asking for the subject form means the leading strip always bites.
-        # Variety is not lost: it comes from _rot choosing a different ANGLE per player, which
-        # was always where it came from.
-        lead_of = {a[0]: a for a in self.angles(p, n, lead=True)}
-        # A man with NO game log at all is a caveat that cannot be allowed to rotate off the
-        # end of a three-clause card. Everything else competes for the remaining seats.
-        # A combo is the best line on the card when it exists, and the no-game-log caveat cannot
-        # be allowed to rotate off the end. Both are pinned to the front; everything else competes.
-        must = ('combo', 'combo2')
-        if str(p.get('basis') or '').startswith('depth') and not p.get('basis_games'):
-            must = must + ('basis',)
-        for key, _brief, _full in _rot(self.angles(p, n), str(n) + 'card', pin_first=must):
-            if key in used:
-                continue
-            used.add(key)
-            full = lead_of.get(key, (0, 0, _full))[2]
-            # 🚨 A COMBO SPENDS ITS PARTS. It is built FROM the goal-line and volume numbers, so
-            # letting those angles fire again is how A.J. Brown's card said "7.7 targets a game
-            # and 0.3 of them inside the ten", then "takes 0.3 touches a game inside the ten",
-            # then "is on 7.7 targets a game" -- the same two numbers, three times, in one
-            # sentence. combo2 likewise spends the depth-chart caveat it already contains.
-            if key == 'combo':
-                used.update(('goalline', 'volume', 'share'))
-            elif key == 'combo2':
-                used.add('basis')
-            keep.append(_depersonalise(full, n) if keep else full)
-            if len(keep) == 3:
+        seq = _rot(self.angles(p, n, lead=True), str(n) + 'card', pin_first=('story',))
+        if not seq:
+            return ''
+        bits = [seq[0][1]]
+        want = 1 + (_h(str(n) + 'len') % 3)        # 1, 2 or 3 clauses
+        for key, _l, frag in seq[1:]:
+            if len(bits) >= want:
                 break
-        return _sentence(keep)
+            if frag:
+                bits.append(frag)
+        body = bits[0][0].upper() + bits[0][1:]
+        for f in bits[1:]:
+            body += '. ' + f[0].upper() + f[1:]
+        return body + '.'
 
     # ---------------------------------------------------------------------------------------
     def ticket_note(self, legs, players, tname=''):
-        """One sentence naming what each leg is FOR, in slip order, no angle used twice.
+        """One clause per leg, no angle twice, and the shape varies with the slip.
 
-        A three-leg slip gets one clause per leg or the note overruns the two-line clamp; a
-        single has the room for two and reads like a telegram with one.
+        ⚠️ HOW MANY BEATS EACH MAN GETS IS A FUNCTION OF HOW MANY MEN THERE ARE, and getting that
+        wrong silently loses a leg. A first cut gave EVERY man a lead-plus-fragment whenever the
+        slip was not a treble, so a two-leg slip built four bits, fell past the `len(bits) == 2`
+        frame into the single-clause fallback, and printed `bits[0]` -- one sentence about the
+        first man and no mention at all of the second. A note that omits a leg of the slip is
+        worse than a dull one: the reader is holding a ticket with a name on it that the write-up
+        never acknowledges. Two beats belong to a SINGLE, which would otherwise be a telegram;
+        every multi-leg slip gets exactly one beat per man.
         """
-        per = 1 if len(legs) >= 3 else 2
         used, bits = set(), []
+        three = len(legs) >= 3
+        beats = 2 if len(legs) == 1 else 1
         for l in legs:
-            p = players.get(l['name'] if isinstance(l, dict) else l)
+            nm = l['name'] if isinstance(l, dict) else l
+            p = players.get(nm)
             if not p:
                 continue
             sur = _surname(p.get('name') or p.get('nm'))
-            lead_of = {a[0]: a for a in self.angles(p, sur, salt=tname, lead=True)}
-            cands = _rot(self.angles(p, sur, salt=tname), str(tname) + sur)
             took = 0
-            for key, brief, full in cands:
+            for key, ldr, frag in _rot(self.angles(p, sur, salt=tname), str(tname) + sur,
+                                       pin_first=('story',)):
                 if key in used:
                     continue
                 used.add(key)
-                # SUBJECT-FIRST FOR EVERY CLAUSE, the same fix why() carries and which this
-                # missed: the second clause of a single-leg note picked from the whole bank, so
-                # an object-position phrasing came out un-strippable and the FIRST slip on the
-                # live board read "Price comes out at 28% to find it and nothing but a depth
-                # chart behind Price". Ask for the subject form and the leading strip bites.
-                _k, brief, full = lead_of.get(key, (key, brief, full))
-                if took == 0:
-                    bits.append(brief if per == 1 else full)
-                else:
-                    bits.append(_depersonalise(brief if per == 1 else full, sur))
-                took += 1
-                if took == per:
+                if three:
+                    bits.append(sur + ' — ' + frag)      # one beat per man
+                    took += 1
                     break
-            if not took and cands:
-                bits.append(cands[0][1] if per == 1 else cands[0][2])
+                # ONE leg: the second beat is a bare FRAGMENT, because the man has already been
+                # named a clause ago and "Marsh needs the play called for him and Marsh — the
+                # lowest-implied side here" is the mail-merge read this module exists to kill.
+                # TWO legs: both men get a LEAD, because the second one is somebody else and a
+                # nameless fragment would attach his reason to the first man.
+                bits.append(frag if (bits and beats == 2) else ldr)
+                took += 1
+                if took >= beats:
+                    break
         if not bits:
             return ''
-        if len(bits) >= 3:
-            body = _pick(FRAMES_3, str(tname) + 'f3').format(
-                a=bits[0], b=bits[1], c=', '.join(bits[2:]), o=_pick(OPENERS_3, str(tname) + 'o3'))
+        if three:
+            # ⚠️ NOT FRAMES_3 HERE. Those insert their own dashes, and a note built of
+            # "Surname — fragment" beats then reads "Price — nobody has seen him — Smith-Njigba —
+            # in the loudest game", which is unparseable. Semicolons separate the men; the dash
+            # belongs to each man's own beat.
+            body = _pick(OPENERS_3, str(tname) + 'o3') + ': ' + '; '.join(bits) + '.'
         elif len(bits) == 2:
             body = _pick(FRAMES_2, str(tname) + 'f2').format(
                 a=bits[0], b=bits[1], o=_pick(OPENERS_1, str(tname) + 'o1'))
