@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T20:23:24Z",
+  "pulled_at": "2026-09-08T20:27:22Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1155,7 +1155,7 @@
     },
     {
       "gamePk": 823738,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-08T23:40:00Z",
       "matchup": "CHC@MIL",
       "away": {
@@ -1177,10 +1177,56 @@
           "hr9": 0.81,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.19
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.168
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.145
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.135
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.22
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.097
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.134
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.152
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.1
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1343,9 +1389,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 11mph, 75\u00b0",
+        "lean": "Boost",
+        "temp": 75.3,
+        "wind_mph": 11.4,
+        "wind_dir": 280,
+        "tail_mph": 11.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.046
     },
     {
       "gamePk": 823901,
