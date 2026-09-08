@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T23:19:07Z",
+  "pulled_at": "2026-09-08T23:24:26Z",
   "games": [
     {
       "gamePk": 824792,
@@ -643,7 +643,7 @@
           {
             "id": 642201,
             "name": "Eli White",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 657136,
@@ -1201,7 +1201,7 @@
     },
     {
       "gamePk": 823738,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-08T23:40:00Z",
       "matchup": "CHC@MIL",
       "away": {
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 11mph, 75\u00b0",
-        "lean": "Boost",
-        "temp": 74.7,
-        "wind_mph": 11.0,
-        "wind_dir": 277,
-        "tail_mph": 10.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.045
+      "wf": 1.0
     },
     {
       "gamePk": 823901,
