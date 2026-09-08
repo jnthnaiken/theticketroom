@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T20:57:26Z",
+  "pulled_at": "2026-09-08T21:00:32Z",
   "games": [
     {
       "gamePk": 824792,
@@ -796,7 +796,7 @@
         "wind_mph": 3.3,
         "wind_dir": 62,
         "tail_mph": -2.3,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.004
     },
@@ -1212,8 +1212,54 @@
           "hr9": 0.99,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.296
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.209
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.181
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.154
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.094
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.195
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.194
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.237
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
