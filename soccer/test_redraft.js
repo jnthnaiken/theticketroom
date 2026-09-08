@@ -90,14 +90,47 @@ console.log('=== the board under test ===');
      nothing new is a moon (the draft did not run over the frozen board), nothing new is a
      single-leg BUILDER (that is the leftover section, whatever it is called -- the same test
      test_draft_golden.js applies to draft()), and the specials are capped at one apiece. */
+  /* 🚨 REWRITTEN AGAIN, FOR ANCHORSET-2026-09-04. THE CLAIM IS THE CAP, NOT "NO MOONS".
+     The three assertions this replaces were "nothing new is a moon", "nothing new is a builder"
+     and "anything new is a single-leg special" -- i.e. a fully-frozen board can only ever gain
+     specials. That was true when it was written, on 2026-08-31, when SHAPEREPAIR minting a lunch
+     and a nightcap was the only way a frozen board could grow.
+     It stopped being true on 09-04 and NOBODY NOTICED FOR FOUR DAYS, because nothing ran this
+     file (see .github/workflows/tests.yml, which now does). ANCHORSET + DRAFTWIDE let the fresh
+     draft fill an anchor seat the frozen board is not using, which is exactly what ORPHANSECTION
+     describes a few hundred lines into soccer_draft.js: "the budget frees, and the fresh draft
+     mints a replacement anchor."
+     THIS FIXTURE HAS ONE ANCHOR AND ANCH IS FOUR. Mbappe holds all three frozen slips, so three
+     seats are genuinely empty and filling them is the engine doing its job. Owner confirmed
+     2026-09-08 that the behaviour is right and the assertion was behind.
+     ⚠️ SO ASSERT THE RULE, NOT THE OUTPUT. Rewriting a test to agree with whatever the code now
+     prints proves nothing. What must hold on any board, frozen or not, is: the cap is never
+     exceeded, a new anchor arrives with the SHAPE of an anchor (his pair and his builder, never a
+     stray moon), the retired leftover section stays retired, and the specials stay capped. */
   const fresh = r.tickets.filter(t => !t.locked);
   const freshKinds = fresh.map(t => t.kind);
-  chk('nothing new is a moon', !freshKinds.includes('moon'), freshKinds);
-  chk('nothing new is a leftover builder (the retired section stays retired)',
-    !freshKinds.includes('builder'), freshKinds);
-  chk('anything new is a single-leg special', fresh.every(t =>
-    (t.kind === 'lunch' || t.kind === 'late') && t.players.length === 1),
-    fresh.map(t => t.kind + ':' + t.players.length));
+  const anchorsOf = ts => [...new Set(ts.filter(t => t.kind !== 'lunch' && t.kind !== 'late')
+                                        .map(t => t.anchor))];
+  const ANCH = SD.DEFAULTS.ANCH;
+
+  chk(`the board never exceeds ANCH=${ANCH} anchors`,
+    anchorsOf(r.tickets).length <= ANCH, anchorsOf(r.tickets));
+  /* A new anchor arrives WHOLE or not at all -- all-or-none, the same rule the cold draft obeys.
+     A fresh moon whose anchor has no builder, or a builder anchoring nothing, is the shape that
+     UNLEFTOVER-2026-08-28 retired and it must not come back through the mint path. */
+  anchorsOf(fresh).forEach(a => {
+    const mine = r.tickets.filter(t => t.anchor === a);
+    chk(`new anchor ${a} arrives whole (${SD.DEFAULTS.MOONS_PER_ANC} moons + 1 builder)`,
+      mine.filter(t => t.kind === 'moon').length === SD.DEFAULTS.MOONS_PER_ANC &&
+      mine.filter(t => t.kind === 'builder').length === 1,
+      mine.map(t => t.kind));
+  });
+  chk('no new single-leg builder that anchors nothing (the leftover section stays retired)',
+    !fresh.some(t => t.kind === 'builder' && t.players.length === 1 &&
+                     !r.tickets.some(m => m.kind === 'moon' && m.anchor === t.anchor)),
+    freshKinds);
+  chk('nothing frozen was disturbed by the mint',
+    r.repaired === 0 && r.released === 0, r);
   chk('at most one lunch and one nightcap',
     freshKinds.filter(k => k === 'lunch').length <= 1 && freshKinds.filter(k => k === 'late').length <= 1,
     freshKinds);

@@ -48,6 +48,31 @@
  * tickets_snake.json, which is pinned the same way and is equally immutable from here.
  *
  * If a future change moves the allocation again, this file should fail again. That is the job.
+ *
+ * 🚨 GOLDENRECUT-2026-09-08. BOTH GOLDENS WERE RE-CUT, AND HERE IS WHAT THEY USED TO SAY.
+ * The file had been red at 7 failures and nobody knew, because nothing ran it (fixed:
+ * .github/workflows/tests.yml). What it shipped on 2026-08-26 was a ONE-anchor board:
+ *
+ *     moon     Kylian Mbappe + Dion Beljo + Luka Jovic
+ *     moon     Kylian Mbappe + Lois Openda + Barnabas Varga
+ *     builder  Kylian Mbappe
+ *
+ * and today the same fixture drafts THREE anchors and nine slips. That is not drift, and it is
+ * not DRAFTORDER either -- it is DRAFTWIDE-2026-09-04. Only SIX men clear Z_GATE on this fixture.
+ * Before DRAFTWIDE, partners had to clear the gate too, so one anchor and his four partners spent
+ * five of the six and a second anchor could not be filled. DRAFTWIDE lets partners come from the
+ * WIDE field, so Beljo and Jovic can now be seated and their screamers filled from below the
+ * gate. Owner confirmed 2026-09-08 that the behaviour is right and the golden was behind.
+ *
+ * DRAFTORDER is visible in the re-cut too, and is the reason to read the new file rather than
+ * trust it: the STRONGEST anchor draws the WORST partners. Mbappe (159.1) gets Tolisso 102.6 and
+ * Seslar 92.5; Jovic (131.8, the weakest seat) gets Openda 123.1 and Tripic 113.3. That is
+ * "the 1st pick goes to the 1st moon of the worst of the anchors", working.
+ *
+ * ⚠️ RE-CUTTING A GOLDEN IS ONLY LEGITIMATE WHEN YOU CAN NAME THE COMMIT THAT MOVED IT. If you
+ * cannot, the board changed for a reason nobody understands and the right move is to find out,
+ * not to overwrite the file. Every structural invariant below passed both before and after this
+ * re-cut, which is what said the new board was legal rather than merely different.
  */
 const fs = require('fs');
 const path = require('path');

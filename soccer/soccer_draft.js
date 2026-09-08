@@ -1128,8 +1128,38 @@
           if (!alive[l.name] || !freeToPin(l.name)) return;
           /* ANCHORFIRST-2026-09-04. He was a partner here last pass and has since won an anchor
              seat, so he is not pinned back into it. The slip refills from the next candidate the
-             same way it would for any other lost leg. */
-          if (_keep[l.name]) return;
+             same way it would for any other lost leg.
+
+             🚨 PINWINS-2026-09-08 -- ...UNLESS HE IS CONFIRMED. THEN THE PIN WINS.
+             Owner, ruling on exactly this: "no a confirmed partner cannot be pulled off an open
+             slip to take an anchor seat."
+             MEASURED on the 2026-08-26 fixture: scratch the third leg of Mbappe's screamer and
+             the repair came back
+
+                 before  Kylian Mbappe(159.1) + Dion Beljo(131.8) + Luka Jovic(131.8, scratched)
+                 after   Kylian Mbappe(159.1) + Peter Christiansen(110.9) + Talisca(109.7)
+
+             Only JOVIC was scratched. Beljo was confirmed, healthy and startable, and he left the
+             slip anyway -- because he is the second-strongest man on the board, so `_keep` had
+             chosen him for one of the free anchor seats -- taking 21 points of partner strength
+             off a screamer that had nothing wrong with it. He then anchored two moons of his own.
+             That is REPAIRWIDE-2026-08-30's harm arriving through a different door: "a scratched
+             leg drops it out of confirmed and the re-draft replaces JUST THAT LEG while CONFIRMED
+             LEGS STAY PINNED", written after a pinned leg that had already SCORED went off a slip.
+
+             ⚠️ WHAT ANCHORFIRST WAS ACTUALLY FOR IS UNTOUCHED. Its case (Godts, 2026-09-04) was
+             the REFILL handing a just-chosen anchor to somebody else's screamer, and that is the
+             `!_keep[p.name]` filter on `cands` above -- still there, still absolute. This line is
+             the other half, about a man ALREADY ON THE SLIP, and only the confirmed ones are held.
+             Demirovic and Barcola were BENCHED in that incident, so nothing this narrowing does
+             would have changed it.
+
+             ⚠️ HE CANNOT THEN ANCHOR AS WELL -- one man, one slip. Pinning him puts him in
+             `localUsed`, which becomes `usedPartners`, and the fresh draft's `remaining` filters
+             on exactly that, so the seat he was penciled into is refilled from the field by
+             strength instead. The seat is not lost, only reassigned. */
+          var _pinConf = ((D.players[l.name] || {}).status === 'confirmed');
+          if (_keep[l.name] && !_pinConf) return;
           if (seen[String(l.game)] || usedPartners[l.name] || localUsed[l.name]) return;
           if (!spanOk(legs.concat([rowOf(l.name)]), cfg)) return;
           legs.push(rowOf(l.name)); seen[String(l.game)] = true; localUsed[l.name] = true;
@@ -1365,9 +1395,31 @@
        soccer though, the pool seems to be smaller" -- on a 225-name card with 15-37 through
        Z_GATE, gating the pair completion would demote anchors rather than finish them. The
        "widest pool means no Z_GATE and no GAME_CAP" rule below stands exactly as written; this
-       changes only the ORDER in which anchors draw from it. */
+       changes only the ORDER in which anchors draw from it.
+
+       🚨 TOPUPSNAKE-2026-09-08 -- WORST ANCHOR FIRST, BECAUSE THAT IS THE DRAFT.
+       The sort above was `y - x`: STRONGEST anchor first. That was right when it was written --
+       the fresh draft picked strongest-first too, and the whole point of TOPUPORDER was that both
+       callers walk the anchors IDENTICALLY. Five days later DRAFTORDER-2026-09-04 reversed the
+       fresh draft on the owner's instruction -- "the 1st pick goes to the 1st moon of the worst
+       of the anchors" -- and nobody came back here. So the two halves of one draft have disagreed
+       ever since, and every live rebuild quietly un-does the snake.
+       Owner, 2026-09-08, looking at the board: "it looks like the worst anchor did not pick
+       first. why?" MEASURED on that board (18:40Z, a rebuild -- every screamer had been rebuilt
+       as the Bournemouth and Palace sheets landed):
+
+           Kylian Mbappe    197.7  strongest -> 143.8 142.6 140.1 127.7   mean 138.6
+           Erling Haaland   195.9            -> 151.9 131.1 128.5 123.0   mean 133.6
+           Serhou Guirassy  175.8  weakest   -> 128.2 119.6 118.7 113.3   mean 120.0
+
+       Exactly inverted: the best anchor drew the best partners and the weakest was left the
+       scraps, which is the front-loading DRAFTORDER exists to prevent.
+       `x - y` now, so the weakest anchor draws first from the shared candidate list.
+       ⚠️ DETERMINISM IS UNTOUCHED, and it is the reason this sort exists at all -- the tie-break
+       on name stays, so page and server still walk the anchors in the same order whatever each
+       one has frozen. That was TOPUPORDER's actual job; only the DIRECTION was stale. */
     Object.keys(moonCnt).sort(function (x, y) {
-      var dx = (D.players[y] ? D.players[y].TOTAL || 0 : 0) - (D.players[x] ? D.players[x].TOTAL || 0 : 0);
+      var dx = (D.players[x] ? D.players[x].TOTAL || 0 : 0) - (D.players[y] ? D.players[y].TOTAL || 0 : 0);
       return dx || (x < y ? -1 : x > y ? 1 : 0);
     }).forEach(function (an) {
       var ap = D.players[an];
