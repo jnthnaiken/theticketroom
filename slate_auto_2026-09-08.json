@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T21:58:11Z",
+  "pulled_at": "2026-09-08T22:00:40Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1506,7 +1506,7 @@
     },
     {
       "gamePk": 824957,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T01:40:00Z",
       "matchup": "TOR@ATH",
       "away": {
@@ -1528,10 +1528,56 @@
           "hr9": 1.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.12
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.104
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.211
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.14
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.135
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.074
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.166
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.161
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.176
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1621,13 +1667,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 11mph, 75\u00b0",
+        "lean": "Boost",
+        "temp": 75.4,
+        "wind_mph": 11.1,
+        "wind_dir": 280,
+        "tail_mph": 10.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.046
     },
     {
       "gamePk": 823901,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T02:10:00Z",
       "matchup": "CIN@LAD",
       "away": {
@@ -1649,10 +1702,56 @@
           "hr9": 0.82,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.141
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.177
+          },
+          {
+            "id": 669257,
+            "name": "Will Smith",
+            "iso": 0.126
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.158
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.152
+          },
+          {
+            "id": 500743,
+            "name": "Miguel Rojas",
+            "iso": 0.118
+          },
+          {
+            "id": 669743,
+            "name": "Alex Call",
+            "iso": 0.074
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.238
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.14
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
