@@ -105,8 +105,20 @@ OPENERS_1 = ['One name', 'Straight up', 'Nothing fancy', 'The plain one', 'No fr
 FRAMES_3 = ['{a}, {b}, and {c}.', '{o}: {a}, {b}, {c}.', '{a}. {b}, and {c}.',
             '{o} — {a}, {b}, and {c}.', '{a} and {b}. {c}.', '{a}; {b}; {c}.',
             '{a} — {b}. And {c}.', '{o}. {a}, {b}, {c}.', '{a}. Then {b}, and {c}.']
+# TWO MEN, two full clauses. "and" and a comma are fine here: both halves are LEADS, each with
+# its own subject -- "Deene is in the huddle at goal-to-go, and Prosser is priced better than the
+# model rates him."
 FRAMES_2 = ['{a} and {b}.', '{o}: {a}, {b}.', '{a}, and {b}.', '{o} — {a}, and {b}.',
             '{a}. {b}.', '{a} — {b}.']
+
+# 🚨 ONE MAN, AND THE SECOND HALF IS A FRAGMENT. FRAMES_2 CANNOT BE USED HERE, and it was, and it
+# reached the live board: "Everything runs through Smith-Njigba and no seventy-yarder required."
+# A fragment has no subject -- it is written to stand alone as its own sentence after a full stop,
+# which is exactly how why() uses it -- so bolting it on with "and" or a comma produces a sentence
+# that does not parse. Only the separators that START SOMETHING NEW work: a full stop, a dash, a
+# colon. Caught by reading the RENDERED NOTE rather than the payload, which is the third time
+# today that a correction was only visible at the reader's end.
+FRAMES_1 = ['{a} — {b}.', '{a}. {b}.', '{o}: {a} — {b}.', '{a}: {b}.', '{o}. {a} — {b}.']
 
 # What a touch MEANS depends on the position. These are the words, not a model term.
 _ROLE = {
@@ -451,7 +463,10 @@ class Voice:
             # belongs to each man's own beat.
             body = _pick(OPENERS_3, str(tname) + 'o3') + ': ' + '; '.join(bits) + '.'
         elif len(bits) == 2:
-            body = _pick(FRAMES_2, str(tname) + 'f2').format(
+            # ONE man's lead + his fragment needs FRAMES_1; TWO men's leads take FRAMES_2. Same
+            # bit count, different grammar -- see the FRAMES_1 header.
+            frames = FRAMES_2 if len(legs) >= 2 else FRAMES_1
+            body = _pick(frames, str(tname) + 'f2').format(
                 a=bits[0], b=bits[1], o=_pick(OPENERS_1, str(tname) + 'o1'))
         else:
             body = bits[0] + '.'

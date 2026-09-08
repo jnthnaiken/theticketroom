@@ -275,6 +275,33 @@ check('a one-leg note is more than a single fragment',
 check('a one-leg note names its man', 'Marsh' in single, single)
 check('a one-leg note names him ONCE', single.count('Marsh') == 1, single)
 
+# 🚨 A FRAGMENT IS NEVER BOLTED ON WITH "and" OR A COMMA. THIS REACHED THE LIVE BOARD.
+# A one-leg note is a LEAD (full clause, has a subject) plus a FRAGMENT (no subject -- written to
+# stand alone as its own sentence after a full stop, which is how why() uses it). The first cut
+# ran that pair through FRAMES_2, the two-MEN frame set, whose joins assume both halves are
+# clauses. The board published:
+#
+#     Everything runs through Smith-Njigba and no seventy-yarder required.
+#     Brown gets his share of the short field and shorter than the model makes him.
+#
+# Neither parses. Only separators that START SOMETHING NEW work after a fragment: a full stop, a
+# dash, a colon. Found by reading the RENDERED note on theticketroom.live -- it was correct in the
+# payload's own terms and wrong to the only person who reads it.
+for label, note in (('one-leg', single),):
+    tail = note.split('—')[-1] if '—' in note else note
+    check('a %s note does not join its fragment with "and" or a comma' % label,
+          not re.search(r'[a-z],? and [a-z]', note) or ' — ' in note or '. ' in note, note)
+    check('a %s note breaks before its fragment (dash, full stop or colon)' % label,
+          any(sep in note for sep in (' — ', '. ', ': ')), note)
+
+# Every single-leg slip on a board, not just the one above: the frame is picked by a hash, so one
+# example only exercises one frame. Walk the whole bank.
+for who in ('Alpha Rushton', 'Echo Vance', 'India Vogel', 'Rookie Amos', 'Hotel Kearns'):
+    for slip in ('The Workhorse', 'Bell Cow', 'Goal Line Back', 'Red Zone Target', 'Pylon'):
+        nt = V.ticket_note([{'name': who}], BY, tname=slip)
+        check('single-leg note breaks cleanly: %s / %s' % (who, slip),
+              any(sep in nt for sep in (' — ', '. ', ': ')) and nt.endswith('.'), nt)
+
 # Angles are consumed once per slip: the same reason must not be given for two different men.
 beats = [b.split('—', 1)[1].strip() for b in n3.split(';') if '—' in b]
 check('no two men on a slip are sold on the same beat', len(set(beats)) == len(beats), beats)
