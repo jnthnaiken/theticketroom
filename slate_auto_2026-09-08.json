@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T23:09:01Z",
+  "pulled_at": "2026-09-08T23:14:20Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1068,7 +1068,7 @@
     },
     {
       "gamePk": 824551,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-08T23:40:00Z",
       "matchup": "PIT@CWS",
       "away": {
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 87\u00b0",
-        "lean": "Boost",
-        "temp": 87.4,
-        "wind_mph": 3.2,
-        "wind_dir": 315,
-        "tail_mph": -1.1,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.022
+      "wf": 1.0
     }
   ]
 }
