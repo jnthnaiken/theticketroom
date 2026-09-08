@@ -415,8 +415,13 @@ class Voice:
                 if key in used:
                     continue
                 used.add(key)
+                # SUBJECT-FIRST FOR EVERY CLAUSE, the same fix why() carries and which this
+                # missed: the second clause of a single-leg note picked from the whole bank, so
+                # an object-position phrasing came out un-strippable and the FIRST slip on the
+                # live board read "Price comes out at 28% to find it and nothing but a depth
+                # chart behind Price". Ask for the subject form and the leading strip bites.
+                _k, brief, full = lead_of.get(key, (key, brief, full))
                 if took == 0:
-                    _k, brief, full = lead_of.get(key, (key, brief, full))
                     bits.append(brief if per == 1 else full)
                 else:
                     bits.append(_depersonalise(brief if per == 1 else full, sur))
