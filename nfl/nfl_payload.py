@@ -89,7 +89,7 @@ def wx_of(mm, wx_src):
 from nfl_voice import Voice
 
 
-def note_for(kind, legs, P, voice=None):
+def note_for(kind, legs, P, voice=None, tname=None):
     """🚨 NFLVOICE-2026-09-08. This used to BE the write-up: a four-branch if/elif with one fixed
     sentence per branch, and the last branch -- "<Surname> is on N touches a game." -- caught
     nearly everybody. Measured on the 2026-09-09 board, all four slips got that same sentence with
@@ -100,10 +100,28 @@ def note_for(kind, legs, P, voice=None):
     (VOICE-2026-08-28): one entry per ANGLE, several phrasings each, deterministically picked and
     rotated per player AND per slip so the same back does not lead with touches on every card.
     ⚠️ THE OLD WARNING SURVIVES AND IS NOT NEGOTIABLE: no matchup claims. There is no defensive
-    term on this board -- hr9/phr9 are written None -- so nothing in the prose may imply one."""
+    term on this board -- hr9/phr9 are written None -- so nothing in the prose may imply one.
+
+    🚨 SALT WITH THE SLIP'S NAME, NOT ITS KIND -- and this shipped wrong. The voice picks its
+    opener and its frame from a hash of `tname`, so that two slips on the same board get a
+    different pulse. Every ticket on the football board has kind="builder", so passing the KIND
+    handed all four slips the same hash, and the 5:17pm build published:
+
+        The Workhorse   | No frills. Price arrives on the board without a game to his name — ...
+        Bell Cow        | No frills. Everything runs through Smith-Njigba — ...
+        Goal Line Back  | No frills. Nobody in his shirt sees more of the goal line than ...
+        Red Zone Target | No frills. Brown gets his share of the short field — ...
+
+    Four different men, four correct sentences, and the identical opener on every one, which is
+    the mail-merge read this whole module exists to kill -- reintroduced by the ARGUMENT rather
+    than by the prose. It hid through three rewrites because the tests pass a distinct tname per
+    slip, as any hand-written test naturally would; only the real board has four slips that share
+    a kind. `kind` stays in the signature: it is what the caller has and what the old branchy
+    version keyed on, and a slip with no name still needs a salt.
+    """
     if voice is None:
         return ''
-    return voice.ticket_note(legs, P, tname=kind)
+    return voice.ticket_note(legs, P, tname=(tname or kind))
 
 
 def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None):
@@ -162,7 +180,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             wxs[meta_wx[str(l['game'])]['lean'].lower()] += 1
         T.append(dict(
             name=t['name'], kind=t['kind'], badge=t['badge'],
-            note=note_for(t['kind'], t['legs'], SRC, voice=voice),
+            note=note_for(t['kind'], t['legs'], SRC, voice=voice, tname=t['name']),
             players=legs, nlegs=len(legs), anchor=t['anchor'],
             # ⚠️ NO ' ET' HERE. The renderer emits `<span>Lock ${t.lock} ET</span>` and appends
             # the zone itself, so a lock string carrying it renders "Lock 1:00 PM ET ET".

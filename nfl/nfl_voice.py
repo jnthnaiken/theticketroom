@@ -429,6 +429,23 @@ class Voice:
         used, bits = set(), []
         three = len(legs) >= 3
         beats = 2 if len(legs) == 1 else 1
+
+        # 🚨 THE SALT IS THE SLIP AND ITS MEN, NOT THE SLIP NAME ALONE. The opener and the frame
+        # are picked from a hash of this key so that two slips on one board read with a different
+        # pulse. When the key was `tname` on its own, the caller decided whether that worked --
+        # and nfl_payload passed the ticket's KIND, which is "builder" for every football slip, so
+        # all four hashed identically and the board published "No frills." four times over four
+        # different men. Four correct sentences with one opener is the mail-merge read this module
+        # exists to kill, reintroduced through the argument rather than the prose.
+        # nfl_payload now passes the slip's name, but a module whose output collapses when a
+        # caller passes a duplicate label is one bad argument away from that board again. The men
+        # ARE what distinguishes two slips that share a label, so they go in the key: the same
+        # names in the same order still give the same words every build, which is the property
+        # that matters.
+        who_key = str(tname) + '|' + '/'.join(
+            _surname((players.get(l['name'] if isinstance(l, dict) else l) or {}).get('name')
+                     or (l['name'] if isinstance(l, dict) else l)) for l in legs)
+
         for l in legs:
             nm = l['name'] if isinstance(l, dict) else l
             p = players.get(nm)
@@ -461,13 +478,13 @@ class Voice:
             # "Surname — fragment" beats then reads "Price — nobody has seen him — Smith-Njigba —
             # in the loudest game", which is unparseable. Semicolons separate the men; the dash
             # belongs to each man's own beat.
-            body = _pick(OPENERS_3, str(tname) + 'o3') + ': ' + '; '.join(bits) + '.'
+            body = _pick(OPENERS_3, who_key + 'o3') + ': ' + '; '.join(bits) + '.'
         elif len(bits) == 2:
             # ONE man's lead + his fragment needs FRAMES_1; TWO men's leads take FRAMES_2. Same
             # bit count, different grammar -- see the FRAMES_1 header.
             frames = FRAMES_2 if len(legs) >= 2 else FRAMES_1
-            body = _pick(frames, str(tname) + 'f2').format(
-                a=bits[0], b=bits[1], o=_pick(OPENERS_1, str(tname) + 'o1'))
+            body = _pick(frames, who_key + 'f2').format(
+                a=bits[0], b=bits[1], o=_pick(OPENERS_1, who_key + 'o1'))
         else:
             body = bits[0] + '.'
         body = re.sub(r'(?<=\. )([a-z])', lambda m: m.group(1).upper(), body)

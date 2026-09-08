@@ -252,6 +252,31 @@ check('a three-leg note is at most three sentences', sentences <= 3, (sentences,
 check('every note fits the two-line clamp', all(len(n) <= 260 for n in notes),
       [(len(n), n) for n in notes if len(n) > 260])
 check('the notes differ from each other', len(set(notes)) == len(notes))
+
+# 🚨 TWO SLIPS THAT SHARE A KIND MUST NOT SHARE AN OPENER. THIS SHIPPED, AND THE TEST SLATE HID IT.
+# The opener and the frame are picked from a hash of `tname`, so that two slips on one board read
+# with a different pulse. nfl_payload passed the ticket's KIND -- and every football ticket has
+# kind="builder" -- so all four slips hashed identically and the 5:17pm board published "No
+# frills." four times over four different men. The prose was right; the ARGUMENT was wrong.
+#
+# It survived three rewrites because a hand-written test naturally gives each slip a distinct
+# name, which is precisely the case that works. So: check the case the BOARD has -- the same slip
+# name reused, and slips distinguished only by name -- and check it at the seam that got it
+# wrong, which is what the caller passes as tname.
+same_salt = [V.ticket_note([{'name': who}], BY, tname='builder')
+             for who in ('Alpha Rushton', 'Echo Vance', 'India Vogel', 'Delta Marsh')]
+opens = [n.split('.')[0] + '.' for n in same_salt]
+for o, n in zip(opens, same_salt):
+    print('   same-salt: ' + n)
+check('four slips sharing one tname do not all open with the same words',
+      len(set(opens)) >= 3, opens)
+
+# ...and the fix, from the other direction: the same MAN under different slip names reads
+# differently, which is what makes a distinct tname worth passing in the first place.
+by_slip = [V.ticket_note([{'name': 'Alpha Rushton'}], BY, tname=s)
+           for s in ('The Workhorse', 'Bell Cow', 'Goal Line Back', 'Red Zone Target')]
+check('one man under four slip names gets four different notes',
+      len(set(by_slip)) == len(by_slip), by_slip)
 check('no note recites a number either', not any(re.search(r'\d', n) for n in notes),
       [n for n in notes if re.search(r'\d', n)])
 
