@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
   "season": "2026",
-  "pulled_at": "2026-09-08T02:00:59Z",
+  "pulled_at": "2026-09-08T02:06:59Z",
   "games": [
     {
       "gamePk": 823415,
@@ -390,9 +390,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 80\u00b0",
+        "lean": "Boost",
+        "temp": 80.3,
+        "wind_mph": 8.7,
+        "wind_dir": 299,
+        "tail_mph": 2.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.024
     },
     {
       "gamePk": 824793,
@@ -1075,7 +1082,7 @@
           {
             "id": 663494,
             "name": "Bryan Torres",
-            "iso": 0.123
+            "iso": 0.122
           },
           {
             "id": 671056,
@@ -1105,17 +1112,17 @@
           {
             "id": 695491,
             "name": "Joshua B\u00e1ez",
-            "iso": 0.333
+            "iso": 0.329
           },
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.186
+            "iso": 0.184
           },
           {
             "id": 701675,
             "name": "Nathan Church",
-            "iso": 0.12
+            "iso": 0.122
           }
         ],
         "confirmed": true
@@ -1181,15 +1188,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 77\u00b0",
+        "cond": "wind out 9mph, 78\u00b0",
         "lean": "Boost",
-        "temp": 77.1,
-        "wind_mph": 11.3,
-        "wind_dir": 291,
-        "tail_mph": 10.2,
+        "temp": 77.9,
+        "wind_mph": 10.2,
+        "wind_dir": 293,
+        "tail_mph": 9.0,
         "precip": 0
       },
-      "wf": 1.046
+      "wf": 1.043
     },
     {
       "gamePk": 823902,
@@ -1218,12 +1225,12 @@
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.215
+            "iso": 0.214
           },
           {
             "id": 668709,
             "name": "JJ Bleday",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 663886,
@@ -1258,7 +1265,7 @@
         "sp": {
           "id": 686218,
           "name": "Emmet Sheehan",
-          "hr9": 1.92,
+          "hr9": 1.9,
           "hand": "RHP"
         },
         "lineup": [
@@ -1275,12 +1282,12 @@
           {
             "id": 669242,
             "name": "Tommy Edman",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 571970,
             "name": "Max Muncy",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 606192,
@@ -1316,17 +1323,17 @@
         "emoji": "\u26c5",
         "cond": "calm 2mph, 87\u00b0",
         "lean": "Boost",
-        "temp": 86.6,
-        "wind_mph": 5.2,
-        "wind_dir": 277,
-        "tail_mph": 1.6,
+        "temp": 86.7,
+        "wind_mph": 6.3,
+        "wind_dir": 276,
+        "tail_mph": 2.1,
         "precip": 4
       },
-      "wf": 1.031
+      "wf": 1.032
     },
     {
       "gamePk": 824958,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-08T02:05:00Z",
       "matchup": "TOR@ATH",
       "away": {
@@ -1446,9 +1453,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 3mph, 82\u00b0",
+        "lean": "Neutral",
+        "temp": 82.3,
+        "wind_mph": 4.6,
+        "wind_dir": 11,
+        "tail_mph": -3.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.008
     }
   ]
 }
