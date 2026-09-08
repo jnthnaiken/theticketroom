@@ -121,6 +121,43 @@ jobs:
             echo "go=true"    >> $GITHUB_OUTPUT
           fi
 
+      # ------------------------------------------------------------------------------------
+      # COVERAGE-2026-09-08. WHAT IS ON TODAY, ASKED RATHER THAN REMEMBERED.
+      #
+      # The failure this closes is not a broken build, it is a confident wrong answer. On
+      # 2026-09-08 "is there a soccer board today?" was answered from memory three times in an
+      # hour and was wrong every time -- it missed a 14-fixture MLS card, then six Champions
+      # League ties, then the four EFL Cup second-round ties that cupscope-2026-09-01.md had
+      # scoped SIX DAYS EARLIER by date and by event id. ESPN had all of them the whole time.
+      #
+      # So the day's coverage is now printed on every build whether or not anyone asks, and a
+      # fixture that is admissible but absent from the committed slate is a loud warning in the
+      # log. NEVER FATAL: a slate deliberately built without a tie (no Anytime Goalscorer on the
+      # page, which is CUPSCOPE's other half and cannot be checked from ESPN) is legitimate, and
+      # a scan outage must not take the board down. The warning is for the human, not the runner.
+      # ------------------------------------------------------------------------------------
+      - name: What is on today
+        if: steps.slate.outputs.go == 'true'
+        continue-on-error: true
+        run: |
+          cd soccer
+          node slate_scan.js ${{ steps.slate.outputs.date }} --all || exit 0
+          node slate_scan.js ${{ steps.slate.outputs.date }} --json > /tmp/scan.json || exit 0
+          python3 - <<'PY'
+          import json
+          scan = json.load(open('/tmp/scan.json'))
+          fx   = json.load(open('slates/${{ steps.slate.outputs.date }}/fixtures.json'))
+          have = {tuple(m['espn']) for m in fx['matches'].values() if m.get('espn')}
+          admit = [r for r in scan['fixtures'] if r['admit']]
+          missing = [r for r in admit if tuple(r['espn']) not in have]
+          print(f"committed {len(fx['matches'])} of {len(admit)} admissible")
+          for r in missing:
+              print(f"::warning::{r['league']} {r['name']} ({r['kickoffZ']}Z, {r['espn'][0]}:{r['id']}) "
+                    f"is admissible and NOT in the committed slate -- deliberate (no AGS section) or missed?")
+          if not missing:
+              print('every admissible fixture is on the slate')
+          PY
+
       - name: Stage the work directory
         if: steps.slate.outputs.go == 'true'
         run: |
