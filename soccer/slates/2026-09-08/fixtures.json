@@ -1,0 +1,42 @@
+{
+ "_note": "COVERAGE-2026-09-08. Nine fixtures from soccer/slate_scan.js, not from memory: 11 scanned across 15 competitions, 2 dropped by the CUPSCOPE gate (LASK Linz v AEK Athens, Leyton Orient v Bradford City -- no top-five side). All nine were then confirmed to carry an Anytime Goalscorer section, which is the half of CUPSCOPE the scan cannot check: 15 rows each, 135 total, 0 unparsed.",
+ "date": "2026-09-08",
+ "matches": {
+  "club-brugge-v-aston-villa": {
+   "home": "Club Brugge", "away": "Aston Villa", "kickoff": 1005,
+   "league": "UCL", "espn": ["uefa.champions", "401915426"]
+  },
+  "bournemouth-v-lincoln": {
+   "home": "Bournemouth", "away": "Lincoln City", "kickoff": 1125,
+   "league": "EFL_Cup", "espn": ["eng.league_cup", "401914267"]
+  },
+  "crystal-palace-v-middlesbrough": {
+   "home": "Crystal Palace", "away": "Middlesbrough", "kickoff": 1125,
+   "league": "EFL_Cup", "espn": ["eng.league_cup", "401914269"]
+  },
+  "sunderland-v-hull": {
+   "home": "Sunderland", "away": "Hull City", "kickoff": 1125,
+   "league": "EFL_Cup", "espn": ["eng.league_cup", "401914259"]
+  },
+  "borussia-dortmund-v-villarreal": {
+   "home": "Borussia Dortmund", "away": "Villarreal", "kickoff": 1140,
+   "league": "UCL", "espn": ["uefa.champions", "401915449"]
+  },
+  "fc-porto-v-man-city": {
+   "home": "FC Porto", "away": "Manchester City", "kickoff": 1140,
+   "league": "UCL", "espn": ["uefa.champions", "401915425"]
+  },
+  "lille-v-real-betis": {
+   "home": "Lille", "away": "Real Betis", "kickoff": 1140,
+   "league": "UCL", "espn": ["uefa.champions", "401915450"]
+  },
+  "real-madrid-v-inter-milan": {
+   "home": "Real Madrid", "away": "Internazionale", "kickoff": 1140,
+   "league": "UCL", "espn": ["uefa.champions", "401915451"]
+  },
+  "millwall-v-newcastle": {
+   "home": "Millwall", "away": "Newcastle United", "kickoff": 1140,
+   "league": "EFL_Cup", "espn": ["eng.league_cup", "401914255"]
+  }
+ }
+}
