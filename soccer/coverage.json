@@ -1,0 +1,36 @@
+{
+ "_doc": "COVERAGE-2026-09-08. THE LIST OF WHAT THE SOCCER BOARD COVERS. It exists because the coverage was never written down: it lived in fixtures.json league labels, in CUPSCOPE-2026-09-01's admission rule, in the MLS/ASA wiring, and in a UCL_PO entry in soccer_mock's fallback dict. Nothing enumerated it, so 'is there a board today?' was answered from memory -- and on 2026-09-08 that answer was wrong three times in one hour: it missed MLS, then the Champions League, then the EFL Cup second round that CUPSCOPE had scoped a week earlier BY DATE AND BY EVENT ID. Read this file, do not recall it. slate_scan.js turns it into the day's fixture list.",
+
+ "core": {
+  "_doc": "The five divisions Understat covers. Always admitted, no gate. These also DEFINE the gate: slate_scan builds the eligible-club set from these leagues' own scoreboards, so it stays correct through promotion and relegation with nothing to hand-edit.",
+  "eng.1": "EPL",
+  "esp.1": "La_liga",
+  "ita.1": "Serie_A",
+  "ger.1": "Bundesliga",
+  "fra.1": "Ligue_1"
+ },
+
+ "open": {
+  "_doc": "Covered in full, with its own xG source. MLS xG comes from American Soccer Analysis (ASAXG-2026-08-31, soccer_asa.js), not Understat, and XGMODEL-PARITY-2026-08-31 measured the two models to within 0.7-2.4% -- an order of magnitude tighter than the Serie A to EPL spread ONEPOOL already pools. No gate. ⚠️ An MLS card is ET-dated: it kicks 23:30Z-02:30Z, so half of it falls on the NEXT UTC day. Key the slate to the ET date or et_min's nightcap flag breaks.",
+  "usa.1": "MLS"
+ },
+
+ "gated": {
+  "_doc": "Admitted PER TIE under CUPSCOPE-2026-09-01: at least one side must play in a `core` league, AND the fixture's oddschecker /winner page must actually render an Anytime Goalscorer section. The first half is what slate_scan checks; the second can only be checked on the page and is the scraper's job. Rationale, measured: a tie with one top-flight side joins xG at 73-87%, at or above the 79% a normal league board manages; two lower-division sides collapse to 27%, and at 27% edge_z=0 means 'average' rather than 'unknown', so an unmodelled forward outranks a real one whose xG is genuinely below average. That is a price ranking wearing a model's clothes.",
+  "uefa.champions": "UCL",
+  "uefa.europa": "UEL",
+  "uefa.europa.conf": "UECL",
+  "eng.league_cup": "EFL_Cup",
+  "eng.fa": "FA_Cup",
+  "ita.coppa_italia": "Coppa_Italia",
+  "ger.dfb_pokal": "DFB_Pokal",
+  "esp.copa_del_rey": "Copa_del_Rey",
+  "fra.coupe_de_france": "Coupe_de_France"
+ },
+
+ "_slugtraps": {
+  "_doc": "oddschecker slugs that 200 and look right but are not. Check the FINAL url, not the status code.",
+  "english/carabao-cup": "silently redirects to the Premier League page",
+  "english/league-cup": "silently redirects to the Premier League page"
+ }
+}
