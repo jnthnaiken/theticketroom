@@ -69,9 +69,21 @@ def toks(s):
 
 
 def frac_to_am(f):
-    n, d = (float(x) for x in f.split('/'))
-    v = n / d
-    return round(v * 100) if v >= 1 else round(-100 / v)
+    """ags.psv odds field -> American int. USODDS-2026-09-08: ags_scrape.parseWrapper can now
+    emit american ("+130") as well as fractional ("4/5"), because the /us/ oddschecker card
+    renders american and the two parsers are kept behaviourally identical. Nothing raises a
+    price to EVENS by silently failing here -- an unparsable field is an error."""
+    f = str(f).strip()
+    if '/' in f:
+        n, d = (float(x) for x in f.split('/'))
+        v = n / d
+        return round(v * 100) if v >= 1 else round(-100 / v)
+    if re.fullmatch(r'[+-]?\d+', f):
+        v = int(f)
+        if abs(v) < 100:
+            raise ValueError(f'american odds below 100: {f!r}')
+        return v
+    raise ValueError(f'unparsable odds field: {f!r}')
 
 
 def implied(am):

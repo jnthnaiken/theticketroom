@@ -44,17 +44,23 @@
   /* "Alexander Isak48.52%6/5" -> {name:"Alexander Isak", odds:"6/5"} */
   function parseWrapper(raw) {
     var t = String(raw == null ? '' : raw).replace(/\u00a0/g, ' ').trim();
-    var m = t.match(/^(.*?)(\d+\/\d+|EVS|SP)$/);
+    /* USODDS-2026-09-08: american odds and an "AI" token welded ahead of the percentage
+       ("Jadarian PriceAI38.15%+130") appeared on the /us/ NFL card. Accepted HERE as well as
+       in nfl/atd_scrape.js even though this market has not changed, because the two parsers
+       must stay behaviourally identical -- that is the whole reason the NFL one is a copy.
+       The AI token is stripped only as part of the percentage it prefixes, never as a bare
+       suffix, or "Efton Chism III" and "<Team> D/ST" lose their last two letters. */
+    var m = t.match(/^(.*?)(\d+\/\d+|[+-]\d{3,}|EVS|EVEN|SP)$/);
     if (!m) return null;
     var name = m[1], odds = m[2];
     name = name
-      .replace(/\d+(?:\.\d+)?%$/, '')   /* BETPCT-2026-09-02: decimal percentage */
-      .replace(/n\/a$/i, '')            /* AGSNA-2026-08-29 */
+      .replace(/(?:AI)?\d+(?:\.\d+)?%$/, '')   /* BETPCT-2026-09-02: decimal percentage */
+      .replace(/n\/a$/i, '')                    /* AGSNA-2026-08-29 */
       .replace(/\s+/g, ' ')
       .trim();
     if (!name) return null;
     if (odds === 'SP') return null;     /* starting price -> no number to score */
-    if (odds === 'EVS') odds = '1/1';   /* soccer_mock.frac_to_am splits on "/" */
+    if (odds === 'EVS' || odds === 'EVEN') odds = '1/1';
     return { name: name, odds: odds };
   }
 
