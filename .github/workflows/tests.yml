@@ -91,6 +91,24 @@ jobs:
           echo "  quarantined:"; sed 's/^/    /' /tmp/quarantine.txt
           echo "  excluded as patch scripts:"; find . -name '*_fix.py' | sed 's|^\./|    |' | sort
 
+      # ⚠️ ONE SUITE NEEDS A REAL BROWSER, and it is the most valuable one -- test_stage2_page.js
+      # forks a soccer page out of the root index.html and drives it in Chromium, which is how it
+      # checks that the PAGE renders the published board and never authors one. It passed on the
+      # machine this workflow was written on only because Chromium was already installed there,
+      # and failed on the first real run. Install it here, and DETECT the need rather than
+      # hardcoding it: a browser test added tomorrow gets its browser tomorrow, and the day the
+      # last one goes away this step costs nothing.
+      - name: Browser, only if a suite needs one
+        run: |
+          if xargs -a /tmp/tests.txt grep -l "require('playwright')" 2>/dev/null | grep -q .; then
+            echo "  a suite needs playwright:"
+            xargs -a /tmp/tests.txt grep -l "require('playwright')" | sed 's/^/    /'
+            npm install --no-save playwright
+            npx playwright install --with-deps chromium
+          else
+            echo "  no suite needs a browser -- skipping the install"
+          fi
+
       # ------------------------------------------------------------------------------------
       # Each test runs from ITS OWN directory. They are written that way: the python ones import
       # their module from cwd (test_mononym imports soccer_teamnews), and the node ones resolve
