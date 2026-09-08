@@ -118,7 +118,7 @@
    * ⚠️ THIS ONLY WIDENS THE JOIN. matchOne still returns null unless exactly one candidate
    * hits, so folding "Júnior" away cannot pick between two Juniors on one sheet -- it refuses,
    * as it did before. */
-  var NAMESUF = { jr: 1, jnr: 1, junior: 1, sr: 1, snr: 1, senior: 1, ii: 1, iii: 1, iv: 1 };
+  var NAMESUF = { jr: 1, jnr: 1, junior: 1, sr: 1, snr: 1, senior: 1, ii: 1, iii: 1, iv: 1, v: 1 };
   function dropSuf(list) {
     var kept = list.filter(function (w) { return !NAMESUF[w]; });
     return kept.length ? kept : list;
