@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T21:27:38Z",
+  "pulled_at": "2026-09-08T21:30:26Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1545,7 +1545,7 @@
     },
     {
       "gamePk": 823174,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T01:45:00Z",
       "matchup": "STL@SF",
       "away": {
@@ -1567,10 +1567,56 @@
           "hr9": 0.68,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.207
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.262
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.186
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.156
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.089
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.135
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.166
+          },
+          {
+            "id": 687529,
+            "name": "Grant McCray",
+            "iso": 0.152
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
