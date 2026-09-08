@@ -40,7 +40,49 @@ def load_dated(stem, required=True):
 norm=lambda s:''.join(c for c in unicodedata.normalize('NFKD',s) if not unicodedata.combining(c)).lower().replace('.','').strip()
 # lineup-matching norm: norm() plus the trailing generational suffix. StatsAPI spells out
 # "Jr."/"Sr."/"II"; Kasper cards and RotoWire do not. Mirrors index.html's norm().
-lunorm=lambda s:re.sub(r'\s+(jr|sr|ii|iii|iv)$','',norm(s))
+#
+# 🚨 SUFFIXKEY-2026-09-08 -- ONE VOCABULARY, AND EVERY NAME-KEYED MAP READS IT BOTH WAYS.
+# The list gained the SPELLED-OUT forms. "Jr" was stripped and "Junior" was not, which is the
+# same asymmetry that made the soccer board print "Out of lineup: Vinicius Jr" over a man in the
+# XI (JRJOIN-2026-09-08): one name, two feeds, two different keys. Kept in lockstep with
+# index.html's norm() and nfl_mock.norm() -- three implementations of one rule is how this keeps
+# happening, so if you change one, change all three.
+_SUF=r'(?:jr|jnr|junior|sr|snr|senior|ii|iii|iv|v)'
+lunorm=lambda s:re.sub(r'\s+'+_SUF+r'$','',norm(s))
+plunorm=lambda s:re.sub(r'\s+'+_SUF+r'$','',pnorm(s))
+
+# 🚨 THE SUFFIX CAN BE ON EITHER SIDE, so every name-keyed map is written under BOTH norms and
+# read under both. KEXTRAKEY-2026-09-04 already did exactly this for KEXTRA and wrote down why:
+# "Suffix-less inputs make those identical today, which is the only reason that has never bitten
+# -- it is not a guarantee." It bit. MEASURED on the live 2026-09-08 board, 420 bats:
+#
+#     Bobby Witt Jr.        chase=None  whiff=None  xwcon=None      khr=61  iso=.212
+#     Fernando Tatis Jr.    chase=None  whiff=None  xwcon=None      khr=54  iso=.195
+#     Jazz Chisholm Jr.     chase=None  whiff=None  xwcon=None      khr=50  iso=.223
+#     Lourdes Gurriel Jr.   chase=None  whiff=None  xwcon=None      khr=54  iso=.165
+#     Vladimir Guerrero Jr. chase=None  whiff=None  xwcon=None      khr=66  iso=.189
+#     Elly De La Cruz       chase=26.1  whiff=27.9  xwcon=0.475     (no suffix -- fine)
+#     Junior Caminero       chase=29.8  whiff=24.4  xwcon=0.409     (LEADING Junior -- fine)
+#
+# Every Jr. on the board lost his Savant plate-discipline inputs, and every one of them KEPT his
+# Kasper numbers -- because KEXTRA is the one map that was already dual-keyed. That is the fix
+# and the control in the same table. 51 of 420 bats were missing chase/whiff/xwcon.
+#
+# Savant writes "Acuna Jr., Ronald"; the card writes "Ronald Acuna". The board name carries no
+# suffix on any of 420 bats today, so writing both keys is what actually closes it -- the reading
+# half is for the day the card starts spelling it out.
+def nput(d,name,val):
+    d[norm(name)]=val; d[lunorm(name)]=val; return d
+def nget(d,name,default=None):
+    for _k in (norm(name),lunorm(name)):
+        if _k in d: return d[_k]
+    return default
+def pput(d,name,val):
+    d[pnorm(name)]=val; d[plunorm(name)]=val; return d
+def pget(d,name,default=None):
+    for _k in (pnorm(name),plunorm(name)):
+        if _k in d: return d[_k]
+    return default
 clamp=lambda x,a,b:max(a,min(b,x))
 fF=lambda f:1.0 if f is None else clamp(1+0.001*(f-50),0.97,1.03)   # form: near-zero token -- coin-flip AUC (0.499), no real HR signal
 pM=lambda w:1.0 if w is None else 1+W_WEATHER*(w-1)
@@ -201,7 +243,7 @@ KEXTRA={}
 for _k,_v in _KX_RAW.items():
     if not isinstance(_v,dict): continue
     _n=_v.get('name') or _k
-    KEXTRA[norm(_n)]=_v; KEXTRA[lunorm(_n)]=_v
+    nput(KEXTRA,_n,_v)                       # SUFFIXKEY-2026-09-08: same rule, now shared
 # COVERAGE, OUT LOUD. This file is optional and every consumer floors, so a shape change or a
 # thinned-out scrape is invisible unless the build says so. Print what actually landed, and refuse
 # to build if a populated file contributed literally nothing -- that is a broken contract, not a
@@ -234,7 +276,8 @@ for _f,_why in (('khr','the base-score chip renders "-"'),
 # The Kasper sidecar has carried a real per-bat `iso` since 2026-07-11, so it is now the source.
 # A dated iso_<date>.json still wins if one is ever committed again; the floor is now the slate
 # median rather than a hardcoded 0.10, so an unmatched bat sits at par instead of at the bottom.
-ISO_TODAY={norm(k):v for k,v in load_dated('iso', required=False).items()}
+ISO_TODAY={}
+for _k,_v in load_dated('iso', required=False).items(): nput(ISO_TODAY,_k,_v)
 ISO_KASPER={n:v['iso'] for n,v in KEXTRA.items() if isinstance(v.get('iso'),(int,float)) and 0.02<=v['iso']<=0.60}
 ISO=dict(ISO_KASPER); ISO.update(ISO_TODAY)
 ISO_FLOOR=(st.median(sorted(ISO.values())) if ISO else 0.10)
@@ -322,12 +365,15 @@ WX_LIVE,_wxs=fetch_weather(lin['games'], DATE); HR9_LIVE,_h9s=fetch_hr9(DATE)
 BULLPEN=bullpen_fatigue(DATE)   # opposing-bullpen fatigue (LOG-ONLY now)
 BG=bullpen_games(DATE)          # opposing opener/bullpen game flag (best-effort; {} offline)
 print(f'  (live weather: {_wxs} | live HR/9: {_h9s})')
-ODDS={norm(k):v for k,v in load_dated('odds').items()}
+ODDS={}
+for _k,_v in load_dated('odds').items(): nput(ODDS,_k,_v)
 def pnorm(x):
     x=''.join(c for c in unicodedata.normalize('NFD',x or '') if not unicodedata.combining(c)).lower()
     return re.sub(r'[^a-z ]','',x).strip()
-HR9={pnorm(k):v for k,v in load_dated('hr9',required=False).items()}
-PBRL={pnorm(k):v for k,v in load_dated('pitchers',required=False).items()}   # Kasper Top-Pitchers barrel-against export (partial -> HR/9 fallback)
+HR9={}
+for _k,_v in load_dated('hr9',required=False).items(): pput(HR9,_k,_v)
+PBRL={}
+for _k,_v in load_dated('pitchers',required=False).items(): pput(PBRL,_k,_v)   # Kasper Top-Pitchers barrel-against export (partial -> HR/9 fallback)
 
 
 # ---- Baseball Savant ball-tracking pulls (LOG-ONLY seed; fail-safe -> {} offline, never breaks the build) ----
@@ -351,13 +397,13 @@ def fetch_bat_track():                                   # batter pitch-recognit
     out={}
     for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=batter&min=50&selections=oz_swing_percent,whiff_percent,iz_contact_percent,barrel_batted_rate,xiso,xwoba,xwobacon&csv=true'%_SVYR):
         nm=_sv_name(r)
-        if nm: out[norm(nm)]={'chase':_sv_f(r,'oz_swing_percent'),'whiff':_sv_f(r,'whiff_percent'),'zc':_sv_f(r,'iz_contact_percent'),'barrel':_sv_f(r,'barrel_batted_rate'),'xiso':_sv_f(r,'xiso'),'xwoba':_sv_f(r,'xwoba'),'xwcon':_sv_f(r,'xwobacon'),'id':(r.get('player_id') or '').strip()}
+        if nm: nput(out,nm,{'chase':_sv_f(r,'oz_swing_percent'),'whiff':_sv_f(r,'whiff_percent'),'zc':_sv_f(r,'iz_contact_percent'),'barrel':_sv_f(r,'barrel_batted_rate'),'xiso':_sv_f(r,'xiso'),'xwoba':_sv_f(r,'xwoba'),'xwcon':_sv_f(r,'xwobacon'),'id':(r.get('player_id') or '').strip()})
     return out
 def fetch_bat_spray():                                  # batter pull% (spray-angle) for pull-side HR alignment
     out={}
     for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=batter&min=50&selections=pull_percent&csv=true'%_SVYR):
         nm=_sv_name(r)
-        if nm: out[norm(nm)]={'pull':_sv_f(r,'pull_percent')}
+        if nm: nput(out,nm,{'pull':_sv_f(r,'pull_percent')})
     return out
 def fetch_bat_recent(ids):                              # rolling last-14d xwOBAcon per batter id (recent expected-power form)
     ids=[str(i) for i in ids if i]
@@ -386,7 +432,7 @@ def fetch_pit_velo():                                    # opposing SP fastball 
     out={}
     for r in _savant_csv('https://baseballsavant.mlb.com/leaderboard/custom?year=%s&type=pitcher&min=20&selections=fastball_avg_speed,arm_angle&csv=true'%_SVYR):
         nm=_sv_name(r)
-        if nm: out[pnorm(nm)]={'velo':_sv_f(r,'fastball_avg_speed'),'arm':_sv_f(r,'arm_angle'),'id':(r.get('player_id') or '').strip()}
+        if nm: pput(out,nm,{'velo':_sv_f(r,'fastball_avg_speed'),'arm':_sv_f(r,'arm_angle'),'id':(r.get('player_id') or '').strip()})
     return out
 def fetch_pit_ext(ids):                                  # per-pitch aggregate: perceived velo + release extension for the day's starters
     ids=[str(i) for i in ids if i]
@@ -413,7 +459,7 @@ _sp_ids=set()
 for _g in lin.get('games',[]):
     for _k in ('away_sp','home_sp'):
         _v=_g.get(_k); _nm=(_v[0] if isinstance(_v,(list,tuple)) and _v else _v)
-        _pi=(SAV_PIT.get(pnorm(_nm or '')) or {}).get('id')
+        _pi=(pget(SAV_PIT,_nm or '') or {}).get('id')
         if _pi: _sp_ids.add(_pi)
 SAV_EXT=fetch_pit_ext(_sp_ids)
 print(f'  (savant ext: {len(SAV_EXT)} starters w/ perceived-velo + extension)')
@@ -623,7 +669,7 @@ for g in lin['games']:
             lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
             players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
-                hr9=HR9.get(pnorm(opp_sp[0])),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
+                hr9=pget(HR9,opp_sp[0]),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
@@ -658,15 +704,15 @@ for r in pool:
     r['mktT']=mktT(r.get('odds')); r['slotT']=slotT(r.get('slot')); r['platT']=platT(r.get('bhand'), (r.get('opp') or [None,None])[1])
     _pf=BULLPEN.get(_talias(r.get('opp_code'))); r['pen_fatigue']=(_pf or {}).get('score'); r['penT']=penTfn(_pf)
     _bg=1 if (r.get('opp_code') and _talias(r.get('opp_code')) in BG) else 0; r['bg']=_bg; r['bgT']=(1+W_BG) if _bg else 1.0
-    _bt=SAV_BAT.get(norm(r['nm'])) or {}; _sp=SAV_SPRAY.get(norm(r['nm'])) or {}; r['pull']=_sp.get('pull'); r['xwoba_recent']=SAV_RECENT.get(_bt.get('id')); r['xwcon']=_bt.get('xwcon'); r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')
+    _bt=nget(SAV_BAT,r['nm']) or {}; _sp=nget(SAV_SPRAY,r['nm']) or {}; r['pull']=_sp.get('pull'); r['xwoba_recent']=SAV_RECENT.get(_bt.get('id')); r['xwcon']=_bt.get('xwcon'); r['chase']=_bt.get('chase'); r['whiff']=_bt.get('whiff'); r['zc']=_bt.get('zc')
     r['barrel']=_bt.get('barrel'); r['xiso']=_bt.get('xiso'); r['xwoba']=_bt.get('xwoba')        # batter ball-tracking (LOG-ONLY)
-    _pvv=SAV_PIT.get(pnorm((r.get('opp') or [''])[0])) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')
+    _pvv=pget(SAV_PIT,(r.get('opp') or [''])[0]) or {}; r['opp_velo']=_pvv.get('velo'); r['opp_arm']=_pvv.get('arm')
     _ex=SAV_EXT.get(_pvv.get('id') or '') or {}; r['opp_pvelo']=_ex.get('pvelo'); r['opp_ext']=_ex.get('ext'); r['opp_rvelo']=_ex.get('rvelo')        # opp SP velo/arm (LOG-ONLY)
     r['park_trk']=PARK_TRK.get(_hm)                                                                                              # park hitter's-eye (LOG-ONLY)
     r['btrkT']=btrkTfn(r); r['pvT']=pvTfn(r.get('opp_pvelo'), r.get('opp_velo')); r['parktrkT']=parktrkTfn(r.get('park_trk')); r['xpowT']=xpowTfn(r.get('xiso')); r['pvdT']=pvdTfn(r.get('opp_rvelo'), r.get('opp_velo')); r['sprayT']=sprayTfn(r.get('pull'), (PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0, r.get('pull_tail')); r['xptrendT']=xptrendTfn(r.get('xwoba_recent'), r.get('xwcon')); r['arsenalT']=arsenalTfn(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id')))
     r['_zbg']=r['bg']
     r['_zxpow']=r.get('xiso')
-    r['_zxwcon']=((KEXTRA.get(norm(r['nm'])) or {}).get('xwobacon')) if _USE_KWCON else r.get('xwcon')
+    r['_zxwcon']=((nget(KEXTRA,r['nm']) or {}).get('xwobacon')) if _USE_KWCON else r.get('xwcon')
     r['_zxptr']=(r['xwoba_recent']-r['xwcon']) if (r.get('xwoba_recent') is not None and r.get('xwcon') is not None) else None
     _pvr=r.get('opp_pvelo') if r.get('opp_pvelo') is not None else r.get('opp_velo'); r['_zpvel']=(-_pvr) if _pvr is not None else None
     r['_zpvd']=(r['opp_velo']-r['opp_rvelo']) if (r.get('opp_velo') is not None and r.get('opp_rvelo') is not None) else None
@@ -675,7 +721,7 @@ for r in pool:
     _tlt=(PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0
     r['_zspray']=(((r['pull']-40.0)/10.0)*(((_tlt-1.0)/0.05)+(clamp(r['pull_tail']/8.0,-1.0,1.0) if r.get('pull_tail') is not None else 0.0))) if r.get('pull') is not None else None
     r['_zars']=arsenal_raw(SAV_ARS_BAT.get(_bt.get('id')), SAV_ARS_PIT.get(_pvv.get('id'))); r['_zhh']=r.get('hh'); r['_zla']=(la_window(r['la']) if r.get('la') is not None else None)   # hh/la promoted out of display-only into the edge basket, 2026-08-13 refit; la enters through the SAME la_window bell powraw uses (fit: bell 0.5963 vs linear 0.5962)
-    r['_ziso']=((KEXTRA.get(norm(r['nm'])) or {}).get('iso'))   # ACTUAL damage, Kasper sidecar. LOG-ONLY since DMGRATIO-2026-08-23 -- it now enters the score through _zdmg, not on its own.
+    r['_ziso']=((nget(KEXTRA,r['nm']) or {}).get('iso'))   # ACTUAL damage, Kasper sidecar. LOG-ONLY since DMGRATIO-2026-08-23 -- it now enters the score through _zdmg, not on its own.
     if r['_ziso'] is not None and not (0.02<=r['_ziso']<=0.60): r['_ziso']=None   # scrape artifacts: the sidecar has thrown values of 0 and 3.0
     # DMGRATIO-2026-08-23: ACTUAL damage / EXPECTED damage, Kasper's own third read after HH and LA.
     # He phrases it as expected-vs-actual ("very very good XBA, so good expected damage"); the bats he
@@ -686,7 +732,7 @@ for r in pool:
     # The ratio form (not the subtraction) is used because xwOBAcon exceeds ISO for 99.56% of bats
     # (24 exceptions in 5,454) so the quotient is well-behaved in (0,1], and it measures better than
     # the gap: standalone AUC 0.5749 vs 0.5170 over the 23 nights with both fields.
-    _kx=(KEXTRA.get(norm(r['nm'])) or {}); _xwc=_kx.get('xwobacon'); _bip=_kx.get('bip')
+    _kx=(nget(KEXTRA,r['nm']) or {}); _xwc=_kx.get('xwobacon'); _bip=_kx.get('bip')
     # SAMPLE GUARD (MIN_DMG_BIP): a ratio of two rate stats is only as trustworthy as the batted-ball
     # count under it. Unguarded on the 08-21 slate the top of this signal was Will Banfield at 1.392
     # off FIVE batted balls (iso .103 / xwOBAcon .074) -- pure noise sitting above the whole field.
@@ -711,7 +757,7 @@ for r in pool:
     # hand, so he takes the other split. Guarded on sample: a split under MIN_SPLIT_PIT pitches
     # falls back to All, because the splits are ~half the sample each and a September call-up can
     # have almost nothing in one of them. Nick Martinez 2026-08-23: All 9.8, vR 9.6, vL 10.1.
-    _parm=PBRL.get(pnorm((r.get('opp') or [''])[0])) or {}
+    _parm=pget(PBRL,(r.get('opp') or [''])[0]) or {}
     _phand=((r.get('opp') or ['',''])[1] or '').upper()[:1]
     _side=r.get('bhand')
     if _side=='S': _side='L' if _phand=='R' else ('R' if _phand=='L' else None)
