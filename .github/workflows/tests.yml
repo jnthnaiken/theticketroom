@@ -73,23 +73,23 @@ jobs:
       # Discovery, not a hand-kept list: a test added tomorrow runs tomorrow. That is the whole
       # point -- a list is a thing to forget to update, which is how we got here.
       # ------------------------------------------------------------------------------------
+      # ⚠️ THE LIST TRAVELS IN A FILE, NOT THROUGH `${{ }}`. A step output is pasted into the shell
+      # as TEXT before bash parses it, so a multi-line list turns `for t in $LIST; do` into
+      # `for t in first.js` + a newline + the rest -- a syntax error, exit 2, and the first cut of
+      # this workflow died on exactly that. A file also means test paths are never interpolated
+      # into a command line, which is the injection shape GitHub warns about.
       - name: What are we running?
-        id: find
         run: |
+          # `*_fix.py` are patch scripts, NOT tests -- see the header.
+          find . -name 'test_*.js' -o -name 'test_*.py' \
+            | grep -v '_fix\.py$' | grep -v '/node_modules/' | sed 's|^\./||' | sort > /tmp/tests.txt
           # QUARANTINE -- red on main for a reason that is written down. See the header.
           #   soccer/test_redraft.js      4/59, stale since 2026-08-31 (ANCHORSET / ANCHORFIRST)
           #   soccer/test_draft_golden.js 7 failures, golden master predates DRAFTORDER-09-04
-          QUARANTINE="soccer/test_redraft.js soccer/test_draft_golden.js"
-          echo "quarantine=$QUARANTINE" >> $GITHUB_OUTPUT
-          # `*_fix.py` are patch scripts, NOT tests -- see the header.
-          ALL=$(find . -name 'test_*.js' -o -name 'test_*.py' \
-                | grep -v '_fix\.py$' | grep -v '/node_modules/' | sed 's|^\./||' | sort)
-          echo "  found:"; for f in $ALL; do echo "    $f"; done
-          {
-            echo "all<<EOF"
-            echo "$ALL"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          printf '%s\n' soccer/test_redraft.js soccer/test_draft_golden.js > /tmp/quarantine.txt
+          echo "  discovered $(wc -l < /tmp/tests.txt) suites:"; sed 's/^/    /' /tmp/tests.txt
+          echo "  quarantined:"; sed 's/^/    /' /tmp/quarantine.txt
+          echo "  excluded as patch scripts:"; find . -name '*_fix.py' | sed 's|^\./|    |' | sort
 
       # ------------------------------------------------------------------------------------
       # Each test runs from ITS OWN directory. They are written that way: the python ones import
@@ -99,9 +99,10 @@ jobs:
       - name: Run the suite
         run: |
           FAILED=""; PASSED=""; QUAR=""
-          for t in ${{ steps.find.outputs.all }}; do
+          while IFS= read -r t; do
+            [ -n "$t" ] || continue
             skip=""
-            for q in ${{ steps.find.outputs.quarantine }}; do [ "$t" = "$q" ] && skip=1; done
+            grep -qxF "$t" /tmp/quarantine.txt && skip=1
             d=$(dirname "$t"); b=$(basename "$t")
             case "$b" in *.js) CMD="node $b";; *.py) CMD="python3 $b";; esac
             echo "::group::$t"
@@ -111,7 +112,7 @@ jobs:
               if [ -n "$skip" ]; then QUAR="$QUAR $t(red)"; else FAILED="$FAILED $t"; fi
             fi
             echo "::endgroup::"
-          done
+          done < /tmp/tests.txt
 
           echo
           echo "================ RESULT ================"
