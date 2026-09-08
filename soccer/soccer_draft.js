@@ -358,14 +358,41 @@
    * bar until something appears. Here that is the anchors alone, as builder singles -- straight
    * bets, placeable, and the exact line every screamer would have been built around anyway.
    */
+  /* ONEGAMESINGLES-2026-09-08 (owner's call: "singles on one game nights is fine. similar to
+   * soccer"). ANCH_PER_GAME exists to stop one match owning the board, and on every SCREAMER
+   * path it also does correlation work -- two legs of one match is a same-game parlay, which is
+   * not what the round-robin prices assume (reaffirmed 2026-08-24). NONE of that is true here.
+   * anchorsOnly() is reached only when no screamer can exist, so everything it mints is a
+   * STRAIGHT SINGLE, priced on its own and settled on its own. Two singles on one game are not
+   * a stack; they are two bets.
+   *
+   * The football opener made the cost visible. 2026-09-09 is one game (NE at SEA), so the cap
+   * held the season's first board to TWO tickets out of a budget of four, with three more names
+   * through the gate. Soccer never showed this because a soccer singles night still has four or
+   * five matches to spread across -- 2026-09-07 shipped four singles from four matches and the
+   * cap never bound. The owner's instruction is that a one-game night should look the same.
+   *
+   * ⚠️ THE CAP IS NOT REMOVED. It is skipped ONLY when the pool cannot fill the budget while
+   * obeying it -- matches * ANCH_PER_GAME < budget -- which is exactly the case where the cap
+   * is shrinking the board rather than spreading it. Two matches and a budget of four still
+   * take two from each; four matches still behave as they did on 09-07. So no board that had
+   * enough games to spread across can change, and the soccer regression slates reproduce
+   * bit-identically. Counted on the pool actually handed in, not on the slate, because the
+   * board can only draft what came through the gate.
+   */
   function anchorsOnly(byStrength, cfg, opts) {
     var budget = opts.anchorBudget != null ? opts.anchorBudget : cfg.ANCH;
     var perG = {}, k;
     for (k in (opts.anchorMatchCounts || {})) perG[k] = opts.anchorMatchCounts[k];
+
+    var _seenM = {}, _mCount = 0;
+    byStrength.forEach(function (p) { if (!_seenM[p.match]) { _seenM[p.match] = 1; _mCount++; } });
+    var perGame = (_mCount * cfg.ANCH_PER_GAME < budget) ? budget : cfg.ANCH_PER_GAME;
+
     var out = [];
     for (var i = 0; i < byStrength.length && out.length < budget; i++) {
       var p = byStrength[i];
-      if ((perG[p.match] || 0) >= cfg.ANCH_PER_GAME) continue;
+      if ((perG[p.match] || 0) >= perGame) continue;
       out.push({ kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE });
       perG[p.match] = (perG[p.match] || 0) + 1;
     }
