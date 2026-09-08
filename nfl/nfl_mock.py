@@ -49,14 +49,34 @@ CFG = dict(
 )
 
 # ---------------------------------------------------------------------------------------------
+# 🚨 SUFFIXKEY-2026-09-08 -- ONE VOCABULARY, ANCHORED AT THE END.
+# Two changes, and the second matters more than the first on this card.
+#
+# 1. THE SPELLED-OUT FORMS. "Jr" was stripped and "Junior" was not. That asymmetry is what made
+#    the soccer board print "Out of lineup: Vinicius Jr" over a man in the starting XI
+#    (JRJOIN-2026-09-08) -- one name, two feeds, two different keys -- and it is what left every
+#    Jr. on the baseball board without his Savant inputs (SUFFIXKEY, build15.py). Same rule,
+#    same list, three files: build15.lunorm(), index.html norm(), and this. If you change one,
+#    change all three. That drift IS the bug, both times.
+#
+# 2. ANCHORED, not \b...\b anywhere in the string. The old form would strip a suffix token
+#    wherever it appeared, which was harmless while the list held only abbreviations but is not
+#    once "junior" and "senior" are in it: JUNIOR COLSON is a linebacker, not a suffix, and an
+#    unanchored strip would reduce him to "colson" and collide him with any other Colson on the
+#    card. A generational suffix is by definition the LAST token, so require that.
+#
+# The board's own names carry both spellings today -- "Emmanuel Henderson Jr." with the period,
+# "Montorie Foster Jr" without, "Efton Chism III" -- and all three still fold exactly as before.
+_SUF = r'(?:jr|jnr|junior|sr|snr|senior|ii|iii|iv|v)'
+
 def norm(s):
     s = unicodedata.normalize('NFKD', str(s))
     s = ''.join(c for c in s if not unicodedata.combining(c))
-    s = re.sub(r'\b(jr|sr|ii|iii|iv|v)\b\.?', '', s.lower())
+    s = re.sub(r'\s+' + _SUF + r'\.?\s*$', '', s.lower())
     return re.sub(r'[^a-z]', '', s)
 
 def surname(s):
-    parts = [p for p in re.sub(r'\b(Jr|Sr|II|III|IV|V)\b\.?', '', str(s)).split() if p]
+    parts = [p for p in re.sub(r'\s+' + _SUF + r'\.?\s*$', '', str(s), flags=re.I).split() if p]
     return norm(parts[-1]) if parts else ''
 
 def odds_to_am(f):
