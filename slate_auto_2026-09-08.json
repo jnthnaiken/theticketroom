@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T18:30:34Z",
+  "pulled_at": "2026-09-08T18:36:39Z",
   "games": [
     {
       "gamePk": 824792,
@@ -46,7 +46,7 @@
     },
     {
       "gamePk": 824228,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-08T22:40:00Z",
       "matchup": "MIN@DET",
       "away": {
@@ -57,8 +57,54 @@
           "hr9": 2.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.114
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.188
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.225
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.23
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.165
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.165
+          },
+          {
+            "id": 663616,
+            "name": "Trevor Larnach",
+            "iso": 0.161
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.148
+          },
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.172
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -71,7 +117,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -168,7 +214,7 @@
     },
     {
       "gamePk": 824714,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-08T22:45:00Z",
       "matchup": "LAA@BOS",
       "away": {
@@ -190,10 +236,56 @@
           "hr9": 1.1,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.135
+          },
+          {
+            "id": 663330,
+            "name": "Jahmai Jones",
+            "iso": 0.177
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.206
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.101
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.142
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.133
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.148
+          },
+          {
+            "id": 642201,
+            "name": "Eli White",
+            "iso": 0.155
+          },
+          {
+            "id": 657136,
+            "name": "Connor Wong",
+            "iso": 0.117
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
