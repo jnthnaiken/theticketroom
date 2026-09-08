@@ -245,7 +245,24 @@ def blend_seasons(recs):
     out['finish90'] = (npg - npxg) * 90 / mins if mins else 0.0
     out['minutes'] = mins
     out['pos'] = recs[0]['pos']
-    out['team'] = recs[-1]['team']
+    # TEAMSEASON-2026-09-08. The club label off the xG rows is the LAST-RESORT source
+    # (SQUADCLUB-2026-08-28 precedence: team sheet > squad roster > this), so when it is reached
+    # at all it had better name the club he plays for NOW.
+    #
+    # This was `recs[-1]['team']` -- whatever row happened to sort last, which is file order,
+    # which is league order. Georges Mikautadze has three rows: Villarreal (La_liga 2025 and
+    # 2026) and Lyon (Ligue_1 2025). `recs[-1]` picked LYON, a club he left, so _side() in
+    # soccer_payload correctly refused to place him in Dortmund v Villarreal and the card showed
+    # "—" for a man whose current club is sitting in the same list two rows up.
+    #
+    # Take the most recent SEASON instead, latest row winning a tie. A mid-season transfer is a
+    # different shape and is already handled elsewhere: understat writes both clubs in one row
+    # ("Bournemouth,Manchester City") and soccer_payload splits on the comma.
+    _cur = recs[0]
+    for _r in recs:
+        if int(_r['season']) >= int(_cur['season']):
+            _cur = _r
+    out['team'] = _cur['team']
     return out
 
 

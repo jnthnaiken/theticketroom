@@ -80,7 +80,60 @@ def match_one(name, squad):
                     best, bestn, ties = (cand, state), shared, 1
                 elif shared == bestn and shared and (cand, state) != best:
                     ties += 1
-    return best if (best and ties == 1) else None
+    if best and ties == 1:
+        return best
+    return _contain_one(name, squad)
+
+
+def _contain_one(name, squad):
+    """MONONYM-2026-09-08. Second pass, run ONLY when the surname anchor above refused.
+
+    The anchor is the LAST token of the odds name, and there is a whole family of real names
+    where that token is simply not on ESPN's sheet because ESPN carries the SHORTER name:
+
+        oddschecker "Rayan Vitor"           ESPN "Rayan"            (Bournemouth, 2026-09-08)
+        oddschecker "Giovane Nascimento"    ESPN "Giovane"
+        oddschecker "Emersonn Silva"        ESPN "Emersonn"
+        oddschecker "Gustavo Nunes Gomes"   ESPN "Gustavo Nunes"
+        oddschecker "Jaden Philogene-Bidace" ESPN "Jaden Philogene"
+
+    Every one of those five is already NAMED in surname_hits()'s docstring below as a shape the
+    two feeds disagree on -- but only the ABSENCE gate was taught to see them. match_one() was
+    not, so the join refused, the club came back empty, and the card printed "—" for a man
+    whose squad row was sitting right there. That is the SQUADCLUB precedence collapsing to its
+    last resort for no reason.
+
+    ⚠️ THE UNIQUENESS GATE IS THE WHOLE SAFETY ARGUMENT, not a nicety. Containment on its own is
+    the coin flip UNMATCHED-2026-08-28 forbids: Manchester City carry BOTH "Rayan Aït-Nouri" and
+    "Rayan Cherki", so a bare "Rayan" is a subset of two different men and must refuse rather
+    than pick. Exactly one qualifying candidate in the match's squads, or None.
+
+    ⚠️ PROPER subset only. An equal token set is not containment here -- if the names were token-
+    equal the anchor pass above would already have joined them, so reaching this line with equal
+    sets means the anchor pass tied, and a tie stays a refusal.
+
+    ⚠️ Exact tokens, both `forms()` (deleted- and spaced-punctuation), so the reverted substring
+    bug stays reverted: `jack` is not a token of `jackson` under either form.
+    """
+    hits = []
+    for cand, state in squad:
+        ok = False
+        for ot in forms(name):
+            os_ = set(ot)
+            if not os_:
+                continue
+            for ct in forms(cand):
+                cs = set(ct)
+                if not cs:
+                    continue
+                if cs < os_ or os_ < cs:            # PROPER containment, either direction
+                    ok = True
+                    break
+            if ok:
+                break
+        if ok and (cand, state) not in hits:
+            hits.append((cand, state))
+    return hits[0] if len(hits) == 1 else None
 
 
 def surname_hits(name, squad):
