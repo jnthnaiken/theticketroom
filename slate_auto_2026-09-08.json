@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T19:17:03Z",
+  "pulled_at": "2026-09-08T19:22:03Z",
   "games": [
     {
       "gamePk": 824792,
@@ -659,7 +659,7 @@
     },
     {
       "gamePk": 824063,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-08T23:40:00Z",
       "matchup": "ARI@KC",
       "away": {
@@ -681,10 +681,56 @@
           "hr9": 1.22,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.21
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.168
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.145
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.157
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.161
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.146
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.116
+          },
+          {
+            "id": 683090,
+            "name": "Matthew Lugo",
+            "iso": 0.0
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -816,7 +862,7 @@
         "wind_mph": 9.8,
         "wind_dir": 349,
         "tail_mph": -9.6,
-        "precip": 4
+        "precip": 5
       },
       "wf": 1.0
     },
