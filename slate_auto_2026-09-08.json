@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T19:57:37Z",
+  "pulled_at": "2026-09-08T20:00:34Z",
   "games": [
     {
       "gamePk": 824792,
@@ -680,8 +680,54 @@
           "hr9": 0.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.191
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.187
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.161
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.279
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.25
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.156
+          },
+          {
+            "id": 691182,
+            "name": "Adael Amador",
+            "iso": 0.276
+          },
+          {
+            "id": 691728,
+            "name": "Zac Veen",
+            "iso": 0.263
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.121
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -1246,9 +1292,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 87\u00b0",
+        "lean": "Boost",
+        "temp": 87.2,
+        "wind_mph": 7.3,
+        "wind_dir": 259,
+        "tail_mph": 4.3,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.041
     }
   ]
 }
