@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T23:14:20Z",
+  "pulled_at": "2026-09-08T23:19:07Z",
   "games": [
     {
       "gamePk": 824792,
@@ -45,7 +45,7 @@
           {
             "id": 682657,
             "name": "Angel Mart\u00ednez",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 672275,
@@ -55,7 +55,7 @@
           {
             "id": 690984,
             "name": "Petey Halpin",
-            "iso": 0.097
+            "iso": 0.096
           },
           {
             "id": 677587,
@@ -102,7 +102,7 @@
           {
             "id": 687637,
             "name": "Dylan Beavers",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 677942,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 665152,
           "name": "Dean Kremer",
-          "hr9": 2.0,
+          "hr9": 1.98,
           "hand": "RHP"
         },
         "lineup": [
@@ -188,12 +188,12 @@
           {
             "id": 701785,
             "name": "Kaelen Culpepper",
-            "iso": 0.148
+            "iso": 0.146
           },
           {
             "id": 805805,
             "name": "Walker Jenkins",
-            "iso": 0.172
+            "iso": 0.167
           }
         ],
         "confirmed": true
@@ -203,7 +203,7 @@
         "sp": {
           "id": 623454,
           "name": "Drew Anderson",
-          "hr9": 1.26,
+          "hr9": 1.25,
           "hand": "RHP"
         },
         "lineup": [
@@ -230,17 +230,17 @@
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.293
+            "iso": 0.289
           },
           {
             "id": 814430,
             "name": "Brett Callahan",
-            "iso": 0.154
+            "iso": 0.15
           },
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.159
+            "iso": 0.157
           },
           {
             "id": 701678,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 669713,
           "name": "Hayden Wesneski",
-          "hr9": 0.44,
+          "hr9": 0.43,
           "hand": "RHP"
         },
         "lineup": [
@@ -412,7 +412,7 @@
         "sp": {
           "id": 640455,
           "name": "Sean Manaea",
-          "hr9": 1.46,
+          "hr9": 1.45,
           "hand": "LHP"
         },
         "lineup": [
@@ -496,12 +496,12 @@
           {
             "id": 665923,
             "name": "Esteury Ruiz",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 691277,
             "name": "Deyvison De Los Santos",
-            "iso": 0.167
+            "iso": 0.154
           },
           {
             "id": 805300,
@@ -544,7 +544,7 @@
         "sp": {
           "id": 672282,
           "name": "Reid Detmers",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "LHP"
         },
         "lineup": [
@@ -628,7 +628,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 702332,
@@ -638,7 +638,7 @@
           {
             "id": 655316,
             "name": "Andruw Monasterio",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 642201,
@@ -677,7 +677,7 @@
         "sp": {
           "id": 687312,
           "name": "Gabriel Hughes",
-          "hr9": 0.86,
+          "hr9": 0.85,
           "hand": "RHP"
         },
         "lineup": [
@@ -689,7 +689,7 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 681198,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 693645,
           "name": "Cam Schlittler",
-          "hr9": 0.79,
+          "hr9": 0.78,
           "hand": "RHP"
         },
         "lineup": [
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824875,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-08T23:15:00Z",
       "matchup": "TB@ATL",
       "away": {
@@ -867,7 +867,7 @@
         "sp": {
           "id": 700363,
           "name": "AJ Smith-Shawver",
-          "hr9": 1.02,
+          "hr9": 1.0,
           "hand": "RHP"
         },
         "lineup": [
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 824063,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-08T23:40:00Z",
       "matchup": "ARI@KC",
       "away": {
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 87\u00b0",
+        "lean": "Boost",
+        "temp": 87.4,
+        "wind_mph": 3.2,
+        "wind_dir": 315,
+        "tail_mph": -1.1,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.022
     }
   ]
 }
