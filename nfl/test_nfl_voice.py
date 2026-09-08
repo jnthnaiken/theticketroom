@@ -131,8 +131,15 @@ check('an object-position name is left alone (never "puts he in the end zone")',
 n3 = notes[0]
 check('a three-leg note mentions all three men',
       all(s in n3 for s in ('Rushton', 'Vance', 'Vogel')), n3)
-check('a three-leg note is one sentence, not three',
-      n3.count('.') <= 2, n3)
+# ⚠️ COUNT SENTENCE ENDINGS, NOT FULL STOPS. The first cut asserted `note.count('.') <= 2` and
+# broke the moment a clause carried a decimal -- "18.0 a game" is not a sentence boundary. It also
+# asserted the wrong thing: FRAMES_3 now uses a mid-note full stop ON PURPOSE, because a note that
+# is always one comma-spliced list is what made the board read like a mail merge. What actually
+# matters is that it stays inside the two-line clamp.
+import re as _re
+sentences = len(_re.findall(r'\.(?:\s|$)', n3))
+check('a three-leg note is at most three sentences', sentences <= 3, (sentences, n3))
+check('a three-leg note fits the two-line clamp', len(n3) <= 260, len(n3))
 check('the notes differ from each other', len(set(notes)) == len(notes))
 
 print()
