@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T22:44:11Z",
+  "pulled_at": "2026-09-08T22:48:43Z",
   "games": [
     {
       "gamePk": 824792,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 676440,
           "name": "Tanner Bibee",
-          "hr9": 1.41,
+          "hr9": 1.4,
           "hand": "RHP"
         },
         "lineup": [
@@ -434,12 +434,12 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 676724,
             "name": "Jared Young",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 543760,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824714,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-08T22:45:00Z",
       "matchup": "LAA@BOS",
       "away": {
@@ -551,7 +551,7 @@
           {
             "id": 687263,
             "name": "Zach Neto",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 545361,
@@ -1938,9 +1938,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 87\u00b0",
+        "lean": "Boost",
+        "temp": 87.4,
+        "wind_mph": 3.2,
+        "wind_dir": 315,
+        "tail_mph": -1.1,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.022
     }
   ]
 }
