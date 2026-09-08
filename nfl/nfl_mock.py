@@ -5,7 +5,9 @@ nfl_mock.py -- THE SCORER. atd.psv + nflverse -> scored.json, then shells out to
 Sibling of soccer_mock.py and deliberately the same shape: it scores, it does NOT draft. The
 draft is soccer_draft.js, reused as-is rather than forked -- see nfl_draft_cli.js for why.
 
-INPUTS   atd.psv        match|player|fractional-odds        (oddschecker, via nfl/atd_scrape.js)
+INPUTS   atd.psv        match|player|odds                   (oddschecker, via nfl/atd_scrape.js)
+                        odds is fractional ("4/5", UK card) or american ("+130", /us/ card) --
+                        see odds_to_am(). USODDS-2026-09-08.
          fixtures.json  {date, matches:{slug:{home,away,kickoff,espn}}}
          nflverse       via nfl_stats.build(season, week)
 
@@ -57,14 +59,33 @@ def surname(s):
     parts = [p for p in re.sub(r'\b(Jr|Sr|II|III|IV|V)\b\.?', '', str(s)).split() if p]
     return norm(parts[-1]) if parts else ''
 
-def frac_to_am(f):
-    """Fractional -> American. 20/27 is odds-ON and must go negative, which is common on an
-    anytime-TD card (a lead back at 4/5) and never happens on the soccer one."""
-    n, d = f.split('/')
-    n, d = float(n), float(d)
-    if n >= d:
-        return int(round(100 * n / d))
-    return -int(round(100 * d / n))
+def odds_to_am(f):
+    """atd.psv odds field -> American int. TWO SHAPES, and both are real:
+
+        4/5     fractional, the UK oddschecker card
+        +130    american, the /us/ card as of USODDS-2026-09-08
+
+    Fractional 20/27 is odds-ON and must go negative, which is common on an anytime-TD card
+    (a lead back at 4/5) and never happens on the soccer one. American arrives already signed
+    and is passed through -- do NOT round-trip it through a fraction, which is lossy on the
+    long end (+2500 -> 25/1 -> +2500 is fine, but +145 -> 29/20 is only luck).
+
+    ⚠️ Anything else raises. A silent 0 here would be a price of EVENS on a 25/1 shot."""
+    f = str(f).strip()
+    if '/' in f:
+        n, d = f.split('/')
+        n, d = float(n), float(d)
+        if n >= d:
+            return int(round(100 * n / d))
+        return -int(round(100 * d / n))
+    if re.fullmatch(r'[+-]?\d+', f):
+        v = int(f)
+        if abs(v) < 100:
+            raise ValueError(f'american odds below 100: {f!r}')
+        return v
+    raise ValueError(f'unparsable odds field: {f!r}')
+
+frac_to_am = odds_to_am          # kept: the name is used in the notes and in sibling scripts
 
 def am_to_prob(a):
     return (100.0 / (a + 100.0)) if a > 0 else (abs(a) / (abs(a) + 100.0))
@@ -83,7 +104,7 @@ def load_prices(atd_path, prices_path):
         if not line.strip():
             continue
         match, name, frac = line.split('|')
-        am = frac_to_am(frac)
+        am = odds_to_am(frac)
         key = f'{match}|{name}'
         if key not in prices:
             prices[key] = am

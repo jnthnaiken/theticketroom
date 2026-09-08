@@ -20,15 +20,21 @@
  *      term alone, and could still land on a ticket as if it were a bat. Dropped here, at the
  *      source, and counted so a silent format change shows up.
  *
- *   3. THE MARKET IS THE TOP 15 BY PRICE. Not a truncation this scraper can lift -- there is no
- *      show-more control in the section, only affiliate links. 15 x 13 Sunday games = ~195 priced
- *      names, against 297 on a full MLB card, and they are the SHORT end, which is the end the
- *      board drafts from. Recorded so nobody later reads a 15-row match as a partial scrape.
+ *   3. THE MARKET IS TRUNCATED AND THE TRUNCATION *CAN* BE LIFTED. This entry used to read
+ *      "the market is the top 15 by price ... there is no show-more control in the section".
+ *      That was true when it was written and is FALSE as of 2026-09-08: the section now ships
+ *      ~3 wrappers with a "Show More" control beneath them, and clicking it took New England
+ *      at Seattle from 3 rows to 27. A scraper that only opened the accordion would have
+ *      written a 3-row match and every board built off it would have drafted from the three
+ *      shortest prices on the card. So this one clicks Show More until the wrapper count
+ *      stops growing, and reports `expansions` so a silent revert shows up as 0.
  *
  * USAGE (browser console / javascript_tool, one fixture at a time, navigate between):
  *     var f = eval(localStorage.getItem('ATD'));
  *     await f('atlanta-falcons-at-pittsburgh-steelers');
- *   rows accumulate in localStorage.ATD_ROWS as  match|player|fractional-odds
+ *   rows accumulate in localStorage.ATD_ROWS as  match|player|odds, where odds is fractional
+ *   ("4/5") on the UK card and american ("+130") on the /us/ one. nfl_mock.load_prices takes
+ *   either -- see odds_to_am() there.
  *   f.parseWrapper is exposed so the self-test can run with no page attached.
  */
 (function () {
@@ -36,16 +42,25 @@
 
   /* BYTE-IDENTICAL to soccer/ags_scrape.js parseWrapper. Do not "improve" one copy alone.
      BETPCT-2026-09-02: a bet-percentage suffix welds to the surname ("Isak48.52%6/5").
-     AGSNA-2026-08-29: an unpriced book renders "n/a" before the fraction. */
+     AGSNA-2026-08-29: an unpriced book renders "n/a" before the fraction.
+     USODDS-2026-09-08: the /us/ card renders AMERICAN odds ("+130", "-155") where the UK card
+     renders fractional, and welds an "AI" token to the name ahead of the percentage
+     ("Jadarian PriceAI38.15%+130"). Both shapes are accepted here rather than in one copy,
+     because the byte-identical rule is what keeps a renderer change from rotting the other
+     market silently. American magnitude is always >= 100, so \d{3,} cannot swallow a hyphen
+     out of a surname; the AI token is stripped only as part of the percentage it prefixes,
+     never as a bare suffix, or "Efton Chism III" and "<Team> D/ST" lose their last two
+     letters -- both of which this parser was caught doing before the test was written. */
   function parseWrapper(raw) {
     var t = String(raw == null ? '' : raw).replace(/ /g, ' ').trim();
-    var m = t.match(/^(.*?)(\d+\/\d+|EVS|SP)$/);
+    var m = t.match(/^(.*?)(\d+\/\d+|[+-]\d{3,}|EVS|EVEN|SP)$/);
     if (!m) return null;
     var name = m[1], odds = m[2];
-    name = name.replace(/\d+(?:\.\d+)?%$/, '').replace(/n\/a$/i, '').replace(/\s+/g, ' ').trim();
+    name = name.replace(/(?:AI)?\d+(?:\.\d+)?%$/, '').replace(/n\/a$/i, '')
+               .replace(/\s+/g, ' ').trim();
     if (!name) return null;
     if (odds === 'SP') return null;          /* starting price -- no number to score */
-    if (odds === 'EVS') odds = '1/1';
+    if (odds === 'EVS' || odds === 'EVEN') odds = '1/1';
     return { name: name, odds: odds };
   }
 
@@ -80,8 +95,34 @@
       }
     }
 
+    if (!sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length)
+      return { match: matchKey, ok: false, why: 'section never hydrated' };
+
+    /* SHOWMORE-2026-09-08. Loop, do not click once: the control may paginate. Each pass is
+       kept only if the wrapper count actually grew, so a relabelled or dead button ends the
+       loop instead of spinning. This is a DOM click on an in-section control -- no dialog. */
+    var expansions = 0;
+    for (var pass = 0; pass < 8; pass++) {
+      var btn = null, cands = [].slice.call(sec.querySelectorAll('button,[role=button]'));
+      for (var c = 0; c < cands.length; c++) {
+        if (/^\s*show\s*more\s*$/i.test(cands[c].textContent || '')) { btn = cands[c]; break; }
+      }
+      if (!btn) break;
+      var before = sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length;
+      btn.click();
+      var w = 0, grew = false;
+      while (w < 5000) {
+        await new Promise(function (r) { setTimeout(r, 300); });
+        w += 300;
+        if (sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length > before) {
+          grew = true; break;
+        }
+      }
+      if (!grew) break;
+      expansions++;
+    }
+
     var wraps = [].slice.call(sec.querySelectorAll('[class*=MarketExpanderBetWrapper]'));
-    if (!wraps.length) return { match: matchKey, ok: false, why: 'section never hydrated' };
 
     var rows = [], bad = [], teams = [], seen = {};
     for (var i = 0; i < wraps.length; i++) {
@@ -96,7 +137,7 @@
       var all = JSON.parse(localStorage.getItem('ATD_ROWS') || '[]');
       localStorage.setItem('ATD_ROWS', JSON.stringify(all.concat(rows)));
     }
-    return { match: matchKey, ok: rows.length > 0, n: rows.length,
+    return { match: matchKey, ok: rows.length > 0, n: rows.length, expansions: expansions,
              dropped_team_entries: teams, unparsed: bad, rows: rows };
   }
 
