@@ -86,23 +86,25 @@ def wx_of(mm, wx_src):
     return dict(emoji=emoji, lean=lean, factor=round(f, 3), park=mm['label'],
                 cond=f'{int(wind)} mph', rain=f'{precip}% rain', precip=precip)
 
-def note_for(kind, legs, P):
-    """Prose from the four terms that actually measured. No matchup claims -- there is no
-    defensive term on this board and the note must not imply one."""
-    bits = []
-    for l in legs[:3]:
-        p = P[l['name']]
-        if p['la'] and p['la'] >= 1.5:
-            bits.append(f"{p['nm'].split()[-1]} is getting {p['la']:.1f} looks a game inside the ten")
-        elif p['zonev'] and p['zonev'] >= 0.12:
-            bits.append(f"{int(p['zonev']*100)}% of {p['nm'].split()[-1]}'s work comes inside the ten")
-        elif p['powidx'] and p['powidx'] >= 25:
-            bits.append(f"{p['nm'].split()[-1]}'s side is implied for {p['powidx']:.1f}")
-        else:
-            bits.append(f"{p['nm'].split()[-1]} is on {p['hh']:.1f} touches a game")
-    if not bits: return ''
-    s = ', '.join(bits[:-1]) + (', and ' if len(bits) > 1 else '') + bits[-1]
-    return s[0].upper() + s[1:] + '.'
+from nfl_voice import Voice
+
+
+def note_for(kind, legs, P, voice=None):
+    """🚨 NFLVOICE-2026-09-08. This used to BE the write-up: a four-branch if/elif with one fixed
+    sentence per branch, and the last branch -- "<Surname> is on N touches a game." -- caught
+    nearly everybody. Measured on the 2026-09-09 board, all four slips got that same sentence with
+    a different number in it, and every player card's `why` was None because the field was
+    hardcoded null a hundred lines below.
+    Owner: "we need way more creative write ups for football."
+    The prose now lives in nfl_voice.Voice, built to the same shape as the soccer board's
+    (VOICE-2026-08-28): one entry per ANGLE, several phrasings each, deterministically picked and
+    rotated per player AND per slip so the same back does not lead with touches on every card.
+    ⚠️ THE OLD WARNING SURVIVES AND IS NOT NEGOTIABLE: no matchup claims. There is no defensive
+    term on this board -- hr9/phr9 are written None -- so nothing in the prose may imply one."""
+    if voice is None:
+        return ''
+    return voice.ticket_note(legs, P, tname=kind)
+
 
 def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None):
     matches = fx['matches']
@@ -115,6 +117,12 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         mm = matches[k]
         meta_wx[str(gidx[k])] = wx_of(dict(slug=k, roof=mm.get('roof'),
                                            label=f"{mm['away']}@{mm['home']}"), wx_src)
+
+    voice = Voice(scored)
+    # The prose reads the MODEL's own row (i10pg / tchpg / i10_share / pos / basis), not the
+    # payload dict below, which renames those to the baseball field names the page renders
+    # (la / hh / zonev / bhand). Same numbers, and the voice should not have to know the fork.
+    SRC = {s0['name']: s0 for s0 in scored}
 
     P = {}
     for s in scored:
@@ -133,7 +141,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             late=mm['kickoff'] == last_wave, rain=meta_wx[str(gidx[k])]['precip'] >= 40,
             out=bool(s.get('out')), status='projected', void=bool(s.get('void')),
             opp=[TEAM_NAME.get(s['opp'], s['opp']), ''], oppERA=None, opp_code=s['opp'],
-            ftrend=None, odds=s['odds'], soft=False, why=None,
+            ftrend=None, odds=s['odds'], soft=False, why=voice.why(s),
             basis=s.get('basis'), basis_games=s.get('basis_games'),
             mkt_z=None, edge_z=None, blend=s['blend'],
             baseTotal=s['TOTAL'], TOTAL=s['TOTAL'])
@@ -154,7 +162,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             wxs[meta_wx[str(l['game'])]['lean'].lower()] += 1
         T.append(dict(
             name=t['name'], kind=t['kind'], badge=t['badge'],
-            note=note_for(t['kind'], t['legs'], P),
+            note=note_for(t['kind'], t['legs'], SRC, voice=voice),
             players=legs, nlegs=len(legs), anchor=t['anchor'],
             # ⚠️ NO ' ET' HERE. The renderer emits `<span>Lock ${t.lock} ET</span>` and appends
             # the zone itself, so a lock string carrying it renders "Lock 1:00 PM ET ET".
