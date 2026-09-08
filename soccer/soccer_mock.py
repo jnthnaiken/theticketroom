@@ -68,6 +68,20 @@ def toks(s):
     return sorted(w for w in norm(s).split() if len(w) > 2)
 
 
+# JRJOIN-2026-09-08. Generational suffixes, in every spelling a book or a stats site uses.
+# `toks()` above already drops `jr` for being two letters; `junior` is six and survives, so the
+# two spellings of the same man produce different token sets. This set is what the suffix
+# fallback in lookup() uses to make them agree. It is NOT applied to toks() itself -- see the
+# comment on that fallback for why the fix is additive rather than a change to the vocabulary.
+SUFFIX = {'jr', 'jnr', 'junior', 'sr', 'snr', 'senior', 'ii', 'iii', 'iv'}
+
+
+def sufkey(s):
+    """Token key with generational suffixes removed, so `Vinicius Jr` and `Vinicius Junior`
+    land on the same string. Same length filter as toks() so the two vocabularies agree."""
+    return ' '.join(sorted(w for w in norm(s).split() if len(w) > 2 and w not in SUFFIX))
+
+
 def frac_to_am(f):
     """ags.psv odds field -> American int. USODDS-2026-09-08: ags_scrape.parseWrapper can now
     emit american ("+130") as well as fractional ("4/5"), because the /us/ oddschecker card
@@ -143,7 +157,7 @@ json.dump({f'{m}|{n}': v for (m, n), v in sorted(odds.items())},
           open(PRICES, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print(f'  prices: {_pnew} new, {_pheld} held by PRICEONCE [{_pwould} would have moved]')
 
-xg_exact, xg_tok = defaultdict(list), defaultdict(list)
+xg_exact, xg_tok, xg_suf = defaultdict(list), defaultdict(list), defaultdict(list)
 for line in open('xg.psv', encoding='utf-8'):
     if not line.strip():
         continue
@@ -155,6 +169,7 @@ for line in open('xg.psv', encoding='utf-8'):
                xa90=float(c[15]), kp=float(c[16]), xgchain=float(c[17]))
     xg_exact[norm(rec['name'])].append(rec)
     xg_tok[' '.join(toks(rec['name']))].append(rec)
+    xg_suf[sufkey(rec['name'])].append(rec)          # JRJOIN-2026-09-08
 
 
 def lookup(name):
@@ -179,7 +194,41 @@ def lookup(name):
             continue
         if ct <= set(w) or set(w) <= ct:
             hits.append(v)
-    return (hits[0], 'token') if len(hits) == 1 else (None, None)
+    if len(hits) == 1:
+        return hits[0], 'token'
+    if len(hits) > 1:
+        return None, None            # a tie is a refusal, and stays one
+
+    # JRJOIN-2026-09-08 -- THE SUFFIX FALLBACK. Vinicius Jr cost a moon leg on the 2026-09-08
+    # board and the mechanism is worth stating exactly, because it is not "the names differ".
+    #
+    #   toks() drops every token of two letters or fewer, so `jr` is ALREADY gone from every
+    #   candidate set. But `sur` above is taken from norm(name).split(), which keeps it. So for
+    #   any odds name ending in `Jr` the anchor is a token no candidate can ever contain, and
+    #   the surname test fails 100% of the time before the subset test is even reached. It is
+    #   not a near-miss; it is a guaranteed miss, and it hits exactly the Brazilian naming
+    #   convention where `Jr` IS the known name rather than a decoration.
+    #
+    #   understat: "Vinicius Junior"  -> toks {junior, vinicius}
+    #   oddschecker: "Vinicius Jr"    -> toks {vinicius},  sur = "jr"   -> no candidate has `jr`
+    #
+    # ⚠️ WHY THIS IS A FALLBACK AND NOT A FIX TO toks(). Dropping `junior` from toks() would be
+    # the tidier change and it is the wrong one: two men who currently resolve because one is
+    # "X Junior" and the other "X Senior" would collapse onto the same token set and BOTH would
+    # start refusing. Tried on the 09-08 and 09-07 slates and it is only safe there by luck.
+    # Running last means this can only ever turn a MISS into a hit -- every name that resolves
+    # today resolves identically, which is what the regression asserts.
+    #
+    # ⚠️ Uniqueness is still required, on the DISTINCT PLAYER and not the row count: a man has
+    # one row per season, so len(v) > 1 is normal and means nothing. Two different players under
+    # one suffix-stripped key is a refusal, exactly as a tie is above -- UNMATCHED-2026-08-28's
+    # rule that a tie is not a coin flip.
+    sk = sufkey(name)
+    if sk:
+        v = xg_suf.get(sk)
+        if v and len({norm(r['name']) for r in v}) == 1:
+            return v, 'suffix'
+    return None, None
 
 
 SHRINK_K = 900
@@ -232,7 +281,7 @@ def shrink(players, keys, k=SHRINK_K):
 
 
 players = []
-matched = {'exact': 0, 'token': 0, 'missing': 0}
+matched = {'exact': 0, 'token': 0, 'suffix': 0, 'missing': 0}   # JRJOIN-2026-09-08
 for match, name in slate:
     am = odds[(match, name)]
     # SLATEROSTER-2026-09-04. This walked `odds` -- the LEDGER -- which made a (match, name) key
@@ -449,8 +498,12 @@ def price(t):
 
 print("SOCCER BOARD")
 print(f"  priced players {len(players)} across {len({p['match'] for p in players})} matches")
-print(f"  xG join: exact {matched['exact']} | token {matched['token']} | missing {matched['missing']}"
-      f"  ({100*(matched['exact']+matched['token'])/len(players):.0f}%)")
+# JRJOIN-2026-09-08: `suffix` is reported SEPARATELY rather than folded into `token`, so a
+# sudden jump in it is visible -- it would mean a source has started spelling suffixes
+# differently, which is worth knowing before it becomes a miss.
+_join = matched['exact'] + matched['token'] + matched['suffix']
+print(f"  xG join: exact {matched['exact']} | token {matched['token']} | suffix {matched['suffix']}"
+      f" | missing {matched['missing']}  ({100*_join/len(players):.0f}%)")
 print(f"  pool after Z_GATE {CFG['Z_GATE']} + XI filter + GAME_CAP {CFG['GAME_CAP']}: {len(pool)}")
 print(f"  weakest drafted TOTAL: {floor:.1f}")
 print()
