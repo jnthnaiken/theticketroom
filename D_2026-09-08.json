@@ -16418,7 +16418,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -16515,7 +16515,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -16612,7 +16612,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -16698,7 +16698,7 @@
    "iso": ".226",
    "iso_used": 0.226,
    "powraw": 508.2655930853691,
-   "slot": 6,
+   "slot": 7,
    "bhand": "L",
    "hr9": null,
    "wf": 1.036,
@@ -16709,7 +16709,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -16726,7 +16726,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.1820849424300937,
-   "slotT": 0.98,
+   "slotT": 0.96,
    "platT": 1.056,
    "pen_fatigue": -0.33,
    "penT": 0.9736,
@@ -16806,7 +16806,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -16892,7 +16892,7 @@
    "iso": ".181",
    "iso_used": 0.181,
    "powraw": 239.89950093658916,
-   "slot": 7,
+   "slot": null,
    "bhand": "L",
    "hr9": null,
    "wf": 1.036,
@@ -16902,7 +16902,7 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -16920,7 +16920,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.1320382321671816,
-   "slotT": 0.96,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": -0.33,
    "penT": 0.9736,
@@ -17097,7 +17097,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -17194,7 +17194,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -17280,7 +17280,7 @@
    "iso": ".099",
    "iso_used": 0.099,
    "powraw": 75.86636153166178,
-   "slot": 9,
+   "slot": null,
    "bhand": "S",
    "hr9": null,
    "wf": 1.036,
@@ -17290,7 +17290,7 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -17308,7 +17308,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 0.8230924753867792,
-   "slotT": 0.92,
+   "slotT": 1,
    "platT": 1.024,
    "pen_fatigue": -0.33,
    "penT": 0.9736,
@@ -17474,7 +17474,7 @@
    "iso": ".147",
    "iso_used": 0.147,
    "powraw": 79.10474340656789,
-   "slot": null,
+   "slot": 6,
    "bhand": null,
    "hr9": null,
    "wf": 1.036,
@@ -17484,8 +17484,8 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -17502,7 +17502,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 0.98,
    "platT": 1,
    "pen_fatigue": -0.33,
    "penT": 0.9736,
@@ -17571,7 +17571,7 @@
    "iso": ".14",
    "iso_used": 0.14,
    "powraw": 151.8155332883018,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1.036,
@@ -17581,8 +17581,8 @@
    "gtime": "7:15 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "AJ Smith-Shawver",
@@ -17599,7 +17599,7 @@
    "psrc": "brl",
    "parkhr": 1,
    "mktT": 1.0314258087201125,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": -0.33,
    "penT": 0.9736,
@@ -40879,7 +40879,7 @@
     "precip": 2
    }
   },
-  "build": "9/8 4:18pm",
+  "build": "9/8 4:23pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -41078,7 +41078,7 @@
   "date": "2026-09-08",
   "gs": {},
   "chalkstate": {
-   "b": "9/8 4:18pm",
+   "b": "9/8 4:23pm",
    "s": {}
   },
   "chalk": [],
@@ -41450,7 +41450,7 @@
    "name": "Into the Upper Air",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Schwarber is hitting bullets (74% hard-hit), Witt gets a park that's launching everything tonight, and Caminero brings average-plus thump (55/100).",
+   "note": "Schwarber gets ideal loft (20\u00b0), Witt swings with the wind at his back, and Caminero is hitting frozen ropes (58% hard-hit).",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -41489,7 +41489,7 @@
      "game": 7,
      "late": false,
      "odds": 305,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -41509,10 +41509,11 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 2,
+   "confleg": 3,
    "priced": 3,
    "parlay_am": 5938,
-   "payout10": 603.75
+   "payout10": 603.75,
+   "locked": true
   },
   {
    "name": "Past Low Earth Orbit",
@@ -41587,7 +41588,7 @@
    "name": "Terminal Climb",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Alvarez is blistering line drives (60% hard-hit), Rice elevates with ease (17\u00b0), and Lowe packs elite raw power, a 91/100 grade.",
+   "note": "Alvarez is blistering line drives (60% hard-hit), Rice has a swing built for the seats (17\u00b0), and Lowe packs elite raw power, a 91/100 grade.",
    "players": [
     {
      "name": "Yordan Alvarez",
@@ -41831,8 +41832,6 @@
   "Cal Raleigh",
   "Corbin Carroll",
   "Shohei Ohtani",
-  "Bobby Witt",
-  "Junior Caminero",
   "Teoscar Hern\u00e1ndez",
   "Kazuma Okamoto",
   "Will Smith",
