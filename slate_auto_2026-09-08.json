@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-08T21:07:54Z",
+  "pulled_at": "2026-09-08T21:12:42Z",
   "games": [
     {
       "gamePk": 824792,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 823250,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T01:40:00Z",
       "matchup": "WSH@SD",
       "away": {
@@ -1355,10 +1355,56 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.167
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.082
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.192
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.219
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.174
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.19
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.059
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.101
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.108
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1522,9 +1568,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 90\u00b0",
+        "lean": "Boost",
+        "temp": 89.6,
+        "wind_mph": 2.9,
+        "wind_dir": 309,
+        "tail_mph": -0.7,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.027
     }
   ]
 }
