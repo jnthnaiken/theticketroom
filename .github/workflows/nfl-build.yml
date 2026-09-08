@@ -29,11 +29,17 @@ on:
   repository_dispatch:
     types: [tick, build-tick, build-board, build-nfl]
   schedule:
-    # Sunday only, and dense through the American afternoon: 12:00-21:00Z is 8am-5pm ET, which
-    # covers the inactives reports (90 minutes before each kickoff) for the 13:00 and 16:25
-    # waves. That is the only window where a rebuild changes anything -- prices are frozen, so
-    # the movement is weather and scratches.
+    # Sunday, dense through the American afternoon: 12:00-23:00Z is 8am-7pm ET, which covers the
+    # inactives reports (90 minutes before each kickoff) for the 13:00 and 16:25 waves. Prices
+    # are frozen, so what a rebuild moves is weather and scratches.
     - cron: '*/20 12-23 * * 0'
+    # NON-SUNDAY SLATES (2026-09-08). Week 1 opens on a WEDNESDAY and the international game is
+    # a THURSDAY; there are Thursday, Saturday and Monday cards all season. Those days are
+    # covered by the `tick` dispatch above, which fires all day -- but the dispatch is another
+    # workflow's favour, so the evening waves get their own cron rather than depending on it.
+    # 22:00-03:00Z is 6pm-11pm ET, i.e. inactives through the end of a 20:20 kickoff.
+    - cron: '*/20 22-23 * * 1,3,4,6'
+    - cron: '*/20 0-3 * * 2,4,5,0'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -69,30 +75,72 @@ jobs:
       - run: pip install --quiet pandas numpy scikit-learn
 
       # --------------------------------------------------------------------------------------
-      # Which slate? The newest slates/<date>/ directory, and only if that Sunday has not passed.
+      # WHICH SLATE? The EARLIEST one that has not finished. SLATEPICK-2026-09-08.
+      #
+      # This step used to be `ls slates/*/ | sort | tail -1` plus a whole-day grace, i.e. "the
+      # NEWEST directory, unless yesterday is already past it". Both halves are wrong the moment
+      # two slates are open at once, which is exactly what week 1 looks like: a Wednesday opener
+      # (2026-09-09) and the Sunday card (2026-09-13) are committed at the same time, and
+      # `tail -1` picks SUNDAY -- so on opener day the football room would have published a
+      # board for a slate four days away, with the actual game live on television. The whole-day
+      # grace hid it for a while and then broke the other way, holding a finished slate up all
+      # of the next day whenever game days run back to back.
+      #
+      # The honest rule is the one a reader would state: a slate is today's board until its own
+      # last game is over. So: last kickoff + GRACE, in ET (kickoff units in fixtures.json are
+      # ET minutes past midnight -- 780=13:00, 985=16:25, 1220=20:20), and take the FIRST slate
+      # still inside that window. Sunday therefore takes over by itself once Wednesday's game
+      # is done; nothing has to be deleted, and nothing has to be committed on the day.
       # --------------------------------------------------------------------------------------
       - name: Resolve the slate
         id: slate
         run: |
           cd nfl
-          DATE=$(ls -1d slates/*/ 2>/dev/null | sed 's#slates/##;s#/##' | sort | tail -1)
-          if [ -z "$DATE" ]; then echo "no slate directories"; echo "go=false" >> $GITHUB_OUTPUT; exit 0; fi
-          for f in atd.psv fixtures.json; do
-            [ -f "slates/$DATE/$f" ] || { echo "::error::nfl/slates/$DATE/$f missing"; exit 1; }
-          done
-          TODAY=$(date -u -d 'today - 1 day' +%F)   # a slate stays live through its own night
-          if [ "$DATE" \< "$TODAY" ]; then
-            echo "$DATE is in the past -- nothing to rebuild"
-            echo "go=false" >> $GITHUB_OUTPUT
-          else
-            SEASON=$(python3 -c "import json;print(json.load(open('slates/$DATE/fixtures.json'))['season'])")
-            WEEK=$(python3 -c "import json;print(json.load(open('slates/$DATE/fixtures.json'))['week'])")
-            echo "slate $DATE (season $SEASON week $WEEK)"
-            echo "date=$DATE"     >> $GITHUB_OUTPUT
-            echo "season=$SEASON" >> $GITHUB_OUTPUT
-            echo "week=$WEEK"     >> $GITHUB_OUTPUT
-            echo "go=true"        >> $GITHUB_OUTPUT
-          fi
+          python3 - <<'PY' >> $GITHUB_OUTPUT
+          import datetime, glob, json, os, sys
+          from zoneinfo import ZoneInfo
+
+          GRACE = 240          # minutes after the last kickoff that a slate is still "today"
+          ET    = ZoneInfo('America/New_York')
+          now   = datetime.datetime.now(ET)
+          log   = lambda m: print(m, file=sys.stderr)
+
+          log(f'now {now:%Y-%m-%d %H:%M} ET')
+          best = None
+          for fx in sorted(glob.glob('slates/*/fixtures.json')):
+              d = os.path.basename(os.path.dirname(fx))
+              try:
+                  j = json.load(open(fx, encoding='utf-8'))
+              except Exception as e:
+                  log(f'::warning::{fx} unreadable ({e}) -- skipped'); continue
+              kos  = [m.get('kickoff') for m in j.get('matches', {}).values()
+                      if m.get('kickoff') is not None]
+              last = max(kos) if kos else 1440      # no kickoffs recorded -> hold all day
+              y, mo, da = (int(x) for x in d.split('-'))
+              close = (datetime.datetime(y, mo, da, tzinfo=ET)
+                       + datetime.timedelta(minutes=last + GRACE))
+              log(f'  {d}: last kickoff {last // 60:02d}:{last % 60:02d} ET, '
+                  f'live until {close:%m-%d %H:%M} ET'
+                  + ('  <-- CURRENT' if close > now and best is None else ''))
+              if close > now and best is None:
+                  best = (d, j)
+
+          if best is None:
+              log('every committed slate is finished -- nothing to rebuild')
+              print('go=false'); raise SystemExit(0)
+
+          d, j = best
+          for f in ('atd.psv', 'fixtures.json'):
+              if not os.path.exists(f'slates/{d}/{f}'):
+                  log(f'::error::nfl/slates/{d}/{f} missing'); raise SystemExit(1)
+
+          log(f"slate {d} (season {j['season']} week {j['week']}, "
+              f"{len(j.get('matches', {}))} games)")
+          print(f'date={d}')
+          print(f"season={j['season']}")
+          print(f"week={j['week']}")
+          print('go=true')
+          PY
 
       - name: Stage the work directory
         if: steps.slate.outputs.go == 'true'
