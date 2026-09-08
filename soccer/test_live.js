@@ -43,6 +43,44 @@ ok(L.matchOne('Samuel Adeniran', ['Samuel Adeniran', 'Sam Adeniran']) === 'Samue
    'exact wins over a second surname candidate');
 ok(L.matchOne('Some Unknown', ['Andreas Helmersen']) === null, 'no match -> null');
 
+/* ---------- 2b. JRJOIN-2026-09-08 -- a generational suffix is not a surname -------
+ * Real Madrid's ACTUAL 22 against Internazionale, 2026-09-08, copied off the ESPN feed at
+ * 18:20Z with Vinícius Júnior in the starting XI. Before the fix this file's join refused him
+ * -- "Jr" is two letters and was dropped as noise, "Júnior" is six and survived as the surname
+ * anchor -- and surnameHits() failed on the same asymmetry, so applyMatch stamped `out` on a
+ * man who was starting and the card printed "🪑 Out of lineup: Vinicius Jr" over a live
+ * screamer. The server had him right the whole time and therefore had nothing to repair.
+ */
+const RMSHEET = ['Thibaut Courtois', 'Denzel Dumfries', 'Dean Huijsen', 'Marc Cucurella',
+  'Ibrahima Konaté', 'Jude Bellingham', 'Federico Valverde', 'Trent Alexander-Arnold',
+  'Vinícius Júnior', 'Brahim Díaz', 'Kylian Mbappé', 'Jorge Cestero', 'Thiago Pitarch',
+  'Mario Rivas', 'Endrick', 'Antonio Rüdiger', 'Carlos Espí', 'Álvaro Carreras',
+  'Andriy Lunin', 'Yan Diomande', 'Sergio Mestre', 'Aurélien Tchouaméni'];
+
+ok(L.matchOne('Vinicius Jr', RMSHEET) === 'Vinícius Júnior',
+   'JRJOIN: "Vinicius Jr" joins "Vinícius Júnior" on the real Real Madrid sheet');
+ok(L.surnameHits('Vinicius Jr', RMSHEET) === true,
+   'JRJOIN: the absence guard also holds him -- he is never asserted out');
+ok(L.matchOne('Kylian Mbappe', RMSHEET) === 'Kylian Mbappé',
+   'the rest of the same sheet still joins (no regression from the strip)');
+
+/* The suffix list is DROPPED, not the name. Both of these are given names on this week's
+   slates -- Real Betis and Bournemouth respectively -- and both must still join. */
+ok(L.matchOne('Junior Firpo', ['Junior Firpo', 'Marc Bartra']) === 'Junior Firpo',
+   'JRJOIN: "Junior" as a GIVEN name still joins (Junior Firpo)');
+ok(L.matchOne('Junior Kroupi', ['Junior Kroupi', 'Evanilson']) === 'Junior Kroupi',
+   'JRJOIN: same for Junior Kroupi');
+
+/* A name that is ONLY the suffix would strip to nothing and match the whole sheet, so the
+   strip is skipped when it would empty the token list. */
+ok(L.matchOne('Junior', ['Ibrahima Konaté', 'Dean Huijsen']) === null,
+   'JRJOIN: a bare "Junior" does not match a sheet with no Junior on it');
+
+/* Widening the join cannot make it GUESS: two men who both fold to the same key tie, and a
+   tie is a refusal, exactly as before. */
+ok(L.matchOne('Luiz Jr', ['Luiz Júnior', 'Luiz Junior']) === null,
+   'JRJOIN: two candidates folding to one key is a REFUSAL, not a coin flip');
+
 /* ---------- 3. build ESPN-shaped responses from the captured feed ---------------- */
 const FIX = fs.readFileSync(path.join(__dirname, 'fixture-2026-08-25.psv'), 'utf8')
   .split('\n').map(s => s.trim()).filter(Boolean);

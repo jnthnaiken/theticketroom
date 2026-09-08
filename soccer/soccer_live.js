@@ -84,11 +84,50 @@
     s = s.toLowerCase().replace(/[.'’ʼ\-]/g, '');
     return s.replace(/\s+/g, ' ').trim();
   }
+  /* 🚨 JRJOIN-2026-09-08 (client half). A GENERATIONAL SUFFIX IS NOT A SURNAME.
+   *
+   * `w.length > 2` drops "Jr" because it is two letters. It KEEPS "Júnior" because it is six.
+   * So one man spelled two ways came apart at the anchor:
+   *
+   *     board  "Vinicius Jr"      -> ['vinicius']              anchor: vinicius
+   *     ESPN   "Vinícius Júnior"  -> ['vinicius', 'junior']    anchor: junior
+   *
+   * matchOne's SURNAME ANCHOR then never fires, so the join refuses -- and surnameHits(), the
+   * guard written by UNMATCHED-2026-08-28 precisely so that a refused join is never read as an
+   * absence, compares LAST TOKEN TO LAST TOKEN and fails on the same asymmetry. `!who &&
+   * !surnameHits(...)` is therefore true and applyMatch stamps `out` on a man in the XI.
+   *
+   * MEASURED 2026-09-08, 18:06Z: Vinícius Júnior started for Real Madrid against Inter, the
+   * server payload carried him correctly as `"out":false`, and this file rewrote it to true in
+   * the reader's browser. The card printed "🪑 Out of lineup: Vinicius Jr -- will not hit as
+   * built" across a live screamer that was in fact perfectly alive. The server, seeing nothing
+   * wrong, had nothing to repair, so no replacement was ever drafted. Server and browser
+   * disagreeing on the same screen is the exact drift this file's header warns about, and it is
+   * the third time it has been this join -- PUNCT-2026-08-28 (O'Reilly) and UNMATCHED-2026-08-28
+   * (Toni/Antonio Martinez) are the same shape.
+   *
+   * The strip is applied in toks()/toksDel(), so BOTH readers of formsOf() -- the join and the
+   * absence guard -- see the same tokens. `soccer_mock.sufkey()` carries this list server-side;
+   * the two must not drift.
+   *
+   * ⚠️ THE LIST IS DROPPED, NOT THE NAME. "Junior Firpo" and "Junior Kroupi" are given names,
+   * not suffixes, and both are real men on this week's slates. Stripping leaves ['firpo'] and
+   * ['kroupi'], which is right. A player whose whole name IS the suffix would strip to nothing
+   * and match everybody, so an empty result keeps the original tokens instead.
+   *
+   * ⚠️ THIS ONLY WIDENS THE JOIN. matchOne still returns null unless exactly one candidate
+   * hits, so folding "Júnior" away cannot pick between two Juniors on one sheet -- it refuses,
+   * as it did before. */
+  var NAMESUF = { jr: 1, jnr: 1, junior: 1, sr: 1, snr: 1, senior: 1, ii: 1, iii: 1, iv: 1 };
+  function dropSuf(list) {
+    var kept = list.filter(function (w) { return !NAMESUF[w]; });
+    return kept.length ? kept : list;
+  }
   function toks(s) {
-    return norm(s).split(' ').filter(function (w) { return w.length > 2; });
+    return dropSuf(norm(s).split(' ').filter(function (w) { return w.length > 2; }));
   }
   function toksDel(s) {
-    return normDel(s).split(' ').filter(function (w) { return w.length > 2; });
+    return dropSuf(normDel(s).split(' ').filter(function (w) { return w.length > 2; }));
   }
   function formsOf(s) { return [toks(s), toksDel(s)]; }
 
