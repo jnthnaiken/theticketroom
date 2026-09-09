@@ -268,8 +268,29 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     T = [shape_ticket(t, players, i, VOICE, avg_min, _used) for i, t in enumerate(T)]
 
     GAME_CAP = 4
+    # 🚨 XIPARTIALPAYLOAD-2026-09-09 -- THE SEVENTH CALLER. The rule "the XI filter is PER MATCH"
+    # (XIPARTIAL-2026-08-28) was fixed in soccer_draft.js buildPool, soccer_rebuild_cli.js,
+    # soccer_draft_cli.js and soccer_mock.py. This file was missed, and it is the one that writes
+    # `pool` and `meta.gate` -- what the COVER counts. On 2026-09-09 (20 fixtures, sheets out for
+    # the 6 European ties, 14 MLS matches still hours from theirs) the flat `x['name'] in XI`
+    # dropped every player whose own match had not published: the cover read 13 pool players
+    # across SIX matches on a twenty-match card. The DRAFT was unaffected -- it rebuilds the pool
+    # in JS from scored.json and was correctly showing MLS moons -- so this was display only, and
+    # that is exactly why it survived: the tickets looked right.
+    #
+    # A player in a match with no published sheet is UNKNOWN, not benched, so he stays in.
+    # `published` is derived from the matches carrying any CLASSIFIED player (XI/bench/absent),
+    # never an empty set -- an empty set means "nothing published", which silently re-disables
+    # the filter. Same `is None` vs `set()` trap as the other five callers.
+    #
+    # Z_GATE is 0.70 (WIN75/ZGATE70-2026-08-30), not 0.75. The literal here predates that change
+    # and made the DISPLAYED pool tighter than the one the draft actually uses.
+    Z_GATE = 0.70
+    _mof = {x['name']: x['match'] for x in P}
+    published = {_mof[n] for n in list(XI) + list(BENCH) + list(ABSENT) if n in _mof}
     gated = [x for x in sorted(P, key=lambda x: -x['TOTAL'])
-             if x.get('gate_z', 0) >= 0.75 and (not XI or x['name'] in XI)]
+             if x.get('gate_z', 0) >= Z_GATE
+             and (not XI or x['name'] in XI or x['match'] not in published)]
     pool, _per = [], {}
     for x in gated:
         m = x['match']
