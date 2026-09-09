@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T22:01:00Z",
+  "pulled_at": "2026-09-09T22:03:02Z",
   "games": [
     {
       "gamePk": 824226,
@@ -511,12 +511,12 @@
           {
             "id": 669392,
             "name": "Samad Taylor",
-            "iso": 0.075
+            "iso": 0.083
           },
           {
             "id": 687749,
             "name": "Jase Bowen",
-            "iso": 0.117
+            "iso": 0.116
           }
         ],
         "confirmed": true
@@ -1453,9 +1453,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 89\u00b0",
+        "lean": "Neutral",
+        "temp": 88.6,
+        "wind_mph": 4.5,
+        "wind_dir": 110,
+        "tail_mph": -2.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.02
     },
     {
       "gamePk": 824064,
@@ -1857,7 +1864,7 @@
     },
     {
       "gamePk": 823900,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-10T02:10:00Z",
       "matchup": "CIN@LAD",
       "away": {
@@ -1879,10 +1886,56 @@
           "hr9": 0.98,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.139
+          },
+          {
+            "id": 669257,
+            "name": "Will Smith",
+            "iso": 0.14
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.176
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.239
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.157
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.129
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.103
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.156
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.136
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
