@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T16:00:54Z",
+  "pulled_at": "2026-09-09T16:07:22Z",
   "games": [
     {
       "gamePk": 824226,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824956,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T19:05:00Z",
       "matchup": "TOR@ATH",
       "away": {
@@ -160,10 +160,56 @@
           "hr9": 0.81,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.119
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.139
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.21
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.144
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.072
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.165
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.179
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.254
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.159
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -694,9 +740,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 90.9,
+        "wind_mph": 5.2,
+        "wind_dir": 263,
+        "tail_mph": 2.8,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.041
     }
   ]
 }
