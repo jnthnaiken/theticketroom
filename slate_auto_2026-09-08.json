@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-09T01:32:36Z",
+  "pulled_at": "2026-09-09T01:37:42Z",
   "games": [
     {
       "gamePk": 824792,
@@ -378,7 +378,7 @@
           {
             "id": 592663,
             "name": "J.T. Realmuto",
-            "iso": 0.13
+            "iso": 0.129
           },
           {
             "id": 702222,
@@ -556,12 +556,12 @@
           {
             "id": 545361,
             "name": "Mike Trout",
-            "iso": 0.178
+            "iso": 0.181
           },
           {
             "id": 642350,
             "name": "Jose Siri",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 687093,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823500,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-09-08T23:05:00Z",
       "matchup": "COL@NYY",
       "away": {
@@ -684,7 +684,7 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 694249,
@@ -771,7 +771,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.11
+            "iso": 0.109
           },
           {
             "id": 641857,
@@ -1076,7 +1076,7 @@
         "sp": {
           "id": 696149,
           "name": "Bubba Chandler",
-          "hr9": 0.83,
+          "hr9": 0.82,
           "hand": "RHP"
         },
         "lineup": [
@@ -1118,7 +1118,7 @@
           {
             "id": 694378,
             "name": "Jacob Gonzalez",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 663968,
@@ -1150,7 +1150,7 @@
           {
             "id": 808959,
             "name": "Munetaka Murakami",
-            "iso": 0.266
+            "iso": 0.265
           },
           {
             "id": 643217,
@@ -1731,7 +1731,7 @@
     },
     {
       "gamePk": 823174,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T01:45:00Z",
       "matchup": "STL@SF",
       "away": {
@@ -1984,14 +1984,7 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 7mph, 85\u00b0",
-        "lean": "Neutral",
-        "temp": 85.3,
-        "wind_mph": 9.6,
-        "wind_dir": 338,
-        "tail_mph": -6.5,
-        "precip": 1
+        "note": "weather fetch failed"
       },
       "wf": 1.0
     }
