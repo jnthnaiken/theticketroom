@@ -101,13 +101,35 @@
     var kept = list.filter(function (w) { return !NAMESUF[w]; });
     return kept.length ? kept : list;
   }
+  /* 🚨 INITIALS-2026-09-09 -- AN INITIAL IS THE DISCRIMINATOR, NOT A PARTICLE.
+   * soccer_live.js filters tokens with `w.length > 2`, which is right there: the short tokens in
+   * a football name are particles (de, van, dos, bin) and dropping them helps. In the NFL the
+   * short tokens are INITIALS, and they are the only thing telling two men apart.
+   *
+   * MEASURED ON THE LIVE FEED, 2026-09-09 22:5xZ, before kickoff: ESPN's NE injury list carries
+   * "Ben Brown = Out". The board carries "A.J. Brown" at +170 on Red Zone Target. Under `> 2`
+   * the board name tokenised to ['brown'] -- the initials filtered away -- so the surname anchor
+   * fired, ['brown'] was a subset of ['ben','brown'], the join was UNIQUE (one Brown on the
+   * roster), and this file marked A.J. Brown OUT. One offensive lineman's ankle would have
+   * voided a live anytime-TD leg in every reader's browser.
+   *
+   * Two changes, and both are needed:
+   *   (1) keep 2-character tokens, so 'aj' survives normDel and can discriminate; and
+   *   (2) MONONYM GUARD in matchOne -- a candidate that reduces to ONE token may only match on
+   *       that token if the name really is one word. "A.J. Brown" is three pieces that happen to
+   *       filter down to one; "Raphinha" is one. rawCount() tells them apart.
+   * (1) alone does not fix it: norm('A.J. Brown') is still 'a j brown' and still reduces to
+   * ['brown'] under any length filter above 1. The guard is the load-bearing half.
+   */
   function toks(s) {
-    return dropSuf(norm(s).split(' ').filter(function (w) { return w.length > 2; }));
+    return dropSuf(norm(s).split(' ').filter(function (w) { return w.length > 1; }));
   }
   function toksDel(s) {
-    return dropSuf(normDel(s).split(' ').filter(function (w) { return w.length > 2; }));
+    return dropSuf(normDel(s).split(' ').filter(function (w) { return w.length > 1; }));
   }
   function formsOf(s) { return [toks(s), toksDel(s)]; }
+  /* how many pieces the name ACTUALLY has, before any filtering -- a true mononym is 1 */
+  function rawCount(s) { return norm(s).split(' ').filter(Boolean).length; }
 
   function matchOne(feedName, candidates) {
     var fNorms = [norm(feedName), normDel(feedName)];
@@ -129,6 +151,10 @@
         for (var j = 0; j < cForms.length; j++) {
           var ct = cForms[j];
           if (!ct.length) continue;
+          /* MONONYM GUARD -- see INITIALS-2026-09-09 above. A one-token side may carry the
+             join only if that side is genuinely a one-word name. */
+          if (ct.length < 2 && rawCount(c) > 1) continue;
+          if (ft.length < 2 && rawCount(feedName) > 1) continue;
           if (!fset[ct[ct.length - 1]]) continue;   // SURNAME ANCHOR
           var cset = {};
           ct.forEach(function (t) { cset[t] = 1; });
