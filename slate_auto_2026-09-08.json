@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-09T01:47:23Z",
+  "pulled_at": "2026-09-09T01:52:43Z",
   "games": [
     {
       "gamePk": 824792,
@@ -643,7 +643,7 @@
           {
             "id": 642201,
             "name": "Eli White",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 657136,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823500,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-08T23:05:00Z",
       "matchup": "COL@NYY",
       "away": {
@@ -699,7 +699,7 @@
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.278
+            "iso": 0.283
           },
           {
             "id": 666160,
@@ -842,17 +842,17 @@
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.158
+            "iso": 0.157
           },
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.206
+            "iso": 0.204
           },
           {
             "id": 680700,
             "name": "Richie Palacios",
-            "iso": 0.13
+            "iso": 0.14
           },
           {
             "id": 622761,
@@ -1155,7 +1155,7 @@
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.176
+            "iso": 0.178
           },
           {
             "id": 695657,
@@ -1273,7 +1273,7 @@
           {
             "id": 694192,
             "name": "Jackson Chourio",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 668930,
@@ -1353,17 +1353,17 @@
           {
             "id": 694673,
             "name": "Abimelec Ortiz",
-            "iso": 0.173
+            "iso": 0.171
           },
           {
             "id": 686611,
             "name": "Dylan Crews",
-            "iso": 0.151
+            "iso": 0.153
           },
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.234
+            "iso": 0.233
           },
           {
             "id": 691781,
@@ -1398,7 +1398,7 @@
         "sp": {
           "id": 663554,
           "name": "Casey Mize",
-          "hr9": 1.03,
+          "hr9": 1.02,
           "hand": "RHP"
         },
         "lineup": [
@@ -1481,12 +1481,12 @@
           {
             "id": 592626,
             "name": "Joc Pederson",
-            "iso": 0.25
+            "iso": 0.248
           },
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.19
+            "iso": 0.2
           },
           {
             "id": 677649,
@@ -1531,7 +1531,7 @@
         "sp": {
           "id": 682243,
           "name": "Bryce Miller",
-          "hr9": 1.55,
+          "hr9": 1.63,
           "hand": "RHP"
         },
         "lineup": [
@@ -1623,7 +1623,7 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.094
+            "iso": 0.093
           },
           {
             "id": 672386,
@@ -1663,7 +1663,7 @@
         "sp": {
           "id": 678022,
           "name": "Jack Perkins",
-          "hr9": 1.65,
+          "hr9": 1.64,
           "hand": "RHP"
         },
         "lineup": [
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 12mph, 76\u00b0",
-        "lean": "Boost",
-        "temp": 75.7,
-        "wind_mph": 12.0,
-        "wind_dir": 280,
-        "tail_mph": 11.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.049
+      "wf": 1.0
     },
     {
       "gamePk": 823901,
