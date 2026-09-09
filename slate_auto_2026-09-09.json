@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T23:53:58Z",
+  "pulled_at": "2026-09-09T23:58:31Z",
   "games": [
     {
       "gamePk": 824226,
@@ -724,7 +724,7 @@
           {
             "id": 677587,
             "name": "Brayan Rocchio",
-            "iso": 0.13
+            "iso": 0.129
           }
         ],
         "confirmed": true
@@ -756,17 +756,17 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.224
+            "iso": 0.223
           },
           {
             "id": 702616,
             "name": "Jackson Holliday",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 677956,
             "name": "Rece Hinds",
-            "iso": 0.097
+            "iso": 0.095
           },
           {
             "id": 669236,
@@ -810,7 +810,7 @@
         "sp": {
           "id": 686613,
           "name": "Hunter Brown",
-          "hr9": 1.0,
+          "hr9": 0.99,
           "hand": "RHP"
         },
         "lineup": [
@@ -1027,12 +1027,12 @@
           {
             "id": 805300,
             "name": "Jakob Marsee",
-            "iso": 0.118
+            "iso": 0.119
           },
           {
             "id": 691594,
             "name": "Javier Sanoja",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 683357,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824713,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-09-09T22:45:00Z",
       "matchup": "LAA@BOS",
       "away": {
@@ -1082,7 +1082,7 @@
           {
             "id": 687263,
             "name": "Zach Neto",
-            "iso": 0.2
+            "iso": 0.199
           },
           {
             "id": 545361,
@@ -1092,7 +1092,7 @@
           {
             "id": 642350,
             "name": "Jose Siri",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 687093,
@@ -1132,7 +1132,7 @@
         "sp": {
           "id": 687562,
           "name": "Jake Bennett",
-          "hr9": 1.04,
+          "hr9": 1.03,
           "hand": "LHP"
         },
         "lineup": [
@@ -1358,7 +1358,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.254
+            "iso": 0.253
           },
           {
             "id": 689414,
@@ -1398,7 +1398,7 @@
         "sp": {
           "id": 625643,
           "name": "Reynaldo L\u00f3pez",
-          "hr9": 1.34,
+          "hr9": 1.33,
           "hand": "RHP"
         },
         "lineup": [
@@ -1607,7 +1607,7 @@
         "sp": {
           "id": 669199,
           "name": "Lake Bachar",
-          "hr9": 1.5,
+          "hr9": 1.49,
           "hand": "RHP"
         },
         "lineup": [
@@ -1686,7 +1686,7 @@
           {
             "id": 545341,
             "name": "Randal Grichuk",
-            "iso": 0.28
+            "iso": 0.279
           },
           {
             "id": 695657,
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 90\u00b0",
+        "lean": "Boost",
+        "temp": 89.8,
+        "wind_mph": 4.6,
+        "wind_dir": 259,
+        "tail_mph": 2.7,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.039
     }
   ]
 }
