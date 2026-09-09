@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T19:01:01Z",
+  "pulled_at": "2026-09-09T19:07:14Z",
   "games": [
     {
       "gamePk": 824226,
@@ -30,7 +30,7 @@
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.23
+            "iso": 0.229
           },
           {
             "id": 605137,
@@ -77,7 +77,7 @@
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.146
+            "iso": 0.147
           },
           {
             "id": 701678,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824956,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T19:05:00Z",
       "matchup": "TOR@ATH",
       "away": {
@@ -952,9 +952,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 82\u00b0",
+        "lean": "Boost",
+        "temp": 82.1,
+        "wind_mph": 10.0,
+        "wind_dir": 189,
+        "tail_mph": 9.9,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.053
     },
     {
       "gamePk": 824871,
