@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-09T01:00:59Z",
+  "pulled_at": "2026-09-09T01:07:15Z",
   "games": [
     {
       "gamePk": 824792,
@@ -30,7 +30,7 @@
           {
             "id": 608070,
             "name": "Jos\u00e9 Ram\u00edrez",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 666176,
@@ -168,7 +168,7 @@
           {
             "id": 680777,
             "name": "Ryan Jeffers",
-            "iso": 0.228
+            "iso": 0.23
           },
           {
             "id": 605137,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823414,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-08T22:40:00Z",
       "matchup": "HOU@PHI",
       "away": {
@@ -291,7 +291,7 @@
           {
             "id": 670541,
             "name": "Yordan Alvarez",
-            "iso": 0.283
+            "iso": 0.282
           },
           {
             "id": 670623,
@@ -326,7 +326,7 @@
           {
             "id": 701358,
             "name": "Cam Smith",
-            "iso": 0.181
+            "iso": 0.18
           }
         ],
         "confirmed": true
@@ -424,7 +424,7 @@
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.258
+            "iso": 0.257
           },
           {
             "id": 666182,
@@ -648,7 +648,7 @@
           {
             "id": 657136,
             "name": "Connor Wong",
-            "iso": 0.115
+            "iso": 0.114
           }
         ],
         "confirmed": true
@@ -810,7 +810,7 @@
         "sp": {
           "id": 642547,
           "name": "Freddy Peralta",
-          "hr9": 1.36,
+          "hr9": 1.35,
           "hand": "RHP"
         },
         "lineup": [
@@ -827,7 +827,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 689414,
@@ -884,12 +884,12 @@
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.257
+            "iso": 0.256
           },
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 643289,
@@ -899,7 +899,7 @@
           {
             "id": 645277,
             "name": "Ozzie Albies",
-            "iso": 0.16
+            "iso": 0.161
           },
           {
             "id": 663586,
@@ -960,7 +960,7 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 672695,
@@ -1113,7 +1113,7 @@
           {
             "id": 804668,
             "name": "Rafael Flores Jr.",
-            "iso": 0.261
+            "iso": 0.289
           },
           {
             "id": 694378,
@@ -1313,7 +1313,7 @@
           {
             "id": 806198,
             "name": "Cooper Pratt",
-            "iso": 0.1
+            "iso": 0.099
           }
         ],
         "confirmed": true
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 92\u00b0",
+        "lean": "Boost",
+        "temp": 92.3,
+        "wind_mph": 5.0,
+        "wind_dir": 342,
+        "tail_mph": -1.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.03
     },
     {
       "gamePk": 823174,
@@ -1977,14 +1984,7 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 7mph, 85\u00b0",
-        "lean": "Neutral",
-        "temp": 85.3,
-        "wind_mph": 9.6,
-        "wind_dir": 338,
-        "tail_mph": -6.5,
-        "precip": 2
+        "note": "weather fetch failed"
       },
       "wf": 1.0
     }
