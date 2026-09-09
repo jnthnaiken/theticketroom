@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T22:13:05Z",
+  "pulled_at": "2026-09-09T22:18:28Z",
   "games": [
     {
       "gamePk": 824226,
@@ -363,12 +363,12 @@
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.125
+            "iso": 0.127
           },
           {
             "id": 694376,
             "name": "Shay Whitcomb",
-            "iso": 0.15
+            "iso": 0.162
           },
           {
             "id": 701852,
@@ -486,7 +486,7 @@
           {
             "id": 592518,
             "name": "Manny Machado",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 664034,
@@ -572,7 +572,7 @@
           {
             "id": 694671,
             "name": "Wyatt Langford",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 669394,
@@ -619,7 +619,7 @@
           {
             "id": 686527,
             "name": "Dominic Canzone",
-            "iso": 0.221
+            "iso": 0.219
           },
           {
             "id": 663728,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 824791,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T22:35:00Z",
       "matchup": "CLE@BAL",
       "away": {
@@ -1875,8 +1875,54 @@
           "hr9": 1.24,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699115,
+            "name": "Carlos Jorge",
+            "iso": 0.0
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.223
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.213
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.205
+          },
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.191
+          },
+          {
+            "id": 682877,
+            "name": "Juan Brito",
+            "iso": 0.129
+          },
+          {
+            "id": 677943,
+            "name": "Will Banfield",
+            "iso": 0.0
+          },
+          {
+            "id": 670770,
+            "name": "TJ Friedl",
+            "iso": 0.086
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -1938,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 3mph, 91\u00b0",
-        "lean": "Boost",
-        "temp": 90.6,
-        "wind_mph": 4.0,
-        "wind_dir": 243,
-        "tail_mph": 3.2,
-        "precip": 4
+        "note": "weather fetch failed"
       },
-      "wf": 1.042
+      "wf": 1.0
     }
   ]
 }
