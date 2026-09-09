@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-09T02:00:45Z",
+  "pulled_at": "2026-09-09T02:07:01Z",
   "games": [
     {
       "gamePk": 824792,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824875,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-08T23:15:00Z",
       "matchup": "TB@ATL",
       "away": {
@@ -1012,7 +1012,7 @@
           {
             "id": 677951,
             "name": "Bobby Witt Jr.",
-            "iso": 0.167
+            "iso": 0.168
           },
           {
             "id": 686469,
@@ -1022,7 +1022,7 @@
           {
             "id": 521692,
             "name": "Salvador Perez",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 686681,
@@ -1140,7 +1140,7 @@
           {
             "id": 803011,
             "name": "Sam Antonacci",
-            "iso": 0.125
+            "iso": 0.124
           },
           {
             "id": 678246,
@@ -1180,7 +1180,7 @@
           {
             "id": 691019,
             "name": "Kyle Teel",
-            "iso": 0.189
+            "iso": 0.187
           }
         ],
         "confirmed": true
@@ -1341,7 +1341,7 @@
         "sp": {
           "id": 683000,
           "name": "Riley Cornelio",
-          "hr9": 0.76,
+          "hr9": 0.74,
           "hand": "RHP"
         },
         "lineup": [
@@ -1388,7 +1388,7 @@
           {
             "id": 695670,
             "name": "Harry Ford",
-            "iso": 0.188
+            "iso": 0.185
           }
         ],
         "confirmed": true
@@ -1420,12 +1420,12 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.219
+            "iso": 0.218
           },
           {
             "id": 701538,
             "name": "Jackson Merrill",
-            "iso": 0.174
+            "iso": 0.175
           },
           {
             "id": 669134,
@@ -1506,7 +1506,7 @@
           {
             "id": 694497,
             "name": "Evan Carter",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 669394,
@@ -1531,7 +1531,7 @@
         "sp": {
           "id": 682243,
           "name": "Bryce Miller",
-          "hr9": 1.63,
+          "hr9": 1.61,
           "hand": "RHP"
         },
         "lineup": [
@@ -1633,12 +1633,12 @@
           {
             "id": 669701,
             "name": "Josh Smith",
-            "iso": 0.116
+            "iso": 0.133
           },
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.216
+            "iso": 0.222
           },
           {
             "id": 665926,
@@ -1663,7 +1663,7 @@
         "sp": {
           "id": 678022,
           "name": "Jack Perkins",
-          "hr9": 1.63,
+          "hr9": 1.81,
           "hand": "RHP"
         },
         "lineup": [
@@ -1739,7 +1739,7 @@
         "sp": {
           "id": 687273,
           "name": "Quinn Mathews",
-          "hr9": 0.71,
+          "hr9": 0.7,
           "hand": "LHP"
         },
         "lineup": [
@@ -1823,12 +1823,12 @@
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.089
+            "iso": 0.106
           },
           {
             "id": 668800,
             "name": "Andrew Knizner",
-            "iso": 0.135
+            "iso": 0.131
           },
           {
             "id": 694376,
@@ -1984,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 5mph, 84\u00b0",
-        "lean": "Neutral",
-        "temp": 83.7,
-        "wind_mph": 7.2,
-        "wind_dir": 344,
-        "tail_mph": -5.4,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.002
+      "wf": 1.0
     }
   ]
 }
