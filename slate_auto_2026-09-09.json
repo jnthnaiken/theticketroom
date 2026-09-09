@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T20:12:56Z",
+  "pulled_at": "2026-09-09T20:27:36Z",
   "games": [
     {
       "gamePk": 824226,
@@ -60,7 +60,7 @@
           {
             "id": 805805,
             "name": "Walker Jenkins",
-            "iso": 0.156
+            "iso": 0.152
           }
         ],
         "confirmed": true
@@ -153,7 +153,7 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.054
+            "iso": 0.063
           },
           {
             "id": 807727,
@@ -245,7 +245,7 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.25
+            "iso": 0.247
           },
           {
             "id": 675961,
@@ -326,7 +326,7 @@
           {
             "id": 665877,
             "name": "Jos\u00e9 Ferm\u00edn",
-            "iso": 0.113
+            "iso": 0.112
           }
         ],
         "confirmed": true
@@ -336,7 +336,7 @@
         "sp": {
           "id": 694918,
           "name": "Blade Tidwell",
-          "hr9": 1.02,
+          "hr9": 1.01,
           "hand": "RHP"
         },
         "lineup": [
@@ -363,12 +363,12 @@
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 694376,
             "name": "Shay Whitcomb",
-            "iso": 0.157
+            "iso": 0.155
           },
           {
             "id": 701852,
@@ -412,24 +412,24 @@
         "sp": {
           "id": 800600,
           "name": "Jackson Kent",
-          "hr9": 0.37,
+          "hr9": 0.36,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 695578,
             "name": "James Wood",
-            "iso": 0.263
+            "iso": 0.262
           },
           {
             "id": 686611,
             "name": "Dylan Crews",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 665953,
             "name": "Andr\u00e9s Chaparro",
-            "iso": 0.26
+            "iso": 0.257
           },
           {
             "id": 682928,
@@ -469,7 +469,7 @@
         "sp": {
           "id": 621111,
           "name": "Walker Buehler",
-          "hr9": 1.19,
+          "hr9": 1.18,
           "hand": "RHP"
         },
         "lineup": [
@@ -481,7 +481,7 @@
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.1
+            "iso": 0.101
           },
           {
             "id": 592518,
@@ -545,7 +545,7 @@
         "sp": {
           "id": 674003,
           "name": "Cody Bradford",
-          "hr9": 1.19,
+          "hr9": 1.16,
           "hand": "LHP"
         },
         "lineup": [
@@ -562,12 +562,12 @@
           {
             "id": 679822,
             "name": "Justin Foscue",
-            "iso": 0.237
+            "iso": 0.235
           },
           {
             "id": 607043,
             "name": "Brandon Nimmo",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 694671,
@@ -602,7 +602,7 @@
         "sp": {
           "id": 807739,
           "name": "Kade Anderson",
-          "hr9": 1.8,
+          "hr9": 1.69,
           "hand": "LHP"
         },
         "lineup": [
@@ -1564,8 +1564,54 @@
           "hr9": 1.51,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.125
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.221
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.164
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.087
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.206
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.271
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.125
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.283
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.138
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CWS",
@@ -1627,13 +1673,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 75\u00b0",
+        "lean": "Boost",
+        "temp": 75.1,
+        "wind_mph": 7.8,
+        "wind_dir": 252,
+        "tail_mph": 6.5,
+        "precip": 6
       },
-      "wf": 1.0
+      "wf": 1.03
     },
     {
       "gamePk": 823739,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T23:40:00Z",
       "matchup": "CHC@MIL",
       "away": {
@@ -1655,10 +1708,56 @@
           "hr9": 1.3,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.198
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.169
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.133
+          },
+          {
+            "id": 683734,
+            "name": "Andrew Vaughn",
+            "iso": 0.144
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.145
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.094
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.133
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.151
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.099
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
