@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T22:38:31Z",
+  "pulled_at": "2026-09-09T22:43:35Z",
   "games": [
     {
       "gamePk": 824226,
@@ -419,7 +419,7 @@
           {
             "id": 695578,
             "name": "James Wood",
-            "iso": 0.262
+            "iso": 0.261
           },
           {
             "id": 686611,
@@ -429,7 +429,7 @@
           {
             "id": 665953,
             "name": "Andr\u00e9s Chaparro",
-            "iso": 0.254
+            "iso": 0.253
           },
           {
             "id": 682928,
@@ -689,7 +689,7 @@
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.164
+            "iso": 0.17
           },
           {
             "id": 608070,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 669358,
           "name": "Shane Baz",
-          "hr9": 0.66,
+          "hr9": 0.71,
           "hand": "RHP"
         },
         "lineup": [
@@ -792,17 +792,17 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 10mph, 88\u00b0",
         "lean": "Boost",
-        "temp": 88.5,
+        "temp": 88.0,
         "wind_mph": 10.7,
-        "wind_dir": 191,
+        "wind_dir": 190,
         "tail_mph": 10.1,
         "precip": 0
       },
-      "wf": 1.063
+      "wf": 1.062
     },
     {
       "gamePk": 823416,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T22:40:00Z",
       "matchup": "HOU@PHI",
       "away": {
@@ -923,19 +923,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 84\u00b0",
+        "cond": "wind out 10mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 84.5,
-        "wind_mph": 10.1,
-        "wind_dir": 175,
-        "tail_mph": 9.5,
+        "temp": 84.7,
+        "wind_mph": 10.3,
+        "wind_dir": 181,
+        "tail_mph": 10.0,
         "precip": 0
       },
-      "wf": 1.055
+      "wf": 1.057
     },
     {
       "gamePk": 823818,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T22:40:00Z",
       "matchup": "NYM@MIA",
       "away": {
@@ -1188,15 +1188,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 76\u00b0",
+        "cond": "wind out 8mph, 75\u00b0",
         "lean": "Boost",
-        "temp": 75.5,
+        "temp": 74.9,
         "wind_mph": 11.2,
-        "wind_dir": 185,
-        "tail_mph": 8.6,
+        "wind_dir": 183,
+        "tail_mph": 8.3,
         "precip": 21
       },
-      "wf": 1.038
+      "wf": 1.036
     },
     {
       "gamePk": 823497,
@@ -1324,12 +1324,12 @@
         "cond": "wind out 8mph, 78\u00b0",
         "lean": "Boost",
         "temp": 77.5,
-        "wind_mph": 8.4,
-        "wind_dir": 169,
-        "tail_mph": 7.5,
+        "wind_mph": 9.3,
+        "wind_dir": 163,
+        "tail_mph": 7.9,
         "precip": 1
       },
-      "wf": 1.038
+      "wf": 1.039
     },
     {
       "gamePk": 824871,
@@ -1457,9 +1457,9 @@
         "cond": "calm 2mph, 88\u00b0",
         "lean": "Neutral",
         "temp": 88.2,
-        "wind_mph": 4.5,
-        "wind_dir": 110,
-        "tail_mph": -2.3,
+        "wind_mph": 5.4,
+        "wind_dir": 114,
+        "tail_mph": -2.4,
         "precip": 0
       },
       "wf": 1.019
@@ -1590,8 +1590,8 @@
         "cond": "calm 2mph, 78\u00b0",
         "lean": "Neutral",
         "temp": 78.4,
-        "wind_mph": 4.7,
-        "wind_dir": 163,
+        "wind_mph": 3.1,
+        "wind_dir": 180,
         "tail_mph": 2.2,
         "precip": 33
       },
@@ -1719,16 +1719,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 6mph, 76\u00b0",
-        "lean": "Boost",
-        "temp": 75.5,
-        "wind_mph": 6.7,
-        "wind_dir": 250,
-        "tail_mph": 5.7,
-        "precip": 3
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     },
     {
       "gamePk": 823739,
@@ -1984,9 +1977,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 90.9,
+        "wind_mph": 4.9,
+        "wind_dir": 265,
+        "tail_mph": 2.5,
+        "precip": 4
       },
-      "wf": 1.0
+      "wf": 1.04
     }
   ]
 }
