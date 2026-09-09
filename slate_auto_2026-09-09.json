@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T22:43:35Z",
+  "pulled_at": "2026-09-09T22:48:09Z",
   "games": [
     {
       "gamePk": 824226,
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824713,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T22:45:00Z",
       "matchup": "LAA@BOS",
       "away": {
@@ -1200,7 +1200,7 @@
     },
     {
       "gamePk": 823497,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T23:05:00Z",
       "matchup": "COL@NYY",
       "away": {
@@ -1719,9 +1719,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 76\u00b0",
+        "lean": "Boost",
+        "temp": 75.5,
+        "wind_mph": 7.5,
+        "wind_dir": 253,
+        "tail_mph": 6.1,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.03
     },
     {
       "gamePk": 823739,
