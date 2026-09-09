@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T19:12:13Z",
+  "pulled_at": "2026-09-09T19:17:14Z",
   "games": [
     {
       "gamePk": 824226,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 805673,
           "name": "Zebby Matthews",
-          "hr9": 1.69,
+          "hr9": 1.75,
           "hand": "RHP"
         },
         "lineup": [
@@ -35,12 +35,12 @@
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.165
+            "iso": 0.164
           },
           {
             "id": 701785,
             "name": "Kaelen Culpepper",
-            "iso": 0.143
+            "iso": 0.141
           },
           {
             "id": 663616,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 672456,
           "name": "Keider Montero",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
@@ -87,7 +87,7 @@
           {
             "id": 690993,
             "name": "Colt Keith",
-            "iso": 0.139
+            "iso": 0.147
           },
           {
             "id": 682985,
@@ -97,7 +97,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 814430,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 680755,
           "name": "Braydon Fisher",
-          "hr9": 0.9,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -158,7 +158,7 @@
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.102
+            "iso": 0.101
           },
           {
             "id": 665489,
@@ -203,14 +203,14 @@
         "sp": {
           "id": 669620,
           "name": "Brady Basso",
-          "hr9": 0.81,
+          "hr9": 0.79,
           "hand": "LHP"
         },
         "lineup": [
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 671732,
@@ -965,7 +965,7 @@
     },
     {
       "gamePk": 824871,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T23:15:00Z",
       "matchup": "TB@ATL",
       "away": {
@@ -982,13 +982,61 @@
       "home": {
         "abbrev": "ATL",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 625643,
+          "name": "Reynaldo L\u00f3pez",
+          "hr9": 1.26,
+          "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.17
+          },
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.187
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.256
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.201
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.121
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.145
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.16
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.143
+          },
+          {
+            "id": 669221,
+            "name": "Sean Murphy",
+            "iso": 0.169
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
