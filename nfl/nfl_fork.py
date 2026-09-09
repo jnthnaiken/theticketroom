@@ -23,7 +23,7 @@ vocabulary, the five chips, the MLB-fitted calibration, and the game clock.
 """
 import json, sys
 
-EXPECT_SEAMS = 50     # 49 named + 1 payload (6 from a second pass grepping the OUTPUT, 5 more from RENDERING it)
+EXPECT_SEAMS = 52     # 51 named + 1 payload (6 from a second pass grepping the OUTPUT, 5 more from RENDERING it; +2 SNAPSHOTKEY-2026-09-09)
 
 def seams(payload_js):
     S = []
@@ -123,6 +123,31 @@ def seams(payload_js):
     # Three rooms, three localStorage keys, or one room's ledger overwrites another's.
     add('live-ledger-key', "localStorage.setItem('hr_live_ledger'",
                            "localStorage.setItem('nfl_live_ledger'")
+
+    # ---- 7b. THE OTHER TWO DOORS -- SNAPSHOTKEY-2026-09-09 ----------------------------
+    # This fork took live-ledger-key on 2026-09-03 and MISSED the two seams sitting beside it
+    # in soccer_live_seams.py, whose comment names this exact failure. "Three rooms, three
+    # localStorage keys" was written one seam short, and one of three doors closed is not a
+    # namespace.
+    #
+    # What it cost, 2026-09-09: index.html uses ODDS_KEY='hr_ticket_odds', a FIXED key. All
+    # three rooms are served from theticketroom.live, so they share an origin and therefore
+    # share localStorage. The MLB board saves {date, finals, odds, hr} there as its games go
+    # final. The football board read it, the date guard passed (same site, same slate date),
+    # and it inherited MLB's finals=[2,1]. NFL game 1 -- NE@SEA, 8:20 PM -- was in that list,
+    # so isFinal(1) went true, every leg rendered "no TD", and gradeTicket settled all four
+    # anchors as losses with two hours still to kick. The phantom -4.0u then went to the cover
+    # page through the very key this seam group was added to protect.
+    #
+    # LOCK_KEY is the same collision on the third door -- 'hr_lock_'+date is keyed by DATE, not
+    # by sport, so hr_lock_2026-09-09 held MLB slips ("The Blue Plate") behind the football
+    # board's loadLock(). Nothing had rendered from it yet; that is luck, not a guard.
+    #
+    # index.html is hardened separately (SNAPSHOTSIG / FINALMEMBER) so a foreign snapshot is
+    # rejected on signature before it can write anything. These seams mean it never gets read.
+    add('odds-key', "ODDS_KEY='hr_ticket_odds'", "ODDS_KEY='nfl_ticket_odds'")
+    # Two sites, both checked: the LOCK_KEY declaration and clearSaved()'s removeItem.
+    add('lock-key', "'hr_lock_'", "'nfl_lock_'", 2)
 
     # ---- 8. THE LIVE LOOP -- MUST BE LAST ---------------------------------------------
     # LIVELOOP-BOOT-2026-08-25: this seam must kill BOTH the interval and the boot call. The

@@ -1472,26 +1472,46 @@ $('#btn-aapply').onclick=()=>{const lines=$('#aoddsin').value.split(/\n+/);let a
 function downloadPage(){saveOdds();let html=document.documentElement.outerHTML;const dj='const D='+JSON.stringify(D)+',WX=D.meta.wx;';html=html.replace(/const D=[\s\S]*?,WX=D\.meta\.wx;/,dj);const blob=new Blob(['<!DOCTYPE html>\n'+html],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ticket_room.html';a.click();}
 $('#btn-odl').onclick=downloadPage;
 if(/admin/i.test(location.hash+location.search)){const tb=$('#tab-o');if(tb)tb.style.display='';}
-const ODDS_KEY='hr_ticket_odds';
+const ODDS_KEY='nfl_ticket_odds';
 function oddsSig(){return D.meta.pool+'|'+Object.keys(D.players).sort().slice(0,3).join(',');}
 function saveOdds(){try{const o={},hr={};for(const n in D.players){if(D.players[n].odds)o[n]=D.players[n].odds;if(D.players[n].hr)hr[n]=1;}localStorage.setItem(ODDS_KEY,JSON.stringify({sig:oddsSig(),date:D.meta.date,finals:(D.meta.finals||[]),t:Date.now(),odds:o,hr:hr}));const s=$('#osaved');if(s)s.textContent='saved '+nowStr();}catch(e){}}
 function loadOdds(){try{const raw=localStorage.getItem(ODDS_KEY);if(!raw)return 0;const d=JSON.parse(raw);
   if(!(d.date&&d.date===D.meta.date))return 0;                                        // a snapshot from another slate never touches this board
+  /* SNAPSHOTSIG-2026-09-09 -- THE SIGNATURE GATE NOW RUNS FIRST. It used to sit three lines BELOW
+     the finals/hr writes, so a snapshot this function had already decided belonged to a different
+     slate still got to set D.meta.finals and mark players hr. Everything except the prices went
+     through the door the sig was guarding.
+     How that surfaced: nfl/index.html shipped without the odds-key seam (nfl_fork.py took
+     live-ledger-key and missed odds-key and lock-key), so the football board read the BASEBALL
+     snapshot off the shared origin -- same site, same date string, so the date guard above passed
+     -- and inherited MLB's finals=[2,1]. Its own game 1 was in that list, so on 2026-09-09 every
+     leg rendered "no TD" and all four anchors settled as losses TWO HOURS BEFORE KICKOFF, with the
+     phantom -4.0u handed to the cover page through nfl_live_ledger.
+     The sig would have rejected it on sight: 420|AJ Ewing,Aaron Judge... against
+     26|A.J. Brown,AJ Barner... One gate, and it goes first. Nothing from a foreign snapshot is
+     applied before the board has agreed it is looking at its own slate. */
+  if(d.sig!==oddsSig())return 0;
   // ODDSHOLD-2026-08-15 -- NOTHING is carried across a refresh until EVERY game on the slate is final.
   // While games are still being played a load uses the fresh bake alone. Without this the first build a
   // tab happens to open on pins its prices for the whole day -- 2026-08-15, one cashed single read +388
   // on a desktop and +529 on a phone, 1.4u apart, because the live loop re-saved the morning table forever.
   // Judged on the UNION with the snapshot's own finals: the Action freezes a fully-final slate, so the
   // last game may never make it into a baked meta.finals.
-  var _g=Object.keys((D.meta&&D.meta.wx)||{}).length;
-  var _f=((D.meta&&D.meta.finals)||[]).slice();
-  (d.finals||[]).forEach(function(g){if(_f.indexOf(g)<0)_f.push(g);});
-  if(!(_g>0&&_f.length>=_g))return 0;
+  /* FINALMEMBER-2026-09-09 -- MEMBERSHIP, NOT COUNT. This test was `_f.length>=_g`: does the union
+     know about AS MANY games as this board has. That is not the question. Any snapshot from a wider
+     slate satisfies it -- 2 finals clear a 1-game board -- and it never checked that the ids in the
+     snapshot were ids THIS board uses. Ask it properly: is every game ON THIS BOARD final, and adopt
+     only ids the board actually has, so a foreign game number can never reach isFinal(). Normalised
+     to Number as well, because isFinal() is a strict indexOf and p.game is numeric -- a string id in
+     finals was silently inert. */
+  var _ids=Object.keys((D.meta&&D.meta.wx)||{}).map(Number);
+  var _f=((D.meta&&D.meta.finals)||[]).map(Number);
+  (d.finals||[]).forEach(function(g){g=Number(g);if(_ids.indexOf(g)>=0&&_f.indexOf(g)<0)_f.push(g);});
+  if(!(_ids.length>0&&_ids.every(function(g){return _f.indexOf(g)>=0;})))return 0;
   D.meta.finals=_f;
   if(d.hr){for(const n in d.hr){if(D.players[n])D.players[n].hr=true;}}
-  if(d.sig!==oddsSig())return 0;                                                       // odds restore only when the slate composition matches
   let c=0;for(const n in d.odds){if(D.players[n]){D.players[n].odds=d.odds[n];c++;}}return c;}catch(e){return 0;}}
-function clearSaved(){try{localStorage.removeItem(ODDS_KEY);localStorage.removeItem('hr_lock_'+((D.meta&&D.meta.date)||''));}catch(e){}location.reload();}
+function clearSaved(){try{localStorage.removeItem(ODDS_KEY);localStorage.removeItem('nfl_lock_'+((D.meta&&D.meta.date)||''));}catch(e){}location.reload();}
 $('#btn-oclear').onclick=clearSaved;
 const _ld=loadOdds();D.tickets.forEach(priceTicket);if(_ld){const s=$('#osaved');if(s)s.textContent='restored '+_ld;}
 drawTickets();drawPlayers();drawTracker();
@@ -1597,7 +1617,7 @@ drawTickets();drawPlayers();drawTracker();
   // ---------- the gate + snake draft, on the LIVE scores ----------
   function tsig(t){return t.kind+'|'+((t.players||[]).map(function(l){return l.name;})).slice().sort().join(',');}
   function validT(t){var n=(t.players||[]).length; if(t.kind==='moon')return n>=3; if(t.kind==='biggest')return n>=4; return n>=1;}
-  var LOCK_KEY='hr_lock_'+((typeof D!=='undefined'&&D.meta&&D.meta.date)||'');
+  var LOCK_KEY='nfl_lock_'+((typeof D!=='undefined'&&D.meta&&D.meta.date)||'');
   function loadLock(){try{return JSON.parse(localStorage.getItem(LOCK_KEY))||[];}catch(e){return [];}}
   function saveLock(a){try{localStorage.setItem(LOCK_KEY,JSON.stringify(a));}catch(e){}}
   function assembleClient(D){
