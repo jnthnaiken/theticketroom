@@ -3451,6 +3451,69 @@ var _cmA={}, _cmB={};
    */
   var OUT_STATUS = /^(out|injured reserve|suspension|suspended|inactive|physically unable|non football)/i;
 
+  /* ---- THE TICK, FOR REAL -- INACTIVES-2026-09-09 ---------------------------------
+   * Owner: "link it whatever site you need to so the lineups update. it should be JUST. LIKE.
+   * THE. OTHER. TWO. BOARDS."
+   *
+   * He is right, and the first cut of this file ducked it: it left `status` at 'projected' until
+   * kickoff and wrote a paragraph explaining why. The board's own banner says "A ticket is only
+   * final once every player on it is confirmed in a posted lineup", and a room where that tick
+   * never arrives before you have to place the bet is not the same board as the other two.
+   *
+   * WHAT THE OTHER TWO CONFIRM OFF:
+   *   MLB     posted lineups, hydrate=lineups on the StatsAPI schedule, ~2-3h out
+   *   soccer  the published XI on ESPN, ~1h out
+   *   NFL     THE INACTIVES LIST, due 90 minutes before kickoff by league rule
+   *
+   * I first read ESPN's summary at ~22:55Z and its `injuries` block was the season-long injury
+   * report: New England carried 3 Out and 2 on Injured Reserve, Seattle carried 2 Questionable
+   * and an IR. At ~23:20Z the SAME endpoint returned something different -- five entries per
+   * team, every one of them a flat "Out", the IR men and the Questionables gone:
+   *     NE   Behren Morton, Efton Chism III, Karon Prunty, Walter Rouse, TreVeyon Henderson
+   *     SEA  Jalen Milroe, Tory Horton, Beau Stephens, Mike Morris, Ty Okada
+   * That is the gameday inactives list. ESPN's own gamecast renders those same rows with
+   * status "INACTIVE" and desc "Coach's Decision"; site.api normalises the word to "Out", which
+   * is why the two spellings are both in OUT_STATUS above.
+   *
+   * SO THE PUBLICATION TEST IS A REAL OBSERVATION, NOT A CLOCK GUESS. An inactives list and an
+   * injury report look different, and the difference is decidable:
+   *   - an INJURY REPORT still carries unresolved or roster designations -- Questionable,
+   *     Doubtful, Injured Reserve, PUP, suspended;
+   *   - an INACTIVES LIST carries none of those. Every man on it is simply out tonight. IR
+   *     players are not on it at all, because they are not on the gameday roster to be scratched
+   *     from.
+   * Both conditions are required before this file will tick anything:
+   *   (1) the league's 90-minute deadline has passed for THIS game, from the ESPN kickoff time
+   *       -- consulting the rule, not inferring a result; and
+   *   (2) that team's block reads like an inactives list by the test above.
+   * Checked against the real feed: at 22:55Z condition (2) was FALSE for both teams (NE had the
+   * two IR men, SEA had two Questionables), so nothing would have been ticked early. At 23:20Z
+   * it is TRUE for both.
+   *
+   * ⚠️ AND ONCE IT IS PUBLISHED, THE LIST IS AUTHORITATIVE -- WHICH MEANS `out` STOPS BEING
+   * STICKY. This is the half that is easy to miss. "Brenden Schooler = Out" was on the 22:55Z
+   * injury report and is NOT on the 23:20Z inactives list. A one-way `out` flag would have left
+   * him scratched all night off a report the team then superseded -- the same shape as
+   * UNMATCHED-2026-08-28, where a stale absence outlived the fact. So:
+   *     before publication   set `out`, never clear it        (conservative: a designation stands)
+   *     after publication    `out` is EXACTLY the list        (authoritative: it is the truth)
+   * A man who has already scored is never touched either way, and nothing here runs once the
+   * game is live or final -- from kickoff the box score is the only authority.
+   */
+  var UNRESOLVED = /^(questionable|doubtful|probable|day.to.day|injured reserve|physically unable|non football|suspension|suspended|reserve)/i;
+  var INACTIVE_DEADLINE_MS = 90 * 60 * 1000;      // NFL rule: inactives due 90 minutes out
+  function statusOf(inj) {
+    return String((inj && inj.status) || (inj && inj.type && inj.type.description) || '');
+  }
+  function looksLikeInactives(list) {
+    if (!list || !list.length) return false;
+    for (var i = 0; i < list.length; i++) {
+      if (UNRESOLVED.test(statusOf(list[i]))) return false;
+      if (!OUT_STATUS.test(statusOf(list[i]))) return false;
+    }
+    return true;
+  }
+
   function makeLive(opt) {
     var D = opt.D;
     var fetchJSON = opt.fetchJSON;
@@ -3522,19 +3585,31 @@ var _cmA={}, _cmB={};
         });
       }
 
-      /* ---- inactives, pre-kickoff only ---- */
+      /* ---- inactives + the tick, pre-kickoff only. See INACTIVES-2026-09-09 above. ---- */
       if (!live && !fin) {
+        var kickMs = (ev && ev.date) ? Date.parse(ev.date) : NaN;
+        var deadlinePassed = !isNaN(kickMs) && Date.now() >= (kickMs - INACTIVE_DEADLINE_MS);
         ((sum && sum.injuries) || []).forEach(function (tb) {
           var code = tb.team && (tb.team.abbreviation || tb.team.shortDisplayName);
           var cands = candidatesFor(gi, code);
           if (!cands.length) return;
-          (tb.injuries || []).forEach(function (inj) {
+          var list = tb.injuries || [];
+          var published = deadlinePassed && looksLikeInactives(list);
+
+          var outNow = {};
+          list.forEach(function (inj) {
             var who = inj.athlete && inj.athlete.displayName;
-            if (!who) return;
-            var status = String(inj.status || (inj.type && inj.type.description) || '');
-            if (!OUT_STATUS.test(status)) return;
+            if (!who || !OUT_STATUS.test(statusOf(inj))) return;
             var m = matchOne(who, cands);
-            if (m && !D.players[m].hr) D.players[m].out = true;
+            if (m) outNow[m] = 1;
+          });
+
+          cands.forEach(function (n) {
+            var p = D.players[n];
+            if (p.hr) return;                       // he scored; nothing here may touch him
+            if (outNow[n]) p.out = true;
+            else if (published) p.out = false;      // the authoritative list does not name him
+            if (published && !p.out && !p.void) p.status = 'confirmed';
           });
         });
       }
