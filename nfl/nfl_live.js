@@ -460,6 +460,7 @@
         });
         return Promise.all(jobs);
       }).then(function () {
+        try { reconcileTickets(); } catch (e) {}
         try { render(); } catch (e) {}
         stamp('live ✓ ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         return 'ok';
@@ -470,7 +471,33 @@
       });
     }
 
-    return { run: run, applyGame: applyGame, candidatesFor: candidatesFor };
+    /* ---- CONFLEG-2026-09-09 -- the CARD badge, not just the player chip -----------------
+     * drawStats() recomputes "Confirmed n/N" from p.status on every render, so the hero tile
+     * follows this loop for free. The per-ticket badge does not: it reads `t.confleg`, a baked
+     * field, and the ONLY thing that recomputes it is assembleClient() -- the MLB re-draft,
+     * which is dead on this board by design.
+     *
+     * The other two rooms never noticed. Their payloads are rebuilt server-side every few
+     * minutes (soccer_payload.py / regen15.py) and ADOPT pulls the fresh board in, so confleg
+     * arrives already correct. This board was built at 9/8 5:22pm, has no rebuild loop and
+     * nothing to adopt from, so a baked 0 would sit under 23 confirmed players and every card
+     * would read "projected" while the tile above it read 23/23. Two numbers on one screen
+     * disagreeing about the same fact is the drift this project keeps writing down.
+     *
+     * Same expression assembleClient uses, deliberately copied rather than reinvented:
+     *   confirmed && !out && !void
+     * Display only -- it changes no draft, no price and no grade. */
+    function reconcileTickets() {
+      (D.tickets || []).forEach(function (t) {
+        t.confleg = (t.players || []).filter(function (l) {
+          var p = D.players[l.name];
+          return !!(p && p.status === 'confirmed' && !p.out && !p.void);
+        }).length;
+      });
+    }
+
+    return { run: run, applyGame: applyGame, candidatesFor: candidatesFor,
+             reconcileTickets: reconcileTickets };
   }
 
   var api = { makeLive: makeLive, matchOne: matchOne, tdsOf: tdsOf, norm: norm, normDel: normDel,
