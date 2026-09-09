@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T19:30:53Z",
+  "pulled_at": "2026-09-09T19:32:13Z",
   "games": [
     {
       "gamePk": 824226,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 669620,
           "name": "Brady Basso",
-          "hr9": 0.77,
+          "hr9": 0.76,
           "hand": "LHP"
         },
         "lineup": [
@@ -225,7 +225,7 @@
           {
             "id": 666126,
             "name": "Carlos Cortes",
-            "iso": 0.144
+            "iso": 0.143
           },
           {
             "id": 695720,
@@ -398,7 +398,7 @@
         "wind_mph": 4.7,
         "wind_dir": 31,
         "tail_mph": -2.8,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.017
     },
@@ -791,7 +791,7 @@
         "wind_mph": 10.1,
         "wind_dir": 183,
         "tail_mph": 9.9,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.057
     },
@@ -918,7 +918,7 @@
         "wind_mph": 13.0,
         "wind_dir": 180,
         "tail_mph": 9.2,
-        "precip": 8
+        "precip": 6
       },
       "wf": 1.042
     },
@@ -1087,7 +1087,7 @@
         "wind_mph": 4.1,
         "wind_dir": 158,
         "tail_mph": 1.6,
-        "precip": 24
+        "precip": 20
       },
       "wf": 1.02
     },
@@ -1128,7 +1128,7 @@
         "wind_mph": 7.3,
         "wind_dir": 247,
         "tail_mph": 6.4,
-        "precip": 6
+        "precip": 3
       },
       "wf": 1.031
     },
@@ -1202,9 +1202,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 91.4,
+        "wind_mph": 6.3,
+        "wind_dir": 203,
+        "tail_mph": 6.3,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.054
     }
   ]
 }
