@@ -41258,7 +41258,7 @@
     "precip": 2
    }
   },
-  "build": "9/9 11:01am",
+  "build": "9/9 11:07am",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -41459,7 +41459,7 @@
   "date": "2026-09-09",
   "gs": {},
   "chalkstate": {
-   "b": "9/9 11:01am",
+   "b": "9/9 11:07am",
    "s": {}
   },
   "chalk": [],
@@ -41468,63 +41468,45 @@
   "gate": 54,
   "tickets": 14
  },
- "pool": [
-  "Aaron Judge",
-  "Shohei Ohtani",
-  "Kyle Schwarber",
-  "Spencer Jones",
-  "Ben Rice",
-  "Cal Raleigh",
-  "Junior Caminero",
-  "Munetaka Murakami",
-  "Hunter Goodman",
-  "Kazuma Okamoto",
-  "Coby Mayo",
-  "Pete Crow-Armstrong",
-  "Kyle Stowers",
-  "Pete Alonso",
-  "Colson Montgomery",
-  "Yordan Alvarez",
-  "Matt Olson",
-  "Kody Clemens",
-  "Nelson Vel\u00e1zquez",
-  "Juan Soto",
-  "Rafael Devers",
-  "Mickey Moniak",
-  "Wilyer Abreu",
-  "Brandon Lowe",
-  "Riley Greene",
-  "Miguel Vargas",
-  "Royce Lewis",
-  "Oneil Cruz",
-  "James Wood",
-  "Christian Encarnacion-Strand",
-  "Zach Neto",
-  "Jazz Chisholm",
-  "Jos\u00e9 Ram\u00edrez",
-  "Francisco Lindor",
-  "Carter Jensen",
-  "Freddie Freeman",
-  "Vladimir Guerrero",
-  "Randy Arozarena",
-  "Manny Machado",
-  "Bryce Harper",
-  "Jake Burger",
-  "Drake Baldwin",
-  "CJ Abrams",
-  "JJ Bleday",
-  "Griffin Conine",
-  "Eugenio Su\u00e1rez",
-  "Abimelec Ortiz",
-  "Chase DeLauter",
-  "Bobby Witt",
-  "Julio Rodr\u00edguez",
-  "Ronald Acu\u00f1a",
-  "Jose Siri",
-  "Ketel Marte",
-  "Christian Walker"
- ],
  "tickets": [
+  {
+   "name": "The Blue Plate",
+   "kind": "lunch",
+   "badge": "\ud83c\udf71",
+   "note": "Kody Clemens gets a park that's launching everything tonight, is teeing off (55% hard-hit), swings with natural lift (22\u00b0), and grades out strong for power (81/100).",
+   "players": [
+    {
+     "name": "Kody Clemens",
+     "team": "Twins",
+     "total": 157.8,
+     "aT": 100,
+     "wf": 1.052,
+     "gmatch": "MIN@DET",
+     "gtime": "1:10 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 410,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kody Clemens",
+   "lock": "1:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 410,
+   "payout10": 51
+  },
   {
    "name": "The Apollo",
    "kind": "moon",
@@ -41588,7 +41570,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 5446,
+   "payout10": 554.58
   },
   {
    "name": "Terminal Climb",
@@ -41653,7 +41638,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 5048,
+   "payout10": 514.8
   },
   {
    "name": "Past Low Earth Orbit",
@@ -41718,13 +41706,16 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 5192,
+   "payout10": 529.22
   },
   {
    "name": "Escape Velocity",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Schwarber has gusts carrying balls over the wall, Goodman is crushing it to all fields (54% hard-hit), and Olson is lifting everything (23\u00b0).",
+   "note": "Schwarber plays in a wind tunnel pointed at the seats, Goodman is crushing it to all fields (54% hard-hit), and Olson is lifting everything (23\u00b0).",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -41783,7 +41774,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7032,
+   "payout10": 713.19
   },
   {
    "name": "Past the Event Horizon",
@@ -41848,7 +41842,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 5202,
+   "payout10": 530.16
   },
   {
    "name": "Shot Into Orbit",
@@ -41913,7 +41910,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 6903,
+   "payout10": 700.28
   },
   {
    "name": "Sky High",
@@ -41978,7 +41978,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 7639,
+   "payout10": 773.86
   },
   {
    "name": "Defying Gravity",
@@ -42043,13 +42046,16 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 3,
+   "parlay_am": 9485,
+   "payout10": 958.54
   },
   {
    "name": "Last Call",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Shohei Ohtani has the jet stream pushing toward the seats, is squaring up everything (66% hard-hit), has loft to spare (18\u00b0), and grades near the top of the slate for power (100/100).",
+   "note": "Shohei Ohtani has the jet stream pushing toward the seats, is squaring up everything (66% hard-hit), has loft to spare (18\u00b0), and has the raw juice to clear any wall (100/100 power).",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -42077,41 +42083,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "The Blue Plate",
-   "kind": "lunch",
-   "badge": "\ud83c\udf71",
-   "note": "Kody Clemens plays in a wind tunnel pointed at the seats, is teeing off (55% hard-hit), swings with natural lift (22\u00b0), and packs a big-league power grade (81/100).",
-   "players": [
-    {
-     "name": "Kody Clemens",
-     "team": "Twins",
-     "total": 157.8,
-     "aT": 100,
-     "wf": 1.052,
-     "gmatch": "MIN@DET",
-     "gtime": "1:10 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 410,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Kody Clemens",
-   "lock": "1:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 210,
+   "payout10": 31
   },
   {
    "name": "Cast Off",
@@ -42145,7 +42120,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 200,
+   "payout10": 30
   },
   {
    "name": "Slack Tide",
@@ -42179,7 +42157,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 255,
+   "payout10": 35.5
   },
   {
    "name": "Trim the Sail",
@@ -42213,7 +42194,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 250,
+   "payout10": 35
   },
   {
    "name": "Port of Call",
@@ -42247,7 +42231,65 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 270,
+   "payout10": 37
   }
+ ],
+ "pool": [
+  "Aaron Judge",
+  "Shohei Ohtani",
+  "Kyle Schwarber",
+  "Spencer Jones",
+  "Ben Rice",
+  "Cal Raleigh",
+  "Junior Caminero",
+  "Munetaka Murakami",
+  "Hunter Goodman",
+  "Kazuma Okamoto",
+  "Coby Mayo",
+  "Pete Crow-Armstrong",
+  "Kyle Stowers",
+  "Pete Alonso",
+  "Colson Montgomery",
+  "Yordan Alvarez",
+  "Matt Olson",
+  "Nelson Vel\u00e1zquez",
+  "Juan Soto",
+  "Rafael Devers",
+  "Mickey Moniak",
+  "Wilyer Abreu",
+  "Brandon Lowe",
+  "Riley Greene",
+  "Miguel Vargas",
+  "Royce Lewis",
+  "Oneil Cruz",
+  "James Wood",
+  "Christian Encarnacion-Strand",
+  "Zach Neto",
+  "Jazz Chisholm",
+  "Jos\u00e9 Ram\u00edrez",
+  "Francisco Lindor",
+  "Carter Jensen",
+  "Freddie Freeman",
+  "Vladimir Guerrero",
+  "Randy Arozarena",
+  "Manny Machado",
+  "Bryce Harper",
+  "Jake Burger",
+  "Drake Baldwin",
+  "CJ Abrams",
+  "JJ Bleday",
+  "Griffin Conine",
+  "Eugenio Su\u00e1rez",
+  "Abimelec Ortiz",
+  "Chase DeLauter",
+  "Bobby Witt",
+  "Julio Rodr\u00edguez",
+  "Ronald Acu\u00f1a",
+  "Jose Siri",
+  "Ketel Marte",
+  "Christian Walker"
  ]
 }
