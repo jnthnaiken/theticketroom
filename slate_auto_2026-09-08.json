@@ -1,11 +1,11 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-09T01:37:42Z",
+  "pulled_at": "2026-09-09T01:42:21Z",
   "games": [
     {
       "gamePk": 824792,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-08T22:35:00Z",
       "matchup": "CLE@BAL",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823414,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-08T22:40:00Z",
       "matchup": "HOU@PHI",
       "away": {
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823500,
-      "status": "Manager challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-08T23:05:00Z",
       "matchup": "COL@NYY",
       "away": {
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 823250,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T01:40:00Z",
       "matchup": "WSH@SD",
       "away": {
@@ -1466,7 +1466,7 @@
     },
     {
       "gamePk": 823092,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T01:40:00Z",
       "matchup": "TEX@SEA",
       "away": {
@@ -1598,7 +1598,7 @@
     },
     {
       "gamePk": 824957,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T01:40:00Z",
       "matchup": "TOR@ATH",
       "away": {
@@ -1864,7 +1864,7 @@
     },
     {
       "gamePk": 823901,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T02:10:00Z",
       "matchup": "CIN@LAD",
       "away": {
@@ -1984,7 +1984,14 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 7mph, 85\u00b0",
+        "lean": "Neutral",
+        "temp": 85.3,
+        "wind_mph": 9.6,
+        "wind_dir": 338,
+        "tail_mph": -6.5,
+        "precip": 1
       },
       "wf": 1.0
     }
