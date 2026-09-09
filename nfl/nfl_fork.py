@@ -23,7 +23,10 @@ vocabulary, the five chips, the MLB-fitted calibration, and the game clock.
 """
 import json, sys
 
-EXPECT_SEAMS = 52     # 51 named + 1 payload (6 from a second pass grepping the OUTPUT, 5 more from RENDERING it; +2 SNAPSHOTKEY-2026-09-09)
+from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
+
+EXPECT_SEAMS = 52 + LIVE_SEAM_COUNT   # 51 named + 1 payload + 3 live = 55
+                                      # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09)
 
 def seams(payload_js):
     S = []
@@ -154,8 +157,11 @@ def seams(payload_js):
     # soccer fork matched only the setInterval and left `liveUpdate()` one statement to its
     # left still firing once on load -- which showed up as a live request to statsapi.mlb.com
     # from the soccer board. Both go, in one seam, so they cannot drift apart.
-    add('liveloop', 'liveUpdate(); setInterval(liveUpdate, 6*60*1000)',
-        "/* NFL: the MLB live loop is not wired here yet. */")
+    # NFLLIVE-2026-09-09: the stub is gone. MLB's liveUpdate() stays dead -- the boot call and
+    # the timer now belong to nflLive(), the football room's own ESPN loop. The two OTHER doors
+    # into liveUpdate (the console button and the window handles) are closed in
+    # nfl_live_seams.py, because killing the two you can see is not killing the feature.
+    add('liveloop', 'liveUpdate(); setInterval(liveUpdate, 6*60*1000)', LIVELOOP_NEW)
 
     # ---- 9. SECOND PASS: leftovers the FIRST RENDER exposed ---------------------------
     # ⚠️ THE STATIC SEAM LIST IS NOT THE SEAM LIST. Everything above was derived by reading the
@@ -205,6 +211,10 @@ def seams(payload_js):
         '<b>Sunday Night</b><span>Same idea for the last kickoff. It is the one game that cannot '
         'field a parlay \u2014 three legs need three distinct games \u2014 so it gets a single or '
         'nothing.</span>')
+    # ---- 10. THE LIVE LOOP -- APPENDED LAST ------------------------------------------
+    # nfl_live.js is injected at the final position, so nothing is counted after it. Same
+    # ordering rule soccer_live_seams.py records.
+    S.extend(live_seams())
     return S
 
 
