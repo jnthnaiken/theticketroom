@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T19:47:41Z",
+  "pulled_at": "2026-09-09T19:52:46Z",
   "games": [
     {
       "gamePk": 824226,
@@ -210,12 +210,12 @@
           {
             "id": 703607,
             "name": "Henry Bolte",
-            "iso": 0.118
+            "iso": 0.127
           },
           {
             "id": 671732,
             "name": "Lawrence Butler",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 680869,
@@ -250,7 +250,7 @@
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.159
+            "iso": 0.157
           }
         ],
         "confirmed": true
@@ -291,12 +291,12 @@
           {
             "id": 671056,
             "name": "Iv\u00e1n Herrera",
-            "iso": 0.136
+            "iso": 0.137
           },
           {
             "id": 676475,
             "name": "Alec Burleson",
-            "iso": 0.184
+            "iso": 0.185
           },
           {
             "id": 699024,
@@ -767,8 +767,54 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.185
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.282
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.162
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.152
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.16
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.199
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.138
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.18
+          },
+          {
+            "id": 678489,
+            "name": "Jorge Barrosa",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -1397,16 +1443,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 76\u00b0",
-        "lean": "Boost",
-        "temp": 75.5,
-        "wind_mph": 7.3,
-        "wind_dir": 247,
-        "tail_mph": 6.4,
-        "precip": 6
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     },
     {
       "gamePk": 823739,
@@ -1478,9 +1517,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 91.4,
+        "wind_mph": 6.3,
+        "wind_dir": 203,
+        "tail_mph": 6.3,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.054
     }
   ]
 }

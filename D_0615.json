@@ -16378,7 +16378,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -16475,7 +16475,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -16572,7 +16572,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -16658,7 +16658,7 @@
    "iso": ".189",
    "iso_used": 0.189,
    "powraw": 353.4744346641397,
-   "slot": 5,
+   "slot": 6,
    "bhand": "R",
    "hr9": null,
    "wf": 1.058,
@@ -16669,7 +16669,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -16686,7 +16686,7 @@
    "psrc": "hr9",
    "parkhr": 1.018,
    "mktT": 1.098497906919478,
-   "slotT": 1,
+   "slotT": 0.98,
    "platT": 1.056,
    "pen_fatigue": -0.41,
    "penT": 0.9672000000000001,
@@ -16766,7 +16766,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -17046,7 +17046,7 @@
    "iso": ".144",
    "iso_used": 0.144,
    "powraw": 77.8787316377744,
-   "slot": null,
+   "slot": 9,
    "bhand": null,
    "hr9": null,
    "wf": 1.058,
@@ -17056,8 +17056,8 @@
    "gtime": "6:40 PM ET",
    "late": false,
    "rain": false,
-   "out": true,
-   "status": "projected",
+   "out": false,
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -17074,7 +17074,7 @@
    "psrc": "hr9",
    "parkhr": 1.018,
    "mktT": 1,
-   "slotT": 1,
+   "slotT": 0.92,
    "platT": 1,
    "pen_fatigue": -0.41,
    "penT": 0.9672000000000001,
@@ -17154,7 +17154,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -17240,7 +17240,7 @@
    "iso": ".228",
    "iso_used": 0.228,
    "powraw": 588.1731929136687,
-   "slot": 6,
+   "slot": null,
    "bhand": "R",
    "hr9": null,
    "wf": 1.058,
@@ -17250,7 +17250,7 @@
    "gtime": "6:40 PM ET",
    "late": false,
    "rain": false,
-   "out": false,
+   "out": true,
    "status": "projected",
    "void": false,
    "opp": [
@@ -17268,7 +17268,7 @@
    "psrc": "hr9",
    "parkhr": 1.018,
    "mktT": 1.3,
-   "slotT": 0.98,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": -0.41,
    "penT": 0.9672000000000001,
@@ -17434,7 +17434,7 @@
    "iso": ".145",
    "iso_used": 0.145,
    "powraw": 128.56656726785278,
-   "slot": 9,
+   "slot": 5,
    "bhand": "R",
    "hr9": null,
    "wf": 1.058,
@@ -17445,7 +17445,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -17462,7 +17462,7 @@
    "psrc": "hr9",
    "parkhr": 1.018,
    "mktT": 0.8790322580645161,
-   "slotT": 0.92,
+   "slotT": 1,
    "platT": 1.056,
    "pen_fatigue": -0.41,
    "penT": 0.9672000000000001,
@@ -17542,7 +17542,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Cristopher S\u00e1nchez",
@@ -41227,8 +41227,8 @@
     "factor": 1.03,
     "park": "PIT@CWS",
     "cond": "7 mph",
-    "rain": "6% rain",
-    "precip": 6
+    "rain": "4% rain",
+    "precip": 4
    },
    "13": {
     "emoji": "\u2600\ufe0f",
@@ -41254,11 +41254,11 @@
     "factor": 1.066,
     "park": "CIN@LAD",
     "cond": "6 mph",
-    "rain": "3% rain",
-    "precip": 3
+    "rain": "2% rain",
+    "precip": 2
    }
   },
-  "build": "9/9 3:47pm",
+  "build": "9/9 3:53pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -41459,13 +41459,13 @@
   "date": "2026-09-09",
   "gs": {},
   "chalkstate": {
-   "b": "9/9 3:47pm",
+   "b": "9/9 3:53pm",
    "s": {}
   },
   "chalk": [],
   "chalkever": [],
   "pool": 420,
-  "gate": 56,
+  "gate": 57,
   "tickets": 14
  },
  "tickets": [
@@ -42114,7 +42114,7 @@
      "game": 7,
      "late": false,
      "odds": 315,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -42134,7 +42134,7 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1,
+   "confleg": 2,
    "priced": 3,
    "parlay_am": 5202,
    "payout10": 530.16
@@ -42143,7 +42143,7 @@
    "name": "Shot Into Orbit",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Jones has gusts carrying balls over the wall, Murakami is launching rockets (66% hard-hit), and Vel\u00e1zquez carries top-shelf pop (100/100 power grade).",
+   "note": "Jones has gusts carrying balls over the wall, Murakami is hitting it on the screws (66% hard-hit), and Soto packs a big-league power grade (78/100).",
    "players": [
     {
      "name": "Spencer Jones",
@@ -42172,16 +42172,16 @@
      "status": "confirmed"
     },
     {
-     "name": "Nelson Vel\u00e1zquez",
-     "team": "Astros",
-     "total": 157,
+     "name": "Juan Soto",
+     "team": "Mets",
+     "total": 156.6,
      "aT": 100,
-     "wf": 1.058,
-     "gmatch": "HOU@PHI",
+     "wf": 1,
+     "gmatch": "NYM@MIA",
      "gtime": "6:40 PM ET",
-     "game": 7,
+     "game": 8,
      "late": false,
-     "odds": 373,
+     "odds": 320,
      "status": "projected"
     }
    ],
@@ -42193,25 +42193,25 @@
    "rr": {
     "struct": "by 2s & 3",
     "risk": 2,
-    "maxprofit": 58.7,
+    "maxprofit": 52.7,
     "bytwos": false
    },
    "wxsum": {
-    "boost": 3,
+    "boost": 2,
     "supp": 0,
-    "dome": 0,
+    "dome": 1,
     "neu": 0
    },
    "confleg": 2,
    "priced": 3,
-   "parlay_am": 6903,
-   "payout10": 700.28
+   "parlay_am": 6118,
+   "payout10": 621.81
   },
   {
    "name": "Last Call",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Shohei Ohtani swings with the wind at his back, is squaring up everything (66% hard-hit), has loft to spare (18\u00b0), and has the raw juice to clear any wall (100/100 power).",
+   "note": "Shohei Ohtani swings with the wind at his back, is squaring up everything (66% hard-hit), has loft to spare (18\u00b0), sits in the elite power tier (100/100), and grades to 206 on our board.",
    "players": [
     {
      "name": "Shohei Ohtani",
@@ -42254,7 +42254,6 @@
   "Kyle Stowers",
   "Pete Alonso",
   "Yordan Alvarez",
-  "Nelson Vel\u00e1zquez",
   "Juan Soto",
   "Mickey Moniak",
   "Wilyer Abreu",
@@ -42288,6 +42287,8 @@
   "Max Muncy",
   "Victor Mesa",
   "Christian Walker",
-  "Jo Adell"
+  "Jo Adell",
+  "Mike Trout",
+  "Vinnie Pasquantino"
  ]
 }
