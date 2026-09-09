@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
   "season": "2026",
-  "pulled_at": "2026-09-09T02:12:01Z",
+  "pulled_at": "2026-09-09T02:16:42Z",
   "games": [
     {
       "gamePk": 824792,
@@ -980,12 +980,12 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.146
+            "iso": 0.157
           },
           {
             "id": 545121,
             "name": "Ildemaro Vargas",
-            "iso": 0.129
+            "iso": 0.128
           },
           {
             "id": 814439,
@@ -1201,7 +1201,7 @@
     },
     {
       "gamePk": 823738,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-08T23:40:00Z",
       "matchup": "CHC@MIL",
       "away": {
@@ -1246,7 +1246,7 @@
           {
             "id": 807713,
             "name": "Matt Shaw",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 621438,
@@ -1341,7 +1341,7 @@
         "sp": {
           "id": 683000,
           "name": "Riley Cornelio",
-          "hr9": 0.74,
+          "hr9": 0.73,
           "hand": "RHP"
         },
         "lineup": [
@@ -1430,7 +1430,7 @@
           {
             "id": 669134,
             "name": "Luis Campusano",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 687957,
@@ -1516,12 +1516,12 @@
           {
             "id": 670032,
             "name": "Nicky Lopez",
-            "iso": 0.044
+            "iso": 0.043
           },
           {
             "id": 643376,
             "name": "Danny Jansen",
-            "iso": 0.157
+            "iso": 0.156
           }
         ],
         "confirmed": true
@@ -1643,12 +1643,12 @@
           {
             "id": 665926,
             "name": "Andr\u00e9s Gim\u00e9nez",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 660821,
             "name": "Jes\u00fas S\u00e1nchez",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 676391,
@@ -1663,7 +1663,7 @@
         "sp": {
           "id": 678022,
           "name": "Jack Perkins",
-          "hr9": 1.81,
+          "hr9": 1.79,
           "hand": "RHP"
         },
         "lineup": [
@@ -1771,12 +1771,12 @@
           {
             "id": 669357,
             "name": "Nolan Gorman",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.181
+            "iso": 0.179
           },
           {
             "id": 691026,
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 84\u00b0",
+        "lean": "Neutral",
+        "temp": 83.7,
+        "wind_mph": 7.2,
+        "wind_dir": 344,
+        "tail_mph": -5.4,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.002
     }
   ]
 }
