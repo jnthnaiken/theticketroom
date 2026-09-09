@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T18:51:58Z",
+  "pulled_at": "2026-09-09T18:56:45Z",
   "games": [
     {
       "gamePk": 824226,
@@ -710,7 +710,7 @@
     },
     {
       "gamePk": 823416,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T22:40:00Z",
       "matchup": "HOU@PHI",
       "away": {
@@ -732,10 +732,56 @@
           "hr9": 0.69,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.285
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.144
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.226
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.112
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.144
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.153
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.084
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.129
+          },
+          {
+            "id": 650559,
+            "name": "Bryan De La Cruz",
+            "iso": 0.17
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
