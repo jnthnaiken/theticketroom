@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T22:53:41Z",
+  "pulled_at": "2026-09-09T22:58:21Z",
   "games": [
     {
       "gamePk": 824226,
@@ -491,7 +491,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 701538,
@@ -501,7 +501,7 @@
           {
             "id": 669134,
             "name": "Luis Campusano",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 669720,
@@ -884,7 +884,7 @@
           {
             "id": 547180,
             "name": "Bryce Harper",
-            "iso": 0.226
+            "iso": 0.225
           },
           {
             "id": 650333,
@@ -1017,7 +1017,7 @@
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.227
+            "iso": 0.226
           },
           {
             "id": 672640,
@@ -1144,12 +1144,12 @@
           {
             "id": 681508,
             "name": "Mickey Gasper",
-            "iso": 0.221
+            "iso": 0.219
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 596115,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 824871,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T23:15:00Z",
       "matchup": "TB@ATL",
       "away": {
@@ -1460,7 +1460,7 @@
         "wind_mph": 5.4,
         "wind_dir": 114,
         "tail_mph": -2.4,
-        "precip": 0
+        "precip": 1
       },
       "wf": 1.019
     },
@@ -1593,7 +1593,7 @@
         "wind_mph": 3.1,
         "wind_dir": 180,
         "tail_mph": 2.2,
-        "precip": 33
+        "precip": 40
       },
       "wf": 1.02
     },
@@ -1719,9 +1719,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 6mph, 76\u00b0",
+        "lean": "Boost",
+        "temp": 75.5,
+        "wind_mph": 7.5,
+        "wind_dir": 253,
+        "tail_mph": 6.1,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.03
     },
     {
       "gamePk": 823739,
@@ -1962,9 +1969,9 @@
             "iso": 0.103
           },
           {
-            "id": 518692,
-            "name": "Freddie Freeman",
-            "iso": 0.156
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.077
           },
           {
             "id": 571771,
@@ -1984,7 +1991,7 @@
         "wind_mph": 4.9,
         "wind_dir": 265,
         "tail_mph": 2.5,
-        "precip": 4
+        "precip": 3
       },
       "wf": 1.04
     }
