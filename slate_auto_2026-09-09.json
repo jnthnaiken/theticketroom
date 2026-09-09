@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T22:30:54Z",
+  "pulled_at": "2026-09-09T22:33:14Z",
   "games": [
     {
       "gamePk": 824226,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823090,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-09T20:10:00Z",
       "matchup": "TEX@SEA",
       "away": {
@@ -1984,9 +1984,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 91\u00b0",
+        "lean": "Boost",
+        "temp": 90.6,
+        "wind_mph": 4.0,
+        "wind_dir": 243,
+        "tail_mph": 3.2,
+        "precip": 4
       },
-      "wf": 1.0
+      "wf": 1.042
     }
   ]
 }
