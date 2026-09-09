@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T19:42:17Z",
+  "pulled_at": "2026-09-09T19:47:41Z",
   "games": [
     {
       "gamePk": 824226,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 805673,
           "name": "Zebby Matthews",
-          "hr9": 1.74,
+          "hr9": 1.73,
           "hand": "RHP"
         },
         "lineup": [
@@ -153,12 +153,12 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.055
+            "iso": 0.054
           },
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.101
+            "iso": 0.1
           },
           {
             "id": 665489,
@@ -193,7 +193,7 @@
           {
             "id": 664702,
             "name": "Myles Straw",
-            "iso": 0.111
+            "iso": 0.11
           }
         ],
         "confirmed": true
@@ -203,7 +203,7 @@
         "sp": {
           "id": 669620,
           "name": "Brady Basso",
-          "hr9": 0.76,
+          "hr9": 0.74,
           "hand": "LHP"
         },
         "lineup": [
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823172,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-09T19:45:00Z",
       "matchup": "STL@SF",
       "away": {
@@ -286,7 +286,7 @@
           {
             "id": 663494,
             "name": "Bryan Torres",
-            "iso": 0.119
+            "iso": 0.118
           },
           {
             "id": 671056,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823090,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T20:10:00Z",
       "matchup": "TEX@SEA",
       "away": {
@@ -1478,16 +1478,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 91\u00b0",
-        "lean": "Boost",
-        "temp": 91.4,
-        "wind_mph": 6.3,
-        "wind_dir": 203,
-        "tail_mph": 6.3,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.054
+      "wf": 1.0
     }
   ]
 }
