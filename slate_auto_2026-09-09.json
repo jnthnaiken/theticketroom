@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-09T19:37:23Z",
+  "pulled_at": "2026-09-09T19:42:17Z",
   "games": [
     {
       "gamePk": 824226,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 672456,
           "name": "Keider Montero",
-          "hr9": 0.93,
+          "hr9": 0.92,
           "hand": "RHP"
         },
         "lineup": [
@@ -245,7 +245,7 @@
           {
             "id": 661531,
             "name": "Brian Serven",
-            "iso": 0.254
+            "iso": 0.25
           },
           {
             "id": 675961,
@@ -319,14 +319,14 @@
             "iso": 0.175
           },
           {
-            "id": 691026,
-            "name": "Masyn Winn",
-            "iso": 0.087
-          },
-          {
             "id": 701675,
             "name": "Nathan Church",
             "iso": 0.121
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.113
           }
         ],
         "confirmed": true
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823251,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-09T20:10:00Z",
       "matchup": "WSH@SD",
       "away": {
@@ -940,8 +940,54 @@
           "hr9": 1.84,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.194
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.181
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.158
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.142
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.087
+          },
+          {
+            "id": 677347,
+            "name": "Kyren Paris",
+            "iso": 0.0
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.116
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.118
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.05
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -1016,7 +1062,7 @@
     },
     {
       "gamePk": 823497,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-09T23:05:00Z",
       "matchup": "COL@NYY",
       "away": {
@@ -1027,8 +1073,54 @@
           "hr9": 1.85,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.189
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.184
+          },
+          {
+            "id": 681198,
+            "name": "TJ Rumfield",
+            "iso": 0.16
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.283
+          },
+          {
+            "id": 666160,
+            "name": "Mickey Moniak",
+            "iso": 0.248
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.154
+          },
+          {
+            "id": 664954,
+            "name": "Brett Sullivan",
+            "iso": 0.187
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.126
+          },
+          {
+            "id": 691728,
+            "name": "Zac Veen",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -1038,10 +1130,56 @@
           "hr9": 1.32,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.264
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.149
+          },
+          {
+            "id": 592450,
+            "name": "Aaron Judge",
+            "iso": 0.281
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.256
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.198
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.109
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.147
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.123
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.137
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
