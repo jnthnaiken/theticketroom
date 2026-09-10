@@ -1,0 +1,15 @@
+{
+ "model": "ev_soccer_v0",
+ "status": "NOT WIRED IN. Owner 2026-09-10: 'Baseball only for now'. Kept so EV can be re-measured as boards accumulate.",
+ "form": "p = sigmoid(b0 + b_lim*logit(implied) + b_ez*edge_z); EV = p*decimal - 1",
+ "coef": {"b0": 0.204683, "b_lim": 1.094376, "b_ez": 0.099617},
+ "se": {"b0": 0.211, "b_lim": 0.206, "b_ez": 0.081},
+ "fit": {"source": "soccer/boards/2026-08-27..2026-09-09 (12 nights)", "rows": 768,
+         "filter": "status == confirmed (in the XI), priced, graded", "hit": 0.310, "implied": 0.282},
+ "leave_one_night_out_roi_flat_1u": {
+   "top3":  {"EV": "+9.9%",  "TOTAL": "+31.2%", "price": "+21.0%", "edge_z": "+26.1%"},
+   "top6":  {"EV": "+7.9%",  "TOTAL": "+15.4%", "price": "+19.3%", "edge_z": "+15.5%"},
+   "top10": {"EV": "+14.1%", "TOTAL": "+21.4%", "price": "+5.1%",  "edge_z": "+9.4%"}
+ },
+ "note": "Every archived board already carries odds, edge_z, status and the outcome, so no extra logging is needed to re-run this."
+}
