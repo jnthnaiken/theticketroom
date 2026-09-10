@@ -1,7 +1,7 @@
 {
   "date": "2026-09-10",
   "season": "2026",
-  "pulled_at": "2026-09-10T17:30:30Z",
+  "pulled_at": "2026-09-10T17:36:14Z",
   "games": [
     {
       "gamePk": 824872,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 607259,
           "name": "Nick Martinez",
-          "hr9": 1.04,
+          "hr9": 1.03,
           "hand": "RHP"
         },
         "lineup": [
@@ -77,7 +77,7 @@
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 660670,
@@ -112,12 +112,12 @@
           {
             "id": 676551,
             "name": "Brewer Hicklen",
-            "iso": 0.174
+            "iso": 0.167
           },
           {
             "id": 673490,
             "name": "Ha-Seong Kim",
-            "iso": 0.01
+            "iso": 0.009
           }
         ],
         "confirmed": true
@@ -146,7 +146,7 @@
         "sp": {
           "id": 664299,
           "name": "Cristian Javier",
-          "hr9": 1.6,
+          "hr9": 1.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823088,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-10T20:10:00Z",
       "matchup": "TEX@SEA",
       "away": {
@@ -293,10 +293,56 @@
           "hr9": 1.42,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.12
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.19
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.219
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.193
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.151
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.094
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.137
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.369
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.098
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
