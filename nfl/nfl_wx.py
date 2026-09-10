@@ -59,7 +59,9 @@ def build(fixtures_path, out_path):
     for slug, mm in fx['matches'].items():
         if str(mm.get('roof') or '').lower() in INDOOR:
             out[slug] = dict(indoor=True, wind=0, precip=0, temp=None); indoor += 1; continue
-        ll = STADIUM.get(mm['home'])
+        # MELBOURNE-2026-09-10: a neutral-site game carries its own coordinates in fixtures.json
+        # (SF at LA, week 1, Melbourne Cricket Ground). games.csv says roof=dome for it; the MCG is open-air.
+        ll = tuple(mm['latlon']) if mm.get('latlon') else STADIUM.get(mm['home'])
         if not ll:
             failed.append(f'{slug} (no coords for {mm["home"]})'); continue
         try:
