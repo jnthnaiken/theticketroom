@@ -1,7 +1,7 @@
 {
   "date": "2026-09-10",
   "season": "2026",
-  "pulled_at": "2026-09-10T23:36:52Z",
+  "pulled_at": "2026-09-10T23:41:59Z",
   "games": [
     {
       "gamePk": 824872,
@@ -81,7 +81,7 @@
           },
           {
             "id": 660670,
-            "name": "Ronald Acu\u00f1a Jr.",
+            "name": "Ronald Acu\u00f1a",
             "iso": 0.185
           },
           {
@@ -91,7 +91,7 @@
           },
           {
             "id": 671739,
-            "name": "Michael Harris II",
+            "name": "Michael Harris",
             "iso": 0.199
           },
           {
@@ -125,16 +125,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 86\u00b0",
-        "lean": "Boost",
-        "temp": 85.6,
-        "wind_mph": 2.2,
-        "wind_dir": 217,
-        "tail_mph": 2.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     },
     {
       "gamePk": 823413,
@@ -258,16 +251,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 87\u00b0",
-        "lean": "Boost",
-        "temp": 87.2,
-        "wind_mph": 9.3,
-        "wind_dir": 281,
-        "tail_mph": 0.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     },
     {
       "gamePk": 823088,
@@ -448,7 +434,7 @@
           {
             "id": 691182,
             "name": "Adael Amador",
-            "iso": 0.344
+            "iso": 0.334
           },
           {
             "id": 687597,
@@ -523,20 +509,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 83\u00b0",
-        "lean": "Boost",
-        "temp": 83.1,
-        "wind_mph": 5.5,
-        "wind_dir": 258,
-        "tail_mph": 2.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.028
+      "wf": 1.0
     },
     {
       "gamePk": 824550,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-10T23:40:00Z",
       "matchup": "PIT@CWS",
       "away": {
@@ -601,7 +580,7 @@
         "sp": {
           "id": 696146,
           "name": "Hagen Smith",
-          "hr9": 0.56,
+          "hr9": 0.55,
           "hand": "LHP"
         },
         "lineup": [
@@ -656,16 +635,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 7mph, 70\u00b0",
-        "lean": "Suppress",
-        "temp": 70.5,
-        "wind_mph": 6.7,
-        "wind_dir": 50,
-        "tail_mph": -6.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.978
+      "wf": 1.0
     }
   ]
 }
