@@ -75,6 +75,40 @@ jobs:
       - run: pip install --quiet pandas numpy scikit-learn
 
       # --------------------------------------------------------------------------------------
+      # 🚨 SETTLENFL-2026-09-10 -- GRADE FINISHED NIGHTS BEFORE ANYTHING ELSE.
+      # Owner: "well it was graded until you published the new board". nfl_live.js grades in the
+      # browser and saves nothing, so a night's result lived only as long as its board was the
+      # one on the page. Publish now archives every board as nfl/boards/<date>.json; this step
+      # grades each archived board whose games are all FINAL on ESPN and is not yet in
+      # nfl_season.json, using soccer_grade.fold() (one grader for both rooms). It runs before the
+      # slate is resolved and staged, so the ledger the page bakes already includes the night.
+      # Never fatal: a network miss leaves the night for the next build.
+      # --------------------------------------------------------------------------------------
+      - name: Settle finished boards
+        id: settle
+        continue-on-error: true
+        run: |
+          cd nfl
+          python3 nfl_settle.py --season nfl_season.json --boards boards --slates slates
+          if git diff --quiet -- nfl_season.json boards/; then
+            echo "settled=false" >> $GITHUB_OUTPUT
+          else
+            echo "settled=true" >> $GITHUB_OUTPUT
+            echo "::notice::a football night was graded into nfl_season.json"
+            # Committed HERE, not left for Publish: on a day with no open slate Publish never runs,
+            # and an uncommitted grade would be thrown away with the runner.
+            cd ..
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add nfl/nfl_season.json nfl/boards/
+            git commit -m "NFL settle ($(date -u +%H:%MZ))"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed settle"; break; }
+              sleep $((i*5))
+            done
+          fi
+
+      # --------------------------------------------------------------------------------------
       # WHICH SLATE? The EARLIEST one that has not finished. SLATEPICK-2026-09-08.
       #
       # This step used to be `ls slates/*/ | sort | tail -1` plus a whole-day grace, i.e. "the
@@ -208,16 +242,18 @@ jobs:
           fi
 
       - name: Publish
-        if: steps.slate.outputs.go == 'true' && steps.gate.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
+        if: steps.slate.outputs.go == 'true' && (steps.gate.outputs.changed == 'true' || steps.settle.outputs.settled == 'true') && github.event.inputs.dry_run != 'true'
         run: |
           cd nfl
           cp .work/nfl_index.html index.html
           cp .work/nfl_D.json    nfl_D.json
           cp .work/prices.json   slates/${{ steps.slate.outputs.date }}/prices.json
+          # SETTLENFL-2026-09-10: the archive nfl_settle.py grades from once the slate is over.
+          mkdir -p boards && cp .work/nfl_D.json "boards/${{ steps.slate.outputs.date }}.json"
           cd ..
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add nfl/index.html nfl/nfl_D.json nfl/nfl_season.json \
+          git add nfl/index.html nfl/nfl_D.json nfl/nfl_season.json nfl/boards/ \
                   nfl/slates/${{ steps.slate.outputs.date }}/prices.json
           git diff --cached --quiet && { echo "nothing staged"; exit 0; }
           git commit -m "NFL board ${{ steps.slate.outputs.date }} ($(date -u +%H:%MZ))"
