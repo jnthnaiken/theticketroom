@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-10T03:42:01Z",
+  "pulled_at": "2026-09-10T03:47:00Z",
   "games": [
     {
       "gamePk": 824226,
@@ -1719,9 +1719,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 77.4,
+        "wind_mph": 3.5,
+        "wind_dir": 255,
+        "tail_mph": 2.8,
+        "precip": 3
       },
-      "wf": 1.0
+      "wf": 1.021
     },
     {
       "gamePk": 823739,
@@ -1969,7 +1976,7 @@
           {
             "id": 571771,
             "name": "Enrique Hern\u00e1ndez",
-            "iso": 0.148
+            "iso": 0.145
           }
         ],
         "confirmed": true
@@ -1977,16 +1984,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 90\u00b0",
-        "lean": "Boost",
-        "temp": 89.8,
-        "wind_mph": 7.5,
-        "wind_dir": 258,
-        "tail_mph": 4.5,
-        "precip": 2
+        "note": "weather fetch failed"
       },
-      "wf": 1.045
+      "wf": 1.0
     }
   ]
 }
