@@ -230,8 +230,12 @@ jobs:
         if: steps.slate.outputs.go == 'true'
         run: |
           cd nfl/.work
-          NEW=$(python3 nfl_sig.py nfl_D.json)
-          OLD=$([ -f ../nfl_D.json ] && python3 nfl_sig.py ../nfl_D.json || echo "")
+          # SETTLENFL-2026-09-10: the baked season ledger is something a reader notices too (the
+          # SEASON panel). Without it a night graded into nfl_season.json never reached the page
+          # until some unrelated TOTAL moved.
+          SEASON_SIG='import json,sys,hashlib;print(hashlib.md5(json.dumps(json.load(open(sys.argv[1]))["meta"].get("season"),sort_keys=True).encode()).hexdigest()[:12])'
+          NEW="$(python3 nfl_sig.py nfl_D.json):$(python3 -c "$SEASON_SIG" nfl_D.json)"
+          OLD=$([ -f ../nfl_D.json ] && echo "$(python3 nfl_sig.py ../nfl_D.json):$(python3 -c "$SEASON_SIG" ../nfl_D.json)" || echo "")
           echo "new=$NEW"
           echo "old=$OLD"
           if [ "$NEW" = "$OLD" ]; then
