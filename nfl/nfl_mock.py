@@ -244,6 +244,36 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     d['blend'] = 0.5 * d.mkt_z + 0.5 * d.edge_z
     d['TOTAL'] = ((100 + 30 * d.blend) * d.wf).round(1)
     d['gate_z'] = z(d.TOTAL)
+    # 🚨 EVDRAFT-2026-09-10 -- THE BOARD RANKS ON EXPECTED VALUE. Owner: "i want the ev draft for all
+    # sports now". EV = p_model * decimal(held price) - 1. p_model is the model's own price-free TD
+    # probability (model_prob: fit on 2021-24 play-by-play, team-normalised, weather already applied),
+    # so there is no second weather multiply here. blend = z(EV) over the PRICED field, TOTAL = 100 +
+    # 30*blend, gate_z = z(TOTAL) over the priced field. The client re-draft recomputes its gate from
+    # `blend`, so blend and TOTAL move together. ⚠️ UNTESTED ON NFL: there are no graded NFL slates
+    # with prices yet -- MLB is where EV ranking was measured (walk-forward top-22 -13.9% vs -18.9%).
+    # 🚨 OFF BY DEFAULT (owner, 2026-09-10: "Baseball only for now"). On the 2026-09-13 slate EV put
+    # Kirk Cousins +2000 in an anchor seat (p_model 8.1% vs 4.8% implied) -- the QB TD model, not an
+    # edge. `ev` and `fair` are computed and written to scored.json on every build so they can be
+    # measured; the RANKING only changes with NFL_BOARD_MODEL=ev_v1.
+    d['ev'] = np.nan
+    d['fair'] = np.nan
+    def _dec(a):
+        return 1 + a / 100.0 if a > 0 else 1 + 100.0 / (-a)
+    pm = d.odds.notna() & d.p_model.notna()
+    if pm.any():
+        d.loc[pm, 'ev'] = [p * _dec(a) - 1 for p, a in zip(d.loc[pm, 'p_model'], d.loc[pm, 'odds'])]
+        d.loc[pm, 'fair'] = [round((1 / p - 1) * 100) if p < 0.5 else -round(p / (1 - p) * 100)
+                             for p in d.loc[pm, 'p_model']]
+    if os.environ.get('NFL_BOARD_MODEL', 'mkt50') == 'ev_v1' and pm.any():
+        ez = z(d.loc[pm, 'ev'])
+        floor = (ez.min() - 0.5) if len(ez) else 0.0
+        d['blend'] = floor
+        d.loc[pm, 'blend'] = ez
+        d['TOTAL'] = (100 + 30 * d.blend).round(1)
+        d['gate_z'] = floor
+        d.loc[pm, 'gate_z'] = z(d.loc[pm, 'TOTAL'])
+        top = d[pm].sort_values('ev', ascending=False).head(8)
+        print('BOARD MODEL ev_v1: ' + ', '.join(f"{r.full_name} {int(r.odds):+d} ev {r.ev:+.1%}" for _, r in top.iterrows()))
     return d, fx
 
 # ---------------------------------------------------------------------------------------------
@@ -257,6 +287,8 @@ def to_scored(d, fx):
             odds=int(r.odds), TOTAL=float(r.TOTAL), blend=float(r.blend),
             gate_z=float(r.gate_z), p_model=round(float(r.p_model), 4),
             p_mkt=round(float(r.p_mkt), 4) if pd.notna(r.p_mkt) else None,
+            ev=round(float(r.ev), 4) if pd.notna(r.ev) else None,
+            fair=int(r.fair) if pd.notna(r.fair) else None,
             tchpg=round(float(r.tchpg), 2), i10pg=round(float(r.i10pg), 2),
             i10_share=round(float(r.i10_share), 3), imp=float(r.imp),
             rz_pg=round(float(r.rz_pg), 2) if pd.notna(r.rz_pg) else None,
