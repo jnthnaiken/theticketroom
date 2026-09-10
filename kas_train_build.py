@@ -23,7 +23,7 @@ Deliberate differences from live, stated so a reader doesn't have to discover th
     (live: build15's static table). If this weight earns anything, the live side should switch to it.
   * Weather = Open-Meteo ARCHIVE (reanalysis) at the ET first-pitch hour (live: historical-forecast).
 """
-import argparse, glob, math, os, sys
+import argparse, glob, json, math, os, sys
 import datetime as dt
 from zoneinfo import ZoneInfo
 
@@ -272,11 +272,11 @@ def season_rows(R, sched, W, parkfac):
     return G[keep]
 
 
-def park_factors(pa_tables):
+def park_factors(pa_tables, extra_season=None):
     """(season, venue, side) -> shrunk HR/PA ratio vs league over the PRIOR PARK_PRIOR_SEASONS seasons."""
     T = pd.concat(pa_tables, ignore_index=True)       # season, venue_id, side, pa, hr
     out = {}
-    for S in sorted(T['season'].unique()):
+    for S in sorted(set(T['season'].unique()) | ({extra_season} if extra_season else set())):
         prior = T[(T['season'] < S) & (T['season'] >= S - PARK_PRIOR_SEASONS)]
         if prior.empty:
             continue
@@ -310,8 +310,21 @@ def main():
         t = R.groupby(['venue_id', 'stand'], observed=True).agg(pa=('hr', 'size'), hr=('hr', 'sum')).reset_index()
         t['season'] = S
         pa_tables.append(t.rename(columns={'stand': 'side'})[['season', 'venue_id', 'side', 'pa', 'hr']])
-    pf = park_factors(pa_tables)
+    pf = park_factors(pa_tables, extra_season=seasons[-1] + 1)
     print(f"park factors: {len(pf)} (season, venue, side) cells", flush=True)
+    # KASV1: the NEXT season's factors (prior 3 seasons) are what the live log needs for c_park2.
+    nxt = seasons[-1] + 1
+    names = {}
+    for S in seasons[-PARK_PRIOR_SEASONS:]:
+        sc = pd.read_parquet(find('sched', S), columns=['venue_id', 'venue'])
+        names.update(dict(zip(sc['venue_id'], sc['venue'])))
+    tbl = {}
+    for (S, vid, side), f in pf.items():
+        if S == nxt:
+            tbl.setdefault(str(int(vid)), {'venue': names.get(vid)})[side] = round(f, 4)
+    json.dump({'season': int(nxt), 'prior_seasons': PARK_PRIOR_SEASONS, 'shrink_pa': PARK_SHRINK_PA, 'venues': tbl},
+              open('park_hand_next.json', 'w'), indent=1, sort_keys=True)
+    print("PARKHAND_JSON " + json.dumps({'season': int(nxt), 'venues': tbl}, sort_keys=True, separators=(',', ':')), flush=True)
     out = []
     for S in seasons:
         R = prep(pd.read_parquet(find('raw', S)))
