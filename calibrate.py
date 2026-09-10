@@ -461,6 +461,21 @@ def shadow_fill(path=OUT, budget=SHADOW_BUDGET_S):
                 r['c_err'] = str(e)[:80]
             rows.append(r)
         changed[d] = rows
+    # KASV0-2026-09-10: score every night that has its challenger columns with the FROZEN v0 weights.
+    # Offline and cheap; re-scores a night only when its c_* columns were just (re)derived or it has
+    # never been scored. A missing/broken weights file skips scoring, it never stops the log.
+    try:
+        import kasmodel as _KM
+        _W = _KM.load_weights('v0', here)
+        _col = _W['model']
+        for d in order:
+            rs = changed.get(d, by_date[d])
+            if not d or not any(r.get('c_v') is not None for r in rs):
+                continue
+            if d in changed or any(_col not in r for r in rs):
+                changed[d] = _KM.score_night(rs, _W)
+    except Exception as e:
+        print(f"  ::warning:: kas_v0 scoring skipped ({str(e)[:100]})")
     if changed:
         tmp = path + ".tmp"
         with open(tmp, 'w') as fh:
@@ -468,7 +483,7 @@ def shadow_fill(path=OUT, budget=SHADOW_BUDGET_S):
                 for r in changed.get(d, by_date[d]):
                     fh.write(json.dumps(r) + "\n")
         os.replace(tmp, path)
-    left = len(todo) - len(changed)
+    left = sum(1 for d in todo if not any(r.get('c_v') is not None for r in changed.get(d, by_date[d])))
     print(f"calibration: challenger columns for {len(changed)} night(s) ({fetched} fetched) in "
           f"{_t.time() - t0:.0f}s; {left} night(s) still to fill")
     return len(changed)

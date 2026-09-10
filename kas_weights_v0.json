@@ -1,0 +1,62 @@
+{
+ "model": "kas_v0",
+ "proposed": "2026-09-10",
+ "judge": "challenge.py --proposed 2026-09-10 --challenger kas_v0 --incumbent total --top 22 (also vs mkt_z)",
+ "inputs": [
+  "c_dmg",
+  "c_khr",
+  "c_hh",
+  "c_la",
+  "c_fb",
+  "c_ars",
+  "c_sp_fb",
+  "c_sp_swstr",
+  "c_sp_csw",
+  "c_pen_pa",
+  "c_pen_hr_side",
+  "c_pen_x",
+  "c_pen_top_out",
+  "c_wind_out",
+  "c_temp",
+  "c_rho",
+  "c_park"
+ ],
+ "negate": [
+  "c_sp_swstr",
+  "c_sp_csw",
+  "c_rho"
+ ],
+ "winsor": 3.0,
+ "missing": 0.0,
+ "coef": {
+  "c_dmg": 0.163873,
+  "c_khr": 0.072484,
+  "c_hh": 0.241663,
+  "c_la": 0.08814,
+  "c_fb": 0.026503,
+  "c_ars": 0.107826,
+  "c_sp_fb": 0.07089,
+  "c_sp_swstr": 0.0,
+  "c_sp_csw": 0.107352,
+  "c_pen_pa": 0.021012,
+  "c_pen_hr_side": 0.0,
+  "c_pen_x": 0.031617,
+  "c_pen_top_out": 0.0,
+  "c_wind_out": 0.009848,
+  "c_temp": 0.021085,
+  "c_rho": 0.0,
+  "c_park": 0.0
+ },
+ "intercept": -2.163341,
+ "fit": {
+  "method": "L2 logistic (lambda=5), every coefficient constrained >= 0 after orientation; per-slate z",
+  "nights": 74,
+  "first": "2026-06-18",
+  "last": "2026-09-09",
+  "bats": 17117,
+  "hr": 1867,
+  "cv_top22": 0.1787,
+  "cv_auc": 0.6082,
+  "price_cv_top22": 0.1984
+ }
+}
