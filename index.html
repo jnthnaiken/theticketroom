@@ -950,7 +950,7 @@ const isConf=s=>s==='confirmed';
    All view so the two can never disagree. Nightcap is excluded on purpose: it lives in its own
    collapsible pool and the filter-bar counter has never counted it either. */
 function liveTickets(){return (D.tickets||[]).filter(function(t){var k=t.kind;
-  if(k==='late')return false;
+  if(k==='late')return !t.final&&singleAlive(t);   /* TILECOUNT-2026-09-10, owner: "ticket counter up top reads 1 when there is 2" -- the nightcap is a ticket on the board, so it counts, same rule as the lunch special */
   if(k==='lunch')return !t.final&&singleAlive(t);
   if(k==='builder'||k==='family')return singleAlive(t);
   return k==='moon'||k==='biggest'||k==='chef';});}
