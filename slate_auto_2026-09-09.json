@@ -1,7 +1,7 @@
 {
   "date": "2026-09-09",
   "season": "2026",
-  "pulled_at": "2026-09-10T03:00:59Z",
+  "pulled_at": "2026-09-10T03:07:41Z",
   "games": [
     {
       "gamePk": 824226,
@@ -1453,20 +1453,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 87\u00b0",
-        "lean": "Boost",
-        "temp": 86.7,
-        "wind_mph": 2.5,
-        "wind_dir": 135,
-        "tail_mph": -0.2,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.024
+      "wf": 1.0
     },
     {
       "gamePk": 824064,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-09T23:40:00Z",
       "matchup": "ARI@KC",
       "away": {
@@ -1486,7 +1479,7 @@
           {
             "id": 606466,
             "name": "Ketel Marte",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 672695,
@@ -1884,7 +1877,7 @@
           {
             "id": 682829,
             "name": "Elly De La Cruz",
-            "iso": 0.222
+            "iso": 0.228
           },
           {
             "id": 701398,
@@ -1929,7 +1922,7 @@
         "sp": {
           "id": 808967,
           "name": "Yoshinobu Yamamoto",
-          "hr9": 0.96,
+          "hr9": 1.01,
           "hand": "RHP"
         },
         "lineup": [
@@ -1951,12 +1944,12 @@
           {
             "id": 571970,
             "name": "Max Muncy",
-            "iso": 0.239
+            "iso": 0.238
           },
           {
             "id": 606192,
             "name": "Teoscar Hern\u00e1ndez",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 663656,
@@ -1984,9 +1977,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 3mph, 89\u00b0",
+        "lean": "Boost",
+        "temp": 89.3,
+        "wind_mph": 5.4,
+        "wind_dir": 261,
+        "tail_mph": 3.0,
+        "precip": 2
       },
-      "wf": 1.0
+      "wf": 1.04
     }
   ]
 }
