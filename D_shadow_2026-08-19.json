@@ -1,0 +1,791 @@
+{
+ "v": 1,
+ "date": "2026-08-19",
+ "built_at": "2026-09-10T14:16:53Z",
+ "teams": {
+  "ATH": {
+   "n_rel": 9,
+   "n_unavail": 2,
+   "top_out": 2,
+   "hr_bf": 0.0302,
+   "hr_bf_avail": 0.0268,
+   "hr_bf_L": 0.0244,
+   "hr_bf_R": 0.0329,
+   "hr_bf_avail_L": 0.025,
+   "hr_bf_avail_R": 0.0282,
+   "share_L": 0.281,
+   "air_share": 0.569,
+   "d1_pitches": 117
+  },
+  "ATL": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0215,
+   "hr_bf_avail": 0.0215,
+   "hr_bf_L": 0.0227,
+   "hr_bf_R": 0.0224,
+   "hr_bf_avail_L": 0.0227,
+   "hr_bf_avail_R": 0.0224,
+   "share_L": 0.446,
+   "air_share": 0.62,
+   "d1_pitches": 24
+  },
+  "AZ": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0235,
+   "hr_bf_avail": 0.0235,
+   "hr_bf_L": 0.0229,
+   "hr_bf_R": 0.0245,
+   "hr_bf_avail_L": 0.0229,
+   "hr_bf_avail_R": 0.0245,
+   "share_L": 0.117,
+   "air_share": 0.497,
+   "d1_pitches": 80
+  },
+  "BAL": {
+   "n_rel": 8,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0267,
+   "hr_bf_avail": 0.0266,
+   "hr_bf_L": 0.0245,
+   "hr_bf_R": 0.0281,
+   "hr_bf_avail_L": 0.0236,
+   "hr_bf_avail_R": 0.0281,
+   "share_L": 0.223,
+   "air_share": 0.502,
+   "d1_pitches": 46
+  },
+  "BOS": {
+   "n_rel": 8,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0255,
+   "hr_bf_avail": 0.0256,
+   "hr_bf_L": 0.0231,
+   "hr_bf_R": 0.028,
+   "hr_bf_avail_L": 0.0231,
+   "hr_bf_avail_R": 0.0282,
+   "share_L": 0.398,
+   "air_share": 0.45,
+   "d1_pitches": 48
+  },
+  "CHC": {
+   "n_rel": 7,
+   "n_unavail": 2,
+   "top_out": 1,
+   "hr_bf": 0.0361,
+   "hr_bf_avail": 0.0353,
+   "hr_bf_L": 0.0382,
+   "hr_bf_R": 0.0341,
+   "hr_bf_avail_L": 0.0382,
+   "hr_bf_avail_R": 0.0296,
+   "share_L": 0.31,
+   "air_share": 0.518,
+   "d1_pitches": 65
+  },
+  "CIN": {
+   "n_rel": 8,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0299,
+   "hr_bf_avail": 0.029,
+   "hr_bf_L": 0.0229,
+   "hr_bf_R": 0.0351,
+   "hr_bf_avail_L": 0.0229,
+   "hr_bf_avail_R": 0.0341,
+   "share_L": 0.411,
+   "air_share": 0.538,
+   "d1_pitches": 38
+  },
+  "CLE": {
+   "n_rel": 8,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0225,
+   "hr_bf_avail": 0.0225,
+   "hr_bf_L": 0.0258,
+   "hr_bf_R": 0.022,
+   "hr_bf_avail_L": 0.0258,
+   "hr_bf_avail_R": 0.022,
+   "share_L": 0.289,
+   "air_share": 0.565,
+   "d1_pitches": 44
+  },
+  "COL": {
+   "n_rel": 8,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0287,
+   "hr_bf_avail": 0.0287,
+   "hr_bf_L": 0.0234,
+   "hr_bf_R": 0.0303,
+   "hr_bf_avail_L": 0.0234,
+   "hr_bf_avail_R": 0.0303,
+   "share_L": 0.149,
+   "air_share": 0.579,
+   "d1_pitches": 60
+  },
+  "CWS": {
+   "n_rel": 10,
+   "n_unavail": 2,
+   "top_out": 0,
+   "hr_bf": 0.0283,
+   "hr_bf_avail": 0.0186,
+   "hr_bf_L": 0.0211,
+   "hr_bf_R": 0.0311,
+   "hr_bf_avail_L": 0.0211,
+   "hr_bf_avail_R": 0.0193,
+   "share_L": 0.222,
+   "air_share": 0.557,
+   "d1_pitches": 135
+  },
+  "DET": {
+   "n_rel": 9,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0292,
+   "hr_bf_avail": 0.0292,
+   "hr_bf_L": 0.0246,
+   "hr_bf_R": 0.0322,
+   "hr_bf_avail_L": 0.0246,
+   "hr_bf_avail_R": 0.0322,
+   "share_L": 0.354,
+   "air_share": 0.501,
+   "d1_pitches": 40
+  },
+  "HOU": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0287,
+   "hr_bf_avail": 0.0287,
+   "hr_bf_L": 0.026,
+   "hr_bf_R": 0.0314,
+   "hr_bf_avail_L": 0.026,
+   "hr_bf_avail_R": 0.0314,
+   "share_L": 0.457,
+   "air_share": 0.601,
+   "d1_pitches": 66
+  },
+  "KC": {
+   "n_rel": 9,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0358,
+   "hr_bf_avail": 0.0355,
+   "hr_bf_L": 0.0306,
+   "hr_bf_R": 0.0371,
+   "hr_bf_avail_L": 0.0306,
+   "hr_bf_avail_R": 0.0369,
+   "share_L": 0.236,
+   "air_share": 0.508,
+   "d1_pitches": 74
+  },
+  "LAA": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0283,
+   "hr_bf_avail": 0.0283,
+   "hr_bf_L": 0.0261,
+   "hr_bf_R": 0.0294,
+   "hr_bf_avail_L": 0.0261,
+   "hr_bf_avail_R": 0.0294,
+   "share_L": 0.113,
+   "air_share": 0.54,
+   "d1_pitches": 33
+  },
+  "LAD": {
+   "n_rel": 7,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0233,
+   "hr_bf_avail": 0.0211,
+   "hr_bf_L": 0.0239,
+   "hr_bf_R": 0.0243,
+   "hr_bf_avail_L": 0.0239,
+   "hr_bf_avail_R": 0.0199,
+   "share_L": 0.544,
+   "air_share": 0.536,
+   "d1_pitches": 65
+  },
+  "MIA": {
+   "n_rel": 9,
+   "n_unavail": 2,
+   "top_out": 0,
+   "hr_bf": 0.0261,
+   "hr_bf_avail": 0.0251,
+   "hr_bf_L": 0.0267,
+   "hr_bf_R": 0.0263,
+   "hr_bf_avail_L": 0.0267,
+   "hr_bf_avail_R": 0.025,
+   "share_L": 0.223,
+   "air_share": 0.502,
+   "d1_pitches": 134
+  },
+  "MIL": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0209,
+   "hr_bf_avail": 0.0209,
+   "hr_bf_L": 0.0207,
+   "hr_bf_R": 0.0222,
+   "hr_bf_avail_L": 0.0207,
+   "hr_bf_avail_R": 0.0222,
+   "share_L": 0.313,
+   "air_share": 0.53,
+   "d1_pitches": 62
+  },
+  "MIN": {
+   "n_rel": 8,
+   "n_unavail": 1,
+   "top_out": 1,
+   "hr_bf": 0.0191,
+   "hr_bf_avail": 0.02,
+   "hr_bf_L": 0.0218,
+   "hr_bf_R": 0.019,
+   "hr_bf_avail_L": 0.0218,
+   "hr_bf_avail_R": 0.0206,
+   "share_L": 0.413,
+   "air_share": 0.523,
+   "d1_pitches": 39
+  },
+  "NYM": {
+   "n_rel": 9,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0364,
+   "hr_bf_avail": 0.0364,
+   "hr_bf_L": 0.0304,
+   "hr_bf_R": 0.0407,
+   "hr_bf_avail_L": 0.0304,
+   "hr_bf_avail_R": 0.0407,
+   "share_L": 0.477,
+   "air_share": 0.569,
+   "d1_pitches": 60
+  },
+  "NYY": {
+   "n_rel": 8,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0225,
+   "hr_bf_avail": 0.0225,
+   "hr_bf_L": 0.0243,
+   "hr_bf_R": 0.0222,
+   "hr_bf_avail_L": 0.0243,
+   "hr_bf_avail_R": 0.0222,
+   "share_L": 0.457,
+   "air_share": 0.468,
+   "d1_pitches": 75
+  },
+  "PHI": {
+   "n_rel": 8,
+   "n_unavail": 2,
+   "top_out": 2,
+   "hr_bf": 0.0219,
+   "hr_bf_avail": 0.025,
+   "hr_bf_L": 0.0219,
+   "hr_bf_R": 0.0233,
+   "hr_bf_avail_L": 0.0248,
+   "hr_bf_avail_R": 0.0262,
+   "share_L": 0.439,
+   "air_share": 0.521,
+   "d1_pitches": 60
+  },
+  "PIT": {
+   "n_rel": 9,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0241,
+   "hr_bf_avail": 0.0241,
+   "hr_bf_L": 0.0251,
+   "hr_bf_R": 0.0244,
+   "hr_bf_avail_L": 0.0251,
+   "hr_bf_avail_R": 0.0244,
+   "share_L": 0.279,
+   "air_share": 0.509,
+   "d1_pitches": 15
+  },
+  "SD": {
+   "n_rel": 7,
+   "n_unavail": 1,
+   "top_out": 1,
+   "hr_bf": 0.0174,
+   "hr_bf_avail": 0.018,
+   "hr_bf_L": 0.0215,
+   "hr_bf_R": 0.0136,
+   "hr_bf_avail_L": 0.0239,
+   "hr_bf_avail_R": 0.0136,
+   "share_L": 0.633,
+   "air_share": 0.473,
+   "d1_pitches": 68
+  },
+  "SEA": {
+   "n_rel": 7,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.029,
+   "hr_bf_avail": 0.03,
+   "hr_bf_L": 0.0263,
+   "hr_bf_R": 0.0306,
+   "hr_bf_avail_L": 0.0263,
+   "hr_bf_avail_R": 0.0322,
+   "share_L": 0.308,
+   "air_share": 0.485,
+   "d1_pitches": 105
+  },
+  "SF": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0192,
+   "hr_bf_avail": 0.0192,
+   "hr_bf_L": 0.0157,
+   "hr_bf_R": 0.0228,
+   "hr_bf_avail_L": 0.0157,
+   "hr_bf_avail_R": 0.0228,
+   "share_L": 0.191,
+   "air_share": 0.558,
+   "d1_pitches": 63
+  },
+  "STL": {
+   "n_rel": 8,
+   "n_unavail": 4,
+   "top_out": 3,
+   "hr_bf": 0.026,
+   "hr_bf_avail": 0.0254,
+   "hr_bf_L": 0.02,
+   "hr_bf_R": 0.0291,
+   "hr_bf_avail_L": 0.02,
+   "hr_bf_avail_R": 0.0383,
+   "share_L": 0.266,
+   "air_share": 0.496,
+   "d1_pitches": 50
+  },
+  "TB": {
+   "n_rel": 9,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0339,
+   "hr_bf_avail": 0.0339,
+   "hr_bf_L": 0.0396,
+   "hr_bf_R": 0.0271,
+   "hr_bf_avail_L": 0.0396,
+   "hr_bf_avail_R": 0.0271,
+   "share_L": 0.524,
+   "air_share": 0.56,
+   "d1_pitches": 75
+  },
+  "TEX": {
+   "n_rel": 9,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0248,
+   "hr_bf_avail": 0.0248,
+   "hr_bf_L": 0.0196,
+   "hr_bf_R": 0.029,
+   "hr_bf_avail_L": 0.0196,
+   "hr_bf_avail_R": 0.029,
+   "share_L": 0.386,
+   "air_share": 0.552,
+   "d1_pitches": 43
+  },
+  "TOR": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0189,
+   "hr_bf_avail": 0.0189,
+   "hr_bf_L": 0.0329,
+   "hr_bf_R": 0.0152,
+   "hr_bf_avail_L": 0.0329,
+   "hr_bf_avail_R": 0.0152,
+   "share_L": 0.214,
+   "air_share": 0.44,
+   "d1_pitches": 38
+  },
+  "WSH": {
+   "n_rel": 8,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0313,
+   "hr_bf_avail": 0.0311,
+   "hr_bf_L": 0.0286,
+   "hr_bf_R": 0.0318,
+   "hr_bf_avail_L": 0.0286,
+   "hr_bf_avail_R": 0.0316,
+   "share_L": 0.097,
+   "air_share": 0.481,
+   "d1_pitches": 65
+  }
+ },
+ "sps": {
+  "paul skenes": {
+   "id": 694973,
+   "bf_exp": 22.12,
+   "kind": "sp",
+   "hr_bf": 0.0263
+  },
+  "jackson jobe": {
+   "id": 695549,
+   "bf_exp": 9.0,
+   "kind": "opener",
+   "hr_bf": 0.0344
+  },
+  "robert stock": {
+   "id": 476594,
+   "bf_exp": 20.67,
+   "kind": "sp",
+   "hr_bf": 0.0259
+  },
+  "michael king": {
+   "id": 650633,
+   "bf_exp": 23.4,
+   "kind": "sp",
+   "hr_bf": 0.0293
+  },
+  "taj bradley": {
+   "id": 671737,
+   "bf_exp": 24.12,
+   "kind": "sp",
+   "hr_bf": 0.0322
+  },
+  "aj smithshawver": {
+   "id": 700363,
+   "bf_exp": 9.0,
+   "kind": "opener",
+   "hr_bf": 0.0266
+  },
+  "clay holmes": {
+   "id": 605280,
+   "bf_exp": 9.0,
+   "kind": "opener",
+   "hr_bf": 0.0289
+  },
+  "sean newcomb": {
+   "id": 656794,
+   "bf_exp": 9.0,
+   "kind": "opener",
+   "hr_bf": 0.0153
+  },
+  "payton tolle": {
+   "id": 801139,
+   "bf_exp": 23.05,
+   "kind": "sp",
+   "hr_bf": 0.0286
+  },
+  "brandon pfaadt": {
+   "id": 694297,
+   "bf_exp": 24.45,
+   "kind": "sp",
+   "hr_bf": 0.0236
+  },
+  "aaron nola": {
+   "id": 605400,
+   "bf_exp": 22.68,
+   "kind": "sp",
+   "hr_bf": 0.0481
+  },
+  "sandy alcantara": {
+   "id": 645261,
+   "bf_exp": 27.0,
+   "kind": "sp",
+   "hr_bf": 0.0252
+  },
+  "chris bassitt": {
+   "id": 605135,
+   "bf_exp": 24.36,
+   "kind": "sp",
+   "hr_bf": 0.0241
+  },
+  "will warren": {
+   "id": 701542,
+   "bf_exp": 22.14,
+   "kind": "sp",
+   "hr_bf": 0.0337
+  },
+  "parker messick": {
+   "id": 800048,
+   "bf_exp": 23.54,
+   "kind": "sp",
+   "hr_bf": 0.0259
+  },
+  "matt wilkinson": {
+   "id": 683363,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": 0.03
+  },
+  "chase burns": {
+   "id": 695505,
+   "bf_exp": 22.87,
+   "kind": "sp",
+   "hr_bf": 0.0259
+  },
+  "matthew liberatore": {
+   "id": 669461,
+   "bf_exp": 21.62,
+   "kind": "sp",
+   "hr_bf": 0.0366
+  },
+  "drew rasmussen": {
+   "id": 656876,
+   "bf_exp": 22.0,
+   "kind": "sp",
+   "hr_bf": 0.0252
+  },
+  "max scherzer": {
+   "id": 453286,
+   "bf_exp": 18.1,
+   "kind": "sp",
+   "hr_bf": 0.0468
+  },
+  "seth lugo": {
+   "id": 607625,
+   "bf_exp": 23.72,
+   "kind": "sp",
+   "hr_bf": 0.0276
+  },
+  "jeffrey springs": {
+   "id": 605488,
+   "bf_exp": 21.77,
+   "kind": "sp",
+   "hr_bf": 0.0517
+  },
+  "dustin may": {
+   "id": 669160,
+   "bf_exp": 21.86,
+   "kind": "sp",
+   "hr_bf": 0.0189
+  },
+  "logan gilbert": {
+   "id": 669302,
+   "bf_exp": 23.79,
+   "kind": "sp",
+   "hr_bf": 0.0326
+  },
+  "kumar rocker": {
+   "id": 677958,
+   "bf_exp": 23.32,
+   "kind": "sp",
+   "hr_bf": 0.0312
+  },
+  "cade cavalli": {
+   "id": 676917,
+   "bf_exp": 22.23,
+   "kind": "sp",
+   "hr_bf": 0.0268
+  },
+  "ethan pecko": {
+   "id": 814490,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": 0.03
+  },
+  "walbert urena": {
+   "id": 700712,
+   "bf_exp": 22.17,
+   "kind": "sp",
+   "hr_bf": 0.0172
+  },
+  "kyle freeland": {
+   "id": 607536,
+   "bf_exp": 24.36,
+   "kind": "sp",
+   "hr_bf": 0.0386
+  },
+  "roki sasaki": {
+   "id": 808963,
+   "bf_exp": 22.43,
+   "kind": "sp",
+   "hr_bf": 0.0411
+  }
+ },
+ "games": {
+  "1": {
+   "home": "PIT",
+   "hour": 12,
+   "dome": false,
+   "temp": 76.6,
+   "rh": 67,
+   "pres": 987.6,
+   "wind": 8.6,
+   "wind_out": 8.38,
+   "rho": 1.1455
+  },
+  "2": {
+   "home": "NYM",
+   "hour": 13,
+   "dome": false,
+   "temp": 86.4,
+   "rh": 45,
+   "pres": 1011.1,
+   "wind": 6.8,
+   "wind_out": 5.83,
+   "rho": 1.1527
+  },
+  "3": {
+   "home": "MIN",
+   "hour": 13,
+   "dome": false,
+   "temp": 74.6,
+   "rh": 41,
+   "pres": 986.3,
+   "wind": 1.6,
+   "wind_out": -0.63,
+   "rho": 1.1523
+  },
+  "4": {
+   "home": "CHC",
+   "hour": 14,
+   "dome": false,
+   "temp": 75.0,
+   "rh": 83,
+   "pres": 992.5,
+   "wind": 5.8,
+   "wind_out": -4.92,
+   "rho": 1.1531
+  },
+  "5": {
+   "home": "BOS",
+   "hour": 16,
+   "dome": false,
+   "temp": 87.0,
+   "rh": 41,
+   "pres": 1009.5,
+   "wind": 13.2,
+   "wind_out": 12.62,
+   "rho": 1.1501
+  },
+  "6": {
+   "home": "PHI",
+   "hour": 18,
+   "dome": false,
+   "temp": 85.6,
+   "rh": 49,
+   "pres": 1012.4,
+   "wind": 6.6,
+   "wind_out": 2.79,
+   "rho": 1.1553
+  },
+  "7": {
+   "home": "BAL",
+   "hour": 18,
+   "dome": false,
+   "temp": 87.3,
+   "rh": 49,
+   "pres": 1012.0,
+   "wind": 5.4,
+   "wind_out": 2.7,
+   "rho": 1.1508
+  },
+  "8": {
+   "home": "CLE",
+   "hour": 18,
+   "dome": false,
+   "temp": 77.4,
+   "rh": 74,
+   "pres": 989.7,
+   "wind": 3.8,
+   "wind_out": -2.23,
+   "rho": 1.145
+  },
+  "9": {
+   "home": "CIN",
+   "hour": 18,
+   "dome": false,
+   "temp": 77.4,
+   "rh": 85,
+   "pres": 994.9,
+   "wind": 1.8,
+   "wind_out": 1.38,
+   "rho": 1.1495
+  },
+  "10": {
+   "home": "TB",
+   "hour": 18,
+   "dome": true,
+   "temp": 72.0,
+   "rh": 50.0,
+   "pres": 1012.9,
+   "wind": 0.0,
+   "wind_out": 0.0,
+   "rho": 1.1886
+  },
+  "11": {
+   "home": "KC",
+   "hour": 19,
+   "dome": false,
+   "temp": 80.5,
+   "rh": 80,
+   "pres": 981.7,
+   "wind": 7.7,
+   "wind_out": 1.2,
+   "rho": 1.1271
+  },
+  "12": {
+   "home": "MIL",
+   "hour": 19,
+   "dome": true,
+   "temp": 72.0,
+   "rh": 50.0,
+   "pres": 991.3,
+   "wind": 0.0,
+   "wind_out": 0.0,
+   "rho": 1.1632
+  },
+  "13": {
+   "home": "TEX",
+   "hour": 20,
+   "dome": true,
+   "temp": 72.0,
+   "rh": 50.0,
+   "pres": 990.4,
+   "wind": 0.0,
+   "wind_out": 0.0,
+   "rho": 1.1621
+  },
+  "14": {
+   "home": "HOU",
+   "hour": 20,
+   "dome": true,
+   "temp": 72.0,
+   "rh": 50.0,
+   "pres": 1011.0,
+   "wind": 0.0,
+   "wind_out": 0.0,
+   "rho": 1.1864
+  },
+  "15": {
+   "home": "COL",
+   "hour": 20,
+   "dome": false,
+   "temp": 89.2,
+   "rh": 22,
+   "pres": 844.1,
+   "wind": 12.1,
+   "wind_out": -9.4,
+   "rho": 0.9599
+  }
+ },
+ "coverage": {
+  "box_final_games": 26,
+  "box_loaded": 26,
+  "rosters": 30,
+  "pitcher_stats": 388,
+  "sps_matched": 30,
+  "sps_named": 30,
+  "pens": 30,
+  "games": 15,
+  "games_wx": 15
+ },
+ "errors": [],
+ "attempts": 1,
+ "last_attempt": 1789049815,
+ "partial": false
+}
