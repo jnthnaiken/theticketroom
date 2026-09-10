@@ -1,7 +1,7 @@
 {
   "date": "2026-09-10",
   "season": "2026",
-  "pulled_at": "2026-09-10T20:10:51Z",
+  "pulled_at": "2026-09-10T20:15:53Z",
   "games": [
     {
       "gamePk": 824872,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823088,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-10T20:10:00Z",
       "matchup": "TEX@SEA",
       "away": {
@@ -286,17 +286,17 @@
           {
             "id": 592626,
             "name": "Joc Pederson",
-            "iso": 0.247
+            "iso": 0.246
           },
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 677649,
             "name": "Ezequiel Duran",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 607043,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824550,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-10T23:40:00Z",
       "matchup": "PIT@CWS",
       "away": {
@@ -558,10 +558,56 @@
           "hr9": 0.56,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.123
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.23
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.27
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.18
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.223
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.135
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.123
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.187
+          },
+          {
+            "id": 668670,
+            "name": "Jake Rogers",
+            "iso": 0.132
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
