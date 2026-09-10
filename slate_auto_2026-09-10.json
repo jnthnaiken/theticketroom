@@ -1,7 +1,7 @@
 {
   "date": "2026-09-10",
   "season": "2026",
-  "pulled_at": "2026-09-10T19:10:33Z",
+  "pulled_at": "2026-09-10T19:15:33Z",
   "games": [
     {
       "gamePk": 824872,
@@ -163,12 +163,12 @@
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.151
+            "iso": 0.154
           },
           {
             "id": 662139,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823499,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-10T23:05:00Z",
       "matchup": "COL@NYY",
       "away": {
@@ -425,10 +425,56 @@
           "hr9": 0.28,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.262
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.154
+          },
+          {
+            "id": 691176,
+            "name": "Jasson Dom\u00ednguez",
+            "iso": 0.147
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.262
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.201
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.135
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.145
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.122
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.082
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
