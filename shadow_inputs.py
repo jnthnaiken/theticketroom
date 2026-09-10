@@ -338,7 +338,23 @@ def build(date, D, getj=_getj, workers=8):
 # =====================================================================================
 MIN_DMG_BIP = 40
 MIN_SPLIT_PIT = 300
-C_KEYS = ('c_v', 'c_dmg', 'c_khr', 'c_hh', 'c_la', 'c_fb',
+_PARK2 = None
+
+
+def park2_table(here=None):
+    """KASV1-2026-09-10: empirical park-by-hand HR factors for the current season (venue HR/PA by batter
+    side over the prior 3 seasons vs league, shrunk -- exactly what kas_train_build.py computes for the
+    Statcast fit), plus each team's home venue. Replaces build15's static table for the challenger only."""
+    global _PARK2
+    if _PARK2 is None:
+        try:
+            _PARK2 = json.load(open(os.path.join(here or os.path.dirname(os.path.abspath(__file__)), 'park_hand_2026.json')))
+        except Exception:
+            _PARK2 = {}
+    return _PARK2
+
+
+C_KEYS = ('c_v', 'c_dmg', 'c_khr', 'c_hh', 'c_la', 'c_fb', 'c_park2',
           'c_ars', 'c_sp_fb', 'c_sp_swstr', 'c_sp_csw',
           'c_sp_bf', 'c_pen_pa', 'c_pen_hr', 'c_pen_hr_side', 'c_pen_top_out', 'c_pen_air',
           'c_pen_x', 'c_wind_out', 'c_temp', 'c_rho', 'c_dome', 'c_park')
@@ -373,6 +389,11 @@ def columns(p, ex, parm, sh):
         v = use.get(k) if _num(use.get(k)) else parm.get(k)
         c[ck] = v if _num(v) else None
     c['c_park'] = round(1 + (p['parkhr'] - 1) / 0.30, 4) if _num(p.get('parkhr')) else None
+    pt = park2_table()
+    if pt and side in ('L', 'R'):
+        home = _talias(((p.get('gmatch') or '@').split('@')[-1]))
+        v = (pt.get('venues') or {}).get(str((pt.get('teams') or {}).get(home)))
+        c['c_park2'] = v.get(side) if isinstance(v, dict) and _num(v.get(side)) else None
     if not sh:
         return c
     c['c_v'] = sh.get('v')

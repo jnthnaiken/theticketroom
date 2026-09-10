@@ -1,0 +1,75 @@
+{
+ "model": "kas_v1",
+ "proposed": "2026-09-10",
+ "judge": "challenge.py --proposed 2026-09-10 --challenger kas_v1 --incumbent total --top 22 (also vs mkt_z, kas_v0)",
+ "inputs": [
+  "c_dmg",
+  "c_hh",
+  "c_la",
+  "c_fb",
+  "c_ars",
+  "c_sp_fb",
+  "c_sp_swstr",
+  "c_sp_csw",
+  "c_pen_pa",
+  "c_pen_hr_side",
+  "c_pen_x",
+  "c_pen_top_out",
+  "c_wind_out",
+  "c_temp",
+  "c_rho",
+  "c_park2",
+  "c_khr"
+ ],
+ "negate": [
+  "c_rho",
+  "c_sp_csw",
+  "c_sp_swstr"
+ ],
+ "winsor": 3.0,
+ "missing": 0.0,
+ "coef": {
+  "c_dmg": 0.0864,
+  "c_hh": 0.248249,
+  "c_la": 0.11984,
+  "c_fb": 0.06421,
+  "c_ars": 0.085226,
+  "c_sp_fb": 0.054791,
+  "c_sp_swstr": 0.010305,
+  "c_sp_csw": 0.045886,
+  "c_pen_pa": 0.0,
+  "c_pen_hr_side": 0.004235,
+  "c_pen_x": 0.019933,
+  "c_pen_top_out": 0.003485,
+  "c_wind_out": 0.029576,
+  "c_temp": 0.05999,
+  "c_rho": 0.005201,
+  "c_park2": 0.094358,
+  "c_khr": 0.094419
+ },
+ "intercept": -2.05067,
+ "fit": {
+  "method": "L2 logistic (lambda=5), coefficients >= 0 after orientation; per-slate z; Statcast 2016-2025 (409,752 starting batter-games, 49,209 HR, 1,706 slates); kHR by offset fit on the 2026 log (78 nights through 2026-09-09)",
+  "run": "Kasper Challenger Training (v1) run 34500480901 (pulls from run 34493243327)",
+  "holdout_2025_top22": {
+   "batter": 0.1671,
+   "batter+pitching": 0.1791,
+   "+bullpen": 0.1781,
+   "+weather/park": 0.1851,
+   "all": 0.1823
+  },
+  "loso_all_minus_bp_pp": {
+   "2016": 0.86,
+   "2017": 0.38,
+   "2018": 1.29,
+   "2019": 0.45,
+   "2020": 1.42,
+   "2021": 0.7,
+   "2022": 0.76,
+   "2023": 0.95,
+   "2024": 0.35,
+   "2025": 0.32
+  },
+  "note": "c_park in the Statcast fit is the empirical venue x side factor; live it is c_park2 (park_hand_2026.json), NOT the build15-derived c_park."
+ }
+}

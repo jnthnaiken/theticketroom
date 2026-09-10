@@ -401,7 +401,10 @@ def shadow_fill(path=OUT, budget=SHADOW_BUDGET_S):
             by_date[d] = []; order.append(d)
         by_date[d].append(r)
     today = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).date().isoformat()
-    todo = [d for d in order if d and d < today and all(r.get('c_v') is None for r in by_date[d])]
+    # a night is to-do when it has no challenger columns yet, OR it has them but predates a column added
+    # later (KASV1: c_park2) -- the latter re-derives offline from its cached sidecar, no fetch.
+    todo = [d for d in order if d and d < today and (all(r.get('c_v') is None for r in by_date[d])
+                                                     or any('c_park2' not in r for r in by_date[d]))]
     changed = {}
     fetched = 0
     for d in sorted(todo, reverse=True):              # newest first: tonight's grade needs it soonest
@@ -464,18 +467,26 @@ def shadow_fill(path=OUT, budget=SHADOW_BUDGET_S):
     # KASV0-2026-09-10: score every night that has its challenger columns with the FROZEN v0 weights.
     # Offline and cheap; re-scores a night only when its c_* columns were just (re)derived or it has
     # never been scored. A missing/broken weights file skips scoring, it never stops the log.
+    # KASV1-2026-09-10: every FROZEN version is scored, not just v0 -- a version is live when a
+    # kas_weights_v<N>.json with a `proposed` date is committed (candidates carry proposed=null and are
+    # ignored). Each one writes its own column (kas_v0, kas_v1, ...), so versions are judged side by side.
     try:
-        import kasmodel as _KM
-        _W = _KM.load_weights('v0', here)
-        _col = _W['model']
+        import glob as _glob, kasmodel as _KM
+        _WS = []
+        for _f in sorted(_glob.glob(os.path.join(here, 'kas_weights_v*.json'))):
+            _w = json.load(open(_f))
+            if _w.get('proposed') and _w.get('model'):
+                _WS.append(_w)
         for d in order:
             rs = changed.get(d, by_date[d])
             if not d or not any(r.get('c_v') is not None for r in rs):
                 continue
-            if d in changed or any(_col not in r for r in rs):
-                changed[d] = _KM.score_night(rs, _W)
+            for _W in _WS:
+                if d in changed or any(_W['model'] not in r for r in rs):
+                    changed[d] = _KM.score_night(rs, _W)
+                    rs = changed[d]
     except Exception as e:
-        print(f"  ::warning:: kas_v0 scoring skipped ({str(e)[:100]})")
+        print(f"  ::warning:: kas scoring skipped ({str(e)[:100]})")
     if changed:
         tmp = path + ".tmp"
         with open(tmp, 'w') as fh:
