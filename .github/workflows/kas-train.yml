@@ -108,6 +108,7 @@ jobs:
             kas_fit_report.txt
             kas_build_report.txt
             kas_weights_v1_candidate.json
+            park_hand_next.json
           if-no-files-found: warn
           retention-days: 90
       - uses: actions/upload-artifact@v4
