@@ -153,7 +153,9 @@ jobs:
           # the only time a price may be written.
           cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
           cp nfl_*.py .work/
-          cp nfl_draft_cli.js depth_prior.csv depth_model.json nfl_model.json .work/
+          # LIVEJS-2026-09-10: nfl_live_seams.py (imported by nfl_fork.py) reads nfl_live.js from .work.
+          # It was never staged, so every build since the live seams landed died in the fork step.
+          cp nfl_draft_cli.js nfl_live.js depth_prior.csv depth_model.json nfl_model.json .work/
           cp ../soccer/soccer_draft.js .work/     # ONE DRAFT, THREE SPORTS
           cp ../index.html .work/index_live.html
           # OWNLEDGER-2026-09-04. THE FOOTBALL LEDGER, and never `../season.json`, which is
