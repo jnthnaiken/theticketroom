@@ -49,3 +49,28 @@ def score_night(rows, W):
     for i, r in enumerate(rows):
         r[col] = round(sum(W['coef'].get(c, 0.0) * zs[c][i] for c in W['inputs']), 5)
     return rows
+
+
+def score_rows(rows, W, ref=None):
+    """KASLIVE-2026-09-10: like score_night, but the per-slate mean/sd come from `ref` (default: rows).
+    build15 standardises over the bats IN a lineup and scores every carded bat with those stats, so a
+    bat who is scratched back in later keeps a comparable number. Returns [score, ...] aligned to rows."""
+    ref = rows if ref is None else ref
+    neg = set(W.get('negate') or [])
+    lim = float(W.get('winsor', 3.0))
+    tot = [0.0] * len(rows)
+    for c in W['inputs']:
+        orient = (lambda v: -v) if c in neg else (lambda v: v)
+        got = [orient(r.get(c)) for r in ref if _num(r.get(c))]
+        if len(got) < 2:
+            continue
+        m = sum(got) / len(got)
+        sd = (sum((v - m) ** 2 for v in got) / len(got)) ** 0.5
+        if not sd:
+            continue
+        w = W['coef'].get(c, 0.0)
+        for i, r in enumerate(rows):
+            v = r.get(c)
+            if _num(v):
+                tot[i] += w * max(-lim, min(lim, (orient(v) - m) / sd))
+    return [round(x, 5) for x in tot]

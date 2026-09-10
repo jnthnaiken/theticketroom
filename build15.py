@@ -817,6 +817,83 @@ for r in pool:
     r['baseTotal']=round(100+30*blend,1)
     r['TOTAL']=round(r['baseTotal']*wxMult(r.get('wf')),1)
 
+# 🚨 KASLIVE-2026-09-10 -- THE BOARD RANKS ON THE KASPER CHALLENGER v1. NO PRICE IN THE RANKING.
+# Owner, 2026-09-10: "i want to go ahead and run the newest version for todays board" -> "v1 replaces the
+# ranking". v1 = kas_weights_v1.json (proposed 2026-09-10): damage ratio, kHR, HH%, LA bell, FB%, pitch-mix
+# matchup, SP FB%/SwStr/CSW vs side, bullpen (PAs vs pen, pen HR vs side, best arms out), wind out, temp,
+# air density, empirical park-by-hand. Fit on Statcast 2016-2025 (kHR on the 2026 log). See the project doc
+# claude/kasv1-2026-09-10.md.
+# MEASUREMENT ON RECORD when the owner made the call (78 nights, top-22 hit rate): live 50/50 TOTAL 20.10%,
+# price 19.81%, kas_v0 18.18% (in-sample), kas_v1 17.66%; v1 - price -2.16pp [-4.08, -0.29]. Recorded so a
+# later read knows what was traded, not as an argument against the call.
+# WHAT CHANGES: baseTotal = 100 + 30*z(kas_v1) over today's in-lineup bats, TOTAL = baseTotal (v1 already
+# carries weather, so NO wxMult -- index.html skips its live wxMult re-score when meta.model == 'kas_v1'),
+# and `blend` = z(kas_v1). Everything downstream (pool gate, strength, anchors, legs) ranks on that.
+# WHAT DOES NOT: the old 50/50 number is still computed above and kept on every bat as total_mkt50 /
+# blend_mkt50 so it goes on being measured (calibrate.py logs it). Prices still show on the cards, and the
+# ticket-shape rules that read a price (lunch/nightcap <= +600) are unchanged.
+# FAILS SAFE: any error here leaves the 50/50 board exactly as computed above, says so, and marks the meta.
+# REVERT: BOARD_MODEL=mkt50 in the environment, or delete this block.
+BOARD_MODEL = os.environ.get('BOARD_MODEL', 'kas_v1')
+_model_used = 'mkt50'
+for r in pool:
+    r['total_mkt50'] = r['TOTAL']; r['blend_mkt50'] = r['blend']; r['_base_mkt50'] = r['baseTotal']
+if BOARD_MODEL == 'kas_v1':
+    try:
+        import shadow_inputs as _SHI, kasmodel as _KM
+        _W1 = _KM.load_weights('v1')
+        _shp = _SHI.sidecar_path(DATE)
+        _sh = None
+        try:
+            _sh = json.load(open(_shp))
+        except Exception:
+            _sh = None
+        _now = datetime.datetime.now(datetime.timezone.utc)
+        def _age_min(sc):
+            try:
+                return (_now - datetime.datetime.strptime(sc.get('built_at'), '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)).total_seconds() / 60
+            except Exception:
+                return 1e9
+        _et_now = (_now - datetime.timedelta(hours=4)); _now_min = _et_now.hour * 60 + _et_now.minute
+        _last_fp = max([gmin(g.get('time')) for g in gamemeta.values()] or [0])
+        _is_today = (_et_now.strftime('%Y-%m-%d') == DATE)
+        # Refresh the pre-game sidecar at most every 45 min, and only before the slate's last first pitch
+        # (after that nothing it feeds can still move). A past slate rebuilt by hand keeps what it has.
+        if _sh is None or (_is_today and _now_min < _last_fp and _age_min(_sh) > 45):
+            _Dmin = {'players': players, 'meta': {'wx': {str(gn): {'cond': ('Dome' if g.get('dome') else '')} for gn, g in gamemeta.items()}}}
+            _new = _SHI.build(DATE, _Dmin, om_url=(_SHI.OM_LIVE if _is_today else None))
+            _cv = _new.get('coverage') or {}
+            if not _cv.get('down'):
+                _teams = {(p.get('code') or '') for p in players.values()}
+                _new['partial'] = not (_cv.get('pens', 0) >= 0.6 * max(1, len(_teams)) and _cv.get('games_wx', 0) >= 0.6 * max(1, _cv.get('games', 0)))
+                _new['attempts'] = 1; _new['last_attempt'] = int(_now.timestamp()); _new['pregame'] = True
+                json.dump(_new, open(_shp, 'w'), indent=1)
+                _sh = _new
+            print(f"  (kas_v1 sidecar: {json.dumps(_cv)} errors={len(_new.get('errors') or [])})")
+        _rows = []
+        for r in pool:
+            _ex = nget(KEXTRA, r['nm']) or {}
+            _parm = pget(PBRL, (r.get('opp') or [''])[0] or '') or {}
+            _rows.append(_SHI.columns(r, _ex, _parm, _sh))
+        _ref = [c for c, r in zip(_rows, pool) if not r.get('out')] or _rows
+        _ks = _KM.score_rows(_rows, _W1, ref=_ref)
+        _kin = [k for k, r in zip(_ks, pool) if not r.get('out')] or _ks
+        _km = sum(_kin) / len(_kin); _ksd = (sum((x - _km) ** 2 for x in _kin) / len(_kin)) ** 0.5 or 1e-9
+        _cov = {c: sum(1 for x in _rows if x.get(c) is not None) for c in _W1['inputs']}
+        for r, k in zip(pool, _ks):
+            z = (k - _km) / _ksd
+            r['kas_v1'] = k
+            r['blend'] = round(z, 4)
+            r['baseTotal'] = round(100 + 30 * z, 1)
+            r['TOTAL'] = r['baseTotal']
+        _model_used = 'kas_v1'
+        print(f"  BOARD MODEL kas_v1: {len(pool)} bats scored ({len(_ref)} in-lineup reference) | input coverage {json.dumps(_cov)}")
+    except Exception as _e:
+        import traceback; traceback.print_exc()
+        for r in pool:
+            r['TOTAL'] = r['total_mkt50']; r['blend'] = r['blend_mkt50']; r['baseTotal'] = r['_base_mkt50']
+        print(f"::warning::KASLIVE: kas_v1 scoring failed ({str(_e)[:160]}) -- board stays on the 50/50 model")
+
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:
     r['why']=cardnotes.card_why(r)
@@ -830,6 +907,6 @@ for gn,g in gamemeta.items():
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
-meta={'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
+meta={'model':_model_used,'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")

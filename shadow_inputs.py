@@ -43,6 +43,7 @@ from concurrent.futures import ThreadPoolExecutor
 VERSION = 1
 SA = "https://statsapi.mlb.com/api/v1"
 OM = "https://historical-forecast-api.open-meteo.com/v1/forecast"
+OM_LIVE = "https://api.open-meteo.com/v1/forecast"          # KASLIVE: build-time (pre-game) forecast for today
 
 # ---- tables copied from build15.py (build15 executes on import, so it cannot be imported) ----
 PARK_LL = {'ARI':(33.4455,-112.0667),'AZ':(33.4455,-112.0667),'ATL':(33.8907,-84.4677),'BAL':(39.2839,-76.6217),
@@ -125,7 +126,7 @@ def _gmin_et(gt):
     return (int(m.group(1)) % 12 + (12 if m.group(3) == 'PM' else 0)) if m else None
 
 
-def build(date, D, getj=_getj, workers=8):
+def build(date, D, getj=_getj, workers=8, om_url=None):
     """Build the sidecar for slate `date` from its archived board `D` (D_<date>.json). Never raises."""
     errors, cov = [], {}
     out = {'v': VERSION, 'date': date, 'built_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
@@ -303,7 +304,7 @@ def build(date, D, getj=_getj, workers=8):
     homes = sorted({g['home'] for g in games.values() if g['home'] in PARK_LL})
     wx = {}
     if homes:
-        u = (f"{OM}?latitude={','.join(str(PARK_LL[h][0]) for h in homes)}"
+        u = (f"{om_url or OM}?latitude={','.join(str(PARK_LL[h][0]) for h in homes)}"
              f"&longitude={','.join(str(PARK_LL[h][1]) for h in homes)}"
              "&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,wind_direction_10m"
              f"&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York&start_date={date}&end_date={date}")
