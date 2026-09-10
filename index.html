@@ -3282,7 +3282,7 @@ var _cmA={}, _cmB={};
         });
         Object.keys(D.players).forEach(function(nm){var p=D.players[nm], gm=p.gmatch, w=wxByGm[gm], W=D.meta.wx[String(p.game)];
           if(w&&W){ if(wfByGm[gm]!=null)W.factor=wfByGm[gm]; if(w.emoji)W.emoji=w.emoji; if(w.lean)W.lean=w.lean; if(w.cond)W.cond=w.cond; }});
-        Object.keys(D.players).forEach(function(nm){var p=D.players[nm]; if(p.baseTotal!=null){ p.TOTAL=(D.meta&&D.meta.model==='kas_v1')?p.baseTotal:Math.round(p.baseTotal*wxMult(p.wf)*10)/10; }});   // live weather -> re-score TOTAL from baseTotal before re-draft (mirrors build15 wxMult). KASLIVE-2026-09-10: the kas_v1 board already carries weather inside the model, so TOTAL = baseTotal, no second weather multiplier.
+        Object.keys(D.players).forEach(function(nm){var p=D.players[nm]; if(p.baseTotal!=null){ p.TOTAL=(D.meta&&(D.meta.model==='kas_v1'||D.meta.model==='ev_v1'))?p.baseTotal:Math.round(p.baseTotal*wxMult(p.wf)*10)/10; }});   // live weather -> re-score TOTAL from baseTotal before re-draft (mirrors build15 wxMult). KASLIVE-2026-09-10: the kas_v1 board already carries weather inside the model, so TOTAL = baseTotal, no second weather multiplier.
         return confirmResults().then(function(){  // posted lineups -> confirm/scratch; results -> HR + finals + game-state
           return liftPending().then(function(){    // free carried bats once their resumed game is final
             try{assembleClient(D);}catch(_ae){if(typeof console!=='undefined')console.log('re-draft skipped (grading/render continue):',_ae&&_ae.message);}   // a re-draft error must NEVER block grading/render

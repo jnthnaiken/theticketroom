@@ -834,11 +834,11 @@ for r in pool:
 # ticket-shape rules that read a price (lunch/nightcap <= +600) are unchanged.
 # FAILS SAFE: any error here leaves the 50/50 board exactly as computed above, says so, and marks the meta.
 # REVERT: BOARD_MODEL=mkt50 in the environment, or delete this block.
-BOARD_MODEL = os.environ.get('BOARD_MODEL', 'kas_v1')
+BOARD_MODEL = os.environ.get('BOARD_MODEL', 'ev_v1')   # EVDRAFT-2026-09-10: ev_v1 runs kas_v1 first, then ranks on EV
 _model_used = 'mkt50'
 for r in pool:
     r['total_mkt50'] = r['TOTAL']; r['blend_mkt50'] = r['blend']; r['_base_mkt50'] = r['baseTotal']
-if BOARD_MODEL == 'kas_v1':
+if BOARD_MODEL in ('kas_v1', 'ev_v1'):
     try:
         import shadow_inputs as _SHI, kasmodel as _KM
         _W1 = _KM.load_weights('v1')
@@ -893,6 +893,54 @@ if BOARD_MODEL == 'kas_v1':
         for r in pool:
             r['TOTAL'] = r['total_mkt50']; r['blend'] = r['blend_mkt50']; r['baseTotal'] = r['_base_mkt50']
         print(f"::warning::KASLIVE: kas_v1 scoring failed ({str(_e)[:160]}) -- board stays on the 50/50 model")
+
+# 🚨 EVDRAFT-2026-09-10 -- THE BOARD RANKS ON EXPECTED VALUE: WHO IS WORTH BETTING AT HIS PRICE.
+# Owner, 2026-09-10: "ok so why dont we rank by ev right before drafting?" -> "do the ev draft".
+# p = sigmoid(b0 + b_lim*L + b_lim2*L^2 + b_kz*z), L = logit(implied prob of the board price), z = kas_v1
+# z-scored over tonight's PRICED in-lineup bats. EV = p*decimal - 1. Coefficients are FROZEN in
+# ev_weights_v1.json (fit on calibration.jsonl, 78 nights / 17,577 bats). A change is a new file.
+# MEASURED BEFORE THE CALL (walk-forward, fit on prior nights only, 53 nights, flat 1u top-22):
+#   live TOTAL -18.9% | v1 score -17.9% | EV (this form) -13.9% [-24.3%, -3.2%]. Top-3: -30.5% vs -9.0%.
+# EV is still NEGATIVE on essentially every bat: it ranks the least-bad bets, it does not find +EV ones.
+# baseTotal = 100 + 30*z(EV) over priced in-lineup bats; TOTAL = baseTotal; blend = z(EV). An unpriced bat
+# cannot be bet, so he sorts below every priced bat. kas_v1 / total_mkt50 stay on every row for the ledger.
+# Each bat carries ev, p_model and fair (the american price at which EV = 0).
+# FAILS SAFE to the kas_v1 ranking above. REVERT: BOARD_MODEL=kas_v1 (or mkt50).
+if BOARD_MODEL == 'ev_v1' and _model_used == 'kas_v1':
+    try:
+        _WE = json.load(open('ev_weights_v1.json'))
+        _c = _WE['coef']; _lo, _hi = (_WE.get('lim_clip') or [-4.0, 1.0])
+        _pr = [r for r in pool if not r.get('out') and r.get('odds')]
+        _kk = [r['kas_v1'] for r in _pr if r.get('kas_v1') is not None]
+        _m = sum(_kk) / len(_kk); _s = (sum((x - _m) ** 2 for x in _kk) / len(_kk)) ** 0.5 or 1e-9
+        for r in pool:
+            r['kas_v1_blend'] = r['blend']; r['kas_v1_total'] = r['TOTAL']
+            o = r.get('odds')
+            if not o or r.get('kas_v1') is None:
+                r['ev'] = None; r['p_model'] = None; r['fair'] = None; continue
+            imp = 100.0 / (o + 100) if o > 0 else -o / (-o + 100.0)
+            L = max(_lo, min(_hi, math.log(imp / (1 - imp))))
+            z = (r['kas_v1'] - _m) / _s
+            p = 1 / (1 + math.exp(-(_c['b0'] + _c['b_lim'] * L + _c['b_lim2'] * L * L + _c['b_kz'] * z)))
+            dec = 1 + o / 100.0 if o > 0 else 1 + 100.0 / (-o)
+            r['p_model'] = round(p, 4); r['ev'] = round(p * dec - 1, 4)
+            r['fair'] = int(round((1 / p - 1) * 100)) if p < 0.5 else -int(round(p / (1 - p) * 100))
+        _ev = [r['ev'] for r in _pr if r.get('ev') is not None]
+        _em = sum(_ev) / len(_ev); _es = (sum((x - _em) ** 2 for x in _ev) / len(_ev)) ** 0.5 or 1e-9
+        _floor = min((r['ev'] - _em) / _es for r in _pr if r.get('ev') is not None) - 0.5
+        for r in pool:
+            z = ((r['ev'] - _em) / _es) if r.get('ev') is not None else _floor
+            r['blend'] = round(z, 4); r['baseTotal'] = round(100 + 30 * z, 1); r['TOTAL'] = r['baseTotal']
+        _model_used = 'ev_v1'
+        _top = sorted([r for r in _pr if r.get('ev') is not None], key=lambda r: -r['ev'])[:8]
+        print(f"  BOARD MODEL ev_v1: {len(_ev)} priced in-lineup bats | mean EV {_em:+.1%} | top: " +
+              ", ".join(f"{r['nm']} {r['odds']:+d} ev {r['ev']:+.1%}" for r in _top))
+    except Exception as _e:
+        import traceback; traceback.print_exc()
+        for r in pool:
+            if 'kas_v1_total' in r:
+                r['TOTAL'] = r['kas_v1_total']; r['blend'] = r['kas_v1_blend']; r['baseTotal'] = r['kas_v1_total']
+        print(f"::warning::EVDRAFT: ev_v1 failed ({str(_e)[:160]}) -- board stays on kas_v1")
 
 # descriptive per-player write-ups (same phrase engine as the ticket notes)
 for r in pool:

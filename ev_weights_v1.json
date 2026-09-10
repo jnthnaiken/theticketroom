@@ -1,0 +1,35 @@
+{
+ "model": "ev_v1",
+ "proposed": "2026-09-10",
+ "inputs": [
+  "logit_implied",
+  "logit_implied_sq",
+  "kas_v1_z"
+ ],
+ "coef": {
+  "b0": -1.121788,
+  "b_lim": 0.170843,
+  "b_lim2": -0.213028,
+  "b_kz": 0.092737
+ },
+ "se": {
+  "b0": 0.337411,
+  "b_lim": 0.386196,
+  "b_lim2": 0.111613,
+  "b_kz": 0.03744
+ },
+ "fit": {
+  "source": "calibration.jsonl",
+  "rows": 17577,
+  "nights": 78,
+  "first": "2026-06-18",
+  "last": "2026-09-09",
+  "kz": "kas_v1 z-scored within the night over priced lineup bats",
+  "implied": "vig-inclusive, from the board's american odds",
+  "walk_forward_top22_roi": "-13.9% [-24.3%,-3.2%] vs live TOTAL -18.9% over 53 nights (fit on prior nights only)"
+ },
+ "lim_clip": [
+  -4.0,
+  1.0
+ ]
+}
