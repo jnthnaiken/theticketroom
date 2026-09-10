@@ -1,0 +1,118 @@
+# ====================================================================================
+# Kasper challenger v1 -- Statcast training build + fit.  KASV1-2026-09-10.
+#
+# Research only. Nothing here commits, and nothing touches the daily board. Owner approved the
+# workflow change on 2026-09-10 ("yes" to the Statcast version incl. workflow edits).
+#
+#   pull       one job per season (matrix): Statcast pitches + schedule/venues + Open-Meteo archive
+#              -> artifact kasraw-<season>. Days cached per season, so a re-run only fetches gaps.
+#   build_fit  every season that pulled -> kas_train.parquet (one row per starting bat per game,
+#              the challenger's c_* inputs point-in-time) -> kas_train_fit.py (holdout = last season,
+#              judged on top-22) -> kas_weights_v1_candidate.json + kas_fit_report.txt
+#
+# 2015 is pulled only as the prior season for park-by-hand factors; the fit starts at 2016.
+# The candidate is NOT live: it goes live only when committed as kas_weights_v1.json with a
+# `proposed` date, and challenge.py judges it on slates after that date.
+# ====================================================================================
+
+name: Kasper Challenger Training (v1)
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_pull:
+        description: "Reuse kasraw-* artifacts from this run id instead of pulling (blank = pull)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: kas-train
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    if: ${{ github.event.inputs.skip_pull == '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        season: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Cache pulled Statcast days
+        uses: actions/cache@v4
+        with:
+          path: kas_cache/${{ matrix.season }}
+          key: kas-raw-v1-${{ matrix.season }}-${{ github.run_id }}
+          restore-keys: |
+            kas-raw-v1-${{ matrix.season }}-
+      - name: Install deps
+        run: pip install pybaseball pandas numpy pyarrow
+      - name: Pull season ${{ matrix.season }}
+        run: python3 kas_train_pull.py ${{ matrix.season }} --cache kas_cache --out kasraw
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kasraw-${{ matrix.season }}
+          path: kasraw/
+          if-no-files-found: error
+          retention-days: 30
+
+  build_fit:
+    needs: pull
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scipy
+      - name: Download season pulls (this run)
+        if: ${{ github.event.inputs.skip_pull == '' }}
+        uses: actions/download-artifact@v4
+        with:
+          pattern: kasraw-*
+          path: raw
+      - name: Download season pulls (earlier run)
+        if: ${{ github.event.inputs.skip_pull != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p raw
+          for s in 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025; do
+            gh run download "${{ github.event.inputs.skip_pull }}" -n "kasraw-$s" -D "raw/kasraw-$s" || echo "no kasraw-$s"
+          done
+      - name: Build training table
+        run: |
+          ls -R raw | head -50
+          python3 kas_train_build.py raw --out kas_train.parquet 2>&1 | tee kas_build_report.txt
+      - name: Fit
+        run: |
+          python3 kas_train_fit.py kas_train.parquet --calib calibration.jsonl --out kas_weights_v1_candidate.json 2>&1 | tee kas_fit_report.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kas-v1-fit
+          path: |
+            kas_fit_report.txt
+            kas_build_report.txt
+            kas_weights_v1_candidate.json
+          if-no-files-found: warn
+          retention-days: 90
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: kas-train-table
+          path: kas_train.parquet
+          retention-days: 90
