@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-02",
- "built_at": "2026-09-10T14:16:18Z",
+ "built_at": "2026-09-10T15:21:12Z",
  "teams": {
   "ATH": {
    "n_rel": 10,
@@ -158,17 +158,17 @@
    "d1_pitches": 73
   },
   "HOU": {
-   "n_rel": 7,
+   "n_rel": 6,
    "n_unavail": 1,
    "top_out": 0,
-   "hr_bf": 0.0278,
-   "hr_bf_avail": 0.0272,
-   "hr_bf_L": 0.0241,
+   "hr_bf": 0.028,
+   "hr_bf_avail": 0.0273,
+   "hr_bf_L": 0.0222,
    "hr_bf_R": 0.0299,
-   "hr_bf_avail_L": 0.0241,
+   "hr_bf_avail_L": 0.0222,
    "hr_bf_avail_R": 0.0297,
-   "share_L": 0.297,
-   "air_share": 0.612,
+   "share_L": 0.166,
+   "air_share": 0.593,
    "d1_pitches": 94
   },
   "KC": {
@@ -611,23 +611,23 @@
    "home": "CIN",
    "hour": 12,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 90.0,
+   "rh": 60,
+   "pres": 999.5,
+   "wind": 5.2,
+   "wind_out": 5.19,
+   "rho": 1.1278
   },
   "2": {
    "home": "WSH",
    "hour": 13,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 88.5,
+   "rh": 68,
+   "pres": 1018.3,
+   "wind": 5.1,
+   "wind_out": -4.82,
+   "rho": 1.1513
   },
   "3": {
    "home": "TEX",
@@ -635,21 +635,21 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": null,
+   "pres": 994.0,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": null
+   "rho": 1.1663
   },
   "4": {
    "home": "COL",
    "hour": 15,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 88.0,
+   "rh": 20,
+   "pres": 844.7,
+   "wind": 4.9,
+   "wind_out": 0.43,
+   "rho": 0.9632
   },
   "5": {
    "home": "AZ",
@@ -657,43 +657,43 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": null,
+   "pres": 974.2,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": null
+   "rho": 1.143
   },
   "6": {
    "home": "BOS",
    "hour": 16,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 71.8,
+   "rh": 63,
+   "pres": 1020.2,
+   "wind": 10.9,
+   "wind_out": -9.44,
+   "rho": 1.1962
   },
   "7": {
    "home": "CLE",
    "hour": 18,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 95.9,
+   "rh": 39,
+   "pres": 990.0,
+   "wind": 11.9,
+   "wind_out": 7.65,
+   "rho": 1.1078
   },
   "8": {
    "home": "PIT",
    "hour": 18,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 91.5,
+   "rh": 54,
+   "pres": 989.0,
+   "wind": 10.3,
+   "wind_out": 7.53,
+   "rho": 1.1134
   },
   "9": {
    "home": "TB",
@@ -701,43 +701,43 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": null,
+   "pres": 1011.6,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": null
+   "rho": 1.1871
   },
   "10": {
    "home": "KC",
    "hour": 19,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 98.0,
+   "rh": 35,
+   "pres": 981.1,
+   "wind": 9.1,
+   "wind_out": 8.03,
+   "rho": 1.094
   },
   "11": {
    "home": "MIN",
    "hour": 19,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 85.9,
+   "rh": 54,
+   "pres": 980.7,
+   "wind": 2.6,
+   "wind_out": 1.06,
+   "rho": 1.1172
   },
   "12": {
    "home": "CHC",
    "hour": 19,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 91.4,
+   "rh": 53,
+   "pres": 990.7,
+   "wind": 9.3,
+   "wind_out": 8.84,
+   "rho": 1.1158
   },
   "13": {
    "home": "HOU",
@@ -745,49 +745,47 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": null,
+   "pres": 1009.2,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": null
+   "rho": 1.1843
   },
   "14": {
    "home": "LAA",
    "hour": 21,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 77.4,
+   "rh": 47,
+   "pres": 1007.5,
+   "wind": 7.3,
+   "wind_out": 7.02,
+   "rho": 1.1696
   },
   "15": {
    "home": "LAD",
    "hour": 22,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 72.4,
+   "rh": 59,
+   "pres": 995.5,
+   "wind": 6.8,
+   "wind_out": 4.0,
+   "rho": 1.1661
   }
  },
  "coverage": {
   "box_final_games": 27,
   "box_loaded": 27,
   "rosters": 30,
-  "pitcher_stats": 419,
+  "pitcher_stats": 418,
   "sps_matched": 30,
   "sps_named": 30,
   "pens": 30,
   "games": 15,
-  "games_wx": 0
+  "games_wx": 15
  },
- "errors": [
-  "https://historical-forecast-api.open-meteo.com/v1/forecast?latitude=33.4455,42.3: <urlopen error _ssl.c:993: The handshake operation timed out"
- ],
- "attempts": 1,
- "last_attempt": 1789049790,
- "partial": true
+ "errors": [],
+ "attempts": 2,
+ "last_attempt": 1789053677,
+ "partial": false
 }
