@@ -19,6 +19,15 @@ import json, sys, os, re, unicodedata, urllib.request
 SA  = "https://statsapi.mlb.com/api/v1"
 OUT = "calibration.jsonl"
 
+# KASCHAL-2026-09-10: the Kasper challenger's point-in-time inputs (bullpen, raw weather, platoon
+# starter splits). Imported defensively -- calibrate runs BEFORE build15 on the Action, so nothing
+# about the challenger may ever be able to stop the board.
+try:
+    import shadow_inputs as _SH
+except Exception as _e:                      # pragma: no cover
+    _SH = None
+    print(f"  ::warning:: shadow_inputs unavailable ({_e}) -- challenger columns skipped")
+
 def norm(s):
     """Feed names carry suffixes (\"Bobby Witt Jr.\", \"Michael Harris II\"); every board/input file
     is suffix-LESS by convention. Strip Jr./Sr./II/III/IV before comparing or a suffixed bat matches
@@ -116,6 +125,14 @@ def build_rows(D, homered, extras=None, pstats=None):
                    # own iso_used is a constant 0.100 from 2026-07-03 on, because the legacy
                    # iso_<date>.json inputs stop at 06-28. Anything comparing expected damage
                    # (xwOBAcon) to actual damage needs this column, not iso_used.
+    sh = None
+    if _SH is not None:
+        try:
+            sh = _SH.load(D.get('meta', {}).get('date'))
+            if sh and sh.get('partial') and (sh.get('attempts') or 0) < SHADOW_MAX_ATTEMPTS:
+                sh = None                      # not final yet -- leave c_v None so shadow_fill retries
+        except Exception:
+            sh = None
     onkind = {}
     for t in D.get('tickets', []):
         for l in t.get('players', []):
@@ -171,6 +188,15 @@ def build_rows(D, homered, extras=None, pstats=None):
         # it can leave the yard. NOT added to SCHEMA_KEYS, for the reason documented there: the
         # archived sidecars predating the scrape change cannot supply them, so listing them would
         # mark every night stale to add permanently-null columns. They populate going forward.
+        # KASCHAL-2026-09-10: challenger columns (c_*). Batter + starter parts come from the board and
+        # the two sidecars already in hand; bullpen + weather come from D_shadow_<date>.json when it
+        # exists (c_v is None until it does, which is what shadow_fill() looks for). NOT in
+        # SCHEMA_KEYS: repair() would rewrite all 78 nights offline and could not fetch the bullpen.
+        if _SH is not None:
+            try:
+                row.update(_SH.columns(p, ex, ps, sh))
+            except Exception as e:
+                row.setdefault('c_err', str(e)[:80])
         rows.append(row)
     return rows
 
@@ -339,6 +365,115 @@ def backfill():
           f"covering {len(cov)} nights ({cov[0] if cov else '-'}..{cov[-1] if cov else '-'})")
     return added
 
+SHADOW_BUDGET_S = 50        # wall-clock the challenger backfill may spend per build (the board waits on it)
+SHADOW_RETRY_GAP_S = 3600  # minimum seconds between attempts on a thin night
+SHADOW_MAX_ATTEMPTS = 3     # a night whose fetch stays thin is finalised as partial after this many tries
+SHADOW_MIN_PEN_SHARE = 0.6  # a sidecar is "complete" when this share of the board's teams have a pen line
+SHADOW_MIN_WX_SHARE = 0.6   # ... and this share of its games have weather
+
+
+def shadow_fill(path=OUT, budget=SHADOW_BUDGET_S):
+    """KASCHAL-2026-09-10. Give every logged night its challenger columns.
+
+    For each night whose rows carry no c_v: make sure D_shadow_<date>.json exists (fetching it --
+    network, point-in-time, see shadow_inputs.py -- if not), then re-derive that night's c_* columns
+    from the archived board + sidecars and rewrite the file. Everything else on the row is left
+    exactly as logged: only c_* keys are replaced, so outcomes and the live model's columns cannot move.
+
+    Time-boxed (SHADOW_BUDGET_S) because this runs on every build BEFORE the board is scored; the
+    78-night history fills over a few dozen builds and costs ~nothing once current. Never raises."""
+    import datetime, time as _t
+    if _SH is None or not os.path.exists(path):
+        return 0
+    t0 = _t.time()
+    here = os.path.dirname(os.path.abspath(__file__))
+    by_date, order = {}, []
+    for line in open(path):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            r = json.loads(line)
+        except Exception:
+            continue
+        d = r.get('date')
+        if d not in by_date:
+            by_date[d] = []; order.append(d)
+        by_date[d].append(r)
+    today = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).date().isoformat()
+    todo = [d for d in order if d and d < today and all(r.get('c_v') is None for r in by_date[d])]
+    changed = {}
+    fetched = 0
+    for d in sorted(todo, reverse=True):              # newest first: tonight's grade needs it soonest
+        if _t.time() - t0 > budget:
+            break
+        fp = os.path.join(here, f"D_{d}.json")
+        if not os.path.exists(fp):
+            continue
+        try:
+            D = json.load(open(fp))
+        except Exception:
+            continue
+        sh = _SH.load(d, here)
+        if sh is None or (sh.get('partial') and (sh.get('attempts') or 0) < SHADOW_MAX_ATTEMPTS):
+            if sh is not None and _t.time() - (sh.get('last_attempt') or 0) < SHADOW_RETRY_GAP_S:
+                continue                              # a thin night is retried at most hourly, so three
+                                                      # attempts span hours, not one bad 15-minute window
+            try:
+                new = _SH.build(d, D)
+            except Exception as e:                    # build() is meant never to raise; belt and braces
+                print(f"  shadow {d}: build crashed ({str(e)[:80]}) -> retry next run")
+                continue
+            fetched += 1
+            cv = new.get('coverage') or {}
+            if cv.get('down') or (not cv.get('pitcher_stats') and not cv.get('games_wx')):
+                # Nothing came back at all. That is an outage, not a thin night: write NOTHING (an
+                # attempt counter here would let one outage finalise every night in the log as empty)
+                # and stop for this build -- every remaining night would fail the same way.
+                print(f"  shadow {d}: sources unreachable ({(new.get('errors') or ['?'])[0][:90]}) -> "
+                      f"stopping challenger backfill for this build")
+                break
+            teams = {(p.get('code') or '') for p in (D.get('players') or {}).values()}
+            pen_ok = cv.get('pens', 0) >= SHADOW_MIN_PEN_SHARE * max(1, len(teams))
+            wx_ok = cv.get('games_wx', 0) >= SHADOW_MIN_WX_SHARE * max(1, cv.get('games', 0))
+            new['attempts'] = ((sh or {}).get('attempts') or 0) + 1
+            new['last_attempt'] = int(_t.time())
+            new['partial'] = not (pen_ok and wx_ok)
+            json.dump(new, open(_SH.sidecar_path(d, here), 'w'), indent=1)
+            print(f"  shadow {d}: {json.dumps(cv)} errors={len(new['errors'])}"
+                  f"{' PARTIAL (attempt %d)' % new['attempts'] if new['partial'] else ''}")
+            sh = new
+            if sh['partial'] and sh['attempts'] < SHADOW_MAX_ATTEMPTS:
+                continue
+        P = D.get('players') or {}
+        extras, pstats = load_extras(d), load_pitchers(d)
+        rows = []
+        for r in by_date[d]:
+            p = P.get(r.get('name'))
+            if p is None:
+                rows.append(r); continue
+            ex = extras.get(norm(p.get('nm', r['name']))) or {}
+            ps = pstats.get(norm((p.get('opp') or [None])[0] or '')) or {}
+            try:
+                r = {k: v for k, v in r.items() if not k.startswith('c_')}
+                r.update(_SH.columns(p, ex, ps, sh))
+            except Exception as e:
+                r['c_err'] = str(e)[:80]
+            rows.append(r)
+        changed[d] = rows
+    if changed:
+        tmp = path + ".tmp"
+        with open(tmp, 'w') as fh:
+            for d in order:
+                for r in changed.get(d, by_date[d]):
+                    fh.write(json.dumps(r) + "\n")
+        os.replace(tmp, path)
+    left = len(todo) - len(changed)
+    print(f"calibration: challenger columns for {len(changed)} night(s) ({fetched} fetched) in "
+          f"{_t.time() - t0:.0f}s; {left} night(s) still to fill")
+    return len(changed)
+
+
 def main(date):
     dfile = f"D_{date}.json"
     if not os.path.exists(dfile):
@@ -365,6 +500,10 @@ if __name__ == '__main__':
     if arg in ('--backfill', '-b', 'backfill', ''):
         repair()                         # heal nights frozen on an older schema (offline; reuses outcomes)
         backfill()                       # idempotent, self-healing: the Action runs this every build
+        try:
+            shadow_fill()                # KASCHAL-2026-09-10: challenger inputs, time-boxed, never fatal
+        except Exception as _e:
+            print(f"  ::warning:: shadow_fill failed ({str(_e)[:120]}) -- board unaffected, retry next run")
     elif arg in ('--repair', 'repair'):
         repair()                         # one-off: rebuild stale-schema nights from the D archive
     else:

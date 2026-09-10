@@ -146,7 +146,9 @@ def build(date, D, getj=_getj, workers=8):
                          {_talias(p.get('opp_code')) for p in players.values() if p.get('opp_code')})
     tj = safe(f"{SA}/teams?sportId=1&season={date[:4]}") or {}
     ab2id = {_talias(t.get('abbreviation')): t.get('id') for t in (tj.get('teams') or [])}
-    id2ab = {v: k for k, v in ab2id.items()}
+    if not ab2id:                     # StatsAPI unreachable: stop here, don't burn the build's time budget
+        cov['down'] = True            # on 70 more calls that will all time out. calibrate treats this as
+        return out                    # "no data" -- nothing is written and the night is retried later.
 
     # ---- 2. probable starters today (name -> id) ----
     sch = safe(f"{SA}/schedule?sportId=1&date={date}&hydrate=probablePitcher") or {}

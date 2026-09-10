@@ -133,7 +133,8 @@ def main():
                     help="the date the change was proposed. Only slates AFTER this count.")
     ap.add_argument('--challenger', required=True, help="column holding the proposed score")
     ap.add_argument('--incumbent', default='total', help="column holding the live score (default: total)")
-    ap.add_argument('--top', type=int, default=30, help="board size to judge on (default: 30)")
+    # TOPN22-2026-09-10, owner: "a full board is 22 bats, so N=22." Was 30.
+    ap.add_argument('--top', type=int, default=22, help="board size to judge on (default: 22, one full board)")
     ap.add_argument('--log', default=LOG)
     ap.add_argument('--reps', type=int, default=600)
     ap.add_argument('--min-slates', type=int, default=MIN_SLATES)

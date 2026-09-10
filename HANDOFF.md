@@ -102,6 +102,10 @@ then compile the three sidecars:
   0.10 for every bat, which is the exact bug ISOSRC existed to fix. The build now prints
   `kasper_extras: N entries -> N keys  khr= iso= xwobacon= bip=` and warns on any zero. If you
   see a zero there, the scrape is thin — go back and get the column.
+  ⚠️ **KASCHAL-2026-09-10 — extras MUST carry `fb` again** (Kasper roster column `FB%`, the bat's
+  fly-ball rate). Owner's challenger model (no price, judged on top-22 hit rate) uses it; it had
+  quietly dropped out of the scrape after 09-01, so `k_fb` / `c_fb` are null from 09-02 on. build15
+  does not read it, so a missing `fb` never shows on the board -- only in `calibration.jsonl`.
   ⚠️ **DROPSCOPE-2026-09-05 — every extras entry MUST carry `"team"`** (the Kasper roster
   table's own team code). `slate_assemble.py` strips the tag before writing the dated file, so
   the shipped contract is unchanged — the tag exists only so a permanently-excluded bat can be
@@ -469,7 +473,7 @@ A missing one silently falls back to the **prior day**, which then mismatches th
 | `cards_<date>.json` | **yes** | Kasper matchup pages | `{MATCHUP:{TEAM:[{name,form_pct,form_arrow,pb,hh,la,zone,test}]}}` |
 | `lineups_<date>.json` | **yes** | **RotoWire (MANUAL)** | see below — this is the #1 trap |
 | `odds_<date>.json` | **yes** | VegasInsider HR props | `{name: american}` |
-| `kasper_extras_<date>.json` | optional *(but see note)* | Kasper matchup pages | `{name:{khr,iso,xwobacon,bip}}` — **all four**. Optional to the loader, not to the model: without `iso`/`xwobacon`/`bip` the ISO source, `_USE_KWCON` and `_zdmg` all go dark and the board still builds. |
+| `kasper_extras_<date>.json` | optional *(but see note)* | Kasper matchup pages | `{name:{khr,iso,xwobacon,bip,fb}}` — **all five** (`fb` = the roster table's FB%, restored 2026-09-10 for the Kasper challenger, KASCHAL). Optional to the loader, not to the model: without `iso`/`xwobacon`/`bip` the ISO source, `_USE_KWCON` and `_zdmg` all go dark and the board still builds. |
 | `pitchers_<date>.json` | optional | Kasper "Top Slate Pitchers" | `{name:{brl,pbrl,hh,fb}}`; unlisted arms → live HR/9 |
 
 **`lineups_<date>.json` is NOT auto-pulled.** `fetch_mlb.py` only writes `slate_auto`
@@ -642,7 +646,7 @@ Exit 0 = safe to commit+build. Exit 1 = DO NOT COMMIT.
 
 ### The 5-file contract build15.py actually consumes
 - `cards_<d>.json`         `{MATCHUP:{TEAM:[{name,form_pct,form_arrow,pb,hh,la,zone,test}]}}`
-- `kasper_extras_<d>.json` `{name:{khr,iso,xwobacon,bip}}`   ← all four; khr-only is a thin scrape, see above
+- `kasper_extras_<d>.json` `{name:{khr,iso,xwobacon,bip,fb}}`   ← all five; khr-only is a thin scrape, see above. `fb` feeds the challenger log only (KASCHAL-2026-09-10), build15 ignores it
 - `odds_<d>.json`          `{name: american_int}`   (number, not string)
 - `pitchers_<d>.json`      `{name:{brl,pbrl,hh,fb}}`
 - `lineups_<d>.json`       `{"date":<d>, "games":[ per-game ]}`   ← OBJECT, not a bare list
