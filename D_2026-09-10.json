@@ -14432,7 +14432,7 @@
     "precip": 0
    }
   },
-  "build": "9/10 12:47pm",
+  "build": "9/10 12:51pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -14635,7 +14635,7 @@
   "date": "2026-09-10",
   "gs": {},
   "chalkstate": {
-   "b": "9/10 12:47pm",
+   "b": "9/10 12:51pm",
    "s": {}
   },
   "chalk": [],
@@ -14644,67 +14644,12 @@
   "gate": 19,
   "tickets": 2
  },
- "pool": [
-  "Kyle Schwarber",
-  "Yordan Alvarez",
-  "Aaron Judge",
-  "Matt Olson",
-  "Ben Rice",
-  "Spencer Jones",
-  "Bryce Harper",
-  "Hunter Goodman",
-  "Cal Raleigh",
-  "Drake Baldwin",
-  "Daulton Varsho",
-  "Esmerlyn Valdez",
-  "Munetaka Murakami",
-  "Joc Pederson",
-  "Ronald Acu\u00f1a",
-  "Yandy D\u00edaz",
-  "Austin Wells",
-  "Austin Riley",
-  "Ryan Vilade"
- ],
  "tickets": [
-  {
-   "name": "Closing Time",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Aaron Judge is blistering line drives (69% hard-hit), swings with natural lift (20\u00b0), has the raw juice to clear any wall (100/100 power), and projects out to 166.",
-   "players": [
-    {
-     "name": "Aaron Judge",
-     "team": "Yankees",
-     "total": 166.3,
-     "aT": 100,
-     "wf": 1.017,
-     "gmatch": "COL@NYY",
-     "gtime": "7:05 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 205,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Aaron Judge",
-   "lock": "7:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 0,
-    "neu": 1
-   },
-   "confleg": 0
-  },
   {
    "name": "The Noon Whistle",
    "kind": "lunch",
    "badge": "\ud83c\udf71",
-   "note": "Kyle Schwarber is barreling everything in sight (74% hard-hit), gets ideal loft (20\u00b0), gets a touch of carry tonight, sits in the elite power tier (100/100).",
+   "note": "Kyle Schwarber is barreling everything in sight (74% hard-hit), gets ideal loft (20\u00b0), gets a touch of carry tonight, and has the raw juice to clear any wall (100/100 power).",
    "players": [
     {
      "name": "Kyle Schwarber",
@@ -14732,7 +14677,68 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 180,
+   "payout10": 28
+  },
+  {
+   "name": "Closing Time",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Aaron Judge is blistering line drives (69% hard-hit), swings with natural lift (20\u00b0), sits in the elite power tier (100/100), projects out to 166, and a slump-buster could be near.",
+   "players": [
+    {
+     "name": "Aaron Judge",
+     "team": "Yankees",
+     "total": 166.3,
+     "aT": 100,
+     "wf": 1.017,
+     "gmatch": "COL@NYY",
+     "gtime": "7:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 205,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Aaron Judge",
+   "lock": "7:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 205,
+   "payout10": 30.5
   }
+ ],
+ "pool": [
+  "Yordan Alvarez",
+  "Aaron Judge",
+  "Matt Olson",
+  "Ben Rice",
+  "Spencer Jones",
+  "Bryce Harper",
+  "Hunter Goodman",
+  "Cal Raleigh",
+  "Drake Baldwin",
+  "Daulton Varsho",
+  "Esmerlyn Valdez",
+  "Munetaka Murakami",
+  "Joc Pederson",
+  "Ronald Acu\u00f1a",
+  "Yandy D\u00edaz",
+  "Austin Wells",
+  "Austin Riley",
+  "Ryan Vilade"
  ]
 }
