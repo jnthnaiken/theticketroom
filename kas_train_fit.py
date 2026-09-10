@@ -193,6 +193,16 @@ def main():
                    'rows': int(len(T)), 'hr': int(T.hr.sum()), 'slates': int(T.k.nunique())}}
     json.dump(out, open(a.out, 'w'), indent=1)
     print(f"\nwrote {a.out}")
+    # one short line per value so the numbers can be read straight off the run log
+    for c in inputs:
+        print(f"WEIGHT {c} {coef[c]:.6f}")
+    print(f"WEIGHT intercept {wF[0]:.6f}")
+    try:
+        ph = json.load(open('park_hand_next.json'))
+        for vid, v in sorted(ph['venues'].items(), key=lambda kv: int(kv[0])):
+            print(f"PARK2 {ph['season']} {vid} {v.get('L', 'x')} {v.get('R', 'x')} {str(v.get('venue')).replace(' ', '_')}")
+    except Exception as e:
+        print(f"PARK2 unavailable ({e})")
 
 
 if __name__ == '__main__':
