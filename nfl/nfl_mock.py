@@ -177,6 +177,22 @@ def wx_mult(row):
     if w <= 15: return 0.985
     return 0.984
 
+def no_qb(d):
+    """NOQB-2026-09-11 -- QUARTERBACKS ARE OFF THE FOOTBALL BOARD.
+    Owner, choosing how EV ranking should land: "EV, but no QBs". The QB touchdown model is the one
+    term that is not credible at the price extremes -- on the 2026-09-13 slate it rated Kirk Cousins
+    8.1% against a 4.8% implied +2000, which under EV ranking is a +70% "edge" and an anchor seat.
+    That is the model, not the market being wrong (EVDRAFT-2026-09-10 said so the day it was built).
+    Implemented as UNPRICING the QB, so every downstream rule already does the right thing: the
+    market de-vig, both z-scores and the EV z are computed over the non-QB field, and to_scored()
+    drops unpriced rows, so a QB never reaches the draft or the page. NFL_NO_QB=0 turns it off."""
+    if os.environ.get('NFL_NO_QB', '1') != '0':
+        qb = (d.pos == 'QB') & d.odds.notna()
+        if qb.any():
+            print(f'NOQB: {int(qb.sum())} priced quarterback(s) left off the board')
+        d.loc[d.pos == 'QB', 'odds'] = None
+    return d
+
 def score(season, week, atd_path, fixtures_path, prices_path):
     fx = json.load(open(fixtures_path, encoding='utf-8'))
     slugs = fx['matches']
@@ -215,6 +231,7 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     d['odds'] = odds
     d['book_name'] = book
     print(f'price join: {d.odds.notna().sum()}/{len(d)} rostered players priced')
+    d = no_qb(d)
 
     # ---- blend: half market, half edge -----------------------------------------------------
     d['p_mkt'] = d.odds.apply(lambda a: am_to_prob(a) if a is not None else np.nan)
@@ -264,7 +281,11 @@ def score(season, week, atd_path, fixtures_path, prices_path):
         d.loc[pm, 'ev'] = [p * _dec(a) - 1 for p, a in zip(d.loc[pm, 'p_model'], d.loc[pm, 'odds'])]
         d.loc[pm, 'fair'] = [round((1 / p - 1) * 100) if p < 0.5 else -round(p / (1 - p) * 100)
                              for p in d.loc[pm, 'p_model']]
-    if os.environ.get('NFL_BOARD_MODEL', 'mkt50') == 'ev_v1' and pm.any():
+    # 🚨 EVNFL-2026-09-11 -- NOW ON BY DEFAULT. Owner: "im really thinking football needs to be ranked by
+    # ev before drafting too, like baseball. maybe not soccer" -> "EV, but no QBs" (see no_qb() above,
+    # which is what removes the Cousins artifact that kept this off on 09-10). Still unmeasured on NFL:
+    # there are two graded football nights. Revert with NFL_BOARD_MODEL=mkt50.
+    if os.environ.get('NFL_BOARD_MODEL', 'ev_v1') == 'ev_v1' and pm.any():
         ez = z(d.loc[pm, 'ev'])
         floor = (ez.min() - 0.5) if len(ez) else 0.0
         d['blend'] = floor
