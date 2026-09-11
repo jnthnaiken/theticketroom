@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T18:36:37Z",
+  "pulled_at": "2026-09-11T18:41:46Z",
   "games": [
     {
       "gamePk": 824631,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 696062,
           "name": "Wilber Dotel",
-          "hr9": 0.55,
+          "hr9": 0.53,
           "hand": "RHP"
         },
         "lineup": [
@@ -87,7 +87,7 @@
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 608324,
@@ -301,7 +301,7 @@
     },
     {
       "gamePk": 824711,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-11T23:10:00Z",
       "matchup": "KC@BOS",
       "away": {
@@ -312,8 +312,54 @@
           "hr9": 1.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.214
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.172
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.145
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.155
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.161
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.223
+          },
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.146
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.111
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.115
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -323,10 +369,56 @@
           "hr9": 0.9,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.146
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.215
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.187
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.209
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.102
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.136
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.131
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.16
+          },
+          {
+            "id": 643396,
+            "name": "Isiah Kiner-Falefa",
+            "iso": 0.082
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -542,7 +634,7 @@
     },
     {
       "gamePk": 823012,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-12T00:15:00Z",
       "matchup": "CWS@STL",
       "away": {
@@ -564,10 +656,56 @@
           "hr9": 1.62,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.112
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.135
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.208
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.184
+          },
+          {
+            "id": 695491,
+            "name": "Joshua B\u00e1ez",
+            "iso": 0.31
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": 0.194
+          },
+          {
+            "id": 695336,
+            "name": "Thomas Saggese",
+            "iso": 0.17
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.087
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
