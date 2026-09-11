@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T21:57:44Z",
+  "pulled_at": "2026-09-11T22:00:41Z",
   "games": [
     {
       "gamePk": 824631,
@@ -1722,7 +1722,7 @@
     },
     {
       "gamePk": 823173,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-12T02:15:00Z",
       "matchup": "SD@SF",
       "away": {
@@ -1733,8 +1733,54 @@
           "hr9": 1.19,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.165
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.081
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.19
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.182
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.186
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.1
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.082
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.056
+          },
+          {
+            "id": 666023,
+            "name": "Freddy Fermin",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -1744,10 +1790,56 @@
           "hr9": 1.4,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.191
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.26
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.191
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.153
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.095
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.162
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.127
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.122
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.111
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
