@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T18:51:45Z",
+  "pulled_at": "2026-09-11T18:52:55Z",
   "games": [
     {
       "gamePk": 824631,
@@ -206,8 +206,54 @@
           "hr9": 0.86,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.147
+          },
+          {
+            "id": 650402,
+            "name": "Gleyber Torres",
+            "iso": 0.112
+          },
+          {
+            "id": 690993,
+            "name": "Colt Keith",
+            "iso": 0.147
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.194
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.21
+          },
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.151
+          },
+          {
+            "id": 807726,
+            "name": "John Peck",
+            "iso": 0.04
+          },
+          {
+            "id": 656716,
+            "name": "Zach McKinstry",
+            "iso": 0.1
+          },
+          {
+            "id": 595879,
+            "name": "Javier B\u00e1ez",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -225,7 +271,7 @@
     },
     {
       "gamePk": 822684,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-11T22:45:00Z",
       "matchup": "LAA@WSH",
       "away": {
@@ -247,10 +293,56 @@
           "hr9": 0.96,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.261
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.253
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.158
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.231
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.154
+          },
+          {
+            "id": 691002,
+            "name": "Yohandy Morales",
+            "iso": 0.421
+          },
+          {
+            "id": 695670,
+            "name": "Harry Ford",
+            "iso": 0.18
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.087
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
