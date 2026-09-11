@@ -209,6 +209,9 @@ jobs:
           cd nfl/.work
           python3 nfl_mock.py ${{ steps.slate.outputs.season }} ${{ steps.slate.outputs.week }} \
                   --atd atd.psv --fixtures fixtures.json --prices prices.json --out scored.json
+          # INJOUT-2026-09-11: a man ESPN lists as Out / IR / Suspended is `out` before the draft
+          # sees him (Brock Bowers rode a live moon two days after being ruled Out). Never fatal.
+          python3 nfl_injuries.py scored.json fixtures.json || echo "::warning::nfl_injuries.py failed -- drafting without the injury report"
           node nfl_draft_cli.js scored.json fixtures.json tickets.json
           python3 nfl_payload.py scored.json tickets.json fixtures.json nfl_D.json \
                   $([ -f wx.json ] && echo "--wx wx.json") \
