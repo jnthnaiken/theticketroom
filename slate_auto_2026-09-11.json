@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T18:56:48Z",
+  "pulled_at": "2026-09-11T19:00:35Z",
   "games": [
     {
       "gamePk": 824631,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 696062,
           "name": "Wilber Dotel",
-          "hr9": 0.53,
+          "hr9": 0.52,
           "hand": "RHP"
         },
         "lineup": [
@@ -102,7 +102,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.092
+            "iso": 0.093
           },
           {
             "id": 624424,
@@ -112,7 +112,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 608348,
@@ -612,7 +612,7 @@
     },
     {
       "gamePk": 823817,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-11T23:10:00Z",
       "matchup": "LAD@MIA",
       "away": {
@@ -632,10 +632,56 @@
           "hr9": 1.12,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.234
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.138
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.117
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.147
+          },
+          {
+            "id": 682663,
+            "name": "Agust\u00edn Ram\u00edrez",
+            "iso": 0.103
+          },
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.224
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.175
+          },
+          {
+            "id": 691858,
+            "name": "Jared Serna",
+            "iso": 0.25
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.226
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
