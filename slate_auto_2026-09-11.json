@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T19:46:58Z",
+  "pulled_at": "2026-09-11T19:51:55Z",
   "games": [
     {
       "gamePk": 824631,
@@ -92,22 +92,22 @@
           {
             "id": 608324,
             "name": "Alex Bregman",
-            "iso": 0.181
+            "iso": 0.185
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.193
+            "iso": 0.192
           },
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.092
+            "iso": 0.094
           },
           {
             "id": 624424,
             "name": "Michael Conforto",
-            "iso": 0.245
+            "iso": 0.244
           },
           {
             "id": 699393,
@@ -1013,7 +1013,7 @@
     },
     {
       "gamePk": 823736,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-11T23:45:00Z",
       "matchup": "CIN@MIL",
       "away": {
@@ -1024,8 +1024,54 @@
           "hr9": 1.3,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.184
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.228
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.211
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.204
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.174
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.213
+          },
+          {
+            "id": 699115,
+            "name": "Carlos Jorge",
+            "iso": 0.0
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.156
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -1038,7 +1084,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
