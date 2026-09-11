@@ -177,6 +177,24 @@ def wx_mult(row):
     if w <= 15: return 0.985
     return 0.984
 
+_EVW_PATH = 'ev_weights_nfl_v1.json'
+_cal_meta = {}
+
+def _ev_weights(path=_EVW_PATH):
+    """EVCAL-NFL-2026-09-11 -> [b0, b_lim, b_lim2, b_m] from a PROMOTED weights file, else None."""
+    global _cal_meta
+    if not os.path.exists(path):
+        return None
+    try:
+        j = json.load(open(path, encoding='utf-8'))
+    except Exception as e:
+        print(f'::warning::{path} unreadable ({e}) -- raw-model EV'); return None
+    if not j.get('proposed'):
+        return None                      # a candidate, not live
+    _cal_meta = j
+    c = j['coef']
+    return [c['b0'], c['b_lim'], c['b_lim2'], c['b_m']]
+
 def no_qb(d):
     """NOQB-2026-09-11 -- QUARTERBACKS ARE OFF THE FOOTBALL BOARD.
     Owner, choosing how EV ranking should land: "EV, but no QBs". The QB touchdown model is the one
@@ -277,8 +295,18 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     def _dec(a):
         return 1 + a / 100.0 if a > 0 else 1 + 100.0 / (-a)
     pm = d.odds.notna() & d.p_model.notna()
+    # EVCAL-NFL-2026-09-11: the probability EV is computed on. Raw p_model until a CALIBRATED weights
+    # file is promoted (nfl_ev_fit.py writes candidates with "proposed": null; only a dated one is
+    # used). Calibrated = baseball's shape, fit on this board's own graded archives with the held price
+    # as an input -- see nfl_ev_fit.py for why it cannot exist before ~6-7 graded weeks.
+    _cal = _ev_weights()
+    d['p_ev'] = d.p_model
+    if _cal is not None and pm.any():
+        import nfl_ev_fit
+        d.loc[pm, 'p_ev'] = [nfl_ev_fit.p_cal(_cal, a, p) for p, a in zip(d.loc[pm, 'p_model'], d.loc[pm, 'odds'])]
+        print(f"EVCAL: calibrated EV from {_EVW_PATH} (proposed {_cal_meta.get('proposed')})")
     if pm.any():
-        d.loc[pm, 'ev'] = [p * _dec(a) - 1 for p, a in zip(d.loc[pm, 'p_model'], d.loc[pm, 'odds'])]
+        d.loc[pm, 'ev'] = [p * _dec(a) - 1 for p, a in zip(d.loc[pm, 'p_ev'], d.loc[pm, 'odds'])]
         d.loc[pm, 'fair'] = [round((1 / p - 1) * 100) if p < 0.5 else -round(p / (1 - p) * 100)
                              for p in d.loc[pm, 'p_model']]
     # 🚨 EVNFL-2026-09-11 -- NOW ON BY DEFAULT. Owner: "im really thinking football needs to be ranked by
