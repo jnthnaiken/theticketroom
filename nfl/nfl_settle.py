@@ -31,6 +31,7 @@ for _p in (HERE, os.path.join(HERE, '..', 'soccer')):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 import soccer_grade                                    # ONE GRADER: fold() / grade_ticket()
+import nfl_espn                                        # ESPNFETCH-2026-09-11
 
 ESPN = 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/'
 ALIAS = {'LA': 'LAR', 'WAS': 'WSH'}                    # nflverse -> ESPN abbreviations
@@ -47,9 +48,9 @@ def norm(s):
 
 
 def _getj(url):
-    rq = urllib.request.Request(url, headers={'User-Agent': 'ticketroom-nfl-settle'})
-    with urllib.request.urlopen(rq, timeout=30) as r:
-        return json.load(r)
+    # ESPNFETCH-2026-09-11: urllib was 403'd by ESPN on the runner, so the 9/10 night never
+    # graded. Node fetch is what the soccer room reads ESPN with; see nfl_espn.py.
+    return nfl_espn.getj(url)
 
 
 def box(summary):
@@ -93,7 +94,7 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
     fxp = os.path.join(slates_dir, date, 'fixtures.json')
     fx = json.load(io.open(fxp, encoding='utf-8')) if os.path.exists(fxp) else {'matches': {}}
     kos = [m.get('kickoff') for m in (fx.get('matches') or {}).values() if isinstance(m.get('kickoff'), int)]
-    now_et = now_et or (datetime.datetime.utcnow() - datetime.timedelta(hours=4))
+    now_et = now_et or (datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) - datetime.timedelta(hours=4))
     if kos:
         ready = datetime.datetime.strptime(date, '%Y-%m-%d') + datetime.timedelta(minutes=max(kos) + GRACE_MIN)
         if now_et < ready:
