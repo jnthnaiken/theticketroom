@@ -26,6 +26,11 @@
 const fs = require('fs');
 const path = require('path');
 const SD = require('./soccer_draft.js');
+/* PLUSMONEY-2026-09-11: this suite replays the 2026-08-26 fixture, a board drafted BEFORE the
+   plus-money floor, to prove mechanics (CONFLOCK / MINTGUARD / repair / snake) that have nothing
+   to do with price. Switch the floor off so it keeps testing those; test_plusmoney.js owns the
+   floor itself. cfgOf() reads DEFAULTS at call time, so this reaches every draft/redraft below. */
+SD.DEFAULTS.MIN_ODDS = null;
 
 const HERE = __dirname;
 const FIXTURE = path.join(HERE, 'fixtures', '2026-08-26');

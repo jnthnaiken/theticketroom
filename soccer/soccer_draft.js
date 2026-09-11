@@ -61,8 +61,28 @@
     MOONS_PER_ANC: 2,
     ANCH_PER_GAME: 2,
     MOON_RISK: 2.0,
-    SINGLE_STAKE: 1.0
+    SINGLE_STAKE: 1.0,
+    /* PLUSMONEY-2026-09-11. Owner: "only + money guys can make the board", then "+100 and
+       longer" (EVENS STAYS IN) and "i want to do it with nfl as well". American odds, so a
+       price is eligible when odds >= MIN_ODDS; -110, 10/11, 4/5 are not. An UNPRICED man was
+       never draftable and still is not. null switches the rule off.
+       ⚠️ LIVES HERE, ONCE, BECAUSE THIS FILE IS THE DRAFT FOR SOCCER AND NFL (nfl_draft_cli.js
+       inherits DEFAULTS; it does not set this key). MLB is a different engine and is untouched.
+       ⚠️ ENFORCED AT EVERY DOOR, NOT JUST THE POOL: buildPool (fresh draft, the Z_GATE-lifted
+       widePool, the redraft's cands), placeable (mint/refill), pinnable (an OPEN slip's existing
+       leg) and alive[] (FINALREPAIR's widest pool, the top-up). A rule applied only at the
+       gate is exactly the hole FINALREPAIR's "no Z_GATE, no GAME_CAP" pool walks through.
+       ⚠️ LOCKED SLIPS ARE NOT TOUCHED. ticketIsLocked() freezes before any of this runs, so a
+       placed bet is carried verbatim whatever its price. */
+    MIN_ODDS: 100
   };
+
+  function priceOk(p, cfg) {
+    if (!cfg || cfg.MIN_ODDS == null) return true;
+    if (!p || p.odds == null || p.odds === '') return false;
+    var o = Number(p.odds);
+    return isFinite(o) && o >= cfg.MIN_ODDS;
+  }
 
   function cfgOf(o) {
     var c = {}, k;
@@ -113,6 +133,7 @@
          Chelsea v Brighton on 2026-08-30. Rows without the field are undefined and fall
          through unchanged, so every earlier slate and the 08-26 golden board are untouched. */
       if (p.out || p.void) return false;
+      if (!priceOk(p, cfg)) return false;           /* PLUSMONEY-2026-09-11 */
       if (p.gate_z == null || p.gate_z < cfg.Z_GATE) return false;
       if (excl[p.name]) return false;
       if (xi && gated(p) && !xi[p.name]) return false;
@@ -892,6 +913,7 @@
       var p = D.players[n], ko = koOf(p.game);
       if (!p || p.out || p.void) return false;
       if (p.odds == null) return false;
+      if (!priceOk(p, cfg)) return false;           /* PLUSMONEY-2026-09-11 */
       if (ko == null || now >= ko) return false;
       return true;
     }
@@ -909,6 +931,7 @@
       var p = D.players[n];
       if (!p || p.out || p.void) return false;
       if (p.odds == null) return false;
+      if (!priceOk(p, cfg)) return false;           /* PLUSMONEY-2026-09-11: an OPEN slip's leg */
       return true;
     }
     function freeToPin(n) {
@@ -934,7 +957,7 @@
     var alive = {};
     Object.keys(D.players).forEach(function (n) {
       var p = D.players[n];
-      alive[n] = !p.out && !p.void && p.odds != null && (!xi || !xiKnown(p) || xi[n]);
+      alive[n] = !p.out && !p.void && p.odds != null && priceOk(p, cfg) && (!xi || !xiKnown(p) || xi[n]);
     });
 
     var groups = {}, orderedAnchors = [];
@@ -1811,7 +1834,7 @@
   }
 
   var api = {
-    DEFAULTS: DEFAULTS, cfgOf: cfgOf, buildPool: buildPool, withStrength: withStrength,
+    DEFAULTS: DEFAULTS, cfgOf: cfgOf, priceOk: priceOk, buildPool: buildPool, withStrength: withStrength,
     spanOk: spanOk, draftN: draftN, draft: draft, nameSet: nameSet,
     NAMES: NAMES, BADGE: BADGE, a2d: a2d, rrMaxProfit: rrMaxProfit,
     legOf: legOf, lockOf: lockOf, mkTicket: mkTicket,

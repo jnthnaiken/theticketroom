@@ -32,6 +32,10 @@ CFG = dict(
     WIN=75, Z_GATE=0.70, GAME_CAP=4, CHALK_N=0,
     ANCH=4, MOONS_PER_ANC=2, ANCH_PER_GAME=2, FAM_CAP=8,
     MOON_RISK=2.0, SINGLE_STAKE=1.0,
+    # PLUSMONEY-2026-09-11 -- only +100 and longer may make the board (evens stays in). MUST MATCH
+    # DEFAULTS.MIN_ODDS in soccer_draft.js, which is the rule that actually drafts; this copy
+    # only keeps the printed pool honest. None switches it off.
+    MIN_ODDS=100,
 )
 
 SIG = {'npxg90': 0.60, 'xgpershot': 0.20, 'finish90': 0.10, 'xa90': 0.10}
@@ -441,6 +445,7 @@ for p in players:
 # XIPARTIALMOCK-2026-09-05: per MATCH, not slate-wide. Mirrors soccer_draft.js buildPool().
 pool = [p for p in players
         if p['gate_z'] >= CFG['Z_GATE']
+        and (CFG['MIN_ODDS'] is None or (p['odds'] is not None and p['odds'] >= CFG['MIN_ODDS']))
         and (_XI is None or p['name'] in _XI or p['match'] not in _TRUSTED)
         and p['name'] not in _ABSENT]
 pool.sort(key=lambda p: (-p['TOTAL'], p['name']))
@@ -521,7 +526,7 @@ print(f"  priced players {len(players)} across {len({p['match'] for p in players
 _join = matched['exact'] + matched['token'] + matched['suffix']
 print(f"  xG join: exact {matched['exact']} | token {matched['token']} | suffix {matched['suffix']}"
       f" | missing {matched['missing']}  ({100*_join/len(players):.0f}%)")
-print(f"  pool after Z_GATE {CFG['Z_GATE']} + XI filter + GAME_CAP {CFG['GAME_CAP']}: {len(pool)}")
+print(f"  pool after Z_GATE {CFG['Z_GATE']} + MIN_ODDS {CFG['MIN_ODDS']} + XI filter + GAME_CAP {CFG['GAME_CAP']}: {len(pool)}")
 print(f"  weakest drafted TOTAL: {floor:.1f}")
 print()
 print(f"  {'TOP OF BOARD':32s}{'lg':9s}{'odds':>7s}{'TOTAL':>8s}{'mkt_z':>7s}{'edge_z':>8s}{'xG?':>5s}")
