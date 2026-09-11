@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T19:06:43Z",
+  "pulled_at": "2026-09-11T19:11:46Z",
   "games": [
     {
       "gamePk": 824631,
@@ -35,7 +35,7 @@
           {
             "id": 804668,
             "name": "Rafael Flores Jr.",
-            "iso": 0.259
+            "iso": 0.257
           },
           {
             "id": 699013,
@@ -259,15 +259,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 4mph, 76\u00b0",
+        "cond": "wind in 4mph, 75\u00b0",
         "lean": "Neutral",
-        "temp": 75.8,
+        "temp": 74.8,
         "wind_mph": 7.2,
         "wind_dir": 86,
         "tail_mph": -4.0,
         "precip": 0
       },
-      "wf": 0.995
+      "wf": 0.993
     },
     {
       "gamePk": 822684,
@@ -282,8 +282,54 @@
           "hr9": 1.29,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.199
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.181
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.09
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.14
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.124
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.084
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.147
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.129
+          },
+          {
+            "id": 624428,
+            "name": "Adam Frazier",
+            "iso": 0.109
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "WSH",
@@ -346,15 +392,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 79\u00b0",
+        "cond": "calm 2mph, 82\u00b0",
         "lean": "Neutral",
-        "temp": 79.0,
+        "temp": 81.5,
         "wind_mph": 2.5,
         "wind_dir": 27,
         "tail_mph": -2.5,
         "precip": 3
       },
-      "wf": 1.005
+      "wf": 1.009
     },
     {
       "gamePk": 823498,
@@ -389,13 +435,13 @@
         "emoji": "\u26c5",
         "cond": "wind in 4mph, 76\u00b0",
         "lean": "Neutral",
-        "temp": 76.0,
+        "temp": 76.2,
         "wind_mph": 5.3,
         "wind_dir": 332,
         "tail_mph": -3.9,
         "precip": 0
       },
-      "wf": 0.995
+      "wf": 0.996
     },
     {
       "gamePk": 822767,
@@ -562,7 +608,7 @@
         "emoji": "\u26c5",
         "cond": "calm 1mph, 72\u00b0",
         "lean": "Neutral",
-        "temp": 72.2,
+        "temp": 72.3,
         "wind_mph": 5.9,
         "wind_dir": 310,
         "tail_mph": 0.5,
@@ -572,7 +618,7 @@
     },
     {
       "gamePk": 822930,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-11T23:10:00Z",
       "matchup": "HOU@TB",
       "away": {
@@ -594,10 +640,56 @@
           "hr9": 0.82,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.166
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.149
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.25
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.156
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.237
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.05
+          },
+          {
+            "id": 656775,
+            "name": "Cedric Mullins",
+            "iso": 0.141
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.139
+          },
+          {
+            "id": 622761,
+            "name": "Jorge Mateo",
+            "iso": 0.123
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -725,15 +817,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 87\u00b0",
+        "cond": "wind out 8mph, 80\u00b0",
         "lean": "Boost",
-        "temp": 86.7,
+        "temp": 79.5,
         "wind_mph": 10.8,
         "wind_dir": 184,
         "tail_mph": 7.5,
         "precip": 30
       },
-      "wf": 1.051
+      "wf": 1.041
     },
     {
       "gamePk": 823736,
@@ -895,13 +987,13 @@
         "emoji": "\u26c5",
         "cond": "calm 1mph, 77\u00b0",
         "lean": "Neutral",
-        "temp": 77.3,
+        "temp": 77.1,
         "wind_mph": 2.4,
         "wind_dir": 146,
         "tail_mph": 1.1,
         "precip": 7
       },
-      "wf": 1.015
+      "wf": 1.014
     },
     {
       "gamePk": 824954,
@@ -934,15 +1026,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 84\u00b0",
+        "cond": "wind out 10mph, 85\u00b0",
         "lean": "Boost",
-        "temp": 84.1,
+        "temp": 85.3,
         "wind_mph": 10.3,
         "wind_dir": 224,
         "tail_mph": 9.9,
         "precip": 0
       },
-      "wf": 1.056
+      "wf": 1.058
     },
     {
       "gamePk": 825036,
@@ -1015,7 +1107,7 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 16mph, 62\u00b0",
         "lean": "Boost",
-        "temp": 61.8,
+        "temp": 61.9,
         "wind_mph": 17.3,
         "wind_dir": 283,
         "tail_mph": 16.5,
