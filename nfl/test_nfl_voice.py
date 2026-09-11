@@ -116,8 +116,18 @@ check('cards vary in length (not every man gets the same number of sentences)',
       len(set(lengths.values())) >= 2, lengths)
 
 # --- DETERMINISM. Same slate, same words, every build ----------------------------------------
-again = {r['name']: Voice(SLATE).why(r) for r in SLATE}
+# ⚠️ ONE Voice PER BUILD, cards written in slate order -- exactly as nfl_payload.build does it. Since
+# BROADCAST-2026-09-11 the Voice remembers what it has said on the board so it never repeats a
+# catchphrase, so "the same build twice" means a fresh Voice walking the same slate, not a fresh
+# Voice per card.
+V2 = Voice(SLATE)
+again = {r['name']: V2.why(r) for r in SLATE}
 check('a rebuild produces identical prose', again == cards)
+V3 = Voice(SLATE)
+[V3.why(r) for r in SLATE]
+check('and identical notes', [V3.ticket_note([{'name': n} for n in trio], BY, tname=t) for t, trio in
+      [('Six Points', ['Alpha Rushton', 'Echo Vance', 'India Vogel'])]] ==
+      [Voice(SLATE).ticket_note([{'name': n} for n in ['Alpha Rushton', 'Echo Vance', 'India Vogel']], BY, tname='Six Points')])
 
 # --- NO MATCHUP CLAIMS. The board has no defensive term; the prose must not imply one --------
 BANNED = ['defen', 'soft', 'weak', 'vulnerable', 'gives up', 'allows', 'concede', 'worst against',
@@ -181,20 +191,43 @@ for pos in ('RB', 'WR', 'TE'):
     rs = [r for r in SLATE if r['pos'] == pos]
     tops[pos] = (max(rs, key=lambda r: r['i10pg'])['name'],
                  max(rs, key=lambda r: r['tchpg'])['name'])
+STRIPE = ('nobody at his position sees more goal-line work', 'nobody at his position gets more looks near the stripe',
+          'first call at the goal line', 'the ball goes to', 'the go-to guy', 'the goal line is his office',
+          'call his number', "call {sur}'s number", 'goal-line hammer', 'first look at the goal line',
+          'first read when they smell', 'first call when they smell')
+VOLUME = ('the ball finds', 'nobody at his position touches it more', 'never leaves the field',
+          'the engine of this offense', 'runs through', 'the ball keeps finding', 'touches on touches',
+          'moves the sticks all day', 'piles up touches', 'the volume play', 'bell cow', 'workhorse',
+          'focal point', 'top target here')
+TOTAL = ('most points', 'highest-scoring spot', 'biggest team total', 'light it up', 'points on the menu')
 for n, c in cards.items():
     low = c.lower()
-    if 'nobody in his shirt sees more' in low or 'first in the queue near the stripe' in low \
-            or 'the one they trust from a yard' in low:
+    sur = n.split()[-1].lower()
+    if any(ph.format(sur=sur) in low for ph in STRIPE):
         check('only the goal-line leader of his position claims the stripe: ' + n,
               n == tops[BY[n]['pos']][0], c)
-    if 'the ball finds' in low or 'nobody in his shirt sees it more' in low:
+    if any(ph in low for ph in VOLUME):
         check('only the volume leader of his position claims the ball: ' + n,
               n == tops[BY[n]['pos']][1], c)
-    if 'loudest game' in low or 'highest-implied' in low:
+    if 'nobody at his position gets more of either' in low:
+        check('only the leader in BOTH claims both: ' + n, n == tops[BY[n]['pos']][0] == tops[BY[n]['pos']][1], c)
+    if any(ph in low for ph in TOTAL):
         check('only the highest-implied side says so: ' + n, BY[n]['imp'] == 27.5, c)
-    if 'quietest game' in low or 'lowest-implied' in low or 'score least' in low:
-        check('only the lowest-implied side says so: ' + n, BY[n]['imp'] == 18.5, c)
 
+# =============================================================================================
+# 📣 BROADCAST-2026-09-11 -- EVERY WORD SELLS THE PLAY.
+# =============================================================================================
+# Owner: "the writeups on the football tickets are god awful. im looking for persuasive
+# broadcaster terminology." The board was arguing against its own tickets ("the model is cool on
+# him", "the numbers do not love him either", "a role, not a record") in a British tipster's
+# accent ("shouts", "favourites", "offence"). A knock is now DROPPED, never printed, and these
+# are the phrasings that must never come back.
+HEDGE = ['cool on', 'do not love', 'does not love', 'long shot', 'quietest', 'score least', 'lowest',
+         'not at all', 'watches', 'without the reward', 'no evidence', 'projection', 'somebody else',
+         'priced better than', 'shorter than the model', 'rates him above', 'not a record',
+         'depth chart', 'game log is empty', 'nobody has seen', 'hold your nerve', 'nothing here is a formality',
+         'has to go the long way', 'or not at all', 'the long way round']
+BRIT = ['offence', 'favourite', 'shout', 'in his shirt', 'fancy', 'the lot']
 # --- a man with NO game log must say so -------------------------------------------------------
 # ⚠️ CHECKED AGAINST THE MODULE'S OWN PHRASE BANK, not against a copy of one phrasing. The first
 # cut of this check hardcoded 'depth chart', which is one of four wordings, so it went red the
@@ -204,9 +237,9 @@ nolog_leads = [a[1] for a in V.angles(BY['Rookie Amos'], 'Rookie Amos') if a[0] 
 check('a player with no game log gets the depth-chart headline',
       bool(nolog_leads) and any(l.lower() in cards['Rookie Amos'].lower() for l in nolog_leads),
       (cards['Rookie Amos'], nolog_leads))
-check('and that headline is about the missing evidence, not about form',
-      any(w in cards['Rookie Amos'].lower()
-          for w in ('depth chart', 'projection', 'without a game', 'game log', 'nobody has seen')),
+check('and that headline sells the opportunity, not the missing evidence',
+      not any(w in cards['Rookie Amos'].lower()
+              for w in ('depth chart', 'projection', 'without a game', 'game log', 'nobody has seen')),
       cards['Rookie Amos'])
 
 # --- the name does not repeat inside one card -------------------------------------------------
@@ -330,6 +363,26 @@ for who in ('Alpha Rushton', 'Echo Vance', 'India Vogel', 'Rookie Amos', 'Hotel 
 # Angles are consumed once per slip: the same reason must not be given for two different men.
 beats = [b.split('—', 1)[1].strip() for b in n3.split(';') if '—' in b]
 check('no two men on a slip are sold on the same beat', len(set(beats)) == len(beats), beats)
+
+# Hedge + accent checks, over every card, every note, and every phrasing in the bank for every man.
+bank = []
+for r in SLATE:
+    for key, ldr, frag in V.angles(r, r['name']):
+        bank += [ldr, frag]
+everything = ' '.join(list(cards.values()) + notes + same_salt + by_slip + bank).lower()
+check('no write-up argues against its own ticket', not [w for w in HEDGE if w in everything],
+      [w for w in HEDGE if w in everything])
+check('American booth vocabulary, not a British tipster', not [w for w in BRIT if w in everything],
+      [w for w in BRIT if w in everything])
+check('the matchup ban covers the whole phrase bank too', not [w for w in BANNED if w in everything],
+      [w for w in BANNED if w in everything])
+
+# Every man on every slip gets named even when his teammates have spent the angles he had.
+thin = [row('Thin A', 'WR', 3.0, 0.05, 0.017, 18.5, 0.07, +500), row('Thin B', 'WR', 3.0, 0.05, 0.017, 18.5, 0.07, +500),
+        row('Thin C', 'WR', 3.0, 0.05, 0.017, 18.5, 0.07, +500)]
+vt = Voice(SLATE + thin)
+nt = vt.ticket_note([{'name': r['name']} for r in thin], {r['name']: r for r in SLATE + thin}, tname='Thin')
+check('three identical low-usage men on one slip are all named', all(x in nt for x in ('A —', 'B —', 'C —')), nt)
 
 print()
 if FAILS:

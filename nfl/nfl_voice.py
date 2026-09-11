@@ -46,7 +46,7 @@ def _pick(options, key):
     return options[_h(key) % len(options)]
 
 
-def _rot(seq, key, pin_last=('price',), pin_first=()):
+def _rot(seq, key, pin_last=('price', 'pos'), pin_first=()):
     """Rotate an angle list, holding the weak angles at the back.
 
     Same reasoning as soccer's VOICE-2026-08-28b: `angles()` returns a fixed priority order, so
@@ -92,12 +92,11 @@ def _sentence(bits):
     return body[0].upper() + body[1:] + '.'
 
 
-OPENERS_3 = ['Three that can all find paint', 'Three names, one Sunday', 'If all three get in',
-             'Everything has to land', 'The lot has to come off', 'All three or nothing',
-             'Nothing here is a formality', 'Three men, three end zones', 'Hold your nerve',
-             'Three shouts at it', 'Needs all three', 'Three that fancy the short field']
-OPENERS_1 = ['One name', 'Straight up', 'Nothing fancy', 'The plain one', 'No frills',
-             'Just the one', 'Keep it simple', 'One shout']
+OPENERS_3 = ['Three shots at six', 'Triple threat', 'Three weapons, one Sunday', 'Stack the end zone',
+             'Trips right', 'All gas, no brakes', 'The full playbook', 'Three trips to paydirt',
+             'Spread them out', 'Air it out', 'Go for it', 'Three calls to the house']
+OPENERS_1 = ['Call his number', 'Feed him', 'Circle this one', 'Give him the rock', 'Dial it up',
+             'Red-zone ready', 'Put six on it', 'Get him the ball']
 
 # ⚠️ THE FRAMES ARE HALF THE VOICE. Every note used to be "{a}, {b}, and {c}." -- a list with
 # commas, which is what made a board full of different facts still read like one sentence typed
@@ -190,6 +189,43 @@ class Voice:
         # superlative only for the side that actually holds the maximum.
         self.imp_spread = (imps[-1] - imps[0]) if len(imps) > 1 else 0.0
 
+        # 📣 BROADCAST-2026-09-11 -- ONE BOOTH, NO CATCHPHRASE TWICE. The first broadcaster cut
+        # printed "throw it up and let him go get it" twice inside ONE note and opened two slips
+        # with "Three trips to paydirt". A phrase bank picked by hash collides; a broadcaster who
+        # repeats his line in the same segment sounds like a recording. The Voice remembers what
+        # it has already said on this board and reaches for another phrasing of the SAME angle
+        # (same claim, different words). Deterministic: the board is written in the same order
+        # every build, so the same slate still reads identically.
+        self._said_card, self._said_note, self._said_open = set(), set(), set()
+
+    def _fresh(self, p, who, salt, key, idx, said):
+        """Another phrasing of angle `key` (idx 1 = lead, 2 = fragment) not yet said on this board."""
+        first = None
+        for j in range(48):   # enough re-salts to walk every phrasing of a 3-6 option bank
+            for a in self.angles(p, who, salt=salt if j == 0 else '%s#%d' % (salt, j)):
+                if a[0] != key:
+                    continue
+                txt = a[idx]
+                sig = txt.replace(str(who), '{}').lower()
+                if first is None:
+                    first = (txt, sig)
+                if sig not in said:
+                    said.add(sig)
+                    return txt
+        if first:
+            said.add(first[1])
+            return first[0]
+        return ''
+
+    def _open(self, bank, key):
+        start = _h(key) % len(bank)
+        for j in range(len(bank)):
+            o = bank[(start + j) % len(bank)]
+            if o not in self._said_open:
+                self._said_open.add(o)
+                return o
+        return bank[start]
+
     def _band(self, pos, key):
         """Per-position band, falling back to the pooled one when the position is too thin."""
         b = self.by_pos.get((pos or '').upper(), {}).get(key)
@@ -226,6 +262,36 @@ class Voice:
     # ⚠️ EVERY CLAUSE IS STILL EARNED BY A NUMBER ON THE PAYLOAD, and there are still no matchup
     # claims. "They trust him near the stripe" is what i10pg being top-of-position MEANS. It is
     # not a forecast, not an opinion about a defence, and not a fact the model did not measure.
+    # ---------------------------------------------------------------------------------------
+    # 📣 BROADCAST-2026-09-11 -- SELL THE PLAY. THE BOOTH, NOT THE SPREADSHEET.
+    # ---------------------------------------------------------------------------------------
+    # Owner, 2026-09-11: "the writeups on the football tickets are god awful. im looking for
+    # persuasive broadcaster terminology." The live 9/13 board read like a bookie hedging:
+    #
+    #     Money Down | Three men, three end zones: Wilson — the model is cool on him; Lane — a role,
+    #                  not a record; Moore — goal-to-go is not new to him.
+    #     The Pylon  | Three shouts at it: Ayomanor — ...; Dotson — the numbers do not love him either.
+    #
+    # Three failures in two notes: it ARGUES AGAINST ITS OWN TICKET ("cool on him", "do not love
+    # him", "a role, not a record", "the quietest game", "the work without the reward"), it talks
+    # like a British tipster ("shouts", "favourites", "offence", "in his shirt"), and it narrates
+    # the model instead of the game.
+    #
+    # THE RULES NOW:
+    #   1. EVERY ANGLE SELLS. An angle whose honest reading is a knock (model < 12%, the lowest
+    #      team total, the book shorter than the model) is DROPPED, not softened. Silence is the
+    #      broadcaster's move; nobody in the booth says "the model is cool on him".
+    #   2. A weakness is re-read as the upside it actually is. Low goal-line work with real volume
+    #      is a big-play threat. A low-snap man is the wrinkle the coordinator dials up. A man with
+    #      no game log is a fresh face stepping into a role.
+    #   3. Booth vocabulary, American: paydirt, six, red zone, goal-to-go, bell cow, moves the
+    #      sticks, house call, dial up, the money snaps.
+    #   4. UNCHANGED, AND STILL LOAD-BEARING: no digits (the stat strip prints them), no fragment
+    #      carries a name, superlatives only for the real position leader / real top team total,
+    #      and NO MATCHUP CLAIMS -- there is still no defensive term on this board.
+    #   5. Every man always has at least one angle: the POSITION angle ("one catch from six") is
+    #      the floor, pinned last with price, so dropping the negatives can never leave a leg of a
+    #      slip unmentioned.
     def angles(self, p, who, salt='', lead=False):
         """[(key, lead_sentence, fragment)] for one player, best-first."""
         out = []
@@ -240,6 +306,7 @@ class Voice:
         tch_hi, tch_top = self._band(pos, 'tchpg')
         shr_hi, _ = self._band(pos, 'i10_share')
         mx = self.max_by_pos.get(pos, {})
+        back = pos == 'RB'
 
         def is_max(val, key):
             m = mx.get(key)
@@ -257,138 +324,151 @@ class Voice:
         # ---- THE HEADLINE. One of these, and it is the reason he is on the board. -----------
         if nolog:
             out.append(('story',
-                pick([f'{who} is a depth chart with a price on it',
-                      f'{who} is a projection, not a player — nobody has seen him do this',
-                      f'{who} arrives on the board without a game to his name',
-                      f'{who} is a slot on a depth chart that the book has put odds on'], k + 'h1'),
-                pick(['nobody has seen him do it yet', 'the game log is empty',
-                      'a role, not a record', 'all projection, no evidence',
-                      'not one snap behind the numbers'], k + 'f1')))
+                pick([f'{who} steps into the spotlight this Sunday',
+                      f'{who} is the new name in this offense, and the job is his to take',
+                      f'{who} is a fresh face with a real role waiting for him',
+                      f'{who} is the name nobody has tape on yet'], k + 'h1'),
+                pick(['a breakout waiting to happen', 'first Sunday, first shot at six',
+                      'fresh legs and a real role', 'nobody has tape on him yet',
+                      'the book is guessing too'], k + 'f1')))
         elif top_tch and top_i10:
             out.append(('story',
-                pick([f'the offence runs through {who}, and they trust him when it gets short',
-                      f'{who} does the carrying and takes the goal-line work as well',
-                      f'{who} is the bell cow here in every sense',
-                      f'everything goes through {who}, right down to the last ten yards'], k + 'h2'),
-                pick(['the workload and the short field, both his', 'nobody here does more of either',
-                      'volume and the goal line in one man', 'he does not share the good part'], k + 'f2')))
+                pick([f'{who} is the bell cow, and he gets the ball at the goal line too',
+                      f'{who} carries the load between the twenties and finishes drives inside the ten',
+                      f'{who} is the workhorse here and the first call when they smell the end zone',
+                      f'this offense runs through {who} from the first snap to the goal line']
+                     if back else
+                     [f'{who} is the focal point of this offense and the first look at the goal line',
+                      f'this offense runs through {who} from the first snap to the goal line',
+                      f'{who} is the top target here and the first read when they smell the end zone',
+                      f'{who} gets fed between the twenties and gets the call inside the ten'], k + 'h2'),
+                pick(['the workhorse and the closer' if back else 'the go-to target and the closer',
+                      'nobody at his position gets more of either',
+                      'every down, every goal-line snap', 'the whole drive, start to finish'], k + 'f2')))
         elif top_tch and lo_i10:
             out.append(('story',
-                pick([f'{who} does the work and somebody else finishes it',
-                      f'{who} moves the chains; the short field belongs to somebody else',
-                      f'{who} carries it between the twenties and hands the last ten yards over',
-                      f'all that volume for {who}, and almost none of it where it pays'], k + 'h3'),
-                pick(['plenty of the ball, none of the good bit', 'a chain-mover, not a finisher',
-                      'the work without the reward', 'he gets there and then watches'], k + 'f3')))
+                pick([f'{who} moves the sticks all day long',
+                      f'{who} piles up touches, and it only takes one to break',
+                      f'the ball keeps finding {who} between the twenties',
+                      f'{who} is the volume play, and volume finds the end zone'], k + 'h3'),
+                pick(['touches on touches', 'it only takes one to break',
+                      'keeps the chains moving', 'the volume is undeniable'], k + 'f3')))
         elif top_i10 and lo_tch:
             out.append(('story',
-                pick([f'{who} barely plays, and plays where it counts',
-                      f'{who} is kept for the short field',
-                      f'{who} is a specialist — they bring him on to score',
-                      f'{who} does not do much, but what he does is close range'], k + 'h4'),
-                pick(['a specialist, not a workhorse', 'kept back for the short field',
-                      'he is on for one reason', 'cameo work, scoring work'], k + 'f4')))
+                pick([f'{who} is the goal-line hammer they save for the money snaps',
+                      f'when they get close, they call {who}\'s number',
+                      f'{who} is a red-zone specialist, on the field when it matters most',
+                      f'{who} comes on for one job, and that job is six'], k + 'h4'),
+                pick(['a red-zone specialist', 'saved for the money snaps',
+                      'his job is six points', 'on the field when it counts'], k + 'f4')))
         elif top_i10:
             out.append(('story',
-                pick([f'when the field runs out, it goes to {who}',
-                      f'{who} is the one they trust from a yard',
-                      f'nobody in his shirt sees more of the goal line than {who}',
-                      f'{who} is first in the queue near the stripe'], k + 'h5'),
-                pick(['first in the queue near the stripe', 'the goal-line man',
-                      'they trust him from a yard', 'the short field is his'], k + 'f5')))
+                pick([f'when they get inside the ten, the ball goes to {who}',
+                      f'{who} is the first call at the goal line',
+                      f'{who} is the go-to guy once the field shrinks',
+                      f'nobody at his position sees more goal-line work than {who}'], k + 'h5'),
+                pick(['first call at the goal line', 'the go-to guy in the red zone',
+                      'nobody at his position gets more looks near the stripe',
+                      'the goal line is his office'], k + 'f5')))
         elif top_tch:
             out.append(('story',
-                pick([f'{who} is not coming off the field',
-                      f'the ball finds {who} more than anyone in his shirt',
-                      f'{who} is the engine of this offence',
-                      f'everything runs through {who}'], k + 'h6'),
-                pick(['he never leaves the field', 'the ball keeps finding him',
-                      'the engine of it', 'nobody in his shirt sees it more'], k + 'f6')))
+                pick([f'{who} never leaves the field',
+                      f'the ball finds {who} more than anyone at his position',
+                      f'{who} is the engine of this offense',
+                      f'this offense runs through {who}'], k + 'h6'),
+                pick(['never leaves the field', 'the engine of this offense',
+                      'nobody at his position touches it more',
+                      'feed him and good things happen'], k + 'f6')))
 
-        # ---- WHAT KIND OF BET THIS IS. --------------------------------------------------------
+        # ---- WHAT KIND OF PLAY THIS IS. Every branch reads as upside. -------------------------
         if hi_i10 and not top_i10:
             out.append(('kind',
-                pick([f'{who} gets his share of the short field',
-                      f'{who} is in the huddle when it gets to goal-to-go',
-                      f'{who} does not need a long one'], k + 'k1'),
-                pick(['no seventy-yarder required', 'he gets his share of the short field',
-                      'goal-to-go is not new to him', 'the cheap kind of touchdown is available'], k + 'k2')))
+                pick([f'{who} is in the huddle when they get to goal-to-go',
+                      f'{who} gets real work in the red zone',
+                      f'{who} is a red-zone weapon', f'{who} is always in the mix at the goal line',
+                      f'{who} lives in the red zone'], k + 'k1'),
+                pick(['a red-zone regular', 'goal-to-go is his neighborhood',
+                      'short field, short trip to six', 'right there when they smell the end zone',
+                      'lives in the red zone', 'always in the mix at the goal line',
+                      'a fixture inside the twenty', 'dialed up when it gets tight'], k + 'k2')))
         elif lo_i10 and not lo_tch:
             out.append(('kind',
-                pick([f'{who} is scoring from range or not at all',
-                      f'{who} has to go the long way',
-                      f'nobody is handing {who} a one-yard gift'], k + 'k3'),
-                pick(['it has to be a long one', 'the long way round',
-                      'no gimme from a yard', 'distance or nothing'], k + 'k4')))
+                pick([f'{who} is a home-run threat every time he touches it',
+                      f'{who} can take it the distance from anywhere on the field',
+                      f'{who} is a big-play guy who does not need a short field'], k + 'k3'),
+                pick(['house-call ability', 'can take it the distance',
+                      'a big-play threat from anywhere', 'one missed tackle and he is gone'], k + 'k4')))
         elif lo_tch:
             out.append(('kind',
-                pick([f'{who} needs the play called for him',
-                      f'this is a bet on one snap going {who}\'s way',
-                      f'{who} has to make his cameo count'], k + 'k5'),
-                pick(['one snap has to go his way', 'the play has to be called for him',
-                      'a cameo that has to count', 'he needs the design, not the volume'], k + 'k6')))
+                pick([f'{who} is the wrinkle the coordinator can dial up at any moment',
+                      f'one well-drawn play and {who} is in the end zone',
+                      f'{who} is the surprise package in this game plan'], k + 'k5'),
+                pick(['one play call away from six', 'the wrinkle in the game plan',
+                      'the surprise package', 'one design, one touchdown', 'the trick up their sleeve',
+                      'a scripted-play special'], k + 'k6')))
 
         # ---- ROLE, when the share says something the raw count does not. ----------------------
         if hi(shr, shr_hi) and is_max(shr, 'i10_share') and not (top_i10 and lo_tch):
-            pct = int(round((shr or 0) * 100))
             out.append(('role',
-                pick([f'more of {who}\'s work happens inside the ten than any {role} here',
-                      f'{who} is used nearer the stripe than the other {role}s',
-                      f'the club saves {who} for the part of the field that scores'], k + 'r1'),
-                pick(['used nearer the stripe than the rest', f'the most goal-line-weighted {role} here',
-                      'his job is the last ten yards'], k + 'r2')))
+                pick([f'{who}\'s whole game is built around the end zone',
+                      f'no {role} on the board lives closer to the goal line than {who}',
+                      f'the team saves {who} for the part of the field that pays'], k + 'r1'),
+                pick(['lives near the goal line', f'the most end-zone-heavy {role} on the board',
+                      'built for the last ten yards'], k + 'r2')))
 
-        # ---- THE GAME. Only when the slate spreads; only the extremes are worth a clause. -----
+        # ---- THE GAME. Only the top team total; the bottom one is not a selling point. -------
         if isinstance(imp, (int, float)) and self.imp_spread >= 1.0:
             if self.imp_max is not None and abs(imp - self.imp_max) < 0.05:
                 out.append(('game',
-                    pick([f'{who} is in the loudest game on the board',
-                          f'nobody is expected to score more than {who}\'s side',
-                          f'{who} is in the one everybody expects points from'], k + 'g1'),
-                    pick(['in the loudest game on the board', 'points to go round in this one',
-                          'the highest-implied side on the card'], k + 'g2')))
-            elif self.imp_min is not None and abs(imp - self.imp_min) < 0.05:
-                out.append(('game',
-                    pick([f'{who} is in the quietest game on the card',
-                          f'there may not be many to share out where {who} is playing',
-                          f'{who}\'s side is expected to score least of anybody'], k + 'g3'),
-                    pick(['the quietest game on the card', 'not many to go round',
-                          'the lowest-implied side here'], k + 'g4')))
+                    pick([f'{who} plays for the offense Vegas expects to put up the most points',
+                          f'{who} is in the highest-scoring spot on the board',
+                          f'{who}\'s offense carries the biggest team total on the board'], k + 'g1'),
+                    pick(['the biggest team total on the board', 'points on the menu',
+                          'the offense Vegas expects to light it up'], k + 'g2')))
 
-        # ---- THE MODEL, as a verdict rather than a percentage. --------------------------------
-        if isinstance(pm, (int, float)):
-            pct = pm * 100
-            if pct >= 25:
-                out.append(('model',
-                    pick([f'the model is not shy about {who}',
-                          f'{who} is one of the model\'s favourites tonight',
-                          f'the model likes {who} a lot'], k + 'm1'),
-                    pick(['the model likes him a lot', 'one of its favourites tonight',
-                          'the model is not shy here'], k + 'm2')))
-            elif pct < 12:
-                out.append(('model',
-                    pick([f'the model is cool on {who}',
-                          f'{who} is a long shot by the model as well as the book',
-                          f'the model does not love {who} either'], k + 'm3'),
-                    pick(['the model is cool on him', 'a long shot on both counts',
-                          'the numbers do not love him either'], k + 'm4')))
+        # ---- THE MODEL, only when it is a vote FOR him. -----------------------------------------
+        if isinstance(pm, (int, float)) and pm * 100 >= 25:
+            out.append(('model',
+                pick([f'the model is all over {who}',
+                      f'{who} is one of the model\'s favorite plays on the board',
+                      f'the numbers love {who}'], k + 'm1'),
+                pick(['the numbers love him', 'one of the model\'s favorites',
+                      'the model is all in'], k + 'm2')))
 
-        # ---- PRICE, last, and only when it disagrees with something. --------------------------
+        # ---- PRICE, only when the number is on OUR side. ---------------------------------------
         if isinstance(odds, int) and isinstance(pm, (int, float)):
             imp_p = (100.0 / (odds + 100.0)) if odds > 0 else (-odds / (-odds + 100.0))
             if pm - imp_p >= 0.05:
                 out.append(('price',
-                    pick([f'the book has {who} longer than the model does',
-                          f'{who} is priced worse than the model rates him'], k + 'p1'),
-                    pick(['longer than the model makes him', 'the book is behind the model here'], k + 'p2')))
-            elif imp_p - pm >= 0.05:
-                out.append(('price',
-                    pick([f'the book is shorter on {who} than the model is',
-                          f'{who} is priced better than the model rates him'], k + 'p3'),
-                    pick(['shorter than the model makes him', 'the book rates him above the model'], k + 'p4')))
+                    pick([f'Vegas is sleeping on {who}',
+                          f'there is real value on {who} at this number',
+                          f'{who} is priced like an afterthought, and the model says otherwise'], k + 'p1'),
+                    pick(['the price is a gift', 'Vegas is sleeping on him',
+                          'too generous a number'], k + 'p2')))
 
-        if not out:
-            out.append(('kind', f'{who} is on the card', 'priced and on the card'))
+        # ---- THE FLOOR. Every man is live for six; this is what guarantees he gets a beat. ------
+        floor = {
+            'RB': ([f'{who} is one carry away from paydirt', f'give {who} the rock and let him eat',
+                    f'{who} is a downhill runner with the end zone in view', f'{who} can punch it in from anywhere close',
+                    f'{who} runs angry once he smells the goal line'],
+                   ['one carry from paydirt', 'give him the rock', 'downhill with six in view',
+                    'punches it in from close', 'runs angry near the stripe', 'a nose for the end zone',
+                    'built to break the plane']),
+            'WR': ([f'{who} is one catch away from six', f'{who} can win at the catch point',
+                    f'throw it up to {who} and let him go get it', f'{who} is a route away from the highlight reel',
+                    f'{who} can turn a slant into six', f'{who} is a threat to score on any snap'],
+                   ['one catch from six', 'wins at the catch point', 'throw it up and let him go get it',
+                    'a route away from the highlight reel', 'can turn a slant into six', 'a threat on any snap',
+                    'a touchdown catch waiting to happen', 'six points on one route', 'gets open when it matters']),
+            'TE': ([f'{who} is a big target when the field shrinks', f'{who} is a big body the quarterback looks for in the red zone',
+                    f'{who} is the safety valve who can rumble in',
+                    f'{who} is the red-zone security blanket', f'{who} boxes out for six'],
+                   ['a big target when the field shrinks', 'the safety valve who can rumble in',
+                    'a big body near the stripe', 'the red-zone security blanket', 'boxes out for six']),
+            'QB': ([f'{who} can punch it in himself', f'{who} has the legs to finish a drive'],
+                   ['can punch it in himself', 'the legs to finish a drive']),
+        }.get(pos, ([f'{who} is live for six'], ['live for six']))
+        out.append(('pos', pick(floor[0], k + 'x1'), pick(floor[1], k + 'x2')))
         return out
 
     # ---------------------------------------------------------------------------------------
@@ -401,13 +481,13 @@ class Voice:
         seq = _rot(self.angles(p, n, lead=True), str(n) + 'card', pin_first=('story',))
         if not seq:
             return ''
-        bits = [seq[0][1]]
+        bits = [self._fresh(p, n, '', seq[0][0], 1, self._said_card)]
         want = 1 + (_h(str(n) + 'len') % 3)        # 1, 2 or 3 clauses
         for key, _l, frag in seq[1:]:
             if len(bits) >= want:
                 break
             if frag:
-                bits.append(frag)
+                bits.append(self._fresh(p, n, '', key, 2, self._said_card))
         body = bits[0][0].upper() + bits[0][1:]
         for f in bits[1:]:
             body += '. ' + f[0].upper() + f[1:]
@@ -458,6 +538,8 @@ class Voice:
                 if key in used:
                     continue
                 used.add(key)
+                frag = self._fresh(p, sur, tname, key, 2, self._said_note)
+                ldr = self._fresh(p, sur, tname, key, 1, self._said_note) if not (bits and beats == 2) else ldr
                 if three:
                     bits.append(sur + ' — ' + frag)      # one beat per man
                     took += 1
@@ -471,6 +553,14 @@ class Voice:
                 took += 1
                 if took >= beats:
                     break
+            # 📣 BROADCAST-2026-09-11: angles are consumed once per slip, and dropping the
+            # negative angles left some men with only one or two. A man whose every angle was
+            # already spent by a teammate still gets his POSITION floor -- a leg of the slip is
+            # never left out of the write-up.
+            if took == 0:
+                key = self.angles(p, sur, salt=tname)[-1][0]
+                bits.append(sur + ' — ' + self._fresh(p, sur, tname, key, 2, self._said_note) if three
+                            else self._fresh(p, sur, tname, key, 1, self._said_note))
         if not bits:
             return ''
         if three:
@@ -478,13 +568,14 @@ class Voice:
             # "Surname — fragment" beats then reads "Price — nobody has seen him — Smith-Njigba —
             # in the loudest game", which is unparseable. Semicolons separate the men; the dash
             # belongs to each man's own beat.
-            body = _pick(OPENERS_3, who_key + 'o3') + ': ' + '; '.join(bits) + '.'
+            body = self._open(OPENERS_3, who_key + 'o3') + ': ' + '; '.join(bits) + '.'
         elif len(bits) == 2:
             # ONE man's lead + his fragment needs FRAMES_1; TWO men's leads take FRAMES_2. Same
             # bit count, different grammar -- see the FRAMES_1 header.
             frames = FRAMES_2 if len(legs) >= 2 else FRAMES_1
-            body = _pick(frames, who_key + 'f2').format(
-                a=bits[0], b=bits[1], o=_pick(OPENERS_1, who_key + 'o1'))
+            fr = _pick(frames, who_key + 'f2')
+            body = fr.format(a=bits[0], b=bits[1],
+                             o=self._open(OPENERS_1, who_key + 'o1') if '{o}' in fr else '')
         else:
             body = bits[0] + '.'
         body = re.sub(r'(?<=\. )([a-z])', lambda m: m.group(1).upper(), body)
