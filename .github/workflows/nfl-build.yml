@@ -95,12 +95,16 @@ jobs:
           else
             echo "settled=true" >> $GITHUB_OUTPUT
             echo "::notice::a football night was graded into nfl_season.json"
+            # EVCAL-NFL-2026-09-11: re-run the EV calibration on the grown archive. It writes a
+            # CANDIDATE (proposed: null) only once there are enough graded rows; never live by itself.
+            python3 nfl_ev_fit.py || echo "::warning::nfl_ev_fit.py failed"
             # Committed HERE, not left for Publish: on a day with no open slate Publish never runs,
             # and an uncommitted grade would be thrown away with the runner.
             cd ..
             git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add nfl/nfl_season.json nfl/boards/
+            [ -f nfl/ev_weights_nfl_v1.json ] && git add nfl/ev_weights_nfl_v1.json
             git commit -m "NFL settle ($(date -u +%H:%MZ))"
             for i in 1 2 3; do
               git pull --rebase --autostash origin main && git push && { echo "pushed settle"; break; }
@@ -187,6 +191,7 @@ jobs:
           # the only time a price may be written.
           cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
           cp nfl_*.py .work/
+          cp ev_weights_nfl_v1.json .work/ 2>/dev/null || true   # EVCAL-NFL: used only if promoted
           # LIVEJS-2026-09-10: nfl_live_seams.py (imported by nfl_fork.py) reads nfl_live.js from .work.
           # It was never staged, so every build since the live seams landed died in the fork step.
           cp nfl_draft_cli.js nfl_live.js depth_prior.csv depth_model.json nfl_model.json .work/
