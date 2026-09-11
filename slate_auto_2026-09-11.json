@@ -1,11 +1,11 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-11T15:51:39Z",
+  "pulled_at": "2026-09-11T15:56:45Z",
   "games": [
     {
       "gamePk": 824631,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-11T18:20:00Z",
       "matchup": "PIT@CHC",
       "away": {
@@ -16,8 +16,54 @@
           "hr9": 0.55,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.121
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.21
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.162
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.262
+          },
+          {
+            "id": 699013,
+            "name": "Esmerlyn Valdez",
+            "iso": 0.282
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.088
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.087
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.07
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.135
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
@@ -30,7 +76,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
