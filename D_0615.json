@@ -34470,7 +34470,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -34582,7 +34582,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -34694,7 +34694,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -34806,7 +34806,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -34918,7 +34918,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -35030,7 +35030,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -35142,7 +35142,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -35366,7 +35366,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -35702,7 +35702,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Tyler Mahle",
@@ -46998,7 +46998,7 @@
     "precip": 0
    }
   },
-  "build": "9/12 4:03pm",
+  "build": "9/12 4:07pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -47205,7 +47205,7 @@
   "date": "2026-09-12",
   "gs": {},
   "chalkstate": {
-   "b": "9/12 4:03pm",
+   "b": "9/12 4:07pm",
    "s": {}
   },
   "chalk": [],
@@ -47571,7 +47571,7 @@
    "name": "The Bowline",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Abimelec Ortiz is making thunderous contact (71% hard-hit), has a swing built for the seats (20\u00b0), has the yard tilting his way.",
+   "note": "Abimelec Ortiz is making thunderous contact (71% hard-hit), has a swing built for the seats (20\u00b0), brings average-plus thump (68/100).",
    "players": [
     {
      "name": "Abimelec Ortiz",
@@ -47594,12 +47594,12 @@
    "final": false,
    "rr": null,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
-   "confleg": 0,
+   "confleg": 1,
    "priced": 1,
    "parlay_am": 575,
    "payout10": 67.5,
@@ -47754,7 +47754,7 @@
    "name": "Past the Event Horizon",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Mesa grades to 157 on our board, Montgomery is hammering the ball (63% hard-hit), and Harper is lifting everything (17\u00b0).",
+   "note": "Mesa is squaring up premium contact (55% hard-hit), Montgomery has gusts carrying balls over the wall, and Harper stays in the sweet-spot angle (17\u00b0).",
    "players": [
     {
      "name": "Victor Mesa",
@@ -47793,7 +47793,7 @@
      "game": 12,
      "late": false,
      "odds": 437,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 3,
@@ -47813,16 +47813,17 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 2,
+   "confleg": 3,
    "priced": 3,
    "parlay_am": 17163,
-   "payout10": 1726.29
+   "payout10": 1726.29,
+   "locked": true
   },
   {
    "name": "Into the Clouds",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Murakami has gusts carrying balls over the wall, Riley is hitting absolute lasers (61% hard-hit), and Walker launches it at the right angle (22\u00b0).",
+   "note": "Murakami is lifting everything (21\u00b0), Riley gets a touch of carry tonight, and Walker is hammering the ball (56% hard-hit).",
    "players": [
     {
      "name": "Munetaka Murakami",
@@ -47959,7 +47960,7 @@
    "name": "One for the Road",
    "kind": "late",
    "badge": "\ud83c\udf03",
-   "note": "Randy Arozarena has the wind howling out behind him, is crushing the baseball (58% hard-hit), swings with home-run loft (17\u00b0), brings average-plus thump (56/100).",
+   "note": "Randy Arozarena has the wind howling out behind him, is crushing the baseball (58% hard-hit), swings with home-run loft (17\u00b0), and packs respectable power (56/100 grade).",
    "players": [
     {
      "name": "Randy Arozarena",
@@ -47995,8 +47996,6 @@
  ],
  "pool": [
   "Cam Smith",
-  "Colson Montgomery",
-  "Bryce Harper",
   "Corbin Carroll",
   "Kyle Schwarber",
   "Heliot Ramos",
