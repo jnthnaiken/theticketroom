@@ -1775,6 +1775,41 @@
       var c = moonCount[t.anchor || legs[0].name] || 0;
       return c > 0 && c < cfg.MOONS_PER_ANC;      /* 0 moons = a lunch/nightcap, its own section */
     };
+
+    /* ==================================================================================
+     * ANCHORCAP2-2026-09-12 -- THE CAP IS CHECKED WHERE EVERY PATH CONVERGES.
+     * ==================================================================================
+     * Owner, on the 2026-09-12 soccer board: "havertz shouldnt be an anchor, hes a leg already
+     * and that makes 5 anchors. 5 is more than 4."
+     *
+     * He is right twice over, and the second half is the interesting one. `Six-Yard Box` was a
+     * BUILDER anchored by Kai Havertz while Havertz was simultaneously a PARTNER on Vinicius
+     * Jr's `Upper Ninety`. index.html's rule is that the only legal repeat is an anchor
+     * mirroring onto HIS OWN builder; a man who is someone else's partner AND holds his own
+     * anchor seat is not that, he is the same leg sold twice and a fifth seat against ANCH=4.
+     *
+     * WHY THIS IS NOT A SIXTH PATCH IN THE SAME AREA. The rule "i want it not possible for
+     * there to be more than 4 anchors" (ANCHORCAP-2026-09-06) has now been broken twice from
+     * two different directions, and every previous fix guarded ONE path: the frozen-builder
+     * seat (ANCHORCAP), the relabel (ANCHORID), incumbency (ANCHORSET), the gate (ANCHORGATE),
+     * the benched candidate (ANCHORALIVE). Each was correct and none of them could stop the
+     * next path, because the invariant was never stated anywhere that ALL paths pass through.
+     * `out` is that place. Measured on the live board: at 17:59Z it was four anchors
+     * (Kofane/Thiago/Isak/Krstovic); Krstovic went off the team sheet and at 18:06Z the board
+     * came back SIX (Kofane/Thiago/Isak/Vinicius/Rodrygo/Havertz), settling at five by 18:16Z
+     * with all fourteen slips frozen.
+     *
+     * ⚠️ IT NEVER DROPS A FROZEN SLIP. A locked slip is a placed bet and CONFLOCK is absolute.
+     * That is not a hole: a slip only freezes once every leg is confirmed, and this runs on
+     * EVERY pass, so an illegal shape is caught while it is still open -- one pass after it is
+     * minted and before it can lock. On 09-12 that pass was 18:06Z, when `Six-Yard Box` was
+     * brand new and open; it did not freeze until 18:16Z. If a frozen slip ever IS the
+     * violation, that is a bug upstream of here and it goes in `demoted` loudly rather than
+     * being silently shipped or silently deleted.
+     * ⚠️ IT DROPS SLIPS, NEVER LEGS. Rewriting a leg is a different bet; removing a slip the
+     * board should not have minted is the same correction a demote already is. */
+    out = enforceAnchorCap(out, D, cfg, demoted);
+    /* body moved to module scope as enforceAnchorCap() so a test can call it directly. */
     /* ⚠️ AND KEEP EACH ANCHOR'S SLIPS TOGETHER. ANCHORGROUP-2026-08-29.
        Owner: "oskarson and davids moons arent next to each other now. 1 of each are next to
        each other."
@@ -1833,12 +1868,62 @@
     };
   }
 
+function enforceAnchorCap(out, D, cfg, demoted) {
+      var anchorOf = function (t) {
+        var legs = t.players || []; return legs.length ? (t.anchor || legs[0].name) : null;
+      };
+      var isAnchored = function (t) { return t.kind === 'moon' || t.kind === 'builder'; };
+      var drop = {}, note = function (a, why) { demoted.push({ anchor: a, why: why }); };
+
+      /* (1) THE ILLEGAL REPEAT. A man who is a NON-anchor leg anywhere may not hold a seat. */
+      var asPartner = {};
+      out.forEach(function (t) {
+        var a = anchorOf(t);
+        (t.players || []).forEach(function (l) { if (l.name !== a) asPartner[l.name] = true; });
+      });
+      out.forEach(function (t) {
+        if (!isAnchored(t)) return;
+        var a = anchorOf(t);
+        if (!a || !asPartner[a]) return;
+        if (t.locked) { note(a, 'FROZEN slip anchors a man who is already a leg -- NOT removed, look upstream'); return; }
+        drop[t.name] = true;
+        note(a, 'already a leg on another slip, so he holds no anchor seat');
+      });
+      out = out.filter(function (t) { return !drop[t.name]; });
+
+      /* (2) AND THEN THE COUNT. Weakest anchors go first; frozen seats are untouchable, so the
+         men who can still be dropped are ranked among themselves. */
+      var seats = [], seen = {};
+      out.forEach(function (t) {
+        if (!isAnchored(t)) return;
+        var a = anchorOf(t); if (!a || seen[a]) return;
+        seen[a] = 1;
+        var row = D.players[a] || {};
+        seats.push({ name: a, total: row.TOTAL != null ? row.TOTAL : -Infinity,
+                     frozen: out.some(function (x) { return isAnchored(x) && anchorOf(x) === a && x.locked; }) });
+      });
+      if (seats.length <= cfg.ANCH) return out;
+      var droppable = seats.filter(function (s) { return !s.frozen; })
+                           .sort(function (a, b) { return a.total - b.total; });
+      var over = seats.length - cfg.ANCH, kill = {};
+      for (var i = 0; i < droppable.length && over > 0; i++, over--) kill[droppable[i].name] = true;
+      if (over > 0) note(null, 'OVER ANCH with only frozen seats left -- ' + seats.length + ' anchors shipped');
+      if (!Object.keys(kill).length) return out;
+      out = out.filter(function (t) {
+        if (!isAnchored(t) || !kill[anchorOf(t)]) return true;
+        note(anchorOf(t), 'over the ' + cfg.ANCH + '-anchor cap, weakest seat');
+        return false;
+      });
+  return out;
+}
+
   var api = {
     DEFAULTS: DEFAULTS, cfgOf: cfgOf, priceOk: priceOk, buildPool: buildPool, withStrength: withStrength,
     spanOk: spanOk, draftN: draftN, draft: draft, nameSet: nameSet,
     NAMES: NAMES, BADGE: BADGE, a2d: a2d, rrMaxProfit: rrMaxProfit,
     legOf: legOf, lockOf: lockOf, mkTicket: mkTicket,
-    ticketIsLocked: ticketIsLocked, gateZ: gateZ, redraft: redraft
+    ticketIsLocked: ticketIsLocked, gateZ: gateZ, redraft: redraft,
+    enforceAnchorCap: enforceAnchorCap        /* ANCHORCAP2-2026-09-12, exported so it is testable alone */
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.SoccerDraft = api;
