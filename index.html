@@ -1270,13 +1270,16 @@ function gPros(p,seed){ var S=gSur(p.nm),o=[];
   return o.length?gPick(o,seed):null; }
 function gCons(p,seed){ var S=gSur(p.nm),o=[];
   if(p.powidx<=32)  o.push(S+" doesn't have the pop to justify the seat ("+p.powidx+'/100)');
-  if(p.hh<=42)      o.push(S+' is squaring up nothing ('+gNum(p.hh)+'% hard-hit)');
+  if(p.hh!=null&&p.hh<=42) o.push(S+' is squaring up nothing ('+gNum(p.hh)+'% hard-hit)');   /* CARDBIP-2026-09-12: a bat under the batted-ball floor carries hh=null, and null<=42 is TRUE in JS -- unguarded this printed "squaring up nothing (null% hard-hit)". The la line below already had the guard; hh did not. */
   if(p.la!=null&&p.la<=8) o.push(S+' beats the ball into the dirt ('+gNum(p.la,1)+'°)');
   if(p.parkhr<=0.93)o.push(S+' is in a park that eats fly balls');
   if(p.wf<=0.95)    o.push('the air is working against '+S+' ('+gNum(p.wf,2)+'×)');
   if(p.rain)        o.push("there's weather sitting on "+S+"'s game");
   if(p.ftrend==='down')o.push(S+' is cooling off');
   if(p.soft===false)o.push(S+' draws a starter who does not give them up');
+  /* CARDBIP-2026-09-12: a thin bat scores at the slate mean on pb/hh/la, so none of the contact
+     clauses above can fire for him -- say WHY rather than leave the write-up silent. */
+  if(p.thin) o.push(S+' has barely put a ball in play this year ('+(p.bip!=null?p.bip:'<'+40)+' batted balls)');
   return o.length?gPick(o,seed):null; }
 /* ---- construction audit: every finding is both a score deduction and a sentence ---- */
 function gAudit(names,mode,stake){

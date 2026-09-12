@@ -101,6 +101,26 @@ BRL_BASE  = 7.5     # league-ish Brl/BIP% allowed (neutral)
 PBRL_BASE = 5.0     # league-ish PulledBrl% allowed
 BRL_SHRINK= 0.6     # regress toward mean -- export has no batted-ball counts, so guard small samples (e.g. a rookie at 0.000)
 BRL_CLAMP = 0.15
+# ---- CARDBIP-2026-09-12: ONE sample floor for every rate read off a Kasper card ----
+# The card's `test` field IS the batted-ball count, so a bat with test=1 who happened to barrel his
+# one ball reads pb=100.0 / hh=100.0 / brl_bip=100.0. That is not a hot hitter, it is a denominator
+# of one. Unguarded on 2026-09-12 Josue De Paula (test=1, pb 100.0, hh 100.0, la 36.0) carried
+# powraw = 10,000 against a field MEDIAN of 191 -- 52x the slate -- and _zhh z=+4.66, which at the
+# fitted 0.3655 weight is +1.70 on his edge sum, more than any real bat earns from any signal. He
+# outranked Judge (test=492) and Schwarber (test=1515) and anchored a builder and two moons.
+# MIN_DMG_BIP (40) already existed and DID fire on him -- it just guards `_zdmg` alone (weight
+# 0.2818). pb/hh/la feed powraw AND `_zhh`+`_zla` (0.3655+0.2834 = 0.6489 of the edge basket), and
+# they had no floor at all. So the guarded quarter of the basket was never the quarter hurting us.
+# Same number, same meaning, now applied everywhere a Kasper rate is consumed: under this many
+# batted balls the rates are not measurements. A guarded bat gets None and therefore the slate mean
+# -- the identical fallback an unmatched bat already gets -- so he is neutralised, never buried, and
+# his price can still carry him as a moon on the market half. 41 of 419 bats on 2026-09-12 (9.8%,
+# right at the 10th percentile, the same place MIN_DMG_BIP was set).
+# EVIDENCE, STATED HONESTLY: across the 40 archived nights carrying k_bip only 15 pool bats ever
+# came in under 40 and 6 were carded (3 of them homered). Six rows cannot show this guard helps or
+# hurts, and it is not offered as proof that it does. The case is a priori: a rate off one ball is
+# not a rate. Recorded so a later refit knows it was reasoned, not measured.
+MIN_CARD_BIP = 40
 PARK_HR  = {'NYY':1.10,'CIN':1.10,'PHI':1.06,'BAL':1.05,'MIL':1.04,'HOU':1.04,'TOR':1.03,'BOS':1.02,'CHC':1.00,
             'NYM':1.00,'WSH':1.00,'ATL':1.00,'TEX':1.00,'LAD':1.00,'MIN':1.00,'COL':1.00,'ARI':1.00,'CWS':1.00,'CHW':1.00,
             'CLE':0.98,'STL':0.97,'LAA':0.97,'SD':0.96,'TB':0.96,'ATH':0.95,'KC':0.94,'PIT':0.93,'DET':0.93,'SEA':0.92,'SF':0.91,'MIA':0.90}
@@ -665,20 +685,38 @@ for g in lin['games']:
             status=('confirmed' if (_posted_ok or g.get('status')=='confirmed') else 'projected') if in_lu else 'projected'
             form=c['form_pct'] if c.get('form_pct') is not None else 50
             iso=ISO.get(n); iso_used=iso if iso is not None else ISO_FLOOR
-            powraw=c['pb']*c['hh']*la_window(c['la'])
+            # CARDBIP-2026-09-12: `test` is the batted-ball count behind pb/hh/la. Below the floor the
+            # three rates are dropped to None here, at the ONE place they enter the model, so powraw,
+            # powidx, _zhh and _zla all inherit the guard from a single gate. The raw values stay on
+            # the row for display/log under pb_raw/hh_raw/la_raw -- the card still shows what he did,
+            # the score just stops believing it.
+            _cbip=c.get('test'); _thin=not (isinstance(_cbip,(int,float)) and _cbip>=MIN_CARD_BIP)
+            _pb,_hh,_la=(None,None,None) if _thin else (c['pb'],c['hh'],c['la'])
+            powraw=None if _thin else _pb*_hh*la_window(_la)
             lean='Boost' if wf>1.02 else ('Suppress' if wf<0.98 else 'Neutral')
-            players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=c['pb'],hh=c['hh'],la=c['la'],
+            players[nm]=dict(nm=nm,code=code,team=FULL[code],aT=100.0,khr=(KEXTRA.get(n) or {}).get('khr'),zonev=c['zone'],form=form,pb=_pb,hh=_hh,la=_la,
+                bip=_cbip,thin=_thin,pb_raw=c['pb'],hh_raw=c['hh'],la_raw=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
                 hr9=pget(HR9,opp_sp[0]),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
                 void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
-pool=list(players.values()); raws=sorted(r['powraw'] for r in pool); N=len(raws)
+pool=list(players.values())
+# CARDBIP-2026-09-12: the percentile scale is built from QUALIFIED bats only. A thin bat must not
+# set p95 (De Paula's 10,000 would have been the whole top of the scale) and must not be ranked on
+# it either. He is assigned the qualified MEDIAN powidx, which makes powT exactly 1.0 -- a true
+# no-op, the same neutral treatment the z-space gives a None signal.
+raws=sorted(r['powraw'] for r in pool if r['powraw'] is not None); N=len(raws)
 def pct(p):
     i=p/100*(N-1); lo=int(i); hi=min(lo+1,N-1); return raws[lo]+(raws[hi]-raws[lo])*(i-lo)
-p5,p95=pct(5),pct(95)
-for r in pool: r['powidx']=round(clamp(100*(r['powraw']-p5)/(p95-p5),0,100)) if p95>p5 else 50
-medP=st.median([r['powidx'] for r in pool]); medI=st.median([r['iso_used'] for r in pool])
+p5,p95=(pct(5),pct(95)) if N>=2 else (0.0,0.0)
+for r in pool:
+    r['powidx']=(round(clamp(100*(r['powraw']-p5)/(p95-p5),0,100)) if p95>p5 else 50) if r['powraw'] is not None else None
+_qidx=[r['powidx'] for r in pool if r['powidx'] is not None]
+medP=st.median(_qidx) if _qidx else 50
+for r in pool:
+    if r['powidx'] is None: r['powidx']=medP
+medI=st.median([r['iso_used'] for r in pool])
 zs=[r['zonev'] for r in pool if abs(r['zonev']-0.5)>1e-9]; medZ=st.median(zs) if zs else 0.06
 _imps=[100.0/(r['odds']+100) for r in pool if r.get('odds')]; medImp=st.median(_imps) if _imps else 0.13
 mktT=lambda o: 1.0 if not o else clamp(1+W_MKT*((100.0/(o+100))-medImp)/0.06, 1-MKT_CLAMP, 1+MKT_CLAMP)
