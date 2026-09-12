@@ -1,0 +1,68 @@
+# ====================================================================================
+# BvP fit -- does a batter's history against THIS starter predict a home run?
+#
+# Asked 2026-09-12: Austin Riley had 8 career HR off Nola and hit the 9th, and the board
+# has never carried a batter-vs-pitcher term. This runs fit_bvp.py over the same
+# 2015-2024 Statcast table the live _SIG weights were fitted on (run 30756466843, 17.2 MB
+# artifact, 90-day retention -> expires ~2026-10-31) and answers it with a number instead
+# of an anecdote. Leak-free: every BvP column is strictly prior to the row's own game.
+#
+# Nothing here touches the daily board pipeline. It prints to the log and uploads a report.
+# If the answer is no, nothing ships -- that is a successful run, not a failed one.
+#
+# TRIGGER: workflow_dispatch. Default run_id is the full 2015-2024 build, same as Savant Fit.
+# ====================================================================================
+
+name: BvP Fit
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID holding the savant-training artifact"
+        required: true
+        default: "30756466843"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: bvp-fit
+  cancel-in-progress: false
+
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scikit-learn
+
+      - name: Download training table
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ github.event.inputs.run_id }}" -n savant-training -D table
+          ls -la table/
+
+      - name: Fit
+        run: |
+          python3 fit_bvp.py "table/*.parquet" 2>&1 | tee bvp_report.txt
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bvp-fit-report
+          path: bvp_report.txt
+          if-no-files-found: warn
+          retention-days: 90
