@@ -66,6 +66,9 @@ MIN_BIP = 20            # same trailing-window requirement as fit_savant.py, so 
 K_BAT = 60              # games of shrinkage on the batter's OWN baseline (his rate is also an estimate)
 K_GRID = [0, 5, 10, 15, 25, 40, 60, 100, 200]
 FLOORS = [0, 1, 3, 5, 10, 15, 20, 30]
+SEEN = [5, 10, 15, 20]  # "has faced this arm N+ times" -- the FAMILIARITY flag, not the rate
+LOOKBACK = 15           # team-games of appearance history behind a projected nine
+LINEUP = 9
 
 
 def hr_(t):
@@ -207,6 +210,145 @@ def tickets(d, legs=4, min_bats=50, deep=10):
           % (sw, out['C  FORCE the tell'][0], 100 * sw / max(1, out['C  FORCE the tell'][0])))
     print('  no bat with %d+ meetings available, so C is identical to A there. The difference' % deep)
     print('  below is therefore concentrated in those %d slates, not diluted across all of them.' % sw)
+
+
+def seen_flag(d):
+    """'Give him a boost if he has faced this arm 15+ times.' A DIFFERENT claim from the rate
+    one -- not 'he owns this guy' but 'he has seen the stuff, he knows what is coming'. It
+    deserves its own test, and it is the only variable in this whole study that beat a coin
+    flip standalone (m, AUC 0.5140), so it gets the honest version.
+
+    The comparison is each flagged row against THAT HITTER'S OWN leak-free prior rate
+    (`b_rate`), summed -- not against the league. Comparing to the league would 'prove' the
+    flag works when all it has found is that good hitters accumulate meetings."""
+    print('  %-10s %9s %11s %9s %10s %9s %7s' %
+          ('flag', 'rows', 'per slate', 'HR obs', 'HR exp*', 'diff', 'z'))
+    for T in SEEN:
+        g = d[d.m >= T]
+        if not len(g):
+            print('  m >= %-5d %9d  -- never fires' % (T, 0)); continue
+        obs = float(g.hr.sum()); exp = float(g.b_rate.sum())
+        sd = float((g.b_rate * (1 - g.b_rate)).sum()) ** 0.5
+        z = (obs - exp) / sd if sd > 0 else 0.0
+        print('  m >= %-5d %9d %11.2f %9.0f %10.1f %+9.1f %+7.2f'
+              % (T, len(g), len(g) / d.game_date.nunique(), obs, exp, obs - exp, z))
+    print('\n  * expected AT THE HITTER\'S OWN RATE. "diff" is the entire value of the flag:')
+    print('    every homer above the league rate that is not in "diff" is just the hitter,')
+    print('    and the board already prices the hitter.')
+
+    print('\n  IS IT EVEN AVAILABLE? m >= 15 by season (fires per slate):')
+    d = d.copy(); d['yr'] = d.game_date.dt.year
+    for yr, g in d.groupby('yr'):
+        n = int((g.m >= 15).sum()); sl = g.game_date.nunique()
+        print('    %d  %6d rows / %4d slates = %.2f per slate' % (yr, n, sl, n / sl))
+    print('\n  A flag that fires on under one bat a night cannot move a board, however right')
+    print('  it is. Note also the schedule: fewer intra-division starts and shorter outings')
+    print('  mean the deep matchup is rarer NOW than this ten-season average makes it look.')
+
+
+def projected(d, feats):
+    """THE LINEUP FIX.
+
+    The table has a row only for a batter who PLAYED, so picking from it is picking from a
+    lineup card that did not exist yet. That is hindsight and it invalidated the first ticket
+    run. Here the pool is rebuilt from what was knowable: each team's likely nine, by
+    appearances in that team's previous LOOKBACK games ONLY. A projected bat who then does
+    not appear stays on the slip and VOIDS -- the same refund grade_night gives a late
+    scratch. Features and BvP counts for a void row are carried forward from his last game,
+    which is what a real board would have had.
+
+    This is a stand-in for RotoWire projections, not the real thing. It is wrong in
+    individual cases. It is right about the SHAPE of the problem: you commit before you know."""
+    d = d.sort_values(['game_date', 'game_pk']).reset_index(drop=True)
+    starters = d.groupby(['game_date', 'team'])['sp_id'].first().reset_index()
+
+    # --- each team's projected nine, from prior games only -------------------------------
+    from collections import Counter, deque
+    rows = []
+    for team, g in d.groupby('team'):
+        hist, cnt = deque(), Counter()
+        for dt, day in g.groupby('game_date'):
+            if hist:
+                for b in [b for b, _ in cnt.most_common(LINEUP)]:
+                    rows.append((dt, team, b))
+            roster = list(day.batter_id.unique())
+            hist.append(roster); cnt.update(roster)
+            if len(hist) > LOOKBACK:
+                cnt.subtract(hist.popleft()); cnt += Counter()
+    proj = pd.DataFrame(rows, columns=['game_date', 'team', 'batter_id'])
+    proj = proj.merge(starters, on=['game_date', 'team'], how='left').dropna(subset=['sp_id'])
+    proj['sp_id'] = proj['sp_id'].astype(int)
+
+    # --- who actually played -------------------------------------------------------------
+    keep = ['game_date', 'batter_id', 'hr'] + feats + ['b_rate', 'm', 'h', 'lift_25']
+    out = proj.merge(d[keep], on=['game_date', 'batter_id'], how='left', suffixes=('', '_y'))
+    out['void'] = out.hr.isna()
+
+    # --- carry forward for the ones who did not: features, own rate ----------------------
+    src = d[['batter_id', 'game_date'] + feats + ['b_rate']].sort_values('game_date')
+    miss = out[out.void].sort_values('game_date')
+    if len(miss):
+        filled = pd.merge_asof(miss[['game_date', 'batter_id']], src, on='game_date',
+                               by='batter_id', direction='backward', allow_exact_matches=False)
+        for c in feats + ['b_rate']:
+            out.loc[out.void, c] = filled[c].values
+
+        # --- and the pair counts, exactly: the state left by their last actual meeting ----
+        pair = d[['batter_id', 'sp_id', 'game_date', 'm', 'h', 'hr']].copy()
+        pair['m_after'] = pair.m + 1
+        pair['h_after'] = pair.h + pair.hr
+        pair = pair[['batter_id', 'sp_id', 'game_date', 'm_after', 'h_after']].sort_values('game_date')
+        pm = pd.merge_asof(miss[['game_date', 'batter_id', 'sp_id']].sort_values('game_date'),
+                           pair, on='game_date', by=['batter_id', 'sp_id'],
+                           direction='backward', allow_exact_matches=False)
+        out.loc[out.void, 'm'] = pm['m_after'].fillna(0).values
+        out.loc[out.void, 'h'] = pm['h_after'].fillna(0).values
+        out.loc[out.void, 'lift_25'] = 0.0
+
+    out['hr'] = out.hr.fillna(0).astype(int)
+    out = out.dropna(subset=feats + ['b_rate'])
+    return out
+
+
+def tickets_void(d, legs=4, min_bats=50, deep=15):
+    """Same three rules, graded the way the product grades: a void leg is a REFUND, not a
+    loss. It shrinks the slip -- an N-leg slip with v voids cashes when the other N-v hit --
+    which is exactly why durability is worth something and why it has to be counted, not
+    argued about."""
+    res = {}
+    rules = [('A  BOARD', 'p_base', None), ('B  BOARD+BvP', 'p_bvp', None),
+             ('C  FORCE 15+ seen', 'p_base', 'm')]
+    for label, col, force in rules:
+        hits = voids = cash = fired = slates = 0
+        for _, g in d.groupby('game_date'):
+            if len(g) < min_bats: continue
+            slates += 1
+            if force:
+                core = g.nlargest(legs - 1, col)
+                pool = g.drop(core.index)
+                tell = pool[pool.m >= deep]
+                pick = pd.concat([core, tell.nlargest(1, 'lift_25')]) if len(tell) else g.nlargest(legs, col)
+                fired += 1 if len(tell) else 0
+            else:
+                pick = g.nlargest(legs, col)
+            v = int(pick['void'].sum()); k = int(pick.hr.sum())
+            voids += v; hits += k
+            if v < legs and k == legs - v: cash += 1
+        res[label] = (slates, hits, voids, cash, fired)
+
+    print('  %d-leg slip, %d slates, pool = PROJECTED nine per team (no lineup foresight)\n'
+          % (legs, res['A  BOARD'][0]))
+    print('  %-20s %9s %8s %9s' % ('', 'legs hit', 'voids', 'cashed'))
+    base = None
+    for label, _, _ in rules:
+        s, hits, voids, cash, fired = res[label]
+        line = '  %-20s %9d %8d %9d' % (label, hits, voids, cash)
+        if base is None: base = (hits, cash)
+        else: line += '   (%+d legs, %+d cashes)' % (hits - base[0], cash - base[1])
+        print(line)
+    fired = res['C  FORCE 15+ seen'][4]
+    print('\n  C found a 15+-meeting bat to swap in on %d of %d slates (%.0f%%).'
+          % (fired, res['C  FORCE 15+ seen'][0], 100 * fired / max(1, res['C  FORCE 15+ seen'][0])))
 
 
 def statsapi_id(name):
@@ -359,12 +501,34 @@ def main():
     pair_report(d, [('Austin Riley', 'Aaron Nola')])
 
     hr_('7. TICKETS -- the only scoreboard that matters. Not AUC. Legs that hit.')
+    print('  CAVEAT ON THIS SECTION, stated up front: the pool here is every batter who')
+    print('  ACTUALLY PLAYED, because that is the only kind of row the table has. That is')
+    print('  lineup foresight no board ever has. Section 9 redoes it without. Read 9, not 7.')
     dd = dd.copy()
     dd['p_base'] = oof(zbyslate(dd, feats).values, y, groups)
     dd['p_bvp'] = oof(zbyslate(dd, feats + ['lift_25']).values, y, groups)
     for legs in (2, 3, 4):
         print('\n  ' + '-' * 74)
         tickets(dd, legs=legs)
+
+    hr_('8. THE FLAG ON ITS OWN -- "boost him if he has seen this arm 15+ times"')
+    seen_flag(d)
+
+    hr_('9. TICKETS AGAIN, WITHOUT LINEUP FORESIGHT')
+    print('  Pool = each team\'s projected nine from its previous %d games. A pick who does' % LOOKBACK)
+    print('  not play VOIDS (refund), which is how the live product grades a scratch.\n')
+    pj = projected(d, feats)
+    pj['p_base'] = 0.0; pj['p_bvp'] = 0.0
+    Zb = zbyslate(pj, feats).values
+    Zv = zbyslate(pj, feats + ['lift_25']).values
+    yy = pj['hr'].astype(int).values; gg = pj['game_date'].values
+    pj['p_base'] = oof(Zb, yy, gg)
+    pj['p_bvp'] = oof(Zv, yy, gg)
+    print('  projected-pool rows: %d | voids: %d (%.1f%% of picks-eligible bats)'
+          % (len(pj), int(pj['void'].sum()), 100 * pj['void'].mean()))
+    for legs in (2, 3, 4):
+        print('\n  ' + '-' * 74)
+        tickets_void(pj, legs=legs)
 
     print('\ndone.', flush=True)
 
