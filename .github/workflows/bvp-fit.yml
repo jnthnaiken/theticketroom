@@ -54,9 +54,29 @@ jobs:
           gh run download "${{ github.event.inputs.run_id }}" -n savant-training -D table
           ls -la table/
 
+      - name: Columns actually in the table
+        run: |
+          python3 - <<'PY'
+          import glob, pandas as pd
+          f = sorted(glob.glob('table/*.parquet'))[0]
+          d = pd.read_parquet(f)
+          print('file:', f)
+          print('rows:', len(d))
+          print('columns:', list(d.columns))
+          print(d.head(3).to_string())
+          PY
+
       - name: Fit
         run: |
+          set -o pipefail            # without this, `tee` swallows a Python crash and the job reports success
           python3 fit_bvp.py "table/*.parquet" 2>&1 | tee bvp_report.txt
+
+      - name: Report to job summary
+        if: always()
+        run: |
+          # The Actions log viewer is virtualised and cannot be read back reliably, so the whole
+          # report goes into the run summary where it renders as plain page text.
+          { echo '```text'; cat bvp_report.txt 2>/dev/null || echo '(no report produced)'; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload report
         if: always()
