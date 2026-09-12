@@ -133,6 +133,82 @@ def build_bvp(d, league):
     return d
 
 
+def oof(X, y, groups, n=5):
+    """Out-of-fold predicted probability. Every row is scored by a model that never saw it,
+    and folds are whole slates -- so a board built from these numbers is a board the model
+    could actually have built on the night, not hindsight."""
+    gk = GroupKFold(n_splits=n)
+    p = np.zeros(len(y))
+    for tr, te in gk.split(X, y, groups):
+        m = LogisticRegression(max_iter=2000, C=1.0)
+        m.fit(X[tr], y[tr])
+        p[te] = m.predict_proba(X[te])[:, 1]
+    return p
+
+
+def tickets(d, legs=4, min_bats=50, deep=10):
+    """THE SCOREBOARD THAT IS NOT AUC.
+
+    Build a <legs>-leg slip on every slate three ways, then count what actually happened.
+    No odds exist in this table, so this is 'did the legs hit', not 'did it beat the price'
+    -- but a leg that hits is the thing a ticket is made of, and that is the currency the
+    question was asked in.
+
+        A  BOARD        top <legs> by the model, out-of-fold
+        B  BOARD+BvP    top <legs> by the same model with the BvP term added
+        C  FORCE        top <legs>-1 by the model, plus the slate's single biggest tell
+                        (most lift, >= <deep> prior meetings) -- the rule the question
+                        actually proposes: if a guy owns tonight's starter, put him on.
+    """
+    out = {}
+    for label, col in (('A  BOARD', 'p_base'), ('B  BOARD+BvP', 'p_bvp')):
+        legs_hit = swaps = 0
+        cash = {k: 0 for k in range(2, legs + 1)}
+        slates = 0
+        for _, g in d.groupby('game_date'):
+            if len(g) < min_bats: continue
+            slates += 1
+            pick = g.nlargest(legs, col)
+            k = int(pick.hr.sum()); legs_hit += k
+            for j in range(2, legs + 1):
+                if k >= j: cash[j] += 1
+        out[label] = (slates, legs_hit, cash, swaps)
+
+    legs_hit = swaps = 0
+    cash = {k: 0 for k in range(2, legs + 1)}
+    slates = 0
+    for _, g in d.groupby('game_date'):
+        if len(g) < min_bats: continue
+        slates += 1
+        core = g.nlargest(legs - 1, 'p_base')
+        rest = g.drop(core.index)
+        tell = rest[rest.m >= deep]
+        if len(tell):
+            pick = pd.concat([core, tell.nlargest(1, 'lift_25')]); swaps += 1
+        else:
+            pick = g.nlargest(legs, 'p_base')
+        k = int(pick.hr.sum()); legs_hit += k
+        for j in range(2, legs + 1):
+            if k >= j: cash[j] += 1
+    out['C  FORCE the tell'] = (slates, legs_hit, cash, swaps)
+
+    print('  %d-leg slip, one per slate, %d slates with >= %d usable bats\n' % (legs, out['A  BOARD'][0], min_bats))
+    print('  %-20s %10s %9s %10s %10s' % ('', 'legs hit', 'hit rate', '2+ legs', '%d legs' % legs))
+    base = None
+    for label in ('A  BOARD', 'B  BOARD+BvP', 'C  FORCE the tell'):
+        s, lh, c, sw = out[label]
+        tot = s * legs
+        line = '  %-20s %10d %8.2f%% %10d %10d' % (label, lh, 100 * lh / tot, c[2], c[legs])
+        if base is None: base = lh
+        else: line += '   (%+d legs)' % (lh - base)
+        print(line)
+    sw = out['C  FORCE the tell'][3]
+    print('\n  C swapped a tell onto the slip on %d of %d slates (%.0f%%) -- on the rest there was'
+          % (sw, out['C  FORCE the tell'][0], 100 * sw / max(1, out['C  FORCE the tell'][0])))
+    print('  no bat with %d+ meetings available, so C is identical to A there. The difference' % deep)
+    print('  below is therefore concentrated in those %d slates, not diluted across all of them.' % sw)
+
+
 def statsapi_id(name):
     import json, urllib.request
     try:
@@ -281,6 +357,14 @@ def main():
 
     hr_('6. THE NAMED CASE -- Riley vs Nola, since that is the one that started this')
     pair_report(d, [('Austin Riley', 'Aaron Nola')])
+
+    hr_('7. TICKETS -- the only scoreboard that matters. Not AUC. Legs that hit.')
+    dd = dd.copy()
+    dd['p_base'] = oof(zbyslate(dd, feats).values, y, groups)
+    dd['p_bvp'] = oof(zbyslate(dd, feats + ['lift_25']).values, y, groups)
+    for legs in (2, 3, 4):
+        print('\n  ' + '-' * 74)
+        tickets(dd, legs=legs)
 
     print('\ndone.', flush=True)
 
