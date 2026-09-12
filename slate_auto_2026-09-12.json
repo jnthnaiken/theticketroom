@@ -1,7 +1,7 @@
 {
   "date": "2026-09-12",
   "season": "2026",
-  "pulled_at": "2026-09-12T17:00:33Z",
+  "pulled_at": "2026-09-12T17:06:40Z",
   "games": [
     {
       "gamePk": 824224,
@@ -884,7 +884,7 @@
     },
     {
       "gamePk": 823819,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-12T20:10:00Z",
       "matchup": "LAD@MIA",
       "away": {
@@ -895,8 +895,54 @@
           "hr9": 0.78,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.136
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.156
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.179
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.241
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.145
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.154
+          },
+          {
+            "id": 800543,
+            "name": "Josue De Paula",
+            "iso": 0.0
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.101
+          },
+          {
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.079
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIA",
@@ -906,10 +952,56 @@
           "hr9": 1.17,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669065,
+            "name": "Kyle Stowers",
+            "iso": 0.223
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.23
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.222
+          },
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.137
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.116
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.15
+          },
+          {
+            "id": 683357,
+            "name": "Owen Caissie",
+            "iso": 0.192
+          },
+          {
+            "id": 688363,
+            "name": "Graham Pauley",
+            "iso": 0.155
+          },
+          {
+            "id": 691788,
+            "name": "Joe Mack",
+            "iso": 0.175
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
