@@ -1,7 +1,7 @@
 {
   "date": "2026-09-12",
   "season": "2026",
-  "pulled_at": "2026-09-12T21:42:57Z",
+  "pulled_at": "2026-09-12T21:47:55Z",
   "games": [
     {
       "gamePk": 824224,
@@ -439,12 +439,12 @@
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.212
+            "iso": 0.211
           },
           {
             "id": 677008,
@@ -638,7 +638,7 @@
           {
             "id": 660688,
             "name": "Keibert Ruiz",
-            "iso": 0.177
+            "iso": 0.176
           },
           {
             "id": 678391,
@@ -648,7 +648,7 @@
           {
             "id": 696285,
             "name": "Jacob Young",
-            "iso": 0.14
+            "iso": 0.139
           }
         ],
         "confirmed": true
@@ -751,7 +751,7 @@
           {
             "id": 805811,
             "name": "Bryce Eldridge",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 813841,
@@ -1862,7 +1862,7 @@
     },
     {
       "gamePk": 824955,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T01:40:00Z",
       "matchup": "SEA@ATH",
       "away": {
@@ -1884,10 +1884,56 @@
           "hr9": 0.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.125
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.104
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.146
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.234
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.189
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.204
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.141
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.171
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.156
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
