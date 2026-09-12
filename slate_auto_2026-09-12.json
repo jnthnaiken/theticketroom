@@ -1,7 +1,7 @@
 {
   "date": "2026-09-12",
   "season": "2026",
-  "pulled_at": "2026-09-12T19:16:57Z",
+  "pulled_at": "2026-09-12T19:22:12Z",
   "games": [
     {
       "gamePk": 824224,
@@ -97,7 +97,7 @@
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.284
+            "iso": 0.281
           },
           {
             "id": 703601,
@@ -153,12 +153,12 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.251
+            "iso": 0.259
           },
           {
             "id": 666182,
@@ -444,7 +444,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.216
+            "iso": 0.215
           },
           {
             "id": 677008,
@@ -1211,8 +1211,54 @@
           "hr9": 0.9,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.182
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.166
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.152
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.159
+          },
+          {
+            "id": 662139,
+            "name": "Daulton Varsho",
+            "iso": 0.135
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.194
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.19
+          },
+          {
+            "id": 666211,
+            "name": "Taylor Trammell",
+            "iso": 0.152
+          },
+          {
+            "id": 543877,
+            "name": "Christian V\u00e1zquez",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
@@ -1332,8 +1378,10 @@
       "away": {
         "abbrev": "PHI",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 641835,
+          "name": "Tim Mayza",
+          "hr9": 0.88,
+          "hand": "LHP"
         },
         "lineup": [],
         "confirmed": false
