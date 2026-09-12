@@ -72,6 +72,24 @@ def hr_(t):
     print('\n' + '=' * 78); print(t); print('=' * 78, flush=True)
 
 
+def statsapi_names(ids):
+    """id -> full name, from StatsAPI. Display only; a failure here cannot change a number."""
+    import json, urllib.request
+    ids = [int(i) for i in ids if pd.notna(i)]
+    out = {}
+    for i in range(0, len(ids), 100):
+        chunk = ','.join(str(x) for x in ids[i:i + 100])
+        try:
+            u = 'https://statsapi.mlb.com/api/v1/people?personIds=%s' % chunk
+            with urllib.request.urlopen(u, timeout=20) as r:
+                for p in json.load(r).get('people', []):
+                    out[p['id']] = p.get('fullName') or str(p['id'])
+        except Exception as e:
+            print('  (name lookup failed, showing ids: %s)' % e)
+            break
+    return out
+
+
 def zbyslate(df, cols):
     """Z-score each feature WITHIN game_date -- build15 standardizes per slate, so the fit must too."""
     out = df[cols].copy()
@@ -113,6 +131,38 @@ def build_bvp(d, league):
         d['lift_%d' % K] = ((d['h'] + K * d['b_rate']) / (d['m'] + K).replace(0, np.nan)
                             - d['b_rate']).fillna(0.0)
     return d
+
+
+def statsapi_id(name):
+    import json, urllib.request
+    try:
+        u = 'https://statsapi.mlb.com/api/v1/people/search?names=%s' % name.replace(' ', '%20')
+        with urllib.request.urlopen(u, timeout=20) as r:
+            ppl = json.load(r).get('people', [])
+        return ppl[0]['id'] if ppl else None
+    except Exception:
+        return None
+
+
+def pair_report(d, pairs):
+    """Every start one named hitter made against one named arm, inside the table's window."""
+    for bname, pname in pairs:
+        bid, pid = statsapi_id(bname), statsapi_id(pname)
+        if not bid or not pid:
+            print('  (could not resolve %s / %s)' % (bname, pname)); continue
+        g = d[(d.batter_id == bid) & (d.sp_id == pid)].sort_values('game_date')
+        if g.empty:
+            print('  %s vs %s: no starts in the table window' % (bname, pname)); continue
+        own = d[d.batter_id == bid]
+        print('  %s vs %s, %s .. %s' % (bname, pname, d.game_date.min().date(), d.game_date.max().date()))
+        print('    starts faced        : %d' % len(g))
+        print('    HR in those starts  : %d  (%.1f%% of games)' % (g.hr.sum(), 100 * g.hr.mean()))
+        print('    his rate vs EVERYONE: %.1f%% of games  (%d HR in %d games)'
+              % (100 * own.hr.mean(), own.hr.sum(), len(own)))
+        print('    league              : %.1f%%' % (100 * d.hr.mean()))
+        print('\n    Read the middle line first. The gap between line 2 and line 3 is the whole')
+        print('    claim -- everything above line 3 is just the hitter, and the board already')
+        print('    knows the hitter. NOTE the table stops in 2024, so later meetings are absent.')
 
 
 def main():
@@ -202,9 +252,21 @@ def main():
               % (f, len(g), int(g.hr.sum()), a0, cbest, a1, a1 - a0, s0))
 
     hr_('5. THE RILEY CHECK -- the biggest tells in ten seasons, and what they did')
+    # TABLEBUG-2026-09-12: the table's `batter` column is NOT the batter. build_savant_training.py
+    # fills it with player_name.first() inside a batter-group, and Statcast's player_name on a
+    # pitch row is the PITCHER -- so it holds whichever arm happened to be on the mound first.
+    # Nothing measured above touches it (every join and groupby uses the numeric batter_id and
+    # sp_id, which are correct), but printing it put relievers in a list of hitters. Names are
+    # resolved from StatsAPI here instead. Left unfixed in the table itself: rebuilding a 17 MB
+    # ten-season artifact to correct a display label is not worth the runner minutes, and
+    # fit_savant.py never printed names, which is why this sat unnoticed.
     top = d[d.m >= 15].nlargest(25, 'lift_%d' % K_GRID[3])[
-        ['game_date', 'batter', 'm', 'h', 'b_rate', 'lift_%d' % K_GRID[3], 'hr']]
-    with pd.option_context('display.width', 160, 'display.max_columns', 20):
+        ['game_date', 'batter_id', 'sp_id', 'm', 'h', 'b_rate', 'lift_%d' % K_GRID[3], 'hr']].copy()
+    names = statsapi_names(set(top.batter_id) | set(top.sp_id))
+    top.insert(1, 'hitter', top.batter_id.map(names).fillna(top.batter_id.astype(str)))
+    top.insert(2, 'vs_starter', top.sp_id.map(names).fillna(top.sp_id.astype(str)))
+    top = top.drop(columns=['batter_id', 'sp_id'])
+    with pd.option_context('display.width', 200, 'display.max_columns', 20):
         print(top.to_string(index=False))
     deep = d[(d.m >= 15) & (d.h >= 5)]
     if len(deep):
@@ -216,6 +278,9 @@ def main():
         print('\n  The middle number is the honest comparison. A "he owns this guy" row belongs to a')
         print('  hitter who owns most guys -- that is why he got 15 meetings against a starter who')
         print('  kept his job. Beating the LEAGUE rate is not the test. Beating his OWN is.')
+
+    hr_('6. THE NAMED CASE -- Riley vs Nola, since that is the one that started this')
+    pair_report(d, [('Austin Riley', 'Aaron Nola')])
 
     print('\ndone.', flush=True)
 
