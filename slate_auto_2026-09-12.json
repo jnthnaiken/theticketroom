@@ -1,7 +1,7 @@
 {
   "date": "2026-09-12",
   "season": "2026",
-  "pulled_at": "2026-09-12T21:07:44Z",
+  "pulled_at": "2026-09-12T21:18:00Z",
   "games": [
     {
       "gamePk": 824224,
@@ -476,12 +476,12 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.108
+            "iso": 0.107
           },
           {
             "id": 543807,
             "name": "George Springer",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 665489,
@@ -643,7 +643,7 @@
           {
             "id": 678391,
             "name": "Jorbit Vivas",
-            "iso": 0.09
+            "iso": 0.093
           },
           {
             "id": 696285,
@@ -709,12 +709,12 @@
           {
             "id": 669720,
             "name": "Austin Hays",
-            "iso": 0.094
+            "iso": 0.104
           },
           {
             "id": 593428,
             "name": "Xander Bogaerts",
-            "iso": 0.101
+            "iso": 0.1
           },
           {
             "id": 630105,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 702885,
           "name": "Cesar Perdomo",
-          "hr9": 1.29,
+          "hr9": 1.23,
           "hand": "LHP"
         },
         "lineup": [
@@ -761,12 +761,12 @@
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.088
+            "iso": 0.087
           },
           {
             "id": 808982,
             "name": "Jung Hoo Lee",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 694376,
@@ -810,7 +810,7 @@
         "sp": {
           "id": 677976,
           "name": "Randy Dobnak",
-          "hr9": 0.8,
+          "hr9": 0.79,
           "hand": "RHP"
         },
         "lineup": [
@@ -847,7 +847,7 @@
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.217
+            "iso": 0.215
           },
           {
             "id": 683090,
@@ -904,7 +904,7 @@
           {
             "id": 680776,
             "name": "Jarren Duran",
-            "iso": 0.158
+            "iso": 0.159
           },
           {
             "id": 702332,
@@ -960,12 +960,12 @@
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 666176,
             "name": "Jo Adell",
-            "iso": 0.156
+            "iso": 0.157
           },
           {
             "id": 682657,
@@ -1000,7 +1000,7 @@
         "sp": {
           "id": 687570,
           "name": "Connor Prielipp",
-          "hr9": 1.14,
+          "hr9": 1.13,
           "hand": "LHP"
         },
         "lineup": [
@@ -1042,7 +1042,7 @@
           {
             "id": 668885,
             "name": "Austin Martin",
-            "iso": 0.092
+            "iso": 0.091
           },
           {
             "id": 691181,
@@ -1076,7 +1076,7 @@
         "sp": {
           "id": 607192,
           "name": "Tyler Glasnow",
-          "hr9": 0.91,
+          "hr9": 0.89,
           "hand": "RHP"
         },
         "lineup": [
@@ -1175,7 +1175,7 @@
           {
             "id": 688363,
             "name": "Graham Pauley",
-            "iso": 0.177
+            "iso": 0.175
           },
           {
             "id": 691788,
@@ -1730,7 +1730,7 @@
     },
     {
       "gamePk": 825035,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T00:10:00Z",
       "matchup": "TEX@ARI",
       "away": {
@@ -1752,10 +1752,56 @@
           "hr9": 1.0,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.14
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.194
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.163
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.113
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.23
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.2
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.154
+          },
+          {
+            "id": 656976,
+            "name": "Pavin Smith",
+            "iso": 0.051
+          },
+          {
+            "id": 814439,
+            "name": "Ryan Waldschmidt",
+            "iso": 0.108
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
