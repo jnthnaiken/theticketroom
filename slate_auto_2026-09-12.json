@@ -1,7 +1,7 @@
 {
   "date": "2026-09-12",
   "season": "2026",
-  "pulled_at": "2026-09-12T16:30:31Z",
+  "pulled_at": "2026-09-12T16:37:22Z",
   "games": [
     {
       "gamePk": 824224,
@@ -577,7 +577,7 @@
     },
     {
       "gamePk": 823170,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-12T20:05:00Z",
       "matchup": "SD@SF",
       "away": {
@@ -599,10 +599,56 @@
           "hr9": 0.9,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.139
+          },
+          {
+            "id": 646240,
+            "name": "Rafael Devers",
+            "iso": 0.264
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.19
+          },
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.183
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.089
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.126
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.156
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.024
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.109
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
