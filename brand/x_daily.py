@@ -112,7 +112,15 @@ def serve(root):
     class H(http.server.SimpleHTTPRequestHandler):
         def __init__(self, *a, **k): super().__init__(*a, directory=root, **k)
         def log_message(self, *a): pass
-    httpd = socketserver.TCPServer(('127.0.0.1', PORT), H)
+    socketserver.TCPServer.allow_reuse_address = True      # back-to-back runs hit TIME_WAIT otherwise
+    httpd = None
+    for port in range(PORT, PORT + 12):                    # and a stale server from a crashed run
+        try:
+            httpd = socketserver.TCPServer(('127.0.0.1', port), H); break
+        except OSError:
+            continue
+    if httpd is None: sys.exit('!! no free port in %d..%d' % (PORT, PORT + 11))
+    globals()['PORT'] = httpd.server_address[1]
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
     return httpd
 
@@ -235,6 +243,44 @@ def tpl_F(S, ctx, D):
 
 
 # ---- TEMPLATE D: the reveal ---------------------------------------------------------------
+def tpl_E(hist, ctx):
+    """THE LEDGER. Plotted with the drawdowns visible on purpose -- a line that only goes up
+    is the tell of a fake, and ours genuinely doesn't. Phase III proof."""
+    h = [x for x in hist if isinstance(x, (int, float))][-70:]
+    if len(h) < 2: h = [0, 0]
+    lo, hi = min(h), max(h)
+    rng = (hi - lo) or 1.0
+    W, H = 700.0, 330.0
+    pts = ' '.join('%.1f,%.1f' % (i * W / (len(h) - 1), H - (v - lo) / rng * H) for i, v in enumerate(h))
+    peak = max(h); cur = h[-1]
+    dd = peak - cur
+    return f"""<!doctype html><html><head><meta charset="utf-8"><style>{FONTS}
+#P{{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Inter;color:var(--txt);
+ background:radial-gradient(900px 700px at 1100px 450px,#26d4f014,transparent 72%),var(--bg)}}
+.h1{{position:absolute;left:78px;top:250px;font-family:Oswald;font-weight:700;font-size:104px;line-height:.93;text-transform:uppercase}}
+.h1 em{{font-style:normal;color:var(--lime)}}
+.k{{position:absolute;left:84px;top:498px;font-family:Inter;font-size:29px;color:var(--mut);width:540px;line-height:1.45}}
+.k b{{color:var(--txt)}}
+.chart{{position:absolute;left:790px;top:250px;width:700px;height:330px}}
+.stat{{position:absolute;left:790px;top:614px;display:flex;gap:56px}}
+.s1{{font-family:'Roboto Mono';font-size:15px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}}
+.s2{{font-family:Oswald;font-weight:700;font-size:44px;margin-top:6px}}
+.up{{color:var(--lime)}} .dn{{color:var(--red)}}
+</style></head><body><div id="P"><div class="stars"></div>
+<div class="h1">Every<br><em>night.</em></div>
+<div class="k">Published before the games. Graded after.<br><b>Including the parts that went backwards.</b></div>
+<div class="chart"><svg viewBox="0 0 {W:.0f} {H:.0f}" width="700" height="330" preserveAspectRatio="none">
+ <polyline points="{pts}" fill="none" stroke="#4ef08a" stroke-width="3" stroke-linejoin="round"/>
+</svg></div>
+<div class="stat">
+ <div><div class="s1">Season</div><div class="s2 up">+{cur:.0f}u</div></div>
+ <div><div class="s1">Peak</div><div class="s2">+{peak:.0f}u</div></div>
+ <div><div class="s1">Off peak</div><div class="s2 dn">-{dd:.0f}u</div></div>
+ <div><div class="s1">Nights</div><div class="s2">{ctx.get('nights', len(h))}</div></div>
+</div>
+{CHROME}</div></body></html>"""
+
+
 def tpl_D(ctx):
     legs = ''
     for nm, odds, hit in ctx['legs']:
@@ -329,6 +375,37 @@ async def main():
         open(os.path.join(work, 'p.html'), 'w').write(tpl_C(S, ctx))
     elif tpl == 'F':
         open(os.path.join(work, 'p.html'), 'w').write(tpl_F(S, ctx, D))
+    elif tpl == 'E':
+        hist = ((D.get('meta') or {}).get('season') or {}).get('history') or []
+        nights = len(((D.get('meta') or {}).get('season') or {}).get('graded_nights') or [])
+        open(os.path.join(work, 'p.html'), 'w').write(tpl_E(hist, dict(nights=nights)))
+    elif tpl == 'D':
+        prev = (datetime.date.fromisoformat(today) - datetime.timedelta(days=1)).isoformat()
+        pp = os.path.join(REPO, 'D_%s.json' % prev)
+        if not os.path.exists(pp): sys.exit('!! no board for %s -- cannot build a reveal' % prev)
+        LN = last_night(json.load(open(pp)), prev)
+        if not LN or not LN['best']:
+            sys.exit('!! nothing cashed on %s -- the plan does not post a reveal after a losing '
+                     'night. Use the day\'s drop template instead.' % prev)
+        t, r = LN['best']
+        P = LN['players']
+        legs = [(nm, (P.get(nm) or {}).get('odds') or '?',
+                 __import__('sys').modules['grade_night'].norm(nm) in LN['homered'])
+                for nm in [p.get('name') for p in (t.get('players') or [])]]
+        hit = sum(1 for _, _, h in legs if h)
+        paid = '%.0f to 1' % (r['net'] / r['stake']) if r['stake'] else '—'
+        w1, w2 = (t['name'].split(' ', 1) + [''])[:2] if ' ' in t['name'] else (t['name'], '')
+        ctxD = dict(head1='%s of' % ('Two' if hit == 2 else 'One' if hit == 1 else 'All'),
+                    head2='%s.' % ('three' if len(legs) == 3 else str(len(legs))),
+                    kick=('The third one never showed up.<br><b>The slip paid anyway.</b>'
+                          if hit < len(legs) else '<b>Every one of them.</b>'),
+                    slip1=w1, slip2=w2,
+                    when=datetime.date.fromisoformat(prev).strftime('%b %-d'),
+                    struct='%su round robin · %s' % (r['stake'], (t.get('rr') or {}).get('struct', '')),
+                    paid=paid, legs=legs)
+        print('  reveal: %s went %d/%d, paid %s (night net %+.2fu)'
+              % (t['name'], hit, len(legs), paid, LN['net']))
+        open(os.path.join(work, 'p.html'), 'w').write(tpl_D(ctxD))
     else:
         print('  template %s has no renderer yet -- falling back to A' % tpl)
         from playwright.async_api import async_playwright
@@ -342,7 +419,7 @@ async def main():
     png = os.path.join(a.out, 'day%02d-%s-%s.png' % (dnum, today, tpl))
     await render('p.html', png)
     outs.append(png)
-    httpd.shutdown()
+    httpd.shutdown(); httpd.server_close()
 
     copy = {
         'A': "Today's board is live.\n\n%d moonshots open. One pays %s to 1.\n\nWe blacked out the names. Not the score.\n\nDoors close %s." % (len(S['open_moons']), ctx['to1'], ctx['door']),
