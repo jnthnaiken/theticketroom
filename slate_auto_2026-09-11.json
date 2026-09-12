@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "season": "2026",
-  "pulled_at": "2026-09-12T00:08:40Z",
+  "pulled_at": "2026-09-12T00:14:01Z",
   "games": [
     {
       "gamePk": 824631,
@@ -934,7 +934,7 @@
     },
     {
       "gamePk": 823817,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-09-11T23:10:00Z",
       "matchup": "LAD@MIA",
       "away": {
@@ -1331,7 +1331,7 @@
     },
     {
       "gamePk": 823659,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-12T00:10:00Z",
       "matchup": "CLE@MIN",
       "away": {
@@ -1982,16 +1982,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 15mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 62.2,
-        "wind_mph": 15.8,
-        "wind_dir": 282,
-        "tail_mph": 15.1,
-        "precip": 1
+        "note": "weather fetch failed"
       },
-      "wf": 1.041
+      "wf": 1.0
     }
   ]
 }
