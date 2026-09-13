@@ -361,8 +361,13 @@ def run(df, hold, quiet=False):
                 s = (r['obs_r'] + PRIOR_STRENGTH) / (r['exp_r'] + PRIOR_STRENGTH)
                 if s > bs: bs, best = s, c
             if best is None: best = cur
-            if best != cur:
-                rc = rec[cur]
+            # Hysteresis, but the incumbent has to stay ELIGIBLE to benefit from it.
+            # Run #4 locked onto long/mid/4legs in 2016 and rode it to SIX straight
+            # seasons of zero boards, because the margin test protected an incumbent that
+            # the firing rule would have thrown out on its own.
+            rc = rec[cur]
+            cur_fires = (rc['fire'] / rc['seen']) if rc['seen'] > 20 else 1.0
+            if best != cur and cur_fires >= MIN_FIRE:
                 incumbent = ((rc['obs_r'] + PRIOR_STRENGTH) /
                              (rc['exp_r'] + PRIOR_STRENGTH)) if rc['exp_r'] >= 20 else -1e9
                 if bs < incumbent + SWITCH_MARGIN:
