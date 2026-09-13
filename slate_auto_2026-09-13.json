@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T23:38:33Z",
+  "pulled_at": "2026-09-13T23:43:18Z",
   "games": [
     {
       "gamePk": 824225,
@@ -1584,13 +1584,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\ud83c\udf27\ufe0f",
+        "cond": "wind in 4mph, 67\u00b0",
+        "lean": "Neutral",
+        "temp": 66.8,
+        "wind_mph": 5.2,
+        "wind_dir": 10,
+        "tail_mph": -4.3,
+        "precip": 91
       },
-      "wf": 1.0
+      "wf": 0.98
     },
     {
       "gamePk": 824952,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-13T20:05:00Z",
       "matchup": "SEA@ATH",
       "away": {
