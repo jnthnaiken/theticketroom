@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T15:12:31Z",
+  "pulled_at": "2026-09-13T15:17:30Z",
   "games": [
     {
       "gamePk": 824225,
@@ -1145,7 +1145,7 @@
     },
     {
       "gamePk": 824628,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T18:20:00Z",
       "matchup": "PIT@CHC",
       "away": {
@@ -1167,10 +1167,56 @@
           "hr9": 1.23,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.287
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.21
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.159
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.186
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.191
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.093
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.24
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.167
+          },
+          {
+            "id": 665804,
+            "name": "Miguel Amaya",
+            "iso": 0.126
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
