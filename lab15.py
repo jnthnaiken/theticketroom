@@ -491,14 +491,22 @@ def section_structure(draft, k_grid):
         if pol not in draft: continue
         d = draft[pol]; P, H = d['P'], d['H']
         sub(f'{pol}  ({d["n"]} slates, mean leg p̂ {P.mean()*100:.2f}%, rho {d["rho"]:+.4f})')
-        print(f'    {"k":<7}' + ''.join(f'{lab:>22}' for lab in
+        print('    ROI +/- standard error. A jackpot-shaped bet has enormous SE: the')
+        print('    treble column is decided by a handful of slates, so read the error')
+        print('    bar FIRST. "ns" = not distinguishable from zero at 2 SE.')
+        print(f'    {"k":<7}' + ''.join(f'{lab:>24}' for lab in
               ['singles', 'doubles', 'by 2s & 3 (CURRENT)', 'treble']))
         cross = None
+        NN = len(P)
         for k in k_grid:
             r = structure_returns(P, H, k)
             row = [r['singles  (3 x 1)'], r['doubles  (3 x 2)'],
                    r['by 2s & 3 (CURRENT)'], r['treble   (1 x 3)']]
-            print(f'    {k:<7.2f}' + ''.join(f'{x[1]:>21.1f}%' for x in row))
+            cells = []
+            for _, roi, sd, _ in row:
+                se = sd / math.sqrt(NN) / 2.0 * 100
+                cells.append(f'{roi:>10.1f}+/-{se:<5.1f}{"ns" if abs(roi) < 2*se else "  "}')
+            print(f'    {k:<7.2f}' + ''.join(f'{c:>24}' for c in cells))
             if cross is None and row[3][1] > row[1][1]: cross = k
         print(f'\n    treble first beats doubles-only at k = '
               f'{cross if cross else ">" + str(k_grid[-1])}')
@@ -513,11 +521,18 @@ def section_structure(draft, k_grid):
             if kk not in k_grid: continue
             r = structure_returns(P, H, kk)
             print(f'\n    at k={kk:.2f} — what the ride feels like:')
-            print(f'      {"shape":<24}{"ROI":>9}{"sd/night":>11}{"cash nights":>13}')
+            print(f'      {"shape":<24}{"ROI":>9}{"SE":>8}{"t":>7}{"sd/night":>11}'
+                  f'{"cash nights":>13}{"  slates to t=2":>16}')
             for lab in ['singles  (3 x 1)', 'doubles  (3 x 2)',
                         'by 2s & 3 (CURRENT)', 'treble   (1 x 3)']:
                 m, roi, sd, cash = r[lab]
-                print(f'      {lab:<24}{roi:>8.1f}%{sd:>11.2f}{cash*100:>12.1f}%')
+                se = sd / math.sqrt(len(P)) / 2.0 * 100
+                t = roi / se if se else 0.0
+                need = int(len(P) * (2 / t) ** 2) if abs(t) > 1e-6 else 0
+                print(f'      {lab:<24}{roi:>8.1f}%{se:>7.1f}%{t:>7.2f}{sd:>11.2f}'
+                      f'{cash*100:>12.1f}%{(f"{need:,}" if 0 < need < 10**8 else "never"):>16}')
+            print('      "slates to t=2" is how many nights this shape would need before')
+            print('      its return could be told apart from zero. A century is ~18,600.')
 
 
 # ---------------------------------------------------------------- selftest
