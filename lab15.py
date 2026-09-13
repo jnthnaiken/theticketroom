@@ -121,6 +121,10 @@ def prepare(df):
     df['b_hr_rate_30'] = roll_hr / 30.0
     df['b_rest'] = g['game_date'].transform(lambda s: (s - s.shift(1)).dt.days).fillna(1).clip(0, 10)
     df['b_month'] = df['game_date'].dt.month
+    gc = df.groupby('batter_id', sort=False)
+    _ch = gc['hr'].transform(lambda s: s.shift(1).expanding().sum())
+    _cg = gc['hr'].transform(lambda s: s.shift(1).expanding().count())
+    df['b_hr_career'] = _ch / _cg.replace(0, np.nan)
 
     # the two derived inputs the LIVE basket needs (see LIVE_SIG above)
     _xwc = df['b_xwobacon'] if 'b_xwobacon' in df.columns else None
@@ -143,6 +147,7 @@ def prepare(df):
     lg = df['hr'].mean()
     df['b_hr_rate_prior'] = df['b_hr_rate_prior'].fillna(lg)
     df['b_hr_rate_30'] = df['b_hr_rate_30'].fillna(df['b_hr_rate_prior'])
+    df['b_hr_career'] = df['b_hr_career'].fillna(lg)
 
     print(f'usable: {len(df):,} of {n0:,} rows | {df["hr"].mean()*100:.2f}% HR | '
           f'{df["game_date"].nunique():,} slates | {df["season"].min()}..{df["season"].max()}')
@@ -278,6 +283,29 @@ def section_model(df):
     pa, _ = oof_model(Xf, y, folds, 'gbm')
     print(f'  batter features only        AUC {auc(y,pb):.4f}')
     print(f'  + opposing starter          AUC {auc(y,pa):.4f}  ({auc(y,pa)-auc(y,pb):+.4f})')
+
+    sub('THE SHIPPABLE FIT — live basket + career HR rate + playing time')
+    print('  Fitted on exactly the terms build15 scores with, in the same per-slate z')
+    print('  space, so these weights drop into _SIG directly. Grouped CV by slate.')
+    LIVE_PLUS = [c for c, _ in LIVE_SIG] + ['b_hr_career', 'b_games_prior']
+    d3 = df.copy(); d3['b_la'] = la_window(d3['b_la'])
+    Zp = slate_z(d3, LIVE_PLUS)
+    pp, cp = oof_model(Zp.values, y, folds, 'logit')
+    print(f'\n  live basket alone      AUC {auc(y, live):.4f}')
+    print(f'  live basket REFIT      AUC {auc(y, sum(w*Zl["z_"+c] for c,w in LIVE_SIG).values):.4f}'
+          f'   (same terms, shipped weights)')
+    print(f'  live basket + 2 terms  AUC {auc(y, pp):.4f}   (+{auc(y,pp)-auc(y,live):.4f})')
+    NAME = {'b_hh': '_zhh', 'b_la': '_zla', 'b_dmg': '_zdmg', 'p_swstr_neg': '_zpsw',
+            'p_brl': '_zars', 'b_hr_career': '_zhrc', 'b_games_prior': '_zpt'}
+    pos = {LIVE_PLUS[i]: cp[i] for i in range(len(LIVE_PLUS))}
+    tot = sum(abs(v) for v in pos.values()) or 1.0
+    print(f'\n  {"_SIG term":<10}{"raw coef":>10}{"weight":>9}   source')
+    for c in LIVE_PLUS:
+        print(f'  {NAME[c]:<10}{pos[c]:>+10.4f}{abs(pos[c])/tot:>9.4f}   {c}'
+              + ('   NEW' if c in ('b_hr_career', 'b_games_prior') else ''))
+    print(f'\n  _SIG=[' + ','.join(f"('{NAME[c]}',{abs(pos[c])/tot:.4f})" for c in LIVE_PLUS) + ']')
+    neg = [NAME[c] for c in LIVE_PLUS if pos[c] < 0]
+    print(f'  terms fitted NEGATIVE (feed the NEGATED input, as _zpsw already does): {neg or "none"}')
 
     best_lab = max(res, key=lambda k: auc(y, res[k][0]))
     print(f'\n  BEST: {best_lab.strip()}  (AUC {auc(y,res[best_lab][0]):.4f})')
