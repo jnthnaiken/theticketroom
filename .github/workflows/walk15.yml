@@ -1,0 +1,102 @@
+# ====================================================================================
+# Walk 15 -- the SELF-LEARNING walk over 2015-2024, one season at a time.
+#
+# Asked 2026-09-13: "run a self-learning program that backtest our model and system over
+# the past 15 years. learn as you go, season by season, making adjustments as you go to
+# perfect it based on what the program learns."
+#
+# lab15 measured the decade in one shot. walk15 walks it: train on everything before
+# this season, validate competing configurations on the last COMPLETED season, commit,
+# then test on a season nothing in that loop has seen -- and keep a journal of every
+# adjustment it makes and why.
+#
+# The learner may tune the feature set, the training window and the draft band. It is
+# FORBIDDEN to tune the slip shape, because lab15 showed no shape's return is
+# distinguishable from zero even at 1,616 slates; a learner allowed to pick one on
+# measured return would be fitting noise and would look brilliant doing it.
+#
+# Its opponent is the model we actually ship (frozen _SIG), which also supplies the
+# prices. EDGE > 1 means the learner found bats production underrates.
+#
+# Reuses the savant-training artifact (run 30756466843, expires ~2026-10-31).
+# Nothing here touches the daily board pipeline.
+#
+# TRIGGER: workflow_dispatch.
+# ====================================================================================
+
+name: Walk 15
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID holding the savant-training artifact"
+        required: true
+        default: "30756466843"
+      k_book:
+        description: "Book margin on a leg (0.89 is what the 81 priced nights measured)"
+        required: false
+        default: "0.90"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: walk15
+  cancel-in-progress: false
+
+jobs:
+  walk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scikit-learn
+
+      - name: Self-test first — the learner must find a planted regime change
+        run: |
+          set -o pipefail
+          python3 walk15.py --selftest 2>&1 | tail -25
+
+      - name: Download training table
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ github.event.inputs.run_id }}" -n savant-training -D table
+          ls -la table/
+
+      - name: Walk it
+        run: |
+          set -o pipefail
+          python3 walk15.py "table/*.parquet" --k-book "${{ github.event.inputs.k_book }}" 2>&1 | tee walk15_report.txt
+
+      - name: Report to run summary
+        if: always()
+        run: |
+          {
+            echo '## Walk 15 — season-by-season self-learning walk'
+            echo '```'
+            cat walk15_report.txt 2>/dev/null || echo '(no report — run failed before writing one)'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: walk15-report
+          path: |
+            walk15_report.txt
+            walk15_journal.json
+            walk15_final.json
+          if-no-files-found: warn
+          retention-days: 90
