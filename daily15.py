@@ -89,6 +89,14 @@ DECAY = 0.5 ** (1 / 400.0)   # per-slate decay on a config's record; half-life ~
 MIN_FIRE = 0.15         # and it must still produce a board on this share of recent slates.
                         # A configuration that does not produce a board is not a
                         # configuration, whatever its edge used to be.
+LEG_SLACK = 2.5         # ANCHORS must clear Z_GATE; LEGS may come from this much deeper.
+                        # index.html carries MOON_SLACK=2 for the same reason. Without it
+                        # the gate and the price band fight: a bat our model rates highly
+                        # is one the book also rates highly, i.e. short-priced, so
+                        # "clears the gate" and "priced 0.09-0.15" stopped overlapping at
+                        # all and run #3 produced ZERO boards in 2019, 2020 and 2021.
+SWITCH_MARGIN = 0.04    # hysteresis. Run #3 flipped 2legs<->3legs every few days on
+                        # EDGE differences of 0.03, which is noise wearing a decision.
 
 BANDS = {'any': (0.031, 0.50), 'long': (0.04, 0.09), 'wide': (0.05, 0.13),
          'mid': (0.09, 0.15), 'short': (0.13, 0.25), 'vshort': (0.18, 0.35)}
@@ -216,17 +224,21 @@ def build_board(pos, score, implied, listed, gk, band, aband, legs):
     if len(pos) < MIN_SLATE: return []
     sc = score[pos]
     z = (sc - sc.mean()) / (sc.std() or 1e-9)
-    ok = np.where((z >= Z_GATE) & listed[pos])[0]
-    if len(ok) < legs: return []
+    ok = np.where((z >= Z_GATE) & listed[pos])[0]              # anchor-eligible
+    wide = np.where((z >= Z_GATE - LEG_SLACK) & listed[pos])[0]  # leg-eligible
+    if len(wide) < legs: return []
     ok = ok[np.argsort(-sc[ok])][:GATE_N]
+    wide = wide[np.argsort(-sc[wide])][:GATE_N * 3]
     cnt, pool = {}, []
-    for j in ok:
+    for j in wide:
         g = gk[pos[j]]
         if cnt.get(g, 0) >= GAME_CAP: continue
         cnt[g] = cnt.get(g, 0) + 1; pool.append(j)
     if len(pool) < legs: return []
     imp = implied[pos]
-    acand = [j for j in pool if aband[0] <= imp[j] < aband[1]] or pool
+    gated = set(ok.tolist())
+    acand = [j for j in pool if j in gated and aband[0] <= imp[j] < aband[1]] \
+        or [j for j in pool if j in gated] or pool
     anchors, per = [], {}
     for j in acand:
         g = gk[pos[j]]
@@ -350,6 +362,12 @@ def run(df, hold, quiet=False):
                 if s > bs: bs, best = s, c
             if best is None: best = cur
             if best != cur:
+                rc = rec[cur]
+                incumbent = ((rc['obs_r'] + PRIOR_STRENGTH) /
+                             (rc['exp_r'] + PRIOR_STRENGTH)) if rc['exp_r'] >= 20 else -1e9
+                if bs < incumbent + SWITCH_MARGIN:
+                    best = cur
+            if best != cur:
                 changes.append((str(key)[:10], cur, best, bs))
                 cur = best
 
@@ -458,9 +476,14 @@ def report(hist, rec, changes, cur, model, names, played, hold):
           f'(per-slate z space):')
     for i in idx[:16]:
         print(f'    {names[i]:<18}{w[i]:>+9.4f}')
-    tot = sum(abs(w[i]) for i in idx) or 1.0
+    DUMMIES = {'has_sav', 'b_month'}
+    sig = [i for i in idx if names[i] not in DUMMIES]
+    tot = sum(abs(w[i]) for i in sig) or 1.0
     print('\n  renormalised to a _SIG-style basket summing to 1:')
-    for i in idx[:10]:
+    print('  (has_sav and b_month are excluded -- has_sav is 0 before 2015 and 1 after and')
+    print('   is constant within a slate, so it is an era dummy soaking up the base-rate')
+    print('   shift, not a signal. Run #3 printed it at 59% of the basket.)')
+    for i in sig[:10]:
         print(f'    {names[i]:<18}{abs(w[i])/tot:>7.3f}   {"(+)" if w[i] > 0 else "(-) INVERTED"}')
     json.dump({'band': cur[0], 'anchor_band': cur[1], 'legs': cur[2],
                'weights': {names[i]: float(w[i]) for i in range(len(names))}},
