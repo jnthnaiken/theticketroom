@@ -143,7 +143,11 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
     if t.get('rr'):
         risk = float(t['rr'].get('risk') or 0)
         L = len(state)
-        sizes = [2, 3] + ([4] if L >= 4 else [])
+        # RRUNIT-2026-09-13: every combination from doubles up to the FULL parlay, not a list that
+        # stops at four. At L=5 the old `[2,3]+([4] if L>=4)` dropped the five-fold from both the
+        # stake split and the return, so a five-leg slip was graded as 25 bets instead of 26 and its
+        # single best outcome paid nothing. Mirrors index.html rrCombos() and assemble_tickets.rr_combos().
+        sizes = list(range(2, L + 1))
         # RRSTAKE-2026-08-28. `risk` is the TOTAL staked across the round robin -- 2u on a moon,
         # which is 3 doubles + 1 treble at 0.5u each, NOT 1u each. This added the bare decimal
         # product for every winning combination, i.e. it settled a 2u slip as though 4u were

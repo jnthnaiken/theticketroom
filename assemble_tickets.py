@@ -20,7 +20,7 @@ RULES (match the code below):
   * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (5:00 PM ET, widened 2026-08-13).
   * Ticket names   = rotated by day-of-year, no repeats.
 """
-import re, datetime
+import re, datetime, itertools
 
 LUNCH_CUT_MIN = 17 * 60          # 5:00 PM ET splits the lunch window from night. 2026-08-13: was 16*60,
                                  # which made a 4:05 PM first pitch an 'evening' game. On 08-13 that cost the
@@ -33,8 +33,41 @@ GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR 
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
 Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40). Lowered 1.0->0.75 to deepen the pool (more legs -> more moons on fragmented slates).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
+MOON_LEGS     = 4               # MOON4-2026-09-13: a moon is the anchor + THREE partners. Mirrors index.html's
+                                # MOON_LEGS. Was 3 from the beginning; the 11-bet / 0.25u round robin agreed the
+                                # same day only exists at four legs.
 MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
 WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay
+
+# ---------- RRUNIT-2026-09-13: ONE definition of a round robin, shared with index.html ----------
+# A round robin buys EVERY combination from doubles up to the full parlay: 2^L - L - 1 bets.
+# 3 legs -> 4 bets, 4 legs -> 11, 5 legs -> 26. The owner sets the per-BET unit, not the ticket
+# total (0.25u a bet on a four-leg round robin, 2026-09-13), so `risk` is DERIVED: combos x unit.
+# At 3 legs that is 4 x 0.50 = 2.00u -- exactly what moons were hard-coded to, so three-leg slips
+# are unchanged. Keep in lockstep with index.html rrCombos/rrUnit/rrRisk/rrStruct, grade_night.py
+# grade_ticket(), daily15.py and sim15.py.
+RR_UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}
+
+
+def rr_combos(L):
+    return [c for sz in range(2, L + 1) for c in itertools.combinations(range(L), sz)]
+
+
+def rr_unit(L):
+    return RR_UNIT.get(L, 2.0 / max(len(rr_combos(L)), 1))
+
+
+def rr_risk(L):
+    return round(len(rr_combos(L)) * rr_unit(L), 2)
+
+
+def rr_struct(L):
+    if L < 2:
+        return ''
+    if L == 2:
+        return 'straight'
+    return 'by ' + ', '.join('%ds' % n for n in range(2, L)) + ' & %d' % L
+
 
 # ---------- ticket-name pools (the brain names tickets here; the HTML only renders) ----------
 # Big, curated, theme-tight pools. Assigned without replacement and rotated by day-of-year,
@@ -386,17 +419,17 @@ def assemble(D):
                 if max(t2) - min(t2) > WIN:
                     continue
                 seen.add(P[n]['game']); legs.append(n); times.append(tmin(n))
-                if len(legs) == 3:
+                if len(legs) == MOON_LEGS:
                     break
-            return sum(strength(n) for n in legs) if len(legs) == 3 else -1e9
+            return sum(strength(n) for n in legs) if len(legs) == MOON_LEGS else -1e9
         sidx = len(al) - 1 if len(al) >= 4 else None                            # README: salami rides the WEAKEST (4th) anchor -> demote loop drops it first
         mids = [i for i in range(len(al)) if i != sidx]
         pls = []
         for i in mids:                                                  # two moons per non-salami anchor
             for _ in range(MOONS_PER_ANC):
                 pls.append({'rank': i, 'kind': 'moon', 'badge': "\U0001f680",
-                            'rr': {"struct": "by 2s & 3", "risk": 2.0},
-                            'legs': [al[i]], 'need': 2, 'games': {P[al[i]]['game']}})
+                            'rr': {"struct": rr_struct(MOON_LEGS), "risk": rr_risk(MOON_LEGS)},
+                            'legs': [al[i]], 'need': MOON_LEGS - 1, 'games': {P[al[i]]['game']}})
         # (the salami is assembled AFTER the moons below, from the legs they leave behind -- moons get first pick)
         def fits(t, n):
             if P[n]['game'] in t['games']:
@@ -494,7 +527,7 @@ def assemble(D):
             for _n in _sallegs:
                 if _n in pool_av: pool_av.remove(_n)
             pls.append({'rank': sidx if sidx is not None else (len(al) - 1), 'kind': 'biggest', 'badge': "\U0001f96a",
-                        'rr': {"struct": "by 2s, 3s & 4", "risk": 5.5},
+                        'rr': {"struct": rr_struct(len(_sallegs)), "risk": rr_risk(len(_sallegs))},
                         'legs': _sallegs, 'need': 3, 'games': {P[_n]['game'] for _n in _sallegs}})
         miss = 0
         return al, pls, miss
@@ -582,20 +615,23 @@ def assemble(D):
     # price every ticket (same correlation rule the board uses)
     wx = D.get('meta', {}).get('wx', {})
     def _rrmax(legs, risk):                              # round-robin max profit, mirrors client rrmax()
-        dec = [a2d(l['odds']) for l in legs]; L = len(dec); s = -risk
-        for a in range(L):
-            for b in range(a + 1, L):
-                s += dec[a] * dec[b]
-        for a in range(L):
-            for b in range(a + 1, L):
-                for c in range(b + 1, L):
-                    s += dec[a] * dec[b] * dec[c]
-        if L >= 4:
-            for a in range(L):
-                for b in range(a + 1, L):
-                    for c in range(b + 1, L):
-                        for e in range(c + 1, L):
-                            s += dec[a] * dec[b] * dec[c] * dec[e]
+        # RRSTAKE-2026-08-28 reached index.html but NOT this file until 2026-09-13: the loops below
+        # used to add the bare decimal product for every combination, i.e. price 1u on each of them,
+        # which on a 2u slip across 4 bets is 4u down and roughly DOUBLED every max-profit figure
+        # this drafter printed. `risk` is the TOTAL, so each combination carries risk/n. The old code
+        # also stopped at four legs, so a five-leg slip dropped its own five-fold from the payout.
+        dec = [a2d(l['odds']) for l in legs]
+        L = len(dec)
+        combos = rr_combos(L)
+        if not combos:
+            return 0.0
+        unit = risk / len(combos)
+        s = -risk
+        for c in combos:
+            p = 1.0
+            for i in c:
+                p *= dec[i]
+            s += unit * p
         return _jsround(s * 10) / 10
     for i, t in enumerate(tickets, 1):
         t['n'] = i
@@ -626,6 +662,11 @@ def assemble(D):
             else:                             ws['neu']   += 1
         t['wxsum'] = ws
         if t['rr']:
+            # RRUNIT-2026-09-13: struct and risk come from the legs the ticket ACTUALLY shipped with,
+            # once, after every draft/repair pass has finished moving legs. Mirrors index.html.
+            _rl = len(t['players'])
+            t['rr']['struct'] = rr_struct(_rl)
+            t['rr']['risk'] = rr_risk(_rl)
             t['rr']['maxprofit'] = _rrmax(pr, t['rr']['risk'])
             t['rr']['bytwos'] = False
 
