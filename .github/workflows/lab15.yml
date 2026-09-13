@@ -1,0 +1,98 @@
+# ====================================================================================
+# Lab 15 -- the PRICE-FREE lab over the 2015-2024 Statcast table.
+#
+# Asked 2026-09-13: "lets just do it without the prices then. lets just focus on
+# perfecting the model and draft system." We own ten years of OUTCOMES and eighty-one
+# nights of PRICES, so anything price-dependent is out of reach -- but the two things
+# that actually decide the board are not:
+#
+#   the SCORER ceiling (what _SIG leaves on the table), and
+#   whether our drafted legs CLUMP (which is what decides doubles vs trebles).
+#
+# lab15.py answers both without a single odd, and sweeps the edge k as a parameter
+# instead of pretending to measure it. See claude/backtest15-priceband-2026-09-13.md.
+#
+# Reuses the same 17.2 MB savant-training artifact as Savant Fit and BvP Fit
+# (run 30756466843, 90-day retention -> EXPIRES ~2026-10-31; re-pull before then).
+#
+# Nothing here touches the daily board pipeline. Report goes to the run summary so it
+# is readable without downloading anything, and is uploaded as an artifact as well.
+#
+# TRIGGER: workflow_dispatch.
+# ====================================================================================
+
+name: Lab 15
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID holding the savant-training artifact"
+        required: true
+        default: "30756466843"
+      band:
+        description: "Longshot p-hat band (the +650..+1100 analogue)"
+        required: false
+        default: "0.04,0.09"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: lab15
+  cancel-in-progress: false
+
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scikit-learn
+
+      - name: Self-test first (fails fast if the math is wrong)
+        run: |
+          set -o pipefail
+          python3 lab15.py --selftest 2>&1 | tail -30
+
+      - name: Download training table
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ github.event.inputs.run_id }}" -n savant-training -D table
+          ls -la table/
+
+      - name: Run the lab
+        run: |
+          set -o pipefail
+          python3 lab15.py "table/*.parquet" --band "${{ github.event.inputs.band }}" 2>&1 | tee lab15_report.txt
+
+      - name: Report to run summary
+        if: always()
+        run: |
+          {
+            echo '## Lab 15 — price-free model + draft lab'
+            echo '```'
+            cat lab15_report.txt 2>/dev/null || echo '(no report — the run failed before writing one)'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab15-report
+          path: |
+            lab15_report.txt
+            lab15_draft.json
+          if-no-files-found: warn
+          retention-days: 90
