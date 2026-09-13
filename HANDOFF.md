@@ -1,17 +1,42 @@
-# The Ticket Room — Handoff / Resume Notes
+# The Ticket Room — Operations Notes
 
-> ⚠️ **This file is layered by date and older sections contradict newer ones.** Audited 2026-08-13;
-> every superseded claim below is now marked inline. When two sections disagree, **the later date wins**,
-> and the code wins over both. Corrected on 2026-08-13: the Kasper column-picker (HH%/LA render by
-> default), `RULES_VERSION` (removed), conviction-snub builders (removed 07-09), the nine edge signals
-> (superseded again 2026-08-13: **five** are live after the Statcast refit), `grade_night` (does NOT re-draft), and the base64 transfer channel (blocked).
-> Superseded again 2026-08-14: the **Chef's Table ticket is retired** (the chalk reservation is not).
-> Superseded again **2026-08-16**: the board now **re-fetches and adopts newer server builds**
-> (it never did before — that is what made a left-open tab bet a ticket the server had dropped);
-> the ticket lock fires on **confirmation** as well as first pitch; a slip can no longer be created
-> after its own first pitch; and `assemble_tickets.py` is **not** a mirror of the rules engine —
-> it has no family/chef logic and no lock at all, so a fallback is a failed build, not a safe one.
-> Draft rules as of 2026-08-14 live in `README.md` — that file is kept current; this one is a log.
+> ## ⚠️ READ THIS FIRST — audited 2026-09-13
+>
+> **This file is a dated log, not a specification.** It is layered chronologically and older
+> sections contradict newer ones. The 2026-09-13 audit found the same constant stated correctly
+> and incorrectly fifty lines apart, more than once.
+>
+> **For anything about the model, the draft rules, the ticket kinds or the ledger, use `README.md`,
+> which is kept current. For anything at all, the code wins.**
+>
+> What this file is still the ONLY record of, and why it is kept:
+> the Kasper matchup-scrape contract; the "never use `//` in the `index.html` script block" trap and
+> its one-line syntax check; price freezing at first pitch; `savant_gate.py` and `MIN_BASE`;
+> `DROP_BATS` / DROPSCOPE; the five-file input contract and the per-game lineup key shapes;
+> `replay_check.js` and its invariants; the git-via-GitHub-web-UI procedure; the source-scrape
+> deltas (RotoWire's junk 16th block, VegasInsider's raw-HTML table); and the hung Pages deploy.
+>
+> **Known-stale in the sections below — corrected here so nobody acts on them:**
+>
+> | this file says | truth (2026-09-13) |
+> |---|---|
+> | `FLOOR=41` is the live pool gate | **dead constant.** `Z_GATE=0.75` on `TOTAL` is the gate |
+> | the gate is on the weather-free `blend` | it is on `TOTAL`, **weather included** (2026-08-18) |
+> | `CHALK_N=4`, reserved by strength | `CHALK_N=0`. Nothing is reserved or barred |
+> | `GAME_CAP` is 4 | **6** in the pool (the span-fill fallback really is still 4) |
+> | `W_ARS=0.16` | **0.10** |
+> | the basket has five (or nine) signals | **seven**, and two of them are career terms |
+> | `blend = 0.75*mkt_z + 0.25*edge_z` | **50/50** |
+> | `assemble_tickets.py` has zero matches for `chalk=set()` | it has one, line 174, deliberately |
+> | `drawTracker`'s `defs` still carries a `chef` row | it does not. Four rows: lunch/late/builder/moon |
+> | moons are 3 legs | **4** (`MOON_LEGS`, 2026-09-13), staked 11 bets x 0.25u = 2.75u |
+>
+> **Files named below that DO NOT EXIST** (one-shot scripts, run and not kept — do not go looking):
+> `client_sweep.js`, `test_conf_lock.js`, `famname.py`, `famnamefix.py`, `famrelabel.py`,
+> `reorder.py`, `sparkfix.py`, `tonightfix.py`. (`roto.json` is fine — it is a scratch-dir input.)
+>
+> Two sections are dead archaeology and can be deleted on sight: the 2026-08-14 Chef's Table
+> section and the Family Meal section. Both features are retired and unreachable.
 
 
 > **2026-08-14, later: the Grand Salami is REMOVED** — deleted, not gated — and the board now runs
@@ -879,107 +904,17 @@ not pipeline. Check `is:waiting` on deploy-pages.yml FIRST.
 
 ---
 
-## 2026-08-14 — Chef's Table retired, Family Meal section added, ledger rebuilt
+## 2026-08-14 — Chef's Table and Family Meal sections REMOVED from this file (2026-09-13 audit)
 
-Three owner decisions, all explicit. Nothing here was inferred.
+Both features are retired and unreachable (`CHEF_TICKET=false`, `DINGERS=false`), and the ~95 lines
+of mechanics that stood here described how they worked. The only facts worth keeping:
 
-**1. The Chef's Table ticket is retired.** It was a test. `var CHEF_TICKET=false` in
-`index.html` gates the `out.push()`; the chalk *reservation* above it is deliberately
-untouched, so the top-`CHALK_N` favourites are still barred from moons/salami/builders.
-Chef is dropped from the board outright: `prior` is filtered before the draft, so a chef
-ticket on a prior board is **not carried**, and no Chef's Table section renders. The first
-cut of this change kept locked chef slips visible — wrong, corrected the same day. The
-10:00→23:00 sweep on the 08-13 board reports `n=13`.
+- The Chef's Table ran 2–11 for **−49.72u on 71.5 staked** and was unwound from the ledger by
+  re-grading the archived boards, not by subtracting the category total.
+- Dingers / Family Meal ran 11–80 for **−33.34u** and was retired 2026-08-25, unwound the same way.
+- The `spark()` fix from the evening pass is real and still live: the sparkline plots
+  `pts = [0].concat(hist)` so the curve starts at the epoch baseline rather than the first night.
+- The four scripts that section named (`famname.py`, `famrelabel.py`, `famnamefix.py`,
+  `tonightfix.py`) were one-shot patches, run and not kept. They are not in the repo.
 
-**2. The Family Meal replaces it, as a REAL TICKET KIND.** A bat qualifies when it cleared
-the pool gate, was not chalk, made no slip, and **outscored the weakest bat the board actually
-drafted**; the list is then capped at `FAM_CAP` (8). The slips are built into `out` just before
-the wxsum/note pass, so they are ordinary tickets: they are in `D.tickets`, they get a
-`cwNote()` description, `priceTicket` prices them, they lock and carry like anything else, and
-`grade_night.py` folds them into `season.json` at 1u a slip. One card per bat through the same
-`sec()` + `ticketCard()` path as Anchors, plus a **Family Meal row in the season tracker**.
-
-Three wrong cuts preceded this, all mine, all the same mistake -- inventing instead of matching:
-bespoke row markup; then a single multi-leg card; then one-card-per-bat but held outside
-`D.tickets` so it had no descriptions and never reached the ledger. **"Like the rest of the
-board" means all the way down.** Named by the owner -- "orphans" was proposed and rejected.
-
-Build details that matter: family bats are excluded from the drafted set that sets the floor
-(otherwise the section raises its own bar every pass), and a bat already on a carried locked
-family slip is skipped so the carry is never duplicated. `assemble_tickets.py` does not build
-them -- non-mirroring emergency fallback, same as it was for chef.
-
-Sizing evidence, all cold-drafted through the real client engine over the 37 stored nights:
-
-```
-rank window (#1 chalk -> last drafted)   22 on 08-13 alone
-gated pool minus drafted                 min 0  median 20  max 28  mean 19.2
-above weakest drafted                    min 0  median  6  max 20  mean  7.0
-above weakest + cap 8   <- SHIPPING      min 0  median  6  max  8  mean  5.3
-```
-
-The middle rule was recommended first, on 08-13 evidence alone, and that recommendation
-was **wrong**: it reads as 11 that night only because the slate gated thin (pool 29). A
-normal slate gates 40–47 and the tickets absorb ~21, which puts it straight back near 20.
-
-**3. Chef's 13 graded nights were backed out of `season.json`.** Season **+148.74u →
-+198.46u**. Method mattered here: rather than subtracting the category total, all 13 slips
-were re-graded from the archived boards, and the 12 nights with stored outcomes reproduced
-the recorded `−44.22u / 66.0 staked / 2 wins` **exactly** — which is what validates the
-remainder for 08-13 (`−5.50u`, matching that board's `rr.risk` of 5.5, since StatsAPI is
-unreachable from the sandbox). Nightly nets were subtracted from the cumulative curve from
-each night forward; `cats` and `history` reconcile at 198.46.
-
-**Also measured, and rejected: rolling `GAME_CAP` back.** The owner asked what a "3 per
-team" rule would do to the undrafted count. 3-per-GAME (the pre-2026-07-04 rule) drops the
-board from 12 tickets to **9** — two moons and a builder — and moves the undrafted count
-only 26 → 24. A literal 3-per-TEAM cap (≤6/game) gives 25. The cap moves both ends of the
-window together. `GAME_CAP` stays at 4.
-
-**Verification before deploy.** Full `client_sweep.js` pass, 10:00→23:00 on 2026-08-13,
-20-minute steps: 383 locked-slip integrity checks, `count=0 integrity=0 anchors!=builders=0
-pairing=0 structural=0 one-bat-one-slip=0` — identical to the unpatched baseline.
-
-**Known behaviour, not a bug.** On a cold 08-13 draft Kyle Schwarber (`TOTAL` 193.6, the
-best bat on the slate) lands in the Family Meal: his game sat at 40% rain, which bars
-anchoring under the rain bands, so he cleared the gate and made nothing. The section will
-sometimes lead with a name that looks like it obviously should have been on a slip.
-
-**Still open.** `drawTracker`'s `defs` array still carries a `chef` row. It is harmless —
-the row only renders when the category exists, and the category is gone — but it should be
-pruned on the next pass.
-
----
-
-## 2026-08-14 (evening) — Family Meal to the bottom, real titles, ledger card cleaned
-
-Four changes, each landed as its own commit against the live `pull-slate` cadence (the owner
-declined to pause it: *"youre just gonna have to be fast"*). What works: `curl` HEAD immediately
-before applying the patch so the base is current, then commit inside the gap. A build landing
-*after* the commit is harmless — it rewrites only the `const D=` line. The killer is one already
-in flight when you pull; that ate two earlier attempts.
-
-**1. Family Meal renders last.** Page sections, tracker `defs`, and the View chip row, all three
-in the same order: lunch → nightcap → anchors → moonshots → family meal. Script `reorder.py`.
-
-**2. Ledger sparkline.** Two separate things, only one of them code. It was *stale* because the
-board had been baked before the salami came off `season.json`; `spark()` auto-scales off
-min/max of the series and re-drew itself correctly on the next build. The real defect was
-`pts=[0].concat(hist)` prepending a zero to a history that already opens with 0 — a dead flat
-segment across the first ~2.5% of the width. Now conditional. Script `sparkfix.py`.
-
-**3. Family Meal titles.** See the README entry. Root cause of BOTH the missing titles and the
-four cards naming the wrong player was the same `name:n` shortcut. Scripts `famname.py`,
-`famrelabel.py` (a title-only relabel of two slips that had locked before the fix, explicitly
-authorised — legs, odds, locks and grading byte-identical), `famnamefix.py` (`Staff Meal` →
-`The Window`; no pool name may contain *family* or *meal*).
-
-**4. The TONIGHT counter on the ledger card** read `4 ⚓️ · 8 🚀 · 0 🥪 · 1 🌃` — it counted the
-retired Grand Salami, a permanent 0, and counted neither the Family Meal nor the Lunch Special,
-so the sections at the top and bottom of the board were both invisible in the one line meant to
-say what is on tonight. Now `1 🍱 · 1 🌃 · 4 ⚓️ · 8 🚀 · 8 🍳`, same five kinds and same order as
-the rows above it. Script `tonightfix.py`.
-
-**Audited and found NOT stale:** `grade_night.py` is kind-agnostic (`cats.setdefault(g['kind'],…)`),
-so the Family Meal folds into `season.json` at 1u a slip with no code change — do not "add family
-support" to it. `assemble_tickets.py` still does not build family slips, by design.
+See `README.md` for what the board actually ships, and `claude/audit-2026-09-13.md` for the audit.
