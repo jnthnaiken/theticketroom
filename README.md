@@ -71,8 +71,8 @@ ARI/OAK/CHW), matching the cards' matchup keys.
 
 ⚠️ **`gn` must be UNIQUE per game (1, 2, 3, … N).** `build15` keys games by
 `gn` (`gamemeta[gn]=g`) and stamps every bat `game = gn`. If two games share a `gn`
-(e.g. you hardcode `gn:1` everywhere) they collapse into one game and the `GAME_CAP=4`
-per-game pool cap throttles the WHOLE board to 4 bats/4 tickets. Number the games
+(e.g. you hardcode `gn:1` everywhere) they collapse into one game and the `GAME_CAP`
+per-game pool cap (6) throttles the WHOLE board to that many bats/tickets. Number the games
 sequentially. (`gn` is only 1/2 for a genuine doubleheader of the same matchup.)
 
 `build15` also pulls **live weather (Open-Meteo) and opposing-pitcher HR/9 (StatsAPI)**
@@ -161,26 +161,53 @@ The **market half** (`mkt_z`) is the standardized market implied probability and
 **nothing else** — no other feature feeds it (the rationale for keeping the edge
 half thin is that the books' price already reflects power, park, pitcher, weather,
 platoon, slot, etc., so those don't need to be re-added). The **edge half** is a
-weighted sum of exactly **five** z-scored signals. This is the live `_SIG` list in
-`build15.py` **as of `DMGRATIO-2026-08-23`** — read it off the source, not off this
+weighted sum of exactly **seven** z-scored signals. This is the live `_SIG` list in
+`build15.py` **as of `ISOREAL-2026-09-13`** — read it off the source, not off this
 table, if the two ever disagree again:
 
 | signal | key | weight |
 |---|---|---|
-| hard-hit rate (Kasper `HH%`) | `_zhh` | `0.3655` |
-| launch angle via the `la_window` bell, `exp(-((la-25)/14)^2)` (Kasper `LA`) | `_zla` | `0.2834` |
-| **actual-vs-expected damage** — Kasper `ISO` ÷ `xwOBAcon` | `_zdmg` | `0.2818` |
-| opposing starter's SwStr%, **negated** (higher = more hittable), platoon split | `_zpsw` | `0.06` |
-| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.0093` |
+| **career HR per game** (StatsAPI, `cg >= MIN_CAREER_G` = 30) | `_zhrc` | `0.4489` |
+| hard-hit rate (Kasper `HH%`) | `_zhh` | `0.2086` |
+| launch angle via the `la_window` bell, `exp(-((la-25)/14)^2)` (Kasper `LA`) | `_zla` | `0.1313` |
+| **playing time** — games played this season (StatsAPI) | `_zpt` | `0.1051` |
+| opposing starter's SwStr%, **negated** (higher = more hittable), platoon split | `_zpsw` | `0.0664` |
+| **actual-vs-expected damage** — Kasper `ISO` ÷ `xwOBAcon` | `_zdmg` | `0.0309` |
+| pitch-arsenal matchup (batter RV/100 × pitcher pitch mix, raw) | `_zars` | `0.0088` |
 
-Weights sum to **exactly 1.0000**. `_zhh` / `_zla` / `_zars` still carry their
-**2026-08-13 fitted values** (grouped-by-game-date CV logistic on the 2015-2024
-Statcast table, 316,463 batter-games / 37,340 HR / 1,840 slates; 3-signal AUC 0.5773
-→ 5-signal 0.5962; repro `fit_savant.py`, Savant Fit run `31731827046`). `HH%` and
-`LA` were display-only chips until that refit and turned out to be the two strongest
-predictors in the whole table.
+Weights sum to **exactly 1.0000** and every one fitted **positive**.
+
+**All seven were fitted together** (`CAREERHR-2026-09-13`, refitted `ISOREAL-2026-09-13`)
+on the 2015-2024 Statcast table **in this basket's own feature space** — the exact columns
+this loop scores with, per-slate z, grouped-CV by slate, 315,937 usable rows / 11.80% HR /
+1,839 slates. So they transpose directly instead of being scaled by eye off a different
+feature set, which is what every earlier refit did. Lab 15 runs `34762337729` (career terms)
+and `34772500739` (real-ISO refit).
+
+**`_zhrc` is the story.** Career HR rate takes **45% of the basket on its own**, ahead of
+`_zhh` — who hits home runs beats how the ball comes off the bat — and it needs no Kasper,
+no Savant and no odds. Adding `_zhrc` + `_zpt` took the basket from AUC **0.5893 → 0.6225**,
+the largest single gain on record for this board. `_zdmg` and `_zla` fall hard (0.2818 →
+0.0309 and 0.2834 → 0.1313) because career rate absorbs most of what they were carrying.
+
+`_zhh` / `_zla` / `_zars` carried their **2026-08-13 fitted values** until this refit
+(3-signal AUC 0.5773 → 5-signal 0.5962; repro `fit_savant.py`, Savant Fit run
+`31731827046`). `HH%` and `LA` were display-only chips until that refit and turned out to
+be the two strongest predictors in the table — which held right up until career rate was
+tested against them.
+
+⚠️ **`_zhrc` and `_zpt` are 55.4% of the basket and they can go dark silently.**
+`fetch_career` fails soft by design, and a `None` signal scores at the slate mean, so a dead
+pull costs the basket weight and throws nothing. That is exactly what happened on
+2026-09-13: `CAREER` was keyed by StatsAPI's **int** `id` while every id in `build15.py`
+comes from Savant's `player_id` column as a **string**, so the lookup missed on all 419 bats
+and the other five terms silently renormalised to ~`.02/.47/.29/.07/.15` (`CAREERKEY-2026-09-13`).
+The build now prints `(career: N/M batters carry career HR rate)` every run and shouts if
+`N == 0`. **If that line reads 0, the board is not running this basket.**
 
 **`_zdmg` (`DMGRATIO-2026-08-23`) — owner's call, and it OVERRODE a measurement.**
+*(Weight since cut to `0.0309` by the fit above; the reasoning below is why the term exists
+at all, and still stands.)*
 `_zxwcon` (xwOBAcon) and `_zxpow` (park-neutral xISO) came **out** of the basket and
 were replaced by the single ratio `_zdmg = ISO / xwOBAcon`, which inherits their
 combined weight plus `_ziso`'s: `0.0245 + 0.1633 + 0.0940 = 0.2818`. Rationale: this
@@ -434,27 +461,50 @@ corrected there.)
   `a.filter(n => !pending(n))` — it excludes carried/resuming bats and nothing else. The pool
   gate (`Z_GATE`) is the only quality bar.
 
-Key knobs: `Z_GATE=0.75` (pool gate), `GAME_CAP=4`, `WIN=120`, `NIGHT_WIN=60`,
+Key knobs: `Z_GATE=0.75` (pool gate), `GATE_N=33`, `GAME_CAP=6`, `ANCH=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`,
 `LUNCH_CUT=17*60` (5:00 PM ET — widened from 16*60 on 2026-08-13; a 4:05 PM game is a matinee, and the
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
-`CHALK_N=4` is the chalk reservation in `index.html` — the four **shortest-priced** bats (2026-08-20; `strength` before that) are barred from every ticket;
-since 2026-08-14 they are no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`).
+`CHALK_N=0` in `index.html` — the chalk reservation is **off**: it used to bar the four
+**shortest-priced** bats (2026-08-20; `strength` before that) from every ticket, and since
+2026-08-14 they were no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`)
+either. With `CHALK_N=0` the fill loop never runs and no Chef's Table is built, so **no
+four-leg round robin is currently reachable on the board** — every live round robin is a
+three-leg moon.
 `assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Dingers section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
-**Edge weights: code and docs agree** (re-verified against `main` on 2026-08-24).
+**Edge weights: code and docs agree** (re-verified against `main` on 2026-09-13).
 `build15.py` `_SIG` is
-`_zars 0.0093 / _zhh 0.3655 / _zla 0.2834 / _zdmg 0.2818 / _zpsw 0.06` — sums to exactly
-1.0000. See the Scoring section above for what `_zdmg` is and why it replaced
-`_zxwcon`/`_zxpow`/`_ziso`. ⚠️ **This README carried the pre-`DMGRATIO` five-signal
-basket (`_zxpow .029 / _zxwcon .193 / _zars .011 / _zhh .432 / _zla .335`) for a day
-after the code moved** — corrected 2026-08-24. The 08-13 refit itself resolved an
+`_zhrc 0.4489 / _zhh 0.2086 / _zla 0.1313 / _zpt 0.1051 / _zpsw 0.0664 / _zdmg 0.0309 / _zars 0.0088`
+— seven terms, sums to exactly 1.0000. See the Scoring section above for how the career
+terms were fitted and why `_zdmg` fell so far. ⚠️ **This README has now been stale twice.**
+It carried the pre-`DMGRATIO` five-signal basket (`_zxpow .029 / _zxwcon .193 / _zars .011 /
+_zhh .432 / _zla .335`) for a day after the code moved — corrected 2026-08-24 — and then
+carried the `DMGRATIO` five-signal basket for the whole of `CAREERHR` and `ISOREAL`,
+corrected 2026-09-13. The lesson is written up in
+`claude/wrongbasket-correction-2026-09-13.md`: **read `_SIG` out of the running source, never
+off this table.** The 08-13 refit itself resolved an
 older three-way split: `.45/.35/.20` was live in the source, an
 `xISO .13 / xwOBAcon .50 / arsenal .37` refit was documented here but **never applied**,
 and `.346/.288/.366` lived only in `backtest_*.py`. `W_ARS=0.10` is a display term, unrelated. Market is a flat 0.5 of
 the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon round-robin
-`risk=2.0u`, salami round-robin `risk=5.5u` (singles/builders stake `1u`).
+`risk=2.0u`, salami/chef round-robin `risk=5.5u` (singles/builders stake `1u`).
+
+**Round robin = every combination from doubles up to the full parlay**, and `risk` is the
+TOTAL across them, so each combination carries `risk/n` (`RRSTAKE-2026-08-28`). At 3 legs
+that is 3 doubles + 1 treble = **4 bets at 0.50u**; at 4 legs it is 6 + 4 + 1 = **11 bets**.
+`gradeTicket()`, `rrmax()` and the chef max-profit block all enumerate the same `_CB` set
+including the full L-fold, so the bet COUNT is already right at every length.
+⚠️ **The per-bet UNIT is not.** `risk` is hard-coded per ticket kind (2.0 on a moon, 5.5 on a
+chef) instead of derived from leg count, so a four-leg moon would stake `2.0/11 = 0.18u` a
+bet rather than the **0.25u** the owner specified on 2026-09-13. `daily15.py` and `sim15.py`
+already carry the intended rule — `UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}`, with
+`risk = combos x unit` — and the client does not. It is **latent, not live**: with
+`CHALK_N=0` and `CHEF_TICKET=false` every round robin on the board is a three-leg moon, where
+4 x 0.50u = 2.0u is already correct. Fix the client before re-enabling any four-leg ticket,
+and change `grade_night.py` in the same pass or the archive and the grader will disagree
+about what was staked.
 
 ---
 
