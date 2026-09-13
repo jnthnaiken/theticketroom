@@ -508,13 +508,16 @@ def fetch_career(ids, yr):
                     continue
                 if nmt=='career' and g>0: cg=g; hrc=h/float(g)
                 elif nmt=='season': pt=g
-            out[pr.get('id')]={'hrc':hrc,'cg':cg,'pt':pt}
+            out[str(pr.get('id'))]={'hrc':hrc,'cg':cg,'pt':pt}   # CAREERKEY-2026-09-13: str(), and it is load-bearing. StatsAPI returns people[].id as an INT; every id in this file comes from Savant's player_id column, which _sv_f leaves as a STRING ('592450'). Keyed by the int, CAREER.get(_bt['id']) missed on EVERY batter -- 0 of 419 rows on 2026-09-13 carried _zhrc or _zpt, so 0.4489+0.1051 = 55.4% of the edge basket was None for the whole slate and the other five silently renormalised to ~.02/.47/.29/.07/.15. It never threw: fetch_career fails soft by design and a None signal scores at the slate mean, which is exactly what made it invisible. SAV_RECENT does not have this bug -- it keys off Savant's own `batter` column, also a string. Verified against the live API: people[].id 592450 (number), stats[].type.displayName 'career' / 'season', so the parse above was always right and only the key was wrong.
     return out
 
 
 SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo(); SAV_SPRAY=fetch_bat_spray(); SAV_RECENT=fetch_bat_recent([v['id'] for v in SAV_BAT.values() if v.get('id')]); SAV_ARS_BAT=fetch_arsenal('batter'); SAV_ARS_PIT=fetch_arsenal('pitcher')
 CAREER=fetch_career([v['id'] for v in SAV_BAT.values() if v.get('id')], DATE[:4])
 print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
+_cvr=sum(1 for v in CAREER.values() if v.get('hrc') is not None)
+print(f'  (career: {_cvr}/{len(SAV_BAT)} batters carry career HR rate)')
+if _cvr==0: print('  !! CAREERHR DEAD: _zhrc+_zpt are 55.4% of _SIG and NOTHING matched. Check the id key type (CAREERKEY-2026-09-13) before trusting this board.')
 _sp_ids=set()
 for _g in lin.get('games',[]):
     for _k in ('away_sp','home_sp'):
