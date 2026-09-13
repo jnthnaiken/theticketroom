@@ -1651,7 +1651,7 @@ drawTickets();drawPlayers();drawTracker();
 
   // ---------- the gate + snake draft, on the LIVE scores ----------
   function tsig(t){return t.kind+'|'+((t.players||[]).map(function(l){return l.name;})).slice().sort().join(',');}
-  function validT(t){var n=(t.players||[]).length; if(t.kind==='moon')return n>=3; if(t.kind==='biggest')return n>=4; return n>=1;}
+  function validT(t){var n=(t.players||[]).length; if(t.kind==='moon')return n>=MOON_LEGS; if(t.kind==='biggest')return n>=4; return n>=1;}   /* MOON4-2026-09-13 follow-up: this said n>=3 while MOON_LEGS went to 4, which left ONE door open for a short moon. validT guards the prior-revert, the lock map and the localStorage latch -- so a 3-leg moon minted before the change could be re-admitted as 'valid' by an engine that now refuses to ship anything under 4. The two repair loops already break rather than emit short; this was the only path that did not. `biggest` stays at 4 deliberately: no code mints one any more (removed 2026-08-14, and NOSALAMI-2026-09-13 took it out of the server fallback too), but archived salami boards still render and grade, and they are 4-leg. */
   var LOCK_KEY='hr_lock_'+((typeof D!=='undefined'&&D.meta&&D.meta.date)||'');
   function loadLock(){try{return JSON.parse(localStorage.getItem(LOCK_KEY))||[];}catch(e){return [];}}
   function saveLock(a){try{localStorage.setItem(LOCK_KEY,JSON.stringify(a));}catch(e){}}

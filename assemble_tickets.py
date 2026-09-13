@@ -408,8 +408,12 @@ def assemble(D):
     # anchors lead the board; a time-isolated anchor that can't fill is simply not chosen.
     def _draft(anchor_list):
         al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
-        _sal_anchor = al[-1] if len(al) >= 4 else None                  # weakest = the salami anchor
-        pool_av = [n for n in byS(nonchalk) if (n not in al or n == _sal_anchor) and not pend(n)]  # keep the salami anchor AS a leg candidate too (moons get first pick; the salami builds from true leftovers, and only if its anchor wasn't drafted into a moon)
+        # NOSALAMI-2026-09-13: the Grand Salami was removed from the LIVE engine on 2026-08-14 but survived
+        # here, in the fallback drafter regen15.py reaches for when Node or the client engine is unavailable.
+        # That is the same class of divergence CHALKUNBAN-2026-09-04 closed for chalk: a rare path that, when it
+        # does fire, publishes a ticket kind the board retired a month ago. slateday_fix.py's own docstring
+        # recorded it happening. All four anchors now lead moons here exactly as they do in index.html.
+        pool_av = [n for n in byS(nonchalk) if n not in al and not pend(n)]
         def _fitpool(a):                                                # STRENGTH of the 3 legs this anchor can fill a 4-leg salami with (span-aware)
             reach, seen, legs, times = byS([n for n in pool_av if P[n]['game'] != P[a]['game'] and abs(tmin(n) - tmin(a)) <= WIN]), set(), [], [tmin(a)]
             for n in reach:
@@ -422,8 +426,7 @@ def assemble(D):
                 if len(legs) == MOON_LEGS:
                     break
             return sum(strength(n) for n in legs) if len(legs) == MOON_LEGS else -1e9
-        sidx = len(al) - 1 if len(al) >= 4 else None                            # README: salami rides the WEAKEST (4th) anchor -> demote loop drops it first
-        mids = [i for i in range(len(al)) if i != sidx]
+        mids = list(range(len(al)))            # NOSALAMI-2026-09-13: every anchor leads moons; none is reserved
         pls = []
         for i in mids:                                                  # two moons per non-salami anchor
             for _ in range(MOONS_PER_ANC):
@@ -493,42 +496,8 @@ def assemble(D):
                 t['legs'] = [t['legs'][0]]; t['games'] = {P[t['legs'][0]]['game']}
             pool_av[:] = byS(pool_av)
             _fill_round()
-        # MOONS WIN, SALAMI IS LEFTOVER: with every kept moon full, build the salami on the weakest
-        # anchor (al[sidx]) from the legs the moons left behind. If it can't reach 4 legs, it doesn't ship.
-        # SALAMI = leftover, seed-based (mirrors index.html): anchor on the strongest available leftover -- not
-        # only al[sidx] -- so a salami still ships when the weakest anchor got absorbed into a moon. Seed-based
-        # (not greedy) so a time-isolated strongest leftover can't strand the slip. Ships only as a full 4-leg set.
-        _salpool = [n for n in byS(pool_av) if not pend(n)]
-        def _try_sal(seed):
-            legs = [seed]; games = {P[seed]['game']}; times = [tmin(seed)]
-            for n in _salpool:
-                if n == seed or P[n]['game'] in games:
-                    continue
-                t2 = times + [tmin(n)]
-                if max(t2) - min(t2) > WIN:
-                    continue
-                legs.append(n); games.add(P[n]['game']); times.append(tmin(n))
-                if len(legs) >= 4:
-                    return legs
-            return None
-        _seeds = ([al[sidx]] if (sidx is not None and al[sidx] in pool_av) else []) + _salpool
-        _sallegs = None
-        for _s in _seeds:
-            _sallegs = _try_sal(_s)
-            if _sallegs:
-                break
-        if _sallegs:
-            # 2026-08-13: the anchor is the STRONGEST leg, full stop. An earlier pass today slid the label to the
-            # strongest leg in a game no moon had anchored -- that made the slip's weaker bat its anchor (and the
-            # anchor seat is what earns the mirrored builder single). Role rank must be monotone in strength within
-            # a slip. One-anchor-per-game is a MOON rule: an anchor's exposure is its pair of moons plus a builder,
-            # while the salami is a single slip whose legs already share games with the moons. See index.html.
-            _sallegs.sort(key=lambda n: -strength(n))
-            for _n in _sallegs:
-                if _n in pool_av: pool_av.remove(_n)
-            pls.append({'rank': sidx if sidx is not None else (len(al) - 1), 'kind': 'biggest', 'badge': "\U0001f96a",
-                        'rr': {"struct": rr_struct(len(_sallegs)), "risk": rr_risk(len(_sallegs))},
-                        'legs': _sallegs, 'need': 3, 'games': {P[_n]['game'] for _n in _sallegs}})
+        # NOSALAMI-2026-09-13: the leftover-salami construction that stood here is gone -- see the note
+        # at the top of _draft(). Leftover bats now fall through to builders, as they do in index.html.
         miss = 0
         return al, pls, miss
 
@@ -543,15 +512,17 @@ def assemble(D):
             for ic in range(ib + 1, N):
                 for idd in range(ic + 1, N):
                     al, pls, miss = _draft([cand_anchors[ia], cand_anchors[ib], cand_anchors[ic], cand_anchors[idd]])
-                    sal_ok = any(t['kind'] == 'biggest' and (len(t['legs']) - 1) >= t['need'] for t in pls)
                     n_moons = sum(1 for t in pls if t['kind'] == 'moon')
                     # 2026-08-13: score the anchors that SURVIVE the demote loop, not the four we nominally picked --
                     # otherwise a set scores high on paper while most of its strength never reaches the board.
                     _surv = {t['legs'][0] for t in pls if t.get('legs')}
                     tot = round(sum(strength(a) for a in _surv), 4)
                     cur = _byNM.get(n_moons)
-                    if cur is None or tot > cur[0] or (tot == cur[0] and (1 if sal_ok else 0) > cur[1]):
-                        _byNM[n_moons] = (tot, 1 if sal_ok else 0, al, pls)
+                    # NOSALAMI-2026-09-13: the tiebreak used to prefer a set that also shipped a salami.
+                    # With no salami to ship, moon count then combined strength is the whole ranking --
+                    # which is what index.html's searchBest does.
+                    if cur is None or tot > cur[0]:
+                        _byNM[n_moons] = (tot, 0, al, pls)
     if _byNM:
         _mx = max(_byNM)
         _pick = max((k for k in _byNM if k >= _mx - MOON_SLACK), key=lambda k: (_byNM[k][0], k))
@@ -574,9 +545,6 @@ def assemble(D):
         _nm[id(t)] = name_for("moon")
     for t in _moons:                                        # emit moons first (display order), canonical name
         add(_nm[id(t)], "moon", t['badge'], t['legs'], rr=t['rr'])
-    for t in parlays:                                       # then the salami
-        if t['kind'] == 'biggest':
-            add(name_for("biggest"), "biggest", t['badge'], t['legs'], rr=t['rr'])
 
     # lunch special + nightcap = the highest-ranked (by model) bat NOT already on a parlay, in each window
     _pused  = {l for t in parlays for l in t.get('legs', [])}   # parlay legs are name strings at this stage, not dicts

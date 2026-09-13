@@ -30,8 +30,12 @@ To pin a specific slate (e.g. rebuilding after midnight so the date can't drift)
 SLATE_DATE=2026-06-29 python build15.py && python regen15.py
 ```
 
-On GitHub the Action `pull-slate.yml` runs the whole pipeline (grade → build →
-assemble → calibrate-backfill) and commits the rebuilt `index.html`. Then open
+On GitHub the Action `pull-slate.yml` runs the whole pipeline and commits the rebuilt
+`index.html`. The real order is **grade → calibrate-backfill → fetch_mlb → fetch_odds →
+build15 → savant_gate → regen15**. Two of those are easy to miss: `fetch_odds.py --auto`
+refreshes prices on **every** build (so the hand-committed odds file is only a morning seed),
+and **`savant_gate.py` can discard the board outright** if the Savant pull came back thin —
+see HANDOFF for `MIN_BASE`. Then open
 `index.html` — it runs live on its own from there, no server needed.
 
 **Frozen boards:** the Action's verify step checks the slate's game states. When
@@ -55,9 +59,11 @@ day's `cards_<date>.json`).
 | `hr9_<date>.json` | opposing-pitcher HR/9 — legacy/optional (live HR/9 is fetched at build time) |
 
 **`cards`, `lineups`, and `odds` are REQUIRED; `kasper_extras` and `pitchers` are
-optional (though `pitchers` is now built every slate for all ~30 starters).** All five are **manual inputs you commit** — `cards`/`extras`/`pitchers`
-from the Kasper matchup pages, `odds` from VegasInsider HR props, `lineups` from
-RotoWire. `fetch_mlb.py` (in the Action) does **not** generate `lineups_<date>.json`;
+optional (though `pitchers` is now built every slate for all ~30 starters).** `cards`/`extras`/`pitchers` come from the Kasper matchup pages and `lineups` from
+RotoWire; both are **manual inputs you commit**. `odds` is a **seed, not the source of
+record** — `fetch_odds.py --auto` runs before `build15.py` on every build and merges fresh
+VegasInsider prices in (it never replaces the file wholesale), so hand-scraping prices
+mid-afternoon just gets overwritten five minutes later. `fetch_mlb.py` (in the Action) does **not** generate `lineups_<date>.json`;
 it only writes `slate_auto` (weather + HR/9).
 
 ⚠️ **A missing required file falls back to the PRIOR day and breaks the build** — e.g. a
@@ -122,12 +128,18 @@ lineup's wind/temp and a neutral pitcher term.
 - **`assemble_tickets.py`** — ⚠️ **NOT the rules engine and not a mirror of one.** It runs only
   when `client_assemble.js` is missing or node exits non-zero. Audited 2026-08-16 and it is two
   board redesigns behind:
-  - **no Dingers** and **no chef** — its ticket-name pools are `biggest / builder / late /
-    lunch / moon`, and the only `kind` literals it emits are `'moon'` and `'biggest'`;
-  - **it still builds a Grand Salami** (`kind: 'biggest'`), a section retired 2026-08-14 and
-    backed out of the ledger;
+  - **no Dingers and no chef** — both retired, neither reachable here either;
+  - **no Grand Salami** as of `NOSALAMI-2026-09-13`. It built one until then, which was a real
+    divergence: the live engine dropped the salami on 2026-08-14, this file kept minting them,
+    and `regen15.py` reaches for this file whenever Node or the client engine is unavailable —
+    so the rare fallback published a kind the board had retired a month earlier. All four
+    anchors now lead moons here exactly as they do in `index.html`, and a smoke run against
+    `D_2026-09-13.json` returns the identical shape: 8 four-leg moons, 4 builders, lunch,
+    nightcap;
   - **no prior-board lock of any kind** — `_now_min_et` / `_locked_prior` / `_locked_bats` /
-    `_keep_fresh` are all absent, as is the `chalk=set()` line older revisions cite.
+    `_keep_fresh` are all absent. (It *does* still carry `chalk = set()`, line 174 — that is
+    deliberate, and it is the divergence `CHALKUNBAN-2026-09-04` closed by taking the live
+    `CHALK_N` to 0.)
 
   So a fallback does not ship "the same board with weaker semantics". It ships a board with the
   Dingers missing, a retired salami restored, and every ticket re-drafted from scratch
@@ -138,8 +150,7 @@ lineup's wind/temp and a neutral pitcher term.
   model input (power, zone, form, pitcher term, park, weather, **slot, platoon,
   market**), the full Kasper `k_*` extras, opposing-pitcher `p_*` allowed contact,
   and did-he-homer. Self-healing idempotent `backfill()` runs every build.
-- **`cardnotes.py`** — per-card prose write-ups. `build15_legacy.py` — old scorer,
-  retained only as an offline fallback.
+- **`cardnotes.py`** — per-card prose write-ups.
 
 ---
 
@@ -274,9 +285,10 @@ score and `wxMult(wf) = clamp(1 + K·(wf−1), 1−CAP, 1+CAP)` (`K=1.0`, `CAP=0
 max). `wf` is the Open-Meteo park factor (wind + temp + elevation). The server
 (`build15.py`) and the client (`index.html`) compute `wxMult` identically, and the
 client re-scores `TOTAL` from `baseTotal · wxMult(live wf)` on every ~6-min refresh
-before re-drafting, so the draft reacts to weather as Open-Meteo updates. The pool
-**gate** stays on the weather-free `blend` — weather moves the draft (ordering/roles),
-not pool membership. Opposing-pitcher HR/9 remains a display chip only.
+before re-drafting, so the draft reacts to weather as Open-Meteo updates. The pool **gate is on
+`TOTAL`, weather included** (`index.html`, 2026-08-18): weather moves pool membership too.
+It used to sit on the weather-free `blend` on the argument that weather should only reorder
+— that was abandoned when Freddie Freeman missed the pool at Coors on a boost night. Opposing-pitcher HR/9 remains a display chip only.
 
 ### Card display
 
@@ -303,13 +315,14 @@ corrected there.)
 - **Rain bands** — `<40%` full eligibility (can anchor); **`40–49%` barred from
   anchoring** but still usable as a parlay leg or builder single; `50–69%` builder
   single only (no parlay legs); `70%+` out of the pool entirely.
-- **Pool gate** — z-THRESHOLD on the blended score: keep every eligible bat whose
-  `blend` z-score is **`>= Z_GATE` (0.75) SDs above the slate mean**
+- **Pool gate** — z-THRESHOLD on **`TOTAL`** (weather included): keep every eligible bat whose
+  `TOTAL` z-score is **`>= Z_GATE` (0.75) SDs above the slate mean**
   (`index.html`; `assemble_tickets.py` has its own copy but never runs). Scale/slate-independent
   — survives any weight change.
-  Then trim to **at most 4 per GAME** (best by model, both teams combined — per-team
-  would allow 6/game). No fixed size, no backfill. (`FLOOR=130` and the fixed-40 rank
-  cut are dead fallbacks, used only if a board is missing `blend`.) The 4-per-game cap
+  Then trim to **at most `GAME_CAP` = 6 per GAME** (best by model, both teams combined).
+  No fixed size, no backfill. (`FLOOR=130` on the server and `FLOOR=41`/`GATE_N=33` on the
+  client are **dead constants** — declared and read nowhere. `Z_GATE` is the only gate.)
+  The per-game cap
   (raised from 3 on 2026-07-04) adds z-gate-passing depth so a scratched parlay leg can
   refill *in-gate* instead of starving the slip; one bat/game per **ticket** still holds,
   so no single ticket over-concentrates on one game.
@@ -318,87 +331,30 @@ corrected there.)
   builder — while leaving the undrafted count essentially flat (26 → 24). A literal
   3-per-TEAM cap (≤6/game, looser than today) gives pool 32 and 25. The cap moves both ends
   of the board together: tighten the pool and the tickets cannot reach as deep, so the floor
-  rises with the ceiling. `GAME_CAP` stays at **4**.
-- **Chalk — reserved and barred, but no longer bundled into a ticket (2026-08-14).**
-  The **`CHALK_N` (4) SHORTEST-PRICED bats** are still reserved by
-  `index.html` and still barred from moons, salami and builders.
-  ⚠️ **The key changed 2026-08-20 (owner's call): shortest odds, not `strength`.** It was
-  normalised TOTAL from 2026-08-08 to 2026-08-20, which meant the "ban the top 4" was banning
-  the four bats the *model* liked, not the four the *market* liked — on 2026-08-18 that put
-  Joshua Báez (+408) and Tyler O'Neill (+388) in a set whose whole purpose is to hold back
-  favourites, and 70% of that day's ban-seats went to a bat outside the four shortest prices.
-  The 2026-08-08 objection (ranking chalk on odds double-counts the market, which is already
-  inside TOTAL via `blend`) applies to a DRAFT key and not to a ban: barring the four shortest
-  prices is a statement about the market, not an attempt to out-predict it. `strength()` and
-  `byS` are untouched, so anchor order and the tierOf/confOf colours are unchanged. Unpriced
-  bats are not eligible (a null price is unknown, not short); ties break to the higher TOTAL.
-  The **one-per-game** constraint and the ≥40% rain skip stay behind `CHEF_TICKET`
-  (CHALKBAN-2026-08-18) — with the slip retired, chalk is simply the top `CHALK_N`. What changed is that they
-  are no longer packaged as the **Chef's Table** round robin: `var CHEF_TICKET=false` gates
-  the emission. The slip was a 13-night test (08-01…08-13) that went **2-11 for −49.72u on
-  71.5 staked**, and those nights have been backed out of the ledger — see *Ledger* below.
-  Seat mechanics are untouched and still run, because they are what decides who is barred:
-  seats lock **per-leg** at their own first pitch, a sitting seat only changes hands if a
-  challenger beats it by `CHEF_HYST` (0.02) of normalised strength, and a bat already on a
-  **placed** (frozen or clock-locked) parlay is **not chalk-eligible** — a placed bet is a
-  fact and the seat is still open, so the open one moves (2026-08-13).
-  The slip is gone from the board entirely: a chef ticket on a prior board is **dropped, not
-  carried**, and no Chef's Table section renders any more. (The first cut of this change kept
-  locked chef slips on the board; that was wrong and was corrected the same day — a retired
-  ticket must not keep appearing.) Flip `CHEF_TICKET` to bring it back.
-  `assemble_tickets.py` never built one and needs no change.
-  Lunch special and nightcap take the highest-model **non-chalk** bat not already on a parlay in
-  their time windows, `<= +600`.
-- **Dingers — a ticket kind (2026-08-14, renamed from Family Meal 2026-08-18).** Occupies the slot the Chef's Table used to
-  hold. A bat is on it when it (a) cleared the pool gate, (b) was not reserved as chalk,
-  (c) landed on no slip, and (d) **scored higher than the weakest bat the board actually
-  drafted** — then the list is capped at **`FAM_CAP` (8)** by `TOTAL`.
-  **It is a ticket like any other**: the slips are built into `out` (just before the
-  wxsum/note pass), so they land in `D.tickets`, carry a `cwNote()` description, are priced by
-  `priceTicket`, obey the lock/carry doctrine, and are **folded into `season.json` by
-  `grade_night.py`** at 1u a slip like a builder single. One card per bat, rendered through the
-  same `sec()` + `ticketCard()` path as the Anchors section, with its own **Dingers row in
-  the season tracker**. `D.familyFloor` records the weakest drafted `TOTAL` for auditability.
-  Two build details matter: family bats are **excluded from the drafted set that sets the
-  floor** (otherwise the section raises its own bar on every pass), and a bat already on a
-  **carried locked** family slip is skipped so the carry is never duplicated.
-  `assemble_tickets.py` does not build them — it is a non-mirroring emergency fallback, same as
-  it was for the chef ticket.
-  **Renders LAST (2026-08-14, owner's call).** One ordering, three places that must agree:
-  page sections in `drawTickets()`, the tracker `defs` array, and the View chip row —
-  Lunch Special → Nightcap → Anchors → Moonshots → (Grand Salami, only if a real one exists) →
-  Dingers.
-  **Real titles, from its own `NAMES.family` pool (42 names).** The first cut used `name:n`, the
-  bat's own name, which had two consequences. The cards had no titles while every other kind drew
-  from a themed pool; and in the plan walk `family` fell through to the generic
-  `cand=ge75(byS(nonchalk))` refill, which keeps the prior ticket object — name and all — while
-  re-drafting its one leg, so four of eight cards on the 2:31pm board announced a player who was
-  not on them. A family slip is **derived**, exactly like an anchor single, so it now returns
-  early from the plan walk alongside `builder` and is rebuilt from the live pool every build.
-  `liveTickets()` already paired the two kinds; the draft now agrees.
-  Titles bind to the bat the way `mkBuilder` does — a bat that had a family slip on the prior
-  board keeps its title — with one guard: **only ever inherit a name that is in the pool**, since
-  every pre-fix slip was named after a bat and would otherwise carry that forward forever.
-  The pool is **ballpark slang** (`DINGERS-2026-08-18` — it replaced a back-of-house kitchen pool
-  that went with the old *Family Meal* name): Gone Yard, Yard Work, Left the Yard, Big Fly,
-  The Jack, Taters, Solo Shot, Curtain Call, The Slow Trot, See Ya, Kiss It Goodbye, Long Gone,
-  Squared Up, On the Screws, Hung Slider, Left It Over the Plate, Middle-Middle, The Meatball,
-  Cheap Seats, Second Deck, Bleacher Bound, Pull Side, Light the Fireworks, One Swing …
-  **No title may echo its own section, and none may collide with another pool** — the moon pool is
-  space-themed but already owns *No Doubter*, *Tape Measure Job*, *The Long Bomb*,
-  *Goodbye Baseball* and *Touch 'Em All*, so the dinger list stays in ballpark-slang register.
-  The section header sits directly above the card.
-  The rename is **display only** — title, emoji and title pool. `kind` is still `'family'`, which is
-  why `season.json` history, `cats`, grading and every archived board still reconcile, and why
-  `FAM_CAP` and `D.familyFloor` keep their names. Do not rename the kind.
-  Clause (d) is the point: without it the section is just "everyone who missed", which runs
-  ~20 a night and says nothing. Cold-drafted over the 37 stored nights it lands at
-  **0–8, median 6, mean 5.3**. The two looser readings were measured and rejected — the rank
-  window from #1 chalk to the last drafted bat gives **22** on 2026-08-13, and gated-pool-minus-drafted
-  gives **median 20 / max 28** across the sample (it reads as 11 on 08-13 only because that
-  slate gated unusually thin at 29). Expect it to occasionally lead with a name that looks
-  like it obviously should have been drafted: on 08-13 that is Kyle Schwarber at `TOTAL`
-  193.6, the top bat on the slate, whose game sat at 40% rain — which bars anchoring.
+  rises with the ceiling. That test was run at 3-vs-4; the cap was subsequently **raised to 6**
+  (owner, 2026-08-18) and `index.html` keeps two copies that must agree — `GAME_CAP` itself and
+  the `_TC[t]>=6` gate inside `nonchalk`. The span-fill fallback is still on **4**, so "the same
+  cap everywhere" is not true and never quite was.
+- **Chalk and the Chef's Table — both OFF, and the code is inert.**
+  `CHALK_N = 0` since `CHALKUNBAN-2026-09-04` and `CHEF_TICKET = false` since 2026-08-14.
+  With `CHALK_N` at zero the fill loop never iterates, so `chalk` is provably always `{}` and
+  every `!chalk[n]` test on the board is a no-op: **nothing is reserved and nothing is barred.**
+  Roughly 250 lines in `index.html` still describe the ban (price key, one-per-game, `CHEF_HYST`
+  hysteresis, `CHALKOFF`/`CHALKLOCK`/`LOCKEVICT`, the localStorage eviction latch) and none of it
+  can fire. The Chef's Table adds ~115 more; `CHEF_TICKET` is a `var` inside a closure, so it is
+  not reachable from `window` and there is no way to switch it back on at runtime.
+  ⚠️ **Two things inside that dead region are load-bearing — do not delete the block wholesale:**
+  `nonchalk` (misleading name) is the draft pool itself, and `HYST_TOTAL` sits between two dead
+  chef IIFEs while being read by the live **anchor-overtake deadband**.
+  Lunch special and nightcap take the highest-model bat not already on a parlay in their time
+  windows, `<= +600` — that part is live, and it never depended on chalk.
+
+- **Dingers / Family Meal — RETIRED 2026-08-25, and unreachable.** `DINGERS = false`; the whole
+  mint block returns on its first statement. It ran 11-80 for **−33.34u** and was backed out of
+  the ledger, so there is no `family` row in `season.json` and no Dingers row in the tracker.
+  ⚠️ `FAM_CAP = 8` is **not a knob** — it is declared *inside* the block, after the early return,
+  so changing it does nothing. Only the render path survives, for archived boards that carry one.
+
 - **Anchors** — 4 total, and since 2026-08-14 **all four lead moons** (8 moons a night); no seat
   is reserved any more, the salami having been removed. The strongest *fittable*
   bats by model `TOTAL`. **UP TO `ANCH_PER_GAME` (2) ANCHORS PER GAME** (2026-08-13, owner decision;
@@ -408,42 +364,25 @@ corrected there.)
   `GAME_CAP` still bounds pool bats per game. **The candidate list is built in ROUNDS** — every game's
   best bat first, then every game's second — because a flat top-20 by strength fills up with *pairs*
   from time-isolated games, every 4-set then starves, and the board collapses (14 → 8 with 2 moons when
-  this was first tried). The 4 are chosen to maximize clean moons → salami → combined strength, subject
-  to `MOON_SLACK`.
-- **Moons** — **2 per anchor** across 3 anchors = up to **6** moons. Each = an
-  anchor + 2 longshots in distinct games, leg span ≤ `WIN` (120 min). An anchor
-  ships both its moons or none; on a thin slate the **weakest anchor** demotes
-  rather than ship a lopsided board.
-- **Salami** ("biggest") — **REMOVED 2026-08-14.** Not gated; the code is deleted. It was the worst line
-  on the ledger: **−100.2u on 192.5 staked (−52.1%) over 35 real slips**.
-  **THE BOARD NOW RUNS 8 MOONS.** `sidx`, `wantSalami` and `_sal` are gone, so **nothing is
-  reserved**: every anchor leads its own pair of moons, and the bats the salami used to take are
-  ordinary members of the draft pool. Builders stay at **4**.
-  A flag-gated version shipped first and was rejected by the owner, correctly: gating only the
-  build left `sidx` reserving the weakest anchor — excluding that bat from moon-anchoring and
-  from the partner pool — and then threw away the ticket it was reserved for. Reserve-then-delete
-  is the worst of both.
-  **Four construction paths were removed**, plus the plan-walk refill, the `kind==='biggest'`
-  candidate branch and both emit hooks: `draftF`'s build, `searchBest`'s salami tiebreak (`sOk`),
-  the fresh-draft leftover build, and — the one that hides — the **client-side SALVAGE/REBUILD
-  pass**, which reconstructs the slip from leftovers even when the draft never made one.
-  The section and view chip are gone; `noSalami` is deleted.
-  **Kept:** everything that RENDERS or GRADES an existing salami, so a prior board carrying one
-  keeps it and an archived board still shows what it shipped. Only new ones are impossible.
-  **Removed from the ledger too, later the same day (owner's call).** The first cut kept the
-  `biggest` row and its `season.json` history on the reasoning that those were real bets, unlike
-  the chef test — the owner overruled it and had the line taken out. All 35 slips were unwound by
-  re-grading the archived boards with `grade_night.grade_ticket`, not by subtracting the category
-  total, and `cats`/`history` reconcile: **+196.09u → +296.29u**, 192.5u of stake off the book.
-  Measured cost of 8 moons vs the old 6-moons-plus-salami board: **−10.5u/night** over 37
-  graded cold drafts (t = −1.36, inside noise). The rules below describe how the slip worked.
-  **MOONS WIN, THE SALAMI IS LEFTOVER.** The moons fill first and the
-  all-or-none demote loop settles; the salami is then built from what they left behind, seed-based
-  (try each candidate as a start seed, strongest first, and complete it to 4 distinct games inside
-  one `WIN`). It ships **only as a full 4-leg set** — never a stub — and its **anchor is its
-  strongest leg**, always: role rank must be monotone in strength *within* a slip, because the
-  anchor seat is what earns the mirrored builder single (2026-08-13). If no 4-game in-window set
-  exists among the leftovers, no salami ships.
+  this was first tried). The 4 are chosen to maximize clean moons, then combined strength, subject
+  to `MOON_SLACK`. (The salami tiebreak that used to sit between those two went with the salami.)
+- **Moons** — **2 per anchor across all 4 anchors = 8 moons.** Each is an anchor + **3** partners
+  (`MOON_LEGS = 4`, `MOON4-2026-09-13`) in four distinct games, leg span ≤ `WIN` (120 min),
+  staked as an 11-bet round robin at 0.25u = **2.75u** (see *Round robins* below). An anchor ships
+  both its moons or none; on a thin slate the weakest anchor demotes rather than ship a lopsided
+  board, and both repair passes break rather than emit a short moon.
+- **Salami ("biggest") — REMOVED 2026-08-14. Deleted, not gated.** It was the worst line on the
+  ledger: **−100.2u on 192.5 staked (−52.1%) over 35 real slips**, all of which were unwound from
+  `season.json` by re-grading the archived boards. Nothing reserves an anchor for it any more.
+  Two things are worth keeping from the removal, because a partial attempt failed once:
+  **(1)** it had **four** construction paths, and the one that hides is the **client-side
+  SALVAGE/REBUILD pass**, which rebuilt the slip from leftovers even when the draft never made one.
+  **(2)** flag-gating only the build is the worst of both worlds — `sidx` went on reserving the
+  weakest anchor for a ticket that was then thrown away.
+  `assemble_tickets.py`, the fallback drafter, kept minting salamis until `NOSALAMI-2026-09-13`.
+  **Kept deliberately:** everything that renders or grades an *existing* salami, so archived boards
+  still show and settle what they shipped. Only new ones are impossible.
+
 - **Builders** (our straight singles) — the **parlay anchors only**, emitted as singles (no odds
   cap), in **both** engines. The conviction **"snubs"** (unused strong bats) were removed from the
   server on 2026-07-09 (over the ledger window snubs graded **−57u** vs anchors **+9u**). The
@@ -461,7 +400,7 @@ corrected there.)
   `a.filter(n => !pending(n))` — it excludes carried/resuming bats and nothing else. The pool
   gate (`Z_GATE`) is the only quality bar.
 
-Key knobs: `Z_GATE=0.75` (pool gate), `GATE_N=33`, `GAME_CAP=6`, `ANCH=4`, `MOON_LEGS=4`, `WIN=120`, `NIGHT_WIN=60`,
+Key knobs: `Z_GATE=0.75` (the pool gate), `GAME_CAP=6`, `MOON_LEGS=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`,
 `LUNCH_CUT=17*60` (5:00 PM ET — widened from 16*60 on 2026-08-13; a 4:05 PM game is a matinee, and the
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
@@ -470,7 +409,7 @@ old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, 
 2026-08-14 they were no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`)
 either. With `CHALK_N=0` the fill loop never runs and no Chef's Table is built, so every
 round robin on the board is a **four-leg moon** (`MOON_LEGS=4`, `MOON4-2026-09-13`).
-`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Dingers section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
+`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
 **Edge weights: code and docs agree** (re-verified against `main` on 2026-09-13).
@@ -487,8 +426,9 @@ off this table.** The 08-13 refit itself resolved an
 older three-way split: `.45/.35/.20` was live in the source, an
 `xISO .13 / xwOBAcon .50 / arsenal .37` refit was documented here but **never applied**,
 and `.346/.288/.366` lived only in `backtest_*.py`. `W_ARS=0.10` is a display term, unrelated. Market is a flat 0.5 of
-the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon round-robin
-`risk=2.0u`, salami/chef round-robin `risk=5.5u` (singles/builders stake `1u`).
+the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: a moon is an 11-bet round robin at 0.25u
+a bet = **2.75u** (derived, never hard-coded — see *Round robins* below); singles and builders
+stake `1u`. The 5.5u salami/chef stake survives only on archived tickets.
 
 ### Round robins (`RRUNIT-2026-09-13`)
 
@@ -569,8 +509,8 @@ Behavior that's load-bearing:
   `gamePk` order does **not** track game order — game 1 can have the higher pk; use
   `gameNumber`. The nightly grader reads every game's play-by-play by name, so the ledger
   counts a DH HR regardless; the fix is about the live board.
-- **Top-4 per GAME holds everywhere** — the pool and the span-fill fallback, so a
-  game can never put a 5th bat on the regular board (chalk in lunch/nightcap exempt).
+- **The per-game cap is 6 in the pool, 4 in the span-fill fallback.** They disagree by design
+  now rather than by accident; don't "fix" one to match the other without re-testing depth.
 - **Builders = parlay anchors only**, on **both** engines. Conviction snubs were removed from the
   server on 2026-07-09 (over the ledger window snubs graded **−57u** vs anchors **+9u**) and the
   client's snub arm is gone too — its header comment and the `lf`/`usedN`/`lnp` variables survive but
@@ -618,43 +558,43 @@ Behavior that's load-bearing:
 
 ## Ledger (season.json)
 
-`season.json` is the source of truth for the running tracker; `grade_night.py` is
-the only thing that writes its history. Current epoch is **since 2026-06-30**
-(running **+277.98u through 2026-08-15** on 721.0u risked — 479 graded, 86 won, 18% hit,
-+39% ROI), rolling forward each morning as the prior night settles. Five categories, and the
-card lists them in board order:
+`season.json` is the source of truth for the running tracker; `grade_night.py` is the only
+thing that writes its history. Current epoch is **since 2026-06-30**, rolling forward each
+morning as the prior night settles.
+
+**Through 2026-09-12: +444.89u on 1,265.0u staked — 819 graded, 145 won (17.7%), +35.2% ROI.**
+
+**Four categories**, in board order (these are also the `defs` rows in the tracker):
 
 | | record | units | staked |
 |---|---|---|---|
-| 🍱 Lunch | 6–22 | +2.21 | 28 |
-| 🌃 Nightcap | 9–27 | +3.78 | 36 |
-| ⚓️ Anchors | 36–114 | −18.05 | 150 |
-| 🚀 Moonshots | 32–210 | +296.42 | 484.0 |
-| 💣 Dingers | 3–20 | −6.38 | 23.0 |
+| 🍱 Lunch | 9–41 | −4.34 | 50 |
+| 🌃 Nightcap | 15–50 | +3.55 | 65 |
+| ⚓️ Anchors | 63–195 | −14.05 | 258 |
+| 🚀 Moonshots | 58–388 | +459.73 | 892.0 |
 
-`history` has 42 points against 41 graded nights at or after `since` — the extra is the leading
-0 baseline. (`graded_nights` holds 70 entries because it is the full dedupe log back to 06-01,
-not the ledger window.) There is no `biggest` line any more: see the salami note above.
+`history` holds 70 points; `graded_nights` holds 98, because it is the full dedupe log back to
+06-01, not the ledger window. Numbers above are read straight out of `season.json` — **regenerate
+them rather than hand-editing this table**, which is how it came to be four weeks stale.
 
-> **Chef backed out, 2026-08-14.** The `chef` category was removed and its 13 nights
-> (08-01…08-13, `graded 13 / won 2 / −49.72u on 71.5 staked`) were unwound from the curve,
-> taking the season from **+148.74u to +198.46u**. This was a real rebuild, not a
-> subtraction of the category total: all 13 slips were re-graded from the archived boards
-> with `grade_night.grade_ticket`, the 12 nights with stored boxscore outcomes reproduced
-> the recorded **−44.22u / 66.0 staked / 2 wins exactly**, so 08-13 is the arithmetic
-> remainder (**−5.50u, 5.5 staked, 0 wins** — a figure that independently matches that
-> board's `rr.risk` of 5.5). Each night's chef net was then subtracted from the cumulative
-> curve **from that night forward**, so `cats` and `history` still reconcile at 198.46.
-> Chef won exactly twice: 08-05 (+5.06u) and 08-09 (+5.72u). Per-category units, win counts, and the history curve are baked into
-the board as `D.meta.season`.
+Three categories have been **backed out** of the ledger, each by re-grading the archived boards
+with `grade_night.grade_ticket` rather than subtracting a category total:
 
-> ⚠️ **The board's big "+Nu" season number is the SUM of the `defs` category `units`
-> (now `lunch/late/builder/moon/family`, in that order), not `history[-1]`.** `history` only
-> feeds the sparkline. A category absent from `defs` — `biggest` and `chef` both are — is
-> invisible to the total even if `season.json` still holds it. To correct the displayed total, edit the category `units` and add the
-> same delta to `history[-1]` to keep the curve consistent.
+| category | record | removed | when |
+|---|---|---|---|
+| `chef` (Chef's Table) | 2–11, −49.72u on 71.5 | 2026-08-14 | never returned |
+| `biggest` (Grand Salami) | −100.2u on 192.5 (35 slips) | 2026-08-14 | code deleted |
+| `family` (Dingers) | 11–80, −33.34u | 2026-08-25 | code retired |
 
-> **Reality check.** Backtesting on the calibration data shows the model does **not**
-> out-predict the HR-prop market (AUC ≈ 0.58 vs the market's ≈ 0.61). Builder singles
-> bleed and the salami round-robin is unproven; moons are roughly break-even and the
-> most plausible — but not proven — place for an edge. Treat th
+> ⚠️ **The board's big "+Nu" season number is the SUM of the `defs` category `units`, not
+> `history[-1]`.** `history` only feeds the sparkline. A category absent from `defs` is invisible
+> to the total even if `season.json` still holds it. To correct the displayed total, edit the
+> category `units` and apply the same delta to `history[-1]` so the curve stays consistent.
+
+> **Reality check.** Backtesting says the model does **not** out-predict the HR-prop market on
+> ranking alone. The honest summary, as of the 15-season work on 2026-09-13: the shipped basket
+> measures **AUC 0.6225** against outcomes, and ranking skill is concentrated at **+450 to +650**
+> and is indistinguishable from zero above +650. Builder singles bleed (−14.05u over 258); the
+> moon line carries the whole book (+459.73u over 446), which on 58 winners is a distribution
+> with a long right tail rather than a demonstrated edge. Nothing here is proof of an edge; treat
+> the tracker as a record of what happened, not as a forecast.
