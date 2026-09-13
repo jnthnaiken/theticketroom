@@ -69,10 +69,12 @@ MIN_SLATE = 60        # a slate needs this many usable bats to be draftable
 #   _zla  -> la_window(b_la)     EXACT (same bell)
 #   _zpsw -> -p_swstr            EXACT (opposing SP SwStr%, negated as build15 does)
 #   _zars -> p_brl               PROXY, but the weight is 0.93% so it cannot matter
-#   _zdmg -> b_brl / b_xwobacon  PROXY. This is the real compromise: 28% of the basket.
-#            The table has expected damage (b_xwobacon) but no ACTUAL ISO, so barrels --
-#            realised damage on contact -- stand in for the numerator. An exact _zdmg
-#            needs actual ISO added to build_savant_training.py and a fresh Savant pull.
+#   _zdmg -> b_iso / b_xwobacon  EXACT as of ISOREAL-2026-09-13. Owner: "there is no
+#            shortage of sources for iso, stop using proxies." build_savant_training.py
+#            now computes real ISO from Statcast `events` -- (2B + 2*3B + 3*HR)/AB,
+#            verified against SLG-AVG -- so the numerator is the same actual damage
+#            _ziso carries live. Falls back to the old b_brl proxy ONLY on a table built
+#            before that change, and says so loudly when it does.
 LIVE_SIG = [('p_brl', .0093), ('b_hh', .3655), ('b_la', .2834),
             ('b_dmg', .2818), ('p_swstr_neg', .06)]
 STALE_SIG = [('b_brl', .029), ('b_xwobacon', .193), ('p_brl', .011),
@@ -128,9 +130,16 @@ def prepare(df):
 
     # the two derived inputs the LIVE basket needs (see LIVE_SIG above)
     _xwc = df['b_xwobacon'] if 'b_xwobacon' in df.columns else None
-    if _xwc is not None and 'b_brl' in df.columns:
+    _num, _src = (df['b_iso'], 'b_iso (REAL)') if 'b_iso' in df.columns else \
+                 ((df['b_brl'], 'b_brl (PROXY -- table predates ISOREAL-2026-09-13)')
+                  if 'b_brl' in df.columns else (None, None))
+    if _xwc is not None and _num is not None:
         # build15 guards _zdmg on xwOBAcon > 0.05; below that the ratio is meaningless
-        df['b_dmg'] = np.where(_xwc > 0.05, df['b_brl'] / _xwc.replace(0, np.nan), np.nan)
+        df['b_dmg'] = np.where(_xwc > 0.05, _num / _xwc.replace(0, np.nan), np.nan)
+        if 'PROXY' in _src:
+            print('  !! _zdmg numerator is a PROXY: ' + _src)
+        else:
+            print('  _zdmg numerator: ' + _src + '  (ISO = (2B+2*3B+3*HR)/AB from Statcast events)')
     else:
         df['b_dmg'] = np.nan
     df['p_swstr_neg'] = -df['p_swstr'] if 'p_swstr' in df.columns else np.nan

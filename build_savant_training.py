@@ -17,6 +17,7 @@ data BEFORE that game so nothing leaks the result.
     batter_id, batter, game_date, game_pk, team, opp, sp_id, sp,
     hr,                                  # outcome: did this batter homer in this game
     b_hh, b_brl, b_fb, b_pull, b_sweet, b_la, b_xwobacon, b_swstr, b_csw, b_n,   # batter pre-game
+    b_iso, b_ab,                                     # ACTUAL isolated power + at-bats behind it
     p_hh, p_brl, p_fb, p_pull, p_sweet, p_la, p_xwobacon, p_swstr, p_csw, p_n    # opp SP allowed pre-game
 
 MEMORY: each day is aggregated down to small per-player daily sums + batter-game
@@ -58,6 +59,10 @@ SWINGS = {'hit_into_play','foul','foul_tip','swinging_strike','swinging_strike_b
           'foul_bunt','missed_bunt','bunt_foul_tip'}
 WHIFFS = {'swinging_strike','swinging_strike_blocked','foul_tip','missed_bunt','bunt_foul_tip'}
 CALLED = {'called_strike'}
+
+# plate appearances that are NOT at-bats (ISOREAL-2026-09-13)
+NONAB = {'walk','intent_walk','hit_by_pitch','sac_fly','sac_bunt','sac_fly_double_play',
+         'sac_bunt_double_play','catcher_interf','truncated_pa'}
 
 
 def pull_day(day, cache):
@@ -116,12 +121,22 @@ def flags(df):
     df['is_swing']= desc.isin(SWINGS).astype(float)
     df['is_whiff']= desc.isin(WHIFFS).astype(float)
     df['is_csw']  = (desc.isin(WHIFFS) | desc.isin(CALLED)).astype(float)   # CSW = called + swinging strike
+    # ISOREAL-2026-09-13: ACTUAL isolated power. _zdmg in build15 is _ziso/xwOBAcon, and
+    # every 15-season fit so far proxied the numerator with barrel rate because this table
+    # had expected damage and no actual ISO. Owner: "there is no shortage of sources for
+    # iso, stop using proxies." Statcast `events` carries it directly.
+    #   ISO = (2B + 2*3B + 3*HR) / AB
+    # A row with a non-null `events` is a plate appearance ending; AB excludes walks, HBP,
+    # sacrifices and catcher interference. Errors and strikeout-DPs ARE at-bats.
+    df['is_ab'] = (ev.ne('') & ~ev.isin(NONAB)).astype(float)
+    df['xb']    = ev.map({'double': 1.0, 'triple': 2.0, 'home_run': 3.0}).fillna(0.0)
     df['is_pitch']= 1.0
     return df
 
 
 AGG = {'is_bip':'sum','is_hh':'sum','is_brl':'sum','is_fb':'sum','is_sweet':'sum','is_pull':'sum',
-       'la_sum':'sum','xw_sum':'sum','xw_n':'sum','is_swing':'sum','is_whiff':'sum','is_csw':'sum','is_pitch':'sum'}
+       'la_sum':'sum','xw_sum':'sum','xw_n':'sum','is_swing':'sum','is_whiff':'sum','is_csw':'sum','is_pitch':'sum',
+       'is_ab':'sum','xb':'sum'}
 
 
 def daily_sums(df, id_col):
@@ -138,7 +153,7 @@ def rolling_pre(daily, window):
     """Trailing-`window`-day sums per player, EXCLUDING the current day (closed='left' ->
     strictly-before). Rate features are ratios of these leak-free sums."""
     cols = ['is_bip','is_hh','is_brl','is_fb','is_sweet','is_pull','la_sum','la_n',
-            'xw_sum','xw_n','is_swing','is_whiff','is_csw','is_pitch']
+            'xw_sum','xw_n','is_swing','is_whiff','is_csw','is_pitch','is_ab','xb']
     out = []
     for pid, g in daily.groupby('id'):
         g = g.sort_values('game_date').set_index('game_date')
@@ -154,6 +169,7 @@ def rolling_pre(daily, window):
         'sweet': rate('is_sweet','is_bip'), 'la': rate('la_sum','la_n'),
         'xwobacon': rate('xw_sum','xw_n'),
         'swstr': rate('is_whiff','is_pitch'), 'csw': rate('is_csw','is_pitch'),
+        'iso': rate('xb','is_ab'), 'ab': R['is_ab'],
         'n': R['is_bip'],
     })
     return feat
@@ -223,7 +239,9 @@ def main():
     tr = tr.drop(columns=drop)
     keep = ['batter_id','batter','game_date','game_pk','team','opp','sp_id','hr',
             'b_hh','b_brl','b_fb','b_pull','b_sweet','b_la','b_xwobacon','b_swstr','b_csw','b_n',
-            'p_hh','p_brl','p_fb','p_pull','p_sweet','p_la','p_xwobacon','p_swstr','p_csw','p_n']
+            'b_iso','b_ab',
+            'p_hh','p_brl','p_fb','p_pull','p_sweet','p_la','p_xwobacon','p_swstr','p_csw','p_n',
+            'p_iso','p_ab']
     tr = tr[[c for c in keep if c in tr.columns]]
 
     tr.to_parquet(a.out, index=False)
