@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 """
+⚠️ WHAT THIS MEASURED, AND WHAT SHIPS NOW (stale-control note, 2026-09-13 audit)
+--------------------------------------------------------------------------------
+The results below are VALID HISTORY -- they are what these conditions did on the data.
+They are NOT a description of the live board. As of 2026-09-13 the board ships:
+
+    _SIG  = 7 terms, real-ISO:  _zhrc .4489  _zhh .2086  _zla .1313  _zpt .1051
+                                _zpsw .0664  _zdmg .0309  _zars .0088
+    moons = 4 legs (MOON_LEGS=4), 2 per anchor across all 4 anchors = 8 moons
+    stake = round robin, every combination from doubles to the full parlay,
+            11 bets x 0.25u = 2.75u
+    kinds = moon / builder / lunch / late. No chef, no salami, no Dingers.
+
+Anything below calling a 5-signal basket, a 3-leg moon, a "by 2s & 3" round robin or a
+2.0u stake CURRENT / LIVE / SHIPPED is describing the board as it stood when this ran.
+Read `_SIG` out of build15.py, and the ticket shape out of the last D_<date>.json,
+before treating any control here as "what we ship". See claude/audit-2026-09-13.md.
+
 lab15.py — the PRICE-FREE lab over the 2015-2024 Statcast table.
 
 WHY THIS EXISTS
@@ -513,7 +530,7 @@ def section_draft(df, p, y, band):
     for pol, lab in [('gamecap', 'top-3, one per game  (the moon rule)'),
                      ('top',     'top-3, unconstrained'),
                      ('samegame','top-3 from ONE game  (correlation control)'),
-                     ('anchor',  'anchor + 2 longshots, distinct games'),
+                     ('anchor',  'anchor + 2 longshots, distinct games  (the 3-leg moon of the day)'),
                      ('band',    '3 longshots, distinct games'),
                      ('random',  'random 3, distinct games  (null control)')]:
         P, H, _ = build_slips(df, p, y, 3, pol, band, lab)
@@ -537,7 +554,7 @@ def structure_returns(P, H, k, risk=2.0):
     combos = {
         'singles  (3 x 1)':      [(0,), (1,), (2,)],
         'doubles  (3 x 2)':      [(0, 1), (0, 2), (1, 2)],
-        'by 2s & 3 (CURRENT)':   [(0, 1), (0, 2), (1, 2), (0, 1, 2)],
+        'by 2s & 3 (3-leg board)':   [(0, 1), (0, 2), (1, 2), (0, 1, 2)],
         'treble   (1 x 3)':      [(0, 1, 2)],
     }
     res = {}
@@ -565,13 +582,13 @@ def section_structure(draft, k_grid):
         print('    treble column is decided by a handful of slates, so read the error')
         print('    bar FIRST. "ns" = not distinguishable from zero at 2 SE.')
         print(f'    {"k":<7}' + ''.join(f'{lab:>24}' for lab in
-              ['singles', 'doubles', 'by 2s & 3 (CURRENT)', 'treble']))
+              ['singles', 'doubles', 'by 2s & 3 (3-leg board)', 'treble']))
         cross = None
         NN = len(P)
         for k in k_grid:
             r = structure_returns(P, H, k)
             row = [r['singles  (3 x 1)'], r['doubles  (3 x 2)'],
-                   r['by 2s & 3 (CURRENT)'], r['treble   (1 x 3)']]
+                   r['by 2s & 3 (3-leg board)'], r['treble   (1 x 3)']]
             cells = []
             for _, roi, sd, _ in row:
                 se = sd / math.sqrt(NN) / 2.0 * 100
@@ -594,7 +611,7 @@ def section_structure(draft, k_grid):
             print(f'      {"shape":<24}{"ROI":>9}{"SE":>8}{"t":>7}{"sd/night":>11}'
                   f'{"cash nights":>13}{"  slates to t=2":>16}')
             for lab in ['singles  (3 x 1)', 'doubles  (3 x 2)',
-                        'by 2s & 3 (CURRENT)', 'treble   (1 x 3)']:
+                        'by 2s & 3 (3-leg board)', 'treble   (1 x 3)']:
                 m, roi, sd, cash = r[lab]
                 se = sd / math.sqrt(len(P)) / 2.0 * 100
                 t = roi / se if se else 0.0

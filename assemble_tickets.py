@@ -14,7 +14,9 @@ RULES (match the code below):
                      game can each lead their own tickets).
   * Per-ticket     = one bat per distinct game; GAME_CAP (=3) bats per game overall.
   * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY; moons/salami/builders chalk-free.
-  * Moons          = ~2 per non-salami anchor; anchor + 2 longshots, snake-drafted, legs inside a WIN(=120)-min window.
+  * Moons          = 2 per anchor, ALL FOUR anchors; anchor + 3 longshots (MOON_LEGS=4, MOON4-2026-09-13),
+                    snake-drafted, legs inside a WIN(=120)-min window, staked 11 bets x 0.25u = 2.75u.
+                    There is no salami anchor any more -- see NOSALAMI-2026-09-13 below.
   * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
   * Builders       = leftover / sub-gate bats as single-leg bankroll plays.
   * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (5:00 PM ET, widened 2026-08-13).
@@ -36,7 +38,8 @@ Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is
 MOON_LEGS     = 4               # MOON4-2026-09-13: a moon is the anchor + THREE partners. Mirrors index.html's
                                 # MOON_LEGS. Was 3 from the beginning; the 11-bet / 0.25u round robin agreed the
                                 # same day only exists at four legs.
-MOONS_PER_ANC = 2                # moons carried by each non-salami anchor; the salami anchor is chosen by fittable-pool strength
+MOONS_PER_ANC = 2                # moons carried by EACH anchor (all four -- NOSALAMI-2026-09-13 removed the reserved
+                                 # salami anchor). Was: chosen by fittable-pool strength
 WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay
 
 # ---------- RRUNIT-2026-09-13: ONE definition of a round robin, shared with index.html ----------
@@ -428,7 +431,7 @@ def assemble(D):
             return sum(strength(n) for n in legs) if len(legs) == MOON_LEGS else -1e9
         mids = list(range(len(al)))            # NOSALAMI-2026-09-13: every anchor leads moons; none is reserved
         pls = []
-        for i in mids:                                                  # two moons per non-salami anchor
+        for i in mids:                                                  # two moons per anchor, all four
             for _ in range(MOONS_PER_ANC):
                 pls.append({'rank': i, 'kind': 'moon', 'badge': "\U0001f680",
                             'rr': {"struct": rr_struct(MOON_LEGS), "risk": rr_risk(MOON_LEGS)},

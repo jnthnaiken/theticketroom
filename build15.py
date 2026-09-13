@@ -106,10 +106,12 @@ BRL_CLAMP = 0.15
 # one ball reads pb=100.0 / hh=100.0 / brl_bip=100.0. That is not a hot hitter, it is a denominator
 # of one. Unguarded on 2026-09-12 Josue De Paula (test=1, pb 100.0, hh 100.0, la 36.0) carried
 # powraw = 10,000 against a field MEDIAN of 191 -- 52x the slate -- and _zhh z=+4.66, which at the
-# fitted 0.3655 weight is +1.70 on his edge sum, more than any real bat earns from any signal. He
+# then-fitted 0.3655 weight is +1.70 on his edge sum, more than any real bat earns from any signal. He
 # outranked Judge (test=492) and Schwarber (test=1515) and anchored a builder and two moons.
 # MIN_DMG_BIP (40) already existed and DID fire on him -- it just guards `_zdmg` alone (weight
-# 0.2818). pb/hh/la feed powraw AND `_zhh`+`_zla` (0.3655+0.2834 = 0.6489 of the edge basket), and
+# 0.2818). pb/hh/la feed powraw AND `_zhh`+`_zla` (0.3655+0.2834 = 0.6489 of the edge basket AS IT WAS
+# ON 2026-09-12 -- those two are 0.2086+0.1313 = 0.3399 after ISOREAL-2026-09-13, which makes the guard
+# less load-bearing than it was, not more; the a-priori case for it is unchanged), and
 # they had no floor at all. So the guarded quarter of the basket was never the quarter hurting us.
 # Same number, same meaning, now applied everywhere a Kasper rate is consumed: under this many
 # batted balls the rates are not measurements. A guarded bat gets None and therefore the slate mean

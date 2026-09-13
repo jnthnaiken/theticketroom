@@ -270,7 +270,8 @@ header{position:relative}
 .tk-graph{width:auto}}
 .slip.lunchwide.nightcap{border-color:var(--line)}.slip.lunchwide.nightcap .top{background:var(--surf2)}.losspill{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--pink);border-radius:20px;padding:3px 9px}/* PARTRETURN-2026-09-09 -- A LOSING ROUND ROBIN IS NOT ALWAYS A ZERO RETURN.
    Under RRVOID-2026-09-01 reduction a slip can cash a combination and still finish under water.
-   The real case: 'Outside the Box', 2u by 2s & 3 over -225/+135/+120. The -225 and the +120 hit,
+   The real case (a 3-LEG moon, 2026-09-01 -- moons are 4 legs at 2.75u since MOON4-2026-09-13; the
+   arithmetic below is unchanged, only the shape): 'Outside the Box', 2u by 2s & 3 over -225/+135/+120. The -225 and the +120 hit,
    the +135 died. One of the four 0.5u combinations survives and pays 1.4444*2.20=3.1778 -> 1.59u
    back against 2u staked, a true -0.41u. Every grader already books that exact number (gradeTicket
    returns rrnet(hm), and grade_night.py / soccer_grade.py agree); only the PILL was binary, so a
@@ -2322,7 +2323,8 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
     // PROJECTED -> re-draft them fresh through draftF over the projected pool: risers can unseat a projected
     // anchor, and draftF enforces pairing (2 moons/anchor), the game-time window, and all-or-none. Once a parlay
     // game is live we stop re-drafting it -- confirmed/in-progress players are never touched.
-    // ---- GENERALIZED DRAFT (shared): from `anchorList` build MOONS_PER_ANC moons per non-salami anchor plus
+    // ---- GENERALIZED DRAFT (shared): from `anchorList` build MOONS_PER_ANC moons per anchor (all four since the
+    // salami was removed 2026-08-14; MOON_LEGS legs each) plus
     // drafting legs from `pool`. Enforces the WIN window (fits), pairing,
     // and all-or-none demotion. Used for the full fresh board AND for re-drafting ONLY the projected slots around
     // already-placed (confirmed/locked) parlays -- so a partial slate drafts correctly. ----

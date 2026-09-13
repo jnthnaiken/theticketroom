@@ -127,12 +127,17 @@ if os.path.exists('client_assemble.js') and os.path.exists(BOARD):
             print(f"  !! client engine exited {r.returncode}: {(r.stderr or '').strip()[:200]}")
     except Exception as e:
         print(f"  !! client engine unavailable ({str(e)[:120]})")
-# A forced rebuild starts with no prior board, so the engine takes the FRESH draftF path -- and the salami
-# backstop (the block that ships a Grand Salami when draftF's pre-chosen salami anchor got absorbed into a
-# moon) only lives on the preserve path. A browser loading the board would run that backstop on the next
-# page load and add a salami the archive never had, which is exactly the archive-vs-screen divergence
-# client_assemble.js exists to prevent. So run the engine a second time, feeding it its own output as prior
-# -- the same two steps a visitor's browser performs -- and archive whatever that settles on.
+# A forced rebuild starts with no prior board, so the engine takes the FRESH draftF path, and a browser
+# loading that board would immediately run the preserve path on top of it. Run the engine a second time,
+# feeding it its own output as prior -- the same two steps a visitor's browser performs -- and archive
+# whatever that settles on. That is what keeps the archive and the screen agreeing.
+#
+# STALE RATIONALE, corrected 2026-09-13: this used to say the second pass existed because of the SALAMI
+# BACKSTOP -- a preserve-path block that shipped a Grand Salami when draftF's pre-chosen salami anchor got
+# absorbed into a moon. That block is gone (the salami was deleted from index.html on 2026-08-14; only a
+# historical comment survives, and NOSALAMI-2026-09-13 took it out of assemble_tickets.py too). The second
+# pass is KEPT because archive-vs-screen parity is the general rule, not because of the salami -- but if
+# you are ever hunting dead work, this is a fair thing to re-test.
 if _force and _drafted:
     json.dump(D, open(DJSON, 'w'), indent=1)
     try:

@@ -4,14 +4,15 @@ savant_gate.py — refuse to publish a board whose edge signals silently died.
 
 WHY THIS EXISTS (2026-08-05)
 ----------------------------
-`build15.py` pulls nine edge signals off Baseball Savant leaderboards. When one of
+`build15.py` pulls its edge signals off Baseball Savant leaderboards. When one of
 those fetches times out or returns 0 rows the signal does NOT fail loudly — it
 collapses to a neutral default (all-None, or all-zero z-scores). The board still
 scores, still assembles and still publishes, but `edge_z` is now missing a term, so
 every TOTAL shifts a point or two, `strength` re-orders, and tickets reshuffle.
 
 Observed on 2026-08-05: at 3:31pm `_zspray` collapsed (156 distinct values -> 73) and
-the chef ticket flipped Schwarber -> Murakami; at 3:32pm `_zpvd` went to ZERO distinct
+the chef ticket flipped Schwarber -> Murakami (that kind was retired 2026-08-14 -- the
+collapse it illustrates is the point); at 3:32pm `_zpvd` went to ZERO distinct
 values (dead for all 390 bats) and the run still committed. The board flip-flopped for
 an hour. The workflow already gates on a stale StatsAPI pull (zero HR/9 arms); this is
 the same idea for the Savant half.

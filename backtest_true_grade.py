@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
-"""backtest_true, stage 4 -- grade everything against TRUE outcomes.
+"""⚠️ WHAT THIS MEASURED, AND WHAT SHIPS NOW (stale-control note, 2026-09-13 audit)
+--------------------------------------------------------------------------------
+The results below are VALID HISTORY -- they are what these conditions did on the data.
+They are NOT a description of the live board. As of 2026-09-13 the board ships:
+
+    _SIG  = 7 terms, real-ISO:  _zhrc .4489  _zhh .2086  _zla .1313  _zpt .1051
+                                _zpsw .0664  _zdmg .0309  _zars .0088
+    moons = 4 legs (MOON_LEGS=4), 2 per anchor across all 4 anchors = 8 moons
+    stake = round robin, every combination from doubles to the full parlay,
+            11 bets x 0.25u = 2.75u
+    kinds = moon / builder / lunch / late. No chef, no salami, no Dingers.
+
+Anything below calling a 5-signal basket, a 3-leg moon, a "by 2s & 3" round robin or a
+2.0u stake CURRENT / LIVE / SHIPPED is describing the board as it stood when this ran.
+Read `_SIG` out of build15.py, and the ticket shape out of the last D_<date>.json,
+before treating any control here as "what we ship". See claude/audit-2026-09-13.md.
+
+backtest_true, stage 4 -- grade everything against TRUE outcomes.
 
 Grades five boards per night with grade_night.grade_ticket VERBATIM (round-robin math,
 american->decimal, DNP/ppd legs VOID as refunds -- the rule backtest_mix.py silently
@@ -82,7 +99,7 @@ print("outcomes: StatsAPI boxscore PA + HR; DNP/ppd legs VOID via grade_night.gr
 print("prices: each night's baked odds, shared across all conditions\n")
 LAB = {'shipped': 'SHIPPED board as committed (real product)',
        'old3':    'old _SIG .45/.35/.20 @ 50/50  (pre-refit)',
-       'new5':    'new _SIG 5-signal @ 50/50     (LIVE model)',
+       'new5':    'new _SIG 5-signal @ 50/50     (2026-08-13 basket; NOT live since 09-13)',
        'mix75':   'new _SIG 5-signal @ 75/25',
        'mkt':     'market-only alpha=1.0         (PRICE BENCHMARK)'}
 for c in ['shipped', 'old3', 'new5', 'mix75', 'mkt']:

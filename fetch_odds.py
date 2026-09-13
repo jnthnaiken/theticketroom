@@ -10,15 +10,19 @@ WHY THIS EXISTS
     5:35pm ET on 2026-08-08: of the 287 bats in the committed file, 228 (79.4%)
     had moved -- Schwarber +210 -> +190, Alvarez +255 -> +225, Caminero +334 ->
     +300. Normal intraday drift, ~1-3 points of implied probability on the
-    movers, but it lands on a board where price decides Chef's Table seats and
-    35% of every strength ranking.
+    movers, but it lands on a board that ranks on them. (Written 2026-08-08, when
+    price decided Chef's Table seats and carried an explicit 35% of `strength`.
+    Both are gone: the Chef's Table was retired 2026-08-14, and `strength()` is now
+    normalized TOTAL alone -- so price still reaches the ranking, but through
+    TOTAL's 50/50 market half rather than a separate weight.)
 
     The client could already be re-priced by hand (paste box / per-bat inputs)
     but it saved to ONE browser's localStorage. Nothing wrote back, so the
     build, the archive and every other visitor kept the morning numbers -- and
     the hand-entered ones could drift away from the real market with nothing to
     check them (2026-08-08: a browser holding Caminero at +250, against +300 in
-    the market and +334 committed, handed him a Chef's Table seat).
+    the market and +334 committed, handed him a Chef's Table seat -- a ticket kind
+    the board has since retired; the pricing failure it illustrates is unchanged).
 
 OUTPUT  (both files are MERGED, never replaced -- see the price-freeze note below)
     odds_<date>.json     {name: american_int}          <- consumed by build15.py

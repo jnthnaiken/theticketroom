@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 """
+⚠️ WHAT THIS MEASURED, AND WHAT SHIPS NOW (stale-control note, 2026-09-13 audit)
+--------------------------------------------------------------------------------
+The results below are VALID HISTORY -- they are what these conditions did on the data.
+They are NOT a description of the live board. As of 2026-09-13 the board ships:
+
+    _SIG  = 7 terms, real-ISO:  _zhrc .4489  _zhh .2086  _zla .1313  _zpt .1051
+                                _zpsw .0664  _zdmg .0309  _zars .0088
+    moons = 4 legs (MOON_LEGS=4), 2 per anchor across all 4 anchors = 8 moons
+    stake = round robin, every combination from doubles to the full parlay,
+            11 bets x 0.25u = 2.75u
+    kinds = moon / builder / lunch / late. No chef, no salami, no Dingers.
+
+Anything below calling a 5-signal basket, a 3-leg moon, a "by 2s & 3" round robin or a
+2.0u stake CURRENT / LIVE / SHIPPED is describing the board as it stood when this ran.
+Read `_SIG` out of build15.py, and the ticket shape out of the last D_<date>.json,
+before treating any control here as "what we ship". See claude/audit-2026-09-13.md.
+
 daily15.py — ONE SLATE AT A TIME, FIFTEEN SEASONS, LEARNING EVERY NIGHT.
 
 WHAT THE OWNER ASKED FOR, THIRD TIME OF ASKING
