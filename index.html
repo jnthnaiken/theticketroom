@@ -1599,7 +1599,41 @@ drawTickets();drawPlayers();drawTracker();
      null. The ledger since is 94% carried by five nights, and the -134u drawdown of the
      season ran 07-20..08-15, entirely PRE-ban. There is no measured case either way; this
      is the owner's call on a null result, not a finding. */
-  var GATE_N=33, CHALK_N=0, FLOOR=41, Z_GATE=0.75, WIN=120, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
+  var GATE_N=33, CHALK_N=0, FLOOR=41, Z_GATE=0.75, WIN=150, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
+  /* WIN 120 -> 150, WIN150-2026-09-13. Measured, not guessed (claude/win120-2026-09-13.md):
+     - the window was not buying decorrelation -- lab15 measured leg independence at rho~0 at every slip length;
+     - it was not buying outcome quality either. 513 archived moons / 79 nights, split at a 60-min span: wide
+       slips beat narrow on leg-skill-against-price (k 0.906 vs 0.817) at IDENTICAL average implied price
+       (23.62% vs 23.61%) and identical leg count. Not significant -- P(wide better) = 0.85;
+     - 30 slates cold-drafted through this engine at MOON_LEGS=4 gave 24/30 full boards at 120, 25/30 at 150,
+       26/30 at 180, graded -43.7% / -31.2% / -21.5% ROI. Monotone in width, both CIs straddle zero
+       (t=+1.37 and +0.84), so this is a SHAPE argument, not an edge argument;
+     - MOON4 raised the floor from 3 in-window games to 4 and cost shape on 3 of 30 nights (08-20, 09-03,
+       09-07). 150 recovers two of them. It undoes a cost we created the same day.
+     150 and NOT 180 because the board's own lineup-timing flag fires at >155: past that, a slip ships with a
+     warning saying its later legs cannot be confirmed at bet time. 150 stays inside our own danger line. */
+  /* SHORTMOON-2026-09-13: a moon ships at MOON_LEGS legs whenever the SLATE can hold one, and falls back to
+     three ONLY when it geometrically cannot -- i.e. no WIN-minute window on the slate contains MOON_LEGS games
+     that can supply a leg. This is deliberately a SLATE-level test, computed once from the games, not a
+     per-ticket one: if a ticket were allowed to short-fill whenever ITS greedy pass ran dry, a thin partner pool
+     on a normal slate would quietly start shipping 3-leg moons, and "an anchor ships both its moons at full size
+     or none" is a rule worth keeping. WHY IT EXISTS: 2026-09-10 had 5 games at 12:15/1:05/4:10/7:05/7:40 --
+     reaching FOUR distinct games needs a 395-minute window -- and the board shipped 2 tickets, no moons, no
+     builders. No value of WIN fixes that; MOON4 makes the case more common. The stake needs no special handling:
+     rrRisk() already derives it from the legs a ticket actually shipped with, so a 3-leg moon is 4 bets x 0.50u
+     = 2.00u, exactly what the board staked for its whole life before today. Floor is 3, never 2 -- a two-leg
+     "round robin" is a straight parlay and a different product. */
+  function moonLegsEff(){
+    var P=(typeof D!=='undefined'&&D&&D.players)?D.players:null; if(!P)return MOON_LEGS;
+    var g={},n,p,t;
+    for(n in P){ p=P[n]; if(!p||p.odds==null||p.out||p.void)continue; t=gmin(p.gtime); if(t==null)continue;
+                 if(!(p.game in g)||t<g[p.game])g[p.game]=t; }
+    var ts=[],k; for(k in g)ts.push(g[k]);
+    var best=0,i,j,c;
+    for(i=0;i<ts.length;i++){ c=0; for(j=0;j<ts.length;j++) if(ts[j]>=ts[i]&&ts[j]<=ts[i]+WIN)c++; if(c>best)best=c; }
+    return best>=MOON_LEGS?MOON_LEGS:(best>=3?3:MOON_LEGS);   /* <3 reachable -> no moon is possible at all; return
+                                                                 the full value so the loops break as they do today */
+  }
   var MOON_LEGS=4;   /* MOON4-2026-09-13, owner's call: a moon is the anchor + THREE partners, not two.
      It was 3 legs from the beginning, and the 11-bet / 0.25u round-robin structure agreed the same day
      only exists at four. Every leg count on this page derives from this one number -- the draft plans ask
@@ -1652,7 +1686,7 @@ drawTickets();drawPlayers();drawTracker();
 
   // ---------- the gate + snake draft, on the LIVE scores ----------
   function tsig(t){return t.kind+'|'+((t.players||[]).map(function(l){return l.name;})).slice().sort().join(',');}
-  function validT(t){var n=(t.players||[]).length; if(t.kind==='moon')return n>=MOON_LEGS; if(t.kind==='biggest')return n>=4; return n>=1;}   /* MOON4-2026-09-13 follow-up: this said n>=3 while MOON_LEGS went to 4, which left ONE door open for a short moon. validT guards the prior-revert, the lock map and the localStorage latch -- so a 3-leg moon minted before the change could be re-admitted as 'valid' by an engine that now refuses to ship anything under 4. The two repair loops already break rather than emit short; this was the only path that did not. `biggest` stays at 4 deliberately: no code mints one any more (removed 2026-08-14, and NOSALAMI-2026-09-13 took it out of the server fallback too), but archived salami boards still render and grade, and they are 4-leg. */
+  function validT(t){var n=(t.players||[]).length; if(t.kind==='moon')return n>=moonLegsEff(); if(t.kind==='biggest')return n>=4; return n>=1;}   /* MOON4-2026-09-13 follow-up: this said n>=3 while MOON_LEGS went to 4, which left ONE door open for a short moon. validT guards the prior-revert, the lock map and the localStorage latch -- so a 3-leg moon minted before the change could be re-admitted as 'valid' by an engine that now refuses to ship anything under 4. The two repair loops already break rather than emit short; this was the only path that did not. `biggest` stays at 4 deliberately: no code mints one any more (removed 2026-08-14, and NOSALAMI-2026-09-13 took it out of the server fallback too), but archived salami boards still render and grade, and they are 4-leg. */
   var LOCK_KEY='hr_lock_'+((typeof D!=='undefined'&&D.meta&&D.meta.date)||'');
   function loadLock(){try{return JSON.parse(localStorage.getItem(LOCK_KEY))||[];}catch(e){return [];}}
   function saveLock(a){try{localStorage.setItem(LOCK_KEY,JSON.stringify(a));}catch(e){}}
@@ -2342,7 +2376,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       function needy(t){ return (t.legs.length-1)<t.need; }
       var pls=[];
       for(var ai=0;ai<al.length;ai++){   // EVERY anchor leads its pair of moons -- nothing is held back
-        for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'🚀',rr:{struct:rrStruct(MOON_LEGS),risk:rrRisk(MOON_LEGS)},legs:[al[ai]],need:MOON_LEGS-1,games:gm}); } }
+        for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'🚀',rr:{struct:rrStruct(MOON_LEGS),risk:rrRisk(MOON_LEGS)},legs:[al[ai]],need:moonLegsEff()-1,games:gm}); } }
       /* 2026-08-13 -- COMPLETABILITY. fits() validates the ticket AS IT STANDS: distinct game, span <= WIN.
          It never asked whether a further leg is still reachable after the pick, so filling greedily by strength
          strands the slip. On 08-13 Contreras (BOS@TOR 3:07) took Crow-Armstrong (CHC@WSH 4:05) as his first
@@ -2686,10 +2720,10 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           while(moonCnt[a]<MOONS_PER_ANC && guard++<MOONS_PER_ANC){
             var legNames=[a], gUsed={}; gUsed[P[a].game]=1;
             var pool=byS(nonchalk).filter(function(n){return !placed[n]&&n!==a&&!pending(n)&&P[n].odds!=null;});
-            for(var i=0;i<pool.length && legNames.length<MOON_LEGS;i++){ var n=pool[i];
+            for(var i=0;i<pool.length && legNames.length<moonLegsEff();i++){ var n=pool[i];
               if(gUsed[P[n].game])continue; if(!spanOk(legNames.concat([n])))continue;
               legNames.push(n); gUsed[P[n].game]=1; }
-            if(legNames.length<MOON_LEGS)break;   // can't build a full moon within the window -> leave as-is (never a short moon)
+            if(legNames.length<moonLegsEff())break;   // can't build a full moon within the window -> leave as-is (never a short moon)
             legNames.forEach(function(n){placed[n]=1; usedG[n]=1;});
             mkParlay('moon','🚀',legNames,{struct:rrStruct(legNames.length),risk:rrRisk(legNames.length)});
             moonCnt[a]++;
@@ -2750,7 +2784,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         function needy(t){ return (t.legs.length-1)<t.need; }
         var pls=[];
         for(var ai=0;ai<al.length;ai++){   // two moons per anchor, EVERY anchor -- no seat is reserved
-          for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'\uD83D\uDE80',rr:{struct:rrStruct(MOON_LEGS),risk:rrRisk(MOON_LEGS)},legs:[al[ai]],need:MOON_LEGS-1,games:gm}); } }
+          for(var k=0;k<MOONS_PER_ANC;k++){ var gm={}; gm[P[al[ai]].game]=1; pls.push({rank:ai,kind:'moon',badge:'\uD83D\uDE80',rr:{struct:rrStruct(MOON_LEGS),risk:rrRisk(MOON_LEGS)},legs:[al[ai]],need:moonLegsEff()-1,games:gm}); } }
         function fillRound(){ var rnd=0;
           while(pls.some(needy)){
             var rk={}; pls.forEach(function(t){rk[t.rank]=1;});
@@ -2888,8 +2922,8 @@ var _cmA={}, _cmB={};
         var g=0; while(mc[a]<MOONS_PER_ANC && g++<4){
           var ln=[a],gu={}; gu[P[a].game]=1;
           var cnd=Object.keys(P).filter(function(n){return !pl[n]&&n!==a&&!chalk[n]&&!P[n].out&&!P[n].void&&P[n].odds!=null;}).sort(function(x,y){return (P[y].TOTAL||0)-(P[x].TOTAL||0);});
-          for(var ci=0;ci<cnd.length&&ln.length<MOON_LEGS;ci++){var n=cnd[ci]; if(gu[P[n].game])continue; if(!spanOk(ln.concat([n])))continue; ln.push(n); gu[P[n].game]=1;}
-          if(ln.length<MOON_LEGS)break;
+          for(var ci=0;ci<cnd.length&&ln.length<moonLegsEff();ci++){var n=cnd[ci]; if(gu[P[n].game])continue; if(!spanOk(ln.concat([n])))continue; ln.push(n); gu[P[n].game]=1;}
+          if(ln.length<moonLegsEff())break;
           ln.forEach(function(n){pl[n]=1;});
           var legs=ln.map(leg); out.push({name:cwName('moon',nextIdx('moon')),kind:'moon',badge:'🚀',note:"",players:legs,nlegs:legs.length,anchor:a,lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:{struct:rrStruct(legs.length),risk:rrRisk(legs.length)}});
           mc[a]++;

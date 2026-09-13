@@ -35,12 +35,34 @@ GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR 
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
 Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40). Lowered 1.0->0.75 to deepen the pool (more legs -> more moons on fragmented slates).
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
+def moon_legs_eff(P):
+    """SHORTMOON-2026-09-13 — mirrors index.html moonLegsEff(). MOON_LEGS when the SLATE can hold a full
+    moon, 3 when it geometrically cannot. Slate-level on purpose: a per-ticket short-fill would let a thin
+    partner pool ship 3-leg moons on a normal slate, and 'an anchor ships both its moons at full size or
+    none' is worth keeping. 2026-09-10 (5 games, 395 min needed to reach four) shipped no moons at all."""
+    g = {}
+    for n, p in P.items():
+        if p.get('odds') is None or p.get('out') or p.get('void'):
+            continue
+        t = gmin(p.get('gtime'))          # gmin is defined below; resolved at call time
+        if not t:
+            continue
+        if p['game'] not in g or t < g[p['game']]:
+            g[p['game']] = t
+    ts = sorted(g.values())
+    best = max((sum(1 for b in ts if a <= b <= a + WIN) for a in ts), default=0)
+    return MOON_LEGS if best >= MOON_LEGS else (3 if best >= 3 else MOON_LEGS)
+
+
 MOON_LEGS     = 4               # MOON4-2026-09-13: a moon is the anchor + THREE partners. Mirrors index.html's
                                 # MOON_LEGS. Was 3 from the beginning; the 11-bet / 0.25u round robin agreed the
                                 # same day only exists at four legs.
 MOONS_PER_ANC = 2                # moons carried by EACH anchor (all four -- NOSALAMI-2026-09-13 removed the reserved
                                  # salami anchor). Was: chosen by fittable-pool strength
-WIN           = 120              # max minutes between a parlay's earliest & latest leg; below the 155 warning line so we never ship a flagged (afternoon->night) parlay
+WIN           = 150              # WIN150-2026-09-13, measured (claude/win120-2026-09-13.md): the 120-min window bought
+                                 # no decorrelation (legs are independent, rho~0) and no outcome quality (wide slips beat
+                                 # narrow at identical price, P=0.85), while costing shape on 6 of 30 cold-drafted boards.
+                                 # 150 stays inside the board's own >155 lineup-timing flag. Mirrors index.html WIN.
 
 # ---------- RRUNIT-2026-09-13: ONE definition of a round robin, shared with index.html ----------
 # A round robin buys EVERY combination from doubles up to the full parlay: 2^L - L - 1 bets.
@@ -409,6 +431,8 @@ def assemble(D):
     # Pick the 4 anchors (from cand_anchors, one per game) whose draft fills the most clean 2-per-anchor
     # moons, then ships the salami, then maximizes combined strength. TOTAL-first: strongest fillable
     # anchors lead the board; a time-isolated anchor that can't fill is simply not chosen.
+    _MLE = moon_legs_eff(P)        # SHORTMOON-2026-09-13: slate-level, computed once per draft
+
     def _draft(anchor_list):
         al = sorted(anchor_list, key=lambda n: -strength(n))            # A0..A3 by STRENGTH (weakest = highest index)
         # NOSALAMI-2026-09-13: the Grand Salami was removed from the LIVE engine on 2026-08-14 but survived
@@ -426,16 +450,16 @@ def assemble(D):
                 if max(t2) - min(t2) > WIN:
                     continue
                 seen.add(P[n]['game']); legs.append(n); times.append(tmin(n))
-                if len(legs) == MOON_LEGS:
+                if len(legs) == _MLE:
                     break
-            return sum(strength(n) for n in legs) if len(legs) == MOON_LEGS else -1e9
+            return sum(strength(n) for n in legs) if len(legs) == _MLE else -1e9
         mids = list(range(len(al)))            # NOSALAMI-2026-09-13: every anchor leads moons; none is reserved
         pls = []
         for i in mids:                                                  # two moons per anchor, all four
             for _ in range(MOONS_PER_ANC):
                 pls.append({'rank': i, 'kind': 'moon', 'badge': "\U0001f680",
-                            'rr': {"struct": rr_struct(MOON_LEGS), "risk": rr_risk(MOON_LEGS)},
-                            'legs': [al[i]], 'need': MOON_LEGS - 1, 'games': {P[al[i]]['game']}})
+                            'rr': {"struct": rr_struct(_MLE), "risk": rr_risk(_MLE)},
+                            'legs': [al[i]], 'need': _MLE - 1, 'games': {P[al[i]]['game']}})
         # (the salami is assembled AFTER the moons below, from the legs they leave behind -- moons get first pick)
         def fits(t, n):
             if P[n]['game'] in t['games']:
