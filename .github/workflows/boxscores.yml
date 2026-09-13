@@ -1,0 +1,87 @@
+# ====================================================================================
+# Boxscores 2010-2024 -- fifteen seasons of batter-games from MLB StatsAPI.
+#
+# Asked 2026-09-13: "i said 15 seasons not 9". Fair. The Statcast table begins in 2015
+# because Statcast begins in 2015 -- five of the fifteen seasons have no launch angle or
+# exit velocity in existence anywhere. StatsAPI boxscores go back decades and carry what
+# turns out to matter most: who batted, where in the order, against which starter, and
+# whether he went deep. The strongest feature found in every experiment so far, a
+# hitter's season-to-date HR rate, needs nothing but outcomes.
+#
+# daily15.py uses this for all fifteen seasons and left-joins the richer Statcast columns
+# on top from 2015. The model gets better inputs partway through its own history, which
+# is exactly what happened to us.
+#
+# ~36,000 boxscores. Threaded; expect 15-30 minutes.
+#
+# TRIGGER: workflow_dispatch.
+# ====================================================================================
+
+name: Boxscores 15
+
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "First season"
+        required: true
+        default: "2010"
+      end:
+        description: "Last season"
+        required: true
+        default: "2024"
+      workers:
+        description: "Parallel boxscore fetches"
+        required: false
+        default: "12"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: boxscores
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas pyarrow
+
+      - name: Pull
+        run: |
+          set -o pipefail
+          python3 pull_boxscores.py "${{ github.event.inputs.start }}" "${{ github.event.inputs.end }}" \
+            --workers "${{ github.event.inputs.workers }}" \
+            --out "boxscores_${{ github.event.inputs.start }}_${{ github.event.inputs.end }}.parquet" 2>&1 | tee box_report.txt
+
+      - name: Report to run summary
+        if: always()
+        run: |
+          {
+            echo '## Boxscores 2010-2024'
+            echo '```'
+            tail -40 box_report.txt 2>/dev/null || echo '(no report)'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload table
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: boxscores-15
+          path: |
+            boxscores_*.parquet
+            box_report.txt
+          if-no-files-found: warn
+          retention-days: 90
