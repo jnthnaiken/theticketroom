@@ -12,6 +12,8 @@
 #
 # The board is the real one, constants lifted from index.html: GATE_N=33, Z_GATE=0.75,
 # GAME_CAP=6, ANCH_PER_GAME=2, MOONS_PER_ANC=2, moon = anchor + 2 legs, rr "by 2s & 3"
+# ^ STALE as of MOON4-2026-09-13: the live moon is anchor + THREE legs (MOON_LEGS=4), staked
+#   11 bets x 0.25u = 2.75u. This run measured the 3-leg board; its results stand as history.
 # at 2u, MIN_ODDS=100.
 #
 # Prices are synthetic -- we own 10 seasons of outcomes and 81 nights of odds -- so the

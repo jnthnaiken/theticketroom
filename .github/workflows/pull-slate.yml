@@ -155,8 +155,10 @@ jobs:
               fh.write(f"fresh={'true' if fresh else 'false'}\n")
           PY
 
-      # ODDS REFRESH. Prices move all day and the board ranks on them: 35% of every
-      # strength score, and the Chef's Table seats outright. odds_<date>.json used to be a
+      # ODDS REFRESH. Prices move all day and the board ranks on them -- through TOTAL's
+      # 50/50 market half. (This line used to say "35% of every strength score, and the
+      # Chef's Table seats outright"; strength() has been normalized TOTAL alone since
+      # 2026-08-08 and the Chef's Table was retired 2026-08-14.) odds_<date>.json used to be a
       # single morning snapshot written by hand during the browser scrape -- by 5:35pm on
       # 2026-08-08, 228 of its 287 bats (79.4%) had moved. Runs BEFORE build15.py so the
       # whole board scores on current numbers.
