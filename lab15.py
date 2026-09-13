@@ -56,9 +56,28 @@ N_FOLDS = 5
 MIN_N = 20            # min trailing BIP on both sides, mirrors fit_savant.py
 MIN_SLATE = 60        # a slate needs this many usable bats to be draftable
 
-# the LIVE shipped basket, mapped onto this table's Statcast analogues.
-# build15.py: _SIG=[('_zxpow',.029),('_zxwcon',.193),('_zars',.011),('_zhh',.432),('_zla',.335)]
-LIVE5 = [('b_brl', .029), ('b_xwobacon', .193), ('p_brl', .011), ('b_hh', .432), ('b_la', .335)]
+# THE BASKET build15.py ACTUALLY SHIPS -- read from the source, not assumed.
+#   _SIG=[('_zars',0.0093),('_zhh',0.3655),('_zla',0.2834),('_zdmg',0.2818),('_zpsw',0.06)]
+# DMGRATIO-2026-08-23: the owner pulled _zxwcon (xwOBAcon) and _zxpow (park-neutral xISO)
+# OUT of the basket and replaced them with _zdmg, the single actual/expected damage ratio,
+# and added _zpsw (opposing SP SwStr%). Everything in this repo's 15-season work before
+# 2026-09-13 benchmarked against the PREVIOUS basket (the 2026-08-13 refit, kept below as
+# STALE_SIG) because I assumed it instead of reading _SIG. Corrected here.
+#
+# Mapping onto the Statcast table -- 70.9% of the basket by weight is EXACT:
+#   _zhh  -> b_hh                EXACT
+#   _zla  -> la_window(b_la)     EXACT (same bell)
+#   _zpsw -> -p_swstr            EXACT (opposing SP SwStr%, negated as build15 does)
+#   _zars -> p_brl               PROXY, but the weight is 0.93% so it cannot matter
+#   _zdmg -> b_brl / b_xwobacon  PROXY. This is the real compromise: 28% of the basket.
+#            The table has expected damage (b_xwobacon) but no ACTUAL ISO, so barrels --
+#            realised damage on contact -- stand in for the numerator. An exact _zdmg
+#            needs actual ISO added to build_savant_training.py and a fresh Savant pull.
+LIVE_SIG = [('p_brl', .0093), ('b_hh', .3655), ('b_la', .2834),
+            ('b_dmg', .2818), ('p_swstr_neg', .06)]
+STALE_SIG = [('b_brl', .029), ('b_xwobacon', .193), ('p_brl', .011),
+             ('b_hh', .432), ('b_la', .335)]
+LIVE5 = LIVE_SIG          # kept so importers keep working; LIVE_SIG is the real name
 
 BAT = ['b_hh', 'b_brl', 'b_fb', 'b_pull', 'b_sweet', 'b_la', 'b_xwobacon', 'b_swstr', 'b_csw']
 PIT = ['p_hh', 'p_brl', 'p_fb', 'p_pull', 'p_sweet', 'p_la', 'p_xwobacon', 'p_swstr', 'p_csw']
@@ -102,6 +121,15 @@ def prepare(df):
     df['b_hr_rate_30'] = roll_hr / 30.0
     df['b_rest'] = g['game_date'].transform(lambda s: (s - s.shift(1)).dt.days).fillna(1).clip(0, 10)
     df['b_month'] = df['game_date'].dt.month
+
+    # the two derived inputs the LIVE basket needs (see LIVE_SIG above)
+    _xwc = df['b_xwobacon'] if 'b_xwobacon' in df.columns else None
+    if _xwc is not None and 'b_brl' in df.columns:
+        # build15 guards _zdmg on xwOBAcon > 0.05; below that the ratio is meaningless
+        df['b_dmg'] = np.where(_xwc > 0.05, df['b_brl'] / _xwc.replace(0, np.nan), np.nan)
+    else:
+        df['b_dmg'] = np.nan
+    df['p_swstr_neg'] = -df['p_swstr'] if 'p_swstr' in df.columns else np.nan
 
     have = [c for c in BAT + PIT if c in df.columns]
     need = have + ['hr', 'game_date', 'game_pk', 'batter_id']
@@ -199,11 +227,13 @@ def section_model(df):
     y = df['hr'].values.astype(int)
     folds = fold_ids(df['game_date'])
 
-    # (a) the LIVE basket, exactly as shipped: fixed weights, per-slate z, la through the bell
+    # (a) the baskets, exactly as shipped: fixed weights, per-slate z, la through the bell
     d2 = df.copy()
     d2['b_la'] = la_window(d2['b_la'])
-    Z = slate_z(d2, [c for c, _ in LIVE5])
-    live = sum(w * Z['z_' + c] for c, w in LIVE5).values
+    Zl = slate_z(d2, [c for c, _ in LIVE_SIG])
+    live = sum(w * Zl['z_' + c] for c, w in LIVE_SIG).values
+    Zs = slate_z(d2, [c for c, _ in STALE_SIG])
+    stale = sum(w * Zs['z_' + c] for c, w in STALE_SIG).values
 
     feats = [c for c in BAT + PIT if c in df.columns]
     extras = ['b_hr_rate_prior', 'b_hr_rate_30', 'b_games_prior', 'b_rest', 'b_month', 'b_new']
@@ -212,7 +242,8 @@ def section_model(df):
     Xe = np.hstack([Xf, df[extras].values])
 
     res = {}
-    res['live5   (shipped _SIG, fixed wts)'] = (live, None)
+    res['LIVE _SIG  (DMGRATIO, shipped)'] = (live, None)
+    res['stale _SIG (08-13 refit, NOT live)'] = (stale, None)
     for lab, X, kind in [
         ('logit16 (all Statcast, refit)', Xf, 'logit'),
         ('logit22 (+ prior-HR / rest)  ', Xe, 'logit'),
@@ -223,7 +254,9 @@ def section_model(df):
         res[lab] = (p, c)
 
     sub('out-of-fold, CV grouped by slate')
-    print(f'  {"model":<34}{"AUC":>8}{"logloss":>10}{"vs live5":>10}')
+    print('  Baseline is the basket build15.py ACTUALLY ships (DMGRATIO-2026-08-23),')
+    print('  not the 2026-08-13 refit this repo had been comparing against by mistake.')
+    print(f'  {"model":<34}{"AUC":>8}{"logloss":>10}{"vs LIVE":>10}')
     base = auc(y, live)
     for lab, (p, _) in res.items():
         a = auc(y, p)
