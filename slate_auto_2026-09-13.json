@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T17:11:37Z",
+  "pulled_at": "2026-09-13T17:16:43Z",
   "games": [
     {
       "gamePk": 824225,
@@ -102,7 +102,7 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 679529,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 822682,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-13T17:35:00Z",
       "matchup": "LAA@WSH",
       "away": {
@@ -531,7 +531,7 @@
         "wind_mph": 6.7,
         "wind_dir": 320,
         "tail_mph": -3.8,
-        "precip": 37
+        "precip": 38
       },
       "wf": 0.991
     },
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 822928,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-13T17:40:00Z",
       "matchup": "HOU@TB",
       "away": {
@@ -1060,7 +1060,7 @@
         "wind_mph": 9.5,
         "wind_dir": 315,
         "tail_mph": -5.8,
-        "precip": 1
+        "precip": 0
       },
       "wf": 0.977
     },
@@ -1458,7 +1458,7 @@
         "wind_mph": 9.0,
         "wind_dir": 13,
         "tail_mph": -8.6,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.971
     },
@@ -1545,13 +1545,13 @@
         "wind_mph": 9.4,
         "wind_dir": 50,
         "tail_mph": -9.4,
-        "precip": 84
+        "precip": 88
       },
       "wf": 0.963
     },
     {
       "gamePk": 824952,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T20:05:00Z",
       "matchup": "SEA@ATH",
       "away": {
@@ -1573,10 +1573,56 @@
           "hr9": 1.54,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.124
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.104
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.202
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.145
+          },
+          {
+            "id": 691777,
+            "name": "Max Muncy",
+            "iso": 0.159
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.184
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.14
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.243
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.152
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
