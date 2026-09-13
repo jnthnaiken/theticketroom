@@ -473,7 +473,47 @@ def fetch_pit_ext(ids):                                  # per-pitch aggregate: 
             if rs is not None: a['rs'].append(rs)
         return {pid:{'pvelo':(sum(a['es'])/len(a['es']) if a['es'] else None),'ext':(sum(a['ex'])/len(a['ex']) if a['ex'] else None),'rvelo':(sum(a['rs'])/len(a['rs']) if a['rs'] else None)} for pid,a in agg.items()}
     except Exception: return {}
+def fetch_career(ids, yr):
+    """CAREERHR-2026-09-13: career HR rate and season games played, per batter.
+
+    Fitted on the 2015-2024 Statcast table in the LIVE feature space (lab15 run
+    34762337729): adding these two terms takes the shipped basket from AUC 0.5893 to
+    0.6222 (+0.0329), and career HR rate alone takes 0.4599 of the refitted basket --
+    the largest single term, ahead of _zhh. It is also the one signal that needs no
+    Kasper, no Savant and no odds: StatsAPI has carried it the whole time.
+
+    One batched people call per 100 ids, same shape as the pitcher season hydrate above.
+    Fails SOFT -- an empty dict leaves _zhrc/_zpt as None, and a None signal sits at the
+    slate mean in the z-blend, so a dead pull costs the basket weight and nothing else.
+    """
+    out={}
+    ids=[i for i in dict.fromkeys(ids) if i]
+    for k in range(0,len(ids),100):
+        chunk=ids[k:k+100]
+        try:
+            pe=_getj('https://statsapi.mlb.com/api/v1/people?personIds=%s'
+                     '&hydrate=stats(group=[hitting],type=[career,season],season=%s)'
+                     %(','.join(map(str,chunk)),yr))
+        except Exception:
+            continue
+        for pr in (pe.get('people') or []):
+            hrc=pt=None; cg=0
+            for st_ in (pr.get('stats') or []):
+                nmt=((st_.get('type') or {}).get('displayName') or '').lower()
+                sps=st_.get('splits') or []
+                x=(sps[0].get('stat') if sps else {}) or {}
+                try:
+                    g=int(x.get('gamesPlayed') or 0); h=int(x.get('homeRuns') or 0)
+                except Exception:
+                    continue
+                if nmt=='career' and g>0: cg=g; hrc=h/float(g)
+                elif nmt=='season': pt=g
+            out[pr.get('id')]={'hrc':hrc,'cg':cg,'pt':pt}
+    return out
+
+
 SAV_BAT=fetch_bat_track(); SAV_PIT=fetch_pit_velo(); SAV_SPRAY=fetch_bat_spray(); SAV_RECENT=fetch_bat_recent([v['id'] for v in SAV_BAT.values() if v.get('id')]); SAV_ARS_BAT=fetch_arsenal('batter'); SAV_ARS_PIT=fetch_arsenal('pitcher')
+CAREER=fetch_career([v['id'] for v in SAV_BAT.values() if v.get('id')], DATE[:4])
 print(f'  (savant: {len(SAV_BAT)} batters, {len(SAV_PIT)} pitchers)')
 _sp_ids=set()
 for _g in lin.get('games',[]):
@@ -731,6 +771,11 @@ zoneT=lambda z:1.0 if abs(z-0.5)<1e-9 else clamp(1+0.05*(z-medZ)/0.05,0.95,1.05)
 # frozen, and the commit log said it was building.
 MIN_DMG_BIP=40      # min batted balls before the iso/xwOBAcon ratio is trusted (DMGRATIO-2026-08-23)
 MIN_SPLIT_PIT=300   # a vR/vL split thinner than this falls back to the arm's All row
+MIN_CAREER_G=30     # min career games before the HR rate is trusted (CAREERHR-2026-09-13).
+                    # A callup with 1 HR in 3 games reads .333 -- ten times the league rate
+                    # and straight to the top of a basket where this term carries 0.46.
+                    # Guarded-out bats get None and sit at the slate mean, same safe
+                    # fallback _zdmg uses.
 for r in pool:
     _opn=pnorm((r.get('opp') or ['',''])[0])
     if _opn in PBRL: r['phr9']=ppitT(PBRL[_opn]); r['psrc']='brl'   # listed arm -> allowed pulled-barrel%/hard-hit%/fly-ball% (pitcher equivalents of batter power)
@@ -755,6 +800,10 @@ for r in pool:
     _pvr=r.get('opp_pvelo') if r.get('opp_pvelo') is not None else r.get('opp_velo'); r['_zpvel']=(-_pvr) if _pvr is not None else None
     r['_zpvd']=(r['opp_velo']-r['opp_rvelo']) if (r.get('opp_velo') is not None and r.get('opp_rvelo') is not None) else None
     r['_zbtrk']=(((r['zc'] or 85)-85)/10.0-((r['whiff'] or 25)-25)/15.0) if (r.get('zc') is not None or r.get('whiff') is not None) else None
+    _cc=CAREER.get(_bt.get('id')) or {}
+    r['hrc']=_cc.get('hrc'); r['cg']=_cc.get('cg'); r['pt']=_cc.get('pt')
+    r['_zhrc']=r['hrc'] if (isinstance(r['hrc'],(int,float)) and (_cc.get('cg') or 0)>=MIN_CAREER_G) else None
+    r['_zpt']=r['pt'] if isinstance(r['pt'],(int,float)) else None
     r['_zpark']=r.get('park_trk')
     _tlt=(PARK_HAND.get(_hm,(1.0,1.0))[0 if r.get('bhand')=='L' else 1]) if r.get('bhand') in ('L','R') else 1.0
     r['_zspray']=(((r['pull']-40.0)/10.0)*(((_tlt-1.0)/0.05)+(clamp(r['pull_tail']/8.0,-1.0,1.0) if r.get('pull_tail') is not None else 0.0))) if r.get('pull') is not None else None
@@ -814,7 +863,7 @@ for r in pool:
 # ---- ADDITIVE 50/50 MODEL: z-scored signals (no clamps). TOTAL = 0.5*z(market) + 0.5*sum(w_i*z_i); edge weights sum to 1 ----
 # MIN_DMG_BIP / MIN_SPLIT_PIT are DEFINED ABOVE the enrichment loop (see NAMEERR-2026-08-23)
 # because that loop reads them. Do not move them back down here.
-W_PSW=0.06   # PSWSTR-2026-08-23. THE ONE UNFITTED WEIGHT IN _SIG -- set by blast radius, not by evidence.
+W_PSW=0.0674   # PSWSTR-2026-08-23. THE ONE UNFITTED WEIGHT IN _SIG -- set by blast radius, not by evidence.
              # It CANNOT be fitted yet: pitcher SwStr% exists on exactly 3 archived nights (2026-08-02..04,
              # 410 rows / 48 HR) because the daily scrape never emitted it, and Savant is unreachable from
              # the sandbox (403) so no historical substitute can be built. On those 3 nights the term is
@@ -825,7 +874,7 @@ W_PSW=0.06   # PSWSTR-2026-08-23. THE ONE UNFITTED WEIGHT IN _SIG -- set by blas
              # that being wrong costs about two bats a night. Revisit once ~3 weeks of slates carry
              # p_swstr in calibration.jsonl -- that is what PSWSTR was really for. To revert: delete the
              # _zpsw entry and restore the five weights to 0.029/0.193/0.011/0.432/0.335 x 0.90 for _ziso.
-_SIG=[('_zars',0.0093),('_zhh',0.3655),('_zla',0.2834),('_zdmg',0.2818),('_zpsw',W_PSW)]   # DMGRATIO-2026-08-23, owner's call: _zxwcon (xwOBAcon) and _zxpow (park-neutral xISO) are OUT of the basket, replaced by the single actual/expected ratio _zdmg, which inherits their combined weight plus _ziso's (0.0245+0.1633+0.0940 = 0.2818). _zhh / _zla / _zars keep their 08-13 fitted values untouched, so the basket still sums to 1. Rationale: this is what Kasper reads -- HH and LA first, then actual-vs-expected damage -- and carrying the two levels AND the comparison double-counts the same two columns. MEASUREMENT ON RECORD, 23 nights / 5,454 bats / 563 HR: this is a small LOSS on the archived data -- blend AUC 0.6176 -> 0.6150, top-30 hit rate 18.99% -> 18.55%, top-30 ROI -17.6% -> -19.6%. All of it is inside noise at 563 HR, and none of it tests the proposition the owner actually holds, which is that the market half is contaminated by public money and so ROI-against-price is the wrong scoreboard. Recorded so a later refit knows what was traded away, not as an argument against it. REVERT: restore ('_zxpow',0.0245),('_zxwcon',0.1633),('_ziso',0.0940) and drop _zdmg.   # REFIT 2026-08-13 on the 2015-2024 Statcast table (316,463 batter-games / 37,340 HR / 1,840 slates): grouped-by-game-date CV logistic in per-slate z-space, i.e. the space this loop actually scores in. Replaces the 0.45/0.35/0.20 "reasoned guesses" of 2026-07-09. hh + la added -- they were the two STRONGEST predictors and had been display-only chips. 3-signal AUC 0.5773 -> 5-signal 0.5962. CAVEAT: xpow/ars measured near zero through Statcast PROXIES (b_brl/p_brl) that are collinear with hard-hit; the live inputs (park-neutral xISO, RV/100 x pitch mix) are richer, so their true weight may be understated -- kept in the basket rather than dropped. Repro: fit_savant.py, Savant Fit run 31731827046.
+_SIG=[('_zars',0.0085),('_zhh',0.2121),('_zla',0.1362),('_zdmg',0.0108),('_zpsw',0.0674),('_zhrc',0.4598),('_zpt',0.1052)]   # CAREERHR-2026-09-13: two NEW terms, _zhrc (career HR per game, StatsAPI) and _zpt (games played this season). Fitted on the 2015-2024 Statcast table IN THIS SPACE -- the exact columns this basket scores with, per-slate z, grouped-CV by slate -- so the weights transpose directly instead of being scaled by eye from a different feature set. lab15 run 34762337729: shipped basket AUC 0.5893 -> 0.6222 with these two added (+0.0329), the largest single gain on record for this board. _zhrc alone takes 0.4598 of the refitted basket, ahead of _zhh -- who hits home runs beats how the ball comes off the bat, and it needs no Kasper, no Savant and no odds. _zdmg falls 0.2818 -> 0.0108 and _zla 0.2834 -> 0.1362, because career rate absorbs most of what they were carrying. CAVEAT ON RECORD: _zdmg was measured through a PROXY (b_brl/b_xwobacon) -- the training table has expected damage but no actual ISO -- so its collapse is the least trustworthy number here; an exact read needs actual ISO added to build_savant_training.py. All seven weights sum to 1.0000 and all fitted POSITIVE (no negated input needed beyond _zpsw, which is already negated at the row). REVERT: _SIG=[('_zars',0.0093),('_zhh',0.3655),('_zla',0.2834),('_zdmg',0.2818),('_zpsw',W_PSW)] and drop the _zhrc/_zpt rows + fetch_career + MIN_CAREER_G.
 def _ms(key):
     vals=[r[key] for r in pool if r.get(key) is not None]
     if len(vals)<2: return (0.0,1.0)
