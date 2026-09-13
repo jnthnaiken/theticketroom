@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T17:06:43Z",
+  "pulled_at": "2026-09-13T17:11:37Z",
   "games": [
     {
       "gamePk": 824225,
@@ -25,7 +25,7 @@
           {
             "id": 691182,
             "name": "Adael Amador",
-            "iso": 0.349
+            "iso": 0.341
           },
           {
             "id": 694249,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.74,
+          "hr9": 1.72,
           "hand": "RHP"
         },
         "lineup": [
@@ -97,7 +97,7 @@
           {
             "id": 693307,
             "name": "Dillon Dingler",
-            "iso": 0.214
+            "iso": 0.213
           },
           {
             "id": 703601,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824869,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-13T17:35:00Z",
       "matchup": "PHI@ATL",
       "away": {
@@ -1592,7 +1592,7 @@
     },
     {
       "gamePk": 825033,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T20:10:00Z",
       "matchup": "TEX@ARI",
       "away": {
@@ -1614,10 +1614,56 @@
           "hr9": 0.78,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.138
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.193
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.162
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.112
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.229
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.199
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.159
+          },
+          {
+            "id": 543510,
+            "name": "James McCann",
+            "iso": 0.152
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.158
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
