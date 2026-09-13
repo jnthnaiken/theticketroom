@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T15:00:31Z",
+  "pulled_at": "2026-09-13T15:07:30Z",
   "games": [
     {
       "gamePk": 824225,
@@ -485,7 +485,7 @@
         "wind_mph": 5.9,
         "wind_dir": 320,
         "tail_mph": -3.4,
-        "precip": 33
+        "precip": 42
       },
       "wf": 0.99
     },
@@ -876,13 +876,13 @@
         "wind_mph": 7.9,
         "wind_dir": 278,
         "tail_mph": -0.1,
-        "precip": 0
+        "precip": 1
       },
       "wf": 0.997
     },
     {
       "gamePk": 823734,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T18:10:00Z",
       "matchup": "CIN@MIL",
       "away": {
@@ -893,8 +893,54 @@
           "hr9": 0.91,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.11
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.228
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.208
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.217
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.173
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.202
+          },
+          {
+            "id": 682877,
+            "name": "Juan Brito",
+            "iso": 0.157
+          },
+          {
+            "id": 624431,
+            "name": "Jose Trevino",
+            "iso": 0.134
+          },
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.17
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -904,10 +950,56 @@
           "hr9": 1.38,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.163
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.202
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.179
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.219
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.224
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.147
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.129
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.09
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.097
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1037,7 +1129,7 @@
         "wind_mph": 9.6,
         "wind_dir": 62,
         "tail_mph": -9.2,
-        "precip": 71
+        "precip": 69
       },
       "wf": 0.962
     },
