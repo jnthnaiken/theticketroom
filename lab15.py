@@ -153,6 +153,28 @@ def logloss(y, p):
     return float(-(y * np.log(p) + (1 - y) * np.log(1 - p)).mean())
 
 
+def calibrate_oof(p, y, folds):
+    """Fold-wise isotonic. WHY THIS IS NOT OPTIONAL (found the hard way, run #1):
+
+    §3 compares the observed k-hit count against a Poisson-binomial built from p̂, and
+    §4 prices each leg at k/p̂. Both silently assume p̂ MEANS something. Run #1's top-3
+    picks predicted 26.31% and delivered 22.50% — so the 'independent' baseline was set
+    0.79 hits/slate too high and the whole shortfall came back mislabelled as negative
+    correlation (chi2 39.2). Calibrated, that chi2 is 4.0 and the legs are independent.
+    The same 0.855 factor was silently shifting §4's entire k axis.
+
+    Calibration is fitted on the OTHER folds so a row never calibrates itself.
+    """
+    from sklearn.isotonic import IsotonicRegression
+    out = np.zeros(len(p))
+    for f in range(N_FOLDS):
+        tr, te = folds != f, folds == f
+        ir = IsotonicRegression(out_of_bounds='clip', y_min=1e-4, y_max=1 - 1e-4)
+        ir.fit(p[tr], y[tr])
+        out[te] = ir.predict(p[te])
+    return out
+
+
 def oof_model(X, y, folds, kind):
     from sklearn.linear_model import LogisticRegression
     from sklearn.ensemble import HistGradientBoostingClassifier
@@ -226,7 +248,7 @@ def section_model(df):
 
     best_lab = max(res, key=lambda k: auc(y, res[k][0]))
     print(f'\n  BEST: {best_lab.strip()}  (AUC {auc(y,res[best_lab][0]):.4f})')
-    return res, best_lab, y
+    return res, best_lab, y, folds
 
 
 def section_calibration(df, p, y):
@@ -323,34 +345,48 @@ def build_slips(df, p, y, n_legs=3, policy='gamecap', lo=None, name=''):
 
 
 def dispersion(P, H, label):
-    """Observed k-hit distribution vs the exact independent expectation."""
-    n = P.shape[1]
+    """Observed k-hit distribution against TWO baselines, because they answer
+    two different questions and run #1 conflated them:
+
+      A) Poisson-binomial from p̂          -> "is the SCORER right about these legs"
+      B) binomial at the REALISED rate     -> "are the legs INDEPENDENT of each other"
+
+    A failure of (A) with (B) clean means the model is mis-calibrated on its own picks,
+    not that the picks clump. Only (B) bears on the doubles-vs-trebles question.
+    """
+    from math import comb
+    n = P.shape[1]; N = len(P)
     obs = np.bincount(H.sum(axis=1), minlength=n + 1).astype(float)
-    exp = np.zeros(n + 1)
-    for ps in P: exp += poisson_binomial(ps)
-    N = len(P)
-    print(f'\n  {label}   ({N} slates, mean leg p̂ {P.mean()*100:.2f}%)')
-    print(f'    {"hits":<7}{"observed":>11}{"independent":>13}{"obs/exp":>10}')
+    expA = np.zeros(n + 1)
+    for ps in P: expA += poisson_binomial(ps)
+    q = H.mean()                                   # realised per-leg rate
+    expB = np.array([comb(n, k) * q ** k * (1 - q) ** (n - k) * N for k in range(n + 1)])
+
+    print(f'\n  {label}   ({N} slates)')
+    print(f'    predicted leg rate {P.mean()*100:.2f}%   realised {q*100:.2f}%   '
+          f'CALIBRATION {q/P.mean():.3f}')
+    print(f'    {"hits":<6}{"observed":>10}{"A: from p̂":>12}{"ratio":>8}'
+          f'{"B: indep@real":>15}{"ratio":>8}')
     for k in range(n + 1):
-        r = obs[k] / exp[k] if exp[k] > 0.5 else float('nan')
-        print(f'    {k:<7}{obs[k]:>11.0f}{exp[k]:>13.1f}{r:>10.3f}')
-    # chi-square against independence
-    m = exp > 5
-    chi = float(((obs[m] - exp[m]) ** 2 / exp[m]).sum())
-    # pairwise correlation of leg outcomes
+        ra = obs[k] / expA[k] if expA[k] > .5 else float('nan')
+        rb = obs[k] / expB[k] if expB[k] > .5 else float('nan')
+        print(f'    {k:<6}{obs[k]:>10.0f}{expA[k]:>12.1f}{ra:>8.3f}{expB[k]:>15.1f}{rb:>8.3f}')
+
+    chiA = float(sum((obs[k] - expA[k]) ** 2 / expA[k] for k in range(n + 1) if expA[k] > 5))
+    chiB = float(sum((obs[k] - expB[k]) ** 2 / expB[k] for k in range(n + 1) if expB[k] > 5))
     cors = []
     for i in range(n):
         for j in range(i + 1, n):
             a, b = H[:, i], H[:, j]
             if a.std() > 0 and b.std() > 0: cors.append(np.corrcoef(a, b)[0, 1])
     rho = float(np.mean(cors)) if cors else 0.0
-    var_o = H.sum(axis=1).var()
-    var_e = float(sum((ps * (1 - ps)).sum() for ps in P) / N)
-    print(f'    chi2 vs independence {chi:.1f} (df {int(m.sum())-1})   mean pairwise rho {rho:+.4f}')
-    print(f'    variance of hit count: observed {var_o:.4f} vs independent {var_e:.4f} '
-          f'({"OVER" if var_o>var_e else "UNDER"}-dispersed)')
-    return {'obs': obs.tolist(), 'exp': exp.tolist(), 'rho': rho, 'chi2': chi,
-            'var_obs': float(var_o), 'var_exp': var_e, 'n': int(N)}
+    var_o = float(H.sum(axis=1).var()); var_b = float(n * q * (1 - q))
+    print(f'    chi2 vs A (scorer) {chiA:6.1f}      chi2 vs B (independence) {chiB:6.1f}')
+    print(f'    mean pairwise rho {rho:+.4f}   variance {var_o:.4f} vs independent {var_b:.4f} '
+          f'({"OVER" if var_o > var_b else "UNDER"}-dispersed)')
+    return {'obs': obs.tolist(), 'expA': expA.tolist(), 'expB': expB.tolist(),
+            'rho': rho, 'chi2_scorer': chiA, 'chi2_indep': chiB, 'calib': float(q / P.mean()),
+            'var_obs': var_o, 'var_indep': var_b, 'n': int(N), 'q': float(q)}
 
 
 def section_depth(df, p, y):
@@ -377,7 +413,7 @@ def section_depth(df, p, y):
 def section_legcount(df, p, y):
     """Does clumping get worse as the slip gets longer?"""
     sub('does clumping compound with slip length? (top-N, one per game)')
-    print(f'    {"legs":<7}{"slates":>8}{"mean p̂":>9}{"rho":>9}{"var obs":>10}{"var ind":>10}{"ratio":>8}')
+    print(f'    {"legs":<7}{"slates":>8}{"leg rate":>9}{"rho":>9}{"var obs":>10}{"var ind":>10}{"ratio":>8}')
     for n in (2, 3, 4, 5):
         P, H, _ = build_slips(df, p, y, n, 'gamecap', None, '')
         if len(P) < 50: continue
@@ -387,10 +423,11 @@ def section_legcount(df, p, y):
                 a, b = H[:, i], H[:, j]
                 if a.std() > 0 and b.std() > 0: cors.append(np.corrcoef(a, b)[0, 1])
         rho = float(np.mean(cors)) if cors else 0.0
-        vo = H.sum(axis=1).var()
-        ve = float(sum((ps * (1 - ps)).sum() for ps in P) / len(P))
-        print(f'    {n:<7}{len(P):>8}{P.mean()*100:>8.2f}%{rho:>+9.4f}{vo:>10.4f}{ve:>10.4f}{vo/ve:>8.3f}')
-    print('    ratio > 1 = the slip is riskier than its price assumes at every length.')
+        vo = float(H.sum(axis=1).var()); q = H.mean()
+        ve = float(n * q * (1 - q))          # independence AT THE REALISED RATE
+        print(f'    {n:<7}{len(P):>8}{q*100:>8.2f}%{rho:>+9.4f}{vo:>10.4f}{ve:>10.4f}{vo/ve:>8.3f}')
+    print('    ratio > 1 = legs clump, so the slip is riskier than independent pricing assumes.')
+    print('    ratio ~ 1 at every length = independent, and slip LENGTH is not the problem.')
 
 
 def section_draft(df, p, y, band):
@@ -518,18 +555,28 @@ def selftest():
     print('observed 3-hit count must come in ABOVE the independent expectation and')
     print('the hit count must be OVER-dispersed. If it does not, the math is wrong.')
     band = (float(np.quantile(p, .55)), float(np.quantile(p, .85)))
+    p = calibrate_oof(p, y, folds)
     d = section_draft(df, p, y, band)
-    ok = d['gamecap']['var_obs'] > d['gamecap']['var_exp'] and d['gamecap']['rho'] > 0
+    ok = d['gamecap']['var_obs'] > d['gamecap']['var_indep'] and d['gamecap']['rho'] > 0
     print(f'\n  SELF-TEST {"PASS" if ok else "FAIL"}: positive rho and over-dispersion recovered')
 
     print('\nEXPECTATION: with positive correlation the treble should look BETTER than')
     print('independence implies, so its crossover k should sit at or below 1.00.')
     section_structure(d, [0.85, 0.95, 1.00, 1.05, 1.15])
-    print('\nAlso checking the degenerate case: at k=1 a SINGLE must return ~0%.')
-    r = structure_returns(d['gamecap']['P'], d['gamecap']['H'], 1.0)
-    s = r['singles  (3 x 1)'][1]
-    print(f'  singles at k=1.00: {s:+.2f}%  ->  {"PASS" if abs(s) < 3 else "FAIL"} (want ~0)')
-    return 0 if ok and abs(s) < 3 else 1
+    print('\nPRICING INVARIANT. A single staked at odds k/p̂ returns exactly')
+    print('k*E[h/p̂] - 1. That is an identity, so any gap is a bug in the payout math')
+    print('(NOT evidence about calibration -- a scorer that overrates its own picks')
+    print('makes E[h/p̂] < 1 and the single legitimately loses at k=1).')
+    P, H = d['gamecap']['P'], d['gamecap']['H']
+    ok2 = True
+    for k in (0.90, 1.00, 1.15):
+        want = (k * (H / P).mean() - 1) * 100
+        got = structure_returns(P, H, k)['singles  (3 x 1)'][1]
+        good = abs(want - got) < 0.5
+        ok2 &= good
+        print(f'  k={k:.2f}  identity {want:+7.2f}%   measured {got:+7.2f}%   '
+              f'{"PASS" if good else "FAIL"}')
+    return 0 if ok and ok2 else 1
 
 
 # ---------------------------------------------------------------- main
@@ -544,13 +591,39 @@ def main():
     if not a.table: sys.exit('!! give a parquet glob, or --selftest')
 
     df = prepare(load(a.table))
-    res, best, y = section_model(df)
-    p = res[best][0]
-    section_calibration(df, p, y)
+    res, best, y, folds = section_model(df)
+    raw = res[best][0]
+    section_calibration(df, raw, y)
+    p = calibrate_oof(raw, y, folds)
+    sub('after fold-wise isotonic calibration')
+    print(f'  mean p̂ {raw.mean()*100:.3f}% -> {p.mean()*100:.3f}%  (actual {y.mean()*100:.3f}%)')
+    print(f'  AUC unchanged by design: {auc(y,raw):.4f} -> {auc(y,p):.4f}')
     section_drift(df, p, y)
     band = tuple(float(x) for x in a.band.split(','))
     draft = section_draft(df, p, y, band)
     section_structure(draft, [0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.20])
+
+    # GUARD: with calibrated p̂, a flat single at k=1 must return ~0. If it does not,
+    # p̂ is still wrong on the selected legs and every number in §4 is shifted.
+    hr('GUARD — is the k axis honest, and is the scorer right about its own picks?')
+    print('  A single staked at k/p̂ returns exactly k*E[h/p̂] - 1. The identity column')
+    print('  and the measured column must agree (else the payout math is broken). How')
+    print('  far E[h/p̂] sits below 1 is NOT a bug — it is the scorer overrating the legs')
+    print('  it chose, and it shifts where the real k sits on the §4 axis.\n')
+    print(f'  {"policy":<10}{"E[h/p-hat]":>12}{"identity@1":>12}{"measured":>11}{"math":>7}'
+          f'{"  scorer on its own picks":<26}')
+    for pol in ('gamecap', 'anchor', 'band'):
+        if pol not in draft: continue
+        P, H = draft[pol]['P'], draft[pol]['H']
+        e = float((H / P).mean())
+        want = (e - 1) * 100
+        got = structure_returns(P, H, 1.0)['singles  (3 x 1)'][1]
+        verdict = 'honest' if e > 0.97 else ('OVERRATES by %.0f%%' % ((1 - e) * 100))
+        print(f'  {pol:<10}{e:>12.3f}{want:>11.2f}%{got:>10.2f}%'
+              f'{"ok" if abs(want-got) < 0.5 else "BAD":>7}  {verdict}')
+    print('\n  Run #1 read -13.7% here with no identity column to compare against, and the')
+    print('  same shortfall came back as fake "negative correlation" in §3. It is neither:')
+    print('  it is the scorer being wrong about the bats it likes most.')
 
     hr('WHAT THIS DOES NOT SETTLE')
     print('  No odds are used anywhere above. §4 sweeps k rather than measuring it,')
