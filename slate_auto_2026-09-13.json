@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T15:56:29Z",
+  "pulled_at": "2026-09-13T16:00:34Z",
   "games": [
     {
       "gamePk": 824225,
@@ -265,7 +265,7 @@
         "wind_mph": 2.9,
         "wind_dir": 261,
         "tail_mph": 1.8,
-        "precip": 7
+        "precip": 8
       },
       "wf": 1.023
     },
@@ -531,7 +531,7 @@
         "wind_mph": 6.3,
         "wind_dir": 328,
         "tail_mph": -4.3,
-        "precip": 42
+        "precip": 37
       },
       "wf": 0.988
     },
@@ -1418,7 +1418,7 @@
     },
     {
       "gamePk": 824708,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T19:05:00Z",
       "matchup": "KC@BOS",
       "away": {
@@ -1429,8 +1429,54 @@
           "hr9": 0.9,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679845,
+            "name": "Nick Loftin",
+            "iso": 0.145
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.17
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.211
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.153
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.158
+          },
+          {
+            "id": 683090,
+            "name": "Matthew Lugo",
+            "iso": 0.0
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.116
+          },
+          {
+            "id": 571912,
+            "name": "Luke Maile",
+            "iso": 0.114
+          },
+          {
+            "id": 686475,
+            "name": "Tyler Tolbert",
+            "iso": 0.12
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -1443,7 +1489,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\ud83c\udf27\ufe0f",
@@ -1453,7 +1499,7 @@
         "wind_mph": 8.0,
         "wind_dir": 60,
         "tail_mph": -7.7,
-        "precip": 69
+        "precip": 84
       },
       "wf": 0.969
     },
