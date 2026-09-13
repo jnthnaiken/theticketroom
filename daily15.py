@@ -263,14 +263,41 @@ def build_board(pos, score, implied, listed, gk, band, aband, legs):
 
 
 def combos(L):
-    p = [(i, j) for i in range(L) for j in range(i + 1, L)]
-    return p + [tuple(range(L))] if L >= 3 else p or [(0,)]
+    """EVERY combination from doubles up to the full L-leg parlay.
+
+    Owner, 2026-09-13: "i saw you still has 2s x 3 2u and thats not possible for a 4 leg
+    parlay" -- then "and the full 4 man too". Both right, and the second is the rule that
+    makes it consistent: at L=3 the live board's "by 2s & 3" is 3 doubles + the treble,
+    and that treble IS the full 3-man. So the general form is every size from 2 to L.
+
+    The old code read `pairs + [tuple(range(L))]`, which is correct at L=3 by coincidence
+    and wrong at L=4: 6 doubles and a single four-fold, with the four TREBLES missing
+    entirely. Every 4-leg number this program printed was priced on a bet nobody makes.
+
+        L=2   1 double                             =  1
+        L=3   3 doubles + 1 treble                 =  4   (live, unchanged)
+        L=4   6 doubles + 4 trebles + 1 four-fold  = 11
+    """
+    from itertools import combinations
+    if L < 2: return [(0,)]
+    return [c for n in range(2, L + 1) for c in combinations(range(L), n)]
+
+
+# Stake PER COMBINATION, by leg count. Owner, 2026-09-13: "i would like .25u per bet on a
+# 4 leg round robin." With the full four-man included that is 11 combos x 0.25u = 2.75u at
+# risk, not 2.0u -- the slip gets bigger, which is the point of the extra leg.
+# L=3 keeps the live 0.5u x 4 = 2.00u exactly.
+UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}
+
+
+def unit_for(L):
+    return UNIT.get(L, MOON_RISK / max(len(combos(L)), 1))
 
 
 def grade(slips, dec, y):
     net = staked = 0.0
     for s in slips:
-        cs = combos(len(s)); unit = MOON_RISK / len(cs)
+        cs = combos(len(s)); unit = unit_for(len(s))
         h = y[s]; d = dec[s]
         for c in cs:
             staked += unit

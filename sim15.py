@@ -71,6 +71,7 @@ from walk15 import _z, _extras, fit_apply, EXTRAS, FEATSETS, WINDOWS, _ZCACHE
 # ---- the live board, from index.html ----
 GATE_N, Z_GATE, GAME_CAP, ANCH_PER_GAME, MOONS_PER_ANC = 33, 0.75, 6, 2, 2
 ANCH, MOON_RISK = 4, 2.0
+UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}   # stake per combination, by leg count
 MIN_IMPLIED = 0.50          # MIN_ODDS=100 -> a leg may never be shorter than even money
 MAX_IMPLIED_FLOOR = 0.031   # ~ +3130. Books do not list an anytime-HR prop longer than
                             # this, and without the floor a synthetic price of implied
@@ -186,7 +187,7 @@ def build_board(idx, score, implied, dec, gk, cfg, listed):
     return boards
 
 
-COMBOS = {'by2s3': lambda L: [c for c in _pairs(L)] + [tuple(range(L))],
+COMBOS = {'by2s3': lambda L: _by2s3(L),
           'doubles': lambda L: list(_pairs(L)),
           'singles': lambda L: [(i,) for i in range(L)],
           'treble': lambda L: [tuple(range(L))]}
@@ -194,6 +195,15 @@ COMBOS = {'by2s3': lambda L: [c for c in _pairs(L)] + [tuple(range(L))],
 
 def _pairs(L):
     return [(i, j) for i in range(L) for j in range(i + 1, L)]
+
+
+def _by2s3(L):
+    """Every combination from doubles up to the full L-leg parlay. At L=3 that is the
+    live 3 doubles + treble; at L=4 it is 6 + 4 + 1 = 11. The old
+    `pairs + [tuple(range(L))]` dropped all four trebles at L=4."""
+    from itertools import combinations
+    if L < 2: return [(0,)]
+    return [c for n in range(2, L + 1) for c in combinations(range(L), n)]
 
 
 def grade(slips, dec, y, shape, risk=MOON_RISK):
