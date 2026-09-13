@@ -19,7 +19,7 @@
 # one at parity with the best model this data allows. Read the EDGE block, not the
 # ledger; a season of round robins is jackpot-shaped and one treble owns a year.
 #
-# Reuses the savant-training artifact (run 30756466843, expires ~2026-10-31).
+# Reuses the savant-training artifact (run 34763553648, expires ~2026-12-12).
 # Nothing here touches the daily board pipeline.
 #
 # TRIGGER: workflow_dispatch.
@@ -33,7 +33,12 @@ on:
       run_id:
         description: "Run ID holding the savant-training artifact"
         required: true
-        default: "30756466843"
+        # ISOREAL-2026-09-13: was 30756466843, the 2026-08-02 table. That table has NO actual-ISO column,
+        # so _zdmg fits through a b_brl proxy -- and build15.py's _SIG comment says in terms that if lab15
+        # ever logs "PROXY" again, the shipped weights are void. Running any of these with the OLD default
+        # therefore reproduces an answer this repo calls void. 34763553648 is the real-ISO rebuild
+        # (2h36m, 18.2 MB, 2026-09-13). Retention is 90 days -> EXPIRES ~2026-12-12; re-pull before then.
+        default: "34763553648"
       hold:
         description: "The book's hold per leg (0.06 = 6%)"
         required: false

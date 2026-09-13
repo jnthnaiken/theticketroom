@@ -2,7 +2,7 @@
 # Savant fit -- consumes the training table artifact and reports weights for _SIG.
 #
 # The 2015-04-01..2024-10-01 table (510,301 batter-games / 53,384 HR) was built by the
-# "Savant Training Table" workflow on 2026-08-02 (run 30756466843) and lives ONLY as that
+# "Savant Training Table" workflow on 2026-09-13 (run 34763553648) and lives ONLY as that
 # run's artifact -- 17.2 MB, 90-day retention, so it expires ~2026-10-31. This workflow
 # downloads it with the run's own token and fits it, so the fit is reproducible from the
 # repo instead of living in someone's head.
@@ -20,7 +20,12 @@ on:
       run_id:
         description: "Run ID holding the savant-training artifact"
         required: true
-        default: "30756466843"
+        # ISOREAL-2026-09-13: was 30756466843, the 2026-08-02 table. That table has NO actual-ISO column,
+        # so _zdmg fits through a b_brl proxy -- and build15.py's _SIG comment says in terms that if lab15
+        # ever logs "PROXY" again, the shipped weights are void. Running any of these with the OLD default
+        # therefore reproduces an answer this repo calls void. 34763553648 is the real-ISO rebuild
+        # (2h36m, 18.2 MB, 2026-09-13). Retention is 90 days -> EXPIRES ~2026-12-12; re-pull before then.
+        default: "34763553648"
 
 permissions:
   contents: read
