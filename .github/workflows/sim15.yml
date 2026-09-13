@@ -1,0 +1,102 @@
+# ====================================================================================
+# Sim 15 -- run THE ACTUAL BOARD for ten seasons, learning as it goes.
+#
+# Asked 2026-09-13: "starting 15 seasons ago, run our model and system though the first
+# season. take what you learn, apply it and then run your updated versions vs the next
+# season. then again and again for 15 seasons."
+#
+# lab15 measured the decade. walk15 walked a SCORER across it. Neither ran the board.
+# This plays season one with the configuration we ship today, grades it, folds in what it
+# learned, and plays season two with the updated board -- with the shipped board running
+# alongside on the same nights at the same prices as a control. Through 2024.
+#
+# The board is the real one, constants lifted from index.html: GATE_N=33, Z_GATE=0.75,
+# GAME_CAP=6, ANCH_PER_GAME=2, MOONS_PER_ANC=2, moon = anchor + 2 legs, rr "by 2s & 3"
+# at 2u, MIN_ODDS=100.
+#
+# Prices are synthetic -- we own 10 seasons of outcomes and 81 nights of odds -- so the
+# run reports TWO books and brackets the answer: one no sharper than our current model,
+# one at parity with the best model this data allows. Read the EDGE block, not the
+# ledger; a season of round robins is jackpot-shaped and one treble owns a year.
+#
+# Reuses the savant-training artifact (run 30756466843, expires ~2026-10-31).
+# Nothing here touches the daily board pipeline.
+#
+# TRIGGER: workflow_dispatch.
+# ====================================================================================
+
+name: Sim 15
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID holding the savant-training artifact"
+        required: true
+        default: "30756466843"
+      hold:
+        description: "The book's hold per leg (0.06 = 6%)"
+        required: false
+        default: "0.06"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: sim15
+  cancel-in-progress: false
+
+jobs:
+  sim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scikit-learn
+
+      - name: Self-test first — the board must actually learn
+        run: |
+          set -o pipefail
+          python3 sim15.py --selftest 2>&1 | tail -20
+
+      - name: Download training table
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ github.event.inputs.run_id }}" -n savant-training -D table
+          ls -la table/
+
+      - name: Play ten seasons
+        run: |
+          set -o pipefail
+          python3 sim15.py "table/*.parquet" --hold "${{ github.event.inputs.hold }}" 2>&1 | tee sim15_report.txt
+
+      - name: Report to run summary
+        if: always()
+        run: |
+          {
+            echo '## Sim 15 — the board, ten seasons, learning as it goes'
+            echo '```'
+            cat sim15_report.txt 2>/dev/null || echo '(no report — run failed before writing one)'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sim15-report
+          path: |
+            sim15_report.txt
+            sim15_ledger.json
+          if-no-files-found: warn
+          retention-days: 90
