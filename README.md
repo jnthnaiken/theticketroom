@@ -461,16 +461,15 @@ corrected there.)
   `a.filter(n => !pending(n))` — it excludes carried/resuming bats and nothing else. The pool
   gate (`Z_GATE`) is the only quality bar.
 
-Key knobs: `Z_GATE=0.75` (pool gate), `GATE_N=33`, `GAME_CAP=6`, `ANCH=4`, `WIN=120`, `NIGHT_WIN=60`,
+Key knobs: `Z_GATE=0.75` (pool gate), `GATE_N=33`, `GAME_CAP=6`, `ANCH=4`, `MOON_LEGS=4`, `WIN=120`, `NIGHT_WIN=60`,
 `MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`,
 `LUNCH_CUT=17*60` (5:00 PM ET — widened from 16*60 on 2026-08-13; a 4:05 PM game is a matinee, and the
 old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
 `CHALK_N=0` in `index.html` — the chalk reservation is **off**: it used to bar the four
 **shortest-priced** bats (2026-08-20; `strength` before that) from every ticket, and since
 2026-08-14 they were no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`)
-either. With `CHALK_N=0` the fill loop never runs and no Chef's Table is built, so **no
-four-leg round robin is currently reachable on the board** — every live round robin is a
-three-leg moon.
+either. With `CHALK_N=0` the fill loop never runs and no Chef's Table is built, so every
+round robin on the board is a **four-leg moon** (`MOON_LEGS=4`, `MOON4-2026-09-13`).
 `assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FAM_CAP=8` caps the Dingers section. `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
@@ -491,20 +490,35 @@ and `.346/.288/.366` lived only in `backtest_*.py`. `W_ARS=0.10` is a display te
 the blend (`blend = 0.5*mz + 0.5*ez`), which is current. Parlay stakes: moon round-robin
 `risk=2.0u`, salami/chef round-robin `risk=5.5u` (singles/builders stake `1u`).
 
-**Round robin = every combination from doubles up to the full parlay**, and `risk` is the
-TOTAL across them, so each combination carries `risk/n` (`RRSTAKE-2026-08-28`). At 3 legs
-that is 3 doubles + 1 treble = **4 bets at 0.50u**; at 4 legs it is 6 + 4 + 1 = **11 bets**.
-`gradeTicket()`, `rrmax()` and the chef max-profit block all enumerate the same `_CB` set
-including the full L-fold, so the bet COUNT is already right at every length.
-⚠️ **The per-bet UNIT is not.** `risk` is hard-coded per ticket kind (2.0 on a moon, 5.5 on a
-chef) instead of derived from leg count, so a four-leg moon would stake `2.0/11 = 0.18u` a
-bet rather than the **0.25u** the owner specified on 2026-09-13. `daily15.py` and `sim15.py`
-already carry the intended rule — `UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}`, with
-`risk = combos x unit` — and the client does not. It is **latent, not live**: with
-`CHALK_N=0` and `CHEF_TICKET=false` every round robin on the board is a three-leg moon, where
-4 x 0.50u = 2.0u is already correct. Fix the client before re-enabling any four-leg ticket,
-and change `grade_night.py` in the same pass or the archive and the grader will disagree
-about what was staked.
+### Round robins (`RRUNIT-2026-09-13`)
+
+**A round robin buys every combination from doubles up to the full parlay** — `2^L - L - 1`
+bets. 3 legs → 4, **4 legs → 11**, 5 legs → 26.
+
+**The owner sets the per-BET unit, not the ticket total.** `risk` is derived:
+
+```
+RR_UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}      risk = combos(L) x RR_UNIT[L]
+  3 legs ->  4 bets x 0.50u = 2.00u
+  4 legs -> 11 bets x 0.25u = 2.75u      <- every moon on the board
+  5 legs -> 26 bets x 0.10u = 2.60u
+```
+
+Since 3 legs derives to exactly the 2.0u moons were hard-coded to, **no archived night
+re-grades differently** — and archived tickets carry their own recorded `risk` anyway, so the
+59 four-leg Chef's Tables in the archive keep their 5.5u.
+
+One definition, five implementations kept in lockstep: `rrCombos/rrUnit/rrRisk/rrStruct` in
+`index.html`, `rr_combos/rr_unit/rr_risk/rr_struct` in `assemble_tickets.py`, `sizes` in
+`grade_night.py` and `soccer/soccer_grade.py`, and `combos()/UNIT` in `daily15.py`/`sim15.py`.
+`struct` and `risk` are **derived from the legs a ticket actually shipped with**, in ONE place
+per drafter, after every draft and repair pass has finished — so a repaired or short-filled
+slip can never carry a stake belonging to a different leg count.
+
+Two bugs closed in the same pass. Every enumeration **stopped at four**, so a five-leg slip
+was split across 25 bets instead of 26 and its own five-fold paid nothing. And `RRSTAKE-2026-08-28`
+had never reached `assemble_tickets.py`: its `_rrmax` still priced 1u on every combination,
+roughly doubling every max-profit figure that drafter printed.
 
 ---
 
