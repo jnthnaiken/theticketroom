@@ -101,6 +101,12 @@ def sub(t): print('\n--- ' + t + ' ' + '-' * max(0, 72 - len(t)), flush=True)
 def build_features(df):
     """Every column strictly prior to the row's own game. Nothing here may see tonight."""
     df = df.sort_values(['game_date', 'game_pk', 'batter_id']).reset_index(drop=True)
+    # ANYTIME home run, not a count. pull_boxscores stores StatsAPI's homeRuns, which is
+    # 2 on a two-homer night; the board bets "does he go deep", so the target -- and every
+    # prior-rate feature built from it -- is the indicator. Caught when partial_fit was
+    # handed a label of 2 on the first slate of the first real run.
+    df['hr_n'] = df['hr'].astype(int)
+    df['hr'] = (df['hr_n'] > 0).astype(int)
     df['game_date'] = pd.to_datetime(df['game_date'])
     df['season'] = df['game_date'].dt.year
     df['b_month'] = df['game_date'].dt.month
