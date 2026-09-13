@@ -1,11 +1,11 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T15:41:25Z",
+  "pulled_at": "2026-09-13T15:46:29Z",
   "games": [
     {
       "gamePk": 824225,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-13T16:10:00Z",
       "matchup": "COL@DET",
       "away": {
@@ -1250,8 +1250,54 @@
           "hr9": 0.82,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.125
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.206
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.165
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.25
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.087
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.19
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.085
+          },
+          {
+            "id": 669707,
+            "name": "Jared Triolo",
+            "iso": 0.069
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.133
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CHC",
