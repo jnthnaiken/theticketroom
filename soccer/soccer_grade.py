@@ -13,7 +13,10 @@ def _combos(L):
     that wide). Enumerated over the ORIGINAL leg count, because that is what the stake was split
     across at placement -- a leg voiding hours later cannot change the denominator."""
     import itertools
-    sizes = [2, 3] + ([4] if L >= 4 else [])
+    # RRUNIT-2026-09-13: doubles up to the FULL parlay. The old list stopped at four, so a
+    # five-leg slip was split across 25 bets instead of 26 and its five-fold paid nothing.
+    # Identical at L<=4, so no archived soccer night re-grades differently.
+    sizes = list(range(2, L + 1))
     return [c for z in sizes if L >= z for c in itertools.combinations(range(L), z)]
 
 
@@ -58,7 +61,7 @@ def _ncombo(K):
     """Combinations a 'by 2s & 3' round robin actually places (plus 4s when the slip is that
     wide) -- the denominator the total risk is split across."""
     import math
-    sizes = [2, 3] + ([4] if K >= 4 else [])
+    sizes = list(range(2, K + 1))   # RRUNIT-2026-09-13, see _rrcombos()
     return sum(math.comb(K, z) for z in sizes if K >= z)
 
 
