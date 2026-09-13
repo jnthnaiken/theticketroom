@@ -1,0 +1,103 @@
+# ====================================================================================
+# Daily 15 -- build a board, grade it, learn, next night. ~2,700 times, 2010-2024.
+#
+# Asked 2026-09-13, third time of asking: "day by day during each season from the past 15
+# seasons to build a board, see who hits, grade it then make adjustments based on who
+# actually hit and what you learned. then the next day etc. for 15 seasons."
+#
+# lab15 measured the decade in one shot. walk15 walked a scorer across it a season at a
+# time. sim15 ran the board but still learned only once a year. All three updated far too
+# slowly. This updates EVERY NIGHT.
+#
+# Two inputs:
+#   boxscores_run_id  -- the "Boxscores 15" run holding boxscores_2010_2024.parquet,
+#                        which is what makes fifteen seasons possible at all (Statcast
+#                        begins in 2015)
+#   savant_run_id     -- the Statcast table, left-joined on top from 2015
+#
+# Nothing here touches the daily board pipeline.
+#
+# TRIGGER: workflow_dispatch.
+# ====================================================================================
+
+name: Daily 15
+
+on:
+  workflow_dispatch:
+    inputs:
+      boxscores_run_id:
+        description: "Run ID holding the boxscores-15 artifact"
+        required: true
+      savant_run_id:
+        description: "Run ID holding the savant-training artifact"
+        required: true
+        default: "30756466843"
+      hold:
+        description: "The book's hold per leg"
+        required: false
+        default: "0.06"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: daily15
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pandas numpy pyarrow scikit-learn
+
+      - name: Self-test first — the nightly loop must find a planted driver
+        run: |
+          set -o pipefail
+          python3 daily15.py --selftest 2>&1 | tail -22
+
+      - name: Download both tables
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "${{ github.event.inputs.boxscores_run_id }}" -n boxscores-15 -D box
+          gh run download "${{ github.event.inputs.savant_run_id }}" -n savant-training -D table
+          ls -la box/ table/
+
+      - name: Play fifteen seasons, one night at a time
+        run: |
+          set -o pipefail
+          python3 daily15.py --box box/boxscores_*.parquet --savant "table/*.parquet" \
+            --hold "${{ github.event.inputs.hold }}" 2>&1 | tee daily15_report.txt
+
+      - name: Report to run summary
+        if: always()
+        run: |
+          {
+            echo '## Daily 15 — a board a night, fifteen seasons'
+            echo '```'
+            cat daily15_report.txt 2>/dev/null || echo '(no report — failed before writing one)'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily15-report
+          path: |
+            daily15_report.txt
+            daily15_final.json
+            daily15_history.csv
+          if-no-files-found: warn
+          retention-days: 90
