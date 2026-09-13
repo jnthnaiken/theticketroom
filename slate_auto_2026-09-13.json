@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "season": "2026",
-  "pulled_at": "2026-09-13T19:37:33Z",
+  "pulled_at": "2026-09-13T19:42:04Z",
   "games": [
     {
       "gamePk": 824225,
@@ -358,12 +358,12 @@
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 643289,
             "name": "Mauricio Dub\u00f3n",
-            "iso": 0.118
+            "iso": 0.117
           },
           {
             "id": 645277,
@@ -434,7 +434,7 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.141
+            "iso": 0.14
           },
           {
             "id": 676724,
@@ -941,7 +941,7 @@
         "sp": {
           "id": 676440,
           "name": "Tanner Bibee",
-          "hr9": 1.39,
+          "hr9": 1.38,
           "hand": "RHP"
         },
         "lineup": [
@@ -1005,7 +1005,7 @@
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.113
+            "iso": 0.112
           },
           {
             "id": 686797,
@@ -1040,12 +1040,12 @@
           {
             "id": 805805,
             "name": "Walker Jenkins",
-            "iso": 0.132
+            "iso": 0.128
           },
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.151
+            "iso": 0.15
           }
         ],
         "confirmed": true
@@ -1091,17 +1091,17 @@
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.208
+            "iso": 0.207
           },
           {
             "id": 553993,
             "name": "Eugenio Su\u00e1rez",
-            "iso": 0.216
+            "iso": 0.223
           },
           {
             "id": 663886,
             "name": "Tyler Stephenson",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 668709,
@@ -1206,7 +1206,7 @@
         "sp": {
           "id": 689818,
           "name": "David Sandlin",
-          "hr9": 1.82,
+          "hr9": 1.8,
           "hand": "RHP"
         },
         "lineup": [
@@ -1300,7 +1300,7 @@
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 701675,
@@ -1310,7 +1310,7 @@
           {
             "id": 691026,
             "name": "Masyn Winn",
-            "iso": 0.088
+            "iso": 0.087
           }
         ],
         "confirmed": true
@@ -1339,7 +1339,7 @@
         "sp": {
           "id": 696149,
           "name": "Bubba Chandler",
-          "hr9": 0.8,
+          "hr9": 0.86,
           "hand": "RHP"
         },
         "lineup": [
@@ -1443,7 +1443,7 @@
           {
             "id": 665804,
             "name": "Miguel Amaya",
-            "iso": 0.127
+            "iso": 0.141
           }
         ],
         "confirmed": true
@@ -1717,9 +1717,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 75\u00b0",
+        "lean": "Neutral",
+        "temp": 75.1,
+        "wind_mph": 7.8,
+        "wind_dir": 323,
+        "tail_mph": 1.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.011
     },
     {
       "gamePk": 825033,
@@ -1855,7 +1862,7 @@
     },
     {
       "gamePk": 823171,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-13T23:20:00Z",
       "matchup": "SD@SF",
       "away": {
@@ -1877,10 +1884,56 @@
           "hr9": 0.69,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.147
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.125
+          },
+          {
+            "id": 805811,
+            "name": "Bryce Eldridge",
+            "iso": 0.189
+          },
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.177
+          },
+          {
+            "id": 814154,
+            "name": "Scott Bandura",
+            "iso": null
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.187
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.136
+          },
+          {
+            "id": 695391,
+            "name": "Brett Harris",
+            "iso": 0.0
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.107
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
