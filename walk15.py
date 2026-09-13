@@ -90,6 +90,24 @@ def _z(df, feats):
     return _ZCACHE[k]
 
 
+def _extras(df, extras):
+    """Standardise the extras ONCE, globally.
+
+    WHY (run #1 of the walk ground for 20 minutes on a single season): the Statcast
+    columns arrive per-slate z-scored, but b_games_prior runs 0..160 and b_month 4..10.
+    Handing lbfgs a design matrix with that condition number makes it crawl for
+    thousands of iterations. Scaling is computed from FEATURE VALUES ONLY -- it never
+    touches `hr` -- so it carries no outcome information across the walk boundary.
+    """
+    if not extras: return None
+    k = ('X',) + tuple(extras)
+    if k not in _ZCACHE:
+        V = df[extras].values.astype(float)
+        mu = V.mean(axis=0); sd = V.std(axis=0); sd[sd == 0] = 1.0
+        _ZCACHE[k] = (V - mu) / sd
+    return _ZCACHE[k]
+
+
 def fit_apply(df, tr, te, feats, extras):
     """Fit logistic on tr, return calibrated probabilities for te.
 
@@ -100,7 +118,8 @@ def fit_apply(df, tr, te, feats, extras):
     from sklearn.linear_model import LogisticRegression
     from sklearn.isotonic import IsotonicRegression
     Z = _z(df, feats)
-    X = np.hstack([Z.values, df[extras].values]) if extras else Z.values
+    E = _extras(df, extras)
+    X = np.hstack([Z.values, E]) if extras else Z.values
     y = df['hr'].values.astype(int)
 
     # inner split of the training data, by slate, for the calibrator
@@ -113,12 +132,12 @@ def fit_apply(df, tr, te, feats, extras):
     if len(hold) < 500 or len(core) < 500:
         core, hold = tr_idx, tr_idx
 
-    m = LogisticRegression(max_iter=2000)
+    m = LogisticRegression(max_iter=400)
     m.fit(X[core], y[core])
     ir = IsotonicRegression(out_of_bounds='clip', y_min=1e-4, y_max=1 - 1e-4)
     ir.fit(m.predict_proba(X[hold])[:, 1], y[hold])
 
-    m2 = LogisticRegression(max_iter=2000); m2.fit(X[tr_idx], y[tr_idx])
+    m2 = LogisticRegression(max_iter=400); m2.fit(X[tr_idx], y[tr_idx])
     p_te = ir.predict(m2.predict_proba(X[np.where(te)[0]])[:, 1])
     return p_te, m2.coef_[0], (list(Z.columns) + extras)
 
