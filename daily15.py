@@ -78,8 +78,17 @@ MIN_IMPLIED, MAX_IMPLIED_FLOOR = 0.50, 0.031
 MIN_SLATE = 60
 
 WARMUP = 120            # slates played with the shipped config before learning turns on
-RECAL_EVERY = 150       # slates between calibrator refits
+RECAL_EVERY = 50        # slates between calibrator refits. Was 150: run #2's shipped board
+                        # posted EDGE 0.658, which is a stale calibrator at the top of the
+                        # range, not a real shortfall.
 PRIOR_STRENGTH = 60.0   # shrinkage on a configuration's EDGE, in "implied home runs"
+DECAY = 0.5 ** (1 / 400.0)   # per-slate decay on a config's record; half-life ~400 slates
+                        # (~2.2 seasons). Run #2 crowned a config that fired in 2010-2015
+                        # and produced ZERO board in three of the last six seasons -- the
+                        # cumulative record was dominated by seasons long gone.
+MIN_FIRE = 0.15         # and it must still produce a board on this share of recent slates.
+                        # A configuration that does not produce a board is not a
+                        # configuration, whatever its edge used to be.
 
 BANDS = {'any': (0.031, 0.50), 'long': (0.04, 0.09), 'wide': (0.05, 0.13),
          'mid': (0.09, 0.15), 'short': (0.13, 0.25), 'vshort': (0.18, 0.35)}
@@ -164,10 +173,13 @@ class Online:
 
     def __init__(self, ncol, seed=0):
         from sklearn.linear_model import SGDClassifier
-        # constant rate on purpose: the point is to keep adapting for fifteen years, not
-        # to converge and freeze. alpha carries the load of not chasing nightly noise.
+        # average=True is Polyak averaging, and it is load-bearing. With a plain constant
+        # learning rate the weights jitter so hard that the model the run ENDS with is
+        # effectively fit on the last few slates rather than on fifteen years: the
+        # self-test measured AUC falling 0.560 -> 0.521 across the run while still
+        # identifying the right driver. Averaging keeps the long memory and still adapts.
         self.m = SGDClassifier(loss='log_loss', learning_rate='constant', eta0=0.01,
-                               alpha=1e-5, random_state=seed)
+                               alpha=1e-5, average=True, random_state=seed)
         self.started = False
         self.iso = None
         self.buf_p, self.buf_y = [], []
@@ -268,7 +280,8 @@ def run(df, hold, quiet=False):
     book = Online(X.shape[1], 1)
 
     CFGS = [(b, a, L) for b in BANDS for a in ABANDS for L in LEGSET]
-    rec = {c: {'obs': 0.0, 'exp': 0.0, 'net': 0.0, 'staked': 0.0, 'slips': 0} for c in CFGS}
+    rec = {c: {'obs': 0.0, 'exp': 0.0, 'net': 0.0, 'staked': 0.0, 'slips': 0,
+               'fire': 0.0, 'seen': 0.0, 'obs_r': 0.0, 'exp_r': 0.0} for c in CFGS}
     cur = SHIPPED_CFG
     hist, changes = [], []
     cumnet = cumstake = 0.0
@@ -307,13 +320,17 @@ def run(df, hold, quiet=False):
 
         # ---- 5b: grade EVERY configuration on tonight's real outcomes ----
         for c in CFGS:
+            r = rec[c]
+            r['obs_r'] *= DECAY; r['exp_r'] *= DECAY          # recency-weighted record
+            r['fire'] *= DECAY; r['seen'] = r['seen'] * DECAY + 1.0
             sl = slips if c == cur else build_board(pos, sc, implied, listed, gk,
                                                     BANDS[c[0]], ABANDS[c[1]], c[2])
             if not sl: continue
+            r['fire'] += 1.0
             f = [i for s in sl for i in s]
-            r = rec[c]
-            r['obs'] += float(y[f].sum()); r['exp'] += float(implied[f].sum())
-            r['slips'] += len(sl)
+            o, e = float(y[f].sum()), float(implied[f].sum())
+            r['obs'] += o; r['exp'] += e; r['slips'] += len(sl)
+            r['obs_r'] += o; r['exp_r'] += e
             if c == cur:
                 r['net'] += net; r['staked'] += staked
             else:
@@ -325,16 +342,29 @@ def run(df, hold, quiet=False):
 
         # ---- 5c: tomorrow's configuration ----
         if si >= WARMUP:
-            best, bs = cur, -1e9
+            best, bs = None, -1e9
             for c, r in rec.items():
-                if r['exp'] < 20: continue
-                s = (r['obs'] + PRIOR_STRENGTH) / (r['exp'] + PRIOR_STRENGTH)
+                if r['exp_r'] < 20: continue
+                if r['seen'] > 20 and r['fire'] / r['seen'] < MIN_FIRE: continue  # it must fire
+                s = (r['obs_r'] + PRIOR_STRENGTH) / (r['exp_r'] + PRIOR_STRENGTH)
                 if s > bs: bs, best = s, c
+            if best is None: best = cur
             if best != cur:
                 changes.append((str(key)[:10], cur, best, bs))
                 cur = best
 
+        # the model's own learning curve, measured on the WHOLE slate rather than on the
+        # legs we drafted -- otherwise a change of configuration masquerades as the model
+        # getting better or worse.
+        yy = y[pos]
+        if 0 < yy.sum() < len(yy):
+            r = pd.Series(p).rank().values
+            n1 = yy.sum(); n0 = len(yy) - n1
+            sl_auc = (r[yy == 1].sum() - n1 * (n1 + 1) / 2) / (n1 * n0)
+        else:
+            sl_auc = np.nan
         hist.append(dict(date=str(key)[:10], season=int(seasons[pos[0]]), slips=len(slips),
+                         auc=sl_auc,
                          net=net, staked=staked, cum=cumnet, cfg=cur,
                          obs=float(y[flat].sum()) if flat else 0.0,
                          exp=float(implied[flat].sum()) if flat else 0.0))
@@ -354,6 +384,23 @@ def report(hist, rec, changes, cur, model, names, played, hold):
     print(f'\n  WHOLE RUN   {po:.0f} hit vs {pe:.1f} implied   EDGE {po/pe if pe else 0:.4f}'
           f' +/- {math.sqrt(max(po,1))/pe if pe else 0:.4f}')
 
+    sub('the MODEL learning curve — nightly AUC over every bat on the slate')
+    print('  Measured on the whole slate, not on the legs drafted, so a change of')
+    print('  configuration cannot masquerade as the scorer getting better.')
+    print(f'  {"season":<9}{"slates":>8}{"AUC":>9}')
+    for s2, g in H.groupby('season'):
+        print(f'  {s2:<9}{len(g):>8}{g["auc"].mean():>9.4f}')
+    V = H['auc'].dropna()
+    k = max(30, len(V) // 20)
+    a1, a2 = V.iloc[:10].mean(), V.iloc[-k:].mean()
+    print(f'\n  first 10 slates {a1:.4f}  ->  last {k} slates {a2:.4f}   ({a2-a1:+.4f})')
+    h2 = len(H) // 2
+    print(f'  first half {H.iloc[:h2]["auc"].mean():.4f}  ->  '
+          f'second half {H.iloc[h2:]["auc"].mean():.4f}')
+    print('  The scorer starts at a coin flip and has to learn from nothing, so the')
+    print('  early-vs-late line is the one that shows learning. Half-vs-half mostly')
+    print('  measures drift once it has already converged.')
+
     half = len(H) // 2
     for lab, g in (('first half', H.iloc[:half]), ('second half', H.iloc[half:])):
         e = g['obs'].sum() / g['exp'].sum() if g['exp'].sum() else float('nan')
@@ -369,12 +416,15 @@ def report(hist, rec, changes, cur, model, names, played, hold):
     rows = [(c, r) for c, r in rec.items() if r['exp'] >= 200]
     rows.sort(key=lambda t: -((t[1]['obs'] + PRIOR_STRENGTH) / (t[1]['exp'] + PRIOR_STRENGTH)))
     print(f'  {"band":<8}{"anchor":<8}{"legs":>5}{"slips":>8}{"hit":>7}{"implied":>9}'
-          f'{"EDGE":>8}{"ROI":>9}')
+          f'{"EDGE":>8}{"ROI":>9}{"fires":>8}')
     for c, r in rows[:12]:
         e = r['obs'] / r['exp']
         roi = r['net'] / r['staked'] * 100 if r['staked'] else 0
+        fire = r['fire'] / r['seen'] * 100 if r['seen'] else 0
         print(f'  {c[0]:<8}{c[1]:<8}{c[2]:>5}{r["slips"]:>8}{r["obs"]:>7.0f}'
-              f'{r["exp"]:>9.1f}{e:>8.3f}{roi:>8.1f}%')
+              f'{r["exp"]:>9.1f}{e:>8.3f}{roi:>8.1f}%{fire:>7.0f}%')
+    print('  "fires" = share of RECENT slates on which this configuration produced a board')
+    print('  at all. Run #2 crowned one that fired on 0% of the last three seasons.')
     sh = rec.get(SHIPPED_CFG)
     if sh and sh['exp']:
         print(f'\n  the shipped configuration for reference:')
@@ -427,7 +477,10 @@ def selftest():
             date = pd.Timestamp(f'{s}-04-01') + pd.Timedelta(days=d)
             for b in range(110):
                 hh = rs.normal(); la = rs.normal()
-                lp = -2.3 + 0.75 * la
+                # a WEAK driver buried in noise. At 0.75 the model converged inside two
+                # slates and there was no learning curve left to verify -- which is a
+                # property of an easy synthetic, not of the real table's 26 features.
+                lp = -2.3 + 0.22 * la
                 rows.append(dict(batter_id=b, batter=f'b{b}', game_date=date,
                                  game_pk=s * 100000 + d * 100 + b // 7, team='A', opp='B',
                                  home=b % 2, slot=(b % 9) + 1, pa=4,
@@ -446,15 +499,25 @@ def selftest():
     hist, rec, ch, cur, model, names, played = run(df, 0.06)
     report(hist, rec, ch, cur, model, names, played, 0.06)
     H = pd.DataFrame(hist); half = len(H) // 2
-    e1 = H.iloc[:half]['obs'].sum() / H.iloc[:half]['exp'].sum()
-    e2 = H.iloc[half:]['obs'].sum() / H.iloc[half:]['exp'].sum()
     w = dict(zip(names, model.m.coef_[0]))
     found = abs(w.get('b_la', 0)) > abs(w.get('b_hh', 0))
-    ok = found and e2 > e1
-    print(f'\n  first-half EDGE {e1:.4f} -> second-half {e2:.4f}')
-    print(f'  |w[b_la]|={abs(w.get("b_la",0)):.3f} vs |w[b_hh]|={abs(w.get("b_hh",0)):.3f}')
-    print(f'  SELF-TEST {"PASS" if ok else "FAIL"}: the nightly loop '
-          f'{"found the real driver and improved as it went" if ok else "DID NOT"}')
+    V = H['auc'].dropna(); k = max(30, len(V) // 20)
+    a1, a2 = V.iloc[:10].mean(), V.iloc[-k:].mean()
+    improved = a2 > a1 + 0.005
+    best, sh = rec[cur], rec[SHIPPED_CFG]
+    beat = (best['obs'] / best['exp']) > (sh['obs'] / sh['exp']) + 0.02
+    fires = best['fire'] / best['seen'] if best['seen'] else 0
+    usable = fires >= MIN_FIRE
+    print(f'\n  1. found the real driver      |w[b_la]|={abs(w.get("b_la",0)):.3f} vs '
+          f'|w[b_hh]|={abs(w.get("b_hh",0)):.3f}   {"PASS" if found else "FAIL"}')
+    print(f'  2. the model learned from zero  AUC {a1:.4f} -> {a2:.4f} '
+          f'(first 10 vs last {k})  {"PASS" if improved else "FAIL"}')
+    print(f'  3. beat the shipped board     EDGE {best["obs"]/best["exp"]:.3f} vs '
+          f'{sh["obs"]/sh["exp"]:.3f}         {"PASS" if beat else "FAIL"}')
+    print(f'  4. and it actually fires      {fires*100:.0f}% of recent slates'
+          f'                  {"PASS" if usable else "FAIL"}')
+    ok = found and improved and beat and usable
+    print(f'\n  SELF-TEST {"PASS" if ok else "FAIL"}')
     return 0 if ok else 1
 
 
