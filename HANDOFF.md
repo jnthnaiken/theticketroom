@@ -20,16 +20,18 @@
 >
 > | this file says | truth (2026-09-13) |
 > |---|---|
-> | `FLOOR=41` is the live pool gate | **dead constant.** `Z_GATE=0.75` on `TOTAL` is the gate |
+> | `FLOOR=41` is the live pool gate | **dead constant.** `Z_GATE` on `TOTAL` is the gate |
 > | the gate is on the weather-free `blend` | it is on `TOTAL`, **weather included** (2026-08-18) |
 > | `CHALK_N=4`, reserved by strength | `CHALK_N=0`. Nothing is reserved or barred |
-> | `GAME_CAP` is 4 | **6** in the pool (the span-fill fallback really is still 4) |
+> | `GAME_CAP` is 4 | **`GAME_CAP`** in the pool; the reserve-tier fill has its own, tighter **`RESERVE_GAME_CAP`** |
+> | any knob quoted as a number, anywhere below | **read it from `board_config.json`** — `python3 boardcfg.py` |
 > | `W_ARS=0.16` | **0.10** |
 > | the basket has five (or nine) signals | **seven**, and two of them are career terms |
 > | `blend = 0.75*mkt_z + 0.25*edge_z` | **50/50** |
 > | `assemble_tickets.py` has zero matches for `chalk=set()` | it has one, line 174, deliberately |
 > | `drawTracker`'s `defs` still carries a `chef` row | it does not. Four rows: lunch/late/builder/moon |
-> | moons are 3 legs | **4** (`MOON_LEGS`, 2026-09-13), staked 11 bets x 0.25u = 2.75u |
+> | moons are 3 legs | **`MOON_LEGS`** (raised to 4 on 2026-09-13), staked `combos(L) x RR_UNIT[L]` |
+> | the two drafters share their constants because the comments say so | they did **not** — `GAME_CAP` was 6 in `index.html` and 4 in `assemble_tickets.py` for 26 days. `board_config.json` (BOARDCFG-2026-09-13) is now the only copy, and `python3 state.py --check` fails if they drift |
 >
 > **Files named below that DO NOT EXIST** (one-shot scripts, run and not kept — do not go looking):
 > `client_sweep.js`, `test_conf_lock.js`, `famname.py`, `famnamefix.py`, `famrelabel.py`,
@@ -311,8 +313,8 @@ Two traps cost most of the session — both DATA-shape issues, not model bugs:
 
 1. **`gn` MUST be unique per game (1,2,3,…N).** `build15.py` does `gamemeta[gn]=g`
    and stamps each bat `game = gn`. Hardcode `gn:1` for every game and all games
-   collapse onto game 1, `meta.wx` ends up with a single entry, and the `GAME_CAP=4`
-   per-game cap throttles the ENTIRE pool to 4 bats → a 4-ticket board. Symptom:
+   collapse onto game 1, `meta.wx` ends up with a single entry, and the `GAME_CAP`
+   per-game cap throttles the ENTIRE pool to `GAME_CAP` bats → a tiny board. Symptom:
    healthy scores (dozens pass the z-gate) but only 4 tickets, all singles, all tagged
    `game 1`. Fix: number the games sequentially when building `lineups_<date>.json`.
 
@@ -364,10 +366,14 @@ which is mirrored server+client. Verified on `theticketroom.live` via in-page
   pool after the server build lands on the Tickets page if it becomes an anchor.
 - **Moon pairing enforced live (all-or-none).** After refill, an anchor short of
   `MOONS_PER_ANC`(2) is repaired from the free pool or demoted whole — never a single-moon anchor.
-- **Per-game cap raised 3 → 4** in BOTH `assemble_tickets.py` (`GAME_CAP=4`, ~line 126) and
-  `index.html` (the `_TC[t]>=4` nonchalk gate + the `_poolTeam…<4` span-fill). Pools stay
-  identical; pool grew ~33 → ~42 bats, all still z-gate-passing. Adds depth so a scratched
-  leg refills in-gate instead of starving the slip.
+- **Per-game cap raised 3 → 4** (2026-07-04), then **4 → 6** (owner, 2026-08-18). Adds depth so a
+  scratched leg refills in-gate instead of starving the slip.
+  ⚠️ This bullet used to say the raise landed *"in BOTH `assemble_tickets.py` and `index.html`…
+  Pools stay identical"*. **They were not identical.** The 4 → 6 raise reached only `index.html`;
+  the fallback drafter stayed on 4 for 26 days, and the cap binds on 25 of the last 25 boards, so
+  the two gated different pools every night. All sites read `GAME_CAP` from `board_config.json`
+  now (`BOARDCFG-2026-09-13`), and `python3 state.py --check` fails if they drift again.
+  The span-fill is a **separate, deliberately tighter** knob — `RESERVE_GAME_CAP` — not a stale copy.
 - **Salami built/rebuilt client-side from leftovers, seed-based.** Runs LAST (after moon
   pairing+repair) so it can't cannibalize a moon leg. Covers a baked salami that lost a leg
   to a scratch AND a slate where the server drafted no salami (its salami rides a pre-chosen
@@ -429,8 +435,11 @@ edge bites exactly as hard as the market regardless of how thin the edge is
   Scale/slate-independent. `FLOOR=130` is dead — only a fallback if a board is
   missing `blend`. The old fixed-40 rank cut is also fallback-only.
 - ~~**Chalk = the Chef's Table.**~~ **SUPERSEDED 2026-08-14 — the ticket is gone, the
-  reservation is not.** `CHALK_N=4` bats are still reserved and still barred from every
-  other ticket; they are simply no longer emitted as a round robin (`CHEF_TICKET=false`).
+  reservation is not.** ⚠️ **THAT IS ALSO SUPERSEDED — the reservation went too, on 2026-09-04
+  (`CHALKUNBAN`).** `CHALK_N` is `0`, so the fill loop never iterates, `chalk` is provably always
+  `{}`, and nothing is reserved or barred. Read the rest of this bullet as history, not as rules.
+  Historically: `CHALK_N` bats were reserved and barred from every
+  other ticket; they were simply no longer emitted as a round robin (`CHEF_TICKET=false`).
   Seat selection is unchanged: as of 2026-08-08 those seats are the 4 best by **STRENGTH**
   (normalized TOTAL, min-max over the gated pool), one per game — *not* the 4 shortest prices.
 - **STRENGTH is normalized TOTAL, and must stay that way.** A 65/35 TOTAL/implied key was

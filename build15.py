@@ -16,6 +16,7 @@ still builds on real data). ISO comes from the Kasper sidecar; a dated iso_<date
 still wins if one is committed, and the slate median is the last resort.
 season.json is the authoritative ledger (grade_night advances it); we just load it.
 """
+import boardcfg as _BCFG   # BOARDCFG-2026-09-13: single source for draft/stake constants
 import math, statistics as st, json, unicodedata, re, os, datetime
 import cardnotes
 
@@ -1047,6 +1048,9 @@ for gn,g in gamemeta.items():
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
-meta={'model':_model_used,'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
+meta={'cfg':{k:v for k,v in _BCFG.CFG.items() if not k.startswith('_')},   # BOARDCFG-2026-09-13: the draft/stake
+      # numbers ride WITH the board so index.html reads one source instead of keeping its own copy. An archived
+      # board with no cfg still renders -- the client falls back to its literals.
+      'model':_model_used,'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")

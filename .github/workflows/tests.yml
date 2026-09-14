@@ -40,6 +40,12 @@ on:
       - 'soccer/**'
       - 'nfl/**'
       - 'build15.py'
+      - 'board_config.json'
+      - 'boardcfg.py'
+      - 'state.py'
+      - 'assemble_tickets.py'
+      - 'README.md'
+      - 'HANDOFF.md'
       - 'test_suffixkey.py'
       - 'commit_gate.py'
       - '.github/workflows/tests.yml'
@@ -120,6 +126,16 @@ jobs:
       # their module from cwd (test_mononym imports soccer_teamnews), and the node ones resolve
       # fixtures off __dirname. Running them from the repo root passes some and breaks others.
       # ------------------------------------------------------------------------------------
+      # ------------------------------------------------------------------------------------
+      # BOARDCFG-2026-09-13. This is not a unit test and does not belong in the discovery list:
+      # it compares the CODE, the last SHIPPED board, and the PROSE in README/HANDOFF against
+      # board_config.json. It is here because all four have silently disagreed before --
+      # GAME_CAP was 6 in index.html and 4 in assemble_tickets.py for 26 days, and the README
+      # said WIN=120 five days after the window moved to 150. Nothing was red, because nothing
+      # was looking. Now something is.
+      - name: The board agrees with its own config
+        run: python3 state.py --check
+
       - name: Run the suite
         run: |
           FAILED=""; PASSED=""; QUAR=""

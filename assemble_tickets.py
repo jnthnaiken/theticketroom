@@ -12,28 +12,36 @@ RULES (match the code below):
                      scale/slate-independent, no fixed size.
   * Anchors        = strongest by model; MULTIPLE anchors per game allowed (two bats from one
                      game can each lead their own tickets).
-  * Per-ticket     = one bat per distinct game; GAME_CAP (=3) bats per game overall.
-  * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY; moons/salami/builders chalk-free.
-  * Moons          = 2 per anchor, ALL FOUR anchors; anchor + 3 longshots (MOON_LEGS=4, MOON4-2026-09-13),
-                    snake-drafted, legs inside a WIN(=120)-min window, staked 11 bets x 0.25u = 2.75u.
+  * Per-ticket     = one bat per distinct game; GAME_CAP bats per game overall.
+  * Chalk          = the CHALK_N shortest-odds bats -> lunch + nightcap ONLY. CHALK_N is 0: the ban is
+                    off and `chalk` is provably always empty, so every bat drafts everywhere.
+  * Moons          = MOONS_PER_ANC per anchor, ALL FOUR anchors; anchor + (MOON_LEGS-1) longshots,
+                    snake-drafted, legs inside a WIN-minute window, staked rrRisk(MOON_LEGS).
                     There is no salami anchor any more -- see NOSALAMI-2026-09-13 below.
-  * Salami         = led by the BEST fittable anchor; 4 longest shots in distinct games, full round robin.
   * Builders       = leftover / sub-gate bats as single-leg bankroll plays.
-  * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN (5:00 PM ET, widened 2026-08-13).
+  * Nightcap       = the late single. Lunch cut = LUNCH_CUT_MIN.
   * Ticket names   = rotated by day-of-year, no repeats.
+
+⚠️ NO NUMBERS IN THIS DOCSTRING ON PURPOSE (BOARDCFG-2026-09-13). Every line above used to carry
+one, and every one of them was wrong: "GAME_CAP (=3)" when the code said 4 and the engine said 6,
+"WIN(=120)" when it was 150, and a Salami rule for a ticket retired on 2026-08-14. Prose cannot be
+kept in sync by hand -- it has never once been. The values live in `board_config.json`; print them
+with `python3 boardcfg.py` and check them with `python3 state.py --check`.
 """
 import re, datetime, itertools
+import boardcfg as _CFG      # BOARDCFG-2026-09-13: the draft/stake numbers come from board_config.json
 
-LUNCH_CUT_MIN = 17 * 60          # 5:00 PM ET splits the lunch window from night. 2026-08-13: was 16*60,
+LUNCH_CUT_MIN = _CFG.LUNCH_CUT_MIN   # <- board_config.json (1020 = 5:00 PM ET)
+                                 # 5:00 PM ET splits the lunch window from night. 2026-08-13: was 16*60,
                                  # which made a 4:05 PM first pitch an 'evening' game. On 08-13 that cost the
                                  # board Abimelec Ortiz (TOTAL 150.7, +463): CHC@WSH at 4:05 could reach only
                                  # ONE other game inside WIN, so he could not anchor or leg any parlay, and he
                                  # missed the lunch window by FIVE MINUTES. A matinee is a matinee.
-NIGHT_WIN     = 60              # nightcap window = games starting within 60 min of the last first pitch (chalk only)
-CHALK_N       = 4                # ban-4: only the 4 shortest-odds bats are chalk (nightcap/lunch ONLY); #5-8 favorites now buildable
+NIGHT_WIN     = _CFG.NIGHT_WIN   # <- board_config.json
+CHALK_N       = _CFG.CHALK_N   # <- board_config.json
 GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
-Z_GATE        = 0.75             # pool gate: keep bats whose blended z-score is >= this many SDs above the slate mean (scale/slate-independent; replaces the fixed top-40). Lowered 1.0->0.75 to deepen the pool (more legs -> more moons on fragmented slates).
+Z_GATE        = _CFG.Z_GATE   # <- board_config.json
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 def moon_legs_eff(P):
     """SHORTMOON-2026-09-13 — mirrors index.html moonLegsEff(). MOON_LEGS when the SLATE can hold a full
@@ -51,15 +59,18 @@ def moon_legs_eff(P):
             g[p['game']] = t
     ts = sorted(g.values())
     best = max((sum(1 for b in ts if a <= b <= a + WIN) for a in ts), default=0)
-    return MOON_LEGS if best >= MOON_LEGS else (3 if best >= 3 else MOON_LEGS)
+    # <SHORT_MOON_FLOOR reachable -> no moon is possible at all; return MOON_LEGS and let the
+    # drafter's own "ship only if fully filled" rule drop it, rather than minting a short one.
+    return MOON_LEGS if best >= MOON_LEGS else (SHORT_MOON_FLOOR if best >= SHORT_MOON_FLOOR else MOON_LEGS)
 
 
-MOON_LEGS     = 4               # MOON4-2026-09-13: a moon is the anchor + THREE partners. Mirrors index.html's
-                                # MOON_LEGS. Was 3 from the beginning; the 11-bet / 0.25u round robin agreed the
+MOON_LEGS        = _CFG.MOON_LEGS   # <- board_config.json
+                                # Was 3 from the beginning; the 11-bet / 0.25u round robin agreed the
                                 # same day only exists at four legs.
-MOONS_PER_ANC = 2                # moons carried by EACH anchor (all four -- NOSALAMI-2026-09-13 removed the reserved
+SHORT_MOON_FLOOR = _CFG.SHORT_MOON_FLOOR   # <- board_config.json
+MOONS_PER_ANC = _CFG.MOONS_PER_ANC   # <- board_config.json
                                  # salami anchor). Was: chosen by fittable-pool strength
-WIN           = 150              # WIN150-2026-09-13, measured (claude/win120-2026-09-13.md): the 120-min window bought
+WIN           = _CFG.WIN   # <- board_config.json
                                  # no decorrelation (legs are independent, rho~0) and no outcome quality (wide slips beat
                                  # narrow at identical price, P=0.85), while costing shape on 6 of 30 cold-drafted boards.
                                  # 150 stays inside the board's own >155 lineup-timing flag. Mirrors index.html WIN.
@@ -71,7 +82,7 @@ WIN           = 150              # WIN150-2026-09-13, measured (claude/win120-20
 # At 3 legs that is 4 x 0.50 = 2.00u -- exactly what moons were hard-coded to, so three-leg slips
 # are unchanged. Keep in lockstep with index.html rrCombos/rrUnit/rrRisk/rrStruct, grade_night.py
 # grade_ticket(), daily15.py and sim15.py.
-RR_UNIT = {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10}
+RR_UNIT = _CFG.RR_UNIT           # <- board_config.json (BOARDCFG-2026-09-13)
 
 
 def rr_combos(L):
@@ -185,7 +196,8 @@ def assemble(D):
     # Re-sort that pool by odds and pull the CHALK_N shortest (chalk -> lunch/nightcap ONLY); from the rest
     # keep at most TOP-3 per GAME (best-by-model, both teams combined). No fixed size and no backfill -- the floor is the only
     # gate, so moons, salami and builders all draft from this single pool and a thin slate yields fewer bats.
-    GAME_CAP = 4   # at most 4 bats per GAME (both lineups combined); adds z-gate-passing depth so a scratched leg can refill in-gate. Still one bat/game per TICKET (fits()), so no single ticket over-concentrates on one game
+    GAME_CAP = _CFG.GAME_CAP   # <- board_config.json. At most this many bats per GAME (both lineups combined); adds z-gate-passing depth so a scratched leg can refill in-gate. Still one bat/game per TICKET (fits()), so no single ticket over-concentrates on one game.
+                               # BOARDCFG-2026-09-13: this said 4 while index.html said 6. The owner raised it to 6 on 2026-08-18 -- "at 4 the cap, not the gate, was doing most of the hiding" -- and only the engine got the change. It sat wrong here for 26 days because nothing compares the two files. That is the whole reason board_config.json exists; do not re-type the number.
     fullrank = byT(elig)                              # everyone ranked by model -> replacement order
     _bl = [P[n]['blend'] for n in fullrank if P[n].get('blend') is not None]
     if len(_bl) >= 8:                                  # z-THRESHOLD gate (scale/slate-independent): keep bats whose blended z clears Z_GATE SDs above the slate mean
@@ -230,7 +242,7 @@ def assemble(D):
     # board's exposure to one lineup. Mirrored in index.html's candA.
     # 2026-08-13: MULTIPLE ANCHORS PER GAME (owner decision), built in ROUNDS so every game keeps its seat --
     # a flat top-N by strength fills up with pairs from time-isolated games and every 4-set starves. Mirrors index.html.
-    ANCH_PER_GAME = 2
+    ANCH_PER_GAME = _CFG.ANCH_PER_GAME   # <- board_config.json
     _ancg, cand_anchors = set(), []
     _byG = {}
     for n in byS(nonchalk):
@@ -531,8 +543,8 @@ def assemble(D):
     # 2026-08-13: THRESHOLD, not lexicographic. Ranking (moons, salami, strength) strictly in that order made
     # board SIZE outrank board QUALITY absolutely, so on a fragmented slate the strongest bats could never anchor.
     # Take the max clean-moon count, then among every set within MOON_SLACK moons of it, the strongest.
-    MOON_SLACK = 2
-    best, _byNM = None, {}                                             # exhaustive best-fillable-set search over one-per-game candidates
+    MOON_SLACK = _CFG.MOON_SLACK   # <- board_config.json
+    best, _byNM = None, {}                                           # exhaustive best-fillable-set search over one-per-game candidates
     N = len(cand_anchors)
     for ia in range(N):
         for ib in range(ia + 1, N):

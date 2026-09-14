@@ -316,12 +316,12 @@ corrected there.)
   anchoring** but still usable as a parlay leg or builder single; `50–69%` builder
   single only (no parlay legs); `70%+` out of the pool entirely.
 - **Pool gate** — z-THRESHOLD on **`TOTAL`** (weather included): keep every eligible bat whose
-  `TOTAL` z-score is **`>= Z_GATE` (0.75) SDs above the slate mean**
-  (`index.html`; `assemble_tickets.py` has its own copy but never runs). Scale/slate-independent
-  — survives any weight change.
-  Then trim to **at most `GAME_CAP` = 6 per GAME** (best by model, both teams combined).
-  No fixed size, no backfill. (`FLOOR=130` on the server and `FLOOR=41`/`GATE_N=33` on the
-  client are **dead constants** — declared and read nowhere. `Z_GATE` is the only gate.)
+  `TOTAL` z-score is **`>= Z_GATE` SDs above the slate mean**. Both drafters now read that from
+  `board_config.json`; neither keeps a copy. Scale/slate-independent — survives any weight change.
+  Then trim to **at most `GAME_CAP` per GAME** (best by model, both teams combined).
+  No fixed size, no backfill. (`FLOOR` and `GATE_N` are **dead constants** — declared and read
+  nowhere, which is why they are deliberately kept out of the config file. `Z_GATE` is the only
+  gate.)
   The per-game cap
   (raised from 3 on 2026-07-04) adds z-gate-passing depth so a scratched parlay leg can
   refill *in-gate* instead of starving the slip; one bat/game per **ticket** still holds,
@@ -332,9 +332,18 @@ corrected there.)
   3-per-TEAM cap (≤6/game, looser than today) gives pool 32 and 25. The cap moves both ends
   of the board together: tighten the pool and the tickets cannot reach as deep, so the floor
   rises with the ceiling. That test was run at 3-vs-4; the cap was subsequently **raised to 6**
-  (owner, 2026-08-18) and `index.html` keeps two copies that must agree — `GAME_CAP` itself and
-  the `_TC[t]>=6` gate inside `nonchalk`. The span-fill fallback is still on **4**, so "the same
-  cap everywhere" is not true and never quite was.
+  (owner, 2026-08-18).
+
+  ⚠️ **That raise is the cautionary tale this config file exists for.** Only `index.html` got it.
+  `assemble_tickets.py` kept a literal `4` under a comment saying it mirrored the engine, and
+  `index.html` carried a *second*, bare `6` under a comment reading *"these two must agree or the
+  pool and the gate disagree about who is in"* — an invariant enforced by a sentence. The cap binds
+  on **25 of the last 25 boards**, so the two drafters gated different pools every night for 26
+  days and nothing was ever red. All three sites read `board_config.json` now.
+
+  The reserve-tier fill is a **separate, tighter cap** — `RESERVE_GAME_CAP`, also a bare `4` until
+  BOARDCFG. It is not a stale `GAME_CAP`: it bounds how many bats one game may contribute when a
+  moon has to reach *below* the z-gate, and being tighter than `GAME_CAP` is the point.
 - **Chalk and the Chef's Table — both OFF, and the code is inert.**
   `CHALK_N = 0` since `CHALKUNBAN-2026-09-04` and `CHEF_TICKET = false` since 2026-08-14.
   With `CHALK_N` at zero the fill loop never iterates, so `chalk` is provably always `{}` and
@@ -367,7 +376,7 @@ corrected there.)
   this was first tried). The 4 are chosen to maximize clean moons, then combined strength, subject
   to `MOON_SLACK`. (The salami tiebreak that used to sit between those two went with the salami.)
 - **Moons** — **2 per anchor across all 4 anchors = 8 moons.** Each is an anchor + **3** partners
-  (`MOON_LEGS = 4`, `MOON4-2026-09-13`) in four distinct games, leg span ≤ `WIN` (120 min),
+  (`MOON_LEGS`, `MOON4-2026-09-13`) in `MOON_LEGS` distinct games, leg span ≤ `WIN`,
   staked as an 11-bet round robin at 0.25u = **2.75u** (see *Round robins* below). An anchor ships
   both its moons or none; on a thin slate the weakest anchor demotes rather than ship a lopsided
   board, and both repair passes break rather than emit a short moon.
@@ -400,16 +409,28 @@ corrected there.)
   `a.filter(n => !pending(n))` — it excludes carried/resuming bats and nothing else. The pool
   gate (`Z_GATE`) is the only quality bar.
 
-Key knobs: `Z_GATE=0.75` (the pool gate), `GAME_CAP=6`, `MOON_LEGS=4`, `WIN=120`, `NIGHT_WIN=60`,
-`MOONS_PER_ANC=2`, `ANCH_PER_GAME=2`, `MOON_SLACK=2`, `CHEF_HYST=0.02`, `ANCH_HYST=0.02`,
-`LUNCH_CUT=17*60` (5:00 PM ET — widened from 16*60 on 2026-08-13; a 4:05 PM game is a matinee, and the
-old cut left a 150.7 bat in a time-isolated 4:05 game with nowhere legal to go, missing lunch by 5 minutes).
-`CHALK_N=0` in `index.html` — the chalk reservation is **off**: it used to bar the four
+### Key knobs — `board_config.json`
+
+**They are not listed here, on purpose.** Run `python3 boardcfg.py` to print them, or
+`python3 state.py --check` to confirm the code and the last shipped board agree with them.
+
+This paragraph used to spell out eleven values. `WIN=120` survived in it for a full day after the
+window moved to 150, and `GAME_CAP` was quoted as 6 while the fallback drafter ran on 4 for
+26 days. A number written into prose is a copy, and every copy in this repo has eventually gone
+stale. `board_config.json` is the only place these exist now: `build15.py` stamps it into
+`D.meta.cfg`, `index.html` reads it from there, `assemble_tickets.py` imports it, and
+`state.py --check` fails the build if any of them drift apart.
+
+`LUNCH_CUT_MIN` (minutes past local midnight) splits lunch from night; it was widened on
+2026-08-13, because a 4:05 PM game is a matinee, and the old cut left a 150.7 bat in a
+time-isolated 4:05 game with nowhere legal to go, missing lunch by five minutes. `CHEF_HYST=0.02` and `ANCH_HYST=0.02` are hysteresis deadbands that
+live in `index.html` and are not board shape, so they are not in the config.
+`CHALK_N=0` — the chalk reservation is **off**: it used to bar the four
 **shortest-priced** bats (2026-08-20; `strength` before that) from every ticket, and since
 2026-08-14 they were no longer bundled into a Chef's Table round robin (`CHEF_TICKET=false`)
 either. With `CHALK_N=0` the fill loop never runs and no Chef's Table is built, so every
-round robin on the board is a **four-leg moon** (`MOON_LEGS=4`, `MOON4-2026-09-13`).
-`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FLOOR=130` (server) is a dead fallback; the client's `FLOOR=41` is likewise unused
+round robin on the board is a moon of `MOON_LEGS` legs (`MOON4-2026-09-13`).
+`assemble_tickets.py` never built one (and no longer carries the `chalk=set()` line older revisions quote). `FLOOR` is a dead fallback on both sides, and unused
 under `Z_GATE`. `strength()` = **normalized `TOTAL` alone, no market term** (2026-08-08 — `TOTAL`
 already carries the market via `mktT`, so an odds weight double-counts).
 **Edge weights: code and docs agree** (re-verified against `main` on 2026-09-13).

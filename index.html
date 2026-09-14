@@ -984,7 +984,9 @@ function spark(hist,noZero){var W=330,H=64,p=3;if(!hist||!hist.length){return '<
    what moons were hard-coded to, so nothing about a three-leg slip changes. At 4 legs it is
    11 x 0.25 = 2.75u, where the old hard-coded 2.0 would have quietly staked 0.18u a bet.
    Keep in lockstep with grade_night.py grade_ticket(), assemble_tickets.py, daily15.py and sim15.py. ---- */
-var RR_UNIT={2:2.00,3:0.50,4:0.25,5:0.10};
+var RR_UNIT=(function(){var c=(typeof D!=='undefined'&&D&&D.meta&&D.meta.cfg&&D.meta.cfg.RR_UNIT)||null;
+  if(!c)return {2:2.00,3:0.50,4:0.25,5:0.10};              /* archived board: the 2026-09-13 table */
+  var o={},k; for(k in c)o[+k]=+c[k]; return o;})();       /* BOARDCFG-2026-09-13: from board_config.json */
 function rrCombos(L){var out=[];for(var sz=2;sz<=L;sz++){(function(k){var c=[];(function rec(st){if(c.length===k){out.push(c.slice());return;}for(var j=st;j<L;j++){c.push(j);rec(j+1);c.pop();}})(0);})(sz);}return out;}
 function rrUnit(L){return (RR_UNIT[L]!=null)?RR_UNIT[L]:(2.0/Math.max(rrCombos(L).length,1));}
 function rrRisk(L){return Math.round(rrCombos(L).length*rrUnit(L)*100)/100;}
@@ -1599,7 +1601,33 @@ drawTickets();drawPlayers();drawTracker();
      null. The ledger since is 94% carried by five nights, and the -134u drawdown of the
      season ran 07-20..08-15, entirely PRE-ban. There is no measured case either way; this
      is the owner's call on a null result, not a finding. */
-  var GATE_N=33, CHALK_N=0, FLOOR=41, Z_GATE=0.75, WIN=150, MOONS_PER_ANC=2,MOON_SLACK=2, LUNCH_CUT=17*60, NIGHT_WIN=60;
+  /* BOARDCFG-2026-09-13: the draft and stake numbers now come from board_config.json, stamped onto the
+     board by build15.py as D.meta.cfg. Python owns them; this file READS them. The literals below are the
+     fallback for a board that has no cfg -- an archived night, or a hand-built D -- so nothing about how an
+     old board renders changes. WHY: ten of these were defined here AND in assemble_tickets.py and kept in
+     sync by hand; two had already drifted (CHALK_N was 0 here and 4 there, FLOOR 41 vs 130). Nothing detects
+     that, and it only surfaces on the rare night the fallback drafter actually runs. */
+  var CFG={};
+  function cfg(k,dflt){ var v=CFG[k]; return (v===undefined||v===null)?dflt:v; }
+  /* CFGSCOPE-2026-09-13: assembleClient takes the board as a PARAMETER, which shadows the baked `D` for the
+     length of its body but NOT for functions defined out here. Binding the constants once at module load
+     therefore read the BAKED board's cfg, not the one client_assemble.js passed -- so the config looked
+     wired and changed nothing. Caught by setting MOON_LEGS=3 in a passed cfg and getting 4-leg moons back.
+     syncCfg() is called at the top of assembleClient with the real board, and the constants are re-bound
+     there. They are `var`, so the re-binding updates the module-level identifiers every draft path reads. */
+  function syncCfg(B){
+    CFG=(B&&B.meta&&B.meta.cfg)?B.meta.cfg:((typeof D!=='undefined'&&D&&D.meta&&D.meta.cfg)?D.meta.cfg:{});
+    CHALK_N=cfg('CHALK_N',0); Z_GATE=cfg('Z_GATE',0.75); WIN=cfg('WIN',150);
+    MOONS_PER_ANC=cfg('MOONS_PER_ANC',2); MOON_SLACK=cfg('MOON_SLACK',2);
+    LUNCH_CUT=cfg('LUNCH_CUT_MIN',17*60); NIGHT_WIN=cfg('NIGHT_WIN',60);
+    MOON_LEGS=cfg('MOON_LEGS',4); SHORT_MOON_FLOOR=cfg('SHORT_MOON_FLOOR',3);
+    var _r=CFG.RR_UNIT; if(_r){ var o={},k; for(k in _r)o[+k]=+_r[k]; RR_UNIT=o; }
+  }
+  var GATE_N=33, FLOOR=41;                      /* both DEAD -- declared, never read. Kept out of the config
+                                                   on purpose so a live-looking file cannot resurrect them. */
+  var CHALK_N=cfg('CHALK_N',0), Z_GATE=cfg('Z_GATE',0.75), WIN=cfg('WIN',150),
+      MOONS_PER_ANC=cfg('MOONS_PER_ANC',2), MOON_SLACK=cfg('MOON_SLACK',2),
+      LUNCH_CUT=cfg('LUNCH_CUT_MIN',17*60), NIGHT_WIN=cfg('NIGHT_WIN',60);
   /* WIN 120 -> 150, WIN150-2026-09-13. Measured, not guessed (claude/win120-2026-09-13.md):
      - the window was not buying decorrelation -- lab15 measured leg independence at rho~0 at every slip length;
      - it was not buying outcome quality either. 513 archived moons / 79 nights, split at a 60-min span: wide
@@ -1623,18 +1651,19 @@ drawTickets();drawPlayers();drawTracker();
      rrRisk() already derives it from the legs a ticket actually shipped with, so a 3-leg moon is 4 bets x 0.50u
      = 2.00u, exactly what the board staked for its whole life before today. Floor is 3, never 2 -- a two-leg
      "round robin" is a straight parlay and a different product. */
-  function moonLegsEff(){
-    var P=(typeof D!=='undefined'&&D&&D.players)?D.players:null; if(!P)return MOON_LEGS;
+  function moonLegsEff(B){
+    var _b=B||((typeof D!=='undefined')?D:null);
+    var P=(_b&&_b.players)?_b.players:null; if(!P)return MOON_LEGS;
     var g={},n,p,t;
     for(n in P){ p=P[n]; if(!p||p.odds==null||p.out||p.void)continue; t=gmin(p.gtime); if(t==null)continue;
                  if(!(p.game in g)||t<g[p.game])g[p.game]=t; }
     var ts=[],k; for(k in g)ts.push(g[k]);
     var best=0,i,j,c;
     for(i=0;i<ts.length;i++){ c=0; for(j=0;j<ts.length;j++) if(ts[j]>=ts[i]&&ts[j]<=ts[i]+WIN)c++; if(c>best)best=c; }
-    return best>=MOON_LEGS?MOON_LEGS:(best>=3?3:MOON_LEGS);   /* <3 reachable -> no moon is possible at all; return
+    return best>=MOON_LEGS?MOON_LEGS:(best>=SHORT_MOON_FLOOR?SHORT_MOON_FLOOR:MOON_LEGS);   /* <3 reachable -> no moon is possible at all; return
                                                                  the full value so the loops break as they do today */
   }
-  var MOON_LEGS=4;   /* MOON4-2026-09-13, owner's call: a moon is the anchor + THREE partners, not two.
+  var MOON_LEGS=cfg('MOON_LEGS',4), SHORT_MOON_FLOOR=cfg('SHORT_MOON_FLOOR',3);   /* MOON4-2026-09-13, owner's call: a moon is the anchor + THREE partners, not two.
      It was 3 legs from the beginning, and the 11-bet / 0.25u round-robin structure agreed the same day
      only exists at four. Every leg count on this page derives from this one number -- the draft plans ask
      for MOON_LEGS-1 partners, both repair passes fill to MOON_LEGS, and the stake follows from
@@ -1691,6 +1720,7 @@ drawTickets();drawPlayers();drawTracker();
   function loadLock(){try{return JSON.parse(localStorage.getItem(LOCK_KEY))||[];}catch(e){return [];}}
   function saveLock(a){try{localStorage.setItem(LOCK_KEY,JSON.stringify(a));}catch(e){}}
   function assembleClient(D){
+    syncCfg(D);   /* CFGSCOPE-2026-09-13: bind the constants to THIS board's cfg before anything reads them */
     var P=D.players, WXm=D.meta.wx||{}, gs=(D.meta.gs)||{};
     /* A SCRATCH KILLS THE TICKET -- 2026-08-17, owner: "thats why goodman shouldnt be on a ticket, hes out
        tonight. his moon should not be there." Colorado pulled Hunter Goodman off their posted card at 21:45Z;
@@ -1809,7 +1839,7 @@ drawTickets();drawPlayers();drawTracker();
     var _tl=[]; fullrank.forEach(function(n){var t=P[n].TOTAL; if(t!=null)_tl.push(t);});
     if(_tl.length>=8){ var _tm=_tl.reduce(function(a,b){return a+b;},0)/_tl.length; var _tsd=Math.sqrt(_tl.reduce(function(a,b){return a+(b-_tm)*(b-_tm);},0)/_tl.length)||1e-9; cand=fullrank.filter(function(n){return P[n].TOTAL!=null&&(P[n].TOTAL-_tm)/_tsd>=Z_GATE;}); }
     else { var _ft=fullrank.map(function(n){return P[n].TOTAL;}).filter(function(x){return x!=null;}).sort(function(a,b){return b-a;}); var _flr=_ft.length?_ft[Math.min(_ft.length-1,39)]:130; cand=fullrank.filter(function(n){return P[n].TOTAL!=null&&P[n].TOTAL>=_flr;}); }   // fallback (no blend): strongest ~40 by TOTAL
-    (function(){var GAME_CAP=6,   /* 4 -> 6, owner 2026-08-18. At 4 the cap, not the gate, was doing most of the hiding: Vargas, Mayo, Clemens, Jones and Stewart all cleared the z-gate comfortably (z 0.91-1.22) and were dropped purely because a 4th bat from their game was already in. */_tc={},_k=[];byT(cand).forEach(function(n){var g=P[n].game;if((_tc[g]||0)>=GAME_CAP)return;_tc[g]=(_tc[g]||0)+1;_k.push(n);});cand=_k;})();   // 2026-08-13: top-GAME_CAP per game, best by model -- COMPLETES the assemble_tickets.py mirror (server applies GAME_CAP=4 right after its z-gate; the client's gate-only pool let game 3 put 5 non-chalk bats on the 08-13 board, with its #5 anchoring the salami). README's 'top-4 per game holds everywhere' is true again.
+    (function(){var GAME_CAP=cfg('GAME_CAP',6),   /* 4 -> 6, owner 2026-08-18. At 4 the cap, not the gate, was doing most of the hiding: Vargas, Mayo, Clemens, Jones and Stewart all cleared the z-gate comfortably (z 0.91-1.22) and were dropped purely because a 4th bat from their game was already in. */_tc={},_k=[];byT(cand).forEach(function(n){var g=P[n].game;if((_tc[g]||0)>=GAME_CAP)return;_tc[g]=(_tc[g]||0)+1;_k.push(n);});cand=_k;})();   // 2026-08-13: top-GAME_CAP per game, best by model -- COMPLETES the assemble_tickets.py mirror (server applies GAME_CAP=4 right after its z-gate; the client's gate-only pool let game 3 put 5 non-chalk bats on the 08-13 board, with its #5 anchoring the salami). README's 'top-4 per game holds everywhere' is true again.
     var _ippC=function(o){return o?(o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)):0;};var _cT=cand.map(function(n){return P[n].TOTAL;}),_cI=cand.map(function(n){return _ippC(P[n].odds);});var _ctmn=Math.min.apply(null,_cT),_ctmx=Math.max.apply(null,_cT),_cimn=Math.min.apply(null,_cI),_cimx=Math.max.apply(null,_cI);/*_cI/_cimn/_cimx: DEAD since 2026-08-08, when strength dropped its market term. Never read. Do not reintroduce an odds weight here without changing strength() too.*/var _cstren=function(n){return _ctmx>_ctmn?(P[n].TOTAL-_ctmn)/(_ctmx-_ctmn):0.5;};   /* TOTAL alone -- see strength() below */ var ranked=cand.slice().sort(function(x,y){return (_cstren(y)-_cstren(x))||(P[y].TOTAL-P[x].TOTAL);});
     /* CHALKODDS-2026-08-20 -- owner's call: THE BAN IS THE TOP CHALK_N BY PRICE, NOT BY MODEL SCORE.
        `ranked` (normalised TOTAL) fed the chalk fill loop and nothing else; the draft key is
@@ -1956,7 +1986,7 @@ drawTickets();drawPlayers();drawTracker();
    shape, and it used to skip the chalk test that the very next line applies. So a bat that BECOMES chalk mid-slate
    kept every parlay seat it already held. Nick Kurtz (+188) was scratched out of the Chef's Table, Caminero (+220)
    was next shortest and took the seat -- while still anchoring both of his moons AND his builder single. Four
-   tickets on one bat, which is the exact concentration CHALK_N exists to prevent. */byT(cand.filter(function(n){return !chalk[n];})).forEach(function(n){if(_hv[n])return;var t=P[n].game;if((_TC[t]||0)>=6)return;   /* 4 -> 6, owner 2026-08-18 -- same cap as GAME_CAP above; these two must agree or the pool and the gate disagree about who is in */nonchalk.push(n);_hv[n]=1;_TC[t]=(_TC[t]||0)+1;});/* FLOOR is the only gate -> no backfill */                                          // the buildable 33 -> moons/salami/builders
+   tickets on one bat, which is the exact concentration CHALK_N exists to prevent. */byT(cand.filter(function(n){return !chalk[n];})).forEach(function(n){if(_hv[n])return;var t=P[n].game;if((_TC[t]||0)>=cfg('GAME_CAP',6))return;   /* BOARDCFG-2026-09-13: was a bare literal 6 whose own comment said "these two must agree or the pool and the gate disagree about who is in" -- an invariant enforced by a sentence. It reads the config now, so they cannot disagree. (4 -> 6, owner 2026-08-18.) */nonchalk.push(n);_hv[n]=1;_TC[t]=(_TC[t]||0)+1;});/* FLOOR is the only gate -> no backfill */                                          // the buildable 33 -> moons/salami/builders
     /* TICKET LOCK: once a ticket's earliest leg is underway its LEGS ARE FINAL -- from that moment it is a
    placed bet, and a re-draft that swaps a leg changes a wager someone already holds. Locked tickets are
    carried forward verbatim and only RE-PRICED; their bats leave the pool so open tickets draft around them.
@@ -2671,7 +2701,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           if(need>1 && !spanOk(legNames.concat([n])))continue;
           legNames.push(n); gUsed[P[n].game]=1; usedG[n]=1; }
         if(need>1 && legNames.length<need){ // top-up: the 33 (minus ban-8), then #34+, NEVER the ban-8
-          var widerA=ge75(byS(nonchalk)).filter(function(n){return !usedG[n];}).concat(ge75(byS(extra)).filter(function(n){return !usedG[n]&&((_poolTeam[(P[n]||{}).game]||0)<4);}));
+          var widerA=ge75(byS(nonchalk)).filter(function(n){return !usedG[n];}).concat(ge75(byS(extra)).filter(function(n){return !usedG[n]&&((_poolTeam[(P[n]||{}).game]||0)<cfg('RESERVE_GAME_CAP',4));}));   /* BOARDCFG-2026-09-13: was a bare 4. This is the LAST cap in the draft and it is NOT GAME_CAP -- it bounds how many bats one game may contribute when a moon has to reach BELOW the z-gate into the reserve tier. It is deliberately tighter than GAME_CAP (6): the reserve tier is sub-gate bats, so a game that has already given the pool four of them should not also backfill a fifth. Three README/HANDOFF lines called this "the span-fill fallback is still 4, by design" -- the design was real, the number was just unnamed, which is why it kept getting mistaken for a stale GAME_CAP. */
           for(var j=0;j<widerA.length && legNames.length<need;j++){var m=widerA[j]; // tightest in-window first
             if(gUsed[P[m].game])continue; if(!spanOk(legNames.concat([m])))continue;
             legNames.push(m); gUsed[P[m].game]=1; usedG[m]=1; }
@@ -2762,7 +2792,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       var draftPool = nonchalk.filter(function(n){ return !usedG[n] && !started(n); });
       // ---- ANCHOR SELECTION + SNAKE DRAFT: pick the 4 candidate anchors that maximize combined STRENGTH among
       // ALL sets whose draft fills every parlay within the window -- never a short moon.
-      var ANCH_PER_GAME=2,candA=[];
+      var ANCH_PER_GAME=cfg('ANCH_PER_GAME',2),candA=[];   /* BOARDCFG-2026-09-13 */
       /* 2026-08-13 -- MULTIPLE ANCHORS PER GAME (owner decision), BUT THE SPREAD RULE STILL APPLIES. The 2026-08-10
          rule was exactly one anchor per game. Lifting it is not the same as dropping the per-game STRUCTURE: taking
          the top 20 by strength flat spends ~8 of the 20 slots on PAIRS out of the time-isolated games, which cannot
@@ -2864,7 +2894,7 @@ var _cmA={}, _cmB={};
         _forced=byS(_forced).slice(0,_seats);
         if(typeof console!=='undefined'&&console.log)console.log('[seatcap] '+Object.keys(_cmA).length+' seat(s) held by placed moons -> only '+_seats+' left; '+_drop.join(', ')+' keep(s) the locked builder without moons');
       }
-      var _KT=Math.max(0,4-Object.keys(_cmA).length-_forced.length);
+      var _KT=Math.max(0,cfg('ANCH',4)-Object.keys(_cmA).length-_forced.length);   /* BOARDCFG-2026-09-13: ANCH is a real knob now, not a bare 4 */
       if(typeof console!=='undefined'&&console.log&&_KT<4)console.log('[redraft] '+Object.keys(_cmA).length+' anchor seat(s) already placed -> jointly drafting '+_KT);
       var _best=(_KT||_forced.length)?searchBest(candA, _KT, draftPool, _forced):null;   // strongest _KT-anchor set -- FOUR moon-pairs now, no salami seat (hoisted generalized draft)
       var parlays = _best ? _best.pls : [];
