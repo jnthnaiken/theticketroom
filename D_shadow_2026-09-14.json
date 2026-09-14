@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-14",
- "built_at": "2026-09-14T22:08:00Z",
+ "built_at": "2026-09-14T22:53:05Z",
  "teams": {
   "ATL": {
    "n_rel": 8,
@@ -147,14 +147,14 @@
    "n_rel": 9,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.022,
-   "hr_bf_avail": 0.022,
+   "hr_bf": 0.0254,
+   "hr_bf_avail": 0.0254,
    "hr_bf_L": 0.0234,
-   "hr_bf_R": 0.0221,
+   "hr_bf_R": 0.0299,
    "hr_bf_avail_L": 0.0234,
-   "hr_bf_avail_R": 0.0221,
-   "share_L": 0.534,
-   "air_share": 0.533,
+   "hr_bf_avail_R": 0.0299,
+   "share_L": 0.651,
+   "air_share": 0.529,
    "d1_pitches": 48
   },
   "MIA": {
@@ -411,23 +411,23 @@
    "home": "CLE",
    "hour": 18,
    "dome": false,
-   "temp": 66.8,
-   "rh": 48,
-   "pres": 999.8,
-   "wind": 5.2,
-   "wind_out": -5.18,
-   "rho": 1.186
+   "temp": 67.1,
+   "rh": 50,
+   "pres": 998.2,
+   "wind": 5.4,
+   "wind_out": -5.16,
+   "rho": 1.1831
   },
   "2": {
    "home": "CIN",
    "hour": 18,
    "dome": false,
-   "temp": 77.7,
+   "temp": 77.5,
    "rh": 39,
-   "pres": 1002.3,
-   "wind": 6.7,
-   "wind_out": -6.63,
-   "rho": 1.164
+   "pres": 1001.8,
+   "wind": 6.0,
+   "wind_out": -5.94,
+   "rho": 1.1639
   },
   "3": {
    "home": "TOR",
@@ -435,76 +435,76 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 1013.7,
+   "pres": 1012.4,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1896
+   "rho": 1.1881
   },
   "4": {
    "home": "NYM",
    "hour": 19,
    "dome": false,
-   "temp": 69.9,
+   "temp": 69.5,
    "rh": 41,
-   "pres": 1020.8,
-   "wind": 7.0,
-   "wind_out": -5.94,
-   "rho": 1.2041
+   "pres": 1020.3,
+   "wind": 6.5,
+   "wind_out": -5.79,
+   "rho": 1.2045
   },
   "5": {
    "home": "MIN",
    "hour": 19,
    "dome": false,
-   "temp": 57.0,
-   "rh": 91,
-   "pres": 978.3,
-   "wind": 13.9,
-   "wind_out": 12.6,
-   "rho": 1.1807
+   "temp": 56.4,
+   "rh": 90,
+   "pres": 978.4,
+   "wind": 12.3,
+   "wind_out": 11.06,
+   "rho": 1.1824
   },
   "6": {
    "home": "CHC",
    "hour": 19,
    "dome": false,
-   "temp": 68.4,
-   "rh": 47,
-   "pres": 997.1,
-   "wind": 11.0,
-   "wind_out": 4.99,
-   "rho": 1.179
+   "temp": 69.0,
+   "rh": 48,
+   "pres": 997.8,
+   "wind": 10.8,
+   "wind_out": 3.34,
+   "rho": 1.1783
   },
   "7": {
    "home": "STL",
    "hour": 19,
    "dome": false,
-   "temp": 85.5,
-   "rh": 43,
-   "pres": 999.9,
-   "wind": 10.1,
-   "wind_out": 3.29,
-   "rho": 1.1423
+   "temp": 85.9,
+   "rh": 44,
+   "pres": 1000.3,
+   "wind": 8.7,
+   "wind_out": 2.4,
+   "rho": 1.1416
   },
   "8": {
    "home": "COL",
    "hour": 20,
    "dome": false,
-   "temp": 85.8,
-   "rh": 19,
-   "pres": 839.1,
-   "wind": 11.1,
-   "wind_out": -1.93,
-   "rho": 0.9611
+   "temp": 85.0,
+   "rh": 20,
+   "pres": 838.7,
+   "wind": 12.3,
+   "wind_out": -5.2,
+   "rho": 0.962
   },
   "9": {
    "home": "LAA",
    "hour": 21,
    "dome": false,
-   "temp": 76.4,
-   "rh": 64,
-   "pres": 1003.1,
-   "wind": 7.2,
-   "wind_out": 6.99,
-   "rho": 1.1646
+   "temp": 75.1,
+   "rh": 68,
+   "pres": 1001.4,
+   "wind": 7.1,
+   "wind_out": 7.06,
+   "rho": 1.1652
   },
   "10": {
    "home": "AZ",
@@ -512,10 +512,10 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 966.8,
+   "pres": 965.8,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1343
+   "rho": 1.1331
   }
  },
  "coverage": {
@@ -532,6 +532,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1789423680,
+ "last_attempt": 1789426385,
  "pregame": true
 }
