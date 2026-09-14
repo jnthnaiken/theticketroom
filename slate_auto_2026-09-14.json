@@ -1,11 +1,11 @@
 {
   "date": "2026-09-14",
   "season": "2026",
-  "pulled_at": "2026-09-14T18:36:04Z",
+  "pulled_at": "2026-09-14T18:41:09Z",
   "games": [
     {
       "gamePk": 824465,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-14T22:40:00Z",
       "matchup": "LAD@CIN",
       "away": {
@@ -27,10 +27,56 @@
           "hr9": 1.71,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.109
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.226
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.206
+          },
+          {
+            "id": 663886,
+            "name": "Tyler Stephenson",
+            "iso": 0.175
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.222
+          },
+          {
+            "id": 682877,
+            "name": "Juan Brito",
+            "iso": 0.162
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.202
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.091
+          },
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.164
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
