@@ -92,7 +92,9 @@ def _sentence(bits):
     return body[0].upper() + body[1:] + '.'
 
 
-OPENERS_3 = ['Three shots at six', 'Triple threat', 'Three weapons, one Sunday', 'Stack the end zone',
+# ⚠️ `{day}` IS THE SLATE'S OWN WEEKDAY, never a literal. See VOICEDAY-2026-09-14 on Voice.__init__:
+# a phrasing that names a day is dropped entirely when the weekday is unknown, rather than guessing.
+OPENERS_3 = ['Three shots at six', 'Triple threat', 'Three weapons, one {day}', 'Stack the end zone',
              'Trips right', 'All gas, no brakes', 'The full playbook', 'Three trips to paydirt',
              'Spread them out', 'Air it out', 'Go for it', 'Three calls to the house']
 OPENERS_1 = ['Call his number', 'Feed him', 'Circle this one', 'Give him the rock', 'Dial it up',
@@ -144,9 +146,23 @@ class Voice:
     Same angle, same number, different length -- never a different claim.
     """
 
-    def __init__(self, scored):
+    def __init__(self, scored, weekday=None):
         rows = [s for s in (scored or []) if s.get('odds') is not None]
         self.n = len(rows)
+
+        # 🚨 VOICEDAY-2026-09-14. Three phrasings named SUNDAY as a literal, so the 2026-09-14
+        # Monday-night board shipped "Wiley steps into the spotlight this Sunday" -- the board
+        # telling the reader the wrong day for their own slate. That breaks this module's one
+        # rule (every clause restates something that is ON the payload) in the cheapest possible
+        # place: the weekday is the easiest fact on the page to check.
+        #
+        # `fixtures.json` has carried "weekday" since the format was set, so no scrape changes --
+        # the voice simply never read it. Phrasings now carry `{day}` and go through _dayfmt().
+        #
+        # ⚠️ WHEN THE WEEKDAY IS UNKNOWN THE PHRASING IS DROPPED, NOT DEFAULTED. Defaulting to
+        # Sunday is the bug wearing a fallback's clothes. Dropping leaves a shorter bank, which
+        # the pickers already handle, and asserts nothing.
+        self.day = (str(weekday).strip() if weekday else '') or None
 
         def band(rs, key, lo=0.60, hi=0.85):
             vals = sorted(v for v in (r.get(key) for r in rs) if isinstance(v, (int, float)))
@@ -216,6 +232,18 @@ class Voice:
             said.add(first[1])
             return first[0]
         return ''
+
+    def _dayfmt(self, options):
+        """Substitute the slate's weekday into any phrasing carrying `{day}`, and DROP the
+        phrasing when the weekday is unknown (VOICEDAY-2026-09-14).
+
+        ⚠️ When the day IS known this returns the same options in the same order, so every
+        pick index is unchanged and a Sunday board is byte-identical to the pre-fix output.
+        That is the regression test in test_nfl_voice, not a hope.
+        """
+        out = [o.format(day=self.day) if '{day}' in o else o
+               for o in options if self.day or '{day}' not in o]
+        return out or [o for o in options if '{day}' not in o] or list(options)
 
     def _open(self, bank, key):
         start = _h(key) % len(bank)
@@ -324,13 +352,13 @@ class Voice:
         # ---- THE HEADLINE. One of these, and it is the reason he is on the board. -----------
         if nolog:
             out.append(('story',
-                pick([f'{who} steps into the spotlight this Sunday',
+                pick(self._dayfmt([f'{who} steps into the spotlight this {{day}}',
                       f'{who} is the new name in this offense, and the job is his to take',
                       f'{who} is a fresh face with a real role waiting for him',
-                      f'{who} is the name nobody has tape on yet'], k + 'h1'),
-                pick(['a breakout waiting to happen', 'first Sunday, first shot at six',
+                      f'{who} is the name nobody has tape on yet']), k + 'h1'),
+                pick(self._dayfmt(['a breakout waiting to happen', 'first {day}, first shot at six',
                       'fresh legs and a real role', 'nobody has tape on him yet',
-                      'the book is guessing too'], k + 'f1')))
+                      'the book is guessing too']), k + 'f1')))
         elif top_tch and top_i10:
             out.append(('story',
                 pick([f'{who} is the bell cow, and he gets the ball at the goal line too',
@@ -568,7 +596,7 @@ class Voice:
             # "Surname — fragment" beats then reads "Price — nobody has seen him — Smith-Njigba —
             # in the loudest game", which is unparseable. Semicolons separate the men; the dash
             # belongs to each man's own beat.
-            body = self._open(OPENERS_3, who_key + 'o3') + ': ' + '; '.join(bits) + '.'
+            body = self._open(self._dayfmt(OPENERS_3), who_key + 'o3') + ': ' + '; '.join(bits) + '.'
         elif len(bits) == 2:
             # ONE man's lead + his fragment needs FRAMES_1; TWO men's leads take FRAMES_2. Same
             # bit count, different grammar -- see the FRAMES_1 header.

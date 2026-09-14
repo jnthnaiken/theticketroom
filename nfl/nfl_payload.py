@@ -136,7 +136,10 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         meta_wx[str(gidx[k])] = wx_of(dict(slug=k, roof=mm.get('roof'),
                                            label=f"{mm['away']}@{mm['home']}"), wx_src)
 
-    voice = Voice(scored)
+    # VOICEDAY-2026-09-14: the prose names the slate's OWN weekday. fixtures.json has carried
+    # `weekday` since the format was set; the voice just never read it, so the Monday-night
+    # 2026-09-14 board shipped "steps into the spotlight this Sunday".
+    voice = Voice(scored, weekday=fx.get('weekday'))
     # The prose reads the MODEL's own row (i10pg / tchpg / i10_share / pos / basis), not the
     # payload dict below, which renames those to the baseball field names the page renders
     # (la / hh / zonev / bhand). Same numbers, and the voice should not have to know the fork.

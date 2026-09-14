@@ -384,6 +384,50 @@ vt = Voice(SLATE + thin)
 nt = vt.ticket_note([{'name': r['name']} for r in thin], {r['name']: r for r in SLATE + thin}, tname='Thin')
 check('three identical low-usage men on one slip are all named', all(x in nt for x in ('A —', 'B —', 'C —')), nt)
 
+# ---- VOICEDAY-2026-09-14 ---------------------------------------------------------------
+# Three phrasings named SUNDAY as a literal, so the Monday-night 2026-09-14 board shipped
+# "steps into the spotlight this Sunday" -- the board asserting the wrong day for its own
+# slate. The weekday is the easiest fact on the page for a reader to falsify, which is what
+# makes it worth a test rather than a fix.
+import os as _os
+import re as _re
+import nfl_voice
+
+# 1. No live phrasing may contain a hardcoded weekday. Comments and docstrings are exempt --
+#    they DISCUSS the bug on purpose.
+_src = open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'nfl_voice.py'),
+            encoding='utf-8').read()
+_live = _re.sub(r'"""[\s\S]*?"""', '', _re.sub(r'#.*', '', _src))
+_days = sorted(set(_re.findall(r'\b(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\b', _live)))
+check('no weekday is hardcoded in a phrasing', not _days, _days)
+
+# 2. A player who triggers the "new name" headline says the SLATE's day, not Sunday's.
+_rookie = row('Fresh Face', 'WR', 3.0, 0.05, 0.017, 21.0, 0.09, +900, basis='depth', bg=0)
+_slate = SLATE + [_rookie]
+_mon = Voice(_slate, weekday='Monday').why(_rookie)
+check('the headline names the slate weekday', 'Sunday' not in _mon, _mon)
+
+# 3. ⚠️ THE REGRESSION THAT MATTERS. With the weekday known, _dayfmt must return the SAME
+#    options in the SAME order -- substitution only. `_pick`/`_open` index by hash modulo the
+#    bank length, so any drop or reorder would re-roll every unrelated phrasing on the board
+#    and republish the lot for nothing. Verified end-to-end on the 2026-09-13 slate when this
+#    shipped: 0 of 14 ticket notes and 0 of 179 player cards changed against the old module.
+_sun = Voice(_slate, weekday='Sunday')
+check('a Sunday board is substitution-only: same options, same order',
+      _sun._dayfmt(nfl_voice.OPENERS_3) == [o.replace('{day}', 'Sunday') for o in nfl_voice.OPENERS_3])
+check('OPENERS_3 keeps its length so pick indices hold',
+      len(_sun._dayfmt(nfl_voice.OPENERS_3)) == len(nfl_voice.OPENERS_3))
+check('the Sunday render still says Sunday where a day phrasing is picked',
+      'Monday' not in _sun.why(_rookie), _sun.why(_rookie))
+
+# 4. Unknown weekday asserts NOTHING -- the phrasing is dropped, never defaulted back to Sunday.
+_non = Voice(_slate)
+_nonbank = _non._dayfmt(nfl_voice.OPENERS_3)
+check('an unknown weekday drops the day phrasing rather than guessing',
+      not [o for o in _nonbank if '{day}' in o or 'Sunday' in o] and len(_nonbank) < len(nfl_voice.OPENERS_3),
+      _nonbank)
+check('an unknown weekday never reaches the reader', 'Sunday' not in _non.why(_rookie), _non.why(_rookie))
+
 print()
 if FAILS:
     print('FAILED: ' + str(len(FAILS)))
