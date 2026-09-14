@@ -1,7 +1,7 @@
 {
   "date": "2026-09-14",
   "season": "2026",
-  "pulled_at": "2026-09-14T18:30:25Z",
+  "pulled_at": "2026-09-14T18:36:04Z",
   "games": [
     {
       "gamePk": 824465,
@@ -46,7 +46,7 @@
     },
     {
       "gamePk": 824386,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-14T22:40:00Z",
       "matchup": "CWS@CLE",
       "away": {
@@ -68,10 +68,56 @@
           "hr9": 1.44,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.068
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.133
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.165
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.161
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.146
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.197
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.204
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.121
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
