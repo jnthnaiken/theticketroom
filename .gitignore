@@ -10,3 +10,9 @@ savant_cache/
 # push (2026-08-26, the /mlb/ swap). Either way it is a COPY of files already in the repo --
 # committing it puts a stale duplicate of the whole published site in the repo root.
 _site/
+
+# Scratch dumps written by test suites and never read back. soccer/test_live.js writes
+# D_test_<date>.json on every run (its own settled board, for eyeballing when a check fails)
+# and does not clean up, so it shows as untracked after every CI or local run. Committing it
+# would put a stale snapshot of one archived night in the repo that nothing loads.
+soccer/D_test_*.json
