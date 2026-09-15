@@ -74,14 +74,24 @@
        gate is exactly the hole FINALREPAIR's "no Z_GATE, no GAME_CAP" pool walks through.
        ⚠️ LOCKED SLIPS ARE NOT TOUCHED. ticketIsLocked() freezes before any of this runs, so a
        placed bet is carried verbatim whatever its price. */
-    MIN_ODDS: 100
+    MIN_ODDS: 100,
+    /* PRICECAP-2026-09-15. Owner, after football week 1 (-12.05u, moons 0-8): "we're going for way
+       too far of longshots". The upper twin of MIN_ODDS: a price is eligible only when
+       odds <= MAX_ODDS. null (the default) switches it off, so SOCCER IS UNTOUCHED -- only
+       nfl_draft_cli.js sets it. Enforced through priceOk(), i.e. at every door MIN_ODDS already
+       guards (pool, wide pool, redraft cands, placeable, pinnable, alive[]). Locked slips are
+       still carried verbatim. */
+    MAX_ODDS: null
   };
 
   function priceOk(p, cfg) {
-    if (!cfg || cfg.MIN_ODDS == null) return true;
+    if (!cfg || (cfg.MIN_ODDS == null && cfg.MAX_ODDS == null)) return true;
     if (!p || p.odds == null || p.odds === '') return false;
     var o = Number(p.odds);
-    return isFinite(o) && o >= cfg.MIN_ODDS;
+    if (!isFinite(o)) return false;
+    if (cfg.MIN_ODDS != null && o < cfg.MIN_ODDS) return false;
+    if (cfg.MAX_ODDS != null && o > cfg.MAX_ODDS) return false;
+    return true;
   }
 
   function cfgOf(o) {
