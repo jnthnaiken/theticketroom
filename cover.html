@@ -240,26 +240,23 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
        under construction sign over it". Fourth room. Every pair of existing accents is taken, so
        basketball gets violet/pink; the only primary it shares is violet, which baseball uses as a
        SECOND colour. No new colour was invented for it.
-       The card is a placeholder: no slate feed, no link. The .wip overlay covers the slate and the
-       ticket and swallows clicks, so nothing underneath can be reached. When the room ships, delete
-       the .wip block and swap .tkt-off for a real <a class="tkt" href="nba/">. */
+       The card is a placeholder: no slate feed, no link. The .wip panel stands where the slate and
+       ticket will go and swallows clicks. Kept deliberately quiet: the owner said the first
+       version, full hazard tape, "stands out wayyy too much". When the room ships, delete
+       the .wip block and give the card a slate and a real <a class="tkt" href="nba/"> like the others. */
     .nba{--accent:var(--violet);--accent2:var(--pink);--glow:#b69dff2b}
     .nba .hole svg{width:28px;height:28px}
-    .nba .body{position:relative;display:flex;flex-direction:column;gap:10px}
-    .nba .ghost{display:flex;gap:6px;padding:9px 0 5px;filter:blur(1.5px);opacity:.35}
-    .nba .ghost i{flex:1;height:44px;border-radius:10px;background:var(--raise);border:1px solid var(--line)}
-    .tkt-off{pointer-events:none;opacity:.35;filter:grayscale(1)}
-    .wip{position:absolute;inset:-4px -6px;z-index:5;display:grid;place-items:center;border-radius:12px;
-      background:repeating-linear-gradient(135deg,#ffc24d 0 14px,#0b0d12 14px 28px);
-      box-shadow:inset 0 0 0 2px #ffc24d;cursor:not-allowed}
-    .wip-sign{background:#0b0d12;border:2px solid var(--amber);border-radius:10px;padding:9px 16px;
-      text-align:center;transform:rotate(-3deg);box-shadow:0 10px 24px -8px #000}
-    .wip-sign b{display:block;font-family:Oswald,sans-serif;font-weight:700;font-size:21px;
-      letter-spacing:.06em;line-height:1.05;text-transform:uppercase;color:var(--amber)}
-    .wip-sign span{display:block;margin-top:4px;font-family:'Roboto Mono',monospace;font-size:9.5px;
-      letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
-    .wip-sign b{white-space:nowrap}
-    @media (max-width:420px){.wip-sign{padding:8px 12px}.wip-sign b{font-size:17px}.wip-sign span{font-size:8.5px;letter-spacing:.12em}}
+    .nba .body{position:relative;min-height:96px;margin-top:4px}
+    .nba{opacity:.62}
+    .nba .hole .disc{animation:none;opacity:.5}
+    .wip{position:absolute;inset:0;z-index:5;display:grid;place-items:center;border-radius:10px;
+      background:repeating-linear-gradient(135deg,#ffc24d0f 0 10px,transparent 10px 20px),#0e121999;
+      border:1px dashed #ffc24d38;cursor:not-allowed}
+    .wip-sign{text-align:center}
+    .wip-sign b{display:block;font-family:'Roboto Mono',monospace;font-weight:500;font-size:10.5px;
+      letter-spacing:.2em;text-transform:uppercase;color:#ffc24db3;white-space:nowrap}
+    .wip-sign span{display:block;margin-top:3px;font-family:'Roboto Mono',monospace;font-size:9px;
+      letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 
 .chead{display:flex;align-items:center;gap:14px}
 .hole{position:relative;width:64px;height:64px;flex:none;display:grid;place-items:center}
@@ -608,14 +605,8 @@ footer b{color:var(--mut);font-weight:600}
         <span class="cnt"></span>
       </div>
       <div class="body">
-        <div class="ghost" aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="foot">
-          <span class="tkt tkt-off" aria-hidden="true">
-            <span class="tkt-stub">Admit<br>One</span>
-            <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw">&rarr;</span></span>
-          </span></div>
         <div class="wip" role="note" aria-label="Basketball room under construction">
-          <div class="wip-sign"><b>&#9888; Under Construction</b><span>First basket &middot; coming soon</span></div>
+          <div class="wip-sign"><b>Under construction</b><span>First basket &middot; coming soon</span></div>
         </div>
       </div>
     </div>
