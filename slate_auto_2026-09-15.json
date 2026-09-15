@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
   "season": "2026",
-  "pulled_at": "2026-09-15T21:47:31Z",
+  "pulled_at": "2026-09-15T21:52:35Z",
   "games": [
     {
       "gamePk": 824466,
@@ -1638,7 +1638,7 @@
     },
     {
       "gamePk": 823980,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-16T01:38:00Z",
       "matchup": "SEA@LAA",
       "away": {
@@ -1660,10 +1660,56 @@
           "hr9": 1.92,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.202
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.185
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.091
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.143
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.134
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.125
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.148
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.081
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.049
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
