@@ -1,7 +1,7 @@
 {
   "date": "2026-09-14",
   "season": "2026",
-  "pulled_at": "2026-09-15T02:38:40Z",
+  "pulled_at": "2026-09-15T02:43:49Z",
   "games": [
     {
       "gamePk": 824465,
@@ -125,9 +125,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 77\u00b0",
+        "lean": "Neutral",
+        "temp": 77.2,
+        "wind_mph": 5.5,
+        "wind_dir": 58,
+        "tail_mph": -5.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.992
     },
     {
       "gamePk": 824386,
@@ -251,9 +258,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 4mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 68.0,
+        "wind_mph": 4.2,
+        "wind_dir": 344,
+        "tail_mph": -4.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.983
     },
     {
       "gamePk": 822765,
@@ -642,13 +656,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 69.2,
+        "wind_mph": 10.4,
+        "wind_dir": 149,
+        "tail_mph": 5.0,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 1.016
     },
     {
       "gamePk": 823656,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-14T23:40:00Z",
       "matchup": "NYY@MIN",
       "away": {
@@ -730,7 +751,7 @@
           {
             "id": 665019,
             "name": "Kody Clemens",
-            "iso": 0.229
+            "iso": 0.228
           },
           {
             "id": 680777,
@@ -768,13 +789,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 10mph, 57\u00b0",
+        "lean": "Neutral",
+        "temp": 57.2,
+        "wind_mph": 11.3,
+        "wind_dir": 158,
+        "tail_mph": 9.9,
+        "precip": 47
       },
-      "wf": 1.0
+      "wf": 1.015
     },
     {
       "gamePk": 823006,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-14T23:45:00Z",
       "matchup": "SF@STL",
       "away": {
@@ -894,9 +922,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 87\u00b0",
+        "lean": "Boost",
+        "temp": 86.7,
+        "wind_mph": 10.0,
+        "wind_dir": 136,
+        "tail_mph": 2.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.035
     },
     {
       "gamePk": 824308,
@@ -1020,9 +1055,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 7mph, 83\u00b0",
+        "lean": "Neutral",
+        "temp": 82.7,
+        "wind_mph": 7.6,
+        "wind_dir": 341,
+        "tail_mph": -7.2,
+        "precip": 1
       },
-      "wf": 1.0
+      "wf": 0.994
     },
     {
       "gamePk": 823981,
@@ -1034,7 +1076,7 @@
         "sp": {
           "id": 807739,
           "name": "Kade Anderson",
-          "hr9": 1.5,
+          "hr9": 1.48,
           "hand": "LHP"
         },
         "lineup": [
@@ -1128,7 +1170,7 @@
           {
             "id": 518595,
             "name": "Travis d'Arnaud",
-            "iso": 0.091
+            "iso": 0.09
           },
           {
             "id": 677347,
@@ -1146,9 +1188,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 76.6,
+        "wind_mph": 7.3,
+        "wind_dir": 211,
+        "tail_mph": 7.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.035
     },
     {
       "gamePk": 825034,
@@ -1192,12 +1241,12 @@
           {
             "id": 805300,
             "name": "Jakob Marsee",
-            "iso": 0.115
+            "iso": 0.12
           },
           {
             "id": 691594,
             "name": "Javier Sanoja",
-            "iso": 0.155
+            "iso": 0.162
           },
           {
             "id": 691788,
@@ -1217,7 +1266,7 @@
         "sp": {
           "id": 669203,
           "name": "Corbin Burnes",
-          "hr9": 0.0,
+          "hr9": 2.7,
           "hand": "RHP"
         },
         "lineup": [
