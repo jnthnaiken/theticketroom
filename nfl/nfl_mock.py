@@ -292,11 +292,21 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     d = d[d.match.notna()].copy()
 
     odds, book = [], []
+    # SURNAMEJOIN-2026-09-17: the surname fallback handed a price to the WRONG MAN whenever two
+    # rostered players in a match share a surname. 09-17 DET@BUF: Josh Allen (-120, QB) joined
+    # exactly, and Kyle Allen, the backup, took the same price through the fallback -- one price,
+    # two players. Harmless that night only because NOQB unprices both. The fallback now needs
+    # (a) the price not already claimed by an exact join in that match, and (b) a compatible
+    # first initial ("Josh Palmer" <- "Joshua Palmer" still joins). Same rule as MLB's SPFIRST.
+    exact_claimed = {(r.match, norm(r.full_name)) for _, r in d.iterrows()
+                     if (r.match, norm(r.full_name)) in by_exact}
+    first = lambda s: (re.sub(r'[^a-z ]', '', unicodedata.normalize('NFKD', str(s)).lower()).split() or [''])[0][:1]
     for _, r in d.iterrows():
         k = (r.match, norm(r.full_name))
         hit = by_exact.get(k)
         if hit is None:
-            cand = by_sur.get((r.match, surname(r.full_name)), [])
+            cand = [c for c in by_sur.get((r.match, surname(r.full_name)), [])
+                    if (r.match, norm(c[0])) not in exact_claimed and first(c[0]) == first(r.full_name)]
             hit = cand[0] if len(cand) == 1 else None
         odds.append(hit[1] if hit else None)
         book.append(hit[0] if hit else None)
