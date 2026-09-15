@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Ticket Room</title>
-<meta name="description" content="Daily prop handicapping boards — MLB home runs and soccer anytime goalscorer.">
+<meta name="description" content="Daily prop handicapping boards — MLB home runs, soccer anytime goalscorer, NFL anytime touchdown. NBA first basket coming soon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://a.espncdn.com">
@@ -236,6 +236,30 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
        not repeat a PRIMARY. No new colour was invented for it. */
     .nfl{--accent:var(--amber);--accent2:var(--pink);--glow:#ffc24d2b}
     .nfl .hole svg{width:28px;height:28px}
+    /* NBA-2026-09-15. Owner: "make an nba section on the cover page for first basket but put an
+       under construction sign over it". Fourth room. Every pair of existing accents is taken, so
+       basketball gets violet/pink; the only primary it shares is violet, which baseball uses as a
+       SECOND colour. No new colour was invented for it.
+       The card is a placeholder: no slate feed, no link. The .wip overlay covers the slate and the
+       ticket and swallows clicks, so nothing underneath can be reached. When the room ships, delete
+       the .wip block and swap .tkt-off for a real <a class="tkt" href="nba/">. */
+    .nba{--accent:var(--violet);--accent2:var(--pink);--glow:#b69dff2b}
+    .nba .hole svg{width:28px;height:28px}
+    .nba .body{position:relative;display:flex;flex-direction:column;gap:10px}
+    .nba .ghost{display:flex;gap:6px;padding:9px 0 5px;filter:blur(1.5px);opacity:.35}
+    .nba .ghost i{flex:1;height:44px;border-radius:10px;background:var(--raise);border:1px solid var(--line)}
+    .tkt-off{pointer-events:none;opacity:.35;filter:grayscale(1)}
+    .wip{position:absolute;inset:-4px -6px;z-index:5;display:grid;place-items:center;border-radius:12px;
+      background:repeating-linear-gradient(135deg,#ffc24d 0 14px,#0b0d12 14px 28px);
+      box-shadow:inset 0 0 0 2px #ffc24d;cursor:not-allowed}
+    .wip-sign{background:#0b0d12;border:2px solid var(--amber);border-radius:10px;padding:9px 16px;
+      text-align:center;transform:rotate(-3deg);box-shadow:0 10px 24px -8px #000}
+    .wip-sign b{display:block;font-family:Oswald,sans-serif;font-weight:700;font-size:21px;
+      letter-spacing:.06em;line-height:1.05;text-transform:uppercase;color:var(--amber)}
+    .wip-sign span{display:block;margin-top:4px;font-family:'Roboto Mono',monospace;font-size:9.5px;
+      letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+    .wip-sign b{white-space:nowrap}
+    @media (max-width:420px){.wip-sign{padding:8px 12px}.wip-sign b{font-size:17px}.wip-sign span{font-size:8.5px;letter-spacing:.12em}}
 
 .chead{display:flex;align-items:center;gap:14px}
 .hole{position:relative;width:64px;height:64px;flex:none;display:grid;place-items:center}
@@ -561,6 +585,39 @@ footer b{color:var(--mut);font-weight:600}
           <span class="tkt-stub">Admit<br>One</span>
           <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">&rarr;</span></span>
         </a></div>
+    </div>
+    <div class="card nba" aria-disabled="true">
+      <div class="chead">
+        <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
+          <!-- HOOPICON-2026-09-15. A hoop, not a ball, for the reason BOXICON-2026-08-26 records:
+               a basketball's seams around a centre read as a wheel at 28px. Same idiom as the
+               other three: viewBox 100, fill none, stroke currentColor, round caps. Backboard and
+               rim are 7; the net is 4.6 at .85 so the rim stays the subject. -->
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor"
+               stroke-linecap="round" stroke-linejoin="round">
+            <g stroke-width="7">
+              <path d="M22 16h56v34H22z"/>
+              <path d="M28 58h44"/>
+            </g>
+            <g stroke-width="4.6" opacity=".85">
+              <path d="M40 30h20v12"/>
+              <path d="M32 58l6 26M68 58l-6 26M50 58v26M38 84h24"/>
+            </g>
+          </svg></span>
+        <div><h2 class="cname">Basketball</h2><p class="ktag">First basket</p></div>
+        <span class="cnt"></span>
+      </div>
+      <div class="body">
+        <div class="ghost" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="foot">
+          <span class="tkt tkt-off" aria-hidden="true">
+            <span class="tkt-stub">Admit<br>One</span>
+            <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw">&rarr;</span></span>
+          </span></div>
+        <div class="wip" role="note" aria-label="Basketball room under construction">
+          <div class="wip-sign"><b>&#9888; Under Construction</b><span>First basket &middot; coming soon</span></div>
+        </div>
+      </div>
     </div>
     </main>
 </div>
