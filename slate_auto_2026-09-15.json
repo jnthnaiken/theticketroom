@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
   "season": "2026",
-  "pulled_at": "2026-09-15T22:17:39Z",
+  "pulled_at": "2026-09-15T22:20:24Z",
   "games": [
     {
       "gamePk": 824466,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 823333,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-15T22:40:00Z",
       "matchup": "MIL@PIT",
       "away": {
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 822683,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-15T22:45:00Z",
       "matchup": "PHI@WSH",
       "away": {
@@ -1695,8 +1695,54 @@
           "hr9": 1.41,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.129
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.2
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.222
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.19
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.153
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.093
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.142
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.384
+          },
+          {
+            "id": 801126,
+            "name": "Brock Rodden",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
