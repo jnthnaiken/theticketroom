@@ -46,6 +46,14 @@ CFG = dict(
     GAME_CAP=5,
     ANCH=4, MOON_LEGS=3, MOONS_PER_ANC=2, ANCH_PER_GAME=2,
     MOON_RISK=2.0, SINGLE_STAKE=1.0,
+    # PRICECAP-2026-09-15: the draftable price band. The DRAFT enforces it (soccer_draft.js priceOk:
+    # MIN_ODDS in its DEFAULTS, MAX_ODDS in nfl_draft_cli.js); this copy exists so the EV z-score and
+    # the gate are computed over the men who CAN be drafted. Every scored row carries it as
+    # `price_band` and nfl_draft_cli.js exits if the two disagree.
+    MIN_ODDS=100, MAX_ODDS=500,
+    # MKTSCALE-2026-09-15: how far EV trusts the (market-scaled) model against the de-vigged price,
+    # in logit space. 1.0 = all model, 0.0 = all market (EV then only reflects vig). Unfitted.
+    MKT_W=0.5,
 )
 
 # ---------------------------------------------------------------------------------------------
@@ -211,6 +219,52 @@ def no_qb(d):
         d.loc[d.pos == 'QB', 'odds'] = None
     return d
 
+def market_scale(d):
+    """MKTSCALE-2026-09-15 -- put the model's probabilities on the MARKET'S SCALE before EV sees them.
+    Owner, after week 1 (-12.05u): "we're going for way too far of longshots".
+
+    WHY. The raw model is FLAT. Week 1, all four slates, 244 priced non-QB players, 57 scorers:
+        price band      hit    book (implied)   raw model
+        -1000..+150     53%        50%            25%
+        +150..+300      26%        31%            15%
+        +300..+500      15%        20%            12%
+        +500..+800      14%        14%             9%
+        +800 and up      7%         6%             7%
+    The books were right at every price; the model had Gibbs -260 at 36% and Franklin +1200 at 15%.
+    Two causes: team normalisation spreads each team's expected scorers over the WHOLE roster (the
+    priced men summed to 1.0 a team on Sunday against 1.85 actual and 1.9 implied), and four inputs
+    cannot separate a lead back from a depth body the way a price does. Under EV = p * decimal - 1 a
+    flat p makes every favourite look overpriced and every longshot look underpriced, so the board
+    drifted to +450..+2200 by construction, not by edge.
+
+    WHAT. Within the slate's priced field, match the model's logit distribution to the de-vigged
+    market's: same mean, same spread. The model's ORDER is untouched -- only its scale -- so EV now
+    measures where the model disagrees with the price's RANK, not how flat the model is. Week 1
+    after the rescale: 41 / 28 / 22 / 17 / 9 % by the same bands.
+
+    A PROMOTED calibration (ev_weights_nfl_v1.json, nfl_ev_fit.py) supersedes this for EV; this is
+    the stopgap until ~6-7 graded weeks exist. The raw number is kept as p_model_raw.
+    NFL_MKTSCALE=0 turns it off."""
+    d['p_model_raw'] = d.p_model
+    if os.environ.get('NFL_MKTSCALE', '1') == '0':
+        return d
+    m = d.odds.notna() & d.p_model.notna() & pd.notna(d.p_mkt_dv)
+    m = m & (d.p_mkt_dv > 0)
+    if m.sum() < 8:
+        print(f'MKTSCALE: only {int(m.sum())} priced rows -- model left on its own scale')
+        return d
+    lg = lambda p: np.log(np.clip(p, 1e-4, 1 - 1e-4) / (1 - np.clip(p, 1e-4, 1 - 1e-4)))
+    xm, xd = lg(d.loc[m, 'p_model'].astype(float)), lg(d.loc[m, 'p_mkt_dv'].astype(float))
+    sm, sd = xm.std(ddof=0), xd.std(ddof=0)
+    if not sm or sm <= 0:
+        return d
+    z = (lg(d.loc[m, 'p_model'].astype(float)) - xm.mean()) / sm
+    d.loc[m, 'p_model'] = (1 / (1 + np.exp(-(xd.mean() + sd * z)))).clip(0.005, 0.90)
+    print(f'MKTSCALE: {int(m.sum())} priced rows rescaled -- model mean {d.loc[m, "p_model_raw"].mean():.1%} '
+          f'-> {d.loc[m, "p_model"].mean():.1%} (market {d.loc[m, "p_mkt_dv"].mean():.1%}), '
+          f'logit sd {sm:.2f} -> {sd:.2f}')
+    return d
+
 def score(season, week, atd_path, fixtures_path, prices_path):
     fx = json.load(open(fixtures_path, encoding='utf-8'))
     slugs = fx['matches']
@@ -256,6 +310,7 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     # de-vig the market the same way the model is normalised, so the two halves are comparable
     tot = d.groupby('team').p_mkt.transform('sum')
     d['p_mkt_dv'] = np.where(tot > 0, d.p_mkt * d.exp_scorers / tot, np.nan)
+    d = market_scale(d)
 
     def z(x):
         x = pd.to_numeric(x, errors='coerce')
@@ -301,6 +356,17 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     # as an input -- see nfl_ev_fit.py for why it cannot exist before ~6-7 graded weeks.
     _cal = _ev_weights()
     d['p_ev'] = d.p_model
+    # MKTSCALE-2026-09-15: without a promoted calibration, EV reads the model only PART of the way
+    # from the de-vigged price. Scale-matching alone (market_scale) still hands a +1000 man a
+    # favourite's probability whenever the model ranks him high -- EV +120% on Roman Wilson, 09-13 --
+    # and the model's rank carries far less information than the price's. Shrink toward the market.
+    _w = CFG['MKT_W']
+    _pmv = pd.to_numeric(d.p_mkt_dv, errors='coerce')
+    _sh = pm & _pmv.notna() & (_pmv > 0)
+    if _sh.any():
+        _lg = lambda p: np.log(np.clip(p, 1e-4, 1 - 1e-4) / (1 - np.clip(p, 1e-4, 1 - 1e-4)))
+        _x = _w * _lg(d.loc[_sh, 'p_model'].astype(float)) + (1 - _w) * _lg(_pmv[_sh].astype(float))
+        d.loc[_sh, 'p_ev'] = 1 / (1 + np.exp(-_x))
     if _cal is not None and pm.any():
         import nfl_ev_fit
         d.loc[pm, 'p_ev'] = [nfl_ev_fit.p_cal(_cal, a, p) for p, a in zip(d.loc[pm, 'p_model'], d.loc[pm, 'odds'])]
@@ -314,14 +380,20 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     # which is what removes the Cousins artifact that kept this off on 09-10). Still unmeasured on NFL:
     # there are two graded football nights. Revert with NFL_BOARD_MODEL=mkt50.
     if os.environ.get('NFL_BOARD_MODEL', 'ev_v1') == 'ev_v1' and pm.any():
-        ez = z(d.loc[pm, 'ev'])
+        # PRICECAP-2026-09-15: z over the DRAFTABLE band only. Scored over the whole priced field, the
+        # +1100..+2200 men set the top of the scale and a single-game Monday card gated nobody at all
+        # (09-14 replay: pool 0 of 24). Out-of-band men sit at the floor, below every draftable man.
+        pb = pm & d.odds.between(CFG['MIN_ODDS'], CFG['MAX_ODDS'])
+        if not pb.any():
+            pb = pm
+        ez = z(d.loc[pb, 'ev'])
         floor = (ez.min() - 0.5) if len(ez) else 0.0
         d['blend'] = floor
-        d.loc[pm, 'blend'] = ez
+        d.loc[pb, 'blend'] = ez
         d['TOTAL'] = (100 + 30 * d.blend).round(1)
         d['gate_z'] = floor
-        d.loc[pm, 'gate_z'] = z(d.loc[pm, 'TOTAL'])
-        top = d[pm].sort_values('ev', ascending=False).head(8)
+        d.loc[pb, 'gate_z'] = z(d.loc[pb, 'TOTAL'])
+        top = d[pb].sort_values('ev', ascending=False).head(8)
         print('BOARD MODEL ev_v1: ' + ', '.join(f"{r.full_name} {int(r.odds):+d} ev {r.ev:+.1%}" for _, r in top.iterrows()))
     return d, fx
 
@@ -343,6 +415,8 @@ def to_scored(d, fx):
             rz_pg=round(float(r.rz_pg), 2) if pd.notna(r.rz_pg) else None,
             wf=round(float(r.wf), 3), wind=float(r.wind), indoor=int(r.indoor),
             basis=r.basis, basis_games=int(r.basis_games),
+            p_model_raw=round(float(r.p_model_raw), 4) if pd.notna(r.get('p_model_raw')) else None,
+            price_band=[CFG['MIN_ODDS'], CFG['MAX_ODDS']],
             out=False, void=False))
     out.sort(key=lambda x: -x['TOTAL'])
     return out

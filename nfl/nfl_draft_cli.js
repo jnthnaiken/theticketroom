@@ -56,6 +56,13 @@ const CFG = {
   WIN: 60, Z_GATE: 0.55, GAME_CAP: 5,
   ANCH: 4, MOON_LEGS: 3, MOONS_PER_ANC: 2, ANCH_PER_GAME: 2,
   MOON_RISK: 2.0, SINGLE_STAKE: 1.0,
+  /* PRICECAP-2026-09-15 -- nothing longer than +500 is draftable, anchor, leg or single.
+     Week 1 under EV ranking drafted +320..+1000 on Sunday and +1100..+2200 on Monday night and
+     the moons went 0-8 (-16u). With MIN_ODDS 100 (soccer_draft DEFAULTS) the football card is
+     +100..+500. A judgement call, not a fit: replaying week 1's singles, +400/+500/+600/+800
+     caps land anywhere from -3.7u to +5.4u on 20 picks, which is noise. Revisit once
+     nfl_ev_fit.py has enough graded weeks to calibrate the long end properly. */
+  MAX_ODDS: 500,
 };
 
 const [, , scoredPath, fixturesPath, outPath] = process.argv;
@@ -64,6 +71,18 @@ if (!scoredPath || !fixturesPath || !outPath) {
   process.exit(2);
 }
 const players = JSON.parse(fs.readFileSync(scoredPath, 'utf8'));
+/* PRICECAP-2026-09-15: nfl_mock.py gates over the band it believes in; the draft enforces this one.
+   They must be the same band or the gate is computed over the wrong field. */
+{
+  const minOdds = (Draft.DEFAULTS || {}).MIN_ODDS;
+  const bad = players.find(p => p.price_band &&
+    (p.price_band[0] !== minOdds || p.price_band[1] !== CFG.MAX_ODDS));
+  if (bad) {
+    console.error(`!! price band drift: scored.json says ${JSON.stringify(bad.price_band)}, `
+                + `draft enforces [${minOdds}, ${CFG.MAX_ODDS}]`);
+    process.exit(7);
+  }
+}
 const fx = JSON.parse(fs.readFileSync(fixturesPath, 'utf8'));
 
 /* Kickoff minutes per MATCH.
