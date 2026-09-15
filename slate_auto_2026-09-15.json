@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
   "season": "2026",
-  "pulled_at": "2026-09-15T19:46:42Z",
+  "pulled_at": "2026-09-15T19:51:45Z",
   "games": [
     {
       "gamePk": 824466,
@@ -709,7 +709,7 @@
     },
     {
       "gamePk": 823574,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-15T23:10:00Z",
       "matchup": "BAL@NYM",
       "away": {
@@ -731,10 +731,56 @@
           "hr9": 1.42,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.21
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.253
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.13
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.139
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.163
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.125
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.13
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.135
+          },
+          {
+            "id": 682626,
+            "name": "Francisco Alvarez",
+            "iso": 0.167
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -992,8 +1038,54 @@
           "hr9": 0.62,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663494,
+            "name": "Bryan Torres",
+            "iso": 0.114
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.132
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.182
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.206
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": 0.231
+          },
+          {
+            "id": 695336,
+            "name": "Thomas Saggese",
+            "iso": 0.149
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.121
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.087
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.109
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
