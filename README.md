@@ -311,7 +311,17 @@ corrected there.)
 ## Ticket rules
 
 - **Eligible field** = priced bats in the posted lineup, not scratched/voided,
-  under 70% rain.
+  under 70% rain, **and at least `MIN_CARD_BIP` (40) batted balls on the Kasper card**.
+- **Thin bats are never drafted (`THINBAT-2026-09-15`).** `build15.py` stamps `thin: true` on any
+  bat whose card `test` (batted-ball count) is under `MIN_CARD_BIP`. `CARDBIP-2026-09-12` only
+  neutralised such a bat's card rates, so he still scored on price/park/slot and could top the
+  slate — Josue De Paula (1 BIP) anchored the board on 09-12 and again on 09-15. The engine now
+  refuses a thin bat everywhere it drafts: the eligible field (so the gated pool, reserve tier and
+  nightcap), the shape-repair candidates, the prior-leg keep, `anchorAlive` and both moon-refill
+  passes. An **open** moon anchored by a thin bat triggers the full joint redraft. **Locked**
+  slips are placed bets and are still carried verbatim. Thin bats still show on the Players tab.
+  `regen15.py` prints a `::error::THINBAT` annotation if a built board still carries one (e.g.
+  the `assemble_tickets.py` fallback, which knows nothing about the rule).
 - **Rain bands** — `<40%` full eligibility (can anchor); **`40–49%` barred from
   anchoring** but still usable as a parlay leg or builder single; `50–69%` builder
   single only (no parlay legs); `70%+` out of the pool entirely.

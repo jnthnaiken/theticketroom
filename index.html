@@ -1821,7 +1821,7 @@ drawTickets();drawPlayers();drawTracker();
     var pending=function(n){return !!P[n].pending || !!carryNames[n];};   // carried/carryover bat -> SINGLE only: barred from every parlay leg (lifts when its game is final)
 
     // ---- re-gate on live scores: take top (33+8) by TOTAL, re-sort by odds. 8-ban chalk -> lunch/nightcap ONLY; the remaining 33 -> moons/salami/builders. Taking 41 backfills the ban8 so 33 stay buildable. ----
-    var elig=names.filter(function(n){var p=P[n]; return p.odds && !p.out && !p.void && precipOf(p.game)<70 && (D.meta.gs||{})[String(p.game)]!=='ppd';}); // priced & in-lineup; >=70% rain out of pool
+    /* THINBAT-2026-09-15 -- owner: a bat under MIN_CARD_BIP (40) batted balls is NOT DRAFTABLE, full stop. CARDBIP-2026-09-12 only neutralised his card rates in build15, so he still scored on price/park/slot and anchored the board twice (De Paula, 1 BIP: 09-12 and 09-15). build15 stamps p.thin; every draft source here (elig -> cand/extra/nightcap, the shape-repair cnd, the prior-leg keep, anchorAlive and both moon-refill passes) now refuses it, and an OPEN moon anchored by a thin bat triggers the joint redraft. LOCKED slips are placed bets and are still carried verbatim. Archived boards have no thin flag, so they replay unchanged. */ var elig=names.filter(function(n){var p=P[n]; return p.odds && !p.out && !p.void && !p.thin && precipOf(p.game)<70 && (D.meta.gs||{})[String(p.game)]!=='ppd';}); // priced & in-lineup; >=70% rain out of pool
     var fullrank=byT(elig);
     var _bl=[]; fullrank.forEach(function(n){var b=P[n].blend; if(b!=null)_bl.push(b);});
     var cand;
@@ -2575,7 +2575,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         var a=t.anchor, r=null;
         if(!P[a])r='gone from the pool';
         else if(P[a].out||P[a].void)r='scratched';
-        else if(chalk[a])r='now chalk (top-'+CHALK_N+' cannot anchor)';
+        else if(P[a].thin)r='thin sample (under MIN_CARD_BIP batted balls)';         else if(chalk[a])r='now chalk (top-'+CHALK_N+' cannot anchor)';
         else if(!(pinnedP(a)||(aliveP(a)&&inPool[a])))r='no longer draftable';
         if(!r)return false;
         _redraftWhy=a+': '+r+' (open moon "'+t.name+'")';
@@ -2606,7 +2606,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         if(isLocked(t) && !_bldOpen){ plan.push({frozen:true,t:t}); return; }   // PLACED slip -> emit verbatim forever; a leg that later voids just grades as void, the slip itself never changes
         var need=t.nlegs||(t.players?t.players.length:1), kept=[], pref=[], gUsed={};
         t.players.forEach(function(l){var n=l.name, isA=(n===t.anchor);
-          if(pinnedP(n) && !chalk[n]){/*LOCK = confirmed or already in progress, nothing else. An unconfirmed leg used to be kept here as well (aliveP && inPool), which silently reserved that bat board-wide -- so when some OTHER leg was scratched the refill found every candidate already taken and the anchor got demoted, dropping its intact partner moon with it (2026-08-03: Eldridge scratched -> Wood lost BOTH moons, while the only unplaced bat had missed the z-gate by 0.02). Releasing unconfirmed legs returns them to the pool to be re-drafted around the locked ones, which is the point of the re-draft. Chalk stays excluded: the Chef's Table is reserved first, always.*/
+          if(pinnedP(n) && !chalk[n] && !P[n].thin){/*LOCK = confirmed or already in progress, nothing else. An unconfirmed leg used to be kept here as well (aliveP && inPool), which silently reserved that bat board-wide -- so when some OTHER leg was scratched the refill found every candidate already taken and the anchor got demoted, dropping its intact partner moon with it (2026-08-03: Eldridge scratched -> Wood lost BOTH moons, while the only unplaced bat had missed the z-gate by 0.02). Releasing unconfirmed legs returns them to the pool to be re-drafted around the locked ones, which is the point of the re-draft. Chalk stays excluded: the Chef's Table is reserved first, always.*/
             if(need>1 && pending(n)) return;                // pending (resuming) bat -> singles only; drop from parlays, refill later
             if(need>1 && gUsed[P[n].game]) return;          // distinct game within ticket
             if(usedG[n] && !isA) return;                    // already taken elsewhere (non-anchor) -> drop, refill later
@@ -2621,7 +2621,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       });
       // ---- MOON ANCHOR CONTINUITY: if a moon's anchor is scratched, BOTH of that anchor's moons must
       // re-anchor to the SAME replacement -- never split one anchor's pair into two new anchors (3 anchors x2, never 4). ----
-      var anchorAlive=function(n){return !chalk[n]&&(pinnedP(n)||(aliveP(n)&&inPool[n]));};  /* !chalk[n]: dropping a new-chalk bat from the pool is not enough on its own -- a CONFIRMED bat is pinnedP,
+      var anchorAlive=function(n){return !chalk[n]&&!(P[n]&&P[n].thin)&&(pinnedP(n)||(aliveP(n)&&inPool[n]));};  /* !chalk[n]: dropping a new-chalk bat from the pool is not enough on its own -- a CONFIRMED bat is pinnedP,
      so this pass would re-seat it as its own moons' anchor regardless. Failing anchorAlive routes it through
      anchRepl instead, which re-anchors BOTH of that anchor's moons to the same replacement. */
       var moonAnchors=[]; prior.forEach(function(t){ if(t.kind==='moon'&&!isLocked(t)&&moonAnchors.indexOf(t.anchor)<0)moonAnchors.push(t.anchor); });
@@ -2745,7 +2745,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         var moonCnt={}; out.forEach(function(t){ if(t.kind==='moon') moonCnt[t.anchor]=(moonCnt[t.anchor]||0)+1; });
         var placed={}; out.forEach(function(t){ (t.players||[]).forEach(function(l){placed[l.name]=1;}); });
         Object.keys(moonCnt).forEach(function(a){
-          if(!(pinnedP(a)||(aliveP(a)&&inPool[a])))return;   // anchor must still be live
+          if(P[a].thin||!(pinnedP(a)||(aliveP(a)&&inPool[a])))return;   // anchor must still be live
           var guard=0;
           while(moonCnt[a]<MOONS_PER_ANC && guard++<MOONS_PER_ANC){
             var legNames=[a], gUsed={}; gUsed[P[a].game]=1;
@@ -2948,10 +2948,10 @@ var _cmA={}, _cmB={};
     // out.push directly and runs after both branches, so nothing upstream prevents it. Never ships a short moon. ----
     (function(){var mc={};out.forEach(function(t){if(t.kind==='moon')mc[t.anchor]=(mc[t.anchor]||0)+1;});
       var pl={};out.forEach(function(t){(t.players||[]).forEach(function(l){pl[l.name]=1;});});
-      Object.keys(mc).forEach(function(a){ if(!P[a]||!(pinnedP(a)||(aliveP(a)&&inPool[a])))return;
+      Object.keys(mc).forEach(function(a){ if(!P[a]||P[a].thin||!(pinnedP(a)||(aliveP(a)&&inPool[a])))return;
         var g=0; while(mc[a]<MOONS_PER_ANC && g++<4){
           var ln=[a],gu={}; gu[P[a].game]=1;
-          var cnd=Object.keys(P).filter(function(n){return !pl[n]&&n!==a&&!chalk[n]&&!P[n].out&&!P[n].void&&P[n].odds!=null;}).sort(function(x,y){return (P[y].TOTAL||0)-(P[x].TOTAL||0);});
+          var cnd=Object.keys(P).filter(function(n){return !pl[n]&&n!==a&&!chalk[n]&&!P[n].out&&!P[n].void&&!P[n].thin&&P[n].odds!=null;}).sort(function(x,y){return (P[y].TOTAL||0)-(P[x].TOTAL||0);});
           for(var ci=0;ci<cnd.length&&ln.length<moonLegsEff();ci++){var n=cnd[ci]; if(gu[P[n].game])continue; if(!spanOk(ln.concat([n])))continue; ln.push(n); gu[P[n].game]=1;}
           if(ln.length<moonLegsEff())break;
           ln.forEach(function(n){pl[n]=1;});

@@ -155,6 +155,17 @@ if not _drafted:
     print("  !! FALLING BACK to assemble_tickets.py -- the archive may not match the rendered board")
     assemble_tickets.assemble(D)               # same rules, but no prior-board lock: last resort only
 
+# THINBAT-2026-09-15: tripwire for the owner's rule that a bat under MIN_CARD_BIP batted balls is never
+# drafted. The engine (index.html) enforces it; this only SHOUTS if a board still carries one -- e.g. the
+# assemble_tickets.py fallback above, which knows nothing about `thin`, or a slip that locked before the
+# rule shipped. It does not exit: a failed step here would stop the ledger/calibration commit too.
+_thin = [(t.get('name'), l.get('name')) for t in (D.get('tickets') or [])
+         for l in (t.get('players') or [])
+         if ((D.get('players') or {}).get(l.get('name')) or {}).get('thin')]
+if _thin:
+    print(f"::error::THINBAT: {len(_thin)} ticket leg(s) on a bat under the batted-ball floor: "
+          + '; '.join(f"{a} <- {b}" for a, b in _thin))
+
 D.setdefault('meta', {})['tickets'] = len(D.get('tickets') or [])
 json.dump(D, open(DJSON, 'w'), indent=1)       # persist the assembled board data (handoff name)
 _dt = (D.get('meta') or {}).get('date')
