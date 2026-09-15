@@ -49,8 +49,9 @@ out = []
 tmp = tempfile.mkdtemp()
 # The LIVE draft, with only the price ceiling made settable. Generated, never hand-copied.
 _cli = open('nfl_draft_cli.js', encoding='utf-8').read()
-assert _cli.count('  MAX_ODDS: 500,') == 1, 'nfl_draft_cli.js MAX_ODDS line moved -- update run.py'
-_cli = _cli.replace('  MAX_ODDS: 500,', '  MAX_ODDS: Number(process.env.BT_MAX_ODDS || 500),')
+import re as _re
+_cli, _n = _re.subn(r'\n  MAX_ODDS: \d+,', '\n  MAX_ODDS: Number(process.env.BT_MAX_ODDS),', _cli)
+assert _n == 1, 'nfl_draft_cli.js MAX_ODDS line moved -- update run.py'
 _cli = _cli.replace("require('./soccer_draft.js')", "require(%r)" % os.path.abspath(os.path.join('..', 'soccer', 'soccer_draft.js')))
 DRAFT = os.path.join(tmp, 'draft_bt.js'); open(DRAFT, 'w', encoding='utf-8').write(_cli)
 for s, w, day, g in slates():
