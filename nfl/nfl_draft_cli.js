@@ -56,13 +56,15 @@ const CFG = {
   WIN: 60, Z_GATE: 0.55, GAME_CAP: 5,
   ANCH: 4, MOON_LEGS: 3, MOONS_PER_ANC: 2, ANCH_PER_GAME: 2,
   MOON_RISK: 2.0, SINGLE_STAKE: 1.0,
-  /* PRICECAP-2026-09-15 -- nothing longer than +500 is draftable, anchor, leg or single.
+  /* PRICECAP-2026-09-15 -- nothing longer than MAX_ODDS is draftable, anchor, leg or single.
+     +500 at first; +400 the same day, owner's call on the NFL backtest (nfl/backtest/
+     RESULTS-2026-09-15.md: pooled ROI +400 -0.2% vs +500 -3.7%, within noise of each other).
      Week 1 under EV ranking drafted +320..+1000 on Sunday and +1100..+2200 on Monday night and
      the moons went 0-8 (-16u). With MIN_ODDS 100 (soccer_draft DEFAULTS) the football card is
-     +100..+500. A judgement call, not a fit: replaying week 1's singles, +400/+500/+600/+800
+     +100..+400. A judgement call, not a fit: replaying week 1's singles, +400/+500/+600/+800
      caps land anywhere from -3.7u to +5.4u on 20 picks, which is noise. Revisit once
      nfl_ev_fit.py has enough graded weeks to calibrate the long end properly. */
-  MAX_ODDS: 500,
+  MAX_ODDS: 400,
 };
 
 const [, , scoredPath, fixturesPath, outPath] = process.argv;

@@ -50,7 +50,7 @@ CFG = dict(
     # MIN_ODDS in its DEFAULTS, MAX_ODDS in nfl_draft_cli.js); this copy exists so the EV z-score and
     # the gate are computed over the men who CAN be drafted. Every scored row carries it as
     # `price_band` and nfl_draft_cli.js exits if the two disagree.
-    MIN_ODDS=100, MAX_ODDS=500,
+    MIN_ODDS=100, MAX_ODDS=400,   # +500 -> +400 same day, see nfl_draft_cli.js
     # MKTSCALE-2026-09-15: how far EV trusts the (market-scaled) model against the de-vigged price,
     # in logit space. 1.0 = all model, 0.0 = all market (EV then only reflects vig). Unfitted.
     MKT_W=0.5,
