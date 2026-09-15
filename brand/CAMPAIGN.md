@@ -1,77 +1,82 @@
 # OPERATION: THE ROOM — 30-day X plan (restarted 2026-09-15)
 
-This file is the plan. It lives in the repo at `brand/CAMPAIGN.md` and in the project folder at
-`claude/x-campaign-30day.md`. The old plan doc (`x-operation-30day-2026-09-12.md`) was never saved
-where it could be read, and the calendar in `x_daily.py` no longer matches it. **This file replaces both.**
+**Goal: get people from X onto theticketroom.live, and get them coming back.**
+Every post is built on one psychology lever, and each lever is picked for where it moves someone
+in the funnel: **stop scrolling → click → come back → bring someone.**
 
-## The pitch
-Free boards, every night, graded in public. We don't hide the names anymore: the hook is the
-record, not the blur. Days 1–2 teased what's inside. From Day 3 on, we open the book.
+This file is the plan. It lives in the repo at `brand/CAMPAIGN.md` and in the project folder at
+`claude/x-campaign-30day.md`. It replaces the old doc and the calendar in `x_daily.py`.
+
+## The levers
+| Lever | Why it works | Funnel job |
+|---|---|---|
+| **Curiosity gap** | People need to close an open question; hide the one thing they came for | Click |
+| **Open loop** (Zeigarnik) | Unfinished things stick in memory; a live slip is unfinished until the last out | Come back |
+| **Commitment** | Someone who makes a public pick wants to see if they were right | Come back |
+| **Social proof** | People follow what others already do or already won | Click |
+| **Loss aversion / FOMO** | Missing a win hurts more than a win pleases; show what they missed | Click, follow |
+| **Deadline** | A real lock time makes "later" cost something | Click now |
+| **Specificity** | "272 to 1" beats "big payout"; exact numbers read as true | Stop scrolling |
+| **Variable reward** | Unpredictable wins keep people checking (why slot machines work) | Come back |
+| **Reciprocity** | Give something useful free first; people return the favor with attention | Follow |
+| **Authority / transparency** | Showing losses and methods makes the wins believable | Trust |
+| **Identity** | People join groups that match who they think they are ("the room") | Follow, share |
+| **Near miss** | "3 of 4" feels like almost winning, which drives another try | Come back |
+
+Ethics line: every deadline is a real lock time, every number is real, losses are posted.
+No fake scarcity, no "guaranteed", no dollars, no chasing language.
 
 ## Rules for every post
-- One main post a day, out **before the first lock** (MLB ≈ noon–6pm ET; NFL/soccer by kickoff minus 2h).
-- The link goes in the **first reply**: `Free. No signup, no affiliate link, no promo code. theticketroom.live`
-- Every number comes off the board file (`D_<date>.json`, `nfl/boards/`, `soccer/soccer_D.json`). Nothing typed by hand.
-- **Losses get posted too.** The Result goes out whether the slip cashed or not.
-- Never "lock", "guaranteed", "free money". Units only, never dollars.
-- Never the same format two days running.
-- Images: 1600×900, brand fonts (Oswald / Inter / Roboto Mono), dark green + gold.
-
-## The formats
-| Code | Format | What it is |
-|---|---|---|
-| OB | **Open Book** | Tonight's biggest open slip, names and prices shown, season record underneath |
-| RS | **The Result** | Yesterday's biggest slip graded, leg by leg, hit or miss |
-| ON | **One Number** | One stat from the board, big, with a one-line why |
-| NT | **NFL Night** | That night's NFL board, top slip shown |
-| SS | **Soccer Saturday** | The weekend soccer board, top slip shown |
-| WR | **Week in Receipts** | Every moonshot from the last 7 days in a W/L grid, net units |
-| HB | **How It's Built** | 4-post thread: the stats behind a slip note (hard-hit, launch angle, power, park/wind) |
-| LG | **The Ledger** | Season units curve, drawdowns included |
-| VD | **Video** | 30-second screen recording walking the live board |
-| QA | **Replies** | Answer the 3 best questions from the week's replies |
+- One main post a day, out **before the first lock**.
+- Link in the **first reply** (X shows posts with links to fewer people):
+  `Free. No signup, no affiliate link, no promo code. theticketroom.live`
+- End every post on a **deadline or an open loop**, never on a flat statement.
+- Every number comes off the board file. Nothing typed by hand.
+- Never the same lever as the main hook two days running.
 
 ## Calendar
-Days 1–2 already posted. Day 3 onward runs one per calendar day.
+| Day | Date | Post | Main lever | Supporting |
+|---|---|---|---|---|
+| 1 | Fri 9/11 | Names Inside (blurred board) | Curiosity gap | Deadline — *posted* |
+| 2 | Sat 9/12 | Redacted Ticket | Curiosity gap | Specificity — *posted* |
+| 3 | Tue 9/15 | **Which One Misses?** Full slip shown, readers pick the leg that fails | Commitment | Open loop, deadline |
+| 4 | Wed 9/16 | **The Answer**: Day 3 graded leg by leg, quote-tweet the Day 3 post | Open loop closed | Authority (post it win or lose) |
+| 5 | Thu 9/17 | **We Stopped Chasing**: NFL board + why prices are capped at +400 | Authority / transparency | Specificity |
+| 6 | Fri 9/18 | **What You Missed**: the best hit of the last 30 days, unblurred | Loss aversion | Social proof |
+| 7 | Sat 9/19 | **The Room Is Open**: soccer board, names blurred | Curiosity gap | Deadline |
+| 8 | Sun 9/20 | **Pick Your Anchor**: poll, 4 NFL anchors | Commitment | Open loop |
+| 9 | Mon 9/21 | **Poll Result + Week in Receipts** | Social proof | Near miss (show the 3-of-4s) |
+| 10 | Tue 9/22 | **Free Tool**: thread on how to read the board's stat notes | Reciprocity | Authority |
+| 11 | Wed 9/23 | **One Number**: longest price tonight, nothing else | Specificity | Curiosity gap |
+| 12 | Thu 9/24 | **So Close**: last week's best 3-of-4 miss | Near miss | Open loop (tonight's slip) |
+| 13 | Fri 9/25 | **The Ledger**: season curve, drawdowns included | Authority / transparency | Identity |
+| 14 | Sat 9/26 | **Who's in the Room**: reply with your best hit, repost the best | Identity | Social proof |
+| 15 | Sun 9/27 | **Game 162**: last regular-season board, "the last one until spring" | Deadline | Loss aversion |
+| 16 | Mon 9/28 | **Season in One Image**: record by slip type | Authority | Social proof |
+| 17 | Tue 9/29 | **October Is Open**: postseason board (check schedule) | Curiosity gap | Deadline |
+| 18 | Wed 9/30 | **The Answer** | Open loop closed | Variable reward |
+| 19 | Thu 10/1 | **Beat the Board**: readers post their own leg vs ours | Commitment | Identity |
+| 20 | Fri 10/2 | **Video**: 30-second live board walkthrough | Curiosity gap | Reciprocity |
+| 21 | Sat 10/3 | **What You Missed** | Loss aversion | Social proof |
+| 22 | Sun 10/4 | **Pick Your Anchor** poll | Commitment | Open loop |
+| 23 | Mon 10/5 | **Poll Result + Receipts** | Social proof | Near miss |
+| 24 | Tue 10/6 | **Free Tool 2**: how the round robin math works | Reciprocity | Authority |
+| 25 | Wed 10/7 | **One Number** | Specificity | Curiosity gap |
+| 26 | Thu 10/8 | **Replies Answered**: the 3 best questions | Reciprocity | Identity |
+| 27 | Fri 10/9 | **The Room Is Open** (blurred) | Curiosity gap | Deadline |
+| 28 | Sat 10/10 | **So Close** | Near miss | Open loop |
+| 29 | Sun 10/11 | **Who's in the Room** | Identity | Social proof |
+| 30 | Mon 10/12 | **30-Day Receipt**: every slip posted in the campaign, graded | Authority | Loss aversion ("next 30 start now") |
 
-| Day | Date | Format | Notes |
-|---|---|---|---|
-| 1 | Fri 9/11 | Names Inside | posted |
-| 2 | Sat 9/12 | Redacted Ticket | posted |
-| 3 | Tue 9/15 | **OB** | Catching a Vapor Trail, locks 7:40 |
-| 4 | Wed 9/16 | RS | Vapor Trail graded, then today's board in the reply |
-| 5 | Thu 9/17 | NT | DET @ BUF; the +400 price cap ("we stopped chasing +2000") |
-| 6 | Fri 9/18 | ON | Longest price on the board |
-| 7 | Sat 9/19 | SS | |
-| 8 | Sun 9/20 | NT | Sunday slate |
-| 9 | Mon 9/21 | WR | 9/15–9/20 |
-| 10 | Tue 9/22 | HB | Thread on one of tonight's moon notes |
-| 11 | Wed 9/23 | OB | |
-| 12 | Thu 9/24 | NT | |
-| 13 | Fri 9/25 | LG | |
-| 14 | Sat 9/26 | SS | |
-| 15 | Sun 9/27 | OB | MLB regular-season final day |
-| 16 | Mon 9/28 | WR | MLB regular-season wrap: record by slip type |
-| 17 | Tue 9/29 | OB | Postseason opener (check the schedule) |
-| 18 | Wed 9/30 | RS | |
-| 19 | Thu 10/1 | NT | |
-| 20 | Fri 10/2 | VD | |
-| 21 | Sat 10/3 | SS | |
-| 22 | Sun 10/4 | NT | |
-| 23 | Mon 10/5 | WR | |
-| 24 | Tue 10/6 | ON | |
-| 25 | Wed 10/7 | QA | |
-| 26 | Thu 10/8 | NT | |
-| 27 | Fri 10/9 | OB | |
-| 28 | Sat 10/10 | SS | |
-| 29 | Sun 10/11 | NT | |
-| 30 | Mon 10/12 | WR | **30-Day Receipt**: every slip posted in the campaign, graded |
+If a sport has no board that day, swap in a post with a different lever than yesterday's.
 
-If a day's sport has no board (rainout, off day), swap in LG or ON — never repeat yesterday's format.
+## What to track
+Link clicks from the first reply, profile visits, follows, and site visits from X. After Day 10,
+drop the two posts with the fewest clicks per view and repeat the two with the most.
 
 ## Log
 | Day | Date | Posted | Asset |
 |---|---|---|---|
 | 1 | 9/11 | Names Inside | post-2026-09-11-names-inside.png |
 | 2 | 9/12 | Redacted Ticket | post-2026-09-12-redacted.png |
-| 3 | 9/15 | Open Book | day03-2026-09-15-openbook.png |
+| 3 | 9/15 | Which One Misses? | day03-2026-09-15-openbook.png |
