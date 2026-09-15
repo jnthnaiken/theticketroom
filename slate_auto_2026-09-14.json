@@ -1,11 +1,11 @@
 {
   "date": "2026-09-14",
   "season": "2026",
-  "pulled_at": "2026-09-15T01:02:15Z",
+  "pulled_at": "2026-09-15T01:07:37Z",
   "games": [
     {
       "gamePk": 824465,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-14T22:40:00Z",
       "matchup": "LAD@CIN",
       "away": {
@@ -173,17 +173,17 @@
           {
             "id": 643217,
             "name": "Andrew Benintendi",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 671976,
             "name": "Tristan Peters",
-            "iso": 0.183
+            "iso": 0.182
           },
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.219
+            "iso": 0.218
           },
           {
             "id": 805367,
@@ -296,7 +296,7 @@
           {
             "id": 682985,
             "name": "Riley Greene",
-            "iso": 0.201
+            "iso": 0.2
           },
           {
             "id": 693307,
@@ -515,7 +515,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.168
+            "iso": 0.167
           }
         ],
         "confirmed": true
@@ -586,7 +586,7 @@
           {
             "id": 669221,
             "name": "Sean Murphy",
-            "iso": 0.159
+            "iso": 0.156
           },
           {
             "id": 673490,
@@ -601,7 +601,7 @@
         "sp": {
           "id": 656849,
           "name": "David Peterson",
-          "hr9": 0.93,
+          "hr9": 0.92,
           "hand": "LHP"
         },
         "lineup": [
@@ -677,7 +677,7 @@
         "sp": {
           "id": 701542,
           "name": "Will Warren",
-          "hr9": 1.29,
+          "hr9": 1.28,
           "hand": "RHP"
         },
         "lineup": [
@@ -741,7 +741,7 @@
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.111
+            "iso": 0.112
           },
           {
             "id": 686797,
@@ -776,12 +776,12 @@
           {
             "id": 668952,
             "name": "Ryan Kreidler",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 805805,
             "name": "Walker Jenkins",
-            "iso": 0.119
+            "iso": 0.116
           }
         ],
         "confirmed": true
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823006,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-14T23:45:00Z",
       "matchup": "SF@STL",
       "away": {
@@ -874,7 +874,7 @@
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.152
+            "iso": 0.151
           },
           {
             "id": 671056,
@@ -914,7 +914,7 @@
           {
             "id": 701675,
             "name": "Nathan Church",
-            "iso": 0.122
+            "iso": 0.121
           }
         ],
         "confirmed": true
@@ -1188,16 +1188,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 75\u00b0",
-        "lean": "Boost",
-        "temp": 75.4,
-        "wind_mph": 7.6,
-        "wind_dir": 212,
-        "tail_mph": 7.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     },
     {
       "gamePk": 825034,
