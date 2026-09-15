@@ -261,7 +261,17 @@ jobs:
           cp .work/nfl_D.json    nfl_D.json
           cp .work/prices.json   slates/${{ steps.slate.outputs.date }}/prices.json
           # SETTLENFL-2026-09-10: the archive nfl_settle.py grades from once the slate is over.
-          mkdir -p boards && cp .work/nfl_D.json "boards/${{ steps.slate.outputs.date }}.json"
+          # KEEPGRADED-2026-09-15: never archive over a GRADED board. The slate picker keeps a finished
+          # slate open for GRACE after settle has already graded it, and Settle forces this step to run,
+          # so on 09-13 and 09-14 the graded archive (hr/out/finals) was overwritten by a fresh ungraded
+          # payload 13 seconds after "NFL settle" committed it. The ledger kept the result; the board
+          # file lost who scored -- the only priced, graded rows nfl_ev_fit.py can ever train on.
+          mkdir -p boards
+          if python3 -c "import json,sys;sys.exit(0 if sys.argv[1] in json.load(open('nfl_season.json')).get('graded_nights',[]) else 1)" "${{ steps.slate.outputs.date }}"; then
+            echo "boards/${{ steps.slate.outputs.date }}.json is graded -- archive left alone"
+          else
+            cp .work/nfl_D.json "boards/${{ steps.slate.outputs.date }}.json"
+          fi
           cd ..
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
