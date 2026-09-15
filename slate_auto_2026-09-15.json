@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
   "season": "2026",
-  "pulled_at": "2026-09-15T19:36:40Z",
+  "pulled_at": "2026-09-15T19:41:37Z",
   "games": [
     {
       "gamePk": 824466,
@@ -791,7 +791,7 @@
     },
     {
       "gamePk": 823654,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-15T23:40:00Z",
       "matchup": "NYY@MIN",
       "away": {
@@ -813,10 +813,56 @@
           "hr9": 1.38,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.112
+          },
+          {
+            "id": 701785,
+            "name": "Kaelen Culpepper",
+            "iso": 0.132
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.172
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.228
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.161
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.182
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.099
+          },
+          {
+            "id": 691181,
+            "name": "Emmanuel Rodriguez",
+            "iso": 0.417
+          },
+          {
+            "id": 668885,
+            "name": "Austin Martin",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
