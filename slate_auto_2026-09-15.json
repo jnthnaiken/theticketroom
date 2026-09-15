@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
   "season": "2026",
-  "pulled_at": "2026-09-15T18:30:32Z",
+  "pulled_at": "2026-09-15T18:36:51Z",
   "games": [
     {
       "gamePk": 824466,
@@ -86,7 +86,7 @@
     },
     {
       "gamePk": 824384,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-15T22:40:00Z",
       "matchup": "CWS@CLE",
       "away": {
@@ -97,8 +97,54 @@
           "hr9": 0.56,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.13
+          },
+          {
+            "id": 545341,
+            "name": "Randal Grichuk",
+            "iso": 0.28
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.226
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.261
+          },
+          {
+            "id": 686668,
+            "name": "Brenton Doyle",
+            "iso": 0.086
+          },
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.123
+          },
+          {
+            "id": 668670,
+            "name": "Jake Rogers",
+            "iso": 0.13
+          },
+          {
+            "id": 682668,
+            "name": "Luisangel Acu\u00f1a",
+            "iso": 0.035
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.182
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CLE",
@@ -111,7 +157,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
