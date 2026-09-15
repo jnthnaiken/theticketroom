@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
   "season": "2026",
-  "pulled_at": "2026-09-15T19:00:41Z",
+  "pulled_at": "2026-09-15T19:06:55Z",
   "games": [
     {
       "gamePk": 824466,
@@ -311,7 +311,7 @@
     },
     {
       "gamePk": 823333,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-15T22:40:00Z",
       "matchup": "MIL@PIT",
       "away": {
@@ -333,10 +333,56 @@
           "hr9": 1.47,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.122
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.216
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.163
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.205
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.089
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.187
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.241
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.121
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.086
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -346,7 +392,7 @@
         "wind_mph": 1.5,
         "wind_dir": 153,
         "tail_mph": -0.2,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.014
     },
@@ -509,7 +555,7 @@
         "wind_mph": 5.8,
         "wind_dir": 272,
         "tail_mph": 2.7,
-        "precip": 11
+        "precip": 10
       },
       "wf": 1.023
     },
@@ -591,7 +637,7 @@
         "wind_mph": 8.1,
         "wind_dir": 71,
         "tail_mph": -6.1,
-        "precip": 5
+        "precip": 7
       },
       "wf": 0.994
     },
@@ -712,7 +758,7 @@
         "wind_mph": 10.3,
         "wind_dir": 46,
         "tail_mph": -7.2,
-        "precip": 3
+        "precip": 5
       },
       "wf": 0.981
     },
