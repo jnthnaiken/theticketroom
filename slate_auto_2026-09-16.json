@@ -1,11 +1,11 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T14:22:33Z",
+  "pulled_at": "2026-09-16T14:27:33Z",
   "games": [
     {
       "gamePk": 824382,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-16T17:10:00Z",
       "matchup": "CWS@CLE",
       "away": {
@@ -27,10 +27,56 @@
           "hr9": 0.84,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.067
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.131
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.165
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.16
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.161
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.088
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.12
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.092
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.128
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
