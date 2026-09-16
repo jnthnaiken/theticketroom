@@ -762,6 +762,44 @@ for g in lin['games']:
                 odds=ODDS.get(n),soft=True,why="")
 
 pool=list(players.values())
+# SOFTSP-2026-09-16 -- owner: "i have a hard time believing wheeler qualifies as a soft pitcher".
+# He was right. `soft` was hard-coded True for every bat above, and the page's live refresh was
+# meant to clear it (soft = "no HR/9 loaded") -- but that refresh never matched a single game
+# (TEAMHYDRATE-2026-09-16), so all 420 bats wore "soft SP" on 09-16, Zack Wheeler's included.
+# The flag now means what its label says, and is decided HERE from the same Kasper starter data the
+# model reads: the opposing starter's barrel rate allowed (Brl/BIP%) against THIS bat's side
+# (switch hitters take the side opposite the arm), falling back to the arm's All row when the split
+# is under 300 pitches. soft = top third of tonight's bats by that number, tough = bottom third,
+# both None when the arm has no Kasper line or under 150 BIP overall -- no claim without data.
+# Display only: nothing in TOTAL, EV, the draft or grading reads soft/tough.
+SOFT_SPLIT_PIT = 300
+SOFT_MIN_BIP = 150
+def _sp_brl(r):
+    parm = pget(PBRL, (r.get('opp') or [''])[0] or '') or {}
+    if not isinstance(parm.get('brl'), (int, float)) or (parm.get('bip') or 0) < SOFT_MIN_BIP:
+        return None
+    ph = str((r.get('opp') or ['', ''])[1] or '').upper()[:1]
+    side = r.get('bhand')
+    if side == 'S':
+        side = 'L' if ph == 'R' else ('R' if ph == 'L' else None)
+    sp = parm.get('vR' if side == 'R' else 'vL') if side in ('L', 'R') else None
+    if isinstance(sp, dict) and (sp.get('pit') or 0) >= SOFT_SPLIT_PIT and isinstance(sp.get('brl'), (int, float)):
+        return sp['brl']
+    return parm['brl']
+_spv = {r['nm']: _sp_brl(r) for r in pool}
+_spl = sorted(v for v in _spv.values() if v is not None)
+if len(_spl) >= 9:
+    _lo, _hi = _spl[len(_spl) // 3], _spl[(2 * len(_spl)) // 3]
+    for r in pool:
+        v = _spv[r['nm']]
+        r['sp_brl'] = v
+        r['soft'] = None if v is None else (v >= _hi)
+        r['tough'] = None if v is None else (v <= _lo)
+    print(f"  (soft SP: brl-allowed vs side, thirds {_lo:.1f} / {_hi:.1f}; soft {sum(1 for r in pool if r['soft'])}, "
+          f"tough {sum(1 for r in pool if r.get('tough'))}, no data {sum(1 for r in pool if r['soft'] is None)})")
+else:
+    for r in pool:
+        r['soft'] = None; r['tough'] = None
 # CARDBIP-2026-09-12: the percentile scale is built from QUALIFIED bats only. A thin bat must not
 # set p95 (De Paula's 10,000 would have been the whole top of the scale) and must not be ranked on
 # it either. He is assigned the qualified MEDIAN powidx, which makes powT exactly 1.0 -- a true
