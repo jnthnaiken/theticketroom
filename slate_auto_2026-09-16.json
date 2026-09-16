@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T17:16:46Z",
+  "pulled_at": "2026-09-16T17:22:06Z",
   "games": [
     {
       "gamePk": 824382,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823004,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-16T17:15:00Z",
       "matchup": "SF@STL",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823655,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-16T17:40:00Z",
       "matchup": "NYY@MIN",
       "away": {
@@ -930,16 +930,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 74\u00b0",
-        "lean": "Boost",
-        "temp": 74.0,
-        "wind_mph": 7.4,
-        "wind_dir": 224,
-        "tail_mph": 7.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.032
+      "wf": 1.0
     },
     {
       "gamePk": 825031,
