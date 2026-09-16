@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T19:16:49Z",
+  "pulled_at": "2026-09-16T19:21:56Z",
   "games": [
     {
       "gamePk": 824382,
@@ -25,7 +25,7 @@
           {
             "id": 545341,
             "name": "Randal Grichuk",
-            "iso": 0.28
+            "iso": 0.279
           },
           {
             "id": 678246,
@@ -97,7 +97,7 @@
           {
             "id": 681807,
             "name": "David Fry",
-            "iso": 0.159
+            "iso": 0.157
           },
           {
             "id": 694197,
@@ -240,7 +240,7 @@
           {
             "id": 695336,
             "name": "Thomas Saggese",
-            "iso": 0.143
+            "iso": 0.142
           },
           {
             "id": 701675,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 607074,
           "name": "Carlos Rod\u00f3n",
-          "hr9": 0.84,
+          "hr9": 0.83,
           "hand": "LHP"
         },
         "lineup": [
@@ -336,7 +336,7 @@
         "sp": {
           "id": 805673,
           "name": "Zebby Matthews",
-          "hr9": 1.66,
+          "hr9": 1.65,
           "hand": "RHP"
         },
         "lineup": [
@@ -358,7 +358,7 @@
           {
             "id": 605137,
             "name": "Josh Bell",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 665019,
@@ -755,7 +755,7 @@
     },
     {
       "gamePk": 823332,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-16T22:40:00Z",
       "matchup": "MIL@PIT",
       "away": {
@@ -777,10 +777,56 @@
           "hr9": 1.26,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.121
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.219
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.162
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.202
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.233
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.186
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.03
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.135
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.086
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
