@@ -311,7 +311,7 @@ corrected there.)
 ## Ticket rules
 
 - **Eligible field** = priced bats in the posted lineup, not scratched/voided,
-  under 70% rain, **and at least `MIN_CARD_BIP` (40) batted balls on the Kasper card**.
+  under 70% rain, **and at least `MIN_CARD_BIP` (80, raised from 40 by `CARDBIP80-2026-09-16`) batted balls on the Kasper card**.
 - **Thin bats are never drafted (`THINBAT-2026-09-15`).** `build15.py` stamps `thin: true` on any
   bat whose card `test` (batted-ball count) is under `MIN_CARD_BIP`. `CARDBIP-2026-09-12` only
   neutralised such a bat's card rates, so he still scored on price/park/slot and could top the

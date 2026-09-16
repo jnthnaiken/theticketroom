@@ -123,7 +123,21 @@ BRL_CLAMP = 0.15
 # came in under 40 and 6 were carded (3 of them homered). Six rows cannot show this guard helps or
 # hurts, and it is not offered as proof that it does. The case is a priori: a rate off one ball is
 # not a rate. Recorded so a later refit knows it was reasoned, not measured.
-MIN_CARD_BIP = 40
+# CARDBIP80-2026-09-16 -- owner: "change it now". Floor raised 40 -> 80, and this time it is MEASURED.
+# calibration.jsonl, 59 nights carrying k_bip, the top-30 bats per night by kas_v1 (the pool the board drafts
+# from), flat 1u at the board price:
+#   bip 40-60   n=36  HR 8.3%  vs implied 18.7%  ROI -61.5%
+#   bip 60-80   n=29  HR 10.3% vs implied 17.9%  ROI -40.5%
+#   bip 40-80   n=65  HR 9.2%  vs implied 18.3%  ROI -52.1%  90% bootstrap [-85%, -12%]  <- only band excluding 0
+#   bip 80-100  n=26  HR 23.1% vs implied 19.5%  ROI +26%
+#   bip 100-150 n=76  HR 26.3% vs implied 20.4%  ROI +32%
+# Raising to 100 or 150 only threw out bats that were fine. Mechanism: kas_v1's heaviest input is HH%
+# (c_hh 0.248), and on a small sample a big HH% is taken at face value -- Abimelec Ortiz, 77 BIP, 71.3% HH,
+# ranked #2 on 2026-09-16 on that one number. CAVEAT: 6 HR in 65 bats, and several cut points were tried,
+# so this is a strong hint, not proof. Drafted legs alone (36 in 40-80) are too few to read. The better
+# long-run fix is to SHRINK card rates toward the league mean by BIP instead of a hard floor.
+# REVERT: set back to 40.
+MIN_CARD_BIP = 80
 PARK_HR  = {'NYY':1.10,'CIN':1.10,'PHI':1.06,'BAL':1.05,'MIL':1.04,'HOU':1.04,'TOR':1.03,'BOS':1.02,'CHC':1.00,
             'NYM':1.00,'WSH':1.00,'ATL':1.00,'TEX':1.00,'LAD':1.00,'MIN':1.00,'COL':1.00,'ARI':1.00,'CWS':1.00,'CHW':1.00,
             'CLE':0.98,'STL':0.97,'LAA':0.97,'SD':0.96,'TB':0.96,'ATH':0.95,'KC':0.94,'PIT':0.93,'DET':0.93,'SEA':0.92,'SF':0.91,'MIA':0.90}
