@@ -1,11 +1,11 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T19:47:04Z",
+  "pulled_at": "2026-09-16T19:52:07Z",
   "games": [
     {
       "gamePk": 824382,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-16T17:10:00Z",
       "matchup": "CWS@CLE",
       "away": {
@@ -476,7 +476,7 @@
           {
             "id": 703520,
             "name": "Brett Bateman",
-            "iso": 0.097
+            "iso": 0.095
           },
           {
             "id": 664770,
@@ -956,8 +956,54 @@
           "hr9": 0.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.255
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.187
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.175
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.23
+          },
+          {
+            "id": 677588,
+            "name": "Jos\u00e9 Tena",
+            "iso": 0.148
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.09
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.148
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.174
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.034
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
