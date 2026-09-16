@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T20:07:47Z",
+  "pulled_at": "2026-09-16T20:12:43Z",
   "games": [
     {
       "gamePk": 824382,
@@ -1021,7 +1021,7 @@
     },
     {
       "gamePk": 823576,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-16T23:10:00Z",
       "matchup": "BAL@NYM",
       "away": {
@@ -1043,10 +1043,56 @@
           "hr9": 1.47,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 596019,
+            "name": "Francisco Lindor",
+            "iso": 0.21
+          },
+          {
+            "id": 665742,
+            "name": "Juan Soto",
+            "iso": 0.249
+          },
+          {
+            "id": 666182,
+            "name": "Bo Bichette",
+            "iso": 0.128
+          },
+          {
+            "id": 701807,
+            "name": "Carson Benge",
+            "iso": 0.144
+          },
+          {
+            "id": 676724,
+            "name": "Jared Young",
+            "iso": 0.165
+          },
+          {
+            "id": 543760,
+            "name": "Marcus Semien",
+            "iso": 0.126
+          },
+          {
+            "id": 805999,
+            "name": "A.J. Ewing",
+            "iso": 0.128
+          },
+          {
+            "id": 683146,
+            "name": "Brett Baty",
+            "iso": 0.135
+          },
+          {
+            "id": 620443,
+            "name": "Luis Torrens",
+            "iso": 0.173
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
