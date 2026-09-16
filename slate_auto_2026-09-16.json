@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T21:28:17Z",
+  "pulled_at": "2026-09-16T21:30:38Z",
   "games": [
     {
       "gamePk": 824382,
@@ -316,7 +316,7 @@
           {
             "id": 641857,
             "name": "Ryan McMahon",
-            "iso": 0.137
+            "iso": 0.136
           },
           {
             "id": 669224,
@@ -1684,7 +1684,7 @@
     },
     {
       "gamePk": 823979,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-17T01:38:00Z",
       "matchup": "SEA@LAA",
       "away": {
@@ -1706,10 +1706,56 @@
           "hr9": 1.19,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.201
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.184
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.09
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.145
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.132
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.124
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.157
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.078
+          },
+          {
+            "id": 624428,
+            "name": "Adam Frazier",
+            "iso": 0.105
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
