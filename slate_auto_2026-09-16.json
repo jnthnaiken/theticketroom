@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
   "season": "2026",
-  "pulled_at": "2026-09-16T19:57:52Z",
+  "pulled_at": "2026-09-16T20:00:38Z",
   "games": [
     {
       "gamePk": 824382,
@@ -286,12 +286,12 @@
           {
             "id": 700250,
             "name": "Ben Rice",
-            "iso": 0.263
+            "iso": 0.262
           },
           {
             "id": 641355,
             "name": "Cody Bellinger",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 592450,
@@ -412,7 +412,7 @@
         "sp": {
           "id": 672456,
           "name": "Keider Montero",
-          "hr9": 1.03,
+          "hr9": 1.02,
           "hand": "RHP"
         },
         "lineup": [
@@ -1103,7 +1103,7 @@
     },
     {
       "gamePk": 822846,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-17T00:05:00Z",
       "matchup": "BOS@TEX",
       "away": {
@@ -1125,10 +1125,56 @@
           "hr9": 1.0,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.225
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.204
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.142
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.192
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.15
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.196
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.17
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.166
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.167
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
