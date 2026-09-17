@@ -1,7 +1,7 @@
 {
   "date": "2026-09-17",
   "season": "2026",
-  "pulled_at": "2026-09-17T16:06:01Z",
+  "pulled_at": "2026-09-17T16:11:10Z",
   "games": [
     {
       "gamePk": 823334,
@@ -126,15 +126,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 79\u00b0",
+        "cond": "wind out 8mph, 79\u00b0",
         "lean": "Boost",
         "temp": 79.4,
-        "wind_mph": 9.3,
-        "wind_dir": 253,
-        "tail_mph": 9.3,
+        "wind_mph": 7.6,
+        "wind_dir": 249,
+        "tail_mph": 7.6,
         "precip": 11
       },
-      "wf": 1.047
+      "wf": 1.041
     },
     {
       "gamePk": 824464,
@@ -259,15 +259,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 89\u00b0",
+        "cond": "wind out 4mph, 89\u00b0",
         "lean": "Boost",
         "temp": 89.4,
-        "wind_mph": 7.6,
-        "wind_dir": 267,
-        "tail_mph": 5.2,
+        "wind_mph": 4.8,
+        "wind_dir": 259,
+        "tail_mph": 3.7,
         "precip": 1
       },
-      "wf": 1.047
+      "wf": 1.042
     },
     {
       "gamePk": 822924,
@@ -414,8 +414,54 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.098
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.193
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.215
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.186
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.099
+          },
+          {
+            "id": 669134,
+            "name": "Luis Campusano",
+            "iso": 0.182
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.076
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.072
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -478,15 +524,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 85\u00b0",
+        "cond": "calm 2mph, 85\u00b0",
         "lean": "Boost",
         "temp": 84.6,
-        "wind_mph": 0.6,
-        "wind_dir": 135,
-        "tail_mph": 0.4,
-        "precip": 5
+        "wind_mph": 1.8,
+        "wind_dir": 187,
+        "tail_mph": 1.8,
+        "precip": 8
       },
-      "wf": 1.023
+      "wf": 1.028
     },
     {
       "gamePk": 824141,
@@ -557,15 +603,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 75\u00b0",
+        "cond": "wind out 5mph, 75\u00b0",
         "lean": "Boost",
         "temp": 75.3,
-        "wind_mph": 5.5,
-        "wind_dir": 168,
-        "tail_mph": 4.4,
-        "precip": 14
+        "wind_mph": 6.6,
+        "wind_dir": 162,
+        "tail_mph": 4.8,
+        "precip": 9
       },
-      "wf": 1.023
+      "wf": 1.025
     },
     {
       "gamePk": 824548,
@@ -601,9 +647,9 @@
         "cond": "wind in 6mph, 69\u00b0",
         "lean": "Suppress",
         "temp": 68.6,
-        "wind_mph": 7.4,
-        "wind_dir": 360,
-        "tail_mph": -5.8,
+        "wind_mph": 6.8,
+        "wind_dir": 8,
+        "tail_mph": -5.9,
         "precip": 6
       },
       "wf": 0.977
@@ -683,11 +729,11 @@
         "lean": "Boost",
         "temp": 74.0,
         "wind_mph": 8.4,
-        "wind_dir": 250,
-        "tail_mph": 7.3,
+        "wind_dir": 248,
+        "tail_mph": 7.4,
         "precip": 0
       },
-      "wf": 1.031
+      "wf": 1.032
     }
   ]
 }
