@@ -36,7 +36,9 @@ import pandas as pd
 
 HALF_LIFE = 30          # player matches
 TEAM_HALF = 19          # team matches
-SHARE_K = 1.5           # team-npxG units of prior for a player's share
+SHARE_K = 6.0           # team-npxG units of prior for a player's share. KSHARE-2026-09-17: was 1.5; walk-forward
+                        # 2017-26 log loss .2913 -> .2906 (few-history starters .2523 -> .2493). 1.5 let a
+                        # 50-minute sub with one big chance read as a 60% scorer.
 PEN_K = 0.15
 MIN_K = 3.0
 PRIOR_SHARE = {'F': 0.30, 'AM': 0.16, 'M': 0.07, 'D': 0.035, 'GK': 0.0, 'S': 0.12}
