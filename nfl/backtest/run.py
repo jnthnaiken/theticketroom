@@ -15,6 +15,7 @@ BOOKS = os.environ.get('BT_BOOKS', 'weak,same,rich,sharp').split(',')
 VIG = float(os.environ.get('BT_VIG', '1.10'))
 PER_TEAM = 8
 BIG = 100000
+DRAFTENV = {}                   # rule -> extra env for the draft (ANCH / TOP_SINGLES)
 RULES = {                       # name: (MKTSCALE, board model, MKT_W, MAX_ODDS)
     'old_rawEV_nocap': ('0', 'ev_v1', 1.0, BIG),     # live 09-11 .. 09-15 (week 1)
     'mkt50_nocap':     ('0', 'mkt50', 1.0, BIG),     # live before 09-11
@@ -26,6 +27,13 @@ RULES = {                       # name: (MKTSCALE, board model, MKT_W, MAX_ODDS)
     'new_w100_cap500': ('1', 'ev_v1', 1.0, 500),
     'new_w0_cap500':   ('1', 'ev_v1', 0.0, 500),     # market only: EV is just the vig structure
 }
+RULES['live_cap400']   = ('1', 'ev_v1', 0.5, 400)            # LIVE NOW: 4 anchors, 8 moons, singles
+RULES['topbin8_cap400'] = ('1', 'ev_v1', 0.5, 400)           # soccer shape: 8 singles, no moons
+RULES['topbin6_cap400'] = ('1', 'ev_v1', 0.5, 400)
+RULES['topbin12_cap400'] = ('1', 'ev_v1', 0.5, 400)
+DRAFTENV['topbin8_cap400']  = {'BT_ANCH': '0', 'BT_TOPS': '8'}
+DRAFTENV['topbin6_cap400']  = {'BT_ANCH': '0', 'BT_TOPS': '6'}
+DRAFTENV['topbin12_cap400'] = {'BT_ANCH': '0', 'BT_TOPS': '12'}
 if os.environ.get('BT_RULES'): RULES = {k: RULES[k] for k in os.environ['BT_RULES'].split(',')}
 
 def am(q):
@@ -52,6 +60,9 @@ _cli = open('nfl_draft_cli.js', encoding='utf-8').read()
 import re as _re
 _cli, _n = _re.subn(r'\n  MAX_ODDS: \d+,', '\n  MAX_ODDS: Number(process.env.BT_MAX_ODDS),', _cli)
 assert _n == 1, 'nfl_draft_cli.js MAX_ODDS line moved -- update run.py'
+_cli, _n2 = _re.subn(r'ANCH: 4,', 'ANCH: Number(process.env.BT_ANCH || 4),', _cli)
+_cli, _n3 = _re.subn(r'\n  TOP_SINGLES: 0,', '\n  TOP_SINGLES: Number(process.env.BT_TOPS || 0),', _cli)
+assert _n2 == 1 and _n3 == 1, 'nfl_draft_cli.js ANCH/TOP_SINGLES lines moved'
 _cli = _cli.replace("require('./soccer_draft.js')", "require(%r)" % os.path.abspath(os.path.join('..', 'soccer', 'soccer_draft.js')))
 DRAFT = os.path.join(tmp, 'draft_bt.js'); open(DRAFT, 'w', encoding='utf-8').write(_cli)
 for s, w, day, g in slates():
@@ -83,7 +94,8 @@ for s, w, day, g in slates():
                 sc = M.to_scored(d, fx)
             scp = os.path.join(tmp, 'scored.json'); json.dump(sc, open(scp, 'w'))
             tk = os.path.join(tmp, 'tickets.json')
-            env = dict(os.environ, BT_MAX_ODDS=str(mx))
+            env = dict(os.environ, BT_MAX_ODDS=str(mx), BT_ANCH='4', BT_TOPS='0')
+            env.update(DRAFTENV.get(rule, {}))
             r = subprocess.run(['node', DRAFT, scp, fxp, tk], capture_output=True, text=True, env=env)
             if r.returncode != 0:
                 print('DRAFT FAIL', s, w, day, book, rule, r.stderr[-300:]); continue
