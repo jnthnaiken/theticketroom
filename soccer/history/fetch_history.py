@@ -66,10 +66,18 @@ def get_json(path, referer, tries=4):
                 'Accept': 'application/json, text/javascript, */*; q=0.01'})
             resp = op.open(req, timeout=60)
             body = resp.read()
-            txt = body.decode('utf-8', 'replace').lstrip()
-            if txt.startswith('{') or txt.startswith('['):
-                return json.loads(txt)
-            last = 'html answer'
+            txt = body.decode('utf-8', 'replace').lstrip('\ufeff \t\r\n')
+            # BOMFIX-2026-09-17: the runner gets 94 KB of text/javascript that did not start with '{'
+            # (a BOM or a JSON-encoded string). Parse first, and only call it HTML if that fails.
+            if not txt.lower().startswith('<'):
+                try:
+                    j = json.loads(txt)
+                    if isinstance(j, str):
+                        j = json.loads(j)
+                    return j
+                except ValueError:
+                    pass
+            last = 'non-json answer: ' + repr(txt[:60])
             if _DIAG[0] < 2:     # DIAG: what is the site actually sending a runner?
                 _DIAG[0] += 1
                 import re as _re
