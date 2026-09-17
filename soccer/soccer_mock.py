@@ -373,6 +373,33 @@ for i, p in enumerate(grp):
 ez = standardize([p['edge_raw'] for p in grp])
 for i, p in enumerate(grp):
     p['edge_z'] = ez[i]
+
+# SCORERLIVE-2026-09-17. THE MODEL HALF OF TOTAL IS THE LAYERED SCORER MODEL WHERE IT HAS A NUMBER.
+# Owner: "there is always order in chaos ... design an algorithm if needed", then "commit it".
+# soccer/history/scorer_model.py: P(score) = 1 - exp(-lambda), lambda = team goals expected tonight
+# x his share of team npxG x expected minutes (+ penalty term), built from 12 seasons of understat.
+# Measured (soccer/history/RESULTS-2026-09-17.md): on the board's own bets it ranks scorers better
+# than the price and than TOTAL (AUC .651 vs .641 / .635, 934 legs), and in a logistic fit next to
+# the price it carries independent weight (p = .002) while the old xG edge_z adds nothing (p = .14).
+# So it REPLACES edge_z, it is not stacked on it. The market half is untouched.
+# model.json is soccer/shadow/<date>.json, produced before the first build by soccer-build.yml
+# (or soccer-shadow.yml). A player the model could not rate (club outside understat, no name
+# match) keeps the xG edge_z above, so an unrated man is scored exactly as before.
+_MODEL = {}
+if _os0.path.exists('model.json'):
+    _MODEL = {n: v for n, v in json.load(open('model.json', encoding='utf-8')).get('players', {}).items()
+              if isinstance(v.get('p_model'), (int, float)) and 0 < v['p_model'] < 1}
+_rated = [p for p in grp if p['name'] in _MODEL]
+if len(_rated) >= 8:
+    _lz = standardize([math.log(_MODEL[p['name']]['p_model'] / (1 - _MODEL[p['name']]['p_model'])) for p in _rated])
+    for p, z in zip(_rated, _lz):
+        p['edge_z_xg'] = p['edge_z']
+        p['edge_z'] = z
+        p['p_model'] = round(_MODEL[p['name']]['p_model'], 4)
+    print(f'  scorer model: {len(_rated)} of {len(grp)} priced players rated; the rest keep the xG edge')
+else:
+    print(f'  scorer model: {"no model.json" if not _MODEL else f"only {len(_rated)} rated"} -- xG edge for everyone')
+for i, p in enumerate(grp):
     p['blend'] = 0.5 * p['mkt_z'] + 0.5 * p['edge_z']
     p['TOTAL'] = 100 + 30 * p['blend']
 
