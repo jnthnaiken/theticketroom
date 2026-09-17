@@ -363,6 +363,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                        'history': prior.get('history', [0]),
                        'graded_nights': prior.get('graded_nights', []),
                        'stake': prior.get('stake', 1),
+                       # RESTATED-2026-09-17: a flag only (the per-night detail stays in the file),
+                       # so the tracker can say the record is restated.
+                       'restated': bool(prior.get('restated')),
                        'cats': prior['cats']},
         },
     }
@@ -384,7 +387,7 @@ NAMES = {
     'lunch':   ['Early Doors', 'Lunchtime Kickoff', 'The Twelve Thirty', 'First Match On'],
     'late':    ['Under Lights', 'Last One On', 'The Late Kickoff', 'Sunday Night'],
 }
-BADGE = {'moon': '💥', 'builder': '⚓️', 'family': '💥', 'lunch': '🍱', 'late': '🌃'}
+BADGE = {'moon': '💥', 'builder': '⭐', 'family': '💥', 'lunch': '🍱', 'late': '🌃'}
 
 
 def _dec(am):

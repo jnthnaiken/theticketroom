@@ -651,7 +651,7 @@
     lunch:   ['Early Doors', 'Lunchtime Kickoff', 'The Twelve Thirty', 'First Match On'],
     late:    ['Under Lights', 'Last One On', 'The Late Kickoff', 'Sunday Night']
   };
-  var BADGE = { moon: '💥', builder: '⚓️', lunch: '🍱', late: '🌃' };
+  var BADGE = { moon: '💥', builder: '⭐', lunch: '🍱', late: '🌃' };
 
   function a2d(o) { return o > 0 ? 1 + o / 100 : 1 + 100 / Math.abs(o); }
 

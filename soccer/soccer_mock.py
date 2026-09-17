@@ -587,6 +587,6 @@ for t in tickets:
 for t in tickets:
     if t['kind'] == 'builder':
         l = t['legs'][0]
-        print(f"    ⚓️ anchor          {l['name']} ({l['odds']:+d})")
+        print(f"    ⭐ top 8           {l['name']} ({l['odds']:+d})")
 
 print("\n  scored.json written here; tickets.json written by soccer_draft.js")
