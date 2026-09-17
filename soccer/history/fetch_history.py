@@ -36,15 +36,22 @@ _local = threading.local()
 def opener():
     if not hasattr(_local, 'op'):
         jar = http.cookiejar.CookieJar()
+        _local.jar = jar
         _local.op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
         _local.op.addheaders = [('User-Agent', UA), ('Accept-Language', 'en-US,en;q=0.9')]
         prime()
     return _local.op
 
 
+_DIAG = [0]
+
+
 def prime(path='/league/EPL'):
     try:
-        _local.op.open(US + path, timeout=30).read()
+        r = _local.op.open(US + path, timeout=30)
+        body = r.read()
+        if _DIAG[0] < 2:
+            print(f'  prime {path}: {r.status} {len(body)}B cookies={[c.name for c in _local.jar]}', flush=True)
     except Exception as e:
         print(f'  prime {path} failed: {e}', flush=True)
 
@@ -57,11 +64,19 @@ def get_json(path, referer, tries=4):
             req = urllib.request.Request(US + path, headers={
                 'X-Requested-With': 'XMLHttpRequest', 'Referer': US + referer,
                 'Accept': 'application/json, text/javascript, */*; q=0.01'})
-            body = op.open(req, timeout=60).read()
+            resp = op.open(req, timeout=60)
+            body = resp.read()
             txt = body.decode('utf-8', 'replace').lstrip()
             if txt.startswith('{') or txt.startswith('['):
                 return json.loads(txt)
             last = 'html answer'
+            if _DIAG[0] < 2:     # DIAG: what is the site actually sending a runner?
+                _DIAG[0] += 1
+                import re as _re
+                title = _re.search(r'<title>(.*?)</title>', txt, _re.S)
+                print(f'  DIAG {path}: status {resp.status} {len(body)}B ctype={resp.headers.get("Content-Type")} '
+                      f'server={resp.headers.get("Server")} cf={resp.headers.get("cf-ray")} '
+                      f'title={title.group(1).strip()[:80] if title else None} url={resp.geturl()}', flush=True)
             prime(referer)
         except Exception as e:
             last = str(e)
