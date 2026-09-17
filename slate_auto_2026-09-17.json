@@ -1,7 +1,7 @@
 {
   "date": "2026-09-17",
   "season": "2026",
-  "pulled_at": "2026-09-17T20:07:30Z",
+  "pulled_at": "2026-09-17T20:12:23Z",
   "games": [
     {
       "gamePk": 823334,
@@ -418,7 +418,7 @@
           {
             "id": 665487,
             "name": "Fernando Tatis Jr.",
-            "iso": 0.176
+            "iso": 0.177
           },
           {
             "id": 687957,
@@ -453,7 +453,7 @@
           {
             "id": 630105,
             "name": "Jake Cronenworth",
-            "iso": 0.075
+            "iso": 0.076
           },
           {
             "id": 669392,
@@ -468,7 +468,7 @@
         "sp": {
           "id": 685299,
           "name": "Tanner Gordon",
-          "hr9": 1.72,
+          "hr9": 1.71,
           "hand": "RHP"
         },
         "lineup": [
@@ -842,7 +842,7 @@
     },
     {
       "gamePk": 822845,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-18T00:05:00Z",
       "matchup": "BOS@TEX",
       "away": {
@@ -864,10 +864,56 @@
           "hr9": 0.4,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.169
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.202
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.146
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.15
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.195
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.192
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.041
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.165
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.126
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
