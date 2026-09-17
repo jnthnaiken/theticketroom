@@ -1,15 +1,30 @@
 {
- "started": "2026-09-17T03:33:29Z",
+ "started": "2026-09-17T03:42:04Z",
  "seasons": [
   2025,
   2025
  ],
  "league_seasons": {
-  "EPL/2025": "FAIL",
-  "La_liga/2025": "FAIL",
-  "Bundesliga/2025": "FAIL",
-  "Serie_A/2025": "FAIL",
-  "Ligue_1/2025": "FAIL"
+  "EPL/2025": {
+   "team_rows": 760,
+   "players": 537
+  },
+  "La_liga/2025": {
+   "team_rows": 760,
+   "players": 600
+  },
+  "Bundesliga/2025": {
+   "team_rows": 612,
+   "players": 499
+  },
+  "Serie_A/2025": {
+   "team_rows": 760,
+   "players": 586
+  },
+  "Ligue_1/2025": {
+   "team_rows": 612,
+   "players": 553
+  }
  },
  "player_fail": [],
  "odds": {
@@ -19,7 +34,7 @@
   "I1_2526": "FAIL https://www.football-data.co.uk/mmz4281/2526/I1.csv: <urlopen error [Errno 111] Connection refused>",
   "F1_2526": "FAIL https://www.football-data.co.uk/mmz4281/2526/F1.csv: <urlopen error [Errno 111] Connection refused>"
  },
- "players_ok": 0,
- "player_rows": 0,
- "seconds": 179
+ "players_ok": 40,
+ "player_rows": 877,
+ "seconds": 92
 }
