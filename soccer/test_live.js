@@ -43,6 +43,24 @@ ok(L.matchOne('Samuel Adeniran', ['Samuel Adeniran', 'Sam Adeniran']) === 'Samue
    'exact wins over a second surname candidate');
 ok(L.matchOne('Some Unknown', ['Andreas Helmersen']) === null, 'no match -> null');
 
+/* NICOJOIN-2026-09-17 -- ESPN's "Nico González" is the board's "Nicolas Gonzalez" (Juventus v NEC
+ * Nijmegen, 9', a placed single). Before the fix the join refused, the goal went to `unmatched`,
+ * and the full-time clear printed "did not score" over a winner. */
+const JUVE = ['Nicolas Gonzalez', 'Kenan Yildiz', 'Weston McKennie', 'Nick Woltemade',
+              'Randal Muani', 'Kerim Alajbegovic', 'Douglas Luiz'];
+ok(L.matchOne('Nico González', JUVE) === 'Nicolas Gonzalez',
+   'NICOJOIN: a short given name joins its long form (Nico -> Nicolas)');
+ok(L.matchOne('Randal Kolo Muani', JUVE) === 'Randal Muani',
+   'NICOJOIN: the middle-name drop still joins');
+ok(L.matchOne('Nico Williams', JUVE) === null,
+   'NICOJOIN: the surname still has to be there -- Nico Williams is not our Nico');
+ok(L.matchOne('Nic Gonzalez', ['Nicolas Gonzalez']) === null,
+   'NICOJOIN: three letters is too short to widen on (guards Nic/Nicolas guesses)');
+ok(L.matchOne('Alex Gonzalez', ['Alexander Gonzalez', 'Alejandro Gonzalez']) === 'Alexander Gonzalez',
+   'NICOJOIN: Alex joins Alexander, not Alejandro');
+ok(L.matchOne('Nico Gonzalez', ['Nicolas Gonzalez', 'Nicolo Gonzalez']) === null,
+   'NICOJOIN: two long forms of the same short name on one sheet -> refuses');
+
 /* ---------- 2b. JRJOIN-2026-09-08 -- a generational suffix is not a surname -------
  * Real Madrid's ACTUAL 22 against Internazionale, 2026-09-08, copied off the ESPN feed at
  * 18:20Z with Vinícius Júnior in the starting XI. Before the fix this file's join refused him
