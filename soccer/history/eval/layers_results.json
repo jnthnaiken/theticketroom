@@ -1,0 +1,80 @@
+{
+ "L1 team-only (share x minutes, no team layer)": {
+  "auc": 0.7541,
+  "ll": 0.2955,
+  "auc_top40": 0.6507,
+  "top3_hit": 0.3324
+ },
+ "no penalty layer": {
+  "auc": 0.7596,
+  "ll": 0.2931,
+  "auc_top40": 0.6627,
+  "top3_hit": 0.3576
+ },
+ "no minutes layer": {
+  "auc": 0.7621,
+  "ll": 0.2923,
+  "auc_top40": 0.6616,
+  "top3_hit": 0.3594
+ },
+ "FULL layered (team x share x minutes x pens)": {
+  "auc": 0.7625,
+  "ll": 0.292,
+  "auc_top40": 0.6631,
+  "top3_hit": 0.3628
+ },
+ "+ form (short vs long xG rate)": {
+  "auc": 0.7625,
+  "ll": 0.292,
+  "auc_top40": 0.6635,
+  "top3_hit": 0.364
+ },
+ "+ hot hand (recent goals minus xG)": {
+  "auc": 0.7624,
+  "ll": 0.292,
+  "auc_top40": 0.6635,
+  "top3_hit": 0.3623
+ },
+ "+ shot volume & quality": {
+  "auc": 0.7634,
+  "ll": 0.2915,
+  "auc_top40": 0.662,
+  "top3_hit": 0.3629
+ },
+ "+ involvement (xGChain, key passes)": {
+  "auc": 0.7633,
+  "ll": 0.2916,
+  "auc_top40": 0.6629,
+  "top3_hit": 0.3624
+ },
+ "+ team form / opp form": {
+  "auc": 0.7625,
+  "ll": 0.292,
+  "auc_top40": 0.6637,
+  "top3_hit": 0.3631
+ },
+ "+ rest days / last minutes / started last": {
+  "auc": 0.7627,
+  "ll": 0.2919,
+  "auc_top40": 0.6638,
+  "top3_hit": 0.3646
+ },
+ "+ early season": {
+  "auc": 0.7625,
+  "ll": 0.292,
+  "auc_top40": 0.6631,
+  "top3_hit": 0.3628
+ },
+ "ALL features, logistic": {
+  "auc": 0.7645,
+  "ll": 0.2908,
+  "auc_top40": 0.6638,
+  "top3_hit": 0.3661
+ },
+ "ALL features, gradient boosting": {
+  "auc": 0.7639,
+  "ll": 0.2911,
+  "auc_top40": 0.6624,
+  "top3_hit": 0.366
+ }
+}
