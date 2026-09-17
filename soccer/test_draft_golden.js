@@ -77,6 +77,9 @@
 const fs = require('fs');
 const path = require('path');
 const SD = require('./soccer_draft.js');
+/* TOP8-2026-09-17: this file tests the anchor + screamer engine, which soccer no longer runs by
+   default (DEFAULTS.TOP_SINGLES = 8) but NFL still does. Pin it off so the engine stays covered. */
+SD.DEFAULTS.TOP_SINGLES = 0;
 /* PLUSMONEY-2026-09-11: this suite replays the 2026-08-26 fixture, a board drafted BEFORE the
    plus-money floor, to prove mechanics (CONFLOCK / MINTGUARD / repair / snake) that have nothing
    to do with price. Switch the floor off so it keeps testing those; test_plusmoney.js owns the

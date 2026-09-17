@@ -22,6 +22,9 @@
 const fs = require('fs');
 const path = require('path');
 const SD = require('./soccer_draft.js');
+/* TOP8-2026-09-17: this file tests the anchor + screamer engine, which soccer no longer runs by
+   default (DEFAULTS.TOP_SINGLES = 8) but NFL still does. Pin it off so the engine stays covered. */
+SD.DEFAULTS.TOP_SINGLES = 0;
 
 let fail = 0;
 function chk(label, ok, detail) {

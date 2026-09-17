@@ -25,7 +25,8 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 86 + LIVE_SEAM_COUNT          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
+EXPECT_SEAMS = 88 + LIVE_SEAM_COUNT          # TOP8-2026-09-17: +2 (sec-top8, tracker-top8)
+_EXPECT_SEAMS_OLD_NOTE = 86          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
 
@@ -265,6 +266,10 @@ def seams(payload_js):
     # Recording that, because it is the lesson: the seam list you can derive statically is
     # not the seam list. Build it, screenshot it, and read the page.
     add('sec-screamers', "sec('lot','Moonshots',moon)", "sec('lot','Screamers',moon)")
+    # TOP8-2026-09-17. The soccer board is now the top 8 starters as straight singles (kind stays
+    # 'builder' -- the ledger key -- exactly as 'moon' stayed 'moon' when the section was renamed).
+    add('sec-top8', "sec('sug','Anchors',builder)", "sec('sug','Top 8',builder)")
+    add('tracker-top8', "['builder','⚓️','Anchors']", "['builder','⚓️','Top 8']")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     # NB: index.html carries the JS escape ↻ literally (six characters), not the glyph.
     add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update from ESPN')
@@ -272,7 +277,7 @@ def seams(payload_js):
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> rotation risk · ')
     add('howto-order',
         'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⚓️ Anchors, 🚀 Moonshots.',
-        'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⚓️ Anchors, 💥 Screamers.')
+        'Read it top to bottom: ⚓️ Top 8 is the card; 💥 Screamers are retired and only show on old boards.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
@@ -469,8 +474,8 @@ def seams(payload_js):
         '<b>Lunch Special</b><span>One bat, best model score in an afternoon game.',
         '<b>Lunch Special</b><span>One player, best model score in an early kickoff.')
     add('kind-anchors',
-        '<b>Anchors</b><span>The four bats the moons are built around,',
-        '<b>Anchors</b><span>The players the screamers are built around,')
+        '<b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
+        '<b>Top 8</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span>')
     # "eight a night" is a BASEBALL count (ANCH_PER_GAME 2 x MOONS_PER_ANC 2 x 4 anchors, on a
     # fifteen-game slate). The soccer draft scales its anchor count to the pool, so on a thin
     # five-match slate it mints two. Printing a fixed eight would be a promise the board breaks

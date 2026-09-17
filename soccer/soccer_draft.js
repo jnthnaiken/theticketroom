@@ -57,6 +57,15 @@
     Z_GATE: 0.70,        // pool gate, in SDs of blend above the slate mean
     GAME_CAP: 4,         // most pool players from any one match
     ANCH: 4,             // anchor TARGET -- see THINSLATE below, this is a ceiling not a promise
+    /* TOP8-2026-09-17. Owner: "go ahead" on the slip-design test (soccer/design/RESULTS-2026-09-17.md):
+       over 18 settled nights with the scorer model, the top 8 confirmed starters as straight 1u
+       singles went +21.9u on 136u (+16.1%, 90% [+4%, +28%], 13 of 18 nights up, worst -2.4u),
+       against +3.3u on 277u for 4 anchors + 8 round robins. When TOP_SINGLES > 0 the draft is
+       THAT and nothing else: the N strongest by TOTAL, at most TOP_PER_MATCH per match, each a
+       1u `builder` single. No Z_GATE (rank decides), same price floor, same XI filter.
+       0 restores the anchor + screamer engine exactly. NFL pins 0 in nfl_draft_cli.js. */
+    TOP_SINGLES: 8,
+    TOP_PER_MATCH: 2,
     MOON_LEGS: 3,        // legs on a screamer, each from a DIFFERENT match
     MOONS_PER_ANC: 2,
     ANCH_PER_GAME: 2,
@@ -448,9 +457,27 @@
    * The thin-slate answer is anchorsOnly() below: ship THE ANCHORS as singles. Not the leftovers.
    */
 
+  function topSinglesDraft(players, cfg, opts) {
+    var tcfg = {}, k;
+    for (k in cfg) if (cfg.hasOwnProperty(k)) tcfg[k] = cfg[k];
+    tcfg.Z_GATE = -Infinity;
+    tcfg.GAME_CAP = cfg.TOP_PER_MATCH;
+    var pool = buildPool(players, tcfg, opts);
+    var picks = pool.slice(0, cfg.TOP_SINGLES);
+    var matches = {};
+    players.forEach(function (p) { matches[p.match] = 1; });
+    return {
+      tickets: picks.map(function (p) { return { kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE }; }),
+      pool: pool, byStrength: withStrength(pool), anchors: picks.length,
+      thin: picks.length < cfg.TOP_SINGLES, singlesOnly: true, topSingles: true,
+      matches: Object.keys(matches).length, budget: cfg.TOP_SINGLES
+    };
+  }
+
   function draft(players, cfgIn, opts) {
     var cfg = cfgOf(cfgIn);
     opts = opts || {};
+    if (cfg.TOP_SINGLES > 0) return topSinglesDraft(players, cfg, opts);   /* TOP8-2026-09-17 */
     var pool = buildPool(players, cfg, opts);
     var byStrength = withStrength(pool);
 
@@ -796,6 +823,86 @@
     return function (p) { return p.blend == null ? null : (p.blend - m) / sd; };
   }
 
+  /* TOP8-2026-09-17 -- the live re-draft for a top-N singles board.
+     LOCKED singles (CONFLOCK: his leg confirmed, not out/void) and any other locked slip are
+     placed bets and carried verbatim. Every OPEN single is re-derived: the strongest placeable
+     men (priced, floor, not out/void, match not yet started -- MINTGUARD) who pass the per-match
+     XI filter, capped per match counting the locked ones, fill the board back up to N. An open
+     single whose match is already underway is kept where it stands (PINNED), because nothing
+     could replace it. A surviving single keeps its title; a new one takes the first free one. */
+  function topSinglesRedraft(D, opts, cfg, now, koOf) {
+    var xi = opts.xi || null, xiM = opts.xiMatches || null;
+    var prior = (D.tickets || []).slice();
+    var frozen = [], open = [];
+    prior.forEach(function (t) {
+      if (ticketIsLocked(t, D, now, koOf)) { t.locked = true; frozen.push(t); } else open.push(t);
+    });
+    var used = {}, perM = {}, spent = {};
+    function take(n) {
+      used[n] = true;
+      var g = String((D.players[n] || {}).game);
+      perM[g] = (perM[g] || 0) + 1;
+    }
+    frozen.forEach(function (t) { spent[t.name] = true; (t.players || []).forEach(function (l) { take(l.name); }); });
+    function inXI(n) {
+      var p = D.players[n];
+      if (!xi) return true;
+      if (xiM && !xiM[String(p.game)]) return true;
+      return !!xi[n];
+    }
+    function alive(n) {
+      var p = D.players[n];
+      return p && !p.out && !p.void && p.odds != null && priceOk(p, cfg) && inXI(n);
+    }
+    var pinned = [];
+    open.forEach(function (t) {
+      var l = (t.players || [])[0];
+      if (!l || (t.players || []).length !== 1 || t.kind !== 'builder') return;
+      var ko = koOf((D.players[l.name] || {}).game);
+      if (ko != null && now >= ko && alive(l.name) && !used[l.name]) { pinned.push(t); spent[t.name] = true; take(l.name); }
+    });
+    var need = cfg.TOP_SINGLES - frozen.filter(function (t) { return t.kind === 'builder'; }).length - pinned.length;
+    var cands = Object.keys(D.players).filter(function (n) {
+      var p = D.players[n], ko = koOf(p.game);
+      return !used[n] && alive(n) && ko != null && now < ko;
+    }).sort(function (a, b) {
+      var ta = D.players[a].TOTAL || 0, tb = D.players[b].TOTAL || 0;
+      if (tb !== ta) return tb - ta;
+      return a < b ? -1 : a > b ? 1 : 0;
+    });
+    var picks = [];
+    for (var i = 0; i < cands.length && picks.length < need; i++) {
+      var g = String(D.players[cands[i]].game);
+      if ((perM[g] || 0) >= cfg.TOP_PER_MATCH) continue;
+      picks.push(cands[i]); take(cands[i]);
+    }
+    var priorName = {};
+    open.forEach(function (t) {
+      if (t.kind === 'builder' && (t.players || []).length === 1 && !spent[t.name]) priorName[t.players[0].name] = t.name;
+    });
+    picks.forEach(function (n) { if (priorName[n]) spent[priorName[n]] = true; });
+    function nameFor(n) {
+      if (priorName[n]) return priorName[n];
+      var pool = NAMES.builder;
+      for (var j = 0; j < pool.length; j++) if (!spent[pool[j]]) { spent[pool[j]] = true; return pool[j]; }
+      return 'Single ' + n;
+    }
+    var minted = picks.map(function (n) {
+      return mkTicket('builder', [legOf(n, D.players[n])], cfg.SINGLE_STAKE, nameFor(n), koOf, D.players);
+    });
+    var out = frozen.concat(pinned, minted);
+    var sig1 = function (t) { return t.kind + ':' + (t.players || []).map(function (l) { return l.name; }).join('+'); };
+    var before = prior.map(sig1).sort().join('|'), after = out.map(sig1).sort().join('|');
+    var outSet = {}; out.forEach(function (t) { outSet[sig1(t)] = true; });
+    return {
+      tickets: out, changed: before !== after, locked: frozen.length,
+      repaired: 0, minted: minted.filter(function (t) { return !priorName[t.players[0].name]; }).length,
+      released: prior.filter(function (t) { return !outSet[sig1(t)]; }).length,
+      demoted: [], reseated: [], shaped: [], topped: [],
+      anchors: out.length, thin: out.length < cfg.TOP_SINGLES, poolSize: cands.length
+    };
+  }
+
   function redraft(D, opts) {
     opts = opts || {};
     var cfg = cfgOf(opts.cfg);
@@ -804,6 +911,7 @@
     var koOf = function (g) { var v = KO[String(g)]; return v == null ? null : Number(v); };
     if (now == null) return { tickets: D.tickets, changed: false, why: 'no clock supplied' };
     if (!Object.keys(KO).length) return { tickets: D.tickets, changed: false, why: 'no kickoffs baked (meta.ko)' };
+    if (cfg.TOP_SINGLES > 0) return topSinglesRedraft(D, opts, cfg, now, koOf);   /* TOP8-2026-09-17 */
 
     var xi = opts.xi || null, xiM = opts.xiMatches || null;
     /* XIPARTIAL-2026-08-28: see buildPool. A player whose match has no published
