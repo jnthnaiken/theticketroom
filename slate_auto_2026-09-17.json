@@ -1,7 +1,7 @@
 {
   "date": "2026-09-17",
   "season": "2026",
-  "pulled_at": "2026-09-17T22:07:53Z",
+  "pulled_at": "2026-09-17T22:13:31Z",
   "games": [
     {
       "gamePk": 823334,
@@ -403,7 +403,7 @@
     },
     {
       "gamePk": 824305,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-17T19:10:00Z",
       "matchup": "SD@COL",
       "away": {
@@ -1134,8 +1134,54 @@
           "hr9": 0.59,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.2
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.183
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.089
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.13
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.121
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.155
+          },
+          {
+            "id": 672724,
+            "name": "Oswald Peraza",
+            "iso": 0.113
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.17
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.048
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
