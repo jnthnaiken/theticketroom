@@ -275,6 +275,11 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     d = model_prob(raw)
     d['wf'] = d.apply(wx_mult, axis=1)
     d['p_model'] = (d.p_model * d.wf).clip(0.005, 0.90)
+    # NFLLAYER-2026-09-17: p_model is now the BLEND of the live usage model above and the layered
+    # team-TDs x share x xTD model (nfl_layer.py). Owner: "the two combined clearly seems to be the
+    # way to go". NFL_LAYER=0 reverts to the usage model alone.
+    import nfl_layer
+    d = nfl_layer.apply(d, season, week)
 
     # ---- join prices. Surname-anchored, same rule as soccer_teamnews.match_one -------------
     by_exact, by_sur = {}, {}
@@ -426,6 +431,8 @@ def to_scored(d, fx):
             wf=round(float(r.wf), 3), wind=float(r.wind), indoor=int(r.indoor),
             basis=r.basis, basis_games=int(r.basis_games),
             p_model_raw=round(float(r.p_model_raw), 4) if pd.notna(r.get('p_model_raw')) else None,
+            p_live=round(float(r.p_live), 4) if pd.notna(r.get('p_live')) else None,
+            p_layer=round(float(r.p_layer), 4) if pd.notna(r.get('p_layer')) else None,
             price_band=[CFG['MIN_ODDS'], CFG['MAX_ODDS']],
             out=False, void=False))
     out.sort(key=lambda x: -x['TOTAL'])
