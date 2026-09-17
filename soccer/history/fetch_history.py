@@ -66,6 +66,8 @@ def get_json(path, referer, tries=4):
                 'Accept': 'application/json, text/javascript, */*; q=0.01'})
             resp = op.open(req, timeout=60)
             body = resp.read()
+            if body[:2] == b'\x1f\x8b':      # GZIPBODY-2026-09-17: gzip sent unasked
+                body = gzip.decompress(body)
             txt = body.decode('utf-8', 'replace').lstrip('\ufeff \t\r\n')
             # BOMFIX-2026-09-17: the runner gets 94 KB of text/javascript that did not start with '{'
             # (a BOM or a JSON-encoded string). Parse first, and only call it HTML if that fails.
