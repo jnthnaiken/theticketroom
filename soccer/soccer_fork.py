@@ -273,30 +273,30 @@ def seams(payload_js):
     add('sec-screamers', "sec('lot','Moonshots',moon)", "sec('lot','Screamers',moon)")
     # TOP8-2026-09-17. The soccer board is now the top 8 starters as straight singles (kind stays
     # 'builder' -- the ledger key -- exactly as 'moon' stayed 'moon' when the section was renamed).
-    add('sec-top8', "sec('sug','Anchors',builder)", "sec('sug','Top 8',builder)")
-    add('tracker-top8', "['builder','⚓️','Anchors']", "['builder','⭐','Top 8']")
+    add('sec-top8', "sec('sug','Anchors',builder)", "sec('sug','Top Bin',builder)")
+    add('tracker-top8', "['builder','⚓️','Anchors']", "['builder','🥅','Top Bin']")
     # TOPROWS-2026-09-17. Owner: "get rid of the empty rows". A kind with nothing graded this
-    # season and nothing on tonight's card is dropped from the tracker; Top 8 always shows.
+    # season and nothing on tonight's card is dropped from the tracker; Top Bin always shows.
     add('tracker-hide-empty',
         "['moon','💥','Screamers']];",
         "['moon','💥','Screamers']];defs=defs.filter(function(d){var c=cats[d[0]];"
         "return d[0]!=='moon'||(c&&c.graded>0)||D.tickets.some(function(t){return t.kind===d[0];});});")
-    # The TONIGHT counter: only kinds that are on the card, Top 8 as a star.
+    # The TONIGHT counter: only kinds that are on the card, Top Bin as the goal net.
     add('tonight-top8',
         "var cnt=kc.lunch+' 🍱 \\u00b7 '+kc.late+' 🌃 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
-        "var cnt=[[kc.lunch,'🍱',1],[kc.late,'🌃',1],[kc.builder,'⭐',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
-        ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 ⭐';")
+        "var cnt=[[kc.lunch,'🍱',1],[kc.late,'🌃',1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
+        ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 🥅';")
     # RESTATED-2026-09-17: the season line says so when soccer_season.json carries `restated`.
     add('tracker-restated',
         "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'",
         "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
     # Client-side re-derivation stamps its own builder badge (three sites). Keep it a star.
-    add('client-builder-badge-1', "if(t.kind==='builder') t.badge='⚓️';", "if(t.kind==='builder') t.badge='⭐';")
-    add('client-builder-badge-2', "kind:'builder',badge:'⚓️'", "kind:'builder',badge:'⭐'")
-    add('client-builder-badge-3', "mkF('builder','⚓️',", "mkF('builder','⭐',")
+    add('client-builder-badge-1', "if(t.kind==='builder') t.badge='⚓️';", "if(t.kind==='builder') t.badge='🥅';")
+    add('client-builder-badge-2', "kind:'builder',badge:'⚓️'", "kind:'builder',badge:'🥅'")
+    add('client-builder-badge-3', "mkF('builder','⚓️',", "mkF('builder','🥅',")
     add('anatomy-anchor',
         "{n:8, side:'L', t:'The anchor', d:'Top leg. The slip is built around him; he’s also sold alone as an ⚓️ single.'}",
-        "{n:8, side:'L', t:'Top leg', d:'The strongest player on the slip. The card itself is now the ⭐ Top 8, each sold as a straight single.'}")
+        "{n:8, side:'L', t:'Top leg', d:'The strongest player on the slip. The card itself is now the 🥅 Top Bin, each sold as a straight single.'}")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     # NB: index.html carries the JS escape ↻ literally (six characters), not the glyph.
     add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update from ESPN')
@@ -304,7 +304,7 @@ def seams(payload_js):
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> rotation risk · ')
     add('howto-order',
         'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⚓️ Anchors, 🚀 Moonshots.',
-        'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⭐ Top 8. 💥 Screamers are retired.')
+        'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, 🥅 Top Bin. 💥 Screamers are retired.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
@@ -502,7 +502,7 @@ def seams(payload_js):
         '<b>Lunch Special</b><span>One player, best model score in an early kickoff.')
     add('kind-anchors',
         '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
-        '<span class="ke">⭐</span><div><b>Top 8</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span>')
+        '<span class="ke">🥅</span><div><b>Top Bin</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span>')
     # "eight a night" is a BASEBALL count (ANCH_PER_GAME 2 x MOONS_PER_ANC 2 x 4 anchors, on a
     # fifteen-game slate). The soccer draft scales its anchor count to the pool, so on a thin
     # five-match slate it mints two. Printing a fixed eight would be a promise the board breaks
@@ -511,7 +511,7 @@ def seams(payload_js):
         '<span class="ke">🚀</span><div><b>Moonshots</b><span>Two three-leg round robins per '
         'anchor, eight a night. This is the one diagrammed above.</span>',
         '<span class="ke">💥</span><div><b>Screamers</b><span>Retired 2026-09-17: the three-leg '
-        'round robins diagrammed above. Tonight’s card is the ⭐ Top 8.</span>')
+        'round robins diagrammed above. Tonight’s card is the 🥅 Top Bin.</span>')
     add('howto-lede',
         'This is a moonshot — the\n      three-leg parlay that carries most of the season.',
         'This is a screamer — the\n      three-leg parlay that carries most of the season.')

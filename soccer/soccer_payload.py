@@ -387,7 +387,7 @@ NAMES = {
     'lunch':   ['Early Doors', 'Lunchtime Kickoff', 'The Twelve Thirty', 'First Match On'],
     'late':    ['Under Lights', 'Last One On', 'The Late Kickoff', 'Sunday Night'],
 }
-BADGE = {'moon': '💥', 'builder': '⭐', 'family': '💥', 'lunch': '🍱', 'late': '🌃'}
+BADGE = {'moon': '💥', 'builder': '🥅', 'family': '💥', 'lunch': '🍱', 'late': '🌃'}
 
 
 def _dec(am):
