@@ -1,0 +1,65 @@
+name: Soccer History Pull
+
+# SCORERHIST-2026-09-17. Downloads the multi-season history the soccer scorer model trains on
+# (understat team + player match logs, football-data.co.uk closing prices) and commits it to the
+# `soccer-data` branch. NEVER touches main, never builds a board, never runs on a schedule.
+# See soccer/history/fetch_history.py for what each file is.
+#
+# Run it by hand: Actions -> Soccer History Pull -> Run workflow. `limit` > 0 is a smoke test.
+
+on:
+  workflow_dispatch:
+    inputs:
+      first:
+        description: "First understat season (2014 is the earliest)"
+        default: "2014"
+      last:
+        description: "Last season"
+        default: "2026"
+      limit:
+        description: "Cap on players fetched (0 = all). Use 50 for a smoke test."
+        default: "0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-history
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch
+        run: |
+          python3 soccer/history/fetch_history.py --out out \
+            --first "${{ inputs.first }}" --last "${{ inputs.last }}" --limit "${{ inputs.limit }}"
+          ls -la out out/odds | head -80
+      - name: Commit to soccer-data
+        if: always()
+        run: |
+          [ -f out/manifest.json ] || { echo "nothing to commit"; exit 0; }
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          TAG="limit${{ inputs.limit }}"
+          DEST="history/${{ inputs.first }}-${{ inputs.last }}-$TAG"
+          if git ls-remote --exit-code --heads origin soccer-data >/dev/null; then
+            git fetch origin soccer-data
+            git worktree add ../data origin/soccer-data
+            (cd ../data && git checkout -B soccer-data)
+          else
+            git worktree add --detach ../data
+            (cd ../data && git checkout --orphan soccer-data && git rm -rf . >/dev/null 2>&1 || true)
+          fi
+          rm -rf "../data/$DEST" && mkdir -p "../data/$DEST"
+          cp -r out/* "../data/$DEST/"
+          cd ../data
+          git add -A
+          git commit -m "Soccer history $DEST ($(date -u +%Y-%m-%dT%H:%MZ))" || { echo "no change"; exit 0; }
+          git push origin soccer-data
