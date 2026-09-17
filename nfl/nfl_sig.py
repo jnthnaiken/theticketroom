@@ -47,7 +47,7 @@ def sig(path):
     d = json.load(open(path, encoding='utf-8'))
     # PROSESIG-2026-09-08: `note` and `why` are RENDERED. See the header.
     t = [(x['kind'], x['name'], [l['name'] for l in x['players']], x.get('parlay_am'),
-          x.get('note'))
+          x.get('note'), x.get('badge'))      # BADGESIG-2026-09-17: the emoji is rendered too
          for x in d['tickets']]
     p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf'), v.get('why'))
                for k, v in d['players'].items())
