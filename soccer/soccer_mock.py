@@ -385,10 +385,24 @@ for i, p in enumerate(grp):
 # model.json is soccer/shadow/<date>.json, produced before the first build by soccer-build.yml
 # (or soccer-shadow.yml). A player the model could not rate (club outside understat, no name
 # match) keeps the xG edge_z above, so an unrated man is scored exactly as before.
+# MODELPATH-2026-09-17: the build runs in soccer/.work, and the checkout's soccer/shadow/<date>.json
+# (written by soccer-shadow.yml, or committed with the slate) sits at ../shadow/. Read it straight
+# from there, so no workflow step is needed to copy it in. model.json in the cwd still wins.
 _MODEL = {}
-if _os0.path.exists('model.json'):
-    _MODEL = {n: v for n, v in json.load(open('model.json', encoding='utf-8')).get('players', {}).items()
+_mpath = 'model.json'
+if not _os0.path.exists(_mpath):
+    try:
+        _slate_date = json.load(open('fixtures.json', encoding='utf-8')).get('date')
+    except Exception:
+        _slate_date = None
+    for _cand in ([f'../shadow/{_slate_date}.json', f'shadow/{_slate_date}.json'] if _slate_date else []):
+        if _os0.path.exists(_cand):
+            _mpath = _cand
+            break
+if _os0.path.exists(_mpath):
+    _MODEL = {n: v for n, v in json.load(open(_mpath, encoding='utf-8')).get('players', {}).items()
               if isinstance(v.get('p_model'), (int, float)) and 0 < v['p_model'] < 1}
+    print(f'  scorer model file: {_mpath}')
 _rated = [p for p in grp if p['name'] in _MODEL]
 if len(_rated) >= 8:
     _lz = standardize([math.log(_MODEL[p['name']]['p_model'] / (1 - _MODEL[p['name']]['p_model'])) for p in _rated])
