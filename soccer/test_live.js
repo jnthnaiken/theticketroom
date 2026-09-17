@@ -61,6 +61,24 @@ ok(L.matchOne('Alex Gonzalez', ['Alexander Gonzalez', 'Alejandro Gonzalez']) ===
 ok(L.matchOne('Nico Gonzalez', ['Nicolas Gonzalez', 'Nicolo Gonzalez']) === null,
    'NICOJOIN: two long forms of the same short name on one sheet -> refuses');
 
+/* TRANSLIT-2026-09-17 -- one transliterated letter, found by auditing every goal of the season
+ * against every board: Kostoulas (2026-09-16, a placed single) and two display-only cases. */
+ok(L.matchOne('Charalambos Kostoulas', ['Charalampos Kostoulas', 'Danny Welbeck']) === 'Charalampos Kostoulas',
+   'TRANSLIT: Charalambos joins Charalampos (b/p)');
+ok(L.matchOne('Nico Paz', ['Nicolas Paz']) === 'Nicolas Paz',
+   'TRANSLIT/NICOJOIN: Nico Paz joins Nicolas Paz');
+ok(L.matchOne('Josh King', ['Joshua King']) === 'Joshua King', 'Josh joins Joshua');
+ok(L.matchOne('Nico Williams', ['Inaki Williams']) === null,
+   'TRANSLIT: the Williams brothers still do not join');
+ok(L.matchOne('Roberto Fernandez', ['Marcos Fernandez']) === null,
+   'TRANSLIT: two different Fernandez do not join');
+ok(L.matchOne('Quinn Sullivan', ['Cavan Sullivan']) === null,
+   'TRANSLIT: five-letter given names are too short for the one-letter rule');
+ok(L.matchOne('Enrique Barja', ['Kike Barja']) === 'Kike Barja', 'NICKNAME: Kike is Enrique');
+ok(L.matchOne('Charly Alcaraz', ['Carlos Alcaraz']) === 'Carlos Alcaraz', 'NICKNAME: Charly is Carlos');
+ok(L.matchOne('Kike Salas', ['Enrique Salas', 'Kike Garcia']) === 'Enrique Salas',
+   'NICKNAME: works in both directions, surname still anchors');
+
 /* ---------- 2b. JRJOIN-2026-09-08 -- a generational suffix is not a surname -------
  * Real Madrid's ACTUAL 22 against Internazionale, 2026-09-08, copied off the ESPN feed at
  * 18:20Z with Vinícius Júnior in the starting XI. Before the fix this file's join refused him

@@ -142,10 +142,28 @@
    * form is >= 4 characters -- nico/nicolas, alex/alexander, matt/matthew. The surname still
    * has to be present exactly, and matchOne still refuses unless exactly ONE candidate hits,
    * so this can only widen a join that was already anchored on the surname. */
+  /* NICKNAME-2026-09-17: short forms no rule can derive. Every entry was found by auditing the
+   * season's goals against the boards -- "Enrique Barja" is the board's "Kike Barja" (2026-08-27)
+   * and "Charly Alcaraz" is its "Carlos Alcaraz" (2026-09-16). Keep it to forms that are
+   * unambiguous in football; the single-candidate rule in matchOne is still the real guard. */
+  var NICK = { kike: 'enrique', quique: 'enrique', charly: 'carlos', carlitos: 'carlos',
+               nacho: 'ignacio', paco: 'francisco', curro: 'francisco', pepe: 'jose',
+               toni: 'antonio', toni: 'antonio', chuti: 'jesus', bob: 'robert', bobby: 'robert' };
+  function canon(t) { return NICK[t] || t; }
+
   function tokEq(a, b) {
+    a = canon(a); b = canon(b);
     if (a === b) return true;
     var sh = a.length <= b.length ? a : b, lo = a.length <= b.length ? b : a;
-    return sh.length >= 4 && lo.indexOf(sh) === 0;
+    if (sh.length >= 4 && lo.indexOf(sh) === 0) return true;
+    /* TRANSLIT-2026-09-17: one transliterated letter. ESPN's "Charalambos Kostoulas" is the
+     * board's "Charalampos Kostoulas" (Brighton, 2026-09-16, a placed single that was graded a
+     * loss over the b/p). One substitution, on a token long enough that a single letter cannot
+     * turn one real given name into another (>= 6). Length differences are the prefix rule's
+     * job, so this is same-length only. */
+    if (a.length !== b.length || a.length < 6) return false;
+    for (var i = 0, d = 0; i < a.length; i++) if (a[i] !== b[i] && ++d > 1) return false;
+    return true;
   }
   function tokIn(t, set) {
     for (var i = 0; i < set.length; i++) if (tokEq(t, set[i])) return true;
