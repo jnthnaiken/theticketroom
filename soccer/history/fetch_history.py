@@ -94,11 +94,11 @@ def get_json(path, referer, tries=4):
     raise RuntimeError(f'{path}: {last}')
 
 
-def get_raw(url, tries=3):
+def get_raw(url, tries=3, timeout=60):
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={'User-Agent': UA})
-            return urllib.request.urlopen(req, timeout=60).read()
+            return urllib.request.urlopen(req, timeout=timeout).read()
         except Exception as e:
             last = e
             time.sleep(2 * (i + 1))
@@ -117,6 +117,7 @@ def main():
     ap.add_argument('--last', type=int, default=2026)
     ap.add_argument('--threads', type=int, default=6)
     ap.add_argument('--limit', type=int, default=0, help='cap players (smoke test)')
+    ap.add_argument('--no-odds', action='store_true')
     a = ap.parse_args()
     os.makedirs(os.path.join(a.out, 'odds'), exist_ok=True)
     t0 = time.time()
@@ -194,23 +195,34 @@ def main():
     man['players_ok'] = done[0]
     man['player_rows'] = done[1]
 
+    # ODDSLAST-2026-09-17: the understat pull is the expensive part, so its manifest is written
+    # BEFORE the odds step. Run #5 finished 9.9k players and then hung on football-data timeouts
+    # with nothing on disk to commit.
+    json.dump(man, open(os.path.join(a.out, 'manifest.json'), 'w'), indent=1)
+
     # ---- 3. football-data.co.uk: results + closing market ---------------------------------------
-    for lg, code in FD.items():
+    fd_fail = 0
+    for lg, code in ([] if a.no_odds else FD.items()):
         for s in range(a.first, a.last + 1):
             ssn = f'{s % 100:02d}{(s + 1) % 100:02d}'
             # FDHTTP-2026-09-17: https was 'Connection refused' from a runner; the site is http-first.
             b = None
+            if fd_fail >= 3:
+                man['odds'][f'{code}_{ssn}'] = 'SKIPPED (host unreachable)'
+                continue
             for url in (f'http://www.football-data.co.uk/mmz4281/{ssn}/{code}.csv',
                         f'https://www.football-data.co.uk/mmz4281/{ssn}/{code}.csv',
                         f'http://football-data.co.uk/mmz4281/{ssn}/{code}.csv'):
                 try:
-                    b = get_raw(url, tries=2)
+                    b = get_raw(url, tries=1, timeout=15)
                     break
                 except Exception as e:
                     err = e
             try:
                 if b is None:
+                    fd_fail += 1
                     raise err
+                fd_fail = 0
                 open(os.path.join(a.out, 'odds', f'{code}_{ssn}.csv'), 'wb').write(b)
                 man['odds'][f'{code}_{ssn}'] = len(b)
             except Exception as e:
