@@ -25,7 +25,7 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 52 + LIVE_SEAM_COUNT   # 51 named + 1 payload + 3 live = 55
+EXPECT_SEAMS = 53 + LIVE_SEAM_COUNT   # 52 named + 1 payload + 3 live = 56
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09)
 
 def seams(payload_js):
@@ -201,6 +201,13 @@ def seams(payload_js):
                      '<div class="tsec lunch"><span class="tsech">Early Window</span>')
     add('sec-nightcap', '<span class="tag">Late slate</span> Nightcap<span class="chev">',
                         '<span class="tag">Late slate</span> Sunday Night<span class="chev">')
+    # RESTATED-NFL-2026-09-17: the season line says so when nfl_season.json carries `restated`.
+    # Week 1 was drafted by the old scorer (raw EV, no cap, usage model alone); nfl_restate.py
+    # re-runs every graded night under the current system, so the tracker must not imply the
+    # posted record. Same seam as the soccer fork.
+    add('tracker-restated',
+        "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'",
+        "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
     add('tracker-lunch', "['lunch','🍱','Lunch'],['late','🌃','Nightcap']",
                          "['lunch','🍱','Early'],['late','🌃','Sunday Night']")
     add('kind-lunch',

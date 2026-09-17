@@ -1,11 +1,11 @@
 {
  "since": "2026-09-09",
  "history": [
-  0,
-  -1.65,
-  -3.85,
-  -8.05,
-  -12.05
+  0.0,
+  -0.65,
+  3.15,
+  18.255,
+  19.005
  ],
  "graded_nights": [
   "2026-09-09",
@@ -14,10 +14,22 @@
   "2026-09-14"
  ],
  "cats": {
+  "builder": {
+   "graded": 10,
+   "won": 5,
+   "units": 8.5,
+   "staked": 10.0
+  },
+  "moon": {
+   "graded": 8,
+   "won": 2,
+   "units": 9.505,
+   "staked": 16.0
+  },
   "lunch": {
    "graded": 1,
    "won": 1,
-   "units": 2.8,
+   "units": 2.0,
    "staked": 1.0
   },
   "late": {
@@ -25,19 +37,320 @@
    "won": 0,
    "units": -1.0,
    "staked": 1.0
-  },
-  "builder": {
-   "graded": 16,
-   "won": 4,
-   "units": 2.1500000000000004,
-   "staked": 16.0
-  },
-  "moon": {
-   "graded": 8,
-   "won": 0,
-   "units": -16.0,
-   "staked": 16.0
   }
  },
- "stake": 1
+ "stake": 1,
+ "restated": {
+  "date": "2026-09-17",
+  "system": "EV ranking with the +400 price cap (PRICECAP-2026-09-15), no quarterbacks (NOQB), and the layered TD model blended into p_model (NFLLAYER-2026-09-17). Prices are the ones the board held on the night; results are the graded archive in nfl/boards/<date>.json.",
+  "caveats": [
+   "Four nights of one week. This is a restatement of the SYSTEM, not evidence that it makes money.",
+   "The draft can only pick men the board priced that night, so a rule that would have reached an unpriced player cannot be restated.",
+   "Depth charts are read as they stand today, not as they stood in week 1 -- nfl_stats.load_depth takes the latest chart. It only affects players with no 2026 snaps (basis prior+depth).",
+   "The blend coefficients (NFLLAYER) were fitted on 2022-25 and the price cap on 2024-25, so neither was fitted on these nights."
+  ],
+  "nights": {
+   "2026-09-09": [
+    {
+     "kind": "builder",
+     "name": "The Workhorse",
+     "legs": [
+      "TreVeyon Henderson"
+     ],
+     "odds": [
+      270
+     ],
+     "stake": 1.0,
+     "net": -1.0,
+     "won": false
+    },
+    {
+     "kind": "builder",
+     "name": "Bell Cow",
+     "legs": [
+      "AJ Barner"
+     ],
+     "odds": [
+      290
+     ],
+     "stake": 1.0,
+     "net": -1.0,
+     "won": false
+    },
+    {
+     "kind": "builder",
+     "name": "Goal Line Back",
+     "legs": [
+      "Jaxon Smith-Njigba"
+     ],
+     "odds": [
+      135
+     ],
+     "stake": 1.0,
+     "net": 1.35,
+     "won": true
+    }
+   ],
+   "2026-09-10": [
+    {
+     "kind": "builder",
+     "name": "The Workhorse",
+     "legs": [
+      "Deebo Samuel Sr."
+     ],
+     "odds": [
+      380
+     ],
+     "stake": 1.0,
+     "net": 3.8,
+     "won": true
+    }
+   ],
+   "2026-09-13": [
+    {
+     "kind": "moon",
+     "name": "Six Points",
+     "legs": [
+      "Dallas Goedert",
+      "Aaron Jones",
+      "Tre Tucker"
+     ],
+     "odds": [
+      260,
+      185,
+      300
+     ],
+     "stake": 2,
+     "net": 3.13,
+     "won": true
+    },
+    {
+     "kind": "moon",
+     "name": "Money Down",
+     "legs": [
+      "Dallas Goedert",
+      "Jauan Jennings",
+      "Michael Wilson"
+     ],
+     "odds": [
+      260,
+      350,
+      333
+     ],
+     "stake": 2,
+     "net": -2.0,
+     "won": false
+    },
+    {
+     "kind": "moon",
+     "name": "The Pylon",
+     "legs": [
+      "T.J. Hockenson",
+      "Kimani Vidal",
+      "De'Von Achane"
+     ],
+     "odds": [
+      400,
+      325,
+      110
+     ],
+     "stake": 2,
+     "net": -2.0,
+     "won": false
+    },
+    {
+     "kind": "moon",
+     "name": "Front of the End Zone",
+     "legs": [
+      "T.J. Hockenson",
+      "Trey McBride",
+      "Brock Bowers"
+     ],
+     "odds": [
+      400,
+      225,
+      200
+     ],
+     "stake": 2,
+     "net": 18.375,
+     "won": true
+    },
+    {
+     "kind": "moon",
+     "name": "Play Action",
+     "legs": [
+      "Samaje Perine",
+      "Chris Rodriguez Jr.",
+      "James Cook"
+     ],
+     "odds": [
+      320,
+      185,
+      100
+     ],
+     "stake": 2,
+     "net": -2.0,
+     "won": false
+    },
+    {
+     "kind": "moon",
+     "name": "Goal to Go",
+     "legs": [
+      "Samaje Perine",
+      "Mark Andrews",
+      "Woody Marks"
+     ],
+     "odds": [
+      320,
+      225,
+      230
+     ],
+     "stake": 2,
+     "net": -2.0,
+     "won": false
+    },
+    {
+     "kind": "moon",
+     "name": "The Fade",
+     "legs": [
+      "Keenan Allen",
+      "Khalil Shakir",
+      "Kenny Gainwell"
+     ],
+     "odds": [
+      350,
+      333,
+      200
+     ],
+     "stake": 2,
+     "net": -2.0,
+     "won": false
+    },
+    {
+     "kind": "moon",
+     "name": "Crossing Route",
+     "legs": [
+      "Keenan Allen",
+      "Wan'Dale Robinson",
+      "DJ Moore"
+     ],
+     "odds": [
+      350,
+      350,
+      280
+     ],
+     "stake": 2,
+     "net": -2.0,
+     "won": false
+    },
+    {
+     "kind": "builder",
+     "name": "Inside the Ten",
+     "legs": [
+      "Dallas Goedert"
+     ],
+     "odds": [
+      260
+     ],
+     "stake": 1.0,
+     "net": 2.6,
+     "won": true
+    },
+    {
+     "kind": "builder",
+     "name": "The Sneak",
+     "legs": [
+      "T.J. Hockenson"
+     ],
+     "odds": [
+      400
+     ],
+     "stake": 1.0,
+     "net": 4.0,
+     "won": true
+    },
+    {
+     "kind": "builder",
+     "name": "The Workhorse",
+     "legs": [
+      "Samaje Perine"
+     ],
+     "odds": [
+      320
+     ],
+     "stake": 1.0,
+     "net": -1.0,
+     "won": false
+    },
+    {
+     "kind": "builder",
+     "name": "Bell Cow",
+     "legs": [
+      "Keenan Allen"
+     ],
+     "odds": [
+      350
+     ],
+     "stake": 1.0,
+     "net": -1.0,
+     "won": false
+    },
+    {
+     "kind": "lunch",
+     "name": "The One O\u2019Clock",
+     "legs": [
+      "Tyler Warren"
+     ],
+     "odds": [
+      200
+     ],
+     "stake": 1.0,
+     "net": 2.0,
+     "won": true
+    },
+    {
+     "kind": "late",
+     "name": "Under Lights",
+     "legs": [
+      "Jake Ferguson"
+     ],
+     "odds": [
+      260
+     ],
+     "stake": 1.0,
+     "net": -1.0,
+     "won": false
+    }
+   ],
+   "2026-09-14": [
+    {
+     "kind": "builder",
+     "name": "The Workhorse",
+     "legs": [
+      "RJ Harvey"
+     ],
+     "odds": [
+      300
+     ],
+     "stake": 1.0,
+     "net": -1.0,
+     "won": false
+    },
+    {
+     "kind": "builder",
+     "name": "Bell Cow",
+     "legs": [
+      "Rashee Rice"
+     ],
+     "odds": [
+      175
+     ],
+     "stake": 1.0,
+     "net": 1.75,
+     "won": true
+    }
+   ]
+  },
+  "actual_record": "nfl/nfl_season_v1_actual.json (what was actually posted: 26 graded, -12.05u)"
+ }
 }
