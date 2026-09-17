@@ -5559,6 +5559,27 @@ function enforceAnchorCap(out, D, cfg, demoted) {
   }
   function formsOf(s) { return [toks(s), toksDel(s)]; }
 
+  /* NICOJOIN-2026-09-17 -- A SHORT FORM OF A GIVEN NAME IS THE SAME MAN.
+   * ESPN called Juventus' scorer "Nico González"; the board, from the team-news feed, calls him
+   * "Nicolas Gonzalez". Surname anchored, but `nico` is not `nicolas`, so the join refused, the
+   * 9' goal went to `unmatched`, and at full time the authoritative clear below rewrote a REAL
+   * goal to "did not score" in the reader's browser -- the server had him right the whole time
+   * (soccer_payload TNGOALS), so the page and the ledger disagreed on a placed single.
+   * Same shape as JRJOIN (Vinicius) and PUNCT (O'Reilly): one man, two feeds, two spellings.
+   * A non-surname token now also matches when one form is a PREFIX of the other and the short
+   * form is >= 4 characters -- nico/nicolas, alex/alexander, matt/matthew. The surname still
+   * has to be present exactly, and matchOne still refuses unless exactly ONE candidate hits,
+   * so this can only widen a join that was already anchored on the surname. */
+  function tokEq(a, b) {
+    if (a === b) return true;
+    var sh = a.length <= b.length ? a : b, lo = a.length <= b.length ? b : a;
+    return sh.length >= 4 && lo.indexOf(sh) === 0;
+  }
+  function tokIn(t, set) {
+    for (var i = 0; i < set.length; i++) if (tokEq(t, set[i])) return true;
+    return false;
+  }
+
   function matchOne(feedName, candidates) {
     var fNorms = [norm(feedName), normDel(feedName)];
     var fForms = formsOf(feedName);
@@ -5579,11 +5600,9 @@ function enforceAnchorCap(out, D, cfg, demoted) {
         for (var j = 0; j < cForms.length; j++) {
           var ct = cForms[j];
           if (!ct.length) continue;
-          if (!fset[ct[ct.length - 1]]) continue;   // SURNAME ANCHOR
-          var cset = {};
-          ct.forEach(function (t) { cset[t] = 1; });
-          var cInF = ct.every(function (t) { return fset[t]; });
-          var fInC = ft.every(function (t) { return cset[t]; });
+          if (!fset[ct[ct.length - 1]]) continue;   // SURNAME ANCHOR (exact, always)
+          var cInF = ct.every(function (t) { return tokIn(t, ft); });
+          var fInC = ft.every(function (t) { return tokIn(t, ct); });
           if (cInF || fInC) return true;
         }
       }
@@ -5784,16 +5803,22 @@ function enforceAnchorCap(out, D, cfg, demoted) {
        * feed's goal list did not score. But a FAILED fetch must never clear a goal, which
        * is why this only runs when `summary` came back. */
       var gl = goalsOf(summary);
-      var scored = {};
+      var scored = {}, unjoined = 0;
       gl.forEach(function (ev) {
         var who = matchOne(ev.name, names);
-        if (!who) { (env.unmatched || []).push({ game: g, feed: ev.name }); return; }
+        if (!who) { unjoined++; (env.unmatched || []).push({ game: g, feed: ev.name }); return; }
         (scored[who] = scored[who] || []).push(ev.min);
       });
+      /* GOALCLEAR-2026-09-17: the clear is authoritative ONLY when every goal in the feed joined
+       * a board name. An unjoined scorer is usually somebody we never priced -- but it can also
+       * be OUR man under a spelling this join refuses (NICOJOIN above), and then clearing says
+       * "did not score" about the one player we cannot rule out. With any goal unjoined, leave
+       * the baked state alone: the server's own join (soccer_payload TNGOALS) is the fallback,
+       * and a goal we never saw stays absent rather than being asserted. */
       names.forEach(function (n) {
         var p = D.players[n];
         if (scored[n]) { p.hr = true; p.goalmins = scored[n]; }
-        else if (done) { p.hr = false; p.goalmins = []; }
+        else if (done && !unjoined) { p.hr = false; p.goalmins = []; }
       });
 
       /* --- squad sheet --------------------------------------------------------------- */
