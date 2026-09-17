@@ -1,7 +1,7 @@
 {
   "date": "2026-09-17",
   "season": "2026",
-  "pulled_at": "2026-09-17T21:30:27Z",
+  "pulled_at": "2026-09-17T21:32:42Z",
   "games": [
     {
       "gamePk": 823334,
@@ -1066,7 +1066,7 @@
     },
     {
       "gamePk": 823978,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-18T01:38:00Z",
       "matchup": "MIN@LAA",
       "away": {
@@ -1077,8 +1077,54 @@
           "hr9": 1.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.11
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.18
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.229
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.168
+          },
+          {
+            "id": 691181,
+            "name": "Emmanuel Rodriguez",
+            "iso": 0.316
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.158
+          },
+          {
+            "id": 605170,
+            "name": "Victor Caratini",
+            "iso": 0.097
+          },
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.111
+          },
+          {
+            "id": 805346,
+            "name": "Ben Ross",
+            "iso": 0.166
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
@@ -1091,7 +1137,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
