@@ -286,7 +286,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     # Z_GATE is 0.70 (WIN75/ZGATE70-2026-08-30), not 0.75. The literal here predates that change
     # and made the DISPLAYED pool tighter than the one the draft actually uses.
     Z_GATE = 0.70
-    MIN_ODDS = 100   # PLUSMONEY-2026-09-11: a minus-money man cannot be drafted, so he is not "in the gate"
+    MIN_ODDS = -200  # FLOOR200-2026-09-17 (was 100, PLUSMONEY-2026-09-11): a man shorter than -200 cannot be drafted, so he is not "in the gate"
     _mof = {x['name']: x['match'] for x in P}
     published = {_mof[n] for n in list(XI) + list(BENCH) + list(ABSENT) if n in _mof}
     gated = [x for x in sorted(P, key=lambda x: -x['TOTAL'])

@@ -35,7 +35,8 @@ CFG = dict(
     # PLUSMONEY-2026-09-11 -- only +100 and longer may make the board (evens stays in). MUST MATCH
     # DEFAULTS.MIN_ODDS in soccer_draft.js, which is the rule that actually drafts; this copy
     # only keeps the printed pool honest. None switches it off.
-    MIN_ODDS=100,
+    # FLOOR200-2026-09-17 -- soccer floor is -200 (minus money down to -200 is draftable).
+    MIN_ODDS=-200,
 )
 
 SIG = {'npxg90': 0.60, 'xgpershot': 0.20, 'finish90': 0.10, 'xa90': 0.10}

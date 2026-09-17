@@ -73,8 +73,15 @@
        leg) and alive[] (FINALREPAIR's widest pool, the top-up). A rule applied only at the
        gate is exactly the hole FINALREPAIR's "no Z_GATE, no GAME_CAP" pool walks through.
        ⚠️ LOCKED SLIPS ARE NOT TOUCHED. ticketIsLocked() freezes before any of this runs, so a
-       placed bet is carried verbatim whatever its price. */
-    MIN_ODDS: 100,
+       placed bet is carried verbatim whatever its price.
+       FLOOR200-2026-09-17. Soccer floor lowered +100 -> -200 on the feature test's evidence
+       (soccer/feature_test/RESULTS-2026-09-17.md, addendum): confirmed starters at minus money
+       went 45 legs, 71% scored vs 59% implied, ROI +21.8% [90%: +9%, +36%], and walk-forward
+       top-8 cleared zero only once they were allowed in. Owner: "yes" to a -200 floor, soccer
+       only. -200 rather than null so a card cannot fill with -300 chalk. American odds compare
+       correctly here: -150 >= -200 is in, -250 is out, every plus price is in.
+       ⚠️ NFL KEEPS +100 -- nfl_draft_cli.js now sets MIN_ODDS itself instead of inheriting this. */
+    MIN_ODDS: -200,
     /* PRICECAP-2026-09-15. Owner, after football week 1 (-12.05u, moons 0-8): "we're going for way
        too far of longshots". The upper twin of MIN_ODDS: a price is eligible only when
        odds <= MAX_ODDS. null (the default) switches it off, so SOCCER IS UNTOUCHED -- only
