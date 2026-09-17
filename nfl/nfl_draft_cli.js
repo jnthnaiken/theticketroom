@@ -51,6 +51,12 @@ Draft.NAMES.builder = ['The Workhorse', 'Bell Cow', 'Goal Line Back', 'Red Zone 
 Draft.NAMES.lunch = ['The One O’Clock', 'Early Window', 'First Wave', 'Sunday Opener'];
 Draft.NAMES.late  = ['Sunday Night', 'Under Lights', 'Prime Time', 'The Late Window'];
 Draft.BADGE.moon = '🏈';        /* 🏈 -- the soccer fork re-skins 🚀 -> 💥, same seam */
+/* NFLBADGE-2026-09-17: football singles keep the anchor. soccer_draft.js now defaults builder to 🥅
+   (the soccer Top Bin, TOPBIN-2026-09-17), and without this pin every NFL single shipped a soccer
+   goal. Pin the whole football vocabulary here so a soccer re-skin can never leak across again. */
+Draft.BADGE.builder = '⚓️';
+Draft.BADGE.lunch = '🍱';
+Draft.BADGE.late = '🌃';
 
 const CFG = {
   WIN: 60, Z_GATE: 0.55, GAME_CAP: 5,
