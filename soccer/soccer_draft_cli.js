@@ -66,11 +66,13 @@ if (tnPath) {
 }
 
 const res = SD.draft(scored, {}, { xi, xiMatches });
-if (res.singlesOnly) {
+if (res.topSingles) {
+  console.log(`  TOP8: top ${res.budget} starters as singles, plus lunch special / nightcap where one exists`);
+} else if (res.singlesOnly) {
   console.log(`  ${res.matches} match(es) on the slate and a screamer needs ${SD.DEFAULTS.MOON_LEGS} ` +
               `from different matches -- ANCHOR SINGLES ONLY (SINGLES-2026-08-27)`);
 }
-if (res.thin) {
+if (res.thin && !res.topSingles) {
   console.log(`  thin slate: ${res.budget} anchors do not fit; drafted ${res.anchors}`);
 }
 console.log(`  pool after Z_GATE ${SD.DEFAULTS.Z_GATE} + XI filter + GAME_CAP ${SD.DEFAULTS.GAME_CAP}: ${res.pool.length}`);

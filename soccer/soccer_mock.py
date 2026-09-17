@@ -302,6 +302,20 @@ def shrink(players, keys, k=SHRINK_K):
                 p[key] = (p[key] * m + mean * k) / (m + k)
 
 
+# LUNCHLATE-2026-09-17: the same `late` rule soccer_payload.py stamps (ET kickoff at or after 5pm,
+# counting days past the slate date), so the fresh draft can pick a nightcap.
+def _is_late(mins):
+    from datetime import datetime, timedelta, timezone
+    from zoneinfo import ZoneInfo
+    try:
+        _d = json.load(open('fixtures.json', encoding='utf-8'))['date']
+    except Exception:
+        return False
+    sl = datetime.strptime(_d, '%Y-%m-%d')
+    et = (datetime(sl.year, sl.month, sl.day, tzinfo=timezone.utc) + timedelta(minutes=int(mins))).astimezone(ZoneInfo('America/New_York'))
+    return ((et.date() - sl.date()).days * 1440 + et.hour * 60 + et.minute) >= 17 * 60
+
+
 players = []
 matched = {'exact': 0, 'token': 0, 'suffix': 0, 'missing': 0}   # JRJOIN-2026-09-08
 for match, name in slate:
@@ -323,7 +337,7 @@ for match, name in slate:
     recs, how = lookup(name)
     matched['missing' if how is None else how] += 1
     p = dict(name=name, match=match, league=LEAGUE[match], odds=am,
-             implied=implied(am), kickoff=KICKOFF[match], has_xg=recs is not None)
+             implied=implied(am), kickoff=KICKOFF[match], late=_is_late(KICKOFF[match]), has_xg=recs is not None)
     p.update(blend_seasons(recs) if recs else
              {k: None for k in ('npxg90', 'xgpershot', 'xa90', 'shots90', 'finish90')} |
              {'minutes': 0, 'pos': '?', 'team': '?'})

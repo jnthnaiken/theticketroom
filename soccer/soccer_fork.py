@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 96 + LIVE_SEAM_COUNT          # TOP8-2026-09-17: +2 (sec-top8, tracker-top8); TOPROWS: +6
+EXPECT_SEAMS = 95 + LIVE_SEAM_COUNT          # TOP8-2026-09-17: +2 (sec-top8, tracker-top8); TOPROWS: +6
 _EXPECT_SEAMS_OLD_NOTE = 86          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
@@ -33,7 +33,7 @@ OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><
 OPLOG_NEW = (
     '<div class="adminlog"><h4>Operator log</h4>\n'
     '  <div class="entry"><span class="d">Sep 17 · top 8</span>The card is now the <b>top 8 confirmed '
-    'starters as straight 1u singles</b>, ranked by the new scorer model (team goals expected × '
+    'starters as straight 1u singles</b>, plus a 🍱 lunch special and a 🌃 nightcap, ranked by the new scorer model (team goals expected × '
     'share of team xG × minutes) blended with the price. Anchors and screamers are retired. The '
     'season tracker is <b>restated</b>: every night since Aug 27 re-run under this system at the '
     'prices that night; the record the old board actually posted is kept in the repo.</div>\n'
@@ -280,11 +280,11 @@ def seams(payload_js):
     add('tracker-hide-empty',
         "['moon','💥','Screamers']];",
         "['moon','💥','Screamers']];defs=defs.filter(function(d){var c=cats[d[0]];"
-        "return d[0]==='builder'||(c&&c.graded>0)||D.tickets.some(function(t){return t.kind===d[0];});});")
+        "return d[0]!=='moon'||(c&&c.graded>0)||D.tickets.some(function(t){return t.kind===d[0];});});")
     # The TONIGHT counter: only kinds that are on the card, Top 8 as a star.
     add('tonight-top8',
         "var cnt=kc.lunch+' 🍱 \\u00b7 '+kc.late+' 🌃 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
-        "var cnt=[[kc.lunch,'🍱'],[kc.late,'🌃'],[kc.builder,'⭐'],[kc.moon,'💥']].filter(function(x){return x[0];})"
+        "var cnt=[[kc.lunch,'🍱',1],[kc.late,'🌃',1],[kc.builder,'⭐',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
         ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 ⭐';")
     # RESTATED-2026-09-17: the season line says so when soccer_season.json carries `restated`.
     add('tracker-restated',
@@ -294,8 +294,6 @@ def seams(payload_js):
     add('client-builder-badge-1', "if(t.kind==='builder') t.badge='⚓️';", "if(t.kind==='builder') t.badge='⭐';")
     add('client-builder-badge-2', "kind:'builder',badge:'⚓️'", "kind:'builder',badge:'⭐'")
     add('client-builder-badge-3', "mkF('builder','⚓️',", "mkF('builder','⭐',")
-    # TOPROWS-2026-09-17: with lunch specials retired, the empty "cafeteria" block is an empty row too.
-    add('lunch-hide-empty', "if(ty==='all'&&(lunchLive.length||!q))", "if(ty==='all'&&lunchLive.length)")
     add('anatomy-anchor',
         "{n:8, side:'L', t:'The anchor', d:'Top leg. The slip is built around him; he’s also sold alone as an ⚓️ single.'}",
         "{n:8, side:'L', t:'Top leg', d:'The strongest player on the slip. The card itself is now the ⭐ Top 8, each sold as a straight single.'}")
@@ -306,7 +304,7 @@ def seams(payload_js):
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> rotation risk · ')
     add('howto-order',
         'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⚓️ Anchors, 🚀 Moonshots.',
-        'Read it top to bottom: ⭐ Top 8 is the card; 💥 Screamers are retired and only show on old boards.')
+        'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⭐ Top 8. 💥 Screamers are retired.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",

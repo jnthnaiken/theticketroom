@@ -66,6 +66,12 @@
        0 restores the anchor + screamer engine exactly. NFL pins 0 in nfl_draft_cli.js. */
     TOP_SINGLES: 8,
     TOP_PER_MATCH: 2,
+    /* LUNCHLATE-2026-09-17. Owner: "keep lunch special and nightcap" -> "draft them too". Beside the
+       top N, one 1u 🍱 lunch special (best remaining starter kicking off before 5pm ET) and one 1u
+       🌃 nightcap (best remaining at or after 5pm ET), when such a man exists. Same floor and XI
+       rules, no gate, not already on the card. Restated 08-27..09-16: lunch 11-8 +8.24u,
+       nightcap 0-1 -1.00u. false drops them. */
+    LUNCH_LATE: true,
     MOON_LEGS: 3,        // legs on a screamer, each from a DIFFERENT match
     MOONS_PER_ANC: 2,
     ANCH_PER_GAME: 2,
@@ -466,8 +472,24 @@
     var picks = pool.slice(0, cfg.TOP_SINGLES);
     var matches = {};
     players.forEach(function (p) { matches[p.match] = 1; });
+    var tickets = picks.map(function (p) { return { kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE }; });
+    if (cfg.LUNCH_LATE) {
+      var ucfg = {}; for (k in tcfg) if (tcfg.hasOwnProperty(k)) ucfg[k] = tcfg[k];
+      ucfg.GAME_CAP = Infinity;
+      var taken = nameSet(picks);
+      var wide = buildPool(players, ucfg, opts);
+      [['lunch', false], ['late', true]].forEach(function (spec) {
+        for (var i = 0; i < wide.length; i++) {
+          var p = wide[i];
+          if (taken[p.name] || !!p.late !== spec[1]) continue;
+          tickets.push({ kind: spec[0], legs: [p], risk: cfg.SINGLE_STAKE });
+          taken[p.name] = true;
+          break;
+        }
+      });
+    }
     return {
-      tickets: picks.map(function (p) { return { kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE }; }),
+      tickets: tickets,
       pool: pool, byStrength: withStrength(pool), anchors: picks.length,
       thin: picks.length < cfg.TOP_SINGLES, singlesOnly: true, topSingles: true,
       matches: Object.keys(matches).length, budget: cfg.TOP_SINGLES
@@ -857,11 +879,12 @@
     var pinned = [];
     open.forEach(function (t) {
       var l = (t.players || [])[0];
-      if (!l || (t.players || []).length !== 1 || t.kind !== 'builder') return;
+      if (!l || (t.players || []).length !== 1 || !(t.kind === 'builder' || t.kind === 'lunch' || t.kind === 'late')) return;
       var ko = koOf((D.players[l.name] || {}).game);
       if (ko != null && now >= ko && alive(l.name) && !used[l.name]) { pinned.push(t); spent[t.name] = true; take(l.name); }
     });
-    var need = cfg.TOP_SINGLES - frozen.filter(function (t) { return t.kind === 'builder'; }).length - pinned.length;
+    var need = cfg.TOP_SINGLES - frozen.filter(function (t) { return t.kind === 'builder'; }).length
+             - pinned.filter(function (t) { return t.kind === 'builder'; }).length;
     var cands = Object.keys(D.players).filter(function (n) {
       var p = D.players[n], ko = koOf(p.game);
       return !used[n] && alive(n) && ko != null && now < ko;
@@ -876,19 +899,36 @@
       if ((perM[g] || 0) >= cfg.TOP_PER_MATCH) continue;
       picks.push(cands[i]); take(cands[i]);
     }
+    /* LUNCHLATE-2026-09-17: one lunch special and one nightcap unless one is already locked/pinned. */
+    var extra = [];
+    if (cfg.LUNCH_LATE) {
+      var haveK = {};
+      frozen.concat(pinned).forEach(function (t) { haveK[t.kind] = true; });
+      [['lunch', false], ['late', true]].forEach(function (spec) {
+        if (haveK[spec[0]]) return;
+        for (var q = 0; q < cands.length; q++) {
+          var n = cands[q];
+          if (used[n] || !!D.players[n].late !== spec[1]) continue;
+          extra.push({ kind: spec[0], name: n }); take(n);
+          break;
+        }
+      });
+    }
     var priorName = {};
     open.forEach(function (t) {
-      if (t.kind === 'builder' && (t.players || []).length === 1 && !spent[t.name]) priorName[t.players[0].name] = t.name;
+      if ((t.players || []).length === 1 && !spent[t.name]) priorName[t.kind + '|' + t.players[0].name] = t.name;
     });
-    picks.forEach(function (n) { if (priorName[n]) spent[priorName[n]] = true; });
-    function nameFor(n) {
-      if (priorName[n]) return priorName[n];
-      var pool = NAMES.builder;
+    var want = picks.map(function (n) { return { kind: 'builder', name: n }; }).concat(extra);
+    want.forEach(function (w) { var pn = priorName[w.kind + '|' + w.name]; if (pn) spent[pn] = true; });
+    function nameFor(kind, n) {
+      var pn = priorName[kind + '|' + n];
+      if (pn) return pn;
+      var pool = NAMES[kind] || NAMES.builder;
       for (var j = 0; j < pool.length; j++) if (!spent[pool[j]]) { spent[pool[j]] = true; return pool[j]; }
       return 'Single ' + n;
     }
-    var minted = picks.map(function (n) {
-      return mkTicket('builder', [legOf(n, D.players[n])], cfg.SINGLE_STAKE, nameFor(n), koOf, D.players);
+    var minted = want.map(function (w) {
+      return mkTicket(w.kind, [legOf(w.name, D.players[w.name])], cfg.SINGLE_STAKE, nameFor(w.kind, w.name), koOf, D.players);
     });
     var out = frozen.concat(pinned, minted);
     var sig1 = function (t) { return t.kind + ':' + (t.players || []).map(function (l) { return l.name; }).join('+'); };
@@ -896,7 +936,7 @@
     var outSet = {}; out.forEach(function (t) { outSet[sig1(t)] = true; });
     return {
       tickets: out, changed: before !== after, locked: frozen.length,
-      repaired: 0, minted: minted.filter(function (t) { return !priorName[t.players[0].name]; }).length,
+      repaired: 0, minted: minted.filter(function (t) { return !priorName[t.kind + '|' + t.players[0].name]; }).length,
       released: prior.filter(function (t) { return !outSet[sig1(t)]; }).length,
       demoted: [], reseated: [], shaped: [], topped: [],
       anchors: out.length, thin: out.length < cfg.TOP_SINGLES, poolSize: cands.length

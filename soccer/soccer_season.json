@@ -2,25 +2,25 @@
  "since": "2026-08-27",
  "history": [
   0.0,
-  1.5,
-  0.0524,
-  0.7343,
-  3.6867,
-  7.0132,
-  8.4632,
-  6.7632,
-  4.3284,
-  10.7984,
-  10.9284,
-  10.5243,
-  13.277,
-  14.1855,
-  14.9655,
-  12.8674,
-  15.3698,
-  18.5394,
-  21.9194,
-  19.3686
+  0.5,
+  1.0524,
+  3.1143,
+  7.7667,
+  10.0932,
+  10.5432,
+  7.8432,
+  7.0284,
+  12.4984,
+  15.3784,
+  16.7743,
+  19.2788,
+  21.0569,
+  20.8369,
+  20.0888,
+  21.5912,
+  26.1108,
+  28.4908,
+  26.6067
  ],
  "graded_nights": [
   "2026-08-27",
@@ -45,16 +45,16 @@
  ],
  "cats": {
   "lunch": {
-   "graded": 0,
-   "won": 0,
-   "units": 0.0,
-   "staked": 0.0
+   "graded": 19,
+   "won": 11,
+   "units": 8.23811158330609,
+   "staked": 19.0
   },
   "late": {
-   "graded": 0,
+   "graded": 1,
    "won": 0,
-   "units": 0.0,
-   "staked": 0.0
+   "units": -1.0,
+   "staked": 1.0
   },
   "builder": {
    "graded": 144,
@@ -72,306 +72,403 @@
  "stake": 1,
  "restated": {
   "date": "2026-09-17",
-  "system": "TOP8-2026-09-17 + SCORERLIVE-2026-09-17",
-  "what": "Every archived night re-run with the current system: the layered scorer model as the model half of TOTAL, and the top 8 confirmed starters (floor -200, at most 2 per match) as 1u singles. Prices are the ones held on that night's board; model numbers use only data from before each date (soccer/shadow/<date>.json).",
+  "system": "TOP8 + LUNCHLATE + SCORERLIVE (2026-09-17)",
+  "what": "Every archived night re-run with the current system: the layered scorer model as the model half of TOTAL, and the top 8 confirmed starters (floor -200, at most 2 per match) as 1u singles, plus one 1u lunch special (best remaining starter before 5pm ET) and one 1u nightcap (best remaining at or after 5pm ET). Prices are the ones held on that night's board; model numbers use only data from before each date (soccer/shadow/<date>.json).",
   "nights": {
    "2026-08-27": [
     {
+     "kind": "builder",
      "name": "Raphinha",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Lamine Yamal",
      "odds": 100,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Raul Garcia",
      "odds": 360,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Ante Budimir",
      "odds": 250,
      "won": true,
      "net": 2.5
+    },
+    {
+     "kind": "lunch",
+     "name": "Anthony Gordon",
+     "odds": 150,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-08-28": [
     {
+     "kind": "builder",
      "name": "Harry Kane",
      "odds": -200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Erling Haaland",
      "odds": -105,
      "won": true,
      "net": 0.9524
     },
     {
+     "kind": "builder",
      "name": "Ferran Torres",
      "odds": 180,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Georges Mikautadze",
      "odds": 180,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Matias Goncalo Ramos",
      "odds": 140,
      "won": true,
      "net": 1.4
     },
     {
+     "kind": "builder",
      "name": "Andres Martin",
      "odds": 200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Gerard Moreno",
      "odds": 200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Luis Diaz",
      "odds": 120,
      "won": true,
      "net": 1.2
+    },
+    {
+     "kind": "lunch",
+     "name": "Lucas Boye",
+     "odds": 200,
+     "won": true,
+     "net": 2
     }
    ],
    "2026-08-29": [
     {
+     "kind": "builder",
      "name": "Serhou Guirassy",
      "odds": -133,
      "won": true,
      "net": 0.7519
     },
     {
+     "kind": "builder",
      "name": "Jonathan David",
      "odds": 125,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Patrik Schick",
      "odds": 105,
      "won": true,
      "net": 1.05
     },
     {
+     "kind": "builder",
      "name": "Alexander Isak",
      "odds": 138,
      "won": true,
      "net": 1.38
     },
     {
+     "kind": "builder",
      "name": "Orri Steinn Oskarsson",
      "odds": 150,
      "won": true,
      "net": 1.5
     },
     {
+     "kind": "builder",
      "name": "Taiwo Awoniyi",
      "odds": 145,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Mikel Oyarzabal",
      "odds": 145,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Phillip Tietz",
      "odds": 140,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Lois Openda",
+     "odds": 138,
+     "won": true,
+     "net": 1.38
     }
    ],
    "2026-08-30": [
     {
+     "kind": "builder",
      "name": "Esteban Lepaul",
      "odds": -105,
      "won": true,
      "net": 0.9524
     },
     {
+     "kind": "builder",
      "name": "Lautaro Martinez",
      "odds": 125,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "de Jesus Joao Pedro",
      "odds": 140,
      "won": true,
      "net": 1.4
     },
     {
+     "kind": "builder",
      "name": "Jose Vinicius Junior",
      "odds": 100,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Michael Gregoritsch",
      "odds": 220,
      "won": true,
      "net": 2.2
     },
     {
+     "kind": "builder",
      "name": "Igor Thiago",
      "odds": 162,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Rodrigo Ribeiro",
      "odds": 240,
      "won": true,
      "net": 2.4
     },
     {
+     "kind": "builder",
      "name": "Pio Esposito",
      "odds": 170,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Bryan Mbeumo",
+     "odds": 170,
+     "won": true,
+     "net": 1.7
     }
    ],
    "2026-08-31": [
     {
+     "kind": "builder",
      "name": "Donyell Malen",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Raphinha",
      "odds": -138,
      "won": true,
      "net": 0.7246
     },
     {
+     "kind": "builder",
      "name": "Lamine Yamal",
      "odds": -133,
      "won": true,
      "net": 0.7519
     },
     {
+     "kind": "builder",
      "name": "Kai Havertz",
      "odds": 160,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Ante Budimir",
      "odds": 175,
      "won": true,
      "net": 1.75
     },
     {
+     "kind": "builder",
      "name": "Gianluca Scamacca",
      "odds": 180,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Paulo Dybala",
      "odds": 200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Bukayo Saka",
      "odds": 210,
      "won": true,
      "net": 2.1
+    },
+    {
+     "kind": "lunch",
+     "name": "Anthony Gordon",
+     "odds": 130,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-09-03": [
     {
+     "kind": "builder",
      "name": "Orri Steinn Oskarsson",
      "odds": 145,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Mikel Oyarzabal",
      "odds": 150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Olivier Giroud",
      "odds": 170,
      "won": true,
      "net": 1.7
     },
     {
+     "kind": "builder",
      "name": "Ayase Ueda",
      "odds": 175,
      "won": true,
      "net": 1.75
+    },
+    {
+     "kind": "lunch",
+     "name": "Ferran Jutgla",
+     "odds": 300,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-09-04": [
     {
+     "kind": "builder",
      "name": "Kylian Mbappe",
      "odds": -175,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Deniz Undav",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Alexander Isak",
      "odds": 115,
      "won": true,
      "net": 1.15
     },
     {
+     "kind": "builder",
      "name": "Ermedin Demirovic",
      "odds": 115,
      "won": true,
      "net": 1.15
     },
     {
+     "kind": "builder",
      "name": "Lois Openda",
      "odds": 138,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Khvicha Kvaratskhelia",
      "odds": 120,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Jose Vinicius Junior",
      "odds": 130,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Desire Doue",
+     "odds": 130,
+     "won": false,
+     "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Dzenan Pejcinovic",
      "odds": 130,
      "won": false,
      "net": -1
@@ -379,602 +476,789 @@
    ],
    "2026-09-05": [
     {
+     "kind": "builder",
      "name": "Erling Haaland",
      "odds": -188,
      "won": true,
      "net": 0.5319
     },
     {
+     "kind": "builder",
      "name": "Patrik Schick",
      "odds": -120,
      "won": true,
      "net": 0.8333
     },
     {
+     "kind": "builder",
      "name": "Donyell Malen",
      "odds": -110,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Igor Thiago",
      "odds": 100,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Serhou Guirassy",
      "odds": 120,
      "won": true,
      "net": 1.2
     },
     {
+     "kind": "builder",
      "name": "Luis Diaz",
      "odds": 110,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Tim Kleindienst",
      "odds": 125,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Christopher Nkunku",
      "odds": 138,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Elye Wahi",
+     "odds": 162,
+     "won": true,
+     "net": 1.62
     }
    ],
    "2026-09-06": [
     {
+     "kind": "builder",
      "name": "Raphinha",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Esteban Lepaul",
      "odds": 125,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Jonathan Burkardt",
      "odds": 140,
      "won": true,
      "net": 1.4
     },
     {
+     "kind": "builder",
      "name": "Lamine Yamal",
      "odds": 120,
      "won": true,
      "net": 1.2
     },
     {
+     "kind": "builder",
      "name": "Benjamin Sesko",
      "odds": 162,
      "won": true,
      "net": 1.62
     },
     {
+     "kind": "builder",
      "name": "Younes Ebnoutalib",
      "odds": 155,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Amine Gouiri",
      "odds": 145,
      "won": true,
      "net": 1.45
     },
     {
+     "kind": "builder",
      "name": "Kai Havertz",
      "odds": 180,
      "won": true,
      "net": 1.8
+    },
+    {
+     "kind": "lunch",
+     "name": "Anthony Gordon",
+     "odds": 170,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-09-07": [
     {
+     "kind": "builder",
      "name": "Mikel Oyarzabal",
      "odds": 150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Ezequiel Ponce",
      "odds": 225,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Paul Mendy",
      "odds": 260,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Keinan Davis",
      "odds": 230,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Andrea Pinamonti",
      "odds": 275,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Daniel Maldini",
      "odds": 280,
      "won": true,
      "net": 2.8
     },
     {
+     "kind": "builder",
      "name": "Enes Unal",
      "odds": 333,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Martin Satriano",
      "odds": 333,
      "won": true,
      "net": 3.33
+    },
+    {
+     "kind": "lunch",
+     "name": "Fernando Nino",
+     "odds": 275,
+     "won": true,
+     "net": 2.75
     }
    ],
    "2026-09-08": [
     {
+     "kind": "builder",
      "name": "Kylian Mbappe",
      "odds": -162,
      "won": true,
      "net": 0.6173
     },
     {
+     "kind": "builder",
      "name": "Serhou Guirassy",
      "odds": -110,
      "won": true,
      "net": 0.9091
     },
     {
+     "kind": "builder",
      "name": "Erling Haaland",
      "odds": -115,
      "won": true,
      "net": 0.8696
     },
     {
+     "kind": "builder",
      "name": "Alvaro Rodriguez",
      "odds": 120,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Wilson Isidor",
      "odds": 140,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Yoane Wissa",
      "odds": 120,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Jorgen Larsen",
      "odds": 120,
      "won": true,
      "net": 1.2
     },
     {
+     "kind": "builder",
      "name": "Vinicius Jr",
      "odds": 162,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Troy Parrott",
+     "odds": 180,
+     "won": true,
+     "net": 1.8
     }
    ],
    "2026-09-09": [
     {
+     "kind": "builder",
      "name": "Brian White",
      "odds": -129,
      "won": true,
      "net": 0.7752
     },
     {
+     "kind": "builder",
      "name": "Lionel Messi",
      "odds": -115,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Raphinha",
      "odds": -188,
      "won": true,
      "net": 0.5319
     },
     {
+     "kind": "builder",
      "name": "Gabriel Jesus",
      "odds": -143,
      "won": true,
      "net": 0.6993
     },
     {
+     "kind": "builder",
      "name": "Deniz Undav",
      "odds": -150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Ferran Torres",
      "odds": -167,
      "won": true,
      "net": 0.5988
     },
     {
+     "kind": "builder",
      "name": "Ermedin Demirovic",
      "odds": -118,
      "won": true,
      "net": 0.8475
     },
     {
+     "kind": "builder",
      "name": "Kelvin Yeboah",
      "odds": 130,
      "won": true,
      "net": 1.3
+    },
+    {
+     "kind": "lunch",
+     "name": "Lamine Yamal",
+     "odds": -133,
+     "won": true,
+     "net": 0.7519
+    },
+    {
+     "kind": "late",
+     "name": "Denis Bouanga",
+     "odds": -133,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-09-10": [
     {
+     "kind": "builder",
      "name": "Benjamin Sesko",
      "odds": -182,
      "won": true,
      "net": 0.5495
     },
     {
+     "kind": "builder",
      "name": "Anastasios Douvikas",
      "odds": 120,
      "won": true,
      "net": 1.2
     },
     {
+     "kind": "builder",
      "name": "Luis Diaz",
      "odds": -118,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Bryan Mbeumo",
      "odds": -120,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Jamal Musiala",
      "odds": -110,
      "won": true,
      "net": 0.9091
     },
     {
+     "kind": "builder",
      "name": "Donyell Malen",
      "odds": 150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Florian Thauvin",
      "odds": 225,
      "won": true,
      "net": 2.25
     },
     {
+     "kind": "builder",
      "name": "Vedat Muriqi",
      "odds": 250,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Michael Olise",
+     "odds": -115,
+     "won": true,
+     "net": 0.8696
     }
    ],
    "2026-09-11": [
     {
+     "kind": "builder",
      "name": "Esteban Lepaul",
      "odds": 110,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Beto",
      "odds": 188,
      "won": true,
      "net": 1.88
     },
     {
+     "kind": "builder",
      "name": "Issa Soumare",
      "odds": 200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Akor Adams",
      "odds": 190,
      "won": true,
      "net": 1.9
     },
     {
+     "kind": "builder",
      "name": "Emmanuel Latte Lath",
      "odds": 200,
      "won": true,
      "net": 2
     },
     {
+     "kind": "builder",
      "name": "Lucas Stassin",
      "odds": 200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Isaac Romero",
      "odds": 230,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Chukwubuike Adamu",
      "odds": 290,
+     "won": false,
+     "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Amine Gouiri",
+     "odds": 188,
      "won": false,
      "net": -1
     }
    ],
    "2026-09-12": [
     {
+     "kind": "builder",
      "name": "Serhou Guirassy",
      "odds": -175,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Patrik Schick",
      "odds": 105,
      "won": true,
      "net": 1.05
     },
     {
+     "kind": "builder",
      "name": "Alexander Isak",
      "odds": 100,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Fabio Silva",
      "odds": 110,
      "won": true,
      "net": 1.1
     },
     {
+     "kind": "builder",
      "name": "Ante Budimir",
      "odds": 138,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "de Jesus Joao Pedro",
      "odds": -133,
      "won": true,
      "net": 0.7519
     },
     {
+     "kind": "builder",
      "name": "Cole Palmer",
      "odds": 110,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Igor Thiago",
      "odds": 138,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Christian Kofane",
+     "odds": 135,
+     "won": true,
+     "net": 1.35
     }
    ],
    "2026-09-13": [
     {
+     "kind": "builder",
      "name": "Raphinha",
      "odds": -133,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Erling Haaland",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Ismael Saibari",
      "odds": 100,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Christopher Nkunku",
      "odds": 105,
      "won": true,
      "net": 1.05
     },
     {
+     "kind": "builder",
      "name": "Ousmane Dembele",
      "odds": -120,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Lamine Yamal",
      "odds": -105,
      "won": true,
      "net": 0.9524
     },
     {
+     "kind": "builder",
      "name": "Odsonne Edouard",
      "odds": 140,
      "won": true,
      "net": 1.4
     },
     {
+     "kind": "builder",
      "name": "Ferran Torres",
      "odds": 110,
      "won": true,
      "net": 1.1
+    },
+    {
+     "kind": "lunch",
+     "name": "Michael Olise",
+     "odds": 110,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-09-14": [
     {
+     "kind": "builder",
      "name": "Moise Kean",
      "odds": -105,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Donyell Malen",
      "odds": -115,
      "won": true,
      "net": 0.8696
     },
     {
+     "kind": "builder",
      "name": "Marcus Thuram",
      "odds": 110,
      "won": true,
      "net": 1.1
     },
     {
+     "kind": "builder",
      "name": "Pio Esposito",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Georges Mikautadze",
      "odds": 140,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Gerard Moreno",
      "odds": 150,
      "won": true,
      "net": 1.5
     },
     {
+     "kind": "builder",
      "name": "Dominic Calvert-Lewin",
      "odds": 170,
      "won": true,
      "net": 1.7
     },
     {
+     "kind": "builder",
      "name": "Paulo Dybala",
      "odds": 188,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Ange Bonny",
+     "odds": 135,
+     "won": true,
+     "net": 1.35
     }
    ],
    "2026-09-15": [
     {
+     "kind": "builder",
      "name": "Carlos Espi",
      "odds": -125,
      "won": true,
      "net": 0.8
     },
     {
+     "kind": "builder",
      "name": "Callum Wilson",
      "odds": 100,
      "won": true,
      "net": 1
     },
     {
+     "kind": "builder",
      "name": "Viktor Gyokeres",
      "odds": 100,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Mateo Pellegrino",
      "odds": 120,
      "won": true,
      "net": 1.2
     },
     {
+     "kind": "builder",
      "name": "Vinicius Jr",
      "odds": 125,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Lucas Boye",
      "odds": 150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Fabio Carvalho",
      "odds": 150,
      "won": true,
      "net": 1.5
     },
     {
+     "kind": "builder",
      "name": "Rodrigo Muniz",
      "odds": 188,
      "won": true,
      "net": 1.88
+    },
+    {
+     "kind": "lunch",
+     "name": "Dango Ouattara",
+     "odds": 162,
+     "won": false,
+     "net": -1
     }
    ],
    "2026-09-16": [
     {
+     "kind": "builder",
      "name": "Patrik Schick",
      "odds": -200,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Raphinha",
      "odds": -188,
      "won": true,
      "net": 0.5319
     },
     {
+     "kind": "builder",
      "name": "Gabriel Jesus",
      "odds": -162,
      "won": true,
      "net": 0.6173
     },
     {
+     "kind": "builder",
      "name": "Jonathan David",
      "odds": 130,
      "won": true,
      "net": 1.3
     },
     {
+     "kind": "builder",
      "name": "Benjamin Sesko",
      "odds": 125,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Matias Goncalo Ramos",
      "odds": 150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Thierno Barry",
      "odds": 150,
      "won": false,
      "net": -1
     },
     {
+     "kind": "builder",
      "name": "Wilson Isidor",
      "odds": 130,
      "won": false,
      "net": -1
+    },
+    {
+     "kind": "lunch",
+     "name": "Lamine Yamal",
+     "odds": -150,
+     "won": true,
+     "net": 0.6667
     }
    ]
   },
