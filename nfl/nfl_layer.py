@@ -73,8 +73,17 @@ def _pbp(season, required):
     return d[(d.season_type == 'REG') & (d.two_point_attempt.fillna(0) == 0)]
 
 
+_GAMES = {}
+
+
 def games(season, week):
-    """One row per player-game with his touch share and xTD, every game before (season, week)."""
+    """One row per player-game with his touch share and xTD, every game before (season, week).
+
+    CACHED per (season, week): one live build scores once, but the backtest replays 115 slates x
+    several rules through score(), and re-reading four 20MB play-by-play files each time turned a
+    ten-minute sweep into hours."""
+    if (season, week) in _GAMES:
+        return _GAMES[(season, week)]
     parts = []
     for s in range(season - 3, season + 1):
         d = _pbp(s, required=(s < season))
@@ -90,11 +99,13 @@ def games(season, week):
                                        'team': x.posteam, 'pid': x[pid],
                                        'xtd': np.array(XTD[kind])[band.values]}))
     if not parts:
-        return pd.DataFrame(columns=['pid', 't', 'tshare', 'xtd', 'tch'])
+        _GAMES[(season, week)] = pd.DataFrame(columns=['pid', 't', 'tshare', 'xtd', 'tch'])
+        return _GAMES[(season, week)]
     T = pd.concat(parts, ignore_index=True)
     g = T.groupby(['season', 'week', 'game_id', 'team', 'pid']).agg(xtd=('xtd', 'sum'), tch=('xtd', 'size')).reset_index()
     g['tshare'] = g.tch / g.groupby(['game_id', 'team']).tch.transform('sum')
     g['t'] = clock(g.season, g.week)
+    _GAMES[(season, week)] = g
     return g
 
 
