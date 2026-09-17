@@ -198,9 +198,19 @@ def main():
     for lg, code in FD.items():
         for s in range(a.first, a.last + 1):
             ssn = f'{s % 100:02d}{(s + 1) % 100:02d}'
-            url = f'https://www.football-data.co.uk/mmz4281/{ssn}/{code}.csv'
+            # FDHTTP-2026-09-17: https was 'Connection refused' from a runner; the site is http-first.
+            b = None
+            for url in (f'http://www.football-data.co.uk/mmz4281/{ssn}/{code}.csv',
+                        f'https://www.football-data.co.uk/mmz4281/{ssn}/{code}.csv',
+                        f'http://football-data.co.uk/mmz4281/{ssn}/{code}.csv'):
+                try:
+                    b = get_raw(url, tries=2)
+                    break
+                except Exception as e:
+                    err = e
             try:
-                b = get_raw(url)
+                if b is None:
+                    raise err
                 open(os.path.join(a.out, 'odds', f'{code}_{ssn}.csv'), 'wb').write(b)
                 man['odds'][f'{code}_{ssn}'] = len(b)
             except Exception as e:
