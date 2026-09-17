@@ -1,0 +1,90 @@
+name: Soccer Scorer Shadow
+
+# SCORERSHADOW-2026-09-17. Runs the layered scorer model (soccer/history/shadow.py) BESIDE the live
+# soccer board. It writes soccer/shadow/<date>.json for the newest slate (once, before kickoff) and
+# grades every settled night into soccer/shadow/ledger.json. It NEVER touches the board, the draft,
+# index.html or soccer_D.json, and soccer/shadow/ is not in deploy-pages.yml's paths.
+#
+# History: the multi-season base lives on the `soccer-data` branch (soccer-history.yml). Each run
+# refreshes only the current understat season on top of it, so tonight's numbers see last weekend.
+
+on:
+  schedule:
+    # 10:00, 13:00 and 16:00 ET. A slate is usually committed the night before; the later passes
+    # catch a slate committed in the morning. --latest is a no-op once the slate is shadowed.
+    - cron: '0 14,17,20 * * *'
+  workflow_dispatch:
+    inputs:
+      dates:
+        description: "Space-separated slate dates to (re)shadow, e.g. 2026-09-17. Blank = newest unshadowed."
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-shadow
+  cancel-in-progress: false
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet numpy pandas
+
+      - name: Anything to shadow?
+        id: need
+        run: |
+          cd soccer
+          DATES="${{ inputs.dates }}"
+          if [ -z "$DATES" ]; then
+            LATEST=$(ls -1d slates/*/ | sed 's#slates/##;s#/##' | sort | tail -1)
+            [ -f "shadow/$LATEST.json" ] || DATES="$LATEST"
+          fi
+          echo "dates=$DATES" >> $GITHUB_OUTPUT
+          echo "to shadow: '${DATES}'"
+
+      - name: History base + current-season refresh
+        if: steps.need.outputs.dates != ''
+        run: |
+          set -e
+          mkdir -p hist
+          git fetch --depth 1 origin soccer-data
+          git show FETCH_HEAD:history/2014-2026-limit0/team_matches.csv.gz   > hist/base_team.csv.gz
+          git show FETCH_HEAD:history/2014-2026-limit0/player_matches.csv.gz > hist/base_player.csv.gz
+          python3 soccer/history/fetch_history.py --out fresh --first 2026 --last 2026 --no-odds
+          python3 - <<'PY'
+          import pandas as pd
+          bt = pd.read_csv('hist/base_team.csv.gz'); ft = pd.read_csv('fresh/team_matches.csv.gz')
+          bp = pd.read_csv('hist/base_player.csv.gz'); fp = pd.read_csv('fresh/player_matches.csv.gz')
+          t = pd.concat([bt[bt.season < 2026], ft], ignore_index=True)
+          p = pd.concat([bp[bp.season < 2026], fp], ignore_index=True)
+          t.to_csv('hist/team_matches.csv.gz', index=False)
+          p.to_csv('hist/player_matches.csv.gz', index=False)
+          print('merged', len(t), 'team rows,', len(p), 'player rows; latest', p.date.max())
+          PY
+
+      - name: Shadow
+        if: steps.need.outputs.dates != ''
+        run: python3 soccer/history/shadow.py --history hist --soccer soccer --dates ${{ steps.need.outputs.dates }}
+
+      - name: Grade settled nights
+        run: python3 soccer/history/shadow.py --history hist --soccer soccer --grade
+
+      - name: Commit
+        run: |
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add soccer/shadow/
+          if git diff --staged --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -m "Soccer shadow ${{ steps.need.outputs.dates }} ($(date -u +%H:%MZ))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+            sleep 7
+          done
+          echo "::error::could not push after 5 attempts"; exit 1
