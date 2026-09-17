@@ -23,6 +23,8 @@ from nfl_ev_fit import implied, dec, logit, sig, clip, _solve, roi
 LAM = 1.0
 WARM = 6
 TOPN = 8
+ROWS = os.environ.get('ROWS', 'rows.json')
+RESULTS = os.environ.get('RESULTS', 'results.json')
 B = 2000
 
 CANDS = {
@@ -136,9 +138,9 @@ def boot_roi(picks):
 
 
 def main():
-    rows = json.load(io.open(os.path.join(HERE, 'rows.json'), encoding='utf-8'))
+    rows = json.load(io.open(os.path.join(HERE, ROWS), encoding='utf-8'))
     nights = sorted({r['date'] for r in rows})
-    print(f'{len(rows)} bettable legs (confirmed starters, +100 or longer), {sum(r["y"] for r in rows)} scored, '
+    print(f'{len(rows)} bettable legs (confirmed starters, rows file ' + ROWS + '), {sum(r["y"] for r in rows)} scored, '
           f'{len(nights)} nights {nights[0]}..{nights[-1]}; walk-forward scores the last {len(nights) - WARM}')
     base_per, base_picks = walk(rows, [])
     nb = sum(len(v) for v in base_per.values())
@@ -178,7 +180,7 @@ def main():
         print(f'  {nm:20s} {len(pk):4d} bets  {sum(r["y"] for r in pk):3d} scored ({sum(r["y"] for r in pk) / len(pk):.0%})'
               f'  ROI {roi(pk):+.1%}  90% [{lo:+.0%}, {hi:+.0%}]')
     json.dump(dict(rows=len(rows), nights=nights, warm=WARM, topn=TOPN, base_logloss=base_ll,
-                   features=out, roi=res), io.open(os.path.join(HERE, 'results.json'), 'w'), indent=1)
+                   features=out, roi=res), io.open(os.path.join(HERE, RESULTS), 'w'), indent=1)
 
 
 if __name__ == '__main__':

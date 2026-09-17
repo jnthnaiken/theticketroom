@@ -1,0 +1,316 @@
+{
+ "rows": 1171,
+ "nights": [
+  "2026-08-27",
+  "2026-08-28",
+  "2026-08-29",
+  "2026-08-30",
+  "2026-08-31",
+  "2026-09-03",
+  "2026-09-04",
+  "2026-09-05",
+  "2026-09-06",
+  "2026-09-07",
+  "2026-09-08",
+  "2026-09-09",
+  "2026-09-10",
+  "2026-09-11",
+  "2026-09-12",
+  "2026-09-13",
+  "2026-09-14",
+  "2026-09-15"
+ ],
+ "warm": 6,
+ "topn": 8,
+ "base_logloss": 0.6116819901926024,
+ "features": {
+  "xg_score (live)": {
+   "keys": [
+    "z"
+   ],
+   "coef": {
+    "b0": 0.1271,
+    "bL": 1.0032,
+    "bL2": -0.0108,
+    "z": 0.1524
+   },
+   "z": {
+    "z": 1.91
+   },
+   "wf_logloss_gain": 0.0005,
+   "band90": [
+    -0.00587,
+    0.00562
+   ]
+  },
+  "home": {
+   "keys": [
+    "home"
+   ],
+   "coef": {
+    "b0": 0.3149,
+    "bL": 1.2345,
+    "bL2": 0.022,
+    "home": 0.0009
+   },
+   "z": {
+    "home": 0.01
+   },
+   "wf_logloss_gain": -0.00111,
+   "band90": [
+    -0.0023,
+    -0.00022
+   ]
+  },
+  "team_attack": {
+   "keys": [
+    "team_att",
+    "team_miss"
+   ],
+   "coef": {
+    "b0": 0.3582,
+    "bL": 1.3022,
+    "bL2": 0.0403,
+    "team_att": -0.0496,
+    "team_miss": 0.005
+   },
+   "z": {
+    "team_att": -0.68,
+    "team_miss": 0.08
+   },
+   "wf_logloss_gain": -0.02868,
+   "band90": [
+    -0.07069,
+    0.0007
+   ]
+  },
+  "opp_defence": {
+   "keys": [
+    "opp_def",
+    "opp_miss"
+   ],
+   "coef": {
+    "b0": 0.3103,
+    "bL": 1.2052,
+    "bL2": 0.0014,
+    "opp_def": -0.0587,
+    "opp_miss": 0.0529
+   },
+   "z": {
+    "opp_def": -0.86,
+    "opp_miss": 0.82
+   },
+   "wf_logloss_gain": -0.03076,
+   "band90": [
+    -0.09514,
+    0.00026
+   ]
+  },
+  "team_exp_goals": {
+   "keys": [
+    "team_xg",
+    "team_miss",
+    "opp_miss"
+   ],
+   "coef": {
+    "b0": 0.3641,
+    "bL": 1.2882,
+    "bL2": 0.023,
+    "team_xg": -0.0888,
+    "team_miss": -0.0532,
+    "opp_miss": 0.0843
+   },
+   "z": {
+    "team_xg": -1.17,
+    "team_miss": -0.62,
+    "opp_miss": 1.0
+   },
+   "wf_logloss_gain": -0.03331,
+   "band90": [
+    -0.07341,
+    0.00124
+   ]
+  },
+  "minutes": {
+   "keys": [
+    "mins",
+    "pl_miss"
+   ],
+   "coef": {
+    "b0": 0.3211,
+    "bL": 1.2502,
+    "bL2": 0.0293,
+    "mins": -0.0487,
+    "pl_miss": -0.0465
+   },
+   "z": {
+    "mins": -0.47,
+    "pl_miss": -0.45
+   },
+   "wf_logloss_gain": -0.00186,
+   "band90": [
+    -0.00373,
+    -0.00042
+   ]
+  },
+  "penalties": {
+   "keys": [
+    "pens",
+    "pl_miss"
+   ],
+   "coef": {
+    "b0": 0.3633,
+    "bL": 1.3161,
+    "bL2": 0.0472,
+    "pens": -0.071,
+    "pl_miss": -0.0225
+   },
+   "z": {
+    "pens": -0.99,
+    "pl_miss": -0.34
+   },
+   "wf_logloss_gain": -0.00123,
+   "band90": [
+    -0.00367,
+    0.00084
+   ]
+  },
+  "player_form": {
+   "keys": [
+    "form",
+    "pl_miss"
+   ],
+   "coef": {
+    "b0": 0.2908,
+    "bL": 1.1886,
+    "bL2": 0.0048,
+    "form": 0.0613,
+    "pl_miss": -0.0053
+   },
+   "z": {
+    "form": 0.94,
+    "pl_miss": -0.08
+   },
+   "wf_logloss_gain": -0.01255,
+   "band90": [
+    -0.02282,
+    -0.0029
+   ]
+  },
+  "team_form": {
+   "keys": [
+    "team_form",
+    "team_miss"
+   ],
+   "coef": {
+    "b0": 0.2937,
+    "bL": 1.199,
+    "bL2": 0.0094,
+    "team_form": 0.0971,
+    "team_miss": 0.015
+   },
+   "z": {
+    "team_form": 1.44,
+    "team_miss": 0.23
+   },
+   "wf_logloss_gain": -0.0378,
+   "band90": [
+    -0.08338,
+    -0.00166
+   ]
+  },
+  "ALL TOGETHER": {
+   "keys": [
+    "z",
+    "home",
+    "team_xg",
+    "mins",
+    "pens",
+    "form",
+    "team_form",
+    "team_miss",
+    "opp_miss",
+    "pl_miss"
+   ],
+   "coef": {
+    "b0": 0.1646,
+    "bL": 1.0441,
+    "bL2": -0.0128,
+    "z": 0.1549,
+    "home": 0.0117,
+    "team_xg": -0.0898,
+    "mins": 0.0037,
+    "pens": -0.0711,
+    "form": 0.0474,
+    "team_form": 0.101,
+    "team_miss": -0.024,
+    "opp_miss": 0.1105,
+    "pl_miss": -0.0514
+   },
+   "z": {
+    "z": 1.78,
+    "home": 0.17,
+    "team_xg": -1.11,
+    "mins": 0.03,
+    "pens": -0.94,
+    "form": 0.7,
+    "team_form": 1.42,
+    "team_miss": -0.22,
+    "opp_miss": 1.27,
+    "pl_miss": -0.41
+   },
+   "wf_logloss_gain": -0.05451,
+   "band90": [
+    -0.1089,
+    -0.01127
+   ]
+  }
+ },
+ "roi": {
+  "live TOTAL (today)": {
+   "bets": 96,
+   "goals": 53,
+   "roi": 0.1787,
+   "band90": [
+    0.022,
+    0.34
+   ]
+  },
+  "price only": {
+   "bets": 96,
+   "goals": 52,
+   "roi": 0.1293,
+   "band90": [
+    0.023,
+    0.242
+   ]
+  },
+  "price + xG (EV)": {
+   "bets": 96,
+   "goals": 44,
+   "roi": 0.2706,
+   "band90": [
+    0.013,
+    0.533
+   ]
+  },
+  "price-only EV": {
+   "bets": 96,
+   "goals": 44,
+   "roi": 0.1359,
+   "band90": [
+    -0.009,
+    0.285
+   ]
+  },
+  "all features EV": {
+   "bets": 96,
+   "goals": 26,
+   "roi": -0.1102,
+   "band90": [
+    -0.415,
+    0.188
+   ]
+  }
+ }
+}

@@ -27,6 +27,10 @@ from collections import defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 SOC = os.path.dirname(HERE)
 PRIOR_G = 8
+# NOGUARD-2026-09-17: MIN_ODDS=none in the environment keeps minus-money legs too.
+_MO = os.environ.get('MIN_ODDS', '100')
+MIN_ODDS = None if _MO.lower() == 'none' else int(_MO)
+OUT = os.environ.get('ROWS', 'rows.json')
 FORM_K = 450.0
 
 
@@ -224,8 +228,8 @@ def main():
         sd = (sum((x['ez'] - m) ** 2 for x in night) / len(night)) ** .5 or 1.0
         for x in night:
             x['z'] = (x['ez'] - m) / sd
-        rows += [x for x in night if x['odds'] >= 100]
-    json.dump(rows, io.open(os.path.join(HERE, 'rows.json'), 'w', encoding='utf-8'), indent=0)
+        rows += [x for x in night if MIN_ODDS is None or x['odds'] >= MIN_ODDS]
+    json.dump(rows, io.open(os.path.join(HERE, OUT), 'w', encoding='utf-8'), indent=0)
     print(f'{len(rows)} rows, {sum(r["y"] for r in rows)} scored, {len({r["date"] for r in rows})} nights')
     for k in ('team_miss', 'opp_miss', 'pl_miss'):
         print(f'  {k}: {sum(r[k] for r in rows):.0f}')
