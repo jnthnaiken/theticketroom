@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-17",
- "built_at": "2026-09-17T22:28:28Z",
+ "built_at": "2026-09-17T23:17:00Z",
  "teams": {
   "ATH": {
    "n_rel": 12,
@@ -77,14 +77,14 @@
    "n_rel": 9,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0332,
-   "hr_bf_avail": 0.0332,
+   "hr_bf": 0.0319,
+   "hr_bf_avail": 0.0319,
    "hr_bf_L": 0.0229,
-   "hr_bf_R": 0.038,
+   "hr_bf_R": 0.0366,
    "hr_bf_avail_L": 0.0229,
-   "hr_bf_avail_R": 0.038,
-   "share_L": 0.307,
-   "air_share": 0.479,
+   "hr_bf_avail_R": 0.0366,
+   "share_L": 0.326,
+   "air_share": 0.492,
    "d1_pitches": 52
   },
   "HOU": {
@@ -417,32 +417,32 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 1017.0,
+   "pres": 1017.1,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1935
+   "rho": 1.1936
   },
   "6": {
    "home": "NYM",
    "hour": 19,
    "dome": false,
-   "temp": 76.0,
+   "temp": 75.8,
    "rh": 79,
-   "pres": 1018.9,
-   "wind": 7.0,
-   "wind_out": 5.8,
-   "rho": 1.182
+   "pres": 1018.1,
+   "wind": 6.6,
+   "wind_out": 5.27,
+   "rho": 1.1816
   },
   "7": {
    "home": "CWS",
    "hour": 19,
    "dome": false,
    "temp": 68.2,
-   "rh": 97,
-   "pres": 999.6,
-   "wind": 10.7,
-   "wind_out": -8.55,
-   "rho": 1.1772
+   "rh": 98,
+   "pres": 999.4,
+   "wind": 12.3,
+   "wind_out": -11.32,
+   "rho": 1.1768
   },
   "8": {
    "home": "TEX",
@@ -450,21 +450,21 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 998.2,
+   "pres": 998.8,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1713
+   "rho": 1.172
   },
   "9": {
    "home": "LAA",
    "hour": 21,
    "dome": false,
-   "temp": 74.5,
+   "temp": 74.3,
    "rh": 60,
-   "pres": 1010.4,
-   "wind": 8.3,
-   "wind_out": 7.46,
-   "rho": 1.1783
+   "pres": 1011.0,
+   "wind": 8.1,
+   "wind_out": 7.28,
+   "rho": 1.1795
   }
  },
  "coverage": {
@@ -481,6 +481,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1789684108,
+ "last_attempt": 1789687020,
  "pregame": true
 }
