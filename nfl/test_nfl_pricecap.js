@@ -7,12 +7,13 @@ const assert = require('assert');
 const path = require('path');
 const Draft = require(path.join(__dirname, '..', 'soccer', 'soccer_draft.js'));
 
-const cfgNfl = Draft.cfgOf({ MAX_ODDS: 500 });
+const cfgNfl = Draft.cfgOf({ MAX_ODDS: 500, MIN_ODDS: 100 });   /* FLOOR200: NFL pins +100 */
 const cfgSoc = Draft.cfgOf({});
 
 assert.strictEqual(cfgSoc.MAX_ODDS, null, 'soccer default must stay uncapped');
 assert.strictEqual(Draft.priceOk({ odds: 2200 }, cfgSoc), true, 'soccer: +2200 still eligible');
-assert.strictEqual(Draft.priceOk({ odds: -110 }, cfgSoc), false, 'soccer: MIN_ODDS still applies');
+assert.strictEqual(Draft.priceOk({ odds: -110 }, cfgSoc), true, 'soccer: -110 is inside the -200 floor (FLOOR200)');
+assert.strictEqual(Draft.priceOk({ odds: -250 }, cfgSoc), false, 'soccer: MIN_ODDS -200 still applies');
 
 assert.strictEqual(Draft.priceOk({ odds: 500 }, cfgNfl), true, 'nfl: +500 is inside the band');
 assert.strictEqual(Draft.priceOk({ odds: 501 }, cfgNfl), false, 'nfl: +501 is out');
@@ -34,7 +35,7 @@ matches.forEach((m, gi) => {
     });
   }
 });
-const res = Draft.draft(players, Draft.cfgOf({ WIN: 60, Z_GATE: 0.55, GAME_CAP: 5, MAX_ODDS: 500 }),
+const res = Draft.draft(players, Draft.cfgOf({ WIN: 60, Z_GATE: 0.55, GAME_CAP: 5, MAX_ODDS: 500, MIN_ODDS: 100 }),
                         { koOf: () => 780, slateMatches: matches.length });
 const legs = res.tickets.flatMap(t => t.legs);
 assert.ok(legs.length > 0, 'the capped slate still drafts');

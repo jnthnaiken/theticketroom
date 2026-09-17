@@ -65,6 +65,9 @@ const CFG = {
      caps land anywhere from -3.7u to +5.4u on 20 picks, which is noise. Revisit once
      nfl_ev_fit.py has enough graded weeks to calibrate the long end properly. */
   MAX_ODDS: 400,
+  /* FLOOR200-2026-09-17 -- soccer_draft DEFAULTS.MIN_ODDS moved to -200 for SOCCER. Football keeps
+     the owner's +100 floor (PLUSMONEY-2026-09-11), so it is pinned here rather than inherited. */
+  MIN_ODDS: 100,
 };
 
 const [, , scoredPath, fixturesPath, outPath] = process.argv;
@@ -76,7 +79,7 @@ const players = JSON.parse(fs.readFileSync(scoredPath, 'utf8'));
 /* PRICECAP-2026-09-15: nfl_mock.py gates over the band it believes in; the draft enforces this one.
    They must be the same band or the gate is computed over the wrong field. */
 {
-  const minOdds = (Draft.DEFAULTS || {}).MIN_ODDS;
+  const minOdds = CFG.MIN_ODDS;   /* FLOOR200: NFL's own floor, not soccer's default */
   const bad = players.find(p => p.price_band &&
     (p.price_band[0] !== minOdds || p.price_band[1] !== CFG.MAX_ODDS));
   if (bad) {
