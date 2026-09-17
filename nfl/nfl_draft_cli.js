@@ -68,6 +68,8 @@ const CFG = {
   /* FLOOR200-2026-09-17 -- soccer_draft DEFAULTS.MIN_ODDS moved to -200 for SOCCER. Football keeps
      the owner's +100 floor (PLUSMONEY-2026-09-11), so it is pinned here rather than inherited. */
   MIN_ODDS: 100,
+  /* TOP8-2026-09-17: the top-N singles board is SOCCER only; football keeps anchors + moons. */
+  TOP_SINGLES: 0,
 };
 
 const [, , scoredPath, fixturesPath, outPath] = process.argv;
