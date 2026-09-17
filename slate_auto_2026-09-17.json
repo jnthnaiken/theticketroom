@@ -1,7 +1,7 @@
 {
   "date": "2026-09-17",
   "season": "2026",
-  "pulled_at": "2026-09-17T19:00:31Z",
+  "pulled_at": "2026-09-17T19:06:13Z",
   "games": [
     {
       "gamePk": 823334,
@@ -55,7 +55,7 @@
           {
             "id": 666310,
             "name": "Bo Naylor",
-            "iso": 0.089
+            "iso": 0.121
           },
           {
             "id": 666152,
@@ -240,7 +240,7 @@
           {
             "id": 699302,
             "name": "H\u00e9ctor Rodr\u00edguez",
-            "iso": 0.169
+            "iso": 0.168
           },
           {
             "id": 663647,
@@ -250,7 +250,7 @@
           {
             "id": 670770,
             "name": "TJ Friedl",
-            "iso": 0.084
+            "iso": 0.083
           }
         ],
         "confirmed": true
@@ -524,15 +524,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 80\u00b0",
-        "lean": "Neutral",
+        "cond": "calm 2mph, 80\u00b0",
+        "lean": "Boost",
         "temp": 80.3,
-        "wind_mph": 1.4,
-        "wind_dir": 231,
-        "tail_mph": 0.9,
+        "wind_mph": 2.3,
+        "wind_dir": 209,
+        "tail_mph": 2.0,
         "precip": 9
       },
-      "wf": 1.019
+      "wf": 1.022
     },
     {
       "gamePk": 824141,
@@ -553,8 +553,10 @@
       "home": {
         "abbrev": "HOU",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 699044,
+          "name": "Miguel Ullola",
+          "hr9": 2.25,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -603,15 +605,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 73\u00b0",
-        "lean": "Neutral",
+        "cond": "wind out 5mph, 73\u00b0",
+        "lean": "Boost",
         "temp": 73.1,
-        "wind_mph": 6.8,
-        "wind_dir": 153,
-        "tail_mph": 4.2,
+        "wind_mph": 7.8,
+        "wind_dir": 156,
+        "tail_mph": 5.1,
         "precip": 8
       },
-      "wf": 1.019
+      "wf": 1.023
     },
     {
       "gamePk": 824548,
@@ -647,12 +649,12 @@
         "cond": "wind in 7mph, 68\u00b0",
         "lean": "Suppress",
         "temp": 68.4,
-        "wind_mph": 8.5,
+        "wind_mph": 8.3,
         "wind_dir": 360,
-        "tail_mph": -6.7,
+        "tail_mph": -6.5,
         "precip": 9
       },
-      "wf": 0.974
+      "wf": 0.975
     },
     {
       "gamePk": 822845,
@@ -728,9 +730,9 @@
         "cond": "wind out 7mph, 74\u00b0",
         "lean": "Boost",
         "temp": 74.4,
-        "wind_mph": 8.0,
-        "wind_dir": 243,
-        "tail_mph": 7.4,
+        "wind_mph": 7.9,
+        "wind_dir": 245,
+        "tail_mph": 7.2,
         "precip": 0
       },
       "wf": 1.032
