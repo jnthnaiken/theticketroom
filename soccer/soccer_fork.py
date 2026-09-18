@@ -316,10 +316,17 @@ def seams(payload_js):
     add('footer-sources',
         'Sources: Kasper matchup cards, Baseball Savant (Statcast), MLB StatsAPI (schedules · HR/9 · live results), '
         'RotoWire (projected lineups), Open-Meteo (park weather), and multi-book consensus HR odds.',
-        'Sources: Understat (player xG, five top leagues), published team news for the confirmed XI, '
+        # ASACREDIT-2026-09-18. The line used to name Understat and stop, which was true of every
+        # board until an MLS card appeared: those players' xG comes from American Soccer Analysis
+        # (ASAXG-2026-08-31, soccer_asa.js), a different model on a league Understat does not
+        # cover. The 2026-09-09 MLS card and tonight's NYCFC tie both shipped under a sources line
+        # that did not say so, and "no top-five xG history" read as "unmodelled" for men who are
+        # in fact modelled. Naming both sources is the whole point of a sources line.
+        'Sources: Understat (player xG, five top leagues) and American Soccer Analysis (player xG, '
+        'MLS), published team news for the confirmed XI, '
         'ESPN (fixtures · live results · goal minutes), and Oddschecker best-available '
-        'anytime-goalscorer prices — best of book, not a consensus median. A player with no '
-        'top-five xG history scores on the market term alone and shows — on the xG chips.')
+        'anytime-goalscorer prices — best of book, not a consensus median. A player neither source '
+        'has an xG history for scores on the market term alone and shows — on the xG chips.')
     # Two call sites, and " priced bats" also appears in three CODE COMMENTS -- so seam the
     # call sites with enough context to exclude the prose. The guard caught this (5 != 2).
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
