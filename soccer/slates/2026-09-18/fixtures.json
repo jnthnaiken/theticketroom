@@ -1,5 +1,5 @@
 {
- "_note": "kickoffs are UTC minutes past midnight of the SLATE date (2026-09-18); read off the ESPN scoreboard, never assumed",
+ "_note": "kickoffs are UTC minutes past midnight of the SLATE date (2026-09-18) and may exceed 1440 for an MLS kickoff that falls on the next UTC day; read off the ESPN scoreboard, never assumed",
  "date": "2026-09-18",
  "matches": {
   "bayern-munich-v-1-fc-union-berlin": {
@@ -50,6 +50,16 @@
    "espn": [
     "esp.1",
     "401882862"
+   ]
+  },
+  "new-york-city-fc-v-red-bull-new-york": {
+   "home": "New York City FC",
+   "away": "Red Bull New York",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761815"
    ]
   }
  }
