@@ -47,6 +47,8 @@ on:
       - 'README.md'
       - 'HANDOFF.md'
       - 'test_suffixkey.py'
+      - 'test_statecheck.py'      # TIEBREAK/JSONKEYS-2026-09-18 -- the root-level suites are
+                                  # listed one by one, so a new one has to be added here too
       - 'commit_gate.py'
       - '.github/workflows/tests.yml'
       - '!soccer/boards/**'
