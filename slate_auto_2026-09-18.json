@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T21:08:45Z",
+  "pulled_at": "2026-09-18T21:13:41Z",
   "games": [
     {
       "gamePk": 824463,
@@ -1506,7 +1506,7 @@
     },
     {
       "gamePk": 823252,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-19T01:40:00Z",
       "matchup": "MIA@SD",
       "away": {
@@ -1528,10 +1528,56 @@
           "hr9": 0.36,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.176
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.093
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.192
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.215
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.188
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.11
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.081
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.077
+          },
+          {
+            "id": 806956,
+            "name": "Ethan Salas",
+            "iso": 0.381
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
