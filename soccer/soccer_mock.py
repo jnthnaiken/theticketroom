@@ -233,6 +233,38 @@ def lookup(name):
         v = xg_suf.get(sk)
         if v and len({norm(r['name']) for r in v}) == 1:
             return v, 'suffix'
+
+    # LONGNAME-2026-09-18 -- THE BOOK CARRIES A TRAILING FAMILY NAME THE XG SOURCE DOES NOT.
+    # Found on the first MLS card built since the ASA wiring: oddschecker prices "Nicolas
+    # Fernandez Mercau" and "Luighi Sousa"; ASA and ESPN both call the same two men "Nicolás
+    # Fernández" and "Luighi Hanri". The surname anchor is the LAST token of the odds name, so
+    # `mercau` / `sousa` are tokens no candidate can ever contain -- the same GUARANTEED miss
+    # JRJOIN-2026-09-08 documented for `Jr`, arriving through the other door: a Spanish or
+    # Brazilian double surname where the book prints both and the stats source prints one.
+    # It is not cosmetic. An unjoined man scores on the market term with edge_z = 0, which reads
+    # as AVERAGE rather than UNKNOWN, so the shortest price in his game floats up the board on a
+    # model number he does not have -- the exact failure coverage.json warns about for a
+    # low-join card. Measured on the 2026-09-18 board: it put Nicolás Fernández (15 goals, but
+    # 0.20 npxG/90, i.e. a well-below-par underlying number) in the nightcap on a phantom edge.
+    #
+    # ⚠️ EQUALITY, NOT CONTAINMENT, AND THREE TOKENS MINIMUM. The candidate's token set must
+    # EQUAL the odds tokens with the final one dropped. Containment is what the surname anchor
+    # was built to stop -- it is how `Pablo Garcia` once became Arsenal's `Pablo` -- and a
+    # two-token odds name would reduce to a single given name, which is that same bug. Requiring
+    # >= 3 tokens and set equality means the xG name must be the book's name minus exactly its
+    # last surname, nothing looser. (So `Luighi Sousa` stays unjoined: two tokens, no rule that
+    # is safe enough to bridge it. He is priced 15/8 and undrafted, and a wrong join is worse.)
+    #
+    # ⚠️ RUNS LAST, like the suffix fallback, so it can only turn a MISS into a hit; every name
+    # that resolves today resolves identically. Uniqueness is on the DISTINCT PLAYER, not the
+    # row count -- a man has one row per season. test_longname.py pins both halves.
+    parts = norm(name).split()
+    if len(parts) >= 3:
+        short = set(toks(' '.join(parts[:-1])))
+        if len(short) >= 2:
+            hits = [v for t, v in xg_tok.items() if set(t.split()) == short]
+            if len(hits) == 1 and len({norm(r['name']) for r in hits[0]}) == 1:
+                return hits[0], 'longname'
     return None, None
 
 
@@ -317,7 +349,7 @@ def _is_late(mins):
 
 
 players = []
-matched = {'exact': 0, 'token': 0, 'suffix': 0, 'missing': 0}   # JRJOIN-2026-09-08
+matched = {'exact': 0, 'token': 0, 'suffix': 0, 'longname': 0, 'missing': 0}   # JRJOIN-2026-09-08, LONGNAME-2026-09-18
 for match, name in slate:
     am = odds[(match, name)]
     # SLATEROSTER-2026-09-04. This walked `odds` -- the LEDGER -- which made a (match, name) key
@@ -579,8 +611,9 @@ print(f"  priced players {len(players)} across {len({p['match'] for p in players
 # JRJOIN-2026-09-08: `suffix` is reported SEPARATELY rather than folded into `token`, so a
 # sudden jump in it is visible -- it would mean a source has started spelling suffixes
 # differently, which is worth knowing before it becomes a miss.
-_join = matched['exact'] + matched['token'] + matched['suffix']
+_join = matched['exact'] + matched['token'] + matched['suffix'] + matched['longname']
 print(f"  xG join: exact {matched['exact']} | token {matched['token']} | suffix {matched['suffix']}"
+      f" | longname {matched['longname']}"
       f" | missing {matched['missing']}  ({100*_join/len(players):.0f}%)")
 print(f"  pool after Z_GATE {CFG['Z_GATE']} + MIN_ODDS {CFG['MIN_ODDS']} + XI filter + GAME_CAP {CFG['GAME_CAP']}: {len(pool)}")
 print(f"  weakest drafted TOTAL: {floor:.1f}")
