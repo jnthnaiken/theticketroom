@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T23:42:35Z",
+  "pulled_at": "2026-09-18T23:47:52Z",
   "games": [
     {
       "gamePk": 824463,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 605280,
           "name": "Clay Holmes",
-          "hr9": 0.58,
+          "hr9": 0.57,
           "hand": "RHP"
         },
         "lineup": [
@@ -92,7 +92,7 @@
           {
             "id": 663886,
             "name": "Tyler Stephenson",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 668709,
@@ -173,7 +173,7 @@
           {
             "id": 686681,
             "name": "Michael Massey",
-            "iso": 0.158
+            "iso": 0.165
           },
           {
             "id": 521692,
@@ -203,7 +203,7 @@
         "sp": {
           "id": 694973,
           "name": "Paul Skenes",
-          "hr9": 0.98,
+          "hr9": 1.03,
           "hand": "RHP"
         },
         "lineup": [
@@ -296,7 +296,7 @@
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.147
+            "iso": 0.146
           },
           {
             "id": 683734,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 700249,
           "name": "Cade Povich",
-          "hr9": 1.54,
+          "hr9": 1.53,
           "hand": "LHP"
         },
         "lineup": [
@@ -454,12 +454,12 @@
           {
             "id": 683021,
             "name": "Michael Stefanic",
-            "iso": 0.05
+            "iso": 0.048
           },
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.161
+            "iso": 0.16
           }
         ],
         "confirmed": true
@@ -552,12 +552,12 @@
           {
             "id": 701350,
             "name": "Roman Anthony",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.147
+            "iso": 0.146
           },
           {
             "id": 663330,
@@ -817,12 +817,12 @@
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 650402,
             "name": "Gleyber Torres",
-            "iso": 0.108
+            "iso": 0.107
           },
           {
             "id": 690993,
@@ -867,7 +867,7 @@
         "sp": {
           "id": 689818,
           "name": "David Sandlin",
-          "hr9": 1.78,
+          "hr9": 1.74,
           "hand": "RHP"
         },
         "lineup": [
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 824303,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-19T00:10:00Z",
       "matchup": "SEA@COL",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 69.5,
-        "wind_mph": 7.1,
-        "wind_dir": 257,
-        "tail_mph": 4.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.015
+      "wf": 1.0
     }
   ]
 }
