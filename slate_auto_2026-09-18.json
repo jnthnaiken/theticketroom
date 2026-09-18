@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T20:00:34Z",
+  "pulled_at": "2026-09-18T20:03:17Z",
   "games": [
     {
       "gamePk": 824463,
@@ -623,17 +623,65 @@
     },
     {
       "gamePk": 823572,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-18T23:15:00Z",
       "matchup": "PHI@NYM",
       "away": {
         "abbrev": "PHI",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 641835,
+          "name": "Tim Mayza",
+          "hr9": 0.84,
+          "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.278
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.142
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.223
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.113
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.14
+          },
+          {
+            "id": 624641,
+            "name": "Edmundo Sosa",
+            "iso": 0.155
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.14
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.133
+          },
+          {
+            "id": 656537,
+            "name": "Derek Hill",
+            "iso": 0.193
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYM",
@@ -646,7 +694,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -749,7 +797,7 @@
     },
     {
       "gamePk": 822847,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-19T00:05:00Z",
       "matchup": "TOR@TEX",
       "away": {
@@ -771,10 +819,56 @@
           "hr9": 1.3,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.168
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.2
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.151
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.149
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.194
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.191
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.042
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.163
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -830,7 +924,7 @@
     },
     {
       "gamePk": 824138,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-19T00:10:00Z",
       "matchup": "ATL@HOU",
       "away": {
@@ -841,8 +935,54 @@
           "hr9": 1.17,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.174
+          },
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.193
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.253
+          },
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.195
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.121
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.163
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.149
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.141
+          },
+          {
+            "id": 669221,
+            "name": "Sean Murphy",
+            "iso": 0.146
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -855,7 +995,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
