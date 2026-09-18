@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T21:03:34Z",
+  "pulled_at": "2026-09-18T21:08:45Z",
   "games": [
     {
       "gamePk": 824463,
@@ -132,7 +132,7 @@
         "wind_mph": 8.8,
         "wind_dir": 7,
         "tail_mph": -7.4,
-        "precip": 4
+        "precip": 6
       },
       "wf": 0.992
     },
@@ -929,7 +929,7 @@
         "wind_mph": 4.3,
         "wind_dir": 87,
         "tail_mph": -2.8,
-        "precip": 6
+        "precip": 8
       },
       "wf": 0.985
     },
@@ -1194,7 +1194,7 @@
         "wind_mph": 9.8,
         "wind_dir": 73,
         "tail_mph": -2.9,
-        "precip": 24
+        "precip": 39
       },
       "wf": 0.987
     },
@@ -1547,7 +1547,7 @@
     },
     {
       "gamePk": 825032,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-19T01:40:00Z",
       "matchup": "NYY@ARI",
       "away": {
@@ -1569,10 +1569,56 @@
           "hr9": 0.81,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.141
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.192
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.178
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.11
+          },
+          {
+            "id": 656976,
+            "name": "Pavin Smith",
+            "iso": 0.089
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.207
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.227
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.153
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.157
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
