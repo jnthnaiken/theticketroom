@@ -1,11 +1,11 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T22:37:02Z",
+  "pulled_at": "2026-09-18T22:42:03Z",
   "games": [
     {
       "gamePk": 824463,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-18T22:40:00Z",
       "matchup": "CHC@CIN",
       "away": {
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823331,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-18T22:40:00Z",
       "matchup": "KC@PIT",
       "away": {
@@ -929,7 +929,7 @@
         "wind_mph": 8.5,
         "wind_dir": 67,
         "tail_mph": -7.4,
-        "precip": 8
+        "precip": 9
       },
       "wf": 0.969
     },
@@ -1194,7 +1194,7 @@
         "wind_mph": 6.0,
         "wind_dir": 51,
         "tail_mph": -3.8,
-        "precip": 29
+        "precip": 30
       },
       "wf": 0.992
     },
@@ -1476,8 +1476,54 @@
           "hr9": 1.11,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.108
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.179
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.227
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.217
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.167
+          },
+          {
+            "id": 691181,
+            "name": "Emmanuel Rodriguez",
+            "iso": 0.261
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.155
+          },
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.163
+          },
+          {
+            "id": 805346,
+            "name": "Ben Ross",
+            "iso": 0.2
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAA",
