@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T18:42:11Z",
+  "pulled_at": "2026-09-18T18:44:58Z",
   "games": [
     {
       "gamePk": 824463,
@@ -46,7 +46,7 @@
     },
     {
       "gamePk": 823331,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-18T22:40:00Z",
       "matchup": "KC@PIT",
       "away": {
@@ -68,10 +68,56 @@
           "hr9": 0.94,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.123
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.225
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.162
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.206
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.088
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.183
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.05
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.12
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
