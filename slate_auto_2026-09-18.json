@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "season": "2026",
-  "pulled_at": "2026-09-18T22:31:55Z",
+  "pulled_at": "2026-09-18T22:37:02Z",
   "games": [
     {
       "gamePk": 824463,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824790,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-18T23:05:00Z",
       "matchup": "MIL@BAL",
       "away": {
@@ -1650,8 +1650,54 @@
           "hr9": 1.56,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.205
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.168
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.157
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.262
+          },
+          {
+            "id": 642708,
+            "name": "Amed Rosario",
+            "iso": 0.177
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.188
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.117
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.134
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.098
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ARI",
