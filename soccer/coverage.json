@@ -29,8 +29,11 @@
  },
 
  "_slugtraps": {
-  "_doc": "oddschecker slugs that 200 and look right but are not. Check the FINAL url, not the status code.",
+  "_doc": "oddschecker slugs that 200 and look right but are not. Check the FINAL url, not the status code. MLSSLUG-2026-09-18 added the three MLS entries after the first MLS tie in nine days cost three navigations to find; the working path is football/world/usa/mls/<home>-v-<away>/winner, reachable from football/leagues-cups.",
   "english/carabao-cup": "silently redirects to the Premier League page",
-  "english/league-cup": "silently redirects to the Premier League page"
+  "english/league-cup": "silently redirects to the Premier League page",
+  "football/usa/mls": "silently redirects to /football -- MLS lives under football/world/usa/mls",
+  "football/usa/major-league-soccer": "same redirect to /football; there is no country-level usa path",
+  "us/soccer/mls": "the US site RENDERS the fixture and has no Anytime Goalscorer section at all -- 19 market sections, none of them this one. The page looks right, which is the trap: a scraper finds zero wrappers and reports an empty card rather than a wrong URL. Team slugs also differ from ESPN's (new-york-city-fc-v-new-york-red-bulls vs ESPN's Red Bull New York), so the fixtures.json key is built from ESPN and only the URL comes from here."
  }
 }
