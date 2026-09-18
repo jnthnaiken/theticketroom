@@ -133,6 +133,52 @@ def doc_numbers():
     return bad
 
 
+def cfg_canon(v):
+    """A config value reduced to what it MEANS, so two spellings of one number compare equal.
+
+    JSONKEYS-2026-09-18. `meta.cfg` has been through JSON and board_config.json has been through
+    boardcfg.load(), so the same config compared UNEQUAL on two spellings JSON cannot carry:
+    RR_UNIT's keys are ints in the loader and strings in the board ({2: 2.0} vs {'2': 2}), and an
+    int and a float of the same value are one number in JSON and two in Python. EVERY board built
+    since BOARDCFG therefore reported "board was built with a different config" -- a permanent
+    false alarm standing in front of the test suite, which is how a reader is taught to ignore a
+    red check.
+
+    Keys as strings, numbers as floats, and bools TAGGED -- `False == 0` in Python and a config
+    that flipped a flag to a number is a real difference, not a spelling.
+    """
+    if isinstance(v, bool):
+        return ('bool', v)
+    if isinstance(v, dict):
+        return {str(k): cfg_canon(x) for k, x in v.items()}
+    if isinstance(v, (list, tuple)):
+        return [cfg_canon(x) for x in v]
+    return float(v) if isinstance(v, (int, float)) else v
+
+
+def ranks_like(rows, key):
+    """Does `TOTAL` rank the field the way `key` does? Walk the rows in `key` order and assert
+    TOTAL never goes UP. Module-level and not a closure so test_statecheck.py can drive it.
+
+    TIEBREAK-2026-09-18. The question used to be asked as `top 10 by TOTAL == top 10 by ev`,
+    compared as ORDERED NAME LISTS, and that is a flake rather than a check. `TOTAL` ships
+    rounded to one decimal while `ev` carries four, so two bats whose EV differs in the fourth
+    decimal land on ONE TOTAL and the two sortings order that tie differently -- nothing has
+    drifted, the board ranks on EV exactly as it claims. Measured on 2026-09-17: Isaac Paredes
+    (ev -0.1814) and Wilyer Abreu (-0.1813) both at TOTAL 137.6, so `--check` reported
+    "BOARD_MODEL is ev_v1 but TOTAL does not rank like ev" and exited 1 -- which, because it runs
+    BEFORE the suite in tests.yml, took the whole test job red on every commit until some later
+    board happened not to tie. A check nobody can act on is a check everybody learns to ignore.
+
+    Monotonicity is the honest form of the same question: ties are legal by construction, a real
+    re-ranking is still caught, and it reads the WHOLE priced field rather than ten rows --
+    strictly stronger than what it replaces. Checked against the eight archived boards
+    09-10..09-17: zero inversions in any of them, including the 09-17 board the old rule failed.
+    """
+    s = sorted([r for r in rows if r.get(key) is not None], key=lambda r: -r[key])
+    return all(s[i]['TOTAL'] >= s[i + 1]['TOTAL'] - 1e-9 for i in range(len(s) - 1))
+
+
 def board():
     """The newest shipped board. This is the FACT the code's claims get checked against."""
     fs = sorted(glob.glob(_p('D_2026-*.json')))
@@ -148,16 +194,12 @@ def board():
     # signal coverage -- a weight is a claim, a populated column is the fact
     cols = [k for k in (list(P.values())[0] if P else {}) if k.startswith('_z')]
     b['coverage'] = {k: sum(1 for r in P.values() if r.get(k) is not None) for k in sorted(cols)}
-    # does TOTAL actually rank like EV?
+    # does TOTAL actually rank like EV? -- see ranks_like() above, TIEBREAK-2026-09-18
     pr = [r for r in P.values() if r.get('ev') is not None and r.get('TOTAL') is not None]
     if pr:
-        byT = [r['nm'] for r in sorted(pr, key=lambda r: -r['TOTAL'])[:10]]
-        byE = [r['nm'] for r in sorted(pr, key=lambda r: -r['ev'])[:10]]
-        byK = [r['nm'] for r in sorted([x for x in pr if x.get('kas_v1_total') is not None],
-                                       key=lambda r: -r['kas_v1_total'])[:10]]
-        b['ranks_like_ev'] = (byT == byE)
-        b['ranks_like_kas'] = (byT == byK)
-        b['top'] = byT[:5]
+        b['ranks_like_ev'] = ranks_like(pr, 'ev')
+        b['ranks_like_kas'] = ranks_like(pr, 'kas_v1_total')
+        b['top'] = [r['nm'] for r in sorted(pr, key=lambda r: (-r['TOTAL'], -r['ev']))[:5]]
     return b
 
 
@@ -205,8 +247,8 @@ def markdown():
         A(f"The newest board (`{D['file']}`, built {D['build']}) carries `meta.model = {D['model']}`.")
         if D.get('ranks_like_ev') is not None:
             A('')
-            A(f"- top 10 by `TOTAL` == top 10 by `ev`  → **{D['ranks_like_ev']}**")
-            A(f"- top 10 by `TOTAL` == top 10 by `kas_v1_total` → **{D['ranks_like_kas']}**")
+            A(f"- `TOTAL` never rises as `ev` falls (ranks like ev)  → **{D['ranks_like_ev']}**")
+            A(f"- `TOTAL` never rises as `kas_v1_total` falls → **{D['ranks_like_kas']}**")
     A('')
     A('Three models run in sequence and each overwrites `TOTAL`. **The last one is the board.**')
     A('')
@@ -419,7 +461,8 @@ def check():
         pass     # pre-BOARDCFG board; the source check above is the one that matters
     else:
         drift = {k: (D['cfg'][k], C[k]) for k in C
-                 if not k.startswith('_') and k in D['cfg'] and D['cfg'][k] != C[k]}
+                 if not k.startswith('_') and k in D['cfg']
+                 and cfg_canon(D['cfg'][k]) != cfg_canon(C[k])}
         if drift:
             bad.append('board was built with a different config than board_config.json now holds: '
                        + ', '.join(f'{k} {a}->{b}' for k, (a, b) in sorted(drift.items())))
