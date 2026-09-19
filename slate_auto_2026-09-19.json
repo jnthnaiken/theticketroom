@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T19:09:22Z",
+  "pulled_at": "2026-09-19T19:14:57Z",
   "games": [
     {
       "gamePk": 824545,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.43,
+          "hr9": 1.4,
           "hand": "RHP"
         },
         "lineup": [
@@ -45,7 +45,7 @@
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 701162,
@@ -843,7 +843,7 @@
     },
     {
       "gamePk": 822843,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-19T23:05:00Z",
       "matchup": "TOR@TEX",
       "away": {
@@ -865,10 +865,56 @@
           "hr9": 1.08,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.168
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.2
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.15
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.148
+          },
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.193
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.192
+          },
+          {
+            "id": 670032,
+            "name": "Nicky Lopez",
+            "iso": 0.041
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.162
+          },
+          {
+            "id": 694497,
+            "name": "Evan Carter",
+            "iso": 0.124
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1005,7 +1051,7 @@
     },
     {
       "gamePk": 825029,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-20T00:10:00Z",
       "matchup": "NYY@ARI",
       "away": {
@@ -1027,10 +1073,56 @@
           "hr9": 1.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663457,
+            "name": "Lars Nootbaar",
+            "iso": 0.138
+          },
+          {
+            "id": 606466,
+            "name": "Ketel Marte",
+            "iso": 0.19
+          },
+          {
+            "id": 672515,
+            "name": "Gabriel Moreno",
+            "iso": 0.177
+          },
+          {
+            "id": 672695,
+            "name": "Geraldo Perdomo",
+            "iso": 0.109
+          },
+          {
+            "id": 682998,
+            "name": "Corbin Carroll",
+            "iso": 0.233
+          },
+          {
+            "id": 571448,
+            "name": "Nolan Arenado",
+            "iso": 0.205
+          },
+          {
+            "id": 694374,
+            "name": "Tim Tawa",
+            "iso": 0.155
+          },
+          {
+            "id": 660821,
+            "name": "Jes\u00fas S\u00e1nchez",
+            "iso": 0.152
+          },
+          {
+            "id": 691783,
+            "name": "Jordan Lawlar",
+            "iso": 0.179
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
