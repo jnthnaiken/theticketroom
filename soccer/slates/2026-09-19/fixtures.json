@@ -1,0 +1,366 @@
+{
+ "_note": "kickoffs are UTC minutes past midnight of the SLATE date (2026-09-19) and may exceed 1440 for an MLS kickoff that falls on the next UTC day; read off the ESPN scoreboard, never assumed. SATURDAY-2026-09-19: the full Saturday card -- 23 top-five fixtures plus the 13-game MLS Saturday, 36 matches, the largest slate shipped. Nothing gated was on: every uefa.* and domestic-cup scoreboard came back empty, so CUPSCOPE had nothing to rule on. One MLS fixture IS deliberately omitted: inter-miami-v-san-diego-fc kicks 23:00Z on 2026-09-20, which is Sunday in ET, and an MLS card is ET-dated (coverage.json `open`).",
+ "date": "2026-09-19",
+ "matches": {
+  "tottenham-hotspur-v-aston-villa": {
+   "home": "Tottenham Hotspur",
+   "away": "Aston Villa",
+   "kickoff": 690,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879269"
+   ]
+  },
+  "osasuna-v-rayo-vallecano": {
+   "home": "Osasuna",
+   "away": "Rayo Vallecano",
+   "kickoff": 720,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882860"
+   ]
+  },
+  "bologna-v-torino": {
+   "home": "Bologna",
+   "away": "Torino",
+   "kickoff": 780,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874767"
+   ]
+  },
+  "udinese-v-cagliari": {
+   "home": "Udinese",
+   "away": "Cagliari",
+   "kickoff": 780,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874964"
+   ]
+  },
+  "borussia-monchengladbach-v-mainz": {
+   "home": "Borussia Mönchengladbach",
+   "away": "Mainz",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884786"
+   ]
+  },
+  "eintracht-frankfurt-v-sc-freiburg": {
+   "home": "Eintracht Frankfurt",
+   "away": "SC Freiburg",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884787"
+   ]
+  },
+  "hamburg-sv-v-fc-cologne": {
+   "home": "Hamburg SV",
+   "away": "FC Cologne",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884785"
+   ]
+  },
+  "werder-bremen-v-fc-augsburg": {
+   "home": "Werder Bremen",
+   "away": "FC Augsburg",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884784"
+   ]
+  },
+  "brighton-hove-albion-v-arsenal": {
+   "home": "Brighton & Hove Albion",
+   "away": "Arsenal",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879274"
+   ]
+  },
+  "everton-v-ipswich-town": {
+   "home": "Everton",
+   "away": "Ipswich Town",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401878778"
+   ]
+  },
+  "newcastle-united-v-hull-city": {
+   "home": "Newcastle United",
+   "away": "Hull City",
+   "kickoff": 840,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879271"
+   ]
+  },
+  "athletic-club-v-alaves": {
+   "home": "Athletic Club",
+   "away": "Alavés",
+   "kickoff": 855,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882866"
+   ]
+  },
+  "paris-fc-v-strasbourg": {
+   "home": "Paris FC",
+   "away": "Strasbourg",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876451"
+   ]
+  },
+  "as-roma-v-internazionale": {
+   "home": "AS Roma",
+   "away": "Internazionale",
+   "kickoff": 960,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874753"
+   ]
+  },
+  "nottingham-forest-v-coventry-city": {
+   "home": "Nottingham Forest",
+   "away": "Coventry City",
+   "kickoff": 990,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879270"
+   ]
+  },
+  "celta-vigo-v-racing-santander": {
+   "home": "Celta Vigo",
+   "away": "Racing Santander",
+   "kickoff": 990,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882864"
+   ]
+  },
+  "vfb-stuttgart-v-borussia-dortmund": {
+   "home": "VfB Stuttgart",
+   "away": "Borussia Dortmund",
+   "kickoff": 990,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884789"
+   ]
+  },
+  "venezia-v-lazio": {
+   "home": "Venezia",
+   "away": "Lazio",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874956"
+   ]
+  },
+  "angers-v-troyes": {
+   "home": "Angers",
+   "away": "Troyes",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876457"
+   ]
+  },
+  "le-mans-v-lorient": {
+   "home": "Le Mans",
+   "away": "Lorient",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876455"
+   ]
+  },
+  "lyon-v-stade-rennais": {
+   "home": "Lyon",
+   "away": "Stade Rennais",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876454"
+   ]
+  },
+  "toulouse-v-le-havre-ac": {
+   "home": "Toulouse",
+   "away": "Le Havre AC",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876450"
+   ]
+  },
+  "sevilla-v-barcelona": {
+   "home": "Sevilla",
+   "away": "Barcelona",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882859"
+   ]
+  },
+  "cf-montreal-v-columbus-crew": {
+   "home": "CF Montréal",
+   "away": "Columbus Crew",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761818"
+   ]
+  },
+  "d-c-united-v-charlotte-fc": {
+   "home": "D.C. United",
+   "away": "Charlotte FC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761819"
+   ]
+  },
+  "new-england-revolution-v-orlando-city-sc": {
+   "home": "New England Revolution",
+   "away": "Orlando City SC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761816"
+   ]
+  },
+  "san-jose-earthquakes-v-lafc": {
+   "home": "San Jose Earthquakes",
+   "away": "LAFC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761817"
+   ]
+  },
+  "fc-dallas-v-austin-fc": {
+   "home": "FC Dallas",
+   "away": "Austin FC",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761822"
+   ]
+  },
+  "houston-dynamo-fc-v-fc-cincinnati": {
+   "home": "Houston Dynamo FC",
+   "away": "FC Cincinnati",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761820"
+   ]
+  },
+  "minnesota-united-fc-v-la-galaxy": {
+   "home": "Minnesota United FC",
+   "away": "LA Galaxy",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761821"
+   ]
+  },
+  "sporting-kansas-city-v-philadelphia-union": {
+   "home": "Sporting Kansas City",
+   "away": "Philadelphia Union",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761823"
+   ]
+  },
+  "st-louis-city-sc-v-toronto-fc": {
+   "home": "St. Louis CITY SC",
+   "away": "Toronto FC",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761824"
+   ]
+  },
+  "colorado-rapids-v-seattle-sounders-fc": {
+   "home": "Colorado Rapids",
+   "away": "Seattle Sounders FC",
+   "kickoff": 1530,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761826"
+   ]
+  },
+  "nashville-sc-v-chicago-fire-fc": {
+   "home": "Nashville SC",
+   "away": "Chicago Fire FC",
+   "kickoff": 1530,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761827"
+   ]
+  },
+  "real-salt-lake-v-vancouver-whitecaps": {
+   "home": "Real Salt Lake",
+   "away": "Vancouver Whitecaps",
+   "kickoff": 1530,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761825"
+   ]
+  },
+  "portland-timbers-v-atlanta-united-fc": {
+   "home": "Portland Timbers",
+   "away": "Atlanta United FC",
+   "kickoff": 1590,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761828"
+   ]
+  }
+ }
+}
