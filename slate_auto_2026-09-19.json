@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T18:54:09Z",
+  "pulled_at": "2026-09-19T18:59:19Z",
   "games": [
     {
       "gamePk": 824545,
@@ -20,7 +20,7 @@
           {
             "id": 805808,
             "name": "Kevin McGonigle",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 701678,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 680732,
           "name": "Sean Burke",
-          "hr9": 0.99,
+          "hr9": 0.98,
           "hand": "RHP"
         },
         "lineup": [
@@ -664,7 +664,7 @@
     },
     {
       "gamePk": 823330,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-19T22:40:00Z",
       "matchup": "KC@PIT",
       "away": {
@@ -686,10 +686,56 @@
           "hr9": 0.86,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.122
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.206
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.164
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.244
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.228
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.087
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.183
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.068
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.085
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
