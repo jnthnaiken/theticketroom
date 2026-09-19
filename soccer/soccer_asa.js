@@ -60,6 +60,29 @@
      whole league, since `float('nan')` parses fine and then contaminates every mean. */
   function per90(v, mins) { return mins > 0 ? (v * 90) / mins : 0; }
 
+  /* 🚨 ASATWOCLUB-2026-09-19. `team_id` IS SOMETIMES AN ARRAY, and the old `teamOf[a.team_id]`
+     could not see it. A player who has appeared for two clubs this season comes back as
+     team_id: ["jYQJ19EqGR","19vQ2095K6"]; JS stringifies that array into a key the lookup does
+     not hold, so he fell through to '?' -- 32 of 827 players on the live 2026 season, ~4%.
+     It is not cosmetic and it is not rare: it reached the board the first day MLS drafted a
+     ticket. 2026-09-19, "GETS ACROSS", Leal Rafael Navarro at +110: the club chip read
+     "— · St. Louis CITY SC v Toronto FC", an em dash where the club goes, on a slip somebody is
+     asked to back. Joveljic, Gazdag, McGuire, Sealy, Löwen and Ordaz were all one redraft away
+     from the same.
+     Understat already answers the same situation with a comma list -- "Augsburg,Mainz 05",
+     "Arsenal,Crystal Palace" -- the soccer page already renders those, and soccer_mock only ever
+     passes `team` through to the payload. So MATCH THE EXISTING CONVENTION rather than invent a
+     rule. Understat's lists are alphabetical (checked across four slates), and ASA's array order
+     carries no documented meaning, so sort: two runs of the same season must not produce two
+     different spellings of the same man's club. An id with no name is dropped from the list, and
+     a player with no resolvable club at all still reads '?', which is the old behaviour for a
+     genuinely unknown club rather than a silent blank. */
+  function teamName(id, teamOf) {
+    var ids = Array.isArray(id) ? id : [id];
+    var names = ids.map(function (i) { return teamOf[i]; }).filter(Boolean);
+    return names.length ? names.sort().join(',') : '?';
+  }
+
   /* ROWS. `all` and `pen` are the two xgoals pulls, `players` and `teams` the lookups.
      A player with no penalty row simply has none -- pen defaults to zero across the board. */
   function rows(payload, opts) {
@@ -95,7 +118,7 @@
         league:   league,
         season:   season,
         name:     name,
-        team:     teamOf[a.team_id] || '?',
+        team:     teamName(a.team_id, teamOf),   /* ASATWOCLUB-2026-09-19 -- may be an array */
         pos:      a.general_position || '?',
         games:    0,                                   /* ASA has no appearance count -- unused */
         minutes:  mins,

@@ -86,6 +86,39 @@ chk('xGperShot = npxG / non-penalty shots', Math.abs(messi.xgpershot - (14.1151 
 chk('accents survive the transform', !!by['Luis Suárez'] && !!by['Germán Berterame'],
   Object.keys(by).filter(n => /rez|Berter/.test(n)));
 chk('team ids resolved to names', by['Lionel Messi'].team === 'Inter Miami CF', by['Lionel Messi'].team);
+
+/* 🚨 ASATWOCLUB-2026-09-19. The pinned fixture is a single-club slice, so the two-club shape has
+   to be constructed -- same technique as the GHOST row below. ASA returns team_id as an ARRAY for
+   a player who has appeared for two clubs in the season, and `teamOf[array]` silently produced
+   '?'. On 2026-09-19 that shipped a live Top Bin slip whose club chip was an em dash. The answer
+   is understat's own: an alphabetical comma list, which the page already renders. */
+(function twoClub() {
+  const p = JSON.parse(JSON.stringify(payload));
+  const one = p.all[0];
+  const ids = [...new Set(p.teams.map(t => t.team_id))];
+  const A = p.teams.find(t => t.team_id === ids[0]), B = p.teams.find(t => t.team_id === ids[1]);
+  const want = [A.team_name, B.team_name].sort().join(',');
+  /* both orders must give the SAME string -- two runs of one season cannot spell a club two ways */
+  const nameOf = {}; p.players.forEach(x => { nameOf[x.player_id] = x.player_name; });
+  const target = nameOf[one.player_id];
+  p.all[0] = Object.assign({}, one, { team_id: [A.team_id, B.team_id] });
+  const gotFwd = SA.rows(p).rows.find(r => r.name === target).team;
+  p.all[0] = Object.assign({}, one, { team_id: [B.team_id, A.team_id] });
+  const gotRev = SA.rows(p).rows.find(r => r.name === target).team;
+  chk('an array team_id becomes a comma list, not "?"', gotFwd === want, { got: gotFwd, want });
+  chk('...and the order ASA happens to send does not change it', gotRev === gotFwd,
+    { fwd: gotFwd, rev: gotRev });
+  /* an id nobody can name still reads '?', not an empty chip */
+  p.all[0] = Object.assign({}, one, { team_id: ['NOSUCHTEAM'] });
+  chk('an unknown club id still reads "?"',
+    SA.rows(p).rows.find(r => r.name === target).team === '?',
+    SA.rows(p).rows.find(r => r.name === target).team);
+  /* one known + one unknown keeps the club we DO know rather than dropping to '?' */
+  p.all[0] = Object.assign({}, one, { team_id: [A.team_id, 'NOSUCHTEAM'] });
+  chk('a half-known pair keeps the club it can name',
+    SA.rows(p).rows.find(r => r.name === target).team === A.team_name,
+    SA.rows(p).rows.find(r => r.name === target).team);
+})();
 chk('games is 0 (ASA has none; soccer_mock never reads it)', rows.every(r => r.games === 0));
 chk('xgchain is 0 (same)', rows.every(r => r.xgchain === 0));
 chk('league/season stamped on every row',
