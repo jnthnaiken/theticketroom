@@ -49954,7 +49954,7 @@
     "precip": 0
    }
   },
-  "build": "9/19 5:15pm",
+  "build": "9/19 5:20pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -50175,7 +50175,7 @@
   "date": "2026-09-19",
   "gs": {},
   "chalkstate": {
-   "b": "9/19 5:15pm",
+   "b": "9/19 5:20pm",
    "s": {}
   },
   "chalk": [],
@@ -50498,7 +50498,8 @@
    "confleg": 4,
    "priced": 4,
    "parlay_am": 127790,
-   "payout10": 12789
+   "payout10": 12789,
+   "locked": true
   },
   {
    "name": "Booster Ignition",
@@ -50661,13 +50662,172 @@
    "confleg": 4,
    "priced": 4,
    "parlay_am": 188690,
-   "payout10": 18879
+   "payout10": 18879,
+   "locked": true
+  },
+  {
+   "name": "Full Afterburner",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Ortiz is lifting everything (20\u00b0), Yastrzemski is hitting bullets (53% hard-hit), Fry catches a small park boost, and Shaw lands at 132 in our model.",
+   "players": [
+    {
+     "name": "Abimelec Ortiz",
+     "team": "Nationals",
+     "total": 172.6,
+     "aT": 100,
+     "wf": 1.043,
+     "gmatch": "WSH@STL",
+     "gtime": "7:15 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 560,
+     "status": "confirmed"
+    },
+    {
+     "name": "Mike Yastrzemski",
+     "team": "Braves",
+     "total": 136.6,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "ATL@HOU",
+     "gtime": "7:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 575,
+     "status": "confirmed"
+    },
+    {
+     "name": "David Fry",
+     "team": "Guardians",
+     "total": 133.2,
+     "aT": 100,
+     "wf": 1.028,
+     "gmatch": "ATH@CLE",
+     "gtime": "6:10 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 628,
+     "status": "confirmed"
+    },
+    {
+     "name": "Matt Shaw",
+     "team": "Cubs",
+     "total": 132.3,
+     "aT": 100,
+     "wf": 1.039,
+     "gmatch": "CHC@CIN",
+     "gtime": "6:40 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 665,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Abimelec Ortiz",
+   "lock": "6:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 1044.6,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 3,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 4,
+   "priced": 4,
+   "parlay_am": 248008,
+   "payout10": 24810.79,
+   "locked": true
+  },
+  {
+   "name": "The Curfew",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Max Muncy is hammering the ball (55% hard-hit), swings with home-run loft (20\u00b0), has the yard tilting his way, sits in the elite power tier (100/100), and gets bumped to 129 by the model.",
+   "players": [
+    {
+     "name": "Max Muncy",
+     "team": "Dodgers",
+     "total": 128.5,
+     "aT": 100,
+     "wf": 1.036,
+     "gmatch": "SF@LAD",
+     "gtime": "9:10 PM ET",
+     "game": 14,
+     "late": true,
+     "odds": 335,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Max Muncy",
+   "lock": "9:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 335,
+   "payout10": 43.5,
+   "locked": true
+  },
+  {
+   "name": "The Lighthouse",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Tyrone Taylor hits it on the perfect plane (20\u00b0), plays in a slightly friendly yard, is putting the bat on it well (50% hard-hit).",
+   "players": [
+    {
+     "name": "Tyrone Taylor",
+     "team": "Cubs",
+     "total": 137.9,
+     "aT": 100,
+     "wf": 1.039,
+     "gmatch": "CHC@CIN",
+     "gtime": "6:40 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 520,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Tyrone Taylor",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 520,
+   "payout10": 62,
+   "locked": true
   },
   {
    "name": "Into the Clouds",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Ortiz projects out to 173, Trout gets ideal loft (23\u00b0), Olson is teeing off (66% hard-hit), and Smith catches a small park boost.",
+   "note": "Ortiz projects out to 173, Trout elevates with ease (23\u00b0), Olson is hitting bullets (66% hard-hit), and Smith gets a touch of carry tonight.",
    "players": [
     {
      "name": "Abimelec Ortiz",
@@ -50743,161 +50903,6 @@
    "priced": 4,
    "parlay_am": 71210,
    "payout10": 7130.97
-  },
-  {
-   "name": "Full Afterburner",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Ortiz projects out to 173, Yastrzemski gets ideal loft (23\u00b0), Fry catches a small park boost, and Shaw is squaring it up (47% hard-hit).",
-   "players": [
-    {
-     "name": "Abimelec Ortiz",
-     "team": "Nationals",
-     "total": 172.6,
-     "aT": 100,
-     "wf": 1.043,
-     "gmatch": "WSH@STL",
-     "gtime": "7:15 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 560,
-     "status": "confirmed"
-    },
-    {
-     "name": "Mike Yastrzemski",
-     "team": "Braves",
-     "total": 136.6,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "ATL@HOU",
-     "gtime": "7:10 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 575,
-     "status": "confirmed"
-    },
-    {
-     "name": "David Fry",
-     "team": "Guardians",
-     "total": 133.2,
-     "aT": 100,
-     "wf": 1.028,
-     "gmatch": "ATH@CLE",
-     "gtime": "6:10 PM ET",
-     "game": 5,
-     "late": false,
-     "odds": 628,
-     "status": "confirmed"
-    },
-    {
-     "name": "Matt Shaw",
-     "team": "Cubs",
-     "total": 132.3,
-     "aT": 100,
-     "wf": 1.039,
-     "gmatch": "CHC@CIN",
-     "gtime": "6:40 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 665,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Abimelec Ortiz",
-   "lock": "6:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 1044.6,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 3,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 4,
-   "priced": 4,
-   "parlay_am": 248008,
-   "payout10": 24810.79
-  },
-  {
-   "name": "The Curfew",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Max Muncy is tattooing the baseball (55% hard-hit), swings with home-run loft (20\u00b0), gets a touch of carry tonight, sits in the elite power tier (100/100).",
-   "players": [
-    {
-     "name": "Max Muncy",
-     "team": "Dodgers",
-     "total": 128.5,
-     "aT": 100,
-     "wf": 1.036,
-     "gmatch": "SF@LAD",
-     "gtime": "9:10 PM ET",
-     "game": 14,
-     "late": true,
-     "odds": 335,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Max Muncy",
-   "lock": "9:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 335,
-   "payout10": 43.5
-  },
-  {
-   "name": "The Lighthouse",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Tyrone Taylor hits it on the perfect plane (20\u00b0), plays in a slightly friendly yard, is putting the bat on it well (50% hard-hit).",
-   "players": [
-    {
-     "name": "Tyrone Taylor",
-     "team": "Cubs",
-     "total": 137.9,
-     "aT": 100,
-     "wf": 1.039,
-     "gmatch": "CHC@CIN",
-     "gtime": "6:40 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 520,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Tyrone Taylor",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 520,
-   "payout10": 62
   },
   {
    "name": "Reaching for the Stars",
@@ -50978,7 +50983,8 @@
    "confleg": 4,
    "priced": 4,
    "parlay_am": 106292,
-   "payout10": 10639.2
+   "payout10": 10639.2,
+   "locked": true
   },
   {
    "name": "Slipping the Surly Bonds",
@@ -51059,35 +51065,20 @@
    "confleg": 4,
    "priced": 4,
    "parlay_am": 128668,
-   "payout10": 12876.78
+   "payout10": 12876.78,
+   "locked": true
   }
  ],
  "pool": [
-  "Victor Mesa",
   "Gary S\u00e1nchez",
-  "Tyrone Taylor",
-  "Ben Rice",
-  "Kyle Tucker",
   "Mike Trout",
-  "Mike Yastrzemski",
   "Andrew Vaughn",
-  "Daylen Lile",
   "Matt Olson",
   "Wilyer Abreu",
-  "Andr\u00e9s Chaparro",
   "Coby Mayo",
-  "David Fry",
-  "Matt Shaw",
   "Colson Montgomery",
-  "Tyler Stephenson",
-  "Drake Baldwin",
-  "Jackson Merrill",
-  "Alex Bregman",
   "Jonathan Aranda",
   "Will Smith",
-  "Daulton Varsho",
-  "Iv\u00e1n Herrera",
-  "Max Muncy",
   "Mickey Moniak",
   "Ryan Jeffers",
   "Christian Encarnacion-Strand",
@@ -51099,7 +51090,6 @@
   "Kyle Stowers",
   "Corbin Carroll",
   "Yordan Alvarez",
-  "James Wood",
-  "Bryce Harper"
+  "James Wood"
  ]
 }
