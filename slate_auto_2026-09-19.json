@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T22:26:12Z",
+  "pulled_at": "2026-09-19T22:30:31Z",
   "games": [
     {
       "gamePk": 824545,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824788,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-19T20:05:00Z",
       "matchup": "MIL@BAL",
       "away": {
@@ -235,7 +235,7 @@
           {
             "id": 677956,
             "name": "Rece Hinds",
-            "iso": 0.092
+            "iso": 0.091
           },
           {
             "id": 681047,
@@ -311,12 +311,12 @@
           {
             "id": 596115,
             "name": "Trevor Story",
-            "iso": 0.111
+            "iso": 0.11
           },
           {
             "id": 702332,
             "name": "Caleb Durbin",
-            "iso": 0.134
+            "iso": 0.135
           },
           {
             "id": 680776,
@@ -510,7 +510,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 677595,
@@ -581,7 +581,7 @@
           {
             "id": 666126,
             "name": "Carlos Cortes",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 661531,
@@ -601,7 +601,7 @@
         "sp": {
           "id": 676440,
           "name": "Tanner Bibee",
-          "hr9": 1.42,
+          "hr9": 1.41,
           "hand": "RHP"
         },
         "lineup": [
@@ -1717,9 +1717,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 4mph, 75\u00b0",
+        "lean": "Neutral",
+        "temp": 74.9,
+        "wind_mph": 7.4,
+        "wind_dir": 303,
+        "tail_mph": -4.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.993
     },
     {
       "gamePk": 823899,
