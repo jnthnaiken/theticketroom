@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T17:52:02Z",
+  "pulled_at": "2026-09-19T17:56:39Z",
   "games": [
     {
       "gamePk": 824545,
@@ -132,7 +132,7 @@
         "wind_mph": 5.5,
         "wind_dir": 328,
         "tail_mph": -1.9,
-        "precip": 46
+        "precip": 44
       },
       "wf": 0.991
     },
@@ -219,7 +219,7 @@
         "wind_mph": 4.6,
         "wind_dir": 133,
         "tail_mph": 1.0,
-        "precip": 2
+        "precip": 1
       },
       "wf": 1.015
     },
@@ -525,7 +525,7 @@
         "wind_mph": 1.4,
         "wind_dir": 141,
         "tail_mph": 1.1,
-        "precip": 45
+        "precip": 32
       },
       "wf": 1.007
     },
@@ -566,7 +566,7 @@
         "wind_mph": 8.3,
         "wind_dir": 284,
         "tail_mph": 3.6,
-        "precip": 11
+        "precip": 8
       },
       "wf": 1.046
     },
@@ -607,7 +607,7 @@
         "wind_mph": 0.5,
         "wind_dir": 117,
         "tail_mph": -0.3,
-        "precip": 3
+        "precip": 1
       },
       "wf": 1.01
     },
@@ -728,7 +728,7 @@
         "wind_mph": 1.6,
         "wind_dir": 45,
         "tail_mph": -1.5,
-        "precip": 1
+        "precip": 0
       },
       "wf": 1.033
     },
@@ -762,14 +762,14 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
+        "emoji": "\ud83c\udf27\ufe0f",
         "cond": "wind out 5mph, 74\u00b0",
         "lean": "Boost",
         "temp": 73.6,
         "wind_mph": 4.9,
         "wind_dir": 175,
         "tail_mph": 4.9,
-        "precip": 41
+        "precip": 59
       },
       "wf": 1.022
     },
@@ -925,9 +925,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 76\u00b0",
+        "lean": "Boost",
+        "temp": 75.8,
+        "wind_mph": 7.6,
+        "wind_dir": 236,
+        "tail_mph": 7.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
