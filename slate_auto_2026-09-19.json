@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T22:30:31Z",
+  "pulled_at": "2026-09-19T22:35:48Z",
   "games": [
     {
       "gamePk": 824545,
@@ -321,7 +321,7 @@
           {
             "id": 680776,
             "name": "Jarren Duran",
-            "iso": 0.156
+            "iso": 0.158
           },
           {
             "id": 643396,
@@ -608,12 +608,12 @@
           {
             "id": 680757,
             "name": "Steven Kwan",
-            "iso": 0.067
+            "iso": 0.066
           },
           {
             "id": 608070,
             "name": "Jos\u00e9 Ram\u00edrez",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 800050,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 824461,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-19T22:40:00Z",
       "matchup": "CHC@CIN",
       "away": {
@@ -1863,7 +1863,7 @@
     },
     {
       "gamePk": 823976,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-20T01:38:00Z",
       "matchup": "MIN@LAA",
       "away": {
@@ -1885,10 +1885,56 @@
           "hr9": 0.93,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.198
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.18
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.086
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.141
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.127
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.117
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.156
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.164
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.047
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
