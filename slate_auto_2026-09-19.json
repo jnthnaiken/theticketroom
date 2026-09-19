@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T20:40:27Z",
+  "pulled_at": "2026-09-19T20:45:29Z",
   "games": [
     {
       "gamePk": 824545,
@@ -77,12 +77,12 @@
           {
             "id": 803011,
             "name": "Sam Antonacci",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 691019,
             "name": "Kyle Teel",
-            "iso": 0.153
+            "iso": 0.151
           },
           {
             "id": 678246,
@@ -146,7 +146,7 @@
         "sp": {
           "id": 688107,
           "name": "Robert Gasser",
-          "hr9": 1.29,
+          "hr9": 1.28,
           "hand": "LHP"
         },
         "lineup": [
@@ -245,7 +245,7 @@
           {
             "id": 694212,
             "name": "Samuel Basallo",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 665750,
@@ -279,14 +279,14 @@
         "sp": {
           "id": 678394,
           "name": "Brayan Bello",
-          "hr9": 0.94,
+          "hr9": 0.93,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 701350,
             "name": "Roman Anthony",
-            "iso": 0.138
+            "iso": 0.143
           },
           {
             "id": 681508,
@@ -316,7 +316,7 @@
           {
             "id": 702332,
             "name": "Caleb Durbin",
-            "iso": 0.132
+            "iso": 0.134
           },
           {
             "id": 680776,
@@ -368,7 +368,7 @@
           {
             "id": 683748,
             "name": "Victor Mesa Jr.",
-            "iso": 0.244
+            "iso": 0.243
           },
           {
             "id": 680700,
@@ -411,7 +411,7 @@
         "sp": {
           "id": 691725,
           "name": "Andrew Painter",
-          "hr9": 1.48,
+          "hr9": 1.47,
           "hand": "RHP"
         },
         "lineup": [
@@ -433,7 +433,7 @@
           {
             "id": 650333,
             "name": "Luis Arraez",
-            "iso": 0.112
+            "iso": 0.113
           },
           {
             "id": 664761,
@@ -480,12 +480,12 @@
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.253
+            "iso": 0.252
           },
           {
             "id": 666182,
             "name": "Bo Bichette",
-            "iso": 0.125
+            "iso": 0.126
           },
           {
             "id": 701807,
@@ -1210,8 +1210,54 @@
           "hr9": 0.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.253
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.185
+          },
+          {
+            "id": 694673,
+            "name": "Abimelec Ortiz",
+            "iso": 0.171
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.229
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.152
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.089
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.259
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.172
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.034
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "STL",
@@ -1286,7 +1332,7 @@
     },
     {
       "gamePk": 824304,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-20T00:10:00Z",
       "matchup": "SEA@COL",
       "away": {
@@ -1297,8 +1343,54 @@
           "hr9": 1.68,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.133
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.199
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.224
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.188
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.153
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.092
+          },
+          {
+            "id": 703197,
+            "name": "Michael Arroyo",
+            "iso": 0.334
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.406
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "COL",
@@ -1311,7 +1403,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
