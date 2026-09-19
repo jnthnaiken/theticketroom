@@ -346,7 +346,21 @@ jobs:
           def sig(p):
               d = json.load(open(p))
               t = sorted(x['kind'] + ':' + '+'.join(l['name'] for l in x['players']) for x in d['tickets'])
-              pl = {n: (v.get('odds'), v.get('status'), bool(v.get('out')), bool(v.get('hr')))
+              # 🚨 GATECLUB-2026-09-19 -- `team` IS ON THIS LIST BECAUSE IT IS PRINTED ON THE SLIP.
+              # The gate is meant to fire on "what a reader would notice", and the club is the
+              # line directly under the player's name on every ticket. It was not compared, so a
+              # corrected club could not ship: ASATWOCLUB-2026-09-19 fixed nine MLS players whose
+              # club chip read an em dash -- one of them, Leal Rafael Navarro, was on that day's
+              # GETS ACROSS at +110 -- the corrected xg.psv was committed, the build ran clean in
+              # 25s, and the gate said commit=false because no ODDS or STATUS had moved. Same
+              # shape as GATEJS-2026-09-08: a fix that cannot ship is not a fix.
+              # ⚠️ AND NOTHING ELSE FROM THE PLAYER ROW. `team` is safe to compare because it is
+              # CONSTANT across a slate unless a source file changes. TOTAL, blend and every z
+              # are not -- they are restandardised against the whole pool on every pass, so one
+              # price drift anywhere moves all 540 of them and the gate would fire on every
+              # build forever, which is the no-op-is-free property this whole step exists for.
+              pl = {n: (v.get('odds'), v.get('status'), bool(v.get('out')), bool(v.get('hr')),
+                        v.get('team'))
                     for n, v in d['players'].items()}
               return t, pl
           def shell(p):
