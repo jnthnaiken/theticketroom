@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T19:44:30Z",
+  "pulled_at": "2026-09-19T19:50:13Z",
   "games": [
     {
       "gamePk": 824545,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 680732,
           "name": "Sean Burke",
-          "hr9": 0.98,
+          "hr9": 0.97,
           "hand": "RHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824788,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-19T20:05:00Z",
       "matchup": "MIL@BAL",
       "away": {
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 822921,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-19T20:10:00Z",
       "matchup": "BOS@TB",
       "away": {
@@ -680,8 +680,54 @@
           "hr9": 1.18,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.296
+          },
+          {
+            "id": 608324,
+            "name": "Alex Bregman",
+            "iso": 0.192
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.201
+          },
+          {
+            "id": 621438,
+            "name": "Tyrone Taylor",
+            "iso": 0.229
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.09
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.155
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.124
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.187
+          },
+          {
+            "id": 621020,
+            "name": "Dansby Swanson",
+            "iso": 0.187
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CIN",
