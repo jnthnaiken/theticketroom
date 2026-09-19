@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-19",
- "built_at": "2026-09-19T15:57:35Z",
+ "built_at": "2026-09-19T16:47:09Z",
  "teams": {
   "ATH": {
    "n_rel": 12,
@@ -60,17 +60,17 @@
    "d1_pitches": 112
   },
   "BOS": {
-   "n_rel": 9,
+   "n_rel": 8,
    "n_unavail": 2,
    "top_out": 0,
-   "hr_bf": 0.0247,
-   "hr_bf_avail": 0.0249,
+   "hr_bf": 0.0249,
+   "hr_bf_avail": 0.0253,
    "hr_bf_L": 0.0243,
-   "hr_bf_R": 0.0257,
+   "hr_bf_R": 0.0269,
    "hr_bf_avail_L": 0.0254,
-   "hr_bf_avail_R": 0.0253,
-   "share_L": 0.433,
-   "air_share": 0.466,
+   "hr_bf_avail_R": 0.0264,
+   "share_L": 0.594,
+   "air_share": 0.497,
    "d1_pitches": 77
   },
   "CHC": {
@@ -340,17 +340,17 @@
    "d1_pitches": 72
   },
   "SF": {
-   "n_rel": 10,
+   "n_rel": 9,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0251,
-   "hr_bf_avail": 0.0251,
+   "hr_bf": 0.0246,
+   "hr_bf_avail": 0.0246,
    "hr_bf_L": 0.0309,
-   "hr_bf_R": 0.0238,
+   "hr_bf_R": 0.0231,
    "hr_bf_avail_L": 0.0309,
-   "hr_bf_avail_R": 0.0238,
-   "share_L": 0.19,
-   "air_share": 0.467,
+   "hr_bf_avail_R": 0.0231,
+   "share_L": 0.205,
+   "air_share": 0.453,
    "d1_pitches": 65
   },
   "STL": {
@@ -468,10 +468,10 @@
    "hr_bf": 0.0325
   },
   "brayan bello": {
-   "id": null,
-   "bf_exp": 22.0,
-   "kind": "unknown",
-   "hr_bf": null
+   "id": 678394,
+   "bf_exp": 27.0,
+   "kind": "sp",
+   "hr_bf": 0.0255
   },
   "tanner bibee": {
    "id": 676440,
@@ -588,10 +588,10 @@
    "hr_bf": 0.0216
   },
   "yunior marte": {
-   "id": null,
-   "bf_exp": 22.0,
-   "kind": "unknown",
-   "hr_bf": null
+   "id": 805074,
+   "bf_exp": 9.0,
+   "kind": "opener",
+   "hr_bf": 0.0311
   },
   "reid detmers": {
    "id": 672282,
@@ -778,7 +778,7 @@
   "box_loaded": 24,
   "rosters": 30,
   "pitcher_stats": 421,
-  "sps_matched": 28,
+  "sps_matched": 30,
   "sps_named": 30,
   "pens": 30,
   "games": 15,
@@ -787,6 +787,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1789833455,
+ "last_attempt": 1789836429,
  "pregame": true
 }
