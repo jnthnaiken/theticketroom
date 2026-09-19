@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T18:00:58Z",
+  "pulled_at": "2026-09-19T18:06:50Z",
   "games": [
     {
       "gamePk": 824545,
@@ -206,8 +206,54 @@
           "hr9": 1.08,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.15
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.239
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.245
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.238
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.175
+          },
+          {
+            "id": 677956,
+            "name": "Rece Hinds",
+            "iso": 0.077
+          },
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": 0.059
+          },
+          {
+            "id": 694212,
+            "name": "Samuel Basallo",
+            "iso": 0.188
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.125
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -762,9 +808,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\ud83c\udf27\ufe0f",
+        "cond": "wind out 5mph, 74\u00b0",
+        "lean": "Boost",
+        "temp": 73.6,
+        "wind_mph": 4.9,
+        "wind_dir": 175,
+        "tail_mph": 4.9,
+        "precip": 59
       },
-      "wf": 1.0
+      "wf": 1.022
     },
     {
       "gamePk": 825029,
