@@ -2350,10 +2350,31 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
        `localStorage` is undefined, loadLock() throws into its own catch and returns []. The
        server has no per-tab state and must not gain any. */
     var _pSig={}; prior.forEach(function(t){ _pSig[tsig(t)]=1; });
+    /* 🚨 LATCHSEAT-2026-09-19 -- THE LATCH ADMITS BY SEAT, NOT BY LEG SET. `_pSig` is a signature
+       over the LEGS (`kind|sorted names`), so the moment one bat moves on a slip the SAME SEAT has
+       two signatures, and the stored copy of the old one reads as "a locked slip the board dropped"
+       and is re-admitted alongside the live one. 2026-09-19: "Breaking the Sound Barrier" was
+       latched in a viewer's tab with Jo Adell as its fourth leg, the seat re-drafted to Jose
+       Ramirez, and both copies came back as locked moons on Vinnie Pasquantino. He was then at
+       THREE moons, the all-or-none pairing pass below drops any live moon whose anchor is not at
+       exactly MOONS_PER_ANC, and it took the one slip that was still open and bettable --
+       "Reaching for the Stars" -- off the board. No void marker, no ledger row, and
+       D_<date>.json still carries it, so grade_night.py grades a slip nobody was shown. The
+       duplicate then evaporated at `out=_kept.concat(_trim)` (rebuilt from `_lockedPrior`, which is
+       scanned from the SERVER board BEFORE this latch runs), so the damage left no trace in the
+       output either: the board simply rendered 13 tickets where 14 were published. Reproduced from
+       the viewer's own lock store -- baseline 13 tickets / Vinnie 1 moon, with this 14 / 2.
+       A ticket's NAME is its seat -- the board already treats a name as spent for the night
+       (REDRAFT-2026-08-18's `_killed`). Newest wins: the board's copy is on `prior`, so the stored
+       copy is refused here, and because `lmap` below is built from `prior`, refusing it also PRUNES
+       it from the store (measured: 5 rows -> 4). Placed bets are untouched -- this only ever
+       declines a SECOND copy of a slip the board is already carrying under its own name. */
+    var _pName={}; prior.forEach(function(t){ if(t&&t.name)_pName[t.name]=1; });
     /* RETRACTED-2026-08-29: signatures the board has withdrawn for the night. See the latch below. */
     var _retracted={}; ((D.meta&&D.meta.retracted)||[]).forEach(function(sg){ _retracted[sg]=1; });
     loadLock().forEach(function(e){
       if(!e || !e.sig || !e.t || _pSig[e.sig]) return;
+      if(e.t.name && _pName[e.t.name]) return;   /* LATCHSEAT-2026-09-19: this seat is already on the board under a newer leg set */
       var t=e.t, legs=t.players||[];
       /* LOCKEVICT-2026-08-29: `chalkBannedIn(t,_chalkEver)` and not `chalkBanned(t)`. Once
          CHALKOFF has taken a slip it is gone for the night; a later price move must not hand it
@@ -2397,7 +2418,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         var _lp=P[legs[_li].name];
         if(!_lp || _lp.out || _lp.void) return;
       }
-      t.locked=true; prior.push(t); _pSig[e.sig]=1;
+      t.locked=true; prior.push(t); _pSig[e.sig]=1; if(t.name)_pName[t.name]=1;   /* LATCHSEAT-2026-09-19 */
     });
     if(prior.length){
       prior.forEach(function(t){ if((t.locked||frozenT(t))&&validT(t)) lmap[tsig(t)]={sig:tsig(t),t:t}; });   /* t.locked: the latch above is authoritative; frozenT is only how a slip FIRST locks */   // LOCK = whole ticket confirmed, computed fresh from the live lineup
@@ -2599,7 +2620,31 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         else if(P[a].out||P[a].void)r='scratched';
         else if(P[a].thin)r='thin sample (under MIN_CARD_BIP batted balls)';         else if(chalk[a])r='now chalk (top-'+CHALK_N+' cannot anchor)';
         else if(!(pinnedP(a)||(aliveP(a)&&inPool[a])))r='no longer draftable';
-        if(!r)return false;
+        /* 🚨 LEGDROP-2026-09-19 -- A DEAD LEG REDRAFTS THE BOARD, THE SAME WAY A DEAD ANCHOR DOES.
+           Owner: "i want the board redrafted accordingly when someone on his slip dropped."
+           REDRAFT-2026-08-18 made this trigger read the ANCHOR only, on the reasoning that
+           searchBest picks the four-anchor SET jointly and patching a seat "can only ever re-rank
+           the leftovers". The same is true one level down: a moon's three partner legs were chosen
+           against the pool as it stood WITH that bat in it, so refilling the hole in place keeps a
+           board that was drafted around a bat who is no longer there. REANCHOR-2026-08-18 keeps the
+           open parlay rather than deleting it -- correct -- but repair is not the draft.
+           DEAD, not merely moved: gone from the pool, scratched, voided, or thin (THINBAT). A leg
+           that has only drifted out of `inPool` on a price move does NOT fire this -- the anchor
+           test carries that clause because a SEAT must be re-searched, but applying it to legs
+           would re-draft the open half of the board on ordinary price noise every few minutes.
+           Measured over 627 chained builds (09-16..09-19): fires 5 times, every one a real scratch,
+           1-3 a slate, and 0 differences on the two nights where nobody was scratched off a slip.
+           LOCKED slips never reach this line (`isLocked(t)` returns above): a placed bet is not
+           re-drafted, its dead leg voids and the parlay pays on what is left (VOIDKEEP-2026-09-19). */
+        if(!r){
+          var _lg=(t.players||[]);
+          for(var _li2=0;_li2<_lg.length;_li2++){ var _ln=_lg[_li2].name; if(!_ln||_ln===a)continue;
+            var _lq=P[_ln], _lr=null;
+            if(!_lq)_lr='gone from the pool';
+            else if(_lq.out||_lq.void)_lr='scratched';
+            else if(_lq.thin)_lr='thin sample (under MIN_CARD_BIP batted balls)';
+            if(_lr){ _redraftWhy=_ln+': '+_lr+' (leg on open moon "'+t.name+'")'; return true; } }
+          return false; }
         _redraftWhy=a+': '+r+' (open moon "'+t.name+'")';
         return true;});
     })();
@@ -2968,7 +3013,12 @@ var _cmA={}, _cmB={};
     // ---- FINAL REPAIR (shared, both paths, on the near-final ticket set): pair any LIVE moon anchor still short
     // of MOONS_PER_ANC from the WIDEST pool (any scored bat with odds, alive, in-window, distinct game). Uses
     // out.push directly and runs after both branches, so nothing upstream prevents it. Never ships a short moon. ----
-    (function(){var mc={};out.forEach(function(t){if(t.kind==='moon')mc[t.anchor]=(mc[t.anchor]||0)+1;});
+    /* PAIRLAST-2026-09-19 made this a NAMED function so the same fill can run twice: here, where it
+       always has, and once more at the very end of the board, after every pass that can REMOVE a
+       moon. `lockOk` is null on this call -- MINTGUARD still cleans up behind it, exactly as before
+       -- and is the clock guard on the late one, which runs after MINTGUARD and so must enforce it
+       itself. Returns the tickets it minted, so the late caller can post-process them. */
+    function _moonFill(lockOk){var made=[];var mc={};out.forEach(function(t){if(t.kind==='moon')mc[t.anchor]=(mc[t.anchor]||0)+1;});
       var pl={};out.forEach(function(t){(t.players||[]).forEach(function(l){pl[l.name]=1;});});
       Object.keys(mc).forEach(function(a){ if(!P[a]||P[a].thin||!(pinnedP(a)||(aliveP(a)&&inPool[a])))return;
         var g=0; while(mc[a]<MOONS_PER_ANC && g++<4){
@@ -2976,12 +3026,16 @@ var _cmA={}, _cmB={};
           var cnd=Object.keys(P).filter(function(n){return !pl[n]&&n!==a&&!chalk[n]&&!P[n].out&&!P[n].void&&!P[n].thin&&P[n].odds!=null;}).sort(function(x,y){return (P[y].TOTAL||0)-(P[x].TOTAL||0);});
           for(var ci=0;ci<cnd.length&&ln.length<moonLegsEff();ci++){var n=cnd[ci]; if(gu[P[n].game])continue; if(!spanOk(ln.concat([n])))continue; ln.push(n); gu[P[n].game]=1;}
           if(ln.length<moonLegsEff())break;
+          var legs=ln.map(leg), _lk=lockOf(legs);
+          if(lockOk && !lockOk(_lk))break;   /* MINTGUARD, applied at mint time on the late pass */
           ln.forEach(function(n){pl[n]=1;});
-          var legs=ln.map(leg); out.push({name:cwName('moon',nextIdx('moon')),kind:'moon',badge:'🚀',note:"",players:legs,nlegs:legs.length,anchor:a,lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:{struct:rrStruct(legs.length),risk:rrRisk(legs.length)}});
+          var _mt={name:cwName('moon',nextIdx('moon')),kind:'moon',badge:'🚀',note:"",players:legs,nlegs:legs.length,anchor:a,lock:_lk,has_late:legs.some(function(l){return l.late;}),final:false,rr:{struct:rrStruct(legs.length),risk:rrRisk(legs.length)}};
+          out.push(_mt); made.push(_mt);
           mc[a]++;
         }
       });
-    })();
+      return made;}
+    _moonFill(null);
     /* SHAPE REPAIR -- REDRAFT-2026-08-18. The board's shape is fixed: four anchors x two moons, one nightcap,
        one lunch play. The moon half of that is repaired directly above; the two singles never were, because the
        preserve path can only re-derive a ticket that is still ON the prior board. So when a nightcap's bat was
@@ -3130,6 +3184,49 @@ var _cmA={}, _cmB={};
          preference; not unwinding a placed bet is a money rule. */
       out.forEach(function(t){ if(t.kind==='moon'&&t.anchor&&_anch[t.anchor]&&!t.locked)_kill[t.name]=1; });
       out=out.filter(function(t){ return !_kill[t.name]; });
+    })();
+    /* 🚨 PAIRLAST-2026-09-19 -- THE PAIR IS COUNTED LAST, the way ANCHORCAP-2026-09-02 counts
+       seats last, and for the same reason: the invariant was checked in the middle of the pipeline
+       and then quietly broken by passes that run after it.
+       FINAL REPAIR above guarantees "never ships a short moon" -- and FOUR passes that can REMOVE a
+       moon run downstream of it: the lunch/nightcap `_rsv` filter, `out=_kept.concat(_trim)` (its
+       `_keptN` name test and its `_room` size cap), MINTGUARD's sibling kill, and ANCHORCAP.
+       Nothing re-counted afterwards, so the board could and did ship a single-moon anchor.
+       2026-09-19: Vinnie Pasquantino, one moon. FINAL REPAIR saw TWO and did nothing, because a
+       duplicate of one locked slip had been re-admitted from a viewer's lock store (LATCHSEAT
+       above); `out=_kept.concat(_trim)` then rebuilt the board from `_lockedPrior` -- scanned from
+       the SERVER board, so one copy -- and the count FINAL REPAIR had blessed was no longer true.
+       Owner: "i want the board redrafted accordingly when someone on his slip dropped."
+       So: count again HERE, after everything that removes, and DRAFT the missing moon rather than
+       leave the anchor short -- the same widest-pool fill, with MINTGUARD applied at mint time
+       since this runs after it. Only if the fill genuinely cannot reach a full moon inside the
+       window does the anchor demote, and then only its OPEN moons: a LOCKED single is a placed bet
+       and stays put (MINTLOCK-2026-08-29 -- never showing a single-moon anchor is a display
+       preference, not unwinding a placed bet is a money rule). Runs BEFORE the display pairing pass
+       so a minted moon sits beside its partner, and before ANCHORCAP, which removes an anchor's
+       moons together and so can never leave a single behind it.
+       Verified against the live 09-19 state with LATCHSEAT switched off, i.e. with the phantom
+       still entering: the board ships 14 and Pasquantino gets a full pair off this pass alone. */
+    (function(){
+      if(!MOONS_PER_ANC)return;
+      var _pnow=nowETMin()+_etDayShift*1440;
+      var _made=_moonFill(function(lk){ return !(lk && gmin(lk)<=_pnow); });
+      _made.forEach(function(t){
+        var ws={boost:0,supp:0,dome:0,neu:0};
+        t.players.forEach(function(l){var w=WXm[String(l.game)]||{}; if(w.cond==='Dome')ws.dome++; else if(w.lean==='Boost')ws.boost++; else if(w.lean==='Suppress')ws.supp++; else ws.neu++;});
+        t.wxsum=ws; t.confleg=t.players.filter(function(l){var p=P[l.name];return !!(p&&p.status==='confirmed'&&!p.out&&!p.void);}).length;
+        (t.players||[]).forEach(function(l){var _p=P[l.name];if(_p){l.gtime=_p.gtime;l.late=_p.late;l.gmatch=_p.gmatch;l.game=_p.game;}});
+        if(t.rr){var _rl=t.players.length;t.rr.struct=rrStruct(_rl);t.rr.risk=rrRisk(_rl);t.rr.maxprofit=rrmax(t.players.filter(function(l){return l.odds;}),t.rr.risk);t.rr.bytwos=false;}
+        t.note=cwNote(t.kind,t.players.map(function(l){return l.name;}));
+        if(typeof priceTicket==='function')priceTicket(t);
+      });
+      if(_made.length&&typeof console!=='undefined'&&console.log)console.log('[pairlast] short anchor -> minted '+_made.map(function(t){return t.anchor+' / '+t.name;}).join(', '));
+      var _mc={}; out.forEach(function(t){ if(t.kind==='moon'&&t.anchor)_mc[t.anchor]=(_mc[t.anchor]||0)+1; });
+      var _cut={},_any=false; Object.keys(_mc).forEach(function(a){ if(_mc[a]<MOONS_PER_ANC){_cut[a]=1;_any=true;} });
+      if(!_any)return;
+      var _dr=[];
+      out=out.filter(function(t){ if(t.kind!=='moon'||!_cut[t.anchor]||t.locked)return true; _dr.push(t.anchor+' / '+t.name); return false; });
+      if(_dr.length&&typeof console!=='undefined'&&console.log)console.log('[pairlast] could not pair -> demoted: '+_dr.join(', '));
     })();
     (function(){   // ---- MOON PAIRING (display): an anchor's two moons sit SIDE BY SIDE.
       // 2026-08-11: this pass MUST be the last thing that touches `out`. It used to run before the
