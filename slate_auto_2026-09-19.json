@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T16:36:30Z",
+  "pulled_at": "2026-09-19T16:41:56Z",
   "games": [
     {
       "gamePk": 824545,
@@ -678,8 +678,10 @@
       "away": {
         "abbrev": "SF",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 805074,
+          "name": "Yunior Marte",
+          "hr9": 1.23,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -698,16 +700,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 73\u00b0",
-        "lean": "Neutral",
-        "temp": 72.9,
-        "wind_mph": 7.5,
-        "wind_dir": 260,
-        "tail_mph": 4.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.019
+      "wf": 1.0
     },
     {
       "gamePk": 823976,
