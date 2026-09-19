@@ -1,11 +1,11 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-19T20:55:24Z",
+  "pulled_at": "2026-09-19T21:00:25Z",
   "games": [
     {
       "gamePk": 824545,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-19T18:10:00Z",
       "matchup": "DET@CWS",
       "away": {
@@ -168,12 +168,12 @@
           {
             "id": 683734,
             "name": "Andrew Vaughn",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 687401,
             "name": "Joey Ortiz",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 596142,
@@ -505,7 +505,7 @@
           {
             "id": 683146,
             "name": "Brett Baty",
-            "iso": 0.133
+            "iso": 0.132
           },
           {
             "id": 682626,
@@ -1592,7 +1592,7 @@
     },
     {
       "gamePk": 823899,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-20T01:10:00Z",
       "matchup": "SF@LAD",
       "away": {
@@ -1603,8 +1603,54 @@
           "hr9": 1.23,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.148
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.102
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.173
+          },
+          {
+            "id": 808982,
+            "name": "Jung Hoo Lee",
+            "iso": 0.128
+          },
+          {
+            "id": 695391,
+            "name": "Brett Harris",
+            "iso": 0.047
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.156
+          },
+          {
+            "id": 668800,
+            "name": "Andrew Knizner",
+            "iso": 0.167
+          },
+          {
+            "id": 678545,
+            "name": "Osleivis Basabe",
+            "iso": 0.15
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.095
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -1614,10 +1660,56 @@
           "hr9": 0.8,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.192
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.149
+          },
+          {
+            "id": 669257,
+            "name": "Will Smith",
+            "iso": 0.153
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.244
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.16
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.161
+          },
+          {
+            "id": 800543,
+            "name": "Josue De Paula",
+            "iso": 0.238
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.124
+          },
+          {
+            "id": 690976,
+            "name": "Alex Freeland",
+            "iso": 0.092
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
