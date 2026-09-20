@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-20T03:13:06Z",
+  "pulled_at": "2026-09-20T03:17:44Z",
   "games": [
     {
       "gamePk": 824545,
@@ -1199,7 +1199,7 @@
     },
     {
       "gamePk": 823003,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-19T23:15:00Z",
       "matchup": "WSH@STL",
       "away": {
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 76\u00b0",
+        "lean": "Boost",
+        "temp": 76.0,
+        "wind_mph": 7.2,
+        "wind_dir": 231,
+        "tail_mph": 7.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
