@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-20T01:07:21Z",
+  "pulled_at": "2026-09-20T01:11:58Z",
   "games": [
     {
       "gamePk": 824545,
@@ -766,7 +766,7 @@
           {
             "id": 682877,
             "name": "Juan Brito",
-            "iso": 0.134
+            "iso": 0.132
           },
           {
             "id": 668709,
@@ -889,12 +889,12 @@
           {
             "id": 804668,
             "name": "Rafael Flores Jr.",
-            "iso": 0.248
+            "iso": 0.246
           },
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.227
+            "iso": 0.232
           },
           {
             "id": 693304,
@@ -975,7 +975,7 @@
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.227
+            "iso": 0.226
           },
           {
             "id": 669701,
@@ -1092,7 +1092,7 @@
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.255
+            "iso": 0.254
           },
           {
             "id": 671739,
@@ -1409,7 +1409,7 @@
           {
             "id": 681393,
             "name": "Connor Norby",
-            "iso": 0.139
+            "iso": 0.137
           },
           {
             "id": 681198,
@@ -1730,7 +1730,7 @@
     },
     {
       "gamePk": 823899,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-20T01:10:00Z",
       "matchup": "SF@LAD",
       "away": {
@@ -1745,12 +1745,12 @@
           {
             "id": 813841,
             "name": "Jonah Cox",
-            "iso": 0.148
+            "iso": 0.146
           },
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.102
+            "iso": 0.101
           },
           {
             "id": 682674,
@@ -1795,7 +1795,7 @@
         "sp": {
           "id": 669373,
           "name": "Tarik Skubal",
-          "hr9": 0.8,
+          "hr9": 0.79,
           "hand": "LHP"
         },
         "lineup": [
@@ -1863,7 +1863,7 @@
     },
     {
       "gamePk": 823976,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-20T01:38:00Z",
       "matchup": "MIN@LAA",
       "away": {
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 74\u00b0",
+        "lean": "Boost",
+        "temp": 74.4,
+        "wind_mph": 7.5,
+        "wind_dir": 243,
+        "tail_mph": 6.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
