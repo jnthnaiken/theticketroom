@@ -1,7 +1,7 @@
 {
   "date": "2026-09-20",
   "season": "2026",
-  "pulled_at": "2026-09-20T14:57:16Z",
+  "pulled_at": "2026-09-20T15:00:33Z",
   "games": [
     {
       "gamePk": 823570,
@@ -663,7 +663,7 @@
     },
     {
       "gamePk": 824546,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-20T18:10:00Z",
       "matchup": "DET@CWS",
       "away": {
@@ -685,10 +685,56 @@
           "hr9": 0.89,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.12
+          },
+          {
+            "id": 691019,
+            "name": "Kyle Teel",
+            "iso": 0.151
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.232
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.262
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.172
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.216
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.13
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.128
+          },
+          {
+            "id": 686668,
+            "name": "Brenton Doyle",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\ud83c\udf27\ufe0f",
