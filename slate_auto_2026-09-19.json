@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-20T01:30:36Z",
+  "pulled_at": "2026-09-20T01:32:31Z",
   "games": [
     {
       "gamePk": 824545,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 823330,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-19T22:40:00Z",
       "matchup": "KC@PIT",
       "away": {
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 74\u00b0",
-        "lean": "Boost",
-        "temp": 74.4,
-        "wind_mph": 7.5,
-        "wind_dir": 243,
-        "tail_mph": 6.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     }
   ]
 }
