@@ -1,0 +1,116 @@
+{
+ "_note": "kickoffs are UTC minutes past midnight of the SLATE date (2026-09-20), read off the ESPN scoreboard, never assumed. SUNDAY-2026-09-20: ESPN returned 21 fixtures across the five core leagues plus one MLS tie; nothing gated was on, so CUPSCOPE had nothing to rule on and all 21 were admissible. ELEVEN are carried, spanning 855-1140. TWO were already underway when the slate was scanned at 12:23Z (Fiorentina v Napoli SECOND_HALF, Getafe v Malaga FIRST_HALF) and a running or settled result is never boarded. SEVEN more kick at 13:00Z and 13:30Z -- the slate was ready at 12:39Z, so those would have gone live within about twenty minutes of the first build and reached the board only as bats `started()` strips and MINTGUARD refuses to mint; they are left off rather than shipped to die. ONE MLS tie (inter-miami-v-san-diego-fc, 23:00Z, deferred to today by the 2026-09-19 slate because an MLS card is ET-dated) is omitted: it sits four hours clear of the nearest other kickoff so it can never form a three-match screamer inside WIN, and it would need the ASA xG source for one isolated bat. The eleven carried hold several three-match windows inside WIN=75 (930/960/990, 990/1050, 1125/1125/1140).",
+ "date": "2026-09-20",
+ "matches": {
+  "atletico-madrid-v-real-madrid": {
+   "home": "Atlético Madrid",
+   "away": "Real Madrid",
+   "kickoff": 855,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882865"
+   ]
+  },
+  "nice-v-lille": {
+   "home": "Nice",
+   "away": "Lille",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876452"
+   ]
+  },
+  "fulham-v-manchester-united": {
+   "home": "Fulham",
+   "away": "Manchester United",
+   "kickoff": 930,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401878777"
+   ]
+  },
+  "schalke-04-v-sv-elversberg": {
+   "home": "Schalke 04",
+   "away": "SV Elversberg",
+   "kickoff": 930,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884783"
+   ]
+  },
+  "juventus-v-atalanta": {
+   "home": "Juventus",
+   "away": "Atalanta",
+   "kickoff": 960,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874757"
+   ]
+  },
+  "deportivo-v-real-betis": {
+   "home": "Deportivo",
+   "away": "Real Betis",
+   "kickoff": 990,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882863"
+   ]
+  },
+  "villarreal-v-levante": {
+   "home": "Villarreal",
+   "away": "Levante",
+   "kickoff": 990,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882857"
+   ]
+  },
+  "sc-paderborn-07-v-tsg-hoffenheim": {
+   "home": "SC Paderborn 07",
+   "away": "TSG Hoffenheim",
+   "kickoff": 1050,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884782"
+   ]
+  },
+  "ac-milan-v-lecce": {
+   "home": "AC Milan",
+   "away": "Lecce",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874944"
+   ]
+  },
+  "marseille-v-paris-saint-germain": {
+   "home": "Marseille",
+   "away": "Paris Saint-Germain",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876449"
+   ]
+  },
+  "valencia-v-real-sociedad": {
+   "home": "Valencia",
+   "away": "Real Sociedad",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882858"
+   ]
+  }
+ }
+}
