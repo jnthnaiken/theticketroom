@@ -1,7 +1,7 @@
 {
   "date": "2026-09-20",
   "season": "2026",
-  "pulled_at": "2026-09-20T18:30:37Z",
+  "pulled_at": "2026-09-20T18:37:13Z",
   "games": [
     {
       "gamePk": 823570,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "hr9": 0.78,
+          "hr9": 0.77,
           "hand": "LHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823329,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-20T17:35:00Z",
       "matchup": "KC@PIT",
       "away": {
@@ -183,12 +183,12 @@
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.218
+            "iso": 0.216
           },
           {
             "id": 571912,
             "name": "Luke Maile",
-            "iso": 0.105
+            "iso": 0.102
           },
           {
             "id": 686475,
@@ -316,7 +316,7 @@
           {
             "id": 624424,
             "name": "Michael Conforto",
-            "iso": 0.229
+            "iso": 0.228
           },
           {
             "id": 699393,
@@ -336,14 +336,14 @@
         "sp": {
           "id": 695076,
           "name": "Rhett Lowder",
-          "hr9": 1.28,
+          "hr9": 1.27,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 667472,
             "name": "Dane Myers",
-            "iso": 0.114
+            "iso": 0.112
           },
           {
             "id": 682829,
@@ -557,7 +557,7 @@
           {
             "id": 681508,
             "name": "Mickey Gasper",
-            "iso": 0.209
+            "iso": 0.207
           },
           {
             "id": 668939,
@@ -567,7 +567,7 @@
           {
             "id": 596115,
             "name": "Trevor Story",
-            "iso": 0.11
+            "iso": 0.109
           },
           {
             "id": 686765,
@@ -602,7 +602,7 @@
         "sp": {
           "id": 643377,
           "name": "Griffin Jax",
-          "hr9": 1.26,
+          "hr9": 1.25,
           "hand": "RHP"
         },
         "lineup": [
@@ -677,7 +677,7 @@
         "sp": {
           "id": 527048,
           "name": "Mart\u00edn P\u00e9rez",
-          "hr9": 0.85,
+          "hr9": 0.84,
           "hand": "LHP"
         },
         "lineup": [
@@ -766,7 +766,7 @@
           {
             "id": 572233,
             "name": "Christian Walker",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 701358,
@@ -942,7 +942,7 @@
         "sp": {
           "id": 663623,
           "name": "Jake Irvin",
-          "hr9": 1.68,
+          "hr9": 1.66,
           "hand": "RHP"
         },
         "lineup": [
@@ -969,7 +969,7 @@
           {
             "id": 686611,
             "name": "Dylan Crews",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 695734,
@@ -1891,16 +1891,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 0mph, 72\u00b0",
-        "lean": "Neutral",
-        "temp": 72.5,
-        "wind_mph": 12.6,
-        "wind_dir": 300,
-        "tail_mph": 0.0,
-        "precip": 24
+        "note": "weather fetch failed"
       },
-      "wf": 1.004
+      "wf": 1.0
     }
   ]
 }
