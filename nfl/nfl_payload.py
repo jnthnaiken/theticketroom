@@ -193,7 +193,15 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             rr=(dict(struct='by 2s & 3', risk=t['risk'],
                      maxprofit=rr_maxprofit(t['legs'], t['risk']), bytwos=False)
                 if len(legs) > 1 else None),
-            wxsum=dict(wxs), confleg=0, locked=False, priced=True,
+            # 🚨 LOCKCARRY-2026-09-20, and it is soccer's LOCKCARRY-2026-08-30 verbatim, one
+            # room over. `locked` was hardcoded False here, so the latch could not survive a
+            # build: nfl_rebuild_cli.js freezes a slip, writes locked:true into tickets.json,
+            # and this line threw it away. Every pass then read the board back with NO slip
+            # locked and recomputed the freeze from scratch -- which is exactly what
+            # ticketIsLocked's opening line ("if (t.locked) return true" -- "a latch ... so a
+            # placed bet is never unwound") exists to prevent. Default False so a fresh draft
+            # is unchanged; a rebuild supplies the real value.
+            wxsum=dict(wxs), confleg=0, locked=bool(t.get('locked', False)), priced=True,
             parlay_am=dec_to_am(dec) if len(legs) > 1 else legs[0]['odds'],
             payout10=round(10 * dec, 1)))
 
