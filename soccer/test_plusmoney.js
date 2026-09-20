@@ -116,10 +116,12 @@ console.log('\n=== 4. redraft: a LOCKED slip is a placed bet ===');
 
 console.log('\n=== 5. NFL keeps +100 ===');
 {
-  const src = fs.readFileSync(path.join(__dirname, '..', 'nfl', 'nfl_draft_cli.js'), 'utf8');
-  const m = src.match(/const CFG = (\{[\s\S]*?\});/);
-  chk('nfl_draft_cli.js declares a CFG', !!m);
-  const CFG = m ? Function('return ' + m[1])() : {};
+  /* CFGDRIFT-2026-09-20: the football CFG moved out of nfl_draft_cli.js into nfl/nfl_cfg.js so
+     the fresh-draft and rebuild entry points cannot drift apart. This check is about the VALUE,
+     not the file, so it now requires the module -- which is also stricter than scraping the
+     source with a regex, because it fails if the file does not load at all. */
+  const CFG = require(path.join(__dirname, '..', 'nfl', 'nfl_cfg.js')).CFG;
+  chk('nfl_cfg.js exports a CFG', !!CFG && typeof CFG === 'object');
   chk('NFL CFG pins MIN_ODDS 100', CFG.MIN_ODDS === 100);
   chk('so the NFL draft runs with MIN_ODDS 100', SD.cfgOf(CFG).MIN_ODDS === 100);
   chk('and refuses -110', !SD.priceOk({ odds: -110 }, SD.cfgOf(CFG)));

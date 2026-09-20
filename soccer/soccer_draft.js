@@ -103,7 +103,12 @@
        nfl_draft_cli.js sets it. Enforced through priceOk(), i.e. at every door MIN_ODDS already
        guards (pool, wide pool, redraft cands, placeable, pinnable, alive[]). Locked slips are
        still carried verbatim. */
-    MAX_ODDS: null
+    MAX_ODDS: null,
+    /* KICKLOCK-2026-09-20. The `started` half of index.html's pinnedP(), off by default so
+       soccer keeps CONFLOCK as its ONLY freeze rule (STANDASIS-2026-08-29). nfl_draft_cli.js
+       pins it true: football has no team sheet, so `confirmed` never arrives and without this
+       nothing on that board can ever lock. See ticketIsLocked(). */
+    LOCK_ON_KICKOFF: false
   };
 
   function priceOk(p, cfg) {
@@ -801,7 +806,7 @@
    *
    * Everything time-dependent arrives as `nowUTCmin`. Nothing here reads a clock.
    */
-  function ticketIsLocked(t, D, nowUTCmin, koOf) {
+  function ticketIsLocked(t, D, nowUTCmin, koOf, lockOnKickoff) {
     if (t.locked) return true;
     var legs = t.players || [];
     if (!legs.length) return false;
@@ -826,11 +831,50 @@
        🚨 STANDASIS-2026-08-29: if you are about to add "...but hold it anyway when its match is
        underway" somewhere downstream, that is this deleted branch growing back. It was tried the
        same afternoon it was removed and it put three out-of-squad men on live moons. */
-    var allConf = legs.every(function (l) {
+    /* ALIVE is the guard, and it is the half of the rule that actually did the work on
+       2026-08-29. standAsIs() froze groups CONFLOCK had left open WITHOUT this test, which is
+       how Kean, Richarlison, Osula and Pinamonti rode live moons. Kickoff was the trigger it
+       used; `out`/`void` is what it was missing. Stated once here so both halves below inherit
+       it: a slip carrying a dead leg is REPAIRABLE and is never frozen, underway or not. */
+    var alive = legs.every(function (l) {
       var p = D.players[l.name];
-      return p && p.status === 'confirmed' && !p.out && !p.void;
+      return p && !p.out && !p.void;
     });
-    return allConf;
+    if (!alive) return false;
+
+    var allConf = legs.every(function (l) {
+      return D.players[l.name].status === 'confirmed';
+    });
+    if (allConf) return true;
+
+    /* KICKLOCK-2026-09-20 -- THE `started` HALF OF pinnedP(), OPT-IN PER ROOM.
+       index.html has always said the rule in one line:
+           pinnedP(n) = !p.out && !p.void && (p.status==='confirmed' || started(n))
+       Soccer runs it with the `started` half switched OFF, on purpose: a published XI is a
+       better placeability signal than a clock, and STANDASIS-2026-08-29 removed a kickoff
+       freeze that was firing WITHOUT the `alive` guard above.
+
+       Football has no team sheet, so `status` is 'projected' for every player on every build
+       and `allConf` can never be true -- which is why nfl_D.json shipped `locked: false` on
+       every ticket of every build on 2026-09-20 and the 1:00 slips were re-drafted 23 minutes
+       after kickoff (claude/nfl-anchorwave-2026-09-20.md). Its placeability signal is the
+       inactives report, which lands ~90 minutes BEFORE kickoff and is already applied to
+       `out` by nfl_injuries.py -- so by the time this fires, a dead leg has had an hour and a
+       half of repair windows and `alive` has already refused to freeze him.
+
+       Default false, so soccer is byte-identical: DEFAULTS.LOCK_ON_KICKOFF is off and the two
+       call sites pass cfg.LOCK_ON_KICKOFF. Football pins it true in nfl_draft_cli.js.
+       Earliest kickoff among the legs, matching lockOf() -- a slip is underway when its FIRST
+       game is, never its last. */
+    if (lockOnKickoff && nowUTCmin != null && typeof koOf === 'function') {
+      var first = Infinity;
+      legs.forEach(function (l) {
+        var k = koOf(D.players[l.name] ? D.players[l.name].game : l.game);
+        if (k != null && k < first) first = k;
+      });
+      if (first !== Infinity && nowUTCmin >= first) return true;
+    }
+    return false;
   }
 
   /* gate_z is recomputed rather than trusted from the bake, because the bake's value was
@@ -857,7 +901,7 @@
     var prior = (D.tickets || []).slice();
     var frozen = [], open = [];
     prior.forEach(function (t) {
-      if (ticketIsLocked(t, D, now, koOf)) { t.locked = true; frozen.push(t); } else open.push(t);
+      if (ticketIsLocked(t, D, now, koOf, cfg.LOCK_ON_KICKOFF)) { t.locked = true; frozen.push(t); } else open.push(t);
     });
     var used = {}, perM = {}, spent = {};
     function take(n) {
@@ -960,7 +1004,7 @@
     var prior = (D.tickets || []).slice();
     var frozen = [], open = [];
     prior.forEach(function (t) {
-      if (ticketIsLocked(t, D, now, koOf)) { t.locked = true; frozen.push(t); }
+      if (ticketIsLocked(t, D, now, koOf, cfg.LOCK_ON_KICKOFF)) { t.locked = true; frozen.push(t); }
       else open.push(t);
     });
 

@@ -112,10 +112,12 @@ console.log('\n=== 5b. lunch special and nightcap ===');
 
 console.log('\n=== 6. NFL is untouched ===');
 {
-  const src = fs.readFileSync(path.join(__dirname, '..', 'nfl', 'nfl_draft_cli.js'), 'utf8');
-  const m = src.match(/const CFG = (\{[\s\S]*?\});/);
-  const CFG = Function('return ' + m[1])();
-  chk('nfl_draft_cli pins TOP_SINGLES 0', CFG.TOP_SINGLES === 0);
+  /* CFGDRIFT-2026-09-20: the football CFG moved out of nfl_draft_cli.js into nfl/nfl_cfg.js so
+     the fresh-draft and rebuild entry points cannot drift apart. This check is about the VALUE,
+     not the file, so it now requires the module -- which is also stricter than scraping the
+     source with a regex, because it fails if the file does not load at all. */
+  const CFG = require(path.join(__dirname, '..', 'nfl', 'nfl_cfg.js')).CFG;
+  chk('nfl_cfg pins TOP_SINGLES 0', CFG.TOP_SINGLES === 0);
   const scored = J('fixtures/2026-08-26/scored.json');
   const r = SD.draft(scored, { TOP_SINGLES: 0, MIN_ODDS: null }, {});
   chk('with TOP_SINGLES 0 the engine drafts screamers', r.tickets.some(t => t.kind === 'moon'));
