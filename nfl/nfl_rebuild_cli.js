@@ -37,7 +37,17 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const SD = require(path.join(__dirname, '..', 'soccer', 'soccer_draft.js'));
+/* ⚠️ STAGEPATH-2026-09-20. The workflow runs this from nfl/.work, where the staging step has
+   copied soccer_draft.js in FLAT (`cp ../soccer/soccer_draft.js .work/`) -- so the repo-relative
+   path is wrong there and the sibling path is wrong here. nfl_draft_cli.js only ever ran staged
+   and hardcodes './soccer_draft.js'; this file has to work in both, because the tests run it
+   from the repo. Try the staged layout first, fall back to the repo one. */
+function loadDraft() {
+  const here = path.join(__dirname, 'soccer_draft.js');
+  const repo = path.join(__dirname, '..', 'soccer', 'soccer_draft.js');
+  return require(fs.existsSync(here) ? here : repo);
+}
+const SD = loadDraft();
 const { CFG, applyVocabulary } = require('./nfl_cfg.js');
 applyVocabulary(SD);
 
