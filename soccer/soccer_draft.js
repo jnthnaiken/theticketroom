@@ -1169,9 +1169,40 @@
       alive[n] = !p.out && !p.void && p.odds != null && priceOk(p, cfg) && (!xi || !xiKnown(p) || xi[n]);
     });
 
-    var groups = {}, orderedAnchors = [];
+    /* ==================================================================================
+     * 🚨 SPECIALNOTANCHOR-2026-09-20 -- A LUNCH SPECIAL AND A NIGHTCAP ARE NOT ANCHORS.
+     * ==================================================================================
+     * This loop filed EVERY non-moon slip under `groups[anchor].builders` -- `else` catches
+     * 'builder', 'lunch' AND 'late'. So an open special became a one-man group with zero moons,
+     * entered the anchor-seat contest, lost it ("outranked for an anchor seat"), and was
+     * DEMOTED. Its title was then burnt by the `demoted` sweep below, and SHAPEREPAIR
+     * immediately re-minted THE SAME PLAYER into THE SAME empty section under a different
+     * title, because the mint passes priorName = null.
+     *
+     * Measured on the live football board, 2026-09-20, 8 consecutive builds between 22:09Z and
+     * 22:38Z: 13 locked slips never moved a leg, and the nightcap oscillated
+     *     Sunday Night -> Under Lights -> Sunday Night -> Under Lights -> ...
+     * with Tyler Warren on it every single time. One bet, one leg, a new name every five
+     * minutes, and a commit each pass to publish the churn. Owner: "it still redrafting tickets
+     * when theyre locked and in progress."
+     *
+     * UNORPHAN-2026-08-31 already ruled on this in the other direction and its note is three
+     * screens below: "Baseball's 🍱 and 🌃 are not where demoted anchors go -- they are minted
+     * from the FIELD by SHAPE REPAIR. SHAPEREPAIR-2026-08-31 adds the mint; THIS REMOVES THE
+     * DEMOTION." The mint was added. The grouping was never taught the other half, so the
+     * demotion came straight back through this `else`.
+     *
+     * It was also quietly spending anchor seats: a special got its own `groups` entry and its
+     * own slot in `orderedAnchors`, which is the ANCHORCAP-2026-09-06 count ("i want it not
+     * possible for there to be more than 4 anchors").
+     *
+     * Specials are their own section. SHAPEREPAIR owns minting one into an EMPTY section,
+     * CONFLOCK/KICKLOCK owns freezing it once its game starts, and the carry below keeps a
+     * healthy one exactly where it is. */
+    var groups = {}, orderedAnchors = [], openSpecials = [];
     open.forEach(function (t) {
       if (!t.players || !t.players.length) return;
+      if (t.kind === 'lunch' || t.kind === 'late') { openSpecials.push(t); return; }
       var a = t.anchor || t.players[0].name;   /* ANCHORID-2026-09-04: identity, not position */
       if (!groups[a]) { groups[a] = { anchor: t.players[0], moons: [], builders: [] }; orderedAnchors.push(a); }
       if (t.kind === 'moon') groups[a].moons.push(t);
@@ -1474,6 +1505,27 @@
     var mintedT = build(res.tickets.map(function (t) { return { kind: t.kind, legs: t.legs, risk: t.risk }; }));
 
     var out = frozen.concat(repairedT, mintedT);
+
+    /* SPECIALNOTANCHOR-2026-09-20, second half. An open special whose leg is still alive and is
+       not already on the board SURVIVES AS ITSELF, title included -- it is the same one-leg
+       recommendation it was five minutes ago and nothing about it changed. Only a section that
+       is genuinely empty reaches SHAPEREPAIR's mint below, which is exactly what that block says
+       it is for: "An EMPTY SLOT gets drafted". pickName carries the title because the name was
+       never burnt -- no demotion, nothing to burn. */
+    (function () {
+      var onB = {}, haveK = {};
+      out.forEach(function (t) {
+        haveK[t.kind] = true;
+        (t.players || []).forEach(function (l) { onB[l.name] = true; });
+      });
+      openSpecials.forEach(function (t) {
+        var n = t.players[0].name;
+        if (haveK[t.kind] || !alive[n] || onB[n]) return;
+        out.push(mkTicket(t.kind, [legOf(n, D.players[n])], cfg.SINGLE_STAKE,
+                          pickName(t.kind, t.name), koOf, D.players));
+        onB[n] = true; haveK[t.kind] = true;
+      });
+    })();
 
     /* ==================================================================================
      * ORPHANSECTION-2026-08-29 -- a single with no moons behind it is a LUNCH SPECIAL or a
