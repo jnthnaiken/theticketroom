@@ -194,7 +194,13 @@ jobs:
           cp ev_weights_nfl_v1.json .work/ 2>/dev/null || true   # EVCAL-NFL: used only if promoted
           # LIVEJS-2026-09-10: nfl_live_seams.py (imported by nfl_fork.py) reads nfl_live.js from .work.
           # It was never staged, so every build since the live seams landed died in the fork step.
-          cp nfl_draft_cli.js nfl_live.js depth_prior.csv depth_model.json nfl_model.json .work/
+          # ⚠️ STAGEPATH-2026-09-20. This is an EXPLICIT LIST, so a new .js file is invisible to
+          # the build until it is named here. KICKLOCK added nfl_cfg.js and nfl_rebuild_cli.js and
+          # this line did not know about them: nfl_draft_cli.js requires ./nfl_cfg.js, which was
+          # not staged, so BOTH draft paths died and the board froze at 2:52pm with every run
+          # showing a failed "Score, draft, payload, fork". (The python side is a glob --
+          # `cp nfl_*.py` -- which is why nfl_sig.py and nfl_payload.py never hit this.)
+          cp nfl_draft_cli.js nfl_rebuild_cli.js nfl_cfg.js nfl_live.js depth_prior.csv depth_model.json nfl_model.json .work/
           cp ../soccer/soccer_draft.js .work/     # ONE DRAFT, THREE SPORTS
           cp ../index.html .work/index_live.html
           # OWNLEDGER-2026-09-04. THE FOOTBALL LEDGER, and never `../season.json`, which is
