@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-20T01:32:31Z",
+  "pulled_at": "2026-09-20T01:37:08Z",
   "games": [
     {
       "gamePk": 824545,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 824461,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-19T22:40:00Z",
       "matchup": "CHC@CIN",
       "away": {
@@ -960,12 +960,12 @@
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.141
+            "iso": 0.142
           },
           {
             "id": 543807,
             "name": "George Springer",
-            "iso": 0.16
+            "iso": 0.159
           },
           {
             "id": 664770,
@@ -1154,12 +1154,12 @@
           {
             "id": 514888,
             "name": "Jose Altuve",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 673237,
             "name": "Yainer Diaz",
-            "iso": 0.158
+            "iso": 0.16
           },
           {
             "id": 662139,
@@ -1352,7 +1352,7 @@
           {
             "id": 668227,
             "name": "Randy Arozarena",
-            "iso": 0.203
+            "iso": 0.202
           },
           {
             "id": 686527,
@@ -1473,7 +1473,7 @@
         "sp": {
           "id": 693645,
           "name": "Cam Schlittler",
-          "hr9": 0.77,
+          "hr9": 0.76,
           "hand": "RHP"
         },
         "lineup": [
@@ -1542,7 +1542,7 @@
           {
             "id": 606466,
             "name": "Ketel Marte",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 672515,
@@ -1642,17 +1642,17 @@
           {
             "id": 682663,
             "name": "Agust\u00edn Ram\u00edrez",
-            "iso": 0.13
+            "iso": 0.134
           },
           {
             "id": 691788,
             "name": "Joe Mack",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 665923,
             "name": "Esteury Ruiz",
-            "iso": 0.165
+            "iso": 0.164
           }
         ],
         "confirmed": true
@@ -1662,7 +1662,7 @@
         "sp": {
           "id": 663554,
           "name": "Casey Mize",
-          "hr9": 1.07,
+          "hr9": 1.06,
           "hand": "RHP"
         },
         "lineup": [
@@ -1983,9 +1983,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 74\u00b0",
+        "lean": "Boost",
+        "temp": 74.4,
+        "wind_mph": 7.5,
+        "wind_dir": 243,
+        "tail_mph": 6.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
