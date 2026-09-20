@@ -47,7 +47,15 @@ def sig(path):
     d = json.load(open(path, encoding='utf-8'))
     # PROSESIG-2026-09-08: `note` and `why` are RENDERED. See the header.
     t = [(x['kind'], x['name'], [l['name'] for l in x['players']], x.get('parlay_am'),
-          x.get('note'), x.get('badge'))      # BADGESIG-2026-09-17: the emoji is rendered too
+          x.get('note'), x.get('badge'),      # BADGESIG-2026-09-17: the emoji is rendered too
+          # 🚨 LOCKSIG-2026-09-20 -- THE FIFTH TIME, and the header above predicted it in so many
+          # words: "the gate is a list of things somebody remembered, and it goes stale the moment
+          # the payload gains a field." KICKLOCK-2026-09-20 gave football a `locked` flag and this
+          # tuple did not know about it, so the first build where a slip froze produced a
+          # BYTE-IDENTICAL signature: the lock reached the repo, the run went green, and Publish
+          # was skipped. A reader would have gone on seeing an open slip on a game already
+          # underway -- which is the exact defect the lock was written to end.
+          x.get('locked'))
          for x in d['tickets']]
     p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf'), v.get('why'))
                for k, v in d['players'].items())
