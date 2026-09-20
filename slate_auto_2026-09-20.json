@@ -1,7 +1,7 @@
 {
   "date": "2026-09-20",
   "season": "2026",
-  "pulled_at": "2026-09-20T14:06:42Z",
+  "pulled_at": "2026-09-20T14:11:25Z",
   "games": [
     {
       "gamePk": 823570,
@@ -167,7 +167,7 @@
     },
     {
       "gamePk": 822922,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-20T17:40:00Z",
       "matchup": "BOS@TB",
       "away": {
@@ -178,8 +178,54 @@
           "hr9": 0.94,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.141
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.21
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.181
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.11
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.141
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.135
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.158
+          },
+          {
+            "id": 643396,
+            "name": "Isiah Kiner-Falefa",
+            "iso": 0.075
+          },
+          {
+            "id": 681987,
+            "name": "Nate Eaton",
+            "iso": 0.116
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TB",
@@ -192,7 +238,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -518,9 +564,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 76\u00b0",
+        "lean": "Neutral",
+        "temp": 76.1,
+        "wind_mph": 6.7,
+        "wind_dir": 244,
+        "tail_mph": 2.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.019
     },
     {
       "gamePk": 825028,
