@@ -35,6 +35,38 @@ def _phrases(p):
     elif wf <= 0.95: o.append((1.5, 'park', ["fights a ball-killing yard", "battles heavy, homer-suppressing air", "plays in a park that swallows fly balls"]))
     if hh >= 52:   o.append((7, 'hh', [f"is scorching the ball ({H}% hard-hit)", f"is barreling everything in sight ({H}% hard-hit)", f"is denting outfield walls ({H}% hard-hit)", f"is hitting absolute lasers ({H}% hard-hit)", f"is squaring up everything ({H}% hard-hit)", f"is crushing the baseball ({H}% hard-hit)", f"is leaving scorch marks ({H}% hard-hit)", f"is teeing off ({H}% hard-hit)", f"is rocketing line drives ({H}% hard-hit)", f"is punishing the baseball ({H}% hard-hit)", f"is making elite contact ({H}% hard-hit)", f"is stinging it on a rope ({H}% hard-hit)", f"is tattooing the baseball ({H}% hard-hit)", f"is hammering the ball ({H}% hard-hit)", f"is lighting up the radar gun ({H}% hard-hit)", f"is blistering line drives ({H}% hard-hit)", f"is putting a charge into everything ({H}% hard-hit)", f"is crushing it to all fields ({H}% hard-hit)", f"is squaring up rockets ({H}% hard-hit)", f"is impacting the ball at an elite clip ({H}% hard-hit)", f"is mashing the ball ({H}% hard-hit)", f"is hitting frozen ropes ({H}% hard-hit)", f"is generating elite exit velo ({H}% hard-hit)", f"is hitting bullets ({H}% hard-hit)", f"is making thunderous contact ({H}% hard-hit)", f"is squaring up premium contact ({H}% hard-hit)", f"is barreling balls at will ({H}% hard-hit)", f"is hitting it on the screws ({H}% hard-hit)", f"is crushing contact at an elite rate ({H}% hard-hit)", f"is launching rockets ({H}% hard-hit)", f"is consistently barreling up ({H}% hard-hit)", f"is striking it clean and hard ({H}% hard-hit)"]))
     elif hh >= 46: o.append((3.5, 'hh', [f"is squaring it up ({H}% hard-hit)", f"is making loud contact ({H}% hard-hit)", f"is stinging the ball ({H}% hard-hit)", f"is finding the barrel ({H}% hard-hit)", f"is driving the ball ({H}% hard-hit)", f"is putting good wood on it ({H}% hard-hit)", f"is centering the ball ({H}% hard-hit)", f"is connecting solidly ({H}% hard-hit)", f"is hitting it hard enough ({H}% hard-hit)", f"is barreling a fair share ({H}% hard-hit)", f"is making consistent contact ({H}% hard-hit)", f"is catching it flush ({H}% hard-hit)", f"is hitting line drives ({H}% hard-hit)", f"is squaring up a good chunk ({H}% hard-hit)", f"is driving it with authority ({H}% hard-hit)", f"is putting a charge into it ({H}% hard-hit)", f"is making solid contact ({H}% hard-hit)", f"is making quality contact ({H}% hard-hit)", f"is driving balls into the gaps ({H}% hard-hit)", f"is barreling up enough ({H}% hard-hit)", f"is putting the bat on it well ({H}% hard-hit)", f"is squaring up its share ({H}% hard-hit)"]))
+    # REDZONE-2026-09-20 -- SAY WHAT THE CONTACT WAS SHAPED LIKE, NOT JUST HOW HARD IT WAS.
+    # Owner brought the "red zone" idea over from Jim Albert's Statcast work (launch angle 20-35 deg,
+    # exit velo 95-110, 79% of 2019 home runs). Measured against `calibration.jsonl` it earns NOTHING
+    # as a model input -- barrel on top of our own posted price is t=-0.4 over 17,030 graded bats, and
+    # corr(barrel, xiso)=0.936 -- so it is deliberately NOT scored. It is a better SENTENCE, and that
+    # is the whole claim.
+    # The number is `barrel`: Savant's barrel_batted_rate, barrels per BATTED BALL, already pulled in
+    # build15 and already marked LOG-ONLY there. A barrel IS a red zone by construction -- the exit-velo
+    # and launch-angle region clearing .500 BA / 1.500 SLG, with the angle window widening as the ball
+    # is hit harder. So "the home-run window" is a description of the field, not a claim on top of it.
+    # ⚠️ NEVER quote an HR probability off this. A barrel is ~.500 BA contact, not a coin-flip homer.
+    # ONE CONTACT BEAT PER NOTE. This does not stack on top of hard-hit, it REPLACES it when it is the
+    # better line -- hard-hit is exit velo alone, red zone is exit velo AND angle, so above an ordinary
+    # barrel rate the red-zone clause is strictly more informative. Below 11 (roughly the board's top
+    # quintile) a bat who is crushing it without lifting it is genuinely better described by hard-hit,
+    # and the weights below hand it back. Below 11 the clause does not fire at all: a league-average
+    # barrel rate is not a selling point and the shorter hard-hit line says more. Its own `rz` dim, so the
+    # board-wide phrase de-dup counts
+    # red-zone variants separately from hard-hit ones.
+    # Thresholds off the live board (392 of 419 bats priced with a barrel rate): median 7.0, p75 10.2,
+    # p90 12.8, p95 14.3, max 20.9.
+    brl = p.get('barrel')
+    if brl is not None:
+        B = _jsround(brl)
+        rzw, rzb = (None, None)
+        if brl >= 15:   rzw, rzb = 7.6, [f"is living in the home-run window ({B}% red zone)", f"has elite contact shape ({B}% red zone)", f"is in the red zone on {B}% of his contact", f"reaches the red zone on {B}% of his contact", f"tops the board for red-zone contact ({B}%)", f"shapes it for the seats ({B}% red zone)", f"lands {B}% of his contact in the home-run window", f"is red-zone elite ({B}% of his contact)", f"is shaping home-run contact at {B}%", f"finds the home-run window constantly ({B}%)"]
+        elif brl >= 11: rzw, rzb = 7.2, [f"is in the red zone on {B}% of his contact", f"reaches the home-run window at {B}%", f"shapes a real share for the seats ({B}% red zone)", f"lands {B}% of his contact in the home-run window", f"gets into the red zone at a {B}% clip", f"finds the home-run window on {B}% of his contact", f"is red-zone strong ({B}% of his contact)", f"puts {B}% of his batted balls in the red zone"]
+        if rzw is not None:
+            _hhw = next((r[0] for r in o if r[1] == 'hh'), None)
+            if _hhw is None or rzw >= _hhw:
+                o = [r for r in o if r[1] != 'hh']
+                o.append((rzw, 'rz', rzb))
     if 16 <= la <= 23: o.append((5, 'la', [f"lives in the launch window ({L}\u00b0)", f"has the swing plane dialed for liftoff ({L}\u00b0)", f"is lifting everything ({L}\u00b0)", f"puts the ball in the air on a homer plane ({L}\u00b0)", f"sits in the ideal launch angle ({L}\u00b0)", f"gets under it just right ({L}\u00b0)", f"swings on a clean uppercut ({L}\u00b0)", f"elevates with ease ({L}\u00b0)", f"has a swing built for the seats ({L}\u00b0)", f"stays in the sweet-spot angle ({L}\u00b0)", f"sends it skyward ({L}\u00b0)", f"has loft to spare ({L}\u00b0)", f"hits it on the perfect plane ({L}\u00b0)", f"launches it at the right angle ({L}\u00b0)", f"keeps the ball in the air ({L}\u00b0)", f"swings with natural lift ({L}\u00b0)", f"finds the home-run trajectory ({L}\u00b0)", f"gets ideal loft ({L}\u00b0)", f"drives the ball into the air ({L}\u00b0)", f"tilts the bat for distance ({L}\u00b0)", f"swings with home-run loft ({L}\u00b0)", f"stays in the launch zone ({L}\u00b0)", f"puts air under the ball ({L}\u00b0)", f"has textbook lift ({L}\u00b0)"]))
     ft = p.get('ftrend')
     if ft == 'up':

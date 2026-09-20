@@ -2215,6 +2215,33 @@ drawTickets();drawPlayers();drawTracker();
       else if(wf<=0.95)o.push([1.5,'park',['fights a ball-killing yard','battles heavy, homer-suppressing air','plays in a park that swallows fly balls']]);
       if(hh>=52)o.push([7,'hh',['is scorching the ball ('+H+'% hard-hit)','is barreling everything in sight ('+H+'% hard-hit)','is denting outfield walls ('+H+'% hard-hit)','is hitting absolute lasers ('+H+'% hard-hit)','is squaring up everything ('+H+'% hard-hit)','is crushing the baseball ('+H+'% hard-hit)','is leaving scorch marks ('+H+'% hard-hit)','is teeing off ('+H+'% hard-hit)','is rocketing line drives ('+H+'% hard-hit)','is punishing the baseball ('+H+'% hard-hit)','is making elite contact ('+H+'% hard-hit)','is stinging it on a rope ('+H+'% hard-hit)','is tattooing the baseball ('+H+'% hard-hit)','is hammering the ball ('+H+'% hard-hit)','is lighting up the radar gun ('+H+'% hard-hit)','is blistering line drives ('+H+'% hard-hit)','is putting a charge into everything ('+H+'% hard-hit)','is crushing it to all fields ('+H+'% hard-hit)','is squaring up rockets ('+H+'% hard-hit)','is impacting the ball at an elite clip ('+H+'% hard-hit)','is mashing the ball ('+H+'% hard-hit)','is hitting frozen ropes ('+H+'% hard-hit)','is generating elite exit velo ('+H+'% hard-hit)','is hitting bullets ('+H+'% hard-hit)','is making thunderous contact ('+H+'% hard-hit)','is squaring up premium contact ('+H+'% hard-hit)','is barreling balls at will ('+H+'% hard-hit)','is hitting it on the screws ('+H+'% hard-hit)','is crushing contact at an elite rate ('+H+'% hard-hit)','is launching rockets ('+H+'% hard-hit)','is consistently barreling up ('+H+'% hard-hit)','is striking it clean and hard ('+H+'% hard-hit)']]);
       else if(hh>=46)o.push([3.5,'hh',['is squaring it up ('+H+'% hard-hit)','is making loud contact ('+H+'% hard-hit)','is stinging the ball ('+H+'% hard-hit)','is finding the barrel ('+H+'% hard-hit)','is driving the ball ('+H+'% hard-hit)','is putting good wood on it ('+H+'% hard-hit)','is centering the ball ('+H+'% hard-hit)','is connecting solidly ('+H+'% hard-hit)','is hitting it hard enough ('+H+'% hard-hit)','is barreling a fair share ('+H+'% hard-hit)','is making consistent contact ('+H+'% hard-hit)','is catching it flush ('+H+'% hard-hit)','is hitting line drives ('+H+'% hard-hit)','is squaring up a good chunk ('+H+'% hard-hit)','is driving it with authority ('+H+'% hard-hit)','is putting a charge into it ('+H+'% hard-hit)','is making solid contact ('+H+'% hard-hit)','is making quality contact ('+H+'% hard-hit)','is driving balls into the gaps ('+H+'% hard-hit)','is barreling up enough ('+H+'% hard-hit)','is putting the bat on it well ('+H+'% hard-hit)','is squaring up its share ('+H+'% hard-hit)']]);
+      /* REDZONE-2026-09-20 -- SAY WHAT THE CONTACT WAS SHAPED LIKE, NOT JUST HOW HARD IT WAS.
+         Owner brought the "red zone" idea over from Jim Albert's Statcast work (launch angle 20-35 deg,
+         exit velo 95-110, 79% of 2019 home runs). Measured against `calibration.jsonl` it earns NOTHING
+         as a model input -- barrel on top of our own posted price is t=-0.4 over 17,030 graded bats, and
+         corr(barrel, xiso)=0.936 -- so it is deliberately NOT scored. It is a better SENTENCE, and that
+         is the whole claim.
+         The number is `barrel`: Savant's barrel_batted_rate, barrels per BATTED BALL, already pulled in
+         build15 and already marked LOG-ONLY there. A barrel IS a red zone by construction -- the exit-velo
+         and launch-angle region clearing .500 BA / 1.500 SLG, with the angle window widening as the ball
+         is hit harder. So "the home-run window" is a description of the field, not a claim on top of it.
+         ⚠️ NEVER quote an HR probability off this. A barrel is ~.500 BA contact, not a coin-flip homer.
+         ONE CONTACT BEAT PER NOTE. This does not stack on top of hard-hit, it REPLACES it when it is the
+         better line -- hard-hit is exit velo alone, red zone is exit velo AND angle, so above an ordinary
+         barrel rate the red-zone clause is strictly more informative. Below 11 (roughly the board's top
+         quintile) a bat who is crushing it without lifting it is genuinely better described by hard-hit,
+         and the weights below hand it back. Below 11 the clause does not fire at all: a league-average
+         barrel rate is not a selling point and the shorter hard-hit line says more. Its own `rz` dim, so the
+         board-wide phrase de-dup counts
+         red-zone variants separately from hard-hit ones.
+         Thresholds off the live board (392 of 419 bats priced with a barrel rate): median 7.0, p75 10.2,
+         p90 12.8, p95 14.3, max 20.9. */
+      var brl=p.barrel;
+      if(brl!=null){var B=Math.round(brl),rzw=null,rzb=null;
+        if(brl>=15){rzw=7.6;rzb=['is living in the home-run window ('+B+'% red zone)','has elite contact shape ('+B+'% red zone)','is in the red zone on '+B+'% of his contact','reaches the red zone on '+B+'% of his contact','tops the board for red-zone contact ('+B+'%)','shapes it for the seats ('+B+'% red zone)','lands '+B+'% of his contact in the home-run window','is red-zone elite ('+B+'% of his contact)','is shaping home-run contact at '+B+'%','finds the home-run window constantly ('+B+'%)'];}
+        else if(brl>=11){rzw=7.2;rzb=['is in the red zone on '+B+'% of his contact','reaches the home-run window at '+B+'%','shapes a real share for the seats ('+B+'% red zone)','lands '+B+'% of his contact in the home-run window','gets into the red zone at a '+B+'% clip','finds the home-run window on '+B+'% of his contact','is red-zone strong ('+B+'% of his contact)','puts '+B+'% of his batted balls in the red zone'];}
+        if(rzw!=null){var _hhw=null,_i;for(_i=0;_i<o.length;_i++)if(o[_i][1]==='hh')_hhw=o[_i][0];
+          if(_hhw===null||rzw>=_hhw){o=o.filter(function(x){return x[1]!=='hh';});o.push([rzw,'rz',rzb]);}}}
       if(la>=16&&la<=23)o.push([5,'la',['lives in the launch window ('+L+'\u00b0)','has the swing plane dialed for liftoff ('+L+'\u00b0)','is lifting everything ('+L+'\u00b0)','puts the ball in the air on a homer plane ('+L+'\u00b0)','sits in the ideal launch angle ('+L+'\u00b0)','gets under it just right ('+L+'\u00b0)','swings on a clean uppercut ('+L+'\u00b0)','elevates with ease ('+L+'\u00b0)','has a swing built for the seats ('+L+'\u00b0)','stays in the sweet-spot angle ('+L+'\u00b0)','sends it skyward ('+L+'\u00b0)','has loft to spare ('+L+'\u00b0)','hits it on the perfect plane ('+L+'\u00b0)','launches it at the right angle ('+L+'\u00b0)','keeps the ball in the air ('+L+'\u00b0)','swings with natural lift ('+L+'\u00b0)','finds the home-run trajectory ('+L+'\u00b0)','gets ideal loft ('+L+'\u00b0)','drives the ball into the air ('+L+'\u00b0)','tilts the bat for distance ('+L+'\u00b0)','swings with home-run loft ('+L+'\u00b0)','stays in the launch zone ('+L+'\u00b0)','puts air under the ball ('+L+'\u00b0)','has textbook lift ('+L+'\u00b0)']]);
       
       
@@ -2245,6 +2272,9 @@ drawTickets();drawPlayers();drawTracker();
       if(hr9!=null&&hr9>=1.6)o.push([9,'mtx','soft arm']);else if(hr9!=null&&hr9>=1.35)o.push([6,'mtx','beatable arm']);
       if(wf>=1.05)o.push([8,'park','wind out']);else if(wf>=1.02)o.push([4,'park','park boost']);
       if(hh>=52)o.push([7,'hh',Math.round(hh)+'% hard-hit']);else if(hh>=46)o.push([3.5,'hh',Math.round(hh)+'% hard-hit']);
+      if(p.barrel!=null){var _b=Math.round(p.barrel),_bw=(p.barrel>=15?7.6:p.barrel>=11?7.2:null);
+        if(_bw!=null){var _h=null,_j;for(_j=0;_j<o.length;_j++)if(o[_j][1]==='hh')_h=o[_j][0];
+          if(_h===null||_bw>=_h){o=o.filter(function(x){return x[1]!=='hh';});o.push([_bw,'rz',_b+'% red zone']);}}}
       if(la>=16&&la<=23)o.push([5,'la',Math.round(la)+'\u00b0 ideal']);
       
       if(hr9!=null&&hr9<1.0&&!o.length)o.push([1,'mtx','tough arm']);
