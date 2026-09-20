@@ -217,7 +217,38 @@ jobs:
           # INJOUT-2026-09-11: a man ESPN lists as Out / IR / Suspended is `out` before the draft
           # sees him (Brock Bowers rode a live moon two days after being ruled Out). Never fatal.
           python3 nfl_injuries.py scored.json fixtures.json || echo "::warning::nfl_injuries.py failed -- drafting without the injury report"
-          node nfl_draft_cli.js scored.json fixtures.json tickets.json
+
+          # ------------------------------------------------------------------------------
+          # 🚨 A SAME-SLATE REBUILD NEVER RE-DRAFTS -- KICKLOCK-2026-09-20.
+          # This line used to be `node nfl_draft_cli.js ...` unconditionally, which is a FRESH
+          # DRAFT on every build-tick, i.e. every five minutes, all day. Measured on
+          # 2026-09-20 (claude/nfl-anchorwave-2026-09-20.md): the four 1:00 PM slips at 16:52Z
+          # were Chase Brown/Goedert/Etienne, Chase Brown/Doubs/Smith, Monangai/Henderson/Marks
+          # and Monangai/Warren/Gainwell. At 17:23Z -- 23 minutes AFTER those games kicked off
+          # -- every one of them had different legs, off byte-identical slate inputs.
+          # soccer-build.yml has run the rebuild path since 2026-08-27 for exactly this reason
+          # and its header says why: "A fresh draft every pass would chase the afternoon's
+          # price drift and quietly move a slip somebody backed."
+          # Fresh draft only when there is nothing to preserve: no prior board, or the slate
+          # has rolled to a new date. Exit 10 from the rebuild means "nothing moved" and is a
+          # success -- the commit gate below still decides whether to republish.
+          # ------------------------------------------------------------------------------
+          PRIOR=../nfl_D.json
+          SAME=$(python3 -c "import json,sys;print('yes' if json.load(open(sys.argv[1]))['meta'].get('date')==sys.argv[2] else 'no')" "$PRIOR" "${{ steps.slate.outputs.date }}" 2>/dev/null || echo no)
+          if [ "$SAME" = "yes" ]; then
+            echo "same-slate rebuild: carrying the prior board (no re-draft)"
+            set +e
+            node nfl_rebuild_cli.js "$PRIOR" scored.json tickets.json
+            rc=$?
+            set -e
+            if [ $rc -ne 0 ] && [ $rc -ne 10 ]; then
+              echo "::error::nfl_rebuild_cli.js failed (rc=$rc) -- refusing to fall back to a fresh draft mid-slate"
+              exit $rc
+            fi
+          else
+            echo "new slate (or no prior board) -- fresh draft"
+            node nfl_draft_cli.js scored.json fixtures.json tickets.json
+          fi
           python3 nfl_payload.py scored.json tickets.json fixtures.json nfl_D.json \
                   $([ -f wx.json ] && echo "--wx wx.json") \
                   --season nfl_season.json \
