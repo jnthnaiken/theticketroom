@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
   "season": "2026",
-  "pulled_at": "2026-09-20T01:01:58Z",
+  "pulled_at": "2026-09-20T01:07:21Z",
   "games": [
     {
       "gamePk": 824545,
@@ -536,7 +536,7 @@
     },
     {
       "gamePk": 824380,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-19T22:10:00Z",
       "matchup": "ATH@CLE",
       "away": {
@@ -571,7 +571,7 @@
           {
             "id": 680869,
             "name": "Zack Gelof",
-            "iso": 0.207
+            "iso": 0.206
           },
           {
             "id": 622268,
@@ -756,7 +756,7 @@
           {
             "id": 663886,
             "name": "Tyler Stephenson",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 553993,
@@ -817,12 +817,12 @@
           {
             "id": 695600,
             "name": "Carter Jensen",
-            "iso": 0.222
+            "iso": 0.221
           },
           {
             "id": 677951,
             "name": "Bobby Witt Jr.",
-            "iso": 0.162
+            "iso": 0.163
           },
           {
             "id": 695506,
@@ -1032,7 +1032,7 @@
           {
             "id": 669394,
             "name": "Jake Burger",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 670032,
@@ -1087,7 +1087,7 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.198
+            "iso": 0.205
           },
           {
             "id": 621566,
@@ -1244,7 +1244,7 @@
           {
             "id": 665953,
             "name": "Andr\u00e9s Chaparro",
-            "iso": 0.257
+            "iso": 0.256
           },
           {
             "id": 660688,
@@ -1340,7 +1340,7 @@
         "sp": {
           "id": 682243,
           "name": "Bryce Miller",
-          "hr9": 1.65,
+          "hr9": 1.64,
           "hand": "RHP"
         },
         "lineup": [
@@ -1372,7 +1372,7 @@
           {
             "id": 647304,
             "name": "Josh Naylor",
-            "iso": 0.091
+            "iso": 0.092
           },
           {
             "id": 703197,
@@ -1397,7 +1397,7 @@
         "sp": {
           "id": 500779,
           "name": "Jose Quintana",
-          "hr9": 1.65,
+          "hr9": 1.64,
           "hand": "LHP"
         },
         "lineup": [
@@ -1444,7 +1444,7 @@
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.125
+            "iso": 0.124
           }
         ],
         "confirmed": true
@@ -1473,7 +1473,7 @@
         "sp": {
           "id": 693645,
           "name": "Cam Schlittler",
-          "hr9": 0.78,
+          "hr9": 0.77,
           "hand": "RHP"
         },
         "lineup": [
@@ -1562,12 +1562,12 @@
           {
             "id": 571448,
             "name": "Nolan Arenado",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 660821,
@@ -1612,7 +1612,7 @@
           {
             "id": 672640,
             "name": "Otto Lopez",
-            "iso": 0.133
+            "iso": 0.138
           },
           {
             "id": 681715,
@@ -1642,7 +1642,7 @@
           {
             "id": 682663,
             "name": "Agust\u00edn Ram\u00edrez",
-            "iso": 0.131
+            "iso": 0.13
           },
           {
             "id": 691788,
@@ -1662,7 +1662,7 @@
         "sp": {
           "id": 663554,
           "name": "Casey Mize",
-          "hr9": 1.01,
+          "hr9": 1.07,
           "hand": "RHP"
         },
         "lineup": [
@@ -1983,16 +1983,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 74\u00b0",
-        "lean": "Boost",
-        "temp": 74.4,
-        "wind_mph": 7.5,
-        "wind_dir": 243,
-        "tail_mph": 6.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     }
   ]
 }
