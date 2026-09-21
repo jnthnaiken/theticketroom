@@ -1,7 +1,7 @@
 {
   "date": "2026-09-21",
   "season": "2026",
-  "pulled_at": "2026-09-21T21:47:08Z",
+  "pulled_at": "2026-09-21T21:51:58Z",
   "games": [
     {
       "gamePk": 824787,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 823169,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-22T01:45:00Z",
       "matchup": "MIN@SF",
       "away": {
@@ -282,8 +282,54 @@
           "hr9": 1.65,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.177
+          },
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.109
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.177
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.224
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.212
+          },
+          {
+            "id": 702176,
+            "name": "Alan Roden",
+            "iso": 0.097
+          },
+          {
+            "id": 693306,
+            "name": "Aaron Sabato",
+            "iso": null
+          },
+          {
+            "id": 691181,
+            "name": "Emmanuel Rodriguez",
+            "iso": 0.212
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.167
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -296,7 +342,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
