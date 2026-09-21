@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-21",
- "built_at": "2026-09-21T16:56:19Z",
+ "built_at": "2026-09-21T17:46:20Z",
  "teams": {
   "BAL": {
    "n_rel": 10,
@@ -74,17 +74,17 @@
    "d1_pitches": 110
   },
   "WSH": {
-   "n_rel": 10,
+   "n_rel": 9,
    "n_unavail": 3,
    "top_out": 3,
-   "hr_bf": 0.0275,
-   "hr_bf_avail": 0.0266,
-   "hr_bf_L": 0.0269,
+   "hr_bf": 0.0281,
+   "hr_bf_avail": 0.0273,
+   "hr_bf_L": 0.0285,
    "hr_bf_R": 0.0283,
-   "hr_bf_avail_L": 0.0272,
+   "hr_bf_avail_L": 0.0302,
    "hr_bf_avail_R": 0.0271,
-   "share_L": 0.25,
-   "air_share": 0.475,
+   "share_L": 0.231,
+   "air_share": 0.469,
    "d1_pitches": 58
   }
  },
@@ -131,41 +131,41 @@
    "home": "BAL",
    "hour": 18,
    "dome": false,
-   "temp": 69.5,
-   "rh": 63,
-   "pres": 1017.2,
-   "wind": 8.1,
-   "wind_out": -7.7,
-   "rho": 1.1984
+   "temp": 68.6,
+   "rh": 78,
+   "pres": 1017.3,
+   "wind": 8.3,
+   "wind_out": -8.29,
+   "rho": 1.1992
   },
   "2": {
    "home": "DET",
    "hour": 18,
    "dome": false,
-   "temp": 60.8,
-   "rh": 71,
-   "pres": 999.7,
-   "wind": 9.3,
-   "wind_out": -9.19,
-   "rho": 1.1985
+   "temp": 60.5,
+   "rh": 70,
+   "pres": 1000.3,
+   "wind": 9.2,
+   "wind_out": -8.84,
+   "rho": 1.2001
   },
   "3": {
    "home": "SF",
    "hour": 21,
    "dome": false,
-   "temp": 58.3,
-   "rh": 96,
-   "pres": 1011.9,
+   "temp": 59.1,
+   "rh": 89,
+   "pres": 1013.0,
    "wind": 9.4,
    "wind_out": 9.39,
-   "rho": 1.2177
+   "rho": 1.2175
   }
  },
  "coverage": {
   "box_final_games": 30,
   "box_loaded": 30,
   "rosters": 6,
-  "pitcher_stats": 87,
+  "pitcher_stats": 86,
   "sps_matched": 6,
   "sps_named": 6,
   "pens": 6,
@@ -175,6 +175,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1790009779,
+ "last_attempt": 1790012780,
  "pregame": true
 }
