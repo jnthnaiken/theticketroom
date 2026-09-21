@@ -827,10 +827,18 @@
        only the window before a slip has ever locked, which is exactly when the board is still
        entitled to repair itself.
        CONFLOCK-2026-08-29: the kickoff branch that used to follow is GONE -- see the rule block
-       above. `allConf` is THE WHOLE TEST and it is the board's ONLY freeze rule.
-       🚨 STANDASIS-2026-08-29: if you are about to add "...but hold it anyway when its match is
-       underway" somewhere downstream, that is this deleted branch growing back. It was tried the
-       same afternoon it was removed and it put three out-of-squad men on live moons. */
+       above. `allConf` is the WHOLE TEST for SOCCER and is that board's ONLY freeze rule.
+       ⚠️ Amended KICKLOCK-2026-09-20: it is no longer the only one in this FILE. Football has
+       no team sheet, so `status` never reaches 'confirmed' and `allConf` can never fire there;
+       the opt-in kickoff branch below is that room's half of the same pinnedP() rule, and it is
+       off for soccer (DEFAULTS.LOCK_ON_KICKOFF === false), which keeps every word above true
+       where it was written.
+       🚨 STANDASIS-2026-08-29 STILL STANDS, and KICKLOCK is not a loophole in it: if you are
+       about to add "...but hold it anyway when its match is underway" somewhere DOWNSTREAM --
+       outside this function, on a slip this function deliberately left open -- that is the
+       deleted branch growing back. It was tried the same afternoon it was removed and it put
+       three out-of-squad men on live moons. What made that wrong was the missing `!out`/`!void`
+       test, which is now stated once below and governs BOTH halves. */
     /* ALIVE is the guard, and it is the half of the rule that actually did the work on
        2026-08-29. standAsIs() froze groups CONFLOCK had left open WITHOUT this test, which is
        how Kean, Richarlison, Osula and Pinamonti rode live moons. Kickoff was the trigger it
@@ -1212,7 +1220,11 @@
     var repaired = [], usedPartners = {}, demoted = [];
 
     /* ==================================================================================
-     * 🚨 STANDASIS IS GONE. THERE IS ONE FREEZE RULE AND IT IS CONFLOCK. STANDASIS-2026-08-29.
+     * 🚨 STANDASIS IS GONE. FREEZING HAPPENS IN ticketIsLocked() AND NOWHERE ELSE.
+     * STANDASIS-2026-08-29 (banner amended KICKLOCK-2026-09-20: this read "THERE IS ONE FREEZE
+     * RULE AND IT IS CONFLOCK", which stopped being literally true the day football got the
+     * `started` half of pinnedP(). The rule this block is actually defending is unchanged and
+     * is the sentence above -- one place decides, and it is not here.)
      * ==================================================================================
      * Owner, looking at the 16:52Z board: "now there are benched players still in lineups."
      * He was right, and this is what put them there.
