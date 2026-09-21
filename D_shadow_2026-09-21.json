@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-21",
- "built_at": "2026-09-21T13:46:20Z",
+ "built_at": "2026-09-21T14:36:07Z",
  "teams": {
   "BAL": {
    "n_rel": 10,
@@ -131,34 +131,34 @@
    "home": "BAL",
    "hour": 18,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 70.8,
+   "rh": 77,
+   "pres": 1017.2,
+   "wind": 7.6,
+   "wind_out": -7.6,
+   "rho": 1.1935
   },
   "2": {
    "home": "DET",
    "hour": 18,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 60.1,
+   "rh": 69,
+   "pres": 999.8,
+   "wind": 8.4,
+   "wind_out": -8.27,
+   "rho": 1.2006
   },
   "3": {
    "home": "SF",
    "hour": 21,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 59.1,
+   "rh": 94,
+   "pres": 1012.5,
+   "wind": 10.3,
+   "wind_out": 10.26,
+   "rho": 1.2165
   }
  },
  "coverage": {
@@ -170,13 +170,11 @@
   "sps_named": 6,
   "pens": 6,
   "games": 3,
-  "games_wx": 0
+  "games_wx": 3
  },
- "errors": [
-  "https://api.open-meteo.com/v1/forecast?latitude=39.2839,42.339,37.7786&longitude: <urlopen error _ssl.c:993: The handshake operation timed out"
- ],
- "partial": true,
+ "errors": [],
+ "partial": false,
  "attempts": 1,
- "last_attempt": 1789998380,
+ "last_attempt": 1790001367,
  "pregame": true
 }
