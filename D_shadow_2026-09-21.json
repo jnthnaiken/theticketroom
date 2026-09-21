@@ -1,0 +1,180 @@
+{
+ "v": 1,
+ "date": "2026-09-21",
+ "built_at": "2026-09-21T12:56:55Z",
+ "teams": {
+  "BAL": {
+   "n_rel": 10,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0223,
+   "hr_bf_avail": 0.0223,
+   "hr_bf_L": 0.0201,
+   "hr_bf_R": 0.0242,
+   "hr_bf_avail_L": 0.0201,
+   "hr_bf_avail_R": 0.0242,
+   "share_L": 0.266,
+   "air_share": 0.484,
+   "d1_pitches": 56
+  },
+  "DET": {
+   "n_rel": 9,
+   "n_unavail": 1,
+   "top_out": 0,
+   "hr_bf": 0.0318,
+   "hr_bf_avail": 0.0322,
+   "hr_bf_L": 0.0222,
+   "hr_bf_R": 0.0368,
+   "hr_bf_avail_L": 0.0222,
+   "hr_bf_avail_R": 0.0382,
+   "share_L": 0.327,
+   "air_share": 0.495,
+   "d1_pitches": 95
+  },
+  "MIN": {
+   "n_rel": 8,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0202,
+   "hr_bf_avail": 0.0202,
+   "hr_bf_L": 0.0229,
+   "hr_bf_R": 0.0198,
+   "hr_bf_avail_L": 0.0229,
+   "hr_bf_avail_R": 0.0198,
+   "share_L": 0.379,
+   "air_share": 0.527,
+   "d1_pitches": 31
+  },
+  "SF": {
+   "n_rel": 9,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0206,
+   "hr_bf_avail": 0.0206,
+   "hr_bf_L": 0.0146,
+   "hr_bf_R": 0.0246,
+   "hr_bf_avail_L": 0.0146,
+   "hr_bf_avail_R": 0.0246,
+   "share_L": 0.187,
+   "air_share": 0.478,
+   "d1_pitches": 49
+  },
+  "TOR": {
+   "n_rel": 11,
+   "n_unavail": 3,
+   "top_out": 1,
+   "hr_bf": 0.0198,
+   "hr_bf_avail": 0.0202,
+   "hr_bf_L": 0.0282,
+   "hr_bf_R": 0.0173,
+   "hr_bf_avail_L": 0.0282,
+   "hr_bf_avail_R": 0.017,
+   "share_L": 0.259,
+   "air_share": 0.462,
+   "d1_pitches": 110
+  },
+  "WSH": {
+   "n_rel": 10,
+   "n_unavail": 3,
+   "top_out": 3,
+   "hr_bf": 0.0275,
+   "hr_bf_avail": 0.0266,
+   "hr_bf_L": 0.0269,
+   "hr_bf_R": 0.0283,
+   "hr_bf_avail_L": 0.0272,
+   "hr_bf_avail_R": 0.0271,
+   "share_L": 0.25,
+   "air_share": 0.475,
+   "d1_pitches": 58
+  }
+ },
+ "sps": {
+  "shane baz": {
+   "id": 669358,
+   "bf_exp": 24.73,
+   "kind": "sp",
+   "hr_bf": 0.0219
+  },
+  "trey yesavage": {
+   "id": 702056,
+   "bf_exp": 21.44,
+   "kind": "sp",
+   "hr_bf": 0.0271
+  },
+  "river ryan": {
+   "id": 689981,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": 0.03
+  },
+  "dj herz": {
+   "id": 687792,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": 0.03
+  },
+  "blade tidwell": {
+   "id": 694918,
+   "bf_exp": 20.56,
+   "kind": "sp",
+   "hr_bf": 0.0309
+  },
+  "zebby matthews": {
+   "id": 805673,
+   "bf_exp": 23.73,
+   "kind": "sp",
+   "hr_bf": 0.0409
+  }
+ },
+ "games": {
+  "1": {
+   "home": "BAL",
+   "hour": 18,
+   "dome": false,
+   "temp": 70.0,
+   "rh": 70,
+   "pres": 1017.3,
+   "wind": 7.8,
+   "wind_out": -7.38,
+   "rho": 1.1965
+  },
+  "2": {
+   "home": "DET",
+   "hour": 18,
+   "dome": false,
+   "temp": 61.6,
+   "rh": 67,
+   "pres": 999.7,
+   "wind": 8.8,
+   "wind_out": -8.79,
+   "rho": 1.1969
+  },
+  "3": {
+   "home": "SF",
+   "hour": 21,
+   "dome": false,
+   "temp": 58.8,
+   "rh": 92,
+   "pres": 1012.4,
+   "wind": 11.2,
+   "wind_out": 11.18,
+   "rho": 1.2173
+  }
+ },
+ "coverage": {
+  "box_final_games": 30,
+  "box_loaded": 30,
+  "rosters": 6,
+  "pitcher_stats": 87,
+  "sps_matched": 6,
+  "sps_named": 6,
+  "pens": 6,
+  "games": 3,
+  "games_wx": 3
+ },
+ "errors": [],
+ "partial": false,
+ "attempts": 1,
+ "last_attempt": 1789995415,
+ "pregame": true
+}
