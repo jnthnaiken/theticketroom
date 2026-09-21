@@ -19,8 +19,24 @@
  *     node slate_scan.js 2026-09-08 --json     # machine-readable, for fixtures.json seeding
  *
  * ⚠️ THE GATE SET IS DERIVED, NOT LISTED. The eligible-club set is built from the five core
- * leagues' OWN scoreboards over a season-wide window, so promotion and relegation need no edit
- * here and cannot silently rot. 96 clubs on 2026-09-08 (20+20+20+18+18), which is the arithmetic.
+ * leagues' OWN team lists, so promotion and relegation need no edit here and cannot silently
+ * rot. 96 clubs (20+20+20+18+18), which is the arithmetic.
+ *
+ * 🚨 RANGEDEAD-2026-09-21. It used to ask each core league's SCOREBOARD over a season-wide
+ * window (`?dates=20260701-20270630`). ESPN now returns 400 for any date RANGE -- a month is
+ * rejected too, only single dates work. So every core league failed, the gate set came back
+ * EMPTY, and on 2026-09-20 -- a 21-fixture Sunday -- this tool printed:
+ *
+ *     2026-09-20 -- 0 fixture(s) across 15 competitions, 0 eligible clubs
+ *       NOTHING ADMISSIBLE -- no board today
+ *
+ * The tool written *because* "is there a board today?" was being answered wrong from memory
+ * answered it wrong with a straight face. `/{slug}/teams` is one call per league, returns the
+ * same team ids, and is immune to the range restriction. Verified 2026-09-21: 20/20/20/18/18.
+ *
+ * 🚨 AND A FAILED SCAN IS NOW A REFUSAL, NOT A FINDING. "NOTHING ADMISSIBLE" was printable when
+ * the gate set had not resolved -- the two states are indistinguishable on the page and one of
+ * them is a lie. If the gate set does not resolve, this exits 3 and prints nothing else.
  *
  * ⚠️ THIS CHECKS ONE HALF OF CUPSCOPE. "At least one top-five side" is checkable from ESPN and is
  * checked here. "The fixture's oddschecker page actually renders an Anytime Goalscorer section"
@@ -45,21 +61,21 @@ async function get(url) {
   return r.json();
 }
 
-/* The gate set, derived from the core leagues themselves. A season-wide window is used rather
-   than one date because a single matchday only names the clubs playing that day. */
-async function eligibleClubs(season) {
-  const from = (season || new Date().getFullYear()) + '0701';
-  const to   = ((season || new Date().getFullYear()) + 1) + '0630';
-  const out = {};
+/* The gate set, derived from the core leagues themselves -- their TEAM LISTS, not a scoreboard
+   window. See RANGEDEAD-2026-09-21 in the header for why the window is gone.
+   Returns {clubs, failed}: `failed` names the leagues that did not answer, and the caller
+   REFUSES rather than reporting an empty slate off a broken gate. */
+async function eligibleClubs() {
+  const out = {}, failed = [];
   for (const slug of slugs(COV.core)) {
     let j;
-    try { j = await get(`${API}/${slug}/scoreboard?dates=${from}-${to}`); }
-    catch (e) { console.error(`::warning::${slug} club scan failed (${e.message})`); continue; }
-    for (const ev of j.events || [])
-      for (const c of (ev.competitions?.[0]?.competitors) || [])
-        out[c.team.id] = COV.core[slug];
+    try { j = await get(`${API}/${slug}/teams`); }
+    catch (e) { console.error(`::warning::${slug} club scan failed (${e.message})`); failed.push(slug); continue; }
+    const teams = j?.sports?.[0]?.leagues?.[0]?.teams || [];
+    if (!teams.length) { console.error(`::warning::${slug} club scan returned no teams`); failed.push(slug); continue; }
+    for (const t of teams) if (t?.team?.id) out[t.team.id] = COV.core[slug];
   }
-  return out;
+  return { clubs: out, failed };
 }
 
 async function scan(date, top5) {
@@ -100,9 +116,22 @@ async function scan(date, top5) {
   const showAll = process.argv.includes('--all');
   const asJson  = process.argv.includes('--json');
 
-  const top5 = await eligibleClubs(+date.slice(0, 4));
+  const { clubs: top5, failed } = await eligibleClubs();
   const n = Object.keys(top5).length;
-  if (n < 80) console.error(`::warning::only ${n} eligible clubs resolved (expected ~96) -- gate may be too tight`);
+  /* 🚨 RANGEDEAD-2026-09-21: a broken gate must not be reportable as an empty slate. The CUPSCOPE
+     half of this tool is "at least one top-five side", so with no gate set every cup tie would be
+     dropped for the wrong reason and the summary line would read like a finding. Refuse. */
+  if (failed.length || n === 0) {
+    console.error(`!! eligible-club scan FAILED -- ${n} clubs resolved (expected ~96)`
+                + (failed.length ? `, leagues that did not answer: ${failed.join(', ')}` : ''));
+    console.error('   Refusing to report a slate against a broken gate. No board decision was made.');
+    process.exit(3);
+  }
+  /* Thin but not broken: every league answered, the count is just low. That is a warning, as it
+     always was -- it is what a stub or a mid-season data oddity looks like, and it is NOT the
+     2026-09-20 failure, which was leagues not answering at all. Refusing on thinness alone would
+     make the tool untestable without pinning all 96 clubs. */
+  if (n < 80) console.error(`::warning::only ${n} eligible clubs resolved (expected ~96) -- gate may be thin`);
 
   const rows = await scan(date, top5);
   const admit = rows.filter(r => r.admit);

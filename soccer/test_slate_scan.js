@@ -26,14 +26,20 @@ const FIX = {
   ],
 };
 
+let rangeAsked = 0;
 global.fetch = async (url) => {
   const slug = url.match(/soccer\/([^/]+)\//)[1];
-  if (/dates=\d{8}-\d{8}/.test(url)) {
-    // the club-set scan: return every core-league club we pinned
-    const evs = Object.entries(CLUBS).filter(([, lg]) => lg === lookup(slug))
-      .map(([id]) => ({ competitions: [{ competitors: [{ team: { id } }] }] }));
-    return { ok: true, json: async () => ({ events: evs }) };
+  /* RANGEDEAD-2026-09-21: the club set now comes from /{slug}/teams. The old stub answered a
+     season-wide `dates=` RANGE, which is the call ESPN started rejecting with 400 -- so a stub
+     that still serves it would keep this suite green against a scanner that cannot work live.
+     The range branch below therefore FAILS the way ESPN does, and `rangeAsked` is asserted to
+     be zero at the end. */
+  if (/\/teams$/.test(url)) {
+    const teams = Object.entries(CLUBS).filter(([, lg]) => lg === lookup(slug))
+      .map(([id]) => ({ team: { id } }));
+    return { ok: true, json: async () => ({ sports: [{ leagues: [{ teams }] }] }) };
   }
+  if (/dates=\d{8}-\d{8}/.test(url)) { rangeAsked++; return { ok: false, status: 400, json: async () => ({}) }; }
   const evs = (FIX[slug] || []).map(f => ({
     id: f.id, name: f.name, shortName: f.name, date: f.date,
     status: { type: { name: 'STATUS_SCHEDULED' } },
@@ -58,6 +64,7 @@ function lookup(slug){ return {'eng.1':'EPL','esp.1':'La_liga','ita.1':'Serie_A'
   assert(/Internazionale at Real Madrid/.test(text),     'admits a tie with two core sides');
   assert(/Everton at Arsenal/.test(text),                'admits a core-league fixture ungated');
   assert(/DROP.*LASK Linz/.test(text),                   'drops a tie with no top-five side');
+  assert(rangeAsked === 0,                              'never asks ESPN for a date RANGE (RANGEDEAD-2026-09-21)');
   assert(/DROP.*Bradford City/.test(text),               'drops a lower-division-only cup tie');
   assert(!/^\s+(?!DROP).*LASK/m.test(text.replace(/DROP.*/g,'')), 'LASK never appears as admitted');
 
