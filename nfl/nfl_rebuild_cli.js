@@ -117,6 +117,43 @@ const koOf = g => { const v = D.meta.ko[String(g)]; return v == null ? null : Nu
  * NOT refreshed here -- prices.json is committed and held by nfl_mock.py's merge anyway, and
  * a rebuild that re-priced would be doing by the back door what the merge forbids by the front.
  *
+ * 🚨 SCORECROSS-2026-09-21 -- THE SCORE IS NOT THE PRICE, AND HOLDING IT FROZE THE BOARD.
+ * ==========================================================================================
+ * Owner, 2026-09-21: "why wont it redraft? i dont understand why its so hard to mimic the
+ * mlb board."
+ *
+ * This block used to cross `out` and NOTHING ELSE. The line below it read
+ *
+ *     if (p.odds !== s.odds || p.TOTAL !== round1(s.TOTAL)) wouldMove++;
+ *
+ * -- it COUNTED the model moving and then threw the new numbers away. `redraft()` ranks off
+ * `D.players[n].TOTAL`, and `D` is the PRIOR BOARD, so every rebuild re-ran the anchor contest
+ * against the TOTALs baked at the first build of the morning. ANCHORSET-2026-09-04 ("the seats
+ * are chosen by strength, not by who held them last pass") was doing its job perfectly against
+ * a fossil: the strengths could not change, so the incumbents always won, and the board could
+ * not move until somebody was ruled out.
+ *
+ * Measured on the live 2026-09-21 board before the fix: forcing Nabers to 145.0 and Parkinson
+ * to 140.0 while dropping Skattebo to 95.0 and Corum to 90.0 -- a complete inversion of the
+ * ranking -- rebuilt to THE SAME TWO SLIPS, and reported `[4 would have moved]` while doing it.
+ *
+ * ⚠️ The counter was the tell and nobody read it. `wouldMove` has been printing on every
+ * football build since KICKLOCK; a nonzero value there means "I saw the model move and ignored
+ * it", which is not a diagnostic, it is a bug report. It is kept below, but it now counts only
+ * the thing that is SUPPOSED to be held -- the price.
+ *
+ * ⚠️ AND THE PUBLISHED PAGE DISAGREED WITH ITS OWN DRAFT. nfl_payload.py builds the player
+ * cards from scored.json (fresh) and the tickets from tickets.json (drafted off the fossil),
+ * so the board could print a higher TOTAL for a man than for the anchor holding the slip. That
+ * is exactly what "it won't redraft" looks like from the outside.
+ *
+ * So: the MODEL crosses, the PRICE is held. Those are different rules and they were conflated.
+ *   crosses  TOTAL, blend, gate_z, wf, void  -- everything the draft ranks on
+ *   held     odds                            -- PRICEONCE, unchanged
+ *   crosses  out                             -- INJOUT, unchanged (see below)
+ * A player whose game is already underway crosses NOTHING (PRICEFREEZE); his numbers are the
+ * ones the board had at kickoff, which is what LOCK_ON_KICKOFF is defending.
+ *
  * What DOES cross: `out`. INJOUT-2026-09-11 put the injury report in front of the draft after
  * Brock Bowers rode a live moon two days after being ruled Out; the same reasoning applies
  * here, and harder, because `out` is the ONLY thing standing between a rebuild and freezing a
@@ -127,7 +164,11 @@ const koOf = g => { const v = D.meta.ko[String(g)]; return v == null ? null : Nu
 const byName = {};
 scored.forEach(p => { byName[p.name] = p; });
 
-let newlyOut = [], held = 0, wouldMove = 0, frozenPrice = 0;
+const round1 = v => Math.round((v || 0) * 10) / 10;
+/* SCORECROSS-2026-09-21. `odds` is deliberately absent from this list and must stay absent. */
+const MODEL_FIELDS = ['TOTAL', 'blend', 'gate_z', 'wf'];
+
+let newlyOut = [], held = 0, wouldMove = 0, frozenPrice = 0, rescored = 0, biggest = 0;
 Object.keys(D.players).forEach(n => {
   const p = D.players[n], s = byName[n];
   if (!s) return;
@@ -135,8 +176,13 @@ Object.keys(D.players).forEach(n => {
   else if (s.out) p.out = true;
   const ko = koOf(p.game);
   if (ko != null && now >= ko) { frozenPrice++; return; }   /* underway: PRICEFREEZE */
-  if (p.odds !== s.odds || p.TOTAL !== Math.round((s.TOTAL || 0) * 10) / 10) wouldMove++;
+  if (p.odds !== s.odds) wouldMove++;                       /* PRICEONCE held it */
   held++;
+  const was = round1(p.TOTAL);
+  MODEL_FIELDS.forEach(k => { if (s[k] != null) p[k] = s[k]; });
+  if (s.void != null) p.void = !!s.void;
+  const moved = Math.abs(round1(p.TOTAL) - was);
+  if (moved > 0.05) { rescored++; if (moved > biggest) biggest = moved; }
 });
 if (newlyOut.length) console.log(`  injury report: ${newlyOut.length} newly out -> ${newlyOut.join(', ')}`);
 
@@ -148,6 +194,9 @@ const before = (D.tickets || []).map(t => t.kind + ':' + t.players.map(l => l.na
 const r = SD.redraft(D, { nowUTCmin: now, cfg: CFG, xi: null, xiMatches: null });
 
 console.log(`  price: ${held} held by PRICEONCE [${wouldMove} would have moved], ${frozenPrice} frozen (underway)`);
+console.log(`  model: ${rescored} re-scored from scored.json`
+          + (rescored ? ` (largest TOTAL move ${biggest.toFixed(1)})` : '')
+          + `  -- SCORECROSS-2026-09-21`);
 console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.minted} new`
           + (r.demoted && r.demoted.length ? ` · ${r.demoted.length} demoted` : '')
           + `  -> ${r.changed ? 'CHANGED' : 'unchanged'}`);
