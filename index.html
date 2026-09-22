@@ -1923,8 +1923,16 @@ drawTickets();drawPlayers();drawTracker();
         legs.forEach(function(l){_placedLeg[l.name]=1;});
     }); })();
     var CHEF_TICKET=false;   /* declared HERE, above the chalk pass, because that pass now branches on it (2026-08-18) */
-    var chalk={},_chefLegs=[],_chefG={},_chefKeep={};   // CHEF'S TABLE: the CHALK_N best parlay-eligible bats by STRENGTH (normalized TOTAL -- NOT a 65/35 blend), one per GAME, whole slate; excluded from every other ticket. NOTE: assemble_tickets.py has chalk=set() and builds NO chef ticket -- the server is not a mirror of this pass.
-    /*PER-LEG LOCK: a chef seat freezes only when ITS OWN game starts. Keep prior chef legs whose game is underway (a live leg, or a too-late-to-redraft void that renders a Missed Reservation stamp); every not-yet-started seat stays OPEN to the current shortest chalk, so a shorter name priced after the early games post can still claim it instead of being frozen out by whoever was priced at first pitch.*/(function(){var _pc=(D.tickets||[]).filter(function(t){return t.kind==='chef';})[0];if(!_pc||!_pc.players)return;_pc.players.forEach(function(l){var n=l.name,p=P[n];if(!p||_chefLegs.length>=CHALK_N)return;if(started(n)&&!_chefG[p.game]){_chefLegs.push(n);_chefG[p.game]=1;_chefKeep[n]=1;if(!p.out&&!p.void)chalk[n]=1;}});})();/* 2026-08-10 -- CHEF SEAT HYSTERESIS. The seat was filled purely by rank order, so a seat changed hands on any
+    var chalk={},_chalkSeats=[],_chalkSeatG={},_chalkSeatHeld={};
+    /* RENAME-2026-09-22: these were _chefLegs / _chefG / _chefKeep. They are the CHALK-BAN seat
+       bookkeeping, which is LIVE machinery -- `CHALK_N` is a real knob that happens to be 0 today
+       ("the ban's machinery is LEFT IN PLACE and 0 disables it"). The Chef's Table was merely the
+       ticket that CONSUMED those seats, and it has been retired since 2026-08-14, so naming the
+       mechanism after it made live code read as dead code. The chalk set is the CHALK_N best
+       parlay-eligible bats by STRENGTH (normalized TOTAL -- NOT a 65/35 blend), one per GAME,
+       whole slate, excluded from every other ticket.
+       NOTE: assemble_tickets.py has chalk=set() and mints nothing -- the server is not a mirror. */
+    /*PER-LEG LOCK: a chef seat freezes only when ITS OWN game starts. Keep prior chef legs whose game is underway (a live leg, or a too-late-to-redraft void that renders a Missed Reservation stamp); every not-yet-started seat stays OPEN to the current shortest chalk, so a shorter name priced after the early games post can still claim it instead of being frozen out by whoever was priced at first pitch.*/(function(){var _pc=(D.tickets||[]).filter(function(t){return t.kind==='chef';})[0];if(!_pc||!_pc.players)return;_pc.players.forEach(function(l){var n=l.name,p=P[n];if(!p||_chalkSeats.length>=CHALK_N)return;if(started(n)&&!_chalkSeatG[p.game]){_chalkSeats.push(n);_chalkSeatG[p.game]=1;_chalkSeatHeld[n]=1;if(!p.out&&!p.void)chalk[n]=1;}});})();/* 2026-08-10 -- CHEF SEAT HYSTERESIS. The seat was filled purely by rank order, so a seat changed hands on any
        cross at all. On 2026-08-10 the 4th seat went Olson -> Alvarez on a TOTAL gap of 0.1 (190.3 vs 190.4), back to
        Olson on a DEAD TIE at 190.5, and away again -- four flips in half an hour on rounding, while neither bat's
        status or price meaningfully moved. Chef membership is the moon exclusion, so each flip forced that bat's
@@ -1946,20 +1954,20 @@ drawTickets();drawPlayers();drawTracker();
    still the moon/builder/family exclusion, so a chef flip re-anchors parlays just as hard (08-10). */
       var HYST_TOTAL=3.0;   /* TOTAL points a challenger must beat the sitting occupant by */
       (function(){var _pc=(D.tickets||[]).filter(function(t){return t.kind==='chef';})[0];if(!_pc||!_pc.players)return;
-      var CHEF_HYST=0.02, _seat={}; _chefLegs.forEach(function(x){_seat[x]=1;});
+      var CHEF_HYST=0.02, _seat={}; _chalkSeats.forEach(function(x){_seat[x]=1;});
       _pc.players.forEach(function(l){var n=l.name,p=P[n];
-        if(!p||p.out||p.void||_seat[n]||_chefKeep[n]||_placedLeg[n])return;   // _placedLeg: already on a placed parlay -> not chef-eligible
-        if(_chefLegs.length>=CHALK_N)return;
+        if(!p||p.out||p.void||_seat[n]||_chalkSeatHeld[n]||_placedLeg[n])return;   // _placedLeg: already on a placed parlay -> not chef-eligible
+        if(_chalkSeats.length>=CHALK_N)return;
         if(pending(n)||precipOf(p.game)>=40)return;
-        if(_chefG[p.game])return;
+        if(_chalkSeatG[p.game])return;
         if(cand.indexOf(n)<0)return;                       /* incumbent must still clear the pool gate */
         var _best=null;
         for(var _q=0;_q<ranked.length;_q++){var _c=ranked[_q];
-          if(_c===n||_seat[_c]||_chefKeep[_c]||pending(_c)||precipOf(P[_c].game)>=40)continue;
-          if(_chefG[P[_c].game])continue;
+          if(_c===n||_seat[_c]||_chalkSeatHeld[_c]||pending(_c)||precipOf(P[_c].game)>=40)continue;
+          if(_chalkSeatG[P[_c].game])continue;
           _best=_c;break;}
         if(_best&&((P[_best].TOTAL||0)-(P[n].TOTAL||0))>HYST_TOTAL)return;   /* a real improvement -> let the fill take it */
-        _chefLegs.push(n);_chefG[p.game]=1;chalk[n]=1;_chefKeep[n]=1;_seat[n]=1;
+        _chalkSeats.push(n);_chalkSeatG[p.game]=1;chalk[n]=1;_chalkSeatHeld[n]=1;_seat[n]=1;
       });})();
     /* CHALKBAN-2026-08-18 -- owner: "why is goodman being used as an anchor? hes in the top 4. should be
        banned." He was right, and the cause is a leftover. This loop fills CHALK_N seats ONE PER GAME and
@@ -1975,7 +1983,7 @@ drawTickets();drawPlayers();drawTracker();
        behind `CHEF_TICKET` so flipping that flag back on restores the old behaviour exactly. `pending()`
        and `_placedLeg` still apply -- a suspended bat, or one already on a placed slip, is not eligible
        either way. */
-    for(var _cci=0;_cci<_chalkRank.length&&_chefLegs.length<CHALK_N;_cci++){var _ccn=_chalkRank[_cci];
+    for(var _cci=0;_cci<_chalkRank.length&&_chalkSeats.length<CHALK_N;_cci++){var _ccn=_chalkRank[_cci];
       /* CHALKPLACED-2026-08-28: `_placedLeg` is ONE BAT, ONE SLIP (2026-08-13), and that
          rule is about a seat a bat GETS -- do not hand a chef slip to a bat already riding a
          placed parlay. `chalk` stopped meaning that on 2026-08-14 when the chef slip was
@@ -1986,10 +1994,10 @@ drawTickets();drawPlayers();drawTracker();
          written about ("i dont care if they are locked"), because a locked bat could never
          become chalk in the first place. Confined to CHEF_TICKET so flipping that flag back
          on restores 08-13 behaviour exactly. */
-      if(_chefKeep[_ccn]||(CHEF_TICKET&&_placedLeg[_ccn])||pending(_ccn))continue;
+      if(_chalkSeatHeld[_ccn]||(CHEF_TICKET&&_placedLeg[_ccn])||pending(_ccn))continue;
       if(CHEF_TICKET&&precipOf(P[_ccn].game)>=40)continue;
-      var _ccg=P[_ccn].game; if(CHEF_TICKET&&_chefG[_ccg])continue;
-      _chefLegs.push(_ccn);_chefG[_ccg]=1;chalk[_ccn]=1;}
+      var _ccg=P[_ccn].game; if(CHEF_TICKET&&_chalkSeatG[_ccg])continue;
+      _chalkSeats.push(_ccn);_chalkSeatG[_ccg]=1;chalk[_ccn]=1;}
     /* DINGERS=false -- 2026-08-25, owner's call: "its just bleeding money". The section ran
        11-80 for -33.34u on 91 staked, -36.6% ROI: the worst line on the board and the only kind
        materially negative on a real sample (lunch is -4.79u on 35, a tenth the exposure). Its 12
@@ -3107,7 +3115,7 @@ var _cmA={}, _cmB={};
         if(typeof console!=='undefined'&&console.log)console.log('[shape-repair] no '+kind+' on the board -> minted '+c[0]);
       });
     })();
-    if(CHEF_TICKET&&_chefLegs.length>=CHALK_N&&!out.some(function(t){return t.kind==='chef';})){var _clegs=_chefLegs.slice().sort(function(a,b){return (P[b].TOTAL||0)-(P[a].TOTAL||0);});var _clegL=_clegs.map(leg);out.push({name:cwName('chef',nextIdx('chef')),kind:'chef',badge:'\uD83C\uDF7D',note:"",players:_clegL,nlegs:_clegL.length,anchor:_clegs[0],lock:lockOf(_clegL),has_late:_clegL.some(function(l){return l.late;}),final:false,rr:{struct:rrStruct(_clegL.length),risk:rrRisk(_clegL.length)}});}
+    if(CHEF_TICKET&&_chalkSeats.length>=CHALK_N&&!out.some(function(t){return t.kind==='chef';})){var _clegs=_chalkSeats.slice().sort(function(a,b){return (P[b].TOTAL||0)-(P[a].TOTAL||0);});var _clegL=_clegs.map(leg);out.push({name:cwName('chef',nextIdx('chef')),kind:'chef',badge:'\uD83C\uDF7D',note:"",players:_clegL,nlegs:_clegL.length,anchor:_clegs[0],lock:lockOf(_clegL),has_late:_clegL.some(function(l){return l.late;}),final:false,rr:{struct:rrStruct(_clegL.length),risk:rrRisk(_clegL.length)}});}
     /* FAMILY MEAL -- 2026-08-14. The staff meal: what the kitchen ate instead of serving.
        A bat qualifies when it (a) cleared the pool gate, (b) was not reserved as chalk,
        (c) landed on no slip, and (d) scored HIGHER than the weakest bat the board did draft.

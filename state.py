@@ -71,11 +71,11 @@ def client():
     out = {k: v for k, v in boardcfg.load(quiet=True).items() if not k.startswith('_')}
     m = re.search(r'MOON_LEGS:\s*(\d+)', read('soccer/soccer_draft.js'))
     out['SOCCER_MOON_LEGS'] = int(m.group(1)) if m else None
-    # the two genuinely-dead literals still sitting in index.html, read where they live
-    s = '\n'.join(l for l in read('index.html').split('\n') if not l.startswith('const D={'))
-    for k in ('GATE_N', 'FLOOR'):
-        m = re.search(r'\b%s\s*=\s*(\d+)\s*[,;]' % k, s)
-        if m: out[k] = int(m.group(1))
+    # DEADCODE-2026-09-22: index.html's `var GATE_N=33, FLOOR=41;` is GONE, so there is nothing to
+    # scrape here any more. assemble_tickets.py's FLOOR (130) is LIVE -- it is the fallback pool gate --
+    # so it is read from where it actually lives rather than from the copy that used to disagree with it.
+    m = re.search(r'^FLOOR\s*=\s*(\d+)', read('assemble_tickets.py'), re.M)
+    if m: out['FLOOR_FALLBACK'] = int(m.group(1))
     return out
 
 
@@ -324,8 +324,6 @@ def markdown():
         'NIGHT_WIN': 'minutes after the last first pitch that the nightcap draws from',
         'LUNCH_CUT_MIN': 'minutes past midnight local — first pitch before this is lunch (17:00)',
         'CHALK_N': 'chalk bats barred from the pool — 0, the ban is off',
-        'CHEF_TICKET': "Chef's Table — retired",
-        'DINGERS': 'Dingers / Family Meal — retired',
         'ANCHOR_MAX_ODDS': 'ANCHORCAP-2026-09-22 — longest price that may ANCHOR. Legs uncapped. '
                            '+650 is where `backtest15-priceband-2026-09-13` measured our ranking skill '
                            'stop on real posted odds (+2.19pp at +550-650, −0.14pp at +650-750).',
@@ -333,15 +331,17 @@ def markdown():
     for k in ('Z_GATE', 'GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'ANCHOR_MAX_ODDS',
               'MOONS_PER_ANC', 'MOON_LEGS',
               'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N',
-              'CHEF_TICKET', 'DINGERS'):
+              ):
         if k in C: A(f"| `{k}` | `{C[k]}` | {_WHAT.get(k,'')} |")
     A('')
-    A('Deliberately **not** in the config file, because a dead constant in an authoritative-looking')
-    A('file is how it gets resurrected — these stay in `index.html`, marked dead:')
+    A('Deliberately **not** in the config file:')
     A('')
-    for k in ('GATE_N', 'FLOOR'):
-        if k in C: A(f"- `{k} = {C[k]}` — declared, never read")
-    A('- `FAM_CAP` — declared *after* an early return, so it is unreachable as well as unread')
+    A('- `GATE_N` and `FAM_CAP` — **deleted from the code entirely** on 2026-09-22 (DEADCODE). They')
+    A('  used to be "kept, marked dead", which is only a slower way of keeping a dead constant alive.')
+    if C.get('FLOOR_FALLBACK') is not None:
+        A(f"- `FLOOR = {C['FLOOR_FALLBACK']}` in `assemble_tickets.py` is **LIVE** — the default at the")
+        A('  `_floor = ... else FLOOR` fallback pool gate. `board_config.json` used to call it dead; it is not.')
+        A("  index.html's copy (41), which genuinely was dead and disagreed with this one, is deleted.")
     A('')
     if C.get('RR_UNIT'):
         A('```')
@@ -354,10 +354,13 @@ def markdown():
     A('')
     A('## Retired and unreachable')
     A('')
-    A(f"- **Chef's Table** (`chef`) — `CHEF_TICKET = {C.get('CHEF_TICKET')}`, a closure `var`, not settable at runtime")
+    A("- **Chef's Table** (`chef`) — `var CHEF_TICKET=false` is HARD-CODED in index.html and is never read")
+    A('  from `cfg()`. It was removed from `board_config.json` on 2026-09-22 (DEADCODE): a key the engine')
+    A('  cannot read is not a knob, it is decoration that looks like one.')
     A('- **Grand Salami** (`biggest`) — deleted 2026-08-14, not gated. No construction site anywhere,')
     A('  including the server fallback (`NOSALAMI-2026-09-13`)')
-    A(f"- **Dingers / Family Meal** (`family`) — `DINGERS = {C.get('DINGERS')}`, mint block returns on its first statement")
+    A('- **Dingers / Family Meal** (`family`) — the mint was DELETED on 2026-09-22 (DEADCODE); `var DINGERS=false`')
+    A('  remains only as the flag the render path reads, and it too is hard-coded, not config-settable')
     A(f"- **Chalk ban** — `CHALK_N = {C.get('CHALK_N')}`; `chalk` is provably always `{{}}`, nothing reserved or barred")
     A('')
     A('⚠️ `nonchalk` is still the draft pool despite the name, and `HYST_TOTAL` — declared between two')
