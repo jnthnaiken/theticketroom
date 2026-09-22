@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T16:52:20Z",
+  "pulled_at": "2026-09-22T16:57:19Z",
   "games": [
     {
       "gamePk": 823543,
@@ -132,7 +132,7 @@
         "wind_mph": 8.2,
         "wind_dir": 55,
         "tail_mph": -6.3,
-        "precip": 2
+        "precip": 3
       },
       "wf": 0.966
     },
@@ -214,7 +214,7 @@
         "wind_mph": 7.9,
         "wind_dir": 22,
         "tail_mph": -7.8,
-        "precip": 71
+        "precip": 72
       },
       "wf": 0.957
     },
@@ -296,7 +296,7 @@
         "wind_mph": 8.8,
         "wind_dir": 66,
         "tail_mph": -8.8,
-        "precip": 12
+        "precip": 16
       },
       "wf": 0.953
     },
@@ -337,7 +337,7 @@
         "wind_mph": 9.3,
         "wind_dir": 27,
         "tail_mph": -9.1,
-        "precip": 26
+        "precip": 23
       },
       "wf": 0.955
     },
@@ -419,7 +419,7 @@
         "wind_mph": 6.1,
         "wind_dir": 36,
         "tail_mph": -5.9,
-        "precip": 19
+        "precip": 14
       },
       "wf": 0.996
     },
@@ -460,7 +460,7 @@
         "wind_mph": 7.0,
         "wind_dir": 53,
         "tail_mph": -6.9,
-        "precip": 2
+        "precip": 1
       },
       "wf": 0.974
     },
@@ -575,9 +575,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 76\u00b0",
+        "lean": "Boost",
+        "temp": 75.5,
+        "wind_mph": 5.7,
+        "wind_dir": 162,
+        "tail_mph": 5.4,
+        "precip": 8
       },
-      "wf": 1.0
+      "wf": 1.027
     },
     {
       "gamePk": 824953,
@@ -690,16 +697,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 14mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 62.4,
-        "wind_mph": 14.5,
-        "wind_dir": 280,
-        "tail_mph": 14.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.038
+      "wf": 1.0
     },
     {
       "gamePk": 823897,
