@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T18:22:08Z",
+  "pulled_at": "2026-09-22T18:26:41Z",
   "games": [
     {
       "gamePk": 823543,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 607259,
           "name": "Nick Martinez",
-          "hr9": 1.13,
+          "hr9": 1.12,
           "hand": "RHP"
         },
         "lineup": [
@@ -82,12 +82,12 @@
           {
             "id": 641355,
             "name": "Cody Bellinger",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.167
+            "iso": 0.166
           },
           {
             "id": 671277,
@@ -112,12 +112,12 @@
           {
             "id": 645305,
             "name": "Ali S\u00e1nchez",
-            "iso": 0.065
+            "iso": 0.064
           },
           {
             "id": 676609,
             "name": "Jos\u00e9 Caballero",
-            "iso": 0.138
+            "iso": 0.137
           }
         ],
         "confirmed": true
@@ -132,7 +132,7 @@
         "wind_mph": 12.0,
         "wind_dir": 55,
         "tail_mph": -9.2,
-        "precip": 3
+        "precip": 2
       },
       "wf": 0.96
     },
@@ -255,7 +255,7 @@
         "wind_mph": 9.5,
         "wind_dir": 66,
         "tail_mph": -9.5,
-        "precip": 17
+        "precip": 12
       },
       "wf": 0.95
     },
@@ -296,7 +296,7 @@
         "wind_mph": 8.5,
         "wind_dir": 27,
         "tail_mph": -8.3,
-        "precip": 20
+        "precip": 21
       },
       "wf": 0.958
     },
@@ -378,7 +378,7 @@
         "wind_mph": 6.8,
         "wind_dir": 41,
         "tail_mph": -6.7,
-        "precip": 12
+        "precip": 18
       },
       "wf": 0.993
     },
@@ -419,7 +419,7 @@
         "wind_mph": 7.6,
         "wind_dir": 34,
         "tail_mph": -7.5,
-        "precip": 1
+        "precip": 2
       },
       "wf": 0.975
     },
@@ -460,7 +460,7 @@
         "wind_mph": 12.8,
         "wind_dir": 63,
         "tail_mph": -10.7,
-        "precip": 3
+        "precip": 2
       },
       "wf": 0.946
     },
@@ -741,9 +741,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 70.1,
+        "wind_mph": 4.9,
+        "wind_dir": 240,
+        "tail_mph": 4.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.014
     },
     {
       "gamePk": 824785,
@@ -782,7 +789,7 @@
         "wind_mph": 7.7,
         "wind_dir": 17,
         "tail_mph": -7.5,
-        "precip": 74
+        "precip": 69
       },
       "wf": 0.958
     }
