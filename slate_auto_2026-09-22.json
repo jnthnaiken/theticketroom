@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T21:21:59Z",
+  "pulled_at": "2026-09-22T21:27:24Z",
   "games": [
     {
       "gamePk": 823543,
@@ -49,7 +49,7 @@
           },
           {
             "id": 683748,
-            "name": "Victor Mesa",
+            "name": "Victor Mesa Jr.",
             "iso": 0.248
           },
           {
@@ -91,12 +91,12 @@
           },
           {
             "id": 671277,
-            "name": "Luis Garc\u00eda",
+            "name": "Luis Garc\u00eda Jr.",
             "iso": 0.25
           },
           {
             "id": 806146,
-            "name": "George Lombard",
+            "name": "George Lombard Jr.",
             "iso": 0.148
           },
           {
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823494,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-22T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -160,10 +160,56 @@
           "hr9": 0.34,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.267
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.169
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.166
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.25
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.192
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.171
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.148
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.14
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.135
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -545,14 +591,14 @@
             "iso": 0.139
           },
           {
-            "id": 592663,
-            "name": "J.T. Realmuto",
-            "iso": 0.129
-          },
-          {
             "id": 669016,
             "name": "Brandon Marsh",
             "iso": 0.145
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.129
           },
           {
             "id": 702222,
@@ -782,7 +828,7 @@
         "lineup": [
           {
             "id": 660670,
-            "name": "Ronald Acu\u00f1a",
+            "name": "Ronald Acu\u00f1a Jr.",
             "iso": 0.203
           },
           {
@@ -802,7 +848,7 @@
           },
           {
             "id": 671739,
-            "name": "Michael Harris",
+            "name": "Michael Harris II",
             "iso": 0.197
           },
           {
@@ -920,7 +966,7 @@
           },
           {
             "id": 677951,
-            "name": "Bobby Witt",
+            "name": "Bobby Witt Jr.",
             "iso": 0.161
           },
           {
@@ -1132,10 +1178,56 @@
           "hr9": 1.03,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694671,
+            "name": "Wyatt Langford",
+            "iso": 0.193
+          },
+          {
+            "id": 608369,
+            "name": "Corey Seager",
+            "iso": 0.195
+          },
+          {
+            "id": 673962,
+            "name": "Josh Jung",
+            "iso": 0.155
+          },
+          {
+            "id": 669394,
+            "name": "Jake Burger",
+            "iso": 0.195
+          },
+          {
+            "id": 607043,
+            "name": "Brandon Nimmo",
+            "iso": 0.147
+          },
+          {
+            "id": 677649,
+            "name": "Ezequiel Duran",
+            "iso": 0.167
+          },
+          {
+            "id": 679822,
+            "name": "Justin Foscue",
+            "iso": 0.221
+          },
+          {
+            "id": 553869,
+            "name": "Elias D\u00edaz",
+            "iso": 0.16
+          },
+          {
+            "id": 643376,
+            "name": "Danny Jansen",
+            "iso": 0.162
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -1518,16 +1610,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind in 8mph, 60\u00b0",
-        "lean": "Suppress",
-        "temp": 59.6,
-        "wind_mph": 8.2,
-        "wind_dir": 35,
-        "tail_mph": -8.2,
-        "precip": 75
+        "note": "weather fetch failed"
       },
-      "wf": 0.956
+      "wf": 1.0
     }
   ]
 }
