@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T17:42:44Z",
+  "pulled_at": "2026-09-22T17:47:19Z",
   "games": [
     {
       "gamePk": 823543,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 607259,
           "name": "Nick Martinez",
-          "hr9": 1.09,
+          "hr9": 1.08,
           "hand": "RHP"
         },
         "lineup": [
@@ -70,7 +70,7 @@
         "sp": {
           "id": 607074,
           "name": "Carlos Rod\u00f3n",
-          "hr9": 0.8,
+          "hr9": 0.79,
           "hand": "LHP"
         },
         "lineup": [
@@ -112,12 +112,12 @@
           {
             "id": 645305,
             "name": "Ali S\u00e1nchez",
-            "iso": 0.066
+            "iso": 0.065
           },
           {
             "id": 676609,
             "name": "Jos\u00e9 Caballero",
-            "iso": 0.137
+            "iso": 0.138
           }
         ],
         "confirmed": true
@@ -697,9 +697,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 14mph, 62\u00b0",
+        "lean": "Boost",
+        "temp": 61.9,
+        "wind_mph": 15.0,
+        "wind_dir": 281,
+        "tail_mph": 14.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.038
     },
     {
       "gamePk": 823897,
