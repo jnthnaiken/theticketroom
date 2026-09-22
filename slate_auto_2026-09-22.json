@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T17:12:07Z",
+  "pulled_at": "2026-09-22T17:17:10Z",
   "games": [
     {
       "gamePk": 823543,
@@ -30,7 +30,7 @@
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.252
+            "iso": 0.251
           },
           {
             "id": 689414,
@@ -70,7 +70,7 @@
         "sp": {
           "id": 607074,
           "name": "Carlos Rod\u00f3n",
-          "hr9": 0.83,
+          "hr9": 0.81,
           "hand": "LHP"
         },
         "lineup": [
@@ -575,16 +575,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 76\u00b0",
-        "lean": "Boost",
-        "temp": 75.5,
-        "wind_mph": 5.7,
-        "wind_dir": 162,
-        "tail_mph": 5.4,
-        "precip": 8
+        "note": "weather fetch failed"
       },
-      "wf": 1.027
+      "wf": 1.0
     },
     {
       "gamePk": 824953,
@@ -736,9 +729,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 69.6,
+        "wind_mph": 5.2,
+        "wind_dir": 239,
+        "tail_mph": 4.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.014
     }
   ]
 }
