@@ -140,6 +140,21 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     gnum = {m: i + 1 for i, m in enumerate(matches)}
     assert len(set(gnum.values())) == len(matches), 'gn collision'
 
+    # NOSHEETLOCK-2026-09-22. One league label per match, and the set of competitions that have
+    # no team-news source, read from coverage.json's `intl` group rather than spelled out here.
+    # See meta.nosheet below for why this exists at all.
+    lg_of = {}
+    for _x in P:
+        lg_of.setdefault(_x['match'], _x.get('league'))
+    _NOSHEET_LEAGUES = set()
+    try:
+        _cov = json.load(io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                              'coverage.json'), encoding='utf-8'))
+        _NOSHEET_LEAGUES = {v for k, v in (_cov.get('intl') or {}).items() if k != '_doc'}
+    except Exception as _e:                                   # noqa: BLE001
+        print(f'  ::warning::coverage.json unreadable ({_e}) -- meta.nosheet will be empty, '
+              f'so an international slip would never freeze. Fix before building one.')
+
     from datetime import datetime, timedelta, timezone
     from zoneinfo import ZoneInfo
     ET = ZoneInfo('America/New_York')
@@ -352,6 +367,23 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             # MINTGUARD ("is this slip being minted after its own kickoff?") are both
             # comparisons against this number. Purely additive -- nothing else reads it.
             'ko': {str(gnum[m]): int(ko_of(m)) for m in matches},
+            # 🚨 NOSHEETLOCK-2026-09-22. The matches that can NEVER produce a 'confirmed'
+            # status, keyed by game number exactly as `ko` above is -- ticketIsLocked() reads
+            # both with the same key and they must not drift apart.
+            #
+            # CONFLOCK freezes a slip when every leg is confirmed. soccer_teamnews.py scrapes
+            # CLUB team sheets; nothing scrapes a national squad, so a leg in an international
+            # fixture never reaches 'confirmed' and its slip would never freeze at all -- it
+            # would still be re-drafting through its own kickoff, which is the football bug of
+            # 2026-09-20 (claude/nfl-anchorwave-2026-09-20.md) arriving in this room.
+            #
+            # ⚠️ DERIVED FROM coverage.json, NOT A LIST OF LEAGUE LABELS SPELLED OUT HERE.
+            # A second copy of "which competitions have no team news" is the thing that goes
+            # stale the day a group is added: INTL-2026-09-22 added three competitions at once.
+            # The `intl` group IS that answer, so it is read, not restated. An older
+            # coverage.json with no `intl` key yields {} and nothing changes.
+            'nosheet': {str(gnum[m]): True for m in matches
+                        if lg_of.get(m) in _NOSHEET_LEAGUES},
             'build': _build_stamp,
             'face': 'soccer',
             'maxAT': 100,

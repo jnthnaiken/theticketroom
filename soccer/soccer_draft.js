@@ -873,8 +873,44 @@
        Default false, so soccer is byte-identical: DEFAULTS.LOCK_ON_KICKOFF is off and the two
        call sites pass cfg.LOCK_ON_KICKOFF. Football pins it true in nfl_draft_cli.js.
        Earliest kickoff among the legs, matching lockOf() -- a slip is underway when its FIRST
-       game is, never its last. */
-    if (lockOnKickoff && nowUTCmin != null && typeof koOf === 'function') {
+       game is, never its last.
+
+       ==================================================================================
+       🚨 NOSHEETLOCK-2026-09-22 -- AND IT IS NOT A ROOM-WIDE FACT, IT IS A PER-FIXTURE ONE.
+       ==================================================================================
+       KICKLOCK framed this as "opt-in PER ROOM" because at the time the two rooms were the
+       whole story: soccer has team sheets, football does not. INTL-2026-09-22 breaks that
+       framing -- an international fixture sits in the SOCCER room and has no sheet either,
+       because soccer_teamnews.py scrapes club leagues and nothing scrapes a national squad.
+
+       The underlying rule was never about the room. It is:
+
+           a slip that can NEVER become fully confirmed must freeze on the clock instead,
+           because otherwise it never freezes at all.
+
+       `allConf` above requires EVERY leg to reach 'confirmed'. One leg in a competition with
+       no team-news source makes that permanently unreachable, so the test is `some`, not
+       `every`: a mixed slip -- one club leg, one international leg -- is exactly the slip that
+       would otherwise churn through its own kickoff, which is the 2026-09-20 football bug
+       arriving in the other room.
+
+       ⚠️ WHY IT READS D.meta AND NOT A NEW ARGUMENT. Both call sites already pass
+       cfg.LOCK_ON_KICKOFF and both already have D. Threading a fifth parameter through them
+       would put the same fact in two places, and STAGEPATH-2026-09-20 is the standing lesson
+       about a list that has to be updated in a second file to stay true. soccer_payload.py
+       emits meta.nosheet keyed by GAME NUMBER, exactly like meta.ko, so the two are read with
+       the same key and cannot drift apart.
+
+       ⚠️ ABSENT meta.nosheet CHANGES NOTHING. Every board built before today, and every
+       football board (nfl_payload.py does not emit it and does not need to -- football pins
+       LOCK_ON_KICKOFF true for the whole room), takes the `|| false` path and behaves exactly
+       as it did. That is what test_draft_golden.js asserts by staying bit-identical. */
+    var _nosheet = (D.meta && D.meta.nosheet) || null;
+    var _unconfirmable = !!_nosheet && legs.some(function (l) {
+      var p = D.players[l.name];
+      return !!_nosheet[String(p ? p.game : l.game)];
+    });
+    if ((lockOnKickoff || _unconfirmable) && nowUTCmin != null && typeof koOf === 'function') {
       var first = Infinity;
       legs.forEach(function (l) {
         var k = koOf(D.players[l.name] ? D.players[l.name].game : l.game);
