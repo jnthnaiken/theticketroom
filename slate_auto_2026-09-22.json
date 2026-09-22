@@ -1,11 +1,11 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T14:37:03Z",
+  "pulled_at": "2026-09-22T14:42:28Z",
   "games": [
     {
       "gamePk": 823543,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-22T17:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -27,10 +27,56 @@
           "hr9": 0.83,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.267
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.168
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.251
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.151
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.194
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.092
+          },
+          {
+            "id": 645305,
+            "name": "Ali S\u00e1nchez",
+            "iso": 0.066
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.137
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -481,16 +527,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 5mph, 73\u00b0",
-        "lean": "Neutral",
-        "temp": 72.7,
-        "wind_mph": 10.1,
-        "wind_dir": 298,
-        "tail_mph": -4.7,
-        "precip": 9
+        "note": "weather fetch failed"
       },
-      "wf": 0.987
+      "wf": 1.0
     },
     {
       "gamePk": 824953,
@@ -523,15 +562,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 82\u00b0",
+        "cond": "wind out 6mph, 81\u00b0",
         "lean": "Boost",
-        "temp": 82.0,
+        "temp": 81.2,
         "wind_mph": 6.8,
         "wind_dir": 218,
         "tail_mph": 6.3,
         "precip": 0
       },
-      "wf": 1.04
+      "wf": 1.039
     },
     {
       "gamePk": 823089,
@@ -606,13 +645,13 @@
         "emoji": "\u2600\ufe0f",
         "cond": "wind out 15mph, 62\u00b0",
         "lean": "Boost",
-        "temp": 62.0,
+        "temp": 61.7,
         "wind_mph": 16.0,
         "wind_dir": 282,
         "tail_mph": 15.3,
         "precip": 0
       },
-      "wf": 1.042
+      "wf": 1.041
     },
     {
       "gamePk": 823897,
@@ -643,15 +682,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 69\u00b0",
+        "cond": "wind out 4mph, 70\u00b0",
         "lean": "Neutral",
-        "temp": 69.2,
+        "temp": 69.6,
         "wind_mph": 5.4,
         "wind_dir": 246,
         "tail_mph": 4.1,
         "precip": 0
       },
-      "wf": 1.013
+      "wf": 1.014
     }
   ]
 }
