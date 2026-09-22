@@ -1,11 +1,11 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T17:00:40Z",
+  "pulled_at": "2026-09-22T17:07:13Z",
   "games": [
     {
       "gamePk": 823543,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-22T17:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -697,16 +697,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 14mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 62.4,
-        "wind_mph": 14.5,
-        "wind_dir": 280,
-        "tail_mph": 14.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.038
+      "wf": 1.0
     },
     {
       "gamePk": 823897,
