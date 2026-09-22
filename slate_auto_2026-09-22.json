@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T15:17:41Z",
+  "pulled_at": "2026-09-22T15:22:40Z",
   "games": [
     {
       "gamePk": 823543,
@@ -53,9 +53,9 @@
             "iso": 0.251
           },
           {
-            "id": 810938,
-            "name": "Ben Williamson",
-            "iso": 0.084
+            "id": 622761,
+            "name": "Jorge Mateo",
+            "iso": 0.114
           },
           {
             "id": 680700,
@@ -575,9 +575,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 9mph, 77\u00b0",
+        "lean": "Boost",
+        "temp": 77.0,
+        "wind_mph": 10.5,
+        "wind_dir": 214,
+        "tail_mph": 8.7,
+        "precip": 10
       },
-      "wf": 1.0
+      "wf": 1.041
     },
     {
       "gamePk": 824953,
@@ -690,16 +697,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 16mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 61.7,
-        "wind_mph": 16.8,
-        "wind_dir": 284,
-        "tail_mph": 15.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.043
+      "wf": 1.0
     },
     {
       "gamePk": 823897,
