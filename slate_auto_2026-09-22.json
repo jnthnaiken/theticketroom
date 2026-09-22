@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T21:27:24Z",
+  "pulled_at": "2026-09-22T21:30:57Z",
   "games": [
     {
       "gamePk": 823543,
@@ -1530,16 +1530,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 61.9,
-        "wind_mph": 13.6,
-        "wind_dir": 279,
-        "tail_mph": 13.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     },
     {
       "gamePk": 823897,
@@ -1610,9 +1603,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\ud83c\udf27\ufe0f",
+        "cond": "wind in 8mph, 60\u00b0",
+        "lean": "Suppress",
+        "temp": 59.6,
+        "wind_mph": 8.2,
+        "wind_dir": 35,
+        "tail_mph": -8.2,
+        "precip": 75
       },
-      "wf": 1.0
+      "wf": 0.956
     }
   ]
 }
