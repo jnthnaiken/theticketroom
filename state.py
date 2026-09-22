@@ -327,9 +327,14 @@ def markdown():
         'ANCHOR_MAX_ODDS': 'ANCHORCAP-2026-09-22 — longest price that may ANCHOR. Legs uncapped. '
                            '+650 is where `backtest15-priceband-2026-09-13` measured our ranking skill '
                            'stop on real posted odds (+2.19pp at +550-650, −0.14pp at +650-750).',
+        'CONFLOCK_SETTLE_MIN': 'CONFLOCKSETTLE-2026-09-22 — minutes a posted card must STAND before a '
+                               'ticket may latch on it. 10 of 273 posted sides were revised over 11 slates '
+                               '(3.7%, lags 24–200 min); N=120 catches 9 of 10 and still leaves ~60 min of '
+                               'lock window. Delays the first latch only — never unlocks, and first pitch '
+                               'still locks regardless. 0 = off.',
     }
     for k in ('Z_GATE', 'GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'ANCHOR_MAX_ODDS',
-              'MOONS_PER_ANC', 'MOON_LEGS',
+              'CONFLOCK_SETTLE_MIN', 'MOONS_PER_ANC', 'MOON_LEGS',
               'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N',
               ):
         if k in C: A(f"| `{k}` | `{C[k]}` | {_WHAT.get(k,'')} |")
@@ -453,9 +458,20 @@ def check():
         elif k in C and vals[0] != C[k]:
             bad.append(f"index.html falls back to {k}={vals[0]} but board_config.json says {C[k]} "
                        f"-- archived boards would render differently from live ones")
+    # CONFLOCKSETTLE-2026-09-22. The rule FAILS OPEN by design: no `meta.posted_at` on a board means
+    # every confirmed side reads as settled, i.e. yesterday's lock rule. That is the right degradation
+    # at runtime and the wrong one to leave undetected, because a stamp path that quietly stopped
+    # running would look exactly like a board with nothing to stamp. So assert the two halves exist:
+    # regen15.py must still write the map, and index.html must still read it.
+    if 'posted_at' not in read('regen15.py'):
+        bad.append("regen15.py no longer stamps meta.posted_at -- CONFLOCK_SETTLE_MIN would silently "
+                   "do nothing on every board (the settling period fails OPEN)")
+    if 'posted_at' not in read('index.html'):
+        bad.append("index.html no longer reads meta.posted_at -- the settling period is not enforced")
     bad += doc_numbers()          # stale knob values written into README.md / HANDOFF.md
     missing = [k for k in ('MOON_LEGS', 'SHORT_MOON_FLOOR', 'WIN', 'Z_GATE', 'MOONS_PER_ANC',
-                           'CHALK_N', 'NIGHT_WIN', 'MOON_SLACK') if k not in client_fallbacks()]
+                           'CHALK_N', 'NIGHT_WIN', 'MOON_SLACK',
+                           'CONFLOCK_SETTLE_MIN') if k not in client_fallbacks()]
     if missing:
         bad.append('index.html reads these without a cfg() fallback: ' + ', '.join(missing))
     # the board it shipped must carry the config it was built with.

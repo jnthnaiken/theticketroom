@@ -111,6 +111,49 @@ if _same_slate:
         D.setdefault('meta', {})['retracted'] = _retr
         print(f"  (carried the night's retracted signatures: {len(_retr)})")
 
+# ---------------------------------------------------------------------------------------------
+# CONFLOCKSETTLE-2026-09-22 -- WHEN did each side's card post? The board never knew. `status` is a
+# per-build boolean recomputed from scratch every five minutes, so "confirmed" carried no age and a
+# card one minute old locked a ticket exactly as hard as one that had stood for three hours.
+#
+# It matters because posted cards get REVISED. 11 slates of committed slate_auto pulls (09-12..09-22,
+# 2,276 pulls, claude/cardrevision-2026-09-22.md): 273 sides posted a confirmed nine and 10 were later
+# changed -- 3.7%, about one a slate -- at lags of 24..200 min from first post, median 50. Four of those
+# reached a placed slip this season (Soderstrom 08-11, Goodman 08-17, Freeman 09-09, Eldridge 09-18).
+# None of them were a RotoWire error: every one was MLB's OWN card, revised after we had already locked
+# on it. That is why a second source would not have caught any of them and a settling period does.
+#
+# So: stamp the epoch second a side FIRST appears confirmed-with-a-nine, carry it across builds, and let
+# the engine refuse to latch a ticket whose legs are younger than CONFLOCK_SETTLE_MIN. Keyed `game|code`
+# -- game number, not matchup, because a doubleheader is two sides of the same two teams. Verified stable
+# from first build to last across 09-19/20/21.
+# Scoped by DATE alone, deliberately NOT by `_same_slate` above: that flag also requires the prior board
+# to carry tickets, and a stamp is a fact about a card, not about whether we had a board drafted yet. A
+# morning build that produces no tickets must not throw away the morning's stamps and re-age every card.
+_pa_same = (not _force) and bool(prevD and (prevD.get('meta') or {}).get('date') == (D.get('meta') or {}).get('date'))
+_pa_prev = ((prevD.get('meta') or {}).get('posted_at') if _pa_same else None)
+# GRANDFATHER, and it is the whole reason this ships mid-slate safely. Two cases stamp 0 = "posted long
+# ago, already settled": the build that FIRST creates the map on a running slate (cards are standing and
+# we have no idea for how long -- stamping them `now` would mark the entire posted board unsettled and
+# hold off every latch for two hours, churning exactly the placed slips this rule exists to protect), and
+# FORCE_REBUILD (a finished slate has no live card age, and the rebuild must reproduce what shipped).
+# A map that already EXISTS -- including the empty one a fresh slate morning writes before anything posts
+# -- means every new key is a real, observed post and gets the real clock.
+_pa_grand = _force or (_pa_same and _pa_prev is None)
+_pa = dict(_pa_prev or {})
+_pa_now, _pa_new = int(time.time()), 0
+for _p in (D.get('players') or {}).values():
+    if _p.get('status') != 'confirmed' or _p.get('out') or _p.get('void'):
+        continue
+    _k = "%s|%s" % (_p.get('game'), _p.get('code'))
+    if _k in _pa:
+        continue
+    _pa[_k] = 0 if _pa_grand else _pa_now
+    _pa_new += 1
+D.setdefault('meta', {})['posted_at'] = _pa
+print("  posted_at: %d side(s) tracked, %d new this build%s" % (
+    len(_pa), _pa_new, " (GRANDFATHERED as already settled)" if (_pa_grand and _pa_new) else ""))
+
 json.dump(D, open(DJSON, 'w'), indent=1)       # the engine reads/writes this file in place
 
 _drafted = False

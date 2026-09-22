@@ -26,13 +26,15 @@ PATH = os.path.join(HERE, 'board_config.json')
 DEFAULTS = {
     'Z_GATE': 0.75, 'GAME_CAP': 6, 'RESERVE_GAME_CAP': 4, 'ANCH': 4, 'ANCH_PER_GAME': 2,
     'ANCHOR_MAX_ODDS': 650,   # ANCHORCAP-2026-09-22
+    'CONFLOCK_SETTLE_MIN': 120,   # CONFLOCKSETTLE-2026-09-22
     'MOONS_PER_ANC': 2,
     'MOON_LEGS': 4, 'SHORT_MOON_FLOOR': 3, 'MOON_SLACK': 2, 'WIN': 150, 'NIGHT_WIN': 60,
     'LUNCH_CUT_MIN': 1020, 'CHALK_N': 0, 'RR_UNIT': {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10},
 }
 
 _INT = ('GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'ANCHOR_MAX_ODDS', 'MOONS_PER_ANC',
-        'MOON_LEGS', 'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N')
+        'MOON_LEGS', 'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N',
+        'CONFLOCK_SETTLE_MIN')
 
 
 def load(path=PATH, quiet=False):
@@ -70,6 +72,12 @@ def _validate(c):
     if c['WIN'] < 1: bad.append('WIN < 1')
     if c['WIN'] > 155: bad.append('WIN > 155 -- past the board\'s own lineup-timing flag; every slip would ship warned')
     if c['ANCH'] < 1: bad.append('ANCH < 1')
+    # CONFLOCKSETTLE-2026-09-22. 0 disables. The ceiling is not taste: cards post a median 180 min
+    # before first pitch and p10 is 148, so past ~240 the settling period outlasts the lead time on
+    # most sides, no slip latches before its game starts, and the lock silently degrades to the
+    # clock-only rule CONFLOCK replaced. Refuse it rather than ship a rule that quietly does nothing.
+    if not (0 <= c['CONFLOCK_SETTLE_MIN'] <= 240):
+        bad.append('CONFLOCK_SETTLE_MIN outside 0..240 (0=off; >240 outlasts the median card\'s lead on first pitch)')
     for L in range(2, c['MOON_LEGS'] + 1):
         if L not in c['RR_UNIT']: bad.append(f'RR_UNIT has no entry for {L} legs')
     if bad:

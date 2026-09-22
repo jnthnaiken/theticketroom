@@ -85,6 +85,7 @@ just never heard about it.
 |---|---|
 | `ADOPT-2026-08-16` | every refresh fetches `D_<date>.json`; a new `meta.build` is adopted whole, with hr flags / `finals` / `gs` / `live` re-applied and `CACHE` nulled. Silent, by owner's call. Fails soft — no network or a downloaded copy keeps the baked board. |
 | `CONFLOCK-2026-08-16` | a prior ticket is carried verbatim when its earliest leg is underway **or when every leg is confirmed and none is out/void**. The freeze previously read the clock alone, leaving a bat confirmed at 4pm for a 9:38 game re-draftable for 5½ hours. |
+| `CONFLOCKSETTLE-2026-09-22` | a posted card must have STOOD `CONFLOCK_SETTLE_MIN` (120) minutes before a ticket may latch on it. 10 of 273 posted sides were revised over 11 slates (3.7%, lags 24–200 min, median 50); four hit an already-locked slip, and every one was MLB's own card, not RotoWire — so waiting catches them and a second source does not. `regen15.py` stamps and carries `meta.posted_at[game\|code]`. Delays a first latch only: never unlocks, first pitch still locks, and a missing stamp/map or knob 0 reads as settled (fails open). |
 | `MINTGUARD-2026-08-16` | a slip may never be *created* past its own first pitch; moons die as a pair; no-op with no prior board. |
 | `FAMPIN-2026-08-15` **removed** | the 08-15 pin stopped the Family Meal re-deriving at all, which also stopped it reacting to lineups posting. Wrong fix, backed out the next morning. |
 

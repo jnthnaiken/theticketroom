@@ -524,7 +524,22 @@ Behavior that's load-bearing:
   none is scratched, **or** when its earliest leg's game is underway — whichever comes first
   (`CONFLOCK-2026-08-16`). Until that change the freeze read the clock alone, so a bat confirmed
   at 4pm for a 9:38 game stayed re-draftable for five and a half hours; 🔒 on the board now means
-  🔒 in the draft. A locked ticket is
+  🔒 in the draft.
+
+- **…but a card has to STAND for two hours first** (`CONFLOCKSETTLE-2026-09-22`). `status` is a
+  boolean recomputed every five minutes and carried no age, so a card one second old froze a slip
+  exactly as hard as one that had stood all afternoon. Posted cards get revised: over 11 slates,
+  10 of 273 posted sides changed (3.7%, about one a slate) at 24–200 min after first post, median
+  50 — and four of those hit a slip we had already locked (Soderstrom 08-11, Goodman 08-17,
+  Freeman 09-09, Eldridge 09-18). **Every one was MLB's own card changing under us, not a bad
+  RotoWire pull**, which is why a second source would have caught none of them and why waiting
+  catches nine of ten. `regen15.py` stamps `meta.posted_at[game|code]` the first build a side
+  shows a confirmed nine and carries it forward; the latch reads it. Cards post a median 180 min
+  before first pitch, so `CONFLOCK_SETTLE_MIN = 120` still leaves ~60 min of lock window. It only
+  ever **delays a first latch** — an already-locked slip stays locked (the latch is one-way), and
+  first pitch still locks regardless of card age. Fails open: no stamp, no map, or the knob at 0
+  all read as settled, so a broken stamp path degrades to the rule above, never to a board that
+  refuses to lock. A locked ticket is
   emitted verbatim and never moves; a scratched leg drops it out of "confirmed" and
   the re-draft replaces just that leg while confirmed legs stay pinned. A scratched
   single with no replacement is dropped, never re-shown (`singleAlive` filter — a

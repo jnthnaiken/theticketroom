@@ -1621,6 +1621,7 @@ drawTickets();drawPlayers();drawTracker();
     MOONS_PER_ANC=cfg('MOONS_PER_ANC',2); MOON_SLACK=cfg('MOON_SLACK',2);
     LUNCH_CUT=cfg('LUNCH_CUT_MIN',17*60); NIGHT_WIN=cfg('NIGHT_WIN',60);
     ANCHOR_MAX_ODDS=cfg('ANCHOR_MAX_ODDS',650);   /* ANCHORCAP-2026-09-22 */
+    CONFLOCK_SETTLE_MIN=cfg('CONFLOCK_SETTLE_MIN',120);   /* CONFLOCKSETTLE-2026-09-22 */
     MOON_LEGS=cfg('MOON_LEGS',4); SHORT_MOON_FLOOR=cfg('SHORT_MOON_FLOOR',3);
     var _r=CFG.RR_UNIT; if(_r){ var o={},k; for(k in _r)o[+k]=+_r[k]; RR_UNIT=o; }
   }
@@ -1633,8 +1634,11 @@ drawTickets();drawPlayers();drawTracker();
   var CHALK_N=cfg('CHALK_N',0), Z_GATE=cfg('Z_GATE',0.75), WIN=cfg('WIN',150),
       MOONS_PER_ANC=cfg('MOONS_PER_ANC',2), MOON_SLACK=cfg('MOON_SLACK',2),
       LUNCH_CUT=cfg('LUNCH_CUT_MIN',17*60), NIGHT_WIN=cfg('NIGHT_WIN',60),
-      ANCHOR_MAX_ODDS=cfg('ANCHOR_MAX_ODDS',650);   /* ANCHORCAP-2026-09-22 -- module scope on purpose: it is
+      ANCHOR_MAX_ODDS=cfg('ANCHOR_MAX_ODDS',650),   /* ANCHORCAP-2026-09-22 -- module scope on purpose: it is
       read by the redraft trigger and by anchorAlive(), BOTH of which run long before the candA block. */
+      CONFLOCK_SETTLE_MIN=cfg('CONFLOCK_SETTLE_MIN',120);   /* CONFLOCKSETTLE-2026-09-22 -- module scope for the
+      same reason ANCHOR_MAX_ODDS is: syncCfg() re-binds these identifiers per board, and a `var` of the same
+      name declared inside assembleClient would hoist and shadow it as `undefined` for the whole function. */
   /* WIN 120 -> 150, WIN150-2026-09-13. Measured, not guessed (claude/win120-2026-09-13.md):
      - the window was not buying decorrelation -- lab15 measured leg independence at rho~0 at every slip length;
      - it was not buying outcome quality either. 513 archived moons / 79 nights, split at a 60-min span: wide
@@ -1839,7 +1843,25 @@ drawTickets();drawPlayers();drawTracker();
     var tmin=function(n){return gmin(P[n].gtime);};
     function nowMin(){var s=new Date().toLocaleString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit'});var pp=s.split(':');var H=+pp[0],M=+pp[1];if(H===24)H=0;return H*60+M;}
     function started(n){var m=tmin(n); if(m==null)return false; /* SLATEDAY-2026-08-28: _slateDay(D) -- D here is assembleClient's PARAMETER and shadows the baked board. regen15.py injects after the draft, so on the first build of a new slate date the baked date is yesterday's; reading it marked every bat started, emptied the draft pool and dropped the board onto the assemble_tickets.py fallback. */var _d=_slateDay(D);if(_d)return _d>0; return nowMin()>=m;}
-    function pinnedP(n){var p=P[n]; return !!(p && !p.out && !p.void && (p.status==='confirmed' || started(n)));}
+    /* CONFLOCKSETTLE-2026-09-22 -- A POSTED CARD IS NOT TRUSTED THE INSTANT IT APPEARS.
+       `status==='confirmed'` says MLB has a nine up for this side RIGHT NOW; it never said how long it had
+       been up. But cards get revised: over 11 slates, 10 of 273 posted sides changed (3.7%) at 24..200 min
+       after first post, median 50 -- and four of those revisions hit a slip we had already locked
+       (Soderstrom 08-11, Goodman 08-17, Freeman 09-09, Eldridge 09-18). Every one was MLB's own card
+       changing under us, not a bad RotoWire pull, which is why a second source would have caught none of
+       them. So a side must have been STANDING for CONFLOCK_SETTLE_MIN before it can freeze anything.
+       N=120 buys 9 of those 10 and still leaves 60 min of median lock window (cards post a median 180 min
+       before first pitch). meta.posted_at is stamped and carried by regen15.py.
+       FAILS OPEN, on purpose and in three ways: no map on the board (an archived night, a hand-built D, a
+       build where the carryover read threw) -> settled; a confirmed side with no stamp -> settled;
+       CONFLOCK_SETTLE_MIN=0 -> settled. A broken stamp path degrades to the rule we shipped yesterday, never
+       to a board that refuses to lock. */
+    var _PA=(D.meta&&D.meta.posted_at)||null;
+    function settledP(n){var p=P[n]; if(!p||p.status!=='confirmed')return false;
+      if(!_PA||!CONFLOCK_SETTLE_MIN)return true;
+      var t=_PA[String(p.game)+'|'+p.code]; if(t==null)return true;
+      return (Date.now()/1000-t)>=CONFLOCK_SETTLE_MIN*60;}
+    function pinnedP(n){var p=P[n]; return !!(p && !p.out && !p.void && (settledP(n) || started(n)));}
     function aliveP(n){var p=P[n]; return !!(p && !p.out && !p.void);}
     
     function byT(a){return a.slice().sort(function(x,y){return (P[y].TOTAL-P[x].TOTAL)||(P[y].aT-P[x].aT);});}  // TOTAL desc; ties broken by aT (base) so the hard 33-cut is deterministic
@@ -2135,7 +2157,13 @@ drawTickets();drawPlayers();drawTracker();
       var lk=gmin(t.lock), _lg=(t.players||[]);
       var _underway = (lk!=null && _lkNow>=lk);
       var _allConf  = _lg.length>0 && _lg.every(function(l){
-        var p=P[l.name]; return !!(p && p.status==='confirmed' && !p.out && !p.void); });
+        /* CONFLOCKSETTLE-2026-09-22: settledP, not status==='confirmed'. THIS is the moment a ticket
+           freezes for good -- the latch below is one-way -- so it is the one place the age of the card
+           has to be checked. A leg whose side posted less than CONFLOCK_SETTLE_MIN ago simply does not
+           latch YET; it latches on a later build once the card has stood, or at first pitch via the
+           `_underway` clock half above, whichever comes first. Nothing here can UNLATCH a ticket:
+           `t.locked` arrives true from the prior board and is never cleared. */
+        var p=P[l.name]; return !!(p && settledP(l.name) && !p.out && !p.void); });
       if(!t.locked && !_underway && !_allConf) return;
       /* LOCK IS A LATCH -- 2026-08-17, owner's rule. This was a predicate RE-EVALUATED every build, so the same
          slip could lock at 4:20 and unlock at 4:25 when a lineup feed flickered, and a SCRATCH deleted a placed
