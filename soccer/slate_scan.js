@@ -81,8 +81,18 @@ async function eligibleClubs() {
 async function scan(date, top5) {
   const ymd = date.replace(/-/g, '');
   const rows = [];
-  const groups = [[COV.core, false], [COV.open, false], [COV.gated, true]];
-  for (const [set, gated] of groups) {
+  /* INTL-2026-09-22. The third column is the WHY label, because `intl` is admitted here for a
+     different reason than `core` is and the two must not read the same on the page.
+     A national team has no ESPN club id, so CUPSCOPE's "at least one top-five side" has no
+     answer for it rather than a negative one -- gating it here would drop Netherlands v Germany
+     for the same reason it drops Andorra v Malta, which is not a gate, it is a coin flip. The
+     real gate is JOINGATE-2026-09-22 in soccer_mock.py (the fixture's own xG join rate), and
+     before that the book itself: an international the market will not price an Anytime
+     Goalscorer on never reaches the scrape. Both are downstream, so what this tool prints for
+     an international is "worth opening" and it says so in the WHY column. */
+  const groups = [[COV.core, false, 'core'], [COV.open, false, 'core'],
+                  [COV.gated, true, null], [COV.intl || {}, false, 'intl: open it, JOINGATE decides']];
+  for (const [set, gated, openWhy] of groups) {
     for (const slug of slugs(set)) {
       let j;
       try { j = await get(`${API}/${slug}/scoreboard?dates=${ymd}`); }
@@ -98,7 +108,7 @@ async function scan(date, top5) {
           kickoff: (() => { const t = String(ev.date || '').slice(11, 16).split(':');
                             return t.length === 2 ? (+t[0]) * 60 + (+t[1]) : null; })(),
           status: ev.status?.type?.name || '',
-          admit, why: admit ? (gated ? 'top5: ' + hit.join('+') : 'core') : 'no top-five side'
+          admit, why: admit ? (gated ? 'top5: ' + hit.join('+') : openWhy) : 'no top-five side'
         });
       }
     }
@@ -138,7 +148,9 @@ async function scan(date, top5) {
 
   if (asJson) { console.log(JSON.stringify({ date, eligible_clubs: n, fixtures: rows }, null, 1)); return; }
 
-  console.log(`${date} -- ${rows.length} fixture(s) across ${slugs(COV.core).length + slugs(COV.open).length + slugs(COV.gated).length} competitions, ${n} eligible clubs`);
+  const NCOMP = slugs(COV.core).length + slugs(COV.open).length + slugs(COV.gated).length
+              + slugs(COV.intl || {}).length;
+  console.log(`${date} -- ${rows.length} fixture(s) across ${NCOMP} competitions, ${n} eligible clubs`);
   if (!admit.length) console.log('  NOTHING ADMISSIBLE -- no board today');
   const by = {};
   for (const r of admit) (by[r.league] = by[r.league] || []).push(r);

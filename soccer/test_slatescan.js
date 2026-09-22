@@ -128,6 +128,34 @@ function run(date, plan, extraArgs) {
   chk('...and names the league that did not answer', /ger\.1/.test(r.err), r.err);
 }
 
+/* 5 -- INTL-2026-09-22. A national-team fixture is admitted WITHOUT the club gate, and says so.
+      The point of the WHY assertion: `intl` and `core` are both ungated here and they are
+      ungated for OPPOSITE reasons -- core has its own xG league, an international has no club
+      id for CUPSCOPE to test and is being passed downstream to JOINGATE. If the page prints
+      "core" against Netherlands v Germany, the next reader will believe the model has already
+      vouched for it. */
+{
+  const r = run('2026-09-24', {
+    fixtures: {
+      'uefa.nations': [{ name: 'Netherlands v Germany', z: '18:45', ids: ['nl', 'de'] }],
+      'eng.1': [{ name: 'Fulham v Manchester United', z: '15:30', ids: ['eng.1-0', 'eng.1-1'] }],
+    },
+  });
+  chk('an international fixture is admitted', /Netherlands v Germany/.test(r.out), r.out + r.err);
+  chk('...without needing a top-five club id',
+      !/Netherlands v Germany[^\n]*no top-five side/.test(r.out), r.out);
+  chk('...and the page says the real gate is downstream',
+      /Netherlands v Germany[^\n]*JOINGATE/.test(r.out), r.out);
+  chk('...and is NOT labelled "core", which would read as already vouched for',
+      !/Netherlands v Germany[^\n]*\[core\]/.test(r.out), r.out);
+  chk('the competition count includes the international group',
+      /across 18 competitions/.test(r.out), r.out);
+  chk('a club fixture on the same card is unaffected',
+      /Fulham v Manchester United[^\n]*\[core\]/.test(r.out), r.out);
+  chk('exit 0', r.code === 0, r.code);
+}
+
 console.log('');
 if (fail) { console.error(`${fail} FAILED`); process.exit(1); }
-console.log('ALL GREEN -- the gate builds off /teams, and a broken gate refuses instead of reporting');
+console.log('ALL GREEN -- the gate builds off /teams, a broken gate refuses instead of reporting, '
+          + 'and an international is passed to JOINGATE rather than judged here');

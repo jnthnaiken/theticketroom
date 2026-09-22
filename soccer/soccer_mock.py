@@ -37,6 +37,30 @@ CFG = dict(
     # only keeps the printed pool honest. None switches it off.
     # FLOOR200-2026-09-17 -- soccer floor is -200 (minus money down to -200 is draftable).
     MIN_ODDS=-200,
+    # 🚨 JOINGATE-2026-09-22 -- THE PER-MATCH xG JOIN FLOOR. A fixture whose priced names do not
+    # reach this join rate is dropped ENTIRELY, before z-scoring.
+    #
+    # coverage.json has always stated the rule and never enforced it: "a tie with one top-flight
+    # side joins xG at 73-87% ... two lower-division sides collapse to 27%, and at 27% edge_z=0
+    # means 'average' rather than 'unknown', so an unmodelled forward outranks a real one whose
+    # xG is genuinely below average. That is a price ranking wearing a model's clothes."
+    # CUPSCOPE's "at least one core-league side" is a PROXY for that sentence, checked in
+    # slate_scan.js against ESPN club ids. This is the sentence itself, checked against the
+    # thing it is actually about.
+    #
+    # 60 IS MEASURED, NOT PICKED. Per-match join across all 263 fixtures on the 23 committed
+    # slates, run through this file's own lookup(): median 80.0%, mean 80.3%, p25 73.3%,
+    # p10 60.0%, min 40.0%. A 60 floor drops 16 of 263 (6.1%) and they are the right 16 --
+    # slavia-prague-v-lens 40%, mainz-v-sc-paderborn-07 46.7%, fc-augsburg-v-schalke-04 46.7%,
+    # sunderland-v-az-alkmaar 46.7% -- i.e. the second-division cup ties CUPSCOPE's proxy was
+    # written for and does not fully catch. 70 would have dropped 21.7% of the board's own
+    # history, which is not a gate, it is a different product.
+    #
+    # ⚠️ NO MIRROR IN soccer_draft.js, deliberately. Every other CFG value here is a COPY of a
+    # DEFAULTS entry and carries a "two copies, one rule" warning. This one is not: a dropped
+    # match never reaches scored.json, so the draft cannot see it and has nothing to agree with.
+    # Adding a mirror would create the second copy the other comments are warning about.
+    MIN_JOIN=60,
 )
 
 SIG = {'npxg90': 0.60, 'xgpershot': 0.20, 'finish90': 0.10, 'xa90': 0.10}
@@ -375,6 +399,42 @@ for match, name in slate:
              {'minutes': 0, 'pos': '?', 'team': '?'})
     players.append(p)
 
+# ======================================================================================
+# 🚨 JOINGATE-2026-09-22 -- A MATCH THE MODEL CANNOT SEE IS NOT A MATCH THE BOARD DRAFTS.
+# ======================================================================================
+# See CFG['MIN_JOIN'] for the rule and the measurement. Two things about WHERE this runs:
+#
+#   1. BEFORE shrink() and ONEPOOL. The pool is z-scored across the whole slate, so a fixture
+#      left in until after scoring still moves every other player's mkt_z and edge_z even if
+#      nothing on it is ever drafted. Dropping it here is the only place it costs nothing.
+#   2. PER MATCH, never slate-wide. The summary line at the bottom has printed a slate-wide
+#      join since the file was written; averaged over a card, one 40% fixture hides inside
+#      four 90% ones and the average looks healthy. The fixture is the unit the gate is about.
+#
+# ⚠️ This is what makes INTERNATIONALS safe to cover (claude/internationals-feasibility-2026-09-22).
+# A national squad has no club id, so CUPSCOPE's proxy cannot be evaluated for it at all, and the
+# leak is invisible to any nation-tier allowlist: Netherlands v Germany joins 80% -- the exact
+# median of the club board -- and the three it misses are Eredivisie men, not minnows. The join
+# rate is the only thing that sees that, which is why it is now the gate rather than the proxy.
+_per_join = defaultdict(lambda: [0, 0])
+for _p in players:
+    _per_join[_p['match']][1] += 1
+    if _p['has_xg']:
+        _per_join[_p['match']][0] += 1
+_JOINDROP = []
+for _m, (_h, _t) in sorted(_per_join.items()):
+    if _t and 100.0 * _h / _t < CFG['MIN_JOIN']:
+        _JOINDROP.append((_m, _h, _t, 100.0 * _h / _t))
+if _JOINDROP:
+    _dead = {d[0] for d in _JOINDROP}
+    players = [p for p in players if p['match'] not in _dead]
+    for _m, _h, _t, _r in _JOINDROP:
+        print(f'  ::warning::JOINGATE dropped {_m} -- xG join {_h}/{_t} = {_r:.0f}%'
+              f" < MIN_JOIN {CFG['MIN_JOIN']}%")
+    if not players:
+        print('  🚨 JOINGATE dropped EVERY fixture on this slate -- there is no board to build.')
+        raise SystemExit(3)
+
 shrink(players, list(SIG.keys()))
 
 # 🚨 ONEPOOL-2026-08-31. ONE POOL, NOT FIVE LEAGUES STAPLED TOGETHER.
@@ -612,9 +672,21 @@ print(f"  priced players {len(players)} across {len({p['match'] for p in players
 # sudden jump in it is visible -- it would mean a source has started spelling suffixes
 # differently, which is worth knowing before it becomes a miss.
 _join = matched['exact'] + matched['token'] + matched['suffix'] + matched['longname']
+_scraped = sum(matched.values())
 print(f"  xG join: exact {matched['exact']} | token {matched['token']} | suffix {matched['suffix']}"
       f" | longname {matched['longname']}"
-      f" | missing {matched['missing']}  ({100*_join/len(players):.0f}%)")
+      f" | missing {matched['missing']}  ({100*_join/max(1, _scraped):.0f}% of the scrape)")
+# JOINGATE-2026-09-22. The line above counts every name the scrape priced, INCLUDING the ones on
+# dropped fixtures -- it is the health of the join itself. This one is the board: per match, over
+# what survived. They were the same number until a fixture could be dropped, and the ratio above
+# was silently wrong for one edit in between (numerator over the filtered list); the two are
+# computed from different sources now so they cannot drift back together by accident.
+_kept = sorted(_per_join.items())
+_alive = [(m, h, t) for m, (h, t) in _kept if m in {p['match'] for p in players}]
+print(f"  JOINGATE (MIN_JOIN {CFG['MIN_JOIN']}%): {len(_alive)} fixture(s) kept"
+      + (f', {len(_JOINDROP)} dropped' if _JOINDROP else '')
+      + ''.join(f"\n    keep  {100.0*h/t:5.1f}%  {h:2d}/{t:2d}  {m[:46]}" for m, h, t in _alive)
+      + ''.join(f"\n    DROP  {r:5.1f}%  {h:2d}/{t:2d}  {m[:46]}" for m, h, t, r in _JOINDROP))
 print(f"  pool after Z_GATE {CFG['Z_GATE']} + MIN_ODDS {CFG['MIN_ODDS']} + XI filter + GAME_CAP {CFG['GAME_CAP']}: {len(pool)}")
 print(f"  weakest drafted TOTAL: {floor:.1f}")
 print()
