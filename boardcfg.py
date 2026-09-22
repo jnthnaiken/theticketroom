@@ -24,14 +24,16 @@ PATH = os.path.join(HERE, 'board_config.json')
 
 # The live values as of BOARDCFG-2026-09-13. Only used if board_config.json cannot be read.
 DEFAULTS = {
-    'Z_GATE': 0.75, 'GAME_CAP': 6, 'RESERVE_GAME_CAP': 4, 'ANCH': 4, 'ANCH_PER_GAME': 2, 'MOONS_PER_ANC': 2,
+    'Z_GATE': 0.75, 'GAME_CAP': 6, 'RESERVE_GAME_CAP': 4, 'ANCH': 4, 'ANCH_PER_GAME': 2,
+    'ANCHOR_MAX_ODDS': 650,   # ANCHORCAP-2026-09-22
+    'MOONS_PER_ANC': 2,
     'MOON_LEGS': 4, 'SHORT_MOON_FLOOR': 3, 'MOON_SLACK': 2, 'WIN': 150, 'NIGHT_WIN': 60,
     'LUNCH_CUT_MIN': 1020, 'CHALK_N': 0, 'CHEF_TICKET': False, 'DINGERS': False,
     'RR_UNIT': {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10},
 }
 
-_INT = ('GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'MOONS_PER_ANC', 'MOON_LEGS', 'SHORT_MOON_FLOOR',
-        'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N')
+_INT = ('GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'ANCHOR_MAX_ODDS', 'MOONS_PER_ANC',
+        'MOON_LEGS', 'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N')
 
 
 def load(path=PATH, quiet=False):

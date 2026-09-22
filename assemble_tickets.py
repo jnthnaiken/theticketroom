@@ -243,6 +243,17 @@ def assemble(D):
     # 2026-08-13: MULTIPLE ANCHORS PER GAME (owner decision), built in ROUNDS so every game keeps its seat --
     # a flat top-N by strength fills up with pairs from time-isolated games and every 4-set starves. Mirrors index.html.
     ANCH_PER_GAME = _CFG.ANCH_PER_GAME   # <- board_config.json
+    # ANCHORCAP-2026-09-22 -- the ONE price rule on the parlay side, and it binds ANCHORS ONLY.
+    # backtest15-priceband-2026-09-13 (17,932 priced bats, 80 slates, REAL posted odds) held price
+    # constant and asked whether our top half out-hits our bottom half: +3.13pp at +450-550,
+    # +2.19pp at +550-650, then -0.14pp and -0.11pp at +650-750 and +750-850. Zero, twice, on
+    # n=1,244 and n=1,860. 650 is where the measured ability to RANK stops, and an anchor is the
+    # seat that rides two moons and a builder -- so a bat we cannot rank should not hold it.
+    # Legs stay UNCAPPED on purpose: moon-legprice-2026-08-24 killed the leg-price rules (the
+    # apparent +350 cliff was role composition), and nothing has re-opened that.
+    # ⚠️ Mirrored in index.html's candA filter. BOARDCFG-2026-09-13 exists because these two have
+    # drifted before -- change one, change both, and test_anchorcap.py checks that they agree.
+    ANCHOR_MAX_ODDS = _CFG.ANCHOR_MAX_ODDS   # <- board_config.json
     _ancg, cand_anchors = set(), []
     _byG = {}
     for n in byS(nonchalk):
@@ -254,6 +265,8 @@ def assemble(D):
             if len(cand_anchors) >= 20: break            # capped so the exhaustive 4-set search (O(N^4)) stays fast
             _n = _byG[g][_r]
             if pend(_n) or _precip(_n) >= 40: continue   # 40%+ rain never anchors
+            _ao = P[_n].get('odds')                      # ANCHORCAP-2026-09-22: unpriced or too long never anchors
+            if _ao is None or _ao > ANCHOR_MAX_ODDS: continue
             _ancg.add(g); cand_anchors.append(_n)
 
     tickets, used = [], set()

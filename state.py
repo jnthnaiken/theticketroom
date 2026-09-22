@@ -326,8 +326,12 @@ def markdown():
         'CHALK_N': 'chalk bats barred from the pool — 0, the ban is off',
         'CHEF_TICKET': "Chef's Table — retired",
         'DINGERS': 'Dingers / Family Meal — retired',
+        'ANCHOR_MAX_ODDS': 'ANCHORCAP-2026-09-22 — longest price that may ANCHOR. Legs uncapped. '
+                           '+650 is where `backtest15-priceband-2026-09-13` measured our ranking skill '
+                           'stop on real posted odds (+2.19pp at +550-650, −0.14pp at +650-750).',
     }
-    for k in ('Z_GATE', 'GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'MOONS_PER_ANC', 'MOON_LEGS',
+    for k in ('Z_GATE', 'GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'ANCHOR_MAX_ODDS',
+              'MOONS_PER_ANC', 'MOON_LEGS',
               'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N',
               'CHEF_TICKET', 'DINGERS'):
         if k in C: A(f"| `{k}` | `{C[k]}` | {_WHAT.get(k,'')} |")
