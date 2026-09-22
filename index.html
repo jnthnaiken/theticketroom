@@ -1624,8 +1624,12 @@ drawTickets();drawPlayers();drawTracker();
     MOON_LEGS=cfg('MOON_LEGS',4); SHORT_MOON_FLOOR=cfg('SHORT_MOON_FLOOR',3);
     var _r=CFG.RR_UNIT; if(_r){ var o={},k; for(k in _r)o[+k]=+_r[k]; RR_UNIT=o; }
   }
-  var GATE_N=33, FLOOR=41;                      /* both DEAD -- declared, never read. Kept out of the config
-                                                   on purpose so a live-looking file cannot resurrect them. */
+  /* DEADCODE-2026-09-22: `var GATE_N=33, FLOOR=41;` deleted. Both were declared and never read, and were
+     kept here "marked dead" so a live-looking config could not resurrect them -- but a dead constant in the
+     draft engine is exactly as resurrectable as one in a config, and these two were the pair that made
+     BOARDCFG-2026-09-13 necessary (FLOOR read 41 here and 130 in assemble_tickets.py, agreeing about
+     nothing). ⚠️ `FLOOR` in assemble_tickets.py is NOT dead -- it is the fallback pool gate at line ~208
+     and it stays. Only this file's copy was inert. */
   var CHALK_N=cfg('CHALK_N',0), Z_GATE=cfg('Z_GATE',0.75), WIN=cfg('WIN',150),
       MOONS_PER_ANC=cfg('MOONS_PER_ANC',2), MOON_SLACK=cfg('MOON_SLACK',2),
       LUNCH_CUT=cfg('LUNCH_CUT_MIN',17*60), NIGHT_WIN=cfg('NIGHT_WIN',60),
@@ -3116,39 +3120,12 @@ var _cmA={}, _cmB={};
        Family bats are excluded from the drafted set that sets the floor (otherwise the section
        would raise its own bar each pass), and a bat already on a CARRIED locked family slip is
        skipped so the carry is never duplicated. D.pool is byT and chalk-free, so slice() = top. */
-    (function(){ if(!DINGERS)return;   /* DINGERS-RETIRED-2026-08-25 -- see the flag above */
-      var FAM_CAP=8,_dn={},_fn={};
-      out.forEach(function(t){ if(t.kind==='family'){(t.players||[]).forEach(function(l){_fn[l.name]=1;});return;}
-        (t.players||[]).forEach(function(l){_dn[l.name]=1;}); });
-      var _pool=D.pool||[],_T=function(n){var p=P[n];return (p&&p.TOTAL!=null)?p.TOTAL:0;};
-      /* FLOOR-2026-08-17: the floor is the weakest bat THE BOARD DRAFTED, and that is all it is. This read
-         `_pool.filter(_dn)` -- drafted bats that are STILL IN THE POOL -- but `D.pool` is `nonchalk`, and every
-         locked bat is filtered out of nonchalk a few hundred lines above. So as the night locks up,
-         pool INTERSECT drafted empties, `!_dp.length` fires, and the ENTIRE Dingers section returns before
-         minting anything. Silently: no floor, no cards, no error. On 2026-08-17 it died at 21:45Z and stayed
-         dead, which is how Pete Crow-Armstrong -- alive, confirmed, +260, TOTAL 165.2, the strongest bat on the
-         slate not on a ticket and 36 points clear of the weakest drafted bat -- ended up on nothing after
-         Jahmai Jones's scratch killed the moon he was on. Take the drafted set directly. */
-      var _dp=Object.keys(_dn).filter(function(n){return P[n]&&P[n].TOTAL!=null;});
-      if(!_dp.length)return;
-      var _floor=Math.min.apply(null,_dp.map(_T)); D.familyFloor=_floor;
-      var _room=FAM_CAP-Object.keys(_fn).length; if(_room<=0)return;
-      _pool.filter(function(n){var p=P[n];return !_dn[n]&&!_fn[n]&&p&&!p.void&&!p.out&&_T(n)>_floor;}).slice(0,_room)
-        .forEach(function(n){var legs=[leg(n)];
-          /* TITLE, not the bat's name. Same rule mkBuilder uses: if this bat already had a family slip on the prior board it keeps
-             that title, so titles don't rotate between bats build to build; otherwise take the next name nothing on the board wears.
-             The pool is BALLPARK SLANG (Gone Yard / Big Fly / Hung Slider / Cheap Seats ...). It used to be back-of-house
-             kitchen language, because *family meal* is the restaurant term for what the kitchen cooks for staff before service
-             (owner's clarification 2026-08-14) -- that pool was retired with the name in DINGERS-2026-08-18. Titles are checked
-             against the moon pool, which is space-themed but already owns No Doubter / Tape Measure Job / The Long Bomb /
-             Goodbye Baseball / Touch 'Em All, so the dinger list stays in ballpark-slang register. */
-          var _fnm=null,_fi; for(_fi=0;_fi<prior.length;_fi++){var _fp=prior[_fi]; if(_fp&&_fp.kind==='family'&&(_fp.players||[]).length===1&&_fp.players[0].name===n){_fnm=_fp.name;break;}}
-          if(_fnm&&(NAMES.family||[]).indexOf(_fnm)<0)_fnm=null;   /* only ever inherit a REAL title. Every family slip built before this change was named after its own bat, so a plain
-             bind-to-the-bat would have carried those bat-names forward untouched -- including the four that had already drifted onto the wrong player. A name that is not in the pool is not a title. */
-          var _ftk={},_fk; for(_fk=0;_fk<out.length;_fk++)_ftk[out[_fk].name]=1;
-          if(_fnm&&_ftk[_fnm])_fnm=null;
-          out.push({name:_fnm||cwName('family',nextIdx('family')),kind:'family',badge:'\uD83D\uDCA3',note:"",players:legs,nlegs:1,anchor:n,lock:lockOf(legs),
-            has_late:legs.some(function(l){return l.late;}),final:false,rr:null});});})();
+    /* DEADCODE-2026-09-22: the Dingers / Family Meal mint (a ~3.5KB IIFE) deleted. It opened with
+         `if(!DINGERS)return;` and DINGERS has been false since DINGERS-RETIRED-2026-08-25 (owner: "its just
+         bleeding money"), so not one line of it has run in a month -- the last `family` ticket shipped
+         2026-08-24. It also carried the only live declaration of FAM_CAP, which died with it.
+         The `family` RENDER path stays: it is data-gated (the section draws only for a ticket that
+         exists) and 12 archived boards still carry family slips that grade_night.py and state.py read. */
     out.forEach(function(t){
       var ws={boost:0,supp:0,dome:0,neu:0};
       t.players.forEach(function(l){var w=WXm[String(l.game)]||{}; if(w.cond==='Dome')ws.dome++; else if(w.lean==='Boost')ws.boost++; else if(w.lean==='Suppress')ws.supp++; else ws.neu++;});

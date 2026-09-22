@@ -39,8 +39,10 @@ LUNCH_CUT_MIN = _CFG.LUNCH_CUT_MIN   # <- board_config.json (1020 = 5:00 PM ET)
                                  # missed the lunch window by FIVE MINUTES. A matinee is a matinee.
 NIGHT_WIN     = _CFG.NIGHT_WIN   # <- board_config.json
 CHALK_N       = _CFG.CHALK_N   # <- board_config.json
-GATE_N        = 33               # DEPRECATED (no longer gates the pool); FLOOR is the pool gate now
+# DEADCODE-2026-09-22: `GATE_N = 33` deleted -- deprecated, never read, and index.html's copy (33) is gone too.
 FLOOR         = 130               # the pool gate: a bat must clear this model TOTAL to make the board at all
+                                 # ⚠️ LIVE, despite board_config.json's README having listed it as dead: it is
+                                 # the default at the `_floor = ... if _ft else FLOOR` fallback below.
 Z_GATE        = _CFG.Z_GATE   # <- board_config.json
                                  # Sub-floor bats stay in the pool as builder singles for visitors.
 def moon_legs_eff(P):
@@ -644,7 +646,10 @@ def assemble(D):
 
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
-    BUILDER_MAX_ODDS = 600
+    # DEADCODE-2026-09-22: `BUILDER_MAX_ODDS = 600` deleted -- assigned and never read. The comment four
+    # lines down already said why ("no <=600 cap; anchors are our conviction plays"), so the constant had
+    # been contradicting the code beside it since the 2026-07-09 snub removal. The live <=600 rule is on
+    # lunch/nightcap only, and it is written inline where it fires.
     # Builders = the actual anchors as singles, PLUS the conviction "snubs": strong bats that landed on
     # NO parlay at all (neither an anchor nor a drafted leg) -- typically bats stuck in time-isolated late
     # games that no moon window could reach (e.g. Marte / Canzone). A bat already on a moon/salami leg is
