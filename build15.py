@@ -699,6 +699,7 @@ def pull_tail_of(home, bh, deg, windstr):                # wind projected onto t
     return spd*math.cos(math.radians(toward-pull_az))
 
 players={}; gamemeta={}
+_PPD_GAMES=set()   # PPDSERVER-2026-09-22: game numbers MLB has postponed
 for g in lin['games']:
     gn=g['gn']; gm=g['matchup']; gt=g['time']
     _sa=_slate_for(gm, gt)                              # DH-safe: this game's row, not just this matchup
@@ -734,6 +735,18 @@ for g in lin['games']:
         # all of them suffix mismatches, not scratches. lunorm strips the suffix on both sides and is
         # a no-op for the RotoWire path (those names are already suffix-less), which is why every
         # keying above moved to it too.
+        # PPDSERVER-2026-09-22 -- THE SERVER NOW READS "Postponed" TOO. index.html has handled this
+        # since RETRACTED-era: its live StatsAPI pass sets meta.gs[g]='ppd' and VOIDS every bat in a
+        # postponed game (see the `ppd?` line in the live block). The server had no such pass, so it
+        # kept drafting a game that is not being played -- and regen15's whole premise is that the
+        # archive and the screen agree, because grade_night.py grades the ARCHIVE.
+        # 2026-09-22: TOR@BAL was postponed (64% rain). The browser voided both lineups and re-drafted
+        # "Cleared for Launch" off Samuel Basallo; the SERVER left him on it and, because his 6:35
+        # first pitch had passed, `started()` reported the game underway and LATCHED the slip. A slip
+        # frozen by a first pitch that never happened, on the one copy that gets graded.
+        # slate_auto carries the status on every pull -- we were fetching it and only reading weather.
+        _ppd = bool(re.search(r'postpon', str((_sa or {}).get('status') or ''), re.I)) if _sa else False
+        if _ppd: _PPD_GAMES.add(gn)
         _sl=((_sa or {}).get(side) or {}) if _sa else {}
         _mlb=[p.get('name') for p in (_sl.get('lineup') or []) if p.get('name')]
         _posted_ok=bool(_sl.get('confirmed') and len(_mlb)>=9)
@@ -758,7 +771,7 @@ for g in lin['games']:
                 bip=_cbip,thin=_thin,pb_raw=c['pb'],hh_raw=c['hh'],la_raw=c['la'],
                 iso=(("."+str(iso).split('.')[1]) if iso is not None else "—"),iso_used=iso_used,powraw=powraw,slot=_slot.get(n),bhand=_bhand.get(n),
                 hr9=pget(HR9,opp_sp[0]),wf=wf,pull_tail=pull_tail_of(g['home'], _bhand.get(n), g.get('wind_deg'), g.get('wind')),game=gn,gmatch=gm,gtime=gt,late=is_late(gt),rain=False,out=(not in_lu),status=status,
-                void=False,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
+                void=_ppd,opp=[opp_sp[0],opp_sp[1]],oppERA=None,opp_code=g[('home' if side=='away' else 'away')],ftrend=c.get('form_arrow','flat'),
                 odds=ODDS.get(n),soft=True,why="")
 
 pool=list(players.values())
@@ -1103,6 +1116,9 @@ except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'grad
 meta={'cfg':{k:v for k,v in _BCFG.CFG.items() if not k.startswith('_')},   # BOARDCFG-2026-09-13: the draft/stake
       # numbers ride WITH the board so index.html reads one source instead of keeping its own copy. An archived
       # board with no cfg still renders -- the client falls back to its literals.
-      'model':_model_used,'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,'gs':{}}
+      'model':_model_used,'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,
+      # PPDSERVER-2026-09-22: same key and same value the client's live pass writes, so the two
+      # agree instead of racing. 'ppd' already means "do not draft this" to every reader of gs.
+      'gs':{str(_g):'ppd' for _g in _PPD_GAMES}}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")

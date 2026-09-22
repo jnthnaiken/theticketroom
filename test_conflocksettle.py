@@ -104,6 +104,22 @@ check("['posted_at']" in REG or "'posted_at'" in REG,
 check('_pa_grand' in REG, 'regen15.py has the grandfather branch (mid-slate introduction is safe)')
 check('posted_at' in IDX, 'index.html reads meta.posted_at (the READER half)')
 
+# ------------------------------------------------- 2b. FLICKER-2026-09-22: standing, not first-seen
+# The first cut kept a stamp forever (`if _k in _pa: continue`), so a card that dropped off the feed
+# and came back never restarted its clock. Texas flickered five times on 2026-09-22 and "Chart a
+# Course" latched on it. These assertions are the ones that would have been red that evening.
+check('_posted_now' in REG and 'set(_pa_prev) - _posted_now' in REG,
+      'regen15.py rebuilds the map from the sides posted RIGHT NOW, dropping the rest')
+check(not re.search(r'if\s+_k\s+in\s+_pa\s*:\s*\n\s*continue', REG),
+      'the first-seen shortcut (`if _k in _pa: continue`) is GONE -- it is what let the flicker through')
+check('_pa_lost' in REG, 'regen15.py reports the sides whose clock it reset (a silent reset is unreviewable)')
+# and the live feed, which confirms a side on its own between builds, must start a clock too
+live = re.search(r"pl\.status='confirmed';\s*pl\.out=false;[\s\S]{0,2200}?\n\s*\}\n", IDX)
+check(bool(live) and 'posted_at' in live.group(0),
+      'the live StatsAPI confirm path stamps posted_at -- otherwise it bypasses the rule entirely')
+check(bool(live) and '==null' in live.group(0).replace(' ', ''),
+      'and it only ever writes a MISSING key, so it cannot shorten a wait or overwrite the server')
+
 # ---------------------------------------------------------------- 3. the latch is what is gated
 # The latch is the one-way door: `t.locked=true` is never cleared, so the age check has to sit on
 # the predicate that opens it, not only on pinnedP.
@@ -235,6 +251,66 @@ else:
         clock = [t[0] for t in fresh_nl if t[1]]
         print(f"        second-old cards latch {len(clock)} ticket(s) on the clock half alone"
               + (f": {', '.join(clock)}" if clock else ''))
+
+
+# ---------------------------------------------- 9. THE FLICKER, end to end through regen15.py
+# Three builds: a side posts, drops off the feed, comes back. The stamp must be issued, then
+# removed, then issued AFRESH -- not restored to the original. Run the real script, not a copy of
+# its logic; a second implementation of the rule is how most of this file's history happened.
+print()
+if BOARD and shutil.which('node'):
+    import shutil as _sh
+    sand = tempfile.mkdtemp()
+    try:
+        for f in ('regen15.py', 'assemble_tickets.py', 'boardcfg.py', 'board_config.json',
+                  'client_assemble.js', 'cardnotes.py', 'index.html', 'season.json'):
+            src = os.path.join(HERE, f)
+            if os.path.exists(src):
+                _sh.copy(src, sand)
+
+        side = None
+        for n, p in BOARD['players'].items():
+            if p.get('status') == 'confirmed' and not p.get('out'):
+                side = (p['game'], p['code']); break
+        key = f'{side[0]}|{side[1]}'
+
+        def build(drop_side):
+            """One build: write build15's output, run regen15, read back the published stamp."""
+            E = json.loads(json.dumps(BOARD))
+            E.pop('tickets', None); E.pop('pool', None); E['meta'].pop('posted_at', None)
+            if drop_side:                      # the card vanishes from the feed
+                for p in E['players'].values():
+                    if (p.get('game'), p.get('code')) == side:
+                        p['status'] = 'projected'
+            json.dump({'players': E['players'], 'meta': E['meta']},
+                      open(os.path.join(sand, 'D_0615.json'), 'w'), indent=1)
+            subprocess.run([sys.executable, 'regen15.py'], cwd=sand,
+                           capture_output=True, text=True, timeout=180)
+            s = open(os.path.join(sand, 'index.html'), encoding='utf-8').read()
+            m = re.search(r'const D=(\{.*?\}),WX=D\.meta\.wx;', s, re.S)
+            return (json.loads(m.group(1))['meta'] or {}).get('posted_at') or {}
+
+        one = build(False)                     # posted  -> stamped (grandfathered on first creation)
+        check(key in one, f'build 1: {key} is stamped while its card is up')
+        time.sleep(1.1)
+        two = build(True)                      # dropped -> stamp REMOVED
+        check(key not in two, f'build 2: {key} drops off the feed and LOSES its stamp',
+              f'still {two.get(key)!r}')
+        check(len(two) == len(one) - 1, 'build 2: only that one side is affected',
+              f'{len(one)} -> {len(two)}')
+        time.sleep(1.1)
+        three = build(False)                   # returns -> stamped AFRESH, clock restarted
+        check(key in three, f'build 3: {key} comes back and is stamped again')
+        check(three.get(key) not in (None, one.get(key)),
+              'build 3: the returning card gets a FRESH clock, not the one it had before',
+              f'was {one.get(key)!r}, now {three.get(key)!r}')
+        check(three.get(key, 0) > 0,
+              'build 3: and a real timestamp, not the grandfather sentinel',
+              f'{three.get(key)!r}')
+    finally:
+        _sh.rmtree(sand, ignore_errors=True)
+else:
+    print('  ..  flicker replay skipped (no board or no node)')
 
 print()
 if FAILS:

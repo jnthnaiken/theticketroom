@@ -140,19 +140,55 @@ _pa_prev = ((prevD.get('meta') or {}).get('posted_at') if _pa_same else None)
 # A map that already EXISTS -- including the empty one a fresh slate morning writes before anything posts
 # -- means every new key is a real, observed post and gets the real clock.
 _pa_grand = _force or (_pa_same and _pa_prev is None)
-_pa = dict(_pa_prev or {})
+_pa_prev = dict(_pa_prev or {})
 _pa_now, _pa_new = int(time.time()), 0
+
+# 🚨 FLICKER-2026-09-22 -- THE STAMP IS "STANDING SINCE", NOT "FIRST SEEN", AND THIS COST US A SLIP.
+# The first cut of this block said `if _k in _pa: continue` -- once a side had a stamp it was never
+# touched again. That measures age since a card was first SEEN, and what the lock actually needs is
+# how long it has stood WITHOUT INTERRUPTION.
+#
+# 2026-09-22, the evening this shipped: Texas posted and un-posted FIVE times between 20:27Z and
+# 22:41Z (on/off/on/off/on/off/on/off/on/off -- 112 pulls). Under first-seen, that card read
+# "standing since 20:27" the whole time, so "Chart a Course" latched on Justin Foscue during one of
+# the ON windows and stayed locked -- the latch is one-way -- while the feed showed him projected.
+# Three more locked slips carried a Texas leg, though those froze on the clock half, not on this.
+#
+# ⚠️ AND THE MEASUREMENT COULD NOT SEE IT. claude/cardrevision-2026-09-22.md compared posted nines
+# against posted nines and SKIPPED pulls where a side was not posted, so all five dropouts were
+# invisible to it. Its 3.7% is revisions-while-posted only; it says nothing about feed stability.
+# For scale: 09-19 and 09-20 had ZERO dropouts across 426 pulls, so this is rare, not routine --
+# which is exactly why it went unmodelled.
+#
+# So the map now holds ONLY the sides posted RIGHT NOW. A side that drops off loses its stamp and
+# starts a fresh clock when it comes back, which means a card flickering like Texas never settles at
+# all and its slips wait for first pitch. That is the correct answer for a feed we cannot trust.
+#
+# Note this does NOT invert the fail-open rule in index.html's settledP(): an unstamped side is only
+# read as "settled" when it is ALSO confirmed, and a side that has dropped off is not confirmed, so
+# it never reaches that branch. Deleting a stamp can only ever delay a latch.
+#
+# Bounded cost of the paranoid case: if a whole pull comes back empty (a feed outage rather than a
+# card change) every stamp resets and nothing NEW latches for CONFLOCK_SETTLE_MIN. Slips already
+# latched are untouched, and the clock half still locks everything at first pitch, so the worst case
+# is "tonight's board locks on the clock" -- the pre-CONFLOCK behaviour, not a broken board.
+_posted_now = set()
 for _p in (D.get('players') or {}).values():
     if _p.get('status') != 'confirmed' or _p.get('out') or _p.get('void'):
         continue
-    _k = "%s|%s" % (_p.get('game'), _p.get('code'))
-    if _k in _pa:
-        continue
-    _pa[_k] = 0 if _pa_grand else _pa_now
-    _pa_new += 1
+    _posted_now.add("%s|%s" % (_p.get('game'), _p.get('code')))
+_pa = {}
+for _k in _posted_now:
+    if _k in _pa_prev:
+        _pa[_k] = _pa_prev[_k]          # still standing -- the clock keeps running
+    else:
+        _pa[_k] = 0 if _pa_grand else _pa_now
+        _pa_new += 1
+_pa_lost = sorted(set(_pa_prev) - _posted_now)
 D.setdefault('meta', {})['posted_at'] = _pa
-print("  posted_at: %d side(s) tracked, %d new this build%s" % (
-    len(_pa), _pa_new, " (GRANDFATHERED as already settled)" if (_pa_grand and _pa_new) else ""))
+print("  posted_at: %d side(s) standing, %d new this build%s%s" % (
+    len(_pa), _pa_new, " (GRANDFATHERED as already settled)" if (_pa_grand and _pa_new) else "",
+    ("; DROPPED OFF THE FEED -> clock reset: " + ", ".join(_pa_lost)) if _pa_lost else ""))
 
 json.dump(D, open(DJSON, 'w'), indent=1)       # the engine reads/writes this file in place
 
