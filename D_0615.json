@@ -49842,6 +49842,7 @@
    "ANCH": 4,
    "ANCH_PER_GAME": 2,
    "ANCHOR_MAX_ODDS": 650,
+   "CONFLOCK_SETTLE_MIN": 120,
    "MOONS_PER_ANC": 2,
    "MOON_LEGS": 4,
    "SHORT_MOON_FLOOR": 3,
@@ -49874,8 +49875,8 @@
     "factor": 0.953,
     "park": "TOR@BAL",
     "cond": "10 mph",
-    "rain": "64% rain",
-    "precip": 64
+    "rain": "76% rain",
+    "precip": 76
    },
    "3": {
     "emoji": "\u2600\ufe0f",
@@ -49995,7 +49996,7 @@
     "precip": 0
    }
   },
-  "build": "9/22 6:02pm",
+  "build": "9/22 6:07pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -50221,14 +50222,40 @@
   },
   "date": "2026-09-22",
   "gs": {},
+  "posted_at": {
+   "1|TB": 0,
+   "1|NYY": 0,
+   "3|WSH": 0,
+   "3|DET": 0,
+   "4|MIL": 0,
+   "4|PHI": 0,
+   "5|STL": 0,
+   "5|PIT": 0,
+   "6|CLE": 0,
+   "6|BOS": 0,
+   "7|CIN": 0,
+   "7|ATL": 0,
+   "8|CWS": 0,
+   "8|KC": 0,
+   "9|MIA": 0,
+   "9|CHC": 0,
+   "10|TEX": 0,
+   "11|AZ": 0,
+   "11|COL": 0,
+   "12|LAA": 0,
+   "12|ATH": 0,
+   "13|SEA": 0,
+   "14|SF": 0,
+   "15|LAD": 0
+  },
   "chalkstate": {
-   "b": "9/22 6:02pm",
+   "b": "9/22 6:07pm",
    "s": {}
   },
   "chalk": [],
   "chalkever": [],
   "pool": 419,
-  "gate": 46,
+  "gate": 41,
   "tickets": 14
  },
  "tickets": [
@@ -50586,6 +50613,44 @@
    "payout10": 19872
   },
   {
+   "name": "Nightfall",
+   "kind": "late",
+   "badge": "\ud83c\udf03",
+   "note": "Mookie Betts sends it skyward (21\u00b0), gets a touch of carry tonight, brings fringe-average pop (48/100), the timing has come around, and is backed at 128 by the projection.",
+   "players": [
+    {
+     "name": "Mookie Betts",
+     "team": "Dodgers",
+     "total": 127.9,
+     "aT": 100,
+     "wf": 1.026,
+     "gmatch": "SD@LAD",
+     "gtime": "10:10 PM ET",
+     "game": 15,
+     "late": true,
+     "odds": 500,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Mookie Betts",
+   "lock": "10:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 500,
+   "payout10": 60,
+   "locked": true
+  },
+  {
    "name": "Mach Breaker",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -50665,44 +50730,6 @@
    "priced": 4,
    "parlay_am": 175670,
    "payout10": 17577,
-   "locked": true
-  },
-  {
-   "name": "Nightfall",
-   "kind": "late",
-   "badge": "\ud83c\udf03",
-   "note": "Mookie Betts sends it skyward (21\u00b0), gets a touch of carry tonight, brings fringe-average pop (48/100), the timing has come around, and is backed at 128 by the projection.",
-   "players": [
-    {
-     "name": "Mookie Betts",
-     "team": "Dodgers",
-     "total": 127.9,
-     "aT": 100,
-     "wf": 1.026,
-     "gmatch": "SD@LAD",
-     "gtime": "10:10 PM ET",
-     "game": 15,
-     "late": true,
-     "odds": 500,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Mookie Betts",
-   "lock": "10:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 500,
-   "payout10": 60,
    "locked": true
   },
   {
@@ -51116,7 +51143,6 @@
  "pool": [
   "Yandy D\u00edaz",
   "Ben Rice",
-  "Samuel Basallo",
   "Kody Clemens",
   "Jackson Merrill",
   "Austin Riley",
@@ -51128,7 +51154,6 @@
   "Daulton Varsho",
   "Will Smith",
   "Manny Machado",
-  "Gunnar Henderson",
   "Eugenio Su\u00e1rez",
   "Yordan Alvarez",
   "Max Muncy",
@@ -51136,11 +51161,8 @@
   "Cody Bellinger",
   "Mark Vientos",
   "Ian Happ",
-  "Pete Alonso",
   "Bobby Witt",
   "Mike Trout",
-  "Zach Neto",
-  "Dylan Beavers",
-  "Francisco Lindor"
+  "Zach Neto"
  ]
 }
