@@ -83,6 +83,36 @@ cand = html[html.find('candA=[]'):html.find('candA=[]') + 2500]
 check('ANCHOR_MAX_ODDS' in cand and 'byG[g]=byG[g]||[]' in cand,
       'index.html applies the cap in the candA (anchor candidate) filter')
 
+# ---- 2b. THE CARRY PATH. candA only guards a FRESH draft -------------------------------
+# 2026-09-22: shipped with the cap in candA alone and it was INERT on a live carried board --
+# sitting moon anchors hold their seats and are never re-tested (the same shape as the
+# 2026-08-10 note: "once a prior board exists the anchor set is INHERITED"). Two more sites
+# are what actually evict a sitting anchor.
+check('P[n].odds>ANCHOR_MAX_ODDS' in html.replace(' ', '') or
+      'P[n].odds>ANCHOR_MAX_ODDS' in html,
+      'anchorAlive() gates on the cap, so anchRepl re-anchors BOTH of his moons')
+i_aa = html.find('var anchorAlive=function(n)')
+check(i_aa > 0 and 'ANCHOR_MAX_ODDS' in html[i_aa:i_aa + 400],
+      'the cap is inside anchorAlive itself, not merely nearby')
+check("r='priced over +'+ANCHOR_MAX_ODDS" in html,
+      'the redraft trigger names the cap, so a carried board actually re-drafts')
+
+# ---- 2c. SCOPE. A `var` re-declaration inside assembleClient silently kills the cap ------
+# `var` hoists to the top of the FUNCTION, so re-declaring ANCHOR_MAX_ODDS inside
+# assembleClient shadows the module-level one with `undefined` for the whole function --
+# and `odds > undefined` is false, so both sites above quietly stop firing. Caught in
+# review on 2026-09-22 before it shipped; pinned here so it cannot come back.
+i_ac = html.find('function assembleClient(D){')
+body = html[i_ac:] if i_ac > 0 else ''
+check(i_ac > 0, 'assembleClient found in index.html')
+check('var ANCHOR_MAX_ODDS' not in body and 'ANCHOR_MAX_ODDS=cfg' not in body,
+      'ANCHOR_MAX_ODDS is NOT re-declared inside assembleClient (no hoisted shadow)')
+check("NIGHT_WIN=cfg('NIGHT_WIN',60),\n      ANCHOR_MAX_ODDS=cfg('ANCHOR_MAX_ODDS'" in html,
+      'ANCHOR_MAX_ODDS is declared at module scope with the other knobs')
+i_sync = html.find('function syncCfg(B){')
+check(i_sync > 0 and 'ANCHOR_MAX_ODDS' in html[i_sync:i_sync + 900],
+      "syncCfg() re-reads the cap, so an archived board's own meta.cfg wins")
+
 # ---- 3 + 4. behaviour, on pinned committed slates ----------------------------------------
 at = load('assemble_tickets', 'assemble_tickets.py')
 
