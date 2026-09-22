@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T22:00:41Z",
+  "pulled_at": "2026-09-22T22:02:18Z",
   "games": [
     {
       "gamePk": 823543,
@@ -1640,7 +1640,7 @@
     },
     {
       "gamePk": 823166,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T01:45:00Z",
       "matchup": "MIN@SF",
       "away": {
@@ -1662,10 +1662,56 @@
           "hr9": 0.96,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.159
+          },
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.144
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.2
+          },
+          {
+            "id": 806367,
+            "name": "Turner Hill",
+            "iso": 0.098
+          },
+          {
+            "id": 815589,
+            "name": "Bo Davidson",
+            "iso": 0.0
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.145
+          },
+          {
+            "id": 814154,
+            "name": "Scott Bandura",
+            "iso": 0.053
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.044
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.096
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
