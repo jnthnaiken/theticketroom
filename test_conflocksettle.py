@@ -42,8 +42,13 @@ WHAT IT GUARDS
   7. THE SAFETY PROPERTY, which matters more than the rule: a ticket already locked on the prior
      board stays locked no matter how fresh the cards are. This rule delays a first latch; it must
      never unlock a slip somebody has already placed.
-  8. the control: with the fix reverted, scenario 6a latches 9 tickets instead of 1, so this suite
-     fails without the fix rather than passing vacuously
+  8. the control: with the fix reverted, scenario 6a latches more tickets than with it, so this
+     suite fails without the fix rather than passing vacuously
+  9. FLICKER-2026-09-22: the stamp is STANDING-SINCE, not FIRST-SEEN. Texas posted and un-posted
+     five times on the evening this shipped; under first-seen that card read settled the whole
+     time and "Chart a Course" latched on it. Replayed end to end through the real regen15.py --
+     a side posts, drops off, comes back, and must get a FRESH clock, not the one it had before.
+     The live StatsAPI confirm path has to start a clock too, or it bypasses the rule entirely.
 
     python3 test_conflocksettle.py
 """
@@ -208,7 +213,14 @@ else:
     LIVE = os.path.join(HERE, 'index.html')
     nlock = lambda o: sum(1 for t in o if t[1]) if o else -1
 
-    base = draft(json.loads(json.dumps(BOARD)), LIVE)          # no posted_at at all -> fail-open
+    # ⚠️ STRIP the map, do not just reuse the board. Every board committed since this feature shipped
+    # CARRIES a posted_at, so `BOARD` as-is is not the no-map case it was on the day this was written
+    # -- and a stamp with a real recent time (a side that just came back on the feed) makes it differ
+    # from the grandfathered one for a perfectly correct reason. This assertion is about the board
+    # having NO map at all, which is what an archived night looks like, so build that explicitly.
+    def no_map():
+        E = json.loads(json.dumps(BOARD)); (E.get('meta') or {}).pop('posted_at', None); return E
+    base = draft(no_map(), LIVE)                                # no posted_at at all -> fail-open
     fresh_nl = draft(variant(now, True), LIVE)                  # cards one second old, nothing latched
     old_nl = draft(variant(now - 130 * 60, True), LIVE)         # cards 130 min old, nothing latched
     grand_nl = draft(variant(0, True), LIVE)                    # grandfather sentinel
@@ -221,7 +233,7 @@ else:
     E['meta'].setdefault('cfg', {})['CONFLOCK_SETTLE_MIN'] = 0
     off_nl = draft(E, LIVE)
 
-    check(base is not None and nlock(base) == nlock(draft(json.loads(json.dumps(BOARD)), LIVE)),
+    check(base is not None and nlock(base) == nlock(draft(no_map(), LIVE)),
           'the engine runs and is deterministic on this board')
     check(nlock(off_nl) > nlock(fresh_nl),
           'THE CONTROL BITES: with the knob at 0 the same second-old cards latch more tickets',
