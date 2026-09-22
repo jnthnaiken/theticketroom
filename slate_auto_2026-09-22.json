@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-22T14:52:03Z",
+  "pulled_at": "2026-09-22T14:57:27Z",
   "games": [
     {
       "gamePk": 823543,
@@ -214,7 +214,7 @@
         "wind_mph": 8.9,
         "wind_dir": 34,
         "tail_mph": -8.9,
-        "precip": 69
+        "precip": 78
       },
       "wf": 0.953
     },
@@ -296,7 +296,7 @@
         "wind_mph": 9.1,
         "wind_dir": 62,
         "tail_mph": -9.0,
-        "precip": 12
+        "precip": 11
       },
       "wf": 0.952
     },
@@ -337,7 +337,7 @@
         "wind_mph": 8.7,
         "wind_dir": 44,
         "tail_mph": -7.6,
-        "precip": 21
+        "precip": 27
       },
       "wf": 0.963
     },
@@ -419,7 +419,7 @@
         "wind_mph": 6.8,
         "wind_dir": 34,
         "tail_mph": -6.5,
-        "precip": 18
+        "precip": 17
       },
       "wf": 0.996
     },
@@ -483,8 +483,10 @@
       "home": {
         "abbrev": "CHC",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 684007,
+          "name": "Shota Imanaga",
+          "hr9": 1.82,
+          "hand": "LHP"
         },
         "lineup": [],
         "confirmed": false
@@ -580,7 +582,7 @@
         "wind_mph": 10.5,
         "wind_dir": 214,
         "tail_mph": 8.7,
-        "precip": 9
+        "precip": 10
       },
       "wf": 1.041
     },
@@ -614,16 +616,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 6mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 81.2,
-        "wind_mph": 6.5,
-        "wind_dir": 218,
-        "tail_mph": 6.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.038
+      "wf": 1.0
     },
     {
       "gamePk": 823089,
