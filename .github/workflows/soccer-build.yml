@@ -362,7 +362,27 @@ jobs:
               pl = {n: (v.get('odds'), v.get('status'), bool(v.get('out')), bool(v.get('hr')),
                         v.get('team'))
                     for n, v in d['players'].items()}
-              return t, pl
+              # 🚨 GATEPROSE-2026-09-23 -- THE WRITE-UPS ARE THE THING A READER READS.
+              # Third time in this gate's life, same shape. GATEJS-2026-09-08: the gate compared
+              # the payload only, so a client fix could not ship. GATECLUB-2026-09-19: it did not
+              # compare `team`, so a corrected club chip could not ship. And now: it compares no
+              # PROSE at all, so the entire write-up voice could be rewritten, tested, committed
+              # and green, and the board would go on printing the old sentences forever.
+              # MEASURED 2026-09-23: the rewrite landed at fcf87f7, the workflow ran clean three
+              # minutes later, the gate said commit=false, and the live board kept "Musovski is
+              # generating 0.37 non-penalty xG every ninety he plays" over the shipped "Musovski
+              # is a beautiful nuisance in that box, 0.37 xG a 90". A fix that cannot ship is not
+              # a fix, and the note under the ticket is not a detail -- on a one-fixture night it
+              # is most of the words on the page.
+              # Safe to compare, for the same reason `team` is: a note is DETERMINISTIC given its
+              # inputs. _pick is seeded by the player's name and the ticket's title, so identical
+              # inputs give an identical sentence on every pass. The one input inside a note that
+              # does drift is the price -- and the price is already in `pl` above, so a drifting
+              # quote fires this gate either way and the prose adds no new firing of its own.
+              prose = (sorted((x.get('kind', '') + ':' + '+'.join(l['name'] for l in x['players']),
+                               x.get('note') or '') for x in d['tickets']),
+                       {n: (v.get('why') or '') for n, v in d['players'].items()})
+              return t, pl, prose
           def shell(p):
               """The page minus its payload: template + every injected module."""
               h = open(p, encoding='utf-8', errors='replace').read()
@@ -383,6 +403,7 @@ jobs:
                   code = True          # cannot tell them apart -> publish, never silently skip
           print('commit=' + ('true' if (moved or code) else 'false'))
           if a[0] != b[0]: print('::notice::the draft moved')
+          if a[:2] == b[:2] and a[2] != b[2]: print('::notice::same board, new write-ups -- publishing')
           if code and not moved: print('::notice::board data unchanged, page code changed -- publishing')
           PY
           grep '^commit=' gate.txt >> "$GITHUB_OUTPUT"
