@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T18:57:57Z",
+  "pulled_at": "2026-09-23T19:01:06Z",
   "games": [
     {
       "gamePk": 824223,
@@ -107,7 +107,7 @@
           {
             "id": 679529,
             "name": "Spencer Torkelson",
-            "iso": 0.197
+            "iso": 0.198
           },
           {
             "id": 807726,
@@ -146,14 +146,14 @@
         "sp": {
           "id": 453286,
           "name": "Max Scherzer",
-          "hr9": 1.65,
+          "hr9": 1.64,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.112
+            "iso": 0.111
           },
           {
             "id": 665489,
@@ -528,7 +528,7 @@
     },
     {
       "gamePk": 823410,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T22:40:00Z",
       "matchup": "MIL@PHI",
       "away": {
@@ -550,10 +550,56 @@
           "hr9": 1.82,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656941,
+            "name": "Kyle Schwarber",
+            "iso": 0.275
+          },
+          {
+            "id": 607208,
+            "name": "Trea Turner",
+            "iso": 0.14
+          },
+          {
+            "id": 547180,
+            "name": "Bryce Harper",
+            "iso": 0.219
+          },
+          {
+            "id": 650333,
+            "name": "Luis Arraez",
+            "iso": 0.11
+          },
+          {
+            "id": 664761,
+            "name": "Alec Bohm",
+            "iso": 0.138
+          },
+          {
+            "id": 681082,
+            "name": "Bryson Stott",
+            "iso": 0.139
+          },
+          {
+            "id": 669016,
+            "name": "Brandon Marsh",
+            "iso": 0.152
+          },
+          {
+            "id": 592663,
+            "name": "J.T. Realmuto",
+            "iso": 0.128
+          },
+          {
+            "id": 702222,
+            "name": "Justin Crawford",
+            "iso": 0.093
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -684,16 +730,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 9mph, 56\u00b0",
-        "lean": "Suppress",
-        "temp": 55.6,
-        "wind_mph": 8.7,
-        "wind_dir": 40,
-        "tail_mph": -8.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.948
+      "wf": 1.0
     },
     {
       "gamePk": 824868,
@@ -1016,9 +1055,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 70.3,
+        "wind_mph": 4.7,
+        "wind_dir": 265,
+        "tail_mph": 2.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.009
     },
     {
       "gamePk": 823086,
