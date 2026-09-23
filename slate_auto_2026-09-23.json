@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T21:27:47Z",
+  "pulled_at": "2026-09-23T21:30:31Z",
   "games": [
     {
       "gamePk": 824223,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824784,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T22:35:00Z",
       "matchup": "TOR@BAL",
       "away": {
@@ -280,8 +280,54 @@
           "id": null,
           "name": null
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.11
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.119
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.139
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.221
+          },
+          {
+            "id": 815873,
+            "name": "Sean Keys",
+            "iso": 0.154
+          },
+          {
+            "id": 676914,
+            "name": "Davis Schneider",
+            "iso": 0.153
+          },
+          {
+            "id": 807727,
+            "name": "Charles McAdoo",
+            "iso": 0.102
+          },
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.105
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.108
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BAL",
@@ -291,10 +337,56 @@
           "hr9": 1.91,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.131
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.248
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.18
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.237
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.225
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.14
+          },
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.143
+          },
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": 0.054
+          },
+          {
+            "id": 650968,
+            "name": "Yohel Pozo",
+            "iso": 0.076
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1667,9 +1759,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 89\u00b0",
+        "lean": "Boost",
+        "temp": 89.1,
+        "wind_mph": 2.9,
+        "wind_dir": 309,
+        "tail_mph": 1.0,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.032
     },
     {
       "gamePk": 823894,
