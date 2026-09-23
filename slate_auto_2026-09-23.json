@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T22:47:57Z",
+  "pulled_at": "2026-09-23T22:52:57Z",
   "games": [
     {
       "gamePk": 824223,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 669310,
           "name": "CJ Van Eyk",
-          "hr9": 1.35,
+          "hr9": 1.29,
           "hand": "RHP"
         },
         "lineup": [
@@ -735,7 +735,7 @@
         "sp": {
           "id": 605400,
           "name": "Aaron Nola",
-          "hr9": 1.82,
+          "hr9": 1.86,
           "hand": "RHP"
         },
         "lineup": [
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 823492,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-23T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -936,7 +936,7 @@
     },
     {
       "gamePk": 824710,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-23T23:10:00Z",
       "matchup": "CLE@BOS",
       "away": {
@@ -1069,7 +1069,7 @@
     },
     {
       "gamePk": 824868,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-23T23:15:00Z",
       "matchup": "CIN@ATL",
       "away": {
@@ -1196,7 +1196,7 @@
         "wind_mph": 11.1,
         "wind_dir": 80,
         "tail_mph": -9.6,
-        "precip": 11
+        "precip": 12
       },
       "wf": 0.971
     },
@@ -1720,16 +1720,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 73.3,
-        "wind_mph": 6.0,
-        "wind_dir": 149,
-        "tail_mph": 5.1,
-        "precip": 20
+        "note": "weather fetch failed"
       },
-      "wf": 1.023
+      "wf": 1.0
     },
     {
       "gamePk": 824951,
@@ -1853,9 +1846,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 89\u00b0",
+        "lean": "Boost",
+        "temp": 89.1,
+        "wind_mph": 2.5,
+        "wind_dir": 315,
+        "tail_mph": 0.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.031
     },
     {
       "gamePk": 823894,
