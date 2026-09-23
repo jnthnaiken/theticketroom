@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-23",
- "built_at": "2026-09-23T18:48:47Z",
+ "built_at": "2026-09-23T19:37:31Z",
  "teams": {
   "ATH": {
    "n_rel": 12,
@@ -19,16 +19,16 @@
   },
   "ATL": {
    "n_rel": 8,
-   "n_unavail": 1,
+   "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.023,
-   "hr_bf_avail": 0.0211,
+   "hr_bf": 0.02,
+   "hr_bf_avail": 0.02,
    "hr_bf_L": 0.0236,
-   "hr_bf_R": 0.0236,
+   "hr_bf_R": 0.0188,
    "hr_bf_avail_L": 0.0236,
-   "hr_bf_avail_R": 0.0203,
-   "share_L": 0.451,
-   "air_share": 0.601,
+   "hr_bf_avail_R": 0.0188,
+   "share_L": 0.43,
+   "air_share": 0.581,
    "d1_pitches": 70
   },
   "AZ": {
@@ -57,7 +57,7 @@
    "hr_bf_avail_R": 0.0241,
    "share_L": 0.264,
    "air_share": 0.485,
-   "d1_pitches": 0
+   "d1_pitches": 14
   },
   "BOS": {
    "n_rel": 9,
@@ -228,16 +228,16 @@
    "d1_pitches": 126
   },
   "MIL": {
-   "n_rel": 8,
-   "n_unavail": 1,
+   "n_rel": 7,
+   "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0222,
+   "hr_bf": 0.0198,
    "hr_bf_avail": 0.0198,
-   "hr_bf_L": 0.029,
+   "hr_bf_L": 0.0241,
    "hr_bf_R": 0.0178,
    "hr_bf_avail_L": 0.0241,
    "hr_bf_avail_R": 0.0178,
-   "share_L": 0.428,
+   "share_L": 0.413,
    "air_share": 0.504,
    "d1_pitches": 84
   },
@@ -397,17 +397,17 @@
   },
   "TOR": {
    "n_rel": 10,
-   "n_unavail": 0,
+   "n_unavail": 1,
    "top_out": 0,
    "hr_bf": 0.0182,
-   "hr_bf_avail": 0.0182,
+   "hr_bf_avail": 0.0183,
    "hr_bf_L": 0.0281,
    "hr_bf_R": 0.0158,
    "hr_bf_avail_L": 0.0281,
-   "hr_bf_avail_R": 0.0158,
+   "hr_bf_avail_R": 0.016,
    "share_L": 0.223,
    "air_share": 0.468,
-   "d1_pitches": 0
+   "d1_pitches": 15
   },
   "WSH": {
    "n_rel": 9,
@@ -777,7 +777,7 @@
   "box_final_games": 19,
   "box_loaded": 19,
   "rosters": 30,
-  "pitcher_stats": 422,
+  "pitcher_stats": 421,
   "sps_matched": 29,
   "sps_named": 30,
   "pens": 30,
@@ -787,6 +787,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1790189327,
+ "last_attempt": 1790192251,
  "pregame": true
 }
