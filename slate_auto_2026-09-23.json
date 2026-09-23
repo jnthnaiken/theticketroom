@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T22:28:03Z",
+  "pulled_at": "2026-09-23T22:30:58Z",
   "games": [
     {
       "gamePk": 824223,
@@ -511,7 +511,7 @@
           {
             "id": 694376,
             "name": "Shay Whitcomb",
-            "iso": 0.137
+            "iso": 0.136
           },
           {
             "id": 683766,
@@ -1322,16 +1322,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 8mph, 74\u00b0",
-        "lean": "Suppress",
-        "temp": 73.6,
-        "wind_mph": 9.1,
-        "wind_dir": 74,
-        "tail_mph": -8.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.978
+      "wf": 1.0
     },
     {
       "gamePk": 824625,
@@ -1720,9 +1713,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 68\u00b0",
+        "lean": "Neutral",
+        "temp": 67.5,
+        "wind_mph": 4.9,
+        "wind_dir": 240,
+        "tail_mph": 2.5,
+        "precip": 20
       },
-      "wf": 1.0
+      "wf": 1.005
     },
     {
       "gamePk": 824951,
