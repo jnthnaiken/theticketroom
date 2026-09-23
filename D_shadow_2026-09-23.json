@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-23",
- "built_at": "2026-09-23T21:07:58Z",
+ "built_at": "2026-09-23T21:53:29Z",
  "teams": {
   "ATH": {
    "n_rel": 12,
@@ -200,17 +200,17 @@
    "d1_pitches": 81
   },
   "LAD": {
-   "n_rel": 9,
+   "n_rel": 8,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0258,
-   "hr_bf_avail": 0.0258,
+   "hr_bf": 0.0259,
+   "hr_bf_avail": 0.0259,
    "hr_bf_L": 0.022,
-   "hr_bf_R": 0.031,
+   "hr_bf_R": 0.0331,
    "hr_bf_avail_L": 0.022,
-   "hr_bf_avail_R": 0.031,
-   "share_L": 0.548,
-   "air_share": 0.535,
+   "hr_bf_avail_R": 0.0331,
+   "share_L": 0.643,
+   "air_share": 0.54,
    "d1_pitches": 138
   },
   "MIA": {
@@ -396,17 +396,17 @@
    "d1_pitches": 91
   },
   "TOR": {
-   "n_rel": 10,
-   "n_unavail": 1,
+   "n_rel": 11,
+   "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0182,
-   "hr_bf_avail": 0.0183,
+   "hr_bf": 0.0197,
+   "hr_bf_avail": 0.0197,
    "hr_bf_L": 0.0281,
-   "hr_bf_R": 0.0158,
+   "hr_bf_R": 0.0177,
    "hr_bf_avail_L": 0.0281,
-   "hr_bf_avail_R": 0.016,
-   "share_L": 0.223,
-   "air_share": 0.468,
+   "hr_bf_avail_R": 0.0177,
+   "share_L": 0.216,
+   "air_share": 0.469,
    "d1_pitches": 45
   },
   "WSH": {
@@ -644,78 +644,78 @@
    "home": "PHI",
    "hour": 18,
    "dome": false,
-   "temp": 65.2,
-   "rh": 55,
-   "pres": 1029.1,
-   "wind": 12.8,
-   "wind_out": -8.23,
-   "rho": 1.2242
+   "temp": 66.0,
+   "rh": 56,
+   "pres": 1028.8,
+   "wind": 11.6,
+   "wind_out": -8.2,
+   "rho": 1.2217
   },
   "5": {
    "home": "PIT",
    "hour": 18,
    "dome": false,
-   "temp": 62.9,
+   "temp": 63.7,
    "rh": 62,
-   "pres": 1000.1,
-   "wind": 8.2,
-   "wind_out": -8.14,
-   "rho": 1.1946
+   "pres": 999.5,
+   "wind": 8.5,
+   "wind_out": -8.42,
+   "rho": 1.1918
   },
   "6": {
    "home": "NYY",
    "hour": 19,
    "dome": false,
-   "temp": 63.2,
-   "rh": 50,
-   "pres": 1030.8,
-   "wind": 10.4,
-   "wind_out": -9.64,
-   "rho": 1.2317
+   "temp": 63.3,
+   "rh": 45,
+   "pres": 1030.7,
+   "wind": 11.7,
+   "wind_out": -11.19,
+   "rho": 1.2318
   },
   "7": {
    "home": "BOS",
    "hour": 19,
    "dome": false,
-   "temp": 55.7,
-   "rh": 68,
+   "temp": 55.6,
+   "rh": 71,
    "pres": 1033.2,
-   "wind": 8.1,
-   "wind_out": -8.06,
+   "wind": 7.9,
+   "wind_out": -7.87,
    "rho": 1.2524
   },
   "8": {
    "home": "ATL",
    "hour": 19,
    "dome": false,
-   "temp": 74.0,
+   "temp": 74.3,
    "rh": 71,
-   "pres": 983.1,
-   "wind": 11.7,
-   "wind_out": -9.81,
-   "rho": 1.1461
+   "pres": 982.3,
+   "wind": 10.8,
+   "wind_out": -9.62,
+   "rho": 1.1444
   },
   "9": {
    "home": "KC",
    "hour": 19,
    "dome": false,
-   "temp": 73.1,
+   "temp": 73.6,
    "rh": 51,
-   "pres": 992.2,
-   "wind": 8.2,
-   "wind_out": -6.8,
-   "rho": 1.1615
+   "pres": 991.6,
+   "wind": 9.1,
+   "wind_out": -7.96,
+   "rho": 1.1596
   },
   "10": {
    "home": "CHC",
    "hour": 19,
    "dome": false,
-   "temp": 61.6,
-   "rh": 82,
-   "pres": 1004.8,
-   "wind": 8.7,
-   "wind_out": -6.47,
-   "rho": 1.2017
+   "temp": 61.8,
+   "rh": 77,
+   "pres": 1005.0,
+   "wind": 10.5,
+   "wind_out": -8.49,
+   "rho": 1.2019
   },
   "11": {
    "home": "TEX",
@@ -723,32 +723,32 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 996.1,
+   "pres": 994.9,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1688
+   "rho": 1.1674
   },
   "12": {
    "home": "COL",
    "hour": 20,
    "dome": false,
-   "temp": 64.1,
-   "rh": 77,
-   "pres": 844.1,
-   "wind": 7.2,
-   "wind_out": 7.11,
-   "rho": 1.0034
+   "temp": 67.5,
+   "rh": 65,
+   "pres": 844.3,
+   "wind": 4.9,
+   "wind_out": 2.45,
+   "rho": 0.9976
   },
   "13": {
    "home": "ATH",
    "hour": 21,
    "dome": false,
-   "temp": 89.1,
+   "temp": 89.0,
    "rh": 20,
-   "pres": 1010.1,
-   "wind": 2.9,
-   "wind_out": 1.13,
-   "rho": 1.1501
+   "pres": 1009.1,
+   "wind": 3.2,
+   "wind_out": 0.61,
+   "rho": 1.1492
   },
   "14": {
    "home": "SEA",
@@ -756,21 +756,21 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 1017.7,
+   "pres": 1018.2,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1943
+   "rho": 1.1949
   },
   "15": {
    "home": "LAD",
    "hour": 22,
    "dome": false,
-   "temp": 70.8,
-   "rh": 80,
-   "pres": 993.3,
-   "wind": 4.7,
-   "wind_out": 3.26,
-   "rho": 1.165
+   "temp": 70.5,
+   "rh": 84,
+   "pres": 992.6,
+   "wind": 5.0,
+   "wind_out": 3.94,
+   "rho": 1.1644
   }
  },
  "coverage": {
@@ -787,6 +787,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1790197678,
+ "last_attempt": 1790200409,
  "pregame": true
 }
