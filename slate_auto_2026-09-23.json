@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T19:47:15Z",
+  "pulled_at": "2026-09-23T19:51:51Z",
   "games": [
     {
       "gamePk": 824223,
@@ -210,7 +210,7 @@
           {
             "id": 687637,
             "name": "Dylan Beavers",
-            "iso": 0.133
+            "iso": 0.131
           },
           {
             "id": 624413,
@@ -245,12 +245,12 @@
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.122
+            "iso": 0.123
           },
           {
             "id": 665966,
             "name": "Carlos Narv\u00e1ez",
-            "iso": 0.065
+            "iso": 0.066
           }
         ],
         "confirmed": true
@@ -323,7 +323,7 @@
           {
             "id": 807712,
             "name": "Luke Keaschall",
-            "iso": 0.11
+            "iso": 0.111
           },
           {
             "id": 686797,
@@ -702,7 +702,7 @@
     },
     {
       "gamePk": 824710,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T23:10:00Z",
       "matchup": "CLE@BOS",
       "away": {
@@ -713,8 +713,54 @@
           "hr9": 1.24,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.065
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.138
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.167
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.159
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.16
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.197
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.115
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.105
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.129
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -727,7 +773,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1159,9 +1205,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 89\u00b0",
+        "lean": "Boost",
+        "temp": 89.0,
+        "wind_mph": 2.9,
+        "wind_dir": 293,
+        "tail_mph": 1.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.035
     },
     {
       "gamePk": 823894,
