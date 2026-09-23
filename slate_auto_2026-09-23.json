@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T23:33:08Z",
+  "pulled_at": "2026-09-23T23:38:16Z",
   "games": [
     {
       "gamePk": 824223,
@@ -230,7 +230,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.224
+            "iso": 0.238
           },
           {
             "id": 681297,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 669310,
           "name": "CJ Van Eyk",
-          "hr9": 0.93,
+          "hr9": 1.69,
           "hand": "RHP"
         },
         "lineup": [
@@ -306,7 +306,7 @@
           {
             "id": 815873,
             "name": "Sean Keys",
-            "iso": 0.151
+            "iso": 0.148
           },
           {
             "id": 676914,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 694346,
           "name": "Trey Gibson",
-          "hr9": 1.72,
+          "hr9": 1.7,
           "hand": "RHP"
         },
         "lineup": [
@@ -363,7 +363,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.224
+            "iso": 0.238
           },
           {
             "id": 681297,
@@ -378,7 +378,7 @@
           {
             "id": 681047,
             "name": "Christian Franklin",
-            "iso": 0.052
+            "iso": 0.051
           },
           {
             "id": 650968,
@@ -545,7 +545,7 @@
         "sp": {
           "id": 669461,
           "name": "Matthew Liberatore",
-          "hr9": 1.67,
+          "hr9": 1.66,
           "hand": "LHP"
         },
         "lineup": [
@@ -572,7 +572,7 @@
           {
             "id": 699024,
             "name": "Leo Bernal",
-            "iso": 0.192
+            "iso": 0.19
           },
           {
             "id": 669357,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 823410,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-23T22:40:00Z",
       "matchup": "MIL@PHI",
       "away": {
@@ -678,7 +678,7 @@
         "sp": {
           "id": 701656,
           "name": "Logan Henderson",
-          "hr9": 1.32,
+          "hr9": 1.31,
           "hand": "RHP"
         },
         "lineup": [
@@ -695,12 +695,12 @@
           {
             "id": 668930,
             "name": "Brice Turang",
-            "iso": 0.178
+            "iso": 0.18
           },
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 641343,
@@ -811,7 +811,7 @@
         "sp": {
           "id": 669438,
           "name": "Mason Englert",
-          "hr9": 2.45,
+          "hr9": 2.41,
           "hand": "RHP"
         },
         "lineup": [
@@ -848,7 +848,7 @@
           {
             "id": 668723,
             "name": "Ryan Vilade",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 656775,
@@ -868,7 +868,7 @@
         "sp": {
           "id": 543037,
           "name": "Gerrit Cole",
-          "hr9": 1.54,
+          "hr9": 1.53,
           "hand": "RHP"
         },
         "lineup": [
@@ -895,7 +895,7 @@
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.189
+            "iso": 0.193
           },
           {
             "id": 665862,
@@ -905,7 +905,7 @@
           {
             "id": 676609,
             "name": "Jos\u00e9 Caballero",
-            "iso": 0.137
+            "iso": 0.136
           },
           {
             "id": 641857,
@@ -944,7 +944,7 @@
         "sp": {
           "id": 656492,
           "name": "Foster Griffin",
-          "hr9": 1.24,
+          "hr9": 1.23,
           "hand": "LHP"
         },
         "lineup": [
@@ -966,7 +966,7 @@
           {
             "id": 666176,
             "name": "Jo Adell",
-            "iso": 0.159
+            "iso": 0.158
           },
           {
             "id": 683953,
@@ -1001,7 +1001,7 @@
         "sp": {
           "id": 543243,
           "name": "Sonny Gray",
-          "hr9": 0.88,
+          "hr9": 0.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -1151,7 +1151,7 @@
           {
             "id": 621566,
             "name": "Matt Olson",
-            "iso": 0.251
+            "iso": 0.253
           },
           {
             "id": 645277,
@@ -1720,16 +1720,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 73\u00b0",
-        "lean": "Boost",
-        "temp": 73.3,
-        "wind_mph": 6.0,
-        "wind_dir": 149,
-        "tail_mph": 5.1,
-        "precip": 22
+        "note": "weather fetch failed"
       },
-      "wf": 1.023
+      "wf": 1.0
     },
     {
       "gamePk": 824951,
@@ -1853,9 +1846,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 89\u00b0",
+        "lean": "Boost",
+        "temp": 89.1,
+        "wind_mph": 2.5,
+        "wind_dir": 315,
+        "tail_mph": 0.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.031
     },
     {
       "gamePk": 823894,
