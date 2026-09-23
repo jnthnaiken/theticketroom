@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-23T03:55:29Z",
+  "pulled_at": "2026-09-23T04:00:00Z",
   "games": [
     {
       "gamePk": 823543,
@@ -1069,7 +1069,7 @@
     },
     {
       "gamePk": 824624,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-22T23:40:00Z",
       "matchup": "MIA@CHC",
       "away": {
@@ -1852,9 +1852,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 61\u00b0",
+        "lean": "Boost",
+        "temp": 61.3,
+        "wind_mph": 11.6,
+        "wind_dir": 270,
+        "tail_mph": 11.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.027
     },
     {
       "gamePk": 823897,
@@ -2019,16 +2026,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind in 8mph, 60\u00b0",
-        "lean": "Suppress",
-        "temp": 59.9,
-        "wind_mph": 7.9,
-        "wind_dir": 25,
-        "tail_mph": -7.9,
-        "precip": 64
+        "note": "no forecast hour 2026-09-22T18"
       },
-      "wf": 0.957
+      "wf": 1.0
     }
   ]
 }
