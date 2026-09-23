@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-23T02:19:58Z",
+  "pulled_at": "2026-09-23T02:25:06Z",
   "games": [
     {
       "gamePk": 823543,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823494,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-22T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -1008,7 +1008,7 @@
           {
             "id": 695600,
             "name": "Carter Jensen",
-            "iso": 0.22
+            "iso": 0.219
           },
           {
             "id": 677951,
@@ -1018,7 +1018,7 @@
           {
             "id": 695506,
             "name": "Jac Caglianone",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 672580,
@@ -1314,7 +1314,7 @@
           {
             "id": 643376,
             "name": "Danny Jansen",
-            "iso": 0.162
+            "iso": 0.161
           }
         ],
         "confirmed": true
@@ -1359,7 +1359,7 @@
           {
             "id": 672515,
             "name": "Gabriel Moreno",
-            "iso": 0.176
+            "iso": 0.175
           },
           {
             "id": 672695,
@@ -1475,7 +1475,7 @@
         "sp": {
           "id": 579328,
           "name": "Yusei Kikuchi",
-          "hr9": 1.07,
+          "hr9": 1.06,
           "hand": "LHP"
         },
         "lineup": [
@@ -1574,7 +1574,7 @@
           {
             "id": 675961,
             "name": "Alika Williams",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 672016,
@@ -1608,7 +1608,7 @@
         "sp": {
           "id": 664299,
           "name": "Cristian Javier",
-          "hr9": 1.45,
+          "hr9": 1.44,
           "hand": "RHP"
         },
         "lineup": [
@@ -1625,7 +1625,7 @@
           {
             "id": 670623,
             "name": "Isaac Paredes",
-            "iso": 0.174
+            "iso": 0.173
           },
           {
             "id": 514888,
@@ -1665,7 +1665,7 @@
         "sp": {
           "id": 669302,
           "name": "Logan Gilbert",
-          "hr9": 1.41,
+          "hr9": 1.4,
           "hand": "RHP"
         },
         "lineup": [
@@ -1777,7 +1777,7 @@
           {
             "id": 668904,
             "name": "Royce Lewis",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 605170,
@@ -1797,7 +1797,7 @@
         "sp": {
           "id": 683627,
           "name": "Anthony Molina",
-          "hr9": 0.9,
+          "hr9": 0.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -1852,16 +1852,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 61\u00b0",
-        "lean": "Boost",
-        "temp": 61.4,
-        "wind_mph": 9.9,
-        "wind_dir": 266,
-        "tail_mph": 9.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.022
+      "wf": 1.0
     },
     {
       "gamePk": 823897,
@@ -1895,7 +1888,7 @@
           {
             "id": 664034,
             "name": "Ty France",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 701538,
@@ -1930,7 +1923,7 @@
         "sp": {
           "id": 592779,
           "name": "Brock Stewart",
-          "hr9": 1.07,
+          "hr9": 1.05,
           "hand": "RHP"
         },
         "lineup": [
@@ -1985,9 +1978,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 68.9,
+        "wind_mph": 6.0,
+        "wind_dir": 255,
+        "tail_mph": 3.9,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.012
     },
     {
       "gamePk": 824785,
