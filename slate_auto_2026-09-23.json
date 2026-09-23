@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T19:28:01Z",
+  "pulled_at": "2026-09-23T19:30:58Z",
   "games": [
     {
       "gamePk": 824223,
@@ -193,7 +193,7 @@
           {
             "id": 676391,
             "name": "Ernie Clement",
-            "iso": 0.108
+            "iso": 0.107
           }
         ],
         "confirmed": true
@@ -615,7 +615,7 @@
     },
     {
       "gamePk": 823492,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -637,10 +637,56 @@
           "hr9": 1.56,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.265
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.144
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.248
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.167
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.189
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.17
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.137
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.135
+          },
+          {
+            "id": 645305,
+            "name": "Ali S\u00e1nchez",
+            "iso": 0.063
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1072,9 +1118,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 4mph, 72\u00b0",
+        "lean": "Neutral",
+        "temp": 72.1,
+        "wind_mph": 7.4,
+        "wind_dir": 299,
+        "tail_mph": -3.6,
+        "precip": 23
       },
-      "wf": 1.0
+      "wf": 0.991
     },
     {
       "gamePk": 824951,
@@ -1147,16 +1200,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 70.3,
-        "wind_mph": 4.7,
-        "wind_dir": 265,
-        "tail_mph": 2.4,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.009
+      "wf": 1.0
     },
     {
       "gamePk": 823086,
