@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T19:23:00Z",
+  "pulled_at": "2026-09-23T19:28:01Z",
   "games": [
     {
       "gamePk": 824223,
@@ -87,7 +87,7 @@
           {
             "id": 701162,
             "name": "Ben Malgeri",
-            "iso": 0.175
+            "iso": 0.174
           },
           {
             "id": 682985,
@@ -308,7 +308,7 @@
     },
     {
       "gamePk": 823168,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-23T19:45:00Z",
       "matchup": "MIN@SF",
       "away": {
@@ -830,7 +830,7 @@
     },
     {
       "gamePk": 824060,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T23:40:00Z",
       "matchup": "CWS@KC",
       "away": {
@@ -852,10 +852,56 @@
           "hr9": 1.22,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.219
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.161
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.204
+          },
+          {
+            "id": 672580,
+            "name": "Maikel Garcia",
+            "iso": 0.113
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.169
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.146
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.163
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.213
+          },
+          {
+            "id": 686555,
+            "name": "Isaac Collins",
+            "iso": 0.112
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1026,16 +1072,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 4mph, 72\u00b0",
-        "lean": "Neutral",
-        "temp": 72.1,
-        "wind_mph": 7.4,
-        "wind_dir": 299,
-        "tail_mph": -3.6,
-        "precip": 23
+        "note": "weather fetch failed"
       },
-      "wf": 0.991
+      "wf": 1.0
     },
     {
       "gamePk": 824951,
