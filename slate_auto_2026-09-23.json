@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T17:30:31Z",
+  "pulled_at": "2026-09-23T17:37:46Z",
   "games": [
     {
       "gamePk": 824223,
@@ -13,7 +13,7 @@
         "sp": {
           "id": 663992,
           "name": "Richard Lovelady",
-          "hr9": 1.07,
+          "hr9": 1.06,
           "hand": "LHP"
         },
         "lineup": [
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824785,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-23T17:35:00Z",
       "matchup": "TOR@BAL",
       "away": {
@@ -529,10 +529,10 @@
       "away": {
         "abbrev": "TB",
         "sp": {
-          "id": 693855,
-          "name": "Ian Seymour",
-          "hr9": 1.77,
-          "hand": "LHP"
+          "id": 669438,
+          "name": "Mason Englert",
+          "hr9": 2.27,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -715,16 +715,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 10mph, 61\u00b0",
-        "lean": "Suppress",
-        "temp": 61.1,
-        "wind_mph": 11.5,
-        "wind_dir": 63,
-        "tail_mph": -9.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.953
+      "wf": 1.0
     },
     {
       "gamePk": 822841,
@@ -797,15 +790,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 3mph, 63\u00b0",
-        "lean": "Suppress",
-        "temp": 63.0,
+        "cond": "wind in 3mph, 69\u00b0",
+        "lean": "Neutral",
+        "temp": 68.8,
         "wind_mph": 6.6,
         "wind_dir": 298,
         "tail_mph": -3.1,
         "precip": 23
       },
-      "wf": 0.979
+      "wf": 0.987
     },
     {
       "gamePk": 824951,
@@ -879,15 +872,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 3mph, 71\u00b0",
+        "cond": "wind out 3mph, 70\u00b0",
         "lean": "Neutral",
-        "temp": 70.6,
+        "temp": 70.2,
         "wind_mph": 5.0,
         "wind_dir": 252,
         "tail_mph": 3.4,
         "precip": 0
       },
-      "wf": 1.013
+      "wf": 1.012
     },
     {
       "gamePk": 823086,
