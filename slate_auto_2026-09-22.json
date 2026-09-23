@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-23T02:14:57Z",
+  "pulled_at": "2026-09-23T02:19:58Z",
   "games": [
     {
       "gamePk": 823543,
@@ -1467,7 +1467,7 @@
     },
     {
       "gamePk": 824953,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-23T01:40:00Z",
       "matchup": "LAA@ATH",
       "away": {
@@ -1985,16 +1985,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 69\u00b0",
-        "lean": "Neutral",
-        "temp": 68.9,
-        "wind_mph": 6.0,
-        "wind_dir": 255,
-        "tail_mph": 3.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.012
+      "wf": 1.0
     },
     {
       "gamePk": 824785,
@@ -2026,9 +2019,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\ud83c\udf27\ufe0f",
+        "cond": "wind in 8mph, 60\u00b0",
+        "lean": "Suppress",
+        "temp": 59.9,
+        "wind_mph": 7.9,
+        "wind_dir": 25,
+        "tail_mph": -7.9,
+        "precip": 64
       },
-      "wf": 1.0
+      "wf": 0.957
     }
   ]
 }
