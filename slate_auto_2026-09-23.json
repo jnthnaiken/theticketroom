@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T22:12:35Z",
+  "pulled_at": "2026-09-23T22:18:02Z",
   "games": [
     {
       "gamePk": 824223,
@@ -424,7 +424,7 @@
           {
             "id": 686797,
             "name": "Brooks Lee",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 605137,
@@ -664,13 +664,13 @@
         "wind_mph": 8.5,
         "wind_dir": 78,
         "tail_mph": -8.4,
-        "precip": 3
+        "precip": 5
       },
       "wf": 0.961
     },
     {
       "gamePk": 823410,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-23T22:40:00Z",
       "matchup": "MIL@PHI",
       "away": {
@@ -1196,7 +1196,7 @@
         "wind_mph": 10.8,
         "wind_dir": 77,
         "tail_mph": -9.6,
-        "precip": 4
+        "precip": 11
       },
       "wf": 0.973
     },
@@ -1727,7 +1727,7 @@
         "wind_mph": 4.9,
         "wind_dir": 240,
         "tail_mph": 2.5,
-        "precip": 19
+        "precip": 20
       },
       "wf": 1.005
     },
@@ -1853,16 +1853,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 89\u00b0",
-        "lean": "Boost",
-        "temp": 89.0,
-        "wind_mph": 3.2,
-        "wind_dir": 321,
-        "tail_mph": 0.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.03
+      "wf": 1.0
     },
     {
       "gamePk": 823894,
@@ -1907,7 +1900,7 @@
     },
     {
       "gamePk": 823086,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-24T02:10:00Z",
       "matchup": "HOU@SEA",
       "away": {
@@ -1929,10 +1922,56 @@
           "hr9": 1.11,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.129
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.201
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.221
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.193
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.152
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.09
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.139
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.31
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.11
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
