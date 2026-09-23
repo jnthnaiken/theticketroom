@@ -2355,6 +2355,15 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       /* the varied wording ran long -- retry with the tightest possible phrasing before giving up on a
          full write-up, so variety never costs us the four-leg note and drops us back to the stub. */
       used={};parts=legNames.map(function(n){return lastNm(P[n].nm)+" "+shortc(P[n],used,seed,true);});full=joinClauses(parts)+".";if(full.length<=B)return full;
+      /* CLMPTIER-2026-09-23 -- CLAMP THE TIGHT NOTE, DO NOT BIN IT. Every moon on the 2026-09-23
+         board overflowed tiers 1 and 2; the tight tier wrote a good sentence for all eight and
+         three were discarded at 159, 167 and 151 against B=150. One character cost "Upper Deck
+         Bound" its whole write-up. clmp() is the clause-boundary cut already used on the stub
+         below, so use it on the sentence worth keeping: three real facts read better than one
+         fact plus three bare surnames that are printed on the card as legs anyway.
+         Guarded, so a clamp that leaves a stub-shaped remnant still falls through: the result has
+         to keep at least two clause separators and 60 characters to be worth preferring. */
+      var _tc=clmp(full,B); if(_tc&&_tc.length>=60&&(_tc.match(/,/g)||[]).length>=2)return _tc;
       var anc=lastNm(P[legNames[0]].nm)+" "+shortc(P[legNames[0]],{},seed);var rest=legNames.slice(1).map(function(n){return lastNm(P[n].nm);});
       return clmp(anc+", with "+joinClauses(rest)+".",B);}
 

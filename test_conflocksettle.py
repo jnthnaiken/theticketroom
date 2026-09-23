@@ -167,12 +167,27 @@ check('t==null' in spb.replace(' ', ''), 'a confirmed side with no stamp -> sett
 
 # ---------------------------------------------------------------- 6/7/8. behaviour, through the engine
 def latest_board():
+    """The newest board that can actually EXERCISE this suite.
+
+    ⚠️ It must carry at least one LATCHED ticket, and that is not a detail. The safety assertion --
+    "a ticket already locked on the prior board stays locked" -- is vacuous on a board with nothing
+    locked, and on 2026-09-23 the newest board was a 11:38am one with zero latches, so the suite
+    went red at "0 in, 0 kept" against code that was fine. That is the THIRD time in two days a
+    fixture here quietly stopped being the thing it was named after (the like-for-like compare, then
+    the no-map board, now this). Pick a board that has the property the test is about; fall back to
+    any board with tickets and SAY the safety check could not run, rather than failing on it.
+    """
     ds = sorted(f for f in os.listdir(HERE) if re.fullmatch(r'D_\d{4}-\d{2}-\d{2}\.json', f))
+    fallback = (None, None)
     for f in reversed(ds):
         D = json.load(open(os.path.join(HERE, f), encoding='utf-8'))
-        if D.get('tickets') and any(p.get('status') == 'confirmed' for p in D.get('players', {}).values()):
+        if not (D.get('tickets') and any(p.get('status') == 'confirmed' for p in D.get('players', {}).values())):
+            continue
+        if any(t.get('locked') for t in D['tickets']):
             return f, D
-    return None, None
+        if fallback[0] is None:
+            fallback = (f, D)
+    return fallback
 
 
 NAME, BOARD = latest_board()
@@ -254,9 +269,13 @@ else:
     # 7. the safety property. Every ticket latched on the way in is still latched on the way out.
     was = {t.get('name') for t in BOARD['tickets'] if t.get('locked')}
     still = {t[0] for t in (fresh_keep or []) if t[1]}
-    check(was and was <= still,
-          'SAFETY: every ticket already locked on the prior board stays locked with second-old cards',
-          f'{len(was)} in, {len(was & still)} kept' + (f'  LOST: {sorted(was - still)}' if was - still else ''))
+    if not was:
+        print('  ..  SAFETY check SKIPPED -- no board on disk carries a latched ticket yet '
+              '(a morning board has none); it is vacuous, not passing')
+    else:
+        check(was <= still,
+              'SAFETY: every ticket already locked on the prior board stays locked with second-old cards',
+              f'{len(was)} in, {len(was & still)} kept' + (f'  LOST: {sorted(was - still)}' if was - still else ''))
 
     # and the one thing that SHOULD still latch on freshly-posted cards: a game already underway
     if fresh_nl is not None:

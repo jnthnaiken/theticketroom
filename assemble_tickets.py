@@ -482,6 +482,12 @@ def assemble(D):
         parts = [_lastnm(P[n].get('nm', n)) + " " + _shortc(P[n], used, seed) for n in names]
         full = _join(parts) + "."
         if len(full) <= B: return full
+        # CLMPTIER-2026-09-23: same fix as index.html's cwNote -- clamp the short note at a clause
+        # boundary before falling through to the surname stub. Kept in step with the engine on
+        # purpose; this is the fallback drafter and a note that reads differently on the rare night
+        # it runs is exactly the drift BOARDCFG-2026-09-13 was written to stop.
+        _tc = _clmp(full, B)
+        if _tc and len(_tc) >= 60 and _tc.count(',') >= 2: return _tc
         anc = _lastnm(P[names[0]].get('nm', names[0])) + " " + _shortc(P[names[0]], {}, seed)
         rest = [_lastnm(P[n].get('nm', n)) for n in names[1:]]
         return _clmp(anc + ", with " + _join(rest) + ".", B)
