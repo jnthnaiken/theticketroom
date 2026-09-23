@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-23T01:18:00Z",
+  "pulled_at": "2026-09-23T01:22:58Z",
   "games": [
     {
       "gamePk": 823543,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824222,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-22T22:40:00Z",
       "matchup": "WSH@DET",
       "away": {
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823412,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-22T22:40:00Z",
       "matchup": "MIL@PHI",
       "away": {
@@ -1587,9 +1587,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 5mph, 79\u00b0",
+        "lean": "Boost",
+        "temp": 79.3,
+        "wind_mph": 6.0,
+        "wind_dir": 214,
+        "tail_mph": 5.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.033
     },
     {
       "gamePk": 823089,
@@ -1725,7 +1732,7 @@
     },
     {
       "gamePk": 823166,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-23T01:45:00Z",
       "matchup": "MIN@SF",
       "away": {
@@ -1978,16 +1985,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 69\u00b0",
-        "lean": "Neutral",
-        "temp": 68.9,
-        "wind_mph": 5.6,
-        "wind_dir": 254,
-        "tail_mph": 3.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.011
+      "wf": 1.0
     },
     {
       "gamePk": 824785,
