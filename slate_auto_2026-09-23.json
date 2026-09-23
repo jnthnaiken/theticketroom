@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T19:07:19Z",
+  "pulled_at": "2026-09-23T19:12:21Z",
   "games": [
     {
       "gamePk": 824223,
@@ -656,7 +656,7 @@
     },
     {
       "gamePk": 824710,
-      "status": "Pre-Game",
+      "status": "Scheduled",
       "gameTime": "2026-09-23T23:10:00Z",
       "matchup": "CLE@BOS",
       "away": {
@@ -743,7 +743,7 @@
     },
     {
       "gamePk": 824868,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-23T23:15:00Z",
       "matchup": "CIN@ATL",
       "away": {
@@ -754,8 +754,54 @@
           "hr9": 1.36,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682877,
+            "name": "Juan Brito",
+            "iso": 0.132
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.233
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.201
+          },
+          {
+            "id": 667472,
+            "name": "Dane Myers",
+            "iso": 0.121
+          },
+          {
+            "id": 553993,
+            "name": "Eugenio Su\u00e1rez",
+            "iso": 0.219
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.149
+          },
+          {
+            "id": 665828,
+            "name": "Oswaldo Cabrera",
+            "iso": 0.0
+          },
+          {
+            "id": 677943,
+            "name": "Will Banfield",
+            "iso": 0.067
+          },
+          {
+            "id": 663647,
+            "name": "Ke'Bryan Hayes",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATL",
@@ -768,7 +814,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
