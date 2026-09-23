@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T15:08:24Z",
+  "pulled_at": "2026-09-23T15:13:00Z",
   "games": [
     {
       "gamePk": 824223,
@@ -16,8 +16,54 @@
           "hr9": 1.1,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.244
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.246
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.153
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.239
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.146
+          },
+          {
+            "id": 691002,
+            "name": "Yohandy Morales",
+            "iso": 0.333
+          },
+          {
+            "id": 695670,
+            "name": "Harry Ford",
+            "iso": 0.158
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.142
+          },
+          {
+            "id": 683083,
+            "name": "Nasim Nu\u00f1ez",
+            "iso": 0.033
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -658,9 +704,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 73.1,
+        "wind_mph": 5.3,
+        "wind_dir": 292,
+        "tail_mph": -2.0,
+        "precip": 8
       },
-      "wf": 1.0
+      "wf": 0.998
     },
     {
       "gamePk": 824951,
