@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T20:12:28Z",
+  "pulled_at": "2026-09-23T20:17:20Z",
   "games": [
     {
       "gamePk": 824223,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824785,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-23T17:35:00Z",
       "matchup": "TOR@BAL",
       "away": {
@@ -1175,9 +1175,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 8mph, 62\u00b0",
+        "lean": "Suppress",
+        "temp": 61.9,
+        "wind_mph": 8.4,
+        "wind_dir": 56,
+        "tail_mph": -7.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.961
     },
     {
       "gamePk": 822841,
@@ -1423,16 +1430,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 3mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 70.3,
-        "wind_mph": 5.0,
-        "wind_dir": 262,
-        "tail_mph": 2.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.01
+      "wf": 1.0
     },
     {
       "gamePk": 823086,
