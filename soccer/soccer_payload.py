@@ -610,12 +610,19 @@ OPENERS_3 = ['Three that can all find it', 'Three names, one afternoon', 'If all
              'Everything has to land', 'The lot has to come off', 'Three to hear the net rustle',
              'All three or nothing', 'Three goals, three grounds', 'Nothing here is a formality',
              'Hold your nerve', 'Three that fancy it']
-OPENERS_1 = ['One name', 'Straight up', 'Nothing fancy', 'The plain one', 'No frills',
-             'Just the one', 'Keep it simple']
+OPENERS_1 = ['One name', 'Straight up', 'Just the one', 'No frills',
+             'One man, one afternoon', 'All of it on one pair of boots',
+             'The simple one', 'One name and a prayer']
 
 FRAMES_3 = ['{a}, {b}, and {c}.', '{o}: {a}, {b}, {c}.', '{a}. {b}, and {c}.',
             '{o} — {a}, {b}, and {c}.', '{a} and {b}. {c}.', '{a}; {b}; {c}.']
 FRAMES_2 = ['{a} and {b}.', '{o}: {a}, {b}.', '{a}, and {b}.', '{o} \u2014 {a}, and {b}.']
+
+# TNOTEFIT-2026-09-23: the two-line `.tnote` clamp, in characters. Measured, not guessed:
+# every ticket note the board has ever shipped fitted at or under 94, and the widest that
+# renders inside two lines at 12px in the narrowest card column is about this. A note over
+# it gets recomposed shorter rather than truncated by the browser.
+TNOTE_B = 100
 
 
 class Voice:
@@ -642,6 +649,31 @@ class Voice:
         """[(key, brief, full)] for one player, best-first. `who` is how to name him.
 
         Every entry restates a number that is on the payload. Nothing here predicts anything.
+
+        VOICE-2026-09-23. The register is operatic on purpose. The numbers are the same
+        numbers they always were; the adjectives do the singing. Three rules keep an
+        excitable voice honest, and all three are load-bearing:
+
+          * EVERY clause still carries a figure off the payload, and NO clause says a goal is
+            coming. "Magisterial at 0.61 a 90" describes 0.61. "He'll bury one tonight" would
+            be a forecast, and there is not one of those in this file.
+          * VOICE-2026-09-23b. THE FRAME IS ALWAYS GENEROUS. The first cut of this register
+            was operatic about the good numbers and snide about the rest -- "cruel rather than
+            bad", "the whole worry", "bless him", "a lovely blank space". That is not the
+            register; the register never buries anybody. Note that the negative angles do not
+            go away and the numbers do not move: a man 0.15 a 90 under his xG still gets that
+            printed, he is just OWED it rather than wasteful, because the chances he got are
+            a fact and the finishing is the part that has not happened yet. A short average
+            is live minutes, not a countdown. No model on him is romance, not a blank.
+            Generous framing of a true number is voice. Softening the number would be a lie,
+            and the test file is there to catch anyone who confuses the two.
+          * THE RAPTURE HAS A BUDGET. A ticket note is two of these clauses inside `.tnote`'s
+            two-line clamp; a card is three. CLMPTIER-2026-09-23 is the fresh scar: prose that
+            overflows its budget gets thrown away whole and replaced by a stub. So every
+            `full` here is written to land in the sixties and seventies, not the hundreds, and
+            the arias are short ones.
+          * VOICE-2026-08-28c still applies below, and it bites harder in this register,
+            because flourishes love the object position. See the `say` note.
         """
         out = []
         npx, xps, sh = p.get('npxg90'), p.get('xgpershot'), p.get('shots90')
@@ -650,14 +682,21 @@ class Voice:
                 else 'his league')
         k = who + salt
 
-        # VOICE-2026-08-28c. Some phrasings put the player in the OBJECT ("the manager leaves
-        # Kane on", "+150 for Pulisic", "there is a goal in Kane most weeks"). Those are fine
-        # mid-sentence, but if one LEADS, every later clause -- which `_depersonalise` has
-        # reduced to a bare verb phrase -- attaches itself to the wrong subject: "The manager
-        # leaves Harry Kane on ... and is not one for hitting them from forty yards" says it of
-        # the manager. So when this call is producing the opening clause, choose only from the
-        # forms where the player is the subject, and fall back to the whole bank if a given
-        # angle has none.
+        # VOICE-2026-08-28c. Some phrasings put the player in the OBJECT ("the manager will
+        # not take Kane off", "+150 for Pulisic", "nobody is talking Kane out of it"). Those
+        # are fine mid-sentence, but if one LEADS, every later clause -- which
+        # `_depersonalise` has reduced to a bare verb phrase -- attaches itself to the wrong
+        # subject: "The manager will not take Harry Kane off ... and shoots from where the
+        # angels live" says it of the manager. So when this call is producing the opening
+        # clause, choose only from the forms where the player is the subject, and fall back to
+        # the whole bank if a given angle has none.
+        #
+        # The matching rule for a NON-leading form: the name must sit somewhere `him` reads
+        # correctly, because that is exactly what `_depersonalise` swaps in. "the book has
+        # {who} at -120" becomes "the book has him at -120" and is fine; "so {who} comes to us
+        # with nothing" would become "so him comes to us" and is not. Every object-position
+        # entry below was written against that substitution, not against the sentence it
+        # happens to appear in here.
         def say(opts, kk):
             if lead:
                 subj = [o for o in opts if o.startswith(who + ' ')]
@@ -667,108 +706,120 @@ class Voice:
 
         if npx is None:
             out.append(('noxg',
-                        say([f'{who} has no xG behind him',
-                               f'{who} rides the price alone',
-                               f'nothing on {who} but the price',
-                               f'{who} is unmodelled',
-                               f'no numbers on {who} at all',
-                               f'{who} on trust'], k + 'n'),
-                        say([f'{who} has no top-five xG history behind him, so that price is the whole argument',
-                               f"{who} sits outside Understat's five leagues — {comp} is not covered — so the market is carrying him",
-                               f'there is no model on {who} at all; the price is doing the talking',
-                               f'{who} is unscored on the edge half and rides the market alone',
-                               f'{who} arrives with no xG whatsoever, so the price is doing the talking',
-                               f'{who} has nothing behind him but the number beside his name',
-                               f'{who} is a blank on the model half, which leaves the market to argue for him'], k + 'N')))
+                        # NOTE: nothing in this bank mentions the price. `price` is pinned
+                        # last by _rot and therefore ALWAYS follows this clause, so a phrase
+                        # that reached for the market here printed it twice in one sentence:
+                        # "arrives with no xG at all, pure nerve and a price and is priced
+                        # +270". This bank says only that the model is silent; the next clause
+                        # says what the market thinks, exactly once.
+                        say([f'{who} on pure nerve',
+                               f'{who} off the xG map',
+                               f'{who} unmodelled and unbothered',
+                               f'{who} beyond the numbers',
+                               f'no model can hold {who}',
+                               f'{who} on instinct alone'], k + 'n'),
+                        say([f'{who} plays beyond the reach of the models altogether',
+                               f"{who} plays outside Understat's five, and {comp} is uncharted territory",
+                               f'{who} arrives with no xG at all, on pure nerve and instinct',
+                               f'{who} is unmeasured, unmodelled and entirely unbothered by it',
+                               f'there is no model in the world that can hold {who}',
+                               f'{comp} is off the xG map, so nobody has a number on {who}'], k + 'N')))
             if odds:
                 out.append(('price',
                             say([f'{who} at {odds:+d}', f'{odds:+d} for {who}',
                                    f'{who} is {odds:+d}'], k + 'p'),
                             say([f'{who} is priced {odds:+d}',
-                                   f'the book has {who} at {odds:+d}'], k + 'P')))
+                                   f'the book has {who} at {odds:+d}',
+                                   f'the market puts {who} at {odds:+d}',
+                                   f'{who} comes in at {odds:+d}'], k + 'P')))
             return out
 
         if self._hi('npxg90', npx):
             out.append(('rate',
-                        say([f'{who} at {npx:.2f} xG a 90',
-                               f'{who} lives in there — {npx:.2f} a 90',
-                               f'{who} carries {npx:.2f} a 90',
-                               f'{who} has a goal in him, {npx:.2f} a 90',
-                               f'{who} keeps turning up: {npx:.2f} a 90',
-                               f'{who} is a menace at {npx:.2f} a 90',
-                               f'{npx:.2f} xG a 90 for {who}',
-                               f'{who} in the right postcode, {npx:.2f} a 90'], k + 'r'),
-                        say([f'{who} is generating {npx:.2f} non-penalty xG every ninety he plays',
-                               f'{who} spends his afternoons where the ball drops — {npx:.2f} non-penalty xG a 90',
-                               f'{who} does not need many invitations: {npx:.2f} non-penalty xG a 90',
-                               f'{who} is worth {npx:.2f} xG a 90 before anyone kicks a ball',
-                               f'there is a goal in {who} most weeks, {npx:.2f} non-penalty xG a 90',
-                               f'{who} runs {npx:.2f} non-penalty xG a 90'], k + 'R')))
+                        say([f'{who} magisterial at {npx:.2f} a 90',
+                               f'{who} lives in the danger, {npx:.2f} a 90',
+                               f'{who} is a menace — {npx:.2f} a 90',
+                               f'{who} haunts that box, {npx:.2f} a 90',
+                               f'{who} at {npx:.2f} a 90, glorious',
+                               f'{who} in the postcode of pain, {npx:.2f}',
+                               f'{npx:.2f} non-penalty xG a 90 out of {who}'], k + 'r'),
+                        say([f'{who} is magisterial in there, {npx:.2f} non-penalty xG every ninety',
+                               f'{who} haunts the six-yard box like a rumour, {npx:.2f} xG a 90',
+                               f'{who} lives exactly where the ball comes down — {npx:.2f} xG a 90',
+                               f'{who} is a beautiful nuisance in that box, {npx:.2f} xG a 90',
+                               f'{who} runs {npx:.2f} non-penalty xG a 90 and makes it look like breathing',
+                               f'{who} generates {npx:.2f} glorious non-penalty xG a ninety',
+                               f'{npx:.2f} non-penalty xG a ninety tells you everything about {who}'], k + 'R')))
         if self._hi('xgpershot', xps):
             out.append(('quality',
-                        say([f'{who} {xps:.2f} xG a shot',
-                               f'{who} picks his moment, {xps:.2f} a shot',
-                               f'{who} does not waste them — {xps:.2f} a shot',
-                               f'{who} is fussy: {xps:.2f} a shot',
-                               f'{who} shoots from the good places ({xps:.2f})',
-                               f'{xps:.2f} xG a shot for {who}'], k + 'q'),
-                        say([f'{who} shoots from where it counts — {xps:.2f} xG a shot',
-                               f'{who} is not one for hitting them from forty yards: {xps:.2f} xG a shot',
-                               f'{who} gets himself into the right positions, {xps:.2f} xG a shot',
-                               f'every attempt {who} takes is worth {xps:.2f} xG'], k + 'Q')))
+                        say([f'{who} {xps:.2f} xG a shot, pure geometry',
+                               f'{who} picks his moment — {xps:.2f} a shot',
+                               f'{who} shoots like a surgeon, {xps:.2f}',
+                               f'{who} does not waste them, {xps:.2f} a shot',
+                               f'{who} in the right yards, {xps:.2f} a shot',
+                               f'{xps:.2f} xG an attempt, no waste on {who}'], k + 'q'),
+                        say([f'{who} shoots from where the angels live, {xps:.2f} xG an attempt',
+                               f'{who} gets right in on top of it, {xps:.2f} xG an attempt',
+                               f'{who} finds the good yards before he pulls the trigger, {xps:.2f} a shot',
+                               f'{who} is a picture of restraint at {xps:.2f} xG an attempt',
+                               f'{who} takes them from the places that pay, {xps:.2f} xG a shot',
+                               f'every shot off the boot of {who} is worth {xps:.2f} xG'], k + 'Q')))
         if self._hi('shots90', sh):
             out.append(('volume',
-                        say([f'{who} {sh:.1f} shots a 90',
-                               f'{who} will have a go — {sh:.1f} a 90',
-                               f'{who} lets fly {sh:.1f} times a 90',
+                        say([f'{who} lets fly {sh:.1f} a 90',
+                               f'{who} {sh:.1f} shots a 90, fearless',
+                               f'{who} will have a dig — {sh:.1f} a 90',
                                f'{who} rattles off {sh:.1f} a 90',
-                               f'{who} does not need asking twice, {sh:.1f} a 90'], k + 'v'),
-                        say([f'{who} gets {sh:.1f} attempts away every ninety',
-                               f'{who} is never shy — {sh:.1f} shots a 90',
-                               f'{who} will pull the trigger {sh:.1f} times a game'], k + 'V')))
+                               f'{sh:.1f} attempts a 90 from {who}'], k + 'v'),
+                        say([f'{who} is fearless with it, {sh:.1f} attempts every ninety minutes',
+                               f'{who} does not need asking twice — {sh:.1f} shots a 90',
+                               f'{who} lets fly {sh:.1f} times a ninety, from anywhere and everywhere',
+                               f'{who} pulls the trigger {sh:.1f} times a game without a second thought',
+                               f'{sh:.1f} shots a ninety says nobody is talking {who} out of it'], k + 'V')))
         if fin is not None and fin >= 0.05:
             out.append(('finish',
                         say([f'{who} +{fin:.2f} on his xG',
-                               f'{who} is beating the numbers, +{fin:.2f}',
-                               f'{who} has been burying them, +{fin:.2f} a 90',
-                               f'{who} ahead of his xG by {fin:.2f}'], k + 'f'),
-                        say([f'{who} has been finishing better than the chances deserve, +{fin:.2f} a 90 on his xG',
-                               f'{who} is {fin:.2f} a 90 to the good on his xG',
-                               f'the ones that fall to {who} have been going in — +{fin:.2f} a 90 over his xG'], k + 'F')))
+                               f'{who} burying them, +{fin:.2f}',
+                               f'{who} is stealing goals, +{fin:.2f}',
+                               f'+{fin:.2f} a 90 over xG for {who}'], k + 'f'),
+                        say([f'{who} is +{fin:.2f} a 90 over his xG — the ones that fall are going in',
+                               f'{who} has been finishing above what the chances deserve, +{fin:.2f} a 90',
+                               f'{who} is {fin:.2f} a 90 to the good on his xG, daylight robbery',
+                               f'the half-chances have been going in for {who}, +{fin:.2f} a 90 over xG'], k + 'F')))
         elif fin is not None and fin <= -0.08:
             out.append(('finish',
-                        say([f'{who} {fin:.2f} under his xG',
-                               f'{who} has been wasteful, {fin:.2f} a 90',
-                               f'{who} owed goals — {abs(fin):.2f} a 90 short',
-                               f'{who} {abs(fin):.2f} a 90 light on his xG'], k + 'f'),
-                        say([f'{who} is {abs(fin):.2f} a 90 short of his xG, which is a case for him only if you think that turns',
-                               f'the chances have been falling to {who} and not going in — {abs(fin):.2f} a 90 under his xG'], k + 'F')))
+                        say([f'{who} owed {abs(fin):.2f} a 90',
+                               f'{who} due, {abs(fin):.2f} under his xG',
+                               f'{who} robbed of {abs(fin):.2f} a 90',
+                               f'{abs(fin):.2f} a 90 owed to {who}'], k + 'f'),
+                        say([f'{who} is {abs(fin):.2f} a 90 under his xG, a pile of chances still owed him',
+                               f'{who} keeps arriving in the right places, {abs(fin):.2f} a 90 of xG unpaid',
+                               f'{who} is owed {abs(fin):.2f} a 90 on his xG, and the chances keep coming',
+                               f'the football gods owe {who} {abs(fin):.2f} a 90 on his xG'], k + 'F')))
         if avg:
             if avg >= 75:
                 out.append(('mins',
                             say([f'{who} plays the ninety',
                                    f'{who} never comes off',
-                                   f'{who} is on for the lot',
-                                   f'{who} sees out the ninety',
+                                   f'{who} is there at the death',
+                                   f'{who} sees out the lot',
                                    f'{who} does not get hooked',
-                                   f'{who} is there at the death'], k + 'm'),
-                            say([f'{who} plays the full ninety, {avg:.0f} minutes an appearance',
-                                   f'{who} is on the pitch {avg:.0f} minutes a game, so he will be there at the death',
-                                   f'the manager leaves {who} on — {avg:.0f} minutes an appearance',
-                                   f'{who} does not come off — {avg:.0f} minutes an appearance',
-                                   f'{who} sees out the ninety more often than not, {avg:.0f} minutes a game',
-                                   f'{who} is still on the pitch when it matters, {avg:.0f} minutes an appearance'], k + 'M')))
+                                   f'the hook never comes for {who}'], k + 'm'),
+                            say([f'{who} is on for {avg:.0f} minutes an appearance, there at the death',
+                                   f'{who} does not come off — {avg:.0f} minutes a game, every last one',
+                                   f'{who} sees out the ninety, {avg:.0f} minutes a game, until the lights go out',
+                                   f'{who} plays {avg:.0f} minutes an appearance, so he is on when it matters',
+                                   f'the manager will not take {who} off, {avg:.0f} minutes an appearance'], k + 'M')))
             else:
                 out.append(('mins',
                             say([f'{who} a {avg:.0f}-minute man',
-                                   f'{who} usually gets the hook ({avg:.0f}′)',
-                                   f'{who} wants it early — {avg:.0f}′ a game',
-                                   f'{who} off around {avg:.0f}′'], k + 'm'),
-                            say([f'{who} averages {avg:.0f} minutes an appearance, so he wants it before the hour',
-                                   f'{who} tends to come off around the {avg:.0f}-minute mark',
-                                   f'{who} averages only {avg:.0f} minutes an appearance',
-                                   f'{who} gets the hook about the {avg:.0f}-minute mark, so he needs it early',
-                                   f'{who} is rarely there at the end — {avg:.0f} minutes an appearance'], k + 'M')))
+                                   f'{who} gives you {avg:.0f} live minutes',
+                                   f'{who} {avg:.0f} minutes of devilment',
+                                   f'{avg:.0f} minutes a game from {who}'], k + 'm'),
+                            say([f'{who} gives you {avg:.0f} minutes an appearance and spends every one at it',
+                                   f'{who} averages {avg:.0f} minutes a game, and they are lively ones',
+                                   f'{who} is on for {avg:.0f} minutes an appearance and does not waste them',
+                                   f'{avg:.0f} minutes an appearance from {who}, all of them worth watching'], k + 'M')))
         if not out:
             out.append(('rate', f'{who} at {npx:.2f} xG a 90',
                         f'{who} runs {npx:.2f} non-penalty xG a 90'))
@@ -777,14 +828,42 @@ class Voice:
                         say([f'{who} at {odds:+d}', f'{odds:+d} for {who}',
                                f'{who} is {odds:+d}'], k + 'p'),
                         say([f'{who} is priced {odds:+d}',
-                               f'the book has {who} at {odds:+d}'], k + 'P')))
+                               f'the book has {who} at {odds:+d}',
+                               f'the market puts {who} at {odds:+d}',
+                               f'{who} comes in at {odds:+d}'], k + 'P')))
         return out
 
     def ticket_note(self, legs, players, apps, tname=''):
-        """One sentence naming what each leg is FOR, in slip order, no angle used twice."""
+        """One sentence naming what each leg is FOR, in slip order, no angle used twice.
+
+        TNOTEFIT-2026-09-23. `.tnote` is `-webkit-line-clamp:2` at 12px, so a note that runs
+        long is not merely ugly: the browser cuts it mid-word and the last fact on the slip is
+        simply gone off the end of the card. That never bit while the phrase banks were flat
+        and every `full` was forty characters. VOICE-2026-09-23 made them expansive, and an
+        expansive voice needs a floor under it rather than a promise that every hand-written
+        variant is short enough -- there are sixty of them and they combine.
+
+        So: compose, measure, and step down. Full clauses with an opener; then full clauses
+        with no opener; then the short forms. Same legs, same angles, same numbers at every
+        step -- only the wording shrinks. This is CLMPTIER's lesson applied before the fact
+        instead of after it: shorten the sentence you want, do not lose the end of it.
+        """
+        for step in (0, 1, 2):
+            body = self._compose(legs, players, apps, tname, step)
+            if len(body) <= TNOTE_B:
+                return body
+        # TNOTECUT-2026-09-23. Three steps down and still long: three legs, three long
+        # surnames, nothing left to shorten. Cut at a clause boundary rather than hand the
+        # browser a sentence it will cut mid-word. This is CLMPTIER's judgement, verbatim --
+        # whole clauses that fit beat a ragged tail -- and the clause we lose belongs to a leg
+        # the card is already printing by name above the note.
+        return _clmp(body, TNOTE_B) or body
+
+    def _compose(self, legs, players, apps, tname, step=0):
         # a three-leg slip gets one clause per leg or the note overruns the two-line clamp;
-        # a single (anchor / screamer) has the room for two and reads thin with one.
-        per = 1 if len(legs) >= 3 else 2
+        # a single (anchor / screamer) has the room for two and reads thin with one. `step` is
+        # TNOTEFIT's ratchet: 1 drops the opener, 2 drops to the short forms as well.
+        per = 1 if (len(legs) >= 3 or step >= 2) else 2
         used, bits = set(), []
         for l in legs:
             p = players.get(l['name'])
@@ -816,11 +895,12 @@ class Voice:
                 bits.append(cands[0][1] if per == 1 else cands[0][2])
         if not bits:
             return ''
+        _noop = (lambda fr: [f for f in fr if '{o}' not in f]) if step else (lambda fr: fr)
         if len(bits) >= 3:
-            body = _pick(FRAMES_3, tname + 'f3').format(
+            body = _pick(_noop(FRAMES_3), tname + 'f3').format(
                 a=bits[0], b=bits[1], c=', '.join(bits[2:]), o=_pick(OPENERS_3, tname + 'o3'))
         elif len(bits) == 2:
-            body = _pick(FRAMES_2, tname + 'f2').format(
+            body = _pick(_noop(FRAMES_2), tname + 'f2').format(
                 a=bits[0], b=bits[1], o=_pick(OPENERS_1, tname + 'o1'))
         else:
             body = bits[0] + '.'
@@ -828,17 +908,39 @@ class Voice:
         return body[0].upper() + body[1:]
 
     def why(self, p, avg):
-        """Two or three clauses on one card, full name first, then the name drops away."""
+        """Two or three clauses on one card, full name first, then the name drops away.
+
+        VOICE-2026-09-23c. 08-28c said the LEAD has to be a subject form, because the clauses
+        after it are bare verb phrases that inherit its subject. That was half the rule. An
+        object form anywhere but LAST does the same damage, because it brings a subject of its
+        own and the next clause attaches to that instead:
+
+            "Jason Shokalook takes them from the places that pay, 0.17 xG a shot, the football
+             gods owe him 0.12 a 90 on his xG, and is magisterial in there ..."
+
+        -- the gods are magisterial in there. It never showed up before because `_rot` pins
+        `price` last and price was the object-heavy bank; VOICE-2026-09-23 put object forms in
+        every bank and the bug walked straight out onto a card.
+
+        So: pick the angles first, then render, and every clause but the final one is taken
+        from the subject-form bank. The last clause is free, where an object form reads
+        perfectly well ("and the book has him at +275") and is most of the variety.
+        """
         n = p['name']
-        keep, used = [], set()
+        chosen, used = [], set()
         lead_of = {a[0]: a for a in self.angles(p, avg, n, lead=True)}
         for key, _brief, full in _rot(self.angles(p, avg, n), n + 'card'):
             if key in used:
                 continue
             used.add(key)
-            keep.append(_depersonalise(full, n) if keep else lead_of.get(key, (0, 0, full))[2])
-            if len(keep) == 3:
+            chosen.append((key, full))
+            if len(chosen) == 3:
                 break
+        keep = []
+        for i, (key, full) in enumerate(chosen):
+            if i < len(chosen) - 1:
+                full = lead_of.get(key, (0, 0, full))[2]
+            keep.append(full if i == 0 else _depersonalise(full, n))
         return _sentence(keep)
 
 
@@ -853,6 +955,26 @@ def _sentence(bits):
     else:
         body = ', '.join(bits[:-1]) + ', and ' + bits[-1]
     return body[0].upper() + body[1:] + '.'
+
+
+def _clmp(text, b):
+    """Cut a note back to the last whole clause that fits inside `b`, or '' if none does.
+
+    TNOTECUT-2026-09-23. Deliberately the same shape as clmp() in index.html: find a clause
+    separator, cut there, re-punctuate. It returns '' rather than a fragment when the first
+    clause alone is already too long, so the caller can decide that an overlong sentence beats
+    a two-word one -- losing the end of a note to the browser is bad, losing all of it is worse.
+    """
+    if len(text) <= b:
+        return text
+    head = text[:b - 1]
+    # Every separator FRAMES_2 and FRAMES_3 can put between two clauses. '. ' has to be in
+    # here: the frame '{a} and {b}. {c}.' is the one that overflows worst, and a cut that only
+    # knew about commas found no boundary in it at all and gave up.
+    i = max(head.rfind(sep) for sep in ('. ', ', ', '; ', ' \u2014 ', ' and '))
+    if i < 40:
+        return ''
+    return head[:i].rstrip(' ,;\u2014-') + '.'
 
 
 def _surname(name):
