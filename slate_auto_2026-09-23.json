@@ -1,11 +1,11 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T20:06:58Z",
+  "pulled_at": "2026-09-23T20:12:28Z",
   "games": [
     {
       "gamePk": 824223,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-23T17:10:00Z",
       "matchup": "WSH@DET",
       "away": {
@@ -183,7 +183,7 @@
           {
             "id": 678218,
             "name": "Brandon Valenzuela",
-            "iso": 0.14
+            "iso": 0.139
           },
           {
             "id": 664702,
@@ -193,7 +193,7 @@
           {
             "id": 676391,
             "name": "Ernie Clement",
-            "iso": 0.107
+            "iso": 0.108
           }
         ],
         "confirmed": true
@@ -363,7 +363,7 @@
           {
             "id": 805346,
             "name": "Ben Ross",
-            "iso": 0.105
+            "iso": 0.1
           }
         ],
         "confirmed": true
@@ -373,7 +373,7 @@
         "sp": {
           "id": 702885,
           "name": "Cesar Perdomo",
-          "hr9": 1.27,
+          "hr9": 1.23,
           "hand": "LHP"
         },
         "lineup": [
@@ -405,7 +405,7 @@
           {
             "id": 695391,
             "name": "Brett Harris",
-            "iso": 0.062
+            "iso": 0.06
           },
           {
             "id": 691785,
@@ -585,8 +585,54 @@
           "hr9": 1.35,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.16
+          },
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.195
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.173
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.15
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.226
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.136
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.139
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.088
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
@@ -1129,16 +1175,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 8mph, 62\u00b0",
-        "lean": "Suppress",
-        "temp": 61.9,
-        "wind_mph": 8.4,
-        "wind_dir": 56,
-        "tail_mph": -7.5,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.961
+      "wf": 1.0
     },
     {
       "gamePk": 822841,
