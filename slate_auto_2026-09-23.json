@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T19:42:13Z",
+  "pulled_at": "2026-09-23T19:47:15Z",
   "games": [
     {
       "gamePk": 824223,
@@ -153,17 +153,17 @@
           {
             "id": 664770,
             "name": "Nathan Lukes",
-            "iso": 0.111
+            "iso": 0.11
           },
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.098
+            "iso": 0.097
           },
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.222
+            "iso": 0.221
           },
           {
             "id": 543807,
@@ -308,7 +308,7 @@
     },
     {
       "gamePk": 823168,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-23T19:45:00Z",
       "matchup": "MIN@SF",
       "away": {
@@ -373,7 +373,7 @@
         "sp": {
           "id": 702885,
           "name": "Cesar Perdomo",
-          "hr9": 1.4,
+          "hr9": 1.37,
           "hand": "LHP"
         },
         "lineup": [
@@ -1159,16 +1159,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 89\u00b0",
-        "lean": "Boost",
-        "temp": 89.0,
-        "wind_mph": 2.9,
-        "wind_dir": 293,
-        "tail_mph": 1.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.035
+      "wf": 1.0
     },
     {
       "gamePk": 823894,
@@ -1200,9 +1193,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 70\u00b0",
+        "lean": "Neutral",
+        "temp": 70.3,
+        "wind_mph": 4.7,
+        "wind_dir": 265,
+        "tail_mph": 2.4,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.009
     },
     {
       "gamePk": 823086,
