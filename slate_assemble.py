@@ -168,6 +168,61 @@ def main():
     cards, extras, pitch, roto, odds = (J('cards.json'), J('extras.json'),
                                         J('pitch.json'), J('roto.json'), J('odds.json'))
 
+    # ---- SUFFIXSTRIP-2026-09-23 ----------------------------------------------------
+    # Kasper started rendering generational suffixes on 2026-09-22 -- `Vladimir Guerrero Jr.`,
+    # `Bobby Witt Jr.`, `Ronald Acuña Jr.`, `Michael Harris II`, `Daniel Lynch IV` -- where every
+    # committed slate before that day carries ZERO. RotoWire and VegasInsider do not use them, so
+    # the lineup join dropped the eight biggest names on the board and the first assemble printed
+    # eight "uncarded lineup bat" warnings.
+    #
+    # It was hand-patched in the build script that day and the doc said the next session had to
+    # decide whether Kasper had really changed or that scrape had misread one element. It RECURRED
+    # on 09-23, 13 names, so it is the rendering. This is the strip, committed, so it stops being a
+    # morning hand-patch -- the same reason ODDS_ALIAS below exists.
+    #
+    # ⚠️ This is NOT the same thing as build15's `lunorm`. That strips suffixes when JOINING and
+    # covers the scorer; it does not cover `slate_validate`'s card check, and it does not decide
+    # what the board DISPLAYS. Stripping here keeps displayed names matching three months of
+    # precedent and keeps `norm()`-keyed maps single-spelled. Idempotent: a name with no suffix is
+    # untouched, so a scrape that already stripped (or a source that never added one) is a no-op.
+    # A strip that would COLLIDE with an existing different entry is refused and printed, because
+    # the name-keyed maps (extras, pitch) are last-write-wins and would silently take the wrong bat.
+    _sfx = re.compile(r"\s+(Jr\.?|Sr\.?|I{2,3}|IV|V)$")
+    _sfx_hits, _sfx_skip = [], []
+    def _desuffix(n):
+        m = _sfx.search(n or '')
+        return (n[:m.start()] if m else n)
+    for _tm in cards.values():
+        for _arr in _tm.values():
+            for _b in _arr:
+                _n = _desuffix(_b.get('name'))
+                if _n != _b.get('name'):
+                    _sfx_hits.append(_b['name']); _b['name'] = _n
+    for _src in (extras, pitch):
+        # Rebuild IN ORDER rather than pop/reinsert: these are name-keyed lookups where order means
+        # nothing to any consumer, but moving 13 renamed keys to the end churns the committed file
+        # every morning and buries the one line that matters in a diff.
+        _new, _changed = {}, False
+        for _k, _v in _src.items():
+            _n = _desuffix(_k)
+            if _n != _k and _n in _src:
+                _sfx_skip.append(_k); _n = _k
+            _changed = _changed or (_n != _k)
+            _new[_n] = _v
+        if _changed:
+            _src.clear(); _src.update(_new)
+    for _g in roto:
+        for _side in ('away', 'home'):
+            for _b in _g.get(_side + '_bats') or []:
+                _b['name'] = _desuffix(_b.get('name'))
+            _sp = _g.get(_side + '_sp') or {}
+            if _sp.get('name'):
+                _sp['name'] = _desuffix(_sp['name'])
+    if _sfx_hits:
+        print(f"  suffix-stripped {len(_sfx_hits)} card name(s): " + ', '.join(sorted(set(_sfx_hits))))
+    if _sfx_skip:
+        print(f"  ::warning::suffix strip REFUSED (would collide with an existing entry): {_sfx_skip}")
+
     cards, extras, roto, _dropped, _derrs = drop_excluded(cards, extras, roto)
     for _d in _dropped:
         print(f"  excluded (permanent): {_d}")
