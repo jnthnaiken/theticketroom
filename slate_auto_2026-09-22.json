@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
   "season": "2026",
-  "pulled_at": "2026-09-23T02:09:33Z",
+  "pulled_at": "2026-09-23T02:14:57Z",
   "games": [
     {
       "gamePk": 823543,
@@ -49,7 +49,7 @@
           },
           {
             "id": 683748,
-            "name": "Victor Mesa",
+            "name": "Victor Mesa Jr.",
             "iso": 0.248
           },
           {
@@ -91,13 +91,13 @@
           },
           {
             "id": 671277,
-            "name": "Luis Garc\u00eda",
+            "name": "Luis Garc\u00eda Jr.",
             "iso": 0.248
           },
           {
             "id": 806146,
-            "name": "George Lombard",
-            "iso": 0.145
+            "name": "George Lombard Jr.",
+            "iso": 0.144
           },
           {
             "id": 682987,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 823494,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-22T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -240,7 +240,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.145
+            "iso": 0.144
           },
           {
             "id": 669224,
@@ -986,7 +986,7 @@
           {
             "id": 695657,
             "name": "Colson Montgomery",
-            "iso": 0.212
+            "iso": 0.213
           },
           {
             "id": 695731,
@@ -1237,7 +1237,7 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.145
+            "iso": 0.147
           },
           {
             "id": 543760,
@@ -1342,7 +1342,7 @@
         "sp": {
           "id": 647336,
           "name": "Michael Soroka",
-          "hr9": 0.75,
+          "hr9": 0.74,
           "hand": "RHP"
         },
         "lineup": [
@@ -1467,7 +1467,7 @@
     },
     {
       "gamePk": 824953,
-      "status": "In Progress",
+      "status": "Player challenge",
       "gameTime": "2026-09-23T01:40:00Z",
       "matchup": "LAA@ATH",
       "away": {
@@ -1475,7 +1475,7 @@
         "sp": {
           "id": 579328,
           "name": "Yusei Kikuchi",
-          "hr9": 1.08,
+          "hr9": 1.07,
           "hand": "LHP"
         },
         "lineup": [
@@ -1559,12 +1559,12 @@
           {
             "id": 695720,
             "name": "Tommy White",
-            "iso": 0.08
+            "iso": 0.079
           },
           {
             "id": 811965,
             "name": "Joshua Kuroda-Grauer",
-            "iso": 0.166
+            "iso": 0.164
           },
           {
             "id": 641680,
@@ -1608,7 +1608,7 @@
         "sp": {
           "id": 664299,
           "name": "Cristian Javier",
-          "hr9": 1.46,
+          "hr9": 1.45,
           "hand": "RHP"
         },
         "lineup": [
@@ -1650,7 +1650,7 @@
           {
             "id": 701358,
             "name": "Cam Smith",
-            "iso": 0.18
+            "iso": 0.182
           },
           {
             "id": 694728,
@@ -1692,7 +1692,7 @@
           {
             "id": 677594,
             "name": "Julio Rodr\u00edguez",
-            "iso": 0.154
+            "iso": 0.153
           },
           {
             "id": 647304,
@@ -1834,7 +1834,7 @@
           {
             "id": 814154,
             "name": "Scott Bandura",
-            "iso": 0.053
+            "iso": 0.05
           },
           {
             "id": 701852,
@@ -1844,7 +1844,7 @@
           {
             "id": 683766,
             "name": "Christian Koss",
-            "iso": 0.096
+            "iso": 0.095
           }
         ],
         "confirmed": true
@@ -1865,7 +1865,7 @@
     },
     {
       "gamePk": 823897,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-23T02:10:00Z",
       "matchup": "SD@LAD",
       "away": {
@@ -1885,7 +1885,7 @@
           {
             "id": 687957,
             "name": "Dustin Harris",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 592518,
@@ -1930,7 +1930,7 @@
         "sp": {
           "id": 592779,
           "name": "Brock Stewart",
-          "hr9": 1.09,
+          "hr9": 1.07,
           "hand": "RHP"
         },
         "lineup": [
@@ -2026,16 +2026,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind in 8mph, 60\u00b0",
-        "lean": "Suppress",
-        "temp": 59.9,
-        "wind_mph": 7.9,
-        "wind_dir": 25,
-        "tail_mph": -7.9,
-        "precip": 64
+        "note": "weather fetch failed"
       },
-      "wf": 0.957
+      "wf": 1.0
     }
   ]
 }
