@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-23",
- "built_at": "2026-09-23T17:13:31Z",
+ "built_at": "2026-09-23T18:01:17Z",
  "teams": {
   "ATH": {
    "n_rel": 12,
@@ -368,17 +368,17 @@
    "d1_pitches": 41
   },
   "TB": {
-   "n_rel": 9,
+   "n_rel": 10,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0302,
-   "hr_bf_avail": 0.0302,
-   "hr_bf_L": 0.0377,
+   "hr_bf": 0.0343,
+   "hr_bf_avail": 0.0343,
+   "hr_bf_L": 0.0419,
    "hr_bf_R": 0.0263,
-   "hr_bf_avail_L": 0.0377,
+   "hr_bf_avail_L": 0.0419,
    "hr_bf_avail_R": 0.0263,
-   "share_L": 0.312,
-   "air_share": 0.53,
+   "share_L": 0.491,
+   "air_share": 0.547,
    "d1_pitches": 53
   },
   "TEX": {
@@ -492,10 +492,10 @@
    "hr_bf": 0.0394
   },
   "ian seymour": {
-   "id": 693855,
-   "bf_exp": 20.94,
-   "kind": "sp",
-   "hr_bf": 0.0431
+   "id": null,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": null
   },
   "sonny gray": {
    "id": 543243,
@@ -611,111 +611,111 @@
    "home": "DET",
    "hour": 13,
    "dome": false,
-   "temp": 65.0,
-   "rh": 60,
-   "pres": 1007.1,
-   "wind": 16.6,
-   "wind_out": -10.89,
-   "rho": 1.1979
+   "temp": 63.3,
+   "rh": 64,
+   "pres": 1007.0,
+   "wind": 16.7,
+   "wind_out": -9.82,
+   "rho": 1.2017
   },
   "2": {
    "home": "BAL",
    "hour": 13,
    "dome": false,
-   "temp": 58.1,
-   "rh": 83,
-   "pres": 1027.5,
-   "wind": 4.2,
-   "wind_out": -4.18,
-   "rho": 1.2381
+   "temp": 60.9,
+   "rh": 80,
+   "pres": 1028.1,
+   "wind": 8.4,
+   "wind_out": -8.07,
+   "rho": 1.2317
   },
   "3": {
    "home": "SF",
    "hour": 15,
    "dome": false,
-   "temp": 70.1,
-   "rh": 66,
-   "pres": 1012.4,
-   "wind": 4.9,
-   "wind_out": -0.85,
-   "rho": 1.1909
+   "temp": 68.2,
+   "rh": 74,
+   "pres": 1011.5,
+   "wind": 3.7,
+   "wind_out": -1.39,
+   "rho": 1.1937
   },
   "4": {
    "home": "PHI",
    "hour": 18,
    "dome": false,
-   "temp": 64.1,
-   "rh": 57,
-   "pres": 1029.5,
-   "wind": 13.8,
-   "wind_out": -10.72,
-   "rho": 1.2272
+   "temp": 64.3,
+   "rh": 56,
+   "pres": 1029.3,
+   "wind": 13.1,
+   "wind_out": -9.26,
+   "rho": 1.2266
   },
   "5": {
    "home": "PIT",
    "hour": 18,
    "dome": false,
-   "temp": 62.4,
+   "temp": 63.0,
    "rh": 66,
-   "pres": 999.8,
-   "wind": 8.4,
-   "wind_out": -8.3,
-   "rho": 1.1951
+   "pres": 1000.0,
+   "wind": 9.7,
+   "wind_out": -9.52,
+   "rho": 1.1938
   },
   "6": {
    "home": "NYY",
    "hour": 19,
    "dome": false,
-   "temp": 62.7,
-   "rh": 48,
-   "pres": 1030.8,
-   "wind": 10.5,
-   "wind_out": -9.93,
-   "rho": 1.2331
+   "temp": 62.5,
+   "rh": 44,
+   "pres": 1030.3,
+   "wind": 11.5,
+   "wind_out": -11.0,
+   "rho": 1.2334
   },
   "7": {
    "home": "BOS",
    "hour": 19,
    "dome": false,
-   "temp": 55.5,
-   "rh": 70,
-   "pres": 1033.4,
-   "wind": 7.8,
-   "wind_out": -7.8,
-   "rho": 1.253
+   "temp": 55.2,
+   "rh": 72,
+   "pres": 1032.7,
+   "wind": 7.9,
+   "wind_out": -7.9,
+   "rho": 1.2528
   },
   "8": {
    "home": "ATL",
    "hour": 19,
    "dome": false,
-   "temp": 74.2,
-   "rh": 65,
-   "pres": 983.2,
-   "wind": 10.6,
-   "wind_out": -9.44,
-   "rho": 1.1465
+   "temp": 73.2,
+   "rh": 68,
+   "pres": 983.0,
+   "wind": 10.4,
+   "wind_out": -9.35,
+   "rho": 1.1483
   },
   "9": {
    "home": "KC",
    "hour": 19,
    "dome": false,
-   "temp": 73.1,
-   "rh": 51,
-   "pres": 992.1,
-   "wind": 9.3,
-   "wind_out": -7.62,
-   "rho": 1.1614
+   "temp": 74.1,
+   "rh": 50,
+   "pres": 991.8,
+   "wind": 9.4,
+   "wind_out": -7.88,
+   "rho": 1.1587
   },
   "10": {
    "home": "CHC",
    "hour": 19,
    "dome": false,
-   "temp": 61.1,
+   "temp": 61.4,
    "rh": 79,
-   "pres": 1004.6,
-   "wind": 11.5,
-   "wind_out": -9.64,
-   "rho": 1.203
+   "pres": 1004.4,
+   "wind": 9.9,
+   "wind_out": -8.11,
+   "rho": 1.202
   },
   "11": {
    "home": "TEX",
@@ -723,32 +723,32 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 996.3,
+   "pres": 995.7,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1691
+   "rho": 1.1684
   },
   "12": {
    "home": "COL",
    "hour": 20,
    "dome": false,
-   "temp": 63.0,
-   "rh": 82,
-   "pres": 844.9,
-   "wind": 6.6,
-   "wind_out": -3.1,
-   "rho": 1.0063
+   "temp": 68.8,
+   "rh": 56,
+   "pres": 845.6,
+   "wind": 11.1,
+   "wind_out": 10.29,
+   "rho": 0.9973
   },
   "13": {
    "home": "ATH",
    "hour": 21,
    "dome": false,
    "temp": 89.3,
-   "rh": 22,
-   "pres": 1009.6,
-   "wind": 2.2,
-   "wind_out": 1.35,
-   "rho": 1.1487
+   "rh": 23,
+   "pres": 1009.9,
+   "wind": 2.3,
+   "wind_out": 1.25,
+   "rho": 1.1489
   },
   "14": {
    "home": "SEA",
@@ -756,29 +756,29 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 1017.8,
+   "pres": 1017.9,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1944
+   "rho": 1.1945
   },
   "15": {
    "home": "LAD",
    "hour": 22,
    "dome": false,
-   "temp": 70.6,
-   "rh": 80,
-   "pres": 992.8,
-   "wind": 5.0,
-   "wind_out": 3.41,
-   "rho": 1.1649
+   "temp": 70.2,
+   "rh": 85,
+   "pres": 993.2,
+   "wind": 4.8,
+   "wind_out": 2.82,
+   "rho": 1.1658
   }
  },
  "coverage": {
   "box_final_games": 19,
   "box_loaded": 19,
   "rosters": 30,
-  "pitcher_stats": 420,
-  "sps_matched": 30,
+  "pitcher_stats": 421,
+  "sps_matched": 29,
   "sps_named": 30,
   "pens": 30,
   "games": 15,
@@ -787,6 +787,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1790183611,
+ "last_attempt": 1790186477,
  "pregame": true
 }
