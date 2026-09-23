@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-23T20:22:24Z",
+  "pulled_at": "2026-09-23T20:27:06Z",
   "games": [
     {
       "gamePk": 824223,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824785,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-23T17:35:00Z",
       "matchup": "TOR@BAL",
       "away": {
@@ -316,7 +316,7 @@
         "sp": {
           "id": 687570,
           "name": "Connor Prielipp",
-          "hr9": 1.03,
+          "hr9": 1.02,
           "hand": "LHP"
         },
         "lineup": [
@@ -385,7 +385,7 @@
           {
             "id": 806367,
             "name": "Turner Hill",
-            "iso": 0.093
+            "iso": 0.092
           },
           {
             "id": 682674,
@@ -420,7 +420,7 @@
           {
             "id": 683766,
             "name": "Christian Koss",
-            "iso": 0.094
+            "iso": 0.095
           }
         ],
         "confirmed": true
@@ -862,8 +862,54 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.14
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.141
+          },
+          {
+            "id": 663330,
+            "name": "Jahmai Jones",
+            "iso": 0.172
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.202
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.183
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.161
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.133
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.121
+          },
+          {
+            "id": 655316,
+            "name": "Andruw Monasterio",
+            "iso": 0.143
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
@@ -1348,9 +1394,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 3mph, 72\u00b0",
+        "lean": "Neutral",
+        "temp": 71.6,
+        "wind_mph": 10.2,
+        "wind_dir": 285,
+        "tail_mph": -2.6,
+        "precip": 23
       },
-      "wf": 1.0
+      "wf": 0.993
     },
     {
       "gamePk": 824951,
