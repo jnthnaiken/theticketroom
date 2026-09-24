@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-24T01:33:44Z",
+  "pulled_at": "2026-09-24T01:38:47Z",
   "games": [
     {
       "gamePk": 824223,
@@ -537,7 +537,7 @@
     },
     {
       "gamePk": 823327,
-      "status": "In Progress",
+      "status": "Final",
       "gameTime": "2026-09-23T22:40:00Z",
       "matchup": "STL@PIT",
       "away": {
@@ -624,7 +624,7 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.233
+            "iso": 0.232
           },
           {
             "id": 693304,
@@ -634,7 +634,7 @@
           {
             "id": 682927,
             "name": "Ronny Simon",
-            "iso": 0.111
+            "iso": 0.109
           },
           {
             "id": 656811,
@@ -905,7 +905,7 @@
           {
             "id": 676609,
             "name": "Jos\u00e9 Caballero",
-            "iso": 0.136
+            "iso": 0.135
           },
           {
             "id": 641857,
@@ -961,7 +961,7 @@
           {
             "id": 800050,
             "name": "Chase DeLauter",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 666176,
@@ -1161,7 +1161,7 @@
           {
             "id": 671739,
             "name": "Michael Harris II",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 663586,
@@ -1309,7 +1309,7 @@
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.209
+            "iso": 0.208
           },
           {
             "id": 686555,
@@ -1437,7 +1437,7 @@
           {
             "id": 699393,
             "name": "Pedro Ram\u00edrez",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 621020,
@@ -1503,7 +1503,7 @@
           {
             "id": 701807,
             "name": "Carson Benge",
-            "iso": 0.146
+            "iso": 0.145
           },
           {
             "id": 543760,
@@ -1545,7 +1545,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 673962,
@@ -1608,7 +1608,7 @@
         "sp": {
           "id": 518876,
           "name": "Merrill Kelly",
-          "hr9": 1.59,
+          "hr9": 1.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -1672,12 +1672,12 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.188
+            "iso": 0.187
           },
           {
             "id": 696100,
@@ -1712,7 +1712,7 @@
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.124
+            "iso": 0.123
           }
         ],
         "confirmed": true
@@ -1853,13 +1853,20 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 88\u00b0",
+        "lean": "Boost",
+        "temp": 88.4,
+        "wind_mph": 3.3,
+        "wind_dir": 318,
+        "tail_mph": 0.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.03
     },
     {
       "gamePk": 823894,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-24T02:10:00Z",
       "matchup": "SD@LAD",
       "away": {
@@ -1979,16 +1986,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 4mph, 70\u00b0",
-        "lean": "Neutral",
-        "temp": 70.4,
-        "wind_mph": 5.1,
-        "wind_dir": 247,
-        "tail_mph": 3.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.014
+      "wf": 1.0
     },
     {
       "gamePk": 823086,
