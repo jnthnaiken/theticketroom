@@ -40,7 +40,71 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
 
 .tab[aria-selected="true"]{color:#06121a;background:linear-gradient(180deg,#5fe0f5,var(--cyan));box-shadow:0 4px 16px #26d4f04d}
 .tab:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-.bar{position:sticky;top:62px;z-index:15;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:8px 0 16px;box-shadow:0 -16px 0 var(--bg)}
+
+/* ROOMSWITCH-2026-09-24. Owner: "we need to put something on the sticky bar where you easily
+   switch between each sports page", then "put it to the right", "i dont want the sticky bar more
+   than 1 row" and "should also be more subtle. like the other tabs".
+   Until now the board carried ZERO links -- the only way out of a room was the back button or
+   typing the URL, and a reader who arrived from a shared ticket never saw the other two existed.
+
+   ⚠️ ONE BLOCK, THREE ROOMS, NO NEW FORK SEAM. The markup is IDENTICAL on baseball, soccer and
+   football; which chip is lit is decided at RUNTIME from location.pathname (see ROOMSWITCH in the
+   script at the foot of the page). Do not "fix" that by seaming the active state per room --
+   nfl_fork.py and soccer_fork.py replace by exact string, and every seam added here is another
+   string a baseball rename can orphan (FORKSEAMS-2026-09-24: six in one afternoon).
+
+   ⚠️ ONE ROW IS A HARD CONSTRAINT AND THE ROW IS FULL. At 1280 the content column is 1084px and
+   the tabs pill measures 464, Find 230, this group ~300, plus two 14px gaps -- about 1022, which
+   fits with 60px to spare and nothing more. That budget is why there is no "Rooms" caption, why
+   the labels collapse to ⚾/⚽/🏈 on a phone, and why .nav must NOT wrap: with flex-wrap on, the
+   pill's hypothetical 464px no longer fits beside Find and the browser breaks the line instead of
+   squeezing the pill, which is how this first shipped as a two-row bar.
+
+   Names and accents are the COVER's, not new ones: Baseball/Soccer/Football and cyan/lime/amber
+   are what cover.html's .card.mlb/.soc/.nfl already use. Basketball is absent on purpose -- it has
+   no room to link to, and the cover carries the under-construction sign.
+   URLs are ABSOLUTE (/mlb/, /soccer/, /nfl/): the rooms are siblings under the domain root, since
+   deploy-pages.yml stages index.html -> _site/mlb/. A relative "soccer/" resolves to /mlb/soccer/. */
+.rooms{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:4px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:4px}
+/* `margin-left:auto` is what pins the group right, and it only works because .navfind's own
+   `margin-right:auto` is cancelled just below: two auto margins in one flex line SPLIT the free
+   space, which parked the group in the middle of the bar instead of at the end. */
+.nav .navfind{margin-right:0}
+.room{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:13px;font-weight:600;color:var(--mut);text-decoration:none;border:0;border-radius:9px;padding:9px 14px;white-space:nowrap;transition:.16s}
+.room:hover{color:var(--txt);background:var(--surf2)}
+/* SUBTLE, owner's call: the lit room is NOT the .tab[aria-selected] treatment. That is a filled
+   cyan pill with a glow, and three of them in three different accents made the bar shout over the
+   board. The room accent is carried by the TEXT on a raised chip instead -- same shell as .tabs,
+   a quieter state inside it, so "which sport" and "which view" read as one family. */
+.r-mlb{--rc:var(--cyan)}.r-soc{--rc:var(--lime)}.r-nfl{--rc:var(--amber)}
+/* The ring carries the accent at low strength so the lit chip still reads as the room's colour on a
+   phone, where the label is an emoji and `color` cannot touch it. */
+.room[aria-current="page"]{color:var(--rc);background:var(--raise);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--rc) 45%,var(--line2))}
+.room[aria-current="page"]:hover{color:var(--rc);background:var(--raise)}
+.room:focus-visible{outline:2px solid var(--rc,var(--cyan));outline-offset:2px}
+/* GLYPHS ARE THE DEFAULT, WORDS ARE THE WIDE-SCREEN LUXURY -- and the breakpoint is arithmetic,
+   not taste. The words cost ~300px; the row can pay that only once the content column reaches
+   464 (tabs) + 230 (Find) + 300 + 28 (gaps) = 1022px, which is a 1218px viewport. 1240 gives that
+   a little air. Below it the chips are the sport glyphs (~118px) and the row still fits down to a
+   1036px viewport; below THAT the tabs pill starts being squeezed and its scroller takes over --
+   which is why the scroller's media query was moved from 620px to 1040px further down.
+   Emoji, not the cover's line-art SVGs: those are drawn for 26-28px and their own comments record
+   that the nested boxes smear below that. The accessible name is on the <a>, so the glyph is
+   decoration and is aria-hidden. */
+.rlong{display:none}
+.rico{font-size:15px;line-height:1}
+@media(min-width:1240px){.rlong{display:inline}.rico{display:none}}
+/* Phone: all three controls stay on the row, so the two elastic ones have to actually be elastic.
+   ⚠️ `.nav .navfind`, not `.navfind` -- the base rule 700 lines down sets `flex:none` and carries
+   the same specificity, so it wins on source order and the field refuses to give up a pixel. That
+   is what drove the tabs pill to EIGHT pixels wide at 390 the first time this was measured.
+   `min-width` on the pill is the floor that stops the squeeze landing entirely on it. */
+@media(max-width:700px){.rooms{gap:2px;padding:3px;order:4}.room{padding:8px 8px}
+  .nav .navfind{flex:0 1 112px;min-width:92px;margin-right:0}
+  .nav .navfind input[type=search]{min-width:0;width:100%}
+  .nav .tabs{flex:0 1 auto;min-width:110px}}
+@media(max-width:430px){.room{padding:7px 6px}.rico{font-size:14px}}
+.bar{position:sticky;top:var(--navh,62px);z-index:15;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:8px 0 16px;box-shadow:0 -16px 0 var(--bg)}
 .fld{display:flex;flex-direction:column;gap:6px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 select,input[type=search]{font-family:Inter,sans-serif;font-size:14px;color:var(--txt);background:var(--surf2);border:1px solid var(--line2);border-radius:10px;padding:10px 13px;min-width:210px}
 select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:1px;border-color:var(--cyan)}
@@ -98,7 +162,7 @@ select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:foc
 .t-premium .dot{background:var(--tg);box-shadow:0 0 6px var(--tg)}.t-premium .meter i{background:var(--tg)}
 .t-strong .dot{background:var(--to);box-shadow:0 0 6px var(--to)}.t-strong .meter i{background:var(--to)}
 .t-value .dot{background:var(--tp);box-shadow:0 0 6px var(--tp)}.t-value .meter i{background:var(--tp)}
-.pc{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px 17px;scroll-margin-top:130px;transition:.18s;overflow:hidden}
+.pc{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px 17px;scroll-margin-top:calc(var(--navh,62px) + 68px);transition:.18s;overflow:hidden}
 .pc:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
 .pc.t-premium:before{background:var(--tg)}.pc.t-strong:before{background:var(--to)}.pc.t-value:before{background:var(--tp)}
 .pc:hover{border-color:var(--line2);transform:translateY(-2px)}.pc.flash{border-color:var(--pink);box-shadow:0 0 0 2px var(--pink),0 0 26px #ff5d8f55}
@@ -125,7 +189,7 @@ select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:foc
 .why{font-size:14px;color:#dde6f2;border-top:1px solid var(--line);padding-top:13px}
 .empty{grid-column:1/-1;color:var(--dim);text-align:center;padding:46px 0;font-size:14px}
 .foot{margin-top:34px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--dim)}
-@media(max-width:560px){.ptot{font-size:24px}.parlay .od{font-size:19px}.bar{top:60px}.pc{scroll-margin-top:150px}}
+@media(max-width:560px){.ptot{font-size:24px}.parlay .od{font-size:19px}.bar{top:var(--navh,60px)}.pc{scroll-margin-top:calc(var(--navh,60px) + 90px)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 
 .rfbar{display:inline-flex;gap:8px;align-items:center;margin-left:12px}
@@ -373,7 +437,17 @@ header{position:relative}
 }
 
 .nav .tabs .tab{white-space:nowrap}
-@media(max-width:620px){.nav .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}
+/* ROOMSWITCH-2026-09-24 moved this breakpoint from 620px to 1040px. It is the tabs pill's
+   horizontal scroller, and the width at which the pill starts being SQUEEZED is set by what else
+   shares the row -- so adding the room switcher moved it. The pill wants 464px; Find takes 230 and
+   the glyph-sized room group ~118, plus two 14px gaps, so the pill is full-size only while the
+   content column is at least ~840px, i.e. a ~1036px viewport. Below that it has to scroll or it
+   clips its own labels.
+   This band was ALREADY wrong before the switcher: without the rooms the pill needed a 904px
+   viewport and the scroller did not start until 620, so 620-904 was squeezing with no scroller.
+   Widening it fixes that too. `max-width:100%` is unchanged -- .nav does not wrap, so the cap is
+   only there to stop the pill pushing the row wider than the column. */
+@media(max-width:1040px){.nav .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}
  .nav .tabs::-webkit-scrollbar{display:none}
  .nav .tabs .tab{flex:0 0 auto}}
 @media(max-width:430px){.nav .tabs{gap:2px;padding:3px}
@@ -749,7 +823,7 @@ body::after{
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label></div>
+</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label><nav class="rooms" aria-label="Rooms"><a class="room r-mlb" href="/mlb/" title="Baseball" aria-label="Baseball room"><span class="rlong">Baseball</span><span class="rico" aria-hidden="true">⚾</span></a><a class="room r-soc" href="/soccer/" title="Soccer" aria-label="Soccer room"><span class="rlong">Soccer</span><span class="rico" aria-hidden="true">⚽</span></a><a class="room r-nfl" href="/nfl/" title="Football" aria-label="Football room"><span class="rlong">Football</span><span class="rico" aria-hidden="true">🏈</span></a></nav></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  
@@ -3901,6 +3975,36 @@ if(window.ResizeObserver){
 }
 schedule();
 window.htDraw=schedule;
+})();
+</script>
+<script>
+/* ROOMSWITCH-2026-09-24 -- the room switcher's two moving parts. See the .rooms CSS block for why
+   the markup is identical in all three rooms.
+
+   1. WHICH CHIP IS LIT is read from location.pathname, not baked in. deploy-pages.yml publishes
+      the three rooms as siblings -- /mlb/, /soccer/, /nfl/ -- so the path IS the room. Anything
+      else (a local file, a preview) lights nothing rather than guessing, which is why there is no
+      `else 'r-mlb'` fallback: a forked page opened from disk would otherwise claim to be baseball.
+
+   2. --navh KEEPS .bar FLUSH UNDER .nav. .bar stuck at a hard-coded top:62px (60 below 560px),
+      tuned by eye -- and it was already wrong before this change: the nav measures 70px on a
+      desktop and 66 on a phone, so the filter bar sat ~8px UNDER the nav's box and only the
+      `box-shadow:0 -16px 0 var(--bg)` hid the seam. The room chips are taller than the Find
+      field, so the nav now measures 74/68 and that slack was about to run out. Measuring is what
+      survives every state, including the ones no breakpoint can see: .navfind is hidden by a
+      :has() rule on any non-Tickets tab, which changes the nav's height WITHOUT a resize event.
+      That is the case ResizeObserver is here for -- `resize` alone would miss it. */
+(function(){
+  var nav=document.querySelector('.nav'); if(!nav) return;
+  var p=(location.pathname||'').toLowerCase();
+  var cls=/(^|\/)nfl(\/|$)/.test(p)?'r-nfl':/(^|\/)soccer(\/|$)/.test(p)?'r-soc':/(^|\/)mlb(\/|$)/.test(p)?'r-mlb':'';
+  if(cls){var a=nav.querySelector('.'+cls);if(a)a.setAttribute('aria-current','page');}
+  function navh(){document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px');}
+  navh();
+  window.addEventListener('resize',navh);
+  window.addEventListener('load',navh);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(navh);
+  if(window.ResizeObserver)new ResizeObserver(navh).observe(nav);
 })();
 </script>
 </body></html>
