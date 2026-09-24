@@ -40106,7 +40106,7 @@
     "precip": 1
    }
   },
-  "build": "9/24 6:31pm",
+  "build": "9/24 6:37pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40386,31 +40386,31 @@
    "HOU": 16
   },
   "posted_at": {
-   "12|LAD": 1790287670,
-   "11|SEA": 1790284946,
-   "5|AZ": 1790267798,
-   "5|COL": 1790265150,
-   "7|BOS": 1790274487,
-   "11|LAA": 1790287966,
-   "9|ATL": 1790280074,
-   "8|TB": 1790282206,
-   "1|PIT": 1790265150,
-   "4|TEX": 1790265150,
-   "1|STL": 1790265150,
-   "3|MIA": 1790266103,
-   "6|MIL": 1790278058,
-   "6|PHI": 1790273320,
-   "9|CIN": 1790280074,
    "3|CHC": 1790265150,
    "10|ATH": 1790286448,
+   "6|PHI": 1790273320,
+   "1|PIT": 1790265150,
+   "8|NYY": 1790278241,
+   "9|CIN": 1790280074,
+   "3|MIA": 1790266103,
+   "7|BOS": 1790274487,
+   "5|AZ": 1790267798,
+   "1|STL": 1790265150,
    "7|CLE": 1790277747,
+   "5|COL": 1790265150,
+   "9|ATL": 1790280074,
+   "8|TB": 1790282206,
+   "6|MIL": 1790278058,
    "2|CWS": 1790265150,
    "4|NYM": 1790266681,
    "2|KC": 1790265150,
-   "8|NYY": 1790278241
+   "11|LAA": 1790287966,
+   "12|LAD": 1790287670,
+   "4|TEX": 1790265150,
+   "11|SEA": 1790284946
   },
   "chalkstate": {
-   "b": "9/24 6:31pm",
+   "b": "9/24 6:37pm",
    "s": {}
   },
   "chalk": [],
@@ -40825,6 +40825,44 @@
    "locked": true
   },
   {
+   "name": "Chart a Course",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Victor Mesa is red-zone strong (11% of his contact), has the raw juice to clear any wall (100/100 power), sits at 144 on our board tonight.",
+   "players": [
+    {
+     "name": "Victor Mesa",
+     "team": "Rays",
+     "total": 144.2,
+     "aT": 100,
+     "wf": 0.962,
+     "gmatch": "TB@NYY",
+     "gtime": "7:05 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 525,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Victor Mesa",
+   "lock": "7:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 525,
+   "payout10": 62.5,
+   "locked": true
+  },
+  {
    "name": "One Swing Free",
    "kind": "dinger",
    "badge": "\ud83c\udfaf",
@@ -40860,43 +40898,6 @@
    "priced": 1,
    "parlay_am": 575,
    "payout10": 67.5
-  },
-  {
-   "name": "Chart a Course",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Victor Mesa is red-zone strong (11% of his contact), has the raw juice to clear any wall (100/100 power), sits at 144 on our board tonight.",
-   "players": [
-    {
-     "name": "Victor Mesa",
-     "team": "Rays",
-     "total": 144.2,
-     "aT": 100,
-     "wf": 0.962,
-     "gmatch": "TB@NYY",
-     "gtime": "7:05 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 525,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Victor Mesa",
-   "lock": "7:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 525,
-   "payout10": 62.5
   }
  ],
  "pool": [
