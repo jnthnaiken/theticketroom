@@ -1,11 +1,11 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T16:07:44Z",
+  "pulled_at": "2026-09-24T16:12:17Z",
   "games": [
     {
       "gamePk": 823326,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-24T16:35:00Z",
       "matchup": "STL@PIT",
       "away": {
@@ -571,7 +571,7 @@
         "wind_mph": 8.5,
         "wind_dir": 360,
         "tail_mph": -8.5,
-        "precip": 1
+        "precip": 2
       },
       "wf": 0.977
     },
@@ -603,9 +603,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 8mph, 64\u00b0",
+        "lean": "Suppress",
+        "temp": 63.6,
+        "wind_mph": 9.8,
+        "wind_dir": 45,
+        "tail_mph": -8.5,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.961
     },
     {
       "gamePk": 824707,
