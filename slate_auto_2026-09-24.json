@@ -1,11 +1,11 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T19:21:47Z",
+  "pulled_at": "2026-09-24T19:27:02Z",
   "games": [
     {
       "gamePk": 823326,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-24T16:35:00Z",
       "matchup": "STL@PIT",
       "away": {
@@ -146,7 +146,7 @@
         "sp": {
           "id": 689818,
           "name": "David Sandlin",
-          "hr9": 1.67,
+          "hr9": 1.64,
           "hand": "RHP"
         },
         "lineup": [
@@ -240,7 +240,7 @@
           {
             "id": 670231,
             "name": "John Rave",
-            "iso": 0.205
+            "iso": 0.203
           },
           {
             "id": 664728,
@@ -279,7 +279,7 @@
         "sp": {
           "id": 663969,
           "name": "Tyler Phillips",
-          "hr9": 1.22,
+          "hr9": 1.21,
           "hand": "RHP"
         },
         "lineup": [
@@ -316,12 +316,12 @@
           {
             "id": 691277,
             "name": "Deyvison De Los Santos",
-            "iso": 0.071
+            "iso": 0.069
           },
           {
             "id": 691858,
             "name": "Jared Serna",
-            "iso": 0.111
+            "iso": 0.105
           },
           {
             "id": 640459,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 571510,
           "name": "Matthew Boyd",
-          "hr9": 1.1,
+          "hr9": 1.09,
           "hand": "LHP"
         },
         "lineup": [
@@ -368,7 +368,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.09
+            "iso": 0.089
           },
           {
             "id": 699393,
@@ -412,7 +412,7 @@
         "sp": {
           "id": 804267,
           "name": "Zac Thornton",
-          "hr9": 1.55,
+          "hr9": 1.54,
           "hand": "LHP"
         },
         "lineup": [
@@ -469,7 +469,7 @@
         "sp": {
           "id": 677958,
           "name": "Kumar Rocker",
-          "hr9": 1.24,
+          "hr9": 1.23,
           "hand": "RHP"
         },
         "lineup": [
@@ -516,7 +516,7 @@
           {
             "id": 643376,
             "name": "Danny Jansen",
-            "iso": 0.158
+            "iso": 0.157
           }
         ],
         "confirmed": true
@@ -586,7 +586,7 @@
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.148
+            "iso": 0.147
           },
           {
             "id": 694374,
@@ -601,7 +601,7 @@
         "sp": {
           "id": 685299,
           "name": "Tanner Gordon",
-          "hr9": 1.88,
+          "hr9": 1.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -680,8 +680,54 @@
           "hr9": 1.05,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.159
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.179
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.149
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.223
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.21
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.084
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.088
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.087
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.135
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "PHI",
