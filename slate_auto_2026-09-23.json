@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-24T03:24:23Z",
+  "pulled_at": "2026-09-24T03:29:19Z",
   "games": [
     {
       "gamePk": 824223,
@@ -1600,7 +1600,7 @@
     },
     {
       "gamePk": 824301,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-24T00:40:00Z",
       "matchup": "ARI@COL",
       "away": {
@@ -1720,9 +1720,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 70\u00b0",
+        "lean": "Boost",
+        "temp": 70.1,
+        "wind_mph": 7.1,
+        "wind_dir": 167,
+        "tail_mph": 6.9,
+        "precip": 20
       },
-      "wf": 1.0
+      "wf": 1.024
     },
     {
       "gamePk": 824951,
@@ -1846,20 +1853,13 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 90\u00b0",
-        "lean": "Boost",
-        "temp": 89.8,
-        "wind_mph": 3.9,
-        "wind_dir": 301,
-        "tail_mph": 1.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.036
+      "wf": 1.0
     },
     {
       "gamePk": 823894,
-      "status": "In Progress",
+      "status": "Manager challenge",
       "gameTime": "2026-09-24T02:10:00Z",
       "matchup": "SD@LAD",
       "away": {
