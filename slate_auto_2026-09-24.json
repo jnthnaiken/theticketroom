@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T22:01:14Z",
+  "pulled_at": "2026-09-24T22:07:10Z",
   "games": [
     {
       "gamePk": 823326,
@@ -633,7 +633,7 @@
           {
             "id": 691720,
             "name": "Kyle Karros",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 664954,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823411,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-24T22:05:00Z",
       "matchup": "MIL@PHI",
       "away": {
@@ -1374,7 +1374,7 @@
     },
     {
       "gamePk": 823895,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T02:10:00Z",
       "matchup": "SD@LAD",
       "away": {
@@ -1396,10 +1396,56 @@
           "hr9": 0.93,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.243
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.194
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.145
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.154
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.156
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.24
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.186
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.096
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.139
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
