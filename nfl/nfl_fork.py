@@ -88,7 +88,13 @@ def seams(payload_js):
     add('bbadge', '<span class="bbadge">🧱 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>',
                   '<span class="bbadge">🎯 ${p.khr!=null?p.khr.toFixed(1)+\'%\':\'—\'} ${lift}</span>')
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> inactive risk · ')
-    add('howto-order', 'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⚓️ Anchors, 🚀 Moonshots.',
+    # SPECIALSFORK-2026-09-24: these six seams track baseball's two SPECIALS, which were renamed
+    # on 2026-09-24 (Lunch Special / Nightcap -> Daily Dinger / Long Ball Jackpot). Football keeps
+    # its own two -- kinds `lunch` and `late`, rendered Early Window / Sunday Night -- so the fork
+    # still has to rewrite them; only the SOURCE strings moved. The fork exited 4 on all six the
+    # first time it ran after that rename, which is the seam guard doing its job: it refused to
+    # publish a football page built off markup it no longer recognised.
+    add('howto-order', 'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
                        'Read it top to bottom: 🍱 Early Window, 🌃 Sunday Night, ⚓️ Anchors, 🏈 Paydirt.')
     add('builder-hint', 'Pick bats on the left, then Build.', 'Pick players on the left, then Build.', 3)
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
@@ -197,9 +203,9 @@ def seams(payload_js):
     # The how-to seam renamed the sections in the instructions but not the sections
     # themselves, so the board rendered "LUNCH SPECIAL" and "NIGHTCAP" over football cards.
     # Only visible by loading it -- exactly why soccer_fork.py says build it and read it.
-    add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Lunch Special</span>',
+    add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
                      '<div class="tsec lunch"><span class="tsech">Early Window</span>')
-    add('sec-nightcap', '<span class="tag">Late slate</span> Nightcap<span class="chev">',
+    add('sec-nightcap', '<span class="tag">Free play</span> Long Ball Jackpot<span class="chev">',
                         '<span class="tag">Late slate</span> Sunday Night<span class="chev">')
     # RESTATED-NFL-2026-09-17: the season line says so when nfl_season.json carries `restated`.
     # Week 1 was drafted by the old scorer (raw EV, no cap, usage model alone); nfl_restate.py
@@ -208,13 +214,16 @@ def seams(payload_js):
     add('tracker-restated',
         "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'",
         "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
-    add('tracker-lunch', "['lunch','🍱','Lunch'],['late','🌃','Nightcap']",
+    add('tracker-lunch', "['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot']",
                          "['lunch','🍱','Early'],['late','🌃','Sunday Night']")
     add('kind-lunch',
-        '<b>Lunch Special</b><span>One bat, best model score in an afternoon game. '
-        'Only appears when the slate starts before 5 PM ET.</span>',
+        '<b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
+        'and you pick one — this is the best model score on their list. Not a bet we place.</span>',
         '<b>Early Window</b><span>One player, best model score in the first kickoff wave.</span>')
-    add('kind-nightcap', '<b>Nightcap</b><span>Same idea for the last window of the night.</span>',
+    add('kind-nightcap',
+        '<b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
+        'the man who hits the <i>longest</i> homer that day — we rank park carry plus model '
+        'score. Not a bet we place.</span>',
         '<b>Sunday Night</b><span>Same idea for the last kickoff. It is the one game that cannot '
         'field a parlay \u2014 three legs need three distinct games \u2014 so it gets a single or '
         'nothing.</span>')
