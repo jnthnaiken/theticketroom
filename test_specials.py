@@ -203,6 +203,33 @@ if cd and cj:
     check('jackpot' not in season['cats'],
           'and an ungraded Jackpot never enters the ledger at all', sorted(season['cats']))
 
+# ---------------------------------------------------------------------------------------
+# 4. IDEMPOTENCE -- the one that actually caught the live bug.
+#    The board is re-drafted on every page load, not just at build time. Removing the
+#    "already used" exclusion at the MINT site alone fixed only the build that first mints the
+#    ticket; every later redraft came through the refill loop, hit `usedG`, and walked the
+#    Jackpot off the correct man onto whoever was left -- Goodman and Carroll both leg moons, so
+#    the pick slid to the third name. The board shipped right and then drifted wrong, which the
+#    commit diff cannot show you. Re-draft repeatedly and assert nothing moves.
+with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as tf:
+    json.dump(D, tf)
+    tmp = tf.name
+seen = []
+for _ in range(4):
+    subprocess.run(['node', os.path.join(HERE, 'client_assemble.js'), tmp, os.path.join(HERE, 'index.html')],
+                   capture_output=True, text=True, cwd=HERE)
+    tk = json.load(open(tmp))['tickets']
+    seen.append((next((t['players'][0]['name'] for t in tk if t['kind'] == 'jackpot'), None),
+                 next((t['players'][0]['name'] for t in tk if t['kind'] == 'dinger'), None),
+                 sum(1 for t in tk if t['kind'] == 'moon'), len(tk)))
+os.unlink(tmp)
+check(len(set(seen)) == 1,
+      'four consecutive redrafts leave the specials, the moons and the ticket count UNCHANGED',
+      ' -> '.join('%s/%s m%d n%d' % x for x in seen))
+if cj:
+    check(seen[0][0] == cj['players'][0]['name'],
+          'and a redraft does not move the Jackpot off a bat that legs a moon', seen[0][0])
+
 print()
 if FAIL:
     print('%d FAILED' % len(FAIL))
