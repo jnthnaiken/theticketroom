@@ -289,6 +289,13 @@ if cd and cj:
             wrong[t['kind']] = bad
             t['players'] = [_mkleg(bad)]
             t['anchor'] = bad
+            # LOCK IS A LATCH, and it applies to a free play too: once a special has latched it is
+            # frozen and MUST NOT be re-drafted. The property under test is that an OPEN slip
+            # corrects itself, so strip the latch here -- otherwise this assertion silently turns
+            # into "a locked slip changes", which is the opposite of what the board should do.
+            # (It passed for hours and then went red the moment today's Jackpot latched on its
+            # confirmed card, which is CONFLOCKSETTLE behaving correctly.)
+            t.pop('locked', None)
     with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as tf:
         json.dump(Dp, tf)
         tmp = tf.name
@@ -301,6 +308,26 @@ if cd and cj:
         check(got == want,
               'a redraft CORRECTS a %s left on the wrong bat by an earlier build' % kind,
               'seeded %s -> got %s, want %s' % (wrong.get(kind), got, want))
+
+# ---------------------------------------------------------------------------------------
+# 6. RENDERING. The suite tested what the specials GRADE to and never what they LOOK like, and
+#    that gap shipped a Jackpot that rendered RED from the moment it was built, hours before
+#    first pitch. gradeTicket() feeds the card as well as the ledger: the card reads
+#    `lostNow = (!!_g && !_g.won)`, so returning {won: null} -- an OBJECT -- marks the slip lost,
+#    while returning null (no live grade available) leaves it live. Assert the contract at the
+#    boundary rather than trusting the shape.
+import re as _re
+_html = open(os.path.join(HERE, 'index.html'), encoding='utf-8').read()
+_m = _re.search(r"function gradeTicket\(t\)\{[^\n]{0,400}?jackpot'\)return ([^;]+);", _html)
+check(_m is not None and _m.group(1).strip() == 'null',
+      "the client grades a Jackpot to NULL, not {won:null} -- an object renders the slip as LOST",
+      _m.group(1)[:60] if _m else 'jackpot early-return not found')
+check('lostNow=(!!_g&&!_g.won)' in _html.replace(' ', ''),
+      'and the card still decides `lost` from gradeTicket, so that contract is the live one')
+# the same trap for the Dinger: it IS gradable, so it must NOT be null before the game decides
+_md = _re.search(r"if\(t\.kind==='dinger'\)sb=0;", _html)
+check(_md is not None,
+      'the Dinger still grades normally (stake zeroed, result kept) rather than being skipped')
 
 print()
 if FAIL:
