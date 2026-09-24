@@ -5,6 +5,13 @@ __pycache__/
 savant_cache/
 *.parquet
 
+# nfl_stats.py _get() caches the schedule CSV here (2.1 MB) on any local run. NEVER committed in
+# the repo's history, but it was not ignored either -- so the container dry-run that every NFL
+# build log tells the next operator to do leaves it sitting untracked, one `git add -A` away from
+# going in. Same class as savant_cache/ above: big, regenerable, and derived from a remote source.
+nfl/.cache/
+.cache/
+
 # GitHub Pages staging output. deploy-pages.yml builds _site/ on the runner from index.html,
 # cover.html and soccer/; it is also handy to build locally to check the URL layout before a
 # push (2026-08-26, the /mlb/ swap). Either way it is a COPY of files already in the repo --
