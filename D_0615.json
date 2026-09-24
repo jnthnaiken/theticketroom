@@ -40106,7 +40106,7 @@
     "precip": 1
    }
   },
-  "build": "9/24 1:47pm",
+  "build": "9/24 1:52pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -40383,19 +40383,19 @@
    "HOU": 16
   },
   "posted_at": {
-   "3|CHC": 1790265150,
-   "2|CWS": 1790265150,
-   "4|TEX": 1790265150,
-   "2|KC": 1790265150,
-   "1|PIT": 1790265150,
    "5|AZ": 1790267798,
    "4|NYM": 1790266681,
+   "1|PIT": 1790265150,
    "5|COL": 1790265150,
    "3|MIA": 1790266103,
+   "3|CHC": 1790265150,
+   "4|TEX": 1790265150,
+   "2|CWS": 1790265150,
+   "2|KC": 1790265150,
    "1|STL": 1790265150
   },
   "chalkstate": {
-   "b": "9/24 1:47pm",
+   "b": "9/24 1:52pm",
    "s": {}
   },
   "chalk": [],
@@ -40481,7 +40481,87 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 4
+   "confleg": 4,
+   "locked": true,
+   "priced": 4,
+   "parlay_am": 78515,
+   "payout10": 7861.46
+  },
+  {
+   "name": "The Big Carry",
+   "kind": "jackpot",
+   "badge": "\ud83d\udca5",
+   "note": "Hunter Goodman swings with the wind at his back, finds the home-run window on 15% of his contact, carries top-shelf pop (100/100 power grade), and the momentum's with him.",
+   "players": [
+    {
+     "name": "Hunter Goodman",
+     "team": "Rockies",
+     "total": 126,
+     "aT": 100,
+     "wf": 1.11,
+     "gmatch": "AZ@COL",
+     "gtime": "3:10 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 320,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Hunter Goodman",
+   "lock": "3:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 320,
+   "payout10": 42
+  },
+  {
+   "name": "The Breakwater",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Justin Foscue is barreling up enough (49% hard-hit), has the pop to go deep (82/100 power), lands at 158 in our model, on stable footing lately.",
+   "players": [
+    {
+     "name": "Justin Foscue",
+     "team": "Rangers",
+     "total": 157.9,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "NYM@TEX",
+     "gtime": "2:35 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 575,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Justin Foscue",
+   "lock": "2:35 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 1,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 575,
+   "payout10": 67.5
   },
   {
    "name": "Booster Ignition",
@@ -40559,7 +40639,10 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 4
+   "confleg": 4,
+   "priced": 4,
+   "parlay_am": 162386,
+   "payout10": 16248.6
   },
   {
    "name": "Hitting Apogee",
@@ -40637,7 +40720,10 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 4,
+   "parlay_am": 170244,
+   "payout10": 17034.38
   },
   {
    "name": "Mach Breaker",
@@ -40715,41 +40801,10 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
-  },
-  {
-   "name": "The Big Carry",
-   "kind": "jackpot",
-   "badge": "\ud83d\udca5",
-   "note": "Hunter Goodman swings with the wind at his back, finds the home-run window on 15% of his contact, carries top-shelf pop (100/100 power grade), and the momentum's with him.",
-   "players": [
-    {
-     "name": "Hunter Goodman",
-     "team": "Rockies",
-     "total": 126,
-     "aT": 100,
-     "wf": 1.11,
-     "gmatch": "AZ@COL",
-     "gtime": "3:10 PM ET",
-     "game": 5,
-     "late": false,
-     "odds": 320,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Hunter Goodman",
-   "lock": "3:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 4,
+   "parlay_am": 212778,
+   "payout10": 21287.81
   },
   {
    "name": "One Swing Free",
@@ -40783,41 +40838,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "The Breakwater",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Justin Foscue is barreling up enough (49% hard-hit), has the pop to go deep (82/100 power), lands at 158 in our model, on stable footing lately.",
-   "players": [
-    {
-     "name": "Justin Foscue",
-     "team": "Rangers",
-     "total": 157.9,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "NYM@TEX",
-     "gtime": "2:35 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 575,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Justin Foscue",
-   "lock": "2:35 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 0,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 575,
+   "payout10": 67.5
   },
   {
    "name": "Chart a Course",
@@ -40851,12 +40875,13 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 500,
+   "payout10": 60
   }
  ],
  "pool": [
-  "Justin Foscue",
-  "Pete Crow-Armstrong",
   "Vinnie Pasquantino",
   "Jake Burger",
   "Victor Mesa",
@@ -40878,14 +40903,12 @@
   "Jos\u00e9 Ram\u00edrez",
   "Matt Olson",
   "Mike Trout",
-  "Munetaka Murakami",
   "Isaac Paredes",
   "Freddie Freeman",
   "Ian Happ",
   "Bryce Harper",
   "Eugenio Su\u00e1rez",
   "JJ Bleday",
-  "Hunter Goodman",
   "Carter Jensen",
   "Francisco Lindor",
   "Manny Machado",
