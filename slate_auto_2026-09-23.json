@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-24T01:59:28Z",
+  "pulled_at": "2026-09-24T02:01:03Z",
   "games": [
     {
       "gamePk": 824223,
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 823492,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-23T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -936,7 +936,7 @@
     },
     {
       "gamePk": 824710,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-23T23:10:00Z",
       "matchup": "CLE@BOS",
       "away": {
@@ -1720,16 +1720,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 7mph, 70\u00b0",
-        "lean": "Boost",
-        "temp": 70.1,
-        "wind_mph": 7.1,
-        "wind_dir": 167,
-        "tail_mph": 6.9,
-        "precip": 20
+        "note": "weather fetch failed"
       },
-      "wf": 1.024
+      "wf": 1.0
     },
     {
       "gamePk": 824951,
@@ -1853,9 +1846,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 1mph, 89\u00b0",
+        "lean": "Boost",
+        "temp": 88.7,
+        "wind_mph": 4.0,
+        "wind_dir": 313,
+        "tail_mph": 1.2,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.032
     },
     {
       "gamePk": 823894,
