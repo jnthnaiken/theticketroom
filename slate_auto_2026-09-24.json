@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T22:42:16Z",
+  "pulled_at": "2026-09-24T22:47:17Z",
   "games": [
     {
       "gamePk": 823326,
@@ -802,7 +802,7 @@
     },
     {
       "gamePk": 824707,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-24T22:45:00Z",
       "matchup": "CLE@BOS",
       "away": {
@@ -935,7 +935,7 @@
     },
     {
       "gamePk": 823493,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-24T23:05:00Z",
       "matchup": "TB@NYY",
       "away": {
@@ -1431,8 +1431,54 @@
           "hr9": 0.6,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.182
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.085
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.19
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.214
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.187
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.109
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.096
+          },
+          {
+            "id": 669392,
+            "name": "Samad Taylor",
+            "iso": 0.1
+          },
+          {
+            "id": 806956,
+            "name": "Ethan Salas",
+            "iso": 0.25
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
