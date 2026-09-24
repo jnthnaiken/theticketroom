@@ -40,7 +40,71 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
 
 .tab[aria-selected="true"]{color:#06121a;background:linear-gradient(180deg,#5fe0f5,var(--cyan));box-shadow:0 4px 16px #26d4f04d}
 .tab:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-.bar{position:sticky;top:62px;z-index:15;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:8px 0 16px;box-shadow:0 -16px 0 var(--bg)}
+
+/* ROOMSWITCH-2026-09-24. Owner: "we need to put something on the sticky bar where you easily
+   switch between each sports page", then "put it to the right", "i dont want the sticky bar more
+   than 1 row" and "should also be more subtle. like the other tabs".
+   Until now the board carried ZERO links -- the only way out of a room was the back button or
+   typing the URL, and a reader who arrived from a shared ticket never saw the other two existed.
+
+   ⚠️ ONE BLOCK, THREE ROOMS, NO NEW FORK SEAM. The markup is IDENTICAL on baseball, soccer and
+   football; which chip is lit is decided at RUNTIME from location.pathname (see ROOMSWITCH in the
+   script at the foot of the page). Do not "fix" that by seaming the active state per room --
+   nfl_fork.py and soccer_fork.py replace by exact string, and every seam added here is another
+   string a baseball rename can orphan (FORKSEAMS-2026-09-24: six in one afternoon).
+
+   ⚠️ ONE ROW IS A HARD CONSTRAINT AND THE ROW IS FULL. At 1280 the content column is 1084px and
+   the tabs pill measures 464, Find 230, this group ~300, plus two 14px gaps -- about 1022, which
+   fits with 60px to spare and nothing more. That budget is why there is no "Rooms" caption, why
+   the labels collapse to ⚾/⚽/🏈 on a phone, and why .nav must NOT wrap: with flex-wrap on, the
+   pill's hypothetical 464px no longer fits beside Find and the browser breaks the line instead of
+   squeezing the pill, which is how this first shipped as a two-row bar.
+
+   Names and accents are the COVER's, not new ones: Baseball/Soccer/Football and cyan/lime/amber
+   are what cover.html's .card.mlb/.soc/.nfl already use. Basketball is absent on purpose -- it has
+   no room to link to, and the cover carries the under-construction sign.
+   URLs are ABSOLUTE (/mlb/, /soccer/, /nfl/): the rooms are siblings under the domain root, since
+   deploy-pages.yml stages index.html -> _site/mlb/. A relative "soccer/" resolves to /mlb/soccer/. */
+.rooms{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:4px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:4px}
+/* `margin-left:auto` is what pins the group right, and it only works because .navfind's own
+   `margin-right:auto` is cancelled just below: two auto margins in one flex line SPLIT the free
+   space, which parked the group in the middle of the bar instead of at the end. */
+.nav .navfind{margin-right:0}
+.room{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:13px;font-weight:600;color:var(--mut);text-decoration:none;border:0;border-radius:9px;padding:9px 14px;white-space:nowrap;transition:.16s}
+.room:hover{color:var(--txt);background:var(--surf2)}
+/* SUBTLE, owner's call: the lit room is NOT the .tab[aria-selected] treatment. That is a filled
+   cyan pill with a glow, and three of them in three different accents made the bar shout over the
+   board. The room accent is carried by the TEXT on a raised chip instead -- same shell as .tabs,
+   a quieter state inside it, so "which sport" and "which view" read as one family. */
+.r-mlb{--rc:var(--cyan)}.r-soc{--rc:var(--lime)}.r-nfl{--rc:var(--amber)}
+/* The ring carries the accent at low strength so the lit chip still reads as the room's colour on a
+   phone, where the label is an emoji and `color` cannot touch it. */
+.room[aria-current="page"]{color:var(--rc);background:var(--raise);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--rc) 45%,var(--line2))}
+.room[aria-current="page"]:hover{color:var(--rc);background:var(--raise)}
+.room:focus-visible{outline:2px solid var(--rc,var(--cyan));outline-offset:2px}
+/* GLYPHS ARE THE DEFAULT, WORDS ARE THE WIDE-SCREEN LUXURY -- and the breakpoint is arithmetic,
+   not taste. The words cost ~300px; the row can pay that only once the content column reaches
+   464 (tabs) + 230 (Find) + 300 + 28 (gaps) = 1022px, which is a 1218px viewport. 1240 gives that
+   a little air. Below it the chips are the sport glyphs (~118px) and the row still fits down to a
+   1036px viewport; below THAT the tabs pill starts being squeezed and its scroller takes over --
+   which is why the scroller's media query was moved from 620px to 1040px further down.
+   Emoji, not the cover's line-art SVGs: those are drawn for 26-28px and their own comments record
+   that the nested boxes smear below that. The accessible name is on the <a>, so the glyph is
+   decoration and is aria-hidden. */
+.rlong{display:none}
+.rico{font-size:15px;line-height:1}
+@media(min-width:1240px){.rlong{display:inline}.rico{display:none}}
+/* Phone: all three controls stay on the row, so the two elastic ones have to actually be elastic.
+   ⚠️ `.nav .navfind`, not `.navfind` -- the base rule 700 lines down sets `flex:none` and carries
+   the same specificity, so it wins on source order and the field refuses to give up a pixel. That
+   is what drove the tabs pill to EIGHT pixels wide at 390 the first time this was measured.
+   `min-width` on the pill is the floor that stops the squeeze landing entirely on it. */
+@media(max-width:700px){.rooms{gap:2px;padding:3px;order:4}.room{padding:8px 8px}
+  .nav .navfind{flex:0 1 112px;min-width:92px;margin-right:0}
+  .nav .navfind input[type=search]{min-width:0;width:100%}
+  .nav .tabs{flex:0 1 auto;min-width:110px}}
+@media(max-width:430px){.room{padding:7px 6px}.rico{font-size:14px}}
+.bar{position:sticky;top:var(--navh,62px);z-index:15;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;background:radial-gradient(800px 420px at 88% -8%,#26d4f01f,transparent 62%),radial-gradient(760px 420px at 6% 2%,#b69dff1c,transparent 58%),var(--bg);background-attachment:fixed;padding:8px 0 16px;box-shadow:0 -16px 0 var(--bg)}
 .fld{display:flex;flex-direction:column;gap:6px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 select,input[type=search]{font-family:Inter,sans-serif;font-size:14px;color:var(--txt);background:var(--surf2);border:1px solid var(--line2);border-radius:10px;padding:10px 13px;min-width:210px}
 select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:1px;border-color:var(--cyan)}
@@ -98,7 +162,7 @@ select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:foc
 .t-premium .dot{background:var(--tg);box-shadow:0 0 6px var(--tg)}.t-premium .meter i{background:var(--tg)}
 .t-strong .dot{background:var(--to);box-shadow:0 0 6px var(--to)}.t-strong .meter i{background:var(--to)}
 .t-value .dot{background:var(--tp);box-shadow:0 0 6px var(--tp)}.t-value .meter i{background:var(--tp)}
-.pc{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px 17px;scroll-margin-top:130px;transition:.18s;overflow:hidden}
+.pc{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px 17px;scroll-margin-top:calc(var(--navh,62px) + 68px);transition:.18s;overflow:hidden}
 .pc:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
 .pc.t-premium:before{background:var(--tg)}.pc.t-strong:before{background:var(--to)}.pc.t-value:before{background:var(--tp)}
 .pc:hover{border-color:var(--line2);transform:translateY(-2px)}.pc.flash{border-color:var(--pink);box-shadow:0 0 0 2px var(--pink),0 0 26px #ff5d8f55}
@@ -125,7 +189,7 @@ select:hover,input:hover{border-color:var(--cyan)}select:focus-visible,input:foc
 .why{font-size:14px;color:#dde6f2;border-top:1px solid var(--line);padding-top:13px}
 .empty{grid-column:1/-1;color:var(--dim);text-align:center;padding:46px 0;font-size:14px}
 .foot{margin-top:34px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--dim)}
-@media(max-width:560px){.ptot{font-size:24px}.parlay .od{font-size:19px}.bar{top:60px}.pc{scroll-margin-top:150px}}
+@media(max-width:560px){.ptot{font-size:24px}.parlay .od{font-size:19px}.bar{top:var(--navh,60px)}.pc{scroll-margin-top:calc(var(--navh,60px) + 90px)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 
 .rfbar{display:inline-flex;gap:8px;align-items:center;margin-left:12px}
@@ -373,7 +437,17 @@ header{position:relative}
 }
 
 .nav .tabs .tab{white-space:nowrap}
-@media(max-width:620px){.nav .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}
+/* ROOMSWITCH-2026-09-24 moved this breakpoint from 620px to 1040px. It is the tabs pill's
+   horizontal scroller, and the width at which the pill starts being SQUEEZED is set by what else
+   shares the row -- so adding the room switcher moved it. The pill wants 464px; Find takes 230 and
+   the glyph-sized room group ~118, plus two 14px gaps, so the pill is full-size only while the
+   content column is at least ~840px, i.e. a ~1036px viewport. Below that it has to scroll or it
+   clips its own labels.
+   This band was ALREADY wrong before the switcher: without the rooms the pill needed a 904px
+   viewport and the scroller did not start until 620, so 620-904 was squeezing with no scroller.
+   Widening it fixes that too. `max-width:100%` is unchanged -- .nav does not wrap, so the cap is
+   only there to stop the pill pushing the row wider than the column. */
+@media(max-width:1040px){.nav .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}
  .nav .tabs::-webkit-scrollbar{display:none}
  .nav .tabs .tab{flex:0 0 auto}}
 @media(max-width:430px){.nav .tabs{gap:2px;padding:3px}
@@ -749,7 +823,7 @@ body::after{
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Builder</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label></div>
+</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label><nav class="rooms" aria-label="Rooms"><a class="room r-mlb" href="/mlb/" title="Baseball" aria-label="Baseball room"><span class="rlong">Baseball</span><span class="rico" aria-hidden="true">⚾</span></a><a class="room r-soc" href="/soccer/" title="Soccer" aria-label="Soccer room"><span class="rlong">Soccer</span><span class="rico" aria-hidden="true">⚽</span></a><a class="room r-nfl" href="/nfl/" title="Football" aria-label="Football room"><span class="rlong">Football</span><span class="rico" aria-hidden="true">🏈</span></a></nav></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  
@@ -901,8 +975,8 @@ body::after{
   </div>
 
   <div class="kinds">
-    <div class="kind"><span class="ke">🍱</span><div><b>Lunch Special</b><span>One player, best model score in an early kickoff. Only appears when the slate starts before 5 PM ET.</span></div></div>
-    <div class="kind"><span class="ke">🌃</span><div><b>Nightcap</b><span>Same idea for the last window of the night.</span></div></div>
+    <div class="kind"><span class="ke">🍱</span><div><b>Lunch Special</b><span>One player, best model score in an early kickoff.</span></div></div>
+    <div class="kind"><span class="ke">🌃</span><div><b>Nightcap</b><span>Same idea for the last kickoff of the night.</span></div></div>
     <div class="kind"><span class="ke">🥅</span><div><b>Top Bin</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span></div></div>
     <div class="kind"><span class="ke">💥</span><div><b>Screamers</b><span>Retired 2026-09-17: the three-leg round robins diagrammed above. Tonight’s card is the 🥅 Top Bin.</span></div></div>
     
@@ -953,8 +1027,8 @@ const isConf=s=>s==='confirmed';
    All view so the two can never disagree. Nightcap is excluded on purpose: it lives in its own
    collapsible pool and the filter-bar counter has never counted it either. */
 function liveTickets(){return (D.tickets||[]).filter(function(t){var k=t.kind;
-  if(k==='late')return !t.final&&singleAlive(t);   /* TILECOUNT-2026-09-10, owner: "ticket counter up top reads 1 when there is 2" -- the nightcap is a ticket on the board, so it counts, same rule as the lunch special */
-  if(k==='lunch')return !t.final&&singleAlive(t);
+  if(k==='jackpot')return !t.final&&singleAlive(t);   /* TILECOUNT-2026-09-10, owner: "ticket counter up top reads 1 when there is 2" -- the nightcap is a ticket on the board, so it counts, same rule as the lunch special */
+  if(k==='dinger')return !t.final&&singleAlive(t);
   if(k==='builder'||k==='family')return singleAlive(t);
   return k==='moon'||k==='biggest'||k==='chef';});}
 /* COUNTER DENOMINATORS: count against the ALIVE field, not every scored bat. D.meta.pool is the whole
@@ -993,7 +1067,7 @@ function rrCombos(L){var out=[];for(var sz=2;sz<=L;sz++){(function(k){var c=[];(
 function rrUnit(L){return (RR_UNIT[L]!=null)?RR_UNIT[L]:(2.0/Math.max(rrCombos(L).length,1));}
 function rrRisk(L){return Math.round(rrCombos(L).length*rrUnit(L)*100)/100;}
 function rrStruct(L){if(L<2)return'';if(L===2)return'straight';var p=[],n;for(n=2;n<L;n++)p.push(n+'s');return'by '+p.join(', ')+' & '+L;}
-function _dec(a){return a>0?1+a/100:1+100/Math.abs(a);}function gradeTicket(t){var legs=t.players,L=legs.length;if(!L)return null;var _st=[],_dc=[],kept=[];for(var _i=0;_i<L;_i++){var _l=legs[_i],_p=D.players[_l.name]||{},_hr=!!_p.hr;if(!_hr&&(_p.void||_p.out)){_st.push('v');_dc.push(1);continue;}/* benched/scratched leg that didn't homer -> VOID (refund), never a loss */_st.push(_hr?'h':'m');_dc.push(_dec(_l.odds));kept.push({odds:_l.odds,game:_l.game,hr:_hr});}if(!kept.length){t.result='void';return null;}var K=kept.length,voided=(K!==L);var fin=kept.every(function(x){return x.hr||isFinal(x.game);});var cashed=kept.every(function(x){return x.hr;});var sb=(D.meta.season&&D.meta.season.stake)||1;if(t.rr){/* RRVOID-2026-09-01 -- A VOID LEG REDUCES ITS PARLAYS. IT DOES NOT MOVE MONEY ONTO THE SURVIVORS.
+function _dec(a){return a>0?1+a/100:1+100/Math.abs(a);}function gradeTicket(t){var legs=t.players,L=legs.length;if(!L)return null;if(t.kind==='jackpot')return null;/* JACKPOTRED-2026-09-24: return NULL ("no live grade available"), not {won:null}. This function feeds the CARD as well as the ledger, and the card reads `lostNow=(!!_g&&!_g.won)` -- an object with won:null makes that TRUE, so the slip rendered RED from the moment it was built, hours before first pitch. null is the existing vocabulary for "not gradable" and every consumer already handles it: the card shows it live, liveCats and liveHist skip it. The real result still comes from grade_night.py server-side, because only it can reach Savant. *//* SPECIALS-2026-09-24 / RECORDKEPT-2026-09-24. The Jackpot asks whether his was the LONGEST homer in baseball that day. That IS graded -- longball_grade.py answers it off Savant's hit_distance_sc -- but only server-side in grade_night.py, because the browser cannot reach Savant (cross-origin). So the LIVE tracker shows the Jackpot blank during the night and the committed record appears once the night is folded into season.json, which is the same live-vs-committed split every other kind has. It is never scored here as "did he homer": that is a different bet and would report a ~30% hit rate on something whose real baseline is 3.3%. The Dinger IS decidable here (did he go deep) and grades normally. Both are free plays, so both carry ZERO stake and neither may move season P&L. */var _st=[],_dc=[],kept=[];for(var _i=0;_i<L;_i++){var _l=legs[_i],_p=D.players[_l.name]||{},_hr=!!_p.hr;if(!_hr&&(_p.void||_p.out)){_st.push('v');_dc.push(1);continue;}/* benched/scratched leg that didn't homer -> VOID (refund), never a loss */_st.push(_hr?'h':'m');_dc.push(_dec(_l.odds));kept.push({odds:_l.odds,game:_l.game,hr:_hr});}if(!kept.length){t.result='void';return null;}var K=kept.length,voided=(K!==L);var fin=kept.every(function(x){return x.hr||isFinal(x.game);});var cashed=kept.every(function(x){return x.hr;});var sb=(D.meta.season&&D.meta.season.stake)||1;if(t.rr){/* RRVOID-2026-09-01 -- A VOID LEG REDUCES ITS PARLAYS. IT DOES NOT MOVE MONEY ONTO THE SURVIVORS.
    `rr.risk` is split across the combinations of the ORIGINAL legs at placement time. What this replaced
    dropped the void legs and re-derived the round robin over the K survivors, so the denominator shrank
    while the risk did not. ONE void on a 3-leg 2u moon put the whole 2u on the single surviving double --
@@ -1009,7 +1083,7 @@ function _dec(a){return a>0?1+a/100:1+100/Math.abs(a);}function gradeTicket(t){v
    its all-void combinations, so a dead slip settles at rrnet(hm) -- the same number the ledger will
    book -- not at -risk. A slip with no void leg is arithmetically identical to the RRSTAKE-2026-08-28
    loop this replaces (verified over all 27 hit/miss/void states and 4,000 random clean slips), so no
-   clean night re-grades. Keep in lockstep with grade_night.py grade_ticket() and soccer_grade.py. */var _CB=rrCombos(L);if(!_CB.length){t.result='void';return null;}var _unit=t.rr.risk/_CB.length;function rrnet(m){var ret=0,q,z,cb,p,live,won;for(q=0;q<_CB.length;q++){cb=_CB[q];p=1;live=0;won=1;for(z=0;z<cb.length;z++){if(_st[cb[z]]==='v')continue;live++;if(!m[cb[z]]){won=0;break;}p*=_dc[cb[z]];}if(!won)continue;ret+=live?p:1;}return _unit*ret-t.rr.risk;}var pot=[],hm=[];for(_a=0;_a<L;_a++){hm[_a]=(_st[_a]==='h');pot[_a]=hm[_a]||(_st[_a]!=='v'&&!isFinal(legs[_a].game));}if(rrnet(pot)<=0)return{kind:t.kind,stake:t.rr.risk,net:rrnet(hm),won:false};if(!fin)return null;var net=rrnet(hm);return{kind:t.kind,stake:t.rr.risk,net:net,won:net>0};}if(!cashed&&!fin)return null;var p10=(t.payout10&&!voided)?t.payout10:10*kept.reduce(function(m,x){return m*_dec(x.odds);},1);if(cashed)return{kind:t.kind,stake:sb,net:sb*(p10/10-1),won:true};return{kind:t.kind,stake:sb,net:-sb,won:false};}function liveCats(sn){var base=sn.cats||{},live={},k;for(k in base){live[k]={graded:base[k].graded||0,won:base[k].won||0,units:base[k].units||0,staked:base[k].staked||0};}if(!((sn.graded_nights||[]).indexOf(D.meta.date)>=0))D.tickets.forEach(function(t){var g=gradeTicket(t);if(!g)return;if(!live[g.kind])live[g.kind]={graded:0,won:0,units:0,staked:0};live[g.kind].graded++;if(g.won)live[g.kind].won++;live[g.kind].units+=g.net;live[g.kind].staked+=g.stake;});return live;}function liveHist(sn){var h=(sn.history||[]).slice(),s=0;if(!((sn.graded_nights||[]).indexOf(D.meta.date)>=0))D.tickets.forEach(function(t){var g=gradeTicket(t);if(g)s+=g.net;});if(Math.abs(s)>1e-9)h.push((h.length?h[h.length-1]:0)+s);return h;}var _TKR='all';function _tkWin(h){if(_TKR==='all')return h;var n=Math.min(h.length,+_TKR);return h.slice(-n);}function __tkRange(r){_TKR=r;try{drawTracker();}catch(_e){}}function _tkBar(h){var o=[['7','Last 7'],['30','Last 30'],['all','Season']],w=_tkWin(h),d=(w.length>1?w[w.length-1]-w[0]:0),b=o.map(function(x){return '<button type="button" class="tk-rb'+(x[0]===_TKR?' on':'')+'" onclick="__tkRange(\''+x[0]+'\')">'+x[1]+'</button>';}).join(''),l=(_TKR==='all'?h.length+' nights':'last '+_TKR+' nights');return '<div class="tk-range">'+b+'</div><div class="tk-rlbl">'+l+' \u00b7 <b class="'+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d.toFixed(1)+'u</b> in window</div>';}/* ROIGRAPH-2026-09-02: segmented, not a drag brush -- 59 nights across ~330px is 5.6px a point, and the narrow breakpoint is tighter still, so a draggable window is untappable on a phone. The label carries the one number the season-scaled sparkline cannot show: what the board actually did over the window. */function drawTracker(){var sn=D.meta.season||{},cats=liveCats(sn),el=$('#tracker');if(!el)return;var defs=[['lunch','🍱','Lunch'],['late','🌃','Nightcap'],['builder','🥅','Top Bin'],['moon','💥','Screamers']];defs=defs.filter(function(d){var c=cats[d[0]];return d[0]!=='moon'||(c&&c.graded>0)||D.tickets.some(function(t){return t.kind===d[0];});});/* DINGERS-RETIRED-2026-08-25: the row is gone, but it returns the moment there is dinger P&L
+   clean night re-grades. Keep in lockstep with grade_night.py grade_ticket() and soccer_grade.py. */var _CB=rrCombos(L);if(!_CB.length){t.result='void';return null;}var _unit=t.rr.risk/_CB.length;function rrnet(m){var ret=0,q,z,cb,p,live,won;for(q=0;q<_CB.length;q++){cb=_CB[q];p=1;live=0;won=1;for(z=0;z<cb.length;z++){if(_st[cb[z]]==='v')continue;live++;if(!m[cb[z]]){won=0;break;}p*=_dc[cb[z]];}if(!won)continue;ret+=live?p:1;}return _unit*ret-t.rr.risk;}var pot=[],hm=[];for(_a=0;_a<L;_a++){hm[_a]=(_st[_a]==='h');pot[_a]=hm[_a]||(_st[_a]!=='v'&&!isFinal(legs[_a].game));}if(rrnet(pot)<=0)return{kind:t.kind,stake:t.rr.risk,net:rrnet(hm),won:false};if(!fin)return null;var net=rrnet(hm);return{kind:t.kind,stake:t.rr.risk,net:net,won:net>0};}if(!cashed&&!fin)return null;var p10=(t.payout10&&!voided)?t.payout10:10*kept.reduce(function(m,x){return m*_dec(x.odds);},1);if(t.kind==='dinger')sb=0;if(cashed)return{kind:t.kind,stake:sb,net:sb*(p10/10-1),won:true};return{kind:t.kind,stake:sb,net:-sb,won:false};}function liveCats(sn){var base=sn.cats||{},live={},k;for(k in base){live[k]={graded:base[k].graded||0,won:base[k].won||0,units:base[k].units||0,staked:base[k].staked||0};}if(!((sn.graded_nights||[]).indexOf(D.meta.date)>=0))D.tickets.forEach(function(t){var g=gradeTicket(t);if(!g||g.won===null)return;/* SPECIALS-2026-09-24: an ungraded free play folds into NOTHING, matching grade_night.fold() which skips won is None. Without this the live tracker counted a Jackpot as a graded loss while the committed ledger did not, and the two disagreed all night. */if(!live[g.kind])live[g.kind]={graded:0,won:0,units:0,staked:0};live[g.kind].graded++;if(g.won)live[g.kind].won++;live[g.kind].units+=g.net;live[g.kind].staked+=g.stake;});return live;}function liveHist(sn){var h=(sn.history||[]).slice(),s=0;if(!((sn.graded_nights||[]).indexOf(D.meta.date)>=0))D.tickets.forEach(function(t){var g=gradeTicket(t);if(g)s+=g.net;});if(Math.abs(s)>1e-9)h.push((h.length?h[h.length-1]:0)+s);return h;}var _TKR='all';function _tkWin(h){if(_TKR==='all')return h;var n=Math.min(h.length,+_TKR);return h.slice(-n);}function __tkRange(r){_TKR=r;try{drawTracker();}catch(_e){}}function _tkBar(h){var o=[['7','Last 7'],['30','Last 30'],['all','Season']],w=_tkWin(h),d=(w.length>1?w[w.length-1]-w[0]:0),b=o.map(function(x){return '<button type="button" class="tk-rb'+(x[0]===_TKR?' on':'')+'" onclick="__tkRange(\''+x[0]+'\')">'+x[1]+'</button>';}).join(''),l=(_TKR==='all'?h.length+' nights':'last '+_TKR+' nights');return '<div class="tk-range">'+b+'</div><div class="tk-rlbl">'+l+' \u00b7 <b class="'+(d>=0?'up':'dn')+'">'+(d>=0?'+':'')+d.toFixed(1)+'u</b> in window</div>';}/* ROIGRAPH-2026-09-02: segmented, not a drag brush -- 59 nights across ~330px is 5.6px a point, and the narrow breakpoint is tighter still, so a draggable window is untappable on a phone. The label carries the one number the season-scaled sparkline cannot show: what the board actually did over the window. */function drawTracker(){var sn=D.meta.season||{},cats=liveCats(sn),el=$('#tracker');if(!el)return;var defs=[['lunch','🍱','Lunch'],['late','🌃','Nightcap'],['builder','🥅','Top Bin'],['moon','💥','Screamers']];defs=defs.filter(function(d){var c=cats[d[0]];return d[0]!=='moon'||(c&&c.graded>0)||D.tickets.some(function(t){return t.kind===d[0];});});   /* SPECIALS-2026-09-24: the retired lunch/late rows keep their own history in season.json and are appended below only while they still carry P&L, exactly as the Dingers row does. *//* DINGERS-RETIRED-2026-08-25: the row is gone, but it returns the moment there is dinger P&L
    to report. FOUR dingers were already LOCKED when the mint was switched off -- placed bets,
    frozen to the board by CONFLOCK, and they will grade tonight. The Overall line sums ONLY the
    rows in `defs`, so a hidden row carrying live units would make the displayed season disagree
@@ -1060,7 +1134,7 @@ function drawTickets(){
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
  const closed='<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>';
 
- const lunchLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);
+ const dingerLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);
  /* SEAT-LOCK 2026-08-19 (display): a builder whose bat holds no moons is a stranded anchor single --
     the seat moved under it on an earlier redraft and SEALED (correctly) kept the slip. It is not an
     anchor any more, so it must not sit in Anchors inflating the count. A stranded single is a dinger:
@@ -1076,7 +1150,7 @@ function drawTickets(){
  const builder=D.tickets.filter(t=>t.kind==='builder').filter(match).filter(singleAlive),moon=D.tickets.filter(t=>t.kind==='moon').filter(match),big=D.tickets.filter(t=>t.kind==='biggest').filter(match).sort((a,b)=>a.nlegs-b.nlegs);
   const sec=(cls,label,arr)=>arr.length?('<div class="tsec '+cls+'"><span class="tsech">'+label+'</span><span class="tline"></span></div>'+arr.map(ticketCard).join('')):'';
  let html='';
- if(ty==='all'&&(lunchLive.length||!q)){html+='<div class="tsec lunch"><span class="tsech">Lunch Special</span><span class="tline"></span></div>'+(lunchLive.length?lunchLive.map(ticketCard).join(''):closed);}
+ if(ty==='all'&&(dingerLive.length||!q)){html+='<div class="tsec lunch"><span class="tsech">Lunch Special</span><span class="tline"></span></div>'+(dingerLive.length?dingerLive.map(ticketCard).join(''):closed);}
  if(ty==='all'&&!q)html+='<details class="pool"><summary><span class="tag">Late slate</span> Nightcap<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>';
  const fam=D.tickets.filter(t=>t.kind==='family').filter(match);   /* carried locked dingers only; sec() hides an empty list */
  if(ty==='all'||ty==='builder')html+=sec('sug','Top Bin',builder);
@@ -1087,7 +1161,7 @@ function carryoverStrip(){var co=D.meta&&D.meta.carryover; if(!co||!co.bats||!co
  var bits=co.bats.map(function(b){var res=b.done?(b.hr?'<span class="cohr"><span class="bal">⚽</span> scored</span>':(b.settled?'<span class="copd" style="color:var(--mut)">— no HR</span>':'<span class="copd">⏳</span>')):'<span class="copd">⏳ settling</span>';return '<span class="cob"><b>'+esc(b.name)+'</b> '+res+(b.ticket?'<em>'+esc(b.ticket)+'</em>':'')+'</span>';}).join('');
  return '<div class="carryover">🔁 <span>Carryover · '+esc(co.gmatch||'')+(co.date?' · '+esc(co.date):'')+' (resumed)</span>'+bits+'<span class="cofoot">settled into the season tracker</span></div>';}
  $('#tickets').innerHTML=(html||'<div class="closed">No tickets match.</div>')+((ticketType==='all'&&!q)?carryoverStrip():'');
- const n=((ty==='all'||ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?lunchLive.length:0);
+ const n=((ty==='all'||ty==='family')?fam.length:0)+((ty==='all'||ty==='builder')?builder.length:0)+((ty==='all'||ty==='moon')?moon.length:0)+((ty==='all'||ty==='biggest')?big.length:0)+((ty==='all')?dingerLive.length:0);
  (($('#tcount')||{})).textContent=q?(n+' matching'):(n+' ticket'+(n===1?'':'s'));drawPool();}
 
 /* HITRATE-2026-08-27 -- how often bats at this TOTAL have actually homered.
@@ -2047,7 +2121,7 @@ drawTickets();drawPlayers();drawTracker();
        barred from moons/salami/builders, they are simply no longer bundled into a round robin
        of their own. Flip to true to bring the slip back. A chef slip already LOCKED on a placed
        board is still carried verbatim by the prior-board path -- retiring it only stops NEW ones. */
-    var _committed={},_ctTeam={};(D.tickets||[]).forEach(function(_t){if(_t.kind==='late'||_t.kind==='lunch'||_t.kind==='chef')return;(_t.players||[]).forEach(function(_l){var _cn=_l.name,_cp=P[_cn];if(_cp&&!_cp.out&&!_cp.void&&(_cp.status==='confirmed'||started(_cn))&&!_committed[_cn]){_committed[_cn]=1;_ctTeam[_cp.game]=(_ctTeam[_cp.game]||0)+1;}});});var _TC={},_hv={},nonchalk=[];Object.keys(_ctTeam).forEach(function(_k){_TC[_k]=_ctTeam[_k];});Object.keys(_committed).forEach(function(_n){if(!_hv[_n]&&!chalk[_n]&&P[_n]&&P[_n].odds!=null){nonchalk.push(_n);_hv[_n]=1;}});/* !chalk[_n] ADDED 2026-08-04: this reclaim carries already-placed bats forward so a re-draft keeps the board's
+    var _committed={},_ctTeam={};(D.tickets||[]).forEach(function(_t){if(_t.kind==='jackpot'||_t.kind==='dinger'||_t.kind==='chef')return;   /* SPECIALS-2026-09-24: free plays are not board exposure, so they do not count toward a game's committed bats */(_t.players||[]).forEach(function(_l){var _cn=_l.name,_cp=P[_cn];if(_cp&&!_cp.out&&!_cp.void&&(_cp.status==='confirmed'||started(_cn))&&!_committed[_cn]){_committed[_cn]=1;_ctTeam[_cp.game]=(_ctTeam[_cp.game]||0)+1;}});});var _TC={},_hv={},nonchalk=[];Object.keys(_ctTeam).forEach(function(_k){_TC[_k]=_ctTeam[_k];});Object.keys(_committed).forEach(function(_n){if(!_hv[_n]&&!chalk[_n]&&P[_n]&&P[_n].odds!=null){nonchalk.push(_n);_hv[_n]=1;}});/* !chalk[_n] ADDED 2026-08-04: this reclaim carries already-placed bats forward so a re-draft keeps the board's
    shape, and it used to skip the chalk test that the very next line applies. So a bat that BECOMES chalk mid-slate
    kept every parlay seat it already held. Nick Kurtz (+188) was scratched out of the Chef's Table, Caminero (+220)
    was next shortest and took the seat -- while still anchoring both of his moons AND his builder single. Four
@@ -2072,7 +2146,13 @@ drawTickets();drawPlayers();drawTracker();
        at all three doors, so the next retirement cannot be half-done either.
          chef   -- retired 2026-08-14
          family -- retired 2026-08-25, owner: "i dont care if they are locked" */
-    function retiredKind(k){ return k==='chef' || k==='family'; }
+    /* SPECIALS-2026-09-24 adds lunch/late. A retired kind must be dropped from `prior` or it
+       SURVIVES the redraft: the ticket object is carried forward, falls through the kind
+       branches in the refill loop to the generic single path, and comes back re-filled under
+       its dead kind. Today's 11:52am board proved it -- the Lunch Special and the Nightcap
+       both re-drafted cleanly while the Dinger and the Jackpot never minted, because the
+       one-of-each mint guard is satisfied by kind, and the old kinds were still there. */
+    function retiredKind(k){ return k==='chef' || k==='family' || k==='lunch' || k==='late'; }
     /* CHALKOFF-2026-08-26 -- owner: "yea no if he's in the top 4 ban he needs to be taken off."
        CHALKBAN-2026-08-18 barred the top-CHALK_N by price from being DRAFTED, which only ever
        guarded slips not yet made. It said nothing about a slip that had already frozen, so a bat
@@ -2250,8 +2330,46 @@ drawTickets();drawPlayers();drawTracker();
     var lunchG={}, nightG={};
     cand.forEach(function(n){ if(tmin(n)<LUNCH_CUT)lunchG[P[n].game]=1; if(tmin(n)>=latest-NIGHT_WIN)nightG[P[n].game]=1; });
 
+    /* SPECIALS-2026-09-24 -- the Lunch Special and the Nightcap are replaced by two FREE plays.
+       Neither is board exposure (a FanDuel profit-boost token and a Fanatics pot split), so neither
+       carries a stake, and NEITHER of the old specials' two rules applies to them:
+         * no <=600 price cap. That cap protected a 1u single. A free pick has nothing to protect,
+           and backtest15-priceband found no ranking ability beyond +650 in EITHER direction -- it
+           is a reason not to ANCHOR a long price, not a reason to refuse a free one.
+         * no "not already on a parlay" exclusion. The old specials drew from the same pool the
+           board bets, so double-seating a bat doubled real exposure. These draw from another book's
+           promo entirely; a man leading two moons is still the right free pick, and for the Dinger
+           the candidate set is FanDuel's list, which we do not choose.
+       What DOES still apply is aliveness: out, void, started and pending bats cannot be picked.
+
+       DINGER: highest TOTAL among the bats on FanDuel's published list for the day. Name matching
+       is suffix- and accent-insensitive because the promo prints "Fernando Tatis Jr." where the
+       board carries "Fernando Tatis" (SUFFIXSTRIP-2026-09-23 strips at assemble time).
+       JACKPOT: z(park tail) + z(TOTAL), the blend longball/backtest.py measured at 4 hits in 78
+       nights (5.1%) against a 3.3% baseline. Park tail picks the GAME, our own score picks the MAN.
+       ⚠️ Do NOT hard-filter to the best tail park -- that scored 1/78, worse than blending, because
+       filtering throws the score signal away and leaves the best bat in Coors rather than the best
+       combination on the slate. */
+    var _DNG=(D.meta&&D.meta.dinger)||[], _PTAIL=(D.meta&&D.meta.park_tail)||{};
+    function _nk(s){return String(s||'').normalize('NFKD').replace(/[̀-ͯ]/g,'')
+      .toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();}
+    var _dset={}; _DNG.forEach(function(n){_dset[_nk(n)]=1;});
+    function _parkOf(n){var g=(P[n]||{}).gmatch||''; var i=g.indexOf('@'); return i<0?'':g.slice(i+1);}
+    function _specAlive(n){var p=P[n]; return p&&p.odds!=null&&!p.out&&!p.void&&!started(n)&&!pending(n);}
+    function dingerCand(pool){return byT(pool.filter(function(n){return _dset[_nk(n)]&&_specAlive(n);}));}
+    function jackpotCand(pool){
+      var el=pool.filter(function(n){return _specAlive(n)&&_PTAIL[_parkOf(n)]!=null&&P[n].TOTAL!=null;});
+      if(el.length<2)return el;
+      function ms(a){var m=0,i;for(i=0;i<a.length;i++)m+=a[i];m/=a.length;var v=0;for(i=0;i<a.length;i++)v+=(a[i]-m)*(a[i]-m);return [m,Math.sqrt(v/a.length)||1];}
+      var tl=ms(el.map(function(n){return _PTAIL[_parkOf(n)];})), to=ms(el.map(function(n){return P[n].TOTAL;}));
+      return el.slice().sort(function(a,b){
+        var za=(_PTAIL[_parkOf(a)]-tl[0])/tl[1]+(P[a].TOTAL-to[0])/to[1],
+            zb=(_PTAIL[_parkOf(b)]-tl[0])/tl[1]+(P[b].TOTAL-to[0])/to[1];
+        return zb-za || (P[b].TOTAL-P[a].TOTAL); });
+    }
+
     // ---- copywriter (ported from copy_engine.py) ----
-    var NAMES={"chef": ["Omakase", "The Prix Fixe", "The Degustation", "Five-Course Service", "The Sommelier's Pick", "Michelin Three-Star", "The Reserve List", "Top Shelf", "The Blue Ribbon", "Cream of the Crop", "The A-List", "House Reserve", "Dry-Aged and Prime", "The Priciest Cuts", "Blue-Chip Plate", "The Standing Reservation"], "moon": ["Escape Velocity", "Past the Event Horizon", "Shot Into Orbit", "Sky High", "Defying Gravity", "Through the Stratosphere", "Catching a Vapor Trail", "Into the Clouds", "Full Afterburner", "Breaking the Sound Barrier", "Reaching for the Stars", "Slipping the Surly Bonds", "Cleared for Launch", "Booster Ignition", "Hitting Apogee", "Mach Breaker", "Punching Through the Ceiling", "Riding the Jet Stream", "Upper Deck Bound", "Off the Scoreboard", "To the Heavens", "Liftoff Sequence", "Second Stage", "Leaving the Atmosphere", "Out of the Solar System", "Zero Gravity", "Trajectory Locked", "Sonic Boom", "The Long Bomb", "Rocket Fuel", "Thrust Vector", "Crossing the Karman Line", "No Doubter", "Tape Measure Job", "Onto the Concourse", "Splash Hit", "The Way Back Machine", "Goodbye Baseball", "Touch 'Em All", "Climbing the Ladder", "Ballistic Arc", "Orbital Insertion", "Star Sailor", "Going Supersonic", "The Slingshot", "Heat Shield Off", "Beyond the Bleachers", "Into the Upper Air", "The Apollo", "Terminal Climb", "Past Low Earth Orbit"], "biggest": ["The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats", "Family Style", "The Tasting Menu", "Surf and Turf", "All You Can Eat", "The Combo Platter", "Second Helpings", "The Smorgasbord", "The Whole Hog", "The Deli Case", "Loaded Plate", "The Feast", "The Cold Cuts", "Heaping Plate", "The Potluck", "The Tailgate Spread", "The Whole Enchilada", "The Big Platter", "Seconds and Thirds"], "late": ["Last Call", "Closing Time", "After Hours", "One for the Road", "Lights Out", "Final Pour", "The Closer", "Last Ring of the Bell", "Midnight Special", "Last Train Home", "The Curfew", "Burning the Midnight Oil", "Bar's Last Round", "Nightfall", "The Witching Hour", "Last Orders", "The Final Bell", "Under the Lights"], "lunch": ["Midday Meal", "High Noon", "The Blue Plate", "The Noon Whistle", "The Midday Mash", "Half-Day Hammer", "The Matinee", "The Early Bird", "Midday Money", "First-Pitch Feast"], "builder": ["Even Keel", "Weigh Anchor", "Holding Ground", "Safe Harbour", "Deep Water", "The Mooring", "Steady as She Goes", "All Hands", "Full Fathom", "The Windlass", "Drop the Hook", "The Ballast", "Sea Legs", "The Keel", "Fair Winds", "Following Sea", "Set the Hook", "The Capstan", "Anchors Aweigh", "Riding the Tide", "High Water", "Made Fast", "Cast Off", "Slack Tide", "Trim the Sail", "Port of Call", "The Bowline", "On Station", "Dockside", "The Waterline", "Shipshape", "The Anchorage", "Under Way", "Making Headway", "Ready About", "Landfall", "The Lighthouse", "The Breakwater", "Chart a Course", "The Helm", "Squared Away", "Hold Fast", "Ground Tackle", "Calm Seas", "The Berth", "Tide's Turn"], "family": ["Gone Yard", "Yard Work", "Left the Yard", "Big Fly", "The Jack", "Taters", "Solo Shot", "Two-Run Shot", "Three-Run Jack", "The Souvenir", "Bat Flip", "Curtain Call", "The Slow Trot", "Touch of the Cap", "See Ya", "Get Up, Get Out", "Kiss It Goodbye", "Long Gone", "That Ball Is Gone", "Wave Goodbye", "Squared Up", "On the Screws", "Got All of It", "Every Bit of It", "The Loud One", "Barrel Found", "Hung Slider", "Left It Over the Plate", "Middle-Middle", "The Meatball", "Cheap Seats", "Second Deck", "The Overhang", "Bleacher Bound", "Off the Foul Pole", "Wrapped Around the Pole", "Pull Side", "Change the Scoreboard", "Light the Fireworks", "Ring the Bell", "Sound the Horn", "One Swing"]};
+    var NAMES={"chef": ["Omakase", "The Prix Fixe", "The Degustation", "Five-Course Service", "The Sommelier's Pick", "Michelin Three-Star", "The Reserve List", "Top Shelf", "The Blue Ribbon", "Cream of the Crop", "The A-List", "House Reserve", "Dry-Aged and Prime", "The Priciest Cuts", "Blue-Chip Plate", "The Standing Reservation"], "moon": ["Escape Velocity", "Past the Event Horizon", "Shot Into Orbit", "Sky High", "Defying Gravity", "Through the Stratosphere", "Catching a Vapor Trail", "Into the Clouds", "Full Afterburner", "Breaking the Sound Barrier", "Reaching for the Stars", "Slipping the Surly Bonds", "Cleared for Launch", "Booster Ignition", "Hitting Apogee", "Mach Breaker", "Punching Through the Ceiling", "Riding the Jet Stream", "Upper Deck Bound", "Off the Scoreboard", "To the Heavens", "Liftoff Sequence", "Second Stage", "Leaving the Atmosphere", "Out of the Solar System", "Zero Gravity", "Trajectory Locked", "Sonic Boom", "The Long Bomb", "Rocket Fuel", "Thrust Vector", "Crossing the Karman Line", "No Doubter", "Tape Measure Job", "Onto the Concourse", "Splash Hit", "The Way Back Machine", "Goodbye Baseball", "Touch 'Em All", "Climbing the Ladder", "Ballistic Arc", "Orbital Insertion", "Star Sailor", "Going Supersonic", "The Slingshot", "Heat Shield Off", "Beyond the Bleachers", "Into the Upper Air", "The Apollo", "Terminal Climb", "Past Low Earth Orbit"], "biggest": ["The Charcuterie Board", "The Full Spread", "The Whole Tray", "Meat Sweats", "Family Style", "The Tasting Menu", "Surf and Turf", "All You Can Eat", "The Combo Platter", "Second Helpings", "The Smorgasbord", "The Whole Hog", "The Deli Case", "Loaded Plate", "The Feast", "The Cold Cuts", "Heaping Plate", "The Potluck", "The Tailgate Spread", "The Whole Enchilada", "The Big Platter", "Seconds and Thirds"], "late": ["Last Call", "Closing Time", "After Hours", "One for the Road", "Lights Out", "Final Pour", "The Closer", "Last Ring of the Bell", "Midnight Special", "Last Train Home", "The Curfew", "Burning the Midnight Oil", "Bar's Last Round", "Nightfall", "The Witching Hour", "Last Orders", "The Final Bell", "Under the Lights"], "lunch": ["Midday Meal", "High Noon", "The Blue Plate", "The Noon Whistle", "The Midday Mash", "Half-Day Hammer", "The Matinee", "The Early Bird", "Midday Money", "First-Pitch Feast"], "dinger": ["The Daily Dinger", "Today's Tater", "The House Pick", "One Swing Free", "The Free Roll", "Boosted", "The Token", "Pick of the Day", "On the House", "The Comp Ticket", "Free Swing", "The Freebie"], "jackpot": ["Tape Measure", "The Furthest Flight", "Longest of the Night", "The Big Carry", "Out of Sight", "The Moon Landing", "Deep Water Mark", "The Upper Deck", "Crushed", "The Long Ball", "Distance Champion", "The Record Shot"], "builder": ["Even Keel", "Weigh Anchor", "Holding Ground", "Safe Harbour", "Deep Water", "The Mooring", "Steady as She Goes", "All Hands", "Full Fathom", "The Windlass", "Drop the Hook", "The Ballast", "Sea Legs", "The Keel", "Fair Winds", "Following Sea", "Set the Hook", "The Capstan", "Anchors Aweigh", "Riding the Tide", "High Water", "Made Fast", "Cast Off", "Slack Tide", "Trim the Sail", "Port of Call", "The Bowline", "On Station", "Dockside", "The Waterline", "Shipshape", "The Anchorage", "Under Way", "Making Headway", "Ready About", "Landfall", "The Lighthouse", "The Breakwater", "Chart a Course", "The Helm", "Squared Away", "Hold Fast", "Ground Tackle", "Calm Seas", "The Berth", "Tide's Turn"], "family": ["Gone Yard", "Yard Work", "Left the Yard", "Big Fly", "The Jack", "Taters", "Solo Shot", "Two-Run Shot", "Three-Run Jack", "The Souvenir", "Bat Flip", "Curtain Call", "The Slow Trot", "Touch of the Cap", "See Ya", "Get Up, Get Out", "Kiss It Goodbye", "Long Gone", "That Ball Is Gone", "Wave Goodbye", "Squared Up", "On the Screws", "Got All of It", "Every Bit of It", "The Loud One", "Barrel Found", "Hung Slider", "Left It Over the Plate", "Middle-Middle", "The Meatball", "Cheap Seats", "Second Deck", "The Overhang", "Bleacher Bound", "Off the Foul Pole", "Wrapped Around the Pole", "Pull Side", "Change the Scoreboard", "Light the Fireworks", "Ring the Bell", "Sound the Horn", "One Swing"]};
     var NUMW={1:'one',2:'two',3:'three',4:'four',5:'five',6:'six'};
     var doy=(function(){var d=new Date((D.meta.date||'2026-01-01')+'T12:00:00');return Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);})();
     // Names rotate on the day of year, so ticket i of a kind gets pool[(doy+i)]. That is unique within one
@@ -2353,7 +2471,7 @@ drawTickets();drawPlayers();drawTracker();
    falls back to tight only if the varied wording would overflow the budget. */
 function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_down:1,form_flat:1};var r=dimPhrases(p);var rows=[];for(var i=0;i<r.length;i++)if(!SK[r[i][1]])rows.push(r[i]);if(!rows.length)rows=r;if(!rows.length)return "takes his cuts";var av=[];for(i=0;i<rows.length;i++)if(!used[rows[i][1]])av.push(rows[i]);if(!av.length)av=rows;var mn=function(row){var m=1e9,q;for(q=0;q<row[2].length;q++)m=Math.min(m,row[2][q].length);return m;};var best,k;if(tight){best=av[0];var bl=1e9;for(i=0;i<av.length;i++){var m=mn(av[i]);if(m<bl){bl=m;best=av[i];}}used[best[1]]=1;var sv=best[2][0];for(k=0;k<best[2].length;k++)if(best[2][k].length<sv.length)sv=best[2][k];return sv;}var byLen=av.slice().sort(function(a,b){return mn(a)-mn(b);});best=byLen[((seed>>>0)%Math.min(3,byLen.length))];used[best[1]]=1;var lo=mn(best),sh=[];for(k=0;k<best[2].length;k++)if(best[2][k].length<=lo+10)sh.push(best[2][k]);return choose(best[1],sh.length?sh:best[2],seed);}function clmp(s,B){B=B||116;if(!s||s.length<=B)return s;var t=s.slice(0,B);var i=Math.max(t.lastIndexOf(", "),t.lastIndexOf(" and "));if(i<50)i=t.lastIndexOf(" ");return s.slice(0,i).replace(/[\s,]+$/,"").replace(/\.+$/,"")+".";}function edgesU(p,k,used,seed){var r=dimPhrases(p),out=[],i;for(i=0;i<r.length;i++){if(used[r[i][1]])continue;used[r[i][1]]=1;out.push(choose(r[i][1],r[i][2],seed));if(out.length>=k)break;}if(!out.length)out=[choose(r[0][1],r[0][2],seed)];return out;}
     function cwNote(kind,legNames){var seed=legNames.reduce(function(s,n){var ln=lastNm(P[n].nm);for(var k=0;k<ln.length;k++)s+=ln.charCodeAt(k);return s;},0);
-      var WIDE=(kind==='biggest'||kind==='chef'||kind==='late'||kind==='lunch'),B=WIDE?190:150;
+      var WIDE=(kind==='biggest'||kind==='chef'||kind==='jackpot'||kind==='dinger'),B=WIDE?190:150;
       if(legNames.length===1){var a=P[legNames[0]];return clmp(a.nm+" "+joinClauses(edgesFill(a,seed,WIDE?150:140,3,WIDE?6:7))+".",B);}
       var per=WIDE?2:1,used={};var parts=legNames.map(function(n){return lastNm(P[n].nm)+" "+joinClauses(edgesU(P[n],per,used,seed));});
       var full=joinClauses(parts)+".";if(full.length<=B)return full;
@@ -2844,30 +2962,47 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       plan.forEach(function(pl){ if(pl.frozen||pl.kind!=='moon')return;
         var ma=anchRepl[pl.t.anchor]||(anchorAlive(pl.t.anchor)?pl.t.anchor:null);   // 2026-08-13: anchRepl is authoritative when set -- it now covers OVERTAKES, not just dead anchors, and an overtaken anchor is still alive
         if(ma){ pl.anch=ma; _anchOwn[ma]=1; usedG[ma]=1; } });   // both of an anchor's moons share the one seat -- by design
-         var _ord={moon:0,biggest:1,late:2,lunch:3,builder:4};   // Chef -> moon anchors -> salami anchor -> moon fills ->
+         var _ord={moon:0,biggest:1,jackpot:2,dinger:3,builder:4};   // Chef -> moon anchors -> salami anchor -> moon fills ->
       plan.sort(function(a,b){                                  // salami fills. A ticket only loses a leg to a HIGHER priority.
         return (a.frozen?-1:(_ord[a.kind]==null?9:_ord[a.kind])) - (b.frozen?-1:(_ord[b.kind]==null?9:_ord[b.kind])); });
       plan.forEach(function(pl){
         if(pl.frozen){ pl.t.locked=true; out.push(pl.t); return; }
         var kind=pl.kind, need=pl.need, legNames=pl.kept.slice(), gUsed=pl.gUsed, cand;
+        var _free=(kind==='jackpot'||kind==='dinger');   /* SPECIALS-2026-09-24: see both uses below */
         if(kind==='builder'||kind==='family') return;   /* non-locked builders are re-derived from the LIVE pool after this loop (locked builders were already emitted verbatim above).
            2026-08-14: FAMILY TOO. A family slip is derived in the same sense -- the bat is on it because it cleared the gate and nothing drafted it -- so it must be
            re-derived, not refilled in place. Falling through to the generic refill below kept the prior ticket OBJECT (and its name) and re-drafted its one leg to a
            different bat: on the 2:31pm board four of eight cards announced a player who was not on them (Ketel Marte -> Toglia, Torkelson -> Riley, Baldwin -> Marte,
            Hernandez -> Valdez). liveTickets() already treats builder and family alike; this makes the draft agree. */
-        else if(kind==='late') cand=byS(nonchalk.filter(function(n){return nightG[P[n].game]&&P[n].odds!=null&&P[n].odds<=600;}));
-        else if(kind==='lunch') cand=byS(nonchalk.filter(function(n){return lunchG[P[n].game]&&P[n].odds!=null&&P[n].odds<=600;}));
+        else if(kind==='jackpot') cand=jackpotCand(Object.keys(P));
+        else if(kind==='dinger')  cand=dingerCand(Object.keys(P));
         else cand=ge75(byS(nonchalk));
         if(pl.anch){ var ma=pl.anch;   // moon OR salami: rebuild anchor-first so legNames[0] is still the anchor
           { var nl=[ma], ng={}; ng[P[ma].game]=1;
             pl.kept.forEach(function(n){ if(n!==ma&&!ng[P[n].game]&&spanOk(nl.concat([n]))){ nl.push(n); ng[P[n].game]=1; } });   // WIN GUARD: a replacement anchor in a different time slot must not carry legs outside its window -- drop out-of-window kept legs so the re-anchored moon never exceeds WIN (it refills in-window below, or demotes cleanly)
             legNames=nl; gUsed=ng; usedG[ma]=1; } }
-        cand=(pl.pref||[]).filter(function(n){return legNames.indexOf(n)<0;}).concat(cand);   // own legs first, then the pool
+        /* SPECIALS-2026-09-24 (part 3). Prepending the INCUMBENT is right for a bet that has been
+           placed -- it stops a slip churning under someone who already has money on it. It is wrong
+           for the two free plays, which are a recomputed answer to "who is the best pick right now"
+           and have no stake to protect. With pref prepended, a special drafted by a BUGGY build is
+           re-selected forever: the 12:36 board minted the Jackpot correctly, the 12:41 rebuild drifted
+           it to the third-best man, and every build after that kept choosing him because he was
+           already there. Fixing the usedG skip alone could not dislodge him. */
+        if(!_free)cand=(pl.pref||[]).filter(function(n){return legNames.indexOf(n)<0;}).concat(cand);   // own legs first, then the pool
+        else legNames=[];   // a free pick is re-derived from scratch, never inherited
+        /* SPECIALS-2026-09-24 (part 2) -- the free plays must skip the "already used" rule HERE TOO.
+           Removing it at the MINT site only fixed the build that first mints the ticket. Every later
+           redraft -- which is every page load -- came through this loop instead, hit `usedG[n]`, and
+           walked the Jackpot off the correct man onto whoever was left: Goodman and Carroll both leg
+           moons, so the pick silently slid to the third name. The board shipped right and then drifted
+           wrong, which is the worst shape of bug because the commit looks correct.
+           A free pick also must not MARK usedG: it is not a seat, and claiming one would deny the bat
+           to the board's own draft on the next pass. */
         for(var i=0;i<cand.length && legNames.length<need;i++){var n=cand[i];
-          if(usedG[n])continue;
+          if(usedG[n] && !_free)continue;
           if(need>1 && gUsed[P[n].game])continue;
           if(need>1 && !spanOk(legNames.concat([n])))continue;
-          legNames.push(n); gUsed[P[n].game]=1; usedG[n]=1; }
+          legNames.push(n); gUsed[P[n].game]=1; if(!_free)usedG[n]=1; }
         if(need>1 && legNames.length<need){ // top-up: the 33 (minus ban-8), then #34+, NEVER the ban-8
           var widerA=ge75(byS(nonchalk)).filter(function(n){return !usedG[n];}).concat(ge75(byS(extra)).filter(function(n){return !usedG[n]&&((_poolTeam[(P[n]||{}).game]||0)<cfg('RESERVE_GAME_CAP',4));}));   /* BOARDCFG-2026-09-13: was a bare 4. This is the LAST cap in the draft and it is NOT GAME_CAP -- it bounds how many bats one game may contribute when a moon has to reach BELOW the z-gate into the reserve tier. It is deliberately tighter than GAME_CAP (6): the reserve tier is sub-gate bats, so a game that has already given the pool four of them should not also backfill a fifth. Three README/HANDOFF lines called this "the span-fill fallback is still 4, by design" -- the design was real, the number was just unnamed, which is why it kept getting mistaken for a stale GAME_CAP. */
           for(var j=0;j<widerA.length && legNames.length<need;j++){var m=widerA[j]; // tightest in-window first
@@ -2938,7 +3073,11 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
         var lockedB={}; out.forEach(function(t){ if(t.kind==='builder'&&t.locked){(t.players||[]).forEach(function(l){lockedB[l.name]=1;});} });
         var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});
         var usedN={}; par.forEach(function(t){(t.players||[]).forEach(function(l){usedN[l.name]=1;});});
-        var lnp={}; out.forEach(function(t){ if(t.kind==='late'||t.kind==='lunch'){(t.players||[]).forEach(function(l){lnp[l.name]=1;});} });
+        /* SPECIALS-2026-09-24: the special-bat reservation is GONE, not just unused. It kept a bat
+           seated on the Lunch Special or Nightcap off every other slip, because both drew from the
+           pool the board actually bets and a double seat was double real exposure. The Dinger and
+           the Jackpot are free plays on other books, so the same bat leading two moons AND holding
+           the free pick is correct rather than a conflict. */
         var lf=Infinity; par.forEach(function(t){(t.players||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});}); if(lf===Infinity)lf=-1;
         var done={}; Object.keys(lockedB).forEach(function(n){done[n]=1;});
         par.forEach(function(t){ var a=t.anchor; if(a&&!done[a]&&P[a]&&P[a].odds!=null){ done[a]=1; mkBuilder(a); } });   // shipped-parlay anchors -> builders (no odds cap, mirrors server)
@@ -3084,7 +3223,7 @@ var _cmA={}, _cmB={};
       function mkF(kind,badge,ns,rr){var legs=ns.map(leg);var idx=nextIdx(kind);
         out.push({name:cwName(kind,idx),kind:kind,badge:badge,note:"",players:legs,nlegs:legs.length,anchor:ns[0],lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:rr||null});}
       parlays.forEach(function(t){ if(t.kind==='moon') mkF('moon',t.badge,t.legs,t.rr); });       // moons first (display order)
-      var _plg={}; parlays.forEach(function(t){t.legs.forEach(function(n){_plg[n]=1;});}); var _lnp={};
+      var _plg={}; parlays.forEach(function(t){t.legs.forEach(function(n){_plg[n]=1;});});
       /* NIGHTCAP FALLBACK. The nightcap drafts dead-last out of whatever the gated pool has left over --
          correct on a normal slate, and on 2026-08-03 it shipped NOTHING. The z-gate is relative, so an
          8-game card with every lineup posted (113 of 268 bats out) passed only 20; the Chef's Table took 4
@@ -3096,18 +3235,20 @@ var _cmA={}, _cmB={};
          latest-game window. This changes NO priority -- it still runs after the Chef's Table, the moon
          anchors, the salami anchor, the moon fills and the salami fills have all taken what they want. It
          only stops a thin gate from deleting the ticket outright. */
-      var ncap=byS(draftPool).filter(function(n){return nightG[P[n].game]&&!_plg[n]&&P[n].odds!=null&&P[n].odds<=600;});
-      if(!ncap.length){
-        var _nt=elig.map(tmin).filter(function(x){return x!=null;}), _nlast=_nt.length?Math.max.apply(null,_nt):0;
-        ncap=byT(elig.filter(function(n){var _q=tmin(n);
-          return _q!=null && _q>=_nlast-NIGHT_WIN && !_plg[n] && !usedG[n] && !chalk[n] && !started(n) && !pending(n)
-                 && precipOf(P[n].game)<40 && P[n].odds!=null && P[n].odds<=600;}));
-      }
+      /* SPECIALS-2026-09-24: the nightcap's thin-gate fallback is deleted with the ticket it served.
+         It existed because a night WINDOW could collapse (2026-08-03 shipped no nightcap at all);
+         the jackpot has no window to collapse -- it ranks the whole slate -- so the fallback has
+         nothing left to rescue. Deleted rather than left unread, per DEADCODE-2026-09-22. */
       /* REDRAFT-2026-08-18: one nightcap and one lunch play, full stop. On a mid-slate redraft the locked prior
          nightcap is already sitting in `out` as a placed bet, and minting a fresh one on top of it put TWO late
          singles on the board. The fresh path never had to check because it only ever ran on an empty board. */
-      if(ncap.length && !out.some(function(t){return t.kind==='late';})){ mkF('late','\uD83C\uDF03',[ncap[0]]); _lnp[ncap[0]]=1; }
-      var lunchc=byS(draftPool).filter(function(n){return lunchG[P[n].game]&&!_plg[n]&&!_lnp[n]&&P[n].odds!=null&&P[n].odds<=600;}); if(lunchc.length && !out.some(function(t){return t.kind==='lunch';})){ mkF('lunch','\uD83C\uDF71',[lunchc[0]]); _lnp[lunchc[0]]=1; }
+      /* SPECIALS-2026-09-24: `late`/`lunch` retired here; `jackpot`/`dinger` mint in their place.
+         The one-of-each guard is kept verbatim from REDRAFT-2026-08-18 -- a locked prior special is
+         already sitting in `out` as a placed pick, and minting a fresh one on top of it put TWO on
+         the board. These draw from the FULL eligible field, not `draftPool`, because a free pick is
+         not competing with the board's own bets for a seat. */
+      var jkp=jackpotCand(elig); if(jkp.length && !out.some(function(t){return t.kind==='jackpot';})){ mkF('jackpot','\uD83D\uDCA5',[jkp[0]]); }
+      var dng=dingerCand(elig); if(dng.length && !out.some(function(t){return t.kind==='dinger';})){ mkF('dinger','\uD83C\uDFAF',[dng[0]]); }
       var spent={}; parlays.forEach(function(t){ t.legs.forEach(function(n){spent[n]=1;}); });   // only KEPT-parlay bats; dropped anchors/legs become builders
       (function(){var par=out.filter(function(t){return t.kind==='moon'||t.kind==='biggest';});var usedN={};par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){usedN[l.name]=1;});});var lf=Infinity;par.forEach(function(t){(t.players||t.legs||[]).forEach(function(l){var s=strength(l.name);if(s<lf)lf=s;});});if(lf===Infinity)lf=-1;var done={};out.forEach(function(t){if(t.kind==='builder'){var _ba=t.anchor||((t.players||[])[0]||{}).name;if(_ba)done[_ba]=1;}});/* REDRAFT-2026-08-18: a locked prior builder is already on the board -- minting a second one for the same anchor duplicated the slip */par.forEach(function(t){if(t.anchor&&!done[t.anchor]&&P[t.anchor]&&P[t.anchor].odds!=null){done[t.anchor]=1;mkF('builder','🥅',[t.anchor]);/* BUILDERBADGE-2026-08-26, owner: "i think alonso got classified as a bank roll builder. he has the money bag emoji." It was not a classification -- there is no such kind. There are TWO paths that mint an anchor's builder single, and only one of them went through mkBuilder(), which sets badge '⚓️'. This one hardcoded a money bag, so any anchor seated MID-SLATE got a builder that did not match the other three. Pete Alonso today: he took the 4th seat at 3:34pm when Goodman drifted into the chalk ban, so his builder came from here and wore the wrong badge all evening. Same kind, same section, same grading -- the badge was the only thing wrong. */}});})();
     }
@@ -3159,14 +3300,16 @@ var _cmA={}, _cmB={};
     (function(){
       var have={}; out.forEach(function(t){have[t.kind]=1;});
       var pl={}; out.forEach(function(t){(t.players||[]).forEach(function(l){pl[l.name]=1;});});
-      [['late',nightG,'\uD83C\uDF03'],['lunch',lunchG,'\uD83C\uDF71']].forEach(function(spec){
-        var kind=spec[0], gm=spec[1], badge=spec[2];
+      /* SPECIALS-2026-09-24: same repair, now for the two free plays. Their candidate lists come
+         from the shared helpers rather than a window map, and they deliberately do NOT exclude a
+         bat already on the board (`pl`/`usedG`) -- a free pick may sit on the same man as a moon. */
+      [['jackpot',jackpotCand,'\uD83D\uDCA5'],['dinger',dingerCand,'\uD83C\uDFAF']].forEach(function(spec){
+        var kind=spec[0], pick=spec[1], badge=spec[2];
         if(have[kind]||_killedKind[kind])return;   /* SHAPEMINT-2026-09-09: an empty slot is drafted; a slot a SCRATCH just emptied is a settled bet and stays empty */
-        var c=byS(nonchalk).filter(function(n){return gm[P[n].game]&&!pl[n]&&!usedG[n]&&!pending(n)&&!started(n)&&precipOf(P[n].game)<40&&P[n].odds!=null&&P[n].odds<=600;});
+        var c=pick(elig);
         if(!c.length)return;
         var legs=[leg(c[0])];
         out.push({name:cwName(kind,nextIdx(kind)),kind:kind,badge:badge,note:"",players:legs,nlegs:1,anchor:c[0],lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:null});
-        usedG[c[0]]=1;
         if(typeof console!=='undefined'&&console.log)console.log('[shape-repair] no '+kind+' on the board -> minted '+c[0]);
       });
     })();
@@ -3197,7 +3340,11 @@ var _cmA={}, _cmB={};
     });
     _gseen={};   // generate all notes in ticket order so the board-wide phrase de-dup is deterministic
     out.forEach(function(t){ t.note=cwNote(t.kind, t.players.map(function(l){return l.name;})); });
-    var _rsv={};out.forEach(function(t){if(t.kind==='lunch'||t.kind==='late')t.players.forEach(function(l){_rsv[l.name]=1;});});out=out.filter(function(t){return (t.kind==='lunch'||t.kind==='late')||!t.players.some(function(l){return _rsv[l.name];});});out.forEach(function(t){(t.players||[]).forEach(function(l){var _p=P[l.name];if(_p){l.gtime=_p.gtime;l.late=_p.late;l.gmatch=_p.gmatch;l.game=_p.game;}});});if(_lockedPrior.length){
+    /* SPECIALS-2026-09-24: the companion to the reservation above, and the more dangerous half --
+       it DELETED any ticket that shared a bat with a special. With free plays drawing from the full
+       field that would silently drop a moon or a builder whenever the Dinger or the Jackpot landed
+       on a bat the board was already betting, which is the normal case, not the edge case. */
+    out.forEach(function(t){(t.players||[]).forEach(function(l){var _p=P[l.name];if(_p){l.gtime=_p.gtime;l.late=_p.late;l.gmatch=_p.gmatch;l.game=_p.game;}});});if(_lockedPrior.length){
       /* A fresh ticket is redundant only if it DUPLICATES something already carried. The first cut of
          this filter dropped anything sharing a bat with a locked ticket, which silently deleted every
          anchor single whose parlay had locked but whose own game had not started yet -- 2026-08-09,
@@ -6846,6 +6993,36 @@ if(window.ResizeObserver){
 }
 schedule();
 window.htDraw=schedule;
+})();
+</script>
+<script>
+/* ROOMSWITCH-2026-09-24 -- the room switcher's two moving parts. See the .rooms CSS block for why
+   the markup is identical in all three rooms.
+
+   1. WHICH CHIP IS LIT is read from location.pathname, not baked in. deploy-pages.yml publishes
+      the three rooms as siblings -- /mlb/, /soccer/, /nfl/ -- so the path IS the room. Anything
+      else (a local file, a preview) lights nothing rather than guessing, which is why there is no
+      `else 'r-mlb'` fallback: a forked page opened from disk would otherwise claim to be baseball.
+
+   2. --navh KEEPS .bar FLUSH UNDER .nav. .bar stuck at a hard-coded top:62px (60 below 560px),
+      tuned by eye -- and it was already wrong before this change: the nav measures 70px on a
+      desktop and 66 on a phone, so the filter bar sat ~8px UNDER the nav's box and only the
+      `box-shadow:0 -16px 0 var(--bg)` hid the seam. The room chips are taller than the Find
+      field, so the nav now measures 74/68 and that slack was about to run out. Measuring is what
+      survives every state, including the ones no breakpoint can see: .navfind is hidden by a
+      :has() rule on any non-Tickets tab, which changes the nav's height WITHOUT a resize event.
+      That is the case ResizeObserver is here for -- `resize` alone would miss it. */
+(function(){
+  var nav=document.querySelector('.nav'); if(!nav) return;
+  var p=(location.pathname||'').toLowerCase();
+  var cls=/(^|\/)nfl(\/|$)/.test(p)?'r-nfl':/(^|\/)soccer(\/|$)/.test(p)?'r-soc':/(^|\/)mlb(\/|$)/.test(p)?'r-mlb':'';
+  if(cls){var a=nav.querySelector('.'+cls);if(a)a.setAttribute('aria-current','page');}
+  function navh(){document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px');}
+  navh();
+  window.addEventListener('resize',navh);
+  window.addEventListener('load',navh);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(navh);
+  if(window.ResizeObserver)new ResizeObserver(navh).observe(nav);
 })();
 </script>
 </body></html>
