@@ -20,6 +20,7 @@ Grading mirrors the published board's gradeTicket() exactly (round-robin moons/
 salami, single-leg builders/lunch/nightcap, american->decimal payouts).
 """
 import json, os, re, sys, unicodedata, datetime, itertools, urllib.request
+import longball_grade   # RECORDKEPT-2026-09-24: the Long Ball Jackpot's result
 from calibrate import build_rows, load_extras   # reuse the pure row-builder so each graded night also logs to calibration.jsonl (+ full Kasper stat sidecar)
 
 SA   = "https://statsapi.mlb.com/api/v1"
@@ -90,7 +91,7 @@ def results_for(date):
 FREE_KINDS = ('dinger', 'jackpot')   # SPECIALS-2026-09-24
 
 
-def grade_ticket(t, homered, played, ppd_codes, stake):
+def grade_ticket(t, homered, played, ppd_codes, stake, date=None):
     legs = t.get('players') or []
     if not legs:
         return None
@@ -99,10 +100,11 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
     # staked at ZERO and contribute nothing to season P&L. Owner's call, and it matters: at 1u
     # these two would have added ~180 fictional units of risk a season to a ledger whose whole
     # purpose is to say what the board actually did with money.
-    # ⚠️ The Jackpot's `won` is NOT decidable from this file. "Did he homer" is what we can see;
-    # "was his the longest homer in baseball today" needs hit_distance_sc, which pull_boxscores
-    # does not collect. It is left ungraded (won=None) rather than scored as a HR prop, which
-    # would silently inflate its hit rate to roughly ten times the real thing.
+    # RECORDKEPT-2026-09-24: both now produce a real won/lost. The Jackpot's question -- "was his
+    # the longest homer in baseball today" -- is answered by longball_grade.py off Savant's
+    # hit_distance_sc, verified against four days of longball/winners_2026.tsv. It is NOT the
+    # "did he homer" question: scoring it that way would report a ~30% hit rate on a bet whose
+    # real baseline is 3.3%.
     if t.get('kind') in FREE_KINDS:
         stake = 0.0
     def ppd_void(l):
@@ -193,7 +195,11 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
         for l, _ in kept: dd *= dec(l['odds'])
         pay10 = 10 * dd
     if t.get('kind') == 'jackpot':
-        return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': None}   # see FREE_KINDS note
+        # Unknown stays UNGRADED rather than scoring a loss: a blocked fetch or a day Savant has
+        # not published is not evidence our man missed. fold() skips won=None, so the slip simply
+        # waits for a later run instead of poisoning the record.
+        w = longball_grade.is_winner(legs[0].get('name'), date) if date else None
+        return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': w}
     if cashed:
         return {'kind': t['kind'], 'stake': stake, 'net': round(stake*(pay10/10.0 - 1), 2), 'won': True}
     return {'kind': t['kind'], 'stake': stake, 'net': -float(stake), 'won': False}
@@ -238,7 +244,7 @@ def main():
         # Grade the board that ACTUALLY SHIPPED (the baked D_<date>.json tickets). A fresh server
         # re-draft here diverges from the live board you bet (different builders), so grade the
         # shipped tickets directly -- matches how the prior nights were graded.
-        gr = [grade_ticket(t, homered, played, ppd, stake) for t in D.get('tickets', [])]
+        gr = [grade_ticket(t, homered, played, ppd, stake, date) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
         # calibration logging is handled SEPARATELY by `calibrate.py` (idempotent, self-healing
         # backfill run as its own pipeline step), so grade_night never silently drops rows.

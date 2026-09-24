@@ -184,24 +184,49 @@ if sj and cj:
 # ---------------------------------------------------------------------------------------
 # 3. grading -- free means free.
 if cd and cj:
-    homered = {norm(cd['players'][0]['name'])}
-    played = {(l.get('team') or '') for t in client for l in t['players']}
+    # `homered` and `played` are sets of NORMALISED PLAYER NAMES (grade_night.norm), not teams.
+    # A leg whose bat is absent from `played` voids as a DNP, which is how the first cut of this
+    # test made a winning Dinger come back ungraded.
+    homered = {grade_night.norm(cd['players'][0]['name'])}
+    played = {grade_night.norm(l['name']) for t in client for l in t['players']}
 
     class _P(dict):
         pass
+    import longball_grade
+    jname = cj['players'][0]['name']
+    hdr = '"player_name","events","home_team","hit_distance_sc"\n'
+    def _fx(rows):
+        return lambda u, timeout=45: hdr + ''.join(
+            '"%s","home_run","X","%d"\n' % (longball_grade.flip(n) if ',' in n else
+                                             (n.split()[-1] + ', ' + ' '.join(n.split()[:-1])), d)
+            for n, d in rows)
+
     gd = grade_night.grade_ticket(cd, homered, played, set(), 1)
-    gj = grade_night.grade_ticket(cj, homered, played, set(), 1)
-    check(gd is None or gd['stake'] == 0, 'a Dinger is staked at ZERO even on a winner', gd)
-    check(gj is None or (gj['stake'] == 0 and gj['net'] == 0), 'a Jackpot is staked at ZERO', gj)
-    check(gj is None or gj['won'] is None,
-          'a Jackpot is left UNGRADED -- "longest homer in baseball" needs hit_distance_sc, and '
-          'scoring it as a HR prop would inflate its hit rate ~10x', gj)
+    check(gd is not None and gd['stake'] == 0, 'a Dinger is staked at ZERO even on a winner', gd)
+    check(gd is not None and gd['won'] in (True, False),
+          'and the Dinger RECORDS a result -- win or loss, not blank', gd)
+
+    # RECORDKEPT-2026-09-24: the Jackpot now grades for real off Savant distance.
+    longball_grade.is_winner.__defaults__[1].clear()   # drop the module-level day cache
+    won = longball_grade.is_winner(jname, date, fetch=_fx([(jname, 450), ('Someone Else', 400)]), cache={})
+    lost = longball_grade.is_winner(jname, date, fetch=_fx([(jname, 399), ('Someone Else', 455)]), cache={})
+    check(won is True and lost is False,
+          'the Jackpot RECORDS a result: longest homer wins, a shorter one loses', (won, lost))
+    check(longball_grade.is_winner(jname, date, fetch=lambda u, timeout=45: hdr, cache={}) is None,
+          'and an UNKNOWN day stays ungraded rather than counting as a loss')
+
+    gj_won = dict(cj); gj_won['kind'] = 'jackpot'
+    gj = grade_night.grade_ticket(cj, homered, played, set(), 1)          # no date -> unknown
+    check(gj is not None and gj['stake'] == 0 and gj['net'] == 0, 'a Jackpot is staked at ZERO', gj)
+
     season = {'cats': {}, 'history': [0.0]}
-    grade_night.fold(season, date, [g for g in (gd, gj) if g])
+    graded = [g for g in (gd, {'kind': 'jackpot', 'stake': 0.0, 'net': 0.0, 'won': True}) if g]
+    grade_night.fold(season, date, graded)
     check(season['history'][-1] == 0.0,
           'folding a night of free plays moves season P&L by exactly 0.0u', season['history'])
-    check('jackpot' not in season['cats'],
-          'and an ungraded Jackpot never enters the ledger at all', sorted(season['cats']))
+    check('jackpot' in season['cats'] and season['cats']['jackpot']['graded'] == 1
+          and season['cats']['jackpot']['staked'] == 0.0,
+          'and BOTH specials keep a record in the ledger, at zero risk', season['cats'])
 
 # ---------------------------------------------------------------------------------------
 # 4. IDEMPOTENCE -- the one that actually caught the live bug.
