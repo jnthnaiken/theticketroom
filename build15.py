@@ -1130,6 +1130,38 @@ for gn,g in gamemeta.items():
 
 try: season=json.load(open(os.environ.get('SEASON_JSON','season.json')))
 except Exception: season={'since':DATE,'stake':1,'cats':{},'history':[0.0],'graded_nights':[]}
+
+# ---- SPECIALS-2026-09-24: the two free plays that replaced the Lunch Special and the Nightcap ----
+# Both are FREE-TO-PLAY promos on other books, so neither is board exposure and neither is staked:
+#   * FanDuel Daily Dinger  -- FanDuel publishes a short list of bats each day; you pick ONE and a
+#     homer returns a profit-boost token. Our pick is our highest-TOTAL bat ON THEIR LIST, which is
+#     why the list has to be a committed daily input: it is not derivable from anything we scrape.
+#     Owner, 2026-09-23: "its not just our top scored bat. its our highest scored bat thats on their
+#     list that day."
+#   * Fanatics Long Ball Jackpot -- attach a pick to a qualifying bet; if your man hits the LONGEST
+#     homer in baseball that day you split a pot with everyone else who picked him. NOT a
+#     longest-odds market, which is the thing I got wrong first.
+# `park_tail` is the 90th-percentile HR distance at each park relative to league, learned on the
+# first half of 2026 (longball/park_tail_h1.tsv). It is the variable the jackpot ranks on together
+# with TOTAL -- see longball/backtest.py for why the board's own `parkhr` is the WRONG one here
+# (it is NEGATIVELY related to the longest homer: cheap-homer parks produce wall-scrapers).
+# A missing file is soft on purpose: the draft falls back and the board still builds.
+_DINGER=[]
+try:
+    with open('dinger_%s.txt'%DATE,encoding='utf-8') as _fh:
+        _DINGER=[_l.strip() for _l in _fh if _l.strip()]
+except Exception as _e:
+    print('build15: no dinger_%s.txt (%s) -- Daily Dinger will not draft'%(DATE,_e.__class__.__name__))
+_PARKTAIL={}
+try:
+    with open('longball/park_tail_h1.tsv',encoding='utf-8') as _fh:
+        for _l in _fh:
+            _f=_l.split()
+            if len(_f)>=4:
+                try: _PARKTAIL[_f[0]]=float(_f[3])
+                except ValueError: pass
+except Exception as _e:
+    print('build15: no park_tail_h1.tsv (%s) -- Long Ball Jackpot will not draft'%_e.__class__.__name__)
 meta={'cfg':{k:v for k,v in _BCFG.CFG.items() if not k.startswith('_')},   # BOARDCFG-2026-09-13: the draft/stake
       # numbers ride WITH the board so index.html reads one source instead of keeping its own copy. An archived
       # board with no cfg still renders -- the client falls back to its literals.
@@ -1140,6 +1172,9 @@ meta={'cfg':{k:v for k,v in _BCFG.CFG.items() if not k.startswith('_')},   # BOA
       # FEEDLAG-2026-09-24: clubs whose card MLB had not published when this board was
       # built, while the other half of their game was up. Carried so the page can say
       # which club it cannot see rather than showing a stale projection in silence.
-      'feedlag':sorted('%s|%s' % (_g,_c) for _g,_c in _FEEDLAG)}
+      'feedlag':sorted('%s|%s' % (_g,_c) for _g,_c in _FEEDLAG),
+      # SPECIALS-2026-09-24: inputs for the two free plays, carried so index.html's draft and
+      # assemble_tickets.py read the same numbers instead of each loading the files themselves.
+      'dinger':_DINGER,'park_tail':_PARKTAIL}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")

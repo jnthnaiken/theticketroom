@@ -87,10 +87,24 @@ def results_for(date):
     return homered, played, all_final, ppd
 
 # ---------- grade one ticket (faithful port of the board's gradeTicket) ----------
+FREE_KINDS = ('dinger', 'jackpot')   # SPECIALS-2026-09-24
+
+
 def grade_ticket(t, homered, played, ppd_codes, stake):
     legs = t.get('players') or []
     if not legs:
         return None
+    # SPECIALS-2026-09-24 -- the Daily Dinger and the Long Ball Jackpot are FREE plays (a FanDuel
+    # profit-boost token and a share of a Fanatics pot), so they are graded for the RECORD but
+    # staked at ZERO and contribute nothing to season P&L. Owner's call, and it matters: at 1u
+    # these two would have added ~180 fictional units of risk a season to a ledger whose whole
+    # purpose is to say what the board actually did with money.
+    # ⚠️ The Jackpot's `won` is NOT decidable from this file. "Did he homer" is what we can see;
+    # "was his the longest homer in baseball today" needs hit_distance_sc, which pull_boxscores
+    # does not collect. It is left ungraded (won=None) rather than scored as a HR prop, which
+    # would silently inflate its hit rate to roughly ten times the real thing.
+    if t.get('kind') in FREE_KINDS:
+        stake = 0.0
     def ppd_void(l):
         # PPDNAME-2026-09-01: a board leg carries the FULL club name ("Giants"), not a team code, so
         # `raw[:3]` was "GIA" and could never match a StatsAPI abbreviation ("SF") -- this predicate
@@ -178,6 +192,8 @@ def grade_ticket(t, homered, played, ppd_codes, stake):
         dd = 1.0
         for l, _ in kept: dd *= dec(l['odds'])
         pay10 = 10 * dd
+    if t.get('kind') == 'jackpot':
+        return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': None}   # see FREE_KINDS note
     if cashed:
         return {'kind': t['kind'], 'stake': stake, 'net': round(stake*(pay10/10.0 - 1), 2), 'won': True}
     return {'kind': t['kind'], 'stake': stake, 'net': -float(stake), 'won': False}

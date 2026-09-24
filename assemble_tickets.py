@@ -28,7 +28,7 @@ one, and every one of them was wrong: "GAME_CAP (=3)" when the code said 4 and t
 kept in sync by hand -- it has never once been. The values live in `board_config.json`; print them
 with `python3 boardcfg.py` and check them with `python3 state.py --check`.
 """
-import re, datetime, itertools
+import re, datetime, itertools, statistics, unicodedata
 import boardcfg as _CFG      # BOARDCFG-2026-09-13: the draft/stake numbers come from board_config.json
 
 LUNCH_CUT_MIN = _CFG.LUNCH_CUT_MIN   # <- board_config.json (1020 = 5:00 PM ET)
@@ -144,6 +144,12 @@ NAME_POOLS = {
         "Midday Meal", "High Noon", "The Blue Plate", "The Noon Whistle", "The Midday Mash",
         "Half-Day Hammer", "The Matinee", "The Early Bird", "Midday Money", "First-Pitch Feast",
     ],
+    "dinger": ["The Daily Dinger", "Today's Tater", "The House Pick", "One Swing Free", "The Free Roll",
+               "Boosted", "The Token", "Pick of the Day", "On the House", "The Comp Ticket",
+               "Free Swing", "The Freebie"],
+    "jackpot": ["Tape Measure", "The Furthest Flight", "Longest of the Night", "The Big Carry",
+                "Out of Sight", "The Moon Landing", "Deep Water Mark", "The Upper Deck", "Crushed",
+                "The Long Ball", "Distance Champion", "The Record Shot"],
     "builder": [  # bankroll / getting paid
         "Cash Is King", "Paid in Full", "Bag Secured", "The Sure Thing", "Easy Money",
         "Stack It High", "Mailbox Money", "Bread Winner", "Walk-Off Wallet", "Petty Cash",
@@ -638,17 +644,48 @@ def assemble(D):
     for t in _moons:                                        # emit moons first (display order), canonical name
         add(_nm[id(t)], "moon", t['badge'], t['legs'], rr=t['rr'])
 
-    # lunch special + nightcap = the highest-ranked (by model) bat NOT already on a parlay, in each window
-    _pused  = {l for t in parlays for l in t.get('legs', [])}   # parlay legs are name strings at this stage, not dicts
-    _lnpick = []
-    _nc = [n for n in byS(nonchalk) if P[n]['game'] in night_games and n not in _pused
-           and P[n].get('odds') is not None and P[n]['odds'] <= 600]
-    if _nc:
-        add(name_for("late"), "late", "\U0001f303", [_nc[0]]); _lnpick.append(_nc[0])
-    _lc = [n for n in byS(nonchalk) if P[n]['game'] in lunch_games and n not in _pused and n not in _lnpick
-           and P[n].get('odds') is not None and P[n]['odds'] <= 600]
-    if _lc:
-        add(name_for("lunch"), "lunch", "\U0001f371", [_lc[0]]); _lnpick.append(_lc[0])
+    # SPECIALS-2026-09-24 -- the Lunch Special and the Nightcap are replaced by two FREE plays.
+    # Mirrors index.html's dingerCand()/jackpotCand(); change one, change both.
+    #   DINGER  = highest TOTAL among the bats on FanDuel's published list for the day.
+    #   JACKPOT = highest z(park tail) + z(TOTAL), the blend longball/backtest.py measured.
+    # Neither carries a stake and neither excludes a bat already on a parlay: these are promos on
+    # other books, not board exposure, so the same bat can lead two moons and hold the free pick.
+    # The <=600 cap is gone for the same reason -- it protected a 1u single that no longer exists.
+    _meta = D.get('meta', {})
+    _dng_list = _meta.get('dinger') or []
+    _ptail = _meta.get('park_tail') or {}
+
+    def _nk(s):
+        s2 = unicodedata.normalize('NFKD', s or '')
+        s2 = ''.join(c for c in s2 if not unicodedata.combining(c)).lower()
+        s2 = re.sub(r'\b(jr|sr|ii|iii|iv)\b', '', s2)
+        return re.sub(r'[^a-z ]', '', s2).strip()
+
+    def _park_of(n):
+        g = P[n].get('gmatch') or ''
+        return g.split('@')[1] if '@' in g else ''
+
+    def _spec_alive(n):
+        p = P[n]
+        return (p.get('odds') is not None and not p.get('out') and not p.get('void')
+                and not pend(n))
+
+    _dset = {_nk(x) for x in _dng_list}
+    _dc = sorted([n for n in P if _nk(n) in _dset and _spec_alive(n)],
+                 key=lambda n: -(P[n].get('TOTAL') or -1e9))
+    if _dc:
+        add(name_for("dinger"), "dinger", "\U0001f3af", [_dc[0]])
+
+    _je = [n for n in P if _spec_alive(n) and _ptail.get(_park_of(n)) is not None
+           and P[n].get('TOTAL') is not None]
+    if len(_je) >= 2:
+        _tl = [_ptail[_park_of(n)] for n in _je]
+        _to = [P[n]['TOTAL'] for n in _je]
+        _mt, _st_ = statistics.mean(_tl), (statistics.pstdev(_tl) or 1.0)
+        _mo, _so = statistics.mean(_to), (statistics.pstdev(_to) or 1.0)
+        _je.sort(key=lambda n: -((_ptail[_park_of(n)] - _mt) / _st_ + (P[n]['TOTAL'] - _mo) / _so))
+    if _je:
+        add(name_for("jackpot"), "jackpot", "\U0001f4a5", [_je[0]])
 
     # builders: every remaining NONCHALK bat as a single. Chalk is never a builder; the 33 buildable
     # bats land on tickets, and the chalk sit in lunch/nightcap (or nowhere, if their window is empty).
