@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-24T02:01:03Z",
+  "pulled_at": "2026-09-24T02:03:35Z",
   "games": [
     {
       "gamePk": 824223,
@@ -1069,7 +1069,7 @@
     },
     {
       "gamePk": 824868,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-23T23:15:00Z",
       "matchup": "CIN@ATL",
       "away": {
@@ -1720,9 +1720,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 7mph, 70\u00b0",
+        "lean": "Boost",
+        "temp": 70.1,
+        "wind_mph": 7.1,
+        "wind_dir": 167,
+        "tail_mph": 6.9,
+        "precip": 20
       },
-      "wf": 1.0
+      "wf": 1.024
     },
     {
       "gamePk": 824951,
