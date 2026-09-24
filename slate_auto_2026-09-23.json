@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-24T01:03:36Z",
+  "pulled_at": "2026-09-24T01:08:22Z",
   "games": [
     {
       "gamePk": 824223,
@@ -271,7 +271,7 @@
     },
     {
       "gamePk": 824784,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-23T22:35:00Z",
       "matchup": "TOR@BAL",
       "away": {
@@ -587,7 +587,7 @@
           {
             "id": 701675,
             "name": "Nathan Church",
-            "iso": 0.121
+            "iso": 0.12
           },
           {
             "id": 691026,
@@ -644,7 +644,7 @@
           {
             "id": 669707,
             "name": "Jared Triolo",
-            "iso": 0.066
+            "iso": 0.065
           },
           {
             "id": 663968,
@@ -700,12 +700,12 @@
           {
             "id": 661388,
             "name": "William Contreras",
-            "iso": 0.15
+            "iso": 0.149
           },
           {
             "id": 641343,
             "name": "Jake Bauers",
-            "iso": 0.224
+            "iso": 0.223
           },
           {
             "id": 687401,
@@ -777,7 +777,7 @@
           {
             "id": 592663,
             "name": "J.T. Realmuto",
-            "iso": 0.128
+            "iso": 0.127
           },
           {
             "id": 702222,
@@ -880,7 +880,7 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.162
+            "iso": 0.161
           },
           {
             "id": 671277,
@@ -981,7 +981,7 @@
           {
             "id": 672275,
             "name": "Patrick Bailey",
-            "iso": 0.114
+            "iso": 0.113
           },
           {
             "id": 690984,
@@ -1077,7 +1077,7 @@
         "sp": {
           "id": 671096,
           "name": "Andrew Abbott",
-          "hr9": 1.36,
+          "hr9": 1.42,
           "hand": "LHP"
         },
         "lineup": [
@@ -1109,12 +1109,12 @@
           {
             "id": 680574,
             "name": "Matt McLain",
-            "iso": 0.148
+            "iso": 0.152
           },
           {
             "id": 665828,
             "name": "Oswaldo Cabrera",
-            "iso": 0.072
+            "iso": 0.066
           },
           {
             "id": 677943,
@@ -1166,12 +1166,12 @@
           {
             "id": 663586,
             "name": "Austin Riley",
-            "iso": 0.138
+            "iso": 0.143
           },
           {
             "id": 669221,
             "name": "Sean Murphy",
-            "iso": 0.13
+            "iso": 0.129
           },
           {
             "id": 676551,
@@ -1343,7 +1343,7 @@
         "sp": {
           "id": 687473,
           "name": "Ryan Gusto",
-          "hr9": 1.14,
+          "hr9": 1.13,
           "hand": "RHP"
         },
         "lineup": [
@@ -1412,7 +1412,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.203
+            "iso": 0.202
           },
           {
             "id": 683737,
@@ -1447,7 +1447,7 @@
           {
             "id": 665804,
             "name": "Miguel Amaya",
-            "iso": 0.136
+            "iso": 0.135
           }
         ],
         "confirmed": true
@@ -1455,9 +1455,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 8mph, 62\u00b0",
+        "lean": "Suppress",
+        "temp": 62.4,
+        "wind_mph": 8.1,
+        "wind_dir": 48,
+        "tail_mph": -7.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.962
     },
     {
       "gamePk": 822841,
@@ -1506,7 +1513,7 @@
           {
             "id": 682626,
             "name": "Francisco Alvarez",
-            "iso": 0.17
+            "iso": 0.169
           },
           {
             "id": 805999,
@@ -1516,7 +1523,7 @@
           {
             "id": 703492,
             "name": "Nick Morabito",
-            "iso": 0.029
+            "iso": 0.027
           }
         ],
         "confirmed": true
@@ -1543,7 +1550,7 @@
           {
             "id": 673962,
             "name": "Josh Jung",
-            "iso": 0.156
+            "iso": 0.155
           },
           {
             "id": 607043,
@@ -1601,14 +1608,14 @@
         "sp": {
           "id": 518876,
           "name": "Merrill Kelly",
-          "hr9": 1.61,
+          "hr9": 1.6,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 663457,
             "name": "Lars Nootbaar",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 606466,
@@ -1648,7 +1655,7 @@
           {
             "id": 694374,
             "name": "Tim Tawa",
-            "iso": 0.154
+            "iso": 0.153
           }
         ],
         "confirmed": true
@@ -1658,7 +1665,7 @@
         "sp": {
           "id": 690279,
           "name": "Mason Adams",
-          "hr9": 2.25,
+          "hr9": 2.19,
           "hand": "RHP"
         },
         "lineup": [
