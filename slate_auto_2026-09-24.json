@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T18:23:00Z",
+  "pulled_at": "2026-09-24T18:27:52Z",
   "games": [
     {
       "gamePk": 823326,
@@ -40,7 +40,7 @@
           {
             "id": 699024,
             "name": "Leo Bernal",
-            "iso": 0.181
+            "iso": 0.178
           },
           {
             "id": 663494,
@@ -117,7 +117,7 @@
           {
             "id": 680779,
             "name": "Henry Davis",
-            "iso": 0.144
+            "iso": 0.143
           }
         ],
         "confirmed": true
@@ -203,7 +203,7 @@
         "sp": {
           "id": 677976,
           "name": "Randy Dobnak",
-          "hr9": 0.86,
+          "hr9": 0.85,
           "hand": "RHP"
         },
         "lineup": [
@@ -215,7 +215,7 @@
           {
             "id": 677951,
             "name": "Bobby Witt Jr.",
-            "iso": 0.161
+            "iso": 0.162
           },
           {
             "id": 686469,
@@ -296,7 +296,7 @@
           {
             "id": 805300,
             "name": "Jakob Marsee",
-            "iso": 0.127
+            "iso": 0.126
           },
           {
             "id": 691594,
@@ -336,7 +336,7 @@
         "sp": {
           "id": 571510,
           "name": "Matthew Boyd",
-          "hr9": 1.13,
+          "hr9": 1.12,
           "hand": "LHP"
         },
         "lineup": [
@@ -756,7 +756,7 @@
     },
     {
       "gamePk": 824707,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-24T22:45:00Z",
       "matchup": "CLE@BOS",
       "away": {
@@ -778,10 +778,56 @@
           "hr9": 0.57,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.138
+          },
+          {
+            "id": 681508,
+            "name": "Mickey Gasper",
+            "iso": 0.22
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.181
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.201
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.132
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.119
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.157
+          },
+          {
+            "id": 663330,
+            "name": "Jahmai Jones",
+            "iso": 0.168
+          },
+          {
+            "id": 643396,
+            "name": "Isiah Kiner-Falefa",
+            "iso": 0.072
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
