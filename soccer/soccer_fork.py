@@ -25,7 +25,11 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 95 + LIVE_SEAM_COUNT          # TOP8-2026-09-17: +2 (sec-top8, tracker-top8); TOPROWS: +6
+EXPECT_SEAMS = 103 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,
+                                             # specials-live, sec-lunch, sec-nightcap, pool-late,
+                                             # card-wide, kind-nightcap -- baseball retired
+                                             # lunch/late, soccer still drafts both)
+_EXPECT_SEAMS_TOP8_NOTE = 95                 # TOP8-2026-09-17: +2 (sec-top8, tracker-top8); TOPROWS: +6
 _EXPECT_SEAMS_OLD_NOTE = 86          # 85 base + 5 live = 90 (chip-screamers retired 2026-08-27; lunch-empty un-seamed 2026-08-30; PSA seam added 2026-08-31)
 
 OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><span class="d">Jun 12 · weight + UI</span>Trimmed the <b>suppress-park penalty</b> slightly — park-multiplier slope 0.30 → 0.25 below ×1.00, boost side unchanged — after Jun 11 showed two suppress-park bats (Lowe at PNC, Torres at Comerica) homering against the lean. Suppress marker on ticket weather summaries changed from the blue square to ❄️. Form weight left as-is; revisit in ~2 weeks with more sample.</div>\n  <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren\'t posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don\'t bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>\n </div>'
@@ -281,9 +285,66 @@ def seams(payload_js):
         "['moon','💥','Screamers']];",
         "['moon','💥','Screamers']];defs=defs.filter(function(d){var c=cats[d[0]];"
         "return d[0]!=='moon'||(c&&c.graded>0)||D.tickets.some(function(t){return t.kind===d[0];});});")
+    # ---- SPECIALS-2026-09-24: BASEBALL RETIRED lunch/late; SOCCER DID NOT --------------
+    # On 2026-09-24 the baseball board replaced its two specials -- 🍱 Lunch Special and
+    # 🌃 Nightcap (kinds 'lunch' and 'late') -- with 🎯 Daily Dinger and 💥 Long Ball Jackpot
+    # (kinds 'dinger' and 'jackpot'), and `retiredKind()` now drops lunch/late outright.
+    # THE SOCCER ROOM STILL DRAFTS BOTH: an early kickoff is its lunch special and a late
+    # kickoff is its nightcap, and soccer_D.json carries `late` tickets today. So every render
+    # site baseball re-pointed at its new kinds has to be pointed back here.
+    #
+    # ⚠️ THIS IS WHY THE FORK EXITED NON-ZERO FOR HALF A DAY AND NOBODY SAW IT. nfl_fork.py's
+    # six orphaned seams were caught and re-cut the same afternoon (FORKSEAMS-2026-09-24);
+    # soccer's three were not, because soccer-build.yml gates on a slate the way nfl-build.yml
+    # does and SKIPPING IS GREEN. The live /soccer/ page was the last good fork and looked
+    # fine, so nothing anywhere said the room could no longer be rebuilt.
+    #
+    # ⚠️ THE DANGEROUS ONE IS `specials-live`, NOT THE WORDING. With the kind filters left
+    # pointing at 'dinger'/'jackpot', a soccer `late` ticket matches NOTHING in drawTickets and
+    # is not rendered at all -- the slip silently leaves the board. Wording seams fail loudly;
+    # this one fails by omission.
+    #
+    # NOT SEAMED, DELIBERATELY: `retiredKind()` (which now returns true for lunch/late),
+    # `if(t.kind==='dinger')sb=0` and JACKPOTRED's `if(t.kind==='jackpot')return null`. All
+    # three live inside __assembleClient(), and the soccer page never calls it -- soccerRedraft
+    # is defined and never invoked; the board it shows is the one the server published
+    # (ONEAUTHOR-2026-08-30). Seaming them would add three more strings for a baseball rename
+    # to orphan in exchange for nothing. If soccer is ever wired to draft client-side, seam
+    # retiredKind FIRST -- it would eat both specials on the first redraft.
+    add('kc-kinds',
+        "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
+        "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
+    # `if(kc[k]!=null)kc[k]++` only counts keys the literal above declares, so without this seam
+    # kc.lunch and kc.late are undefined and the TONIGHT counter prints "undefined 🍱".
+    add('tracker-specials',
+        "var defs=[['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot'],",
+        "var defs=[['lunch','🍱','Lunch'],['late','🌃','Nightcap'],")
+    add('specials-live',
+        " const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);",
+        " const dingerLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);")
+    # The variable keeps baseball's name on purpose: it is read at three more sites and renaming
+    # it would buy three extra seams to say the same thing. Only the KIND it selects matters.
+    add('sec-lunch',
+        '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
+        '<div class="tsec lunch"><span class="tsech">Lunch Special</span>')
+    add('sec-nightcap',
+        '<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">',
+        '<details class="pool"><summary><span class="tag">Late slate</span> Nightcap<span class="chev">')
+    add('pool-late',
+        "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML="
+        "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83d\\udca5 No jackpot pick "
+        "posted right now.</div>';",
+        "var L=D.tickets.filter(t=>t.kind==='late'&&!t.final).filter(singleAlive);el.innerHTML="
+        "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83c\\udf19 Bar\\u2019s closed "
+        "\\u2014 no late play posted right now.</div>';")
+    add('card-wide',
+        "${t.kind==='dinger'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
+        "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='jackpot'?' lunchwide nightcap':''}",
+        "${t.kind==='lunch'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
+        "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='late'?' lunchwide nightcap':''}")
     # The TONIGHT counter: only kinds that are on the card, Top Bin as the goal net.
     add('tonight-top8',
-        "var cnt=kc.lunch+' 🍱 \\u00b7 '+kc.late+' 🌃 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
+        "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
         "var cnt=[[kc.lunch,'🍱',1],[kc.late,'🌃',1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
         ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 🥅';")
     # RESTATED-2026-09-17: the season line says so when soccer_season.json carries `restated`.
@@ -302,8 +363,9 @@ def seams(payload_js):
     add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update from ESPN')
     add('legend-park', '<span>🔥 hot park · ❄️ suppressed park</span>', '')
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> rotation risk · ')
+    # SPECIALS-2026-09-24: the baseball line now names its two new specials (see the block above).
     add('howto-order',
-        'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, ⚓️ Anchors, 🚀 Moonshots.',
+        'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
         'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, 🥅 Top Bin. 💥 Screamers are retired.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
@@ -504,9 +566,22 @@ def seams(payload_js):
         'breaks out every bat with its price, a conviction bar and its own chance of going deep.',
         'breaks out every player with his price, a conviction bar and his own chance of scoring.')
     add('step-livebats', 'tonight&rsquo;s live bats', 'tonight&rsquo;s live players')
+    # SPECIALS-2026-09-24: these two legend rows are now baseball's Daily Dinger and Long Ball
+    # Jackpot. Soccer keeps its own two specials, so both rows are rewritten whole -- the old
+    # seam only replaced the first half of the sentence and left baseball's "Only appears when
+    # the slate starts before 5 PM ET" trailing behind it. Cutting the full <div> ends that.
     add('kind-lunch',
-        '<b>Lunch Special</b><span>One bat, best model score in an afternoon game.',
-        '<b>Lunch Special</b><span>One player, best model score in an early kickoff.')
+        '<div class="kind"><span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. '
+        'FanDuel publishes a short list of bats each day and you pick one — this is the best '
+        'model score on their list. Not a bet we place.</span></div></div>',
+        '<div class="kind"><span class="ke">🍱</span><div><b>Lunch Special</b><span>One player, '
+        'best model score in an early kickoff.</span></div></div>')
+    add('kind-nightcap',
+        '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. '
+        'Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer '
+        'that day — we rank park carry plus model score. Not a bet we place.</span></div></div>',
+        '<div class="kind"><span class="ke">🌃</span><div><b>Nightcap</b><span>Same idea for the '
+        'last kickoff of the night.</span></div></div>')
     add('kind-anchors',
         '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
         '<span class="ke">🥅</span><div><b>Top Bin</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span>')
