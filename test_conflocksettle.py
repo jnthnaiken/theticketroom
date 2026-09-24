@@ -52,6 +52,7 @@ WHAT IT GUARDS
 
     python3 test_conflocksettle.py
 """
+import datetime
 import json, os, re, shutil, subprocess, sys, tempfile, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -202,12 +203,29 @@ else:
     sides = {(p['game'], p['code']) for p in BOARD['players'].values() if p.get('status') == 'confirmed'}
     now = int(time.time())
 
-    def variant(stamp, clear_locked):
+    # CONTROLVAC-2026-09-24 -- `unstarted` is what makes the control mean anything.
+    # The lock has TWO halves: the clock (first pitch has passed) and the card (every leg
+    # confirmed, and now settled for CONFLOCK_SETTLE_MIN). This file is about the card half, so the
+    # clock half has to be out of the way or it latches everything on its own and the knob cannot
+    # move the count either way.
+    #
+    # It was not out of the way. The replay reads the newest D_<date>.json, and index.html's
+    # `started()` calls `_slateDay()`, which returns >0 for a board whose date is in the PAST and
+    # then reports every bat as started regardless of the clock. So the moment the replayed board
+    # stopped being today's, all 11 latchable tickets latched on the clock alone and
+    # `off_nl > fresh_nl` became 11 > 11. The test went red while the rule it guards was working,
+    # and it would have stayed red forever and gone more wrong every day.
+    #
+    # Dating the copy TOMORROW makes `_slateDay()` negative, `started()` false for every bat, and
+    # the card the only way anything can latch -- which is precisely the thing under test.
+    def variant(stamp, clear_locked, unstarted=False):
         E = json.loads(json.dumps(BOARD))
         E['meta']['posted_at'] = {f'{g}|{c}': stamp for g, c in sides}
         if clear_locked:
             for t in E['tickets']:
                 t.pop('locked', None)
+        if unstarted:
+            E['meta']['date'] = (datetime.date.today() + datetime.timedelta(days=1)).isoformat()
         return E
 
     def draft(E, html):
@@ -236,15 +254,15 @@ else:
     def no_map():
         E = json.loads(json.dumps(BOARD)); (E.get('meta') or {}).pop('posted_at', None); return E
     base = draft(no_map(), LIVE)                                # no posted_at at all -> fail-open
-    fresh_nl = draft(variant(now, True), LIVE)                  # cards one second old, nothing latched
-    old_nl = draft(variant(now - 130 * 60, True), LIVE)         # cards 130 min old, nothing latched
-    grand_nl = draft(variant(0, True), LIVE)                    # grandfather sentinel
+    fresh_nl = draft(variant(now, True, True), LIVE)            # cards one second old, nothing latched
+    old_nl = draft(variant(now - 130 * 60, True, True), LIVE)   # cards 130 min old, nothing latched
+    grand_nl = draft(variant(0, True, True), LIVE)              # grandfather sentinel
     fresh_keep = draft(variant(now, False), LIVE)               # cards one second old, prior latches intact
     grand_keep = draft(variant(0, False), LIVE)                 # grandfathered, prior latches intact
 
     # the reference: the same board through the SAME engine with the rule switched off at the knob
     off_nl = None
-    E = variant(now, True)
+    E = variant(now, True, True)
     E['meta'].setdefault('cfg', {})['CONFLOCK_SETTLE_MIN'] = 0
     off_nl = draft(E, LIVE)
 
@@ -253,6 +271,11 @@ else:
     check(nlock(off_nl) > nlock(fresh_nl),
           'THE CONTROL BITES: with the knob at 0 the same second-old cards latch more tickets',
           f'knob 0 -> {nlock(off_nl)} latched, knob 120 -> {nlock(fresh_nl)} latched')
+    # and the control must not be vacuous in the other direction either: if NOTHING can latch even
+    # with the rule off, the comparison above is 0 > 0 and proves nothing.
+    check(nlock(off_nl) > 0,
+          'and it is not vacuous -- with the rule off, settled cards DO latch tickets',
+          f'knob 0 latched {nlock(off_nl)}')
     check(nlock(old_nl) == nlock(off_nl),
           'cards 130 min old latch exactly as they did before the rule',
           f'{nlock(old_nl)} vs {nlock(off_nl)}')
