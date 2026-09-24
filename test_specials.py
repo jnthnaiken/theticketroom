@@ -230,6 +230,53 @@ if cj:
     check(seen[0][0] == cj['players'][0]['name'],
           'and a redraft does not move the Jackpot off a bat that legs a moon', seen[0][0])
 
+# ---------------------------------------------------------------------------------------
+# 5. SELF-CORRECTION -- a free pick must be re-derived, never inherited.
+#    Prepending the INCUMBENT as the preferred candidate is right for a placed bet (it stops a
+#    slip churning under someone with money on it) and wrong for these two, which are a
+#    recomputed answer to "who is the best pick right now" and have no stake to protect. With
+#    pref prepended a special drafted by a BUGGY build is re-selected forever -- which is exactly
+#    what happened on 2026-09-24: 12:36 minted the Jackpot correctly, 12:41 drifted it to the
+#    third-best man, and every build after kept choosing him because he was already there.
+#    Start from a board holding the WRONG men and assert the engine fixes itself.
+Dp = json.loads(json.dumps(D))
+
+
+def _mkleg(n):
+    p = P[n]
+    return {"name": n, "team": p['team'], "total": p['TOTAL'], "aT": p['aT'], "wf": p['wf'],
+            "gmatch": p['gmatch'], "gtime": p['gtime'], "game": p['game'],
+            "late": bool(p.get('late')), "odds": p['odds'], "status": p['status']}
+
+
+wrong = {}
+if cd and cj:
+    right = {'jackpot': cj['players'][0]['name'], 'dinger': cd['players'][0]['name']}
+    for t in Dp['tickets']:
+        if t['kind'] in ('jackpot', 'dinger'):
+            pool = [n for n in P if n != right[t['kind']] and P[n].get('odds') is not None
+                    and not P[n].get('out') and P[n].get('TOTAL') is not None]
+            if t['kind'] == 'dinger':
+                pool = [n for n in pool if norm(n) in {norm(x) for x in DLIST}]
+            if not pool:
+                continue
+            bad = min(pool, key=lambda n: P[n]['TOTAL'])
+            wrong[t['kind']] = bad
+            t['players'] = [_mkleg(bad)]
+            t['anchor'] = bad
+    with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as tf:
+        json.dump(Dp, tf)
+        tmp = tf.name
+    subprocess.run(['node', os.path.join(HERE, 'client_assemble.js'), tmp, os.path.join(HERE, 'index.html')],
+                   capture_output=True, text=True, cwd=HERE)
+    fixed = json.load(open(tmp))['tickets']
+    os.unlink(tmp)
+    for kind, want in right.items():
+        got = next((t['players'][0]['name'] for t in fixed if t['kind'] == kind), None)
+        check(got == want,
+              'a redraft CORRECTS a %s left on the wrong bat by an earlier build' % kind,
+              'seeded %s -> got %s, want %s' % (wrong.get(kind), got, want))
+
 print()
 if FAIL:
     print('%d FAILED' % len(FAIL))

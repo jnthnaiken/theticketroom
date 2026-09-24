@@ -2888,6 +2888,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       plan.forEach(function(pl){
         if(pl.frozen){ pl.t.locked=true; out.push(pl.t); return; }
         var kind=pl.kind, need=pl.need, legNames=pl.kept.slice(), gUsed=pl.gUsed, cand;
+        var _free=(kind==='jackpot'||kind==='dinger');   /* SPECIALS-2026-09-24: see both uses below */
         if(kind==='builder'||kind==='family') return;   /* non-locked builders are re-derived from the LIVE pool after this loop (locked builders were already emitted verbatim above).
            2026-08-14: FAMILY TOO. A family slip is derived in the same sense -- the bat is on it because it cleared the gate and nothing drafted it -- so it must be
            re-derived, not refilled in place. Falling through to the generic refill below kept the prior ticket OBJECT (and its name) and re-drafted its one leg to a
@@ -2900,7 +2901,15 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
           { var nl=[ma], ng={}; ng[P[ma].game]=1;
             pl.kept.forEach(function(n){ if(n!==ma&&!ng[P[n].game]&&spanOk(nl.concat([n]))){ nl.push(n); ng[P[n].game]=1; } });   // WIN GUARD: a replacement anchor in a different time slot must not carry legs outside its window -- drop out-of-window kept legs so the re-anchored moon never exceeds WIN (it refills in-window below, or demotes cleanly)
             legNames=nl; gUsed=ng; usedG[ma]=1; } }
-        cand=(pl.pref||[]).filter(function(n){return legNames.indexOf(n)<0;}).concat(cand);   // own legs first, then the pool
+        /* SPECIALS-2026-09-24 (part 3). Prepending the INCUMBENT is right for a bet that has been
+           placed -- it stops a slip churning under someone who already has money on it. It is wrong
+           for the two free plays, which are a recomputed answer to "who is the best pick right now"
+           and have no stake to protect. With pref prepended, a special drafted by a BUGGY build is
+           re-selected forever: the 12:36 board minted the Jackpot correctly, the 12:41 rebuild drifted
+           it to the third-best man, and every build after that kept choosing him because he was
+           already there. Fixing the usedG skip alone could not dislodge him. */
+        if(!_free)cand=(pl.pref||[]).filter(function(n){return legNames.indexOf(n)<0;}).concat(cand);   // own legs first, then the pool
+        else legNames=[];   // a free pick is re-derived from scratch, never inherited
         /* SPECIALS-2026-09-24 (part 2) -- the free plays must skip the "already used" rule HERE TOO.
            Removing it at the MINT site only fixed the build that first mints the ticket. Every later
            redraft -- which is every page load -- came through this loop instead, hit `usedG[n]`, and
@@ -2909,7 +2918,6 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
            wrong, which is the worst shape of bug because the commit looks correct.
            A free pick also must not MARK usedG: it is not a seat, and claiming one would deny the bat
            to the board's own draft on the next pass. */
-        var _free=(kind==='jackpot'||kind==='dinger');
         for(var i=0;i<cand.length && legNames.length<need;i++){var n=cand[i];
           if(usedG[n] && !_free)continue;
           if(need>1 && gUsed[P[n].game])continue;
