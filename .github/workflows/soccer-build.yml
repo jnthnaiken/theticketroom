@@ -174,6 +174,20 @@ jobs:
           cp slates/${{ steps.slate.outputs.date }}/squads.psv .work/ 2>/dev/null || true
           cp soccer_*.py soccer_*.js .work/
           cp soccer_season.json .work/
+          # 🚨 NOSHEETSTAGE-2026-09-25. coverage.json WAS NOT STAGED, AND THE FIRST INTERNATIONAL
+          # BOARD IS THE DAY THAT MATTERS. soccer_payload.py resolves it relative to ITS OWN
+          # directory -- which is .work/ once it is copied here -- and derives meta.nosheet from
+          # coverage.json's `intl` group. Without the file it catches the error, warns, and emits
+          # an EMPTY nosheet, which is soft-failure in the worst place: NOSHEETLOCK-2026-09-22 is
+          # the only thing that freezes an international slip (there are no team sheets, so
+          # `status` never reaches 'confirmed' and CONFLOCK can never fire). An empty nosheet
+          # means nothing on the card ever locks, all night, on a board nobody could tell was
+          # broken by looking at it.
+          # The file's own warning says "Fix before building one." This is that fix; it was found
+          # by running the pipeline by hand for 2026-09-25 and reading the warning.
+          # ⚠️ slate_scan.js in the step above is NOT affected -- it runs from soccer/, where
+          # coverage.json has always been. Only the copy the payload reads was missing.
+          cp coverage.json .work/
           cp ../index.html .work/index_live.html
           [ -f boards/${{ steps.slate.outputs.date }}.json ] && cp boards/${{ steps.slate.outputs.date }}.json .work/prior.json || true
 
