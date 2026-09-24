@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T21:16:53Z",
+  "pulled_at": "2026-09-24T21:21:47Z",
   "games": [
     {
       "gamePk": 823326,
@@ -544,7 +544,7 @@
         "sp": {
           "id": 593958,
           "name": "Eduardo Rodriguez",
-          "hr9": 0.86,
+          "hr9": 0.9,
           "hand": "LHP"
         },
         "lineup": [
@@ -628,17 +628,17 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.185
+            "iso": 0.184
           },
           {
             "id": 691720,
             "name": "Kyle Karros",
-            "iso": 0.159
+            "iso": 0.166
           },
           {
             "id": 664954,
             "name": "Brett Sullivan",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 687597,
@@ -1242,7 +1242,7 @@
     },
     {
       "gamePk": 823087,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T01:40:00Z",
       "matchup": "LAA@SEA",
       "away": {
@@ -1264,10 +1264,56 @@
           "hr9": 0.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 641487,
+            "name": "J.P. Crawford",
+            "iso": 0.128
+          },
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.2
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.22
+          },
+          {
+            "id": 663728,
+            "name": "Cal Raleigh",
+            "iso": 0.19
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.152
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.09
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.138
+          },
+          {
+            "id": 703155,
+            "name": "Lazaro Montes",
+            "iso": 0.295
+          },
+          {
+            "id": 660844,
+            "name": "Leo Rivas",
+            "iso": 0.043
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
