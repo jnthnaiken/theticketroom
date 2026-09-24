@@ -35,7 +35,7 @@ CALENDAR = {
    22:('H','E'), 23:('C','F'), 24:('A','H'), 25:('F','C'), 26:('H','A'), 27:('A','F'), 28:('G','H'),
    29:('F','A'), 30:('E','D'),
 }
-NAMES = {'A':'REDACTED TICKET','B':'THE WIDE ROOM','C':'ONE NUMBER','D':'THE REVEAL',
+NAMES = {'R':'RECEIPTS','A':'REDACTED TICKET','B':'THE WIDE ROOM','C':'ONE NUMBER','D':'THE REVEAL',
          'E':'THE LEDGER','F':'NAME HIM','G':'THE DRIFT','H':'VIDEO'}
 
 
@@ -317,6 +317,109 @@ def tpl_D(ctx):
 {CHROME}</div></body></html>"""
 
 
+# ---- TEMPLATE R: RECEIPTS -- more than one slip, side by side ----------------------------
+# CAMPAIGN.md Day 9 asks for "Near miss (show the 3-of-4s)" -- plural -- and Day 16 for a
+# record-by-slip-type image. Both need a frame that holds MORE THAN ONE receipt, and template D
+# holds exactly one, so a week with two cashes could only ever be posted as two separate posts
+# or as one post that quietly dropped a cash. This is that frame. Same card as D, same ticks,
+# same floored payout; two of them, and a headline about the RUN rather than the slip.
+def tpl_R(cards, ctx):
+    """Two full-height panels, one per night. The payout is the hero, not a caption.
+
+    The first cut of this was two cards floated in the lower right with the whole top-right
+    quadrant empty and the headline alone on the left -- a lot of black for an asset whose job
+    is to stop a thumb. CAMPAIGN.md's stop-scrolling lever is SPECIFICITY: "272 to 1 beats big
+    payout". So the enormous number is the artwork, the legs sit above it as the receipt that
+    makes it believable, and the dead leg stays struck through in plain sight because the miss
+    is the whole point -- the slip paid WITH a hole in it.
+    """
+    panels = ''
+    for i, c in enumerate(cards):
+        legs = ''
+        for nm, odds, hit in c['legs']:
+            legs += ('<div class="leg%s"><div class="nm">%s</div><div class="pr">+%s</div></div>'
+                     % ('' if hit else ' dead', nm, odds))
+        num, tail = (c['paid'].split(' ', 1) + [''])[:2]
+        day = datetime.date.fromisoformat(c['date']).strftime('%A').upper()
+        panels += f"""<div class="pan{' r' if i else ''}">
+          <div class="when">{day} &middot; {c['when'].upper()}</div>
+          <div class="sn">{c['slip1']} <span>{c['slip2']}</span></div>
+          <div class="st">{c['struct']}</div>
+          <div class="legs">{legs}</div>
+          <div class="big"><span class="n">{num}</span><span class="t">{tail}</span></div></div>"""
+    return f"""<!doctype html><html><head><meta charset="utf-8"><style>{FONTS}
+#P{{position:relative;width:1600px;height:900px;overflow:hidden;font-family:Inter;color:var(--txt);
+ background:radial-gradient(620px 520px at 400px 660px,#4ef08a16,transparent 72%),
+            radial-gradient(620px 520px at 1200px 660px,#4ef08a16,transparent 72%),var(--bg)}}
+.hl{{position:absolute;right:76px;top:88px;text-align:right;font-family:Oswald;font-weight:700;
+ font-size:46px;line-height:1.04;text-transform:uppercase;letter-spacing:.005em}}
+.hl em{{font-style:normal;color:var(--lime)}}
+.hl i{{display:block;font-family:Inter;font-style:normal;font-weight:500;font-size:20px;
+ letter-spacing:0;text-transform:none;color:var(--mut);margin-top:9px}}
+.hl i b{{color:var(--txt);font-weight:700}}
+.split{{position:absolute;left:800px;top:206px;width:1px;height:590px;
+ background:linear-gradient(180deg,transparent,#24314a 18%,#24314a 82%,transparent)}}
+.pan{{position:absolute;top:206px;width:646px;left:78px}} .pan.r{{left:876px}}
+.when{{font-family:'Roboto Mono';font-size:16px;letter-spacing:.22em;color:var(--lime);opacity:.85}}
+.sn{{margin-top:9px;font-family:Oswald;font-weight:700;font-size:44px;line-height:1.02;text-transform:uppercase}}
+.sn span{{color:var(--cyan)}}
+.st{{margin-top:7px;font-family:'Roboto Mono';font-size:14px;letter-spacing:.11em;color:var(--dim);text-transform:uppercase}}
+.legs{{margin-top:19px;border-top:1px solid #1a2233}}
+.leg{{display:flex;align-items:baseline;gap:14px;padding:11px 0 10px;border-bottom:1px solid #1a2233}}
+.nm{{font-size:25px;font-weight:700;flex:1}}
+.pr{{font-family:'Roboto Mono';font-size:21px;font-weight:700;color:var(--gold)}}
+.dead .nm{{color:#55627a;text-decoration:line-through;text-decoration-color:#ff6b5e99;text-decoration-thickness:2px}}
+.dead .pr{{color:#4c586f}}
+.big{{margin-top:26px;display:flex;align-items:baseline;gap:16px}}
+.big .n{{font-family:Oswald;font-weight:700;font-size:168px;line-height:.82;color:var(--lime);
+ letter-spacing:-.01em;text-shadow:0 0 70px #4ef08a4d}}
+.big .t{{font-family:Oswald;font-weight:700;font-size:44px;text-transform:uppercase;color:var(--mut);letter-spacing:.04em}}
+/* The deadline lives bottom-right, opposite the URL. Two jobs: CAMPAIGN.md ends every post on
+   a real lock time, and the asset should carry it rather than leaning on the caption -- a
+   screenshot travels without its copy. It also fills the one corner the panels leave empty. */
+.door{{position:absolute;right:78px;bottom:74px;text-align:right;font-family:'Roboto Mono';
+ font-size:19px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}}
+.door b{{display:block;margin-top:7px;font-family:Oswald;font-size:38px;font-weight:700;
+ letter-spacing:.02em;color:var(--gold)}}
+</style></head><body><div id="P">
+<div class="hl">{ctx['head1']}<br><em>{ctx['head2']}</em><i>{ctx['kick']}</i></div>
+<div class="door">Tonight's board is open<b>Next door {ctx['door']}</b></div>
+<div class="split"></div>{panels}
+{CHROME}</div></body></html>"""
+
+
+WORDN = {0: 'None', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six'}
+
+
+def reveal_card(date):
+    """Grade one archived night and return its best cash as a card dict, or None.
+
+    Shared by D (one slip) and R (several). Everything on the card -- legs, prices, ticks,
+    payout -- is read off D_<date>.json and calibration.jsonl, never passed in.
+    """
+    sys.path.insert(0, REPO)          # last_night() does this too, but it runs after us
+    import grade_night as _g
+    pp = os.path.join(REPO, 'D_%s.json' % date)
+    if not os.path.exists(pp):
+        return None
+    LN = last_night(json.load(open(pp)), date)
+    if not LN or not LN['best']:
+        return None
+    t, r = LN['best']
+    P_ = LN['players']
+    legs = [(nm, (P_.get(nm) or {}).get('odds') or '?', _g.norm(nm) in LN['homered'])
+            for nm in [p.get('name') for p in (t.get('players') or [])]]
+    hit, L = sum(1 for _, _, h in legs if h), len(legs)
+    w1, w2 = (t['name'].split(' ', 1) + [''])[:2] if ' ' in t['name'] else (t['name'], '')
+    return dict(date=date, slip=t['name'], slip1=w1, slip2=w2, legs=legs, hit=hit, L=L,
+                when=datetime.date.fromisoformat(date).strftime('%b %-d'),
+                struct='%su round robin \u00b7 %s' % (r['stake'], (t.get('rr') or {}).get('struct', '')),
+                # PAIDFLOOR: floor, never round -- see the note in the D branch.
+                paid=('%d to 1' % int(r['net'] / r['stake'])) if r['stake'] else '\u2014',
+                mult=(r['net'] / r['stake']) if r['stake'] else 0, net=r['net'], nightnet=LN['net'])
+
+
+
 # ---------------------------------------------------------------- main
 async def render(html_path, out, w=1600, h=900, scale=2):
     from playwright.async_api import async_playwright
@@ -334,6 +437,11 @@ async def main():
     ap.add_argument('--day', type=int); ap.add_argument('--tpl')
     ap.add_argument('--out', default='/mnt/user-data/outputs/brand')
     ap.add_argument('--date')
+    # REVEALDATES-2026-09-23. --date drives BOTH which night is graded and which board
+    # supplies the next door time, so pulling an older cash forward stamped that night's
+    # door on today's copy. --reveal separates them: the nights to show, comma separated,
+    # while --date stays TODAY and keeps the deadline honest.
+    ap.add_argument('--reveal')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
@@ -362,6 +470,7 @@ async def main():
     httpd = serve(work)
 
     outs = []
+    copyD = ''
     if tpl == 'A':
         from playwright.async_api import async_playwright
         async with async_playwright() as p:
@@ -379,6 +488,37 @@ async def main():
         hist = ((D.get('meta') or {}).get('season') or {}).get('history') or []
         nights = len(((D.get('meta') or {}).get('season') or {}).get('graded_nights') or [])
         open(os.path.join(work, 'p.html'), 'w').write(tpl_E(hist, dict(nights=nights)))
+    elif tpl == 'R':
+        want = [d.strip() for d in (a.reveal or '').split(',') if d.strip()]
+        if not want:
+            sys.exit('!! -tpl R needs --reveal <date>[,<date>] -- the nights to put on the card')
+        cards = [c for c in (reveal_card(d) for d in want) if c]
+        missing = [d for d in want if d not in {c['date'] for c in cards}]
+        if missing:
+            sys.exit('!! nothing cashed on %s -- receipts only ever show real cashes' % ', '.join(missing))
+        cards.sort(key=lambda c: -c['mult'])           # biggest number first, left to right
+        span = (datetime.date.fromisoformat(max(want)) - datetime.date.fromisoformat(min(want))).days + 1
+        same = len({(c['hit'], c['L']) for c in cards}) == 1
+        h = cards[0]
+        ctxR = dict(
+            head1=('%s of %s.' % (WORDN.get(h['hit'], h['hit']), WORDN.get(h['L'], h['L']).lower())
+                   if same else 'The last %s days.' % WORDN.get(span, span).lower()),
+            head2=('Twice in %s days.' % WORDN.get(span, span).lower() if len(cards) == 2
+                   else '%s of them.' % WORDN.get(len(cards), len(cards))),
+            kick='<b>Both lost a leg.</b> Both paid anyway.' if len(cards) == 2
+                 else 'Every one of them short a leg. Every one paid.',
+            door=ctx['door'] or 'at first pitch')
+        for c in cards:
+            print('  receipt: %s %s went %d/%d, paid %s' % (c['date'], c['slip'], c['hit'], c['L'], c['paid']))
+        open(os.path.join(work, 'p.html'), 'w').write(tpl_R(cards, ctxR))
+        _lines = '\n'.join(
+            '%s: %s. %s.' % (datetime.date.fromisoformat(c['date']).strftime('%A'),
+                             ', '.join('%s +%s' % (nm.split()[-1], od) for nm, od, hh in c['legs'] if hh),
+                             c['paid'])
+            for c in cards)
+        copyD = ("%s %s\n\n%s\n\nBoth lost a leg. Both paid.\n\n"
+                 "Tonight's board is up. Next door %s."
+                 % (ctxR['head1'], ctxR['head2'], _lines, ctx['door'] or 'at first pitch'))
     elif tpl == 'D':
         prev = (datetime.date.fromisoformat(today) - datetime.timedelta(days=1)).isoformat()
         pp = os.path.join(REPO, 'D_%s.json' % prev)
@@ -393,18 +533,40 @@ async def main():
                  __import__('sys').modules['grade_night'].norm(nm) in LN['homered'])
                 for nm in [p.get('name') for p in (t.get('players') or [])]]
         hit = sum(1 for _, _, h in legs if h)
-        paid = '%.0f to 1' % (r['net'] / r['stake']) if r['stake'] else '—'
+        # 🚨 REVEALCOUNT-2026-09-23 -- THE HEADLINE HAS TO AGREE WITH THE CARD BESIDE IT.
+        # This read `'Two' if hit == 2 else 'One' if hit == 1 else 'All'`, which was true while a
+        # moon was three legs and a cash was 1, 2 or 3 of them. Moons are FOUR legs now, so a 3/4
+        # -- the most common cash there is -- fell through to "All", and the 09-22 reveal rendered
+        # ALL OF 4 next to its own card showing a red cross on Jackson Merrill. A marketing asset
+        # that contradicts the receipt printed next to it is worse than no asset. Spell any count.
+        WORD = {0: 'None', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six'}
+        L, gone = len(legs), len(legs) - hit
+        # 🚨 PAIDFLOOR-2026-09-23 -- ROUND A PAYOUT DOWN, NEVER UP. '%.0f' turned 25.58
+        # into "26 to 1" on a public asset. The campaign's own line is that every number is real;
+        # the one rounding direction that can never be accused of inflating a result is toward
+        # the reader, so floor it and let the slip look slightly worse than it was.
+        paid = '%d to 1' % int(r['net'] / r['stake']) if r['stake'] else '—'
         w1, w2 = (t['name'].split(' ', 1) + [''])[:2] if ' ' in t['name'] else (t['name'], '')
-        ctxD = dict(head1='%s of' % ('Two' if hit == 2 else 'One' if hit == 1 else 'All'),
-                    head2='%s.' % ('three' if len(legs) == 3 else str(len(legs))),
-                    kick=('The third one never showed up.<br><b>The slip paid anyway.</b>'
-                          if hit < len(legs) else '<b>Every one of them.</b>'),
+        ctxD = dict(head1='%s of' % ('All' if hit == L else WORD.get(hit, str(hit))),
+                    head2='%s.' % (WORD.get(L, str(L)).lower() if hit == L else str(L)),
+                    kick=('%s never showed up.<br><b>The slip paid anyway.</b>'
+                          % (WORD.get(gone, str(gone)) + (' of them' if gone > 1 else ''))
+                          if hit < L else '<b>Every one of them.</b>'),
                     slip1=w1, slip2=w2,
                     when=datetime.date.fromisoformat(prev).strftime('%b %-d'),
                     struct='%su round robin · %s' % (r['stake'], (t.get('rr') or {}).get('struct', '')),
                     paid=paid, legs=legs)
         print('  reveal: %s went %d/%d, paid %s (night net %+.2fu)'
               % (t['name'], hit, len(legs), paid, LN['net']))
+        _hitn = ' '.join('%s %+d.' % (nm.split()[-1], od) for nm, od, h in legs if h)
+        _miss = ', '.join(nm.split()[-1] for nm, _o, h in legs if not h)
+        copyD = ('%s of %s.\n\n%s\n%s never showed up. Paid %s anyway.\n\n'
+                 'Tonight\'s board is already up. Next door %s.'
+                 % (WORD.get(hit, str(hit)), WORD.get(L, str(L)).lower(), _hitn, _miss, paid,
+                    ctx['door'] or 'at first pitch')) if hit < L else (
+                '%s of %s.\n\n%s\nPaid %s.\n\nTonight\'s board is already up. Next door %s.'
+                % (WORD.get(hit, str(hit)), WORD.get(L, str(L)).lower(), _hitn, paid,
+                   ctx['door'] or 'at first pitch'))
         open(os.path.join(work, 'p.html'), 'w').write(tpl_D(ctxD))
     else:
         print('  template %s has no renderer yet -- falling back to A' % tpl)
@@ -425,6 +587,11 @@ async def main():
         'A': "Today's board is live.\n\n%d moonshots open. One pays %s to 1.\n\nWe blacked out the names. Not the score.\n\nDoors close %s." % (len(S['open_moons']), ctx['to1'], ctx['door']),
         'C': "%s to one.\n\nThat's the longest thing on today's board, and it is free to look at.\n\n%d moonshots open. Doors close %s." % (ctx['to1'], len(S['open_moons']), ctx['door']),
         'F': "Three men on tonight's biggest slip.\n\nYou get the team, the spot, the arm and the price. Not the name.\n\nReply with the one you'd take. Names go up at %s." % (ctx['door'] or 'lock'),
+        # REVEALCOPY-2026-09-23. D rendered an image and emitted an EMPTY post, so every reveal
+        # was hand-written at the keyboard -- which is the one thing CAMPAIGN.md forbids ("every
+        # number comes off the board file, nothing typed by hand"). Same rules as the rest: no
+        # dollars, no apology for the miss, ends on the next door and never on a flat statement.
+        'D': copyD, 'R': copyD,
     }.get(tpl, '')
     meta = dict(day=dnum, date=today, template=tpl, template_name=NAMES.get(tpl),
                 door_template=door_tpl, open_moons=len(S['open_moons']), hero=ctx['hero'],
