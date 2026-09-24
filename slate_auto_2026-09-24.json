@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-24T21:41:59Z",
+  "pulled_at": "2026-09-24T21:46:53Z",
   "games": [
     {
       "gamePk": 823326,
@@ -586,7 +586,7 @@
           {
             "id": 543510,
             "name": "James McCann",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 694374,
@@ -628,7 +628,7 @@
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.184
+            "iso": 0.193
           },
           {
             "id": 691720,
@@ -643,7 +643,7 @@
           {
             "id": 687597,
             "name": "Jordan Beck",
-            "iso": 0.088
+            "iso": 0.087
           },
           {
             "id": 678662,
@@ -793,12 +793,12 @@
         "cond": "wind in 8mph, 64\u00b0",
         "lean": "Suppress",
         "temp": 64.0,
-        "wind_mph": 9.5,
-        "wind_dir": 51,
-        "tail_mph": -7.7,
+        "wind_mph": 10.2,
+        "wind_dir": 50,
+        "tail_mph": -8.4,
         "precip": 0
       },
-      "wf": 0.964
+      "wf": 0.962
     },
     {
       "gamePk": 824707,
@@ -923,15 +923,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 8mph, 60\u00b0",
+        "cond": "wind in 9mph, 60\u00b0",
         "lean": "Suppress",
         "temp": 60.1,
-        "wind_mph": 8.0,
-        "wind_dir": 38,
-        "tail_mph": -7.9,
+        "wind_mph": 9.2,
+        "wind_dir": 39,
+        "tail_mph": -9.1,
         "precip": 0
       },
-      "wf": 0.957
+      "wf": 0.953
     },
     {
       "gamePk": 823493,
@@ -1056,15 +1056,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 7mph, 62\u00b0",
+        "cond": "wind in 8mph, 62\u00b0",
         "lean": "Suppress",
         "temp": 62.5,
-        "wind_mph": 6.7,
-        "wind_dir": 6,
-        "tail_mph": -6.6,
+        "wind_mph": 7.9,
+        "wind_dir": 15,
+        "tail_mph": -7.9,
         "precip": 0
       },
-      "wf": 0.966
+      "wf": 0.961
     },
     {
       "gamePk": 824866,
@@ -1189,19 +1189,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 5mph, 69\u00b0",
-        "lean": "Neutral",
+        "cond": "wind in 6mph, 69\u00b0",
+        "lean": "Suppress",
         "temp": 69.0,
-        "wind_mph": 6.3,
-        "wind_dir": 82,
-        "tail_mph": -5.3,
+        "wind_mph": 6.8,
+        "wind_dir": 79,
+        "tail_mph": -5.9,
         "precip": 0
       },
-      "wf": 0.98
+      "wf": 0.978
     },
     {
       "gamePk": 824950,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T01:40:00Z",
       "matchup": "HOU@ATH",
       "away": {
@@ -1223,19 +1223,65 @@
           "hr9": 2.45,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.128
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.16
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.219
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.099
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.211
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.197
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.15
+          },
+          {
+            "id": 675961,
+            "name": "Alika Williams",
+            "iso": 0.158
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.164
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 88\u00b0",
+        "cond": "wind out 8mph, 88\u00b0",
         "lean": "Boost",
         "temp": 88.2,
-        "wind_mph": 8.7,
-        "wind_dir": 230,
-        "tail_mph": 8.6,
+        "wind_mph": 8.6,
+        "wind_dir": 231,
+        "tail_mph": 8.5,
         "precip": 0
       },
       "wf": 1.057
@@ -1357,15 +1403,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 70\u00b0",
+        "cond": "wind out 3mph, 70\u00b0",
         "lean": "Neutral",
         "temp": 70.3,
-        "wind_mph": 5.4,
-        "wind_dir": 240,
-        "tail_mph": 4.4,
+        "wind_mph": 4.7,
+        "wind_dir": 253,
+        "tail_mph": 3.1,
         "precip": 1
       },
-      "wf": 1.016
+      "wf": 1.011
     }
   ]
 }
