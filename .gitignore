@@ -16,3 +16,10 @@ _site/
 # and does not clean up, so it shows as untracked after every CI or local run. Committing it
 # would put a stale snapshot of one archived night in the repo that nothing loads.
 soccer/D_test_*.json
+
+# x_daily.py's render staging directory. It copies index.html and the three TTFs in beside the
+# generated p.html so a headless chromium can reach them over its own local server, then leaves
+# them. Same class as _site/ above: every file in it is either a COPY of something already in
+# the repo or a regenerable render, so committing it puts a stale duplicate of the board page
+# in brand/ and 2.5MB of fonts that are already tracked one directory up.
+brand/_work/

@@ -49,8 +49,16 @@ def _need(mod):
 pd = _need("pandas"); np = _need("numpy")
 
 # ---- Statcast column subset we keep (smaller cache, faster) ----
+# LONGBALL-2026-09-24: `hit_distance_sc` added. The board is picking up Fanatics' Long Ball
+# Jackpot, which pays a share of the pot to everyone who backed the man who hits the LONGEST
+# home run of the day -- so the question is no longer "does he go deep" but "how far", and not a
+# single column in this pipeline measured distance. Statcast has carried it all along; we were
+# throwing it away on every pull. One column, no other behaviour changes: nothing downstream
+# reads it yet, and the cache is keyed by day so past days are not re-pulled (the backfill is
+# separate, see the note in the longball model).
 KEEP = ['game_date','game_pk','batter','pitcher','player_name','events','description',
         'type','bb_type','launch_speed','launch_angle','estimated_woba_using_speedangle',
+        'hit_distance_sc',
         'barrel','hc_x','hc_y','stand','p_throws','home_team','away_team','inning_topbot',
         'at_bat_number','pitch_number']
 

@@ -19,6 +19,7 @@ season.json is the authoritative ledger (grade_night advances it); we just load 
 import boardcfg as _BCFG   # BOARDCFG-2026-09-13: single source for draft/stake constants
 import math, statistics as st, json, unicodedata, re, os, datetime
 import cardnotes
+import feedlag   # FEEDLAG-2026-09-24: is MLB slow on this club, or is the card genuinely not out?
 
 def _latest_slate():
     import glob
@@ -700,6 +701,7 @@ def pull_tail_of(home, bh, deg, windstr):                # wind projected onto t
 
 players={}; gamemeta={}
 _PPD_GAMES=set()   # PPDSERVER-2026-09-22: game numbers MLB has postponed
+_FEEDLAG=set()     # FEEDLAG-2026-09-24: (game number, club) MLB has not published yet
 for g in lin['games']:
     gn=g['gn']; gm=g['matchup']; gt=g['time']
     _sa=_slate_for(gm, gt)                              # DH-safe: this game's row, not just this matchup
@@ -750,6 +752,21 @@ for g in lin['games']:
         _sl=((_sa or {}).get(side) or {}) if _sa else {}
         _mlb=[p.get('name') for p in (_sl.get('lineup') or []) if p.get('name')]
         _posted_ok=bool(_sl.get('confirmed') and len(_mlb)>=9)
+        # FEEDLAG-2026-09-24. `status` can only ever say `projected` here, because the ONE live
+        # source for a posted card is StatsAPI and the RotoWire scrape behind `lin` is taken once
+        # and never refreshed. So when MLB is slow publishing a club, the board is indistinguishable
+        # from a board whose lineup genuinely is not out -- which is the owner's report, twice:
+        # "some teams arent confirming at all now" (09-22) and "the houston lineup is out. why is it
+        # still projected on the tickets?" (09-23). The second one cost a slip: Varsho sat on a
+        # locked 7:40 slip because Houston's 10:10 card never arrived.
+        # Clubs do not post ninety minutes apart, so ONE HALF POSTED AND THE OTHER EMPTY is the feed
+        # lagging, not a manager withholding. That is reportable, and it is all this does -- it does
+        # not touch status, out, the draft or the latch. Two attempts to fix this at the latch broke
+        # the live board on 09-23; a detector does not get to make that mistake.
+        if _sa is not None and feedlag.lagging(_sa, side):
+            _FEEDLAG.add((gn, code))
+            print(f"  ::warning::{gm}: MLB has not published {code}'s card while the other half of "
+                  f"the game is posted -- every {code} bat stays `projected` until it lands")
         if _posted_ok:
             posted={lunorm(x) for x in _mlb}
             _slot={lunorm(b):i+1 for i,b in enumerate(_mlb)}
@@ -1119,6 +1136,10 @@ meta={'cfg':{k:v for k,v in _BCFG.CFG.items() if not k.startswith('_')},   # BOA
       'model':_model_used,'wx':wx,'build':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=4)).strftime('%-m/%-d %-I:%M%p').lower(),'face':{},'maxAT':round(max(r['aT'] for r in pool),1),'season':season,'date':DATE,
       # PPDSERVER-2026-09-22: same key and same value the client's live pass writes, so the two
       # agree instead of racing. 'ppd' already means "do not draft this" to every reader of gs.
-      'gs':{str(_g):'ppd' for _g in _PPD_GAMES}}
+      'gs':{str(_g):'ppd' for _g in _PPD_GAMES},
+      # FEEDLAG-2026-09-24: clubs whose card MLB had not published when this board was
+      # built, while the other half of their game was up. Carried so the page can say
+      # which club it cannot see rather than showing a stale projection in silence.
+      'feedlag':sorted('%s|%s' % (_g,_c) for _g,_c in _FEEDLAG)}
 json.dump({'players':players,'meta':meta},open('D_0615.json','w'),indent=1)
 print(f"build15: {DATE} | scored {len(players)} carded | in-lineup {sum(1 for r in pool if not r['out'])} | priced {sum(1 for r in pool if r['odds'])} | season {season.get('history',[0])[-1]}u")
