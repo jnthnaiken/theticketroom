@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
   "season": "2026",
-  "pulled_at": "2026-09-24T02:44:03Z",
+  "pulled_at": "2026-09-24T02:49:11Z",
   "games": [
     {
       "gamePk": 824223,
@@ -1335,7 +1335,7 @@
     },
     {
       "gamePk": 824625,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-23T23:40:00Z",
       "matchup": "MIA@CHC",
       "away": {
@@ -1630,7 +1630,7 @@
           {
             "id": 672695,
             "name": "Geraldo Perdomo",
-            "iso": 0.109
+            "iso": 0.11
           },
           {
             "id": 656976,
@@ -1672,17 +1672,17 @@
           {
             "id": 664983,
             "name": "Jake McCarthy",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 694249,
             "name": "Cole Carrigg",
-            "iso": 0.187
+            "iso": 0.186
           },
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.28
+            "iso": 0.279
           },
           {
             "id": 681198,
@@ -1712,7 +1712,7 @@
           {
             "id": 678662,
             "name": "Ezequiel Tovar",
-            "iso": 0.122
+            "iso": 0.129
           }
         ],
         "confirmed": true
@@ -1753,12 +1753,12 @@
           {
             "id": 545361,
             "name": "Mike Trout",
-            "iso": 0.179
+            "iso": 0.184
           },
           {
             "id": 687093,
             "name": "Vaughn Grissom",
-            "iso": 0.145
+            "iso": 0.152
           },
           {
             "id": 694203,
@@ -1798,7 +1798,7 @@
         "sp": {
           "id": 605488,
           "name": "Jeffrey Springs",
-          "hr9": 2.1,
+          "hr9": 2.22,
           "hand": "LHP"
         },
         "lineup": [
@@ -1835,7 +1835,7 @@
           {
             "id": 666126,
             "name": "Carlos Cortes",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 675961,
@@ -1853,16 +1853,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 90\u00b0",
-        "lean": "Boost",
-        "temp": 89.8,
-        "wind_mph": 3.9,
-        "wind_dir": 301,
-        "tail_mph": 1.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.036
+      "wf": 1.0
     },
     {
       "gamePk": 823894,
@@ -1874,7 +1867,7 @@
         "sp": {
           "id": 592662,
           "name": "Robbie Ray",
-          "hr9": 1.21,
+          "hr9": 1.2,
           "hand": "LHP"
         },
         "lineup": [
@@ -1973,7 +1966,7 @@
           {
             "id": 571970,
             "name": "Max Muncy",
-            "iso": 0.242
+            "iso": 0.241
           },
           {
             "id": 669242,
@@ -1986,9 +1979,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind out 4mph, 71\u00b0",
+        "lean": "Neutral",
+        "temp": 71.3,
+        "wind_mph": 6.2,
+        "wind_dir": 257,
+        "tail_mph": 3.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.015
     },
     {
       "gamePk": 823086,
@@ -2000,7 +2000,7 @@
         "sp": {
           "id": 814490,
           "name": "Ethan Pecko",
-          "hr9": 1.5,
+          "hr9": 1.47,
           "hand": "RHP"
         },
         "lineup": [
@@ -2047,7 +2047,7 @@
           {
             "id": 669397,
             "name": "Nick Allen",
-            "iso": 0.1
+            "iso": 0.106
           }
         ],
         "confirmed": true
@@ -2094,7 +2094,7 @@
           {
             "id": 702284,
             "name": "Cole Young",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 703155,
