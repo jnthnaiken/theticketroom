@@ -1,0 +1,276 @@
+{
+ "_note": "SATURDAY-2026-09-26. 37 fixtures across the fifteen covered competitions plus intl; 32 admissible, 27 priced by the book, 5 CONCACAF NL excluded at source (no Anytime Goalscorer section -- now 0 for 14 over three days). The five core leagues are still in the international break to 9 October and nothing gated was on, so CUPSCOPE had nothing to rule on; the card is the 14-game MLS Saturday plus the UEFA Nations League matchday and three friendlies. Kickoffs are UTC minutes past midnight of the SLATE date and exceed 1440 for the MLS games that fall on the next UTC day -- an MLS card is ET-dated (coverage.json `open`). Read off the ESPN scoreboard, never assumed.",
+ "date": "2026-09-26",
+ "matches": {
+  "atlanta-united-fc-v-new-york-city-fc": {
+   "home": "Atlanta United FC",
+   "away": "New York City FC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761830"
+   ]
+  },
+  "cf-montreal-v-fc-cincinnati": {
+   "home": "CF Montréal",
+   "away": "FC Cincinnati",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761831"
+   ]
+  },
+  "charlotte-fc-v-chicago-fire-fc": {
+   "home": "Charlotte FC",
+   "away": "Chicago Fire FC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761832"
+   ]
+  },
+  "philadelphia-union-v-orlando-city-sc": {
+   "home": "Philadelphia Union",
+   "away": "Orlando City SC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761834"
+   ]
+  },
+  "red-bull-new-york-v-st-louis-city-sc": {
+   "home": "Red Bull New York",
+   "away": "St. Louis CITY SC",
+   "kickoff": 1410,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761833"
+   ]
+  },
+  "austin-fc-v-san-diego-fc": {
+   "home": "Austin FC",
+   "away": "San Diego FC",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761839"
+   ]
+  },
+  "fc-dallas-v-lafc": {
+   "home": "FC Dallas",
+   "away": "LAFC",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761835"
+   ]
+  },
+  "houston-dynamo-fc-v-sporting-kansas-city": {
+   "home": "Houston Dynamo FC",
+   "away": "Sporting Kansas City",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761836"
+   ]
+  },
+  "nashville-sc-v-toronto-fc": {
+   "home": "Nashville SC",
+   "away": "Toronto FC",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761838"
+   ]
+  },
+  "seattle-sounders-fc-v-minnesota-united-fc": {
+   "home": "Seattle Sounders FC",
+   "away": "Minnesota United FC",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761837"
+   ]
+  },
+  "real-salt-lake-v-new-england-revolution": {
+   "home": "Real Salt Lake",
+   "away": "New England Revolution",
+   "kickoff": 1530,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761840"
+   ]
+  },
+  "la-galaxy-v-colorado-rapids": {
+   "home": "LA Galaxy",
+   "away": "Colorado Rapids",
+   "kickoff": 1590,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761841"
+   ]
+  },
+  "san-jose-earthquakes-v-portland-timbers": {
+   "home": "San Jose Earthquakes",
+   "away": "Portland Timbers",
+   "kickoff": 1590,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761843"
+   ]
+  },
+  "vancouver-whitecaps-v-d-c-united": {
+   "home": "Vancouver Whitecaps",
+   "away": "D.C. United",
+   "kickoff": 1590,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761842"
+   ]
+  },
+  "slovenia-v-scotland": {
+   "home": "Slovenia",
+   "away": "Scotland",
+   "kickoff": 780,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861057"
+   ]
+  },
+  "bulgaria-v-luxembourg": {
+   "home": "Bulgaria",
+   "away": "Luxembourg",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861061"
+   ]
+  },
+  "faroe-islands-v-kazakhstan": {
+   "home": "Faroe Islands",
+   "away": "Kazakhstan",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861060"
+   ]
+  },
+  "iceland-v-estonia": {
+   "home": "Iceland",
+   "away": "Estonia",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861058"
+   ]
+  },
+  "san-marino-v-finland": {
+   "home": "San Marino",
+   "away": "Finland",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861059"
+   ]
+  },
+  "albania-v-belarus": {
+   "home": "Albania",
+   "away": "Belarus",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861062"
+   ]
+  },
+  "czechia-v-croatia": {
+   "home": "Czechia",
+   "away": "Croatia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861063"
+   ]
+  },
+  "england-v-spain": {
+   "home": "England",
+   "away": "Spain",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861066"
+   ]
+  },
+  "north-macedonia-v-switzerland": {
+   "home": "North Macedonia",
+   "away": "Switzerland",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861065"
+   ]
+  },
+  "slovakia-v-moldova": {
+   "home": "Slovakia",
+   "away": "Moldova",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861064"
+   ]
+  },
+  "united-states-v-peru": {
+   "home": "United States",
+   "away": "Peru",
+   "kickoff": 1230,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401905203"
+   ]
+  },
+  "canada-v-chile": {
+   "home": "Canada",
+   "away": "Chile",
+   "kickoff": 1380,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401900326"
+   ]
+  },
+  "mexico-v-colombia": {
+   "home": "Mexico",
+   "away": "Colombia",
+   "kickoff": 1500,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401903308"
+   ]
+  }
+ }
+}
