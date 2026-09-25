@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T23:07:29Z",
+  "pulled_at": "2026-09-25T23:12:01Z",
   "games": [
     {
       "gamePk": 824703,
@@ -445,7 +445,7 @@
     },
     {
       "gamePk": 824220,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-25T22:40:00Z",
       "matchup": "PIT@DET",
       "away": {
@@ -465,7 +465,7 @@
           {
             "id": 664040,
             "name": "Brandon Lowe",
-            "iso": 0.231
+            "iso": 0.23
           },
           {
             "id": 668804,
@@ -510,7 +510,7 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.55,
+          "hr9": 1.52,
           "hand": "RHP"
         },
         "lineup": [
@@ -586,7 +586,7 @@
         "sp": {
           "id": 642547,
           "name": "Freddy Peralta",
-          "hr9": 1.26,
+          "hr9": 1.25,
           "hand": "RHP"
         },
         "lineup": [
@@ -675,12 +675,12 @@
           {
             "id": 669016,
             "name": "Brandon Marsh",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 702222,
             "name": "Justin Crawford",
-            "iso": 0.092
+            "iso": 0.091
           },
           {
             "id": 592663,
@@ -719,7 +719,7 @@
         "sp": {
           "id": 642376,
           "name": "Jefry Yan",
-          "hr9": 1.4,
+          "hr9": 1.37,
           "hand": "LHP"
         },
         "lineup": [
@@ -803,12 +803,12 @@
           {
             "id": 682928,
             "name": "CJ Abrams",
-            "iso": 0.238
+            "iso": 0.237
           },
           {
             "id": 696285,
             "name": "Jacob Young",
-            "iso": 0.141
+            "iso": 0.14
           },
           {
             "id": 695734,
@@ -844,7 +844,7 @@
     },
     {
       "gamePk": 822760,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-25T23:07:00Z",
       "matchup": "CIN@TOR",
       "away": {
@@ -859,17 +859,17 @@
           {
             "id": 699115,
             "name": "Carlos Jorge",
-            "iso": 0.147
+            "iso": 0.143
           },
           {
             "id": 682829,
             "name": "Elly De La Cruz",
-            "iso": 0.236
+            "iso": 0.235
           },
           {
             "id": 701398,
             "name": "Sal Stewart",
-            "iso": 0.199
+            "iso": 0.198
           },
           {
             "id": 668709,
@@ -909,7 +909,7 @@
         "sp": {
           "id": 667755,
           "name": "Jos\u00e9 Soriano",
-          "hr9": 0.88,
+          "hr9": 0.87,
           "hand": "RHP"
         },
         "lineup": [
@@ -976,7 +976,7 @@
     },
     {
       "gamePk": 823816,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-25T23:10:00Z",
       "matchup": "ATL@MIA",
       "away": {
@@ -1626,7 +1626,14 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 66\u00b0",
+        "lean": "Neutral",
+        "temp": 65.6,
+        "wind_mph": 4.2,
+        "wind_dir": 122,
+        "tail_mph": 1.8,
+        "precip": 0
       },
       "wf": 1.0
     },
