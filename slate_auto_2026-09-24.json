@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
   "season": "2026",
-  "pulled_at": "2026-09-25T01:02:18Z",
+  "pulled_at": "2026-09-25T01:07:40Z",
   "games": [
     {
       "gamePk": 823326,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823411,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-24T22:05:00Z",
       "matchup": "MIL@PHI",
       "away": {
@@ -1118,12 +1118,12 @@
           {
             "id": 680574,
             "name": "Matt McLain",
-            "iso": 0.151
+            "iso": 0.152
           },
           {
             "id": 663647,
             "name": "Ke'Bryan Hayes",
-            "iso": 0.085
+            "iso": 0.084
           }
         ],
         "confirmed": true
@@ -1145,7 +1145,7 @@
           {
             "id": 660670,
             "name": "Ronald Acu\u00f1a Jr.",
-            "iso": 0.202
+            "iso": 0.201
           },
           {
             "id": 621566,
@@ -1321,16 +1321,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 9mph, 89\u00b0",
-        "lean": "Boost",
-        "temp": 89.3,
-        "wind_mph": 8.6,
-        "wind_dir": 239,
-        "tail_mph": 8.6,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.059
+      "wf": 1.0
     },
     {
       "gamePk": 823087,
