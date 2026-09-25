@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T17:41:46Z",
+  "pulled_at": "2026-09-25T17:46:26Z",
   "games": [
     {
       "gamePk": 824703,
@@ -97,7 +97,7 @@
           {
             "id": 702332,
             "name": "Caleb Durbin",
-            "iso": 0.132
+            "iso": 0.131
           },
           {
             "id": 686765,
@@ -112,12 +112,12 @@
           {
             "id": 655316,
             "name": "Andruw Monasterio",
-            "iso": 0.142
+            "iso": 0.141
           },
           {
             "id": 643396,
             "name": "Isiah Kiner-Falefa",
-            "iso": 0.071
+            "iso": 0.07
           }
         ],
         "confirmed": true
@@ -859,9 +859,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 64\u00b0",
+        "lean": "Boost",
+        "temp": 63.6,
+        "wind_mph": 14.4,
+        "wind_dir": 296,
+        "tail_mph": 12.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
