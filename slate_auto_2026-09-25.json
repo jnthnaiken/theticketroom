@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T20:16:41Z",
+  "pulled_at": "2026-09-25T20:21:41Z",
   "games": [
     {
       "gamePk": 824703,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824706,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T21:35:00Z",
       "matchup": "CHC@BOS",
       "away": {
@@ -149,8 +149,54 @@
           "hr9": 0.94,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 691718,
+            "name": "Pete Crow-Armstrong",
+            "iso": 0.293
+          },
+          {
+            "id": 673548,
+            "name": "Seiya Suzuki",
+            "iso": 0.204
+          },
+          {
+            "id": 683737,
+            "name": "Michael Busch",
+            "iso": 0.154
+          },
+          {
+            "id": 624424,
+            "name": "Michael Conforto",
+            "iso": 0.233
+          },
+          {
+            "id": 664023,
+            "name": "Ian Happ",
+            "iso": 0.197
+          },
+          {
+            "id": 663538,
+            "name": "Nico Hoerner",
+            "iso": 0.088
+          },
+          {
+            "id": 699393,
+            "name": "Pedro Ram\u00edrez",
+            "iso": 0.145
+          },
+          {
+            "id": 608348,
+            "name": "Carson Kelly",
+            "iso": 0.119
+          },
+          {
+            "id": 807713,
+            "name": "Matt Shaw",
+            "iso": 0.179
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "BOS",
@@ -163,7 +209,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -244,7 +290,7 @@
         "sp": {
           "id": 694341,
           "name": "Brendan Beck",
-          "hr9": 4.32,
+          "hr9": 4.15,
           "hand": "RHP"
         },
         "lineup": [
@@ -261,12 +307,12 @@
           {
             "id": 671218,
             "name": "Heliot Ramos",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 642708,
             "name": "Amed Rosario",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 806146,
