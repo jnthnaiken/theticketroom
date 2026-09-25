@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T19:22:17Z",
+  "pulled_at": "2026-09-25T19:27:18Z",
   "games": [
     {
       "gamePk": 824703,
@@ -50,7 +50,7 @@
           {
             "id": 683737,
             "name": "Michael Busch",
-            "iso": 0.153
+            "iso": 0.154
           },
           {
             "id": 621020,
@@ -564,7 +564,7 @@
     },
     {
       "gamePk": 822760,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T23:07:00Z",
       "matchup": "CIN@TOR",
       "away": {
@@ -586,10 +586,56 @@
           "hr9": 0.88,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807727,
+            "name": "Charles McAdoo",
+            "iso": 0.099
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.138
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.097
+          },
+          {
+            "id": 543807,
+            "name": "George Springer",
+            "iso": 0.156
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.22
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.11
+          },
+          {
+            "id": 676914,
+            "name": "Davis Schneider",
+            "iso": 0.175
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.107
+          },
+          {
+            "id": 664702,
+            "name": "Myles Straw",
+            "iso": 0.103
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -690,7 +736,7 @@
     },
     {
       "gamePk": 824058,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T23:40:00Z",
       "matchup": "CLE@KC",
       "away": {
@@ -712,10 +758,56 @@
           "hr9": 0.99,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695600,
+            "name": "Carter Jensen",
+            "iso": 0.216
+          },
+          {
+            "id": 677951,
+            "name": "Bobby Witt Jr.",
+            "iso": 0.161
+          },
+          {
+            "id": 695506,
+            "name": "Jac Caglianone",
+            "iso": 0.202
+          },
+          {
+            "id": 672580,
+            "name": "Maikel Garcia",
+            "iso": 0.115
+          },
+          {
+            "id": 686469,
+            "name": "Vinnie Pasquantino",
+            "iso": 0.169
+          },
+          {
+            "id": 521692,
+            "name": "Salvador Perez",
+            "iso": 0.15
+          },
+          {
+            "id": 686681,
+            "name": "Michael Massey",
+            "iso": 0.159
+          },
+          {
+            "id": 670231,
+            "name": "John Rave",
+            "iso": 0.207
+          },
+          {
+            "id": 664728,
+            "name": "Kyle Isbel",
+            "iso": 0.101
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
