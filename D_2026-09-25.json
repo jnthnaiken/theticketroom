@@ -50059,7 +50059,7 @@
     "precip": 0
    }
   },
-  "build": "9/25 6:03pm",
+  "build": "9/25 6:07pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -50346,34 +50346,34 @@
    "HOU": 16
   },
   "posted_at": {
-   "7|ATL": 1790363910,
-   "11|TEX": 1790368335,
-   "5|WSH": 1790365610,
-   "15|LAD": 1790373783,
-   "9|KC": 1790364459,
-   "2|NYY": 1790354574,
-   "4|PHI": 1790363304,
-   "5|NYM": 1790366844,
-   "10|STL": 1790365610,
-   "10|MIL": 1790371662,
-   "7|MIA": 1790366844,
-   "15|SF": 1790373783,
-   "3|DET": 1790362031,
-   "1|CHC": 1790347060,
-   "8|CWS": 1790366487,
-   "6|CIN": 1790366229,
-   "6|TOR": 1790364459,
-   "9|CLE": 1790368938,
-   "11|MIN": 1790367421,
-   "12|ATH": 1790373196,
    "1|BOS": 1790346144,
-   "8|COL": 1790369227,
    "2|BAL": 1790356634,
+   "3|DET": 1790362031,
+   "8|COL": 1790369227,
    "3|PIT": 1790365317,
-   "4|TB": 1790366844
+   "6|CIN": 1790366229,
+   "5|WSH": 1790365610,
+   "11|TEX": 1790368335,
+   "5|NYM": 1790366844,
+   "2|NYY": 1790354574,
+   "8|CWS": 1790366487,
+   "10|MIL": 1790371662,
+   "12|ATH": 1790373196,
+   "4|PHI": 1790363304,
+   "7|MIA": 1790366844,
+   "6|TOR": 1790364459,
+   "10|STL": 1790365610,
+   "9|KC": 1790364459,
+   "11|MIN": 1790367421,
+   "1|CHC": 1790347060,
+   "9|CLE": 1790368938,
+   "7|ATL": 1790363910,
+   "4|TB": 1790366844,
+   "15|SF": 1790373783,
+   "15|LAD": 1790373783
   },
   "chalkstate": {
-   "b": "9/25 6:03pm",
+   "b": "9/25 6:07pm",
    "s": {}
   },
   "chalk": [],
@@ -50662,6 +50662,169 @@
    "locked": true
   },
   {
+   "name": "Upper Deck Bound",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Yastrzemski projects out to 142, D\u00edaz gets ideal loft (19\u00b0), Su\u00e1rez has plenty of raw power (76/100), and Greene is shaping home-run contact at 15%.",
+   "players": [
+    {
+     "name": "Mike Yastrzemski",
+     "team": "Braves",
+     "total": 141.5,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "ATL@MIA",
+     "gtime": "7:10 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 630,
+     "status": "confirmed"
+    },
+    {
+     "name": "Yandy D\u00edaz",
+     "team": "Rays",
+     "total": 136.2,
+     "aT": 100,
+     "wf": 0.955,
+     "gmatch": "TB@PHI",
+     "gtime": "6:40 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 806,
+     "status": "confirmed"
+    },
+    {
+     "name": "Eugenio Su\u00e1rez",
+     "team": "Reds",
+     "total": 131.8,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CIN@TOR",
+     "gtime": "7:07 PM ET",
+     "game": 6,
+     "late": false,
+     "odds": 520,
+     "status": "confirmed"
+    },
+    {
+     "name": "Riley Greene",
+     "team": "Tigers",
+     "total": 130.9,
+     "aT": 100,
+     "wf": 0.987,
+     "gmatch": "PIT@DET",
+     "gtime": "6:40 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 475,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Mike Yastrzemski",
+   "lock": "6:40 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 1004.4,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 0,
+    "supp": 1,
+    "dome": 2,
+    "neu": 1
+   },
+   "confleg": 4,
+   "priced": 4,
+   "parlay_am": 235682,
+   "payout10": 23578.2,
+   "locked": true
+  },
+  {
+   "name": "Riding the Jet Stream",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Yastrzemski projects out to 142, Pasquantino gets ideal loft (19\u00b0), Smith swings with the wind at his back.",
+   "players": [
+    {
+     "name": "Mike Yastrzemski",
+     "team": "Braves",
+     "total": 141.5,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "ATL@MIA",
+     "gtime": "7:10 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 630,
+     "status": "confirmed"
+    },
+    {
+     "name": "Vinnie Pasquantino",
+     "team": "Royals",
+     "total": 136.6,
+     "aT": 100,
+     "wf": 1.003,
+     "gmatch": "CLE@KC",
+     "gtime": "7:40 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 668,
+     "status": "confirmed"
+    },
+    {
+     "name": "Cam Smith",
+     "team": "Astros",
+     "total": 132.2,
+     "aT": 100,
+     "wf": 1.102,
+     "gmatch": "HOU@ATH",
+     "gtime": "9:40 PM ET",
+     "game": 12,
+     "late": true,
+     "odds": 360,
+     "status": "projected"
+    },
+    {
+     "name": "Colson Montgomery",
+     "team": "White Sox",
+     "total": 130.4,
+     "aT": 100,
+     "wf": 0.964,
+     "gmatch": "COL@CWS",
+     "gtime": "7:40 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 370,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Mike Yastrzemski",
+   "lock": "7:10 PM ET",
+   "has_late": true,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 565.8,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 1,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 4,
+   "parlay_am": 121110,
+   "payout10": 12121.04
+  },
+  {
    "name": "Mach Breaker",
    "kind": "moon",
    "badge": "\ud83d\ude80",
@@ -50822,168 +50985,6 @@
    "priced": 4,
    "parlay_am": 110486,
    "payout10": 11058.63
-  },
-  {
-   "name": "Riding the Jet Stream",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Yastrzemski projects out to 142, Pasquantino gets ideal loft (19\u00b0), Smith swings with the wind at his back.",
-   "players": [
-    {
-     "name": "Mike Yastrzemski",
-     "team": "Braves",
-     "total": 141.5,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "ATL@MIA",
-     "gtime": "7:10 PM ET",
-     "game": 7,
-     "late": false,
-     "odds": 630,
-     "status": "confirmed"
-    },
-    {
-     "name": "Vinnie Pasquantino",
-     "team": "Royals",
-     "total": 136.6,
-     "aT": 100,
-     "wf": 1.003,
-     "gmatch": "CLE@KC",
-     "gtime": "7:40 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 668,
-     "status": "confirmed"
-    },
-    {
-     "name": "Cam Smith",
-     "team": "Astros",
-     "total": 132.2,
-     "aT": 100,
-     "wf": 1.102,
-     "gmatch": "HOU@ATH",
-     "gtime": "9:40 PM ET",
-     "game": 12,
-     "late": true,
-     "odds": 360,
-     "status": "projected"
-    },
-    {
-     "name": "Colson Montgomery",
-     "team": "White Sox",
-     "total": 130.4,
-     "aT": 100,
-     "wf": 0.964,
-     "gmatch": "COL@CWS",
-     "gtime": "7:40 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 370,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Mike Yastrzemski",
-   "lock": "7:10 PM ET",
-   "has_late": true,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 565.8,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 1,
-    "dome": 1,
-    "neu": 1
-   },
-   "confleg": 3,
-   "priced": 4,
-   "parlay_am": 121110,
-   "payout10": 12121.04
-  },
-  {
-   "name": "Upper Deck Bound",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Yastrzemski projects out to 142, D\u00edaz gets ideal loft (19\u00b0), Su\u00e1rez has plenty of raw power (76/100), and Greene is shaping home-run contact at 15%.",
-   "players": [
-    {
-     "name": "Mike Yastrzemski",
-     "team": "Braves",
-     "total": 141.5,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "ATL@MIA",
-     "gtime": "7:10 PM ET",
-     "game": 7,
-     "late": false,
-     "odds": 630,
-     "status": "confirmed"
-    },
-    {
-     "name": "Yandy D\u00edaz",
-     "team": "Rays",
-     "total": 136.2,
-     "aT": 100,
-     "wf": 0.955,
-     "gmatch": "TB@PHI",
-     "gtime": "6:40 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 806,
-     "status": "confirmed"
-    },
-    {
-     "name": "Eugenio Su\u00e1rez",
-     "team": "Reds",
-     "total": 131.8,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CIN@TOR",
-     "gtime": "7:07 PM ET",
-     "game": 6,
-     "late": false,
-     "odds": 520,
-     "status": "confirmed"
-    },
-    {
-     "name": "Riley Greene",
-     "team": "Tigers",
-     "total": 130.9,
-     "aT": 100,
-     "wf": 0.987,
-     "gmatch": "PIT@DET",
-     "gtime": "6:40 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 475,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Mike Yastrzemski",
-   "lock": "6:40 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 1004.4,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 2,
-    "neu": 1
-   },
-   "confleg": 4,
-   "priced": 4,
-   "parlay_am": 235682,
-   "payout10": 23578.2
   },
   {
    "name": "Off the Scoreboard",
@@ -51151,7 +51152,7 @@
    "name": "Out of Sight",
    "kind": "jackpot",
    "badge": "\ud83d\udca5",
-   "note": "Shea Langeliers swings with the wind at his back, is red-zone strong (14% of his contact), puts air under the ball (21\u00b0), has plenty of raw power (88/100).",
+   "note": "Shea Langeliers swings with the wind at his back, lands 14% of his contact in the home-run window, puts air under the ball (21\u00b0), and grades out strong for power (88/100).",
    "players": [
     {
      "name": "Shea Langeliers",
@@ -51188,7 +51189,7 @@
    "name": "The Helm",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Shea Langeliers gets a park that's launching everything tonight, is in the red zone on 14% of his contact, has textbook lift (21\u00b0).",
+   "note": "Shea Langeliers gets a park that's launching everything tonight, gets into the red zone at a 14% clip, has textbook lift (21\u00b0).",
    "players": [
     {
      "name": "Shea Langeliers",
@@ -51271,7 +51272,6 @@
   "Coby Mayo",
   "Isaac Paredes",
   "Vinnie Pasquantino",
-  "Yandy D\u00edaz",
   "Wilyer Abreu",
   "Randy Arozarena",
   "Andr\u00e9s Chaparro",
@@ -51279,9 +51279,7 @@
   "Wyatt Langford",
   "Kody Clemens",
   "Cam Smith",
-  "Eugenio Su\u00e1rez",
   "Jo Adell",
-  "Riley Greene",
   "Mickey Moniak",
   "Mike Trout",
   "Colson Montgomery",
