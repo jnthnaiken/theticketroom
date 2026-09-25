@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T20:36:49Z",
+  "pulled_at": "2026-09-25T20:41:52Z",
   "games": [
     {
       "gamePk": 824703,
@@ -259,12 +259,12 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 14mph, 63\u00b0",
+        "cond": "wind in 15mph, 63\u00b0",
         "lean": "Suppress",
         "temp": 63.2,
-        "wind_mph": 14.7,
-        "wind_dir": 33,
-        "tail_mph": -14.4,
+        "wind_mph": 16.0,
+        "wind_dir": 30,
+        "tail_mph": -15.5,
         "precip": 2
       },
       "wf": 0.94
@@ -279,7 +279,7 @@
         "sp": {
           "id": 669432,
           "name": "Trevor Rogers",
-          "hr9": 1.03,
+          "hr9": 1.02,
           "hand": "LHP"
         },
         "lineup": [
@@ -321,7 +321,7 @@
           {
             "id": 681047,
             "name": "Christian Franklin",
-            "iso": 0.05
+            "iso": 0.049
           },
           {
             "id": 665966,
@@ -363,12 +363,12 @@
           {
             "id": 806146,
             "name": "George Lombard Jr.",
-            "iso": 0.183
+            "iso": 0.181
           },
           {
             "id": 682987,
             "name": "Spencer Jones",
-            "iso": 0.19
+            "iso": 0.189
           },
           {
             "id": 683011,
@@ -395,12 +395,12 @@
         "cond": "wind in 17mph, 71\u00b0",
         "lean": "Suppress",
         "temp": 71.3,
-        "wind_mph": 17.3,
-        "wind_dir": 11,
+        "wind_mph": 17.4,
+        "wind_dir": 9,
         "tail_mph": -17.3,
         "precip": 1
       },
-      "wf": 0.942
+      "wf": 0.941
     },
     {
       "gamePk": 823489,
@@ -434,12 +434,12 @@
         "cond": "wind in 17mph, 71\u00b0",
         "lean": "Suppress",
         "temp": 71.3,
-        "wind_mph": 17.3,
-        "wind_dir": 11,
+        "wind_mph": 17.4,
+        "wind_dir": 9,
         "tail_mph": -17.3,
         "precip": 1
       },
-      "wf": 0.942
+      "wf": 0.941
     },
     {
       "gamePk": 824220,
@@ -564,15 +564,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 7mph, 66\u00b0",
+        "cond": "wind in 6mph, 66\u00b0",
         "lean": "Suppress",
         "temp": 66.3,
-        "wind_mph": 6.8,
-        "wind_dir": 44,
-        "tail_mph": -6.6,
+        "wind_mph": 6.5,
+        "wind_dir": 41,
+        "tail_mph": -6.4,
         "precip": 1
       },
-      "wf": 0.971
+      "wf": 0.972
     },
     {
       "gamePk": 823409,
@@ -700,12 +700,12 @@
         "cond": "wind in 13mph, 71\u00b0",
         "lean": "Suppress",
         "temp": 70.9,
-        "wind_mph": 13.4,
-        "wind_dir": 360,
-        "tail_mph": -12.9,
+        "wind_mph": 14.1,
+        "wind_dir": 357,
+        "tail_mph": -13.4,
         "precip": 0
       },
-      "wf": 0.956
+      "wf": 0.954
     },
     {
       "gamePk": 822681,
@@ -831,12 +831,12 @@
         "cond": "wind in 8mph, 71\u00b0",
         "lean": "Suppress",
         "temp": 71.4,
-        "wind_mph": 12.6,
-        "wind_dir": 340,
-        "tail_mph": -8.1,
+        "wind_mph": 13.0,
+        "wind_dir": 339,
+        "tail_mph": -8.2,
         "precip": 0
       },
-      "wf": 0.974
+      "wf": 0.973
     },
     {
       "gamePk": 822760,
@@ -1115,8 +1115,54 @@
           "hr9": 1.34,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.064
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.136
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.165
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.157
+          },
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.215
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.154
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.158
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.119
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.127
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
@@ -1179,15 +1225,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 66\u00b0",
+        "cond": "wind in 3mph, 66\u00b0",
         "lean": "Neutral",
         "temp": 66.5,
         "wind_mph": 5.4,
-        "wind_dir": 109,
-        "tail_mph": -2.4,
+        "wind_dir": 95,
+        "tail_mph": -3.5,
         "precip": 14
       },
-      "wf": 0.986
+      "wf": 0.983
     },
     {
       "gamePk": 824544,
@@ -1266,15 +1312,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 8mph, 59\u00b0",
+        "cond": "wind in 6mph, 59\u00b0",
         "lean": "Suppress",
         "temp": 59.3,
-        "wind_mph": 8.3,
-        "wind_dir": 63,
-        "tail_mph": -7.5,
+        "wind_mph": 6.6,
+        "wind_dir": 57,
+        "tail_mph": -6.2,
         "precip": 0
       },
-      "wf": 0.958
+      "wf": 0.962
     },
     {
       "gamePk": 823735,
@@ -1488,8 +1534,8 @@
         "cond": "calm 3mph, 67\u00b0",
         "lean": "Neutral",
         "temp": 67.1,
-        "wind_mph": 4.3,
-        "wind_dir": 141,
+        "wind_mph": 4.6,
+        "wind_dir": 137,
         "tail_mph": 3.0,
         "precip": 0
       },
@@ -1529,9 +1575,9 @@
         "cond": "wind out 10mph, 80\u00b0",
         "lean": "Boost",
         "temp": 79.9,
-        "wind_mph": 10.1,
-        "wind_dir": 233,
-        "tail_mph": 10.0,
+        "wind_mph": 10.2,
+        "wind_dir": 232,
+        "tail_mph": 10.1,
         "precip": 0
       },
       "wf": 1.05
@@ -1565,15 +1611,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 6mph, 75\u00b0",
+        "cond": "wind in 7mph, 75\u00b0",
         "lean": "Neutral",
         "temp": 74.9,
-        "wind_mph": 7.4,
-        "wind_dir": 331,
-        "tail_mph": -6.5,
+        "wind_mph": 8.2,
+        "wind_dir": 325,
+        "tail_mph": -6.7,
         "precip": 0
       },
-      "wf": 0.985
+      "wf": 0.984
     },
     {
       "gamePk": 823085,
@@ -1649,9 +1695,9 @@
         "cond": "wind out 12mph, 63\u00b0",
         "lean": "Boost",
         "temp": 63.0,
-        "wind_mph": 13.6,
-        "wind_dir": 295,
-        "tail_mph": 11.8,
+        "wind_mph": 13.9,
+        "wind_dir": 296,
+        "tail_mph": 11.9,
         "precip": 0
       },
       "wf": 1.031
