@@ -227,7 +227,14 @@ jobs:
         run: |
           cd soccer/.work
           set +e
-          node soccer_teamnews_fetch.js fixtures.json teamnews.psv
+          # SQUADAUTO-2026-09-25 -- the third argument is squads.psv, the club label. It was a
+          # hand-scrape into the slate directory from SQUADCLUB-2026-08-28 until the first
+          # international card made the chip read "--" on every leg. The staging step above has
+          # already copied any committed squads.psv into place, and the fetcher treats it as a
+          # cache: it re-pulls only when the file does not already cover every fixture, and it
+          # NEVER writes an empty one over a good one. A roster failure cannot change RC -- the
+          # squad is a label, RC is about the team SHEET -- so the case block below is untouched.
+          node soccer_teamnews_fetch.js fixtures.json teamnews.psv squads.psv
           RC=$?
           set -e
           echo "rc=$RC" >> $GITHUB_OUTPUT
@@ -434,11 +441,18 @@ jobs:
           mkdir -p boards && cp .work/soccer_D.json "boards/$D.json"
           # PRICELEDGER-SOCCER-2026-09-04 -- the ledger goes back beside the slate it prices.
           mkdir -p "slates/$D" && cp .work/prices.json "slates/$D/prices.json"
+          # SQUADAUTO-2026-09-25 -- and so does the squad the label was built from, for the same
+          # reason: the slate directory is the record of what the board was built ON. It is also
+          # the fallback the next runner starts from, so a day ESPN is down still has labels.
+          # Guarded, unlike prices.json, because the fetcher deliberately writes nothing when it
+          # learned nothing -- and on a slate with no committed squads.psv there is then no file.
+          [ -f .work/squads.psv ] && cp .work/squads.psv "slates/$D/squads.psv" || true
           cd ..
           git config user.name  "kasper-bot"
           git config user.email "kasper-bot@users.noreply.github.com"
           git add soccer/index.html soccer/soccer_D.json soccer/boards/ \
                   "soccer/slates/$D/prices.json"
+          [ -f "soccer/slates/$D/squads.psv" ] && git add "soccer/slates/$D/squads.psv" || true
           if git diff --staged --quiet; then
             echo "nothing changed"
           else
