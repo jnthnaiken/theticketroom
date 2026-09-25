@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-25",
- "built_at": "2026-09-25T19:08:23Z",
+ "built_at": "2026-09-25T19:57:07Z",
  "teams": {
   "ATH": {
    "n_rel": 12,
@@ -256,17 +256,17 @@
    "d1_pitches": 0
   },
   "NYM": {
-   "n_rel": 10,
+   "n_rel": 9,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0347,
-   "hr_bf_avail": 0.0347,
+   "hr_bf": 0.0358,
+   "hr_bf_avail": 0.0358,
    "hr_bf_L": 0.0318,
-   "hr_bf_R": 0.0351,
+   "hr_bf_R": 0.0365,
    "hr_bf_avail_L": 0.0318,
-   "hr_bf_avail_R": 0.0351,
-   "share_L": 0.194,
-   "air_share": 0.554,
+   "hr_bf_avail_R": 0.0365,
+   "share_L": 0.201,
+   "air_share": 0.555,
    "d1_pitches": 56
   },
   "NYY": {
@@ -355,30 +355,30 @@
   },
   "STL": {
    "n_rel": 9,
-   "n_unavail": 2,
+   "n_unavail": 1,
    "top_out": 1,
-   "hr_bf": 0.0238,
-   "hr_bf_avail": 0.0229,
-   "hr_bf_L": 0.0172,
-   "hr_bf_R": 0.0271,
+   "hr_bf": 0.0248,
+   "hr_bf_avail": 0.0234,
+   "hr_bf_L": 0.0189,
+   "hr_bf_R": 0.0276,
    "hr_bf_avail_L": 0.0189,
-   "hr_bf_avail_R": 0.0257,
-   "share_L": 0.256,
-   "air_share": 0.49,
+   "hr_bf_avail_R": 0.0263,
+   "share_L": 0.231,
+   "air_share": 0.492,
    "d1_pitches": 116
   },
   "TB": {
    "n_rel": 10,
    "n_unavail": 2,
    "top_out": 0,
-   "hr_bf": 0.0342,
-   "hr_bf_avail": 0.0322,
+   "hr_bf": 0.034,
+   "hr_bf_avail": 0.032,
    "hr_bf_L": 0.0418,
-   "hr_bf_R": 0.0262,
+   "hr_bf_R": 0.0259,
    "hr_bf_avail_L": 0.0408,
-   "hr_bf_avail_R": 0.0258,
-   "share_L": 0.495,
-   "air_share": 0.548,
+   "hr_bf_avail_R": 0.0255,
+   "share_L": 0.493,
+   "air_share": 0.545,
    "d1_pitches": 69
   },
   "TEX": {
@@ -486,10 +486,10 @@
    "hr_bf": null
   },
   "jose soriano": {
-   "id": null,
-   "bf_exp": 22.0,
-   "kind": "unknown",
-   "hr_bf": null
+   "id": 667755,
+   "bf_exp": 24.22,
+   "kind": "sp",
+   "hr_bf": 0.0258
   },
   "nick lodolo": {
    "id": 666157,
@@ -778,7 +778,7 @@
   "box_loaded": 28,
   "rosters": 30,
   "pitcher_stats": 420,
-  "sps_matched": 26,
+  "sps_matched": 27,
   "sps_named": 30,
   "pens": 30,
   "games": 15,
@@ -787,6 +787,6 @@
  "errors": [],
  "partial": false,
  "attempts": 1,
- "last_attempt": 1790363303,
+ "last_attempt": 1790366227,
  "pregame": true
 }
