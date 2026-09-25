@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T18:41:55Z",
+  "pulled_at": "2026-09-25T18:46:27Z",
   "games": [
     {
       "gamePk": 824703,
@@ -45,7 +45,7 @@
           {
             "id": 807713,
             "name": "Matt Shaw",
-            "iso": 0.181
+            "iso": 0.179
           },
           {
             "id": 683737,
@@ -87,12 +87,12 @@
           {
             "id": 668939,
             "name": "Adley Rutschman",
-            "iso": 0.178
+            "iso": 0.177
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.199
+            "iso": 0.198
           },
           {
             "id": 702332,
@@ -129,12 +129,12 @@
         "cond": "wind in 14mph, 65\u00b0",
         "lean": "Suppress",
         "temp": 65.4,
-        "wind_mph": 16.3,
+        "wind_mph": 15.9,
         "wind_dir": 17,
-        "tail_mph": -14.4,
+        "tail_mph": -14.0,
         "precip": 0
       },
-      "wf": 0.943
+      "wf": 0.944
     },
     {
       "gamePk": 824706,
@@ -170,9 +170,9 @@
         "cond": "wind in 15mph, 64\u00b0",
         "lean": "Suppress",
         "temp": 64.4,
-        "wind_mph": 15.6,
+        "wind_mph": 15.8,
         "wind_dir": 29,
-        "tail_mph": -15.0,
+        "tail_mph": -15.2,
         "precip": 3
       },
       "wf": 0.94
@@ -303,12 +303,12 @@
         "cond": "wind in 18mph, 72\u00b0",
         "lean": "Suppress",
         "temp": 71.9,
-        "wind_mph": 17.9,
+        "wind_mph": 17.6,
         "wind_dir": 12,
-        "tail_mph": -17.9,
+        "tail_mph": -17.6,
         "precip": 1
       },
-      "wf": 0.94
+      "wf": 0.941
     },
     {
       "gamePk": 823489,
@@ -351,7 +351,7 @@
     },
     {
       "gamePk": 824220,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T22:40:00Z",
       "matchup": "PIT@DET",
       "away": {
@@ -373,10 +373,56 @@
           "hr9": 1.55,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703601,
+            "name": "Max Clark",
+            "iso": 0.157
+          },
+          {
+            "id": 701678,
+            "name": "Hao-Yu Lee",
+            "iso": 0.164
+          },
+          {
+            "id": 805808,
+            "name": "Kevin McGonigle",
+            "iso": 0.15
+          },
+          {
+            "id": 680664,
+            "name": "Eduardo Valencia",
+            "iso": 0.263
+          },
+          {
+            "id": 682985,
+            "name": "Riley Greene",
+            "iso": 0.196
+          },
+          {
+            "id": 693307,
+            "name": "Dillon Dingler",
+            "iso": 0.206
+          },
+          {
+            "id": 814430,
+            "name": "Brett Callahan",
+            "iso": 0.121
+          },
+          {
+            "id": 679529,
+            "name": "Spencer Torkelson",
+            "iso": 0.197
+          },
+          {
+            "id": 807726,
+            "name": "John Peck",
+            "iso": 0.016
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -619,9 +665,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 5mph, 59\u00b0",
+        "lean": "Suppress",
+        "temp": 59.3,
+        "wind_mph": 5.8,
+        "wind_dir": 67,
+        "tail_mph": -5.1,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.966
     },
     {
       "gamePk": 823735,
