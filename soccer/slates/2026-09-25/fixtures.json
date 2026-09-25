@@ -1,0 +1,96 @@
+{
+ "_note": "INTLBOARD-2026-09-25. THE FIRST INTERNATIONAL SLATE. The five core leagues are in the international break until 9 October and nothing club or gated is on, so every fixture here comes from coverage.json's `intl` group. Scanned live against ESPN per competition with slate_scan.js (gate set resolved 96 clubs / 0 failed). 17 fixtures were admissible; these 9 are the ones the BOOK priced -- each carries a 15-name Anytime Goalscorer market, 0 unparsed, measured with ags_scrape.js on the page. The 8 that are absent are excluded at the source and not by us: 6 CONCACAF NL ties carry no AGS section, bonaire-v-st-kitts-and-nevis has no oddschecker page at all (404), and india-v-panama carries no AGS section. JOINGATE-2026-09-22 in soccer_mock.py is the second gate and decides which of these 9 actually reach the draft. Kickoffs are UTC minutes past midnight of the slate date, the same spelling every committed slate uses.",
+ "date": "2026-09-25",
+ "matches": {
+  "italy-v-belgium": {
+   "home": "Italy",
+   "away": "Belgium",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861052"
+   ]
+  },
+  "turkey-v-france": {
+   "home": "Türkiye",
+   "away": "France",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861053"
+   ]
+  },
+  "sweden-v-romania": {
+   "home": "Sweden",
+   "away": "Romania",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861051"
+   ]
+  },
+  "poland-v-bosnia-and-herzegovina": {
+   "home": "Poland",
+   "away": "Bosnia-Herzegovina",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861055"
+   ]
+  },
+  "hungary-v-ukraine": {
+   "home": "Hungary",
+   "away": "Ukraine",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861054"
+   ]
+  },
+  "montenegro-v-cyprus": {
+   "home": "Montenegro",
+   "away": "Cyprus",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861056"
+   ]
+  },
+  "georgia-v-northern-ireland": {
+   "home": "Georgia",
+   "away": "Northern Ireland",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861049"
+   ]
+  },
+  "armenia-v-latvia": {
+   "home": "Armenia",
+   "away": "Latvia",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861050"
+   ]
+  },
+  "australia-v-brazil": {
+   "home": "Australia",
+   "away": "Brazil",
+   "kickoff": 600,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401881899"
+   ]
+  }
+ }
+}
