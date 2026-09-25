@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T23:22:31Z",
+  "pulled_at": "2026-09-25T23:27:06Z",
   "games": [
     {
       "gamePk": 824703,
@@ -40,7 +40,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.089
+            "iso": 0.088
           },
           {
             "id": 807713,
@@ -178,7 +178,7 @@
           {
             "id": 663538,
             "name": "Nico Hoerner",
-            "iso": 0.089
+            "iso": 0.088
           },
           {
             "id": 699393,
@@ -572,7 +572,7 @@
           {
             "id": 693304,
             "name": "Nick Gonzales",
-            "iso": 0.087
+            "iso": 0.086
           },
           {
             "id": 656811,
@@ -602,7 +602,7 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.51,
+          "hr9": 1.5,
           "hand": "RHP"
         },
         "lineup": [
@@ -678,7 +678,7 @@
         "sp": {
           "id": 642547,
           "name": "Freddy Peralta",
-          "hr9": 1.25,
+          "hr9": 1.24,
           "hand": "RHP"
         },
         "lineup": [
@@ -747,7 +747,7 @@
           {
             "id": 607208,
             "name": "Trea Turner",
-            "iso": 0.138
+            "iso": 0.137
           },
           {
             "id": 547180,
@@ -811,7 +811,7 @@
         "sp": {
           "id": 642376,
           "name": "Jefry Yan",
-          "hr9": 1.37,
+          "hr9": 1.33,
           "hand": "LHP"
         },
         "lineup": [
@@ -944,7 +944,7 @@
         "sp": {
           "id": 666157,
           "name": "Nick Lodolo",
-          "hr9": 1.74,
+          "hr9": 1.72,
           "hand": "LHP"
         },
         "lineup": [
@@ -966,7 +966,7 @@
           {
             "id": 668709,
             "name": "JJ Bleday",
-            "iso": 0.196
+            "iso": 0.195
           },
           {
             "id": 553993,
@@ -1076,7 +1076,7 @@
         "sp": {
           "id": 678061,
           "name": "Ray Kerr",
-          "hr9": 1.17,
+          "hr9": 1.1,
           "hand": "LHP"
         },
         "lineup": [
@@ -1160,7 +1160,7 @@
           {
             "id": 665052,
             "name": "Griffin Conine",
-            "iso": 0.217
+            "iso": 0.216
           },
           {
             "id": 682663,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 824544,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-25T23:40:00Z",
       "matchup": "COL@CWS",
       "away": {
@@ -2249,9 +2249,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 13mph, 63\u00b0",
+        "lean": "Boost",
+        "temp": 62.9,
+        "wind_mph": 14.5,
+        "wind_dir": 293,
+        "tail_mph": 12.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.034
     }
   ]
 }
