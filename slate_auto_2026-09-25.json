@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T21:47:17Z",
+  "pulled_at": "2026-09-25T21:52:33Z",
   "games": [
     {
       "gamePk": 824703,
@@ -215,7 +215,7 @@
           {
             "id": 663330,
             "name": "Jahmai Jones",
-            "iso": 0.168
+            "iso": 0.166
           },
           {
             "id": 677800,
@@ -291,7 +291,7 @@
           {
             "id": 624413,
             "name": "Pete Alonso",
-            "iso": 0.252
+            "iso": 0.255
           },
           {
             "id": 683002,
@@ -1635,7 +1635,7 @@
     },
     {
       "gamePk": 824947,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-26T01:40:00Z",
       "matchup": "HOU@ATH",
       "away": {
@@ -1657,10 +1657,56 @@
           "hr9": 1.69,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.127
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.16
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.217
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.107
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.225
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.194
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.149
+          },
+          {
+            "id": 695720,
+            "name": "Tommy White",
+            "iso": 0.078
+          },
+          {
+            "id": 641680,
+            "name": "Jonah Heim",
+            "iso": 0.166
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -1702,16 +1748,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 7mph, 75\u00b0",
-        "lean": "Neutral",
-        "temp": 75.4,
-        "wind_mph": 7.5,
-        "wind_dir": 333,
-        "tail_mph": -6.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.985
+      "wf": 1.0
     },
     {
       "gamePk": 823085,
