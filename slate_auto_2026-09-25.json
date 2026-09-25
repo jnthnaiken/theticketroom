@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T19:36:32Z",
+  "pulled_at": "2026-09-25T19:41:34Z",
   "games": [
     {
       "gamePk": 824703,
@@ -179,7 +179,7 @@
     },
     {
       "gamePk": 823491,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-25T20:05:00Z",
       "matchup": "BAL@NYY",
       "away": {
@@ -362,8 +362,54 @@
           "hr9": 0.89,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.123
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.231
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.161
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.209
+          },
+          {
+            "id": 693304,
+            "name": "Nick Gonzales",
+            "iso": 0.087
+          },
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.179
+          },
+          {
+            "id": 804668,
+            "name": "Rafael Flores Jr.",
+            "iso": 0.258
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.12
+          },
+          {
+            "id": 663968,
+            "name": "Jake Mangum",
+            "iso": 0.09
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
