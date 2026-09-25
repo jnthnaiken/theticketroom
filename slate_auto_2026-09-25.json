@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T22:07:20Z",
+  "pulled_at": "2026-09-25T22:12:46Z",
   "games": [
     {
       "gamePk": 824703,
@@ -45,7 +45,7 @@
           {
             "id": 807713,
             "name": "Matt Shaw",
-            "iso": 0.179
+            "iso": 0.177
           },
           {
             "id": 683737,
@@ -102,12 +102,12 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 680776,
             "name": "Jarren Duran",
-            "iso": 0.155
+            "iso": 0.156
           },
           {
             "id": 655316,
@@ -193,7 +193,7 @@
           {
             "id": 807713,
             "name": "Matt Shaw",
-            "iso": 0.179
+            "iso": 0.177
           }
         ],
         "confirmed": true
@@ -230,7 +230,7 @@
           {
             "id": 686765,
             "name": "Nick Sogard",
-            "iso": 0.134
+            "iso": 0.133
           },
           {
             "id": 655316,
@@ -240,7 +240,7 @@
           {
             "id": 680776,
             "name": "Jarren Duran",
-            "iso": 0.155
+            "iso": 0.156
           },
           {
             "id": 643396,
@@ -378,7 +378,7 @@
           {
             "id": 645305,
             "name": "Ali S\u00e1nchez",
-            "iso": 0.059
+            "iso": 0.058
           },
           {
             "id": 676609,
@@ -1709,16 +1709,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 80.2,
-        "wind_mph": 10.2,
-        "wind_dir": 232,
-        "tail_mph": 10.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.051
+      "wf": 1.0
     },
     {
       "gamePk": 823248,
@@ -1761,7 +1754,7 @@
     },
     {
       "gamePk": 823085,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-26T02:10:00Z",
       "matchup": "LAA@SEA",
       "away": {
@@ -1783,10 +1776,56 @@
           "hr9": 1.6,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 668227,
+            "name": "Randy Arozarena",
+            "iso": 0.2
+          },
+          {
+            "id": 686527,
+            "name": "Dominic Canzone",
+            "iso": 0.217
+          },
+          {
+            "id": 677594,
+            "name": "Julio Rodr\u00edguez",
+            "iso": 0.157
+          },
+          {
+            "id": 647304,
+            "name": "Josh Naylor",
+            "iso": 0.089
+          },
+          {
+            "id": 703197,
+            "name": "Michael Arroyo",
+            "iso": 0.2
+          },
+          {
+            "id": 702284,
+            "name": "Cole Young",
+            "iso": 0.137
+          },
+          {
+            "id": 640902,
+            "name": "Jhonny Pereda",
+            "iso": 0.083
+          },
+          {
+            "id": 642215,
+            "name": "Weston Wilson",
+            "iso": 0.108
+          },
+          {
+            "id": 660844,
+            "name": "Leo Rivas",
+            "iso": 0.042
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
