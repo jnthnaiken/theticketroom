@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T23:12:01Z",
+  "pulled_at": "2026-09-25T23:17:03Z",
   "games": [
     {
       "gamePk": 824703,
@@ -168,12 +168,12 @@
           {
             "id": 624424,
             "name": "Michael Conforto",
-            "iso": 0.231
+            "iso": 0.23
           },
           {
             "id": 664023,
             "name": "Ian Happ",
-            "iso": 0.196
+            "iso": 0.197
           },
           {
             "id": 663538,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823489,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T20:10:00Z",
       "matchup": "BAL@NYY",
       "away": {
@@ -415,8 +415,54 @@
           "hr9": 1.31,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.138
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.256
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.235
+          },
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.15
+          },
+          {
+            "id": 665750,
+            "name": "Leody Taveras",
+            "iso": 0.123
+          },
+          {
+            "id": 677956,
+            "name": "Rece Hinds",
+            "iso": 0.086
+          },
+          {
+            "id": 681047,
+            "name": "Christian Franklin",
+            "iso": 0.044
+          },
+          {
+            "id": 650968,
+            "name": "Yohel Pozo",
+            "iso": 0.071
+          },
+          {
+            "id": 676480,
+            "name": "Jos\u00e9 Barrero",
+            "iso": 0.0
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -426,10 +472,56 @@
           "hr9": 0.44,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.271
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.167
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.167
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.245
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.187
+          },
+          {
+            "id": 665862,
+            "name": "Jazz Chisholm Jr.",
+            "iso": 0.17
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.088
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.147
+          },
+          {
+            "id": 641857,
+            "name": "Ryan McMahon",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -470,7 +562,7 @@
           {
             "id": 668804,
             "name": "Bryan Reynolds",
-            "iso": 0.161
+            "iso": 0.162
           },
           {
             "id": 665833,
@@ -510,14 +602,14 @@
         "sp": {
           "id": 695549,
           "name": "Jackson Jobe",
-          "hr9": 1.52,
+          "hr9": 1.51,
           "hand": "RHP"
         },
         "lineup": [
           {
             "id": 703601,
             "name": "Max Clark",
-            "iso": 0.157
+            "iso": 0.156
           },
           {
             "id": 701678,
@@ -598,22 +690,22 @@
           {
             "id": 666018,
             "name": "Jonathan Aranda",
-            "iso": 0.161
+            "iso": 0.16
           },
           {
             "id": 691406,
             "name": "Junior Caminero",
-            "iso": 0.247
+            "iso": 0.246
           },
           {
             "id": 668723,
             "name": "Ryan Vilade",
-            "iso": 0.189
+            "iso": 0.188
           },
           {
             "id": 676356,
             "name": "Jonny DeLuca",
-            "iso": 0.151
+            "iso": 0.15
           },
           {
             "id": 802415,
@@ -643,7 +735,7 @@
         "sp": {
           "id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "hr9": 0.85,
+          "hr9": 0.84,
           "hand": "LHP"
         },
         "lineup": [
@@ -756,7 +848,7 @@
           {
             "id": 543760,
             "name": "Marcus Semien",
-            "iso": 0.126
+            "iso": 0.125
           },
           {
             "id": 805999,
@@ -916,12 +1008,12 @@
           {
             "id": 807727,
             "name": "Charles McAdoo",
-            "iso": 0.099
+            "iso": 0.109
           },
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.138
+            "iso": 0.14
           },
           {
             "id": 665489,
@@ -991,7 +1083,7 @@
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.173
+            "iso": 0.172
           },
           {
             "id": 660670,
@@ -1041,7 +1133,7 @@
         "sp": {
           "id": 691587,
           "name": "Eury P\u00e9rez",
-          "hr9": 1.2,
+          "hr9": 1.19,
           "hand": "RHP"
         },
         "lineup": [
@@ -1108,7 +1200,7 @@
     },
     {
       "gamePk": 824058,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-09-25T23:40:00Z",
       "matchup": "CLE@KC",
       "away": {
@@ -1374,7 +1466,7 @@
     },
     {
       "gamePk": 823735,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-25T23:40:00Z",
       "matchup": "STL@MIL",
       "away": {
@@ -1870,8 +1962,54 @@
           "hr9": 0.96,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.193
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.182
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.079
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.149
+          },
+          {
+            "id": 694208,
+            "name": "Mois\u00e9s Ballesteros",
+            "iso": 0.12
+          },
+          {
+            "id": 666139,
+            "name": "Josh Lowe",
+            "iso": 0.155
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.072
+          },
+          {
+            "id": 518595,
+            "name": "Travis d'Arnaud",
+            "iso": 0.083
+          },
+          {
+            "id": 669326,
+            "name": "Bryce Teodosio",
+            "iso": 0.034
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
