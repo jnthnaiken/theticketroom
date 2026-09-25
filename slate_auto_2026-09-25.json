@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T22:17:41Z",
+  "pulled_at": "2026-09-25T22:22:44Z",
   "games": [
     {
       "gamePk": 824703,
@@ -77,7 +77,7 @@
           {
             "id": 701350,
             "name": "Roman Anthony",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 681508,
@@ -117,7 +117,7 @@
           {
             "id": 643396,
             "name": "Isiah Kiner-Falefa",
-            "iso": 0.068
+            "iso": 0.069
           }
         ],
         "confirmed": true
@@ -210,7 +210,7 @@
           {
             "id": 701350,
             "name": "Roman Anthony",
-            "iso": 0.155
+            "iso": 0.154
           },
           {
             "id": 663330,
@@ -245,7 +245,7 @@
           {
             "id": 643396,
             "name": "Isiah Kiner-Falefa",
-            "iso": 0.068
+            "iso": 0.069
           },
           {
             "id": 657136,
@@ -291,12 +291,12 @@
           {
             "id": 624413,
             "name": "Pete Alonso",
-            "iso": 0.255
+            "iso": 0.256
           },
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 691723,
@@ -576,7 +576,7 @@
     },
     {
       "gamePk": 823409,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-25T22:40:00Z",
       "matchup": "TB@PHI",
       "away": {
@@ -1750,16 +1750,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 7mph, 75\u00b0",
-        "lean": "Neutral",
-        "temp": 75.4,
-        "wind_mph": 7.5,
-        "wind_dir": 333,
-        "tail_mph": -6.7,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.985
+      "wf": 1.0
     },
     {
       "gamePk": 823085,
@@ -1969,9 +1962,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 13mph, 63\u00b0",
+        "lean": "Boost",
+        "temp": 62.9,
+        "wind_mph": 14.5,
+        "wind_dir": 295,
+        "tail_mph": 12.6,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
