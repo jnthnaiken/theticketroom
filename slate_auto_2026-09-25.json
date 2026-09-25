@@ -1,11 +1,11 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T17:22:10Z",
+  "pulled_at": "2026-09-25T17:26:46Z",
   "games": [
     {
       "gamePk": 824703,
-      "status": "Player challenge",
+      "status": "In Progress",
       "gameTime": "2026-09-25T17:05:00Z",
       "matchup": "CHC@BOS",
       "away": {
@@ -13,7 +13,7 @@
         "sp": {
           "id": 605280,
           "name": "Clay Holmes",
-          "hr9": 0.56,
+          "hr9": 0.55,
           "hand": "RHP"
         },
         "lineup": [
@@ -77,17 +77,17 @@
           {
             "id": 701350,
             "name": "Roman Anthony",
-            "iso": 0.138
+            "iso": 0.141
           },
           {
             "id": 681508,
             "name": "Mickey Gasper",
-            "iso": 0.218
+            "iso": 0.217
           },
           {
             "id": 668939,
             "name": "Adley Rutschman",
-            "iso": 0.179
+            "iso": 0.178
           },
           {
             "id": 677800,
@@ -859,9 +859,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 64\u00b0",
+        "lean": "Boost",
+        "temp": 64.0,
+        "wind_mph": 13.6,
+        "wind_dir": 295,
+        "tail_mph": 11.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.032
     }
   ]
 }
