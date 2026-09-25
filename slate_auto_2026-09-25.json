@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T23:17:03Z",
+  "pulled_at": "2026-09-25T23:22:31Z",
   "games": [
     {
       "gamePk": 824703,
@@ -92,7 +92,7 @@
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 702332,
@@ -215,17 +215,17 @@
           {
             "id": 663330,
             "name": "Jahmai Jones",
-            "iso": 0.166
+            "iso": 0.164
           },
           {
             "id": 677800,
             "name": "Wilyer Abreu",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 596115,
             "name": "Trevor Story",
-            "iso": 0.117
+            "iso": 0.116
           },
           {
             "id": 686765,
@@ -404,7 +404,7 @@
     },
     {
       "gamePk": 823489,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-25T20:10:00Z",
       "matchup": "BAL@NYY",
       "away": {
@@ -614,7 +614,7 @@
           {
             "id": 701678,
             "name": "Hao-Yu Lee",
-            "iso": 0.164
+            "iso": 0.163
           },
           {
             "id": 805808,
@@ -1018,7 +1018,7 @@
           {
             "id": 665489,
             "name": "Vladimir Guerrero Jr.",
-            "iso": 0.097
+            "iso": 0.098
           },
           {
             "id": 543807,
@@ -1028,7 +1028,7 @@
           {
             "id": 672960,
             "name": "Kazuma Okamoto",
-            "iso": 0.22
+            "iso": 0.221
           },
           {
             "id": 664770,
@@ -1742,8 +1742,54 @@
           "hr9": 0.97,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665161,
+            "name": "Jeremy Pe\u00f1a",
+            "iso": 0.192
+          },
+          {
+            "id": 670541,
+            "name": "Yordan Alvarez",
+            "iso": 0.285
+          },
+          {
+            "id": 670623,
+            "name": "Isaac Paredes",
+            "iso": 0.184
+          },
+          {
+            "id": 514888,
+            "name": "Jose Altuve",
+            "iso": 0.148
+          },
+          {
+            "id": 673237,
+            "name": "Yainer Diaz",
+            "iso": 0.176
+          },
+          {
+            "id": 572233,
+            "name": "Christian Walker",
+            "iso": 0.192
+          },
+          {
+            "id": 701358,
+            "name": "Cam Smith",
+            "iso": 0.178
+          },
+          {
+            "id": 828599,
+            "name": "Lucas Spence",
+            "iso": 0.227
+          },
+          {
+            "id": 678489,
+            "name": "Jorge Barrosa",
+            "iso": 0.141
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "ATH",
@@ -2203,16 +2249,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 13mph, 63\u00b0",
-        "lean": "Boost",
-        "temp": 62.9,
-        "wind_mph": 14.5,
-        "wind_dir": 293,
-        "tail_mph": 12.8,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.034
+      "wf": 1.0
     }
   ]
 }
