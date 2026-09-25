@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T21:21:58Z",
+  "pulled_at": "2026-09-25T21:27:00Z",
   "games": [
     {
       "gamePk": 824703,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824706,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-25T21:35:00Z",
       "matchup": "CHC@BOS",
       "away": {
@@ -306,7 +306,7 @@
           {
             "id": 687952,
             "name": "Christian Encarnacion-Strand",
-            "iso": 0.234
+            "iso": 0.233
           },
           {
             "id": 681297,
@@ -1438,8 +1438,54 @@
           "hr9": 1.22,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.156
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.177
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.148
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.223
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.145
+          },
+          {
+            "id": 687401,
+            "name": "Joey Ortiz",
+            "iso": 0.133
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.082
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.089
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.088
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
