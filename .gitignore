@@ -30,3 +30,12 @@ soccer/D_test_*.json
 # the repo or a regenerable render, so committing it puts a stale duplicate of the board page
 # in brand/ and 2.5MB of fonts that are already tracked one directory up.
 brand/_work/
+
+# soccer/.work/ -- the soccer build's staging directory. soccer-build.yml does `rm -rf .work &&
+# mkdir .work` on the runner and fills it with COPIES (the slate's three files, soccer_*.py/js,
+# soccer_season.json, coverage.json, index.html) plus the build's own outputs (scored.json,
+# tickets.json, soccer_D.json, soccer_index.html). On the runner it dies with the job; run the
+# pipeline by hand to check a slate -- which is how INTLBOARD-2026-09-25 was built -- and it is
+# left sitting untracked, every file in it either a duplicate of something already tracked or a
+# regenerable output. Same class as _site/ and brand/_work/ above.
+soccer/.work/
