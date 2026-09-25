@@ -1,11 +1,11 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T19:43:19Z",
+  "pulled_at": "2026-09-25T19:46:31Z",
   "games": [
     {
       "gamePk": 824703,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-25T17:05:00Z",
       "matchup": "CHC@BOS",
       "away": {
@@ -25,7 +25,7 @@
           {
             "id": 673548,
             "name": "Seiya Suzuki",
-            "iso": 0.205
+            "iso": 0.204
           },
           {
             "id": 608324,
@@ -571,7 +571,7 @@
     },
     {
       "gamePk": 822681,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T22:45:00Z",
       "matchup": "NYM@WSH",
       "away": {
@@ -591,10 +591,56 @@
           "hr9": 0.42,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 695578,
+            "name": "James Wood",
+            "iso": 0.243
+          },
+          {
+            "id": 665953,
+            "name": "Andr\u00e9s Chaparro",
+            "iso": 0.24
+          },
+          {
+            "id": 691781,
+            "name": "Brady House",
+            "iso": 0.151
+          },
+          {
+            "id": 686611,
+            "name": "Dylan Crews",
+            "iso": 0.145
+          },
+          {
+            "id": 682928,
+            "name": "CJ Abrams",
+            "iso": 0.238
+          },
+          {
+            "id": 696285,
+            "name": "Jacob Young",
+            "iso": 0.141
+          },
+          {
+            "id": 695734,
+            "name": "Daylen Lile",
+            "iso": 0.186
+          },
+          {
+            "id": 660688,
+            "name": "Keibert Ruiz",
+            "iso": 0.166
+          },
+          {
+            "id": 678391,
+            "name": "Jorbit Vivas",
+            "iso": 0.085
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -910,7 +956,7 @@
     },
     {
       "gamePk": 823735,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-25T23:40:00Z",
       "matchup": "STL@MIL",
       "away": {
@@ -921,8 +967,54 @@
           "hr9": 1.15,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.125
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.138
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.196
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": 0.177
+          },
+          {
+            "id": 665877,
+            "name": "Jos\u00e9 Ferm\u00edn",
+            "iso": 0.11
+          },
+          {
+            "id": 695336,
+            "name": "Thomas Saggese",
+            "iso": 0.126
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.086
+          },
+          {
+            "id": 686780,
+            "name": "Pedro Pag\u00e9s",
+            "iso": 0.097
+          },
+          {
+            "id": 687363,
+            "name": "Victor Scott II",
+            "iso": 0.062
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
@@ -935,7 +1027,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
