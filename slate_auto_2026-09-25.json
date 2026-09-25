@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T20:12:02Z",
+  "pulled_at": "2026-09-25T20:16:41Z",
   "games": [
     {
       "gamePk": 824703,
@@ -199,12 +199,12 @@
           {
             "id": 624413,
             "name": "Pete Alonso",
-            "iso": 0.248
+            "iso": 0.247
           },
           {
             "id": 683002,
             "name": "Gunnar Henderson",
-            "iso": 0.18
+            "iso": 0.179
           },
           {
             "id": 691723,
@@ -244,7 +244,7 @@
         "sp": {
           "id": 694341,
           "name": "Brendan Beck",
-          "hr9": 4.7,
+          "hr9": 4.32,
           "hand": "RHP"
         },
         "lineup": [
@@ -1272,7 +1272,7 @@
     },
     {
       "gamePk": 823652,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-26T00:10:00Z",
       "matchup": "TEX@MIN",
       "away": {
@@ -1294,10 +1294,56 @@
           "hr9": 1.36,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 807712,
+            "name": "Luke Keaschall",
+            "iso": 0.116
+          },
+          {
+            "id": 686797,
+            "name": "Brooks Lee",
+            "iso": 0.178
+          },
+          {
+            "id": 665019,
+            "name": "Kody Clemens",
+            "iso": 0.22
+          },
+          {
+            "id": 605137,
+            "name": "Josh Bell",
+            "iso": 0.161
+          },
+          {
+            "id": 680777,
+            "name": "Ryan Jeffers",
+            "iso": 0.206
+          },
+          {
+            "id": 805805,
+            "name": "Walker Jenkins",
+            "iso": 0.195
+          },
+          {
+            "id": 668904,
+            "name": "Royce Lewis",
+            "iso": 0.151
+          },
+          {
+            "id": 691181,
+            "name": "Emmanuel Rodriguez",
+            "iso": 0.244
+          },
+          {
+            "id": 668952,
+            "name": "Ryan Kreidler",
+            "iso": 0.162
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -1461,9 +1507,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 64\u00b0",
+        "lean": "Boost",
+        "temp": 63.5,
+        "wind_mph": 13.6,
+        "wind_dir": 295,
+        "tail_mph": 11.8,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.031
     }
   ]
 }
