@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-25T16:30:54Z",
+  "pulled_at": "2026-09-25T16:37:15Z",
   "games": [
     {
       "gamePk": 824703,
@@ -196,8 +196,10 @@
       "home": {
         "abbrev": "NYY",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 694341,
+          "name": "Brendan Beck",
+          "hr9": 4.7,
+          "hand": "RHP"
         },
         "lineup": [],
         "confirmed": false
@@ -235,10 +237,8 @@
       "home": {
         "abbrev": "NYY",
         "sp": {
-          "id": 694341,
-          "name": "Brendan Beck",
-          "hr9": 4.7,
-          "hand": "RHP"
+          "id": null,
+          "name": null
         },
         "lineup": [],
         "confirmed": false
@@ -647,16 +647,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 81\u00b0",
-        "lean": "Boost",
-        "temp": 80.9,
-        "wind_mph": 10.5,
-        "wind_dir": 230,
-        "tail_mph": 10.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.053
+      "wf": 1.0
     },
     {
       "gamePk": 823248,
@@ -767,9 +760,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u2600\ufe0f",
+        "cond": "wind out 12mph, 63\u00b0",
+        "lean": "Boost",
+        "temp": 63.3,
+        "wind_mph": 14.4,
+        "wind_dir": 296,
+        "tail_mph": 12.3,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 1.033
     }
   ]
 }
