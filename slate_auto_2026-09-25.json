@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-26T02:17:59Z",
+  "pulled_at": "2026-09-26T02:23:24Z",
   "games": [
     {
       "gamePk": 824703,
@@ -301,7 +301,7 @@
           {
             "id": 691723,
             "name": "Coby Mayo",
-            "iso": 0.234
+            "iso": 0.233
           },
           {
             "id": 687952,
@@ -316,7 +316,7 @@
           {
             "id": 669236,
             "name": "Jeremiah Jackson",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 681047,
@@ -429,17 +429,17 @@
           {
             "id": 691723,
             "name": "Coby Mayo",
-            "iso": 0.234
+            "iso": 0.233
           },
           {
             "id": 669236,
             "name": "Jeremiah Jackson",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 665750,
             "name": "Leody Taveras",
-            "iso": 0.124
+            "iso": 0.126
           },
           {
             "id": 677956,
@@ -1235,7 +1235,7 @@
           {
             "id": 682657,
             "name": "Angel Mart\u00ednez",
-            "iso": 0.215
+            "iso": 0.213
           },
           {
             "id": 681807,
@@ -1272,7 +1272,7 @@
           {
             "id": 695600,
             "name": "Carter Jensen",
-            "iso": 0.221
+            "iso": 0.22
           },
           {
             "id": 677951,
@@ -1333,7 +1333,7 @@
     },
     {
       "gamePk": 824544,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-25T23:40:00Z",
       "matchup": "COL@CWS",
       "away": {
@@ -1623,7 +1623,7 @@
           {
             "id": 608369,
             "name": "Corey Seager",
-            "iso": 0.195
+            "iso": 0.194
           },
           {
             "id": 694671,
@@ -1746,7 +1746,7 @@
           {
             "id": 665161,
             "name": "Jeremy Pe\u00f1a",
-            "iso": 0.192
+            "iso": 0.191
           },
           {
             "id": 670541,
@@ -1796,7 +1796,7 @@
         "sp": {
           "id": 682052,
           "name": "Jacob Lopez",
-          "hr9": 1.66,
+          "hr9": 1.65,
           "hand": "LHP"
         },
         "lineup": [
@@ -1976,7 +1976,7 @@
           {
             "id": 669392,
             "name": "Samad Taylor",
-            "iso": 0.097
+            "iso": 0.096
           }
         ],
         "confirmed": true
@@ -2005,7 +2005,7 @@
         "sp": {
           "id": 672282,
           "name": "Reid Detmers",
-          "hr9": 0.96,
+          "hr9": 0.95,
           "hand": "LHP"
         },
         "lineup": [
@@ -2027,7 +2027,7 @@
           {
             "id": 687093,
             "name": "Vaughn Grissom",
-            "iso": 0.149
+            "iso": 0.148
           },
           {
             "id": 694208,
@@ -2062,7 +2062,7 @@
         "sp": {
           "id": 682243,
           "name": "Bryce Miller",
-          "hr9": 1.59,
+          "hr9": 1.58,
           "hand": "RHP"
         },
         "lineup": [
@@ -2154,7 +2154,7 @@
           {
             "id": 518692,
             "name": "Freddie Freeman",
-            "iso": 0.143
+            "iso": 0.144
           },
           {
             "id": 669257,
@@ -2194,7 +2194,7 @@
         "sp": {
           "id": 805074,
           "name": "Yunior Marte",
-          "hr9": 1.37,
+          "hr9": 1.33,
           "hand": "RHP"
         },
         "lineup": [
@@ -2249,16 +2249,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 12mph, 62\u00b0",
-        "lean": "Boost",
-        "temp": 62.2,
-        "wind_mph": 13.7,
-        "wind_dir": 291,
-        "tail_mph": 12.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.031
+      "wf": 1.0
     }
   ]
 }
