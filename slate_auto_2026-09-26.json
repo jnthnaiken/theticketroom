@@ -1,11 +1,11 @@
 {
   "date": "2026-09-26",
   "season": "2026",
-  "pulled_at": "2026-09-26T16:36:13Z",
+  "pulled_at": "2026-09-26T16:41:08Z",
   "games": [
     {
       "gamePk": 822678,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-26T16:35:00Z",
       "matchup": "NYM@WSH",
       "away": {
@@ -20,12 +20,12 @@
           {
             "id": 596019,
             "name": "Francisco Lindor",
-            "iso": 0.196
+            "iso": 0.194
           },
           {
             "id": 665742,
             "name": "Juan Soto",
-            "iso": 0.246
+            "iso": 0.245
           },
           {
             "id": 666182,
@@ -125,16 +125,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 8mph, 65\u00b0",
-        "lean": "Suppress",
-        "temp": 65.3,
-        "wind_mph": 11.5,
-        "wind_dir": 343,
-        "tail_mph": -7.8,
-        "precip": 22
+        "note": "weather fetch failed"
       },
-      "wf": 0.965
+      "wf": 1.0
     },
     {
       "gamePk": 824219,
@@ -258,16 +251,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 7mph, 67\u00b0",
-        "lean": "Suppress",
-        "temp": 67.4,
-        "wind_mph": 6.9,
-        "wind_dir": 25,
-        "tail_mph": -6.9,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.972
+      "wf": 1.0
     },
     {
       "gamePk": 822759,
@@ -431,16 +417,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 69\u00b0",
-        "lean": "Neutral",
-        "temp": 69.0,
-        "wind_mph": 2.3,
-        "wind_dir": 253,
-        "tail_mph": 2.2,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.006
+      "wf": 1.0
     },
     {
       "gamePk": 823653,
@@ -472,20 +451,13 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\ud83c\udf27\ufe0f",
-        "cond": "wind out 7mph, 60\u00b0",
-        "lean": "Neutral",
-        "temp": 59.6,
-        "wind_mph": 9.7,
-        "wind_dir": 140,
-        "tail_mph": 6.6,
-        "precip": 70
+        "note": "weather fetch failed"
       },
-      "wf": 1.008
+      "wf": 1.0
     },
     {
       "gamePk": 823813,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-26T20:10:00Z",
       "matchup": "ATL@MIA",
       "away": {
@@ -507,10 +479,56 @@
           "hr9": 2.25,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 672640,
+            "name": "Otto Lopez",
+            "iso": 0.133
+          },
+          {
+            "id": 681715,
+            "name": "Heriberto Hern\u00e1ndez",
+            "iso": 0.205
+          },
+          {
+            "id": 805300,
+            "name": "Jakob Marsee",
+            "iso": 0.129
+          },
+          {
+            "id": 691594,
+            "name": "Javier Sanoja",
+            "iso": 0.159
+          },
+          {
+            "id": 682663,
+            "name": "Agust\u00edn Ram\u00edrez",
+            "iso": 0.123
+          },
+          {
+            "id": 665923,
+            "name": "Esteury Ruiz",
+            "iso": 0.155
+          },
+          {
+            "id": 665052,
+            "name": "Griffin Conine",
+            "iso": 0.225
+          },
+          {
+            "id": 691277,
+            "name": "Deyvison De Los Santos",
+            "iso": 0.059
+          },
+          {
+            "id": 691858,
+            "name": "Jared Serna",
+            "iso": 0.087
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
@@ -553,16 +571,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 1mph, 75\u00b0",
-        "lean": "Neutral",
-        "temp": 75.2,
-        "wind_mph": 1.8,
-        "wind_dir": 166,
-        "tail_mph": 0.9,
-        "precip": 19
+        "note": "weather fetch failed"
       },
-      "wf": 1.011
+      "wf": 1.0
     },
     {
       "gamePk": 824543,
@@ -594,16 +605,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 8mph, 58\u00b0",
-        "lean": "Suppress",
-        "temp": 58.1,
-        "wind_mph": 8.3,
-        "wind_dir": 54,
-        "tail_mph": -8.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 0.954
+      "wf": 1.0
     },
     {
       "gamePk": 823733,
@@ -673,16 +677,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 12mph, 57\u00b0",
-        "lean": "Suppress",
-        "temp": 57.3,
-        "wind_mph": 13.4,
-        "wind_dir": 350,
-        "tail_mph": -12.1,
-        "precip": 14
+        "note": "weather fetch failed"
       },
-      "wf": 0.94
+      "wf": 1.0
     },
     {
       "gamePk": 823245,
@@ -712,16 +709,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "calm 2mph, 77\u00b0",
-        "lean": "Neutral",
-        "temp": 77.1,
-        "wind_mph": 6.2,
-        "wind_dir": 289,
-        "tail_mph": -2.0,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.004
+      "wf": 1.0
     },
     {
       "gamePk": 824949,
@@ -753,16 +743,9 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind out 5mph, 79\u00b0",
-        "lean": "Boost",
-        "temp": 79.4,
-        "wind_mph": 5.3,
-        "wind_dir": 234,
-        "tail_mph": 5.3,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.033
+      "wf": 1.0
     },
     {
       "gamePk": 823083,
