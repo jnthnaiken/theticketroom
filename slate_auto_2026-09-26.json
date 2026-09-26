@@ -1,7 +1,7 @@
 {
   "date": "2026-09-26",
   "season": "2026",
-  "pulled_at": "2026-09-26T22:31:58Z",
+  "pulled_at": "2026-09-26T22:36:59Z",
   "games": [
     {
       "gamePk": 822678,
@@ -453,7 +453,7 @@
           {
             "id": 571771,
             "name": "Enrique Hern\u00e1ndez",
-            "iso": 0.15
+            "iso": 0.182
           },
           {
             "id": 669242,
@@ -495,7 +495,7 @@
           {
             "id": 695391,
             "name": "Brett Harris",
-            "iso": 0.047
+            "iso": 0.046
           },
           {
             "id": 668800,
@@ -576,7 +576,7 @@
           {
             "id": 670032,
             "name": "Nicky Lopez",
-            "iso": 0.039
+            "iso": 0.043
           },
           {
             "id": 643376,
@@ -586,7 +586,7 @@
           {
             "id": 694497,
             "name": "Evan Carter",
-            "iso": 0.119
+            "iso": 0.121
           },
           {
             "id": 696030,
@@ -601,7 +601,7 @@
         "sp": {
           "id": 641927,
           "name": "Bailey Ober",
-          "hr9": 1.35,
+          "hr9": 1.34,
           "hand": "RHP"
         },
         "lineup": [
@@ -756,12 +756,12 @@
           {
             "id": 691594,
             "name": "Javier Sanoja",
-            "iso": 0.165
+            "iso": 0.164
           },
           {
             "id": 682663,
             "name": "Agust\u00edn Ram\u00edrez",
-            "iso": 0.122
+            "iso": 0.121
           },
           {
             "id": 665923,
@@ -1550,7 +1550,7 @@
     },
     {
       "gamePk": 823083,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-27T01:40:00Z",
       "matchup": "LAA@SEA",
       "away": {
@@ -1561,8 +1561,54 @@
           "hr9": 1.71,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687263,
+            "name": "Zach Neto",
+            "iso": 0.199
+          },
+          {
+            "id": 545361,
+            "name": "Mike Trout",
+            "iso": 0.18
+          },
+          {
+            "id": 642350,
+            "name": "Jose Siri",
+            "iso": 0.167
+          },
+          {
+            "id": 687093,
+            "name": "Vaughn Grissom",
+            "iso": 0.147
+          },
+          {
+            "id": 694203,
+            "name": "Denzer Guzman",
+            "iso": 0.12
+          },
+          {
+            "id": 695681,
+            "name": "Christian Moore",
+            "iso": 0.093
+          },
+          {
+            "id": 685133,
+            "name": "Wade Meckler",
+            "iso": 0.089
+          },
+          {
+            "id": 669326,
+            "name": "Bryce Teodosio",
+            "iso": 0.032
+          },
+          {
+            "id": 623168,
+            "name": "Tyler Heineman",
+            "iso": 0.046
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SEA",
@@ -1575,7 +1621,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
