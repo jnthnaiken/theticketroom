@@ -1,7 +1,7 @@
 {
   "date": "2026-09-26",
   "season": "2026",
-  "pulled_at": "2026-09-26T20:08:08Z",
+  "pulled_at": "2026-09-26T20:13:11Z",
   "games": [
     {
       "gamePk": 822678,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824219,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-26T17:10:00Z",
       "matchup": "PIT@DET",
       "away": {
@@ -225,7 +225,7 @@
           {
             "id": 680664,
             "name": "Eduardo Valencia",
-            "iso": 0.258
+            "iso": 0.28
           },
           {
             "id": 682985,
@@ -358,7 +358,7 @@
           {
             "id": 672386,
             "name": "Alejandro Kirk",
-            "iso": 0.139
+            "iso": 0.138
           },
           {
             "id": 672960,
@@ -428,7 +428,7 @@
           {
             "id": 669257,
             "name": "Will Smith",
-            "iso": 0.168
+            "iso": 0.167
           },
           {
             "id": 606192,
@@ -669,7 +669,7 @@
     },
     {
       "gamePk": 823813,
-      "status": "Warmup",
+      "status": "In Progress",
       "gameTime": "2026-09-26T20:10:00Z",
       "matchup": "ATL@MIA",
       "away": {
@@ -1067,7 +1067,7 @@
     },
     {
       "gamePk": 823733,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-26T23:10:00Z",
       "matchup": "STL@MIL",
       "away": {
@@ -1089,10 +1089,56 @@
           "hr9": 0.82,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.198
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.179
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.221
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.147
+          },
+          {
+            "id": 596142,
+            "name": "Gary S\u00e1nchez",
+            "iso": 0.206
+          },
+          {
+            "id": 800325,
+            "name": "Luis Lara",
+            "iso": 0.08
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.086
+          },
+          {
+            "id": 663604,
+            "name": "Brandon Lockridge",
+            "iso": 0.04
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.09
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
