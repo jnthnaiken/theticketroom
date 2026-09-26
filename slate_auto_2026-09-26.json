@@ -1,7 +1,7 @@
 {
   "date": "2026-09-26",
   "season": "2026",
-  "pulled_at": "2026-09-26T15:26:27Z",
+  "pulled_at": "2026-09-26T15:31:38Z",
   "games": [
     {
       "gamePk": 822678,
@@ -225,7 +225,7 @@
     },
     {
       "gamePk": 822759,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-26T19:07:00Z",
       "matchup": "CIN@TOR",
       "away": {
@@ -247,10 +247,56 @@
           "hr9": 1.03,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703520,
+            "name": "Brett Bateman",
+            "iso": 0.093
+          },
+          {
+            "id": 664770,
+            "name": "Nathan Lukes",
+            "iso": 0.111
+          },
+          {
+            "id": 665489,
+            "name": "Vladimir Guerrero Jr.",
+            "iso": 0.097
+          },
+          {
+            "id": 672386,
+            "name": "Alejandro Kirk",
+            "iso": 0.139
+          },
+          {
+            "id": 672960,
+            "name": "Kazuma Okamoto",
+            "iso": 0.222
+          },
+          {
+            "id": 815873,
+            "name": "Sean Keys",
+            "iso": 0.145
+          },
+          {
+            "id": 669701,
+            "name": "Josh Smith",
+            "iso": 0.116
+          },
+          {
+            "id": 665926,
+            "name": "Andr\u00e9s Gim\u00e9nez",
+            "iso": 0.117
+          },
+          {
+            "id": 676391,
+            "name": "Ernie Clement",
+            "iso": 0.106
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
