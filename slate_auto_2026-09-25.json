@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-26T01:13:10Z",
+  "pulled_at": "2026-09-26T01:17:44Z",
   "games": [
     {
       "gamePk": 824703,
@@ -481,7 +481,7 @@
           {
             "id": 641355,
             "name": "Cody Bellinger",
-            "iso": 0.166
+            "iso": 0.165
           },
           {
             "id": 671218,
@@ -644,7 +644,7 @@
           {
             "id": 679529,
             "name": "Spencer Torkelson",
-            "iso": 0.202
+            "iso": 0.207
           },
           {
             "id": 807726,
@@ -670,7 +670,7 @@
     },
     {
       "gamePk": 823409,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-25T22:40:00Z",
       "matchup": "TB@PHI",
       "away": {
@@ -1068,7 +1068,7 @@
     },
     {
       "gamePk": 823816,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-25T23:10:00Z",
       "matchup": "ATL@MIA",
       "away": {
@@ -1240,7 +1240,7 @@
           {
             "id": 681807,
             "name": "David Fry",
-            "iso": 0.153
+            "iso": 0.152
           },
           {
             "id": 683953,
@@ -1358,7 +1358,7 @@
           {
             "id": 696100,
             "name": "Hunter Goodman",
-            "iso": 0.276
+            "iso": 0.277
           },
           {
             "id": 681198,
@@ -1643,7 +1643,7 @@
           {
             "id": 669394,
             "name": "Jake Burger",
-            "iso": 0.191
+            "iso": 0.19
           },
           {
             "id": 694497,
@@ -1663,7 +1663,7 @@
         "sp": {
           "id": 657746,
           "name": "Joe Ryan",
-          "hr9": 1.33,
+          "hr9": 1.32,
           "hand": "RHP"
         },
         "lineup": [
@@ -1705,7 +1705,7 @@
           {
             "id": 691181,
             "name": "Emmanuel Rodriguez",
-            "iso": 0.239
+            "iso": 0.233
           },
           {
             "id": 668952,
@@ -1718,9 +1718,16 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "calm 2mph, 65\u00b0",
+        "lean": "Neutral",
+        "temp": 65.0,
+        "wind_mph": 4.4,
+        "wind_dir": 120,
+        "tail_mph": 1.7,
+        "precip": 0
       },
-      "wf": 1.0
+      "wf": 0.999
     },
     {
       "gamePk": 824947,
@@ -1857,7 +1864,7 @@
     },
     {
       "gamePk": 823248,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-26T01:40:00Z",
       "matchup": "ARI@SD",
       "away": {
