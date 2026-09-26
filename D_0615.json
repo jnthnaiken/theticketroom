@@ -43363,7 +43363,7 @@
     "precip": 0
    }
   },
-  "build": "9/26 4:43pm",
+  "build": "9/26 4:48pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -43651,28 +43651,28 @@
   },
   "posted_at": {
    "2|PIT": 1790434670,
-   "3|CIN": 1790438015,
-   "10|TB": 1790454649,
    "1|WSH": 1790437116,
-   "1|NYM": 1790435523,
-   "6|MIA": 1790440909,
-   "3|TOR": 1790436751,
-   "8|CLE": 1790452112,
    "4|LAD": 1790442072,
-   "5|TEX": 1790443040,
+   "8|CLE": 1790452112,
+   "10|PHI": 1790451216,
+   "10|TB": 1790454649,
+   "6|ATL": 1790443040,
+   "4|SF": 1790441540,
+   "6|MIA": 1790440909,
+   "2|DET": 1790431629,
+   "3|CIN": 1790438015,
    "7|CWS": 1790449341,
    "8|KC": 1790448411,
-   "10|PHI": 1790451216,
-   "2|DET": 1790431629,
-   "7|COL": 1790444900,
    "9|STL": 1790454214,
-   "6|ATL": 1790443040,
+   "7|COL": 1790444900,
    "5|MIN": 1790443642,
-   "4|SF": 1790441540,
-   "9|MIL": 1790453629
+   "5|TEX": 1790443040,
+   "9|MIL": 1790453629,
+   "3|TOR": 1790436751,
+   "1|NYM": 1790435523
   },
   "chalkstate": {
-   "b": "9/26 4:43pm",
+   "b": "9/26 4:48pm",
    "s": {}
   },
   "chalk": [],
@@ -43682,6 +43682,44 @@
   "tickets": 11
  },
  "tickets": [
+  {
+   "name": "Squared Away",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (63% hard-hit), tilts the bat for distance (20\u00b0), catches a small park boost.",
+   "players": [
+    {
+     "name": "Vinnie Pasquantino",
+     "team": "Royals",
+     "total": 156.1,
+     "aT": 100,
+     "wf": 1.03,
+     "gmatch": "CLE@KC",
+     "gtime": "7:10 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 500,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Vinnie Pasquantino",
+   "lock": "7:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 500,
+   "payout10": 60
+  },
   {
    "name": "Hitting Apogee",
    "kind": "moon",
@@ -43758,7 +43796,10 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 2
+   "confleg": 2,
+   "priced": 4,
+   "parlay_am": 110372,
+   "payout10": 11047.19
   },
   {
    "name": "Mach Breaker",
@@ -43836,7 +43877,10 @@
     "dome": 2,
     "neu": 1
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 4,
+   "parlay_am": 108114,
+   "payout10": 10821.41
   },
   {
    "name": "Punching Through the Ceiling",
@@ -43914,7 +43958,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 3
+   "confleg": 3,
+   "priced": 4,
+   "parlay_am": 118970,
+   "payout10": 11907
   },
   {
    "name": "Riding the Jet Stream",
@@ -43992,7 +44039,10 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 2
+   "confleg": 2,
+   "priced": 4,
+   "parlay_am": 94670,
+   "payout10": 9477
   },
   {
    "name": "Upper Deck Bound",
@@ -44070,7 +44120,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 2
+   "confleg": 2,
+   "priced": 4,
+   "parlay_am": 32303,
+   "payout10": 3240.32
   },
   {
    "name": "Off the Scoreboard",
@@ -44148,7 +44201,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 2
+   "confleg": 2,
+   "priced": 4,
+   "parlay_am": 66239,
+   "payout10": 6633.9
   },
   {
    "name": "The Moon Landing",
@@ -44182,7 +44238,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 480,
+   "payout10": 58
   },
   {
    "name": "Boosted",
@@ -44216,7 +44275,10 @@
     "dome": 1,
     "neu": 0
    },
-   "confleg": 0
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 420,
+   "payout10": 52
   },
   {
    "name": "The Helm",
@@ -44250,41 +44312,10 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 0
-  },
-  {
-   "name": "Squared Away",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (63% hard-hit), tilts the bat for distance (20\u00b0), catches a small park boost.",
-   "players": [
-    {
-     "name": "Vinnie Pasquantino",
-     "team": "Royals",
-     "total": 156.1,
-     "aT": 100,
-     "wf": 1.03,
-     "gmatch": "CLE@KC",
-     "gtime": "7:10 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 500,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Vinnie Pasquantino",
-   "lock": "7:10 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 480,
+   "payout10": 58
   },
   {
    "name": "Hold Fast",
@@ -44318,12 +44349,14 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 320,
+   "payout10": 42
   }
  ],
  "pool": [
   "Abimelec Ortiz",
-  "Vinnie Pasquantino",
   "Matt Olson",
   "Isaac Paredes",
   "Gary S\u00e1nchez",
