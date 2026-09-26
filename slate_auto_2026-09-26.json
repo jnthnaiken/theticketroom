@@ -1,7 +1,7 @@
 {
   "date": "2026-09-26",
   "season": "2026",
-  "pulled_at": "2026-09-26T20:18:02Z",
+  "pulled_at": "2026-09-26T20:23:15Z",
   "games": [
     {
       "gamePk": 822678,
@@ -138,7 +138,7 @@
     },
     {
       "gamePk": 824219,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-26T17:10:00Z",
       "matchup": "PIT@DET",
       "away": {
@@ -495,7 +495,7 @@
           {
             "id": 695391,
             "name": "Brett Harris",
-            "iso": 0.051
+            "iso": 0.05
           },
           {
             "id": 668800,
@@ -699,7 +699,7 @@
           {
             "id": 686948,
             "name": "Drake Baldwin",
-            "iso": 0.171
+            "iso": 0.17
           },
           {
             "id": 663586,
@@ -734,7 +734,7 @@
         "sp": {
           "id": 667652,
           "name": "Jack Ralston",
-          "hr9": 2.16,
+          "hr9": 2.12,
           "hand": "RHP"
         },
         "lineup": [
@@ -1078,8 +1078,54 @@
           "hr9": 0.81,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 802139,
+            "name": "JJ Wetherholt",
+            "iso": 0.124
+          },
+          {
+            "id": 671056,
+            "name": "Iv\u00e1n Herrera",
+            "iso": 0.142
+          },
+          {
+            "id": 676475,
+            "name": "Alec Burleson",
+            "iso": 0.189
+          },
+          {
+            "id": 691023,
+            "name": "Jordan Walker",
+            "iso": 0.2
+          },
+          {
+            "id": 699024,
+            "name": "Leo Bernal",
+            "iso": 0.169
+          },
+          {
+            "id": 669357,
+            "name": "Nolan Gorman",
+            "iso": 0.126
+          },
+          {
+            "id": 663494,
+            "name": "Bryan Torres",
+            "iso": 0.103
+          },
+          {
+            "id": 691026,
+            "name": "Masyn Winn",
+            "iso": 0.085
+          },
+          {
+            "id": 701675,
+            "name": "Nathan Church",
+            "iso": 0.119
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "MIL",
