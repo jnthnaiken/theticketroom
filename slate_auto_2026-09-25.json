@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "season": "2026",
-  "pulled_at": "2026-09-26T01:42:54Z",
+  "pulled_at": "2026-09-26T01:48:14Z",
   "games": [
     {
       "gamePk": 824703,
@@ -803,7 +803,7 @@
     },
     {
       "gamePk": 822681,
-      "status": "In Progress",
+      "status": "Game Over",
       "gameTime": "2026-09-25T22:45:00Z",
       "matchup": "NYM@WSH",
       "away": {
@@ -1851,16 +1851,9 @@
       "lineups_posted": true,
       "weather": {
         "dome": false,
-        "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 80\u00b0",
-        "lean": "Boost",
-        "temp": 79.6,
-        "wind_mph": 10.1,
-        "wind_dir": 235,
-        "tail_mph": 10.1,
-        "precip": 0
+        "note": "weather fetch failed"
       },
-      "wf": 1.05
+      "wf": 1.0
     },
     {
       "gamePk": 823248,
@@ -1997,7 +1990,7 @@
     },
     {
       "gamePk": 823085,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-26T02:10:00Z",
       "matchup": "LAA@SEA",
       "away": {
@@ -2129,7 +2122,7 @@
     },
     {
       "gamePk": 823167,
-      "status": "Pre-Game",
+      "status": "Warmup",
       "gameTime": "2026-09-26T02:15:00Z",
       "matchup": "LAD@SF",
       "away": {
