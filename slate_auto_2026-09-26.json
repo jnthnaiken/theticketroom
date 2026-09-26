@@ -1,7 +1,7 @@
 {
   "date": "2026-09-26",
   "season": "2026",
-  "pulled_at": "2026-09-26T14:52:18Z",
+  "pulled_at": "2026-09-26T14:57:16Z",
   "games": [
     {
       "gamePk": 822678,
@@ -40,7 +40,7 @@
         "wind_mph": 13.4,
         "wind_dir": 350,
         "tail_mph": -10.3,
-        "precip": 19
+        "precip": 22
       },
       "wf": 0.959
     },
@@ -57,8 +57,54 @@
           "hr9": 0.66,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 656811,
+            "name": "Ryan O'Hearn",
+            "iso": 0.177
+          },
+          {
+            "id": 664040,
+            "name": "Brandon Lowe",
+            "iso": 0.23
+          },
+          {
+            "id": 668804,
+            "name": "Bryan Reynolds",
+            "iso": 0.161
+          },
+          {
+            "id": 665833,
+            "name": "Oneil Cruz",
+            "iso": 0.207
+          },
+          {
+            "id": 804606,
+            "name": "Konnor Griffin",
+            "iso": 0.122
+          },
+          {
+            "id": 687462,
+            "name": "Spencer Horwitz",
+            "iso": 0.121
+          },
+          {
+            "id": 682927,
+            "name": "Ronny Simon",
+            "iso": 0.103
+          },
+          {
+            "id": 694378,
+            "name": "Jacob Gonzalez",
+            "iso": 0.132
+          },
+          {
+            "id": 680779,
+            "name": "Henry Davis",
+            "iso": 0.142
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "DET",
@@ -249,7 +295,7 @@
         "wind_mph": 10.3,
         "wind_dir": 138,
         "tail_mph": 6.8,
-        "precip": 71
+        "precip": 70
       },
       "wf": 1.006
     },
@@ -330,7 +376,7 @@
         "wind_mph": 1.4,
         "wind_dir": 162,
         "tail_mph": 0.6,
-        "precip": 19
+        "precip": 20
       },
       "wf": 1.012
     },
@@ -450,7 +496,7 @@
         "wind_mph": 12.6,
         "wind_dir": 353,
         "tail_mph": -11.7,
-        "precip": 15
+        "precip": 14
       },
       "wf": 0.94
     },
