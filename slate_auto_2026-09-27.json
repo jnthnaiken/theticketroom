@@ -1,7 +1,7 @@
 {
   "date": "2026-09-27",
   "season": "2026",
-  "pulled_at": "2026-09-27T15:36:38Z",
+  "pulled_at": "2026-09-27T15:41:40Z",
   "games": [
     {
       "gamePk": 822679,
@@ -127,15 +127,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 62\u00b0",
-        "lean": "Suppress",
-        "temp": 61.7,
-        "wind_mph": 10.0,
-        "wind_dir": 314,
-        "tail_mph": -2.4,
+        "cond": "calm 2mph, 61\u00b0",
+        "lean": "Neutral",
+        "temp": 61.3,
+        "wind_mph": 7.1,
+        "wind_dir": 316,
+        "tail_mph": -2.0,
         "precip": 30
       },
-      "wf": 0.979
+      "wf": 0.98
     },
     {
       "gamePk": 823490,
@@ -215,15 +215,57 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 11mph, 62\u00b0",
+        "cond": "wind in 13mph, 63\u00b0",
         "lean": "Suppress",
-        "temp": 62.5,
-        "wind_mph": 15.0,
-        "wind_dir": 55,
-        "tail_mph": -11.5,
+        "temp": 62.6,
+        "wind_mph": 14.7,
+        "wind_dir": 44,
+        "tail_mph": -12.9,
         "precip": 37
       },
-      "wf": 0.949
+      "wf": 0.944
+    },
+    {
+      "gamePk": 823408,
+      "status": "Scheduled",
+      "gameTime": "2026-09-27T18:30:00Z",
+      "venue": "Citizens Bank Park",
+      "matchup": "TB@PHI",
+      "away": {
+        "abbrev": "TB",
+        "sp": {
+          "id": 607259,
+          "name": "Nick Martinez",
+          "hr9": 1.12,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "PHI",
+        "sp": {
+          "id": 554430,
+          "name": "Zack Wheeler",
+          "hr9": 1.15,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind in 14mph, 63\u00b0",
+        "lean": "Suppress",
+        "temp": 62.7,
+        "wind_mph": 13.9,
+        "wind_dir": 28,
+        "tail_mph": -13.5,
+        "precip": 16
+      },
+      "wf": 0.942
     },
     {
       "gamePk": 824705,
@@ -298,13 +340,13 @@
         "emoji": "\u26c5",
         "cond": "wind out 5mph, 73\u00b0",
         "lean": "Boost",
-        "temp": 73.4,
-        "wind_mph": 5.6,
-        "wind_dir": 217,
-        "tail_mph": 5.2,
+        "temp": 72.8,
+        "wind_mph": 5.2,
+        "wind_dir": 227,
+        "tail_mph": 5.1,
         "precip": 2
       },
-      "wf": 1.023
+      "wf": 1.022
     },
     {
       "gamePk": 823164,
@@ -336,57 +378,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 8mph, 64\u00b0",
-        "lean": "Neutral",
-        "temp": 64.0,
-        "wind_mph": 8.1,
-        "wind_dir": 270,
-        "tail_mph": 8.1,
+        "cond": "wind out 9mph, 65\u00b0",
+        "lean": "Boost",
+        "temp": 64.7,
+        "wind_mph": 9.4,
+        "wind_dir": 267,
+        "tail_mph": 9.4,
         "precip": 1
       },
-      "wf": 1.019
-    },
-    {
-      "gamePk": 823408,
-      "status": "Scheduled",
-      "gameTime": "2026-09-27T19:05:00Z",
-      "venue": "Citizens Bank Park",
-      "matchup": "TB@PHI",
-      "away": {
-        "abbrev": "TB",
-        "sp": {
-          "id": 607259,
-          "name": "Nick Martinez",
-          "hr9": 1.12,
-          "hand": "RHP"
-        },
-        "lineup": [],
-        "confirmed": false
-      },
-      "home": {
-        "abbrev": "PHI",
-        "sp": {
-          "id": 554430,
-          "name": "Zack Wheeler",
-          "hr9": 1.15,
-          "hand": "RHP"
-        },
-        "lineup": [],
-        "confirmed": false
-      },
-      "lineups_posted": false,
-      "weather": {
-        "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 14mph, 63\u00b0",
-        "lean": "Suppress",
-        "temp": 62.6,
-        "wind_mph": 14.4,
-        "wind_dir": 30,
-        "tail_mph": -13.9,
-        "precip": 19
-      },
-      "wf": 0.94
+      "wf": 1.025
     },
     {
       "gamePk": 822761,
@@ -402,8 +402,54 @@
           "hr9": 1.45,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 699115,
+            "name": "Carlos Jorge",
+            "iso": 0.12
+          },
+          {
+            "id": 682829,
+            "name": "Elly De La Cruz",
+            "iso": 0.234
+          },
+          {
+            "id": 701398,
+            "name": "Sal Stewart",
+            "iso": 0.195
+          },
+          {
+            "id": 668709,
+            "name": "JJ Bleday",
+            "iso": 0.199
+          },
+          {
+            "id": 682877,
+            "name": "Juan Brito",
+            "iso": 0.147
+          },
+          {
+            "id": 699302,
+            "name": "H\u00e9ctor Rodr\u00edguez",
+            "iso": 0.185
+          },
+          {
+            "id": 680574,
+            "name": "Matt McLain",
+            "iso": 0.149
+          },
+          {
+            "id": 677943,
+            "name": "Will Banfield",
+            "iso": 0.059
+          },
+          {
+            "id": 665828,
+            "name": "Oswaldo Cabrera",
+            "iso": 0.05
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "TOR",
@@ -553,15 +599,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 73\u00b0",
+        "cond": "wind in 3mph, 72\u00b0",
         "lean": "Neutral",
-        "temp": 73.0,
-        "wind_mph": 2.7,
-        "wind_dir": 35,
-        "tail_mph": -2.7,
+        "temp": 72.4,
+        "wind_mph": 4.3,
+        "wind_dir": 87,
+        "tail_mph": -3.2,
         "precip": 2
       },
-      "wf": 0.995
+      "wf": 0.992
     },
     {
       "gamePk": 824217,
@@ -641,15 +687,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 9mph, 75\u00b0",
+        "cond": "wind in 8mph, 75\u00b0",
         "lean": "Suppress",
-        "temp": 75.4,
-        "wind_mph": 10.1,
-        "wind_dir": 5,
-        "tail_mph": -9.2,
+        "temp": 75.2,
+        "wind_mph": 9.2,
+        "wind_dir": 3,
+        "tail_mph": -8.2,
         "precip": 0
       },
-      "wf": 0.976
+      "wf": 0.979
     },
     {
       "gamePk": 823246,
@@ -683,15 +729,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 80\u00b0",
+        "cond": "calm 1mph, 81\u00b0",
         "lean": "Neutral",
-        "temp": 79.7,
-        "wind_mph": 5.6,
-        "wind_dir": 293,
-        "tail_mph": -2.2,
+        "temp": 81.2,
+        "wind_mph": 7.3,
+        "wind_dir": 281,
+        "tail_mph": -1.4,
         "precip": 5
       },
-      "wf": 1.007
+      "wf": 1.012
     },
     {
       "gamePk": 823084,
@@ -766,15 +812,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 64\u00b0",
+        "cond": "calm 2mph, 65\u00b0",
         "lean": "Neutral",
-        "temp": 64.3,
-        "wind_mph": 2.5,
-        "wind_dir": 5,
-        "tail_mph": -2.5,
+        "temp": 65.3,
+        "wind_mph": 2.7,
+        "wind_dir": 336,
+        "tail_mph": -2.3,
         "precip": 0
       },
-      "wf": 0.983
+      "wf": 0.985
     },
     {
       "gamePk": 824542,
@@ -854,15 +900,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 7mph, 64\u00b0",
+        "cond": "wind in 8mph, 65\u00b0",
         "lean": "Suppress",
-        "temp": 64.0,
-        "wind_mph": 6.8,
-        "wind_dir": 44,
-        "tail_mph": -6.8,
+        "temp": 65.1,
+        "wind_mph": 7.8,
+        "wind_dir": 27,
+        "tail_mph": -7.7,
         "precip": 0
       },
-      "wf": 0.967
+      "wf": 0.966
     },
     {
       "gamePk": 823814,
