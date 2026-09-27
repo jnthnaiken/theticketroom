@@ -1,12 +1,13 @@
 {
   "date": "2026-09-27",
   "season": "2026",
-  "pulled_at": "2026-09-27T13:55:53Z",
+  "pulled_at": "2026-09-27T14:00:31Z",
   "games": [
     {
       "gamePk": 822679,
       "status": "Scheduled",
       "gameTime": "2026-09-27T17:05:00Z",
+      "venue": "Nationals Park",
       "matchup": "NYM@WSH",
       "away": {
         "abbrev": "NYM",
@@ -34,20 +35,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 3mph, 61\u00b0",
+        "cond": "wind in 4mph, 60\u00b0",
         "lean": "Suppress",
-        "temp": 60.7,
-        "wind_mph": 9.8,
-        "wind_dir": 319,
-        "tail_mph": -3.2,
+        "temp": 60.3,
+        "wind_mph": 11.3,
+        "wind_dir": 322,
+        "tail_mph": -4.2,
         "precip": 34
       },
-      "wf": 0.975
+      "wf": 0.971
     },
     {
       "gamePk": 823490,
       "status": "Scheduled",
       "gameTime": "2026-09-27T17:05:00Z",
+      "venue": "Yankee Stadium",
       "matchup": "BAL@NYY",
       "away": {
         "abbrev": "BAL",
@@ -75,12 +77,12 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 7mph, 64\u00b0",
+        "cond": "wind in 7mph, 63\u00b0",
         "lean": "Suppress",
-        "temp": 63.7,
-        "wind_mph": 9.6,
-        "wind_dir": 57,
-        "tail_mph": -7.1,
+        "temp": 62.8,
+        "wind_mph": 9.2,
+        "wind_dir": 58,
+        "tail_mph": -6.7,
         "precip": 49
       },
       "wf": 0.966
@@ -89,6 +91,7 @@
       "gamePk": 824705,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:05:00Z",
+      "venue": "Tropicana Field",
       "matchup": "CHC@BOS",
       "away": {
         "abbrev": "CHC",
@@ -112,22 +115,22 @@
       },
       "lineups_posted": false,
       "weather": {
-        "dome": false,
-        "emoji": "\u26c5",
-        "cond": "wind in 16mph, 61\u00b0",
-        "lean": "Suppress",
-        "temp": 60.7,
-        "wind_mph": 16.5,
-        "wind_dir": 43,
-        "tail_mph": -16.5,
-        "precip": 33
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
       },
-      "wf": 0.94
+      "wf": 1.0
     },
     {
       "gamePk": 824948,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:05:00Z",
+      "venue": "Sutter Health Park",
       "matchup": "HOU@ATH",
       "away": {
         "abbrev": "HOU",
@@ -155,20 +158,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 6mph, 72\u00b0",
+        "cond": "wind out 5mph, 74\u00b0",
         "lean": "Boost",
-        "temp": 72.3,
-        "wind_mph": 6.0,
-        "wind_dir": 225,
-        "tail_mph": 5.8,
+        "temp": 74.0,
+        "wind_mph": 5.1,
+        "wind_dir": 221,
+        "tail_mph": 4.8,
         "precip": 1
       },
-      "wf": 1.024
+      "wf": 1.023
     },
     {
       "gamePk": 823164,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:05:00Z",
+      "venue": "Oracle Park",
       "matchup": "LAD@SF",
       "away": {
         "abbrev": "LAD",
@@ -194,20 +198,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
-        "cond": "wind out 10mph, 65\u00b0",
+        "cond": "wind out 9mph, 64\u00b0",
         "lean": "Boost",
-        "temp": 64.9,
-        "wind_mph": 10.1,
-        "wind_dir": 275,
-        "tail_mph": 9.9,
+        "temp": 64.4,
+        "wind_mph": 8.7,
+        "wind_dir": 269,
+        "tail_mph": 8.7,
         "precip": 1
       },
-      "wf": 1.027
+      "wf": 1.022
     },
     {
       "gamePk": 823408,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:05:00Z",
+      "venue": "Citizens Bank Park",
       "matchup": "TB@PHI",
       "away": {
         "abbrev": "TB",
@@ -235,12 +240,12 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 14mph, 62\u00b0",
+        "cond": "wind in 14mph, 63\u00b0",
         "lean": "Suppress",
-        "temp": 61.8,
-        "wind_mph": 15.0,
-        "wind_dir": 360,
-        "tail_mph": -14.5,
+        "temp": 62.6,
+        "wind_mph": 13.9,
+        "wind_dir": 15,
+        "tail_mph": -13.9,
         "precip": 21
       },
       "wf": 0.94
@@ -249,6 +254,7 @@
       "gamePk": 822761,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:07:00Z",
+      "venue": "Rogers Centre",
       "matchup": "CIN@TOR",
       "away": {
         "abbrev": "CIN",
@@ -289,6 +295,7 @@
       "gamePk": 824055,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "Kauffman Stadium",
       "matchup": "CLE@KC",
       "away": {
         "abbrev": "CLE",
@@ -316,12 +323,12 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 2mph, 74\u00b0",
+        "cond": "calm 1mph, 74\u00b0",
         "lean": "Neutral",
-        "temp": 73.5,
-        "wind_mph": 1.8,
-        "wind_dir": 210,
-        "tail_mph": 1.7,
+        "temp": 74.4,
+        "wind_mph": 2.3,
+        "wind_dir": 169,
+        "tail_mph": 1.3,
         "precip": 2
       },
       "wf": 1.011
@@ -330,6 +337,7 @@
       "gamePk": 824217,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "Comerica Park",
       "matchup": "PIT@DET",
       "away": {
         "abbrev": "PIT",
@@ -357,20 +365,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 8mph, 75\u00b0",
+        "cond": "wind in 9mph, 76\u00b0",
         "lean": "Suppress",
-        "temp": 75.3,
-        "wind_mph": 9.2,
-        "wind_dir": 3,
-        "tail_mph": -8.2,
+        "temp": 75.5,
+        "wind_mph": 9.9,
+        "wind_dir": 4,
+        "tail_mph": -8.9,
         "precip": 0
       },
-      "wf": 0.979
+      "wf": 0.977
     },
     {
       "gamePk": 823246,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "Petco Park",
       "matchup": "ARI@SD",
       "away": {
         "abbrev": "ARI",
@@ -398,20 +407,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 77\u00b0",
+        "cond": "calm 2mph, 81\u00b0",
         "lean": "Neutral",
-        "temp": 76.9,
-        "wind_mph": 5.8,
-        "wind_dir": 298,
-        "tail_mph": -2.7,
+        "temp": 81.2,
+        "wind_mph": 6.1,
+        "wind_dir": 287,
+        "tail_mph": -1.8,
         "precip": 2
       },
-      "wf": 1.001
+      "wf": 1.011
     },
     {
       "gamePk": 823084,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "T-Mobile Park",
       "matchup": "LAA@SEA",
       "away": {
         "abbrev": "LAA",
@@ -452,6 +462,7 @@
       "gamePk": 823650,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "Target Field",
       "matchup": "TEX@MIN",
       "away": {
         "abbrev": "TEX",
@@ -479,20 +490,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 66\u00b0",
+        "cond": "calm 1mph, 64\u00b0",
         "lean": "Neutral",
-        "temp": 65.9,
-        "wind_mph": 1.3,
-        "wind_dir": 360,
-        "tail_mph": -1.3,
+        "temp": 63.5,
+        "wind_mph": 1.1,
+        "wind_dir": 349,
+        "tail_mph": -1.0,
         "precip": 0
       },
-      "wf": 0.989
+      "wf": 0.987
     },
     {
       "gamePk": 824542,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "Rate Field",
       "matchup": "COL@CWS",
       "away": {
         "abbrev": "COL",
@@ -520,20 +532,21 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 5mph, 63\u00b0",
+        "cond": "wind in 6mph, 63\u00b0",
         "lean": "Suppress",
-        "temp": 63.4,
-        "wind_mph": 5.6,
-        "wind_dir": 50,
-        "tail_mph": -5.5,
+        "temp": 63.2,
+        "wind_mph": 6.4,
+        "wind_dir": 54,
+        "tail_mph": -6.2,
         "precip": 0
       },
-      "wf": 0.971
+      "wf": 0.968
     },
     {
       "gamePk": 823814,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "loanDepot park",
       "matchup": "ATL@MIA",
       "away": {
         "abbrev": "ATL",
@@ -574,6 +587,7 @@
       "gamePk": 823731,
       "status": "Scheduled",
       "gameTime": "2026-09-27T19:10:00Z",
+      "venue": "American Family Field",
       "matchup": "STL@MIL",
       "away": {
         "abbrev": "STL",
