@@ -232,6 +232,23 @@ def main():
     nights = sorted(re.match(r'D_(\d{4}-\d{2}-\d{2})\.json$', f).group(1)
                     for f in os.listdir(ROOT) if re.match(r'D_\d{4}-\d{2}-\d{2}\.json$', f))
     folded = []
+    # JACKPOTRETRY-2026-09-27 -- a Long Ball Jackpot graded as UNKNOWN (Savant had not published the
+    # night yet: grading runs minutes after the last out, Savant posts the distances later) used to be
+    # skipped by fold() and then LOST, because the night went into graded_nights and is never revisited.
+    # 09-24, 09-25 and 09-26 all went that way and the tracker sat at 0-0. Unknown jackpots now wait in
+    # season['pending_free'] and are re-asked on every run until Savant answers.
+    _pend, _still = season.get('pending_free') or [], []
+    for _p in _pend:
+        _w = longball_grade.is_winner(_p.get('name'), _p.get('date'))
+        if _w is None:
+            _still.append(_p); continue
+        _c = season.setdefault('cats', {}).setdefault(_p.get('kind', 'jackpot'),
+                                                      {'graded': 0, 'won': 0, 'units': 0.0, 'staked': 0.0})
+        _c['graded'] += 1
+        if _w: _c['won'] += 1
+        folded.append('%s jackpot' % _p.get('date'))
+        print(f"{_p.get('date')}: jackpot {_p.get('name')} -> {'WON' if _w else 'lost'} (resolved late)")
+    if _pend: season['pending_free'] = _still
     for date in nights:
         if date in graded:                     continue
         if datetime.date.fromisoformat(date) >= today:  # never grade today/future
@@ -246,6 +263,10 @@ def main():
         # shipped tickets directly -- matches how the prior nights were graded.
         gr = [grade_ticket(t, homered, played, ppd, stake, date) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
+        for _t, _g in zip(D.get('tickets', []), gr):     # JACKPOTRETRY: park the unknown ones
+            if _g and _g.get('kind') == 'jackpot' and _g.get('won') is None and _t.get('players'):
+                season.setdefault('pending_free', []).append(
+                    {'date': date, 'kind': 'jackpot', 'name': _t['players'][0].get('name')})
         # calibration logging is handled SEPARATELY by `calibrate.py` (idempotent, self-healing
         # backfill run as its own pipeline step), so grade_night never silently drops rows.
         cashed = sum(1 for g in gr if g and g.get('won'))
