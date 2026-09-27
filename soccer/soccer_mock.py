@@ -86,8 +86,19 @@ else:
               'viking-v-dinamo-zagreb': 'UCL_PO'}
 
 
+# FOLDJOIN-2026-09-27. NFKD strips combining accents but ø, æ, ß and friends are LETTERS, not
+# accents -- they do not decompose. So the book's "Rasmus Hojlund" never met understat's
+# "Rasmus Højlund", and on the 09-27 international card that one gap took Denmark v Wales (Højlund,
+# Højbjerg, Grønbæk, Jørgensen) and Norway v Portugal (Jørgen Strand Larsen) under JOINGATE. Same
+# table soccer_teamnews.py already uses for the team-sheet join (XLAT), so the two joins agree.
+# Open since 2026-09-11 as "the ø/æ/ß norm() fold". It can only ADD matches.
+_FOLD = str.maketrans({'ø': 'o', 'æ': 'ae', 'œ': 'oe', 'ß': 'ss', 'đ': 'd', 'ð': 'd',
+                       'þ': 'th', 'ł': 'l', 'ı': 'i', 'å': 'a'})
+
+
 def norm(s):
-    s = unicodedata.normalize('NFKD', s or '')
+    s = (s or '').lower().translate(_FOLD)
+    s = unicodedata.normalize('NFKD', s)
     s = ''.join(c for c in s if not unicodedata.combining(c))
     s = s.lower().replace('.', ' ').replace('-', ' ').replace("'", ' ')
     return re.sub(r'\s+', ' ', s).strip()
