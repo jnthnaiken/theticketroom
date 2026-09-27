@@ -114,7 +114,7 @@ console.log('\n=== 4. redraft: a LOCKED slip is a placed bet ===');
   chk('every OTHER slip respects the floor', openMinus.length === 0, openMinus);
 }
 
-console.log('\n=== 5. NFL keeps +100 ===');
+console.log('\n=== 5. NFL pins its own band (BLENDLIKESOCCER-2026-09-27: -200, no ceiling) ===');
 {
   /* CFGDRIFT-2026-09-20: the football CFG moved out of nfl_draft_cli.js into nfl/nfl_cfg.js so
      the fresh-draft and rebuild entry points cannot drift apart. This check is about the VALUE,
@@ -122,9 +122,11 @@ console.log('\n=== 5. NFL keeps +100 ===');
      source with a regex, because it fails if the file does not load at all. */
   const CFG = require(path.join(__dirname, '..', 'nfl', 'nfl_cfg.js')).CFG;
   chk('nfl_cfg.js exports a CFG', !!CFG && typeof CFG === 'object');
-  chk('NFL CFG pins MIN_ODDS 100', CFG.MIN_ODDS === 100);
-  chk('so the NFL draft runs with MIN_ODDS 100', SD.cfgOf(CFG).MIN_ODDS === 100);
-  chk('and refuses -110', !SD.priceOk({ odds: -110 }, SD.cfgOf(CFG)));
+  /* Was: NFL pins +100 (FLOOR200-2026-09-17). Owner, 2026-09-27: football "like soccer". The check
+     is still that football PINS its band in its own config rather than inheriting soccer's. */
+  chk('NFL CFG pins MIN_ODDS -200 and no ceiling', CFG.MIN_ODDS === -200 && CFG.MAX_ODDS === null);
+  chk('so the NFL draft runs with MIN_ODDS -200', SD.cfgOf(CFG).MIN_ODDS === -200);
+  chk('and takes -110 but refuses -250', SD.priceOk({ odds: -110 }, SD.cfgOf(CFG)) && !SD.priceOk({ odds: -250 }, SD.cfgOf(CFG)));
   const staged = fs.readFileSync(path.join(__dirname, '..', '.github', 'workflows', 'nfl-build.yml'), 'utf8');
   chk('and nfl-build.yml stages this very soccer_draft.js', /cp \.\.\/soccer\/soccer_draft\.js \.work\//.test(staged));
 }
@@ -140,5 +142,5 @@ console.log('\n=== 6. MIN_ODDS null reproduces the pre-rule golden ===');
   chk('same legs as the shipped 08-26 board', JSON.stringify(g) === JSON.stringify(w), { got: g, want: w });
 }
 
-console.log(fail ? `\n${fail} FAILURE(S)` : '\nALL GREEN -- soccer floor -200, NFL floor +100; locked bets are untouched');
+console.log(fail ? `\n${fail} FAILURE(S)` : '\nALL GREEN -- soccer and NFL floor -200 (NFL pinned in its own cfg); locked bets are untouched');
 process.exit(fail ? 1 : 0);
