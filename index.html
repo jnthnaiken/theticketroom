@@ -1230,7 +1230,7 @@ function nowETMin(){const s=new Date().toLocaleString('en-US',{timeZone:'America
 function hasStarted(gt){var _d=_slateDay();if(_d)return _d>0;const g=gtMin(gt);return g==null?false:nowETMin()>=g;}
 /* DELAYTIME-2026-09-27: a game in a Delayed Start has no real first pitch yet -- MLB keeps the original time in the feed until it announces a new one. Show 'Delayed' instead of the stale time; when MLB posts a new time the live pass rewrites gtime and this goes away. */function dlyG(g){return !!(D.meta&&D.meta.gdelay&&D.meta.gdelay[String(g)]);}function isFinal(g){return (D.meta.finals||[]).indexOf(g)>=0;}function isLive(g){return !!(D.meta.gs&&D.meta.gs[String(g)]==='live')||(D.meta.live||[]).indexOf(g)>=0;}
 function likelyEnded(gt){var _d=_slateDay();if(_d)return _d>0;var g=gtMin(gt);return g!=null&&nowETMin()>=g+240;}   // ~4h past first pitch: no longer claim "in progress" on the clock alone (a genuinely live game still shows via gs)
-function avail(p){if(!p)return 'hazard';if(p.out)return 'out';if(isLive(p.game)||(hasStarted(p.gtime)&&!likelyEnded(p.gtime)))return 'started';return p.odds?'ok':'hazard';}
+function avail(p){if(!p)return 'hazard';if(p.out)return 'out';if(isLive(p.game)||(hasStarted(p.gtime)&&!likelyEnded(p.gtime)&&!dlyG(p.game)))return 'started';return p.odds?'ok':'hazard';}
 const oStr=a=>a==null?'TBD':(a>0?'+':'')+comma(a),nowStr=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
 const NM=s=>s.normalize('NFKD').replace(/[^A-Za-z]/g,'').toLowerCase(),IDX={};Object.keys(D.players).forEach(n=>IDX[NM(n)]=n);
 function priceTicket(t){/* PRICEFREEZE-2026-08-17: a locked slip is never re-priced -- `locked` is set only on the _kept carry. */if(!t.locked)t.players.forEach(l=>{if(D.players[l.name])l.odds=D.players[l.name].odds;});const pr=t.players.filter(l=>l.odds);t.priced=pr.length;if(pr.length===t.nlegs&&pr.length){let d;if(pr.length===2&&pr[0].game===pr[1].game){let q1=1/a2d(pr[0].odds),q2=1/a2d(pr[1].odds),rho=(pr[0].team===pr[1].team?0.12:0.06),j=q1*q2+rho*Math.sqrt(q1*(1-q1)*q2*(1-q2));d=1/j;}else{d=1;pr.forEach(l=>d*=a2d(l.odds));}t.parlay_am=d2a(d);t.payout10=+(10*d).toFixed(2);}else{t.parlay_am=null;t.payout10=null;}}
@@ -1914,9 +1914,15 @@ drawTickets();drawPlayers();drawTracker();
     var _baked = _slateOver ? (D.tickets||[]).slice() : null;
     function precipOf(g){var w=WXm[String(g)]||{};var p=w.precip;if(p==null){var m=/(\d+)%/.exec(w.rain||"");p=m?+m[1]:0;}return p;}  // rain% at first pitch
     var names=Object.keys(P);
+    /* DELAYUNLOCK-2026-09-27 -- owner: "if a game is delayed, its not locked." A game MLB lists as
+       "Delayed Start" has not had a first pitch, whatever the clock says. Its bats are not started, and
+       no ticket with a leg in it is locked -- not by the clock, not by confirmation, not by a viewer's
+       stored lock. It locks normally once the game actually goes live (gdelay clears on that pass).
+       gdelay is written by build15 (server, from slate_auto) and by the live StatsAPI pass (page). */
+    var _gdl=(D.meta&&D.meta.gdelay)||{}; function dly(n){var _p=P[n]; return !!(_p && _gdl[String(_p.game)]);}
     var tmin=function(n){return gmin(P[n].gtime);};
     function nowMin(){var s=new Date().toLocaleString('en-US',{timeZone:'America/New_York',hour12:false,hour:'2-digit',minute:'2-digit'});var pp=s.split(':');var H=+pp[0],M=+pp[1];if(H===24)H=0;return H*60+M;}
-    function started(n){var m=tmin(n); if(m==null)return false; /* SLATEDAY-2026-08-28: _slateDay(D) -- D here is assembleClient's PARAMETER and shadows the baked board. regen15.py injects after the draft, so on the first build of a new slate date the baked date is yesterday's; reading it marked every bat started, emptied the draft pool and dropped the board onto the assemble_tickets.py fallback. */var _d=_slateDay(D);if(_d)return _d>0; return nowMin()>=m;}
+    function started(n){var m=tmin(n); if(m==null)return false; /* SLATEDAY-2026-08-28: _slateDay(D) -- D here is assembleClient's PARAMETER and shadows the baked board. regen15.py injects after the draft, so on the first build of a new slate date the baked date is yesterday's; reading it marked every bat started, emptied the draft pool and dropped the board onto the assemble_tickets.py fallback. */var _d=_slateDay(D);if(_d)return _d>0; if(dly(n))return false; return nowMin()>=m;}
     /* CONFLOCKSETTLE-2026-09-22 -- A POSTED CARD IS NOT TRUSTED THE INSTANT IT APPEARS.
        `status==='confirmed'` says MLB has a nine up for this side RIGHT NOW; it never said how long it had
        been up. But cards get revised: over 11 slates, 10 of 273 posted sides changed (3.7%) at 24..200 min
@@ -2236,6 +2242,7 @@ drawTickets();drawPlayers();drawTracker();
       if(retiredKind(t.kind)||chalkBanned(t)) return;   /* never latch, never reserve bats, never re-emit */
       var lk=gmin(t.lock), _lg=(t.players||[]);
       var _underway = (lk!=null && _lkNow>=lk);
+      if(_lg.some(function(l){return dly(l.name);})){ t.locked=false; return; }   /* DELAYUNLOCK-2026-09-27 */
       /* 🚨 PPDLATCH-2026-09-22 -- A POSTPONED GAME'S SCHEDULED FIRST PITCH IS NOT A FIRST PITCH.
          `_underway` reads the ticket's STORED lock string, which is the earliest leg's scheduled
          time. Nothing in it knows whether that game is being played. TOR@BAL was postponed for rain
@@ -2540,7 +2547,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
       var _btaken={},_bk; for(_bk=0;_bk<out.length;_bk++)_btaken[out[_bk].name]=1;
       if(_bn&&_btaken[_bn])_bn=null;
       out.push({name:_bn||cwName('builder',idx),kind:'builder',badge:'⚓️',note:"",players:legs,nlegs:1,anchor:n,lock:lockOf(legs),has_late:legs.some(function(l){return l.late;}),final:false,rr:null});}
-    function frozenT(t){try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(D.meta&&D.meta.date&&_td>D.meta.date)return !!(t.players&&t.players.length&&t.players.every(function(l){var _p=D.players[l.name]||{};return !_p.out&&!_p.void;}));}catch(e){}return !!(t.players.length && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
+    function frozenT(t){try{var _td=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});if(D.meta&&D.meta.date&&_td>D.meta.date)return !!(t.players&&t.players.length&&t.players.every(function(l){var _p=D.players[l.name]||{};return !_p.out&&!_p.void;}));}catch(e){}return !!(t.players.length && !t.players.some(function(l){return dly(l.name);}) && t.players.every(function(l){return pinnedP(l.name);}));}   // LOCK = the WHOLE ticket is confirmed (every leg in the posted lineup / game underway, none scratched). Builders and parlays alike. Anything not fully confirmed stays free to redraft.
 
     // ---- LOCKS (shared by both paths): a ticket is LOCKED when every leg is confirmed / in-progress. ----
     var lmap={}, usedG={};
@@ -2628,7 +2635,7 @@ function shortc(p,used,seed,tight){var SK={price:1,spot:1,x:1,form_up:1,form_dow
          || !legs.length || !validT(t)) return;   /* a locked dinger in a viewer's localStorage must not re-admit a retired kind */
       for(var _li=0;_li<legs.length;_li++){
         var _lp=P[legs[_li].name];
-        if(!_lp || _lp.out || _lp.void) return;
+        if(!_lp || _lp.out || _lp.void || dly(legs[_li].name)) return;   /* DELAYUNLOCK: a stored lock does not bring back a delayed game's slip */
       }
       t.locked=true; prior.push(t); _pSig[e.sig]=1; if(t.name)_pName[t.name]=1;   /* LATCHSEAT-2026-09-19 */
     });

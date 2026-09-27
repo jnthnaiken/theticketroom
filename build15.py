@@ -700,6 +700,7 @@ def pull_tail_of(home, bh, deg, windstr):                # wind projected onto t
     return spd*math.cos(math.radians(toward-pull_az))
 
 players={}; gamemeta={}
+_DELAY_GAMES=set()   # DELAYUNLOCK-2026-09-27
 _PPD_GAMES=set()   # PPDSERVER-2026-09-22: game numbers MLB has postponed
 _FEEDLAG=set()     # FEEDLAG-2026-09-24: (game number, club) MLB has not published yet
 for g in lin['games']:
@@ -749,6 +750,9 @@ for g in lin['games']:
         # slate_auto carries the status on every pull -- we were fetching it and only reading weather.
         _ppd = bool(re.search(r'postpon', str((_sa or {}).get('status') or ''), re.I)) if _sa else False
         if _ppd: _PPD_GAMES.add(gn)
+        # DELAYUNLOCK-2026-09-27: a Delayed Start has no first pitch yet -- index.html's engine must not treat
+        # the scheduled time as the start or lock any ticket with a leg in this game until it goes live.
+        if _sa and re.search(r'delayed start', str(_sa.get('status') or ''), re.I) and not _ppd: _DELAY_GAMES.add(gn)
         _sl=((_sa or {}).get(side) or {}) if _sa else {}
         _mlb=[p.get('name') for p in (_sl.get('lineup') or []) if p.get('name')]
         _posted_ok=bool(_sl.get('confirmed') and len(_mlb)>=9)
@@ -1169,6 +1173,7 @@ meta={'cfg':{k:v for k,v in _BCFG.CFG.items() if not k.startswith('_')},   # BOA
       # PPDSERVER-2026-09-22: same key and same value the client's live pass writes, so the two
       # agree instead of racing. 'ppd' already means "do not draft this" to every reader of gs.
       'gs':{str(_g):'ppd' for _g in _PPD_GAMES},
+      'gdelay':{str(_g):1 for _g in _DELAY_GAMES},
       # FEEDLAG-2026-09-24: clubs whose card MLB had not published when this board was
       # built, while the other half of their game was up. Carried so the page can say
       # which club it cannot see rather than showing a stale projection in silence.
