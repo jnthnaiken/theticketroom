@@ -64,8 +64,12 @@ function run(scored, now) {
   /* exit 10 is "nothing moved", which is a SUCCESS and is half of what this test asserts. */
   let out;
   try {
+    /* NOGAMECAP-2026-09-27: this fixture is a ONE-GAME night. With no per-game cap every in-band
+       man is drafted and nothing can be outranked, so the model-crossing rule would be untestable
+       here. The cap is irrelevant to SCORECROSS; pin it to 2 for this test only. */
     out = execFileSync(process.execPath, [CLI, PRIOR, sp, op, '--now', String(now)],
-                       { encoding: 'utf8' });
+                       { encoding: 'utf8', env: Object.assign({}, process.env,
+                         { NFL_CFG_OVERRIDE: JSON.stringify({ TOP_PER_MATCH: 2 }) }) });
   } catch (e) {
     if (e.status !== 10) throw e;
     out = String(e.stdout || '');

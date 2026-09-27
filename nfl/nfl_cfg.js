@@ -61,7 +61,12 @@ const CFG = {
      (LUNCH_LATE; `late` = the last kickoff wave). 0 restores anchors + moons exactly.
      Was: "TOP8-2026-09-17: the top-N singles board is SOCCER only; football keeps anchors + moons." */
   TOP_SINGLES: 8,
-  TOP_PER_MATCH: 2,
+  /* NOGAMECAP-2026-09-27. Owner: "we dont need a 2 per game rule" -> "remove both" (Sunday slates AND
+     one-game nights). Measured first, same 8 graded nights, top 8 EV singles: with the cap +6.8u on 28
+     bets, without it +1.8u on 59. On the two Sundays no cap was better (+14.1u vs +9.1u, all of it
+     09-13); on the six one-game nights the cap is what held the card to 2 bets instead of 7-8 from
+     one game (-2.2u vs -12.2u). Owner's call with that on the table. Was 2. */
+  TOP_PER_MATCH: Infinity,
   LUNCH_LATE: true,
   /* KICKLOCK-2026-09-20 -- football runs the `started` half of index.html's pinnedP().
      Soccer leaves this off (STANDASIS-2026-08-29: a published XI is the better signal there).
@@ -71,5 +76,10 @@ const CFG = {
      ticketIsLocked() is what keeps a dead leg repairable; see nfl/test_nfl_kicklock.js. */
   LOCK_ON_KICKOFF: true,
 };
+
+/* TESTCFG-2026-09-27: a TEST-ONLY override, so a test about one rule (e.g. SCORECROSS: the model
+   crosses, the price is held) is not rewritten every time the owner reshapes the board. Never set in
+   any workflow; nfl-build.yml does not pass it. JSON only, so it cannot express Infinity. */
+if (process.env.NFL_CFG_OVERRIDE) Object.assign(CFG, JSON.parse(process.env.NFL_CFG_OVERRIDE));
 
 module.exports = { CFG: CFG, applyVocabulary: applyVocabulary };
