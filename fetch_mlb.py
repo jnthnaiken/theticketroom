@@ -47,6 +47,29 @@ PARKS = {
  'TB':(27.7683,-82.6534,  50,  True),  'TEX':(32.7473,-97.0833, 40,  True),
  'TOR':(43.6414,-79.3894, 0,   True),  'WSH':(38.8730,-77.0074, 30,  False),
 }
+# VENUEPARK-2026-09-27 -- weather used to be looked up by the HOME TEAM's park, so a game
+# played somewhere else got the wrong sky. 2026-09-27 CHC@BOS was scheduled at Tropicana Field
+# (StatsAPI venue; RotoWire "Dome In Domed Stadium") and this file priced Fenway's forecast --
+# 16 mph in, 33% rain -> wf 0.94 on every CHC/BOS bat, for a game under a roof. StatsAPI's
+# schedule carries venue.name by default, so when that venue is a park in this table under a
+# DIFFERENT code, use that park. Unknown venue names fall back to the home code exactly as
+# before (no behaviour change on a normal day). Add a line here when a club borrows a park.
+VENUE_PARK = {'Tropicana Field': 'TB', 'Sutter Health Park': 'ATH', 'Rogers Centre': 'TOR',
+              'Chase Field': 'ARI', 'T-Mobile Park': 'SEA', 'Globe Life Field': 'TEX',
+              'American Family Field': 'MIL', 'loanDepot park': 'MIA', 'Daikin Park': 'HOU',
+              'Minute Maid Park': 'HOU', 'Fenway Park': 'BOS', 'Oracle Park': 'SF',
+              'Petco Park': 'SD', 'Kauffman Stadium': 'KC', 'Comerica Park': 'DET'}
+
+
+def park_code(game):
+    """Park to take weather from: the scheduled venue if we know it, else the home club's."""
+    home = game["home"]["abbrev"]
+    v = VENUE_PARK.get(game.get("venue") or "")
+    if v and v != home:
+        print(f"  venue override: {game['matchup']} at {game['venue']} -> weather from {v} park")
+        return v
+    return home
+
 # StatsAPI abbreviation -> our park code (handles the few that differ)
 ALIAS = {'CHW':'CWS','AZ':'ARI','OAK':'ATH','SAC':'ATH','WAS':'WSH','SD':'SD','SDP':'SD',
          'TBR':'TB','KCR':'KC','SFG':'SF'}
@@ -245,6 +268,7 @@ def main():
         a_code = ALIAS.get(a_ab, a_ab); h_code = ALIAS.get(h_ab, h_ab)
         games.append({
             "gamePk": g.get("gamePk"), "status": status, "gameTime": g.get("gameDate"),
+            "venue": (g.get("venue") or {}).get("name"),
             "matchup": f"{a_code}@{h_code}",
             "away": {"abbrev": a_code, "sp": {"id": app.get("id"), "name": app.get("fullName")},
                      "lineup": names(al), "confirmed": bool(al)},
@@ -278,7 +302,7 @@ def main():
             if sp.get("id"):
                 sp["hr9"]  = hr9.get(sp["id"])
                 sp["hand"] = {"L": "LHP", "R": "RHP"}.get(pithand.get(sp["id"]), None)
-        wx, wf = weather_for(game["home"]["abbrev"], game["gameTime"])
+        wx, wf = weather_for(park_code(game), game["gameTime"])
         game["weather"], game["wf"] = wx, wf
 
     out = {"date": date, "season": season,
