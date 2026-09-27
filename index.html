@@ -1130,7 +1130,7 @@ let ticketType='all';
 function drawTickets(){
  const q=(($('#tsearch')||{}).value||'').trim().toLowerCase(),ty=ticketType;
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
- const closed='<div class="closed">'+(D.tickets.some(t=>t.kind==='dinger'&&t.final)?'🎯 Today’s Daily Dinger is in the books. The next one drops with FanDuel’s next list.':'🎯 No Daily Dinger today — FanDuel hasn’t posted one. If they do, the pick lands right here.')+'</div>';
+ const closed='<div class="closed">'+(D.tickets.some(t=>t.kind==='dinger'&&t.final)?'🎯 This one’s already rounded the bases. Fresh swing tomorrow.':'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.')+'</div>';
 
  const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);
  /* SEAT-LOCK 2026-08-19 (display): a builder whose bat holds no moons is a stranded anchor single --
