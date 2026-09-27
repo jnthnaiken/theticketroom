@@ -748,7 +748,7 @@ for g in lin['games']:
         # first pitch had passed, `started()` reported the game underway and LATCHED the slip. A slip
         # frozen by a first pitch that never happened, on the one copy that gets graded.
         # slate_auto carries the status on every pull -- we were fetching it and only reading weather.
-        _ppd = bool(re.search(r'postpon', str((_sa or {}).get('status') or ''), re.I)) if _sa else False
+        _ppd = bool(re.search(r'postpon|cancel', str((_sa or {}).get('status') or ''), re.I)) if _sa else False
         if _ppd: _PPD_GAMES.add(gn)
         # DELAYUNLOCK-2026-09-27: a Delayed Start has no first pitch yet -- index.html's engine must not treat
         # the scheduled time as the start or lock any ticket with a leg in this game until it goes live.

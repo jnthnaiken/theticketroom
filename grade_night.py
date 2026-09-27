@@ -60,7 +60,7 @@ def results_for(date):
     for g in games:
         st = g.get('status') or {}
         ds, ab = (st.get('detailedState') or ''), (st.get('abstractGameState') or '')
-        if re.search('postpon', ds, re.I):
+        if re.search('postpon|cancel', ds, re.I):   # CANCELVOID-2026-09-27
             for sd in ('away', 'home'):
                 try:
                     _tm = g['teams'][sd]['team']
