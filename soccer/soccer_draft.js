@@ -487,6 +487,7 @@
         for (var i = 0; i < wide.length; i++) {
           var p = wide[i];
           if (taken[p.name] || !!p.late !== spec[1]) continue;
+          if (spec[0] === 'lunch' && p.lunch === false) continue;   /* NFLSINGLES-2026-09-27: football marks non-first-wave men lunch:false; soccer never sets it */
           tickets.push({ kind: spec[0], legs: [p], risk: cfg.SINGLE_STAKE });
           taken[p.name] = true;
           break;
@@ -997,6 +998,7 @@
         for (var q = 0; q < cands.length; q++) {
           var n = cands[q];
           if (used[n] || !!D.players[n].late !== spec[1]) continue;
+          if (spec[0] === 'lunch' && D.players[n].lunch === false) continue;   /* NFLSINGLES-2026-09-27 */
           extra.push({ kind: spec[0], name: n }); take(n);
           break;
         }

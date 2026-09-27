@@ -117,7 +117,10 @@ console.log('\n=== 6. NFL is untouched ===');
      not the file, so it now requires the module -- which is also stricter than scraping the
      source with a regex, because it fails if the file does not load at all. */
   const CFG = require(path.join(__dirname, '..', 'nfl', 'nfl_cfg.js')).CFG;
-  chk('nfl_cfg pins TOP_SINGLES 0', CFG.TOP_SINGLES === 0);
+  /* NFLSINGLES-2026-09-27: football moved to a top-N singles board by the owner's call ("yes and ev").
+     The check is still that football's value is PINNED in its own config, not inherited from soccer's
+     DEFAULTS -- so a soccer change to TOP_SINGLES can never silently reshape the football room. */
+  chk('nfl_cfg pins its own TOP_SINGLES (8, football singles)', CFG.TOP_SINGLES === 8 && CFG.TOP_PER_MATCH === 2);
   const scored = J('fixtures/2026-08-26/scored.json');
   const r = SD.draft(scored, { TOP_SINGLES: 0, MIN_ODDS: null }, {});
   chk('with TOP_SINGLES 0 the engine drafts screamers', r.tickets.some(t => t.kind === 'moon'));
