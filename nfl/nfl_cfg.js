@@ -38,18 +38,18 @@ const CFG = {
   WIN: 60, Z_GATE: 0.55, GAME_CAP: 5,
   ANCH: 4, MOON_LEGS: 3, MOONS_PER_ANC: 2, ANCH_PER_GAME: 2,
   MOON_RISK: 2.0, SINGLE_STAKE: 1.0,
-  /* PRICECAP-2026-09-15 -- nothing longer than MAX_ODDS is draftable, anchor, leg or single.
-     +500 at first; +400 the same day, owner's call on the NFL backtest (nfl/backtest/
-     RESULTS-2026-09-15.md: pooled ROI +400 -0.2% vs +500 -3.7%, within noise of each other).
-     Week 1 under EV ranking drafted +320..+1000 on Sunday and +1100..+2200 on Monday night and
-     the moons went 0-8 (-16u). With MIN_ODDS 100 (soccer_draft DEFAULTS) the football card is
-     +100..+400. A judgement call, not a fit: replaying week 1's singles, +400/+500/+600/+800
-     caps land anywhere from -3.7u to +5.4u on 20 picks, which is noise. Revisit once
-     nfl_ev_fit.py has enough graded weeks to calibrate the long end properly. */
-  MAX_ODDS: 400,
-  /* FLOOR200-2026-09-17 -- soccer_draft DEFAULTS.MIN_ODDS moved to -200 for SOCCER. Football keeps
-     the owner's +100 floor (PLUSMONEY-2026-09-11), so it is pinned here rather than inherited. */
-  MIN_ODDS: 100,
+  /* BLENDLIKESOCCER-2026-09-27. Owner: "like soccer". Football now ranks on soccer's 50/50 blend
+     (NFL_BOARD_MODEL default mkt50 in nfl_mock.py) with soccer's price rules: floor -200, no ceiling.
+     WHY THE +400 CEILING IS GONE: it only existed to patch football's UNCALIBRATED EV. EV =
+     p x decimal - 1 multiplies any model overestimate by the payout, and on the 8 graded nights the
+     model said 6.3% at +1000 and longer where the book said 5.3% and 2.3% scored -- so uncapped EV
+     drafted a median +850. The blend is half the market's own view and does not chase: uncapped it
+     picked a median +160 on the same nights. Measured before shipping (top 8 singles, no per-game
+     cap): blend -200..none -8.8u on 64 (26 won); EV +100..+400 was +1.8u on 59. Owner's call with
+     that on the table. Both old values are history: PRICECAP-2026-09-15 MAX_ODDS 400 (was 500),
+     FLOOR200-2026-09-17 kept football at +100. Baseball is untouched. */
+  MAX_ODDS: null,
+  MIN_ODDS: -200,
   /* NFLSINGLES-2026-09-27 -- FOOTBALL IS A SINGLES BOARD NOW. Owner: "yes and ev". Graded straight
      from nfl/boards/*.json, the room had posted -22.95u on 62u over 8 nights: 16 moons -25.1u on
      32u (1 profitable), 30 singles +2.2u. Re-scoring the same 8 nights (each night's own depth

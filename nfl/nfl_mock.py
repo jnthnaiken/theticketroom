@@ -50,7 +50,7 @@ CFG = dict(
     # MIN_ODDS in its DEFAULTS, MAX_ODDS in nfl_draft_cli.js); this copy exists so the EV z-score and
     # the gate are computed over the men who CAN be drafted. Every scored row carries it as
     # `price_band` and nfl_draft_cli.js exits if the two disagree.
-    MIN_ODDS=100, MAX_ODDS=400,   # +500 -> +400 same day, see nfl_draft_cli.js
+    MIN_ODDS=-200, MAX_ODDS=None,   # BLENDLIKESOCCER-2026-09-27 (was +100..+400, PRICECAP-2026-09-15)
     # MKTSCALE-2026-09-15: how far EV trusts the (market-scaled) model against the de-vigged price,
     # in logit space. 1.0 = all model, 0.0 = all market (EV then only reflects vig). Unfitted.
     MKT_W=0.5,
@@ -394,11 +394,14 @@ def score(season, week, atd_path, fixtures_path, prices_path):
     # ev before drafting too, like baseball. maybe not soccer" -> "EV, but no QBs" (see no_qb() above,
     # which is what removes the Cousins artifact that kept this off on 09-10). Still unmeasured on NFL:
     # there are two graded football nights. Revert with NFL_BOARD_MODEL=mkt50.
-    if os.environ.get('NFL_BOARD_MODEL', 'ev_v1') == 'ev_v1' and pm.any():
+    # BLENDLIKESOCCER-2026-09-27: the DEFAULT is now mkt50 -- the 50/50 blend above, like soccer. Owner:
+    # "like soccer". EV is still computed and written to scored.json every build; NFL_BOARD_MODEL=ev_v1
+    # restores the EV ranking (then set MAX_ODDS back: uncalibrated EV chases longshots).
+    if os.environ.get('NFL_BOARD_MODEL', 'mkt50') == 'ev_v1' and pm.any():
         # PRICECAP-2026-09-15: z over the DRAFTABLE band only. Scored over the whole priced field, the
         # +1100..+2200 men set the top of the scale and a single-game Monday card gated nobody at all
         # (09-14 replay: pool 0 of 24). Out-of-band men sit at the floor, below every draftable man.
-        pb = pm & d.odds.between(CFG['MIN_ODDS'], CFG['MAX_ODDS'])
+        pb = pm & d.odds.between(CFG['MIN_ODDS'], CFG['MAX_ODDS'] if CFG['MAX_ODDS'] is not None else 10**6)
         if not pb.any():
             pb = pm
         ez = z(d.loc[pb, 'ev'])
