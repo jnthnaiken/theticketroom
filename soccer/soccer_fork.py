@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 103 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,
+EXPECT_SEAMS = 104 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,
                                              # specials-live, sec-lunch, sec-nightcap, pool-late,
                                              # card-wide, kind-nightcap -- baseball retired
                                              # lunch/late, soccer still drafts both)
@@ -324,6 +324,11 @@ def seams(payload_js):
         " const dingerLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);")
     # The variable keeps baseball's name on purpose: it is read at three more sites and renaming
     # it would buy three extra seams to say the same thing. Only the KIND it selects matters.
+    # DINGERIDLE-2026-09-27: baseball's empty Daily Dinger slot got its own copy (owner: the
+    # cafeteria line belonged to the retired Lunch Special). This room still HAS a lunch-type
+    # slot, so the old line is put back here verbatim.
+    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'🎯 Today’s Daily Dinger is in the books. The next one drops with FanDuel’s next list.\':\'🎯 No Daily Dinger today — FanDuel hasn’t posted one. If they do, the pick lands right here.\')+\'</div>\';',
+        ' const closed=\'<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>\';')
     add('sec-lunch',
         '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
         '<div class="tsec lunch"><span class="tsech">Lunch Special</span>')
