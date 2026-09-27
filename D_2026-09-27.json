@@ -50254,7 +50254,7 @@
     "precip": 0
    }
   },
-  "build": "9/27 6:30pm",
+  "build": "9/27 6:41pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -50294,8 +50294,8 @@
     "jackpot": {
      "graded": 3,
      "won": 0,
-     "units": 0.0,
-     "staked": 0.0
+     "units": 0,
+     "staked": 0
     }
    },
    "history": [
@@ -50498,7 +50498,8 @@
     "2026-09-25",
     "2026-09-26"
    ],
-   "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet. | 2026-08-14: Chef's Table RETIRED and its 13 graded nights (08-01..08-13) backed out of the ledger at the owner's direction -- the slip was a test, not a product line. Removed cat: graded 13, won 2, -49.72u on 71.5 staked. All 13 slips were re-graded from the archived boards against the stored boxscore outcomes; the 12 nights with stored outcomes reproduce the recorded -44.22u / 66.0 staked / 2 wins EXACTLY, so 08-13 is the arithmetic remainder (-5.50u, 5.5 staked, 0 wins) and matches that board's rr.risk of 5.5. Each night's chef net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +148.74u -> +198.46u. No other kind touched. | 2026-08-14: Family Meal added as a ticket kind and BACKFILLED onto 2026-08-13 at the owner's direction -- the night's board was re-run through the shipped engine with its real tickets handed in as prior (all 13 carried verbatim, the retired chef dropped), which produced 8 family slips off the same pool: Trout +355, Ortiz +463, Pages +355, Bauers +396, Teoscar +405, Clemens +373, Abrams +350, Harper +395. Graded against the 08-13 boxscores (all 8 took a PA; Ortiz homered): 1-7 for -2.37u on 8.0 staked. Season 198.46 -> 196.09. D_2026-08-13.json and the baked board were rewritten to match, so the archive and the ledger agree. | 2026-08-14: Grand Salami REMOVED from the ledger at the owner's direction, same treatment as the chef test. Dropped cat: graded 35, won 5, -100.20u on 192.5 staked (-52.1%), the worst line on the board. 33 of the 35 slips were re-graded from the archived boards against stored boxscore outcomes (07-01..08-12: -106.40u on 181.5 staked, 4 wins). 08-13 is a confirmed loss -- three of its four legs (N. Lowe, Bleday, Conine) took a plate appearance with zero HR, and a 4-leg round robin cannot cash on fewer than two hits, so the fourth leg (L. Garcia) is irrelevant: -5.50u. 06-30 is therefore the arithmetic remainder (+11.70u on 5.5 staked, 1 win) -- it predates the local archives, the same situation chef's 08-13 was in. Each night's salami net was subtracted from the cumulative curve from that night forward. Season 196.09 -> 296.29; cats and history reconcile. The Salamis row is removed from the board tracker. | 2026-08-17: SUFFIX GRADING BUG. grade_night.norm()/calibrate.norm() did not strip Jr./Sr./II/III, so a bat whose StatsAPI name carries a suffix matched neither `homered` nor `played` and his leg VOIDED as a benched/DNP refund. index.html's norm() has always stripped them, which is why the live board and the ledger disagreed. 14 tickets over 10 graded nights re-graded off the feed: moon +18.00 (08-16 Rocket Fuel, Burger+Witt double, -2.00 -> +16.00), builder -3.00, late -1.00, family -1.00, lunch -1.00 (voids that were really losses). Net +12.00u; 293.71 -> 305.71. The 08-13 `biggest` slip was excluded: that category was unwound off the ledger on 08-14. norm() fixed in both files. | 2026-08-25: DINGERS (kind 'family') RETIRED and its 12 graded nights (08-13..08-24) backed out of the ledger at the owner's direction -- \"its just bleeding money\". Removed cat: graded 91, won 11, -33.34u on 91.0 staked (-36.6% ROI), the worst line on the board and the only kind materially negative on a real sample (lunch is -4.79u on 35). All 91 slips were re-graded offline and reproduce the recorded cat EXACTLY -- 91 graded / 11 won / -33.34u / 91.0 staked -- from the archived boards for structure and payout10, and calibration.jsonl for each bat's hr that night (grade_night's results_for() needs statsapi, which the build container cannot reach). 08-13 re-grades to -2.37u, matching this file's own 2026-08-14 backfill note to the cent. The two slips in the log that the ledger never folded are both the unpriced-leg void: Cheap Seats / Jac Caglianone (08-21) and Wrapped Around the Pole / CJ Abrams (08-24) -- 93 logged, 91 graded. Each night's dinger net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +450.30u -> +483.64u. No other kind touched. The mint is off in index.html (DINGERS=false); a dinger already LOCKED on a placed board is still carried, exactly as the retired chef slip is.\n\nWAYBACK-2026-08-29: \"The Way Back Machine\" (Murakami + Junior Caminero + Max Muncy) was removed from the 2026-08-28 board at 23:12Z by CHALKOFF when Caminero drifted into the top-4 ban -- correct, \"ANY LEG, locked included\". CHALKLOCK-2026-08-29 shipped at 00:44Z, judged a locked slip on its ANCHOR only, and re-admitted it hours after every game was final; grade_night folded the night at 05:27Z with it on, and the revert (ae546a5b) landed at 05:42Z, too late. The slip is a 2u moon round robin, all three legs 0 HR, so it graded a clean -2.00u. Backed out of both the board and the ledger: cats.moon 335/45 +489.82u on 670.0 -> 334/45 +491.82u on 668.0; the night -22.00u -> -20.00u; season history tail -> 488.67. Verified by re-running grade_night.grade_ticket() with homered/played rebuilt from calibration.jsonl, which reproduced the recorded -22.00u exactly before anything was changed. 2026-08-28 stays in graded_nights -- it was graded. This is NOT the soccer-leftover case: those slips were published and bettable and stay in the ledger; this one had already been removed during the slate and only reappeared because of a code change. | 2026-09-02: 09-01 moon 'The Apollo' RESTORED TO THE LEDGER as a correction. The slip (2u round robin by 2s & 3 -- Kyle Stowers +269 / JJ Bleday +300 / Coby Mayo +300, anchored by Stowers) was on the board from the 5:58pm build and LOCKED from 6:43pm, then DELETED at 6:58pm when Baltimore posted a card without Mayo and assembleClient's scratch filter dropped the whole locked slip. A removed slip does not grade, so the ledger recorded nothing -- not a loss, an absence. Restoring it in D_2026-09-01.json was attempted and is IMPOSSIBLE after the fact: grade_night.py runs unconditionally and FIRST in pull-slate.yml, above the `fresh` gate, so the night folded on the 1:08am build minutes after the last out; there is no window. Graded through the live grade_ticket with RRVOID in force: Stowers 4 PA / 1 HR, Bleday 4 PA / 0 HR, Mayo NO plate appearance -> his leg VOIDS and the slip reduces onto the survivors. 4 combinations at 0.5u; the two carried by Stowers alone return 3.69 each; 1.845 - 2.00 = -0.16u. Under the pre-RRVOID rule it books a flat -2.00, so RRVOID is worth +1.84u here -- its first live money. moon: graded 365->366, staked 730.0->732.0, units 543.11->542.95; history[-1] carried the same -0.16 so the tracker total and the sparkline agree. ROOT CAUSE STILL LIVE: the scratch filter deletes a LOCKED slip wholesale (`if(t.locked){_killed[t.name]=1;return false;}`). CHALKLOCK-2026-08-29 fixed this exact shape on the chalk path; the scratch path never got it. Until it does, a scratched non-anchor leg destroys the record of a placed bet and it cannot be put back."
+   "correction_note": "2026-07-10: 07-09 moon corrected to the board actually bet (Olson/Soto/Rice, 3/3 = +102.81u) vs the mid-slate re-drafted Olson/Soto/Contreras (2/3 = +11.13u). +91.69u restored to moon. A RULES_VERSION/edge-model bump mid-slate force-re-drafted an already-confirmed board; do not re-score a live confirmed slate. | 2026-08-11: 08-10 audited, NO unit change. Three slips live and locked on the NYM@ATL 7:15 window were force-re-drafted mid-slate: To the Heavens and Liftoff Sequence (moons) and Tide's Turn (builder) went Alvarez -> Baldwin -> Soderstrom across two re-drafts (a chef-seat flip on a 0.1 TOTAL cross, then the one-anchor-per-game fix). The archive D_2026-08-10.json shows the Soderstrom composition, which nobody held. All three compositions were graded against the 08-10 boxscores: each is 0/13 at -28.00u with an identical by-kind split (moon -12.0, biggest -5.5, chef -5.5, late -1.0, builder -4.0) -- none of Alvarez, Baldwin, Soderstrom, Burleson, Lewis, Harper, Henderson, Langford, Goodman, Burger or Pages homered. The folded ledger is correct as it stands; no units restored. Recorded so the archive is not mistaken for the board bet. | 2026-08-14: Chef's Table RETIRED and its 13 graded nights (08-01..08-13) backed out of the ledger at the owner's direction -- the slip was a test, not a product line. Removed cat: graded 13, won 2, -49.72u on 71.5 staked. All 13 slips were re-graded from the archived boards against the stored boxscore outcomes; the 12 nights with stored outcomes reproduce the recorded -44.22u / 66.0 staked / 2 wins EXACTLY, so 08-13 is the arithmetic remainder (-5.50u, 5.5 staked, 0 wins) and matches that board's rr.risk of 5.5. Each night's chef net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +148.74u -> +198.46u. No other kind touched. | 2026-08-14: Family Meal added as a ticket kind and BACKFILLED onto 2026-08-13 at the owner's direction -- the night's board was re-run through the shipped engine with its real tickets handed in as prior (all 13 carried verbatim, the retired chef dropped), which produced 8 family slips off the same pool: Trout +355, Ortiz +463, Pages +355, Bauers +396, Teoscar +405, Clemens +373, Abrams +350, Harper +395. Graded against the 08-13 boxscores (all 8 took a PA; Ortiz homered): 1-7 for -2.37u on 8.0 staked. Season 198.46 -> 196.09. D_2026-08-13.json and the baked board were rewritten to match, so the archive and the ledger agree. | 2026-08-14: Grand Salami REMOVED from the ledger at the owner's direction, same treatment as the chef test. Dropped cat: graded 35, won 5, -100.20u on 192.5 staked (-52.1%), the worst line on the board. 33 of the 35 slips were re-graded from the archived boards against stored boxscore outcomes (07-01..08-12: -106.40u on 181.5 staked, 4 wins). 08-13 is a confirmed loss -- three of its four legs (N. Lowe, Bleday, Conine) took a plate appearance with zero HR, and a 4-leg round robin cannot cash on fewer than two hits, so the fourth leg (L. Garcia) is irrelevant: -5.50u. 06-30 is therefore the arithmetic remainder (+11.70u on 5.5 staked, 1 win) -- it predates the local archives, the same situation chef's 08-13 was in. Each night's salami net was subtracted from the cumulative curve from that night forward. Season 196.09 -> 296.29; cats and history reconcile. The Salamis row is removed from the board tracker. | 2026-08-17: SUFFIX GRADING BUG. grade_night.norm()/calibrate.norm() did not strip Jr./Sr./II/III, so a bat whose StatsAPI name carries a suffix matched neither `homered` nor `played` and his leg VOIDED as a benched/DNP refund. index.html's norm() has always stripped them, which is why the live board and the ledger disagreed. 14 tickets over 10 graded nights re-graded off the feed: moon +18.00 (08-16 Rocket Fuel, Burger+Witt double, -2.00 -> +16.00), builder -3.00, late -1.00, family -1.00, lunch -1.00 (voids that were really losses). Net +12.00u; 293.71 -> 305.71. The 08-13 `biggest` slip was excluded: that category was unwound off the ledger on 08-14. norm() fixed in both files. | 2026-08-25: DINGERS (kind 'family') RETIRED and its 12 graded nights (08-13..08-24) backed out of the ledger at the owner's direction -- \"its just bleeding money\". Removed cat: graded 91, won 11, -33.34u on 91.0 staked (-36.6% ROI), the worst line on the board and the only kind materially negative on a real sample (lunch is -4.79u on 35). All 91 slips were re-graded offline and reproduce the recorded cat EXACTLY -- 91 graded / 11 won / -33.34u / 91.0 staked -- from the archived boards for structure and payout10, and calibration.jsonl for each bat's hr that night (grade_night's results_for() needs statsapi, which the build container cannot reach). 08-13 re-grades to -2.37u, matching this file's own 2026-08-14 backfill note to the cent. The two slips in the log that the ledger never folded are both the unpriced-leg void: Cheap Seats / Jac Caglianone (08-21) and Wrapped Around the Pole / CJ Abrams (08-24) -- 93 logged, 91 graded. Each night's dinger net was subtracted from the cumulative curve from that night forward, so history and cats still reconcile. Season +450.30u -> +483.64u. No other kind touched. The mint is off in index.html (DINGERS=false); a dinger already LOCKED on a placed board is still carried, exactly as the retired chef slip is.\n\nWAYBACK-2026-08-29: \"The Way Back Machine\" (Murakami + Junior Caminero + Max Muncy) was removed from the 2026-08-28 board at 23:12Z by CHALKOFF when Caminero drifted into the top-4 ban -- correct, \"ANY LEG, locked included\". CHALKLOCK-2026-08-29 shipped at 00:44Z, judged a locked slip on its ANCHOR only, and re-admitted it hours after every game was final; grade_night folded the night at 05:27Z with it on, and the revert (ae546a5b) landed at 05:42Z, too late. The slip is a 2u moon round robin, all three legs 0 HR, so it graded a clean -2.00u. Backed out of both the board and the ledger: cats.moon 335/45 +489.82u on 670.0 -> 334/45 +491.82u on 668.0; the night -22.00u -> -20.00u; season history tail -> 488.67. Verified by re-running grade_night.grade_ticket() with homered/played rebuilt from calibration.jsonl, which reproduced the recorded -22.00u exactly before anything was changed. 2026-08-28 stays in graded_nights -- it was graded. This is NOT the soccer-leftover case: those slips were published and bettable and stay in the ledger; this one had already been removed during the slate and only reappeared because of a code change. | 2026-09-02: 09-01 moon 'The Apollo' RESTORED TO THE LEDGER as a correction. The slip (2u round robin by 2s & 3 -- Kyle Stowers +269 / JJ Bleday +300 / Coby Mayo +300, anchored by Stowers) was on the board from the 5:58pm build and LOCKED from 6:43pm, then DELETED at 6:58pm when Baltimore posted a card without Mayo and assembleClient's scratch filter dropped the whole locked slip. A removed slip does not grade, so the ledger recorded nothing -- not a loss, an absence. Restoring it in D_2026-09-01.json was attempted and is IMPOSSIBLE after the fact: grade_night.py runs unconditionally and FIRST in pull-slate.yml, above the `fresh` gate, so the night folded on the 1:08am build minutes after the last out; there is no window. Graded through the live grade_ticket with RRVOID in force: Stowers 4 PA / 1 HR, Bleday 4 PA / 0 HR, Mayo NO plate appearance -> his leg VOIDS and the slip reduces onto the survivors. 4 combinations at 0.5u; the two carried by Stowers alone return 3.69 each; 1.845 - 2.00 = -0.16u. Under the pre-RRVOID rule it books a flat -2.00, so RRVOID is worth +1.84u here -- its first live money. moon: graded 365->366, staked 730.0->732.0, units 543.11->542.95; history[-1] carried the same -0.16 so the tracker total and the sparkline agree. ROOT CAUSE STILL LIVE: the scratch filter deletes a LOCKED slip wholesale (`if(t.locked){_killed[t.name]=1;return false;}`). CHALKLOCK-2026-08-29 fixed this exact shape on the chalk path; the scratch path never got it. Until it does, a scratched non-anchor leg destroys the record of a placed bet and it cannot be put back.",
+   "jackpot_backfill_note": "2026-09-27 JACKPOTRETRY backfill, read from Savant statcast_search in the browser: 09-24 Hunter Goodman (longest: Julio Rodriguez 451ft) lost; 09-25 Shea Langeliers (Pete Alonso 471ft) lost; 09-26 Isaac Paredes (Alec Burleson 432ft) lost."
   },
   "date": "2026-09-27",
   "gs": {
@@ -50591,37 +50592,37 @@
    "moon|Mike Trout,Nolan Arenado,Spencer Jones,Spencer Torkelson"
   ],
   "posted_at": {
-   "9|DET": 1790529457,
-   "5|PHI": 1790525217,
-   "15|MIA": 1790527975,
-   "7|TOR": 1790523417,
-   "4|HOU": 1790531549,
-   "12|MIN": 1790528485,
-   "11|MIL": 1790525217,
-   "15|ATL": 1790526137,
-   "12|TEX": 1790526137,
-   "3|CHC": 1790525819,
-   "2|WSH": 1790518318,
-   "9|PIT": 1790529757,
-   "13|SEA": 1790529140,
-   "3|BOS": 1790525819,
-   "14|AZ": 1790526672,
-   "14|SD": 1790525217,
    "6|LAD": 1790527029,
+   "3|BOS": 1790525819,
    "7|CIN": 1790523748,
-   "10|KC": 1790523417,
-   "2|NYM": 1790521987,
-   "5|TB": 1790525819,
-   "11|STL": 1790524644,
-   "8|CWS": 1790523417,
-   "10|CLE": 1790527029,
-   "8|COL": 1790524865,
    "4|ATH": 1790531549,
+   "5|PHI": 1790525217,
+   "13|SEA": 1790529140,
+   "15|ATL": 1790526137,
+   "14|AZ": 1790526672,
+   "8|CWS": 1790523417,
+   "3|CHC": 1790525819,
+   "10|CLE": 1790527029,
+   "11|STL": 1790524644,
+   "11|MIL": 1790525217,
+   "9|DET": 1790529457,
+   "13|LAA": 1790529140,
+   "4|HOU": 1790531549,
+   "5|TB": 1790525819,
+   "15|MIA": 1790527975,
+   "10|KC": 1790523417,
+   "12|TEX": 1790526137,
+   "9|PIT": 1790529757,
    "6|SF": 1790524865,
-   "13|LAA": 1790529140
+   "14|SD": 1790525217,
+   "2|NYM": 1790521987,
+   "7|TOR": 1790523417,
+   "8|COL": 1790524865,
+   "2|WSH": 1790518318,
+   "12|MIN": 1790528485
   },
   "chalkstate": {
-   "b": "9/27 6:30pm",
+   "b": "9/27 6:41pm",
    "s": {}
   },
   "chalk": [],
@@ -50642,7 +50643,7 @@
      "team": "Royals",
      "total": 148.6,
      "aT": 100,
-     "wf": 1.014,
+     "wf": 1.011,
      "gmatch": "CLE@KC",
      "gtime": "3:10 PM ET",
      "game": 10,
@@ -50653,9 +50654,9 @@
     {
      "name": "Jonathan Aranda",
      "team": "Rays",
-     "total": 149.2,
+     "total": 148.9,
      "aT": 100,
-     "wf": 0.937,
+     "wf": 0.95,
      "gmatch": "TB@PHI",
      "gtime": "3:05 PM ET",
      "game": 5,
@@ -50666,7 +50667,7 @@
     {
      "name": "Andr\u00e9s Chaparro",
      "team": "Nationals",
-     "total": 140.7,
+     "total": 140.6,
      "aT": 100,
      "wf": 0.985,
      "gmatch": "NYM@WSH",
@@ -50679,9 +50680,9 @@
     {
      "name": "Christian Walker",
      "team": "Astros",
-     "total": 139.3,
+     "total": 139.1,
      "aT": 100,
-     "wf": 1.077,
+     "wf": 1.073,
      "gmatch": "HOU@ATH",
      "gtime": "3:05 PM ET",
      "game": 4,
@@ -50717,14 +50718,14 @@
    "name": "Ground Tackle",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (59% hard-hit), tilts the bat for distance (18\u00b0), has the yard tilting his way.",
+   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (59% hard-hit), tilts the bat for distance (18\u00b0), swings a heavy stick (73/100 power).",
    "players": [
     {
      "name": "Vinnie Pasquantino",
      "team": "Royals",
      "total": 148.6,
      "aT": 100,
-     "wf": 1.014,
+     "wf": 1.011,
      "gmatch": "CLE@KC",
      "gtime": "3:10 PM ET",
      "game": 10,
@@ -50740,10 +50741,10 @@
    "final": false,
    "rr": null,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
    "confleg": 1,
    "priced": 1,
@@ -50755,14 +50756,14 @@
    "name": "Squared Away",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "David Fry is crushing it to all fields (54% hard-hit), stays in the launch zone (23\u00b0), catches a small park boost.",
+   "note": "David Fry is crushing it to all fields (54% hard-hit), gets ideal loft (23\u00b0), swings with usable power (59/100), recent form points up.",
    "players": [
     {
      "name": "David Fry",
      "team": "Guardians",
-     "total": 144.3,
+     "total": 144.2,
      "aT": 100,
-     "wf": 1.014,
+     "wf": 1.011,
      "gmatch": "CLE@KC",
      "gtime": "3:10 PM ET",
      "game": 10,
@@ -50778,10 +50779,10 @@
    "final": false,
    "rr": null,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
    "confleg": 1,
    "priced": 1,
@@ -50793,14 +50794,14 @@
    "name": "Calm Seas",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Nolan Arenado puts the ball in the air on a homer plane (20\u00b0), plays in a slightly friendly yard, is driving balls into the gaps (46% hard-hit).",
+   "note": "Nolan Arenado is lifting everything (20\u00b0), is driving balls into the gaps (46% hard-hit), plays a touch under the power tier (43/100).",
    "players": [
     {
      "name": "Nolan Arenado",
      "team": "Diamondbacks",
-     "total": 144.3,
+     "total": 144.1,
      "aT": 100,
-     "wf": 1.034,
+     "wf": 1.019,
      "gmatch": "AZ@SD",
      "gtime": "3:10 PM ET",
      "game": 14,
@@ -50816,10 +50817,10 @@
    "final": false,
    "rr": null,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
    "confleg": 1,
    "priced": 1,
@@ -50838,7 +50839,7 @@
      "team": "Royals",
      "total": 148.6,
      "aT": 100,
-     "wf": 1.014,
+     "wf": 1.011,
      "gmatch": "CLE@KC",
      "gtime": "3:10 PM ET",
      "game": 10,
@@ -50849,9 +50850,9 @@
     {
      "name": "Kevin McGonigle",
      "team": "Tigers",
-     "total": 133.8,
+     "total": 133.7,
      "aT": 100,
-     "wf": 0.992,
+     "wf": 0.993,
      "gmatch": "PIT@DET",
      "gtime": "3:10 PM ET",
      "game": 9,
@@ -50862,7 +50863,7 @@
     {
      "name": "Gunnar Henderson",
      "team": "Orioles",
-     "total": 133.7,
+     "total": 133.5,
      "aT": 100,
      "wf": 0.947,
      "gmatch": "BAL@NYY",
@@ -50870,7 +50871,7 @@
      "game": 1,
      "late": false,
      "odds": 575,
-     "status": "confirmed"
+     "status": "projected"
     },
     {
      "name": "Michael Conforto",
@@ -50903,7 +50904,7 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 4,
+   "confleg": 3,
    "priced": 4,
    "parlay_am": 250328,
    "payout10": 25042.79,
@@ -50913,14 +50914,14 @@
    "name": "Deep Water Mark",
    "kind": "jackpot",
    "badge": "\ud83d\udca5",
-   "note": "Isaac Paredes has the jet stream pushing toward the seats, hits it on the perfect plane (22\u00b0), is putting good wood on it (50% hard-hit), and plays a touch under the power tier (44/100).",
+   "note": "Isaac Paredes gets a yard playing like a launchpad tonight, hits it on the perfect plane (22\u00b0), is driving the ball (50% hard-hit), and plays a touch under the power tier (44/100).",
    "players": [
     {
      "name": "Isaac Paredes",
      "team": "Astros",
-     "total": 146,
+     "total": 145.7,
      "aT": 100,
-     "wf": 1.077,
+     "wf": 1.073,
      "gmatch": "HOU@ATH",
      "gtime": "3:05 PM ET",
      "game": 4,
@@ -50951,14 +50952,14 @@
    "name": "Hold Fast",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Isaac Paredes swings with the wind at his back, launches it at the right angle (22\u00b0), is centering the ball (50% hard-hit).",
+   "note": "Isaac Paredes has the jet stream pushing toward the seats, launches it at the right angle (22\u00b0), is putting good wood on it (50% hard-hit).",
    "players": [
     {
      "name": "Isaac Paredes",
      "team": "Astros",
-     "total": 146,
+     "total": 145.7,
      "aT": 100,
-     "wf": 1.077,
+     "wf": 1.073,
      "gmatch": "HOU@ATH",
      "gtime": "3:05 PM ET",
      "game": 4,
@@ -50989,14 +50990,14 @@
    "name": "Riding the Jet Stream",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Paredes projects out to 146, Mesa fights a ball-killing yard, Grichuk gets ideal loft (21\u00b0), and Machado is teeing off (55% hard-hit).",
+   "note": "Paredes gets ideal loft (22\u00b0), Mesa fights a ball-killing yard, Grichuk is scorching the ball (64% hard-hit), and Machado grades to 139 on our board.",
    "players": [
     {
      "name": "Isaac Paredes",
      "team": "Astros",
-     "total": 146,
+     "total": 145.7,
      "aT": 100,
-     "wf": 1.077,
+     "wf": 1.073,
      "gmatch": "HOU@ATH",
      "gtime": "3:05 PM ET",
      "game": 4,
@@ -51007,9 +51008,9 @@
     {
      "name": "Victor Mesa",
      "team": "Rays",
-     "total": 158.4,
+     "total": 157.8,
      "aT": 100,
-     "wf": 0.937,
+     "wf": 0.95,
      "gmatch": "TB@PHI",
      "gtime": "3:05 PM ET",
      "game": 5,
@@ -51020,9 +51021,9 @@
     {
      "name": "Randal Grichuk",
      "team": "White Sox",
-     "total": 143.1,
+     "total": 143,
      "aT": 100,
-     "wf": 0.968,
+     "wf": 0.963,
      "gmatch": "COL@CWS",
      "gtime": "3:10 PM ET",
      "game": 8,
@@ -51033,9 +51034,9 @@
     {
      "name": "Manny Machado",
      "team": "Padres",
-     "total": 138.7,
+     "total": 138.5,
      "aT": 100,
-     "wf": 1.034,
+     "wf": 1.019,
      "gmatch": "AZ@SD",
      "gtime": "3:10 PM ET",
      "game": 14,
@@ -51056,10 +51057,10 @@
     "bytwos": false
    },
    "wxsum": {
-    "boost": 2,
+    "boost": 1,
     "supp": 2,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
    "confleg": 4,
    "priced": 4,
@@ -51076,9 +51077,9 @@
     {
      "name": "Isaac Paredes",
      "team": "Astros",
-     "total": 146,
+     "total": 145.7,
      "aT": 100,
-     "wf": 1.077,
+     "wf": 1.073,
      "gmatch": "HOU@ATH",
      "gtime": "3:05 PM ET",
      "game": 4,
@@ -51089,7 +51090,7 @@
     {
      "name": "Pete Alonso",
      "team": "Orioles",
-     "total": 150.7,
+     "total": 150.4,
      "aT": 100,
      "wf": 0.947,
      "gmatch": "BAL@NYY",
@@ -51097,7 +51098,7 @@
      "game": 1,
      "late": false,
      "odds": 425,
-     "status": "confirmed"
+     "status": "projected"
     },
     {
      "name": "Wilyer Abreu",
@@ -51115,7 +51116,7 @@
     {
      "name": "Matt Olson",
      "team": "Braves",
-     "total": 138.5,
+     "total": 138.3,
      "aT": 100,
      "wf": 1,
      "gmatch": "ATL@MIA",
@@ -51143,7 +51144,7 @@
     "dome": 2,
     "neu": 0
    },
-   "confleg": 4,
+   "confleg": 3,
    "priced": 4,
    "parlay_am": 64074,
    "payout10": 6417.38,
@@ -51158,9 +51159,9 @@
     {
      "name": "David Fry",
      "team": "Guardians",
-     "total": 144.3,
+     "total": 144.2,
      "aT": 100,
-     "wf": 1.014,
+     "wf": 1.011,
      "gmatch": "CLE@KC",
      "gtime": "3:10 PM ET",
      "game": 10,
@@ -51171,7 +51172,7 @@
     {
      "name": "Austin Wells",
      "team": "Yankees",
-     "total": 149,
+     "total": 148.7,
      "aT": 100,
      "wf": 0.947,
      "gmatch": "BAL@NYY",
@@ -51184,9 +51185,9 @@
     {
      "name": "Gavin Sheets",
      "team": "Padres",
-     "total": 143.5,
+     "total": 143.4,
      "aT": 100,
-     "wf": 1.034,
+     "wf": 1.019,
      "gmatch": "AZ@SD",
      "gtime": "3:10 PM ET",
      "game": 14,
@@ -51197,7 +51198,7 @@
     {
      "name": "Brandon Nimmo",
      "team": "Rangers",
-     "total": 136.4,
+     "total": 136.3,
      "aT": 100,
      "wf": 1.004,
      "gmatch": "TEX@MIN",
@@ -51220,10 +51221,10 @@
     "bytwos": false
    },
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 1,
     "dome": 0,
-    "neu": 2
+    "neu": 3
    },
    "confleg": 3,
    "priced": 4,
@@ -51240,9 +51241,9 @@
     {
      "name": "David Fry",
      "team": "Guardians",
-     "total": 144.3,
+     "total": 144.2,
      "aT": 100,
-     "wf": 1.014,
+     "wf": 1.011,
      "gmatch": "CLE@KC",
      "gtime": "3:10 PM ET",
      "game": 10,
@@ -51253,7 +51254,7 @@
     {
      "name": "Mike Yastrzemski",
      "team": "Braves",
-     "total": 146.1,
+     "total": 145.9,
      "aT": 100,
      "wf": 1,
      "gmatch": "ATL@MIA",
@@ -51266,7 +51267,7 @@
     {
      "name": "Randy Arozarena",
      "team": "Mariners",
-     "total": 143.1,
+     "total": 142.9,
      "aT": 100,
      "wf": 1,
      "gmatch": "LAA@SEA",
@@ -51279,7 +51280,7 @@
     {
      "name": "Cody Bellinger",
      "team": "Yankees",
-     "total": 133.9,
+     "total": 133.7,
      "aT": 100,
      "wf": 0.947,
      "gmatch": "BAL@NYY",
@@ -51322,9 +51323,9 @@
     {
      "name": "Nolan Arenado",
      "team": "Diamondbacks",
-     "total": 144.3,
+     "total": 144.1,
      "aT": 100,
-     "wf": 1.034,
+     "wf": 1.019,
      "gmatch": "AZ@SD",
      "gtime": "3:10 PM ET",
      "game": 14,
@@ -51335,7 +51336,7 @@
     {
      "name": "Spencer Jones",
      "team": "Yankees",
-     "total": 184.9,
+     "total": 184.5,
      "aT": 100,
      "wf": 0.947,
      "gmatch": "BAL@NYY",
@@ -51348,9 +51349,9 @@
     {
      "name": "Spencer Torkelson",
      "team": "Tigers",
-     "total": 141.9,
+     "total": 141.8,
      "aT": 100,
-     "wf": 0.992,
+     "wf": 0.993,
      "gmatch": "PIT@DET",
      "gtime": "3:10 PM ET",
      "game": 9,
@@ -51361,7 +51362,7 @@
     {
      "name": "Pete Crow-Armstrong",
      "team": "Cubs",
-     "total": 139.5,
+     "total": 139.4,
      "aT": 100,
      "wf": 1,
      "gmatch": "CHC@BOS",
@@ -51384,10 +51385,10 @@
     "bytwos": false
    },
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 1,
     "dome": 1,
-    "neu": 1
+    "neu": 2
    },
    "confleg": 3,
    "priced": 4,
@@ -51404,9 +51405,9 @@
     {
      "name": "Nolan Arenado",
      "team": "Diamondbacks",
-     "total": 144.3,
+     "total": 144.1,
      "aT": 100,
-     "wf": 1.034,
+     "wf": 1.019,
      "gmatch": "AZ@SD",
      "gtime": "3:10 PM ET",
      "game": 14,
@@ -51417,7 +51418,7 @@
     {
      "name": "Ben Rice",
      "team": "Yankees",
-     "total": 171.2,
+     "total": 170.7,
      "aT": 100,
      "wf": 0.947,
      "gmatch": "BAL@NYY",
@@ -51430,7 +51431,7 @@
     {
      "name": "JJ Bleday",
      "team": "Reds",
-     "total": 140.9,
+     "total": 140.7,
      "aT": 100,
      "wf": 1,
      "gmatch": "CIN@TOR",
@@ -51443,7 +51444,7 @@
     {
      "name": "Wyatt Langford",
      "team": "Rangers",
-     "total": 140,
+     "total": 139.9,
      "aT": 100,
      "wf": 1.004,
      "gmatch": "TEX@MIN",
@@ -51466,10 +51467,10 @@
     "bytwos": false
    },
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 1,
     "dome": 1,
-    "neu": 1
+    "neu": 2
    },
    "confleg": 3,
    "priced": 4,
@@ -51481,6 +51482,7 @@
  "pool": [
   "Kody Clemens",
   "Davis Schneider",
+  "Jo Adell",
   "Cal Raleigh",
   "Yordan Alvarez",
   "Bo Bichette",
