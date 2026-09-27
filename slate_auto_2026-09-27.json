@@ -1,7 +1,7 @@
 {
   "date": "2026-09-27",
   "season": "2026",
-  "pulled_at": "2026-09-27T14:21:41Z",
+  "pulled_at": "2026-09-27T14:26:40Z",
   "games": [
     {
       "gamePk": 822679,
@@ -93,7 +93,7 @@
     },
     {
       "gamePk": 823490,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-27T17:05:00Z",
       "venue": "Yankee Stadium",
       "matchup": "BAL@NYY",
@@ -105,8 +105,54 @@
           "hr9": 0.75,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 687637,
+            "name": "Dylan Beavers",
+            "iso": 0.145
+          },
+          {
+            "id": 624413,
+            "name": "Pete Alonso",
+            "iso": 0.255
+          },
+          {
+            "id": 683002,
+            "name": "Gunnar Henderson",
+            "iso": 0.178
+          },
+          {
+            "id": 691723,
+            "name": "Coby Mayo",
+            "iso": 0.233
+          },
+          {
+            "id": 687952,
+            "name": "Christian Encarnacion-Strand",
+            "iso": 0.236
+          },
+          {
+            "id": 681297,
+            "name": "Colton Cowser",
+            "iso": 0.144
+          },
+          {
+            "id": 669236,
+            "name": "Jeremiah Jackson",
+            "iso": 0.148
+          },
+          {
+            "id": 677008,
+            "name": "Heston Kjerstad",
+            "iso": 0.052
+          },
+          {
+            "id": 665966,
+            "name": "Carlos Narv\u00e1ez",
+            "iso": 0.065
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -119,7 +165,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
