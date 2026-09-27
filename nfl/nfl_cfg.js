@@ -50,8 +50,19 @@ const CFG = {
   /* FLOOR200-2026-09-17 -- soccer_draft DEFAULTS.MIN_ODDS moved to -200 for SOCCER. Football keeps
      the owner's +100 floor (PLUSMONEY-2026-09-11), so it is pinned here rather than inherited. */
   MIN_ODDS: 100,
-  /* TOP8-2026-09-17: the top-N singles board is SOCCER only; football keeps anchors + moons. */
-  TOP_SINGLES: 0,
+  /* NFLSINGLES-2026-09-27 -- FOOTBALL IS A SINGLES BOARD NOW. Owner: "yes and ev". Graded straight
+     from nfl/boards/*.json, the room had posted -22.95u on 62u over 8 nights: 16 moons -25.1u on
+     32u (1 profitable), 30 singles +2.2u. Re-scoring the same 8 nights (each night's own depth
+     chart, the prices the board held), the top 8 EV singles in the +100..+400 band went +1.8u on
+     59 bets; the 50/50 blend -14.4u -- but those two pick the same men on 6 of the 8 nights and the
+     whole gap is 09-13 and 09-20, so the RANKING question is unsettled. The moons are not.
+     Same engine as soccer's TOP8: the N strongest by TOTAL (= z(EV) under NFL_BOARD_MODEL=ev_v1),
+     at most TOP_PER_MATCH per game, 1u each, plus one Early Window and one Sunday Night single
+     (LUNCH_LATE; `late` = the last kickoff wave). 0 restores anchors + moons exactly.
+     Was: "TOP8-2026-09-17: the top-N singles board is SOCCER only; football keeps anchors + moons." */
+  TOP_SINGLES: 8,
+  TOP_PER_MATCH: 2,
+  LUNCH_LATE: true,
   /* KICKLOCK-2026-09-20 -- football runs the `started` half of index.html's pinnedP().
      Soccer leaves this off (STANDASIS-2026-08-29: a published XI is the better signal there).
      Football has no team sheet, so `status` is 'projected' on every build and CONFLOCK can

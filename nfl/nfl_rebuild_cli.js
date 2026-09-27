@@ -110,6 +110,17 @@ console.log(`  clock: slate ${D.meta.date}, now ${now} ET min (${hh}:${String(mm
           + `  |  kickoffs ${koMin}..${koMax}`);
 
 const koOf = g => { const v = D.meta.ko[String(g)]; return v == null ? null : Number(v); };
+/* NFLSINGLES-2026-09-27: `late` is DERIVED from meta.ko, not trusted from the prior. Boards baked
+   before this date marked everybody late on a one-wave slate, which under TOP_SINGLES would mint a
+   Sunday Night single on a Monday game. Same rule as nfl_payload.py: last wave, and only if >1 wave. */
+(function () {
+  const multi = new Set(koVals).size > 1;
+  Object.keys(D.players).forEach(n => {
+    const k = koOf(D.players[n].game);
+    D.players[n].late = multi && k != null && k === koMax;
+    D.players[n].lunch = multi && k != null && k === koMin;   /* Early Window = the first wave only */
+  });
+})();
 
 /* ---- refresh what is knowable ------------------------------------------------------------
  * PRICEONCE (nfl-build.yml's own header): "soccer and football price ONE TIME at build, like
@@ -199,6 +210,7 @@ console.log(`  model: ${rescored} re-scored from scored.json`
           + `  -- SCORECROSS-2026-09-21`);
 console.log(`  redraft: ${r.locked} locked · ${r.repaired} repaired · ${r.minted} new`
           + (r.demoted && r.demoted.length ? ` · ${r.demoted.length} demoted` : '')
+          + (r.released ? ` · ${r.released} released` : '')
           + `  -> ${r.changed ? 'CHANGED' : 'unchanged'}`);
 (r.demoted || []).forEach(d => console.log(`    demoted ${d.anchor}: ${d.why}`));
 (r.shaped || []).forEach(x => console.log(`    shape repair: no ${x.kind} on the board -> minted ${x.name}`));

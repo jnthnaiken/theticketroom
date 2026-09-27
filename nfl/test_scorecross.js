@@ -104,8 +104,9 @@ INVERTED.forEach(p => {
       n.indexOf('Malik Nabers') >= 0 && n.indexOf('Colby Parkinson') >= 0, n);
   chk('...and the outranked incumbents are gone',
       n.indexOf('Cam Skattebo') < 0 && n.indexOf('Blake Corum') < 0, n);
-  chk('...demoted for the stated reason, not silently dropped',
-      /demoted Cam Skattebo: outranked for an anchor seat/.test(r.log), r.log);
+  /* NFLSINGLES-2026-09-27: football is a top-N singles board now, so there is no anchor contest
+     to be "demoted" from. An outranked open single is RELEASED, and the log must say how many. */
+  chk('...released and counted, not silently dropped', /· 2 released/.test(r.log), r.log);
   chk('...and the re-score is reported', /model: 4 re-scored/.test(r.log), r.log);
 }
 

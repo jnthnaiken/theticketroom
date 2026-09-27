@@ -129,6 +129,10 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
     order = sorted(matches.keys(), key=lambda k: (matches[k]['kickoff'], k))
     gidx = {k: i + 1 for i, k in enumerate(order)}
     last_wave = max(matches[k]['kickoff'] for k in matches)
+    # NFLSINGLES-2026-09-27: on a one-wave slate nobody is 'late' -- there is no Sunday Night to split off,
+    # the same rule nfl_draft_cli.js applied to its own early/late slips ("single-wave slate: no split").
+    first_wave = min(matches[k]['kickoff'] for k in matches)
+    multi_wave = len({matches[k]['kickoff'] for k in matches}) > 1
 
     meta_wx = {}
     for k in order:
@@ -159,7 +163,8 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             hr9=None, phr9=None,                  # ⚠️ no matchup term -- measured dead
             wf=s['wf'], pull_tail=None,
             game=gidx[k], gmatch=f"{mm['away']}@{mm['home']}", gtime=hhmm(mm['kickoff']),
-            late=mm['kickoff'] == last_wave, rain=meta_wx[str(gidx[k])]['precip'] >= 40,
+            late=(mm['kickoff'] == last_wave and multi_wave),
+            lunch=(mm['kickoff'] == first_wave and multi_wave), rain=meta_wx[str(gidx[k])]['precip'] >= 40,
             out=bool(s.get('out')), status='projected', void=bool(s.get('void')),
             opp=[TEAM_NAME.get(s['opp'], s['opp']), ''], oppERA=None, opp_code=s['opp'],
             ftrend=None, odds=s['odds'], soft=False, why=voice.why(s),

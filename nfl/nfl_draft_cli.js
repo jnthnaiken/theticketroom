@@ -85,6 +85,11 @@ if (noKO.length) {
   process.exit(5);
 }
 
+/* NFLSINGLES-2026-09-27: `late` = the LAST kickoff wave (Sunday Night), the same definition
+   nfl_payload.py bakes into D.players, so the draft and the rebuild agree on who is late. */
+const _lastKO = Math.max(...Object.values(KO));
+const _firstKO = Math.min(...Object.values(KO)), _multi = _firstKO !== _lastKO;
+players.forEach(p => { p.late = _multi && p.kickoff === _lastKO; p.lunch = _multi && p.kickoff === _firstKO; });
 const res = Draft.draft(players, CFG, { koOf: m => KO[m], slateMatches: Object.keys(fx.matches).length });
 
 /* THE TWO SINGLES. soccer_draft.draft() returns moons + anchor builders and nothing else --
@@ -94,6 +99,7 @@ const res = Draft.draft(players, CFG, { koOf: m => KO[m], slateMatches: Object.k
    without this its whole card is unrepresented on the board. Best free bat in each wave, never
    one already on a slip. */
 (function () {
+  if (res.topSingles) return;   /* NFLSINGLES-2026-09-27: topSinglesDraft minted both (LUNCH_LATE) */
   const used = new Set();
   res.tickets.forEach(t => t.legs.forEach(l => used.add(l.name)));
   const waveOf = m => KO[m];

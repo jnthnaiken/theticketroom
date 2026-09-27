@@ -25,7 +25,7 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 53 + LIVE_SEAM_COUNT   # 52 named + 1 payload + 3 live = 56
+EXPECT_SEAMS = 61 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09)
 
 def seams(payload_js):
@@ -80,6 +80,30 @@ def seams(payload_js):
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🏈'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🏈'")
     add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Paydirt',moon)")
+
+    # ---- SPECIALKINDS-2026-09-27: football's two specials render again ----------------------
+    # SPECIALS-2026-09-24 renamed baseball's lunch/nightcap to `dinger`/`jackpot`, and every
+    # place the page SHOWS a special now tests those kinds. Football still drafts `lunch`/`late`
+    # (its ledger rows are 🍱 Early / 🌃 Sunday Night), so from 09-24 on the Early Window and
+    # Sunday Night sections could never show their slips -- invisible until 09-27, the first
+    # multi-wave football slate since. DISPLAY seams only: gradeTicket()'s `jackpot -> null` and
+    # the `dinger` 0u stake are deliberately NOT re-pointed, so football's lunch/late keep
+    # grading as the 1u bets they are.
+    add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);",
+        "if(k==='lunch')return !t.final&&singleAlive(t);")
+    add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);",
+        "if(k==='late')return !t.final&&singleAlive(t);")
+    add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)",
+        "const dingerLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final)")
+    add('special-sec-late', "D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive)",
+        "D.tickets.filter(t=>t.kind==='late'&&!t.final).filter(singleAlive)")
+    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='lunch'?' lunchwide':''}")
+    add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}",
+        "${t.kind==='late'?' lunchwide nightcap':''}")
+    add('special-tile-kc', "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
+        "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
+    add('special-tile-cnt', "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '",
+        "var cnt=kc.lunch+' 🍱 \\u00b7 '+kc.late+' 🌃 \\u00b7 '")
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏈':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")

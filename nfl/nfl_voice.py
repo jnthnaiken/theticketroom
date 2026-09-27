@@ -131,7 +131,11 @@ _ROLE = {
 
 
 def _surname(name):
+    # NFLSINGLES-2026-09-27: drop a generational suffix first. "Chris Rodriguez Jr." wrote
+    # "Jr. is always in the mix" on the 09-27 draft.
     parts = [p for p in str(name).split() if p]
+    while len(parts) > 1 and re.fullmatch(r'(?i)(jr|sr|ii|iii|iv|v)\.?', parts[-1]):
+        parts.pop()
     return parts[-1] if parts else str(name)
 
 
