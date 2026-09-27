@@ -1,7 +1,7 @@
 {
   "date": "2026-09-27",
   "season": "2026",
-  "pulled_at": "2026-09-27T16:30:31Z",
+  "pulled_at": "2026-09-27T16:36:49Z",
   "games": [
     {
       "gamePk": 822679,
@@ -139,7 +139,7 @@
     },
     {
       "gamePk": 823490,
-      "status": "Pre-Game",
+      "status": "Delayed Start",
       "gameTime": "2026-09-27T17:05:00Z",
       "venue": "Yankee Stadium",
       "matchup": "BAL@NYY",
@@ -494,7 +494,7 @@
     },
     {
       "gamePk": 824948,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-27T19:05:00Z",
       "venue": "Sutter Health Park",
       "matchup": "HOU@ATH",
@@ -517,10 +517,56 @@
           "hr9": 1.41,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 703607,
+            "name": "Henry Bolte",
+            "iso": 0.129
+          },
+          {
+            "id": 671732,
+            "name": "Lawrence Butler",
+            "iso": 0.158
+          },
+          {
+            "id": 669127,
+            "name": "Shea Langeliers",
+            "iso": 0.213
+          },
+          {
+            "id": 680869,
+            "name": "Zack Gelof",
+            "iso": 0.22
+          },
+          {
+            "id": 643446,
+            "name": "Jeff McNeil",
+            "iso": 0.105
+          },
+          {
+            "id": 622268,
+            "name": "Donovan Walton",
+            "iso": 0.189
+          },
+          {
+            "id": 811965,
+            "name": "Joshua Kuroda-Grauer",
+            "iso": 0.149
+          },
+          {
+            "id": 666126,
+            "name": "Carlos Cortes",
+            "iso": 0.147
+          },
+          {
+            "id": 661531,
+            "name": "Brian Serven",
+            "iso": 0.206
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
@@ -543,11 +589,59 @@
       "away": {
         "abbrev": "LAD",
         "sp": {
-          "id": null,
-          "name": null
+          "id": 676263,
+          "name": "Jack Dreyer",
+          "hr9": 1.01,
+          "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.238
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.198
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.142
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.153
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.159
+          },
+          {
+            "id": 571970,
+            "name": "Max Muncy",
+            "iso": 0.238
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.189
+          },
+          {
+            "id": 676439,
+            "name": "Hunter Feduccia",
+            "iso": 0.094
+          },
+          {
+            "id": 669242,
+            "name": "Tommy Edman",
+            "iso": 0.135
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "SF",
@@ -767,8 +861,54 @@
           "hr9": 0.83,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 682657,
+            "name": "Angel Mart\u00ednez",
+            "iso": 0.213
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.164
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.157
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.194
+          },
+          {
+            "id": 681807,
+            "name": "David Fry",
+            "iso": 0.167
+          },
+          {
+            "id": 694197,
+            "name": "Angel Genao",
+            "iso": 0.082
+          },
+          {
+            "id": 595978,
+            "name": "Austin Hedges",
+            "iso": 0.131
+          },
+          {
+            "id": 682177,
+            "name": "Daniel Schneemann",
+            "iso": 0.113
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.104
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "KC",
