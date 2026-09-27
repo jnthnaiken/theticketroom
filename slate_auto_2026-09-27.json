@@ -1,7 +1,7 @@
 {
   "date": "2026-09-27",
   "season": "2026",
-  "pulled_at": "2026-09-27T22:12:11Z",
+  "pulled_at": "2026-09-27T22:16:48Z",
   "games": [
     {
       "gamePk": 822679,
@@ -406,7 +406,7 @@
     },
     {
       "gamePk": 824948,
-      "status": "Game Over",
+      "status": "Final",
       "gameTime": "2026-09-27T19:05:00Z",
       "venue": "Sutter Health Park",
       "matchup": "HOU@ATH",
@@ -509,7 +509,7 @@
           {
             "id": 811965,
             "name": "Joshua Kuroda-Grauer",
-            "iso": 0.143
+            "iso": 0.141
           },
           {
             "id": 666126,
@@ -1225,7 +1225,7 @@
           {
             "id": 687263,
             "name": "Zach Neto",
-            "iso": 0.198
+            "iso": 0.197
           },
           {
             "id": 685133,
@@ -1905,9 +1905,16 @@
       "lineups_posted": false,
       "weather": {
         "dome": false,
-        "note": "weather fetch failed"
+        "emoji": "\u26c5",
+        "cond": "wind in 13mph, 63\u00b0",
+        "lean": "Suppress",
+        "temp": 62.9,
+        "wind_mph": 15.4,
+        "wind_dir": 48,
+        "tail_mph": -12.9,
+        "precip": 43
       },
-      "wf": 1.0
+      "wf": 0.944
     }
   ]
 }
