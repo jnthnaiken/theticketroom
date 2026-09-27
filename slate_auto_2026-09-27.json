@@ -1,7 +1,7 @@
 {
   "date": "2026-09-27",
   "season": "2026",
-  "pulled_at": "2026-09-27T15:56:43Z",
+  "pulled_at": "2026-09-27T16:00:27Z",
   "games": [
     {
       "gamePk": 822679,
@@ -350,7 +350,7 @@
     },
     {
       "gamePk": 823164,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-27T19:05:00Z",
       "venue": "Oracle Park",
       "matchup": "LAD@SF",
@@ -371,10 +371,56 @@
           "hr9": 1.76,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 813841,
+            "name": "Jonah Cox",
+            "iso": 0.136
+          },
+          {
+            "id": 815589,
+            "name": "Bo Davidson",
+            "iso": 0.0
+          },
+          {
+            "id": 682674,
+            "name": "Victor Bericoto",
+            "iso": 0.182
+          },
+          {
+            "id": 691785,
+            "name": "Marcelo Mayer",
+            "iso": 0.088
+          },
+          {
+            "id": 694376,
+            "name": "Shay Whitcomb",
+            "iso": 0.131
+          },
+          {
+            "id": 701852,
+            "name": "Drew Cavanaugh",
+            "iso": 0.064
+          },
+          {
+            "id": 814154,
+            "name": "Scott Bandura",
+            "iso": 0.039
+          },
+          {
+            "id": 683766,
+            "name": "Christian Koss",
+            "iso": 0.091
+          },
+          {
+            "id": 687551,
+            "name": "Drew Gilbert",
+            "iso": 0.156
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u2600\ufe0f",
@@ -836,8 +882,54 @@
           "hr9": 1.85,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 664983,
+            "name": "Jake McCarthy",
+            "iso": 0.186
+          },
+          {
+            "id": 681393,
+            "name": "Connor Norby",
+            "iso": 0.134
+          },
+          {
+            "id": 696100,
+            "name": "Hunter Goodman",
+            "iso": 0.285
+          },
+          {
+            "id": 694249,
+            "name": "Cole Carrigg",
+            "iso": 0.191
+          },
+          {
+            "id": 691720,
+            "name": "Kyle Karros",
+            "iso": 0.162
+          },
+          {
+            "id": 691182,
+            "name": "Adael Amador",
+            "iso": 0.213
+          },
+          {
+            "id": 687859,
+            "name": "Troy Johnston",
+            "iso": 0.117
+          },
+          {
+            "id": 687597,
+            "name": "Jordan Beck",
+            "iso": 0.092
+          },
+          {
+            "id": 678662,
+            "name": "Ezequiel Tovar",
+            "iso": 0.134
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "CWS",
