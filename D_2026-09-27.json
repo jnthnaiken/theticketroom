@@ -50254,7 +50254,7 @@
     "precip": 0
    }
   },
-  "build": "9/27 1:58pm",
+  "build": "9/27 2:01pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -50496,6 +50496,9 @@
   },
   "date": "2026-09-27",
   "gs": {},
+  "gdelay": {
+   "1": 1
+  },
   "feedlag": [
    "1|NYY"
   ],
@@ -50533,38 +50536,38 @@
    "HOU": 16
   },
   "posted_at": {
-   "15|ATL": 1790526137,
+   "7|CIN": 1790523748,
+   "11|MIL": 1790525217,
+   "8|CWS": 1790523417,
+   "13|SEA": 1790529140,
+   "4|ATH": 1790531549,
+   "12|MIN": 1790528485,
+   "13|LAA": 1790529140,
    "14|AZ": 1790526672,
    "14|SD": 1790525217,
-   "5|PHI": 1790525217,
-   "12|TEX": 1790526137,
-   "2|NYM": 1790521987,
-   "9|PIT": 1790529757,
-   "4|ATH": 1790531549,
-   "6|SF": 1790524865,
-   "13|SEA": 1790529140,
-   "1|BAL": 1790529140,
-   "8|CWS": 1790523417,
-   "3|CHC": 1790525819,
-   "12|MIN": 1790528485,
-   "5|TB": 1790525819,
-   "3|BOS": 1790525819,
-   "10|KC": 1790523417,
-   "9|DET": 1790529457,
-   "4|HOU": 1790531549,
-   "10|CLE": 1790527029,
-   "6|LAD": 1790527029,
-   "7|TOR": 1790523417,
-   "11|MIL": 1790525217,
-   "11|STL": 1790524644,
-   "7|CIN": 1790523748,
-   "13|LAA": 1790529140,
    "15|MIA": 1790527975,
+   "10|KC": 1790523417,
+   "7|TOR": 1790523417,
+   "5|PHI": 1790525217,
+   "9|PIT": 1790529757,
+   "5|TB": 1790525819,
+   "1|BAL": 1790529140,
+   "4|HOU": 1790531549,
    "2|WSH": 1790518318,
+   "9|DET": 1790529457,
+   "11|STL": 1790524644,
+   "6|LAD": 1790527029,
+   "2|NYM": 1790521987,
+   "12|TEX": 1790526137,
+   "3|BOS": 1790525819,
+   "15|ATL": 1790526137,
+   "3|CHC": 1790525819,
+   "10|CLE": 1790527029,
+   "6|SF": 1790524865,
    "8|COL": 1790524865
   },
   "chalkstate": {
-   "b": "9/27 1:58pm",
+   "b": "9/27 2:01pm",
    "s": {}
   },
   "chalk": [],
@@ -50574,334 +50577,6 @@
   "tickets": 13
  },
  "tickets": [
-  {
-   "name": "Mach Breaker",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Jones projects out to 182, Arenado gets ideal loft (20\u00b0), Grichuk is teeing off (64% hard-hit), and Adell catches a small park boost.",
-   "players": [
-    {
-     "name": "Spencer Jones",
-     "team": "Yankees",
-     "total": 182.1,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 575,
-     "status": "projected"
-    },
-    {
-     "name": "Nolan Arenado",
-     "team": "Diamondbacks",
-     "total": 142.2,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "AZ@SD",
-     "gtime": "3:10 PM ET",
-     "game": 14,
-     "late": false,
-     "odds": 550,
-     "status": "confirmed"
-    },
-    {
-     "name": "Randal Grichuk",
-     "team": "White Sox",
-     "total": 138.5,
-     "aT": 100,
-     "wf": 0.963,
-     "gmatch": "COL@CWS",
-     "gtime": "3:10 PM ET",
-     "game": 8,
-     "late": false,
-     "odds": 350,
-     "status": "confirmed"
-    },
-    {
-     "name": "Jo Adell",
-     "team": "Guardians",
-     "total": 133.1,
-     "aT": 100,
-     "wf": 1.021,
-     "gmatch": "CLE@KC",
-     "gtime": "3:10 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 420,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Spencer Jones",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 486.8,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 2,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 3,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 102568,
-   "payout10": 10266.75
-  },
-  {
-   "name": "Punching Through the Ceiling",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Jones projects out to 182, Sheets gets ideal loft (20\u00b0), Arozarena is teeing off (58% hard-hit), and Conforto swings with usable power (51/100).",
-   "players": [
-    {
-     "name": "Spencer Jones",
-     "team": "Yankees",
-     "total": 182.1,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 575,
-     "status": "projected"
-    },
-    {
-     "name": "Gavin Sheets",
-     "team": "Padres",
-     "total": 141.3,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "AZ@SD",
-     "gtime": "3:10 PM ET",
-     "game": 14,
-     "late": false,
-     "odds": 750,
-     "status": "confirmed"
-    },
-    {
-     "name": "Randy Arozarena",
-     "team": "Mariners",
-     "total": 139.8,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "LAA@SEA",
-     "gtime": "3:10 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 500,
-     "status": "confirmed"
-    },
-    {
-     "name": "Michael Conforto",
-     "team": "Cubs",
-     "total": 128.4,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CHC@BOS",
-     "gtime": "3:05 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 601,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Spencer Jones",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 1022,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 1,
-    "dome": 2,
-    "neu": 0
-   },
-   "confleg": 3,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 241219,
-   "payout10": 24131.93
-  },
-  {
-   "name": "Riding the Jet Stream",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Rice projects out to 168, Yastrzemski gets ideal loft (23\u00b0), Torkelson reaches the home-run window at 12%, and Trout packs elite raw power.",
-   "players": [
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 168.3,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 475,
-     "status": "projected"
-    },
-    {
-     "name": "Mike Yastrzemski",
-     "team": "Braves",
-     "total": 142.8,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "ATL@MIA",
-     "gtime": "3:10 PM ET",
-     "game": 15,
-     "late": false,
-     "odds": 651,
-     "status": "confirmed"
-    },
-    {
-     "name": "Spencer Torkelson",
-     "team": "Tigers",
-     "total": 138.2,
-     "aT": 100,
-     "wf": 0.991,
-     "gmatch": "PIT@DET",
-     "gtime": "3:10 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 490,
-     "status": "confirmed"
-    },
-    {
-     "name": "Mike Trout",
-     "team": "Angels",
-     "total": 132.6,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "LAA@SEA",
-     "gtime": "3:10 PM ET",
-     "game": 13,
-     "late": false,
-     "odds": 410,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Ben Rice",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 595.4,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 2,
-    "neu": 1
-   },
-   "confleg": 2,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 129836,
-   "payout10": 12993.61
-  },
-  {
-   "name": "Upper Deck Bound",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Rice projects out to 168, Fry gets ideal loft (23\u00b0), Abreu reaches the home-run window at 13%, and McGonigle swings with usable power (54/100).",
-   "players": [
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 168.3,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 475,
-     "status": "projected"
-    },
-    {
-     "name": "David Fry",
-     "team": "Guardians",
-     "total": 143.2,
-     "aT": 100,
-     "wf": 1.021,
-     "gmatch": "CLE@KC",
-     "gtime": "3:10 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 630,
-     "status": "confirmed"
-    },
-    {
-     "name": "Wilyer Abreu",
-     "team": "Red Sox",
-     "total": 138.3,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CHC@BOS",
-     "gtime": "3:05 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 497,
-     "status": "confirmed"
-    },
-    {
-     "name": "Kevin McGonigle",
-     "team": "Tigers",
-     "total": 130.1,
-     "aT": 100,
-     "wf": 0.991,
-     "gmatch": "PIT@DET",
-     "gtime": "3:10 PM ET",
-     "game": 9,
-     "late": false,
-     "odds": 625,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Ben Rice",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 795.8,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 1,
-    "dome": 1,
-    "neu": 1
-   },
-   "confleg": 3,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 181578,
-   "payout10": 18167.83
-  },
   {
    "name": "Off the Scoreboard",
    "kind": "moon",
@@ -50985,250 +50660,10 @@
    "payout10": 15074.78
   },
   {
-   "name": "To the Heavens",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Pasquantino projects out to 147, Wells is teeing off (54% hard-hit), Bleday gets ideal loft (23\u00b0), and Nimmo swings with usable power (63/100).",
-   "players": [
-    {
-     "name": "Vinnie Pasquantino",
-     "team": "Royals",
-     "total": 147.4,
-     "aT": 100,
-     "wf": 1.021,
-     "gmatch": "CLE@KC",
-     "gtime": "3:10 PM ET",
-     "game": 10,
-     "late": false,
-     "odds": 630,
-     "status": "confirmed"
-    },
-    {
-     "name": "Austin Wells",
-     "team": "Yankees",
-     "total": 146.3,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 769,
-     "status": "projected"
-    },
-    {
-     "name": "JJ Bleday",
-     "team": "Reds",
-     "total": 137.6,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CIN@TOR",
-     "gtime": "3:07 PM ET",
-     "game": 7,
-     "late": false,
-     "odds": 490,
-     "status": "confirmed"
-    },
-    {
-     "name": "Brandon Nimmo",
-     "team": "Rangers",
-     "total": 132.6,
-     "aT": 100,
-     "wf": 1.005,
-     "gmatch": "TEX@MIN",
-     "gtime": "3:10 PM ET",
-     "game": 12,
-     "late": false,
-     "odds": 575,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Vinnie Pasquantino",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 1065,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 1,
-    "supp": 1,
-    "dome": 1,
-    "neu": 1
-   },
-   "confleg": 3,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 252538,
-   "payout10": 25263.79
-  },
-  {
-   "name": "Second Stage",
-   "kind": "moon",
-   "badge": "\ud83d\ude80",
-   "note": "Paredes projects out to 143, Alonso gets ideal loft (20\u00b0), Crow-Armstrong reaches the home-run window at 13%, and Machado catches a small park boost.",
-   "players": [
-    {
-     "name": "Isaac Paredes",
-     "team": "Astros",
-     "total": 142.9,
-     "aT": 100,
-     "wf": 1.074,
-     "gmatch": "HOU@ATH",
-     "gtime": "3:05 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 425,
-     "status": "confirmed"
-    },
-    {
-     "name": "Pete Alonso",
-     "team": "Orioles",
-     "total": 148,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 425,
-     "status": "confirmed"
-    },
-    {
-     "name": "Pete Crow-Armstrong",
-     "team": "Cubs",
-     "total": 136.2,
-     "aT": 100,
-     "wf": 1,
-     "gmatch": "CHC@BOS",
-     "gtime": "3:05 PM ET",
-     "game": 3,
-     "late": false,
-     "odds": 380,
-     "status": "confirmed"
-    },
-    {
-     "name": "Manny Machado",
-     "team": "Padres",
-     "total": 136.7,
-     "aT": 100,
-     "wf": 1.029,
-     "gmatch": "AZ@SD",
-     "gtime": "3:10 PM ET",
-     "game": 14,
-     "late": false,
-     "odds": 475,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 4,
-   "anchor": "Isaac Paredes",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": {
-    "struct": "by 2s, 3s & 4",
-    "risk": 2.75,
-    "maxprofit": 374.1,
-    "bytwos": false
-   },
-   "wxsum": {
-    "boost": 2,
-    "supp": 1,
-    "dome": 1,
-    "neu": 0
-   },
-   "confleg": 4,
-   "locked": true,
-   "priced": 4,
-   "parlay_am": 75972,
-   "payout10": 7607.25
-  },
-  {
-   "name": "Squared Away",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Spencer Jones is red-zone elite (16% of his contact), swings one of the biggest sticks on the board (100/100 power), the swing's trending up.",
-   "players": [
-    {
-     "name": "Spencer Jones",
-     "team": "Yankees",
-     "total": 182.1,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 575,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Spencer Jones",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 575,
-   "payout10": 67.5
-  },
-  {
-   "name": "Hold Fast",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Ben Rice lands 14% of his contact in the home-run window, puts the ball in the air on a homer plane (17\u00b0).",
-   "players": [
-    {
-     "name": "Ben Rice",
-     "team": "Yankees",
-     "total": 168.3,
-     "aT": 100,
-     "wf": 0.951,
-     "gmatch": "BAL@NYY",
-     "gtime": "1:05 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 475,
-     "status": "projected"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Ben Rice",
-   "lock": "1:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 0,
-    "supp": 1,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 0,
-   "locked": true,
-   "priced": 1,
-   "parlay_am": 475,
-   "payout10": 57.5
-  },
-  {
    "name": "Ground Tackle",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (59% hard-hit), tilts the bat for distance (18\u00b0), gets a touch of carry tonight.",
+   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (59% hard-hit), tilts the bat for distance (18\u00b0), has the yard tilting his way.",
    "players": [
     {
      "name": "Vinnie Pasquantino",
@@ -51263,10 +50698,253 @@
    "locked": true
   },
   {
-   "name": "Liftoff Sequence",
+   "name": "Second Stage",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Paredes projects out to 143, Mesa is teeing off (56% hard-hit), Langford gets ideal loft (22\u00b0), and Olson reaches the home-run window at 14%.",
+   "note": "Pasquantino projects out to 147, Henderson gets ideal loft (16\u00b0), McGonigle swings with usable power (54/100), and Moreno catches a small park boost.",
+   "players": [
+    {
+     "name": "Vinnie Pasquantino",
+     "team": "Royals",
+     "total": 147.4,
+     "aT": 100,
+     "wf": 1.021,
+     "gmatch": "CLE@KC",
+     "gtime": "3:10 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 630,
+     "status": "confirmed"
+    },
+    {
+     "name": "Gunnar Henderson",
+     "team": "Orioles",
+     "total": 131.2,
+     "aT": 100,
+     "wf": 0.951,
+     "gmatch": "BAL@NYY",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 575,
+     "status": "confirmed"
+    },
+    {
+     "name": "Kevin McGonigle",
+     "team": "Tigers",
+     "total": 130.1,
+     "aT": 100,
+     "wf": 0.991,
+     "gmatch": "PIT@DET",
+     "gtime": "3:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 625,
+     "status": "confirmed"
+    },
+    {
+     "name": "Gabriel Moreno",
+     "team": "Diamondbacks",
+     "total": 129.6,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "AZ@SD",
+     "gtime": "3:10 PM ET",
+     "game": 14,
+     "late": false,
+     "odds": 650,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Vinnie Pasquantino",
+   "lock": "1:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 1117.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 1,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 4,
+   "priced": 4,
+   "parlay_am": 267833,
+   "payout10": 26793.28
+  },
+  {
+   "name": "Mach Breaker",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Fry projects out to 143, Wells is teeing off (54% hard-hit), Sheets gets ideal loft (20\u00b0), and Nimmo swings with usable power (63/100).",
+   "players": [
+    {
+     "name": "David Fry",
+     "team": "Guardians",
+     "total": 143.2,
+     "aT": 100,
+     "wf": 1.021,
+     "gmatch": "CLE@KC",
+     "gtime": "3:10 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 630,
+     "status": "confirmed"
+    },
+    {
+     "name": "Austin Wells",
+     "team": "Yankees",
+     "total": 146.3,
+     "aT": 100,
+     "wf": 0.951,
+     "gmatch": "BAL@NYY",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 769,
+     "status": "projected"
+    },
+    {
+     "name": "Gavin Sheets",
+     "team": "Padres",
+     "total": 141.3,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "AZ@SD",
+     "gtime": "3:10 PM ET",
+     "game": 14,
+     "late": false,
+     "odds": 750,
+     "status": "confirmed"
+    },
+    {
+     "name": "Brandon Nimmo",
+     "team": "Rangers",
+     "total": 132.6,
+     "aT": 100,
+     "wf": 1.005,
+     "gmatch": "TEX@MIN",
+     "gtime": "3:10 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 575,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "David Fry",
+   "lock": "1:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 1469.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 1,
+    "dome": 0,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 4,
+   "parlay_am": 363870,
+   "payout10": 36396.98
+  },
+  {
+   "name": "Punching Through the Ceiling",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Fry projects out to 143, Yastrzemski gets ideal loft (23\u00b0), Arozarena is teeing off (58% hard-hit), and Bellinger brings fringe-average pop (42/100).",
+   "players": [
+    {
+     "name": "David Fry",
+     "team": "Guardians",
+     "total": 143.2,
+     "aT": 100,
+     "wf": 1.021,
+     "gmatch": "CLE@KC",
+     "gtime": "3:10 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 630,
+     "status": "confirmed"
+    },
+    {
+     "name": "Mike Yastrzemski",
+     "team": "Braves",
+     "total": 142.8,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "ATL@MIA",
+     "gtime": "3:10 PM ET",
+     "game": 15,
+     "late": false,
+     "odds": 651,
+     "status": "confirmed"
+    },
+    {
+     "name": "Randy Arozarena",
+     "team": "Mariners",
+     "total": 139.8,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "LAA@SEA",
+     "gtime": "3:10 PM ET",
+     "game": 13,
+     "late": false,
+     "odds": 500,
+     "status": "confirmed"
+    },
+    {
+     "name": "Cody Bellinger",
+     "team": "Yankees",
+     "total": 131.5,
+     "aT": 100,
+     "wf": 0.951,
+     "gmatch": "BAL@NYY",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 617,
+     "status": "projected"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "David Fry",
+   "lock": "1:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 999.9,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 1,
+    "dome": 2,
+    "neu": 0
+   },
+   "confleg": 3,
+   "priced": 4,
+   "parlay_am": 235749,
+   "payout10": 23584.85
+  },
+  {
+   "name": "Riding the Jet Stream",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Paredes projects out to 143, Mesa is teeing off (56% hard-hit), Grichuk gets ideal loft (21\u00b0), and Machado catches a small park boost.",
    "players": [
     {
      "name": "Isaac Paredes",
@@ -51295,16 +50973,97 @@
      "status": "confirmed"
     },
     {
-     "name": "Wyatt Langford",
-     "team": "Rangers",
-     "total": 136.1,
+     "name": "Randal Grichuk",
+     "team": "White Sox",
+     "total": 138.5,
      "aT": 100,
-     "wf": 1.005,
-     "gmatch": "TEX@MIN",
+     "wf": 0.963,
+     "gmatch": "COL@CWS",
      "gtime": "3:10 PM ET",
-     "game": 12,
+     "game": 8,
      "late": false,
-     "odds": 525,
+     "odds": 350,
+     "status": "confirmed"
+    },
+    {
+     "name": "Manny Machado",
+     "team": "Padres",
+     "total": 136.7,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "AZ@SD",
+     "gtime": "3:10 PM ET",
+     "game": 14,
+     "late": false,
+     "odds": 475,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Isaac Paredes",
+   "lock": "3:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 530.5,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 2,
+    "supp": 2,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 4,
+   "priced": 4,
+   "parlay_am": 112650,
+   "payout10": 11275.03
+  },
+  {
+   "name": "Upper Deck Bound",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Paredes projects out to 143, Alonso gets ideal loft (20\u00b0), Abreu reaches the home-run window at 13%, and Olson packs elite raw power, a 100/100 grade.",
+   "players": [
+    {
+     "name": "Isaac Paredes",
+     "team": "Astros",
+     "total": 142.9,
+     "aT": 100,
+     "wf": 1.074,
+     "gmatch": "HOU@ATH",
+     "gtime": "3:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 425,
+     "status": "confirmed"
+    },
+    {
+     "name": "Pete Alonso",
+     "team": "Orioles",
+     "total": 148,
+     "aT": 100,
+     "wf": 0.951,
+     "gmatch": "BAL@NYY",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 425,
+     "status": "confirmed"
+    },
+    {
+     "name": "Wilyer Abreu",
+     "team": "Red Sox",
+     "total": 138.3,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CHC@BOS",
+     "gtime": "3:05 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 497,
      "status": "confirmed"
     },
     {
@@ -51323,13 +51082,94 @@
    ],
    "nlegs": 4,
    "anchor": "Isaac Paredes",
-   "lock": "3:05 PM ET",
+   "lock": "1:05 PM ET",
    "has_late": false,
    "final": false,
    "rr": {
     "struct": "by 2s, 3s & 4",
     "risk": 2.75,
-    "maxprofit": 507.3,
+    "maxprofit": 325.4,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 1,
+    "dome": 2,
+    "neu": 0
+   },
+   "confleg": 4,
+   "priced": 4,
+   "parlay_am": 64074,
+   "payout10": 6417.38
+  },
+  {
+   "name": "To the Heavens",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Arenado projects out to 142, Jones is shaping home-run contact at 16%, Torkelson gets ideal loft (21\u00b0), and Crow-Armstrong packs elite raw power.",
+   "players": [
+    {
+     "name": "Nolan Arenado",
+     "team": "Diamondbacks",
+     "total": 142.2,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "AZ@SD",
+     "gtime": "3:10 PM ET",
+     "game": 14,
+     "late": false,
+     "odds": 550,
+     "status": "confirmed"
+    },
+    {
+     "name": "Spencer Jones",
+     "team": "Yankees",
+     "total": 182.1,
+     "aT": 100,
+     "wf": 0.951,
+     "gmatch": "BAL@NYY",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 575,
+     "status": "projected"
+    },
+    {
+     "name": "Spencer Torkelson",
+     "team": "Tigers",
+     "total": 138.2,
+     "aT": 100,
+     "wf": 0.991,
+     "gmatch": "PIT@DET",
+     "gtime": "3:10 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 490,
+     "status": "confirmed"
+    },
+    {
+     "name": "Pete Crow-Armstrong",
+     "team": "Cubs",
+     "total": 136.2,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CHC@BOS",
+     "gtime": "3:05 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 380,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Nolan Arenado",
+   "lock": "1:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 572.6,
     "bytwos": false
    },
    "wxsum": {
@@ -51338,16 +51178,90 @@
     "dome": 1,
     "neu": 1
    },
-   "confleg": 4,
+   "confleg": 3,
    "priced": 4,
-   "parlay_am": 106114,
-   "payout10": 10621.41
+   "parlay_am": 124154,
+   "payout10": 12425.4
   },
   {
    "name": "Deep Water Mark",
    "kind": "jackpot",
    "badge": "\ud83d\udca5",
-   "note": "Isaac Paredes gets a yard playing like a launchpad tonight, keeps the ball in the air (22\u00b0), is hitting line drives (50% hard-hit), and brings fringe-average pop (44/100).",
+   "note": "Isaac Paredes gets a park that's launching everything tonight, launches it at the right angle (22\u00b0), is hitting it hard enough (50% hard-hit).",
+   "players": [
+    {
+     "name": "Isaac Paredes",
+     "team": "Astros",
+     "total": 142.9,
+     "aT": 100,
+     "wf": 1.074,
+     "gmatch": "HOU@ATH",
+     "gtime": "3:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 425,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Isaac Paredes",
+   "lock": "3:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 425,
+   "payout10": 52.5
+  },
+  {
+   "name": "Squared Away",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "David Fry is crushing it to all fields (54% hard-hit), gets ideal loft (23\u00b0), catches a small park boost, swings with usable power (59/100).",
+   "players": [
+    {
+     "name": "David Fry",
+     "team": "Guardians",
+     "total": 143.2,
+     "aT": 100,
+     "wf": 1.021,
+     "gmatch": "CLE@KC",
+     "gtime": "3:10 PM ET",
+     "game": 10,
+     "late": false,
+     "odds": 630,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "David Fry",
+   "lock": "3:10 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 630,
+   "payout10": 73
+  },
+  {
+   "name": "Hold Fast",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Isaac Paredes has gusts carrying balls over the wall, keeps the ball in the air (22\u00b0), is barreling a fair share (50% hard-hit).",
    "players": [
     {
      "name": "Isaac Paredes",
@@ -51384,25 +51298,25 @@
    "name": "Calm Seas",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Isaac Paredes swings with the wind at his back, swings with natural lift (22\u00b0), is squaring up a good chunk (50% hard-hit).",
+   "note": "Nolan Arenado is lifting everything (20\u00b0), plays in a slightly friendly yard, is driving balls into the gaps (46% hard-hit).",
    "players": [
     {
-     "name": "Isaac Paredes",
-     "team": "Astros",
-     "total": 142.9,
+     "name": "Nolan Arenado",
+     "team": "Diamondbacks",
+     "total": 142.2,
      "aT": 100,
-     "wf": 1.074,
-     "gmatch": "HOU@ATH",
-     "gtime": "3:05 PM ET",
-     "game": 4,
+     "wf": 1.029,
+     "gmatch": "AZ@SD",
+     "gtime": "3:10 PM ET",
+     "game": 14,
      "late": false,
-     "odds": 425,
+     "odds": 550,
      "status": "confirmed"
     }
    ],
    "nlegs": 1,
-   "anchor": "Isaac Paredes",
-   "lock": "3:05 PM ET",
+   "anchor": "Nolan Arenado",
+   "lock": "3:10 PM ET",
    "has_late": false,
    "final": false,
    "rr": null,
@@ -51414,17 +51328,118 @@
    },
    "confleg": 1,
    "priced": 1,
-   "parlay_am": 425,
-   "payout10": 52.5
+   "parlay_am": 550,
+   "payout10": 65
+  },
+  {
+   "name": "Liftoff Sequence",
+   "kind": "moon",
+   "badge": "\ud83d\ude80",
+   "note": "Arenado projects out to 142, Rice gets ideal loft (17\u00b0), Bleday swings with usable power (58/100), and Langford is teeing off (54% hard-hit).",
+   "players": [
+    {
+     "name": "Nolan Arenado",
+     "team": "Diamondbacks",
+     "total": 142.2,
+     "aT": 100,
+     "wf": 1.029,
+     "gmatch": "AZ@SD",
+     "gtime": "3:10 PM ET",
+     "game": 14,
+     "late": false,
+     "odds": 550,
+     "status": "confirmed"
+    },
+    {
+     "name": "Ben Rice",
+     "team": "Yankees",
+     "total": 168.3,
+     "aT": 100,
+     "wf": 0.951,
+     "gmatch": "BAL@NYY",
+     "gtime": "1:05 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 475,
+     "status": "projected"
+    },
+    {
+     "name": "JJ Bleday",
+     "team": "Reds",
+     "total": 137.6,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "CIN@TOR",
+     "gtime": "3:07 PM ET",
+     "game": 7,
+     "late": false,
+     "odds": 490,
+     "status": "confirmed"
+    },
+    {
+     "name": "Wyatt Langford",
+     "team": "Rangers",
+     "total": 136.1,
+     "aT": 100,
+     "wf": 1.005,
+     "gmatch": "TEX@MIN",
+     "gtime": "3:10 PM ET",
+     "game": 12,
+     "late": false,
+     "odds": 525,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Nolan Arenado",
+   "lock": "1:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 2.75,
+    "maxprofit": 624,
+    "bytwos": false
+   },
+   "wxsum": {
+    "boost": 1,
+    "supp": 1,
+    "dome": 1,
+    "neu": 1
+   },
+   "confleg": 3,
+   "priced": 4,
+   "parlay_am": 137720,
+   "payout10": 13782.03
   }
  ],
  "pool": [
+  "Spencer Jones",
+  "Ben Rice",
   "Victor Mesa",
+  "Pete Alonso",
+  "Austin Wells",
+  "David Fry",
+  "Isaac Paredes",
+  "Mike Yastrzemski",
+  "Nolan Arenado",
+  "Gavin Sheets",
+  "Randy Arozarena",
+  "Randal Grichuk",
+  "Wilyer Abreu",
+  "Spencer Torkelson",
+  "JJ Bleday",
+  "Manny Machado",
+  "Pete Crow-Armstrong",
   "Wyatt Langford",
   "Matt Olson",
+  "Jo Adell",
+  "Brandon Nimmo",
   "Cody Bellinger",
   "Gunnar Henderson",
+  "Kevin McGonigle",
   "Gabriel Moreno",
+  "Michael Conforto",
   "Cal Raleigh",
   "Salvador Perez",
   "Bryce Harper",
