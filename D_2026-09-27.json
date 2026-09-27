@@ -50254,7 +50254,7 @@
     "precip": 0
    }
   },
-  "build": "9/27 3:07pm",
+  "build": "9/27 3:11pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -50536,38 +50536,38 @@
    "HOU": 16
   },
   "posted_at": {
-   "7|TOR": 1790523417,
-   "9|DET": 1790529457,
+   "12|MIN": 1790528485,
+   "5|PHI": 1790525217,
+   "9|PIT": 1790529757,
+   "13|LAA": 1790529140,
+   "11|MIL": 1790525217,
    "8|COL": 1790524865,
    "3|CHC": 1790525819,
-   "6|SF": 1790524865,
-   "11|MIL": 1790525217,
-   "14|SD": 1790525217,
    "12|TEX": 1790526137,
-   "7|CIN": 1790523748,
-   "13|LAA": 1790529140,
-   "2|NYM": 1790521987,
-   "11|STL": 1790524644,
-   "4|ATH": 1790531549,
-   "8|CWS": 1790523417,
+   "4|HOU": 1790531549,
+   "10|KC": 1790523417,
    "3|BOS": 1790525819,
-   "6|LAD": 1790527029,
-   "12|MIN": 1790528485,
-   "15|ATL": 1790526137,
-   "9|PIT": 1790529757,
-   "5|TB": 1790525819,
-   "2|WSH": 1790518318,
    "10|CLE": 1790527029,
    "15|MIA": 1790527975,
-   "13|SEA": 1790529140,
-   "5|PHI": 1790525217,
+   "8|CWS": 1790523417,
+   "2|NYM": 1790521987,
+   "5|TB": 1790525819,
+   "15|ATL": 1790526137,
+   "14|AZ": 1790526672,
    "1|BAL": 1790529140,
-   "10|KC": 1790523417,
-   "4|HOU": 1790531549,
-   "14|AZ": 1790526672
+   "6|LAD": 1790527029,
+   "7|CIN": 1790523748,
+   "13|SEA": 1790529140,
+   "4|ATH": 1790531549,
+   "6|SF": 1790524865,
+   "11|STL": 1790524644,
+   "2|WSH": 1790518318,
+   "14|SD": 1790525217,
+   "9|DET": 1790529457,
+   "7|TOR": 1790523417
   },
   "chalkstate": {
-   "b": "9/27 3:07pm",
+   "b": "9/27 3:11pm",
    "s": {}
   },
   "chalk": [],
@@ -50663,7 +50663,7 @@
    "name": "Ground Tackle",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (59% hard-hit), tilts the bat for distance (18\u00b0), has the yard tilting his way.",
+   "note": "Vinnie Pasquantino is impacting the ball at an elite clip (59% hard-hit), tilts the bat for distance (18\u00b0), swings a heavy stick (73/100 power).",
    "players": [
     {
      "name": "Vinnie Pasquantino",
@@ -50686,10 +50686,10 @@
    "final": false,
    "rr": null,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
    "confleg": 1,
    "priced": 1,
@@ -50701,7 +50701,7 @@
    "name": "Squared Away",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "David Fry is crushing it to all fields (54% hard-hit), stays in the launch zone (23\u00b0), catches a small park boost.",
+   "note": "David Fry is crushing it to all fields (54% hard-hit), gets ideal loft (23\u00b0), swings with usable power (59/100), recent form points up.",
    "players": [
     {
      "name": "David Fry",
@@ -50724,10 +50724,10 @@
    "final": false,
    "rr": null,
    "wxsum": {
-    "boost": 1,
+    "boost": 0,
     "supp": 0,
     "dome": 0,
-    "neu": 0
+    "neu": 1
    },
    "confleg": 1,
    "priced": 1,
@@ -50739,7 +50739,7 @@
    "name": "Calm Seas",
    "kind": "builder",
    "badge": "\u2693\ufe0f",
-   "note": "Nolan Arenado puts the ball in the air on a homer plane (20\u00b0), plays in a slightly friendly yard, is driving balls into the gaps (46% hard-hit).",
+   "note": "Nolan Arenado is lifting everything (20\u00b0), plays in a slightly friendly yard, is driving balls into the gaps (46% hard-hit).",
    "players": [
     {
      "name": "Nolan Arenado",
@@ -50771,6 +50771,82 @@
    "priced": 1,
    "parlay_am": 550,
    "payout10": 65,
+   "locked": true
+  },
+  {
+   "name": "Deep Water Mark",
+   "kind": "jackpot",
+   "badge": "\ud83d\udca5",
+   "note": "Isaac Paredes gets a yard playing like a launchpad tonight, hits it on the perfect plane (22\u00b0), is driving the ball (50% hard-hit), and gets there more on timing than thump (44/100 power).",
+   "players": [
+    {
+     "name": "Isaac Paredes",
+     "team": "Astros",
+     "total": 146,
+     "aT": 100,
+     "wf": 1.077,
+     "gmatch": "HOU@ATH",
+     "gtime": "3:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 425,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Isaac Paredes",
+   "lock": "3:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 425,
+   "payout10": 52.5,
+   "locked": true
+  },
+  {
+   "name": "Hold Fast",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Isaac Paredes has the jet stream pushing toward the seats, launches it at the right angle (22\u00b0), is putting good wood on it (50% hard-hit).",
+   "players": [
+    {
+     "name": "Isaac Paredes",
+     "team": "Astros",
+     "total": 146,
+     "aT": 100,
+     "wf": 1.077,
+     "gmatch": "HOU@ATH",
+     "gtime": "3:05 PM ET",
+     "game": 4,
+     "late": false,
+     "odds": 425,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Isaac Paredes",
+   "lock": "3:05 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "priced": 1,
+   "parlay_am": 425,
+   "payout10": 52.5,
    "locked": true
   },
   {
@@ -50853,82 +50929,6 @@
    "priced": 4,
    "parlay_am": 250328,
    "payout10": 25042.79
-  },
-  {
-   "name": "Deep Water Mark",
-   "kind": "jackpot",
-   "badge": "\ud83d\udca5",
-   "note": "Isaac Paredes has the jet stream pushing toward the seats, hits it on the perfect plane (22\u00b0), is putting good wood on it (50% hard-hit), and plays a touch under the power tier (44/100).",
-   "players": [
-    {
-     "name": "Isaac Paredes",
-     "team": "Astros",
-     "total": 146,
-     "aT": 100,
-     "wf": 1.077,
-     "gmatch": "HOU@ATH",
-     "gtime": "3:05 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 425,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Isaac Paredes",
-   "lock": "3:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 425,
-   "payout10": 52.5,
-   "locked": true
-  },
-  {
-   "name": "Hold Fast",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Isaac Paredes swings with the wind at his back, launches it at the right angle (22\u00b0), is centering the ball (50% hard-hit).",
-   "players": [
-    {
-     "name": "Isaac Paredes",
-     "team": "Astros",
-     "total": 146,
-     "aT": 100,
-     "wf": 1.077,
-     "gmatch": "HOU@ATH",
-     "gtime": "3:05 PM ET",
-     "game": 4,
-     "late": false,
-     "odds": 425,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Isaac Paredes",
-   "lock": "3:05 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1,
-   "priced": 1,
-   "parlay_am": 425,
-   "payout10": 52.5,
-   "locked": true
   },
   {
    "name": "Riding the Jet Stream",
@@ -51097,7 +51097,7 @@
    "name": "Mach Breaker",
    "kind": "moon",
    "badge": "\ud83d\ude80",
-   "note": "Fry projects out to 144, Wells battles heavy, homer-suppressing air, Sheets is lifting everything (20\u00b0), and Nimmo is hitting bullets (58% hard-hit).",
+   "note": "Fry projects out to 144, Wells fights a ball-killing yard, Sheets gets ideal loft (20\u00b0), and Nimmo is teeing off (58% hard-hit).",
    "players": [
     {
      "name": "David Fry",
