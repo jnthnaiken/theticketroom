@@ -72,7 +72,9 @@ jobs:
         with: { node-version: '20' }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - run: pip install --quiet pandas numpy scikit-learn
+      # VALUESINGLES-2026-09-27: pyarrow reads the nflverse parquet; scikit-learn is PINNED to the version
+      # hist_model.joblib was saved with (a pickled estimator does not load across minor versions).
+      - run: pip install --quiet pandas numpy pyarrow scikit-learn==1.8.0
 
       # --------------------------------------------------------------------------------------
       # 🚨 SETTLENFL-2026-09-10 -- GRADE FINISHED NIGHTS BEFORE ANYTHING ELSE.
@@ -201,6 +203,7 @@ jobs:
           # showing a failed "Score, draft, payload, fork". (The python side is a glob --
           # `cp nfl_*.py` -- which is why nfl_sig.py and nfl_payload.py never hit this.)
           cp nfl_draft_cli.js nfl_rebuild_cli.js nfl_cfg.js nfl_live.js depth_prior.csv depth_model.json nfl_model.json .work/
+          cp hist_model.joblib .work/             # VALUESINGLES-2026-09-27: the 7-season history model
           cp ../soccer/soccer_draft.js .work/     # ONE DRAFT, THREE SPORTS
           cp ../index.html .work/index_live.html
           # OWNLEDGER-2026-09-04. THE FOOTBALL LEDGER, and never `../season.json`, which is
@@ -223,6 +226,13 @@ jobs:
           # INJOUT-2026-09-11: a man ESPN lists as Out / IR / Suspended is `out` before the draft
           # sees him (Brock Bowers rode a live moon two days after being ruled Out). Never fatal.
           python3 nfl_injuries.py scored.json fixtures.json || echo "::warning::nfl_injuries.py failed -- drafting without the injury report"
+          # VALUESINGLES-2026-09-27 (claude/football-layer-2026-09-27.md): average the board's model with the
+          # 7-season history model and mark every priced man the value rule rejects `novalue`; the draft
+          # (VALUE_ONLY) never picks one. Never fatal -- on any failure the rule runs on p_model alone.
+          # The history probabilities are cached beside prices.json on the first build of a slate.
+          python3 nfl_value.py scored.json fixtures.json --date ${{ steps.slate.outputs.date }} \
+                  --cache ../slates/${{ steps.slate.outputs.date }}/p_hist.json \
+            || echo "::warning::nfl_value.py failed -- drafting on the previous ranking"
 
           # ------------------------------------------------------------------------------
           # 🚨 A SAME-SLATE REBUILD NEVER RE-DRAFTS -- KICKLOCK-2026-09-20.
@@ -313,7 +323,8 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add nfl/index.html nfl/nfl_D.json nfl/nfl_season.json nfl/boards/ \
-                  nfl/slates/${{ steps.slate.outputs.date }}/prices.json
+                  nfl/slates/${{ steps.slate.outputs.date }}/prices.json \
+                  $(ls nfl/slates/${{ steps.slate.outputs.date }}/p_hist.json 2>/dev/null)
           git diff --cached --quiet && { echo "nothing staged"; exit 0; }
           git commit -m "NFL board ${{ steps.slate.outputs.date }} ($(date -u +%H:%MZ))"
           for i in 1 2 3; do
