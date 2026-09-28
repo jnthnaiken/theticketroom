@@ -112,6 +112,10 @@
   };
 
   function priceOk(p, cfg) {
+    /* VALUESINGLES-2026-09-27: football's value rule (nfl_value.py) marks every priced man it rejects
+       `novalue`; with cfg.VALUE_ONLY the draft, the redraft and every repair door refuse him here, at
+       the same single gate as the price band. Soccer never sets VALUE_ONLY, so this line is inert there. */
+    if (cfg && cfg.VALUE_ONLY && p && p.novalue) return false;
     if (!cfg || (cfg.MIN_ODDS == null && cfg.MAX_ODDS == null)) return true;
     if (!p || p.odds == null || p.odds === '') return false;
     var o = Number(p.odds);

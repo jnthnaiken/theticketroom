@@ -120,7 +120,8 @@ console.log('\n=== 6. NFL is untouched ===');
   /* NFLSINGLES-2026-09-27: football moved to a top-N singles board by the owner's call ("yes and ev").
      The check is still that football's value is PINNED in its own config, not inherited from soccer's
      DEFAULTS -- so a soccer change to TOP_SINGLES can never silently reshape the football room. */
-  chk('nfl_cfg pins its own TOP_SINGLES (8, no per-game cap)', CFG.TOP_SINGLES === 8 && CFG.TOP_PER_MATCH === Infinity);   /* NOGAMECAP-2026-09-27 */
+  chk('nfl_cfg pins its own board: value singles (TOP_SINGLES 40 ceiling, VALUE_ONLY, no per-game cap)', CFG.TOP_SINGLES === 40 && CFG.VALUE_ONLY === true && CFG.TOP_PER_MATCH === Infinity);   /* NOGAMECAP + VALUESINGLES-2026-09-27 */
+  chk('soccer never runs the value gate', !SD.DEFAULTS.VALUE_ONLY);
   const scored = J('fixtures/2026-08-26/scored.json');
   const r = SD.draft(scored, { TOP_SINGLES: 0, MIN_ODDS: null }, {});
   chk('with TOP_SINGLES 0 the engine drafts screamers', r.tickets.some(t => t.kind === 'moon'));
