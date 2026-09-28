@@ -21,7 +21,15 @@ function applyVocabulary(Draft) {
                       'Empty Backfield', 'The Rollout'];
   Draft.NAMES.builder = ['The Workhorse', 'Bell Cow', 'Goal Line Back', 'Red Zone Target',
                          'Short Yardage', 'The Checkdown', 'First Read', 'Move the Chains',
-                         'Inside the Ten', 'The Sneak'];
+                         'Inside the Ten', 'The Sneak',
+                         /* VALUESINGLES-2026-09-27: the value board can run 15+ singles on a Sunday and a
+                            ticket name must never repeat on one board. */
+                         'Hurry Up', 'Two Minute Drill', 'Audible', 'Hard Count', 'Quick Slant',
+                         'Screen Pass', 'Wheel Route', 'Seam Route', 'Post Corner', 'Back Shoulder',
+                         'Toe Tap', 'Stiff Arm', 'Spin Move', 'Jump Ball', 'Hail Mary', 'Flea Flicker',
+                         'Trick Play', 'Power Run', 'Counter Trey', 'Toss Sweep', 'Jet Motion', 'Bootleg',
+                         'Pistol', 'Shotgun', 'Under Center', 'Play Clock', 'Coin Toss', 'Kickoff',
+                         'Onside', 'Fourth and Inches', 'Pay Dirt', 'End Zone Dance'];
   Draft.NAMES.lunch = ['The One O’Clock', 'Early Window', 'First Wave', 'Sunday Opener'];
   Draft.NAMES.late  = ['Sunday Night', 'Under Lights', 'Prime Time', 'The Late Window'];
   Draft.BADGE.moon = '🏈';        /* 🏈 -- the soccer fork re-skins 🚀 -> 💥, same seam */
@@ -60,7 +68,16 @@ const CFG = {
      at most TOP_PER_MATCH per game, 1u each, plus one Early Window and one Sunday Night single
      (LUNCH_LATE; `late` = the last kickoff wave). 0 restores anchors + moons exactly.
      Was: "TOP8-2026-09-17: the top-N singles board is SOCCER only; football keeps anchors + moons." */
-  TOP_SINGLES: 8,
+  TOP_SINGLES: 40,
+  /* VALUESINGLES-2026-09-27 (claude/football-layer-2026-09-27.md). Owner: "safe picks + a few long
+     shots". The board no longer takes the N strongest; it takes EVERY priced man nfl_value.py passes:
+     mean(p_model, 7-season history model) x decimal > 1, at +400 or shorter (any position, no QBs), plus
+     the best 4 such WR/TE longer than +400. Never a longshot RB -- the book prices RBs/QBs 20-40% above
+     what they score. Measured on every price the board held (9 slates): <=+400 value +13.7u on 68
+     bets; the favourites board it replaces ~-5%. TOP_SINGLES is now only a ceiling (was 8). If
+     nfl_value.py did not run (no `novalue` field on any row) both CLIs fall back to TOP_SINGLES 8,
+     VALUE_ONLY off, and say so. */
+  VALUE_ONLY: true,
   /* NOGAMECAP-2026-09-27. Owner: "we dont need a 2 per game rule" -> "remove both" (Sunday slates AND
      one-game nights). Measured first, same 8 graded nights, top 8 EV singles: with the cap +6.8u on 28
      bets, without it +1.8u on 59. On the two Sundays no cap was better (+14.1u vs +9.1u, all of it

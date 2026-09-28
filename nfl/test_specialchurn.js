@@ -31,6 +31,10 @@
 const fs = require('fs');
 const path = require('path');
 const SD = require(path.join(__dirname, '..', 'soccer', 'soccer_draft.js'));
+/* VALUESINGLES-2026-09-27: this test is about SPECIALS churn on a top-N board, not the value rule; the
+   value board takes every value pick as a builder (TOP_SINGLES is a 40 ceiling), which leaves the
+   specials empty by design. Pin the top-8 shape this test was written against. */
+process.env.NFL_CFG_OVERRIDE = process.env.NFL_CFG_OVERRIDE || JSON.stringify({ TOP_SINGLES: 8, VALUE_ONLY: false });
 const { CFG, applyVocabulary } = require(path.join(__dirname, 'nfl_cfg.js'));
 applyVocabulary(SD);
 

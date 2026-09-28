@@ -66,6 +66,12 @@ const players = JSON.parse(fs.readFileSync(scoredPath, 'utf8'));
   }
 }
 const fx = JSON.parse(fs.readFileSync(fixturesPath, 'utf8'));
+/* VALUESINGLES-2026-09-27: no `novalue` on any row means nfl_value.py did not run -- fall back to the
+   old top-8 board rather than drafting TOP_SINGLES (40) off the blend. */
+if (CFG.VALUE_ONLY && !players.some(p => p && Object.prototype.hasOwnProperty.call(p, 'novalue'))) {
+  console.log('::warning::VALUESINGLES: scored.json carries no value marks -- falling back to top 8 by blend');
+  CFG.VALUE_ONLY = false; CFG.TOP_SINGLES = 8;
+}
 
 /* Kickoff minutes per MATCH.
    ⚠️ THE FIELD MUST BE `kickoff`. spanOk() reads `l.kickoff` and nothing else. The first cut set

@@ -174,6 +174,12 @@ const koOf = g => { const v = D.meta.ko[String(g)]; return v == null ? null : Nu
  */
 const byName = {};
 scored.forEach(p => { byName[p.name] = p; });
+/* VALUESINGLES-2026-09-27: no `novalue` on any row means nfl_value.py did not run -- fall back to the
+   old top-8 board rather than drafting TOP_SINGLES (40) off the blend. */
+if (CFG.VALUE_ONLY && !scored.some(p => p && Object.prototype.hasOwnProperty.call(p, 'novalue'))) {
+  console.log('::warning::VALUESINGLES: scored.json carries no value marks -- falling back to top 8 by blend');
+  CFG.VALUE_ONLY = false; CFG.TOP_SINGLES = 8;
+}
 
 const round1 = v => Math.round((v || 0) * 10) / 10;
 /* SCORECROSS-2026-09-21. `odds` is deliberately absent from this list and must stay absent. */
@@ -192,6 +198,8 @@ Object.keys(D.players).forEach(n => {
   const was = round1(p.TOTAL);
   MODEL_FIELDS.forEach(k => { if (s[k] != null) p[k] = s[k]; });
   if (s.void != null) p.void = !!s.void;
+  /* VALUESINGLES-2026-09-27: the value mark is re-read every build, like the model fields. */
+  if (Object.prototype.hasOwnProperty.call(s, 'novalue')) { p.novalue = !!s.novalue; p.p_value = s.p_value; p.p_hist = s.p_hist; p.value_kind = s.value_kind; }
   const moved = Math.abs(round1(p.TOTAL) - was);
   if (moved > 0.05) { rescored++; if (moved > biggest) biggest = moved; }
 });

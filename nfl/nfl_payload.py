@@ -171,6 +171,9 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             basis=s.get('basis'), basis_games=s.get('basis_games'),
             mkt_z=None, edge_z=None, blend=s['blend'],
             baseTotal=s['TOTAL'], TOTAL=s['TOTAL'])
+        if 'novalue' in s:   # VALUESINGLES-2026-09-27: carried so the page-side redraft sees the same gate
+            P[s['name']].update(novalue=bool(s['novalue']), p_value=s.get('p_value'), p_hist=s.get('p_hist'),
+                                value_kind=s.get('value_kind'))
 
     T = []
     for t in tickets:
