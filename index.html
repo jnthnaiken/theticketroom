@@ -1149,6 +1149,13 @@ function drawTickets(){
  let html='';
  if(ty==='all'&&(dingerLive.length||!q)){html+='<div class="tsec lunch"><span class="tsech">Daily Dinger</span><span class="tline"></span></div>'+(dingerLive.length?dingerLive.map(ticketCard).join(''):closed);}
  if(ty==='all'&&!q)html+='<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>';
+ /* JACKSEC-2026-09-29 -- owner: "turn the longball jackpot drop down into its own section like daily dinger. people are
+    missing it". On the MLB board the collapsed <details> becomes an open section header, same shape as Daily Dinger, and
+    #pool (still filled by drawPool) uses display:contents so the jackpot card sits in the ticket grid like any other.
+    The line above is left byte-identical because the soccer and football forks seam on it (their Nightcap); this rewrite
+    is a regex that cannot match their replaced text, so those pages are untouched. */
+ html=html.replace(/<details class="pool"><summary><span class="tag">Free play<\/span> Long Ball Jackpot[\s\S]*?<\/details>/,
+   '<div class="tsec big"><span class="tsech">Long Ball Jackpot</span><span class="tline"></span></div><div id="pool" style="display:contents"></div>');
  const fam=D.tickets.filter(t=>t.kind==='family').filter(match);   /* carried locked dingers only; sec() hides an empty list */
  if(ty==='all'||ty==='builder')html+=sec('sug','Anchors',builder);
  if(ty==='all'||ty==='moon')html+=sec('lot','Moonshots',moon);
