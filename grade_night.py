@@ -88,7 +88,7 @@ def results_for(date):
     return homered, played, all_final, ppd
 
 # ---------- grade one ticket (faithful port of the board's gradeTicket) ----------
-FREE_KINDS = ('dinger', 'jackpot')   # SPECIALS-2026-09-24
+FREE_KINDS = ('dinger',)   # SPECIALS-2026-09-24; JACKPOTHR-2026-09-29 took the Jackpot out -- see grade_ticket
 
 
 def grade_ticket(t, homered, played, ppd_codes, stake, date=None):
@@ -194,12 +194,10 @@ def grade_ticket(t, homered, played, ppd_codes, stake, date=None):
         dd = 1.0
         for l, _ in kept: dd *= dec(l['odds'])
         pay10 = 10 * dd
-    if t.get('kind') == 'jackpot':
-        # Unknown stays UNGRADED rather than scoring a loss: a blocked fetch or a day Savant has
-        # not published is not evidence our man missed. fold() skips won=None, so the slip simply
-        # waits for a later run instead of poisoning the record.
-        w = longball_grade.is_winner(legs[0].get('name'), date) if date else None
-        return {'kind': t['kind'], 'stake': 0.0, 'net': 0.0, 'won': w}
+    # JACKPOTHR-2026-09-29 -- owner: "its a bonus on top of your normal home run bet so it still cashes no
+    # matter what. you just split the bonus pot with everyone else who picked him if he ends up being the
+    # longest also". So the Jackpot is a normal 1u home-run single and grades exactly like one; the
+    # longest-homer question is only the BONUS, tracked beside it in season['jackpot_bonus'] (main()).
     if cashed:
         return {'kind': t['kind'], 'stake': stake, 'net': round(stake*(pay10/10.0 - 1), 2), 'won': True}
     return {'kind': t['kind'], 'stake': stake, 'net': -float(stake), 'won': False}
@@ -242,12 +240,13 @@ def main():
         _w = longball_grade.is_winner(_p.get('name'), _p.get('date'))
         if _w is None:
             _still.append(_p); continue
-        _c = season.setdefault('cats', {}).setdefault(_p.get('kind', 'jackpot'),
-                                                      {'graded': 0, 'won': 0, 'units': 0.0, 'staked': 0.0})
+        # JACKPOTHR-2026-09-29: what waits here now is only the BONUS (was his the day's longest homer);
+        # the home-run bet itself was graded with the night.
+        _c = season.setdefault('jackpot_bonus', {'graded': 0, 'won': 0})
         _c['graded'] += 1
         if _w: _c['won'] += 1
-        folded.append('%s jackpot' % _p.get('date'))
-        print(f"{_p.get('date')}: jackpot {_p.get('name')} -> {'WON' if _w else 'lost'} (resolved late)")
+        folded.append('%s jackpot bonus' % _p.get('date'))
+        print(f"{_p.get('date')}: jackpot bonus {_p.get('name')} -> {'LONGEST' if _w else 'not the longest'} (resolved late)")
     if _pend: season['pending_free'] = _still
     for date in nights:
         if date in graded:                     continue
@@ -263,10 +262,20 @@ def main():
         # shipped tickets directly -- matches how the prior nights were graded.
         gr = [grade_ticket(t, homered, played, ppd, stake, date) for t in D.get('tickets', [])]
         net = fold(season, date, gr)
-        for _t, _g in zip(D.get('tickets', []), gr):     # JACKPOTRETRY: park the unknown ones
-            if _g and _g.get('kind') == 'jackpot' and _g.get('won') is None and _t.get('players'):
-                season.setdefault('pending_free', []).append(
-                    {'date': date, 'kind': 'jackpot', 'name': _t['players'][0].get('name')})
+        for _t, _g in zip(D.get('tickets', []), gr):     # JACKPOTHR: the bonus -- longest homer of the day
+            if not (_g and _g.get('kind') == 'jackpot' and _t.get('players')):
+                continue
+            _nm = _t['players'][0].get('name')
+            if not _g.get('won'):                          # no homer (or void) -> cannot be the longest
+                if _g.get('won') is False:
+                    _b = season.setdefault('jackpot_bonus', {'graded': 0, 'won': 0}); _b['graded'] += 1
+                continue
+            _w = longball_grade.is_winner(_nm, date)
+            if _w is None:                                 # Savant not posted yet -> ask again next run
+                season.setdefault('pending_free', []).append({'date': date, 'kind': 'jackpot', 'name': _nm})
+            else:
+                _b = season.setdefault('jackpot_bonus', {'graded': 0, 'won': 0}); _b['graded'] += 1
+                if _w: _b['won'] += 1
         # calibration logging is handled SEPARATELY by `calibrate.py` (idempotent, self-healing
         # backfill run as its own pipeline step), so grade_night never silently drops rows.
         cashed = sum(1 for g in gr if g and g.get('won'))
