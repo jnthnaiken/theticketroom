@@ -15342,7 +15342,7 @@
     "precip": 0
    }
   },
-  "build": "9/29 1:56pm",
+  "build": "9/29 2:00pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -15630,13 +15630,13 @@
    "HOU": 16
   },
   "posted_at": {
-   "2|CWS": 1790701883,
-   "1|ATL": 0,
    "1|PHI": 1790693788,
-   "2|HOU": 1790701883
+   "1|ATL": 0,
+   "2|HOU": 1790701883,
+   "2|CWS": 1790701883
   },
   "chalkstate": {
-   "b": "9/29 1:56pm",
+   "b": "9/29 2:00pm",
    "s": {}
   },
   "chalk": [],
@@ -15763,7 +15763,8 @@
    "confleg": 2,
    "priced": 4,
    "parlay_am": 122281,
-   "payout10": 12238.09
+   "payout10": 12238.09,
+   "locked": true
   },
   {
    "name": "Upper Deck Bound",
@@ -15844,7 +15845,8 @@
    "confleg": 2,
    "priced": 4,
    "parlay_am": 86372,
-   "payout10": 8647.16
+   "payout10": 8647.16,
+   "locked": true
   },
   {
    "name": "Ground Tackle",
@@ -15881,24 +15883,18 @@
    "confleg": 1,
    "priced": 1,
    "parlay_am": 350,
-   "payout10": 45
+   "payout10": 45,
+   "locked": true
   }
  ],
  "pool": [
-  "Munetaka Murakami",
-  "Wilyer Abreu",
-  "Roman Anthony",
   "Colson Montgomery",
   "Heliot Ramos",
   "Kyle Teel",
-  "Seiya Suzuki",
   "Adley Rutschman",
-  "Alex Bregman",
   "Christian Walker",
   "Manny Machado",
   "Tristan Peters",
-  "Cam Smith",
-  "Matt Olson",
-  "Kyle Schwarber"
+  "Cam Smith"
  ]
 }
