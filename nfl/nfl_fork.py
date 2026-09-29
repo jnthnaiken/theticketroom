@@ -41,10 +41,11 @@ def seams(payload_js):
 
     # ---- 2. IDENTITY / COPY -----------------------------------------------------------
     # DINGERIDLE-2026-09-27: baseball's empty Daily Dinger slot got its own copy (owner: the
-    # cafeteria line belonged to the retired Lunch Special). This room still HAS a lunch-type
-    # slot, so the old line is put back here verbatim.
+    # cafeteria line belonged to the retired Lunch Special). FTDIDLE-2026-09-29: football's slot is
+    # now 🚨 Opening Drive, the one first-TD pick, so its empty line is football copy too (owner:
+    # "it has nothing to do with lunch anymore").
     add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'🎯 This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
-        ' const closed=\'<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>\';')
+        ' const closed=\'<div class="closed">🏈 Still in the huddle — no first-touchdown call on this slate yet. It comes in once the first-TD prices post. Check back before kickoff.</div>\';')
     add('title', '<title>HR Prop Ticket Room</title>', '<title>The Football Room</title>')
     add('eyebrow', 'eyebrow">Home-Run Props · ', 'eyebrow">Anytime Touchdown · ')
     add('eyebrow-tail', ' · Kasper blend + matchup</div>', ' · usage blend + game total</div>')

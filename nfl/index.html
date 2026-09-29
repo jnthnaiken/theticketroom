@@ -1129,7 +1129,7 @@ let ticketType='all';
 function drawTickets(){
  const q=(($('#tsearch')||{}).value||'').trim().toLowerCase(),ty=ticketType;
  const match=t=>!q||t.name.toLowerCase().includes(q)||(t.anchor||'').toLowerCase().includes(q)||t.players.some(l=>l.name.toLowerCase().includes(q)||(l.gmatch||'').toLowerCase().includes(q));
- const closed='<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>';
+ const closed='<div class="closed">🏈 Still in the huddle — no first-touchdown call on this slate yet. It comes in once the first-TD prices post. Check back before kickoff.</div>';
 
  const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd').filter(match).filter(singleAlive);
  /* SEAT-LOCK 2026-08-19 (display): a builder whose bat holds no moons is a stranded anchor single --
