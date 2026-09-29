@@ -1207,6 +1207,14 @@ function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.ga
   <div class="chips">${chips.map(c=>`<span class="chip${(c[1]!=='—'&&c[1]!=='0/5')?' on':''}">${c[0]}<b>${c[1]}</b></span>`).join('')}</div>
   <div class="why">${p.why}</div></div>`;}
 function sortedNames(){const m=$('#psort').value,P=D.players,n=Object.keys(P),T=x=>P[x].TOTAL||0,nz=v=>v==null?-1:v;
+ /* MODELSORT-2026-09-29 -- owner: "update the sort by drop down in the players tab to that list ... of what is on the
+    cards". A board carrying p.mi (MODELCHIPS) gets its Sort-by options rewritten to the card's chips, in the same order
+    (see modelSortInit below). Each sorts best-for-the-homer first; a bat missing the stat sinks to the bottom, ties break
+    on the model score. Launch angle sorts by closeness to 25 deg, the peak the model's bell curve rewards; SP CSW sorts
+    LOWEST first, because the model scores a starter's called-plus-swinging strikes against the bat. */
+ if(m.indexOf('mi:')===0){const k=m.slice(3),v=x=>{const q=(P[x].mi||{})[k];if(q==null||!isFinite(q))return null;
+     if(k==='la')return -Math.abs(q-25); if(k==='spcsw')return -q; if((k==='temp'||k==='wind')&&P[x].mi.dome)return null; return +q;};
+   return n.sort((a,b)=>{const va=v(a),vb=v(b);if(va==null&&vb==null)return T(b)-T(a);if(va==null)return 1;if(vb==null)return -1;return (vb-va)||T(b)-T(a);});}
  if(m==='az')return n.sort((a,b)=>a.localeCompare(b));
  if(m==='team')return n.sort((a,b)=>P[a].team.localeCompare(P[b].team)||T(b)-T(a));
  if(m==='status')return n.sort((a,b)=>(isConf(P[b].status)-isConf(P[a].status))||T(b)-T(a));
@@ -1231,6 +1239,14 @@ function drawPlayers(){const q=$('#psearch').value.trim().toLowerCase(),pool=inP
  $('#players').innerHTML=names.length?names.map(pCard).join(''):'<div class="empty">No players match “'+q+'”.</div>';
  $('#pcount').textContent=q?('Showing '+names.length+' priced bats'):(names.length+' priced bats · '+pool.size+' in play');}
 const pjump=$('#pjump');{pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).filter(n=>{const p=D.players[n];return p&&p.odds!=null&&!p.void;}).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');}
+(function modelSortInit(){ /* MODELSORT-2026-09-29: only on a board whose players carry p.mi -- archives and the soccer/football forks keep their own list */
+  try{const sel=$('#psort');if(!sel||!D||!D.players||!Object.values(D.players).some(p=>p&&p.mi))return;
+   const O=[['total','Model score · high to low'],['mi:hh','Hard hit % · highest first'],['mi:la','Launch angle · closest to 25°'],['mi:khr','kHR · highest first'],
+     ['mi:park','Park HR factor · biggest'],['mi:iso','ISO · highest first'],['mi:xwc','xwOBAcon · highest first'],['mi:ars','Pitch mix · best matchup'],
+     ['mi:fb','Fly ball % · highest first'],['mi:spfb','SP fly-ball % · highest first'],['mi:spcsw','SP CSW % · lowest first'],['mi:temp','Temperature · hottest'],
+     ['mi:wind','Wind out · strongest']];
+   sel.innerHTML=O.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join('');}catch(e){}
+})();
 $('#psort').addEventListener('change',drawPlayers);$('#psearch').addEventListener('input',drawPlayers);
 function flashTo(id){const el=document.getElementById('p-'+id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
 pjump.addEventListener('change',()=>{if(pjump.value)flashTo(pjump.value);});
