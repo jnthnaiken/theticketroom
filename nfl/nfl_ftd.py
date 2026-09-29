@@ -267,11 +267,33 @@ def pick_pregame(scored, ftd, exclude=()):
     return best
 
 
+def pick_stats(scored, ftd, season, week, exclude=(), cache='.cache', data=None):
+    """FTDSTATS-2026-09-29 -- owner: "stop trying to predict based on price". ONE man a slate: the highest
+    first-touchdown chance on the whole slate from FOOTBALL ALONE (nfl_ftd_stats.py -- usage, red-zone share,
+    TD rate, position, home, and his offence against their defence: TDs, EPA, opening-drive TDs). No price
+    enters the choice: not the anytime price, not the first-TD price, not the spread, no EV, no price band.
+    The first-TD price is only what the slip is written at, so he must be on the first-TD board."""
+    import nfl_ftd_stats
+    pf = nfl_ftd_stats.score(scored, season, week, cache=cache, data=data)
+    best = None
+    for s in scored:
+        k = (s['match'], norm(s['name']))
+        if k not in ftd or k not in pf or s['name'] in exclude or s.get('out') or s.get('void'):
+            continue
+        o = ftd[k]
+        row = dict(name=s['name'], team=s.get('team'), match=s['match'], pos=s.get('pos'), odds=o,
+                   p_first=round(pf[k], 4), ev=round(pf[k] * dec(o) - 1, 4), basis='football')
+        if best is None or row['p_first'] > best['p_first']:
+            best = row
+    return best
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('scored'); ap.add_argument('fixtures'); ap.add_argument('ftd')
     ap.add_argument('--date', required=True); ap.add_argument('--cache', required=True)
     ap.add_argument('--now-et-min', type=int, default=None)
+    ap.add_argument('--pbp-cache', default='.cache')   # FTDSTATS: where nfl_stats.py already cached nflverse
     A = ap.parse_args()
     if not os.path.exists(A.ftd):
         print(f'FIRSTTD: no {A.ftd} for {A.date} -- no first-TD pick this slate')
@@ -304,13 +326,13 @@ def main():
         ko = ((fx.get('matches') or {}).get(c.get('match')) or {}).get('kickoff')
         if s.get('out') and ko is not None and now < ko:
             print(f"FIRSTTD: cached pick {c['name']} is now OUT before kickoff -- picking again")
-            c = pick_pregame(scored, ftd, exclude=(c['name'],))
+            c = pick_stats(scored, ftd, fx.get('season'), fx.get('week'), exclude=(c['name'],), cache=A.pbp_cache)
             if c:
                 json.dump(c, open(A.cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
         else:
             print(f"FIRSTTD: holding {c['name']} {c['odds']:+d} (cached)")
     else:
-        c = pick_pregame(scored, ftd)          # PREGAME: one man, before kickoff (TOSS picks are no longer made)
+        c = pick_stats(scored, ftd, fx.get('season'), fx.get('week'), cache=A.pbp_cache)   # FTDSTATS: football alone, one man, before kickoff
         if c:
             json.dump(c, open(A.cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     if not c:

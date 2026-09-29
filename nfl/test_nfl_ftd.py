@@ -62,15 +62,46 @@ chk(tp1 and {r['name'] for r in tp1['picks'].values()} == {'Home Back'}, 'toss-p
 ftd[(M, 'tightend')] = 1000; ftd[(M, 'deepman')] = 950          # a second man in the band on each side
 d = tempfile.mkdtemp()
 sp, fp, pp, cp = (os.path.join(d, x) for x in ('s.json', 'fx.json', 'ftd.psv', 'pick.json'))
+# FTDSTATS: a tiny nflverse cache -- two prior weeks of play-by-play and rosters, no network
+import pandas as pd
+cache = os.path.join(d, 'cache'); os.makedirs(cache)
+IDS = {'Lead Back': ('00-1', 'B'), 'Slot Guy': ('00-2', 'A'), 'Tight End': ('00-3', 'A'), 'Deep Man': ('00-4', 'B'),
+       'The QB': ('00-5', 'B'), 'Hurt Guy': ('00-6', 'A')}
+USE = {'Lead Back': (22, 5), 'Slot Guy': (8, 1), 'Tight End': (5, 1), 'Deep Man': (3, 0), 'The QB': (2, 0), 'Hurt Guy': (6, 0)}
+rows = []; seq = 0
+for wk in (1, 2):
+    for team, opp in (('A', 'C'), ('B', 'D')):
+        gid = f'2026_{wk:02d}_{team}_{opp}'
+        for nm, (pid, t) in IDS.items():
+            if t != team: continue
+            opps, rz = USE[nm]
+            for i in range(opps):
+                seq += 1
+                rows.append(dict(game_id=gid, season=2026, season_type='REG', week=wk, posteam=team, defteam=opp,
+                                 play_type='run', epa=0.05, fixed_drive=1 + i // 6, fixed_drive_result='Punt',
+                                 rusher_player_id=pid, receiver_player_id=None, yardline_100=5 if i < rz else 50,
+                                 touchdown=0, td_team=None, td_player_id=None, return_touchdown=0, order_sequence=seq, play_id=seq))
+pd.DataFrame(rows).to_csv(os.path.join(cache, 'pbp2026.csv.gz'), index=False)
+for y in (2024, 2025):
+    pd.DataFrame([dict(rows[0], season=y, week=1, game_id=f'{y}_01_E_F', posteam='E', defteam='F', rusher_player_id='00-99')] * 40).to_csv(os.path.join(cache, f'pbp{y}.csv.gz'), index=False)
+for y in (2024, 2025, 2026):
+    pd.DataFrame([dict(season=y, week=1, team=t, full_name=n, gsis_id=pid) for n, (pid, t) in IDS.items()] * 10) \
+        .to_csv(os.path.join(cache, f'ros{y}.csv'), index=False)
 json.dump(scored, open(sp, 'w'))
-json.dump({'date': '2026-10-01', 'matches': {M: {'kickoff': 1215}}}, open(fp, 'w'))
+json.dump({'date': '2026-10-01', 'season': 2026, 'week': 3, 'matches': {M: {'kickoff': 1215}}}, open(fp, 'w'))
 open(pp, 'w').write('\n'.join(f'{M}|{n}|+{ftd[(M, nfl_ftd.norm(n))]}' for n in
                               ['Lead Back', 'Slot Guy', 'Tight End', 'Deep Man', 'The QB', 'Hurt Guy']) + '\n')
 run = lambda now: subprocess.run([sys.executable, os.path.join(H, 'nfl_ftd.py'), sp, fp, pp, '--date', '2026-10-01',
-                                  '--cache', cp, '--now-et-min', str(now)], capture_output=True, text=True)
+                                  '--cache', cp, '--now-et-min', str(now), '--pbp-cache', cache], capture_output=True, text=True)
 r = run(600); first = json.load(open(cp))
-chk(r.returncode == 0 and first.get('name') and not first.get('toss'), 'CLI writes ONE pregame pick to the cache (no toss picks)')
-chk(first['name'] == nfl_ftd.pick_pregame(scored, ftd)['name'], 'the cached pick is pick_pregame')
+chk(r.returncode == 0 and first.get('name') and not first.get('toss'), 'CLI writes ONE pick to the cache' + ('' if r.returncode == 0 else r.stderr[-300:]))
+chk(first['name'] == nfl_ftd.pick_stats(scored, ftd, 2026, 3, cache=cache)['name'] == 'Lead Back',
+    'FTDSTATS: the pick is the heavy-usage, red-zone back -- from football alone')
+import nfl_ftd_stats
+pf0 = nfl_ftd_stats.score(scored, 2026, 3, cache=cache)
+chk(pf0[(M, 'leadback')] > pf0[(M, 'slotguy')] > pf0[(M, 'deepman')], 'FTDSTATS: chance orders with usage and red-zone share')
+cheap = {k: (100000 if k == (M, 'leadback') else v) for k, v in ftd.items()}
+chk(nfl_ftd.pick_stats(scored, cheap, 2026, 3, cache=cache)['name'] == 'Lead Back', 'FTDSTATS: the price does not move the pick')
 for s in scored:
     if s['name'] == 'Slot Guy': s['odds'] = -150               # the market moves...
 json.dump(scored, open(sp, 'w'))

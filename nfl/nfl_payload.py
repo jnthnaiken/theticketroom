@@ -241,8 +241,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         return dict(name=(f"{_base} \u00b7 if {recv} receives" if recv else _base), kind='ftd', badge='🚨',
                     note=(f"{lead}{pk['name']} to score the first touchdown of "
                           f"{p['gmatch'].replace('@', ' at ')}"
-                          + (f" \u2014 the model gives him {100 * pf:.1f}%, the price asks "
-                             f"{100 / am_to_dec(int(pk['odds'])):.1f}%." if pf else '.')),
+                          + (f" \u2014 the football gives him {100 * pf:.1f}%, the best chance on the slate." if pf else '.')),
                     players=[leg], nlegs=1, anchor=pk['name'], recv=recv,
                     lock=re.sub(r'\s*ET\s*$', '', p['gtime']), has_late=False, final=False, rr=None,
                     wxsum={}, confleg=0, locked=False, priced=True, parlay_am=int(pk['odds']),
