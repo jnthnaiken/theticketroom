@@ -177,11 +177,16 @@ def pick(scored, ftd, exclude=(), fav_only=True):
 
 
 def _side_best(scored, ftd, match, team, exclude=()):
-    """TOSS: the best first-TD play on `team`'s side of `match`, GIVEN `team` receives the opening kickoff."""
+    """TOSS: the best first-TD play in `match` GIVEN `team` receives the opening kickoff.
+    TOSSPROOF-2026-09-29 -- owner: "even if a team wins the toss, they suck and the defense is good so the
+    toss doesnt matter cause the other team should score first anyways". So the man may come from EITHER
+    side: 10+ point favourites score first 64% of the time even when the underdog receives (80% when they
+    receive, 1,830 games). In a lopsided game both scenarios land on the same man and the card is one pick
+    that does not care about the toss; in a close one the toss decides and the card shows two."""
     pf = p_first([s for s in scored if s['match'] == match], recv={match: team})
     best = None
     for s in scored:
-        if s['match'] != match or s.get('team') != team or s['name'] in exclude:
+        if s['match'] != match or s['name'] in exclude:
             continue
         k = (match, norm(s['name']))
         if k not in ftd or k not in pf:
@@ -192,7 +197,7 @@ def _side_best(scored, ftd, match, team, exclude=()):
         if not (FTD_MIN <= o <= FTD_MAX):
             continue
         ev = pf[k] * dec(o) - 1
-        row = dict(name=s['name'], team=team, recv=team, match=match, pos=s.get('pos'), odds=o,
+        row = dict(name=s['name'], team=s.get('team'), recv=team, match=match, pos=s.get('pos'), odds=o,
                    p_first=round(pf[k], 4), ev=round(ev, 4), anytime_odds=s.get('odds'))
         if best is None or row['ev'] > best['ev']:
             best = row

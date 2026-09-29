@@ -54,9 +54,10 @@ chk(nfl_ftd.pick(F2, {(M, 'homeback'): 1200}) is None, 'nothing past +1000')
 pa, pb = nfl_ftd.p_first(F2, recv={M: 'A'}), nfl_ftd.p_first(F2, recv={M: 'B'})
 chk(pa[(M, 'awayback')] > pb[(M, 'awayback')] * 1.3, 'toss: the road back is ~1.4x likelier first when A receives')
 tp = nfl_ftd.pick_toss(F2, {(M, 'homeback'): 600, (M, 'homeslot'): 900, (M, 'awayback'): 450})
-chk(tp and set(tp['picks']) == {'A', 'B'} and tp['picks']['A']['name'] == 'Away Back' and tp['picks']['B']['recv'] == 'B',
+chk(tp and set(tp['picks']) == {'A', 'B'} and tp['picks']['A']['name'] == 'Away Back' and tp['picks']['B']['recv'] == 'B' and tp['picks']['B']['team'] == 'B',
     'toss: one game, one man for each side receiving')
-chk(nfl_ftd.pick_toss(F2, {(M, 'homeback'): 600}) is None, 'toss: no pair unless both sides have a man in the band')
+tp1 = nfl_ftd.pick_toss(F2, {(M, 'homeback'): 600})
+chk(tp1 and {r['name'] for r in tp1['picks'].values()} == {'Home Back'}, 'toss-proof: the same man can be the pick whichever side receives')
 
 ftd[(M, 'tightend')] = 1000; ftd[(M, 'deepman')] = 950          # a second man in the band on each side
 d = tempfile.mkdtemp()

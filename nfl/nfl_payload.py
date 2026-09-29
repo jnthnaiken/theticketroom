@@ -254,7 +254,16 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         # meta.ftd carries both as `alts`; the page shows both until the live feed sees the opening drive,
         # and nfl_settle.py grades only the one whose side really received. `players` mirrors the first
         # alt so anything that only asks "is there a first-TD pick tonight" still gets a yes.
-        alts = [t for t in (_ftd_ticket(r, recv=team) for team, r in sorted(ftd_pick['picks'].items())) if t]
+        _names = {r['name'] for r in ftd_pick['picks'].values()}
+        if len(_names) == 1:
+            # TOSSPROOF-2026-09-29: both scenarios land on the same man -- one card, graded whoever receives.
+            r0 = dict(next(iter(ftd_pick['picks'].values())))
+            ftd_t = _ftd_ticket(r0)
+            if ftd_t:
+                ftd_t['note'] += ' Toss-proof: the pick whichever team gets the ball first.'
+            alts = []
+        else:
+            alts = [t for t in (_ftd_ticket(r, recv=team) for team, r in sorted(ftd_pick['picks'].items())) if t]
         if alts:
             ftd_t = dict(alts[0], toss=True, alts=alts, match=ftd_pick.get('match'))
     elif ftd_pick:
