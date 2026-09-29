@@ -368,6 +368,25 @@
         });
       }
 
+      /* ---- FIRSTTD-2026-09-29: the game's FIRST touchdown, for the one first-TD pick. ----
+       * ESPN's scoringPlays lists every score in order with text like "Luther Burden III 8 Yd
+       * pass from Case Keenum (Cairo Santos Kick)"; the scorer is the name before the yardage.
+       * `ftd1` is set true on that man and false on everyone else in the game, and only once a
+       * touchdown exists -- before that nobody has lost the first-TD bet yet. A defensive or
+       * special-teams score first simply matches no priced man, which is the loss it is. */
+      var sps = (sum && sum.scoringPlays) || [];
+      for (var si = 0; si < sps.length; si++) {
+        var spp = sps[si];
+        if (String((spp.type && spp.type.abbreviation) || '').toUpperCase() !== 'TD') continue;
+        var txt = String(spp.text || '');
+        var mm = txt.match(/^(.*?)\s+(?:\d+\s+Yd|Fumble|Blocked|Interception|Punt|Kickoff)/);
+        var ftdName = (mm ? mm[1] : txt.split(' ')[0]).trim();
+        var fcode = spp.team && spp.team.abbreviation;
+        var fwho = ftdName ? matchOne(ftdName, candidatesFor(gi, fcode)) : null;
+        candidatesFor(gi).forEach(function (n) { D.players[n].ftd1 = (n === fwho); });
+        break;
+      }
+
       /* ---- inactives + the tick, pre-kickoff only. See INACTIVES-2026-09-09 above. ---- */
       if (!live && !fin) {
         var kickMs = (ev && ev.date) ? Date.parse(ev.date) : NaN;

@@ -30,7 +30,7 @@ calibration fitted on baseball TOTALs (mu 98.4, sd 32.2). Football TOTALs are on
 100+30*blend scale but the mapping to a hit rate is not the same curve, and there are no graded
 football nights to fit one on yet. Same call the soccer room made.
 """
-import argparse, json, math, re, sys
+import argparse, json, math, os, re, sys
 from collections import defaultdict
 
 TEAM_NAME = {
@@ -124,7 +124,7 @@ def note_for(kind, legs, P, voice=None, tname=None):
     return voice.ticket_note(legs, P, tname=(tname or kind))
 
 
-def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None):
+def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None, ftd_pick=None):
     matches = fx['matches']
     order = sorted(matches.keys(), key=lambda k: (matches[k]['kickoff'], k))
     gidx = {k: i + 1 for i, k in enumerate(order)}
@@ -213,6 +213,29 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             parlay_am=dec_to_am(dec) if len(legs) > 1 else legs[0]['odds'],
             payout10=round(10 * dec, 1)))
 
+    # FIRSTTD-2026-09-29 -- the one first-touchdown pick (nfl_ftd.py). It rides in meta, NOT in
+    # D.tickets: soccer_draft.redraft() owns every slip in D.tickets and would treat a lone 'ftd'
+    # single as an anchor to repair. The page renders it from meta.ftd in its own section, and
+    # nfl_settle.py appends it to the archived board's tickets just before the fold grades it.
+    # The leg carries ftd:true, which tells both graders to read the man's `ftd1` (scored his
+    # game's FIRST touchdown) instead of `hr` (scored any).
+    ftd_t = None
+    if ftd_pick and ftd_pick.get('name') in P:
+        p = P[ftd_pick['name']]
+        leg = dict(name=ftd_pick['name'], team=p['team'], total=p['TOTAL'], aT=100, wf=p['wf'],
+                   gmatch=p['gmatch'], gtime=p['gtime'], game=p['game'], late=p['late'],
+                   odds=int(ftd_pick['odds']), status=p['status'], ftd=True)
+        pf = ftd_pick.get('p_first')
+        ftd_t = dict(name='First TD', kind='ftd', badge='🥇',
+                     note=(f"{ftd_pick['name']} to score the first touchdown of "
+                           f"{p['gmatch'].replace('@', ' at ')}"
+                           + (f" \u2014 the model gives him {100 * pf:.1f}%, the price asks "
+                              f"{100 / am_to_dec(int(ftd_pick['odds'])):.1f}%." if pf else '.')),
+                     players=[leg], nlegs=1, anchor=ftd_pick['name'],
+                     lock=re.sub(r'\s*ET\s*$', '', p['gtime']), has_late=False, final=False, rr=None,
+                     wxsum={}, confleg=0, locked=False, priced=True, parlay_am=int(ftd_pick['odds']),
+                     payout10=round(10 * am_to_dec(int(ftd_pick['odds'])), 1), ftd=True)
+
     season = {}
     if season_path:
         try: season = json.load(open(season_path, encoding='utf-8'))
@@ -226,7 +249,8 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
                   date=fx['date'], gs={}, chalkever={}, chalkstate={}, chalk=[],
                   pool=len(scored), gate=len({l['name'] for t in T for l in t['players']}),
                   tickets=len(T), week=fx.get('week'), sport='nfl',
-                  ko={str(gidx[k]): matches[k]['kickoff'] for k in order}))
+                  ko={str(gidx[k]): matches[k]['kickoff'] for k in order},
+                  ftd=ftd_t))
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
@@ -234,12 +258,14 @@ if __name__ == '__main__':
     ap.add_argument('out')
     ap.add_argument('--wx', default=None); ap.add_argument('--season', default=None)
     ap.add_argument('--build', default='')
+    ap.add_argument('--ftd', default=None)   # FIRSTTD-2026-09-29: slates/<date>/ftd_pick.json, if nfl_ftd.py made one
     A = ap.parse_args()
     wx = json.load(open(A.wx, encoding='utf-8')) if A.wx else {}
     D = build(json.load(open(A.scored, encoding='utf-8')),
               json.load(open(A.tickets, encoding='utf-8')),
               json.load(open(A.fixtures, encoding='utf-8')),
-              wx, A.season, A.build)
+              wx, A.season, A.build,
+              ftd_pick=(json.load(open(A.ftd, encoding='utf-8')) if A.ftd and os.path.exists(A.ftd) else None))
     json.dump(D, open(A.out, 'w'), ensure_ascii=False, separators=(', ', ': '))
     print(f'{A.out}: {len(D["players"])} players, {len(D["tickets"])} tickets, '
           f'{len(D["meta"]["wx"])} games')

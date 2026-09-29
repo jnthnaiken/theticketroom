@@ -78,6 +78,10 @@ const CFG = {
      nfl_value.py did not run (no `novalue` field on any row) both CLIs fall back to TOP_SINGLES 8,
      VALUE_ONLY off, and say so. */
   VALUE_ONLY: true,
+  /* FIRSTTD-2026-09-29. Owner: "instead of the current specials we should do one first touchdown pick. our best
+     one. one per slate." The 🍱 Early Window / 🌃 Sunday Night singles are no longer drafted; the special is
+     nfl_ftd.py's one first-TD pick, which rides in meta.ftd outside the draft. */
+  LUNCH_LATE: false,
   /* NOGAMECAP-2026-09-27. Owner: "we dont need a 2 per game rule" -> "remove both" (Sunday slates AND
      one-game nights). Measured first, same 8 graded nights, top 8 EV singles: with the cap +6.8u on 28
      bets, without it +1.8u on 59. On the two Sundays no cap was better (+14.1u vs +9.1u, all of it

@@ -68,7 +68,8 @@ if r.returncode == 0:
     html = open(out, encoding='utf-8').read()
     # The football wording must actually be present -- a seam can apply and still leave the page
     # reading like the baseball one if the replacement was retargeted carelessly.
-    for want in ('Early Window', 'Sunday Night', 'Paydirt'):
+    # FIRSTTD-2026-09-29: the specials are one First Touchdown pick; anchors read Singles.
+    for want in ('First Touchdown', "['ftd','🥇','First TD']", "sec('sug','Singles',builder)"):
         check(want in html, 'the forked page carries football wording: %r' % want)
     # And baseball's specials must not be VISIBLE on it. They survive in code comments and in a
     # ticket-name pool for a kind football never drafts, so this checks the rendered strings only.

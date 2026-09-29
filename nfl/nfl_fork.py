@@ -80,8 +80,8 @@ def seams(payload_js):
                     '<option value="hr9">Inside-10 share · biggest</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>',
                      '<option value="lift">Weather lift · biggest</option>')
-    add('tonight-count', "+kc.moon+' 🚀'", "+kc.moon+' 🏈'")
-    add('tracker-moon', "['moon','🚀','Moonshots']", "['moon','🏈','Paydirt']")
+    add('tonight-count', "+kc.moon+' 🚀'", "")   # FIRSTTD-2026-09-29: no parlays on football; the tile reads 🥇 · 🎟️
+    add('tracker-moon', "['moon','🚀','Moonshots']", "")   # owner: "theres no paydirt. that was the moons." -- row gone (the defs array keeps a harmless trailing comma)
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🏈'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🏈'")
     add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Paydirt',moon)")
@@ -99,16 +99,16 @@ def seams(payload_js):
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);",
         "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)",
-        "const dingerLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final)")
+        "const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd')")   # FIRSTTD-2026-09-29: the section shows the one first-TD pick, from meta (it is not in D.tickets)
     add('special-sec-late', "D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive)",
         "D.tickets.filter(t=>t.kind==='late'&&!t.final).filter(singleAlive)")
-    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='lunch'?' lunchwide':''}")
+    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='ftd'?' lunchwide':''}")
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}",
         "${t.kind==='late'?' lunchwide nightcap':''}")
     add('special-tile-kc', "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
         "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
     add('special-tile-cnt', "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '",
-        "var cnt=kc.lunch+' 🍱 \\u00b7 '+kc.late+' 🌃 \\u00b7 '")
+        "var cnt=((D.meta.ftd&&D.meta.ftd.players)?1:0)+' 🥇 \\u00b7 '")
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏈':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
@@ -124,7 +124,7 @@ def seams(payload_js):
     # first time it ran after that rename, which is the seam guard doing its job: it refused to
     # publish a football page built off markup it no longer recognised.
     add('howto-order', 'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-                       'Read it top to bottom: 🍱 Early Window, 🌃 Sunday Night, 🎟️ Singles.')
+                       'Read it top to bottom: 🥇 First Touchdown, 🎟️ Singles.')
     add('builder-hint', 'Pick bats on the left, then Build.', 'Pick players on the left, then Build.', 3)
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')
@@ -136,7 +136,7 @@ def seams(payload_js):
                         '<span class="ke">🎟️</span><div><b>Singles</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span>')
     add('tracker-builder', "['builder','⚓️','Anchors']", "['builder','🎟️','Singles']")
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Singles',builder)")
-    add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎟️ \\u00b7 '")
+    add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎟️'")
     add('step-players', 'Every bat that cleared the pool gate, one card each.',
                         'Every player who cleared the pool gate, one card each.')
     add('footer-wind', 'always verify odds, lineups, and wind before you wager.',
@@ -227,9 +227,8 @@ def seams(payload_js):
     add('odds-homered',
         "title=\"${p.hr?'homered \\u2014 click to undo':'mark homered'}\">${p.hr?'\\u26be':''}",
         "title=\"${p.hr?'scored \\u2014 click to undo':'mark scored'}\">${p.hr?'\\ud83c\\udfc8':''}")
-    add('kind-moonshots',
-        '<b>Moonshots</b><span>Two three-leg round robins per anchor, eight a night.',
-        '<b>Paydirt</b><span>Two three-leg round robins per anchor, eight a Sunday.')
+    add('kind-moonshots',   # owner 2026-09-29: "theres no paydirt. that was the moons." -- entry removed
+        '<div class="kind"><span class="ke">🚀</span><div><b>Moonshots</b><span>Two three-leg round robins per anchor, eight a night. This is the one diagrammed above.</span></div></div>', '')
     add('cal-11-base', "t:'Base score', d:'Kasper\u2019s khr score, the base of the model.'",
                        "t:'Model chance', d:'The model\u2019s own probability that he finds the "
                        "end zone, before the price.'")
@@ -240,9 +239,10 @@ def seams(payload_js):
     # themselves, so the board rendered "LUNCH SPECIAL" and "NIGHTCAP" over football cards.
     # Only visible by loading it -- exactly why soccer_fork.py says build it and read it.
     add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
-                     '<div class="tsec lunch"><span class="tsech">Early Window</span>')
-    add('sec-nightcap', '<span class="tag">Free play</span> Long Ball Jackpot<span class="chev">',
-                        '<span class="tag">Late slate</span> Sunday Night<span class="chev">')
+                     '<div class="tsec lunch"><span class="tsech">First Touchdown</span>')
+    # FIRSTTD-2026-09-29: the Sunday Night drop-down is gone -- one special a slate, the first-TD pick.
+    add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
+                        "html+='';")
     # RESTATED-NFL-2026-09-17: the season line says so when nfl_season.json carries `restated`.
     # Week 1 was drafted by the old scorer (raw EV, no cap, usage model alone); nfl_restate.py
     # re-runs every graded night under the current system, so the tracker must not imply the
@@ -251,18 +251,17 @@ def seams(payload_js):
         "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'",
         "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
     add('tracker-lunch', "['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot']",
-                         "['lunch','🍱','Early'],['late','🌃','Sunday Night']")
+                         "['ftd','🥇','First TD']")   # FIRSTTD-2026-09-29: replaces 🍱 Early / 🌃 Sunday Night
     add('kind-lunch',
-        '<b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
+        '<span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
         'and you pick one — this is the best model score on their list. Not a bet we place.</span>',
-        '<b>Early Window</b><span>One player, best model score in the first kickoff wave.</span>')
+        '<span class="ke">🥇</span><div><b>First Touchdown</b><span>One pick a slate: the player most worth backing to score his game\u2019s '
+        '<i>first</i> touchdown, at the first-TD price. The model splits each game\u2019s expected touchdowns '
+        'between its players and weighs that against the price. 1u.</span>')
     add('kind-nightcap',
-        '<b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
+        '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
         'the man who hits the <i>longest</i> homer that day — we rank park carry plus model '
-        'score. Not a bet we place.</span>',
-        '<b>Sunday Night</b><span>Same idea for the last kickoff. It is the one game that cannot '
-        'field a parlay \u2014 three legs need three distinct games \u2014 so it gets a single or '
-        'nothing.</span>')
+        'score. Not a bet we place.</span></div></div>', '')
     # ---- 10. THE LIVE LOOP -- APPENDED LAST ------------------------------------------
     # nfl_live.js is injected at the final position, so nothing is counted after it. Same
     # ordering rule soccer_live_seams.py records.

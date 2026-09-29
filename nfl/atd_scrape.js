@@ -64,11 +64,14 @@
     return { name: name, odds: odds };
   }
 
-  function atdSection() {
+  /* FIRSTTD-2026-09-29: the same component carries "First Touchdown Scorer", so the section title
+     is a parameter. Default unchanged: Anytime Touchdown Scorer. */
+  function atdSection(title) {
+    title = title || 'Anytime Touchdown Scorer';
     var secs = [].slice.call(document.querySelectorAll('section'));
     for (var i = 0; i < secs.length; i++) {
       var h = secs[i].querySelector('h2');
-      if (h && /^\s*Anytime Touchdown Scorer\s*$/i.test(h.textContent)) return secs[i];
+      if (h && h.textContent.trim().toLowerCase() === title.toLowerCase()) return secs[i];
     }
     return null;
   }
@@ -81,8 +84,11 @@
 
   async function scrape(matchKey, opts) {
     opts = opts || {};
-    var sec = atdSection();
-    if (!sec) return { match: matchKey, ok: false, why: 'no Anytime Touchdown Scorer section' };
+    /* opts.market = section title, opts.key = localStorage key. First TD:
+         await f('<key>', {market: 'First Touchdown Scorer', key: 'FTD_ROWS'})  ->  ftd.psv */
+    var market = opts.market || 'Anytime Touchdown Scorer', key = opts.key || 'ATD_ROWS';
+    var sec = atdSection(market);
+    if (!sec) return { match: matchKey, ok: false, why: 'no ' + market + ' section' };
 
     var h2 = sec.querySelector('h2');
     if (h2 && h2.getAttribute('aria-expanded') === 'false') {
@@ -134,8 +140,8 @@
       rows.push(matchKey + '|' + p.name + '|' + p.odds);
     }
     if (!opts.dry) {
-      var all = JSON.parse(localStorage.getItem('ATD_ROWS') || '[]');
-      localStorage.setItem('ATD_ROWS', JSON.stringify(all.concat(rows)));
+      var all = JSON.parse(localStorage.getItem(key) || '[]');
+      localStorage.setItem(key, JSON.stringify(all.concat(rows)));
     }
     return { match: matchKey, ok: rows.length > 0, n: rows.length, expansions: expansions,
              dropped_team_entries: teams, unparsed: bad, rows: rows };

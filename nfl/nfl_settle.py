@@ -85,6 +85,19 @@ def box(summary):
     return scored, seen, out
 
 
+def first_td(summary):
+    """FIRSTTD-2026-09-29: the name on the game's first touchdown, off ESPN's scoringPlays
+    ("Luther Burden III 8 Yd pass from Case Keenum (Cairo Santos Kick)" -> "Luther Burden III").
+    None when the game had no touchdown -- every first-TD ticket on it loses."""
+    for sp in summary.get('scoringPlays') or []:
+        if ((sp.get('type') or {}).get('abbreviation') or '').upper() != 'TD':
+            continue
+        txt = str(sp.get('text') or '')
+        m = re.match(r'^(.*?)\s+(?:\d+\s+Yd|Fumble|Blocked|Interception|Punt|Kickoff)', txt)
+        return (m.group(1) if m else txt.split(' ')[0]).strip() or None
+    return None
+
+
 def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
     D = json.load(io.open(board_path, encoding='utf-8'))
     date = (D.get('meta') or {}).get('date')
@@ -116,6 +129,7 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
         done = bool((((comp.get('status') or ev.get('status') or {}).get('type')) or {}).get('completed'))
         events[(side.get('away'), side.get('home'))] = (ev.get('id'), done)
     scored, seen, out, finals, missing = {}, set(), set(), [], []
+    firsts = {}                                        # FIRSTTD-2026-09-29: game -> norm(first TD scorer)
     for gi, gm in sorted(games.items()):
         away, home = gm.split('@')
         hit = events.get((ALIAS.get(away, away), ALIAS.get(home, home)))
@@ -125,9 +139,11 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
         if not done:
             print(f'  {date}: {gm} not final yet -- not settling'); return 'not final'
         try:
-            s, a, o = box(getj(ESPN + 'summary?event=' + str(eid)))
+            _sum = getj(ESPN + 'summary?event=' + str(eid))
+            s, a, o = box(_sum)
         except Exception as e:
             print(f'  {date}: summary {eid} unreachable ({str(e)[:80]})'); return 'network'
+        firsts[gi] = norm(first_td(_sum) or '')
         for k, v in s.items():
             scored[k] = scored.get(k, 0) + v
         seen |= a; out |= o
@@ -144,6 +160,14 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
             if n in out and n not in seen:
                 p['out'] = True; nvoid += 1
     D['meta']['finals'] = finals
+    # FIRSTTD-2026-09-29: who scored each game's first touchdown, and the first-TD pick (it rides in
+    # meta.ftd, outside D.tickets -- see nfl_payload.py) joins the tickets so the fold grades it.
+    for nm, p in D['players'].items():
+        if p.get('game') in firsts:
+            p['ftd1'] = bool(firsts[p['game']]) and norm(nm) == firsts[p['game']]
+    ft = (D.get('meta') or {}).get('ftd')
+    if ft and ft.get('players') and not any(t.get('kind') == 'ftd' for t in D['tickets']):
+        D['tickets'].append(ft)
     json.dump(D, io.open(board_path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     print(f'  {date}: {len(finals)} final game(s), {nscore} priced scorer(s), {nvoid} void(s)')
     soccer_grade.fold(board_path, season_path)
