@@ -1183,6 +1183,19 @@ function houseOdds(t){ var r=hitRate(t); return r==null?'—':'+'+Math.round(100
 function hitPct(t){ var r=hitRate(t); return r==null?'—':(100*r).toFixed(1)+'%'; }
 function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.game),c=isConf(p.status),av=avail(p);
  const chips=[['Pitcher',(p.phr9!=null?Math.max(0,Math.min(100,Math.round((p.phr9-0.70)/0.60*100))):'—')],['POWER',(p.powidx!=null?p.powidx:'—')],['Model',p.TOTAL!=null?Math.round(p.TOTAL):'—'],['Zone',fmt(p.zonev)],['Park','×'+p.wf],['Hit rate',hitPct(p.TOTAL)],['House',houseOdds(p.TOTAL)]];
+ /* MODELCHIPS-2026-09-29 -- owner: "people want to see more of the stats/data on the player cards ... just what
+    goes into our model", on the Players tab only. When the board carries p.mi (build15 stamps the kas_v1 model's own
+    inputs on every scored bat) the green chips show THOSE, in the model's weight order, instead of the derived
+    Pitcher/POWER/Model/Zone/Park/Hit rate/House row. A board without p.mi (every archive before today, and the soccer and
+    football forks) keeps the old row untouched. Everything else on the card is unchanged. */
+ if(p.mi){const m=p.mi,n=v=>(v!=null&&isFinite(v)),x3=v=>n(v)?(+v).toFixed(3).replace(/^0/,''):'—';
+   chips.length=0;
+   chips.push(['Hard hit',n(m.hh)?(+m.hh).toFixed(1)+'%':'—'],['Launch',n(m.la)?(+m.la).toFixed(1)+'°':'—'],
+     ['kHR',n(m.khr)?(+m.khr).toFixed(1):'—'],['Park HR',n(m.park)?'×'+(+m.park).toFixed(2):'—'],
+     ['ISO',x3(m.iso)],['xwOBAcon',x3(m.xwc)],['Pitch mix',n(m.ars)?((m.ars>=0?'+':'')+(+m.ars).toFixed(2)):'—'],
+     ['Fly ball',n(m.fb)?(+m.fb).toFixed(1)+'%':'—'],['SP FB%',n(m.spfb)?(+m.spfb).toFixed(1)+'%':'—'],
+     ['SP CSW',n(m.spcsw)?(+m.spcsw).toFixed(1)+'%':'—'],['Temp',m.dome?'Dome':(n(m.temp)?Math.round(m.temp)+'°':'—')],
+     ['Wind out',m.dome?'Dome':(n(m.wind)?((m.wind>=0?'+':'')+(+m.wind).toFixed(1)+' mph'):'—')]);}
  const fi=formInfo(p),formChip=fi?`<span class="fchip ${fi.cls}">FORM ${fi.f}% <span class="${fi.acl}">${fi.ar}</span>${fi.emo?' '+fi.emo:''}</span>`:`<span class="fchip f-na">FORM —</span>`;
  const lc=liftCls(p.wf),lift=lc?`<span class="${p.wf>=1?'u':'d'}">${liftStr(p.wf)}</span>`:`${liftStr(p.wf)}`;
  return `<div class="pc t-${tier}${(_pcPool&&_pcPool.has(name))?' pc-gated':''}" id="p-${cssid(name)}"><div class="ph"><div>

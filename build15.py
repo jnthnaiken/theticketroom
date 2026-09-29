@@ -1059,9 +1059,21 @@ if BOARD_MODEL in ('kas_v1', 'ev_v1'):
         _kin = [k for k, r in zip(_ks, pool) if not r.get('out')] or _ks
         _km = sum(_kin) / len(_kin); _ksd = (sum((x - _km) ** 2 for x in _kin) / len(_kin)) ** 0.5 or 1e-9
         _cov = {c: sum(1 for x in _rows if x.get(c) is not None) for c in _W1['inputs']}
-        for r, k in zip(pool, _ks):
+        for r, k, _c in zip(pool, _ks, _rows):
             z = (k - _km) / _ksd
             r['kas_v1'] = k
+            # MODELCHIPS-2026-09-29: the model's own inputs, raw, for the Players-tab chips (display only --
+            # nothing downstream reads r['mi']). Order and meaning mirror kas_weights_v1.json's inputs.
+            try:
+                _exm = nget(KEXTRA, r['nm']) or {}
+                _rd = lambda v, d: (round(float(v), d) if isinstance(v, (int, float)) and v == v else None)
+                r['mi'] = {'hh': _rd(_c.get('c_hh'), 1), 'la': _rd(r.get('la'), 1), 'khr': _rd(_c.get('c_khr'), 1),
+                           'park': _rd(_c.get('c_park2'), 3), 'iso': _rd(_exm.get('iso'), 3), 'xwc': _rd(_exm.get('xwobacon'), 3),
+                           'ars': _rd(_c.get('c_ars'), 2), 'fb': _rd(_c.get('c_fb'), 1), 'spfb': _rd(_c.get('c_sp_fb'), 1),
+                           'spcsw': _rd(_c.get('c_sp_csw'), 1), 'temp': _rd(_c.get('c_temp'), 1), 'wind': _rd(_c.get('c_wind_out'), 1),
+                           'dome': 1 if _c.get('c_dome') else 0}
+            except Exception:
+                pass
             r['blend'] = round(z, 4)
             r['baseTotal'] = round(100 + 30 * z, 1)
             r['TOTAL'] = r['baseTotal']
