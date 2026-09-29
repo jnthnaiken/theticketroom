@@ -219,30 +219,46 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
     # nfl_settle.py appends it to the archived board's tickets just before the fold grades it.
     # The leg carries ftd:true, which tells both graders to read the man's `ftd1` (scored his
     # game's FIRST touchdown) instead of `hr` (scored any).
-    ftd_t = None
-    if ftd_pick and ftd_pick.get('name') in P:
-        p = P[ftd_pick['name']]
-        leg = dict(name=ftd_pick['name'], team=p['team'], total=p['TOTAL'], aT=100, wf=p['wf'],
+    # Owner: "can we be more creative with the titles". One name a slate, rotated by date like
+    # every other kind's pool, so the same pick keeps its name on every rebuild.
+    _FTD_NAMES = ['Kickoff Call', 'First Blood', 'Break the Seal', 'Ice Breaker', 'Tone Setter',
+                  'First on the Board', 'Strike First', 'The Opening Act', 'Lead Off Man',
+                  'Six Before Anyone', 'Scoreboard Starter', 'First Dance', 'Pop the Cork',
+                  'Opening Statement', 'Plant the Flag', 'First Six', 'Out of the Gate',
+                  'First to Paydirt', 'The Opener', 'Early Strike']
+    _doy = datetime.date.fromisoformat(fx['date']).timetuple().tm_yday
+    _base = _FTD_NAMES[_doy % len(_FTD_NAMES)]
+
+    def _ftd_ticket(pk, recv=None):
+        if not pk or pk.get('name') not in P:
+            return None
+        p = P[pk['name']]
+        leg = dict(name=pk['name'], team=p['team'], total=p['TOTAL'], aT=100, wf=p['wf'],
                    gmatch=p['gmatch'], gtime=p['gtime'], game=p['game'], late=p['late'],
-                   odds=int(ftd_pick['odds']), status=p['status'], ftd=True)
-        pf = ftd_pick.get('p_first')
-        # Owner: "can we be more creative with the titles". One name a slate, rotated by date like
-        # every other kind's pool, so the same pick keeps its name on every rebuild.
-        _FTD_NAMES = ['Kickoff Call', 'First Blood', 'Break the Seal', 'Ice Breaker', 'Tone Setter',
-                      'First on the Board', 'Strike First', 'The Opening Act', 'Lead Off Man',
-                      'Six Before Anyone', 'Scoreboard Starter', 'First Dance', 'Pop the Cork',
-                      'Opening Statement', 'Plant the Flag', 'First Six', 'Out of the Gate',
-                      'First to Paydirt', 'The Opener', 'Early Strike']
-        _doy = datetime.date.fromisoformat(fx['date']).timetuple().tm_yday
-        ftd_t = dict(name=_FTD_NAMES[_doy % len(_FTD_NAMES)], kind='ftd', badge='🚨',
-                     note=(f"{ftd_pick['name']} to score the first touchdown of "
-                           f"{p['gmatch'].replace('@', ' at ')}"
-                           + (f" \u2014 the model gives him {100 * pf:.1f}%, the price asks "
-                              f"{100 / am_to_dec(int(ftd_pick['odds'])):.1f}%." if pf else '.')),
-                     players=[leg], nlegs=1, anchor=ftd_pick['name'],
-                     lock=re.sub(r'\s*ET\s*$', '', p['gtime']), has_late=False, final=False, rr=None,
-                     wxsum={}, confleg=0, locked=False, priced=True, parlay_am=int(ftd_pick['odds']),
-                     payout10=round(10 * am_to_dec(int(ftd_pick['odds'])), 1), ftd=True)
+                   odds=int(pk['odds']), status=p['status'], ftd=True)
+        pf = pk.get('p_first')
+        lead = f"If {recv} gets the ball first: " if recv else ''
+        return dict(name=(f"{_base} \u00b7 if {recv} receives" if recv else _base), kind='ftd', badge='🚨',
+                    note=(f"{lead}{pk['name']} to score the first touchdown of "
+                          f"{p['gmatch'].replace('@', ' at ')}"
+                          + (f" \u2014 the model gives him {100 * pf:.1f}%, the price asks "
+                             f"{100 / am_to_dec(int(pk['odds'])):.1f}%." if pf else '.')),
+                    players=[leg], nlegs=1, anchor=pk['name'], recv=recv,
+                    lock=re.sub(r'\s*ET\s*$', '', p['gtime']), has_late=False, final=False, rr=None,
+                    wxsum={}, confleg=0, locked=False, priced=True, parlay_am=int(pk['odds']),
+                    payout10=round(10 * am_to_dec(int(pk['odds'])), 1), ftd=True)
+
+    ftd_t = None
+    if ftd_pick and ftd_pick.get('toss'):
+        # 🪙 TOSS-2026-09-29 (nfl_ftd.py): one game, one man for EACH side receiving the opening kickoff.
+        # meta.ftd carries both as `alts`; the page shows both until the live feed sees the opening drive,
+        # and nfl_settle.py grades only the one whose side really received. `players` mirrors the first
+        # alt so anything that only asks "is there a first-TD pick tonight" still gets a yes.
+        alts = [t for t in (_ftd_ticket(r, recv=team) for team, r in sorted(ftd_pick['picks'].items())) if t]
+        if alts:
+            ftd_t = dict(alts[0], toss=True, alts=alts, match=ftd_pick.get('match'))
+    elif ftd_pick:
+        ftd_t = _ftd_ticket(ftd_pick)
 
     season = {}
     if season_path:

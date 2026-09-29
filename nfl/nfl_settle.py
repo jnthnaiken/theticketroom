@@ -98,6 +98,18 @@ def first_td(summary):
     return None
 
 
+def opening_receiver(summary):
+    """🪙 TOSS-2026-09-29: the team that got the ball first -- the offence on ESPN's first drive (its first
+    play is the opening kickoff). None when the summary carries no drives."""
+    dr = (summary.get('drives') or {})
+    seq = list(dr.get('previous') or []) + ([dr['current']] if dr.get('current') else [])
+    for d in seq:
+        ab = ((d.get('team') or {}).get('abbreviation'))
+        if ab:
+            return ab
+    return None
+
+
 def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
     D = json.load(io.open(board_path, encoding='utf-8'))
     date = (D.get('meta') or {}).get('date')
@@ -130,6 +142,7 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
         events[(side.get('away'), side.get('home'))] = (ev.get('id'), done)
     scored, seen, out, finals, missing = {}, set(), set(), [], []
     firsts = {}                                        # FIRSTTD-2026-09-29: game -> norm(first TD scorer)
+    recvs = {}                                         # TOSS-2026-09-29: game -> ESPN code that received first
     for gi, gm in sorted(games.items()):
         away, home = gm.split('@')
         hit = events.get((ALIAS.get(away, away), ALIAS.get(home, home)))
@@ -144,6 +157,7 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
         except Exception as e:
             print(f'  {date}: summary {eid} unreachable ({str(e)[:80]})'); return 'network'
         firsts[gi] = norm(first_td(_sum) or '')
+        recvs[gi] = opening_receiver(_sum)
         for k, v in s.items():
             scored[k] = scored.get(k, 0) + v
         seen |= a; out |= o
@@ -166,7 +180,17 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
         if p.get('game') in firsts:
             p['ftd1'] = bool(firsts[p['game']]) and norm(nm) == firsts[p['game']]
     ft = (D.get('meta') or {}).get('ftd')
-    if ft and ft.get('players') and not any(t.get('kind') == 'ftd' for t in D['tickets']):
+    if ft and ft.get('alts'):
+        # 🪙 TOSS: two picks, one per side receiving; only the side that really got the ball first is a bet.
+        g = (ft['alts'][0]['players'][0] or {}).get('game')
+        rc = recvs.get(g)
+        live = [t for t in ft['alts'] if rc and ALIAS.get(t.get('recv'), t.get('recv')) == rc]
+        D['meta'].setdefault('recv', {})[str(g)] = rc
+        if not live:
+            print(f'  ::warning::{date}: opening receiver unknown ({rc}) -- first-TD pick not graded')
+        elif not any(t.get('kind') == 'ftd' for t in D['tickets']):
+            D['tickets'].append(live[0])
+    elif ft and ft.get('players') and not any(t.get('kind') == 'ftd' for t in D['tickets']):
         D['tickets'].append(ft)
     json.dump(D, io.open(board_path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     print(f'  {date}: {len(finals)} final game(s), {nscore} priced scorer(s), {nvoid} void(s)')

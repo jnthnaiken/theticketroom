@@ -387,6 +387,18 @@
         break;
       }
 
+      /* ---- 🪙 TOSS-2026-09-29: who got the ball first. The first-TD pick is two men, one for each side
+       * receiving the opening kickoff; once ESPN shows the first drive, the page keeps only the one in
+       * play. Stored as the BOARD's own team code, so the page compares like with like. ---- */
+      var drv = (sum && sum.drives) || {};
+      var dseq = (drv.previous || []).concat(drv.current ? [drv.current] : []);
+      var rab = null;
+      for (var di = 0; di < dseq.length && !rab; di++) rab = dseq[di] && dseq[di].team && dseq[di].team.abbreviation;
+      if (rab) {
+        var rwho = candidatesFor(gi, rab)[0];
+        if (rwho) { D.meta.recv = D.meta.recv || {}; D.meta.recv[String(gi)] = D.players[rwho].code; }
+      }
+
       /* ---- inactives + the tick, pre-kickoff only. See INACTIVES-2026-09-09 above. ---- */
       if (!live && !fin) {
         var kickMs = (ev && ev.date) ? Date.parse(ev.date) : NaN;

@@ -100,7 +100,9 @@ def seams(payload_js):
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);",
         "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)",
-        "const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd')")   # FIRSTTD-2026-09-29: the section shows the one first-TD pick, from meta (it is not in D.tickets)
+        "const dingerLive=(function(){var f=D.meta.ftd;if(!f||!f.players)return [];if(!f.alts)return [f];"
+        "var r=(D.meta.recv||{})[String(f.players[0].game)];return r?f.alts.filter(t=>t.recv===r):f.alts;})()"
+        ".filter(t=>t.kind==='ftd')")   # 🪙 TOSS-2026-09-29: both if-they-receive picks until the live feed sees the opening drive, then only the one in play   # FIRSTTD-2026-09-29: the section shows the one first-TD pick, from meta (it is not in D.tickets)
     add('special-sec-late', "D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive)",
         "D.tickets.filter(t=>t.kind==='late'&&!t.final).filter(singleAlive)")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='ftd'?' lunchwide':''}")
@@ -256,9 +258,9 @@ def seams(payload_js):
     add('kind-lunch',
         '<span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
         'and you pick one — this is the best model score on their list. Not a bet we place.</span>',
-        '<span class="ke">🚨</span><div><b>Opening Drive</b><span>First touchdown. One pick a slate: the player most worth backing to score his game\u2019s '
-        '<i>first</i> touchdown, at the first-TD price. The model splits each game\u2019s expected touchdowns '
-        'between its players and weighs that against the price. 1u.</span>')
+        '<span class="ke">🚨</span><div><b>Opening Drive</b><span>First touchdown, one game a slate, and two names: one for each '
+        'team getting the ball first. The team that receives the opening kickoff scores first 57% of the time, so '
+        '<b>watch the coin toss</b> and bet the name that matches it, before kickoff. 1u.</span>')
     add('kind-nightcap',
         '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
         'the man who hits the <i>longest</i> homer that day — we rank park carry plus model '
