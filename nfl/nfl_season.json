@@ -2,16 +2,16 @@
  "since": "2026-09-09",
  "history": [
   0.0,
-  -3.0,
-  -3.2,
-  5.62,
+  -4.0,
+  -5.2,
   2.62,
-  13.22,
-  14.51,
-  10.51,
-  9.11,
-  11.27,
-  7.27
+  -1.38,
+  8.22,
+  23.01,
+  18.01,
+  15.61,
+  16.77,
+  11.77
  ],
  "graded_nights": [
   "2026-09-09",
@@ -31,11 +31,17 @@
    "won": 35,
    "units": 7.27,
    "staked": 113.0
+  },
+  "ftd": {
+   "graded": 10,
+   "won": 1,
+   "units": 4.5,
+   "staked": 10.0
   }
  },
  "stake": 1,
  "restated": true,
- "note": "VALUEREPLAY-2026-09-29. Owner: \"update the football ledger with the new model version and board\" -> \"cant backtest it?\". Every committed slate 09-09..09-27 re-run through the CURRENT pipeline (nfl_mock -> nfl_value VALUESINGLES -> nfl_draft_cli, depth chart as of each date, history model as-of each date, prices as posted in slates/<date>/prices.json) and graded off nflverse pbp (td_player_id; weekly-roster status != ACT = void). 09-28 is the live board as posted and reproduced exactly by the replay. No injury report in the replay (ESPN has no archive), so a man ruled out that week is voided rather than skipped. The posted record (moons + old singles, -30.39u) is kept in nfl_season_actual.json and is not displayed. Rules were chosen on these same nine slates, so this is in-sample.",
+ "note": "VALUEREPLAY-2026-09-29. Owner: \"update the football ledger with the new model version and board\" -> \"cant backtest it?\". Every committed slate 09-09..09-27 re-run through the CURRENT pipeline (nfl_mock -> nfl_value VALUESINGLES -> nfl_draft_cli, depth chart as of each date, history model as-of each date, prices as posted in slates/<date>/prices.json) and graded off nflverse pbp (td_player_id; weekly-roster status != ACT = void). 09-28 is the live board as posted and reproduced exactly by the replay. No injury report in the replay (ESPN has no archive), so a man ruled out that week is voided rather than skipped. The posted record (moons + old singles, -30.39u) is kept in nfl_season_actual.json and is not displayed. Rules were chosen on these same nine slates, so this is in-sample. FTDREPLAY-2026-09-29 (owner: \"backtest the first td into the ledger\"): 🚨 Opening Drive replayed on the same ten slates with nfl_ftd.pick, graded on each game's first touchdown from nflverse pbp. First-TD prices were never archived, so each price is ESTIMATED from the archived anytime price: the Poisson split of the market's anytime chances x 1.16, the markup the real PIT@CLE first-TD board showed inside the +300..+1500 band (x1.23 across the whole board gives +3.50u instead of +4.50u). Men not active that week are treated as ruled out.",
  "replay": {
   "nights": [
    [
@@ -122,6 +128,131 @@
     "units": -5.25,
     "staked": 30.0
    }
+  },
+  "ftd": {
+   "price_markup_K": 1.16,
+   "picks": [
+    {
+     "date": "2026-09-09",
+     "name": "A.J. Brown",
+     "pos": "WR",
+     "match": "NE-at-SEA",
+     "odds_est": 975,
+     "p_first": 0.086,
+     "ev": -0.0758,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Eli Raridon"
+    },
+    {
+     "date": "2026-09-10",
+     "name": "Davante Adams",
+     "pos": "WR",
+     "match": "SF-at-LA",
+     "odds_est": 850,
+     "p_first": 0.0993,
+     "ev": -0.0564,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Kyren Williams"
+    },
+    {
+     "date": "2026-09-13",
+     "name": "Wan'Dale Robinson",
+     "pos": "WR",
+     "match": "NYJ-at-TEN",
+     "odds_est": 1350,
+     "p_first": 0.12,
+     "ev": 0.7398,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Kenyon Sadiq"
+    },
+    {
+     "date": "2026-09-14",
+     "name": "RJ Harvey",
+     "pos": "RB",
+     "match": "DEN-at-KC",
+     "odds_est": 1450,
+     "p_first": 0.0761,
+     "ev": 0.1795,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Patrick Mahomes"
+    },
+    {
+     "date": "2026-09-17",
+     "name": "Amon-Ra St. Brown",
+     "pos": "WR",
+     "match": "DET-at-BUF",
+     "odds_est": 825,
+     "p_first": 0.105,
+     "ev": -0.0291,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Josh Allen"
+    },
+    {
+     "date": "2026-09-20",
+     "name": "TreVeyon Henderson",
+     "pos": "RB",
+     "match": "PIT-at-NE",
+     "odds_est": 1350,
+     "p_first": 0.0949,
+     "ev": 0.376,
+     "result": "won",
+     "units": 13.5,
+     "first_td": "TreVeyon Henderson"
+    },
+    {
+     "date": "2026-09-21",
+     "name": "Blake Corum",
+     "pos": "RB",
+     "match": "NYG-at-LA",
+     "odds_est": 1500,
+     "p_first": 0.0645,
+     "ev": 0.0321,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Davante Adams"
+    },
+    {
+     "date": "2026-09-24",
+     "name": "MarShawn Lloyd",
+     "pos": "RB",
+     "match": "ATL-at-GB",
+     "odds_est": 1000,
+     "p_first": 0.1107,
+     "ev": 0.2172,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Christian Watson"
+    },
+    {
+     "date": "2026-09-27",
+     "name": "Woody Marks",
+     "pos": "RB",
+     "match": "HOU-at-IND",
+     "odds_est": 1350,
+     "p_first": 0.0888,
+     "ev": 0.2874,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Keenan Allen"
+    },
+    {
+     "date": "2026-09-28",
+     "name": "Saquon Barkley",
+     "pos": "RB",
+     "match": "PHI-at-CHI",
+     "odds_est": 525,
+     "p_first": 0.149,
+     "ev": -0.0687,
+     "result": "lost",
+     "units": -1.0,
+     "first_td": "Luther Burden III"
+    }
+   ]
   }
  }
 }
