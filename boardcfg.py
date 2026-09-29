@@ -29,12 +29,13 @@ DEFAULTS = {
     'CONFLOCK_SETTLE_MIN': 120,   # CONFLOCKSETTLE-2026-09-22
     'MOONS_PER_ANC': 2,
     'MOON_LEGS': 4, 'SHORT_MOON_FLOOR': 3, 'MOON_SLACK': 2, 'WIN': 150, 'NIGHT_WIN': 60,
+    'SPREAD_MAX_GAMES': 4, 'SPREAD_WIN': 720,   # SPREADWIN-2026-09-29
     'LUNCH_CUT_MIN': 1020, 'CHALK_N': 0, 'RR_UNIT': {2: 2.00, 3: 0.50, 4: 0.25, 5: 0.10},
 }
 
 _INT = ('GAME_CAP', 'RESERVE_GAME_CAP', 'ANCH', 'ANCH_PER_GAME', 'ANCHOR_MAX_ODDS', 'MOONS_PER_ANC',
         'MOON_LEGS', 'SHORT_MOON_FLOOR', 'MOON_SLACK', 'WIN', 'NIGHT_WIN', 'LUNCH_CUT_MIN', 'CHALK_N',
-        'CONFLOCK_SETTLE_MIN')
+        'CONFLOCK_SETTLE_MIN', 'SPREAD_MAX_GAMES', 'SPREAD_WIN')
 
 
 def load(path=PATH, quiet=False):
@@ -72,6 +73,9 @@ def _validate(c):
     if c['WIN'] < 1: bad.append('WIN < 1')
     if c['WIN'] > 155: bad.append('WIN > 155 -- past the board\'s own lineup-timing flag; every slip would ship warned')
     if c['ANCH'] < 1: bad.append('ANCH < 1')
+    # SPREADWIN-2026-09-29: only small slates reach it, and a day is 1440 minutes.
+    if not (0 <= c.get('SPREAD_MAX_GAMES', 0) <= 6): bad.append('SPREAD_MAX_GAMES outside 0..6 (0=off; a normal slate must never take the all-day window)')
+    if c.get('SPREAD_MAX_GAMES', 0) and not (c['WIN'] < c.get('SPREAD_WIN', 0) <= 1440): bad.append('SPREAD_WIN must be > WIN and <= 1440')
     # CONFLOCKSETTLE-2026-09-22. 0 disables. The ceiling is not taste: cards post a median 180 min
     # before first pitch and p10 is 148, so past ~240 the settling period outlasts the lead time on
     # most sides, no slip latches before its game starts, and the lock silently degrades to the

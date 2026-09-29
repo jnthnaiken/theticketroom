@@ -58,6 +58,12 @@
     "untouched. The clock half of the lock (`started()` -- first pitch) is also untouched, so a card",
     "that posts unusually late still locks when its game begins. Set to 0 to disable.",
     "",
+    "SPREAD_MAX_GAMES / SPREAD_WIN (SPREADWIN-2026-09-29), owner on Wild Card day 1: \"Parlays across the",
+    "day.\" A slate with SPREAD_MAX_GAMES games or fewer (every postseason day) cannot fit MOON_LEGS games",
+    "inside WIN, so it shipped no moons, anchors or builders. On such a slate the window becomes SPREAD_WIN",
+    "minutes. Accepted cost: a slip latches at its earliest leg, so later legs are projected when it locks",
+    "and a later scratch voids that leg. SPREAD_MAX_GAMES 0 = off.",
+    "",
     "After editing: python3 state.py --check"
   ],
 
@@ -73,6 +79,8 @@
   "SHORT_MOON_FLOOR": 3,
   "MOON_SLACK": 2,
   "WIN": 150,
+  "SPREAD_MAX_GAMES": 4,
+  "SPREAD_WIN": 720,
   "NIGHT_WIN": 60,
   "LUNCH_CUT_MIN": 1020,
   "CHALK_N": 0,
