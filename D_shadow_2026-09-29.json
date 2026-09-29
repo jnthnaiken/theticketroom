@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-29",
- "built_at": "2026-09-29T15:36:24Z",
+ "built_at": "2026-09-29T16:21:26Z",
  "teams": {
   "ATL": {
    "n_rel": 8,
@@ -46,17 +46,17 @@
    "d1_pitches": 0
   },
   "CWS": {
-   "n_rel": 11,
+   "n_rel": 6,
    "n_unavail": 0,
    "top_out": 0,
-   "hr_bf": 0.0254,
-   "hr_bf_avail": 0.0254,
-   "hr_bf_L": 0.0172,
-   "hr_bf_R": 0.0301,
-   "hr_bf_avail_L": 0.0172,
-   "hr_bf_avail_R": 0.0301,
-   "share_L": 0.323,
-   "air_share": 0.55,
+   "hr_bf": 0.0245,
+   "hr_bf_avail": 0.0245,
+   "hr_bf_L": 0.0168,
+   "hr_bf_R": 0.0296,
+   "hr_bf_avail_L": 0.0168,
+   "hr_bf_avail_R": 0.0296,
+   "share_L": 0.349,
+   "air_share": 0.513,
    "d1_pitches": 0
   },
   "HOU": {
@@ -171,12 +171,12 @@
    "home": "ATL",
    "hour": 14,
    "dome": false,
-   "temp": 81.1,
-   "rh": 34,
-   "pres": 980.1,
-   "wind": 1.1,
-   "wind_out": 1.1,
-   "rho": 1.1311
+   "temp": null,
+   "rh": null,
+   "pres": null,
+   "wind": null,
+   "wind_out": null,
+   "rho": null
   },
   "2": {
    "home": "HOU",
@@ -184,48 +184,50 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 1008.1,
+   "pres": null,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.183
+   "rho": null
   },
   "3": {
    "home": "NYY",
    "hour": 20,
    "dome": false,
-   "temp": 62.2,
-   "rh": 91,
-   "pres": 1016.1,
-   "wind": 2.7,
-   "wind_out": 2.67,
-   "rho": 1.213
+   "temp": null,
+   "rh": null,
+   "pres": null,
+   "wind": null,
+   "wind_out": null,
+   "rho": null
   },
   "4": {
    "home": "SD",
    "hour": 22,
    "dome": false,
-   "temp": 73.6,
-   "rh": 66,
-   "pres": 1005.8,
-   "wind": 0.6,
-   "wind_out": -0.42,
-   "rho": 1.1744
+   "temp": null,
+   "rh": null,
+   "pres": null,
+   "wind": null,
+   "wind_out": null,
+   "rho": null
   }
  },
  "coverage": {
   "box_final_games": 15,
   "box_loaded": 15,
   "rosters": 8,
-  "pitcher_stats": 114,
+  "pitcher_stats": 108,
   "sps_matched": 8,
   "sps_named": 8,
   "pens": 8,
   "games": 4,
-  "games_wx": 4
+  "games_wx": 0
  },
- "errors": [],
- "partial": false,
+ "errors": [
+  "https://api.open-meteo.com/v1/forecast?latitude=33.8907,29.7572,40.8296,32.7073&: <urlopen error _ssl.c:993: The handshake operation timed out"
+ ],
+ "partial": true,
  "attempts": 1,
- "last_attempt": 1790696184,
+ "last_attempt": 1790698886,
  "pregame": true
 }
