@@ -1,7 +1,7 @@
 {
   "date": "2026-09-29",
   "season": "2026",
-  "pulled_at": "2026-09-29T19:56:18Z",
+  "pulled_at": "2026-09-29T20:00:29Z",
   "games": [
     {
       "gamePk": 849845,
@@ -127,15 +127,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 1mph, 81\u00b0",
+        "cond": "calm 2mph, 82\u00b0",
         "lean": "Neutral",
-        "temp": 80.8,
-        "wind_mph": 1.9,
-        "wind_dir": 159,
-        "tail_mph": 0.6,
+        "temp": 82.2,
+        "wind_mph": 2.5,
+        "wind_dir": 95,
+        "tail_mph": -1.8,
         "precip": 0
       },
-      "wf": 1.018
+      "wf": 1.012
     },
     {
       "gamePk": 849849,
@@ -284,8 +284,54 @@
           "hr9": 0.91,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 701350,
+            "name": "Roman Anthony",
+            "iso": 0.151
+          },
+          {
+            "id": 668939,
+            "name": "Adley Rutschman",
+            "iso": 0.184
+          },
+          {
+            "id": 575929,
+            "name": "Willson Contreras",
+            "iso": 0.241
+          },
+          {
+            "id": 677800,
+            "name": "Wilyer Abreu",
+            "iso": 0.198
+          },
+          {
+            "id": 678882,
+            "name": "Ceddanne Rafaela",
+            "iso": 0.159
+          },
+          {
+            "id": 686765,
+            "name": "Nick Sogard",
+            "iso": 0.13
+          },
+          {
+            "id": 680776,
+            "name": "Jarren Duran",
+            "iso": 0.154
+          },
+          {
+            "id": 596115,
+            "name": "Trevor Story",
+            "iso": 0.116
+          },
+          {
+            "id": 702332,
+            "name": "Caleb Durbin",
+            "iso": 0.13
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "NYY",
@@ -348,15 +394,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 0mph, 65\u00b0",
+        "cond": "calm 1mph, 65\u00b0",
         "lean": "Neutral",
-        "temp": 65.2,
-        "wind_mph": 1.4,
-        "wind_dir": 288,
-        "tail_mph": -0.1,
+        "temp": 65.4,
+        "wind_mph": 3.7,
+        "wind_dir": 308,
+        "tail_mph": -1.4,
         "precip": 1
       },
-      "wf": 0.993
+      "wf": 0.988
     },
     {
       "gamePk": 849843,
@@ -392,13 +438,13 @@
         "emoji": "\u26c5",
         "cond": "calm 1mph, 73\u00b0",
         "lean": "Neutral",
-        "temp": 73.4,
-        "wind_mph": 0.9,
-        "wind_dir": 14,
-        "tail_mph": -0.9,
+        "temp": 72.7,
+        "wind_mph": 1.1,
+        "wind_dir": 360,
+        "tail_mph": -1.1,
         "precip": 0
       },
-      "wf": 1.002
+      "wf": 1.0
     }
   ]
 }
