@@ -192,6 +192,9 @@ jobs:
           # prices.json is the PRICEONCE ledger. Absent on the first build of a slate, which is
           # the only time a price may be written.
           cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
+          # FIRSTTD-2026-09-29: the first-touchdown prices, scraped beside atd.psv. Optional -- without it
+          # the slate simply has no first-TD pick.
+          cp slates/${{ steps.slate.outputs.date }}/ftd.psv .work/ 2>/dev/null || true
           cp nfl_*.py .work/
           cp ev_weights_nfl_v1.json .work/ 2>/dev/null || true   # EVCAL-NFL: used only if promoted
           # LIVEJS-2026-09-10: nfl_live_seams.py (imported by nfl_fork.py) reads nfl_live.js from .work.
@@ -233,6 +236,11 @@ jobs:
           python3 nfl_value.py scored.json fixtures.json --date ${{ steps.slate.outputs.date }} \
                   --cache ../slates/${{ steps.slate.outputs.date }}/p_hist.json \
             || echo "::warning::nfl_value.py failed -- drafting on the previous ranking"
+          # FIRSTTD-2026-09-29: the one first-TD pick a slate (owner: "our best one. one per slate").
+          # Sticky: written once to slates/<date>/ftd_pick.json and held on every rebuild. Never fatal.
+          python3 nfl_ftd.py scored.json fixtures.json ftd.psv --date ${{ steps.slate.outputs.date }} \
+                  --cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json \
+            || echo "::warning::nfl_ftd.py failed -- no first-TD pick this pass"
 
           # ------------------------------------------------------------------------------
           # 🚨 A SAME-SLATE REBUILD NEVER RE-DRAFTS -- KICKLOCK-2026-09-20.
@@ -268,6 +276,7 @@ jobs:
           python3 nfl_payload.py scored.json tickets.json fixtures.json nfl_D.json \
                   $([ -f wx.json ] && echo "--wx wx.json") \
                   --season nfl_season.json \
+                  $([ -f ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json ] && echo "--ftd ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json") \
                   --build "$(TZ=America/New_York date '+%-m/%-d %-I:%M%P')"
           python3 nfl_fork.py index_live.html nfl_D.json nfl_index.html
 
@@ -324,7 +333,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add nfl/index.html nfl/nfl_D.json nfl/nfl_season.json nfl/boards/ \
                   nfl/slates/${{ steps.slate.outputs.date }}/prices.json \
-                  $(ls nfl/slates/${{ steps.slate.outputs.date }}/p_hist.json 2>/dev/null)
+                  $(ls nfl/slates/${{ steps.slate.outputs.date }}/p_hist.json 2>/dev/null) \
+                  $(ls nfl/slates/${{ steps.slate.outputs.date }}/ftd_pick.json 2>/dev/null)
           git diff --cached --quiet && { echo "nothing staged"; exit 0; }
           git commit -m "NFL board ${{ steps.slate.outputs.date }} ($(date -u +%H:%MZ))"
           for i in 1 2 3; do
