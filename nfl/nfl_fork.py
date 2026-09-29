@@ -80,7 +80,7 @@ def seams(payload_js):
                     '<option value="hr9">Inside-10 share · biggest</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>',
                      '<option value="lift">Weather lift · biggest</option>')
-    add('tonight-count', "+kc.moon+' 🚀'", "")   # FIRSTTD-2026-09-29: no parlays on football; the tile reads 🥇 · 🎟️
+    add('tonight-count', "+kc.moon+' 🚀'", "")   # FIRSTTD-2026-09-29: no parlays on football; the tile reads 🚨 · 🎯
     add('tracker-moon', "['moon','🚀','Moonshots']", "")   # owner: "theres no paydirt. that was the moons." -- row gone (the defs array keeps a harmless trailing comma)
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🏈'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🏈'")
@@ -108,7 +108,7 @@ def seams(payload_js):
     add('special-tile-kc', "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
         "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
     add('special-tile-cnt', "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '",
-        "var cnt=((D.meta.ftd&&D.meta.ftd.players)?1:0)+' 🥇 \\u00b7 '")
+        "var cnt=((D.meta.ftd&&D.meta.ftd.players)?1:0)+' 🚨 \\u00b7 '")
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏈':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
@@ -124,19 +124,19 @@ def seams(payload_js):
     # first time it ran after that rename, which is the seam guard doing its job: it refused to
     # publish a football page built off markup it no longer recognised.
     add('howto-order', 'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-                       'Read it top to bottom: 🥇 First Touchdown, 🎟️ Singles.')
+                       'Read it top to bottom: 🚨 Opening Drive, 🎯 Red Zone.')
     add('builder-hint', 'Pick bats on the left, then Build.', 'Pick players on the left, then Build.', 3)
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')
     # SINGLESNAME-2026-09-29, owner: "dont need to call them anchors anymore either if we're just doing singles".
     # Football has been singles-only since NFLSINGLES-2026-09-27 (VALUESINGLES since 09-28), so every place
-    # the page says Anchors / ⚓️ for kind 'builder' says Singles / 🎟️. Kind stays 'builder' so grading and
+    # the page says Anchors / ⚓️ for kind 'builder' says Red Zone / 🎯 (renamed from Singles / 🎟️ the same day, owner's pick). Kind stays 'builder' so grading and
     # nfl_season.json keep reconciling.
     add('kind-anchors', '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
-                        '<span class="ke">🎟️</span><div><b>Singles</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span>')
-    add('tracker-builder', "['builder','⚓️','Anchors']", "['builder','🎟️','Singles']")
-    add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Singles',builder)")
-    add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎟️'")
+                        '<span class="ke">🎯</span><div><b>Red Zone</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span>')
+    add('tracker-builder', "['builder','⚓️','Anchors']", "['builder','🎯','Red Zone']")
+    add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Red Zone',builder)")
+    add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎯'")
     add('step-players', 'Every bat that cleared the pool gate, one card each.',
                         'Every player who cleared the pool gate, one card each.')
     add('footer-wind', 'always verify odds, lineups, and wind before you wager.',
@@ -239,7 +239,7 @@ def seams(payload_js):
     # themselves, so the board rendered "LUNCH SPECIAL" and "NIGHTCAP" over football cards.
     # Only visible by loading it -- exactly why soccer_fork.py says build it and read it.
     add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
-                     '<div class="tsec lunch"><span class="tsech">First Touchdown</span>')
+                     '<div class="tsec lunch"><span class="tsech">Opening Drive</span>')
     # FIRSTTD-2026-09-29: the Sunday Night drop-down is gone -- one special a slate, the first-TD pick.
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
                         "html+='';")
@@ -251,11 +251,11 @@ def seams(payload_js):
         "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'",
         "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
     add('tracker-lunch', "['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot']",
-                         "['ftd','🥇','First TD']")   # FIRSTTD-2026-09-29: replaces 🍱 Early / 🌃 Sunday Night
+                         "['ftd','🚨','Opening Drive']")   # FIRSTTD-2026-09-29: replaces 🍱 Early / 🌃 Sunday Night
     add('kind-lunch',
         '<span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
         'and you pick one — this is the best model score on their list. Not a bet we place.</span>',
-        '<span class="ke">🥇</span><div><b>First Touchdown</b><span>One pick a slate: the player most worth backing to score his game\u2019s '
+        '<span class="ke">🚨</span><div><b>Opening Drive</b><span>First touchdown. One pick a slate: the player most worth backing to score his game\u2019s '
         '<i>first</i> touchdown, at the first-TD price. The model splits each game\u2019s expected touchdowns '
         'between its players and weighs that against the price. 1u.</span>')
     add('kind-nightcap',

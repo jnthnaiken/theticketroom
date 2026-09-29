@@ -190,7 +190,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         for l in legs:
             wxs[meta_wx[str(l['game'])]['lean'].lower()] += 1
         T.append(dict(
-            name=t['name'], kind=t['kind'], badge=('🎟️' if t['kind'] == 'builder' else t['badge']),   # SINGLESNAME-2026-09-29
+            name=t['name'], kind=t['kind'], badge=('🎯' if t['kind'] == 'builder' else t['badge']),   # SINGLESNAME-2026-09-29
             note=note_for(t['kind'], t['legs'], SRC, voice=voice, tname=t['name']),
             players=legs, nlegs=len(legs), anchor=t['anchor'],
             # ⚠️ NO ' ET' HERE. The renderer emits `<span>Lock ${t.lock} ET</span>` and appends
@@ -228,13 +228,13 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         pf = ftd_pick.get('p_first')
         # Owner: "can we be more creative with the titles". One name a slate, rotated by date like
         # every other kind's pool, so the same pick keeps its name on every rebuild.
-        _FTD_NAMES = ['Opening Drive', 'First Blood', 'Break the Seal', 'Ice Breaker', 'Tone Setter',
+        _FTD_NAMES = ['Kickoff Call', 'First Blood', 'Break the Seal', 'Ice Breaker', 'Tone Setter',
                       'First on the Board', 'Strike First', 'The Opening Act', 'Lead Off Man',
                       'Six Before Anyone', 'Scoreboard Starter', 'First Dance', 'Pop the Cork',
                       'Opening Statement', 'Plant the Flag', 'First Six', 'Out of the Gate',
                       'First to Paydirt', 'The Opener', 'Early Strike']
         _doy = datetime.date.fromisoformat(fx['date']).timetuple().tm_yday
-        ftd_t = dict(name=_FTD_NAMES[_doy % len(_FTD_NAMES)], kind='ftd', badge='🥇',
+        ftd_t = dict(name=_FTD_NAMES[_doy % len(_FTD_NAMES)], kind='ftd', badge='🚨',
                      note=(f"{ftd_pick['name']} to score the first touchdown of "
                            f"{p['gmatch'].replace('@', ' at ')}"
                            + (f" \u2014 the model gives him {100 * pf:.1f}%, the price asks "

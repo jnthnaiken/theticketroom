@@ -69,7 +69,7 @@ if r.returncode == 0:
     # The football wording must actually be present -- a seam can apply and still leave the page
     # reading like the baseball one if the replacement was retargeted carelessly.
     # FIRSTTD-2026-09-29: the specials are one First Touchdown pick; anchors read Singles.
-    for want in ('First Touchdown', "['ftd','🥇','First TD']", "sec('sug','Singles',builder)"):
+    for want in ('Opening Drive', "['ftd','🚨','Opening Drive']", "sec('sug','Red Zone',builder)"):
         check(want in html, 'the forked page carries football wording: %r' % want)
     # And baseball's specials must not be VISIBLE on it. They survive in code comments and in a
     # ticket-name pool for a kind football never drafts, so this checks the rendered strings only.
