@@ -30,7 +30,7 @@ calibration fitted on baseball TOTALs (mu 98.4, sd 32.2). Football TOTALs are on
 100+30*blend scale but the mapping to a hit rate is not the same curve, and there are no graded
 football nights to fit one on yet. Same call the soccer room made.
 """
-import argparse, json, math, os, re, sys
+import argparse, datetime, json, math, os, re, sys
 from collections import defaultdict
 
 TEAM_NAME = {
@@ -226,7 +226,15 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
                    gmatch=p['gmatch'], gtime=p['gtime'], game=p['game'], late=p['late'],
                    odds=int(ftd_pick['odds']), status=p['status'], ftd=True)
         pf = ftd_pick.get('p_first')
-        ftd_t = dict(name='First TD', kind='ftd', badge='🥇',
+        # Owner: "can we be more creative with the titles". One name a slate, rotated by date like
+        # every other kind's pool, so the same pick keeps its name on every rebuild.
+        _FTD_NAMES = ['Opening Drive', 'First Blood', 'Break the Seal', 'Ice Breaker', 'Tone Setter',
+                      'First on the Board', 'Strike First', 'The Opening Act', 'Lead Off Man',
+                      'Six Before Anyone', 'Scoreboard Starter', 'First Dance', 'Pop the Cork',
+                      'Opening Statement', 'Plant the Flag', 'First Six', 'Out of the Gate',
+                      'First to Paydirt', 'The Opener', 'Early Strike']
+        _doy = datetime.date.fromisoformat(fx['date']).timetuple().tm_yday
+        ftd_t = dict(name=_FTD_NAMES[_doy % len(_FTD_NAMES)], kind='ftd', badge='🥇',
                      note=(f"{ftd_pick['name']} to score the first touchdown of "
                            f"{p['gmatch'].replace('@', ' at ')}"
                            + (f" \u2014 the model gives him {100 * pf:.1f}%, the price asks "
