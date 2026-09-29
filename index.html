@@ -1190,11 +1190,10 @@ function pCard(name){const p=D.players[name],tier=tierOf(confOf(p)),wx=wxOf(p.ga
  if(p.mi){const m=p.mi,n=v=>(v!=null&&isFinite(v)),x3=v=>n(v)?(+v).toFixed(3).replace(/^0/,''):'—';
    chips.length=0;
    chips.push(['Hard hit',n(m.hh)?(+m.hh).toFixed(1)+'%':'—'],['Launch',n(m.la)?(+m.la).toFixed(1)+'°':'—'],
-     ['kHR',n(m.khr)?(+m.khr).toFixed(1):'—'],['Park HR',n(m.park)?'×'+(+m.park).toFixed(2):'—'],
+     ['Park HR',n(m.park)?'×'+(+m.park).toFixed(2):'—'],
      ['ISO',x3(m.iso)],['xwOBAcon',x3(m.xwc)],['Pitch mix',n(m.ars)?((m.ars>=0?'+':'')+(+m.ars).toFixed(2)):'—'],
      ['Fly ball',n(m.fb)?(+m.fb).toFixed(1)+'%':'—'],['SP FB%',n(m.spfb)?(+m.spfb).toFixed(1)+'%':'—'],
-     ['SP CSW',n(m.spcsw)?(+m.spcsw).toFixed(1)+'%':'—'],['Temp',m.dome?'Dome':(n(m.temp)?Math.round(m.temp)+'°':'—')],
-     ['Wind out',m.dome?'Dome':(n(m.wind)?((m.wind>=0?'+':'')+(+m.wind).toFixed(1)+' mph'):'—')]);}
+     ['SP CSW',n(m.spcsw)?(+m.spcsw).toFixed(1)+'%':'—']);   /* owner: kHR, Temp and Wind out dropped -- the brick chip and the weather row already show them */}
  const fi=formInfo(p),formChip=fi?`<span class="fchip ${fi.cls}">FORM ${fi.f}% <span class="${fi.acl}">${fi.ar}</span>${fi.emo?' '+fi.emo:''}</span>`:`<span class="fchip f-na">FORM —</span>`;
  const lc=liftCls(p.wf),lift=lc?`<span class="${p.wf>=1?'u':'d'}">${liftStr(p.wf)}</span>`:`${liftStr(p.wf)}`;
  return `<div class="pc t-${tier}${(_pcPool&&_pcPool.has(name))?' pc-gated':''}" id="p-${cssid(name)}"><div class="ph"><div>
@@ -1240,10 +1239,8 @@ function drawPlayers(){const q=$('#psearch').value.trim().toLowerCase(),pool=inP
 const pjump=$('#pjump');if(pjump){pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).filter(n=>{const p=D.players[n];return p&&p.odds!=null&&!p.void;}).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');}
 (function modelSortInit(){ /* MODELSORT-2026-09-29: only on a board whose players carry p.mi -- archives and the soccer/football forks keep their own list */
   try{const sel=$('#psort');if(!sel||!D||!D.players||!Object.values(D.players).some(p=>p&&p.mi))return;
-   const O=[['total','Model score (TOTAL) · high to low'],['mi:hh','Hard hit % · highest first'],['mi:la','Launch angle · closest to 25°'],['mi:khr','kHR · highest first'],
-     ['mi:park','Park HR factor · biggest'],['mi:iso','ISO · highest first'],['mi:xwc','xwOBAcon · highest first'],['mi:ars','Pitch mix · best matchup'],
-     ['mi:fb','Fly ball % · highest first'],['mi:spfb','SP fly-ball % · highest first'],['mi:spcsw','SP CSW % · lowest first'],['mi:temp','Temperature · hottest'],
-     ['mi:wind','Wind out · strongest']];
+   const O=[['total','Model score (TOTAL) · high to low'],['mi:hh','Hard hit % · highest first'],['mi:la','Launch angle · closest to 25°'],['mi:park','Park HR factor · biggest'],['mi:iso','ISO · highest first'],['mi:xwc','xwOBAcon · highest first'],['mi:ars','Pitch mix · best matchup'],
+     ['mi:fb','Fly ball % · highest first'],['mi:spfb','SP fly-ball % · highest first'],['mi:spcsw','SP CSW % · lowest first']];
    sel.innerHTML=O.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join('');}catch(e){}
 })();
 $('#psort').addEventListener('change',drawPlayers);$('#psearch').addEventListener('input',drawPlayers);
