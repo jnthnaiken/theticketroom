@@ -1241,7 +1241,7 @@ function drawPlayers(){const q=$('#psearch').value.trim().toLowerCase(),pool=inP
 const pjump=$('#pjump');{pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).filter(n=>{const p=D.players[n];return p&&p.odds!=null&&!p.void;}).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');}
 (function modelSortInit(){ /* MODELSORT-2026-09-29: only on a board whose players carry p.mi -- archives and the soccer/football forks keep their own list */
   try{const sel=$('#psort');if(!sel||!D||!D.players||!Object.values(D.players).some(p=>p&&p.mi))return;
-   const O=[['total','Model score · high to low'],['mi:hh','Hard hit % · highest first'],['mi:la','Launch angle · closest to 25°'],['mi:khr','kHR · highest first'],
+   const O=[['total','Model score (TOTAL) · high to low'],['mi:hh','Hard hit % · highest first'],['mi:la','Launch angle · closest to 25°'],['mi:khr','kHR · highest first'],
      ['mi:park','Park HR factor · biggest'],['mi:iso','ISO · highest first'],['mi:xwc','xwOBAcon · highest first'],['mi:ars','Pitch mix · best matchup'],
      ['mi:fb','Fly ball % · highest first'],['mi:spfb','SP fly-ball % · highest first'],['mi:spcsw','SP CSW % · lowest first'],['mi:temp','Temperature · hottest'],
      ['mi:wind','Wind out · strongest']];
