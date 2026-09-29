@@ -69,26 +69,23 @@ open(pp, 'w').write('\n'.join(f'{M}|{n}|+{ftd[(M, nfl_ftd.norm(n))]}' for n in
 run = lambda now: subprocess.run([sys.executable, os.path.join(H, 'nfl_ftd.py'), sp, fp, pp, '--date', '2026-10-01',
                                   '--cache', cp, '--now-et-min', str(now)], capture_output=True, text=True)
 r = run(600); first = json.load(open(cp))
-chk(r.returncode == 0 and first.get('toss') and set(first['picks']) == {'A', 'B'}, 'CLI writes the two toss picks to the cache')
-fb = first['picks']['B']['name']
+chk(r.returncode == 0 and first.get('name') and not first.get('toss'), 'CLI writes ONE pregame pick to the cache (no toss picks)')
+chk(first['name'] == nfl_ftd.pick_pregame(scored, ftd)['name'], 'the cached pick is pick_pregame')
 for s in scored:
     if s['name'] == 'Slot Guy': s['odds'] = -150               # the market moves...
 json.dump(scored, open(sp, 'w'))
 run(700)
-chk(json.load(open(cp))['picks'] == first['picks'], 'a rebuild holds the cached picks even when the market moves')
+chk(json.load(open(cp))['name'] == first['name'], 'a rebuild holds the cached pick even when the market moves')
 for s in scored:
-    if s['name'] == fb: s['out'] = True
+    if s['name'] == first['name']: s['out'] = True
 json.dump(scored, open(sp, 'w'))
 run(1300)
-chk(json.load(open(cp))['picks']['B']['name'] == fb, 'scratched AFTER kickoff: held (it voids)')
+chk(json.load(open(cp))['name'] == first['name'], 'scratched AFTER kickoff: held (it voids)')
 run(800)
-c2 = json.load(open(cp))
-chk(c2['picks']['B']['name'] != fb and c2['picks']['A'] == first['picks']['A'], 'scratched BEFORE kickoff: only his side is re-picked')
-# a pre-TOSS single pick already in the cache is still honoured (a placed bet)
-json.dump(dict(name='Lead Back', team='B', match=M, pos='RB', odds=450, p_first=0.1, ev=0.0), open(cp, 'w'))
-for s in scored: s.pop('out', None)
-json.dump(scored, open(sp, 'w')); run(700)
-chk(json.load(open(cp)).get('name') == 'Lead Back', 'a legacy single-pick cache is held, not re-made')
+chk(json.load(open(cp))['name'] != first['name'], 'scratched BEFORE kickoff: re-picked without him')
+# PREGAME: the pregame chance is the 50/50 average of the two receive worlds
+pp_ = nfl_ftd.p_first_pregame(F2); pa_, pb_ = nfl_ftd.p_first(F2, recv={M: 'A'}), nfl_ftd.p_first(F2, recv={M: 'B'})
+chk(abs(pp_[(M, 'homeback')] - (pa_[(M, 'homeback')] + pb_[(M, 'homeback')]) / 2) < 1e-12, 'pregame P = average of the two toss outcomes')
 
 summ = {'scoringPlays': [
     {'type': {'abbreviation': 'FG'}, 'text': 'Cairo Santos 29 Yd Field Goal'},

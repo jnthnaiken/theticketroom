@@ -258,9 +258,9 @@ def seams(payload_js):
     add('kind-lunch',
         '<span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
         'and you pick one — this is the best model score on their list. Not a bet we place.</span>',
-        '<span class="ke">🚨</span><div><b>Opening Drive</b><span>First touchdown, one game a slate, and two names: one for each '
-        'team getting the ball first. The team that receives the opening kickoff scores first 57% of the time, so '
-        '<b>watch the coin toss</b> and bet the name that matches it, before kickoff. 1u.</span>')
+        '<span class="ke">🚨</span><div><b>Opening Drive</b><span>First touchdown. One pick a slate, placed before kickoff: the '
+        'player most worth backing to score his game\u2019s <i>first</i> touchdown. Built off the market\u2019s anytime price, '
+        'leaning to heavy-usage players on home favourites, and kept to +300 to +1000, where the first-TD book charges least. 1u.</span>')
     add('kind-nightcap',
         '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
         'the man who hits the <i>longest</i> homer that day — we rank park carry plus model '

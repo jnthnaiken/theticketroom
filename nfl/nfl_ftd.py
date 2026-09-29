@@ -39,10 +39,13 @@ price x the tilt. It hit 2 of 10 slates (and 8 of 47 games) against the old rule
 opening kickoff scores the game's first touchdown 57% of the time, every season 2019-25 (50-61%), 1,860
 games. In the conditional logit it is x1.49 (log se 0.056) -- larger than every other tilt together, and
 larger than the book's markup on short names. Nobody knows the receiver before the toss (a team's receive
-habit does not carry over: year-to-year corr ~0.1), so owner's call: "Yes, two picks". The slate's pick is
-now ONE GAME and TWO MEN -- the best first-TD play IF each side gets the ball first -- and people place it
-after the toss. The game is the one whose pair has the best average EV. The page shows both until the live
-feed sees the opening drive, then only the one in play; the ledger grades only that one.
+habit does not carry over: year-to-year corr ~0.1). TOSS briefly made the slate's pick two men, one per side
+receiving, to be placed after the toss. RETIRED the same day -- owner: "we need to assume the books wont
+take first td bets after toss". The pick is ONE man again, placed before kickoff (pick_pregame): the toss
+enters as the 50/50 average of the two worlds, and team quality enters through the spread, which beat every
+team-form stat tried (EPA, success rate, opening-drive TD rates, early EPA -- claude/ftdresearch-2026-09-29.md).
+pick_toss() and the page/settle support for `alts` stay so a two-pick card could come back, but nothing
+makes one now.
 
 STICKY
     The pick is written to --cache (slates/<date>/ftd_pick.json, committed by the build) the first
@@ -223,6 +226,47 @@ def pick_toss(scored, ftd, exclude=(), only=None):
     return best
 
 
+def p_first_pregame(scored):
+    """PREGAME-2026-09-29 -- owner: "we need to assume the books wont take first td bets after toss". The toss is
+    still the biggest single thing, but it is a coin flip nobody can bet after, so the honest pregame chance is
+    the AVERAGE of the two worlds: P = 1/2 P(first | home receives) + 1/2 P(first | away receives). That keeps
+    the receive effect's non-linearity (it helps a lopsided favourite more than it hurts him) instead of
+    pretending it is not there."""
+    out = {}
+    for m in sorted({s['match'] for s in scored}):
+        rows = [s for s in scored if s['match'] == m]
+        ts = sorted({s.get('team') for s in rows if s.get('team')})
+        if len(ts) != 2:
+            out.update(p_first(rows)); continue
+        a, b = p_first(rows, recv={m: ts[0]}), p_first(rows, recv={m: ts[1]})
+        for k in a:
+            out[k] = 0.5 * a[k] + 0.5 * b.get(k, a[k])
+    return out
+
+
+def pick_pregame(scored, ftd, exclude=()):
+    """PREGAME: ONE man a slate, placed before kickoff -- the best EV in the band, from either side of any game.
+    A lopsided favourite's workhorse wins this on its own because the spread already says who should score
+    first: 10+ point favourites score first 72% of the time (64% even when the underdog receives)."""
+    pf = p_first_pregame(scored)
+    best = None
+    for s in scored:
+        k = (s['match'], norm(s['name']))
+        if k not in ftd or k not in pf or s['name'] in exclude:
+            continue
+        if (s.get('pos') or '').upper() == 'QB' or s.get('out') or s.get('void'):
+            continue
+        o = ftd[k]
+        if not (FTD_MIN <= o <= FTD_MAX):
+            continue
+        ev = pf[k] * dec(o) - 1
+        row = dict(name=s['name'], team=s.get('team'), match=s['match'], pos=s.get('pos'), odds=o,
+                   p_first=round(pf[k], 4), ev=round(ev, 4), anytime_odds=s.get('odds'))
+        if best is None or row['ev'] > best['ev']:
+            best = row
+    return best
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('scored'); ap.add_argument('fixtures'); ap.add_argument('ftd')
@@ -260,19 +304,15 @@ def main():
         ko = ((fx.get('matches') or {}).get(c.get('match')) or {}).get('kickoff')
         if s.get('out') and ko is not None and now < ko:
             print(f"FIRSTTD: cached pick {c['name']} is now OUT before kickoff -- picking again")
-            c = pick(scored, ftd, exclude=(c['name'],))
+            c = pick_pregame(scored, ftd, exclude=(c['name'],))
             if c:
                 json.dump(c, open(A.cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
         else:
             print(f"FIRSTTD: holding {c['name']} {c['odds']:+d} (cached)")
     else:
-        c = pick_toss(scored, ftd)
+        c = pick_pregame(scored, ftd)          # PREGAME: one man, before kickoff (TOSS picks are no longer made)
         if c:
             json.dump(c, open(A.cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-            for t, r in c['picks'].items():
-                print(f"FIRSTTD: {c['match']} -- if {t} receives -> {r['name']} {r['odds']:+d}  "
-                      f"P(first) {r['p_first']:.1%}  EV {r['ev']:+.3f}")
-            return 0
     if not c:
         print('FIRSTTD: nothing in the price band -- no pick')
         return 0
