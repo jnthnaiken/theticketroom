@@ -190,7 +190,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         for l in legs:
             wxs[meta_wx[str(l['game'])]['lean'].lower()] += 1
         T.append(dict(
-            name=t['name'], kind=t['kind'], badge=t['badge'],
+            name=t['name'], kind=t['kind'], badge=('🎟️' if t['kind'] == 'builder' else t['badge']),   # SINGLESNAME-2026-09-29
             note=note_for(t['kind'], t['legs'], SRC, voice=voice, tname=t['name']),
             players=legs, nlegs=len(legs), anchor=t['anchor'],
             # ⚠️ NO ' ET' HERE. The renderer emits `<span>Lock ${t.lock} ET</span>` and appends

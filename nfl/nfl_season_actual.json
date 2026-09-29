@@ -1,0 +1,56 @@
+{
+ "since": "2026-09-09",
+ "history": [
+  0,
+  -1.65,
+  -3.85,
+  -8.05,
+  -12.05,
+  -11.85,
+  -18.95,
+  -20.95,
+  -22.95,
+  -26.39,
+  -30.39
+ ],
+ "graded_nights": [
+  "2026-09-09",
+  "2026-09-10",
+  "2026-09-13",
+  "2026-09-14",
+  "2026-09-17",
+  "2026-09-20",
+  "2026-09-21",
+  "2026-09-24",
+  "2026-09-27",
+  "2026-09-28"
+ ],
+ "cats": {
+  "lunch": {
+   "graded": 3,
+   "won": 1,
+   "units": 0.8,
+   "staked": 3.0
+  },
+  "late": {
+   "graded": 3,
+   "won": 1,
+   "units": 1.0,
+   "staked": 3.0
+  },
+  "builder": {
+   "graded": 38,
+   "won": 10,
+   "units": -7.09,
+   "staked": 38.0
+  },
+  "moon": {
+   "graded": 16,
+   "won": 1,
+   "units": -25.1,
+   "staked": 32.0
+  }
+ },
+ "stake": 1,
+ "note": "ACTUALRECORD-2026-09-27. Owner: show actual results. This is every archived board in nfl/boards/ re-folded with soccer_grade.fold() exactly as posted -- no restatement. The 2026-09-17 restatement (+8.1u) is kept for the record in nfl_season_restated.json and is not displayed."
+}

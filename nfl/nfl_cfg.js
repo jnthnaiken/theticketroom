@@ -36,7 +36,7 @@ function applyVocabulary(Draft) {
   /* NFLBADGE-2026-09-17: football singles keep the anchor. soccer_draft.js now defaults builder to 🥅
      (the soccer Top Bin, TOPBIN-2026-09-17), and without this pin every NFL single shipped a soccer
      goal. Pin the whole football vocabulary here so a soccer re-skin can never leak across again. */
-  Draft.BADGE.builder = '⚓️';
+  Draft.BADGE.builder = '🎟️';   /* SINGLESNAME-2026-09-29: football is singles-only; not anchors any more */
   Draft.BADGE.lunch = '🍱';
   Draft.BADGE.late = '🌃';
   return Draft;

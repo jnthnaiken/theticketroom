@@ -1,17 +1,17 @@
 {
  "since": "2026-09-09",
  "history": [
-  0,
-  -1.65,
-  -3.85,
-  -8.05,
-  -12.05,
-  -11.85,
-  -18.95,
-  -20.95,
-  -22.95,
-  -26.39,
-  -30.39
+  0.0,
+  -3.0,
+  -3.2,
+  5.62,
+  2.62,
+  13.22,
+  14.51,
+  10.51,
+  9.11,
+  11.27,
+  7.27
  ],
  "graded_nights": [
   "2026-09-09",
@@ -26,31 +26,102 @@
   "2026-09-28"
  ],
  "cats": {
-  "lunch": {
-   "graded": 3,
-   "won": 1,
-   "units": 0.8,
-   "staked": 3.0
-  },
-  "late": {
-   "graded": 3,
-   "won": 1,
-   "units": 1.0,
-   "staked": 3.0
-  },
   "builder": {
-   "graded": 38,
-   "won": 10,
-   "units": -7.09,
-   "staked": 38.0
-  },
-  "moon": {
-   "graded": 16,
-   "won": 1,
-   "units": -25.1,
-   "staked": 32.0
+   "graded": 113,
+   "won": 35,
+   "units": 7.27,
+   "staked": 113.0
   }
  },
  "stake": 1,
- "note": "ACTUALRECORD-2026-09-27. Owner: show actual results. This is every archived board in nfl/boards/ re-folded with soccer_grade.fold() exactly as posted -- no restatement. The 2026-09-17 restatement (+8.1u) is kept for the record in nfl_season_restated.json and is not displayed."
+ "restated": true,
+ "note": "VALUEREPLAY-2026-09-29. Owner: \"update the football ledger with the new model version and board\" -> \"cant backtest it?\". Every committed slate 09-09..09-27 re-run through the CURRENT pipeline (nfl_mock -> nfl_value VALUESINGLES -> nfl_draft_cli, depth chart as of each date, history model as-of each date, prices as posted in slates/<date>/prices.json) and graded off nflverse pbp (td_player_id; weekly-roster status != ACT = void). 09-28 is the live board as posted and reproduced exactly by the replay. No injury report in the replay (ESPN has no archive), so a man ruled out that week is voided rather than skipped. The posted record (moons + old singles, -30.39u) is kept in nfl_season_actual.json and is not displayed. Rules were chosen on these same nine slates, so this is in-sample.",
+ "replay": {
+  "nights": [
+   [
+    "2026-09-09",
+    3,
+    0,
+    2,
+    -3.0
+   ],
+   [
+    "2026-09-10",
+    5,
+    1,
+    0,
+    -0.2
+   ],
+   [
+    "2026-09-13",
+    40,
+    15,
+    1,
+    8.82
+   ],
+   [
+    "2026-09-14",
+    3,
+    0,
+    1,
+    -3.0
+   ],
+   [
+    "2026-09-17",
+    7,
+    4,
+    0,
+    10.6
+   ],
+   [
+    "2026-09-20",
+    21,
+    7,
+    2,
+    1.29
+   ],
+   [
+    "2026-09-21",
+    4,
+    0,
+    0,
+    -4.0
+   ],
+   [
+    "2026-09-24",
+    4,
+    1,
+    0,
+    -1.4
+   ],
+   [
+    "2026-09-27",
+    22,
+    7,
+    0,
+    2.16
+   ],
+   [
+    "2026-09-28",
+    4,
+    0,
+    0,
+    -4.0
+   ]
+  ],
+  "cats_by_price": {
+   "value": {
+    "graded": 83,
+    "won": 31,
+    "units": 12.52,
+    "staked": 83.0
+   },
+   "long": {
+    "graded": 30,
+    "won": 4,
+    "units": -5.25,
+    "staked": 30.0
+   }
+  }
+ }
 }

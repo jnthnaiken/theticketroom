@@ -25,7 +25,7 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 62 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
+EXPECT_SEAMS = 65 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09)
 
 def seams(payload_js):
@@ -124,12 +124,19 @@ def seams(payload_js):
     # first time it ran after that rename, which is the seam guard doing its job: it refused to
     # publish a football page built off markup it no longer recognised.
     add('howto-order', 'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-                       'Read it top to bottom: 🍱 Early Window, 🌃 Sunday Night, ⚓️ Anchors, 🏈 Paydirt.')
+                       'Read it top to bottom: 🍱 Early Window, 🌃 Sunday Night, 🎟️ Singles.')
     add('builder-hint', 'Pick bats on the left, then Build.', 'Pick players on the left, then Build.', 3)
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')
-    add('kind-anchors', '<b>Anchors</b><span>The four bats the moons are built around,',
-                        '<b>Anchors</b><span>The four players the parlays are built around,')
+    # SINGLESNAME-2026-09-29, owner: "dont need to call them anchors anymore either if we're just doing singles".
+    # Football has been singles-only since NFLSINGLES-2026-09-27 (VALUESINGLES since 09-28), so every place
+    # the page says Anchors / ⚓️ for kind 'builder' says Singles / 🎟️. Kind stays 'builder' so grading and
+    # nfl_season.json keep reconciling.
+    add('kind-anchors', '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
+                        '<span class="ke">🎟️</span><div><b>Singles</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span>')
+    add('tracker-builder', "['builder','⚓️','Anchors']", "['builder','🎟️','Singles']")
+    add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Singles',builder)")
+    add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎟️ \\u00b7 '")
     add('step-players', 'Every bat that cleared the pool gate, one card each.',
                         'Every player who cleared the pool gate, one card each.')
     add('footer-wind', 'always verify odds, lineups, and wind before you wager.',
