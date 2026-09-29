@@ -35,6 +35,11 @@ TIES
     picked the winner, so a tie is a win for each man who reached the max -- `winners()` returns
     ALL of them and `is_winner()` tests membership, rather than picking one arbitrarily.
 
+POSTSEASON (JACKPOTPOST-2026-09-29)
+    `hfGT` was `R|` -- regular season only. From the Wild Card round on every game is F/D/L/W, so the
+    query came back header-only, winners() returned None, and every October jackpot would have sat in
+    `pending_free` forever. It now asks for R|F|D|L|W| -- the day's longest homer in any MLB game.
+
 FAILURE IS NOT A LOSS
     Every error path returns None, and `grade_night` leaves the slip UNGRADED on None rather than
     scoring it 0. A blocked fetch, a WAF, an empty day: none of those are evidence our man missed.
@@ -50,7 +55,7 @@ import re
 import unicodedata
 import urllib.request
 
-URL = ('https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfGT=R%7C&hfSea={year}%7C'
+URL = ('https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfGT=R%7CF%7CD%7CL%7CW%7C&hfSea={year}%7C'
        '&hfAB=home_run%7C&game_date_gt={date}&game_date_lt={date}'
        '&player_type=batter&type=details')
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'      # Savant's WAF blocks the default urllib UA
