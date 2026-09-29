@@ -72,7 +72,9 @@ def grade_ticket(t, players, finals, stake_base=1.0):
     state, decs, kept = [], [], []
     for l in legs:
         p = players.get(l['name'], {})
-        hr = bool(p.get('hr'))
+        # FIRSTTD-2026-09-29 (football): a first-touchdown leg wins only on the game's FIRST
+        # touchdown, which nfl_settle.py stamps as `ftd1`. Soccer never sets `ftd`; unchanged there.
+        hr = bool(p.get('ftd1')) if l.get('ftd') else bool(p.get('hr'))
         if l.get('odds') in (None, 0):
             # NULLPRICE-2026-08-22, ported from grade_night.py. A leg minted with no price is not a
             # wager, and _dec(None) raises TypeError -- which here would take the whole settle run
