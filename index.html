@@ -832,7 +832,6 @@ body::after{
 <section id="v-p" role="tabpanel" aria-labelledby="tab-p" hidden>
  <div class="bar">
   <label class="fld">Sort by<select id="psort"><option value="total">Model score (TOTAL) · high to low</option><option value="odds">HR odds · shortest first</option><option value="power">Power · highest first</option><option value="hr9">Opp SP HR/9 · most homer-prone</option><option value="lift">Park/weather lift · biggest</option><option value="form">Form · hottest first</option><option value="status">Confirmed first</option><option value="az">Name · A–Z</option><option value="team">Team</option></select></label>
-  <label class="fld">Jump to player<select id="pjump"></select></label>
   <label class="fld">Find<input type="search" id="psearch" placeholder="Search"></label>
   <span class="count" id="pcount"></span>
  </div>
@@ -1238,7 +1237,7 @@ function drawPlayers(){const q=$('#psearch').value.trim().toLowerCase(),pool=inP
  if(q)names=names.filter(n=>n.toLowerCase().includes(q)||D.players[n].team.toLowerCase().includes(q)||D.players[n].opp[0].toLowerCase().includes(q));
  $('#players').innerHTML=names.length?names.map(pCard).join(''):'<div class="empty">No players match “'+q+'”.</div>';
  $('#pcount').textContent=q?('Showing '+names.length+' priced bats'):(names.length+' priced bats · '+pool.size+' in play');}
-const pjump=$('#pjump');{pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).filter(n=>{const p=D.players[n];return p&&p.odds!=null&&!p.void;}).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');}
+const pjump=$('#pjump');if(pjump){pjump.innerHTML='<option value="">Select…</option>'+Object.keys(D.players).filter(n=>{const p=D.players[n];return p&&p.odds!=null&&!p.void;}).sort((a,b)=>a.localeCompare(b)).map(n=>`<option value="${cssid(n)}">${n} — ${D.players[n].team}</option>`).join('');}
 (function modelSortInit(){ /* MODELSORT-2026-09-29: only on a board whose players carry p.mi -- archives and the soccer/football forks keep their own list */
   try{const sel=$('#psort');if(!sel||!D||!D.players||!Object.values(D.players).some(p=>p&&p.mi))return;
    const O=[['total','Model score (TOTAL) · high to low'],['mi:hh','Hard hit % · highest first'],['mi:la','Launch angle · closest to 25°'],['mi:khr','kHR · highest first'],
@@ -1249,7 +1248,7 @@ const pjump=$('#pjump');{pjump.innerHTML='<option value="">Select…</option>'+O
 })();
 $('#psort').addEventListener('change',drawPlayers);$('#psearch').addEventListener('input',drawPlayers);
 function flashTo(id){const el=document.getElementById('p-'+id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
-pjump.addEventListener('change',()=>{if(pjump.value)flashTo(pjump.value);});
+if(pjump)pjump.addEventListener('change',()=>{if(pjump.value)flashTo(pjump.value);});   /* NOJUMP-2026-09-29: the Jump-to-player dropdown was removed (owner: "just have the search bar"); the guard keeps any page without it from throwing */
 document.addEventListener('click',e=>{const b=e.target.closest('.leg');if(!b)return;selectTab('p');$('#psearch').value='';drawPlayers();requestAnimationFrame(()=>flashTo(cssid(b.dataset.player)));});
 function selectTab(k){['t','p','b','o','h'].forEach(x=>{const on=x===k,tb=$('#tab-'+x),v=$('#v-'+x);if(tb)tb.setAttribute('aria-selected',on);if(v)v.hidden=!on;});if(k==='b'){renderGameChips();buildPicker();}if(k==='o')renderAdmin();if(k==='h'&&window.htDraw)requestAnimationFrame(window.htDraw);window.scrollTo({top:0,behavior:'smooth'});}
 $('#tab-t').onclick=()=>selectTab('t');$('#tab-p').onclick=()=>selectTab('p');$('#tab-b').onclick=()=>selectTab('b');$('#tab-o').onclick=()=>selectTab('o');$('#tab-h').onclick=()=>selectTab('h');
