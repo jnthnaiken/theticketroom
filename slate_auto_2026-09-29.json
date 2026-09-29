@@ -1,7 +1,7 @@
 {
   "date": "2026-09-29",
   "season": "2026",
-  "pulled_at": "2026-09-29T19:30:31Z",
+  "pulled_at": "2026-09-29T19:36:16Z",
   "games": [
     {
       "gamePk": 849845,
@@ -272,7 +272,7 @@
     },
     {
       "gamePk": 849851,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-30T00:00:00Z",
       "venue": "Yankee Stadium",
       "matchup": "BOS@NYY",
@@ -295,10 +295,56 @@
           "hr9": 0.74,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 502671,
+            "name": "Paul Goldschmidt",
+            "iso": 0.2
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.27
+          },
+          {
+            "id": 671218,
+            "name": "Heliot Ramos",
+            "iso": 0.166
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.177
+          },
+          {
+            "id": 642708,
+            "name": "Amed Rosario",
+            "iso": 0.167
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.091
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.184
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.146
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
