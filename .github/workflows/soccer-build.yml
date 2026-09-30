@@ -408,7 +408,13 @@ jobs:
                        {n: (v.get('why') or '') for n, v in d['players'].items()})
               # FGS-2026-09-29: the Opener (meta.ftd) is on the page too -- a new or re-made pick must ship.
               ftd = (lambda f: (f.get('anchor'), f.get('note')) if f else None)(d.get('meta', {}).get('ftd'))
-              return t, pl, prose, ftd
+              # 🚨 LEDGERSIG-SOCCER-2026-09-30 -- THE TRACKER IS BAKED INTO THE PAGE. Football learned
+              # this on 2026-09-04 (nfl_sig.py LEDGERSIG); soccer never got it. MEASURED 2026-09-30:
+              # the 9/29 settle and the owner's lunch -> Top Bin merge both landed in
+              # soccer_season.json, every build ran green, the gate said commit=false, and the live
+              # tracker kept showing last night's rows. A ledger change is a thing a reader notices.
+              led = json.dumps(d.get('meta', {}).get('season'), sort_keys=True)
+              return t, pl, prose, ftd, led
           def shell(p):
               """The page minus its payload: template + every injected module."""
               h = open(p, encoding='utf-8', errors='replace').read()
