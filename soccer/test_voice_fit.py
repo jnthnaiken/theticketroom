@@ -74,47 +74,22 @@ for pl, avg in ((LOUD, 88), (LOUD, 61), (QUIET, 88), (QUIET, 61), (BLANK, 88), (
         for key, brief, full in V.angles(pl, avg, who, salt=salt):
             BANKS.setdefault(key, set()).update((brief, full))
 
-check(set(BANKS) == {'noxg', 'price', 'rate', 'quality', 'volume', 'finish', 'mins'},
+check(set(BANKS) == {'noxg', 'flair', 'rate', 'quality', 'volume', 'finish', 'mins'},
       'the sweep reached every angle bank', sorted(BANKS))
 check(all(len(v) >= 6 for v in BANKS.values()),
       'the sweep enumerated each bank (>=6 phrasings seen per angle)',
       {k: len(v) for k, v in BANKS.items()})
 
 # ---------------------------------------------------------------------------------------
-# 1. every clause carries its number.
-NUM = {
-    'rate': r'0\.\d\d',          # npxg90
-    'quality': r'0\.\d\d',       # xgpershot
-    'volume': r'\d\.\d',         # shots90
-    'finish': r'0\.\d\d',
-    'mins': r'\d\d',             # minutes
-    'price': r'[+-]\d+',
-}
-# The FULL form is the one a soccer card and a soccer ticket both use, and it is held to the
-# letter of the rule: it prints the figure. The BRIEF form is the compressed one a three-leg
-# slip falls back to, and `mins` is the single bank where compressing means dropping the digit
-# -- "plays the ninety" is a restatement of avg>=75, which is on the payload, not a new claim.
-# That licence is scoped to exactly this bank and exactly the brief forms; anywhere else, a
-# phrasing with no number in it is a sentence asserting something the data has not said, and
-# the assertion below is what keeps the licence from spreading.
-for pl, avg in ((LOUD, 88), (LOUD, 61), (QUIET, 88), (QUIET, 61), (BLANK, 88), (BLANK, 61)):
-    who = SP._surname(pl['name'])
-    for salt in (str(n) for n in range(200)):
-        for key, brief, full in V.angles(pl, avg, who, salt=salt):
-            if key == 'noxg':
-                continue
-            check_pat = NUM[key]
-            if not re.search(check_pat, full):
-                FAIL.append('full %r has no number' % full)
-            if key != 'mins' and not re.search(check_pat, brief):
-                FAIL.append('brief %r has no number' % brief)
-check(not FAIL, 'every full phrasing prints its number, and every brief but mins does',
-      FAIL[:3])
-
-MINSLESS = [t for t in BANKS['mins'] if not re.search(r'\d\d', t)]
-check(MINSLESS and all(t in BANKS['mins'] for t in MINSLESS),
-      "the numberless 'mins' phrasings exist and are the compressed brief forms (%d of them)"
-      % len(MINSLESS))
+# 1. HUDSON-2026-09-29 -- THE RULE IS INVERTED. Owner: "the write ups are supposed to be fun,
+# they can see the data". The card prints every figure; the prose prints NONE. A digit in a
+# phrasing is the stat-sheet register creeping back, which is exactly what he complained about.
+digits = sorted(t for t in set().union(*BANKS.values()) if re.search(r'\d', t))
+check(not digits, 'no phrasing in any bank recites a number', digits[:3])
+check('price' not in BANKS, 'the price angle is retired from the prose (the odds sit beside it)')
+opl = [SP.OPENER_LINES[i].format(who=WHO) for i in range(len(SP.OPENER_LINES))]
+check(all(WHO in t and not re.search(r'\d', t) for t in opl),
+      'every Opener line names its man and recites no number', opl[:2])
 
 # `noxg` is the one bank whose FACT is an absence, so it has no figure of its own -- but it
 # must still name the player, or a clause two positions later has nothing to attach to.
@@ -245,5 +220,5 @@ if FAIL:
     for f in FAIL:
         print('  - ' + f)
     sys.exit(1)
-print('ALL GREEN -- the voice sings, every clause still carries its number, and nothing '
+print('ALL GREEN -- the voice sings, recites no numbers, and nothing '
       'runs off the end of the card')

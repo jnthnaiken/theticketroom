@@ -368,8 +368,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             _doy = _dt.fromisoformat(date).timetuple().tm_yday
             _o = int(_row['odds']); _dec = 1 + (_o / 100 if _o > 0 else 100 / -_o)
             ftd_t = {'name': FGS_NAMES[_doy % len(FGS_NAMES)], 'kind': 'ftd', 'badge': '⚡',
-                     'note': (f"{_row['name']} to score the first goal of {_p['gmatch']} \u2014 the "
-                              f"model gives him {100 * _row['p_first']:.1f}%, the best chance on the slate."),
+                     # HUDSON-2026-09-29: no percentage in the prose -- the colour man sells it.
+                     'note': (f"{_row['name']} to score the first goal of {_p['gmatch']}. "
+                              + _pick(OPENER_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
                      'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
                      'has_late': False, 'final': False, 'locked': False, 'rr': None,
                      'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
@@ -451,6 +452,18 @@ NAMES = {
 }
 BADGE = {'moon': '💥', 'builder': '🥅', 'family': '💥', 'lunch': '🍱', 'late': '🌃', 'ftd': '⚡'}
 # FGS-2026-09-29: one first-goalscorer slip a slate, its title rotated by date like every other pool.
+# HUDSON-2026-09-29. The Opener's write-up. Owner: the "model gives him 13.5%" line was a stat read
+# off a card that already prints it. The pick is the slate's best first-goal chance -- the most
+# danger, starting -- so that is what gets sung. No digits, no promise he scores.
+OPENER_LINES = [
+    'Oh my word, {who} is the first name on the team sheet and the first name on ours. Magisterial!',
+    '{who} lives in that box like a landlord collecting rent, and somebody has to break the seal. Why not him?',
+    'Kickoff, and {who} is already prowling like a panther in the long grass. Glorious!',
+    '{who} is the man to open the tin, a can opener in golden boots. Pure poetry!',
+    'Early doors, somebody has to be the hero, and {who} was born for the role. Mamma mia!',
+    '{who} smells the first chance before it even arrives, like a shark smelling one drop of blood from a mile off. Delicious!',
+]
+
 FGS_NAMES = ['Breaks the Deadlock', 'First Blood', 'Opening Account', 'Early Doors', 'Off the Mark',
              'First to the Net', 'The Opener', 'Sets the Tone', 'Draws First Blood', 'Ice Breaker',
              'Gets Us Going', 'Kick-Off Call', 'First on the Sheet', 'Breaks the Seal']
@@ -594,7 +607,7 @@ def _pick(options, key):
     return options[_h(key) % len(options)]
 
 
-def _rot(seq, key, pin_last=('price',)):
+def _rot(seq, key, pin_last=('price', 'flair')):
     """Deterministic rotation of an angle list, with the weak angles pinned to the back.
 
     VOICE-2026-08-28. This is the fix for the real complaint. `angles()` returns candidates in
@@ -640,17 +653,15 @@ def _rot(seq, key, pin_last=('price',)):
 #      opener -- so even two notes built from the same angles do not scan alike.
 # --------------------------------------------------------------------------------------
 
-OPENERS_3 = ['Three that can all find it', 'Three names, one afternoon', 'If all three turn up',
-             'Everything has to land', 'The lot has to come off', 'Three to hear the net rustle',
-             'All three or nothing', 'Three goals, three grounds', 'Nothing here is a formality',
-             'Hold your nerve', 'Three that fancy it']
-OPENERS_1 = ['One name', 'Straight up', 'Just the one', 'No frills',
-             'One man, one afternoon', 'All of it on one pair of boots',
-             'The simple one', 'One name and a prayer']
+OPENERS_3 = ['Oh, this is delicious', 'Three magicians, one afternoon', 'Get the smelling salts',
+             'Pure poetry', 'Sheer theatre', 'Three artists, one canvas', 'Mamma mia',
+             'Bring the brass band', 'Oh my word', 'What a trio', 'Hold on to your hats']
+OPENERS_1 = ['Oh my word', 'Magisterial', 'Pure poetry', 'Mamma mia',
+             'Sheer theatre', 'Oh, delicious', 'Get the smelling salts', 'Glorious']
 
-FRAMES_3 = ['{a}, {b}, and {c}.', '{o}: {a}, {b}, {c}.', '{a}. {b}, and {c}.',
+FRAMES_3 = ['{a}, {b}, and {c}.', '{o}! {a}, {b}, {c}.', '{a}. {b}, and {c}.',
             '{o} — {a}, {b}, and {c}.', '{a} and {b}. {c}.', '{a}; {b}; {c}.']
-FRAMES_2 = ['{a} and {b}.', '{o}: {a}, {b}.', '{a}, and {b}.', '{o} \u2014 {a}, and {b}.']
+FRAMES_2 = ['{a} and {b}.', '{o}! {a}, and {b}.', '{a}, and {b}.', '{o} \u2014 {a}, and {b}.']
 
 # TNOTEFIT-2026-09-23: the two-line `.tnote` clamp, in characters. Measured, not guessed:
 # every ticket note the board has ever shipped fitted at or under 94, and the widest that
@@ -738,133 +749,138 @@ class Voice:
                     return _pick(subj, kk)
             return _pick(opts, kk)
 
+        # ⚽ HUDSON-2026-09-29. Owner: "soccer seems to have gotten away from the roy hudson language,
+        # what happened? the write ups are supposed to be fun, they can see the data". What happened
+        # is the HARD RULE above: every clause had to carry its number, so the rapture got welded to
+        # "0.66 non-penalty xG a 90" and read like a stat sheet with a thesaurus. The card already
+        # prints every figure. So the numbers leave the prose entirely and the adjectives get the
+        # whole stage -- the over-the-top, poetic, gloriously unhinged colour-man register.
+        #
+        # WHAT STAYS: an angle still only FIRES when the payload earns it (same _hi() bands, same
+        # finishing thresholds, same minutes split), the frame stays generous, no clause says a goal
+        # is coming tonight, and the subject/object rules below are unchanged. The PRICE angle is
+        # retired from the prose (the odds sit right beside it) and replaced as the always-there
+        # floor by FLAIR, pinned last the way price was. Original phrasing in the style; no quotes.
         if npx is None:
             out.append(('noxg',
-                        # NOTE: nothing in this bank mentions the price. `price` is pinned
-                        # last by _rot and therefore ALWAYS follows this clause, so a phrase
-                        # that reached for the market here printed it twice in one sentence:
-                        # "arrives with no xG at all, pure nerve and a price and is priced
-                        # +270". This bank says only that the model is silent; the next clause
-                        # says what the market thinks, exactly once.
-                        say([f'{who} on pure nerve',
-                               f'{who} off the xG map',
-                               f'{who} unmodelled and unbothered',
-                               f'{who} beyond the numbers',
-                               f'no model can hold {who}',
-                               f'{who} on instinct alone'], k + 'n'),
-                        say([f'{who} plays beyond the reach of the models altogether',
-                               f"{who} plays outside Understat's five, and {comp} is uncharted territory",
-                               f'{who} arrives with no xG at all, on pure nerve and instinct',
-                               f'{who} is unmeasured, unmodelled and entirely unbothered by it',
-                               f'there is no model in the world that can hold {who}',
-                               f'{comp} is off the xG map, so nobody has a number on {who}'], k + 'N')))
-            if odds:
-                out.append(('price',
-                            say([f'{who} at {odds:+d}', f'{odds:+d} for {who}',
-                                   f'{who} is {odds:+d}'], k + 'p'),
-                            say([f'{who} is priced {odds:+d}',
-                                   f'the book has {who} at {odds:+d}',
-                                   f'the market puts {who} at {odds:+d}',
-                                   f'{who} comes in at {odds:+d}'], k + 'P')))
-            return out
-
-        if self._hi('npxg90', npx):
-            out.append(('rate',
-                        say([f'{who} magisterial at {npx:.2f} a 90',
-                               f'{who} lives in the danger, {npx:.2f} a 90',
-                               f'{who} is a menace — {npx:.2f} a 90',
-                               f'{who} haunts that box, {npx:.2f} a 90',
-                               f'{who} at {npx:.2f} a 90, glorious',
-                               f'{who} in the postcode of pain, {npx:.2f}',
-                               f'{npx:.2f} non-penalty xG a 90 out of {who}'], k + 'r'),
-                        say([f'{who} is magisterial in there, {npx:.2f} non-penalty xG every ninety',
-                               f'{who} haunts the six-yard box like a rumour, {npx:.2f} xG a 90',
-                               f'{who} lives exactly where the ball comes down — {npx:.2f} xG a 90',
-                               f'{who} is a beautiful nuisance in that box, {npx:.2f} xG a 90',
-                               f'{who} runs {npx:.2f} non-penalty xG a 90 and makes it look like breathing',
-                               f'{who} generates {npx:.2f} glorious non-penalty xG a ninety',
-                               f'{npx:.2f} non-penalty xG a ninety tells you everything about {who}'], k + 'R')))
-        if self._hi('xgpershot', xps):
-            out.append(('quality',
-                        say([f'{who} {xps:.2f} xG a shot, pure geometry',
-                               f'{who} picks his moment — {xps:.2f} a shot',
-                               f'{who} shoots like a surgeon, {xps:.2f}',
-                               f'{who} does not waste them, {xps:.2f} a shot',
-                               f'{who} in the right yards, {xps:.2f} a shot',
-                               f'{xps:.2f} xG an attempt, no waste on {who}'], k + 'q'),
-                        say([f'{who} shoots from where the angels live, {xps:.2f} xG an attempt',
-                               f'{who} gets right in on top of it, {xps:.2f} xG an attempt',
-                               f'{who} finds the good yards before he pulls the trigger, {xps:.2f} a shot',
-                               f'{who} is a picture of restraint at {xps:.2f} xG an attempt',
-                               f'{who} takes them from the places that pay, {xps:.2f} xG a shot',
-                               f'every shot off the boot of {who} is worth {xps:.2f} xG'], k + 'Q')))
-        if self._hi('shots90', sh):
-            out.append(('volume',
-                        say([f'{who} lets fly {sh:.1f} a 90',
-                               f'{who} {sh:.1f} shots a 90, fearless',
-                               f'{who} will have a dig — {sh:.1f} a 90',
-                               f'{who} rattles off {sh:.1f} a 90',
-                               f'{sh:.1f} attempts a 90 from {who}'], k + 'v'),
-                        say([f'{who} is fearless with it, {sh:.1f} attempts every ninety minutes',
-                               f'{who} does not need asking twice — {sh:.1f} shots a 90',
-                               f'{who} lets fly {sh:.1f} times a ninety, from anywhere and everywhere',
-                               f'{who} pulls the trigger {sh:.1f} times a game without a second thought',
-                               f'{sh:.1f} shots a ninety says nobody is talking {who} out of it'], k + 'V')))
-        if fin is not None and fin >= 0.05:
-            out.append(('finish',
-                        say([f'{who} +{fin:.2f} on his xG',
-                               f'{who} burying them, +{fin:.2f}',
-                               f'{who} is stealing goals, +{fin:.2f}',
-                               f'+{fin:.2f} a 90 over xG for {who}'], k + 'f'),
-                        say([f'{who} is +{fin:.2f} a 90 over his xG — the ones that fall are going in',
-                               f'{who} has been finishing above what the chances deserve, +{fin:.2f} a 90',
-                               f'{who} is {fin:.2f} a 90 to the good on his xG, daylight robbery',
-                               f'the half-chances have been going in for {who}, +{fin:.2f} a 90 over xG'], k + 'F')))
-        elif fin is not None and fin <= -0.08:
-            out.append(('finish',
-                        say([f'{who} owed {abs(fin):.2f} a 90',
-                               f'{who} due, {abs(fin):.2f} under his xG',
-                               f'{who} robbed of {abs(fin):.2f} a 90',
-                               f'{abs(fin):.2f} a 90 owed to {who}'], k + 'f'),
-                        say([f'{who} is {abs(fin):.2f} a 90 under his xG, a pile of chances still owed him',
-                               f'{who} keeps arriving in the right places, {abs(fin):.2f} a 90 of xG unpaid',
-                               f'{who} is owed {abs(fin):.2f} a 90 on his xG, and the chances keep coming',
-                               f'the football gods owe {who} {abs(fin):.2f} a 90 on his xG'], k + 'F')))
-        if avg:
-            if avg >= 75:
-                out.append(('mins',
-                            say([f'{who} plays the ninety',
-                                   f'{who} never comes off',
-                                   f'{who} is there at the death',
-                                   f'{who} sees out the lot',
-                                   f'{who} does not get hooked',
-                                   f'the hook never comes for {who}'], k + 'm'),
-                            say([f'{who} is on for {avg:.0f} minutes an appearance, there at the death',
-                                   f'{who} does not come off — {avg:.0f} minutes a game, every last one',
-                                   f'{who} sees out the ninety, {avg:.0f} minutes a game, until the lights go out',
-                                   f'{who} plays {avg:.0f} minutes an appearance, so he is on when it matters',
-                                   f'the manager will not take {who} off, {avg:.0f} minutes an appearance'], k + 'M')))
-            else:
-                out.append(('mins',
-                            say([f'{who} a {avg:.0f}-minute man',
-                                   f'{who} gives you {avg:.0f} live minutes',
-                                   f'{who} {avg:.0f} minutes of devilment',
-                                   f'{avg:.0f} minutes a game from {who}'], k + 'm'),
-                            say([f'{who} gives you {avg:.0f} minutes an appearance and spends every one at it',
-                                   f'{who} averages {avg:.0f} minutes a game, and they are lively ones',
-                                   f'{who} is on for {avg:.0f} minutes an appearance and does not waste them',
-                                   f'{avg:.0f} minutes an appearance from {who}, all of them worth watching'], k + 'M')))
-        if not out:
-            out.append(('rate', f'{who} at {npx:.2f} xG a 90',
-                        f'{who} runs {npx:.2f} non-penalty xG a 90'))
-        if odds:
-            out.append(('price',
-                        say([f'{who} at {odds:+d}', f'{odds:+d} for {who}',
-                               f'{who} is {odds:+d}'], k + 'p'),
-                        say([f'{who} is priced {odds:+d}',
-                               f'the book has {who} at {odds:+d}',
-                               f'the market puts {who} at {odds:+d}',
-                               f'{who} comes in at {odds:+d}'], k + 'P')))
+                        say([f'{who} plays pure jazz, no sheet music',
+                             f'{who} is a mystery in golden boots',
+                             f'{who} runs on instinct and mischief',
+                             f'{who} is beyond the spreadsheets',
+                             f'no computer on earth can explain {who}',
+                             f'{who} is street football in a kit'], k + 'n'),
+                        say([f'{who} plays pure jazz, no sheet music, just instinct and a wicked grin',
+                             f'{who} is a mystery wrapped in an enigma wrapped in a gorgeous pair of boots',
+                             f'{who} runs on instinct and mischief, and the spreadsheets can go and whistle',
+                             f'{who} is beyond the reach of every model ever built, pure street football',
+                             f'no computer on this earth can explain {who}, and thank heavens for that',
+                             f'{who} is a riddle the analysts gave up on, all swagger and sorcery'], k + 'N')))
+        else:
+            if self._hi('npxg90', npx):
+                out.append(('rate',
+                            say([f'{who} haunts that box like a ghost with a grudge',
+                                 f'{who} lives in the six-yard box',
+                                 f'{who} is a fox in the henhouse',
+                                 f'{who} smells blood in the box',
+                                 f'{who} is a pickpocket in the penalty area',
+                                 f'the box belongs to {who}'], k + 'r'),
+                            say([f'{who} haunts that penalty box like a ghost with a grudge and a key to the front door',
+                                 f'{who} lives in the six-yard box, pays no rent and eats all the biscuits',
+                                 f'{who} is a fox in the henhouse with his napkin already tucked in',
+                                 f'{who} sniffs out chances like a truffle pig in a Tuscan forest',
+                                 f'{who} gets on the end of everything, as if the ball is on a string',
+                                 f'the penalty box is a cathedral, with {who} lighting every candle'], k + 'R')))
+            if self._hi('xgpershot', xps):
+                out.append(('quality',
+                            say([f'{who} shoots like a surgeon',
+                                 f'{who} never wastes a bullet',
+                                 f'{who} picks his spots like a jeweller',
+                                 f'{who} waits for the perfect moment',
+                                 f'{who} is all precision, no panic',
+                                 f'every shot from {who} is a love letter'], k + 'q'),
+                            say([f'{who} only shoots from where the angels live',
+                                 f'{who} is a surgeon with a scalpel dipped in honey',
+                                 f'{who} waits for the moment like a heron over a still pond',
+                                 f'{who} picks his spots like a jeweller choosing diamonds',
+                                 f'{who} never wastes a bullet, every shot a love letter to the net',
+                                 f'every shot off the boot of {who} is a little work of art'], k + 'Q')))
+            if self._hi('shots90', sh):
+                out.append(('volume',
+                            say([f'{who} shoots on sight',
+                                 f'{who} lets fly from anywhere',
+                                 f'{who} is trigger-happy and fearless',
+                                 f'{who} will have a pop from the car park',
+                                 f'{who} never stops shooting',
+                                 f'nobody talks {who} out of a shot'], k + 'v'),
+                            say([f'{who} shoots on sight, like a man with a personal grudge against goalkeepers',
+                                 f'{who} fires away like a pirate ship with a hold full of cannonballs',
+                                 f'{who} will have a dig from the car park, the corner flag, the tunnel',
+                                 f'{who} is trigger-happy and fearless, the keeper\'s gloves are smoking',
+                                 f'{who} never stops shooting, bless his thunderous boots',
+                                 f'nobody on this earth can talk {who} out of a shot'], k + 'V')))
+            if fin is not None and fin >= 0.05:
+                out.append(('finish',
+                            say([f'{who} is finishing like a god',
+                                 f'{who} buries everything',
+                                 f'{who} has ice in his veins',
+                                 f'{who} is ruthless in front of goal',
+                                 f'the net adores {who}'], k + 'f'),
+                            say([f'{who} is burying chances like a pirate burying treasure',
+                                 f'{who} is finishing with the cold blood of an assassin',
+                                 f'{who} has ice in his veins and dynamite in his boots',
+                                 f'{who} is ruthless in front of goal, lethal and utterly delicious',
+                                 f'the net just throws its arms wide open for {who}'], k + 'F')))
+            elif fin is not None and fin <= -0.08:
+                out.append(('finish',
+                            say([f'{who} is owed a goal or three',
+                                 f'{who} is due, oh so due',
+                                 f'{who} has been robbed by keepers',
+                                 f'{who} keeps knocking on the door',
+                                 f'the football gods owe {who}'], k + 'f'),
+                            say([f'{who} keeps arriving in all the right places and the goals are overdue',
+                                 f'{who} is owed, the chances keep coming and the dam is creaking',
+                                 f'{who} has been robbed blind by goalkeepers and the debt is piling up',
+                                 f'{who} keeps knocking on that door, and doors do not stay shut forever',
+                                 f'the football gods owe {who} a big, fat, gorgeous one'], k + 'F')))
+            if avg:
+                if avg >= 75:
+                    out.append(('mins',
+                                say([f'{who} plays every last second',
+                                     f'{who} never comes off',
+                                     f'{who} is there at the death',
+                                     f'{who} runs till the lights go out',
+                                     f'the hook never comes for {who}'], k + 'm'),
+                                say([f'{who} plays the full ninety like a marathon man with a grin on his face',
+                                     f'{who} never comes off, the manager would sooner substitute himself',
+                                     f'{who} is out there at the death, bless his iron lungs',
+                                     f'{who} runs and runs until the floodlights go out',
+                                     f'the manager would never dream of hooking {who}'], k + 'M')))
+                else:
+                    out.append(('mins',
+                                say([f'{who} is a firecracker, not a candle',
+                                     f'{who} packs his minutes with mischief',
+                                     f'{who} is pure chaos in short bursts',
+                                     f'{who} needs no ninety to cause a riot',
+                                     f'every minute of {who} is box office'], k + 'm'),
+                                say([f'{who} is a firecracker, not a candle, every minute a fireworks show',
+                                     f'{who} packs his minutes with mischief and menace',
+                                     f'{who} is pure chaos in short bursts, a cat among the pigeons',
+                                     f'{who} does not need the full ninety to start a riot',
+                                     f'every single minute of {who} on the pitch is box office'], k + 'M')))
+        # THE FLOOR. Every man gets a beat even when no band fires, the way price used to fill in.
+        out.append(('flair',
+                    say([f'{who} is box office',
+                         f'{who} is pure theatre in boots',
+                         f'{who} could light up a wet Tuesday',
+                         f'{who} brings the fireworks',
+                         f'{who} plays with a twinkle in his eye',
+                         f'{who} is a poet with a football'], k + 'x'),
+                    say([f'{who} is box office, the kind of player who makes you spill your tea',
+                         f'{who} is pure theatre in a pair of boots, a matinee idol',
+                         f'{who} could light up a wet Tuesday in a car park',
+                         f'{who} brings the fireworks, the confetti and the brass band',
+                         f'{who} plays with a twinkle in his eye and mischief in his feet',
+                         f'{who} is a poet with a football and a smile like a sunrise'], k + 'X')))
         return out
 
     def ticket_note(self, legs, players, apps, tname=''):
@@ -882,7 +898,7 @@ class Voice:
         step -- only the wording shrinks. This is CLMPTIER's lesson applied before the fact
         instead of after it: shorten the sentence you want, do not lose the end of it.
         """
-        for step in (0, 1, 2):
+        for step in (0, 1, 2, 3, 4):
             body = self._compose(legs, players, apps, tname, step)
             if len(body) <= TNOTE_B:
                 return body
@@ -897,7 +913,11 @@ class Voice:
         # a three-leg slip gets one clause per leg or the note overruns the two-line clamp;
         # a single (anchor / screamer) has the room for two and reads thin with one. `step` is
         # TNOTEFIT's ratchet: 1 drops the opener, 2 drops to the short forms as well.
-        per = 1 if (len(legs) >= 3 or step >= 2) else 2
+        # HUDSON-2026-09-29: two more rungs. The sung clauses are longer than the numeric ones were,
+        # so a single used to drop straight to ONE short clause ("Martinez is a pickpocket in the
+        # penalty area.") -- two short clauses (steps 2-3) read far better before we go to one (4).
+        per = 1 if (len(legs) >= 3 or step >= 4) else 2
+        short = step >= 2
         used, bits = set(), []
         for l in legs:
             p = players.get(l['name'])
@@ -919,17 +939,17 @@ class Voice:
                 # read like a telegram without them: "Haaland -105 - 0.69 xG a 90 for him."
                 if took == 0:
                     _k, brief, full = lead_of.get(key, (key, brief, full))
-                    bits.append(brief if per == 1 else full)
+                    bits.append(brief if (per == 1 or short) else full)
                 else:
-                    bits.append(_depersonalise(brief if per == 1 else full, sur))
+                    bits.append(_depersonalise(brief if (per == 1 or short) else full, sur))
                 took += 1
                 if took == per:
                     break
             if not took and cands:
-                bits.append(cands[0][1] if per == 1 else cands[0][2])
+                bits.append(cands[0][1] if (per == 1 or short) else cands[0][2])
         if not bits:
             return ''
-        _noop = (lambda fr: [f for f in fr if '{o}' not in f]) if step else (lambda fr: fr)
+        _noop = (lambda fr: [f for f in fr if '{o}' not in f]) if step in (1, 3, 4) else (lambda fr: fr)
         if len(bits) >= 3:
             body = _pick(_noop(FRAMES_3), tname + 'f3').format(
                 a=bits[0], b=bits[1], c=', '.join(bits[2:]), o=_pick(OPENERS_3, tname + 'o3'))
@@ -938,7 +958,7 @@ class Voice:
                 a=bits[0], b=bits[1], o=_pick(OPENERS_1, tname + 'o1'))
         else:
             body = bits[0] + '.'
-        body = re.sub(r'(?<=\. )([a-z])', lambda m: m.group(1).upper(), body)
+        body = re.sub(r'(?<=[.!] )([a-z])', lambda m: m.group(1).upper(), body)
         return body[0].upper() + body[1:]
 
     def why(self, p, avg):
@@ -974,8 +994,13 @@ class Voice:
         for i, (key, full) in enumerate(chosen):
             if i < len(chosen) - 1:
                 full = lead_of.get(key, (0, 0, full))[2]
-            keep.append(full if i == 0 else _depersonalise(full, n))
-        return _sentence(keep)
+            if i == 0:
+                keep.append(full)
+            elif full.startswith(n + ' '):
+                keep.append('He ' + full[len(n) + 1:])     # subject form -> its own sentence
+            else:
+                keep.append(_depersonalise(full, n))       # object form, already has a subject
+        return _sung(keep, n)
 
 
 def _sentence(bits):
@@ -989,6 +1014,25 @@ def _sentence(bits):
     else:
         body = ', '.join(bits[:-1]) + ', and ' + bits[-1]
     return body[0].upper() + body[1:] + '.'
+
+
+def _sung(bits, key=''):
+    """HUDSON-2026-09-29. A card is short SENTENCES, the first one shouted: "Messi sniffs out chances
+    like a truffle pig in a Tuscan forest! He is a firecracker, not a candle. And he is ..." -- not
+    one comma-spliced paragraph, which is how the flourishes turned to porridge. Each clause after
+    the first already carries its own subject ("He ..." or "the net adores him"), so a full stop is
+    always a legal join. The last one opens with "And" on some cards, for the rhythm."""
+    bits = [b for b in bits if b]
+    if not bits:
+        return ''
+    cap = lambda t: t[0].upper() + t[1:]
+    out = cap(bits[0]) + '!'
+    for i, b in enumerate(bits[1:], 1):
+        if i == len(bits) - 1 and len(bits) > 2 and _h(key + 'and') % 2:
+            out += ' And ' + (b[0].lower() + b[1:] if b.startswith('He ') else b) + '.'
+        else:
+            out += ' ' + cap(b) + '.'
+    return out
 
 
 def _clmp(text, b):
