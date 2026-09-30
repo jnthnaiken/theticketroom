@@ -431,6 +431,22 @@ check('an unknown weekday drops the day phrasing rather than guessing',
       _nonbank)
 check('an unknown weekday never reaches the reader', 'Sunday' not in _non.why(_rookie), _non.why(_rookie))
 
+# ---- POSWORDS-2026-09-30 -------------------------------------------------------------------
+# Owner: "wide receivers are said to be at the bottom of the pile with grass in their facemask on the
+# goaline". Pile, mud and a lowered shoulder are a BACK's words. Sweep every angle of every receiver and
+# tight end under many salts and demand none of them.
+BACKWORDS = ['pile', 'mud', 'face mask', 'shoulder', 'head down', 'hammer', 'bell cow', 'big ol\' back', 'runs downhill']
+_bad = []
+for r in SLATE:
+    if r['pos'] not in ('WR', 'TE'):
+        continue
+    for salt in range(60):
+        for key, ldr, frag in V.angles(r, r['name'], salt=str(salt)):
+            for w in BACKWORDS:
+                if w in (ldr + ' ' + frag).lower():
+                    _bad.append((r['name'], r['pos'], key, w))
+check('no receiver or tight end is given a running back\'s words', not _bad, sorted(set(_bad))[:5])
+
 print()
 if FAILS:
     print('FAILED: ' + str(len(FAILS)))

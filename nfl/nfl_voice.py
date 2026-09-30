@@ -342,6 +342,13 @@ class Voice:
         shr_hi, _ = self._band(pos, 'i10_share')
         mx = self.max_by_pos.get(pos, {})
         back = pos == 'RB'
+        # POSWORDS-2026-09-30: owner -- "wide receivers are said to be at the bottom of the pile with grass
+        # in their facemask on the goal line". The goal-line and red-zone banks were written for backs and
+        # handed to everybody. Now they pick by position: a back gets the pile and the mud, a receiver gets
+        # the fade and two feet down, a tight end posts up and catches it at the numbers. QB and anyone
+        # unlisted use the back's words (a QB sneak IS the pile).
+        _grp = 'WR' if pos == 'WR' else ('TE' if pos == 'TE' else 'RB')
+        def by(rb, wr, te): return {'RB': rb, 'WR': wr, 'TE': te}[_grp]
 
         def is_max(val, key):
             m = mx.get(key)
@@ -407,24 +414,56 @@ class Voice:
                       'he goes back for seconds and thirds, and nobody tells him no'], k + 'f3')))
         elif top_i10 and lo_tch:
             out.append(('story',
-                pick([f'{who} is the goal-line guy, and when they get down close, bang, here comes the goal-line guy',
-                      f'when they get down there close, they call {who}\'s number, and everybody in the stadium knows it',
-                      f'{who} comes in for one reason, and that reason is six points, and I love a guy who knows his job',
-                      f'{who} is the hammer, and when you get down by the goal line, everything\'s a nail'], k + 'h4'),
-                pick(['he\'s the hammer, and down there everything\'s a nail',
-                      'they save him for the money snaps',
-                      'his job is six points, and he knows his job',
-                      'he comes in, bang, he goes out, and that\'s his whole day'], k + 'f4')))
+                pick(by([f'{who} is the goal-line guy, and when they get down close, bang, here comes the goal-line guy',
+                         f'when they get down there close, they call {who}\'s number, and everybody in the stadium knows it',
+                         f'{who} comes in for one reason, and that reason is six points, and I love a guy who knows his job',
+                         f'{who} is the hammer, and when you get down by the goal line, everything\'s a nail'],
+                        [f'{who} is the red-zone receiver, and when the field gets short, they throw it up to him in the corner',
+                         f'when they get down there close, they call {who}\'s number, and he goes up and gets it',
+                         f'{who} comes in for one reason, the fade in the corner, and I love a guy who knows his job',
+                         f'{who} is the guy they save for the back of the end zone, two feet down, touchdown'],
+                        [f'{who} is the goal-line tight end, and when they get down close, here comes the big fella',
+                         f'when they get down there close, they call {who}\'s number, and he posts up like a power forward',
+                         f'{who} comes in for one reason, and that reason is six points, and I love a big guy who knows his job',
+                         f'{who} sits down right in the middle of the end zone, and the quarterback throws it at the numbers']), k + 'h4'),
+                pick(by(['he\'s the hammer, and down there everything\'s a nail',
+                         'they save him for the money snaps',
+                         'his job is six points, and he knows his job',
+                         'he comes in, bang, he goes out, and that\'s his whole day'],
+                        ['they save him for the fade in the corner',
+                         'his job is six points, and he knows his job',
+                         'he comes in, catches the touchdown, and jogs off',
+                         'they throw it up, and he comes down with it, that\'s his whole day'],
+                        ['they save him for the money snaps',
+                         'he sits down in the end zone like he owns the place',
+                         'his job is six points, and he knows his job',
+                         'he comes in, boxes out, catches it, and that\'s his whole day']), k + 'f4')))
         elif top_i10:
             out.append(('story',
-                pick([f'when they get inside the ten, the ball goes to {who}, and that\'s good football',
-                      f'{who} is the first call at the goal line, and he\'s got mud on his pants to prove it',
-                      f'{who} is the go-to guy once the field gets short, and I\'ll tell ya, he wants it',
-                      f'nobody at his position sees more goal-line work than {who}, and that\'s where touchdowns come from'], k + 'h5'),
-                pick(['the goal line is his office, and he\'s never late for work',
-                      'he\'s got mud on his pants and grass in his face mask',
-                      'first call at the goal line, bang',
-                      'nobody at his position gets more looks near the stripe'], k + 'f5')))
+                pick(by([f'when they get inside the ten, the ball goes to {who}, and that\'s good football',
+                         f'{who} is the first call at the goal line, and he\'s got mud on his pants to prove it',
+                         f'{who} is the go-to guy once the field gets short, and I\'ll tell ya, he wants it',
+                         f'nobody at his position sees more goal-line work than {who}, and that\'s where touchdowns come from'],
+                        [f'when they get inside the ten, the ball goes to {who}, and that\'s good football',
+                         f'{who} is the first look at the goal line, and when you throw it up to him, he comes down with it',
+                         f'{who} is the go-to guy once the field gets short, and I\'ll tell ya, he wants it',
+                         f'nobody at his position sees more goal-line work than {who}, and that\'s where touchdowns come from'],
+                        [f'when they get inside the ten, the ball goes to {who}, and that\'s good football',
+                         f'{who} is the first look at the goal line, and he\'s a big target, and big targets catch touchdowns',
+                         f'{who} is the go-to guy once the field gets short, and I\'ll tell ya, he wants it',
+                         f'nobody at his position sees more goal-line work than {who}, and that\'s where touchdowns come from']), k + 'h5'),
+                pick(by(['the goal line is his office, and he\'s never late for work',
+                         'he\'s got mud on his pants and grass in his face mask',
+                         'first call at the goal line, bang',
+                         'nobody at his position gets more looks near the stripe'],
+                        ['the end zone is his office, and he\'s never late for work',
+                         'he gets two feet down in the back of the end zone, and that\'s a touchdown',
+                         'first look at the goal line, and he goes and gets it',
+                         'nobody at his position gets more looks near the stripe'],
+                        ['the goal line is his office, and he\'s never late for work',
+                         'he posts up like a power forward and catches it at the numbers',
+                         'first look at the goal line, and he\'s a big target',
+                         'nobody at his position gets more looks near the stripe']), k + 'f5')))
         elif top_tch:
             out.append(('story',
                 pick([f'{who} never leaves the field, and you know why? Because he\'s a football player',
@@ -439,15 +478,33 @@ class Voice:
         # ---- WHAT KIND OF PLAY THIS IS. Every branch reads as upside. -------------------------
         if hi_i10 and not top_i10:
             out.append(('kind',
-                pick([f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
-                      f'{who} gets his work down in the red zone, where it\'s tight, and it\'s nasty, and I love it',
-                      f'{who} is always at the bottom of the pile at the goal line, and he comes up with grass in his face mask',
-                      f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in'], k + 'k1'),
-                pick(['down in the red zone it\'s tight and it\'s nasty, and that\'s where he lives',
-                      'he comes up out of that pile with grass in his face mask',
-                      'goal-to-go is his neighborhood',
-                      'he\'s right there when they smell the end zone',
-                      'he\'s down in the mud inside the twenty, where football gets played'], k + 'k2')))
+                pick(by([f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
+                         f'{who} gets his work down in the red zone, where it\'s tight, and it\'s nasty, and I love it',
+                         f'{who} is always at the bottom of the pile at the goal line, and he comes up with grass in his face mask',
+                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in'],
+                        [f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
+                         f'{who} gets his looks down in the red zone, where the field gets small, and you need a guy who can go up and get it',
+                         f'{who} is a red-zone target, and when they throw it up in the corner, he\'s the one coming down with it',
+                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in'],
+                        [f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
+                         f'{who} gets his work down in the red zone, where a big body is worth his weight in gold',
+                         f'{who} is a big ol\' target in the red zone, and the quarterback throws it right at his numbers',
+                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in']), k + 'k1'),
+                pick(by(['down in the red zone it\'s tight and it\'s nasty, and that\'s where he lives',
+                         'he comes up out of that pile with grass in his face mask',
+                         'goal-to-go is his neighborhood',
+                         'he\'s right there when they smell the end zone',
+                         'he\'s down in the mud inside the twenty, where football gets played'],
+                        ['down in the red zone the field gets small, and he goes up and gets it',
+                         'he\'s the one coming down with it in the corner of the end zone',
+                         'goal-to-go is his neighborhood',
+                         'he\'s right there when they smell the end zone',
+                         'he gets two feet down in the back of the end zone, and that\'s six'],
+                        ['down in the red zone a big body is worth his weight in gold',
+                         'he sits down in the end zone and the quarterback finds him',
+                         'goal-to-go is his neighborhood',
+                         'he\'s right there when they smell the end zone',
+                         'he posts up like a power forward inside the twenty']), k + 'k2')))
         elif lo_i10 and not lo_tch:
             out.append(('kind',
                 pick([f'{who} is a big-play guy, he makes one guy miss and whoosh, he\'s gone',
