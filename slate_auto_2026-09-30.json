@@ -1,7 +1,7 @@
 {
   "date": "2026-09-30",
   "season": "2026",
-  "pulled_at": "2026-09-30T17:30:31Z",
+  "pulled_at": "2026-09-30T17:36:19Z",
   "games": [
     {
       "gamePk": 849841,
@@ -139,7 +139,7 @@
     },
     {
       "gamePk": 849846,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-09-30T21:00:00Z",
       "venue": "Daikin Park",
       "matchup": "CWS@HOU",
@@ -151,8 +151,54 @@
           "hr9": 0.99,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 803011,
+            "name": "Sam Antonacci",
+            "iso": 0.119
+          },
+          {
+            "id": 691019,
+            "name": "Kyle Teel",
+            "iso": 0.151
+          },
+          {
+            "id": 678246,
+            "name": "Miguel Vargas",
+            "iso": 0.224
+          },
+          {
+            "id": 808959,
+            "name": "Munetaka Murakami",
+            "iso": 0.271
+          },
+          {
+            "id": 643217,
+            "name": "Andrew Benintendi",
+            "iso": 0.173
+          },
+          {
+            "id": 671976,
+            "name": "Tristan Peters",
+            "iso": 0.172
+          },
+          {
+            "id": 805367,
+            "name": "Chase Meidroth",
+            "iso": 0.139
+          },
+          {
+            "id": 695731,
+            "name": "Braden Montgomery",
+            "iso": 0.124
+          },
+          {
+            "id": 695657,
+            "name": "Colson Montgomery",
+            "iso": 0.206
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "HOU",
@@ -165,7 +211,7 @@
         "lineup": [],
         "confirmed": false
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
