@@ -15610,7 +15610,7 @@
     "precip": 0
    }
   },
-  "build": "9/30 1:36pm",
+  "build": "9/30 1:41pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -15907,12 +15907,12 @@
    "HOU": 16
   },
   "posted_at": {
-   "1|PHI": 1790782608,
+   "1|ATL": 1790782608,
    "2|CWS": 1790789789,
-   "1|ATL": 1790782608
+   "1|PHI": 1790782608
   },
   "chalkstate": {
-   "b": "9/30 1:36pm",
+   "b": "9/30 1:41pm",
    "s": {}
   },
   "chalk": [],
@@ -15922,6 +15922,44 @@
   "tickets": 7
  },
  "tickets": [
+  {
+   "name": "The Berth",
+   "kind": "builder",
+   "badge": "\u2693\ufe0f",
+   "note": "Kyle Schwarber is shaping home-run contact at 16%, gets ideal loft (20\u00b0), has the yard tilting his way.",
+   "players": [
+    {
+     "name": "Kyle Schwarber",
+     "team": "Phillies",
+     "total": 134.9,
+     "aT": 100,
+     "wf": 1.034,
+     "gmatch": "PHI@ATL",
+     "gtime": "2:00 PM ET",
+     "game": 1,
+     "late": false,
+     "odds": 265,
+     "status": "confirmed"
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Kyle Schwarber",
+   "lock": "2:00 PM ET",
+   "has_late": false,
+   "final": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 1,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 265,
+   "payout10": 36.5
+  },
   {
    "name": "Upper Deck Bound",
    "kind": "moon",
@@ -15998,7 +16036,10 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 4,
+   "parlay_am": 130908,
+   "payout10": 13100.81
   },
   {
    "name": "Off the Scoreboard",
@@ -16076,7 +16117,10 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 2
+   "confleg": 2,
+   "priced": 4,
+   "parlay_am": 151095,
+   "payout10": 15119.46
   },
   {
    "name": "To the Heavens",
@@ -16154,7 +16198,10 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 2
+   "confleg": 2,
+   "priced": 4,
+   "parlay_am": 78540,
+   "payout10": 7863.96
   },
   {
    "name": "Liftoff Sequence",
@@ -16232,7 +16279,10 @@
     "dome": 1,
     "neu": 2
    },
-   "confleg": 1
+   "confleg": 1,
+   "priced": 4,
+   "parlay_am": 85120,
+   "payout10": 8521.98
   },
   {
    "name": "The Long Ball",
@@ -16303,41 +16353,10 @@
     "dome": 0,
     "neu": 1
    },
-   "confleg": 0
-  },
-  {
-   "name": "The Berth",
-   "kind": "builder",
-   "badge": "\u2693\ufe0f",
-   "note": "Kyle Schwarber is shaping home-run contact at 16%, gets ideal loft (20\u00b0), has the yard tilting his way.",
-   "players": [
-    {
-     "name": "Kyle Schwarber",
-     "team": "Phillies",
-     "total": 134.9,
-     "aT": 100,
-     "wf": 1.034,
-     "gmatch": "PHI@ATL",
-     "gtime": "2:00 PM ET",
-     "game": 1,
-     "late": false,
-     "odds": 265,
-     "status": "confirmed"
-    }
-   ],
-   "nlegs": 1,
-   "anchor": "Kyle Schwarber",
-   "lock": "2:00 PM ET",
-   "has_late": false,
-   "final": false,
-   "rr": null,
-   "wxsum": {
-    "boost": 1,
-    "supp": 0,
-    "dome": 0,
-    "neu": 0
-   },
-   "confleg": 1
+   "confleg": 0,
+   "priced": 1,
+   "parlay_am": 449,
+   "payout10": 54.9
   }
  ],
  "pool": [
@@ -16346,7 +16365,6 @@
   "Jahmai Jones",
   "Yordan Alvarez",
   "Colson Montgomery",
-  "Kyle Schwarber",
   "Isaac Paredes",
   "Austin Riley",
   "Willson Contreras",
