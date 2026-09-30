@@ -348,7 +348,10 @@ check('a one-leg note names him ONCE', single.count('Marsh') == 1, single)
 for label, note in (('one-leg', single),):
     tail = note.split('—')[-1] if '—' in note else note
     check('a %s note does not join its fragment with "and" or a comma' % label,
-          not re.search(r'[a-z],? and [a-z]', note) or ' — ' in note or '. ' in note, note)
+          not re.search(r'[a-z],? and [a-z]', note) or ' — ' in note or '. ' in note or ': ' in note, note)
+    # MADDEN-2026-09-29: the leads now carry their own ", and" ("he is the wrinkle, and the coordinator
+    # has a play drawn up") -- that is inside the LEAD, not the join. The join is still a dash, stop
+    # or colon, which the next check pins.
     check('a %s note breaks before its fragment (dash, full stop or colon)' % label,
           any(sep in note for sep in (' — ', '. ', ': ')), note)
 

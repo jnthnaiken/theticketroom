@@ -62,7 +62,12 @@ def sig(path):
     # LEDGERSIG-2026-09-04. The season panel is baked into the page and is the biggest number on
     # it; a ledger that changed without republishing left the site showing the old one.
     led = (d.get('meta') or {}).get('season') or {}
-    return hashlib.sha256(json.dumps([t, p, led], sort_keys=True).encode()).hexdigest()
+    # FTDSIG-2026-09-29: the first-touchdown slip lives in meta.ftd, not in tickets, and its note is
+    # rendered -- the same rule as PROSESIG. Without this a write-up-only change to it never published.
+    f = (d.get('meta') or {}).get('ftd') or {}
+    fs = [(f.get('name'), f.get('anchor'), f.get('note'), f.get('parlay_am'))] + \
+         [(a.get('name'), a.get('anchor'), a.get('note')) for a in (f.get('alts') or [])]
+    return hashlib.sha256(json.dumps([t, p, led] + ([fs] if f else []), sort_keys=True).encode()).hexdigest()
 
 if __name__ == '__main__':
     print(sig(sys.argv[1]) if len(sys.argv) > 1 else '')

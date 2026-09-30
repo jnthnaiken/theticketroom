@@ -239,9 +239,10 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         pf = pk.get('p_first')
         lead = f"If {recv} gets the ball first: " if recv else ''
         return dict(name=(f"{_base} \u00b7 if {recv} receives" if recv else _base), kind='ftd', badge='🚨',
+                    # MADDEN-2026-09-29: no percentage in the prose -- the colour man sells the pick.
                     note=(f"{lead}{pk['name']} to score the first touchdown of "
-                          f"{p['gmatch'].replace('@', ' at ')}"
-                          + (f" \u2014 the football gives him {100 * pf:.1f}%, the best chance on the slate." if pf else '.')),
+                          f"{p['gmatch'].replace('@', ' at ')}. "
+                          + voice.ftd_line(SRC.get(pk['name']) or {'name': pk['name']}, salt=fx['date'])),
                     players=[leg], nlegs=1, anchor=pk['name'], recv=recv,
                     lock=re.sub(r'\s*ET\s*$', '', p['gtime']), has_late=False, final=False, rr=None,
                     wxsum={}, confleg=0, locked=False, priced=True, parlay_am=int(pk['odds']),
@@ -259,7 +260,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             r0 = dict(next(iter(ftd_pick['picks'].values())))
             ftd_t = _ftd_ticket(r0)
             if ftd_t:
-                ftd_t['note'] += ' Toss-proof: the pick whichever team gets the ball first.'
+                ftd_t['note'] += ' And it does not matter who wins the coin toss, he is our guy either way.'
             alts = []
         else:
             alts = [t for t in (_ftd_ticket(r, recv=team) for team, r in sorted(ftd_pick['picks'].items())) if t]
