@@ -411,6 +411,19 @@
         else if (done && !unjoined) { p.hr = false; p.goalmins = []; }
       });
 
+      /* FGS-2026-09-29 -- the match's FIRST goal, for the one first-goalscorer pick (meta.ftd, leg
+       * flagged ftd). goalsOf() already drops own goals and shootout kicks, which is the book's rule
+       * for first goalscorer too (an own goal first does not settle it; the next real scorer does).
+       * `ftd1` is set only once a goal exists (true on the scorer, false on everyone else in the
+       * match), or at full time with no goal (false for all). An unjoined first scorer is somebody
+       * we never priced, so everyone on the board is false. */
+      var _mv = function (m) { var q = String(m || '').split('+'); return (parseFloat(q[0]) || 0) + (parseFloat(q[1]) || 0) / 100; };
+      var _fg = gl.slice().sort(function (x, y) { return _mv(x.min) - _mv(y.min); })[0];
+      if (_fg || done) {
+        var _fw = _fg ? matchOne(_fg.name, names) : null;
+        names.forEach(function (n) { D.players[n].ftd1 = !!_fw && n === _fw; });
+      }
+
       /* --- squad sheet --------------------------------------------------------------- */
       var sq = squadOf(summary);
       if (sq.complete) {

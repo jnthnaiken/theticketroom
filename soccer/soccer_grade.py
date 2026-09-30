@@ -178,6 +178,12 @@ def fold(dpath, spath):
         print(f'  {date} has no finals; nothing settled, not folding')
         return season
     players = D['players']
+    # FGS-2026-09-29: the first-goalscorer pick rides in meta.ftd, outside D.tickets (soccer_payload.py).
+    # It joins the tickets here so it grades -- once: nfl_settle.py appends football's own copy before
+    # calling fold(), and a TOSS board's two alternatives are resolved there, never here.
+    _ft = D['meta'].get('ftd')
+    if _ft and _ft.get('players') and not _ft.get('alts') and not any(t.get('kind') == 'ftd' for t in D['tickets']):
+        D['tickets'].append(_ft)
     night, rows = 0.0, []
     for t in D['tickets']:
         g = grade_ticket(t, players, finals)

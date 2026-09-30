@@ -71,7 +71,11 @@
        🌃 nightcap (best remaining at or after 5pm ET), when such a man exists. Same floor and XI
        rules, no gate, not already on the card. Restated 08-27..09-16: lunch 11-8 +8.24u,
        nightcap 0-1 -1.00u. false drops them. */
-    LUNCH_LATE: true,
+    /* FGS-2026-09-29 -- owner: "for soccer lets do like football and get rid of the lunch special and
+       nightcap and do a first goalscorer, our best pick of the slate each day". The special is now
+       soccer_fgs.py's one first-goalscorer pick (it rides in meta.ftd, outside the draft). A lunch or
+       nightcap slip already LOCKED on a live board is still carried -- a placed bet is a placed bet. */
+    LUNCH_LATE: false,
     MOON_LEGS: 3,        // legs on a screamer, each from a DIFFERENT match
     MOONS_PER_ANC: 2,
     ANCH_PER_GAME: 2,

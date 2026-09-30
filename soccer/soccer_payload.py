@@ -64,7 +64,7 @@ def hook_read(avg_min, games):
 
 
 def build(scored_path, tickets_path, xg_path, out_path, date,
-          season_path=None, teamnews_path=None, squads_path=None):
+          season_path=None, teamnews_path=None, squads_path=None, fgs_path=None, ftd_cache=None):
     P = json.load(io.open(scored_path, encoding='utf-8'))
     T = json.load(io.open(tickets_path, encoding='utf-8'))
     TN = (json.load(io.open(teamnews_path, encoding='utf-8'))
@@ -347,6 +347,35 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     from datetime import datetime as _dtnow, timezone as _tzutc
     _build_stamp = f"{date} {_dtnow.now(_tzutc.utc):%H:%M}Z"
 
+    # FGS-2026-09-29 -- the one first-goalscorer pick (soccer_fgs.py). Rides in meta.ftd, outside
+    # D.tickets, exactly like football's first-TD pick: kind 'ftd', leg flagged ftd:true, graded on
+    # the player's ftd1 (scored his match's first goal). soccer_grade.fold() adds it to the tickets.
+    ftd_t = None
+    if fgs_path:
+        import soccer_fgs
+        from datetime import datetime as _dt, timezone as _tz
+        _pm = {x['name']: x['match'] for x in P}
+        _view = {n: dict(v, match=_pm.get(n)) for n, v in players.items()}
+        _d0 = _dt.fromisoformat(date).replace(tzinfo=_tz.utc)
+        _now = (_dt.now(_tz.utc) - _d0).total_seconds() / 60.0
+        _started = lambda n: (n in _pm) and _now >= ko_of(_pm[n])
+        _row = soccer_fgs.choose(_view, soccer_fgs.load_fgs(fgs_path), ftd_cache, _started)
+        if _row and _row.get('name') in players:
+            _p = players[_row['name']]
+            _leg = {'name': _row['name'], 'team': _p['team'], 'total': _p['TOTAL'], 'aT': 100,
+                    'wf': 1.0, 'gmatch': _p['gmatch'], 'gtime': _p['gtime'], 'game': _p['game'],
+                    'late': False, 'odds': int(_row['odds']), 'status': _p['status'], 'ftd': True}
+            _doy = _dt.fromisoformat(date).timetuple().tm_yday
+            _o = int(_row['odds']); _dec = 1 + (_o / 100 if _o > 0 else 100 / -_o)
+            ftd_t = {'name': FGS_NAMES[_doy % len(FGS_NAMES)], 'kind': 'ftd', 'badge': '⚡',
+                     'note': (f"{_row['name']} to score the first goal of {_p['gmatch']} \u2014 the "
+                              f"model gives him {100 * _row['p_first']:.1f}%, the best chance on the slate."),
+                     'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
+                     'has_late': False, 'final': False, 'locked': False, 'rr': None,
+                     'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
+                     'confleg': 1 if _p['status'] == 'confirmed' else 0, 'unres': 0, 'priced': 1,
+                     'parlay_am': _o, 'payout10': round(10 * _dec, 1), 'ftd': True}
+
     D = {
         'players': players,
         'tickets': T,
@@ -385,6 +414,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'nosheet': {str(gnum[m]): True for m in matches
                         if lg_of.get(m) in _NOSHEET_LEAGUES},
             'build': _build_stamp,
+            'ftd': ftd_t,          # FGS-2026-09-29: the first-goalscorer pick, or None
             'face': 'soccer',
             'maxAT': 100,
             'date': date,
@@ -419,7 +449,11 @@ NAMES = {
     'lunch':   ['Early Doors', 'Lunchtime Kickoff', 'The Twelve Thirty', 'First Match On'],
     'late':    ['Under Lights', 'Last One On', 'The Late Kickoff', 'Sunday Night'],
 }
-BADGE = {'moon': '💥', 'builder': '🥅', 'family': '💥', 'lunch': '🍱', 'late': '🌃'}
+BADGE = {'moon': '💥', 'builder': '🥅', 'family': '💥', 'lunch': '🍱', 'late': '🌃', 'ftd': '⚡'}
+# FGS-2026-09-29: one first-goalscorer slip a slate, its title rotated by date like every other pool.
+FGS_NAMES = ['Breaks the Deadlock', 'First Blood', 'Opening Account', 'Early Doors', 'Off the Mark',
+             'First to the Net', 'The Opener', 'Sets the Tone', 'Draws First Blood', 'Ice Breaker',
+             'Gets Us Going', 'Kick-Off Call', 'First on the Sheet', 'Breaks the Seal']
 
 
 def _dec(am):
@@ -999,14 +1033,18 @@ def _depersonalise(clause, name):
 
 
 if __name__ == '__main__':
-    raw, argv, sp, tn, sq = sys.argv[1:], [], None, None, None
+    raw, argv, sp, tn, sq, fg, fc = sys.argv[1:], [], None, None, None, None, None
     i = 0
     while i < len(raw):
-        if raw[i] in ('--season', '--teamnews', '--squads'):
+        if raw[i] in ('--season', '--teamnews', '--squads', '--fgs', '--ftd-cache'):
             if raw[i] == '--season':
                 sp = raw[i + 1]
             elif raw[i] == '--squads':
                 sq = raw[i + 1]
+            elif raw[i] == '--fgs':
+                fg = raw[i + 1]
+            elif raw[i] == '--ftd-cache':
+                fc = raw[i + 1]
             else:
                 tn = raw[i + 1]
             i += 2
@@ -1016,4 +1054,4 @@ if __name__ == '__main__':
     if len(argv) != 5:
         sys.exit('usage: soccer_payload.py <scored.json> <tickets.json> <xg.psv> <out.json> '
                  '<date> [--season S.json] [--teamnews T.json]')
-    build(*argv, season_path=sp, teamnews_path=tn, squads_path=sq)
+    build(*argv, season_path=sp, teamnews_path=tn, squads_path=sq, fgs_path=fg, ftd_cache=fc)

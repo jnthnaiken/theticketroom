@@ -318,23 +318,23 @@ def seams(payload_js):
     # kc.lunch and kc.late are undefined and the TONIGHT counter prints "undefined 🍱".
     add('tracker-specials',
         "var defs=[['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot'],",
-        "var defs=[['lunch','🍱','Lunch'],['late','🌃','Nightcap'],")
+        "var defs=[['ftd','⚡','The Opener'],['lunch','🍱','Lunch'],['late','🌃','Nightcap'],")   # FGS-2026-09-29: the Opener leads; lunch/nightcap rows stay for their graded history
     add('specials-live',
         " const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);",
-        " const dingerLive=D.tickets.filter(t=>t.kind==='lunch'&&!t.final).filter(match).filter(singleAlive);")
+        " const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd').filter(match).filter(singleAlive);")   # FGS-2026-09-29: the section shows the one first-goalscorer pick, from meta
     # The variable keeps baseball's name on purpose: it is read at three more sites and renaming
     # it would buy three extra seams to say the same thing. Only the KIND it selects matters.
     # DINGERIDLE-2026-09-27: baseball's empty Daily Dinger slot got its own copy (owner: the
     # cafeteria line belonged to the retired Lunch Special). This room still HAS a lunch-type
     # slot, so the old line is put back here verbatim.
     add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'🎯 This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
-        ' const closed=\'<div class="closed">🍽️ The cafeteria ladies are on break — today’s meal already got served and cleared. Fresh tray tomorrow morning.</div>\';')
+        ' const closed=\'<div class="closed">⚽ Still in the tunnel — no first-goal call on this slate yet. It comes in once the first-goalscorer prices post.</div>\';')   # FGS-2026-09-29
     add('sec-lunch',
         '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
-        '<div class="tsec lunch"><span class="tsech">Lunch Special</span>')
-    add('sec-nightcap',
-        '<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">',
-        '<details class="pool"><summary><span class="tag">Late slate</span> Nightcap<span class="chev">')
+        '<div class="tsec lunch"><span class="tsech">The Opener</span>')   # FGS-2026-09-29
+    # FGS-2026-09-29: the Nightcap drop-down is gone -- one special a slate, the first-goalscorer pick.
+    add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
+        "html+='';")
     add('pool-late',
         "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML="
         "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83d\\udca5 No jackpot pick "
@@ -345,12 +345,12 @@ def seams(payload_js):
     add('card-wide',
         "${t.kind==='dinger'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
         "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='jackpot'?' lunchwide nightcap':''}",
-        "${t.kind==='lunch'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
+        "${t.kind==='ftd'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
         "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='late'?' lunchwide nightcap':''}")
     # The TONIGHT counter: only kinds that are on the card, Top Bin as the goal net.
     add('tonight-top8',
         "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
-        "var cnt=[[kc.lunch,'🍱',1],[kc.late,'🌃',1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
+        "var cnt=[[((D.meta.ftd&&D.meta.ftd.players)?1:0),'⚡',1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
         ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 🥅';")
     # RESTATED-2026-09-17: the season line says so when soccer_season.json carries `restated`.
     add('tracker-restated',
@@ -371,7 +371,7 @@ def seams(payload_js):
     # SPECIALS-2026-09-24: the baseball line now names its two new specials (see the block above).
     add('howto-order',
         'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-        'Read it top to bottom: 🍱 Lunch Special, 🌃 Nightcap, 🥅 Top Bin. 💥 Screamers are retired.')
+        'Read it top to bottom: ⚡ The Opener, 🥅 Top Bin. 💥 Screamers are retired.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
@@ -579,14 +579,14 @@ def seams(payload_js):
         '<div class="kind"><span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. '
         'FanDuel publishes a short list of bats each day and you pick one — this is the best '
         'model score on their list. Not a bet we place.</span></div></div>',
-        '<div class="kind"><span class="ke">🍱</span><div><b>Lunch Special</b><span>One player, '
-        'best model score in an early kickoff.</span></div></div>')
+        '<div class="kind"><span class="ke">⚡</span><div><b>The Opener</b><span>First goalscorer. One pick a slate: '
+        'the player most likely to score his match\u2019s <i>first</i> goal, from his xG and whether he starts. '
+        'The price does not pick him. 1u.</span></div></div>')   # FGS-2026-09-29
     add('kind-nightcap',
         '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. '
         'Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer '
         'that day — we rank park carry plus model score. Not a bet we place.</span></div></div>',
-        '<div class="kind"><span class="ke">🌃</span><div><b>Nightcap</b><span>Same idea for the '
-        'last kickoff of the night.</span></div></div>')
+        '')   # FGS-2026-09-29: the Nightcap is retired
     add('kind-anchors',
         '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
         '<span class="ke">🥅</span><div><b>Top Bin</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span>')

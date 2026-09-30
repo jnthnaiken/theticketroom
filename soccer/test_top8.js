@@ -33,13 +33,13 @@ console.log('=== 1. fresh draft ===');
   chk('XI filter: a benched top man is not drafted', !r2.tickets.some(t => t.legs[0].name === elig[0].name));
 }
 
-function board() {
+function board(cfg) {
   const D = J('boards/2026-09-16.json');
   Object.keys(D.players).forEach(n => { D.players[n].status = 'projected'; delete D.players[n].out; });
   D.meta.finals = []; D.meta.gs = {};
   D.tickets = [];
   const ko = Math.min(...Object.values(D.meta.ko).map(Number));
-  let r = SD.redraft(D, { nowUTCmin: ko - 120, xi: null });
+  let r = SD.redraft(D, { nowUTCmin: ko - 120, xi: null, cfg: cfg });
   D.tickets = r.tickets;
   return { D, ko };
 }
@@ -86,10 +86,12 @@ console.log('\n=== 4 & 5. kickoff: pinned, and no mint into a started match ==='
   chk('nothing new is minted into a started match', fresh.every(t => !started.includes(String(D.players[t.players[0].name].game))), fresh.map(t => t.players[0].name));
 }
 
-console.log('\n=== 5b. lunch special and nightcap ===');
+console.log('\n=== 5b. lunch special and nightcap (retired by FGS-2026-09-29; the engine still honours LUNCH_LATE:true) ===');
+chk('FGS-2026-09-29: the default no longer drafts lunch/nightcap', SD.DEFAULTS.LUNCH_LATE === false);
+const LL = { LUNCH_LATE: true };
 {
   const scored = J('fixtures/2026-08-26/scored.json').map((p, i) => Object.assign({}, p, { late: i % 3 === 0 }));
-  const r = SD.draft(scored, {}, {});
+  const r = SD.draft(scored, LL, {});
   const top = r.tickets.filter(t => t.kind === 'builder').map(t => t.legs[0].name);
   const lu = r.tickets.filter(t => t.kind === 'lunch'), la = r.tickets.filter(t => t.kind === 'late');
   chk('one lunch special and one nightcap', lu.length === 1 && la.length === 1, r.tickets.map(t => t.kind));
@@ -98,13 +100,13 @@ console.log('\n=== 5b. lunch special and nightcap ===');
   const early = scored.filter(p => !p.late && !p.out && !p.void && SD.priceOk(p, SD.DEFAULTS) && !top.includes(p.name)).sort((a, b) => b.TOTAL - a.TOTAL);
   chk('lunch is the best remaining early man', lu[0].legs[0].name === early[0].name, [lu[0].legs[0].name, early[0].name]);
   const noLate = scored.map(p => Object.assign({}, p, { late: false }));
-  chk('no late kickoff -> no nightcap', !SD.draft(noLate, {}, {}).tickets.some(t => t.kind === 'late'));
+  chk('no late kickoff -> no nightcap', !SD.draft(noLate, LL, {}).tickets.some(t => t.kind === 'late'));
   chk('LUNCH_LATE false -> top 8 only', SD.draft(scored, { LUNCH_LATE: false }, {}).tickets.every(t => t.kind === 'builder'));
-  const { D, ko } = board();
+  const { D, ko } = board(LL);
   const ls = D.tickets.filter(t => t.kind === 'lunch');
   chk('the live board carries a lunch special', ls.length === 1, D.tickets.map(t => t.kind));
   const who = ls[0].players[0].name; D.players[who].out = true;
-  const r2 = SD.redraft(D, { nowUTCmin: ko - 90, xi: null });
+  const r2 = SD.redraft(D, { nowUTCmin: ko - 90, xi: null, cfg: LL });
   const l2 = r2.tickets.filter(t => t.kind === 'lunch');
   chk('a benched lunch special is replaced', l2.length === 1 && l2[0].players[0].name !== who, l2.map(t => t.players[0].name));
   chk(`still ${N} top singles`, r2.tickets.filter(t => t.kind === 'builder').length === N);

@@ -64,19 +64,23 @@
     return { name: name, odds: odds };
   }
 
-  function agsSection() {
+  function agsSection(title) {
+    title = String(title || 'Anytime Goalscorer').toLowerCase();
     var secs = [].slice.call(document.querySelectorAll('section'));
     for (var i = 0; i < secs.length; i++) {
       var h = secs[i].querySelector('h2');
-      if (h && /^\s*Anytime Goalscorer\s*$/i.test(h.textContent)) return secs[i];
+      if (h && String(h.textContent).trim().toLowerCase() === title) return secs[i];
     }
     return null;
   }
 
+  /* FGS-2026-09-29: opts.market = section title, opts.key = localStorage key. First Goalscorer:
+       ags('<key>', {market: 'First Goalscorer', key: 'FGS_ROWS'})   ->  fgs.psv          */
   function scrape(matchKey, opts) {
     opts = opts || {};
-    var sec = agsSection();
-    if (!sec) return { match: matchKey, ok: false, why: 'no Anytime Goalscorer section (not priced, or not hydrated yet)' };
+    var market = opts.market || 'Anytime Goalscorer', key = opts.key || 'AGS_ROWS';
+    var sec = agsSection(market);
+    if (!sec) return { match: matchKey, ok: false, why: 'no ' + market + ' section (not priced, or not hydrated yet)' };
 
     var wraps = [].slice.call(sec.querySelectorAll('[class*=MarketExpanderBetWrapper]'));
     var rows = [], bad = [], seen = {};
@@ -88,12 +92,25 @@
       rows.push(matchKey + '|' + p.name + '|' + p.odds);
     }
     if (!opts.dry) {
-      var all = JSON.parse(localStorage.getItem('AGS_ROWS') || '[]');
-      localStorage.setItem('AGS_ROWS', JSON.stringify(all.concat(rows)));
+      var all = JSON.parse(localStorage.getItem(key) || '[]');
+      localStorage.setItem(key, JSON.stringify(all.concat(rows)));
     }
     return { match: matchKey, ok: rows.length > 0, n: rows.length, unparsed: bad, rows: rows };
   }
 
+  /* FGS-2026-09-29: the First Goalscorer section ships COLLAPSED (h2 aria-expanded=false, zero
+     wrappers in the DOM until opened), where Anytime Goalscorer ships open. Open it first:
+         await ags.expand('First Goalscorer'); ags('<key>', {market: 'First Goalscorer', key: 'FGS_ROWS'})
+     A DOM click on an accordion header, not a dialog. Resolves 'open' / 'clicked' / 'none'. */
+  scrape.expand = async function (title) {
+    var sec = agsSection(title);
+    if (!sec) return 'none';
+    if (sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length) return 'open';
+    sec.querySelector('h2').click();
+    for (var w = 0; w < 8000 && !sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length; w += 400)
+      await new Promise(function (r) { setTimeout(r, 400); });
+    return 'clicked';
+  };
   scrape.parseWrapper = parseWrapper;   /* exposed so the self-test can run without a page */
   return scrape;
 })()
