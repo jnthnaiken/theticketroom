@@ -260,7 +260,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             r0 = dict(next(iter(ftd_pick['picks'].values())))
             ftd_t = _ftd_ticket(r0)
             if ftd_t:
-                ftd_t['note'] += ' And it does not matter who wins the coin toss, he is our guy either way.'
+                ftd_t['note'] += ' And I\'ll tell ya, doesn\'t matter who wins the coin toss, he\'s our guy either way.'
             alts = []
         else:
             alts = [t for t in (_ftd_ticket(r, recv=team) for team, r in sorted(ftd_pick['picks'].items())) if t]

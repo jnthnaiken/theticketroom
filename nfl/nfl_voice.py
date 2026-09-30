@@ -97,11 +97,11 @@ def _sentence(bits):
 
 # ⚠️ `{day}` IS THE SLATE'S OWN WEEKDAY, never a literal. See VOICEDAY-2026-09-14 on Voice.__init__:
 # a phrasing that names a day is dropped entirely when the weekday is unknown, rather than guessing.
-OPENERS_3 = ['Boom', 'Now here is a ticket', 'Three football players', 'Three tough guys, one {day}',
-             'Get the turkey ready', 'Whap, bang, boom', 'This is football', 'Three trips to paydirt',
-             'Three guys who get dirty', 'You want touchdowns', 'Look at this bunch', 'Three calls to the house']
-OPENERS_1 = ['Boom', 'Now here is a guy', 'Feed him', 'Circle this one', 'Give him the rock',
-             'Here is my guy', 'Put six on it', 'Whap']
+OPENERS_3 = ['Boom', 'Now here\'s a ticket', 'Oh, boy', 'Three football players', 'Three tough guys, one {day}',
+             'Whap', 'Now watch this', 'Three trips to paydirt', 'Here\'s what I like', 'Bang',
+             'Now listen', 'Three guys who get dirty']
+OPENERS_1 = ['Boom', 'Now here\'s a guy', 'Oh, boy', 'Whap', 'Here\'s what I like',
+             'Now watch this guy', 'Bang', 'Put six on it']
 
 # ⚠️ THE FRAMES ARE HALF THE VOICE. Every note used to be "{a}, {b}, and {c}." -- a list with
 # commas, which is what made a board full of different facts still read like one sentence typed
@@ -356,198 +356,198 @@ class Voice:
         lo_i10, lo_tch = lo(i10, i10_hi), lo(tch, tch_hi)
         nolog = basis.startswith('depth') and not bg
 
-        # 🏈 MADDEN-2026-09-30. Owner, the morning after the first Madden cut: "football still sounds
-        # terrible. soccer is good". Put side by side, the difference was SHAPE, not vocabulary:
-        #   soccer:   "Martinez is a surgeon with a scalpel dipped in honey! He fires away like a pirate
-        #              ship with a hold full of cannonballs."            -- pictures, and real sentences
-        #   football: "This offense runs through Warren, and everybody in the building knows it. The
-        #              numbers love him. A red-zone regular."           -- a lead, then two stat labels
-        # So the fragments are now whole "he ..." sentences that paint a PICTURE (mud, grass stains,
-        # Thanksgiving, a truck with no brakes), the lead is shouted when more follows, and "the model
-        # / the numbers / Vegas" talk is gone from the prose -- that is a spreadsheet, not a colour man.
-        # Every angle still fires only when the payload earns it; leader-only claims stay leader-only.
-        # Fragments are lower-case "he ..." so why() can capitalise them and a three-leg note can drop
-        # the "he" after the man's name ("Warren — runs like he is late for Thanksgiving dinner").
+        # 🏈 MADDEN-2026-09-30b. Owner, third pass: "yea i said john madden. none of this sounds like him".
+        # He was right, and the reason is specific. The first two cuts wrote colourful SIMILES in stiff,
+        # contraction-free prose ("he runs like he is late for Thanksgiving dinner"). That is a copywriter.
+        # The Madden sound is a different machine:
+        #   * CONTRACTIONS and talk: "here's a guy", "he's got", "I'll tell ya", "outta the way".
+        #   * THE LOVABLE OBVIOUS: "when you catch the ball in the end zone, that's a touchdown"; "the
+        #     team that scores the most points usually wins". Stating football's plainest truth with joy.
+        #   * THE TELESTRATOR: "now here's a guy ...", "watch this guy", walking you through the play.
+        #   * REPETITION FOR RHYTHM: "they give him the ball, and they give him the ball, and ..."
+        #   * SOUND EFFECTS mid-sentence: boom, whap, bang, whoosh.
+        #   * LOVE OF THE DIRTY: mud on his pants, grass in his face mask, the bottom of the pile.
+        # Original lines in that register -- no real quotes. Every angle still fires only when the
+        # payload earns it, leader-only claims stay leader-only, no digits, no matchup talk.
         # ---- THE HEADLINE. One of these, and it is the reason he is on the board. -----------
         if nolog:
             out.append(('story',
-                pick(self._dayfmt([f'{who} is the new guy, and the new guy always wants to show you something',
-                      f'here comes {who}, fresh legs and a brand-new job',
-                      f'{who} gets his shot this {{day}}, and a young guy with a shot plays like his hair is on fire',
-                      f'{who} is a new face in this huddle, and I love a new face']), k + 'h1'),
-                pick(self._dayfmt(['he plays like his hair is on fire', 'he has been waiting his whole life for this {day}',
-                      'he has fresh legs, big eyes, and he wants that football',
-                      'he is out there to prove something, and guys like that make plays']), k + 'f1')))
+                pick(self._dayfmt([f'{who} is the new guy this {{day}}, and I\'ll tell ya, the new guy always wants to show you something',
+                      f'now here\'s {who}, a young guy with a real job, and you know what young guys want? They want the football',
+                      f'nobody knows much about {who} yet, and I love that, because that\'s how you find out who\'s a football player',
+                      f'here comes {who}, fresh legs, big eyes, and he wants that football']), k + 'h1'),
+                pick(self._dayfmt(['the new guy always wants to show you something',
+                      'he\'s gonna be running around out there like his pants are on fire',
+                      'first {day} with a real job, and he wants that football',
+                      'that\'s how you find out who\'s a football player']), k + 'f1')))
         elif top_tch and top_i10:
             out.append(('story',
-                pick([f'{who} is the bell cow, and when you get down close, you give it to the bell cow',
-                      f'{who} carries them down the field and then carries them right into the end zone',
-                      f'this whole offense runs through {who}, start to finish',
-                      f'{who} is the workhorse, and you ride the workhorse all the way to the goal line']
+                pick([f'here\'s a guy, {who}, they give him the ball on first down, they give it to him on second down, and when they get down close, boom, they give it to him again',
+                      f'{who} is the workhorse, and what you do with a workhorse is you ride him, all the way down the field and right into the end zone',
+                      f'this whole offense runs through {who}, and I\'ll tell ya, when a whole offense runs through a guy, that guy scores touchdowns',
+                      f'{who} is the bell cow, and when you get down close, you give it to the bell cow, that\'s why they call him the bell cow']
                      if back else
-                     [f'{who} is the top target here, and at the goal line you throw it to your top guy',
-                      f'this offense runs through {who} from the first snap to the goal line',
-                      f'{who} is the focal point, and when it gets close the quarterback looks for him first',
-                      f'{who} is the guy they go to all day, and they go to him at the goal line too'], k + 'h2'),
-                pick(['he gets it between the twenties and he gets it at the goal line',
+                     [f'{who} is the top target, and when you get down close, you throw it to your top target, that\'s just football',
+                      f'this offense runs through {who} from the first snap right down to the goal line, and I love that',
+                      f'here\'s a guy, {who}, the quarterback looks for him all day, and when they get close, he looks for him first',
+                      f'{who} is the guy they go to between the twenties, and he\'s the guy they go to at the goal line, same guy'], k + 'h2'),
+                pick(['they give it to him between the twenties and they give it to him at the goal line',
                       'nobody at his position gets more of either',
-                      'every down, every goal-line snap, it is his football',
-                      'he is the whole drive, start to finish'], k + 'f2')))
+                      'every down, every goal-line snap, it\'s his football',
+                      'he\'s the whole drive, start to finish'], k + 'f2')))
         elif top_tch and lo_i10:
             out.append(('story',
-                pick([f'{who} moves the sticks all day long, and you give a guy the ball that much, one of them goes',
-                      f'{who} piles up touches like a guy piling up a Thanksgiving plate',
-                      f'the ball keeps finding {who}, and I love a guy the ball keeps finding',
+                pick([f'{who} gets the ball, and then he gets it again, and then he gets it again, and you give a guy the ball that much, sooner or later, boom',
+                      f'the ball keeps finding {who}, and when the ball keeps finding a guy, sooner or later it finds him in the end zone',
+                      f'{who} piles up touches like I pile up a Thanksgiving plate, and I pile up a Thanksgiving plate',
                       f'{who} is the volume play, and volume is how you get into the end zone'], k + 'h3'),
-                pick(['he gets touches on touches, and one of them is gonna pop',
-                      'he keeps the chains moving like a guy pushing a stalled car up a hill',
-                      'feed him enough and whap, one of them breaks',
-                      'he goes back for seconds and thirds, and nobody stops him'], k + 'f3')))
+                pick(['you give a guy the ball that much, sooner or later, boom',
+                      'he keeps those chains moving, and moving, and moving',
+                      'touches on touches, and one of \'em is gonna pop',
+                      'he goes back for seconds and thirds, and nobody tells him no'], k + 'f3')))
         elif top_i10 and lo_tch:
             out.append(('story',
-                pick([f'{who} is the goal-line hammer, and when they get close, bang, in comes the hammer',
-                      f'when they get down there close, they call {who}\'s number',
-                      f'{who} is a red-zone specialist, and a specialist has one job, and his job is six',
-                      f'{who} comes on the field for one reason, and that reason is the end zone'], k + 'h4'),
-                pick(['he is the hammer they bring out when they see a nail',
+                pick([f'{who} is the goal-line guy, and when they get down close, bang, here comes the goal-line guy',
+                      f'when they get down there close, they call {who}\'s number, and everybody in the stadium knows it',
+                      f'{who} comes in for one reason, and that reason is six points, and I love a guy who knows his job',
+                      f'{who} is the hammer, and when you get down by the goal line, everything\'s a nail'], k + 'h4'),
+                pick(['he\'s the hammer, and down there everything\'s a nail',
                       'they save him for the money snaps',
-                      'he has one job, and that job is six points',
-                      'he trots on, he scores, he trots off'], k + 'f4')))
+                      'his job is six points, and he knows his job',
+                      'he comes in, bang, he goes out, and that\'s his whole day'], k + 'f4')))
         elif top_i10:
             out.append(('story',
-                pick([f'when they get inside the ten, the ball goes to {who}',
-                      f'{who} is the first call at the goal line, and he has got mud all over that jersey',
-                      f'{who} is the go-to guy once the field gets short',
-                      f'nobody at his position sees more goal-line work than {who}'], k + 'h5'),
-                pick(['he is the first call at the goal line, and he loves it down there',
-                      'the goal line is his office, and he never takes a day off',
-                      'he gets dirty down there, and dirty guys score touchdowns',
+                pick([f'when they get inside the ten, the ball goes to {who}, and that\'s good football',
+                      f'{who} is the first call at the goal line, and he\'s got mud on his pants to prove it',
+                      f'{who} is the go-to guy once the field gets short, and I\'ll tell ya, he wants it',
+                      f'nobody at his position sees more goal-line work than {who}, and that\'s where touchdowns come from'], k + 'h5'),
+                pick(['the goal line is his office, and he\'s never late for work',
+                      'he\'s got mud on his pants and grass in his face mask',
+                      'first call at the goal line, bang',
                       'nobody at his position gets more looks near the stripe'], k + 'f5')))
         elif top_tch:
             out.append(('story',
-                pick([f'{who} never leaves the field, and that is the kind of guy you want',
-                      f'the ball finds {who} more than anyone at his position',
-                      f'{who} is the engine of this offense, and you have to feed the engine',
+                pick([f'{who} never leaves the field, and you know why? Because he\'s a football player',
+                      f'the ball finds {who} more than anyone at his position, and that\'s no accident',
+                      f'{who} is the engine of this offense, and what do you do with an engine? You feed it',
                       f'this offense runs through {who}, and everybody in the building knows it'], k + 'h6'),
-                pick(['he never leaves the field, not even for a sip of water',
-                      'he is the engine, and you feed the engine',
+                pick(['he never comes off the field, not even to get a drink of water',
+                      'he\'s the engine, and you\'ve gotta feed the engine',
                       'nobody at his position touches it more',
-                      'feed him and good things happen, it is that simple'], k + 'f6')))
+                      'you feed him the ball and good things happen, that\'s football'], k + 'f6')))
 
         # ---- WHAT KIND OF PLAY THIS IS. Every branch reads as upside. -------------------------
         if hi_i10 and not top_i10:
             out.append(('kind',
-                pick([f'{who} is right there in the huddle at goal-to-go, and that is where touchdowns live',
-                      f'{who} gets real work in the red zone, where it gets tight and nasty',
-                      f'{who} is always in the pile at the goal line, and he comes out of it with grass in his helmet',
-                      f'{who} lives in the red zone, and that is my kind of neighborhood'], k + 'k1'),
-                pick(['he lives down in the red zone, where it gets tight and nasty',
-                      'he comes out of the pile with grass in his helmet',
-                      'goal-to-go is his neighborhood, and he knows every house on the street',
-                      'he is right there when they smell the end zone',
-                      'he loves it down in the mud inside the twenty'], k + 'k2')))
+                pick([f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
+                      f'{who} gets his work down in the red zone, where it\'s tight, and it\'s nasty, and I love it',
+                      f'{who} is always at the bottom of the pile at the goal line, and he comes up with grass in his face mask',
+                      f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in'], k + 'k1'),
+                pick(['down in the red zone it\'s tight and it\'s nasty, and that\'s where he lives',
+                      'he comes up out of that pile with grass in his face mask',
+                      'goal-to-go is his neighborhood',
+                      'he\'s right there when they smell the end zone',
+                      'he\'s down in the mud inside the twenty, where football gets played'], k + 'k2')))
         elif lo_i10 and not lo_tch:
             out.append(('kind',
-                pick([f'{who} is a home-run hitter, and he can take it to the house from anywhere',
-                      f'{who} makes one guy miss and whoosh, he is gone',
-                      f'{who} does not need a short field, he brings his own'], k + 'k3'),
-                pick(['he makes one guy miss and whoosh, he is gone',
+                pick([f'{who} is a big-play guy, he makes one guy miss and whoosh, he\'s gone',
+                      f'{who} doesn\'t need a short field, he brings his own',
+                      f'{who} can take it the distance, and when a guy can take it the distance, you gotta know where he is every play'], k + 'k3'),
+                pick(['one guy misses, whoosh, he\'s gone',
                       'he can take it the distance from anywhere on the field',
-                      'one cut and it is a footrace, and he wins footraces'], k + 'k4')))
+                      'he gets a crease and it\'s a footrace, and he wins footraces'], k + 'k4')))
         elif lo_tch:
             out.append(('kind',
-                pick([f'{who} is the wrinkle, and you know the coordinator has something drawn up just for him',
-                      f'one well-drawn play and {who} is standing in the end zone',
-                      f'{who} is the surprise, and nobody ever sees the surprise coming'], k + 'k5'),
-                pick(['he is the trick play they have been saving all week',
-                      'one play call and he is standing in the end zone',
+                pick([f'now here\'s {who}, and I\'ll bet ya the coordinator\'s got a play drawn up just for him',
+                      f'one play, that\'s all it takes, one play and {who} is standing in the end zone',
+                      f'{who} is the surprise, and the thing about a surprise is nobody sees it coming, boom'], k + 'k5'),
+                pick(['the coordinator\'s got a play drawn up just for him',
+                      'one play and he\'s standing in the end zone',
                       'nobody sees him coming, and then boom',
-                      'he is the play they drew up on the back of a napkin'], k + 'k6')))
+                      'that\'s the play they drew up on a napkin at dinner'], k + 'k6')))
 
         # ---- ROLE, when the share says something the raw count does not. ----------------------
         if hi(shr, shr_hi) and is_max(shr, 'i10_share') and not (top_i10 and lo_tch):
             out.append(('role',
-                pick([f'{who}\'s whole game is built around the end zone, and I love it',
+                pick([f'{who}\'s whole game is built for the end zone, and I love that',
                       f'no {role} on the board lives closer to the goal line than {who}',
-                      f'the team saves {who} for the part of the field that pays'], k + 'r1'),
-                pick(['his whole game lives near the goal line',
-                      f'he is the most end-zone-heavy {role} on the board',
-                      'he is built for the last ten yards'], k + 'r2')))
+                      f'they save {who} for the part of the field where you score touchdowns, which is the good part'], k + 'r1'),
+                pick(['his whole game is built for the end zone',
+                      f'he\'s the most end-zone-heavy {role} on the board',
+                      'he\'s built for the last ten yards, and the last ten yards is where you score'], k + 'r2')))
 
         # ---- THE GAME. Only the top team total; the bottom one is not a selling point. -------
         if isinstance(imp, (int, float)) and self.imp_spread >= 1.0:
             if self.imp_max is not None and abs(imp - self.imp_max) < 0.05:
                 out.append(('game',
-                    pick([f'{who} plays for the offense expected to put up the most points, so bring the gravy',
-                          f'{who} is in the highest-scoring spot on the board, and that is a good spot to be',
-                          f'{who}\'s offense carries the biggest team total on the board'], k + 'g1'),
-                    pick(['his offense has the biggest team total on the board',
-                          'points are on the menu, so pass the turkey',
-                          'his offense is expected to light up the scoreboard like a pinball machine'], k + 'g2')))
+                    pick([f'{who} plays for the offense that\'s supposed to score the most points, and the team that scores the most points usually wins',
+                          f'{who} is in the highest-scoring spot on the board, and when you\'re scoring points, somebody\'s scoring touchdowns',
+                          f'{who}\'s offense carries the biggest team total on the board, so pass the turkey'], k + 'g1'),
+                    pick(['his team\'s supposed to score the most points, and the team that scores the most points usually wins',
+                          'points on the menu, so pass the turkey',
+                          'his offense has the biggest team total on the board'], k + 'g2')))
 
         # ---- OUR PICK, only when it is a vote FOR him. -----------------------------------------
         if isinstance(pm, (int, float)) and pm * 100 >= 25:
             out.append(('model',
-                pick([f'everything we have points right at {who}',
-                      f'{who} is one of our favorite plays on the whole board',
-                      f'we like {who} a whole bunch, and I will tell you why, the guy finds the end zone'], k + 'm1'),
-                pick(['everything we have points right at him',
-                      'he is one of our favorites on the whole board',
-                      'we like him a whole bunch'], k + 'm2')))
+                pick([f'we like {who}, and I\'ll tell ya why, he\'s a football player',
+                      f'{who} is one of our favorite guys on the whole board',
+                      f'we like {who} a whole bunch, and I don\'t say that about everybody'], k + 'm1'),
+                pick(['we like him, and he\'s a football player',
+                      'he\'s one of our favorite guys on the whole board',
+                      'we like him a whole bunch, and I don\'t say that about everybody'], k + 'm2')))
 
         # ---- PRICE, only when the number is on OUR side. ---------------------------------------
         if isinstance(odds, int) and isinstance(pm, (int, float)):
             imp_p = (100.0 / (odds + 100.0)) if odds > 0 else (-odds / (-odds + 100.0))
             if pm - imp_p >= 0.05:
                 out.append(('price',
-                    pick([f'the price on {who} is a gift, like finding a drumstick in the couch cushions',
-                          f'{who} is priced like an afterthought, and he is no afterthought',
-                          f'somebody set the number on {who} way too generous'], k + 'p1'),
-                    pick(['the price is a gift, like finding a drumstick in the couch cushions',
-                          'he is priced like an afterthought, and he is no afterthought',
-                          'somebody set that number way too generous'], k + 'p2')))
+                    pick([f'the price on {who} is a gift, like finding an extra drumstick on the platter',
+                          f'{who} is priced like an afterthought, and he\'s no afterthought',
+                          f'somebody set the number on {who} way too generous, and I\'ll take it'], k + 'p1'),
+                    pick(['that price is a gift, like finding an extra drumstick on the platter',
+                          'he\'s priced like an afterthought, and he\'s no afterthought',
+                          'somebody set that number way too generous, and I\'ll take it'], k + 'p2')))
 
         # ---- THE FLOOR. Every man is live for six; this is what guarantees he gets a beat. ------
         floor = {
-            'RB': ([f'{who} runs like he is late for Thanksgiving dinner',
-                    f'{who} is a downhill runner, and downhill runners go through you, not around you',
-                    f'{who} lowers that shoulder, and somebody is going backwards',
-                    f'give {who} the rock and get out of the way',
-                    f'{who} runs angry once he smells the goal line'],
-                   ['he runs like he is late for Thanksgiving dinner',
-                    'he lowers the shoulder, and somebody goes backwards',
+            'RB': ([f'{who} is a big ol\' back, and when you\'ve got a big ol\' back, you give him the ball',
+                    f'{who} puts his head down, whap, and somebody\'s going backwards',
+                    f'{who} runs downhill, and a guy who runs downhill goes through you, not around you',
+                    f'give {who} the rock and get outta the way',
+                    f'{who} is the kind of back who gets his uniform dirty, and I love a dirty uniform'],
+                   ['he puts his head down, whap, somebody\'s going backwards',
                     'he goes through you, not around you',
-                    'he has grass stains on his grass stains',
-                    'he runs angry once he smells the goal line',
-                    'he has a nose for the end zone like a bloodhound',
-                    'hand it to him and get out of the way']),
-            'WR': ([f'{who} goes up and takes the ball away from you',
-                    f'throw it up to {who} and let him go get it',
-                    f'{who} can turn a little slant into six, whoosh',
-                    f'{who} is one catch away from the highlight reel',
-                    f'{who} has hands like buckets',
-                    f'{who} is a threat to score on every single snap'],
+                    'he\'s got grass stains on his grass stains',
+                    'you give him the rock and get outta the way',
+                    'he\'s a big ol\' back and he runs like one',
+                    'he gets his uniform dirty, and I love a dirty uniform',
+                    'he\'s got a nose for the end zone like a bloodhound']),
+            'WR': ([f'{who} goes up and takes the football away from you, that\'s what great receivers do',
+                    f'throw it up to {who} and let him go get it, that\'s football',
+                    f'{who} catches the ball, and when you catch the ball in the end zone, that\'s a touchdown',
+                    f'{who} is one catch away from six, and I\'ll tell ya, he\'s got the hands',
+                    f'watch {who} right here, he turns a little slant into six, whoosh'],
                    ['he goes up and takes it away from you',
-                    'throw it up and let him go get it',
+                    'you throw it up and let him go get it',
+                    'when you catch the ball in the end zone, that\'s a touchdown, and he catches the ball',
                     'he turns a little slant into six, whoosh',
-                    'he has hands like buckets',
-                    'he is one catch from the highlight reel',
-                    'he gets open when it matters',
-                    'he is a threat on every single snap',
-                    'he catches everything, even the ugly ones']),
-            'TE': ([f'{who} is a big ol\' target, and at the goal line you throw it to the big ol\' target',
-                    f'{who} boxes out like a power forward',
-                    f'nobody wants to tackle {who} at the goal line',
-                    f'{who} is the quarterback\'s security blanket'],
-                   ['he boxes out like a power forward',
-                    'nobody wants to tackle him at the goal line',
-                    'he is a big ol\' target when the field gets short',
+                    'he\'s got hands like a couple of buckets',
+                    'he gets open when it counts',
+                    'he\'s a threat every single snap, and you gotta know where he is']),
+            'TE': ([f'{who} is a big ol\' tight end, and down by the goal line, you throw it to the big ol\' tight end',
+                    f'nobody wants to tackle {who} down by the goal line, and I don\'t blame \'em',
+                    f'{who} is the quarterback\'s best friend when it gets tight',
+                    f'{who} boxes out like a power forward, boom, six'],
+                   ['nobody wants to tackle him down by the goal line, and I don\'t blame \'em',
+                    'he boxes out like a power forward, boom, six',
                     'he rumbles in like a truck with no brakes',
-                    'he is the security blanket every quarterback needs']),
+                    'he\'s a big ol\' target, and you throw it to the big ol\' target',
+                    'he\'s the quarterback\'s best friend when it gets tight']),
             'QB': ([f'{who} will tuck it and go, and I love a quarterback who sticks his nose in there',
-                    f'{who} can punch it in himself'],
-                   ['he will tuck it and go', 'he sticks his nose right in there']),
-        }.get(pos, ([f'{who} is live for six'], ['he is live for six, and that is all you need']))
+                    f'{who} can take it in himself, and when a quarterback runs it in, the whole bench goes nuts'],
+                   ['he\'ll tuck it and go', 'he sticks his nose right in there like a fullback']),
+        }.get(pos, ([f'{who} is live for six, and that\'s all you need'], ['he\'s live for six, and that\'s all you need']))
         out.append(('pos', pick(floor[0], k + 'x1'), pick(floor[1], k + 'x2')))
         return out
 
@@ -560,17 +560,15 @@ class Voice:
     # goal line and an offence that scores early -- so that is what the colour man talks about, by
     # position, with no digits and no promise that he WILL score.
     FTD_BANK = {
-        'RB': ['First drive of the game, you want to run the football, and when they get down close they hand it to the big guy. That is {who}. Boom!',
-               'They script that opening drive for {who}. Hand it to him, he lowers the shoulder, somebody goes backwards, six!',
-               '{who} gets the ball early and he gets it often, and a guy who touches it that much on the first drive, whap, he is in there!',
-               'Out of the tunnel, the first thing this offense wants to do is run it right at you with {who}. Grass stains by the first quarter. That is football!'],
-        'WR': ['You script those first plays for your best guy, and {who} is their best guy. Throw it up and let him go get it. Boom!',
-               'First drive, the quarterback is looking for his favorite target, and that is {who}. He gets open, he catches it, whoosh, six!',
-               '{who} is the first read, and on the first drive you go to your first read. It is that simple, and I love simple!',
-               'That opening script is drawn up with {who} in mind, and when they get close, the ball is coming his way. Hands like buckets!'],
-        'TE': ['First drive, they get down there close, and the quarterback looks for the big guy. That is {who}. Nobody wants to tackle him at the goal line!',
-               '{who} is a big ol\' target, and on that first trip into the red zone you throw it to the big ol\' target. Boom!',
-               'When the field gets short on the opening drive, {who} boxes out like a power forward and rumbles in like a truck with no brakes!'],
+        'RB': ['Now, the first thing you wanna do in a football game is run the football, and when they get down close on that first drive, they give it to the big guy, and the big guy is {who}. Boom!',
+               'Here\'s what I like about {who}. First drive, they give him the ball, and they give him the ball, and when they get down close, whap, they give him the ball again. That\'s football!',
+               'You wanna score first? You give it to {who}. He puts his head down, somebody goes backwards, and I love it!',
+               'Here\'s a guy, {who}, who gets his uniform dirty on the very first drive, and when you get your uniform dirty early, good things happen. Boom!'],
+        'WR': ['Now, you script those first plays for your best guy, and {who} is their best guy. You throw it up, he goes and gets it. Boom!',
+               'First drive, the quarterback\'s looking for his guy, and his guy is {who}. And when you catch the ball in the end zone, that\'s a touchdown!',
+               '{who} is the first read, and on the first drive you go to your first read. It\'s that simple, and I love simple!'],
+        'TE': ['First drive, they get down there close, and the quarterback looks for the big ol\' tight end, and that\'s {who}. Nobody wants to tackle him down there, and I don\'t blame \'em!',
+               '{who} is a big ol\' target, and on that first trip to the red zone, you throw it to the big ol\' target. Boom!'],
         'QB': ['{who} can take it in himself on that first drive, tuck it and go, and I love a quarterback who sticks his nose in there!'],
     }
 
@@ -601,7 +599,7 @@ class Voice:
         # MADDEN-2026-09-30: the lead is SHOUTED when more follows, like the soccer cards.
         body = bits[0][0].upper() + bits[0][1:]
         for i, f in enumerate(bits[1:]):
-            body += ('! ' if i == 0 else '. ') + f[0].upper() + f[1:]
+            body += '. ' + f[0].upper() + f[1:]     # MADDEN-2026-09-30b: he talks, he doesn't shout
         return body + '.'
 
     # ---------------------------------------------------------------------------------------
