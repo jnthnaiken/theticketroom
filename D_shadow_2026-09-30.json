@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-09-30",
- "built_at": "2026-09-30T16:21:56Z",
+ "built_at": "2026-09-30T17:11:21Z",
  "teams": {
   "ATL": {
    "n_rel": 8,
@@ -171,12 +171,12 @@
    "home": "ATL",
    "hour": 14,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 82.0,
+   "rh": 52,
+   "pres": 981.7,
+   "wind": 4.3,
+   "wind_out": -3.14,
+   "rho": 1.128
   },
   "2": {
    "home": "HOU",
@@ -184,32 +184,32 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": null,
+   "pres": 1007.0,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": null
+   "rho": 1.1817
   },
   "3": {
    "home": "NYY",
    "hour": 20,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 62.8,
+   "rh": 90,
+   "pres": 1018.5,
+   "wind": 3.2,
+   "wind_out": 1.3,
+   "rho": 1.2144
   },
   "4": {
    "home": "SD",
    "hour": 22,
    "dome": false,
-   "temp": null,
-   "rh": null,
-   "pres": null,
-   "wind": null,
-   "wind_out": null,
-   "rho": null
+   "temp": 69.1,
+   "rh": 89,
+   "pres": 1008.8,
+   "wind": 2.3,
+   "wind_out": 2.2,
+   "rho": 1.1866
   }
  },
  "coverage": {
@@ -221,13 +221,11 @@
   "sps_named": 8,
   "pens": 8,
   "games": 4,
-  "games_wx": 0
+  "games_wx": 4
  },
- "errors": [
-  "https://api.open-meteo.com/v1/forecast?latitude=33.8907,29.7572,40.8296,32.7073&: <urlopen error _ssl.c:993: The handshake operation timed out"
- ],
- "partial": true,
+ "errors": [],
+ "partial": false,
  "attempts": 1,
- "last_attempt": 1790785316,
+ "last_attempt": 1790788281,
  "pregame": true
 }
