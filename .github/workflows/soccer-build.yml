@@ -172,6 +172,8 @@ jobs:
           # squads.psv is SQUADCLUB-2026-08-28 and is optional: slate directories committed before
           # it existed do not have one, and the payload simply falls back to the understat club.
           cp slates/${{ steps.slate.outputs.date }}/squads.psv .work/ 2>/dev/null || true
+          # FGS-2026-09-29: first-goalscorer prices, optional -- without them no Opener pick this slate.
+          cp slates/${{ steps.slate.outputs.date }}/fgs.psv .work/ 2>/dev/null || true
           cp soccer_*.py soccer_*.js .work/
           cp soccer_season.json .work/
           # 🚨 NOSHEETSTAGE-2026-09-25. coverage.json WAS NOT STAGED, AND THE FIRST INTERNATIONAL
@@ -319,7 +321,8 @@ jobs:
           python3 soccer_payload.py scored.json tickets.json xg.psv soccer_D.json \
                   ${{ steps.slate.outputs.date }} --season soccer_season.json \
                   $([ -f teamnews.json ] && echo "--teamnews teamnews.json") \
-                  $([ -f squads.psv ] && echo "--squads squads.psv")
+                  $([ -f squads.psv ] && echo "--squads squads.psv") \
+                  $([ -f fgs.psv ] && echo "--fgs fgs.psv --ftd-cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json")
           python3 soccer_fork.py index_live.html soccer_D.json soccer_index.html
 
       # ------------------------------------------------------------------------------------
@@ -403,7 +406,9 @@ jobs:
               prose = (sorted((x.get('kind', '') + ':' + '+'.join(l['name'] for l in x['players']),
                                x.get('note') or '') for x in d['tickets']),
                        {n: (v.get('why') or '') for n, v in d['players'].items()})
-              return t, pl, prose
+              # FGS-2026-09-29: the Opener (meta.ftd) is on the page too -- a new or re-made pick must ship.
+              ftd = (lambda f: (f.get('anchor'), f.get('note')) if f else None)(d.get('meta', {}).get('ftd'))
+              return t, pl, prose, ftd
           def shell(p):
               """The page minus its payload: template + every injected module."""
               h = open(p, encoding='utf-8', errors='replace').read()
@@ -453,6 +458,7 @@ jobs:
           git add soccer/index.html soccer/soccer_D.json soccer/boards/ \
                   "soccer/slates/$D/prices.json"
           [ -f "soccer/slates/$D/squads.psv" ] && git add "soccer/slates/$D/squads.psv" || true
+          [ -f "soccer/slates/$D/ftd_pick.json" ] && git add "soccer/slates/$D/ftd_pick.json" || true
           if git diff --staged --quiet; then
             echo "nothing changed"
           else
