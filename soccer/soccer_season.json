@@ -62,12 +62,6 @@
   "2026-09-29"
  ],
  "cats": {
-  "lunch": {
-   "graded": 27,
-   "won": 15,
-   "units": 10.01811158330609,
-   "staked": 27.0
-  },
   "late": {
    "graded": 6,
    "won": 0,
@@ -75,10 +69,10 @@
    "staked": 6.0
   },
   "builder": {
-   "graded": 196,
-   "won": 92,
-   "units": 13.894393956359353,
-   "staked": 196.0
+   "graded": 223,
+   "won": 107,
+   "units": 23.912505539665446,
+   "staked": 223.0
   },
   "moon": {
    "graded": 0,
@@ -1286,5 +1280,15 @@
  },
  "regrades": [
   "2026-09-17 unfolded -4.850u (9 tickets, 2 won) -- regrade dispatched by jnthnaiken (run 35280854639)"
- ]
+ ],
+ "merged": {
+  "date": "2026-09-30",
+  "what": "Owner: \"merge the lunch record into the top bin record. we just have first goal now\". The retired Lunch Special record (27 graded, 15 won, +10.02u on 27u) was folded into cats.builder (Top Bin). Totals and the equity history are unchanged; only the split by row moved.",
+  "lunch": {
+   "graded": 27,
+   "won": 15,
+   "units": 10.01811158330609,
+   "staked": 27.0
+  }
+ }
 }
