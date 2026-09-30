@@ -318,7 +318,7 @@ def seams(payload_js):
     # kc.lunch and kc.late are undefined and the TONIGHT counter prints "undefined 🍱".
     add('tracker-specials',
         "var defs=[['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot'],",
-        "var defs=[['ftd','⚡','The Opener'],['late','🌃','Nightcap'],")   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: the Lunch row is gone -- its record was folded into Top Bin (soccer_season.json `merged`)
+        "var defs=[['ftd','⚡','The Opener'],")   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
     add('specials-live',
         " const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);",
         " const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd').filter(match).filter(singleAlive);")   # FGS-2026-09-29: the section shows the one first-goalscorer pick, from meta
