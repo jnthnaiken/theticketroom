@@ -6076,7 +6076,7 @@
    "hr": false,
    "goalmins": [],
    "status": "projected",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6104,7 +6104,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Palmer Ault runs 0.31 non-penalty xG a 90 and is priced +120."
+   "why": "Palmer Ault runs 0.31 non-penalty xG a 90 and is priced +120.",
+   "ftd1": false
   },
   "Leal Rafael Navarro": {
    "nm": "Leal Rafael Navarro",
@@ -6121,9 +6122,11 @@
    "late": true,
    "void": false,
    "unres": "",
-   "hr": false,
-   "goalmins": [],
-   "status": "projected",
+   "hr": true,
+   "goalmins": [
+    "5"
+   ],
+   "status": "confirmed",
    "out": false,
    "soft": false,
    "form": null,
@@ -6152,7 +6155,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Leal Rafael Navarro is 0.10 a 90 under his xG, a pile of chances still owed him, generates 0.47 glorious non-penalty xG a ninety, and finds the good yards before he pulls the trigger, 0.18 a shot."
+   "why": "Leal Rafael Navarro is 0.10 a 90 under his xG, a pile of chances still owed him, generates 0.47 glorious non-penalty xG a ninety, and finds the good yards before he pulls the trigger, 0.18 a shot.",
+   "ftd1": true
   },
   "Simon Becher": {
    "nm": "Simon Becher",
@@ -6169,9 +6173,11 @@
    "late": true,
    "void": false,
    "unres": "",
-   "hr": false,
-   "goalmins": [],
-   "status": "projected",
+   "hr": true,
+   "goalmins": [
+    "87"
+   ],
+   "status": "confirmed",
    "out": false,
    "soft": false,
    "form": null,
@@ -6200,7 +6206,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Simon Becher is magisterial in there, 0.44 non-penalty xG every ninety, takes them from the places that pay, 0.17 xG a shot, and does not need asking twice — 2.8 shots a 90."
+   "why": "Simon Becher is magisterial in there, 0.44 non-penalty xG every ninety, takes them from the places that pay, 0.17 xG a shot, and does not need asking twice — 2.8 shots a 90.",
+   "ftd1": false
   },
   "Brendan McSorley": {
    "nm": "Brendan McSorley",
@@ -6220,7 +6227,7 @@
    "hr": false,
    "goalmins": [],
    "status": "projected",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6248,7 +6255,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Brendan McSorley haunts the six-yard box like a rumour, 0.39 xG a 90, gets right in on top of it, 0.15 xG an attempt, and lets fly 3.3 times a ninety, from anywhere and everywhere."
+   "why": "Brendan McSorley haunts the six-yard box like a rumour, 0.39 xG a 90, gets right in on top of it, 0.15 xG an attempt, and lets fly 3.3 times a ninety, from anywhere and everywhere.",
+   "ftd1": false
   },
   "Caden Glover": {
    "nm": "Caden Glover",
@@ -6268,7 +6276,7 @@
    "hr": false,
    "goalmins": [],
    "status": "projected",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6296,7 +6304,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Caden Glover plays outside Understat's five, and his league is uncharted territory and comes in at +160."
+   "why": "Caden Glover plays outside Understat's five, and his league is uncharted territory and comes in at +160.",
+   "ftd1": false
   },
   "Damion Downs": {
    "nm": "Damion Downs",
@@ -6316,7 +6325,7 @@
    "hr": false,
    "goalmins": [],
    "status": "benched",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6344,7 +6353,8 @@
     "rain": "49′ avg",
     "lean": "bench"
    },
-   "why": "Damion Downs gives you 49 minutes an appearance and spends every one at it and is priced +175."
+   "why": "Damion Downs gives you 49 minutes an appearance and spends every one at it and is priced +175.",
+   "ftd1": false
   },
   "Eric Maxim Choupo-Moting": {
    "nm": "Eric Maxim Choupo-Moting",
@@ -6363,7 +6373,7 @@
    "unres": "",
    "hr": false,
    "goalmins": [],
-   "status": "projected",
+   "status": "confirmed",
    "out": false,
    "soft": false,
    "form": null,
@@ -6392,7 +6402,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Eric Maxim Choupo-Moting pulls the trigger 2.5 times a game without a second thought, haunts the six-yard box like a rumour, 0.33 xG a 90, and the book has him at +188."
+   "why": "Eric Maxim Choupo-Moting pulls the trigger 2.5 times a game without a second thought, haunts the six-yard box like a rumour, 0.33 xG a 90, and the book has him at +188.",
+   "ftd1": false
   },
   "Carlo Holse": {
    "nm": "Carlo Holse",
@@ -6411,7 +6422,7 @@
    "unres": "",
    "hr": false,
    "goalmins": [],
-   "status": "projected",
+   "status": "confirmed",
    "out": false,
    "soft": false,
    "form": null,
@@ -6435,12 +6446,19 @@
    "xgmatch": 0.41,
    "sub": {
     "emoji": "🔄",
-    "park": "—",
-    "cond": "no minutes data",
+    "park": "Sang-Bin",
+    "cond": "on for him 71′",
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Carlo Holse haunts the six-yard box like a rumour, 0.41 xG a 90, finds the good yards before he pulls the trigger, 0.17 a shot, and lets fly 2.6 times a ninety, from anywhere and everywhere."
+   "why": "Carlo Holse haunts the six-yard box like a rumour, 0.41 xG a 90, finds the good yards before he pulls the trigger, 0.17 a shot, and lets fly 2.6 times a ninety, from anywhere and everywhere.",
+   "ftd1": false,
+   "carry": [
+    {
+     "to": "Jeong Sang-Bin",
+     "min": "71"
+    }
+   ]
   },
   "Riley Lynch": {
    "nm": "Riley Lynch",
@@ -6460,7 +6478,7 @@
    "hr": false,
    "goalmins": [],
    "status": "projected",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6488,7 +6506,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Riley Lynch plays beyond the reach of the models altogether and the market puts him at +220."
+   "why": "Riley Lynch plays beyond the reach of the models altogether and the market puts him at +220.",
+   "ftd1": false
   },
   "Zach Zengue": {
    "nm": "Zach Zengue",
@@ -6508,7 +6527,7 @@
    "hr": false,
    "goalmins": [],
    "status": "projected",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6536,7 +6555,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Zach Zengue plays outside Understat's five, and his league is uncharted territory and comes in at +220."
+   "why": "Zach Zengue plays outside Understat's five, and his league is uncharted territory and comes in at +220.",
+   "ftd1": false
   },
   "Julian Hall": {
    "nm": "Julian Hall",
@@ -6557,7 +6577,7 @@
    "goalmins": [
     "72"
    ],
-   "status": "benched",
+   "status": "confirmed",
    "out": false,
    "soft": false,
    "form": null,
@@ -6586,7 +6606,8 @@
     "rain": null,
     "lean": "bench"
    },
-   "why": "Julian Hall finds the good yards before he pulls the trigger, 0.22 a shot, keeps arriving in the right places, 0.09 a 90 of xG unpaid, and lives exactly where the ball comes down — 0.44 xG a 90."
+   "why": "Julian Hall finds the good yards before he pulls the trigger, 0.22 a shot, keeps arriving in the right places, 0.09 a 90 of xG unpaid, and lives exactly where the ball comes down — 0.44 xG a 90.",
+   "ftd1": false
   },
   "Sang-Bin Jeong": {
    "nm": "Sang-Bin Jeong",
@@ -6605,7 +6626,7 @@
    "unres": "",
    "hr": false,
    "goalmins": [],
-   "status": "projected",
+   "status": "benched",
    "out": false,
    "soft": false,
    "form": null,
@@ -6634,7 +6655,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Sang-Bin Jeong finds the good yards before he pulls the trigger, 0.16 a shot and the book has him at +230."
+   "why": "Sang-Bin Jeong finds the good yards before he pulls the trigger, 0.16 a shot and the book has him at +230.",
+   "ftd1": false
   },
   "Andy Rojas": {
    "nm": "Andy Rojas",
@@ -6653,7 +6675,7 @@
    "unres": "",
    "hr": false,
    "goalmins": [],
-   "status": "projected",
+   "status": "benched",
    "out": false,
    "soft": false,
    "form": null,
@@ -6682,7 +6704,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Andy Rojas is fearless with it, 2.6 attempts every ninety minutes and the market puts him at +240."
+   "why": "Andy Rojas is fearless with it, 2.6 attempts every ninety minutes and the market puts him at +240.",
+   "ftd1": false
   },
   "Celio Pompeu": {
    "nm": "Celio Pompeu",
@@ -6702,7 +6725,7 @@
    "hr": false,
    "goalmins": [],
    "status": "projected",
-   "out": false,
+   "out": true,
    "soft": false,
    "form": null,
    "aT": 100,
@@ -6730,7 +6753,8 @@
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Celio Pompeu pulls the trigger 3.4 times a game without a second thought and the book has him at +260."
+   "why": "Celio Pompeu pulls the trigger 3.4 times a game without a second thought and the book has him at +260.",
+   "ftd1": false
   },
   "Jorge Ruvalcaba": {
    "nm": "Jorge Ruvalcaba",
@@ -6749,7 +6773,7 @@
    "unres": "",
    "hr": false,
    "goalmins": [],
-   "status": "projected",
+   "status": "confirmed",
    "out": false,
    "soft": false,
    "form": null,
@@ -6773,12 +6797,19 @@
    "xgmatch": 0.289,
    "sub": {
     "emoji": "🔄",
-    "park": "—",
-    "cond": "no minutes data",
+    "park": "Castro",
+    "cond": "on for him 64′",
     "rain": null,
     "lean": "unknown"
    },
-   "why": "Jorge Ruvalcaba does not need asking twice — 2.6 shots a 90 and comes in at +260."
+   "why": "Jorge Ruvalcaba does not need asking twice — 2.6 shots a 90 and comes in at +260.",
+   "ftd1": false,
+   "carry": [
+    {
+     "to": "Pedro Henrique Severiano Castro",
+     "min": "64"
+    }
+   ]
   },
   "Marcus Ingvartsen": {
    "nm": "Marcus Ingvartsen",
