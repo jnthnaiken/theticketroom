@@ -302,7 +302,29 @@ jobs:
           OLD=$([ -f ../nfl_D.json ] && echo "$(python3 nfl_sig.py ../nfl_D.json):$(python3 -c "$SEASON_SIG" ../nfl_D.json)" || echo "")
           echo "new=$NEW"
           echo "old=$OLD"
-          if [ "$NEW" = "$OLD" ]; then
+          # 🚨 GATEJS-NFL-2026-10-01 -- A PAGE-CODE CHANGE IS ALSO SOMETHING A READER NOTICES. soccer-build.yml
+          # learned this on 2026-09-08 (GATEJS); football never got it. This signature hashes the payload only,
+          # so a template change in the root index.html (FTDLIVE, RECNOWRAP, RESTATEDISC on 2026-10-01) was
+          # built, tested and green and never reached /nfl/ while the slate's prices sat still. Compare the
+          # published page with the built one, payload cut out of both.
+          CODE=$(python3 - <<'PY'
+          import json, os
+          def shell(p):
+              h = open(p, encoding='utf-8', errors='replace').read()
+              i = h.find('const D=')
+              if i < 0:
+                  return h
+              j = i + len('const D=')
+              _, end = json.JSONDecoder().raw_decode(h[j:])
+              return h[:i] + '<<PAYLOAD>>' + h[j + end:]
+          try:
+              print('true' if (not os.path.exists('../index.html')) or shell('../index.html') != shell('nfl_index.html') else 'false')
+          except Exception:
+              print('true')
+          PY
+          )
+          echo "page code changed: $CODE"
+          if [ "$NEW" = "$OLD" ] && [ "$CODE" != "true" ]; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "nothing a reader would notice moved"
           else
