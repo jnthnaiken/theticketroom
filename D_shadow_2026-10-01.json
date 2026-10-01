@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-10-01",
- "built_at": "2026-10-01T19:17:02Z",
+ "built_at": "2026-10-01T20:06:13Z",
  "teams": {
   "ATL": {
    "n_rel": 8,
@@ -51,12 +51,12 @@
    "home": "ATL",
    "hour": 20,
    "dome": false,
-   "temp": 77.7,
-   "rh": 51,
-   "pres": 981.6,
-   "wind": 4.7,
-   "wind_out": -1.99,
-   "rho": 1.1381
+   "temp": null,
+   "rh": null,
+   "pres": null,
+   "wind": null,
+   "wind_out": null,
+   "rho": null
   }
  },
  "coverage": {
@@ -68,11 +68,13 @@
   "sps_named": 2,
   "pens": 2,
   "games": 1,
-  "games_wx": 1
+  "games_wx": 0
  },
- "errors": [],
- "partial": false,
+ "errors": [
+  "https://api.open-meteo.com/v1/forecast?latitude=33.8907&longitude=-84.4677&hourl: <urlopen error _ssl.c:993: The handshake operation timed out"
+ ],
+ "partial": true,
  "attempts": 1,
- "last_attempt": 1790882222,
+ "last_attempt": 1790885173,
  "pregame": true
 }
