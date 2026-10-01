@@ -139,7 +139,18 @@ jobs:
                 for g in games for side in ("away", "home")]
           have = sum(1 for x in hr if x is not None)
           print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
-          fresh = not (pa.startswith("manual") or "T" not in pa or have == 0)
+          # 🚨 NOSP-2026-10-01. `have == 0` is the guard against a FAILED StatsAPI/Savant pull, but it also
+          # fires when MLB simply has not named a starter yet -- 2026-10-01, Wild Card game 3, both clubs
+          # unannounced at 11am, and the board sat on the previous night's card all morning with the new
+          # inputs committed. Those are different states: a failed pull has SP ids and no HR/9; an
+          # unannounced game has NO SP id at all. When no game on the slate has any SP id, build anyway --
+          # build15 already treats a missing opposing HR/9 as neutral (pHR9(None)), and the next pass after
+          # the probables post re-scores with the real arm.
+          nosp = bool(games) and all(not ((g.get(side) or {}).get("sp") or {}).get("id")
+                                     for g in games for side in ("away", "home"))
+          fresh = not (pa.startswith("manual") or "T" not in pa or (have == 0 and not nosp))
+          if have == 0 and nosp and fresh:
+              print("::notice::No starter announced for any game yet -- building with the SP term neutral.")
           import re as _re
           allfinal = bool(games) and all(_re.search(r"final|completed|over", str(g.get("status") or ""), _re.I) for g in games)
           force = os.environ.get("FORCE_REBUILD", "").lower() == "true"
