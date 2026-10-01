@@ -1,0 +1,78 @@
+{
+ "v": 1,
+ "date": "2026-10-01",
+ "built_at": "2026-10-01T15:16:55Z",
+ "teams": {
+  "ATL": {
+   "n_rel": 8,
+   "n_unavail": 3,
+   "top_out": 3,
+   "hr_bf": 0.0204,
+   "hr_bf_avail": 0.0219,
+   "hr_bf_L": 0.0236,
+   "hr_bf_R": 0.0192,
+   "hr_bf_avail_L": 0.0298,
+   "hr_bf_avail_R": 0.0152,
+   "share_L": 0.437,
+   "air_share": 0.584,
+   "d1_pitches": 45
+  },
+  "PHI": {
+   "n_rel": 7,
+   "n_unavail": 1,
+   "top_out": 1,
+   "hr_bf": 0.0284,
+   "hr_bf_avail": 0.0286,
+   "hr_bf_L": 0.0282,
+   "hr_bf_R": 0.0289,
+   "hr_bf_avail_L": 0.0282,
+   "hr_bf_avail_R": 0.0292,
+   "share_L": 0.484,
+   "air_share": 0.518,
+   "d1_pitches": 41
+  }
+ },
+ "sps": {
+  "grant holmes": {
+   "id": null,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": null
+  },
+  "aaron nola": {
+   "id": null,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": null
+  }
+ },
+ "games": {
+  "1": {
+   "home": "ATL",
+   "hour": 20,
+   "dome": false,
+   "temp": 79.0,
+   "rh": 48,
+   "pres": 981.4,
+   "wind": 4.9,
+   "wind_out": -0.6,
+   "rho": 1.1353
+  }
+ },
+ "coverage": {
+  "box_final_games": 8,
+  "box_loaded": 8,
+  "rosters": 2,
+  "pitcher_stats": 23,
+  "sps_matched": 0,
+  "sps_named": 2,
+  "pens": 2,
+  "games": 1,
+  "games_wx": 1
+ },
+ "errors": [],
+ "partial": false,
+ "attempts": 1,
+ "last_attempt": 1790867815,
+ "pregame": true
+}
