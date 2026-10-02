@@ -1,0 +1,86 @@
+{
+ "_note": "FRIDAY-2026-10-02, built midday ET 10-02. Browser ESPN scan of the covered competitions + intl for 20261002: international break, no core-league or UEFA club football. Seven UEFA Nations League ties priced Anytime on oddschecker (First Goalscorer posted for five; Bosnia-Herzegovina v Sweden and Ukraine v Northern Ireland FGS not up), plus the Colombia v Paraguay friendly (00:00Z 10-03). Skipped: Kazakhstan v Moldova (kicking off at build time), Hungary v Georgia and Faroe Islands v Slovakia (no Anytime market), CONCACAF NL and the Asian/African friendlies. xG: understat EPL/La_liga/Serie_A/Bundesliga/Ligue_1 2025+2026 fresh via getLeagueData, filtered by priced name with the surname-anchored rule plus NORDICFOLD; aliases Mathis->Rayan Cherki, Kerim-Sam->Kerim Alajbegovic; impostors dropped (Tammy Abraham, Diego/Unai/Moi/Sergio/Valentin/Joseph Gomez, the other Fofanas, Ali Dembele, Guela Doue, Berkay Yilmaz, Matheus Cunha, Pablo Duran, Morales of Levante, Charles Pickel/Herrmann/Vanhoutte, Denis Suarez, Sasa Lukic). Kickoff is UTC minutes past midnight of the slate date.",
+ "date": "2026-10-02",
+ "matches": {
+  "france-v-italy": {
+   "home": "France",
+   "away": "Italy",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861103"
+   ]
+  },
+  "belgium-v-turkey": {
+   "home": "Belgium",
+   "away": "Türkiye",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861109"
+   ]
+  },
+  "bosnia-and-herzegovina-v-sweden": {
+   "home": "Bosnia-Herzegovina",
+   "away": "Sweden",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861107"
+   ]
+  },
+  "poland-v-romania": {
+   "home": "Poland",
+   "away": "Romania",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861108"
+   ]
+  },
+  "ukraine-v-northern-ireland": {
+   "home": "Ukraine",
+   "away": "Northern Ireland",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861106"
+   ]
+  },
+  "cyprus-v-armenia": {
+   "home": "Cyprus",
+   "away": "Armenia",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861104"
+   ]
+  },
+  "latvia-v-montenegro": {
+   "home": "Latvia",
+   "away": "Montenegro",
+   "kickoff": 960,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861105"
+   ]
+  },
+  "colombia-v-paraguay": {
+   "home": "Colombia",
+   "away": "Paraguay",
+   "kickoff": 1440,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401913267"
+   ]
+  }
+ }
+}
