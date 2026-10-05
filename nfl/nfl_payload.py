@@ -124,7 +124,7 @@ def note_for(kind, legs, P, voice=None, tname=None):
     return voice.ticket_note(legs, P, tname=(tname or kind))
 
 
-def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None, ftd_pick=None):
+def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None, ftd_pick=None, longtd=None):
     matches = fx['matches']
     order = sorted(matches.keys(), key=lambda k: (matches[k]['kickoff'], k))
     gidx = {k: i + 1 for i, k in enumerate(order)}
@@ -283,7 +283,23 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
                   pool=len(scored), gate=len({l['name'] for t in T for l in t['players']}),
                   tickets=len(T), week=fx.get('week'), sport='nfl',
                   ko={str(gidx[k]): matches[k]['kickoff'] for k in order},
-                  ftd=ftd_t))
+                  ftd=ftd_t,
+                  # KINGEZ-2026-10-05: 👑 King of the End Zone (nfl_longtd.py), a free play -- never staked or graded.
+                  # Keyed by fixture slug; the page shows it under the first-TD pick.
+                  longtd=_longtd_meta(longtd, gidx, matches)))
+
+
+def _longtd_meta(longtd, gidx, matches):
+    if not longtd:
+        return None
+    out = []
+    for slug, v in longtd.items():
+        if slug not in gidx or not v.get('picks'):
+            continue
+        m = matches[slug]
+        out.append(dict(match=slug, game=gidx[slug], gmatch=f"{m['away']}@{m['home']}",
+                        median_yards=v.get('median_yards'), picks=v['picks']))
+    return sorted(out, key=lambda r: r['game']) or None
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
@@ -292,13 +308,25 @@ if __name__ == '__main__':
     ap.add_argument('--wx', default=None); ap.add_argument('--season', default=None)
     ap.add_argument('--build', default='')
     ap.add_argument('--ftd', default=None)   # FIRSTTD-2026-09-29: slates/<date>/ftd_pick.json, if nfl_ftd.py made one
+    ap.add_argument('--longtd', default=None)   # KINGEZ-2026-10-05: computed here from scored + .cache when not given
     A = ap.parse_args()
     wx = json.load(open(A.wx, encoding='utf-8')) if A.wx else {}
+    _lt = None
+    try:
+        if A.longtd and os.path.exists(A.longtd):
+            _lt = json.load(open(A.longtd, encoding='utf-8'))
+        else:
+            import nfl_longtd
+            if nfl_longtd.main_args([A.scored, '--pbp-dir', '.cache', '--out', 'longtd.json']) == 0 and os.path.exists('longtd.json'):
+                _lt = json.load(open('longtd.json', encoding='utf-8'))
+    except Exception as e:
+        print(f'::warning::KINGEZ: no King of the End Zone ({e.__class__.__name__}: {e})')
     D = build(json.load(open(A.scored, encoding='utf-8')),
               json.load(open(A.tickets, encoding='utf-8')),
               json.load(open(A.fixtures, encoding='utf-8')),
               wx, A.season, A.build,
-              ftd_pick=(json.load(open(A.ftd, encoding='utf-8')) if A.ftd and os.path.exists(A.ftd) else None))
+              ftd_pick=(json.load(open(A.ftd, encoding='utf-8')) if A.ftd and os.path.exists(A.ftd) else None),
+              longtd=_lt)
     json.dump(D, open(A.out, 'w'), ensure_ascii=False, separators=(', ', ': '))
     print(f'{A.out}: {len(D["players"])} players, {len(D["tickets"])} tickets, '
           f'{len(D["meta"]["wx"])} games')

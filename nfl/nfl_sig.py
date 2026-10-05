@@ -67,7 +67,9 @@ def sig(path):
     f = (d.get('meta') or {}).get('ftd') or {}
     fs = [(f.get('name'), f.get('anchor'), f.get('note'), f.get('parlay_am'))] + \
          [(a.get('name'), a.get('anchor'), a.get('note')) for a in (f.get('alts') or [])]
-    return hashlib.sha256(json.dumps([t, p, led] + ([fs] if f else []), sort_keys=True).encode()).hexdigest()
+    # KINGEZ-2026-10-05: the 👑 King of the End Zone list (meta.longtd) is rendered, so it is signed (PROSESIG rule).
+    lt = (d.get('meta') or {}).get('longtd')
+    return hashlib.sha256(json.dumps([t, p, led] + ([fs] if f else []) + ([lt] if lt else []), sort_keys=True).encode()).hexdigest()
 
 if __name__ == '__main__':
     print(sig(sys.argv[1]) if len(sys.argv) > 1 else '')
