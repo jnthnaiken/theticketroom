@@ -114,10 +114,21 @@ def main(argv=None):
             rr = [r for r in rows if r['match'] == m]
             w, med = simulate(rr, P)
             top = sorted(zip(w, rr), key=lambda t: -t[0])[:TOP_N]
-            out[m] = dict(match=m, median_yards=med, n_tds=int(len(P)),
-                          picks=[dict(name=r['name'], team=r.get('team'), pos=r.get('pos'), odds=int(r['odds']),
-                                      p=round(float(x), 4)) for x, r in top])
-            print(f"KINGEZ {m}: " + ', '.join(f"{p['name']} {p['p']:.1%}" for p in out[m]['picks']))
+            picks = [dict(name=r['name'], team=r.get('team'), pos=r.get('pos'), odds=int(r['odds']),
+                          p=round(float(x), 4), pop=round(am2p(r['odds']) / DEVIG, 4)) for x, r in top]
+            # KINGEZ2-2026-10-05 -- owner: "if your pick was olave then it should be olave. take into account how many
+            # people pick them". Winners SPLIT the pot, so what a pick is worth is P(longest) / how many others hold it.
+            # Nobody publishes pick counts; the public picks the names it expects to score, so popularity is proxied by
+            # the anytime chance (`pop`). The crown goes to the best P(longest)/pop among the TOP_N by P(longest) -- the
+            # shortlist keeps a +3000 tight end with a 1% chance from winning on a tiny denominator.
+            for pk in picks:
+                pk['value'] = round(pk['p'] / pk['pop'], 4) if pk['pop'] else 0.0
+            crown = max(picks, key=lambda pk: pk['value']) if picks else None
+            for pk in picks:
+                pk['crown'] = pk is crown
+            picks.sort(key=lambda pk: (not pk['crown'], -pk['p']))
+            out[m] = dict(match=m, median_yards=med, n_tds=int(len(P)), picks=picks)
+            print(f"KINGEZ {m}: " + ', '.join(f"{'*' if p['crown'] else ''}{p['name']} {p['p']:.1%} (value {p['value']:.2f})" for p in out[m]['picks']))
         json.dump(out, open(A.out, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     except Exception as e:
         print(f'::warning::nfl_longtd.py failed ({e.__class__.__name__}: {e}) -- no King of the End Zone this pass')

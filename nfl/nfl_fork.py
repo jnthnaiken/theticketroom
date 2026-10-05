@@ -110,10 +110,10 @@ def seams(payload_js):
         "var K=D.meta.longtd||[],_n=K.length>1?3:5;el.innerHTML=K.length?K.map(function(g){var pk=(g.picks||[]).slice(0,_n);"
         "return '<div style=\"margin:4px 0 10px\"><div style=\"font-size:12px;opacity:.7;margin-bottom:4px\">'+esc(g.gmatch)"
         "+(g.median_yards?' \\u00b7 the longest TD usually goes ~'+Math.round(g.median_yards)+' yds':'')+'</div>'"
-        "+pk.map(function(p,i){return '<div style=\"display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid rgba(127,127,127,.18)'+(i?'':';font-weight:700')+'\">'"
-        "+'<span>'+(i?'':'\\ud83d\\udc51 ')+esc(p.name)+' <span style=\"opacity:.6;font-weight:400\">'+esc(p.pos||'')+' \\u00b7 TD '+oddsStr(p.odds)+'</span></span>'"
+        "+pk.map(function(p,i){return '<div style=\"display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid rgba(127,127,127,.18)'+(p.crown?';font-weight:700':'')+'\">'"
+        "+'<span>'+(p.crown?'\\ud83d\\udc51 ':'')+esc(p.name)+' <span style=\"opacity:.6;font-weight:400\">'+esc(p.pos||'')+' \\u00b7 TD '+oddsStr(p.odds)+(p.crown?' \\u00b7 our pick: fewer people split it':'')+'</span></span>'"
         "+'<span>'+(p.p*100).toFixed(1)+'%</span></div>';}).join('')+'</div>';}).join('')"
-        "+'<div style=\"font-size:11px;opacity:.6;margin-top:4px\">Chance each man scores the game\\u2019s longest touchdown. A free contest pick \\u2014 not a bet we place, not on the ledger.</div>'"
+        "+'<div style=\"font-size:11px;opacity:.6;margin-top:4px\">Chance each man scores the game\\u2019s longest touchdown. DraftKings\\u2019 King of the End Zone runs on one-game nights and needs a $5 bet to enter. Not a bet we place, not on the ledger.</div>'"
         ":'<div class=\"closed\">\\ud83d\\udc51 No King of the End Zone call yet.</div>';")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='ftd'?' lunchwide':''}")
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}",
@@ -256,7 +256,9 @@ def seams(payload_js):
     # FIRSTTD-2026-09-29: the Sunday Night drop-down is gone -- one special a slate, the first-TD pick.
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
                         # KINGEZ-2026-10-05: the slot is back, as 👑 King of the End Zone (owner: "underneath first td").
-                        'html+=\'<details class="pool" open><summary><span class="tag">Free play</span> King of the End Zone<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';')
+                        # KINGEZ1-2026-10-05: DraftKings runs it on one-game nights only (owner), so the section exists only
+                        # when meta.longtd does, which nfl_payload.py writes only for a one-game slate.
+                        'html+=(D.meta.longtd&&D.meta.longtd.length)?\'<details class="pool" open><summary><span class="tag">DK contest</span> King of the End Zone<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\':\'\';')
     # RESTATED-NFL-2026-09-17: the season line says so when nfl_season.json carries `restated`.
     # Week 1 was drafted by the old scorer (raw EV, no cap, usage model alone); nfl_restate.py
     # re-runs every graded night under the current system, so the tracker must not imply the

@@ -290,7 +290,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
 
 
 def _longtd_meta(longtd, gidx, matches):
-    if not longtd:
+    if not longtd or len(matches) != 1:   # KINGEZ1-2026-10-05: DraftKings offers it on one-game nights only
         return None
     out = []
     for slug, v in longtd.items():
@@ -315,7 +315,7 @@ if __name__ == '__main__':
     try:
         if A.longtd and os.path.exists(A.longtd):
             _lt = json.load(open(A.longtd, encoding='utf-8'))
-        else:
+        elif len(json.load(open(A.fixtures, encoding='utf-8'))['matches']) == 1:   # KINGEZ1: one-game nights only
             import nfl_longtd
             if nfl_longtd.main_args([A.scored, '--pbp-dir', '.cache', '--out', 'longtd.json']) == 0 and os.path.exists('longtd.json'):
                 _lt = json.load(open('longtd.json', encoding='utf-8'))
