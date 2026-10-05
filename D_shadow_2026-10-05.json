@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-10-05",
- "built_at": "2026-10-05T18:01:15Z",
+ "built_at": "2026-10-05T18:51:10Z",
  "teams": {
   "CLE": {
    "n_rel": 7,
@@ -91,12 +91,12 @@
    "home": "CLE",
    "hour": 17,
    "dome": false,
-   "temp": 61.6,
-   "rh": 37,
-   "pres": 998.0,
-   "wind": 11.6,
-   "wind_out": -9.14,
-   "rho": 1.1974
+   "temp": null,
+   "rh": null,
+   "pres": null,
+   "wind": null,
+   "wind_out": null,
+   "rho": null
   },
   "2": {
    "home": "TB",
@@ -104,10 +104,10 @@
    "dome": true,
    "temp": 72.0,
    "rh": 50.0,
-   "pres": 1012.0,
+   "pres": null,
    "wind": 0.0,
    "wind_out": 0.0,
-   "rho": 1.1876
+   "rho": null
   }
  },
  "coverage": {
@@ -119,11 +119,13 @@
   "sps_named": 4,
   "pens": 4,
   "games": 2,
-  "games_wx": 2
+  "games_wx": 0
  },
- "errors": [],
- "partial": false,
+ "errors": [
+  "https://api.open-meteo.com/v1/forecast?latitude=41.4962,27.7683&longitude=-81.68: <urlopen error _ssl.c:993: The handshake operation timed out"
+ ],
+ "partial": true,
  "attempts": 1,
- "last_attempt": 1791223275,
+ "last_attempt": 1791226270,
  "pregame": true
 }
