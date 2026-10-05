@@ -1,7 +1,7 @@
 {
   "date": "2026-10-05",
   "season": "2026",
-  "pulled_at": "2026-10-05T19:28:57Z",
+  "pulled_at": "2026-10-05T19:49:41Z",
   "games": [
     {
       "gamePk": 849834,
@@ -127,19 +127,19 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 10mph, 62\u00b0",
+        "cond": "wind in 9mph, 62\u00b0",
         "lean": "Suppress",
         "temp": 61.7,
         "wind_mph": 11.6,
-        "wind_dir": 330,
-        "tail_mph": -10.0,
+        "wind_dir": 320,
+        "tail_mph": -8.9,
         "precip": 0
       },
-      "wf": 0.952
+      "wf": 0.956
     },
     {
       "gamePk": 849839,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-10-06T00:00:00Z",
       "venue": "Tropicana Field",
       "matchup": "NYY@TB",
@@ -162,10 +162,56 @@
           "hr9": 1.22,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 650490,
+            "name": "Yandy D\u00edaz",
+            "iso": 0.153
+          },
+          {
+            "id": 666018,
+            "name": "Jonathan Aranda",
+            "iso": 0.16
+          },
+          {
+            "id": 691406,
+            "name": "Junior Caminero",
+            "iso": 0.248
+          },
+          {
+            "id": 689414,
+            "name": "Liam Hicks",
+            "iso": 0.15
+          },
+          {
+            "id": 802415,
+            "name": "Chandler Simpson",
+            "iso": 0.05
+          },
+          {
+            "id": 683748,
+            "name": "Victor Mesa Jr.",
+            "iso": 0.238
+          },
+          {
+            "id": 676356,
+            "name": "Jonny DeLuca",
+            "iso": 0.163
+          },
+          {
+            "id": 680700,
+            "name": "Richie Palacios",
+            "iso": 0.139
+          },
+          {
+            "id": 670764,
+            "name": "Taylor Walls",
+            "iso": 0.076
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": true,
         "emoji": "\ud83c\udfdf",
