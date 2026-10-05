@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-05",
+  "season": "2026",
+  "pulled_at": "2026-10-05T15:35:57Z",
+  "games": [
+    {
+      "gamePk": 849834,
+      "status": "Scheduled",
+      "gameTime": "2026-10-05T21:00:00Z",
+      "venue": "Progressive Field",
+      "matchup": "CWS@CLE",
+      "away": {
+        "abbrev": "CWS",
+        "sp": {
+          "id": 641743,
+          "name": "Anthony Kay",
+          "hr9": 1.2,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "CLE",
+        "sp": {
+          "id": 668909,
+          "name": "Gavin Williams",
+          "hr9": 1.37,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind in 10mph, 61\u00b0",
+        "lean": "Suppress",
+        "temp": 60.7,
+        "wind_mph": 11.4,
+        "wind_dir": 337,
+        "tail_mph": -10.5,
+        "precip": 0
+      },
+      "wf": 0.949
+    },
+    {
+      "gamePk": 849839,
+      "status": "Scheduled",
+      "gameTime": "2026-10-06T00:00:00Z",
+      "venue": "Tropicana Field",
+      "matchup": "NYY@TB",
+      "away": {
+        "abbrev": "NYY",
+        "sp": {
+          "id": 693645,
+          "name": "Cam Schlittler",
+          "hr9": 0.74,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "TB",
+        "sp": {
+          "id": 642547,
+          "name": "Freddy Peralta",
+          "hr9": 1.22,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": true,
+        "emoji": "\ud83c\udfdf",
+        "cond": "Dome",
+        "lean": "Neutral",
+        "temp": null,
+        "wind_mph": null,
+        "wind_dir": null,
+        "precip": null
+      },
+      "wf": 1.0
+    }
+  ]
+}
