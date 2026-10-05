@@ -1,0 +1,76 @@
+{
+ "_note": "MONDAY-2026-10-05, built ~16:00Z 10-05. ESPN scan for 20261005: international window, UEFA Nations League matchday. Seven UNL ties priced Anytime on oddschecker /football/uefa-nations-league/<home>-v-<away>/winner (First Goalscorer posted for france-v-belgium, romania-v-sweden, bosnia-and-herzegovina-v-poland only). Skipped: Latvia v Cyprus (16:00Z, kicking off at build time), Gibraltar v Liechtenstein, CONCACAF NL, African/Asian friendlies, U21s. xG: understat 5 leagues x 2025+2026 via getLeagueData (all ten seasons distinct), filtered by priced surname; aliases Mathis->Rayan Cherki, Kerim-Sam->Kerim Alajbegovic, Francesco Pio->Pio Esposito; impostors dropped (Matheus Cunha, Tammy Abraham, Sasa Lukic, Marshall Munetsi, Shea Charles, Charles Pickel/Herrmann/Vanhoutte, Alessandro Di Pardo, Ali Dembele, Guela Doue, Kamory Doumbia). Kickoff is UTC minutes past midnight of the slate date.",
+ "date": "2026-10-05",
+ "matches": {
+  "france-v-belgium": {
+   "home": "France",
+   "away": "Belgium",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861129"
+   ]
+  },
+  "italy-v-turkey": {
+   "home": "Italy",
+   "away": "Türkiye",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861131"
+   ]
+  },
+  "romania-v-sweden": {
+   "home": "Romania",
+   "away": "Sweden",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861128"
+   ]
+  },
+  "ukraine-v-hungary": {
+   "home": "Ukraine",
+   "away": "Hungary",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861134"
+   ]
+  },
+  "bosnia-and-herzegovina-v-poland": {
+   "home": "Bosnia-Herzegovina",
+   "away": "Poland",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861133"
+   ]
+  },
+  "northern-ireland-v-georgia": {
+   "home": "Northern Ireland",
+   "away": "Georgia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861132"
+   ]
+  },
+  "montenegro-v-armenia": {
+   "home": "Montenegro",
+   "away": "Armenia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861130"
+   ]
+  }
+ }
+}
