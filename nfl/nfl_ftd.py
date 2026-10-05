@@ -288,6 +288,30 @@ def pick_stats(scored, ftd, season, week, exclude=(), cache='.cache', data=None)
     return best
 
 
+def mark_single(scored_path, scored, names):
+    """OPENERSINGLE-2026-10-05 -- owner: "do nfl like we do with soccer where the first goal scorer is also in
+    the anytime singles list ... so bijan tonight". The first-TD man always gets an ANYTIME single too, at his
+    anytime price, 1u, graded like any other single. nfl_value.py runs first and may have marked him `novalue`
+    (Bijan Robinson -200 on 10-05: p_value 65.3% x 1.50 = EV -0.02); this clears the mark for him alone, so the
+    fresh draft, the same-slate rebuild and every repair door pick him like any value single. value_kind
+    'opener' says why he is there. The anytime price band (MIN_ODDS) still applies -- a first-TD man priced
+    shorter than the floor to score anytime stays off the singles list.
+    ⚠️ Soccer has NO such rule: Barcola on the Top Bin and as the Opener on 10-05 was the same man winning
+    both drafts. This is football-only."""
+    hit = []
+    for s in scored:
+        if s['name'] in names and not s.get('out') and not s.get('void'):
+            if s.get('novalue', False):
+                s['novalue'] = False
+                s['value_kind'] = 'opener'
+            s['ftd_single'] = True
+            hit.append(s['name'])
+    if hit:
+        json.dump(scored, open(scored_path, 'w', encoding='utf-8'), indent=1)
+        print(f"OPENERSINGLE: {', '.join(hit)} also drafted as an anytime single")
+    return hit
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('scored'); ap.add_argument('fixtures'); ap.add_argument('ftd')
@@ -319,6 +343,7 @@ def main():
             json.dump(c, open(A.cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
         for t, r in c['picks'].items():
             print(f"FIRSTTD: if {t} receives -> {r['name']} {r['odds']:+d}  P(first) {r['p_first']:.1%}  EV {r['ev']:+.3f}")
+        mark_single(A.scored, scored, {r['name'] for r in c['picks'].values()})
         return 0
     if os.path.exists(A.cache):                         # a pre-TOSS single pick already placed: hold it
         c = json.load(open(A.cache, encoding='utf-8'))
@@ -340,6 +365,7 @@ def main():
         return 0
     print(f"FIRSTTD: {c['name']} ({c['pos']} {c['team']}) {c['odds']:+d}  "
           f"P(first) {c['p_first']:.1%}  EV {c['ev']:+.3f}")
+    mark_single(A.scored, scored, {c['name']})
     return 0
 
 
