@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-06",
+  "season": "2026",
+  "pulled_at": "2026-10-06T15:51:09Z",
+  "games": [
+    {
+      "gamePk": 849819,
+      "status": "Scheduled",
+      "gameTime": "2026-10-06T22:00:00Z",
+      "venue": "Truist Park",
+      "matchup": "LAD@ATL",
+      "away": {
+        "abbrev": "LAD",
+        "sp": {
+          "id": 808967,
+          "name": "Yoshinobu Yamamoto",
+          "hr9": 0.97,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "ATL",
+        "sp": {
+          "id": 519242,
+          "name": "Chris Sale",
+          "hr9": 0.55,
+          "hand": "LHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind in 3mph, 73\u00b0",
+        "lean": "Neutral",
+        "temp": 72.8,
+        "wind_mph": 4.3,
+        "wind_dir": 89,
+        "tail_mph": -3.3,
+        "precip": 0
+      },
+      "wf": 0.993
+    },
+    {
+      "gamePk": 849826,
+      "status": "Scheduled",
+      "gameTime": "2026-10-07T01:30:00Z",
+      "venue": "Petco Park",
+      "matchup": "MIL@SD",
+      "away": {
+        "abbrev": "MIL",
+        "sp": {
+          "id": 669160,
+          "name": "Dustin May",
+          "hr9": 0.86,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "home": {
+        "abbrev": "SD",
+        "sp": {
+          "id": 601713,
+          "name": "Nick Pivetta",
+          "hr9": 0.52,
+          "hand": "RHP"
+        },
+        "lineup": [],
+        "confirmed": false
+      },
+      "lineups_posted": false,
+      "weather": {
+        "dome": false,
+        "emoji": "\u26c5",
+        "cond": "wind in 6mph, 84\u00b0",
+        "lean": "Neutral",
+        "temp": 83.5,
+        "wind_mph": 7.4,
+        "wind_dir": 323,
+        "tail_mph": -5.9,
+        "precip": 0
+      },
+      "wf": 1.0
+    }
+  ]
+}
