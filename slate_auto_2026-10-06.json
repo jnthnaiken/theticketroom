@@ -1,7 +1,7 @@
 {
   "date": "2026-10-06",
   "season": "2026",
-  "pulled_at": "2026-10-06T20:56:04Z",
+  "pulled_at": "2026-10-06T21:00:32Z",
   "games": [
     {
       "gamePk": 849819,
@@ -139,7 +139,7 @@
     },
     {
       "gamePk": 849826,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-10-07T01:30:00Z",
       "venue": "Petco Park",
       "matchup": "MIL@SD",
@@ -162,10 +162,56 @@
           "hr9": 0.52,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 665487,
+            "name": "Fernando Tatis Jr.",
+            "iso": 0.181
+          },
+          {
+            "id": 701538,
+            "name": "Jackson Merrill",
+            "iso": 0.186
+          },
+          {
+            "id": 592518,
+            "name": "Manny Machado",
+            "iso": 0.19
+          },
+          {
+            "id": 664034,
+            "name": "Ty France",
+            "iso": 0.207
+          },
+          {
+            "id": 806956,
+            "name": "Ethan Salas",
+            "iso": 0.206
+          },
+          {
+            "id": 657757,
+            "name": "Gavin Sheets",
+            "iso": 0.185
+          },
+          {
+            "id": 593428,
+            "name": "Xander Bogaerts",
+            "iso": 0.113
+          },
+          {
+            "id": 687957,
+            "name": "Dustin Harris",
+            "iso": 0.09
+          },
+          {
+            "id": 630105,
+            "name": "Jake Cronenworth",
+            "iso": 0.096
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
