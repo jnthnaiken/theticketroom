@@ -1,0 +1,146 @@
+{
+ "_note": "TUESDAY-2026-10-06, built ~15:30Z 10-06. ESPN scan for 20261006: international window. Nine UEFA Nations League ties (18:45Z) on /football/uefa-nations-league/<home>-v-<away>/winner, four friendlies on /football/international-friendlies/ (usa-v-canada keyed united-states-v-canada), and MLS chicago-fire-v-vancouver-whitecaps-fc keyed chicago-fire-fc-v-vancouver-whitecaps. FGS posted for england-v-czechia, switzerland-v-north-macedonia, moldova-v-slovakia, argentina-v-benin ('No Goalscorer' rows dropped). Skipped: Russia v Nigeria (16:00Z), Algeria/Jordan/Angola friendlies, CONCACAF NL (books do not price it), U21s. xG: understat 5 leagues x 2025+2026 via getLeagueData (all distinct), filter surname + shared first-name token; ASA MLS 2025+2026 (browser) for the five Americas fixtures. Aliases: Ben Doak->Ben Gannon-Doak, Jonathan Christian David->Jonathan David, Matias Soule Malvano->Matias Soule, Hakon Haraldsson->Hakon Arnar Haraldsson. Impostors dropped by hand (David/Lewis/Wilson/Albert/Nico Gonzalez of Man City, Gimenez of Atletico, Scott McTominay, Fernandez-Pardo, etc.). Kickoff is UTC minutes past midnight of the slate date.",
+ "date": "2026-10-06",
+ "matches": {
+  "croatia-v-spain": {
+   "home": "Croatia",
+   "away": "Spain",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861137"
+   ]
+  },
+  "england-v-czechia": {
+   "home": "England",
+   "away": "Czechia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861142"
+   ]
+  },
+  "scotland-v-slovenia": {
+   "home": "Scotland",
+   "away": "Slovenia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861143"
+   ]
+  },
+  "switzerland-v-north-macedonia": {
+   "home": "Switzerland",
+   "away": "North Macedonia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861139"
+   ]
+  },
+  "albania-v-san-marino": {
+   "home": "Albania",
+   "away": "San Marino",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861140"
+   ]
+  },
+  "belarus-v-finland": {
+   "home": "Belarus",
+   "away": "Finland",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861138"
+   ]
+  },
+  "estonia-v-iceland": {
+   "home": "Estonia",
+   "away": "Iceland",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861136"
+   ]
+  },
+  "luxembourg-v-bulgaria": {
+   "home": "Luxembourg",
+   "away": "Bulgaria",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861141"
+   ]
+  },
+  "moldova-v-slovakia": {
+   "home": "Moldova",
+   "away": "Slovakia",
+   "kickoff": 1125,
+   "league": "UNL",
+   "espn": [
+    "uefa.nations",
+    "401861144"
+   ]
+  },
+  "argentina-v-benin": {
+   "home": "Argentina",
+   "away": "Benin",
+   "kickoff": 1380,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401921408"
+   ]
+  },
+  "colombia-v-peru": {
+   "home": "Colombia",
+   "away": "Peru",
+   "kickoff": 1425,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401905332"
+   ]
+  },
+  "united-states-v-canada": {
+   "home": "United States",
+   "away": "Canada",
+   "kickoff": 1440,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401905188"
+   ]
+  },
+  "mexico-v-chile": {
+   "home": "Mexico",
+   "away": "Chile",
+   "kickoff": 1590,
+   "league": "FRIENDLY",
+   "espn": [
+    "fifa.friendly",
+    "401903298"
+   ]
+  },
+  "chicago-fire-fc-v-vancouver-whitecaps": {
+   "home": "Chicago Fire FC",
+   "away": "Vancouver Whitecaps",
+   "kickoff": 1470,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761660"
+   ]
+  }
+ }
+}
