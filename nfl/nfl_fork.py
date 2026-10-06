@@ -113,7 +113,7 @@ def seams(payload_js):
         "var P=D.players[c.name]||{},o=c.odds,oth=pk.filter(function(p){return p!==c;}).slice(0,3).map(function(p){return p.name+' '+(p.p*100).toFixed(1)+'%';}).join(', ');"
         "return {name:'The Long Haul',kind:'kingez',badge:'\\ud83d\\udc51',nlegs:1,anchor:c.name,lock:(P.gtime||'').replace(' ET',''),has_late:false,final:false,rr:null,wxsum:{},confleg:0,"
         "parlay_am:(o>0?o:null),payout10:10*_dec(o),"
-        "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'. DraftKings runs it on one-game nights with a $5 bet to enter. The price is his anytime TD. Not on our ledger.',"
+        "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'.',"
         "players:[{name:c.name,team:P.team,total:P.TOTAL,aT:P.aT,wf:P.wf,gmatch:P.gmatch,gtime:P.gtime,game:P.game,late:false,odds:o,status:P.status}]};}).filter(Boolean);"
         "el.innerHTML=K.map(ticketCard).join('');")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${(t.kind==='ftd'||t.kind==='kingez')?' lunchwide':''}")   # KINGEZ4-2026-10-05: owner "do it horizontal like the first td"
