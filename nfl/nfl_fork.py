@@ -105,16 +105,17 @@ def seams(payload_js):
         ".filter(t=>t.kind==='ftd')")   # 🪙 TOSS-2026-09-29: both if-they-receive picks until the live feed sees the opening drive, then only the one in play   # FIRSTTD-2026-09-29: the section shows the one first-TD pick, from meta (it is not in D.tickets)
     # KINGEZ-2026-10-05: drawPool() renders the 👑 King of the End Zone list from D.meta.longtd (nfl_longtd.py)
     # instead of jackpot tickets. A free contest pick: no stake, no grade, no ticketCard.
+    # KINGEZ3-2026-10-05: drawPool() renders the 👑 pick as a normal ticket card (ticketCard), built from D.meta.longtd.
+    # It is NOT in D.tickets, so liveCats/liveHist never count it -- not on the ledger. The price shown is his anytime TD.
     add('special-sec-late',
         "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83d\\udca5 No jackpot pick posted right now.</div>';",
-        "var K=D.meta.longtd||[],_n=K.length>1?3:5;el.innerHTML=K.length?K.map(function(g){var pk=(g.picks||[]).slice(0,_n);"
-        "return '<div style=\"margin:4px 0 10px\"><div style=\"font-size:12px;opacity:.7;margin-bottom:4px\">'+esc(g.gmatch)"
-        "+(g.median_yards?' \\u00b7 the longest TD usually goes ~'+Math.round(g.median_yards)+' yds':'')+'</div>'"
-        "+pk.map(function(p,i){return '<div style=\"display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid rgba(127,127,127,.18)'+(p.crown?';font-weight:700':'')+'\">'"
-        "+'<span>'+(p.crown?'\\ud83d\\udc51 ':'')+esc(p.name)+' <span style=\"opacity:.6;font-weight:400\">'+esc(p.pos||'')+' \\u00b7 TD '+oddsStr(p.odds)+(p.crown?' \\u00b7 our pick: fewer people split it':'')+'</span></span>'"
-        "+'<span>'+(p.p*100).toFixed(1)+'%</span></div>';}).join('')+'</div>';}).join('')"
-        "+'<div style=\"font-size:11px;opacity:.6;margin-top:4px\">Chance each man scores the game\\u2019s longest touchdown. DraftKings\\u2019 King of the End Zone runs on one-game nights and needs a $5 bet to enter. Not a bet we place, not on the ledger.</div>'"
-        ":'<div class=\"closed\">\\ud83d\\udc51 No King of the End Zone call yet.</div>';")
+        "var K=(D.meta.longtd||[]).map(function(g){var pk=g.picks||[],c=pk.filter(function(p){return p.crown;})[0]||pk[0];if(!c)return null;"
+        "var P=D.players[c.name]||{},o=c.odds,oth=pk.filter(function(p){return p!==c;}).slice(0,3).map(function(p){return p.name+' '+(p.p*100).toFixed(1)+'%';}).join(', ');"
+        "return {name:'The Long Haul',kind:'kingez',badge:'\\ud83d\\udc51',nlegs:1,anchor:c.name,lock:(P.gtime||'').replace(' ET',''),has_late:false,final:false,rr:null,wxsum:{},confleg:0,"
+        "parlay_am:(o>0?o:null),payout10:10*_dec(o),"
+        "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'. DraftKings runs it on one-game nights with a $5 bet to enter. The price is his anytime TD. Not on our ledger.',"
+        "players:[{name:c.name,team:P.team,total:P.TOTAL,aT:P.aT,wf:P.wf,gmatch:P.gmatch,gtime:P.gtime,game:P.game,late:false,odds:o,status:P.status}]};}).filter(Boolean);"
+        "el.innerHTML=K.map(ticketCard).join('');")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='ftd'?' lunchwide':''}")
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}",
         "${t.kind==='late'?' lunchwide nightcap':''}")
@@ -256,9 +257,10 @@ def seams(payload_js):
     # FIRSTTD-2026-09-29: the Sunday Night drop-down is gone -- one special a slate, the first-TD pick.
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
                         # KINGEZ-2026-10-05: the slot is back, as 👑 King of the End Zone (owner: "underneath first td").
-                        # KINGEZ1-2026-10-05: DraftKings runs it on one-game nights only (owner), so the section exists only
-                        # when meta.longtd does, which nfl_payload.py writes only for a one-game slate.
-                        'html+=(D.meta.longtd&&D.meta.longtd.length)?\'<details class="pool" open><summary><span class="tag">DK contest</span> King of the End Zone<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\':\'\';')
+                        # KINGEZ3-2026-10-05 -- owner: "it should look just like any other section". A real section header,
+                        # same shape as Opening Drive / MLB's JACKSEC, and #pool joins the ticket grid (display:contents).
+                        # Only when meta.longtd exists, which nfl_payload.py writes on one-game nights only (KINGEZ1).
+                        'html+=(D.meta.longtd&&D.meta.longtd.length)?\'<div class="tsec big"><span class="tsech">King of the End Zone</span><span class="tline"></span></div><div id="pool" style="display:contents"></div>\':\'\';')
     # RESTATED-NFL-2026-09-17: the season line says so when nfl_season.json carries `restated`.
     # Week 1 was drafted by the old scorer (raw EV, no cap, usage model alone); nfl_restate.py
     # re-runs every graded night under the current system, so the tracker must not imply the
