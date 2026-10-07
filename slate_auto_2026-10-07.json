@@ -1,7 +1,7 @@
 {
   "date": "2026-10-07",
   "season": "2026",
-  "pulled_at": "2026-10-07T19:51:17Z",
+  "pulled_at": "2026-10-07T19:56:10Z",
   "games": [
     {
       "gamePk": 849833,
@@ -273,7 +273,7 @@
     },
     {
       "gamePk": 849838,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-10-08T00:00:00Z",
       "venue": "Yankee Stadium",
       "matchup": "TB@NYY",
@@ -296,10 +296,56 @@
           "hr9": 0.32,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 663757,
+            "name": "Trent Grisham",
+            "iso": 0.184
+          },
+          {
+            "id": 700250,
+            "name": "Ben Rice",
+            "iso": 0.27
+          },
+          {
+            "id": 671277,
+            "name": "Luis Garc\u00eda Jr.",
+            "iso": 0.244
+          },
+          {
+            "id": 641355,
+            "name": "Cody Bellinger",
+            "iso": 0.165
+          },
+          {
+            "id": 806146,
+            "name": "George Lombard Jr.",
+            "iso": 0.177
+          },
+          {
+            "id": 669224,
+            "name": "Austin Wells",
+            "iso": 0.146
+          },
+          {
+            "id": 683011,
+            "name": "Anthony Volpe",
+            "iso": 0.091
+          },
+          {
+            "id": 682987,
+            "name": "Spencer Jones",
+            "iso": 0.184
+          },
+          {
+            "id": 676609,
+            "name": "Jos\u00e9 Caballero",
+            "iso": 0.134
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
