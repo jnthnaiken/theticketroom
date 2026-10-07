@@ -1,7 +1,7 @@
 {
  "v": 1,
  "date": "2026-10-07",
- "built_at": "2026-10-07T21:56:26Z",
+ "built_at": "2026-10-07T22:41:35Z",
  "teams": {
   "ATL": {
    "n_rel": 8,
@@ -224,10 +224,10 @@
   "games_wx": 0
  },
  "errors": [
-  "https://api.open-meteo.com/v1/forecast?latitude=33.8907,41.83,40.8296,32.7073&lo: HTTP Error 503: Service Unavailable"
+  "https://api.open-meteo.com/v1/forecast?latitude=33.8907,41.83,40.8296,32.7073&lo: <urlopen error _ssl.c:993: The handshake operation timed out"
  ],
  "partial": true,
  "attempts": 1,
- "last_attempt": 1791410186,
+ "last_attempt": 1791412895,
  "pregame": true
 }
