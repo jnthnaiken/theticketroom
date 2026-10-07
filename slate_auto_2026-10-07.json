@@ -1,7 +1,7 @@
 {
   "date": "2026-10-07",
   "season": "2026",
-  "pulled_at": "2026-10-07T19:06:43Z",
+  "pulled_at": "2026-10-07T19:11:39Z",
   "games": [
     {
       "gamePk": 849833,
@@ -131,8 +131,8 @@
         "lean": "Suppress",
         "temp": 68.9,
         "wind_mph": 7.5,
-        "wind_dir": 37,
-        "tail_mph": -7.5,
+        "wind_dir": 30,
+        "tail_mph": -7.4,
         "precip": 0
       },
       "wf": 0.972
@@ -208,22 +208,68 @@
           "hr9": 1.21,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 671739,
+            "name": "Michael Harris II",
+            "iso": 0.197
+          },
+          {
+            "id": 660670,
+            "name": "Ronald Acu\u00f1a Jr.",
+            "iso": 0.196
+          },
+          {
+            "id": 621566,
+            "name": "Matt Olson",
+            "iso": 0.251
+          },
+          {
+            "id": 645277,
+            "name": "Ozzie Albies",
+            "iso": 0.155
+          },
+          {
+            "id": 686948,
+            "name": "Drake Baldwin",
+            "iso": 0.175
+          },
+          {
+            "id": 573262,
+            "name": "Mike Yastrzemski",
+            "iso": 0.156
+          },
+          {
+            "id": 643289,
+            "name": "Mauricio Dub\u00f3n",
+            "iso": 0.123
+          },
+          {
+            "id": 663586,
+            "name": "Austin Riley",
+            "iso": 0.145
+          },
+          {
+            "id": 669221,
+            "name": "Sean Murphy",
+            "iso": 0.118
+          }
+        ],
+        "confirmed": true
       },
       "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 77\u00b0",
+        "cond": "calm 2mph, 77\u00b0",
         "lean": "Neutral",
         "temp": 76.7,
         "wind_mph": 6.3,
-        "wind_dir": 345,
-        "tail_mph": -2.7,
+        "wind_dir": 337,
+        "tail_mph": -1.8,
         "precip": 0
       },
-      "wf": 1.001
+      "wf": 1.004
     },
     {
       "gamePk": 849838,
@@ -257,15 +303,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 5mph, 58\u00b0",
+        "cond": "wind out 4mph, 58\u00b0",
         "lean": "Neutral",
         "temp": 57.6,
         "wind_mph": 5.2,
-        "wind_dir": 175,
-        "tail_mph": 4.9,
+        "wind_dir": 160,
+        "tail_mph": 4.3,
         "precip": 0
       },
-      "wf": 0.999
+      "wf": 0.996
     },
     {
       "gamePk": 849827,
@@ -297,15 +343,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind in 3mph, 79\u00b0",
+        "cond": "wind in 4mph, 79\u00b0",
         "lean": "Neutral",
         "temp": 78.9,
         "wind_mph": 4.0,
-        "wind_dir": 328,
-        "tail_mph": -3.4,
+        "wind_dir": 341,
+        "tail_mph": -3.8,
         "precip": 0
       },
-      "wf": 1.001
+      "wf": 1.0
     }
   ]
 }
