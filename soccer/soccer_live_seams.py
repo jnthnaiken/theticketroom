@@ -233,7 +233,7 @@ function soccerRedraft(){
     /* guard 1 -- at least one match has published, and the filter is scoped to those */
     var byGame={};
     names.forEach(function(n){ var p=D.players[n]; (byGame[p.game]=byGame[p.game]||[]).push(p); });
-    var xiMatches={},nready=0;
+    var xiMatches={},xiSide={},nready=0;
     Object.keys(byGame).forEach(function(g){
       var pub=byGame[g].some(function(p){
         /* 🚨 OUTNOTSHEET-2026-08-30. `||p.out===true` used to be a third clause here and it
@@ -256,7 +256,18 @@ function soccerRedraft(){
            player, so the two remaining clauses cover every real case. */
         return p.status==='confirmed'||p.status==='benched';
       });
-      if(pub){ xiMatches[String(g)]=true; nready++; }
+      if(!pub) return;
+      /* SIDETRUST-2026-10-07 -- the server now states status for a side whose OWN sheet is out
+         even when the other side's is not. A match is published here only when every priced
+         TEAM in it shows a stated player; otherwise only the stated side's players are known
+         (xiSide), so an unknown man on the silent side is never gated out of the page. */
+      var teams={},said={};
+      byGame[g].forEach(function(p){ var t=p.team||'?'; teams[t]=1;
+        if(p.status==='confirmed'||p.status==='benched') said[t]=1; });
+      var all=Object.keys(teams).every(function(t){ return said[t]; });
+      if(all){ xiMatches[String(g)]=true; }
+      else { byGame[g].forEach(function(p){ if(said[p.team||'?']) xiSide[p.nm]=true; }); }
+      nready++;
     });
     if(!nready) return;
 
@@ -281,7 +292,7 @@ function soccerRedraft(){
     if(ymd>D.meta.date) mins+=24*60;          /* the day rolled: everything is in the past */
     else if(ymd<D.meta.date) mins=-1;         /* not the slate day yet */
 
-    var r=SoccerDraft.redraft(D,{nowUTCmin:mins,xi:xi,xiMatches:xiMatches});
+    var r=SoccerDraft.redraft(D,{nowUTCmin:mins,xi:xi,xiMatches:xiMatches,xiSide:xiSide});
     if(!r||!r.changed) return;
     D.tickets=r.tickets;
     D.meta.tickets=r.tickets.length;

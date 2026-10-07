@@ -169,7 +169,10 @@
      * re-drafted a benched player at all. Omit `xiMatches` and the old all-or-nothing behaviour
      * is exactly preserved, which is what every existing caller and test relies on. */
     var xiM = opts.xiMatches || null;
-    var gated = function (p) { return !xiM || !!xiM[String(p.match)]; };
+    /* SIDETRUST-2026-10-07: `xiSide` names players whose OWN side published a full XI, so the
+       sheet is known for them even when the other side's has not landed. */
+    var xiS = opts.xiSide || null;
+    var gated = function (p) { return !xiM || !!xiM[String(p.match)] || !!(xiS && xiS[p.name]); };
     var elig = players.filter(function (p) {
       /* WRONGCLUB-2026-08-30. `out` means NOT IN THE SQUAD (OUTSQUAD-2026-08-29) and it must
          keep a man out of the FRESH draft too, not only the live one. redraft()'s alive[] has
@@ -853,9 +856,16 @@
        how Kean, Richarlison, Osula and Pinamonti rode live moons. Kickoff was the trigger it
        used; `out`/`void` is what it was missing. Stated once here so both halves below inherit
        it: a slip carrying a dead leg is REPAIRABLE and is never frozen, underway or not. */
+    /* BENCHLOCK-2026-10-07 -- A BENCHED LEG IS NOT ALIVE FOR LOCKING. Owner: "he never even
+       shouldve stayed on the board once he got benched." 2026-10-06 "The Nine" (Jose Manuel
+       Lopez, Argentina v Benin) was named on the bench at 22:51Z and NOSHEETLOCK froze the slip
+       on the clock at 23:00Z because this test only asked out/void. A benched man is not a bet
+       anyone should be holding at kickoff: leave the slip open so the re-draft replaces him, or,
+       once his match is underway, drops it. A slip that ALREADY latched (`t.locked` above) is a
+       placed bet and is untouched. */
     var alive = legs.every(function (l) {
       var p = D.players[l.name];
-      return p && !p.out && !p.void;
+      return p && !p.out && !p.void && p.status !== 'benched';
     });
     if (!alive) return false;
 
@@ -950,7 +960,7 @@
      single whose match is already underway is kept where it stands (PINNED), because nothing
      could replace it. A surviving single keeps its title; a new one takes the first free one. */
   function topSinglesRedraft(D, opts, cfg, now, koOf) {
-    var xi = opts.xi || null, xiM = opts.xiMatches || null;
+    var xi = opts.xi || null, xiM = opts.xiMatches || null, xiS = opts.xiSide || null;
     var prior = (D.tickets || []).slice();
     var frozen = [], open = [];
     prior.forEach(function (t) {
@@ -966,12 +976,14 @@
     function inXI(n) {
       var p = D.players[n];
       if (!xi) return true;
-      if (xiM && !xiM[String(p.game)]) return true;
+      if (xiM && !xiM[String(p.game)] && !(xiS && xiS[n])) return true;   /* SIDETRUST-2026-10-07 */
       return !!xi[n];
     }
     function alive(n) {
       var p = D.players[n];
-      return p && !p.out && !p.void && p.odds != null && priceOk(p, cfg) && inXI(n);
+      /* BENCHLOCK-2026-10-07: `benched` is only ever set from a sheet his own side published
+         (SIDETRUST), so it is a fact here, not a guess -- never pin or mint him. */
+      return p && !p.out && !p.void && p.status !== 'benched' && p.odds != null && priceOk(p, cfg) && inXI(n);
     }
     var pinned = [];
     open.forEach(function (t) {
@@ -1051,10 +1063,11 @@
     if (!Object.keys(KO).length) return { tickets: D.tickets, changed: false, why: 'no kickoffs baked (meta.ko)' };
     if (cfg.TOP_SINGLES > 0) return topSinglesRedraft(D, opts, cfg, now, koOf);   /* TOP8-2026-09-17 */
 
-    var xi = opts.xi || null, xiM = opts.xiMatches || null;
+    var xi = opts.xi || null, xiM = opts.xiMatches || null, xiS = opts.xiSide || null;
     /* XIPARTIAL-2026-08-28: see buildPool. A player whose match has no published
-       sheet is UNKNOWN, and unknown is not a dead leg. */
-    var xiKnown = function (p) { return !xiM || !!xiM[String(p.game)]; };
+       sheet is UNKNOWN, and unknown is not a dead leg. SIDETRUST-2026-10-07: unless his OWN
+       side's sheet is out. */
+    var xiKnown = function (p) { return !xiM || !!xiM[String(p.game)] || !!(xiS && xiS[p.nm]); };
     var prior = (D.tickets || []).slice();
     var frozen = [], open = [];
     prior.forEach(function (t) {
@@ -1220,7 +1233,7 @@
     var alive = {};
     Object.keys(D.players).forEach(function (n) {
       var p = D.players[n];
-      alive[n] = !p.out && !p.void && p.odds != null && priceOk(p, cfg) && (!xi || !xiKnown(p) || xi[n]);
+      alive[n] = !p.out && !p.void && p.status !== 'benched' && p.odds != null && priceOk(p, cfg) && (!xi || !xiKnown(p) || xi[n]);   /* BENCHLOCK-2026-10-07 */
     });
 
     /* ==================================================================================
@@ -1411,7 +1424,7 @@
          Mbappe's screamers, and the seats fell through to Kvaratskhelia and then to Godts.
          Owner: "the top 4 are your anchors, place them where they go on the board and then cross
          them off the list." This is the crossing-off. */
-      var cands = withStrength(buildPool(field, cfg, { xi: xi, xiMatches: xiM, exclude: usedPartners }))
+      var cands = withStrength(buildPool(field, cfg, { xi: xi, xiMatches: xiM, xiSide: xiS, exclude: usedPartners }))
         .filter(function (p) { return p.name !== an && !groups[p.name] && !_keep[p.name]; });
 
       /* 🚨 REPAIRWIDE-2026-08-30 -- REPAIR DRAWS FROM THE SAME WIDE POOL THE TOP-UP DOES.
@@ -1524,7 +1537,7 @@
     var budget = Math.max(0, cfg.ANCH - Object.keys(takenAnchors).length);
     var remaining = field.filter(function (p) { return !usedPartners[p.name] && !takenAnchors[p.name] && !spentAsSingle[p.name]; });
     var res = budget > 0
-      ? draft(remaining, cfg, { xi: xi, xiMatches: xiM, anchorBudget: budget, anchorMatchCounts: anchorMatchCounts,
+      ? draft(remaining, cfg, { xi: xi, xiMatches: xiM, xiSide: xiS, anchorBudget: budget, anchorMatchCounts: anchorMatchCounts,
                                 slateMatches: Object.keys(KO).length })
       : { tickets: [], pool: [], anchors: 0, thin: false };
 

@@ -300,15 +300,30 @@
       return st === 11;
     });
     var xi = {}, bench = {}, all = {};
+    /* SIDETRUST-2026-10-07 -- the same eleven-starter bar, applied PER SIDE. `sideFull[nm]` says
+       that nm's OWN team sheet is complete, which is enough to state HIS status even when the
+       other side's sheet is missing (Argentina v Benin, 2026-10-06: Argentina's XI out, Benin's
+       not on ESPN). `played[nm]` is set only where the side's roster carries ESPN's subbedIn
+       field on every row, so "never came on" is asserted from data, never from a missing key. */
+    var sideFull = {}, played = {}, subKnown = {};
     rs.forEach(function (r) {
-      ((r.roster) || []).forEach(function (pl) {
+      var ros = (r.roster) || [], st = 0, hasSub = ros.length > 0;
+      ros.forEach(function (pl) { if (pl.starter) st++; if (!('subbedIn' in pl)) hasSub = false; });
+      ros.forEach(function (pl) {
         var nm = (pl.athlete || {}).displayName;
         if (!nm) return;
         all[nm] = 1;
         if (pl.starter) xi[nm] = 1; else bench[nm] = 1;
+        if (st === 11) sideFull[nm] = 1;
+        if (hasSub) {
+          subKnown[nm] = 1;
+          var si = pl.subbedIn;
+          if (pl.starter || si === true || (si && typeof si === 'object' && si.didSub) || pl.subbedInFor) played[nm] = 1;
+        }
       });
     });
-    return { complete: complete, xi: xi, bench: bench, all: all };
+    return { complete: complete, xi: xi, bench: bench, all: all,
+             sideFull: sideFull, played: played, subKnown: subKnown };
   }
 
   /* SUPERSUB-2026-09-04. Who replaced whom, by ESPN displayName, with the minute.
@@ -438,6 +453,33 @@
           else if (!who && !p.hr && !surnameHits(n, sqAll)) { p.out = true; }
           /* a man who SCORED is on the sheet by definition, whatever the join said */
           if (p.hr) { p.out = false; p.status = 'confirmed'; }
+        });
+      } else {
+        /* SIDETRUST-2026-10-07: the match is not complete, but a side that IS states its own
+           players' status. Never `out` from half a sheet -- absence still needs both sides. */
+        var sqAll2 = Object.keys(sq.all);
+        names.forEach(function (n) {
+          var p = D.players[n];
+          var who = matchOne(n, sqAll2);
+          if (!who || !sq.sideFull[who]) return;
+          if (sq.xi[who]) { p.status = 'confirmed'; p.out = false; }
+          else if (sq.bench[who]) { p.status = 'benched'; p.out = false; }
+          if (p.hr) { p.out = false; p.status = 'confirmed'; }
+        });
+      }
+
+      /* NOAPPEAR-2026-10-07 -- A MAN WHO NEVER TOOK THE FIELD IS A VOID, NOT A LOSS. Owner, on
+         Jose Manuel Lopez (2026-10-06, an unused sub, graded -1u): the book refunds an anytime
+         scorer who does not play. Asserted only at FULL TIME, only on a clean join to a side
+         whose sheet is complete, and only where ESPN carried subbedIn on that whole roster. */
+      if (done) {
+        var sqAll3 = Object.keys(sq.all);
+        names.forEach(function (n) {
+          var p = D.players[n];
+          if (p.hr) return;
+          var who = matchOne(n, sqAll3);
+          if (!who || !sq.sideFull[who] || !sq.subKnown[who]) return;
+          if (!sq.played[who]) { p.void = true; p.status = 'benched'; }
         });
       }
 

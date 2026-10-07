@@ -135,7 +135,7 @@ Object.keys(D.players).forEach(n => {
 /* ---- team news ---------------------------------------------------------------------------
  * Same contract as everywhere else: absent means "no team news", and the whole priced field is
  * eligible. An EMPTY xi is a different fact and must never be treated as the first. */
-let xi = null, xiMatches = null;
+let xi = null, xiMatches = null, xiSide = null;
 if (tn) {
   const XI = tn.xi || {}, BENCH = tn.bench || {}, ABSENT = tn.absent || {};
   if (!Object.keys(XI).length) {
@@ -161,9 +161,14 @@ if (tn) {
     const sl = slugOf(n);
     if (sl && TRUST[sl] !== false) xiMatches[String(D.players[n].game)] = true;
   });
+  /* SIDETRUST-2026-10-07: a player whose OWN side posted a full XI is known even when the other
+     side's sheet is missing (Argentina v Benin, 2026-10-06). Older teamnews.json has no
+     side_trusted -> null, and every path below behaves exactly as before. */
+  const SIDE = tn.side_trusted || null;
+  xiSide = SIDE ? SD.nameSet(Object.keys(SIDE)) : null;
   Object.keys(D.players).forEach(n => {
     const p = D.players[n];
-    if (!xiMatches[String(p.game)]) return;      /* sheet not out -> he stays 'projected' */
+    if (!xiMatches[String(p.game)] && !(SIDE && SIDE[n])) return;   /* sheet not out -> he stays 'projected' */
     p.status = XI[n] ? 'confirmed' : BENCH[n] ? 'benched' : p.status;
     if (ABSENT[n]) p.out = true;
   });
@@ -177,7 +182,7 @@ if (tn) {
 }
 
 const before = (D.tickets || []).map(t => t.kind + ':' + t.players.map(l => l.name).join('+')).sort();
-const r = SD.redraft(D, { nowUTCmin: now, xi, xiMatches });
+const r = SD.redraft(D, { nowUTCmin: now, xi, xiMatches, xiSide });
 
 console.log(`  price: ${heldPrice} held by PRICEONCE [${wouldMove} would have moved], `
           + `${frozenPrice} frozen (match underway)`);

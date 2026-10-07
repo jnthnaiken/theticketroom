@@ -25,7 +25,7 @@ if (!scoredPath || !outPath) {
 
 const scored = JSON.parse(fs.readFileSync(scoredPath, 'utf8'));
 
-let xi = null, xiMatches = null;
+let xi = null, xiMatches = null, xiSide = null;
 if (tnPath) {
   const tn = JSON.parse(fs.readFileSync(tnPath, 'utf8'));
   const keys = Object.keys(tn.xi || {});
@@ -59,13 +59,15 @@ if (tnPath) {
   if (!Object.keys(xiMatches).length) {
     [tn.xi, tn.bench, tn.absent].forEach(o => Object.values(o || {}).forEach(m => { if (m) xiMatches[m] = true; }));
   }
+  /* SIDETRUST-2026-10-07 -- see soccer_rebuild_cli.js. */
+  if (tn.side_trusted) xiSide = SD.nameSet(Object.keys(tn.side_trusted));
   console.log(`  team news: ${keys.length} confirmed starters across ` +
               `${Object.keys(xiMatches).length} published sheet(s); matches without one stay draftable`);
 } else {
   console.log('  team news: none supplied -- drafting from the whole priced field');
 }
 
-const res = SD.draft(scored, {}, { xi, xiMatches });
+const res = SD.draft(scored, {}, { xi, xiMatches, xiSide });
 if (res.topSingles) {
   console.log(`  TOP8: top ${res.budget} starters as singles, plus lunch special / nightcap where one exists`);
 } else if (res.singlesOnly) {

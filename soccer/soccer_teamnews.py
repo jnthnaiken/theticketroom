@@ -255,7 +255,19 @@ def build(ags_path, tn_path, out_path):
             goals[c[1]].append((c[2], c[3].strip()))
 
     out = {'xi': {}, 'bench': {}, 'absent': {}, 'unplaced': [], 'status': status,
-           'goals': {}, 'trusted': {}, 'club': {}, 'unmatched': {}}
+           'goals': {}, 'trusted': {}, 'club': {}, 'unmatched': {}, 'side_trusted': {}}
+    # SIDETRUST-2026-10-07. Starters per SIDE (match, club), straight off the R rows. `trusted`
+    # below needs eleven a side on BOTH teams before anything is asserted, which is right for
+    # ABSENT (a name missing from half a sheet proves nothing) but wrong for a name the sheet
+    # positively LISTS. 2026-10-06 Argentina v Benin: Argentina's XI was out, Benin's was not
+    # on ESPN, so the match never trusted -- the card printed Jose Manuel Lopez "benched" while
+    # the drafter treated him as unknown, kept him on "The Nine", and it locked at kickoff. A
+    # side with its own full XI is published FOR ITS OWN PLAYERS whatever the other side shows.
+    side_xi = defaultdict(int)
+    for m, sq in squads.items():
+        for nm, tag in sq:
+            if tag == 'XI':
+                side_xi[(m, clubs.get(nm, ''))] += 1
     for m, names in priced.items():
         sq = squads.get(m, [])
         placed = {}
@@ -279,6 +291,8 @@ def build(ags_path, tn_path, out_path):
         out['trusted'][m] = trusted
         for n in names:
             st = placed.get(n)
+            if st in ('XI', 'SUB') and (trusted or side_xi.get((m, out['club'].get(n, ''))) == 11):
+                out['side_trusted'][n] = m
             if st == 'XI':
                 out['xi'][n] = m
             elif st == 'SUB':

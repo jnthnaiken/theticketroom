@@ -70,6 +70,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     TN = (json.load(io.open(teamnews_path, encoding='utf-8'))
           if teamnews_path and os.path.exists(teamnews_path) else {})
     XI, BENCH, ABSENT = TN.get('xi', {}), TN.get('bench', {}), TN.get('absent', {})
+    SIDE = TN.get('side_trusted') if 'side_trusted' in TN else None   # SIDETRUST-2026-10-07
     TNGOALS, CLUB = TN.get('goals', {}), TN.get('club', {})
     # SQUADCLUB-2026-08-28. Owner, on Ferran Torres: *"who ferran torres plays for is just a -"*.
     #
@@ -236,7 +237,13 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'unres': '',
             'hr': bool(TNGOALS.get(n)),
             'goalmins': TNGOALS.get(n, []),
-            'status': ('confirmed' if n in XI else 'benched' if n in BENCH else 'projected'),
+            # SIDETRUST-2026-10-07 -- the card says what the DRAFTER knows, never more. This used to
+            # read XI/BENCH with no trust check while soccer_rebuild_cli.js only acted on trusted
+            # sheets, so on 2026-10-06 the card showed Jose Manuel Lopez "benched" over a single the
+            # drafter still thought was live. Older teamnews.json has no side_trusted: fall back to
+            # the old unconditional read so nothing built before today changes.
+            'status': (('confirmed' if n in XI else 'benched' if n in BENCH else 'projected')
+                       if (SIDE is None or n in SIDE) else 'projected'),
             'out': (n in ABSENT) or (n in WRONGCLUB),
             'soft': False, 'form': None,
             'aT': 100, 'wf': 1.0, 'khr': None, 'powidx': None, 'phr9': None, 'zonev': None,
@@ -257,14 +264,14 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'xgmatch': (round(npx * (avg or 90) / 90.0, 3) if npx else None),
             'sub': (dict(emoji='\U0001f504', park='BENCH', cond='named on the bench',
                          rain=(f'{avg:.0f}′ avg' if avg else None), lean='bench')
-                    if n in BENCH else
+                    if (n in BENCH and (SIDE is None or n in SIDE)) else
                     dict(emoji='\U0001f504', park='XI',
                          cond=('usually finishes' if (avg or 0) >= 82 else
                                'often hooked late' if (avg or 0) >= 65 else
                                'rotation risk' if avg else 'in the starting XI'),
                          rain=(f'{avg:.0f}′ avg' if avg else 'no minutes data'),
                          lean='starts')
-                    if n in XI else
+                    if (n in XI and (SIDE is None or n in SIDE)) else
                     dict(emoji='\U0001fa91', park='OUT', cond='not in the squad',
                          rain=None, lean='none')
                     if n in ABSENT else hook_read(avg, g)),
