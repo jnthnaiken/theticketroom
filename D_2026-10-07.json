@@ -30,7 +30,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -164,7 +164,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -298,7 +298,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -432,7 +432,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -700,7 +700,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -834,7 +834,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -968,7 +968,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -1102,7 +1102,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -1370,7 +1370,7 @@
    "late": false,
    "rain": false,
    "out": false,
-   "status": "projected",
+   "status": "confirmed",
    "void": false,
    "opp": [
     "Sean Newcomb",
@@ -15059,7 +15059,7 @@
     "precip": 0
    }
   },
-  "build": "10/7 12:41pm",
+  "build": "10/7 12:46pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -15327,9 +15327,7 @@
   "date": "2026-10-07",
   "gs": {},
   "gdelay": {},
-  "feedlag": [
-   "1|CLE"
-  ],
+  "feedlag": [],
   "dinger": [],
   "park_tail": {
    "COL": 50,
@@ -15364,10 +15362,11 @@
    "HOU": 16
   },
   "posted_at": {
+   "1|CLE": 1791391611,
    "1|CWS": 1791389176
   },
   "chalkstate": {
-   "b": "10/7 12:41pm",
+   "b": "10/7 12:46pm",
    "s": {}
   },
   "chalk": [],
@@ -15511,7 +15510,7 @@
      "game": 1,
      "late": false,
      "odds": 575,
-     "status": "projected"
+     "status": "confirmed"
     }
    ],
    "nlegs": 4,
@@ -15531,7 +15530,7 @@
     "dome": 0,
     "neu": 2
    },
-   "confleg": 0
+   "confleg": 1
   },
   {
    "name": "Out of Sight",
