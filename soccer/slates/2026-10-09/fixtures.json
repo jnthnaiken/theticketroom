@@ -1,0 +1,36 @@
+{
+ "_note": "FRIDAY-2026-10-09, built ~14:30Z 10-08 (day ahead). ESPN scan for 20261009 across the five leagues + MLS + internationals: three core-league fixtures (Bundesliga Dortmund v Bremen 18:30Z, Ligue 1 Lens v Lyon 18:45Z, La Liga Malaga v Espanyol 19:00Z). oddschecker /football/<country>/<league>/<slug>/winner, AGS+FGS 15 rows each via AGSX ('No Goalscorer' dropped from fgs). xG: understat 5 leagues x 2025+2026 via getLeagueData (all distinct), filter first+last token. Impostor dropped: Juan Cruz (Osasuna 2025, a defender). Malaga's newly promoted squad is thin on understat (6 of 15 priced unmatched). Built before 10-08 settles is moot: there was no 10-07/10-08 soccer board. Kickoff is UTC minutes past midnight of the slate date.",
+ "date": "2026-10-09",
+ "matches": {
+  "borussia-dortmund-v-werder-bremen": {
+   "home": "Borussia Dortmund",
+   "away": "Werder Bremen",
+   "kickoff": 1110,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884781"
+   ]
+  },
+  "lens-v-lyon": {
+   "home": "Lens",
+   "away": "Lyon",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876447"
+   ]
+  },
+  "malaga-v-espanyol": {
+   "home": "Malaga",
+   "away": "Espanyol",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882851"
+   ]
+  }
+ }
+}
