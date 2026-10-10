@@ -282,7 +282,17 @@ def seams(payload_js):
     add('sec-screamers', "sec('lot','Moonshots',moon)", "sec('lot','Screamers',moon)")
     # TOP8-2026-09-17. The soccer board is now the top 8 starters as straight singles (kind stays
     # 'builder' -- the ledger key -- exactly as 'moon' stayed 'moon' when the section was renamed).
-    add('sec-top8', "sec('sug','Anchors',builder)", "sec('sug','Top Bin',builder)")
+    # BENCHHIDE-2026-10-10. Owner: "if espi is benched, he shouldnt be on the board" -- he was, for the
+    # minutes between ESPN publishing Real Madrid's sheet and the next server build (~5 min): the live
+    # feed marked him benched and the card printed "🪑 Out of lineup ... will not hit as built" on an
+    # open Top Bin single. A benched man's SINGLE can never win, so the card stops rendering it the
+    # moment the live feed benches him; the server's next build drops it from the record and fills the
+    # seat. Render-only: the page still never authors a slip (ONEAUTHOR), a LOCKED single is always
+    # shown, and a multi-leg slip keeps its dead leg visible with the banner, as before.
+    add('sec-top8', "sec('sug','Anchors',builder)",
+        "sec('sug','Top Bin',builder.filter(function(t){if(t.locked)return true;var L=t.players||[];"
+        "if(L.length!==1)return true;var op=D.players[L[0].name];"
+        "return !(op&&!op.hr&&(op.out||op.status==='benched'));}))")
     add('tracker-top8', "['builder','⚓️','Anchors']", "['builder','🥅','Top Bin']")
     # TOPROWS-2026-09-17. Owner: "get rid of the empty rows". A kind with nothing graded this
     # season and nothing on tonight's card is dropped from the tracker; Top Bin always shows.
