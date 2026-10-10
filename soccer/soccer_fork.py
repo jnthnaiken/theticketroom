@@ -36,6 +36,11 @@ OPLOG_OLD = '<div class="adminlog"><h4>Operator log</h4>\n  <div class="entry"><
 
 OPLOG_NEW = (
     '<div class="adminlog"><h4>Operator log</h4>\n'
+    '  <div class="entry"><span class="d">Oct 10 · who scores</span>Top Bin now ranks every confirmed '
+    'starter by his <b>chance to score</b>: the book\u2019s price averaged with the scorer model (team goals '
+    'expected \u00d7 share of team xG \u00d7 minutes \u00d7 penalties). Only players at <b>45% or better</b> make the '
+    'card, at most two a match and eight a night, so a thin slate posts fewer picks instead of padding. '
+    'The season tracker is <b>restated</b> under this rule from Aug 27.</div>\n'
     '  <div class="entry"><span class="d">Sep 17 · top 8</span>The card is now the <b>top 8 confirmed '
     'starters as straight 1u singles</b>, plus a 🍱 lunch special and a 🌃 nightcap, ranked by the new scorer model (team goals expected × '
     'share of team xG × minutes) blended with the price. Anchors and screamers are retired. The '
@@ -589,7 +594,7 @@ def seams(payload_js):
         '')   # FGS-2026-09-29: the Nightcap is retired
     add('kind-anchors',
         '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
-        '<span class="ke">🥅</span><div><b>Top Bin</b><span>The eight strongest confirmed starters tonight, each a straight 1u single.</span>')
+        '<span class="ke">🥅</span><div><b>Top Bin</b><span>Every confirmed starter we rate 45% or better to score, up to eight, each a straight 1u single.</span>')
     # "eight a night" is a BASEBALL count (ANCH_PER_GAME 2 x MOONS_PER_ANC 2 x 4 anchors, on a
     # fifteen-game slate). The soccer draft scales its anchor count to the pool, so on a thin
     # five-match slate it mints two. Printing a fixed eight would be a promise the board breaks
