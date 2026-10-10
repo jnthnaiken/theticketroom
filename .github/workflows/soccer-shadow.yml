@@ -12,7 +12,7 @@ on:
   schedule:
     # 10:00, 13:00 and 16:00 ET. A slate is usually committed the night before; the later passes
     # catch a slate committed in the morning. --latest is a no-op once the slate is shadowed.
-    - cron: '0 14,17,20 * * *'
+    - cron: '10 5-22 * * *'   # SCOREPROB-2026-10-10: hourly from 05:10Z so the model is in before the first build (was 14,17,20 -- after the noon kickoffs)
   workflow_dispatch:
     inputs:
       dates:
