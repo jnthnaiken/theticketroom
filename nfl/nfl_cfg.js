@@ -58,6 +58,7 @@ const CFG = {
      FLOOR200-2026-09-17 kept football at +100. Baseball is untouched. */
   MAX_ODDS: null,
   MIN_ODDS: -200,
+  MIN_P: null,   /* SCOREPROB-2026-10-10: soccer's conviction line; football keeps its own rules */
   /* NFLSINGLES-2026-09-27 -- FOOTBALL IS A SINGLES BOARD NOW. Owner: "yes and ev". Graded straight
      from nfl/boards/*.json, the room had posted -22.95u on 62u over 8 nights: 16 moons -25.1u on
      32u (1 profitable), 30 singles +2.2u. Re-scoring the same 8 nights (each night's own depth
