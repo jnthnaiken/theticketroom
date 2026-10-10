@@ -548,8 +548,8 @@ else:
 #   * the old TOTAL (0.5 mkt_z + 0.5 edge_z, z-scored per slate) ranked BELOW the book alone
 #     (AUC .626 vs .643) and the posted Top Bin went 29/81 (36%) from 09-18 to 10-09.
 #   * the rule that wins is a CONVICTION LINE, not a fixed eight: pscore >= 0.45 (DEFAULTS.MIN_P
-#     in soccer_draft.js), at most 2 per match, at most 8, no -200 floor ->
-#     70/113 = 62% scored; first half of the nights 64%, second half 59%, 09-18 onward 57%.
+#     in soccer_draft.js), at most 2 per match, NO nightly ceiling (NOCAP8-2026-10-10), no -200 floor ->
+#     75/120 = 62.5% scored, +21.14u on 120u.
 # blend / gate_z are kept for the pool display and the voice; they no longer rank anything.
 # Slate-dated so a card already live when this shipped (2026-10-10) is never re-ruled mid-slate:
 # without a pscore every downstream door keeps the old rules exactly.

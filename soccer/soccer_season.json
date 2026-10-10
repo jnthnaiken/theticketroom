@@ -13,30 +13,30 @@
   10.3284,
   10.3284,
   12.9244,
-  13.2843,
-  13.3341,
-  12.3341,
-  11.5363,
-  12.0307,
-  12.0003,
-  13.2003,
-  13.3495,
-  14.4495,
-  16.7831,
-  18.9831,
-  19.2331,
-  19.2331,
-  19.8504,
-  22.9356,
-  21.7108,
-  21.7108,
-  22.8108,
-  26.2854,
-  24.4854,
-  23.3945,
-  24.5945,
-  19.1389,
-  17.1389
+  16.0306,
+  16.0804,
+  15.0804,
+  14.2826,
+  14.777,
+  14.7466,
+  15.9466,
+  16.0958,
+  17.1958,
+  19.5294,
+  21.7294,
+  21.9794,
+  21.9794,
+  22.5967,
+  25.6819,
+  24.4571,
+  24.4571,
+  25.5571,
+  29.0317,
+  27.2317,
+  26.1408,
+  27.3408,
+  21.8852,
+  19.8852
  ],
  "graded_nights": [
   "2026-08-27",
@@ -77,10 +77,10 @@
  ],
  "cats": {
   "builder": {
-   "graded": 113,
-   "won": 70,
-   "units": 18.38890000000001,
-   "staked": 113.0
+   "graded": 120,
+   "won": 75,
+   "units": 21.13520000000001,
+   "staked": 120.0
   },
   "moon": {
    "graded": 0,
@@ -99,7 +99,7 @@
  "restated": {
   "date": "2026-10-10",
   "system": "SCOREPROB (2026-10-10)",
-  "what": "Every archived night re-run with the current system. P(score) = mean(book implied, layered scorer model) -- the book alone where the model cannot rate a player (MLS, internationals, unmatched). Top Bin = confirmed starters with P >= 0.45, ranked by P, at most 2 per match and 8 per night, as 1u singles; no price floor. Prices are the ones held on that night's board; model numbers are soccer/shadow/<date>.json, built only from data before each date. The Opener (first goalscorer) is carried as graded live. Lunch Special and Nightcap no longer exist and are not in the record.",
+  "what": "Every archived night re-run with the current system. P(score) = mean(book implied, layered scorer model) -- the book alone where the model cannot rate a player (MLS, internationals, unmatched). Top Bin = confirmed starters with P >= 0.45, ranked by P, at most 2 per match, no nightly ceiling, as 1u singles; no price floor. Prices are the ones held on that night's board; model numbers are soccer/shadow/<date>.json, built only from data before each date. The Opener (first goalscorer) is carried as graded live. Lunch Special and Nightcap no longer exist and are not in the record.",
   "nights": {
    "2026-08-27": [
     {
@@ -444,6 +444,69 @@
      "p_model": null,
      "won": true,
      "net": 0.9091
+    },
+    {
+     "kind": "builder",
+     "name": "Ferran Torres",
+     "odds": -167,
+     "pscore": 0.5153,
+     "p_model": 0.40513,
+     "won": true,
+     "net": 0.5988
+    },
+    {
+     "kind": "builder",
+     "name": "Ermedin Demirovic",
+     "odds": -118,
+     "pscore": 0.5124,
+     "p_model": 0.48351,
+     "won": true,
+     "net": 0.8475
+    },
+    {
+     "kind": "builder",
+     "name": "Heung-min Son",
+     "odds": -105,
+     "pscore": 0.5122,
+     "p_model": null,
+     "won": false,
+     "net": -1.0
+    },
+    {
+     "kind": "builder",
+     "name": "Milan Iloski",
+     "odds": 100,
+     "pscore": 0.5,
+     "p_model": null,
+     "won": true,
+     "net": 1.0
+    },
+    {
+     "kind": "builder",
+     "name": "Cedric Bakambu",
+     "odds": 110,
+     "pscore": 0.4762,
+     "p_model": null,
+     "won": true,
+     "net": 1.1
+    },
+    {
+     "kind": "builder",
+     "name": "Thomas Muller",
+     "odds": 115,
+     "pscore": 0.4651,
+     "p_model": null,
+     "won": false,
+     "net": -1.0
+    },
+    {
+     "kind": "builder",
+     "name": "Anders Dreyer",
+     "odds": 120,
+     "pscore": 0.4545,
+     "p_model": null,
+     "won": true,
+     "net": 1.2
     }
    ],
    "2026-09-10": [
@@ -1235,6 +1298,7 @@
    "postponed": "2026-09-16 Levante v Athletic Club moved to 2026-10-21; nobody from it was confirmed, so no leg is affected.",
    "note": "superseded 2026-10-10 by SCOREPROB; its per-night tickets remain in git history (soccer_season.json before this commit)"
   },
+  "nocap": "2026-10-10 (owner): no eight-a-night ceiling -- the conviction line is the card. Only 2026-09-09 cleared eight (15 picks).",
   "added_night": "2026-09-26 had been stamped but never folded into the ledger (one postponed match kept it from reading final); it is now included."
  },
  "regrades": [

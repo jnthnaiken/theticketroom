@@ -105,9 +105,10 @@
        do not stop until you find a successful model". soccer_mock.py now writes `pscore` = P(score) =
        mean(book implied, layered scorer model) and TOTAL = 100 + 200 x pscore. A man who carries a
        pscore is draftable only at pscore >= MIN_P -- a CONVICTION LINE instead of a fixed eight, so a
-       thin card posts fewer picks rather than padding with 30% shots -- and for him the conviction
+       thin card posts fewer picks rather than padding with 30% shots, and a deep card posts every man
+       who clears it (NO nightly ceiling -- NOCAP8, singlesBudget()) -- and for him the conviction
        line REPLACES the MIN_ODDS floor (starters shorter than -200 scored 70%). Backtest, every
-       confirmed starter 08-27..10-09: 70/113 = 62% scored; the posted board went 36% from 09-18.
+       confirmed starter 08-27..10-09: 75/120 = 62.5% scored, +21.14u; the posted board went 36% from 09-18.
        A player WITHOUT pscore (a board built before this change, or NFL) keeps the old rules exactly,
        so a live card is never re-ruled mid-slate. Enforced in priceOk(), i.e. at every door the floor
        guarded. Locked slips are carried verbatim. null switches it off; nfl_cfg.js pins null. */
@@ -497,13 +498,24 @@
    * The thin-slate answer is anchorsOnly() below: ship THE ANCHORS as singles. Not the leftovers.
    */
 
+  /* NOCAP8-2026-10-10. Owner: "i thought you said no cap at 8 anymore? please make sure what you tested
+     that worked is what is recorded and coded." Under SCOREPROB the conviction line (MIN_P) IS the size of
+     the card: every confirmed starter at P(score) >= 0.45 is a pick, at most TOP_PER_MATCH a match, with NO
+     nightly ceiling. Backtest 08-27..10-09: 75/120 = 62.5%, +21.14u (with an 8 ceiling: 70/113, +18.39u;
+     only 09-09 ever cleared more than eight -- 15 picks, 9 scored). A board whose players carry no pscore
+     (built before 2026-10-11, or NFL) keeps TOP_SINGLES exactly. */
+  function singlesBudget(cfg, anyPscore) {
+    return (cfg.MIN_P != null && anyPscore) ? Infinity : cfg.TOP_SINGLES;
+  }
+
   function topSinglesDraft(players, cfg, opts) {
     var tcfg = {}, k;
     for (k in cfg) if (cfg.hasOwnProperty(k)) tcfg[k] = cfg[k];
     tcfg.Z_GATE = -Infinity;
     tcfg.GAME_CAP = cfg.TOP_PER_MATCH;
     var pool = buildPool(players, tcfg, opts);
-    var picks = pool.slice(0, cfg.TOP_SINGLES);
+    var budget = singlesBudget(cfg, players.some(function (p) { return p && p.pscore != null && p.pscore !== ''; }));
+    var picks = isFinite(budget) ? pool.slice(0, budget) : pool.slice();
     var matches = {};
     players.forEach(function (p) { matches[p.match] = 1; });
     var tickets = picks.map(function (p) { return { kind: 'builder', legs: [p], risk: cfg.SINGLE_STAKE }; });
@@ -526,8 +538,8 @@
     return {
       tickets: tickets,
       pool: pool, byStrength: withStrength(pool), anchors: picks.length,
-      thin: picks.length < cfg.TOP_SINGLES, singlesOnly: true, topSingles: true,
-      matches: Object.keys(matches).length, budget: cfg.TOP_SINGLES
+      thin: picks.length < budget, singlesOnly: true, topSingles: true,
+      matches: Object.keys(matches).length, budget: budget
     };
   }
 
@@ -697,7 +709,13 @@
               'Outside the Box', 'Dipping Effort', 'Curled Home', 'Half Volley', 'Thirty Yards',
               'Into the Roof', 'No Backlift'],
     builder: ['Target Man', 'The Poacher', 'Six-Yard Box', 'Back Post', 'Near Post', 'The Nine',
-              'First Time', 'Gets Across', 'Runs the Channel', 'Shoulder of the Last Man'],
+              'First Time', 'Gets Across', 'Runs the Channel', 'Shoulder of the Last Man',
+              /* NOCAP8-2026-10-10: a deep card can post 2 a match with no ceiling (09-09 would have been 15) */
+              'Far Post', 'Tap-In', 'Header Home', 'Rebound', 'Cutback', 'Low and Hard', 'Bottom Corner',
+              'Through on Goal', 'Ghosts In', 'Gets a Toe', 'Penalty Spot', 'Arrives Late', 'Stoops to Conquer',
+              'Smashed Home', 'One-Two', 'Side Netting', 'Back of the Net', 'In Behind', 'Rounds the Keeper',
+              'Finds the Gap', 'Glancing Header', 'Bundled In', 'Poked Home', 'Volleyed In', 'Slots It',
+              'Chips the Keeper', 'Sidefoot', 'Near-Post Flick', 'Six-Yard Scramble', 'Pounces'],
     /* SHAPEREPAIR-2026-08-31. Until now the drafter could only MINT moons and builders --
        ORPHANSECTION reaches 'lunch' and 'late' by rewriting `t.kind` on a slip that already
        carries a builder's title. A minted special has no title to inherit and pickName() fell
@@ -1010,7 +1028,8 @@
       var ko = koOf((D.players[l.name] || {}).game);
       if (ko != null && now >= ko && alive(l.name) && !used[l.name]) { pinned.push(t); spent[t.name] = true; take(l.name); }
     });
-    var need = cfg.TOP_SINGLES - frozen.filter(function (t) { return t.kind === 'builder'; }).length
+    var budget = singlesBudget(cfg, Object.keys(D.players).some(function (n) { var q = D.players[n]; return q && q.pscore != null && q.pscore !== ''; }));
+    var need = budget - frozen.filter(function (t) { return t.kind === 'builder'; }).length
              - pinned.filter(function (t) { return t.kind === 'builder'; }).length;
     var cands = Object.keys(D.players).filter(function (n) {
       var p = D.players[n], ko = koOf(p.game);
@@ -1067,7 +1086,7 @@
       repaired: 0, minted: minted.filter(function (t) { return !priorName[t.kind + '|' + t.players[0].name]; }).length,
       released: prior.filter(function (t) { return !outSet[sig1(t)]; }).length,
       demoted: [], reseated: [], shaped: [], topped: [],
-      anchors: out.length, thin: out.length < cfg.TOP_SINGLES, poolSize: cands.length
+      anchors: out.length, thin: out.length < budget, poolSize: cands.length
     };
   }
 
