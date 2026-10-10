@@ -250,6 +250,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'odds': p.get('odds'),
             'TOTAL': round(p['TOTAL'], 1),
             'baseTotal': round(p['TOTAL'], 1),
+            # SCOREPROB-2026-10-10: P(score) = mean(book, layered model). Its presence is what puts a
+            # player under the draft's conviction line (DEFAULTS.MIN_P) instead of the -200 floor.
+            'pscore': p.get('pscore'),
             'blend': p.get('blend'),
             # STAGE2-2026-08-27: baked so the live re-draft applies the SAME pool gate the bake
             # did. soccer_draft.js can re-derive it from `blend` and gets the identical number
@@ -312,8 +315,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     _mof = {x['name']: x['match'] for x in P}
     published = {_mof[n] for n in list(XI) + list(BENCH) + list(ABSENT) if n in _mof}
     gated = [x for x in sorted(P, key=lambda x: -x['TOTAL'])
-             if x.get('gate_z', 0) >= Z_GATE
-             and x.get('odds') is not None and x['odds'] >= MIN_ODDS
+             if ((x.get('pscore') is not None and x['pscore'] >= 0.45)          # SCOREPROB-2026-10-10
+                 or (x.get('pscore') is None and x.get('gate_z', 0) >= Z_GATE and x.get('odds') is not None and x['odds'] >= MIN_ODDS))
+             and x.get('odds') is not None
              and (not XI or x['name'] in XI or x['match'] not in published)]
     pool, _per = [], {}
     for x in gated:

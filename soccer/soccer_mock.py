@@ -36,6 +36,8 @@ CFG = dict(
     # DEFAULTS.MIN_ODDS in soccer_draft.js, which is the rule that actually drafts; this copy
     # only keeps the printed pool honest. None switches it off.
     # FLOOR200-2026-09-17 -- soccer floor is -200 (minus money down to -200 is draftable).
+    # SCOREPROB-2026-10-10 -- for a player with a pscore the draft's conviction line (pscore >= 0.45,
+    # DEFAULTS.MIN_P) replaces this floor; this copy only keeps the printed pool honest.
     MIN_ODDS=-200,
     # 🚨 JOINGATE-2026-09-22 -- THE PER-MATCH xG JOIN FLOOR. A fixture whose priced names do not
     # reach this join rate is dropped ENTIRELY, before z-scoring.
@@ -530,9 +532,43 @@ if len(_rated) >= 8:
     print(f'  scorer model: {len(_rated)} of {len(grp)} priced players rated; the rest keep the xG edge')
 else:
     print(f'  scorer model: {"no model.json" if not _MODEL else f"only {len(_rated)} rated"} -- xG edge for everyone')
+# 🎯 SCOREPROB-2026-10-10. TOTAL IS NOW A PROBABILITY OF SCORING, NOT A BLEND OF Z-SCORES.
+# Owner: "we're trying to use [the books] to help with predicting who scores" -> "find the correct
+# layer of data points to predict who will score ... do not stop until you find a successful model".
+#
+#     pscore = mean( book implied P(score) , layered scorer model P(score) )   (book alone if unrated)
+#     TOTAL  = 100 + 200 * pscore          -> 0.45 = 190, 0.60 = 220 (same range the board always used)
+#
+# Measured over every confirmed starter on the 34 archived nights 08-27..10-09 (1,900 starters, 612
+# scorers; claude/soccer-scoreprob-2026-10-10.md):
+#   * the book is the strongest single layer and is well calibrated for a confirmed starter
+#     (45-55% implied -> 61% scored, 55%+ -> 70%); the layered model (team goals x share x minutes x
+#     penalties) carries independent weight beside it (logit coef z 2.0) and the mean of the two is the
+#     best ranking we have (AUC .630 vs .620 book / .626 model on the rated rows).
+#   * the old TOTAL (0.5 mkt_z + 0.5 edge_z, z-scored per slate) ranked BELOW the book alone
+#     (AUC .626 vs .643) and the posted Top Bin went 29/81 (36%) from 09-18 to 10-09.
+#   * the rule that wins is a CONVICTION LINE, not a fixed eight: pscore >= 0.45 (DEFAULTS.MIN_P
+#     in soccer_draft.js), at most 2 per match, at most 8, no -200 floor ->
+#     70/113 = 62% scored; first half of the nights 64%, second half 59%, 09-18 onward 57%.
+# blend / gate_z are kept for the pool display and the voice; they no longer rank anything.
+# Slate-dated so a card already live when this shipped (2026-10-10) is never re-ruled mid-slate:
+# without a pscore every downstream door keeps the old rules exactly.
+try:
+    _SP_DATE = json.load(open('fixtures.json', encoding='utf-8')).get('date') or ''
+except Exception:
+    _SP_DATE = ''
+SCOREPROB = _SP_DATE >= '2026-10-11'
+print(f"  SCOREPROB: {'on' if SCOREPROB else 'off (slate predates 2026-10-11)'}")
 for i, p in enumerate(grp):
     p['blend'] = 0.5 * p['mkt_z'] + 0.5 * p['edge_z']
-    p['TOTAL'] = 100 + 30 * p['blend']
+    if not SCOREPROB:
+        p['TOTAL'] = 100 + 30 * p['blend']
+        continue
+    _pi = p.get('implied')
+    _pm = p.get('p_model')
+    _ps = ((_pi + _pm) / 2) if (_pi is not None and _pm is not None) else _pi
+    p['pscore'] = round(_ps, 4) if _ps is not None else None
+    p['TOTAL'] = round(100 + 200 * _ps, 2) if _ps is not None else 100 + 30 * p['blend']
 
 _XI = None
 _TRUSTED = None

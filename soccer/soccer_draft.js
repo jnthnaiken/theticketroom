@@ -101,6 +101,17 @@
        correctly here: -150 >= -200 is in, -250 is out, every plus price is in.
        ⚠️ NFL KEEPS +100 -- nfl_draft_cli.js now sets MIN_ODDS itself instead of inheriting this. */
     MIN_ODDS: -200,
+    /* SCOREPROB-2026-10-10. Owner: "find the correct layer of data points to predict who will score ...
+       do not stop until you find a successful model". soccer_mock.py now writes `pscore` = P(score) =
+       mean(book implied, layered scorer model) and TOTAL = 100 + 200 x pscore. A man who carries a
+       pscore is draftable only at pscore >= MIN_P -- a CONVICTION LINE instead of a fixed eight, so a
+       thin card posts fewer picks rather than padding with 30% shots -- and for him the conviction
+       line REPLACES the MIN_ODDS floor (starters shorter than -200 scored 70%). Backtest, every
+       confirmed starter 08-27..10-09: 70/113 = 62% scored; the posted board went 36% from 09-18.
+       A player WITHOUT pscore (a board built before this change, or NFL) keeps the old rules exactly,
+       so a live card is never re-ruled mid-slate. Enforced in priceOk(), i.e. at every door the floor
+       guarded. Locked slips are carried verbatim. null switches it off; nfl_cfg.js pins null. */
+    MIN_P: 0.45,
     /* PRICECAP-2026-09-15. Owner, after football week 1 (-12.05u, moons 0-8): "we're going for way
        too far of longshots". The upper twin of MIN_ODDS: a price is eligible only when
        odds <= MAX_ODDS. null (the default) switches it off, so SOCCER IS UNTOUCHED -- only
@@ -120,6 +131,13 @@
        `novalue`; with cfg.VALUE_ONLY the draft, the redraft and every repair door refuse him here, at
        the same single gate as the price band. Soccer never sets VALUE_ONLY, so this line is inert there. */
     if (cfg && cfg.VALUE_ONLY && p && p.novalue) return false;
+    /* SCOREPROB-2026-10-10: a scored-probability player answers to the conviction line, not the floor. */
+    if (cfg && cfg.MIN_P != null && p && p.pscore != null && p.pscore !== '') {
+      if (p.odds == null || p.odds === '' || !isFinite(Number(p.odds))) return false;
+      if (!(Number(p.pscore) >= cfg.MIN_P)) return false;
+      if (cfg.MAX_ODDS != null && Number(p.odds) > cfg.MAX_ODDS) return false;
+      return true;
+    }
     if (!cfg || (cfg.MIN_ODDS == null && cfg.MAX_ODDS == null)) return true;
     if (!p || p.odds == null || p.odds === '') return false;
     var o = Number(p.odds);
