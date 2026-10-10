@@ -124,6 +124,12 @@ Object.keys(D.players).forEach(n => {
      payload -- where it was false -- and put an Aston Villa forward straight back on a
      Chelsea v Brighton screamer. Never cleared, so team news and OUTSQUAD keep the last word. */
   if (s.out) p.out = true;
+  /* TODAYON-2026-10-10. `pscore` (SCOREPROB) is carried from the scoring pass onto the prior board on
+     every pass -- like `out`, before the price freeze. Without this a slate switched on mid-day never
+     flips: the payload writes pscore, but the commit gate does not see it, so the prior board the next
+     pass reads still has none and the old rules draft forever. pscore is built from the HELD price
+     (prices.json, PRICEONCE) and the slate's shadow model, so it is stable across passes. */
+  if (s.pscore != null) p.pscore = s.pscore;
   const ko = koOf(p.game);
   if (ko != null && now >= ko) { frozenPrice++; return; }      // his match is underway
   /* PRICEONCE-SOCCER-2026-09-03: the move is COUNTED, not applied. He already has a
