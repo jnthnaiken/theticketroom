@@ -3791,7 +3791,7 @@
     "precip": 3
    }
   },
-  "build": "10/10 5:06pm",
+  "build": "10/10 5:11pm",
   "face": {},
   "maxAT": 100,
   "season": {
@@ -4097,12 +4097,15 @@
    "LAD": 17,
    "HOU": 16
   },
+  "retracted": [
+   "jackpot|Jos\u00e9 Ram\u00edrez"
+  ],
   "posted_at": {
-   "1|CLE": 1791662479,
-   "1|CWS": 1791662479
+   "1|CWS": 1791662479,
+   "1|CLE": 1791662479
   },
   "chalkstate": {
-   "b": "10/10 5:06pm",
+   "b": "10/10 5:11pm",
    "s": {}
   },
   "chalk": [],
@@ -4116,24 +4119,24 @@
    "name": "The Upper Deck",
    "kind": "jackpot",
    "badge": "\ud83d\udca5",
-   "note": "Jos\u00e9 Ram\u00edrez is consistently barreling up (53% hard-hit), puts air under the ball (21\u00b0), gets a sliver of help from the park, and needs to square one up to leave (44/100 power).",
+   "note": "Munetaka Murakami reaches the red zone on 21% of his contact, elevates with ease (21\u00b0), plays in a slightly friendly yard, and grades near the top of the slate for power (100/100).",
    "players": [
     {
-     "name": "Jos\u00e9 Ram\u00edrez",
-     "team": "Guardians",
-     "total": 136.1,
+     "name": "Munetaka Murakami",
+     "team": "White Sox",
+     "total": 133.6,
      "aT": 100,
      "wf": 1.022,
      "gmatch": "CWS@CLE",
      "gtime": "8:00 PM ET",
      "game": 1,
      "late": false,
-     "odds": 619,
+     "odds": 382,
      "status": "confirmed"
     }
    ],
    "nlegs": 1,
-   "anchor": "Jos\u00e9 Ram\u00edrez",
+   "anchor": "Munetaka Murakami",
    "lock": "8:00 PM ET",
    "has_late": false,
    "final": false,
@@ -4144,12 +4147,15 @@
     "dome": 0,
     "neu": 0
    },
-   "confleg": 1
+   "confleg": 1,
+   "locked": true,
+   "priced": 1,
+   "parlay_am": 382,
+   "payout10": 48.2
   }
  ],
  "pool": [
   "Jos\u00e9 Ram\u00edrez",
-  "Munetaka Murakami",
   "Colson Montgomery",
   "Chase DeLauter"
  ]
