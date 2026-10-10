@@ -551,14 +551,16 @@ else:
 #     in soccer_draft.js), at most 2 per match, NO nightly ceiling (NOCAP8-2026-10-10), no -200 floor ->
 #     75/120 = 62.5% scored, +21.14u on 120u.
 # blend / gate_z are kept for the pool display and the voice; they no longer rank anything.
-# Slate-dated so a card already live when this shipped (2026-10-10) is never re-ruled mid-slate:
-# without a pscore every downstream door keeps the old rules exactly.
+# Slate-dated: a board without a pscore keeps the old rules exactly, so nothing graded before is re-ruled.
+# TODAYON-2026-10-10: owner, on the 10/10 card still showing the old eight -- "is todays board correct?".
+# Switched on for 2026-10-10 itself mid-slate: CONFLOCK keeps every confirmed (already-placeable) single
+# verbatim; only the open slots and the not-yet-started matches are re-drafted under the line.
 try:
     _SP_DATE = json.load(open('fixtures.json', encoding='utf-8')).get('date') or ''
 except Exception:
     _SP_DATE = ''
-SCOREPROB = _SP_DATE >= '2026-10-11'
-print(f"  SCOREPROB: {'on' if SCOREPROB else 'off (slate predates 2026-10-11)'}")
+SCOREPROB = _SP_DATE >= '2026-10-10'
+print(f"  SCOREPROB: {'on' if SCOREPROB else 'off (slate predates 2026-10-10)'}")
 for i, p in enumerate(grp):
     p['blend'] = 0.5 * p['mkt_z'] + 0.5 * p['edge_z']
     if not SCOREPROB:
