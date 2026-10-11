@@ -29710,6 +29710,50 @@
    "won": false,
    "net": -1.0,
    "stake": 1.0
+  },
+  {
+   "name": "Early Doors",
+   "kind": "ftd",
+   "badge": "⚡",
+   "note": "Beto to score the first goal of Genoa v Fiorentina. Beto lives in that box like a landlord collecting rent, and somebody has to break the seal. Why not him?",
+   "players": [
+    {
+     "name": "Beto",
+     "team": "Fiorentina",
+     "total": 166.7,
+     "aT": 100,
+     "wf": 1,
+     "gmatch": "Genoa v Fiorentina",
+     "gtime": "9:00 AM",
+     "game": 3,
+     "late": false,
+     "odds": 550,
+     "status": "confirmed",
+     "ftd": true
+    }
+   ],
+   "nlegs": 1,
+   "anchor": "Beto",
+   "lock": "9:00 AM",
+   "has_late": false,
+   "final": true,
+   "locked": false,
+   "rr": null,
+   "wxsum": {
+    "boost": 0,
+    "supp": 0,
+    "dome": 0,
+    "neu": 0
+   },
+   "confleg": 1,
+   "unres": 0,
+   "priced": 1,
+   "parlay_am": 550,
+   "payout10": 65,
+   "ftd": true,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   }
  ],
  "pool": [
@@ -30150,7 +30194,7 @@
    "anchor": "Beto",
    "lock": "9:00 AM",
    "has_late": false,
-   "final": false,
+   "final": true,
    "locked": false,
    "rr": null,
    "wxsum": {
@@ -30164,7 +30208,10 @@
    "priced": 1,
    "parlay_am": 550,
    "payout10": 65,
-   "ftd": true
+   "ftd": true,
+   "won": false,
+   "net": -1.0,
+   "stake": 1.0
   },
   "face": "soccer",
   "maxAT": 100,
