@@ -1,0 +1,186 @@
+{
+ "_note": "SUNDAY-2026-10-11, built ~07:30Z 10-11 (03:30 ET). ESPN scan from the browser (the container cannot reach ESPN): 18 admissible fixtures -- Serie A 5, La Liga 4, EPL 3, Ligue 1 3, Bundesliga 2, MLS 1. 96 eligible clubs resolved; 2 Copa del Rey ties dropped for no top-five side. No cup or international. All 18 priced Anytime Goalscorer 15 and First Goalscorer 15 on oddschecker: 270 rows each, 0 unparsed. oddschecker slug != key: como-v-roma, hull-v-everton, liverpool-v-man-city, real-sociedad-v-deportivo-a-coruna, rennes-v-auxerre, cologne-v-borussia-mgladbach, sc-freiburg-v-schalke, st.-louis-city-v-la-galaxy (literal dot). MLS lives at /football/world/usa/mls, not /football/usa/mls. xG: understat playersData globals (NOT a playersData=JSON.parse string any more -- read window.playersData), 5 leagues x 2025/2026, filtered to the priced names: 399 rows. ASA 2026+2025 for the one MLS tie with soccer_asa.js inlined: 27 rows. PRUNE: 8 MLS rows dropped for Ezequiel Ponce, Antony, Igor Jesus and Zavier Gozo -- each has a FULL concurrent 2026 season in both MLS and Europe, so they are two different men and the blend would have mixed a stranger's season into a priced player. Damion Downs (Hamburg 2025 -> St. Louis 2026) and Federico Bernardeschi (Toronto 2025 + Bologna 2025) are real transfers and were KEPT. xg.psv = 418 rows. TRANSFER: browser->repo via window.name + a DataTransfer File on GitHub's upload input, no hand transcription; every input md5/sha verified at the commit sha. Kickoff is UTC minutes past midnight of the slate date.",
+ "date": "2026-10-11",
+ "matches": {
+  "como-v-as-roma": {
+   "home": "Como",
+   "away": "AS Roma",
+   "kickoff": 630,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874940"
+   ]
+  },
+  "elche-v-celta-vigo": {
+   "home": "Elche",
+   "away": "Celta Vigo",
+   "kickoff": 720,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882854"
+   ]
+  },
+  "crystal-palace-v-nottingham-forest": {
+   "home": "Crystal Palace",
+   "away": "Nottingham Forest",
+   "kickoff": 780,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879266"
+   ]
+  },
+  "hull-city-v-everton": {
+   "home": "Hull City",
+   "away": "Everton",
+   "kickoff": 780,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401878774"
+   ]
+  },
+  "lazio-v-monza": {
+   "home": "Lazio",
+   "away": "Monza",
+   "kickoff": 780,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874951"
+   ]
+  },
+  "lecce-v-bologna": {
+   "home": "Lecce",
+   "away": "Bologna",
+   "kickoff": 780,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874776"
+   ]
+  },
+  "nice-v-strasbourg": {
+   "home": "Nice",
+   "away": "Strasbourg",
+   "kickoff": 780,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876443"
+   ]
+  },
+  "fc-cologne-v-borussia-monchengladbach": {
+   "home": "FC Cologne",
+   "away": "Borussia Mönchengladbach",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884774"
+   ]
+  },
+  "real-sociedad-v-deportivo": {
+   "home": "Real Sociedad",
+   "away": "Deportivo",
+   "kickoff": 855,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882847"
+   ]
+  },
+  "stade-rennais-v-aj-auxerre": {
+   "home": "Stade Rennais",
+   "away": "AJ Auxerre",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876441"
+   ]
+  },
+  "liverpool-v-manchester-city": {
+   "home": "Liverpool",
+   "away": "Manchester City",
+   "kickoff": 930,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879264"
+   ]
+  },
+  "sc-freiburg-v-schalke-04": {
+   "home": "SC Freiburg",
+   "away": "Schalke 04",
+   "kickoff": 930,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884778"
+   ]
+  },
+  "sassuolo-v-ac-milan": {
+   "home": "Sassuolo",
+   "away": "AC Milan",
+   "kickoff": 960,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874789"
+   ]
+  },
+  "real-betis-v-osasuna": {
+   "home": "Real Betis",
+   "away": "Osasuna",
+   "kickoff": 990,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882855"
+   ]
+  },
+  "cagliari-v-juventus": {
+   "home": "Cagliari",
+   "away": "Juventus",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874764"
+   ]
+  },
+  "troyes-v-marseille": {
+   "home": "Troyes",
+   "away": "Marseille",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876440"
+   ]
+  },
+  "racing-santander-v-valencia": {
+   "home": "Racing Santander",
+   "away": "Valencia",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882850"
+   ]
+  },
+  "st-louis-city-sc-v-la-galaxy": {
+   "home": "St. Louis CITY SC",
+   "away": "LA Galaxy",
+   "kickoff": 1380,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761859"
+   ]
+  }
+ }
+}
