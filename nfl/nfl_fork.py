@@ -25,8 +25,9 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 65 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
-                                      # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09)
+EXPECT_SEAMS = 66 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
+                                      # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
+                                      #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
 def seams(payload_js):
     S = []
@@ -71,6 +72,10 @@ def seams(payload_js):
     # ---- 4. SPORT NOUNS ---------------------------------------------------------------
     add('homered', '⚾ homered', '🏈 scored', 3)      # legend + carry-over strip + player card
     add('nohomer', '❌ no homer', '❌ no TD', 2)
+    # INJEXIT-2026-10-11: the voided-single banner is baseball's. It was rare enough on this board
+    # to go unnoticed until two slips carried it at once (Henderson, Hockenson, Week 5) and the
+    # football room told its readers a running back "will not hit".
+    add('out-of-lineup', ' — will not hit as built', ' — will not score as built')
     add('podds', "${p.odds?('HR '+oddsStr(p.odds)):'HR TBD'}",
                  "${p.odds?('TD '+oddsStr(p.odds)):'TD TBD'}")
     add('sort-odds', '<option value="odds">HR odds · shortest first</option>',
