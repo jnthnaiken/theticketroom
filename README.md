@@ -365,8 +365,26 @@ corrected there.)
   ⚠️ **Two things inside that dead region are load-bearing — do not delete the block wholesale:**
   `nonchalk` (misleading name) is the draft pool itself, and `HYST_TOTAL` sits between two dead
   chef IIFEs while being read by the live **anchor-overtake deadband**.
-  Lunch special and nightcap take the highest-model bat not already on a parlay in their time
-  windows, `<= +600` — that part is live, and it never depended on chalk.
+  The lunch special and the nightcap used to take the highest-model bat not already on a parlay in
+  their time windows at `<= +600`; both kinds were retired by `SPECIALS-2026-09-24` and replaced by
+  the two below.
+
+- **The two specials — the Daily Dinger and the Long Ball Jackpot (`SPECIALS-2026-09-24`).**
+  The **Dinger** is the highest-`TOTAL` bat *on FanDuel's published list for the day* (owner: "not
+  just our top scored bat — our highest scored bat that's on their list"), which is why it needs a
+  `dinger_<date>.txt` and simply does not ship on a day without one. It is a **free play**: no
+  stake, and it neither blocks a parlay nor is blocked by one. The **Jackpot** is the bat with the
+  highest `z(park tail) + z(TOTAL)` — the blend `longball/backtest.py` measured, *not* `parkhr`,
+  which is negatively related to the longest homer. `JACKPOTSINGLE-2026-09-29` made the Jackpot a
+  **real 1u single**, so unlike the Dinger it carries exposure.
+  **`JKMARGIN-2026-10-11` — a sitting Jackpot is not churned off by noise.** Because it is a bet
+  somebody has placed, a rival must beat the incumbent by `JACKPOT_MARGIN` *z* before taking the
+  seat; inside that margin the incumbent stays. A scratched or dead incumbent never holds it, and a
+  bat who genuinely pulls clear still takes it. The margin was set by replaying every archived
+  build through the engine (12,857 commits, 2,458 carrying a Jackpot): the pick has changed three
+  times by engine, two of them an oscillation that flipped straight back, the largest crossing
+  0.1212 *z*. It lives in `index.html` only — `assemble_tickets.py` drafts fresh and has no
+  incumbent to protect. Guarded by `test_jkmargin.py` against the real 2026-10-10 board.
 
 - **Dingers / Family Meal — RETIRED 2026-08-25, and unreachable.** `DINGERS = false`; the whole
   mint block returns on its first statement. It ran 11-80 for **−33.34u** and was backed out of

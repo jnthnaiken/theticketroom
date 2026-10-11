@@ -651,6 +651,14 @@ def assemble(D):
     # Neither carries a stake and neither excludes a bat already on a parlay: these are promos on
     # other books, not board exposure, so the same bat can lead two moons and hold the free pick.
     # The <=600 cap is gone for the same reason -- it protected a 1u single that no longer exists.
+    #
+    # ⚠️ JKMARGIN-2026-10-11 IS NOT MIRRORED HERE, AND MUST NOT BE. The client keeps a sitting
+    # Jackpot unless a rival beats him by JACKPOT_MARGIN z, because a re-pick churns a slip somebody
+    # has already bet (2026-10-10: Murakami -> Ramirez on a 0.0833 crossing). This function is handed
+    # NO prior board -- `assemble(D)` drafts from scratch, which is why regen15.py calls it only as a
+    # last resort and says so ("no prior-board lock"). There is no incumbent in scope to protect, so
+    # there is nothing to copy. Adding a margin here would need a prior board first; the ranking
+    # below still mirrors jackpotCand() exactly, and that part does have to stay in step.
     _meta = D.get('meta', {})
     _dng_list = _meta.get('dinger') or []
     _ptail = _meta.get('park_tail') or {}

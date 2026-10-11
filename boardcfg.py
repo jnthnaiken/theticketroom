@@ -27,6 +27,7 @@ DEFAULTS = {
     'Z_GATE': 0.75, 'GAME_CAP': 6, 'RESERVE_GAME_CAP': 4, 'ANCH': 4, 'ANCH_PER_GAME': 2,
     'ANCHOR_MAX_ODDS': 650,   # ANCHORCAP-2026-09-22
     'CONFLOCK_SETTLE_MIN': 120,   # CONFLOCKSETTLE-2026-09-22
+    'JACKPOT_MARGIN': 0.25,       # JKMARGIN-2026-10-11
     'MOONS_PER_ANC': 2,
     'MOON_LEGS': 4, 'SHORT_MOON_FLOOR': 3, 'MOON_SLACK': 2, 'WIN': 150, 'NIGHT_WIN': 60,
     'SPREAD_MAX_GAMES': 4, 'SPREAD_WIN': 720,   # SPREADWIN-2026-09-29
@@ -80,6 +81,14 @@ def _validate(c):
     # before first pitch and p10 is 148, so past ~240 the settling period outlasts the lead time on
     # most sides, no slip latches before its game starts, and the lock silently degrades to the
     # clock-only rule CONFLOCK replaced. Refuse it rather than ship a rule that quietly does nothing.
+    # JKMARGIN-2026-10-11. 0 disables (every build re-picks, the pre-2026-10-11 behaviour). The
+    # ceiling is 1.0 because the score is a sum of two z-terms: a full standard deviation of lead
+    # is already far more than any observed flip (max 0.1212 over 2,458 builds that carried a
+    # Jackpot, measured by replaying every archived build through the engine), and past that the
+    # incumbent would hold against moves that are plainly real, which is a stuck slip, not a stable
+    # one. A float on purpose -- do NOT add it to _INT, int(0.25) is 0 and silently turns it off.
+    if not (0 <= c.get('JACKPOT_MARGIN', 0) <= 1):
+        bad.append('JACKPOT_MARGIN outside 0..1 (0=off; >1 z of lead would pin a wrong pick)')
     if not (0 <= c['CONFLOCK_SETTLE_MIN'] <= 240):
         bad.append('CONFLOCK_SETTLE_MIN outside 0..240 (0=off; >240 outlasts the median card\'s lead on first pitch)')
     for L in range(2, c['MOON_LEGS'] + 1):

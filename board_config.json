@@ -64,6 +64,18 @@
     "minutes. Accepted cost: a slip latches at its earliest leg, so later legs are projected when it locks",
     "and a later scratch voids that leg. SPREAD_MAX_GAMES 0 = off.",
     "",
+    "JACKPOT_MARGIN (JKMARGIN-2026-10-11) is how far ahead a rival must be, in z of the Jackpot's own",
+    "park-tail + TOTAL score, before he takes the seat off a bat who is already sitting on it. 2026-10-10:",
+    "the Jackpot posted Murakami at +382, the owner bet it, and the next build handed the slip to Ramirez",
+    "at +619 on a crossing of 0.0833 z. Measured by replaying every archived build through the engine --",
+    "12,857 commits, 105 boards, 2,458 carrying a Jackpot -- the pick has changed three times by engine",
+    "and twice flipped straight back; the largest crossing on record is 0.1212. 0.25 blocks all of them",
+    "and still yields the seat to a bat who genuinely pulls clear. A FLOAT, deliberately not in",
+    "boardcfg._INT: int(0.25) is 0, which is this knob's off switch, so coercing it would silently",
+    "disable it. 0 = off (re-pick on every crossing, the pre-2026-10-11 behaviour).",
+    "⚠️ CLIENT-SIDE ONLY, by construction. assemble_tickets.py is handed no prior board, so it has no",
+    "incumbent to protect; the margin lives where the carry happens, in index.html's re-pick.",
+    "",
     "After editing: python3 state.py --check"
   ],
 
@@ -84,5 +96,6 @@
   "NIGHT_WIN": 60,
   "LUNCH_CUT_MIN": 1020,
   "CHALK_N": 0,
-  "RR_UNIT": {"2": 2.00, "3": 0.50, "4": 0.25, "5": 0.10}
+  "RR_UNIT": {"2": 2.00, "3": 0.50, "4": 0.25, "5": 0.10},
+  "JACKPOT_MARGIN": 0.25
 }
