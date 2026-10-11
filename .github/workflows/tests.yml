@@ -56,6 +56,10 @@ on:
                                   # would not have run it. The suite is DISCOVERED at run time (see
                                   # the job below); this list only decides when the job fires.
       - 'test_conflocksettle.py'  # CONFLOCKSETTLE-2026-09-22
+      - 'test_jkmargin.py'        # JKMARGIN-2026-10-11 -- and its fixture, below. The fixture is
+      - 'fixtures/**'             # the real 2026-10-10 board, so a change to it changes the test.
+                                  # NOT excluded like slates/ and boards/: nothing writes here but
+                                  # a person adding a case.
       - 'commit_gate.py'
       - '.github/workflows/tests.yml'
       - '!soccer/boards/**'
