@@ -9,6 +9,32 @@ name: Soccer Scorer Shadow
 # refreshes only the current understat season on top of it, so tonight's numbers see last weekend.
 
 on:
+  # 🚨 SHADOWDISPATCH-2026-10-11. THE CRON BELOW DID NOT FIRE ON 10-10 AND DID NOT FIRE ON 10-11.
+  # Both days the slate was committed, the board built, and the scorer model was simply absent --
+  # which under SCOREPROB silently makes every pscore the book's implied probability alone (see
+  # SHADOWGUARD-2026-10-11 in soccer_mock.py, which is what now makes that visible). Both were
+  # caught only because somebody went looking for the file.
+  #
+  # This is DISPATCHFALLBACK-2026-08-27 again, same repo, same symptom, same remedy: stop waiting
+  # for a schedule that is not being picked up and listen for the dispatches that DEMONSTRABLY
+  # arrive. Measured on soccer-build.yml's own run list at 06:2xZ on 2026-10-11 -- `build-tick`,
+  # `tick` and `build-board` were all landing in that window, so the chain covers the morning this
+  # workflow actually needs, not just the evening its sibling's comment describes.
+  #
+  # ⚠️ `build-tick` IS DELIBERATELY NOT IN THIS LIST, and soccer-build.yml's is not a template to
+  # copy wholesale. ticker.yml fans `build-tick` every five minutes; this job is not a 20-second
+  # no-op like the board build -- it pip-installs numpy and pandas and, when there IS something to
+  # do, fetches twelve seasons of history. Subscribing to the five-minute fan would be ~290 runs a
+  # day to catch one file. `build-board` is the external cron and `tick` is posted once per
+  # build-board by pull-slate.yml, which is several chances an hour: enough to beat a 10:30Z
+  # kickoff, cheap enough to leave on.
+  #
+  # ⚠️ AND THE PYTHON SETUP STAYS UNGATED. Gating it on `need` looks obviously right and is wrong:
+  # "Grade settled nights" below runs on EVERY pass and needs the interpreter, so conditioning the
+  # setup on "is there a slate to shadow" would redden every no-op run. Caught before shipping by
+  # reading the steps the gate did not cover, not by the gate itself.
+  repository_dispatch:
+    types: [tick, build-board, build-soccer]
   schedule:
     # 10:00, 13:00 and 16:00 ET. A slate is usually committed the night before; the later passes
     # catch a slate committed in the morning. --latest is a no-op once the slate is shadowed.
@@ -32,11 +58,10 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - run: pip install --quiet numpy pandas
 
+      # SHADOWDISPATCH-2026-10-11: the gate runs FIRST so a no-op pass costs a checkout and an
+      # echo. It needs nothing but the working tree. Everything expensive below is conditioned
+      # on its output.
       - name: Anything to shadow?
         id: need
         run: |
@@ -48,6 +73,11 @@ jobs:
           fi
           echo "dates=$DATES" >> $GITHUB_OUTPUT
           echo "to shadow: '${DATES}'"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet numpy pandas
 
       - name: History base + current-season refresh
         if: steps.need.outputs.dates != ''
