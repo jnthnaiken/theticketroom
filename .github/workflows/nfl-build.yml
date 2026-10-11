@@ -278,6 +278,13 @@ jobs:
                   --season nfl_season.json \
                   $([ -f ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json ] && echo "--ftd ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json") \
                   --build "$(TZ=America/New_York date '+%-m/%-d %-I:%M%P')"
+          # INJEXIT-2026-10-11: a man who PLAYED and was then ruled out mid-game (Henderson,
+          # Hockenson, Week 5) is `out` before the page is baked, so his single renders
+          # "↩ VOID · refunded" and the archived board the ledger grades carries the refund too.
+          # Run from ../ on purpose: it imports nfl_settle for the one box-score reader, and
+          # nfl_settle needs ../soccer/soccer_grade.py, which is not staged into .work. Never
+          # fatal -- a network miss leaves the board as drafted and the next build tries again.
+          python3 ../nfl_injexit.py nfl_D.json || echo "::warning::nfl_injexit.py failed -- board left as drafted"
           python3 nfl_fork.py index_live.html nfl_D.json nfl_index.html
 
       # --------------------------------------------------------------------------------------
