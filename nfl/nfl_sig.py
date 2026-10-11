@@ -57,7 +57,16 @@ def sig(path):
           # underway -- which is the exact defect the lock was written to end.
           x.get('locked'))
          for x in d['tickets']]
-    p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf'), v.get('why'))
+    # 🚨 OUTSIG-2026-10-11 -- THE SIXTH TIME, and the header above named it in advance: "if it is
+    # rendered, it is in the signature." `out` and `void` are rendered -- a voided single shows
+    # "↩ VOID · refunded" instead of 🚩 SOLD (VOIDSHOW-2026-09-27), which is the difference
+    # between a reader seeing a refund and seeing a loss. INJEXIT-2026-10-11 sets exactly that
+    # flag and changes nothing else, so without this line its first real board would have hashed
+    # BYTE-IDENTICAL, the gate would have returned "nothing a reader would notice moved", and the
+    # fix would have reached the repo and not the page -- the same ending as 09-03, 09-04, 09-08,
+    # 09-20 and the ledger one above.
+    p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf'), v.get('why'),
+                bool(v.get('out')), bool(v.get('void')))
                for k, v in d['players'].items())
     # LEDGERSIG-2026-09-04. The season panel is baked into the page and is the biggest number on
     # it; a ledger that changed without republishing left the site showing the old one.
