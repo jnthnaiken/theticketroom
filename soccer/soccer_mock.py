@@ -561,6 +561,34 @@ except Exception:
     _SP_DATE = ''
 SCOREPROB = _SP_DATE >= '2026-10-10'
 print(f"  SCOREPROB: {'on' if SCOREPROB else 'off (slate predates 2026-10-10)'}")
+
+# 🚨 SHADOWGUARD-2026-10-11 -- A MISSING SCORER MODEL IS SILENT, AND UNDER SCOREPROB IT IS HALF
+# THE BOARD. `pscore = mean(book, model)` falls back to `book alone` per player when `p_model` is
+# absent, so with no shadow file EVERY pick is the book's implied probability and the model the
+# 10-10 research shipped is simply not in the card. The board still builds, the slips still
+# render, the counts still look normal. Nothing above this line says otherwise: the model block
+# prints one line to a log nobody reads.
+#
+# It is not hypothetical. `soccer-shadow.yml`'s cron (`10 5-22 * * *`) did not fire on 2026-10-10
+# and did not fire on 2026-10-11 -- two for two -- and both days were only caught because someone
+# happened to look for the file. This is the same class as RCTRAP/GATEOUT-2026-08-29: a path that
+# only matters when something is wrong, and so nobody has ever seen it.
+#
+# WARN, DO NOT REFUSE. A degraded board beats no board, which is the house rule everywhere else
+# this comes up -- soccer_asa_fetch's "treat exit 30 as 'no xG for MLS tonight', never as a build
+# failure", and CONFLOCKSETTLE's three fail-open paths. The point is only that it stops being
+# invisible. ⚠️ Annotations go to STDOUT, never to $GITHUB_OUTPUT -- see GATEOUT-2026-08-29.
+if SCOREPROB:
+    _mtot = len(grp)
+    if len(_rated) < 8:
+        print(f"::error::SCOREPROB is on for {_SP_DATE} but the scorer model is NOT in this board: "
+              f"{'no shadow file found' if not _MODEL else f'only {len(_rated)} of {_mtot} priced players rated'}. "
+              f"Every pscore is the book's implied probability alone. Run soccer-shadow.yml for {_SP_DATE} "
+              f"and rebuild.")
+    elif _mtot and len(_rated) < 0.5 * _mtot:
+        print(f"::warning::scorer model rated only {len(_rated)} of {_mtot} priced players "
+              f"({100 * len(_rated) // _mtot}%) -- the rest are priced on the book alone.")
+
 for i, p in enumerate(grp):
     p['blend'] = 0.5 * p['mkt_z'] + 0.5 * p['edge_z']
     if not SCOREPROB:
