@@ -1744,7 +1744,15 @@ function rsImp(a){return a==null?null:(a>0?100/(a+100):Math.abs(a)/(Math.abs(a)+
 function rsFair(p){if(p.fair!=null)return p.fair;var q=RS_P(p);return (q==null||q<=0||q>=1)?null:d2a(1/q);}
 function rsEv(p){if(p.ev!=null)return p.ev;var q=RS_P(p);if(q==null||p.odds==null)return null;return q*a2d(p.odds)-1;}
 function rsGet(c,p){return c.v?c.v(p):(p[c.k]==null?null:p[c.k]);}
-function rsSortVal(c,p){if(c.r)return c.r(p);var v=p[c.k];if(v==null)return null;var n=parseFloat(v);return isFinite(n)?n:String(v);}
+function rsSortVal(c,p){if(c.r)return c.r(p);
+ /* ⚠️ `edge` columns render through rsEdge() and have no key on the player, so without this
+    line they sort on p['_ev'] === undefined -- every row ties, the blanks-sink branch falls
+    through to localeCompare, and 'sort by Edge' silently sorts by FIRST NAME. Baseball's
+    config happened to carry its own r(); both forks did not, and the football room shipped
+    +19.7% / +24.6% / -30.1% in that order. Deriving it here means no room config can get it
+    wrong again. */
+ if(c.edge)return rsEv(p);
+var v=p[c.k];if(v==null)return null;var n=parseFloat(v);return isFinite(n)?n:String(v);}
 function rsFmt(c,p){var v=rsGet(c,p);
  if(v==null||v==='')return '<span class="rsv na">—</span>';
  if(c.v||c.txt)return '<span class="rsv">'+esc(String(v))+'</span>';
