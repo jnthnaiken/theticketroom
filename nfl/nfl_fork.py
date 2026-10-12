@@ -25,7 +25,7 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 66 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
+EXPECT_SEAMS = 68 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -144,7 +144,6 @@ def seams(payload_js):
     # publish a football page built off markup it no longer recognised.
     add('howto-order', 'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
                        'Read it top to bottom: 🚨 Opening Drive, 🎯 Red Zone.')
-    add('builder-hint', 'Pick bats on the left, then Build.', 'Pick players on the left, then Build.', 3)
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')
     # SINGLESNAME-2026-09-29, owner: "dont need to call them anchors anymore either if we're just doing singles".
@@ -156,6 +155,10 @@ def seams(payload_js):
     add('tracker-builder', "['builder','⚓️','Anchors']", "['builder','🎯','Red Zone']")
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Red Zone',builder)")
     add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎯'")
+    # RESEARCH-2026-10-12: the How-To step for the old Builder described ticking bats and hitting a
+    # Build button, neither of which exists now. Soccer already seamed that sentence; football did
+    # not, so the football room would have told its readers to sort a table of "bats".
+    add('step-builder', 'Every scored bat is one row:', 'Every scored player is one row:')
     add('step-players', 'Every bat that cleared the pool gate, one card each.',
                         'Every player who cleared the pool gate, one card each.')
     add('footer-wind', 'always verify odds, lineups, and wind before you wager.',
@@ -288,6 +291,35 @@ def seams(payload_js):
     # ---- 10. THE LIVE LOOP -- APPENDED LAST ------------------------------------------
     # nfl_live.js is injected at the final position, so nothing is counted after it. Same
     # ordering rule soccer_live_seams.py records.
+    # RESEARCH-2026-10-12: the Builder tab became a research table, and the column list is
+    # the only part of it that is sport-specific. index.html carries baseball's and calls
+    # RS_ROOM() if a room defined one; this is this room's. The machinery around it --
+    # sort, format, the dossier, the slip tray -- is shared, so a fix there reaches all three.
+    add('research-cols',
+        "var RS_ROOM=null;",
+        ''' RS_GROUPS=[['usage','The player'],['arm','The matchup'],['mkt','Model & market']];
+ RS_VOCAB={unit:'player',units:'players',verb:'scores'};
+ RS_P=function(p){return p.p_value!=null?p.p_value:null;};
+ RSCOLS=[
+  {k:'TOTAL',l:'Model',t:'Our score for this player tonight. ~100 is slate-average.',g:'mkt',d:1,hi:1,o:1,cls:'mdl'},
+  {k:'odds',l:'Book',t:'Best consensus anytime-touchdown price.',g:'mkt',o:1,v:function(p){return p.odds==null?null:oStr(p.odds);},r:function(p){return p.odds==null?null:rsImp(p.odds);},hi:1},
+  {k:'_fair',l:'Fair',t:'What our model says the price should be.',g:'mkt',o:1,v:function(p){var f=rsFair(p);return f==null?null:oStr(f);},r:function(p){var f=rsFair(p);return f==null?null:rsImp(f);},hi:1},
+  {k:'_ev',l:'Edge',t:'Our probability against the price offered.',g:'mkt',o:1,hi:1,edge:1},
+  {k:'_chance',l:'Chance',t:'Our modelled chance he finds the end zone.',g:'mkt',o:1,v:function(p){return p.p_value==null?null:(p.p_value*100).toFixed(1)+'%';},r:function(p){return p.p_value;},hi:1},
+  {k:'hh',l:'Touches',t:'Touches per game -- the volume the touchdown has to come out of.',g:'usage',d:1,hi:1,o:1},
+  {k:'la',l:'Inside 10',t:'Share of his team\u2019s work inside the opponent 10-yard line, where touchdowns are actually scored.',g:'usage',d:1,hi:1,o:1},
+  {k:'zonev',l:'GL share',t:'Goal-line share.',g:'usage',d:3,hi:1,o:1},
+  {k:'powidx',l:'Team total',t:'His team\u2019s implied point total. More points means more trips to the end zone to go around.',g:'usage',d:1,hi:1,o:1},
+  {k:'_hist',l:'Hist rate',t:'How often he has actually scored, over the sample below.',g:'usage',v:function(p){return p.p_hist==null?null:(p.p_hist*100).toFixed(1)+'%';},r:function(p){return p.p_hist;},hi:1},
+  {k:'basis_games',l:'Games',t:'Games in the sample behind those rates.',g:'usage',d:0,hi:1},
+  {k:'basis',l:'Basis',t:'Which window the usage is measured over.',g:'usage',txt:1},
+  {k:'bhand',l:'Pos',t:'Position.',g:'usage',txt:1},
+  {k:'_opp',l:'Opponent',t:'The defence he faces.',g:'arm',o:1,v:function(p){return (p.opp&&p.opp[0])||null;},r:function(p){return (p.opp&&p.opp[0])||'';},txt:1},
+  {k:'wf',l:'Weather',t:'Live weather factor.',g:'arm',d:2,hi:1,o:1},
+  {k:'khr',l:'Model %',t:'The model chance shown on his card.',g:'arm',d:1,hi:1}
+ ];''')
+    add('slip-key', "SLIP_KEY='hr_slip'", "SLIP_KEY='nfl_slip'")
+
     S.extend(live_seams())
     return S
 
