@@ -1864,7 +1864,7 @@ function slipLoad(){try{var j=JSON.parse(localStorage.getItem(SLIP_KEY)||'null')
 function slipToggle(n){if(selNames.has(n))selNames.delete(n);else selNames.add(n);slipSave();slipDraw();rsDraw();drawPlayers();}
 function slipDraw(){var el=$('#tray'); if(!el)return;
  var ns=Array.from(selNames).filter(function(n){return D.players[n];});
- if(!ns.length){el.className='tray';slipH();return;}
+ if(!ns.length){el.className='tray';$('#trayn').innerHTML='';$('#traypay').innerHTML='';slipH();return;}   /* blank the chips on the way out, or Clear leaves the last leg sitting in the tray */
  var legs=ns.map(function(n){return D.players[n];}), allp=legs.every(function(p){return p.odds!=null;});
  var d=1; legs.forEach(function(p){if(p.odds!=null)d*=a2d(p.odds);});
  var am=allp?d2a(d):null;
@@ -1911,7 +1911,11 @@ function slipGrade(){var sel=bSel();
  box.innerHTML=why+ `<div class="bsum">${groups.length} ticket${groups.length!==1?'s':''} \u00b7 <b>${priced}</b> priced \u00b7 total stake <span class="big">$${(groups.length*stake).toFixed(0)}</span> \u00b7 cashes when ${mode==='straight'?'all legs hit':'<b>any ticket</b> hits'}</div>`+html;}
 function slipOpen(on){var el=$('#tray'); if(!el)return; el.dataset.open=on?'1':'0';
  $('#traymore').textContent=on?'Hide grade':'Grade it';
- el.className='tray up'+(on?' open':''); slipH(); if(on)slipGrade();}
+ /* ⚠️ `up` is conditional on the slip actually having legs. Hard-coding it meant Clear --
+    which calls slipDraw() (hides the tray) and THEN slipOpen(false) -- put the tray straight back
+    on screen still showing the chip you had just removed. An empty tray is never raised. */
+ var has=Array.from(selNames).filter(function(n){return D.players[n];}).length;
+ el.className='tray'+(has?' up':'')+(on&&has?' open':''); slipH(); if(on&&has)slipGrade();}
 function slipClear(){selNames.clear();slipSave();slipDraw();rsDraw();drawPlayers();slipOpen(false);}
 function slipMount(){if($('#tray'))return;
  var el=document.createElement('div'); el.className='tray'; el.id='tray'; el.dataset.open='0';
