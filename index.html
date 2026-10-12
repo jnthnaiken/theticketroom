@@ -809,7 +809,17 @@ body::after{
    that follows you across every tab -- so researching and building stopped being a choice.
    Tab id stays `v-b`/`tab-b` on purpose: the tab machinery, the How-To copy and the forks all
    key off it, and renaming ids to match a label is how you turn a label change into a bug. */
-.rsbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:0 0 12px}
+/* ⚠️ USE THE HOUSE BAR, DO NOT REINVENT IT. `.bar` is already sticky at var(--navh) with
+   z-index 15 and `align-items:flex-end`, and two standing decisions govern it: STICKYCLEAR
+   -2026-08-27 keeps it fully transparent ("NOT a background on the bar itself"), and ONEBAR
+   -2026-08-27 cut the board to ONE sticky row because two stacked rows of chrome with content
+   sliding under both read as busy. This tab shipped with its own `.rsbar` instead -- not sticky,
+   and `align-items:center`, which floated the Clear slip button above the Show/Find controls
+   because a .fld is a two-line column (caption over control) and the button is one line.
+   Both of the owner's complaints were the same mistake. The chips join that one row as a second
+   line rather than becoming a second sticky bar. */
+.rsbar{margin:0}
+.rsbar #bgames{flex:1 0 100%;margin:0}
 /* ⚠️ THE PANEL PINS UNDER THE NAV, AND IS SIZED TO FIT UNDER IT.
    `thead th` is sticky to .rswrap's own scrollport, NOT to the viewport -- so when the page
    scrolled far enough for the panel's top to pass beneath the sticky .nav, the column headers
@@ -818,11 +828,12 @@ body::after{
    what "cant see what some of the columns are when you scroll down" describes.
    Two fixes, because one alone does not hold: `position:sticky` keeps the panel below the nav
    while scrolling, and the height cap keeps it there AT MAXIMUM SCROLL, where sticky has run out
-   of containing block. The 208px is the furniture below the panel (hint line, page padding, the
-   slip tray) that has to fit in the same viewport; it was raised from 176 because soccer
-   carries more below its table and still clipped 17px of header. Measured, not guessed. --navh is published by the nav's own
+   of containing block. The 206px is the furniture below the panel (hint line, page padding, the
+   slip tray) that has to fit in the same viewport, and --rsbar is the sticky controls row
+   above it. Both were swept against all three rooms until the header cleared everywhere --
+   soccer carries the most below its table and was the binding case at 178 and 194. Measured. --navh is published by the nav's own
    ResizeObserver at the end of this file, so this tracks a nav that wraps on a narrow screen. */
-.rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;position:sticky;top:calc(var(--navh,74px) + 8px);max-height:min(760px,calc(100vh - var(--navh,74px) - 208px))}
+.rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;position:sticky;top:calc(var(--navh,74px) + var(--rsbar,104px));max-height:min(760px,calc(100vh - var(--navh,74px) - var(--rsbar,104px) - 206px))}
 /* OPAQUE SCROLLBARS (owner 2026-10-12: "make the scroll bars opaque like the other ones").
    Chrome gives an overflow:auto panel an OVERLAY scrollbar -- zero layout width, translucent,
    floating over the rows -- which on this dark surface is nearly invisible and awkward to grab.
@@ -970,13 +981,13 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
  <div class="grid pgrid" id="players"></div>
 </section>
 <section id="v-b" role="tabpanel" aria-labelledby="tab-b" hidden>
- <div class="rsbar">
+ <div class="bar rsbar">
   <label class="fld">Show<select id="rspreset"></select></label>
   <label class="fld">Find<input type="search" id="bsearch" placeholder="Search"></label>
   <button class="rbtn" id="btn-clear">Clear slip</button>
   <span class="count" id="bcount"></span>
+  <div class="bgames" id="bgames"></div>
  </div>
- <div class="bgames" id="bgames"></div>
  <div class="rswrap"><table class="rst" id="rstab"></table></div>
  <p class="adminhint">Sort by any column · click a name for the full breakdown · <b>+</b> puts it on your slip, which follows you to every tab.</p>
 </section>
@@ -1838,8 +1849,17 @@ function rsDraw(){var host=$('#rstab'); if(!host)return;
  var cnt=$('#bcount'); if(cnt)cnt.textContent=ns.length+' '+RS_VOCAB.units;
  rsW();}
 function rsW(){var w=$('.rswrap'); if(!w||!w.style||!w.style.setProperty)return;   /* shim-safe, see slipH() */
- w.style.setProperty('--rsw',w.clientWidth+'px');}
+ w.style.setProperty('--rsw',w.clientWidth+'px'); rsBarH();}
+/* The controls bar is sticky, so the table has to start below it -- and its height is not a
+   constant: the game chips wrap onto a second and third line on a fifteen-game slate, and the
+   whole row re-flows on a narrow screen. Measured and published like --navh rather than guessed,
+   and re-measured whenever the chips are redrawn or the window changes. */
+function rsBarH(){var b=document.querySelector('#v-b .bar'); if(!b)return;
+ var st=document.documentElement&&document.documentElement.style;
+ if(!st||!st.setProperty)return;                       /* shim-safe, see slipH() */
+ var h=b.offsetHeight; if(h)st.setProperty('--rsbar',h+'px');}
 if(typeof window!=='undefined'&&window.addEventListener)window.addEventListener('resize',rsW);
+if(typeof ResizeObserver!=='undefined'){var _rb=document.querySelector('#v-b .bar');if(_rb)new ResizeObserver(rsBarH).observe(_rb);}
 function rsEdge(p){var e=rsEv(p); if(e==null)return '<span class="rsv na">—</span>';
  return '<span class="rsedge '+(e>0?'pos':'neg')+'">'+(e>0?'+':'')+(e*100).toFixed(1)+'%</span>';}
 /* The dossier renders itself off RSCOLS grouped by `g`, so a room that changes its columns gets
