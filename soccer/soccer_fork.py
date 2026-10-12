@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 104 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,
+EXPECT_SEAMS = 105 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,
                                              # specials-live, sec-lunch, sec-nightcap, pool-late,
                                              # card-wide, kind-nightcap -- baseball retired
                                              # lunch/late, soccer still drafts both)
@@ -580,8 +580,8 @@ def seams(payload_js):
         'Every bat that cleared the pool gate, one card each.',
         'Every player who cleared the pool gate, one card each.')
     add('step-builder',
-        'tick the bats you like, then hit 🔨 Build.',
-        'tick the players you like, then hit 🔨 Build.')
+        'Every scored bat is one row:',
+        'Every scored player is one row:')
     add('step-notes',
         'breaks out every bat with its price, a conviction bar and its own chance of going deep.',
         'breaks out every player with his price, a conviction bar and his own chance of scoring.')
@@ -619,7 +619,6 @@ def seams(payload_js):
         'This is a screamer — the\n      three-leg parlay that carries most of the season.')
     add('howto-tbadge', 'class="tbadge">🚀</span>', 'class="tbadge">💥</span>')
     # Three call sites, same sentence, same meaning (checked all three).
-    add('builder-hint', 'Pick bats on the left, then Build.', 'Pick players on the left, then Build.', 3)
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')
     add('footer-wind',
@@ -745,6 +744,33 @@ def seams(payload_js):
     # injecting ~250 lines of soccer_live.js before the other seams run would let the injected
     # code change another seam's match count and fail the build for a reason that has nothing to
     # do with index.html moving. Injected last, nothing is counted after it.
+    # RESEARCH-2026-10-12: the Builder tab became a research table, and the column list is
+    # the only part of it that is sport-specific. index.html carries baseball's and calls
+    # RS_ROOM() if a room defined one; this is this room's. The machinery around it --
+    # sort, format, the dossier, the slip tray -- is shared, so a fix there reaches all three.
+    add('research-cols',
+        "var RS_ROOM=null;",
+        ''' RS_GROUPS=[['form','The player'],['arm','The fixture'],['mkt','Model & market']];
+ RS_VOCAB={unit:'player',units:'players',verb:'scores'};
+ RS_P=function(p){return p.pscore!=null?p.pscore:null;};
+ RSCOLS=[
+  {k:'TOTAL',l:'Model',t:'Our score for this player today. ~100 is slate-average.',g:'mkt',d:1,hi:1,o:1,cls:'mdl'},
+  {k:'odds',l:'Book',t:'Best consensus anytime-goalscorer price.',g:'mkt',o:1,v:function(p){return p.odds==null?null:oStr(p.odds);},r:function(p){return p.odds==null?null:rsImp(p.odds);},hi:1},
+  {k:'_fair',l:'Fair',t:'What our model says the price should be.',g:'mkt',o:1,v:function(p){var f=rsFair(p);return f==null?null:oStr(f);},r:function(p){var f=rsFair(p);return f==null?null:rsImp(f);},hi:1},
+  {k:'_ev',l:'Edge',t:'Our probability against the price offered.',g:'mkt',o:1,hi:1,edge:1},
+  {k:'_chance',l:'Chance',t:'Our modelled chance he scores at any point in the match.',g:'mkt',o:1,v:function(p){return p.pscore==null?null:(p.pscore*100).toFixed(1)+'%';},r:function(p){return p.pscore;},hi:1},
+  {k:'npxg90',l:'xG90',t:'Non-penalty expected goals per 90 minutes. The volume-adjusted read on how often he gets into scoring positions.',g:'form',d:2,hi:1,o:1},
+  {k:'xgshot',l:'Shot qual',t:'Expected goals per shot -- whether the chances he takes are good ones.',g:'form',d:3,hi:1,o:1},
+  {k:'xgmatch',l:'xG today',t:'Expected goals our model gives him in this fixture.',g:'form',d:3,hi:1,o:1},
+  {k:'minutes',l:'Mins',t:'Minutes played this season. The sample behind everything to its left.',g:'form',d:0,hi:1,o:1},
+  {k:'_opp',l:'Opponent',t:'The side he faces, and whether he is home or away.',g:'arm',o:1,v:function(p){return (p.opp&&p.opp[0])?(p.opp[0]+(p.opp[1]?' '+p.opp[1]:'')):null;},r:function(p){return (p.opp&&p.opp[0])||'';},txt:1},
+  {k:'oppxga',l:'Def',t:'Expected goals that opponent concedes. Higher means a softer defence.',g:'arm',d:2,hi:1},
+  {k:'league',l:'League',t:'Competition.',g:'arm',txt:1},
+  {k:'_rot',l:'Rotation',t:'Rotation risk -- how reliably he actually starts.',g:'arm',v:function(p){return (p.sub&&p.sub.cond)||null;},r:function(p){return (p.sub&&p.sub.cond)||'';},txt:1,o:1},
+  {k:'gate_z',l:'Gate z',t:'How far above the slate mean he sits -- the number the pool gate reads.',g:'mkt',d:2,hi:1}
+ ];''')
+    add('slip-key', "SLIP_KEY='hr_slip'", "SLIP_KEY='soccer_slip'")
+
     S.extend(live_seams())
     return S
 
