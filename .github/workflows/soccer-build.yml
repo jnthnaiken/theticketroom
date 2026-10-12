@@ -122,6 +122,91 @@ jobs:
           fi
 
       # ------------------------------------------------------------------------------------
+      # 🚨 SHADOWRACE-2026-10-12 -- DO NOT PUBLISH THE FIRST BOARD OF A SLATE WITHOUT THE MODEL.
+      #
+      # SHADOWGUARD-2026-10-11 made a model-less board VISIBLE and deliberately refused to stop
+      # it ("WARN, DO NOT REFUSE. A degraded board beats no board"). That is still the rule, and
+      # this step does not change it. What it stops is narrower and is a RACE, not a failure:
+      # committing a slate wakes this build AND soccer-shadow.yml in the same instant, this build
+      # takes ~25 seconds and the shadow takes MINUTES (it pip-installs numpy/pandas and fetches
+      # twelve seasons of history), so the first board of every slate publishes book-only and
+      # only self-corrects on a later pass. Measured 2026-10-12: the 04:05Z board shipped with
+      # every pscore equal to the book's implied probability, and the model re-bake at 04:14Z
+      # moved the card from THREE Top Bin singles to ONE (Awoniyi .465 -> .433 and Scamacca
+      # .455 -> .393 both fall under the 0.45 line; see claude/soccer-2026-10-12-build.md).
+      #
+      # So: wait, do not refuse. Three conditions, and all three have to hold:
+      #   1. SCOREPROB applies to this slate (>= 2026-10-10) and the model is not usable yet
+      #      (<8 rated players -- the same bar soccer_mock.py uses before it swaps edge_z);
+      #   2. this is the FIRST board of the slate (no soccer/boards/<date>.json). Once a board
+      #      is published, every later pass is a team-news or price rebuild and must never be
+      #      held, or the afternoon's re-drafts stop reaching the page;
+      #   3. the slate is YOUNGER than HOLD_MIN. Past that the shadow has demonstrably failed
+      #      rather than merely not finished, and the house rule takes over: the degraded board
+      #      publishes, carrying SHADOWGUARD's ::error:: with it.
+      #
+      # ⚠️ FAILS OPEN ON ITS OWN MACHINERY. Any error reading the shadow file, the slate's commit
+      # time or the API publishes. A step written to protect the board must never be the reason
+      # there isn't one.
+      # ⚠️ THE SLATE'S AGE COMES FROM THE API, NOT FROM git log. actions/checkout is shallow here
+      # (fetch-depth 1), so `git log -1 -- slates/<date>` has no history to read and returns
+      # either nothing or the checked-out commit -- an age of ~0 forever, i.e. a hold that never
+      # expires. One REST call for the newest commit touching the slate directory is exact.
+      # ------------------------------------------------------------------------------------
+      - name: Is the scorer model in yet?
+        id: shadowhold
+        if: steps.slate.outputs.go == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HOLD_MIN: '45'
+        run: |
+          cd soccer
+          D=${{ steps.slate.outputs.date }}
+          python3 - "$D" <<'PY' >> $GITHUB_OUTPUT
+          import calendar, json, os, sys, time, urllib.request
+          D = sys.argv[1]
+          def out(hold, why):
+              print(f'hold={"true" if hold else "false"}')
+              print(f'why={why}')
+              print(('  HOLDING this pass: ' if hold else '  publishing: ') + why, file=sys.stderr)
+              sys.exit(0)
+          try:
+              if D < '2026-10-10':
+                  out(False, 'slate predates SCOREPROB')
+              rated = 0
+              p = f'shadow/{D}.json'
+              if os.path.exists(p):
+                  m = json.load(open(p, encoding='utf-8')).get('players', {})
+                  rated = sum(1 for v in m.values()
+                              if isinstance(v.get('p_model'), (int, float)) and 0 < v['p_model'] < 1)
+              if rated >= 8:
+                  out(False, f'scorer model present ({rated} rated)')
+              if os.path.exists(f'boards/{D}.json'):
+                  out(False, 'a board for this slate is already published -- never hold a rebuild')
+              repo = os.environ['GITHUB_REPOSITORY']
+              req = urllib.request.Request(
+                  f'https://api.github.com/repos/{repo}/commits?path=soccer/slates/{D}&per_page=1',
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                           'Accept': 'application/vnd.github+json'})
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  commits = json.load(r)
+              when = commits[0]['commit']['committer']['date']          # 2026-10-12T04:45:00Z
+              # timegm, not mktime: the stamp is UTC and mktime would read it as local time.
+              # The runner is UTC today, so the bug would be invisible here and not elsewhere.
+              age = (time.time() - calendar.timegm(time.strptime(when, '%Y-%m-%dT%H:%M:%SZ'))) / 60.0
+              lim = float(os.environ.get('HOLD_MIN', '45'))
+              if age >= lim:
+                  out(False, f'slate is {age:.0f} min old and still has no model -- '
+                             f'past the {lim:.0f} min hold, shipping the degraded board')
+              out(True, f'no scorer model yet and the slate is only {age:.0f} min old '
+                        f'(hold up to {lim:.0f}) -- soccer-shadow.yml is still running')
+          except SystemExit:
+              raise
+          except Exception as e:
+              out(False, f'hold check failed ({str(e)[:70]}) -- failing open')
+          PY
+
+      # ------------------------------------------------------------------------------------
       # COVERAGE-2026-09-08. WHAT IS ON TODAY, ASKED RATHER THAN REMEMBERED.
       #
       # The failure this closes is not a broken build, it is a confident wrong answer. On
@@ -442,8 +527,10 @@ jobs:
           grep '^::' gate.txt || true
           echo "gate: $(grep '^commit=' gate.txt | tail -1)"
 
+      # SHADOWRACE-2026-10-12 adds the third condition: do not publish the FIRST board of a slate
+      # while the scorer model is still on its way. See the step at the top for why it expires.
       - name: Publish
-        if: steps.slate.outputs.go == 'true' && steps.gate.outputs.commit == 'true' && github.event.inputs.dry_run != 'true'
+        if: steps.slate.outputs.go == 'true' && steps.gate.outputs.commit == 'true' && github.event.inputs.dry_run != 'true' && steps.shadowhold.outputs.hold != 'true'
         run: |
           cd soccer
           D=${{ steps.slate.outputs.date }}
@@ -483,3 +570,4 @@ jobs:
           echo "teamnews rc=${{ steps.tn.outputs.rc }}  (0 complete / 20 not yet / 30 no feed)"
           echo "rebuild  rc=${{ steps.draft.outputs.rebuild_rc }}  (10 = draft unchanged)"
           echo "commit   ${{ steps.gate.outputs.commit }}${{ github.event.inputs.dry_run == 'true' && '  (DRY RUN -- nothing published)' || '' }}"
+          echo "model    ${{ steps.shadowhold.outputs.why }}${{ steps.shadowhold.outputs.hold == 'true' && '  -> PUBLISH HELD' || '' }}"
