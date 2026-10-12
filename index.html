@@ -811,6 +811,26 @@ body::after{
    key off it, and renaming ids to match a label is how you turn a label change into a bug. */
 .rsbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:0 0 12px}
 .rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;max-height:min(70vh,760px)}
+/* OPAQUE SCROLLBARS (owner 2026-10-12: "make the scroll bars opaque like the other ones").
+   Chrome gives an overflow:auto panel an OVERLAY scrollbar -- zero layout width, translucent,
+   floating over the rows -- which on this dark surface is nearly invisible and awkward to grab.
+   Declaring ::-webkit-scrollbar with a width switches that panel to a classic scrollbar that
+   takes real space and is always drawn. Painted in the board's own tokens so it reads as part of
+   the furniture, and `scrollbar-color` carries the same look to Firefox. One rule for every
+   scrolling panel in the room, so a new one inherits it instead of reintroducing the ghost. */
+.rswrap::-webkit-scrollbar,.traygr::-webkit-scrollbar,.bpick::-webkit-scrollbar,.otable::-webkit-scrollbar{width:13px;height:13px}
+.rswrap::-webkit-scrollbar-track,.traygr::-webkit-scrollbar-track,.bpick::-webkit-scrollbar-track,.otable::-webkit-scrollbar-track{background:var(--surf2);border-radius:0}
+.rswrap::-webkit-scrollbar-thumb,.traygr::-webkit-scrollbar-thumb,.bpick::-webkit-scrollbar-thumb,.otable::-webkit-scrollbar-thumb{background:var(--line2);border:3px solid var(--surf2);border-radius:8px}
+.rswrap::-webkit-scrollbar-thumb:hover,.traygr::-webkit-scrollbar-thumb:hover,.bpick::-webkit-scrollbar-thumb:hover,.otable::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
+.rswrap::-webkit-scrollbar-corner,.traygr::-webkit-scrollbar-corner,.bpick::-webkit-scrollbar-corner,.otable::-webkit-scrollbar-corner{background:var(--surf2)}
+/* ⚠️ `scrollbar-color` and `::-webkit-scrollbar` are MUTUALLY EXCLUSIVE in Chrome 121+: setting
+   the standard property makes the browser ignore the pseudo-elements entirely, and it cannot
+   override the OS "show scroll bars when scrolling" setting, so the bar would stay a thin overlay.
+   Only `::-webkit-scrollbar{width:…}` forces a classic bar that takes real space and is always
+   drawn. So Chrome gets the pseudo-elements above, and the standard property is scoped to engines
+   that have no pseudo-elements to use -- Firefox -- instead of quietly cancelling them. */
+@supports not selector(::-webkit-scrollbar){
+ .rswrap,.traygr,.bpick,.otable{scrollbar-width:auto;scrollbar-color:var(--line2) var(--surf2)}}
 table.rst{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
 .rst th,.rst td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
 .rst thead th{position:sticky;top:0;z-index:3;background:var(--surf2);font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);cursor:pointer;user-select:none;font-weight:600;border-bottom:1px solid var(--line2)}
@@ -835,6 +855,11 @@ table.rst{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
 .rsv.hi{color:var(--lime)}.rsv.lo{color:var(--cool)}
 .rst td.mdl .rsv{color:var(--gold);font-weight:700}
 .rsoff td{opacity:.5}
+/* ⚠️ ...but NOT the frozen name column. `opacity` applies to the cell's BACKGROUND as well as
+   its text, so a dimmed row's sticky cell was 50% transparent and the Model/Book columns scrolled
+   through underneath the player's name. Dim the cell's CONTENTS instead and leave the pane solid. */
+.rsoff td.rsx{opacity:1;background:var(--surf)}
+.rsoff td.rsx>*{opacity:.5}
 .rsedge{font-family:'Roboto Mono',monospace;font-weight:700}
 .rsedge.pos{color:var(--lime)}.rsedge.neg{color:var(--mut)}
 /* ---- the dossier: one expanded row, four panes ---- */
