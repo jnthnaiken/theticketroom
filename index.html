@@ -828,12 +828,24 @@ body::after{
    what "cant see what some of the columns are when you scroll down" describes.
    Two fixes, because one alone does not hold: `position:sticky` keeps the panel below the nav
    while scrolling, and the height cap keeps it there AT MAXIMUM SCROLL, where sticky has run out
-   of containing block. The 206px is the furniture below the panel (hint line, page padding, the
-   slip tray) that has to fit in the same viewport, and --rsbar is the sticky controls row
-   above it. Both were swept against all three rooms until the header cleared everywhere --
-   soccer carries the most below its table and was the binding case at 178 and 194. Measured. --navh is published by the nav's own
-   ResizeObserver at the end of this file, so this tracks a nav that wraps on a narrow screen. */
-.rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;position:sticky;top:calc(var(--navh,74px) + var(--rsbar,104px));max-height:min(760px,calc(100vh - var(--navh,74px) - var(--rsbar,104px) - 206px))}
+   of containing block. The 206px is the STATIC furniture below the panel (hint line, page
+   padding) and --rsbar is the sticky controls row above it; both were swept against all three
+   rooms until the header cleared everywhere -- soccer carries the most below its table and was
+   the binding case at 178 and 194. Measured.
+
+   🚨 --sliph IS SUBTRACTED HERE AND THE FIRST VERSION OF THIS RULE DID NOT DO IT, which is why
+   the owner reported the same overlap twice. The slip tray is NOT static furniture -- it is 0px
+   empty and 58px up -- so a flat constant cannot stand in for it, however the comment above this
+   line used to read. With a slip open the panel stayed its full height, had 58px less viewport
+   to travel in, ran out of containing block early and seated UNDER the bar: 27px of covered
+   column header in baseball and football, 45px in soccer, whose bar carries two rows of chips.
+   Clean with the tray down the whole time, which is what made it easy to miss. slipH() already
+   publishes --sliph on every tray change, so the panel now shrinks as the tray rises.
+   test_trayfit.js measures it in both states, in all three rooms, at maximum scroll.
+
+   --navh is published by the nav's own ResizeObserver at the end of this file, so this tracks a
+   nav that wraps on a narrow screen. */
+.rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;position:sticky;top:calc(var(--navh,74px) + var(--rsbar,104px));max-height:min(760px,calc(100vh - var(--navh,74px) - var(--rsbar,104px) - var(--sliph,0px) - 206px))}
 /* OPAQUE SCROLLBARS (owner 2026-10-12: "make the scroll bars opaque like the other ones").
    Chrome gives an overflow:auto panel an OVERLAY scrollbar -- zero layout width, translucent,
    floating over the rows -- which on this dark surface is nearly invisible and awkward to grab.
