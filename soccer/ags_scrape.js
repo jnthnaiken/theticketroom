@@ -101,15 +101,31 @@
   /* FGS-2026-09-29: the First Goalscorer section ships COLLAPSED (h2 aria-expanded=false, zero
      wrappers in the DOM until opened), where Anytime Goalscorer ships open. Open it first:
          await ags.expand('First Goalscorer'); ags('<key>', {market: 'First Goalscorer', key: 'FGS_ROWS'})
-     A DOM click on an accordion header, not a dialog. Resolves 'open' / 'clicked' / 'none'. */
+     A DOM click on an accordion header, not a dialog.
+
+     🚨 SCROLLFGS-2026-10-13 -- TWO BUGS, AND THE SECOND HID THE FIRST.
+     (1) The section is LAZY, not slow. A blind click on an h2 that is far below the fold does not
+         open it, so this loop spent its whole 8000ms ceiling and came back with zero wrappers. On
+         the 10-13 Champions League card that was EVERY fixture: the first tie reported
+         `expand=clicked  FGS ok=false n=0` and the market looked unpriced. Scrolling the section
+         into view and letting the page settle first opens it in ~500ms.
+     (2) It returned 'clicked' whether the market had populated or the loop had timed out, so the
+         caller could not tell "opened" from "gave up" -- which is exactly why (1) read as an
+         oddschecker problem rather than a scraper one. It now returns 'opened' or 'timeout', and
+         a timeout is a thing you can see.
+     Resolves 'none' | 'open' | 'opened' | 'timeout'. */
   scrape.expand = async function (title) {
     var sec = agsSection(title);
     if (!sec) return 'none';
-    if (sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length) return 'open';
+    var wraps = function () { return sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length; };
+    if (wraps()) return 'open';
+    if (sec.scrollIntoView) sec.scrollIntoView({ block: 'center' });
+    await new Promise(function (r) { setTimeout(r, 700); });   /* let the lazy section hydrate */
+    if (wraps()) return 'opened';                              /* scrolling alone can be enough */
     sec.querySelector('h2').click();
-    for (var w = 0; w < 8000 && !sec.querySelectorAll('[class*=MarketExpanderBetWrapper]').length; w += 400)
+    for (var w = 0; w < 20000 && !wraps(); w += 400)
       await new Promise(function (r) { setTimeout(r, 400); });
-    return 'clicked';
+    return wraps() ? 'opened' : 'timeout';
   };
   scrape.parseWrapper = parseWrapper;   /* exposed so the self-test can run without a page */
   return scrape;
