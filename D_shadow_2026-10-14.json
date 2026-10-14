@@ -1,0 +1,78 @@
+{
+ "v": 1,
+ "date": "2026-10-14",
+ "built_at": "2026-10-14T19:00:36Z",
+ "teams": {
+  "LAD": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0203,
+   "hr_bf_avail": 0.0203,
+   "hr_bf_L": 0.019,
+   "hr_bf_R": 0.0237,
+   "hr_bf_avail_L": 0.019,
+   "hr_bf_avail_R": 0.0237,
+   "share_L": 0.481,
+   "air_share": 0.569,
+   "d1_pitches": 0
+  },
+  "MIL": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0198,
+   "hr_bf_avail": 0.0198,
+   "hr_bf_L": 0.0234,
+   "hr_bf_R": 0.0183,
+   "hr_bf_avail_L": 0.0234,
+   "hr_bf_avail_R": 0.0183,
+   "share_L": 0.416,
+   "air_share": 0.499,
+   "d1_pitches": 0
+  }
+ },
+ "sps": {
+  "blake snell": {
+   "id": 605483,
+   "bf_exp": 19.22,
+   "kind": "sp",
+   "hr_bf": 0.0139
+  },
+  "robert gasser": {
+   "id": 688107,
+   "bf_exp": 22.75,
+   "kind": "sp",
+   "hr_bf": 0.0318
+  }
+ },
+ "games": {
+  "1": {
+   "home": "LAD",
+   "hour": 20,
+   "dome": false,
+   "temp": 76.6,
+   "rh": 27,
+   "pres": 997.9,
+   "wind": 6.9,
+   "wind_out": 5.58,
+   "rho": 1.1631
+  }
+ },
+ "coverage": {
+  "box_final_games": 3,
+  "box_loaded": 3,
+  "rosters": 2,
+  "pitcher_stats": 26,
+  "sps_matched": 2,
+  "sps_named": 2,
+  "pens": 2,
+  "games": 1,
+  "games_wx": 1
+ },
+ "errors": [],
+ "partial": false,
+ "attempts": 1,
+ "last_attempt": 1792004436,
+ "pregame": true
+}
