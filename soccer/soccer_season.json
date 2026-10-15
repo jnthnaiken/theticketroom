@@ -42,7 +42,7 @@
   35.5523918426,
   36.5160282062,
   41.2195168458,
-  40.12860775489091
+  42.0377077549
  ],
  "graded_nights": [
   "2026-08-27",
@@ -101,16 +101,10 @@
    "staked": 0.0
   },
   "brace": {
-   "graded": 34,
-   "won": 24,
-   "units": 13.581499999999998,
-   "staked": 34.0
-  },
-  "ftd": {
-   "graded": 1,
-   "won": 0,
-   "units": -1.0,
-   "staked": 1.0
+   "graded": 35,
+   "won": 25,
+   "units": 14.490599999999999,
+   "staked": 35.0
   }
  },
  "stake": 1,
@@ -1546,10 +1540,10 @@
   "date": "2026-10-15",
   "what": "Owner: \"get rid of the opener in the ledger. backtest brace over previous slates and update ledger\". The Opener (first goalscorer, 11 graded, 1 won, -6.25u on 11u, 2026-09-30..10-14) is BACKED OUT of cats, history and the restated nights -- the same treatment as the chef/family/salami removals. In its place THE BRACE is backtested on every graded night since 2026-08-27 by its live rule (soccer_fgs.brace_pick): among that night's Top Bin legs (confirmed starters), priced +250 or shorter, the highest npxG/90 x decimal anytime price, 1u anytime at the leg's held price. Nights with no qualifying leg have no Brace. Each night's Opener net was subtracted and its Brace net added from that night forward, so history and cats reconcile. Nights 2026-08-27..10-09 carry the Brace inside restated.nights; 10-10..10-14 are listed below.",
   "opener_removed": {
-   "graded": 11,
+   "graded": 12,
    "won": 1,
-   "units": -6.25,
-   "staked": 11.0,
+   "units": -7.25,
+   "staked": 12.0,
    "nights": {
     "2026-09-30": [
      {
@@ -1639,6 +1633,15 @@
       "net": -1.0,
       "live": true
      }
+    ],
+    "2026-10-15": [
+     {
+      "kind": "ftd",
+      "name": "Anssumane Fati",
+      "odds": 550,
+      "net": -1.0,
+      "live": true
+     }
     ]
    }
   },
@@ -1682,6 +1685,15 @@
     "npxg90": 0.701,
     "won": true,
     "net": 0.9091
+   },
+   "2026-10-15": {
+    "kind": "brace",
+    "name": "Alvaro Rodriguez",
+    "odds": -110,
+    "npxg90": 0.429,
+    "won": true,
+    "net": 0.9091,
+    "note": "live night: soccer-settle folded the Opener (Fati, first goal, lost -1.00u) because the board had not been re-baked with the Brace before the fold; corrected by hand -- Opener backed out, Brace booked"
    }
   }
  }
