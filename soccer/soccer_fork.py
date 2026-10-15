@@ -25,7 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
-EXPECT_SEAMS = 105 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,
+EXPECT_SEAMS = 106 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,  # SPORTEMOJI-2026-10-15 +1 (kemo)
                                              # specials-live, sec-lunch, sec-nightcap, pool-late,
                                              # card-wide, kind-nightcap -- baseball retired
                                              # lunch/late, soccer still drafts both)
@@ -218,9 +218,9 @@ def seams(payload_js):
     # counter, which carries its own literal. Seaming only defs left the counter reading
     # "2 \U0001F680" under a row labelled Screamers -- the same one-of-three-render-paths
     # miss that seam group 10 records.
-    add('tonight-count', "+kc.moon+' 🚀'", "+kc.moon+' 💥'")
+    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 💥'")
     add('tracker-screamers',
-        "['moon','🚀','Moonshots']",
+        "['moon','🥎','Moonshots']",
         "['moon','💥','Screamers']")
     # The CLIENT re-derivation mints its own moons (__assembleClient runs on every render for
     # the live builder pass) and stamps the badge itself, so the baked payload's 💥 is not the
@@ -293,7 +293,7 @@ def seams(payload_js):
         "sec('sug','Top Bin',builder.filter(function(t){if(t.locked)return true;var L=t.players||[];"
         "if(L.length!==1)return true;var op=D.players[L[0].name];"
         "return !(op&&!op.hr&&(op.out||op.status==='benched'));}))")
-    add('tracker-top8', "['builder','⚓️','Anchors']", "['builder','🥅','Top Bin']")
+    add('tracker-top8', "['builder','🧢','Anchors']", "['builder','🥅','Top Bin']")
     # TOPROWS-2026-09-17. Owner: "get rid of the empty rows". A kind with nothing graded this
     # season and nothing on tonight's card is dropped from the tracker; Top Bin always shows.
     add('tracker-hide-empty',
@@ -326,14 +326,16 @@ def seams(payload_js):
     # (ONEAUTHOR-2026-08-30). Seaming them would add three more strings for a baseball rename
     # to orphan in exchange for nothing. If soccer is ever wired to draft client-side, seam
     # retiredKind FIRST -- it would eat both specials on the first redraft.
+    # SPORTEMOJI-2026-10-15: soccer's own emoji table for the ticket card (index.html KEMO).
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={builder:'🥅',brace:'👟',ftd:'⚡'};")
     add('kc-kinds',
         "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
         "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
     # `if(kc[k]!=null)kc[k]++` only counts keys the literal above declares, so without this seam
     # kc.lunch and kc.late are undefined and the TONIGHT counter prints "undefined 🍱".
     add('tracker-specials',
-        "var defs=[['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot'],",
-        "var defs=[['brace','✌️','The Brace'],['ftd','⚡','The Opener'],")   # BRACE-2026-10-15: the Brace leads; the retired Opener keeps its own row and record   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
+        "var defs=[['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot'],",
+        "var defs=[['brace','👟','The Brace'],")   # SPORTEMOJI/BRACELEDGER-2026-10-15: the Opener is backed out of the ledger; one special row   # BRACE-2026-10-15: the Brace leads; the retired Opener keeps its own row and record   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
     add('specials-live',
         " const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);",
         " const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd'||t.kind==='brace').filter(match).filter(singleAlive);")   # BRACE-2026-10-15: either special rides in meta.ftd   # FGS-2026-09-29: the section shows the one first-goalscorer pick, from meta
@@ -342,7 +344,7 @@ def seams(payload_js):
     # DINGERIDLE-2026-09-27: baseball's empty Daily Dinger slot got its own copy (owner: the
     # cafeteria line belonged to the retired Lunch Special). This room still HAS a lunch-type
     # slot, so the old line is put back here verbatim.
-    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'🎯 This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
+    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
         ' const closed=\'<div class="closed">⚽ Still in the tunnel — no Brace on this slate yet. It is picked from the Top Bin once the board is drafted.</div>\';')   # BRACE-2026-10-15   # FGS-2026-09-29
     add('sec-lunch',
         '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
@@ -352,7 +354,7 @@ def seams(payload_js):
         "html+='';")
     add('pool-late',
         "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML="
-        "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83d\\udca5 No jackpot pick "
+        "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83c\\udfdf\\ufe0f No jackpot pick "
         "posted right now.</div>';",
         "var L=D.tickets.filter(t=>t.kind==='late'&&!t.final).filter(singleAlive);el.innerHTML="
         "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83c\\udf19 Bar\\u2019s closed "
@@ -364,8 +366,8 @@ def seams(payload_js):
         "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='late'?' lunchwide nightcap':''}")
     # The TONIGHT counter: only kinds that are on the card, Top Bin as the goal net.
     add('tonight-top8',
-        "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
-        "var cnt=[[((D.meta.ftd&&D.meta.ftd.players)?1:0),((D.meta.ftd&&D.meta.ftd.kind==='ftd')?'⚡':'✌️'),1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
+        "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '+kc.builder+' 🧢 \\u00b7 '+kc.moon+' 💥';",
+        "var cnt=[[((D.meta.ftd&&D.meta.ftd.players)?1:0),((D.meta.ftd&&D.meta.ftd.kind==='ftd')?'⚡':'👟'),1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
         ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 🥅';")
     # RESTATED-2026-09-17: the season line says so when soccer_season.json carries `restated`.
     add('tracker-restated',
@@ -376,7 +378,7 @@ def seams(payload_js):
     add('client-builder-badge-2', "kind:'builder',badge:'⚓️'", "kind:'builder',badge:'🥅'")
     add('client-builder-badge-3', "mkF('builder','⚓️',", "mkF('builder','🥅',")
     add('anatomy-anchor',
-        "{n:8, side:'L', t:'The anchor', d:'Top leg. The slip is built around him; he’s also sold alone as an ⚓️ single.'}",
+        "{n:8, side:'L', t:'The anchor', d:'Top leg. The slip is built around him; he’s also sold alone as a 🧢 single.'}",
         "{n:8, side:'L', t:'Top leg', d:'The strongest player on the slip. The card itself is now the 🥅 Top Bin, each sold as a straight single.'}")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     # NB: index.html carries the JS escape ↻ literally (six characters), not the glyph.
@@ -385,8 +387,8 @@ def seams(payload_js):
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> rotation risk · ')
     # SPECIALS-2026-09-24: the baseball line now names its two new specials (see the block above).
     add('howto-order',
-        'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-        'Read it top to bottom: ✌️ The Brace, 🥅 Top Bin. ⚡ The Opener and 💥 Screamers are retired.')
+        'Read it top to bottom: ⚾ Daily Dinger, 🏟️ Long Ball Jackpot, 🧢 Anchors, 🥎 Moonshots.',
+        'Read it top to bottom: 👟 The Brace, 🥅 Top Bin.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
@@ -591,33 +593,33 @@ def seams(payload_js):
     # seam only replaced the first half of the sentence and left baseball's "Only appears when
     # the slate starts before 5 PM ET" trailing behind it. Cutting the full <div> ends that.
     add('kind-lunch',
-        '<div class="kind"><span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. '
+        '<div class="kind"><span class="ke">⚾</span><div><b>Daily Dinger</b><span>Free play. '
         'FanDuel publishes a short list of bats each day and you pick one — this is the best '
         'model score on their list. Not a bet we place.</span></div></div>',
-        '<div class="kind"><span class="ke">✌️</span><div><b>The Brace</b><span>A second unit on one Top Bin player. '
+        '<div class="kind"><span class="ke">👟</span><div><b>The Brace</b><span>A second unit on one Top Bin player. '
         'Only a man already on the board qualifies; of those, the starter priced +250 or shorter whose xG is furthest above '
         'his price. Anytime goalscorer, 1u, on top of his Top Bin single. Replaced the first-goalscorer Opener on 10/16.</span></div></div>')   # BRACE-2026-10-15
     add('kind-nightcap',
-        '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. '
+        '<div class="kind"><span class="ke">🏟️</span><div><b>Long Ball Jackpot</b><span>Free play. '
         'Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer '
         'that day — we rank park carry plus model score. Not a bet we place.</span></div></div>',
         '')   # FGS-2026-09-29: the Nightcap is retired
     add('kind-anchors',
-        '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
+        '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
         '<span class="ke">🥅</span><div><b>Top Bin</b><span>Every confirmed starter we rate 45% or better to score (two a match at most), each a straight 1u single.</span>')
     # "eight a night" is a BASEBALL count (ANCH_PER_GAME 2 x MOONS_PER_ANC 2 x 4 anchors, on a
     # fifteen-game slate). The soccer draft scales its anchor count to the pool, so on a thin
     # five-match slate it mints two. Printing a fixed eight would be a promise the board breaks
     # most nights.
     add('kind-screamers',
-        '<span class="ke">🚀</span><div><b>Moonshots</b><span>Two three-leg round robins per '
+        '<span class="ke">🥎</span><div><b>Moonshots</b><span>Two three-leg round robins per '
         'anchor, eight a night. This is the one diagrammed above.</span>',
-        '<span class="ke">💥</span><div><b>Screamers</b><span>Retired 2026-09-17: the three-leg '
+        '<span class="ke">⚽</span><div><b>Screamers</b><span>Retired 2026-09-17: the three-leg '
         'round robins diagrammed above. Tonight’s card is the 🥅 Top Bin.</span>')
     add('howto-lede',
         'This is a moonshot — the\n      three-leg parlay that carries most of the season.',
         'This is a screamer — the\n      three-leg parlay that carries most of the season.')
-    add('howto-tbadge', 'class="tbadge">🚀</span>', 'class="tbadge">💥</span>')
+    add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">🥅</span>')   # SPORTEMOJI-2026-10-15
     # Three call sites, same sentence, same meaning (checked all three).
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')

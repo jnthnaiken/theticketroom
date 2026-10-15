@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""test_brace.py -- BRACE-2026-10-15. The ✌️ Brace: a second 1u ANYTIME unit on the best-value Top Bin leg.
+"""test_brace.py -- BRACE-2026-10-15. The 👟 Brace: a second 1u ANYTIME unit on the best-value Top Bin leg.
 
 Owner: "if they dont qualify for the board then they shouldnt be eligible for a special" -- so the pick
 comes ONLY from tonight's Top Bin legs. Asserts: off-board men never picked however good; benched / out /

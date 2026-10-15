@@ -2,46 +2,46 @@
  "since": "2026-08-27",
  "history": [
   0.0,
-  1.0,
-  0.9524,
-  5.6343,
-  5.9867,
-  8.4632,
-  8.4632,
-  10.7632,
-  10.3284,
-  10.3284,
-  10.3284,
-  12.9244,
-  16.0306,
-  16.0804,
-  15.0804,
-  14.2826,
-  14.777,
-  14.7466,
-  15.9466,
-  16.0958,
-  17.1958,
-  19.5294,
-  21.7294,
-  21.9794,
-  21.9794,
-  22.5967,
-  25.6819,
-  24.4571,
-  24.4571,
-  25.5571,
-  29.0317,
-  27.2317,
-  26.1408,
-  27.3408,
-  21.8852,
-  19.8852,
-  17.210426625226628,
-  19.329991842617932,
-  19.429991842617934,
-  18.593628206254298,
-  21.388016845837445
+  2.0,
+  2.9048,
+  9.0867,
+  9.8391,
+  13.3156,
+  13.3156,
+  16.6156,
+  15.1808,
+  15.1808,
+  15.1808,
+  18.6464,
+  20.7526,
+  22.0024,
+  20.0024,
+  20.2546,
+  21.749,
+  20.7186,
+  22.7186,
+  21.8678,
+  22.9678,
+  26.5014,
+  29.9014,
+  29.1514,
+  29.1514,
+  30.386,
+  34.3045,
+  33.8549,
+  33.8549,
+  35.9549,
+  36.4041,
+  34.6041,
+  33.5132,
+  36.9132,
+  31.4576,
+  29.4576,
+  28.9828266252,
+  33.3523918426,
+  35.5523918426,
+  36.5160282062,
+  41.2195168458
  ],
  "graded_nights": [
   "2026-08-27",
@@ -98,18 +98,18 @@
    "units": 0.0,
    "staked": 0.0
   },
-  "ftd": {
-   "graded": 11,
-   "won": 1,
-   "units": -6.25,
-   "staked": 11.0
+  "brace": {
+   "graded": 34,
+   "won": 24,
+   "units": 13.581499999999998,
+   "staked": 34.0
   }
  },
  "stake": 1,
  "restated": {
   "date": "2026-10-10",
   "system": "SCOREPROB (2026-10-10)",
-  "what": "Every archived night re-run with the current system. P(score) = mean(book implied, layered scorer model) -- the book alone where the model cannot rate a player (MLS, internationals, unmatched). Top Bin = confirmed starters with P >= 0.45, ranked by P, at most 2 per match, no nightly ceiling, as 1u singles; no price floor. Prices are the ones held on that night's board; model numbers are soccer/shadow/<date>.json, built only from data before each date. The Opener (first goalscorer) is carried as graded live. Lunch Special and Nightcap no longer exist and are not in the record.",
+  "what": "Every archived night re-run with the current system. P(score) = mean(book implied, layered scorer model) -- the book alone where the model cannot rate a player (MLS, internationals, unmatched). Top Bin = confirmed starters with P >= 0.45, ranked by P, at most 2 per match, no nightly ceiling, as 1u singles; no price floor. Prices are the ones held on that night's board; model numbers are soccer/shadow/<date>.json, built only from data before each date. The Opener was removed 2026-10-15 and the Brace backtested in its place (see `brace`). Lunch Special and Nightcap no longer exist and are not in the record.",
   "nights": {
    "2026-08-27": [
     {
@@ -118,6 +118,14 @@
      "odds": 100,
      "pscore": 0.4587,
      "p_model": 0.41744,
+     "won": true,
+     "net": 1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Raphinha",
+     "odds": 100,
+     "npxg90": 0.415,
      "won": true,
      "net": 1.0
     }
@@ -138,6 +146,14 @@
      "odds": -105,
      "pscore": 0.5028,
      "p_model": 0.49335,
+     "won": true,
+     "net": 0.9524
+    },
+    {
+     "kind": "brace",
+     "name": "Erling Haaland",
+     "odds": -105,
+     "npxg90": 0.695,
      "won": true,
      "net": 0.9524
     }
@@ -178,6 +194,14 @@
      "p_model": 0.49642,
      "won": true,
      "net": 1.38
+    },
+    {
+     "kind": "brace",
+     "name": "Orri Steinn Oskarsson",
+     "odds": 150,
+     "npxg90": 0.537,
+     "won": true,
+     "net": 1.5
     }
    ],
    "2026-08-30": [
@@ -207,6 +231,14 @@
      "p_model": 0.40723,
      "won": false,
      "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Kylian Mbappe",
+     "odds": -250,
+     "npxg90": 0.626,
+     "won": true,
+     "net": 0.4
     }
    ],
    "2026-08-31": [
@@ -236,6 +268,14 @@
      "p_model": 0.35367,
      "won": true,
      "net": 0.7519
+    },
+    {
+     "kind": "brace",
+     "name": "Donyell Malen",
+     "odds": 100,
+     "npxg90": 0.637,
+     "won": true,
+     "net": 1.0
     }
    ],
    "2026-09-03": [],
@@ -275,6 +315,14 @@
      "p_model": 0.43895,
      "won": true,
      "net": 1.15
+    },
+    {
+     "kind": "brace",
+     "name": "Deniz Undav",
+     "odds": 100,
+     "npxg90": 0.616,
+     "won": true,
+     "net": 1.0
     }
    ],
    "2026-09-05": [
@@ -331,6 +379,14 @@
      "p_model": 0.44872,
      "won": false,
      "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Donyell Malen",
+     "odds": -110,
+     "npxg90": 0.685,
+     "won": false,
+     "net": -1.0
     }
    ],
    "2026-09-06": [],
@@ -380,6 +436,14 @@
      "p_model": null,
      "won": true,
      "net": 1.2
+    },
+    {
+     "kind": "brace",
+     "name": "Erling Haaland",
+     "odds": -115,
+     "npxg90": 0.685,
+     "won": true,
+     "net": 0.8696
     }
    ],
    "2026-09-09": [
@@ -517,6 +581,14 @@
      "p_model": null,
      "won": true,
      "net": 1.2
+    },
+    {
+     "kind": "brace",
+     "name": "Lionel Messi",
+     "odds": -115,
+     "npxg90": 0.554,
+     "won": false,
+     "net": -1.0
     }
    ],
    "2026-09-10": [
@@ -564,6 +636,14 @@
      "p_model": null,
      "won": true,
      "net": 1.2
+    },
+    {
+     "kind": "brace",
+     "name": "Anastasios Douvikas",
+     "odds": 120,
+     "npxg90": 0.527,
+     "won": true,
+     "net": 1.2
     }
    ],
    "2026-09-11": [
@@ -573,6 +653,14 @@
      "odds": 110,
      "pscore": 0.4513,
      "p_model": 0.42637,
+     "won": false,
+     "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Esteban Lepaul",
+     "odds": 110,
+     "npxg90": 0.402,
      "won": false,
      "net": -1.0
     }
@@ -649,6 +737,14 @@
      "p_model": 0.43241,
      "won": true,
      "net": 1.1
+    },
+    {
+     "kind": "brace",
+     "name": "Patrik Schick",
+     "odds": 105,
+     "npxg90": 0.615,
+     "won": true,
+     "net": 1.05
     }
    ],
    "2026-09-13": [
@@ -696,6 +792,14 @@
      "p_model": 0.41613,
      "won": false,
      "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Erling Haaland",
+     "odds": 100,
+     "npxg90": 0.684,
+     "won": true,
+     "net": 1.0
     }
    ],
    "2026-09-14": [
@@ -732,6 +836,14 @@
      "odds": 140,
      "pscore": 0.4519,
      "p_model": 0.4871,
+     "won": false,
+     "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Georges Mikautadze",
+     "odds": 140,
+     "npxg90": 0.533,
      "won": false,
      "net": -1.0
     }
@@ -772,6 +884,14 @@
      "p_model": 0.41629,
      "won": false,
      "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Carlos Espi",
+     "odds": -125,
+     "npxg90": 0.539,
+     "won": true,
+     "net": 0.8
     }
    ],
    "2026-09-16": [
@@ -801,6 +921,14 @@
      "p_model": 0.45795,
      "won": true,
      "net": 0.5319
+    },
+    {
+     "kind": "brace",
+     "name": "Patrik Schick",
+     "odds": -200,
+     "npxg90": 0.619,
+     "won": false,
+     "net": -1.0
     }
    ],
    "2026-09-17": [
@@ -839,6 +967,14 @@
      "odds": 120,
      "pscore": 0.4646,
      "p_model": 0.47473,
+     "won": true,
+     "net": 1.2
+    },
+    {
+     "kind": "brace",
+     "name": "Igor Thiago",
+     "odds": 120,
+     "npxg90": 0.455,
      "won": true,
      "net": 1.2
     }
@@ -915,6 +1051,14 @@
      "p_model": null,
      "won": true,
      "net": 1.2
+    },
+    {
+     "kind": "brace",
+     "name": "Brian White",
+     "odds": 120,
+     "npxg90": 0.575,
+     "won": true,
+     "net": 1.2
     }
    ],
    "2026-09-20": [
@@ -953,6 +1097,14 @@
      "p_model": null,
      "won": true,
      "net": 1.1
+    },
+    {
+     "kind": "brace",
+     "name": "Kylian Mbappe",
+     "odds": -115,
+     "npxg90": 0.649,
+     "won": false,
+     "net": -1.0
     }
    ],
    "2026-09-23": [],
@@ -963,6 +1115,14 @@
      "odds": -162,
      "pscore": 0.6183,
      "p_model": null,
+     "won": true,
+     "net": 0.6173
+    },
+    {
+     "kind": "brace",
+     "name": "Kylian Mbappe",
+     "odds": -162,
+     "npxg90": 0.648,
      "won": true,
      "net": 0.6173
     }
@@ -1030,6 +1190,14 @@
      "p_model": null,
      "won": true,
      "net": 1.2
+    },
+    {
+     "kind": "brace",
+     "name": "Brian White",
+     "odds": -120,
+     "npxg90": 0.58,
+     "won": true,
+     "net": 0.8333
     }
    ],
    "2026-09-27": [
@@ -1059,6 +1227,14 @@
      "p_model": null,
      "won": false,
      "net": -1.0
+    },
+    {
+     "kind": "brace",
+     "name": "Lionel Messi",
+     "odds": -129,
+     "npxg90": 0.574,
+     "won": true,
+     "net": 0.7752
     }
    ],
    "2026-09-28": [],
@@ -1089,6 +1265,14 @@
      "p_model": null,
      "won": true,
      "net": 1.1
+    },
+    {
+     "kind": "brace",
+     "name": "Harry Kane",
+     "odds": 100,
+     "npxg90": 0.658,
+     "won": true,
+     "net": 1.0
     }
    ],
    "2026-09-30": [
@@ -1111,11 +1295,12 @@
      "net": -1.0
     },
     {
-     "kind": "ftd",
+     "kind": "brace",
      "name": "Lautaro Martinez",
-     "odds": 375,
+     "odds": -138,
+     "npxg90": 0.659,
      "won": true,
-     "net": 3.75
+     "net": 0.7246
     }
    ],
    "2026-10-01": [
@@ -1147,9 +1332,10 @@
      "net": 1.2
     },
     {
-     "kind": "ftd",
-     "name": "Matias Goncalo Ramos",
-     "odds": 550,
+     "kind": "brace",
+     "name": "Danny Musovski",
+     "odds": 120,
+     "npxg90": 0.366,
      "won": false,
      "net": -1.0
     }
@@ -1174,9 +1360,10 @@
      "net": -1.0
     },
     {
-     "kind": "ftd",
-     "name": "Mika Godts",
-     "odds": 800,
+     "kind": "brace",
+     "name": "Ousmane Dembele",
+     "odds": 115,
+     "npxg90": 0.397,
      "won": false,
      "net": -1.0
     }
@@ -1201,11 +1388,12 @@
      "net": 1.2
     },
     {
-     "kind": "ftd",
-     "name": "Bradley Barcola",
-     "odds": 700,
-     "won": false,
-     "net": -1.0
+     "kind": "brace",
+     "name": "Pio Esposito",
+     "odds": 120,
+     "npxg90": 0.503,
+     "won": true,
+     "net": 1.2
     }
    ],
    "2026-10-06": [
@@ -1273,9 +1461,10 @@
      "net": -1.0
     },
     {
-     "kind": "ftd",
-     "name": "Lautaro Martinez",
-     "odds": 333,
+     "kind": "brace",
+     "name": "Lamine Yamal",
+     "odds": 110,
+     "npxg90": 0.468,
      "won": false,
      "net": -1.0
     }
@@ -1291,9 +1480,10 @@
      "net": -1.0
     },
     {
-     "kind": "ftd",
+     "kind": "brace",
      "name": "Serhou Guirassy",
-     "odds": 300,
+     "odds": -162,
+     "npxg90": 0.58,
      "won": false,
      "net": -1.0
     }
@@ -1343,5 +1533,148 @@
    ]
   },
   "scoreprob_note": "2026-10-10: the lunch merge above described the old record; the SCOREPROB restatement rebuilt Top Bin from scratch."
+ },
+ "brace": {
+  "date": "2026-10-15",
+  "what": "Owner: \"get rid of the opener in the ledger. backtest brace over previous slates and update ledger\". The Opener (first goalscorer, 11 graded, 1 won, -6.25u on 11u, 2026-09-30..10-14) is BACKED OUT of cats, history and the restated nights -- the same treatment as the chef/family/salami removals. In its place THE BRACE is backtested on every graded night since 2026-08-27 by its live rule (soccer_fgs.brace_pick): among that night's Top Bin legs (confirmed starters), priced +250 or shorter, the highest npxG/90 x decimal anytime price, 1u anytime at the leg's held price. Nights with no qualifying leg have no Brace. Each night's Opener net was subtracted and its Brace net added from that night forward, so history and cats reconcile. Nights 2026-08-27..10-09 carry the Brace inside restated.nights; 10-10..10-14 are listed below.",
+  "opener_removed": {
+   "graded": 11,
+   "won": 1,
+   "units": -6.25,
+   "staked": 11.0,
+   "nights": {
+    "2026-09-30": [
+     {
+      "kind": "ftd",
+      "name": "Lautaro Martinez",
+      "odds": 375,
+      "won": true,
+      "net": 3.75
+     }
+    ],
+    "2026-10-01": [
+     {
+      "kind": "ftd",
+      "name": "Matias Goncalo Ramos",
+      "odds": 550,
+      "won": false,
+      "net": -1.0
+     }
+    ],
+    "2026-10-02": [
+     {
+      "kind": "ftd",
+      "name": "Mika Godts",
+      "odds": 800,
+      "won": false,
+      "net": -1.0
+     }
+    ],
+    "2026-10-05": [
+     {
+      "kind": "ftd",
+      "name": "Bradley Barcola",
+      "odds": 700,
+      "won": false,
+      "net": -1.0
+     }
+    ],
+    "2026-10-06": [
+     {
+      "kind": "ftd",
+      "name": "Lautaro Martinez",
+      "odds": 333,
+      "won": false,
+      "net": -1.0
+     }
+    ],
+    "2026-10-09": [
+     {
+      "kind": "ftd",
+      "name": "Serhou Guirassy",
+      "odds": 300,
+      "won": false,
+      "net": -1.0
+     }
+    ],
+    "2026-10-10": [
+     {
+      "kind": "ftd",
+      "net": -1.0,
+      "live": true
+     }
+    ],
+    "2026-10-11": [
+     {
+      "kind": "ftd",
+      "net": -1.0,
+      "live": true
+     }
+    ],
+    "2026-10-12": [
+     {
+      "kind": "ftd",
+      "net": -1.0,
+      "live": true
+     }
+    ],
+    "2026-10-13": [
+     {
+      "kind": "ftd",
+      "net": -1.0,
+      "live": true
+     }
+    ],
+    "2026-10-14": [
+     {
+      "kind": "ftd",
+      "net": -1.0,
+      "live": true
+     }
+    ]
+   }
+  },
+  "nights": {
+   "2026-10-10": {
+    "kind": "brace",
+    "name": "Patrik Schick",
+    "odds": 120,
+    "npxg90": 0.64,
+    "won": true,
+    "net": 1.2
+   },
+   "2026-10-11": {
+    "kind": "brace",
+    "name": "Erling Haaland",
+    "odds": 125,
+    "npxg90": 0.698,
+    "won": true,
+    "net": 1.25
+   },
+   "2026-10-12": {
+    "kind": "brace",
+    "name": "Nikola Krstovic",
+    "odds": 110,
+    "npxg90": 0.601,
+    "won": true,
+    "net": 1.1
+   },
+   "2026-10-13": {
+    "kind": "brace",
+    "name": "Lautaro Martinez",
+    "odds": -125,
+    "npxg90": 0.679,
+    "won": true,
+    "net": 0.8
+   },
+   "2026-10-14": {
+    "kind": "brace",
+    "name": "Erling Haaland",
+    "odds": -110,
+    "npxg90": 0.701,
+    "won": true,
+    "net": 0.9091
+   }
+  }
  }
 }

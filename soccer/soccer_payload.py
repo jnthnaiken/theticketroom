@@ -362,7 +362,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     # D.tickets, exactly like football's first-TD pick: kind 'ftd', leg flagged ftd:true, graded on
     # the player's ftd1 (scored his match's first goal). soccer_grade.fold() adds it to the tickets.
     ftd_t = None
-    # BRACE-2026-10-15 (soccer_fgs.py): from 2026-10-16 the special slot carries ✌️ THE BRACE -- a second
+    # BRACE-2026-10-15 (soccer_fgs.py): from 2026-10-16 the special slot carries 👟 THE BRACE -- a second
     # 1u ANYTIME unit on the best-value Top Bin leg -- instead of the first-goalscorer Opener. A slate
     # whose cache was written by the Opener (no `kind`) keeps its placed first-goal bet untouched.
     import soccer_fgs as _sf
@@ -381,7 +381,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             _leg = {'name': _row['name'], 'team': _p['team'], 'total': _p['TOTAL'], 'aT': 100,
                     'wf': 1.0, 'gmatch': _p['gmatch'], 'gtime': _p['gtime'], 'game': _p['game'],
                     'late': False, 'odds': _o, 'status': _p['status']}
-            ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '✌️',
+            ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '👟',
                      'note': (f"{_row['name']} to score in {_p['gmatch']}. Already on the Top Bin, and the one the model "
                               f"likes most at the price, so he gets a second unit. "
                               + _pick(BRACE_LINES, _row['name'] + date).format(who=_surname(_row['name']))),

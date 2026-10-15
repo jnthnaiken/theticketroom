@@ -139,7 +139,7 @@ def choose(players, fgs, cache, started):
 
 
 # ------------------------------------------------------------------------------------------------
-# BRACE-2026-10-15 -- ✌️ THE BRACE replaces the Opener (first goalscorer) from 2026-10-16.
+# BRACE-2026-10-15 -- 👟 THE BRACE replaces the Opener (first goalscorer) from 2026-10-16.
 #
 # Owner: "ok well thats not working so lets come up with a better plan" (the Opener was 1-10, -6.3u),
 # then "if they dont qualify for the board then they shouldnt be eligible for a special", then picked
@@ -196,7 +196,7 @@ def is_brace_cache(cache):
 
 
 def brace_choose(players, legs, cache, started):
-    """Sticky ✌️ pick. Returns the row (or None) and writes the cache when it (re)picks."""
+    """Sticky 👟 pick. Returns the row (or None) and writes the cache when it (re)picks."""
     legs = list(dict.fromkeys(legs))
     if is_brace_cache(cache):
         c = json.load(open(cache, encoding='utf-8'))
