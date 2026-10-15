@@ -25,7 +25,7 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 68 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)
+EXPECT_SEAMS = 70 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -45,7 +45,7 @@ def seams(payload_js):
     # cafeteria line belonged to the retired Lunch Special). FTDIDLE-2026-09-29: football's slot is
     # now 🚨 Opening Drive, the one first-TD pick, so its empty line is football copy too (owner:
     # "it has nothing to do with lunch anymore").
-    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'🎯 This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
+    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
         ' const closed=\'<div class="closed">🏈 Still in the huddle — no first-touchdown call on this slate yet. It comes in once the first-TD prices post. Check back before kickoff.</div>\';')
     add('title', '<title>HR Prop Ticket Room</title>', '<title>The Football Room</title>')
     add('eyebrow', 'eyebrow">Home-Run Props · ', 'eyebrow">Anytime Touchdown · ')
@@ -86,8 +86,8 @@ def seams(payload_js):
                     '<option value="hr9">Inside-10 share · biggest</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>',
                      '<option value="lift">Weather lift · biggest</option>')
-    add('tonight-count', "+kc.moon+' 🚀'", "")   # FIRSTTD-2026-09-29: no parlays on football; the tile reads 🚨 · 🎯
-    add('tracker-moon', "['moon','🚀','Moonshots']", "")   # owner: "theres no paydirt. that was the moons." -- row gone (the defs array keeps a harmless trailing comma)
+    add('tonight-count', "+kc.moon+' 🥎'", "")   # FIRSTTD-2026-09-29: no parlays on football; the tile reads 🚨 · 🎯
+    add('tracker-moon', "['moon','🥎','Moonshots']", "")   # owner: "theres no paydirt. that was the moons." -- row gone (the defs array keeps a harmless trailing comma)
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🏈'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🏈'")
     add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Paydirt',moon)")
@@ -113,10 +113,10 @@ def seams(payload_js):
     # KINGEZ3-2026-10-05: drawPool() renders the 👑 pick as a normal ticket card (ticketCard), built from D.meta.longtd.
     # It is NOT in D.tickets, so liveCats/liveHist never count it -- not on the ledger. The price shown is his anytime TD.
     add('special-sec-late',
-        "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83d\\udca5 No jackpot pick posted right now.</div>';",
+        "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83c\\udfdf\\ufe0f No jackpot pick posted right now.</div>';",
         "var K=(D.meta.longtd||[]).map(function(g){var pk=g.picks||[],c=pk.filter(function(p){return p.crown;})[0]||pk[0];if(!c)return null;"
         "var P=D.players[c.name]||{},o=c.odds,oth=pk.filter(function(p){return p!==c;}).slice(0,3).map(function(p){return p.name+' '+(p.p*100).toFixed(1)+'%';}).join(', ');"
-        "return {name:'The Long Haul',kind:'kingez',badge:'\\ud83d\\udc51',nlegs:1,anchor:c.name,lock:(P.gtime||'').replace(' ET',''),has_late:false,final:false,rr:null,wxsum:{},confleg:0,"
+        "return {name:'The Long Haul',kind:'kingez',badge:'\\ud83c\\udfc6',nlegs:1,anchor:c.name,lock:(P.gtime||'').replace(' ET',''),has_late:false,final:false,rr:null,wxsum:{},confleg:0,"
         "parlay_am:(o>0?o:null),payout10:10*_dec(o),"
         "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'.',"
         "players:[{name:c.name,team:P.team,total:P.TOTAL,aT:P.aT,wf:P.wf,gmatch:P.gmatch,gtime:P.gtime,game:P.game,late:false,odds:o,status:P.status}]};}).filter(Boolean);"
@@ -126,8 +126,8 @@ def seams(payload_js):
         "${t.kind==='late'?' lunchwide nightcap':''}")
     add('special-tile-kc', "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
         "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
-    add('special-tile-cnt', "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '",
-        "var cnt=((D.meta.ftd&&D.meta.ftd.players)?1:0)+' 🚨 \\u00b7 '")
+    add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '",
+        "var cnt=((D.meta.ftd&&D.meta.ftd.players)?1:0)+' 🏁 \\u00b7 '")   # SPORTEMOJI-2026-10-15
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏈':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
@@ -142,19 +142,22 @@ def seams(payload_js):
     # still has to rewrite them; only the SOURCE strings moved. The fork exited 4 on all six the
     # first time it ran after that rename, which is the seam guard doing its job: it refused to
     # publish a football page built off markup it no longer recognised.
-    add('howto-order', 'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-                       'Read it top to bottom: 🚨 Opening Drive, 🎯 Red Zone.')
+    add('howto-order', 'Read it top to bottom: ⚾ Daily Dinger, 🏟️ Long Ball Jackpot, 🧢 Anchors, 🥎 Moonshots.',
+                       'Read it top to bottom: 🏁 Opening Drive, 🏈 Red Zone.')
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All players</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per player —')
     # SINGLESNAME-2026-09-29, owner: "dont need to call them anchors anymore either if we're just doing singles".
     # Football has been singles-only since NFLSINGLES-2026-09-27 (VALUESINGLES since 09-28), so every place
     # the page says Anchors / ⚓️ for kind 'builder' says Red Zone / 🎯 (renamed from Singles / 🎟️ the same day, owner's pick). Kind stays 'builder' so grading and
     # nfl_season.json keep reconciling.
-    add('kind-anchors', '<span class="ke">⚓️</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
-                        '<span class="ke">🎯</span><div><b>Red Zone</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span>')
-    add('tracker-builder', "['builder','⚓️','Anchors']", "['builder','🎯','Red Zone']")
+    add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
+                        '<span class="ke">🏈</span><div><b>Red Zone</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span>')
+    # SPORTEMOJI-2026-10-15: football's own emoji table for the ticket card (index.html KEMO).
+    add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">🏈</span>')   # SPORTEMOJI-2026-10-15: the How To sample ticket
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={builder:'🏈',ftd:'🏁',kingez:'🏆'};")
+    add('tracker-builder', "['builder','🧢','Anchors']", "['builder','🏈','Red Zone']")
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Red Zone',builder)")
-    add('tonight-builder', "+kc.builder+' ⚓️ \\u00b7 '", "+kc.builder+' 🎯'")
+    add('tonight-builder', "+kc.builder+' 🧢 \\u00b7 '", "+kc.builder+' 🏈'")
     # RESEARCH-2026-10-12: the How-To step for the old Builder described ticking bats and hitting a
     # Build button, neither of which exists now. Soccer already seamed that sentence; football did
     # not, so the football room would have told its readers to sort a table of "bats".
@@ -250,7 +253,7 @@ def seams(payload_js):
         "title=\"${p.hr?'homered \\u2014 click to undo':'mark homered'}\">${p.hr?'\\u26be':''}",
         "title=\"${p.hr?'scored \\u2014 click to undo':'mark scored'}\">${p.hr?'\\ud83c\\udfc8':''}")
     add('kind-moonshots',   # owner 2026-09-29: "theres no paydirt. that was the moons." -- entry removed
-        '<div class="kind"><span class="ke">🚀</span><div><b>Moonshots</b><span>Two three-leg round robins per anchor, eight a night. This is the one diagrammed above.</span></div></div>', '')
+        '<div class="kind"><span class="ke">🥎</span><div><b>Moonshots</b><span>Two three-leg round robins per anchor, eight a night. This is the one diagrammed above.</span></div></div>', '')
     add('cal-11-base', "t:'Base score', d:'Kasper\u2019s khr score, the base of the model.'",
                        "t:'Model chance', d:'The model\u2019s own probability that he finds the "
                        "end zone, before the price.'")
@@ -276,16 +279,16 @@ def seams(payload_js):
     add('tracker-restated',
         "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'",
         "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
-    add('tracker-lunch', "['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot']",
-                         "['ftd','🚨','Opening Drive']")   # FIRSTTD-2026-09-29: replaces 🍱 Early / 🌃 Sunday Night
+    add('tracker-lunch', "['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot']",
+                         "['ftd','🏁','Opening Drive']")   # FIRSTTD-2026-09-29: replaces 🍱 Early / 🌃 Sunday Night
     add('kind-lunch',
-        '<span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
+        '<span class="ke">⚾</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day '
         'and you pick one — this is the best model score on their list. Not a bet we place.</span>',
-        '<span class="ke">🚨</span><div><b>Opening Drive</b><span>First touchdown. One pick a slate, placed before kickoff: the '
+        '<span class="ke">🏁</span><div><b>Opening Drive</b><span>First touchdown. One pick a slate, placed before kickoff: the '
         'player most likely to score his game\u2019s <i>first</i> touchdown, from the football alone \u2014 his share of the '
         'touches, his share near the goal line, how often he scores, and his offence against their defence. The odds do not pick him. 1u.</span>')
     add('kind-nightcap',
-        '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
+        '<div class="kind"><span class="ke">🏟️</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks '
         'the man who hits the <i>longest</i> homer that day — we rank park carry plus model '
         'score. Not a bet we place.</span></div></div>', '')
     # ---- 10. THE LIVE LOOP -- APPENDED LAST ------------------------------------------

@@ -190,7 +190,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
         for l in legs:
             wxs[meta_wx[str(l['game'])]['lean'].lower()] += 1
         T.append(dict(
-            name=t['name'], kind=t['kind'], badge=('🎯' if t['kind'] == 'builder' else t['badge']),   # SINGLESNAME-2026-09-29
+            name=t['name'], kind=t['kind'], badge=('🏈' if t['kind'] == 'builder' else t['badge']),   # SINGLESNAME-2026-09-29
             note=note_for(t['kind'], t['legs'], SRC, voice=voice, tname=t['name']),
             players=legs, nlegs=len(legs), anchor=t['anchor'],
             # ⚠️ NO ' ET' HERE. The renderer emits `<span>Lock ${t.lock} ET</span>` and appends
@@ -238,7 +238,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
                    odds=int(pk['odds']), status=p['status'], ftd=True)
         pf = pk.get('p_first')
         lead = f"If {recv} gets the ball first: " if recv else ''
-        return dict(name=(f"{_base} \u00b7 if {recv} receives" if recv else _base), kind='ftd', badge='🚨',
+        return dict(name=(f"{_base} \u00b7 if {recv} receives" if recv else _base), kind='ftd', badge='🏁',
                     # MADDEN-2026-09-29: no percentage in the prose -- the colour man sells the pick.
                     note=(f"{lead}{pk['name']} to score the first touchdown of "
                           f"{p['gmatch'].replace('@', ' at ')}. "
