@@ -1,0 +1,156 @@
+{
+ "_note": "UEL+UECL-2026-10-15. Built from slate_scan_browser's CUPSCOPE gate (gate set 96 core clubs): 36 fixtures on the ET date across the 18 covered competitions, 15 admitted -- 10 Europa League + 5 Conference League; 21 dropped for no top-five side (AZ v Hapoel Be'er Sheva, Celje v Omonia, Sparta Prague v Lillestrom, Benfica v Celtic, Hajduk v Ajax, etc.). No core-league or MLS fixtures today. Every admitted tie priced Anytime 15/15 and First Goalscorer 15/15, 0 unparsed (225 + 225 rows). xG: understat navigate-only window.playersData, 5 leagues x 2025+2026 = 4,940 rows, ten distinct fingerprints, byte-identical (sha fce36cf99ae9fbfd) to the 10-14 pull -- no league round since. Pruned to every row any stage of soccer_mock.lookup() can see for a priced name (lookup identical to the full feed for all 225 names). No impostor rows: every joined man whose understat club is not in his fixture is a real transfer (Vlahovic/Trossard/Kilicsoy/Cerny to Besiktas, Yaremchuk to Olympiacos, Fofana to Sunderland, etc.). Kickoffs are slate-relative UTC minutes: 16:45Z (1005) and 19:00Z (1140). JOINGATE (measured with the real engine, not estimated) drops TWO ties: csu-craiova-v-getafe 6/15 = 40% and union-st-gilloise-v-real-sociedad 5/15 = 33% -- the Craiova and Union SG men are outside Understat entirely; both left in this file on purpose since the gate lives in soccer_mock.py. marseille-v-olympiacos and torreense-v-sunderland sit exactly ON the 60% floor. 13 ties go to the board.",
+ "date": "2026-10-15",
+ "matches": {
+  "lech-poznan-v-bayer-leverkusen": {
+   "home": "Lech Poznan",
+   "away": "Bayer Leverkusen",
+   "kickoff": 1005,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915576"
+   ]
+  },
+  "lyon-v-crystal-palace": {
+   "home": "Lyon",
+   "away": "Crystal Palace",
+   "kickoff": 1005,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915566"
+   ]
+  },
+  "rb-salzburg-v-ac-milan": {
+   "home": "RB Salzburg",
+   "away": "AC Milan",
+   "kickoff": 1005,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915568"
+   ]
+  },
+  "torreense-v-sunderland": {
+   "home": "Torreense",
+   "away": "Sunderland",
+   "kickoff": 1005,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915575"
+   ]
+  },
+  "union-st-gilloise-v-real-sociedad": {
+   "home": "Union St.-Gilloise",
+   "away": "Real Sociedad",
+   "kickoff": 1005,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915574"
+   ]
+  },
+  "cska-sofia-v-as-monaco": {
+   "home": "CSKA Sofia",
+   "away": "AS Monaco",
+   "kickoff": 1005,
+   "league": "UECL",
+   "espn": [
+    "uefa.europa.conf",
+    "401915855"
+   ]
+  },
+  "csu-craiova-v-getafe": {
+   "home": "CSU Craiova",
+   "away": "Getafe",
+   "kickoff": 1005,
+   "league": "UECL",
+   "espn": [
+    "uefa.europa.conf",
+    "401915854"
+   ]
+  },
+  "afc-bournemouth-v-sk-sturm-graz": {
+   "home": "AFC Bournemouth",
+   "away": "SK Sturm Graz",
+   "kickoff": 1140,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915571"
+   ]
+  },
+  "celta-vigo-v-juventus": {
+   "home": "Celta Vigo",
+   "away": "Juventus",
+   "kickoff": 1140,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915560"
+   ]
+  },
+  "marseille-v-olympiacos": {
+   "home": "Marseille",
+   "away": "Olympiacos",
+   "kickoff": 1140,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915550"
+   ]
+  },
+  "stade-rennais-v-ofi-crete": {
+   "home": "Stade Rennais",
+   "away": "OFI Crete",
+   "kickoff": 1140,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915572"
+   ]
+  },
+  "tsg-hoffenheim-v-besiktas": {
+   "home": "TSG Hoffenheim",
+   "away": "Besiktas",
+   "kickoff": 1140,
+   "league": "UEL",
+   "espn": [
+    "uefa.europa",
+    "401915563"
+   ]
+  },
+  "atalanta-v-pafos": {
+   "home": "Atalanta",
+   "away": "Pafos",
+   "kickoff": 1140,
+   "league": "UECL",
+   "espn": [
+    "uefa.europa.conf",
+    "401915746"
+   ]
+  },
+  "brighton-hove-albion-v-kauno-zalgiris": {
+   "home": "Brighton & Hove Albion",
+   "away": "Kauno Zalgiris",
+   "kickoff": 1140,
+   "league": "UECL",
+   "espn": [
+    "uefa.europa.conf",
+    "401915853"
+   ]
+  },
+  "sc-freiburg-v-jablonec": {
+   "home": "SC Freiburg",
+   "away": "Jablonec",
+   "kickoff": 1140,
+   "league": "UECL",
+   "espn": [
+    "uefa.europa.conf",
+    "401915848"
+   ]
+  }
+ }
+}
