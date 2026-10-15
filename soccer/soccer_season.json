@@ -89,10 +89,10 @@
  ],
  "cats": {
   "builder": {
-   "graded": 155,
-   "won": 97,
-   "units": 27.54710775492837,
-   "staked": 155.0
+   "graded": 120,
+   "won": 72,
+   "units": 13.05650775492837,
+   "staked": 120.0
   },
   "moon": {
    "graded": 0,
@@ -103,8 +103,8 @@
   "brace": {
    "graded": 35,
    "won": 25,
-   "units": 14.490599999999999,
-   "staked": 35.0
+   "units": 28.981199999999994,
+   "staked": 70.0
   }
  },
  "stake": 1,
@@ -115,21 +115,13 @@
   "nights": {
    "2026-08-27": [
     {
-     "kind": "builder",
-     "name": "Raphinha",
-     "odds": 100,
-     "pscore": 0.4587,
-     "p_model": 0.41744,
-     "won": true,
-     "net": 1.0
-    },
-    {
      "kind": "brace",
      "name": "Raphinha",
      "odds": 100,
      "npxg90": 0.415,
      "won": true,
-     "net": 1.0
+     "net": 2.0,
+     "stake": 2.0
     }
    ],
    "2026-08-28": [
@@ -143,21 +135,13 @@
      "net": -1.0
     },
     {
-     "kind": "builder",
-     "name": "Erling Haaland",
-     "odds": -105,
-     "pscore": 0.5028,
-     "p_model": 0.49335,
-     "won": true,
-     "net": 0.9524
-    },
-    {
      "kind": "brace",
      "name": "Erling Haaland",
      "odds": -105,
      "npxg90": 0.695,
      "won": true,
-     "net": 0.9524
+     "net": 1.9048,
+     "stake": 2.0
     }
    ],
    "2026-08-29": [
@@ -181,15 +165,6 @@
     },
     {
      "kind": "builder",
-     "name": "Orri Steinn Oskarsson",
-     "odds": 150,
-     "pscore": 0.4621,
-     "p_model": 0.52429,
-     "won": true,
-     "net": 1.5
-    },
-    {
-     "kind": "builder",
      "name": "Alexander Isak",
      "odds": 138,
      "pscore": 0.4583,
@@ -203,19 +178,11 @@
      "odds": 150,
      "npxg90": 0.537,
      "won": true,
-     "net": 1.5
+     "net": 3.0,
+     "stake": 2.0
     }
    ],
    "2026-08-30": [
-    {
-     "kind": "builder",
-     "name": "Kylian Mbappe",
-     "odds": -250,
-     "pscore": 0.6505,
-     "p_model": 0.58674,
-     "won": true,
-     "net": 0.4
-    },
     {
      "kind": "builder",
      "name": "Esteban Lepaul",
@@ -240,7 +207,8 @@
      "odds": -250,
      "npxg90": 0.626,
      "won": true,
-     "net": 0.4
+     "net": 0.8,
+     "stake": 2.0
     }
    ],
    "2026-08-31": [
@@ -252,15 +220,6 @@
      "p_model": 0.42958,
      "won": true,
      "net": 0.7246
-    },
-    {
-     "kind": "builder",
-     "name": "Donyell Malen",
-     "odds": 100,
-     "pscore": 0.4873,
-     "p_model": 0.4746,
-     "won": true,
-     "net": 1.0
     },
     {
      "kind": "builder",
@@ -277,7 +236,8 @@
      "odds": 100,
      "npxg90": 0.637,
      "won": true,
-     "net": 1.0
+     "net": 2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-03": [],
@@ -290,15 +250,6 @@
      "p_model": 0.51265,
      "won": false,
      "net": -1.0
-    },
-    {
-     "kind": "builder",
-     "name": "Deniz Undav",
-     "odds": 100,
-     "pscore": 0.4752,
-     "p_model": 0.45031,
-     "won": true,
-     "net": 1.0
     },
     {
      "kind": "builder",
@@ -324,7 +275,8 @@
      "odds": 100,
      "npxg90": 0.616,
      "won": true,
-     "net": 1.0
+     "net": 2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-05": [
@@ -345,15 +297,6 @@
      "p_model": 0.57801,
      "won": true,
      "net": 0.8333
-    },
-    {
-     "kind": "builder",
-     "name": "Donyell Malen",
-     "odds": -110,
-     "pscore": 0.5195,
-     "p_model": 0.51512,
-     "won": false,
-     "net": -1.0
     },
     {
      "kind": "builder",
@@ -388,7 +331,8 @@
      "odds": -110,
      "npxg90": 0.685,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-06": [],
@@ -414,15 +358,6 @@
     },
     {
      "kind": "builder",
-     "name": "Erling Haaland",
-     "odds": -115,
-     "pscore": 0.5131,
-     "p_model": 0.49134,
-     "won": true,
-     "net": 0.8696
-    },
-    {
-     "kind": "builder",
      "name": "Alvaro Rodriguez",
      "odds": 120,
      "pscore": 0.4587,
@@ -445,7 +380,8 @@
      "odds": -115,
      "npxg90": 0.685,
      "won": true,
-     "net": 0.8696
+     "net": 1.7392,
+     "stake": 2.0
     }
    ],
    "2026-09-09": [
@@ -502,15 +438,6 @@
      "p_model": 0.38771,
      "won": true,
      "net": 0.4444
-    },
-    {
-     "kind": "builder",
-     "name": "Lionel Messi",
-     "odds": -115,
-     "pscore": 0.5349,
-     "p_model": null,
-     "won": false,
-     "net": -1.0
     },
     {
      "kind": "builder",
@@ -590,7 +517,8 @@
      "odds": -115,
      "npxg90": 0.554,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-10": [
@@ -631,40 +559,24 @@
      "net": -1.0
     },
     {
-     "kind": "builder",
-     "name": "Anastasios Douvikas",
-     "odds": 120,
-     "pscore": 0.4545,
-     "p_model": null,
-     "won": true,
-     "net": 1.2
-    },
-    {
      "kind": "brace",
      "name": "Anastasios Douvikas",
      "odds": 120,
      "npxg90": 0.527,
      "won": true,
-     "net": 1.2
+     "net": 2.4,
+     "stake": 2.0
     }
    ],
    "2026-09-11": [
-    {
-     "kind": "builder",
-     "name": "Esteban Lepaul",
-     "odds": 110,
-     "pscore": 0.4513,
-     "p_model": 0.42637,
-     "won": false,
-     "net": -1.0
-    },
     {
      "kind": "brace",
      "name": "Esteban Lepaul",
      "odds": 110,
      "npxg90": 0.402,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-12": [
@@ -694,15 +606,6 @@
      "p_model": null,
      "won": true,
      "net": 0.7519
-    },
-    {
-     "kind": "builder",
-     "name": "Patrik Schick",
-     "odds": 105,
-     "pscore": 0.5104,
-     "p_model": 0.5329,
-     "won": true,
-     "net": 1.05
     },
     {
      "kind": "builder",
@@ -746,7 +649,8 @@
      "odds": 105,
      "npxg90": 0.615,
      "won": true,
-     "net": 1.05
+     "net": 2.1,
+     "stake": 2.0
     }
    ],
    "2026-09-13": [
@@ -767,15 +671,6 @@
      "p_model": 0.45396,
      "won": false,
      "net": -1.0
-    },
-    {
-     "kind": "builder",
-     "name": "Erling Haaland",
-     "odds": 100,
-     "pscore": 0.4796,
-     "p_model": 0.45912,
-     "won": true,
-     "net": 1.0
     },
     {
      "kind": "builder",
@@ -801,7 +696,8 @@
      "odds": 100,
      "npxg90": 0.684,
      "won": true,
-     "net": 1.0
+     "net": 2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-14": [
@@ -833,21 +729,13 @@
      "net": 1.1
     },
     {
-     "kind": "builder",
-     "name": "Georges Mikautadze",
-     "odds": 140,
-     "pscore": 0.4519,
-     "p_model": 0.4871,
-     "won": false,
-     "net": -1.0
-    },
-    {
      "kind": "brace",
      "name": "Georges Mikautadze",
      "odds": 140,
      "npxg90": 0.533,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-15": [
@@ -859,15 +747,6 @@
      "p_model": 0.60382,
      "won": true,
      "net": 0.4
-    },
-    {
-     "kind": "builder",
-     "name": "Carlos Espi",
-     "odds": -125,
-     "pscore": 0.5665,
-     "p_model": 0.57754,
-     "won": true,
-     "net": 0.8
     },
     {
      "kind": "builder",
@@ -893,19 +772,11 @@
      "odds": -125,
      "npxg90": 0.539,
      "won": true,
-     "net": 0.8
+     "net": 1.6,
+     "stake": 2.0
     }
    ],
    "2026-09-16": [
-    {
-     "kind": "builder",
-     "name": "Patrik Schick",
-     "odds": -200,
-     "pscore": 0.6162,
-     "p_model": 0.56576,
-     "won": false,
-     "net": -1.0
-    },
     {
      "kind": "builder",
      "name": "Gabriel Jesus",
@@ -930,7 +801,8 @@
      "odds": -200,
      "npxg90": 0.619,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-17": [
@@ -964,21 +836,13 @@
      "net": 0.8333
     },
     {
-     "kind": "builder",
-     "name": "Igor Thiago",
-     "odds": 120,
-     "pscore": 0.4646,
-     "p_model": 0.47473,
-     "won": true,
-     "net": 1.2
-    },
-    {
      "kind": "brace",
      "name": "Igor Thiago",
      "odds": 120,
      "npxg90": 0.455,
      "won": true,
-     "net": 1.2
+     "net": 2.4,
+     "stake": 2.0
     }
    ],
    "2026-09-19": [
@@ -1046,33 +910,16 @@
      "net": 1.1
     },
     {
-     "kind": "builder",
-     "name": "Brian White",
-     "odds": 120,
-     "pscore": 0.4545,
-     "p_model": null,
-     "won": true,
-     "net": 1.2
-    },
-    {
      "kind": "brace",
      "name": "Brian White",
      "odds": 120,
      "npxg90": 0.575,
      "won": true,
-     "net": 1.2
+     "net": 2.4,
+     "stake": 2.0
     }
    ],
    "2026-09-20": [
-    {
-     "kind": "builder",
-     "name": "Kylian Mbappe",
-     "odds": -115,
-     "pscore": 0.525,
-     "p_model": 0.51511,
-     "won": false,
-     "net": -1.0
-    },
     {
      "kind": "builder",
      "name": "Georges Mikautadze",
@@ -1106,27 +953,20 @@
      "odds": -115,
      "npxg90": 0.649,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-23": [],
    "2026-09-25": [
-    {
-     "kind": "builder",
-     "name": "Kylian Mbappe",
-     "odds": -162,
-     "pscore": 0.6183,
-     "p_model": null,
-     "won": true,
-     "net": 0.6173
-    },
     {
      "kind": "brace",
      "name": "Kylian Mbappe",
      "odds": -162,
      "npxg90": 0.648,
      "won": true,
-     "net": 0.6173
+     "net": 1.2346,
+     "stake": 2.0
     }
    ],
    "2026-09-26": [
@@ -1147,15 +987,6 @@
      "p_model": null,
      "won": false,
      "net": -1.0
-    },
-    {
-     "kind": "builder",
-     "name": "Brian White",
-     "odds": -120,
-     "pscore": 0.5455,
-     "p_model": null,
-     "won": true,
-     "net": 0.8333
     },
     {
      "kind": "builder",
@@ -1199,19 +1030,11 @@
      "odds": -120,
      "npxg90": 0.58,
      "won": true,
-     "net": 0.8333
+     "net": 1.6666,
+     "stake": 2.0
     }
    ],
    "2026-09-27": [
-    {
-     "kind": "builder",
-     "name": "Lionel Messi",
-     "odds": -129,
-     "pscore": 0.5633,
-     "p_model": null,
-     "won": true,
-     "net": 0.7752
-    },
     {
      "kind": "builder",
      "name": "Younes Ebnoutalib",
@@ -1236,7 +1059,8 @@
      "odds": -129,
      "npxg90": 0.574,
      "won": true,
-     "net": 0.7752
+     "net": 1.5504,
+     "stake": 2.0
     }
    ],
    "2026-09-28": [],
@@ -1249,15 +1073,6 @@
      "p_model": null,
      "won": false,
      "net": -1.0
-    },
-    {
-     "kind": "builder",
-     "name": "Harry Kane",
-     "odds": 100,
-     "pscore": 0.5,
-     "p_model": null,
-     "won": true,
-     "net": 1.0
     },
     {
      "kind": "builder",
@@ -1274,19 +1089,11 @@
      "odds": 100,
      "npxg90": 0.658,
      "won": true,
-     "net": 1.0
+     "net": 2.0,
+     "stake": 2.0
     }
    ],
    "2026-09-30": [
-    {
-     "kind": "builder",
-     "name": "Lautaro Martinez",
-     "odds": -138,
-     "pscore": 0.5798,
-     "p_model": null,
-     "won": true,
-     "net": 0.7246
-    },
     {
      "kind": "builder",
      "name": "Julian Alvarez",
@@ -1302,7 +1109,8 @@
      "odds": -138,
      "npxg90": 0.659,
      "won": true,
-     "net": 0.7246
+     "net": 1.4492,
+     "stake": 2.0
     }
    ],
    "2026-10-01": [
@@ -1311,15 +1119,6 @@
      "name": "Nick Woltemade",
      "odds": 100,
      "pscore": 0.5,
-     "p_model": null,
-     "won": false,
-     "net": -1.0
-    },
-    {
-     "kind": "builder",
-     "name": "Danny Musovski",
-     "odds": 120,
-     "pscore": 0.4545,
      "p_model": null,
      "won": false,
      "net": -1.0
@@ -1339,7 +1138,8 @@
      "odds": 120,
      "npxg90": 0.366,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-10-02": [
@@ -1353,21 +1153,13 @@
      "net": 0.9091
     },
     {
-     "kind": "builder",
-     "name": "Ousmane Dembele",
-     "odds": 115,
-     "pscore": 0.4651,
-     "p_model": null,
-     "won": false,
-     "net": -1.0
-    },
-    {
      "kind": "brace",
      "name": "Ousmane Dembele",
      "odds": 115,
      "npxg90": 0.397,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-10-05": [
@@ -1381,21 +1173,13 @@
      "net": 1.0
     },
     {
-     "kind": "builder",
-     "name": "Pio Esposito",
-     "odds": 120,
-     "pscore": 0.4545,
-     "p_model": null,
-     "won": true,
-     "net": 1.2
-    },
-    {
      "kind": "brace",
      "name": "Pio Esposito",
      "odds": 120,
      "npxg90": 0.503,
      "won": true,
-     "net": 1.2
+     "net": 2.4,
+     "stake": 2.0
     }
    ],
    "2026-10-06": [
@@ -1454,40 +1238,24 @@
      "net": -1.0
     },
     {
-     "kind": "builder",
-     "name": "Lamine Yamal",
-     "odds": 110,
-     "pscore": 0.4762,
-     "p_model": null,
-     "won": false,
-     "net": -1.0
-    },
-    {
      "kind": "brace",
      "name": "Lamine Yamal",
      "odds": 110,
      "npxg90": 0.468,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ],
    "2026-10-09": [
-    {
-     "kind": "builder",
-     "name": "Serhou Guirassy",
-     "odds": -162,
-     "pscore": 0.5677,
-     "p_model": 0.51716,
-     "won": false,
-     "net": -1.0
-    },
     {
      "kind": "brace",
      "name": "Serhou Guirassy",
      "odds": -162,
      "npxg90": 0.58,
      "won": false,
-     "net": -1.0
+     "net": -2.0,
+     "stake": 2.0
     }
    ]
   },
@@ -1538,7 +1306,7 @@
  },
  "brace": {
   "date": "2026-10-15",
-  "what": "The Brace, our 2u pick of the day: a second 1u anytime unit on one Top Bin player, on top of his single. Backtested on every graded night since 2026-08-27 by its live rule (soccer_fgs.brace_pick): among that night's Top Bin legs (confirmed starters), priced +250 or shorter, the highest npxG/90 x decimal anytime price, at the leg's held price. Nights with no qualifying leg have no Brace. 2026-08-27..10-09 carry it inside restated.nights; later nights are listed below.",
+  "what": "The Brace, our pick of the day: ONE 2u anytime ticket on the Top Bin player whose npxG/90 x decimal price is highest (confirmed starter, +250 or shorter). His 1u Top Bin single is not posted separately -- both units ride on the Brace, and the ledger books them there (cats.brace staked 2u a night; his single is not in cats.builder). Backtested on every graded night since 2026-08-27 by the live rule (soccer_fgs.brace_pick) at the leg's held price; nights with no qualifying leg have no Brace. 2026-08-27..10-09 carry it inside restated.nights; later nights are listed below.",
   "nights": {
    "2026-10-10": {
     "kind": "brace",
@@ -1546,7 +1314,8 @@
     "odds": 120,
     "npxg90": 0.64,
     "won": true,
-    "net": 1.2
+    "net": 2.4,
+    "stake": 2.0
    },
    "2026-10-11": {
     "kind": "brace",
@@ -1554,7 +1323,8 @@
     "odds": 125,
     "npxg90": 0.698,
     "won": true,
-    "net": 1.25
+    "net": 2.5,
+    "stake": 2.0
    },
    "2026-10-12": {
     "kind": "brace",
@@ -1562,7 +1332,8 @@
     "odds": 110,
     "npxg90": 0.601,
     "won": true,
-    "net": 1.1
+    "net": 2.2,
+    "stake": 2.0
    },
    "2026-10-13": {
     "kind": "brace",
@@ -1570,7 +1341,8 @@
     "odds": -125,
     "npxg90": 0.679,
     "won": true,
-    "net": 0.8
+    "net": 1.6,
+    "stake": 2.0
    },
    "2026-10-14": {
     "kind": "brace",
@@ -1578,7 +1350,8 @@
     "odds": -110,
     "npxg90": 0.701,
     "won": true,
-    "net": 0.9091
+    "net": 1.8182,
+    "stake": 2.0
    },
    "2026-10-15": {
     "kind": "brace",
@@ -1586,7 +1359,8 @@
     "odds": -110,
     "npxg90": 0.429,
     "won": true,
-    "net": 0.9091
+    "net": 1.8182,
+    "stake": 2.0
    }
   }
  }

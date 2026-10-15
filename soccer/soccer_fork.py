@@ -596,9 +596,9 @@ def seams(payload_js):
         '<div class="kind"><span class="ke">⚾</span><div><b>Daily Dinger</b><span>Free play. '
         'FanDuel publishes a short list of bats each day and you pick one — this is the best '
         'model score on their list. Not a bet we place.</span></div></div>',
-        '<div class="kind"><span class="ke">👟</span><div><b>The Brace</b><span>Our pick of the day, and it goes 2u. One Top Bin player gets a '
-        'second unit stacked on his single: of the starters already on the board at +250 or shorter, the man whose xG sits '
-        'furthest above his price. Anytime goalscorer. Board players only.</span></div></div>')   # BRACE-2026-10-15
+        '<div class="kind"><span class="ke">👟</span><div><b>The Brace</b><span>Our pick of the day, one ticket at 2u. Of the starters already on '
+        'the board at +250 or shorter, the man whose xG sits furthest above his price gets both units on one slip instead of a '
+        '1u single. Anytime goalscorer. Board players only.</span></div></div>')   # BRACE2U-2026-10-15   # BRACE-2026-10-15
     add('kind-nightcap',
         '<div class="kind"><span class="ke">🏟️</span><div><b>Long Ball Jackpot</b><span>Free play. '
         'Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer '

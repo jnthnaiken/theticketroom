@@ -54,5 +54,13 @@ chk('grades ANYTIME: scored (not first) wins', g and g['won'] and abs(g['net'] -
 g = G.grade_ticket(t, {'Early': {'hr': False, 'ftd1': True, 'game': 1}}, {1})
 chk('ftd1 alone does not win a Brace', g and not g['won'], g)
 
+# BRACE2U-2026-10-15: one 2u ticket, and the folded Top Bin single is not a bet of its own
+t2 = dict(t, units=2)
+g = G.grade_ticket(t2, {'Early': {'hr': True, 'game': 1}}, {1})
+chk('a 2u Brace that cashes pays two units', g and g['stake'] == 2 and abs(g['net'] - 2.8) < 1e-9, g)
+g = G.grade_ticket(t2, {'Early': {'hr': False, 'game': 1}}, {1})
+chk('a 2u Brace that misses loses two units', g and g['stake'] == 2 and g['net'] == -2, g)
+single = {'kind': 'builder', 'braced': True, 'players': [{'name': 'Early', 'odds': 140, 'game': 1}], 'nlegs': 1, 'rr': None}
+chk('a braced Top Bin single is not graded at all', G.grade_ticket(single, {'Early': {'hr': True, 'game': 1}}, {1}) is None)
 print(f"\n{'ALL GREEN' if not fail else str(fail) + ' FAILURE(S)'} -- the Brace")
 sys.exit(1 if fail else 0)

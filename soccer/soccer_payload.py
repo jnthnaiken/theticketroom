@@ -381,10 +381,16 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             _leg = {'name': _row['name'], 'team': _p['team'], 'total': _p['TOTAL'], 'aT': 100,
                     'wf': 1.0, 'gmatch': _p['gmatch'], 'gtime': _p['gtime'], 'game': _p['game'],
                     'late': False, 'odds': _o, 'status': _p['status']}
-            ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '👟',
+            # BRACE2U-2026-10-15 (owner): "we are not posting two single tickets when we can post one with 2u on it".
+            # His Top Bin single stays in the draft (so the rebuild keeps the same card) but is flagged `braced`:
+            # the page does not show it and the grader skips it. Both units ride on this one ticket.
+            for _t in T:
+                if _t.get('kind') == 'builder' and len(_t.get('players') or []) == 1 and _t['players'][0]['name'] == _row['name']:
+                    _t['braced'] = True
+            ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '👟', 'units': 2,
                      # BRACE2U-2026-10-15 (owner): "say that its a 2u pick of the day in a way that flows with the rest of the page"
-                     'note': (f"{_row['name']} to score in {_p['gmatch']}. Pick of the day, and he goes 2u: his Top Bin single "
-                              f"plus the Brace, because nobody on the board sits further above his price. "
+                     'note': (f"{_row['name']} to score in {_p['gmatch']}. Pick of the day, and he goes 2u, one ticket "
+                              f"with both units on it, because nobody on the board sits further above his price. "
                               + _pick(BRACE_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
                      'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
                      'has_late': False, 'final': False, 'locked': False, 'rr': None,

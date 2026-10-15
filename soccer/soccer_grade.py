@@ -66,6 +66,11 @@ def _ncombo(K):
 
 
 def grade_ticket(t, players, finals, stake_base=1.0):
+    # BRACE2U-2026-10-15: a Top Bin single folded into the Brace is not a bet of its own (its unit rides
+    # on the 2u Brace ticket), and a ticket may carry `units` (the Brace is 2u). Default 1u, unchanged.
+    if t.get('braced'):
+        return None
+    stake_base = stake_base * (t.get('units') or 1)
     legs = t.get('players') or []
     if not legs:
         return None
