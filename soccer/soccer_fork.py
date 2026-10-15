@@ -333,20 +333,20 @@ def seams(payload_js):
     # kc.lunch and kc.late are undefined and the TONIGHT counter prints "undefined 🍱".
     add('tracker-specials',
         "var defs=[['dinger','🎯','Daily Dinger'],['jackpot','💥','Jackpot'],",
-        "var defs=[['ftd','⚡','The Opener'],")   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
+        "var defs=[['brace','✌️','The Brace'],['ftd','⚡','The Opener'],")   # BRACE-2026-10-15: the Brace leads; the retired Opener keeps its own row and record   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
     add('specials-live',
         " const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);",
-        " const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd').filter(match).filter(singleAlive);")   # FGS-2026-09-29: the section shows the one first-goalscorer pick, from meta
+        " const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='ftd'||t.kind==='brace').filter(match).filter(singleAlive);")   # BRACE-2026-10-15: either special rides in meta.ftd   # FGS-2026-09-29: the section shows the one first-goalscorer pick, from meta
     # The variable keeps baseball's name on purpose: it is read at three more sites and renaming
     # it would buy three extra seams to say the same thing. Only the KIND it selects matters.
     # DINGERIDLE-2026-09-27: baseball's empty Daily Dinger slot got its own copy (owner: the
     # cafeteria line belonged to the retired Lunch Special). This room still HAS a lunch-type
     # slot, so the old line is put back here verbatim.
     add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'🎯 This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
-        ' const closed=\'<div class="closed">⚽ Still in the tunnel — no first-goal call on this slate yet. It comes in once the first-goalscorer prices post.</div>\';')   # FGS-2026-09-29
+        ' const closed=\'<div class="closed">⚽ Still in the tunnel — no Brace on this slate yet. It is picked from the Top Bin once the board is drafted.</div>\';')   # BRACE-2026-10-15   # FGS-2026-09-29
     add('sec-lunch',
         '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
-        '<div class="tsec lunch"><span class="tsech">The Opener</span>')   # FGS-2026-09-29
+        '<div class="tsec lunch"><span class="tsech">\'+((D.meta.ftd&&D.meta.ftd.kind===\'ftd\')?\'The Opener\':\'The Brace\')+\'</span>')   # BRACE-2026-10-15: a slate still carrying an Opener bet keeps its title
     # FGS-2026-09-29: the Nightcap drop-down is gone -- one special a slate, the first-goalscorer pick.
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
         "html+='';")
@@ -360,12 +360,12 @@ def seams(payload_js):
     add('card-wide',
         "${t.kind==='dinger'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
         "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='jackpot'?' lunchwide nightcap':''}",
-        "${t.kind==='ftd'?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
+        "${(t.kind==='ftd'||t.kind==='brace')?' lunchwide':''}${t.kind==='biggest'?' lunchwide bigtop':''}"
         "${t.kind==='chef'?' lunchwide bigtop':''}${t.kind==='late'?' lunchwide nightcap':''}")
     # The TONIGHT counter: only kinds that are on the card, Top Bin as the goal net.
     add('tonight-top8',
         "var cnt=kc.dinger+' 🎯 \\u00b7 '+kc.jackpot+' 💥 \\u00b7 '+kc.builder+' ⚓️ \\u00b7 '+kc.moon+' 💥';",
-        "var cnt=[[((D.meta.ftd&&D.meta.ftd.players)?1:0),'⚡',1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
+        "var cnt=[[((D.meta.ftd&&D.meta.ftd.players)?1:0),((D.meta.ftd&&D.meta.ftd.kind==='ftd')?'⚡':'✌️'),1],[kc.builder,'🥅',1],[kc.moon,'💥',0]].filter(function(x){return x[0]||x[2];})"
         ".map(function(x){return x[0]+' '+x[1];}).join(' \\u00b7 ')||'0 🥅';")
     # RESTATED-2026-09-17: the season line says so when soccer_season.json carries `restated`.
     add('tracker-restated',
@@ -386,7 +386,7 @@ def seams(payload_js):
     # SPECIALS-2026-09-24: the baseball line now names its two new specials (see the block above).
     add('howto-order',
         'Read it top to bottom: 🎯 Daily Dinger, 💥 Long Ball Jackpot, ⚓️ Anchors, 🚀 Moonshots.',
-        'Read it top to bottom: ⚡ The Opener, 🥅 Top Bin. 💥 Screamers are retired.')
+        'Read it top to bottom: ✌️ The Brace, 🥅 Top Bin. ⚡ The Opener and 💥 Screamers are retired.')
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
@@ -594,9 +594,9 @@ def seams(payload_js):
         '<div class="kind"><span class="ke">🎯</span><div><b>Daily Dinger</b><span>Free play. '
         'FanDuel publishes a short list of bats each day and you pick one — this is the best '
         'model score on their list. Not a bet we place.</span></div></div>',
-        '<div class="kind"><span class="ke">⚡</span><div><b>The Opener</b><span>First goalscorer. One pick a slate: '
-        'the player most likely to score his match\u2019s <i>first</i> goal, from his xG and whether he starts. '
-        'The price does not pick him. 1u.</span></div></div>')   # FGS-2026-09-29
+        '<div class="kind"><span class="ke">✌️</span><div><b>The Brace</b><span>A second unit on one Top Bin player. '
+        'Only a man already on the board qualifies; of those, the starter priced +250 or shorter whose xG is furthest above '
+        'his price. Anytime goalscorer, 1u, on top of his Top Bin single. Replaced the first-goalscorer Opener on 10/16.</span></div></div>')   # BRACE-2026-10-15
     add('kind-nightcap',
         '<div class="kind"><span class="ke">💥</span><div><b>Long Ball Jackpot</b><span>Free play. '
         'Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer '

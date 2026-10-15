@@ -362,7 +362,35 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     # D.tickets, exactly like football's first-TD pick: kind 'ftd', leg flagged ftd:true, graded on
     # the player's ftd1 (scored his match's first goal). soccer_grade.fold() adds it to the tickets.
     ftd_t = None
-    if fgs_path:
+    # BRACE-2026-10-15 (soccer_fgs.py): from 2026-10-16 the special slot carries ✌️ THE BRACE -- a second
+    # 1u ANYTIME unit on the best-value Top Bin leg -- instead of the first-goalscorer Opener. A slate
+    # whose cache was written by the Opener (no `kind`) keeps its placed first-goal bet untouched.
+    import soccer_fgs as _sf
+    if ftd_cache and not (os.path.exists(ftd_cache) and not _sf.is_brace_cache(ftd_cache)):
+        from datetime import datetime as _dt, timezone as _tz
+        _pm = {x['name']: x['match'] for x in P}
+        _view = {n: dict(v, match=_pm.get(n)) for n, v in players.items()}
+        _d0 = _dt.fromisoformat(date).replace(tzinfo=_tz.utc)
+        _now = (_dt.now(_tz.utc) - _d0).total_seconds() / 60.0
+        _started = lambda n: (n in _pm) and _now >= ko_of(_pm[n])
+        _legs = [l['name'] for t in T if t.get('kind') == 'builder' for l in (t.get('players') or [])]
+        _row = _sf.brace_choose(_view, _legs, ftd_cache, _started)
+        if _row and _row.get('name') in players:
+            _p = players[_row['name']]
+            _o = int(_row['odds']); _dec = 1 + (_o / 100 if _o > 0 else 100 / -_o)
+            _leg = {'name': _row['name'], 'team': _p['team'], 'total': _p['TOTAL'], 'aT': 100,
+                    'wf': 1.0, 'gmatch': _p['gmatch'], 'gtime': _p['gtime'], 'game': _p['game'],
+                    'late': False, 'odds': _o, 'status': _p['status']}
+            ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '✌️',
+                     'note': (f"{_row['name']} to score in {_p['gmatch']}. Already on the Top Bin, and the one the model "
+                              f"likes most at the price, so he gets a second unit. "
+                              + _pick(BRACE_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
+                     'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
+                     'has_late': False, 'final': False, 'locked': False, 'rr': None,
+                     'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
+                     'confleg': 1 if _p['status'] == 'confirmed' else 0, 'unres': 0, 'priced': 1,
+                     'parlay_am': _o, 'payout10': round(10 * _dec, 1)}
+    elif fgs_path:
         import soccer_fgs
         from datetime import datetime as _dt, timezone as _tz
         _pm = {x['name']: x['match'] for x in P}
@@ -473,6 +501,14 @@ OPENER_LINES = [
     '{who} is the man to open the tin, a can opener in golden boots. Pure poetry!',
     'Early doors, somebody has to be the hero, and {who} was born for the role. Mamma mia!',
     '{who} smells the first chance before it even arrives, like a shark smelling one drop of blood from a mile off. Delicious!',
+]
+
+# BRACE-2026-10-15: the Brace's colour line. Same register as the Opener's; no digits, no promise.
+BRACE_LINES = [
+    '{who} gets two bites of the cherry tonight, and he only needs the one. Glorious!',
+    'Double helping of {who}, and the kitchen is not closing. Magnificent!',
+    'We went back to the well for {who}, because the well keeps paying out. Pure poetry!',
+    '{who} twice on the card, and once in the net will do nicely. Mamma mia!',
 ]
 
 FGS_NAMES = ['Breaks the Deadlock', 'First Blood', 'Opening Account', 'Early Doors', 'Off the Mark',

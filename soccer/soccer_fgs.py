@@ -136,3 +136,86 @@ def choose(players, fgs, cache, started):
     else:
         print('FGS: nobody priced for the first goal is starting -- no pick')
     return c
+
+
+# ------------------------------------------------------------------------------------------------
+# BRACE-2026-10-15 -- ✌️ THE BRACE replaces the Opener (first goalscorer) from 2026-10-16.
+#
+# Owner: "ok well thats not working so lets come up with a better plan" (the Opener was 1-10, -6.3u),
+# then "if they dont qualify for the board then they shouldnt be eligible for a special", then picked
+# the doubled-down version and the name ("a brace is two goals by one man -- we back him twice").
+#
+# THE EVIDENCE (claude/brace-2026-10-15.md). 100 finished matches, 618 confirmed starters priced for
+# first goal, 2026-09-30..10-14. Blind, the SAME men returned -21% on first goal and +22% on anytime.
+# Every way of choosing ONE first-goal man per match (xG -- the Opener's rule -- pscore, the market's
+# own favourite, the anytime price) hit ~10% and lost ~50%: in 45 of the 100 matches the first goal
+# was not scored by any priced starter at all. 1-10 was the market, not bad luck.
+#
+# THE RULE. One extra 1u ANYTIME single a slate, on a man who is ALREADY a Top Bin leg (so he cleared
+# the board's own conviction line, pscore >= MIN_P, the XI filter and the caps). Among those legs:
+# starting (confirmed, or the sheet is not out), not kicked off, priced at +250 or shorter, highest
+# npxG/90 x decimal anytime price -- the man the model rates furthest above where the book has him.
+# Replayed on the five nights the conviction line has existed: 5-0, +5.26u (small; a direction).
+#
+# Graded as ANYTIME: the leg carries NO `ftd` flag, so soccer_grade.grade_ticket reads `hr`.
+# Sticky exactly like the Opener: held once picked; re-picked only if, before his kickoff, he is
+# benched/out/void or no longer on the board.
+# ------------------------------------------------------------------------------------------------
+BRACE_MAX_ODDS = 250
+
+
+def _dec(o):
+    return 1 + (o / 100 if o > 0 else 100 / -o)
+
+
+def brace_pick(players, legs, started, exclude=()):
+    """players: payload players dict (with `match`); legs: names on tonight's Top Bin tickets."""
+    best = None
+    for n in legs:
+        p = players.get(n)
+        if not p or n in exclude or start_of(p) < 1.0 or started(n):
+            continue
+        o, x = p.get('odds'), p.get('npxg90')
+        if o is None or x is None or x <= 0 or o > BRACE_MAX_ODDS:
+            continue
+        row = dict(kind='brace', name=n, match=p.get('match'), odds=int(o), npxg90=round(x, 3),
+                   value=round(x * _dec(o), 4), pscore=p.get('pscore'))
+        if best is None or row['value'] > best['value']:
+            best = row
+    return best
+
+
+def is_brace_cache(cache):
+    """A cache written by the Opener (no `kind`) is a placed FIRST-GOAL bet and is left alone."""
+    if not cache or not os.path.exists(cache):
+        return None
+    try:
+        return json.load(open(cache, encoding='utf-8')).get('kind') == 'brace'
+    except Exception:
+        return None
+
+
+def brace_choose(players, legs, cache, started):
+    """Sticky ✌️ pick. Returns the row (or None) and writes the cache when it (re)picks."""
+    legs = list(dict.fromkeys(legs))
+    if is_brace_cache(cache):
+        c = json.load(open(cache, encoding='utf-8'))
+        n = c.get('name')
+        p = players.get(n) or {}
+        if not started(n) and (start_of(p) < 1.0 or n not in legs):
+            print(f"BRACE: cached pick {n} is no longer a starting Top Bin leg before kickoff -- picking again")
+            r = brace_pick(players, legs, started, exclude=(n,))
+            if r:
+                json.dump(r, open(cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+            return r
+        print(f"BRACE: holding {n} {c['odds']:+d} (cached)")
+        return c
+    c = brace_pick(players, legs, started)
+    if c and cache:
+        os.makedirs(os.path.dirname(os.path.abspath(cache)), exist_ok=True)
+        json.dump(c, open(cache, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+    if c:
+        print(f"BRACE: {c['name']} ({c['match']}) {c['odds']:+d}  npxG90 {c['npxg90']}  value {c['value']}")
+    else:
+        print('BRACE: no starting Top Bin leg at +250 or shorter -- no Brace this slate')
+    return c

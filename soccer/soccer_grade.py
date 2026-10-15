@@ -182,7 +182,7 @@ def fold(dpath, spath):
     # It joins the tickets here so it grades -- once: nfl_settle.py appends football's own copy before
     # calling fold(), and a TOSS board's two alternatives are resolved there, never here.
     _ft = D['meta'].get('ftd')
-    if _ft and _ft.get('players') and not _ft.get('alts') and not any(t.get('kind') == 'ftd' for t in D['tickets']):
+    if _ft and _ft.get('players') and not _ft.get('alts') and not any(t.get('kind') == _ft.get('kind', 'ftd') for t in D['tickets']):   # BRACE-2026-10-15: the slot also carries kind 'brace'
         D['tickets'].append(_ft)
     night, rows = 0.0, []
     for t in D['tickets']:
