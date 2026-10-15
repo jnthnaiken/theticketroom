@@ -36,7 +36,7 @@ const ROOMS = [
 /* the short viewport is the binding case -- it is a 768px window with browser chrome, and it is
    where the panel runs out of room first. The tall one is there so a pass is not an artifact of
    one screen. */
-const VIEWPORTS = [[1280, 632], [1440, 900]];
+const VIEWPORTS = [[1280, 576], [1280, 632], [1440, 900]];   /* 576: FIVEROWS-2026-10-15, the owner's window */
 
 let fail = 0;
 const chk = (label, ok, detail) => {
@@ -50,6 +50,7 @@ const measure = (pg) => pg.evaluate(() => {
   return {
     overlap: Math.round(R('.bar.rsbar').bottom - R('#rstab thead th').top),
     wrapH: Math.round(R('.rswrap').height),
+    capH: Math.round(parseFloat(getComputedStyle(document.querySelector('.rswrap')).maxHeight)),
     trayUp: !!(tray && tray.classList.contains('up')),
     sliph: getComputedStyle(document.documentElement).getPropertyValue('--sliph').trim() || '0px',
     atBottom: Math.round(scrollY) >= Math.round(document.scrollingElement.scrollHeight - innerHeight) - 2
@@ -100,9 +101,12 @@ async function toBottom(pg) {
       chk(tag + ' the slip tray actually opened', up.trayUp && up.sliph !== '0px', up);
       chk(tag + ' column headers clear with the slip OPEN -- the 10-13 bug',
           up.overlap <= 0, up);
-      chk(tag + ' the panel shrinks by the tray height -- the mechanism, not just the symptom',
-          down.wrapH - up.wrapH === parseInt(up.sliph, 10),
-          { wrapH: down.wrapH + ' -> ' + up.wrapH, sliph: up.sliph });
+      /* FIVEROWS-2026-10-15: measured on the height CAP, not the rendered height. With 40px rows a short
+         card (football's 12 players at 900px) fits entirely under the cap, so the panel is content-height
+         and has nothing to shrink -- the rule is still right, the old check just could not see it. */
+      chk(tag + ' the panel cap shrinks by the tray height -- the mechanism, not just the symptom',
+          down.capH - up.capH === parseInt(up.sliph, 10),
+          { capH: down.capH + ' -> ' + up.capH, wrapH: down.wrapH + ' -> ' + up.wrapH, sliph: up.sliph });
       chk(tag + ' measured at maximum scroll, where sticky runs out of containing block',
           down.atBottom && up.atBottom, { down: down.atBottom, up: up.atBottom });
       chk(tag + ' no page errors', errs.length === 0, errs);

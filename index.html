@@ -850,7 +850,12 @@ body::after{
 
    --navh is published by the nav's own ResizeObserver at the end of this file, so this tracks a
    nav that wraps on a narrow screen. */
-.rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;position:sticky;top:calc(var(--navh,74px) + var(--rsbar,104px));max-height:min(760px,calc(100vh - var(--navh,74px) - var(--rsbar,104px) - var(--sliph,0px) - 206px))}
+.rswrap{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);overflow:auto;position:sticky;top:calc(var(--navh,74px) + var(--rsbar,104px));max-height:min(760px,calc(100vh - var(--navh,74px) - var(--rsbar,104px) - var(--sliph,0px) - 178px))}
+/* FIVEROWS-2026-10-15 -- owner: "i would still like to be able to see at least 5 players at a time ... really i
+   can only see 3". Rows were 54px and the reserve 206px, so a ~576px window held 3.3 rows. Rows are now 40px
+   (3px cell padding, tighter name/sub lines) and the reserve 178px -- the smallest value swept clean at
+   maximum scroll in all three rooms (soccer/football bind at ~176, baseball ~159; 150 left 25px of header
+   under the bar). Measured: 576px window 5.4 rows, 632px 6.9, slip tray open ~1.5 rows fewer. */
 /* OPAQUE SCROLLBARS (owner 2026-10-12: "make the scroll bars opaque like the other ones").
    Chrome gives an overflow:auto panel an OVERLAY scrollbar -- zero layout width, translucent,
    floating over the rows -- which on this dark surface is nearly invisible and awkward to grab.
@@ -872,7 +877,7 @@ body::after{
 @supports not selector(::-webkit-scrollbar){
  .rswrap,.traygr,.bpick,.otable{scrollbar-width:auto;scrollbar-color:var(--line2) var(--surf2)}}
 table.rst{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
-.rst th,.rst td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+.rst th,.rst td{padding:3px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
 .rst thead th{position:sticky;top:0;z-index:3;background:var(--surf2);font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);cursor:pointer;user-select:none;font-weight:600;border-bottom:1px solid var(--line2)}
 .rst thead th:hover{color:var(--txt)}
 .rst thead th.srt{color:var(--cyan)}
@@ -884,10 +889,10 @@ table.rst{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
 .rst tbody tr.rs-on td{background:#10222b}
 .rst tbody tr.rs-on td.rsx{background:#12242e}
 .rsn{display:flex;align-items:center;gap:8px}
-.rsn .nm{font-weight:600;font-size:13.5px;cursor:pointer}
+.rsn .nm{font-weight:600;font-size:13.5px;line-height:1.2;cursor:pointer}
 .rsn .nm:hover{color:var(--cyan)}
-.rsn .sub{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--dim);display:block;font-weight:400;margin-top:1px}
-.rsadd{flex:none;width:22px;height:22px;border-radius:7px;border:1px solid var(--line2);background:var(--surf2);color:var(--mut);font:700 14px/1 system-ui,sans-serif;cursor:pointer;transition:.13s;padding:0}
+.rsn .sub{font-family:'Roboto Mono',monospace;font-size:10px;line-height:1.2;color:var(--dim);display:block;font-weight:400;margin-top:0}
+.rsadd{flex:none;width:20px;height:20px;border-radius:7px;border:1px solid var(--line2);background:var(--surf2);color:var(--mut);font:700 14px/1 system-ui,sans-serif;cursor:pointer;transition:.13s;padding:0}
 .rsadd:hover{border-color:var(--cyan);color:var(--cyan)}
 .rsadd.on{background:var(--cyan);border-color:var(--cyan);color:#06121a}
 .rsv{font-family:'Roboto Mono',monospace}
@@ -1000,7 +1005,6 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
 <section id="v-b" role="tabpanel" aria-labelledby="tab-b" hidden>
  <div class="bar rsbar">
   <label class="fld">Game<select id="bgames"></select></label>
-  <label class="fld">Show<select id="rspreset"></select></label>
   <label class="fld">Find<input type="search" id="bsearch" placeholder="Search"></label>
   <button class="rbtn" id="btn-clear">Clear slip</button>
   <span class="count" id="bcount"></span>
@@ -1839,7 +1843,11 @@ function rsFmt(c,p){var v=rsGet(c,p);
    you want to read about, and hiding 16 of tonight's 54 because a book had not posted them yet
    is the exact "less than the Players tab" problem this tab exists to fix. */
 function rsField(){return Object.keys(D.players).filter(function(n){return !!D.players[n];});}
-var rsSort={k:'TOTAL',dir:-1}, rsOpen=null, rsPreset='o';
+/* SHOWOFF-2026-10-15 -- owner: "get rid of the show drop down. its unnecesary when they can already sort by
+   column". With the preset select gone the table shows EVERY column ('all'), not just the Overview set --
+   otherwise the career/Savant/matchup columns would become unreachable. rsCols() and the preset values are
+   kept so a select can come back without re-deriving them; the init below is a no-op without #rspreset. */
+var rsSort={k:'TOTAL',dir:-1}, rsOpen=null, rsPreset='all';
 function rsCols(){if(rsPreset==='all')return RSCOLS;
  if(rsPreset==='o')return RSCOLS.filter(function(c){return c.o;});
  return RSCOLS.filter(function(c){return c.g===rsPreset;});}
