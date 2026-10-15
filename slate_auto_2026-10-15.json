@@ -1,7 +1,7 @@
 {
   "date": "2026-10-15",
   "season": "2026",
-  "pulled_at": "2026-10-15T20:30:28Z",
+  "pulled_at": "2026-10-15T20:31:13Z",
   "games": [
     {
       "gamePk": 849818,
@@ -139,7 +139,7 @@
     },
     {
       "gamePk": 849810,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-10-16T00:00:00Z",
       "venue": "UNIQLO Field at Dodger Stadium",
       "matchup": "MIL@LAD",
@@ -162,10 +162,56 @@
           "hr9": 0.85,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 660271,
+            "name": "Shohei Ohtani",
+            "iso": 0.237
+          },
+          {
+            "id": 605141,
+            "name": "Mookie Betts",
+            "iso": 0.197
+          },
+          {
+            "id": 518692,
+            "name": "Freddie Freeman",
+            "iso": 0.142
+          },
+          {
+            "id": 669257,
+            "name": "Will Smith",
+            "iso": 0.166
+          },
+          {
+            "id": 663656,
+            "name": "Kyle Tucker",
+            "iso": 0.152
+          },
+          {
+            "id": 606192,
+            "name": "Teoscar Hern\u00e1ndez",
+            "iso": 0.158
+          },
+          {
+            "id": 500743,
+            "name": "Miguel Rojas",
+            "iso": 0.124
+          },
+          {
+            "id": 681624,
+            "name": "Andy Pages",
+            "iso": 0.194
+          },
+          {
+            "id": 571771,
+            "name": "Enrique Hern\u00e1ndez",
+            "iso": 0.178
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
