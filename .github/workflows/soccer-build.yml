@@ -407,7 +407,11 @@ jobs:
                   ${{ steps.slate.outputs.date }} --season soccer_season.json \
                   $([ -f teamnews.json ] && echo "--teamnews teamnews.json") \
                   $([ -f squads.psv ] && echo "--squads squads.psv") \
-                  $([ -f fgs.psv ] && echo "--fgs fgs.psv --ftd-cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json")
+                  $([ -f fgs.psv ] && echo "--fgs fgs.psv") \
+                  --ftd-cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json
+          # BRACE-2026-10-15: the cache path is passed on EVERY slate now. The ✌️ Brace is picked from the
+          # Top Bin and needs no first-goalscorer prices; fgs.psv only matters to a slate still holding an
+          # Opener bet (an ftd_pick.json written before the switch, which carries no `kind`).
           python3 soccer_fork.py index_live.html soccer_D.json soccer_index.html
 
       # ------------------------------------------------------------------------------------
