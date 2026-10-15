@@ -1,7 +1,7 @@
 {
   "date": "2026-10-15",
   "season": "2026",
-  "pulled_at": "2026-10-15T21:06:22Z",
+  "pulled_at": "2026-10-15T21:11:22Z",
   "games": [
     {
       "gamePk": 849818,
@@ -127,15 +127,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "calm 3mph, 64\u00b0",
+        "cond": "wind out 3mph, 64\u00b0",
         "lean": "Neutral",
         "temp": 63.8,
         "wind_mph": 3.2,
-        "wind_dir": 155,
-        "tail_mph": 2.9,
+        "wind_dir": 165,
+        "tail_mph": 3.1,
         "precip": 1
       },
-      "wf": 1.001
+      "wf": 1.002
     },
     {
       "gamePk": 849810,
@@ -151,8 +151,54 @@
           "hr9": 1.01,
           "hand": "LHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 694192,
+            "name": "Jackson Chourio",
+            "iso": 0.196
+          },
+          {
+            "id": 668930,
+            "name": "Brice Turang",
+            "iso": 0.182
+          },
+          {
+            "id": 661388,
+            "name": "William Contreras",
+            "iso": 0.147
+          },
+          {
+            "id": 641343,
+            "name": "Jake Bauers",
+            "iso": 0.218
+          },
+          {
+            "id": 592885,
+            "name": "Christian Yelich",
+            "iso": 0.143
+          },
+          {
+            "id": 669003,
+            "name": "Garrett Mitchell",
+            "iso": 0.154
+          },
+          {
+            "id": 806198,
+            "name": "Cooper Pratt",
+            "iso": 0.087
+          },
+          {
+            "id": 686217,
+            "name": "Sal Frelick",
+            "iso": 0.089
+          },
+          {
+            "id": 666152,
+            "name": "David Hamilton",
+            "iso": 0.091
+          }
+        ],
+        "confirmed": true
       },
       "home": {
         "abbrev": "LAD",
@@ -215,15 +261,15 @@
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 87\u00b0",
+        "cond": "wind out 5mph, 87\u00b0",
         "lean": "Boost",
         "temp": 87.1,
         "wind_mph": 6.8,
-        "wind_dir": 262,
-        "tail_mph": 3.7,
+        "wind_dir": 249,
+        "tail_mph": 4.9,
         "precip": 0
       },
-      "wf": 1.039
+      "wf": 1.043
     }
   ]
 }
