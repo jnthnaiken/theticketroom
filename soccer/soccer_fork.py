@@ -348,7 +348,7 @@ def seams(payload_js):
         ' const closed=\'<div class="closed">⚽ Still in the tunnel — no Brace on this slate yet. It is picked from the Top Bin once the board is drafted.</div>\';')   # BRACE-2026-10-15   # FGS-2026-09-29
     add('sec-lunch',
         '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>',
-        '<div class="tsec lunch"><span class="tsech">The Brace \u00b7 Pick of the Day</span>')   # BRACE-2026-10-15: a slate still carrying an Opener bet keeps its title
+        '<div class="tsec lunch"><span class="tsech">The Brace</span>')   # BRACE-2026-10-15: a slate still carrying an Opener bet keeps its title
     # FGS-2026-09-29: the Nightcap drop-down is gone -- one special a slate, the first-goalscorer pick.
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
         "html+='';")

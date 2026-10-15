@@ -62,5 +62,11 @@ g = G.grade_ticket(t2, {'Early': {'hr': False, 'game': 1}}, {1})
 chk('a 2u Brace that misses loses two units', g and g['stake'] == 2 and g['net'] == -2, g)
 single = {'kind': 'builder', 'braced': True, 'players': [{'name': 'Early', 'odds': 140, 'game': 1}], 'nlegs': 1, 'rr': None}
 chk('a braced Top Bin single is not graded at all', G.grade_ticket(single, {'Early': {'hr': True, 'game': 1}}, {1}) is None)
+# BRACENAME-2026-10-15: the slip wears a rotating title, never the section's own name
+import soccer_payload as SP
+_titles = {SP._pick(SP.BRACE_NAMES, 'brace2026-10-%02d' % d) for d in range(1, 31)}
+chk('the Brace slip never shares its section title', 'The Brace' not in SP.BRACE_NAMES and 'The Brace' not in _titles)
+chk('the Brace title rotates by date', len(_titles) >= 6, _titles)
+chk('no Brace title collides with another pool', not set(SP.BRACE_NAMES) & set(sum(SP.NAMES.values(), []) + SP.FGS_NAMES))
 print(f"\n{'ALL GREEN' if not fail else str(fail) + ' FAILURE(S)'} -- the Brace")
 sys.exit(1 if fail else 0)

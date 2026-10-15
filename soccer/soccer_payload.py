@@ -387,7 +387,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             for _t in T:
                 if _t.get('kind') == 'builder' and len(_t.get('players') or []) == 1 and _t['players'][0]['name'] == _row['name']:
                     _t['braced'] = True
-            ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '👟', 'units': 2,
+            # BRACENAME-2026-10-15 (owner): "dont call the ticket under the title the brace too. it should have
+            # rotating ticket names like all the rest". The section is The Brace; the slip wears a date-rotated title.
+            ftd_t = {'name': _pick(BRACE_NAMES, 'brace' + date), 'kind': 'brace', 'badge': '👟', 'units': 2,
                      # BRACE2U-2026-10-15 (owner): "say that its a 2u pick of the day in a way that flows with the rest of the page"
                      'note': (f"{_row['name']} to score in {_p['gmatch']}. Pick of the day, and he goes 2u, one ticket "
                               f"with both units on it, because nobody on the board sits further above his price. "
@@ -487,11 +489,16 @@ OPENER_LINES = [
 
 # BRACE-2026-10-15: the Brace's colour line. Same register as the Opener's; no digits, no promise.
 BRACE_LINES = [
-    '{who} gets two bites of the cherry tonight, and he only needs the one. Glorious!',
+    '{who} carries the heavy stake tonight, and he only needs the one. Glorious!',
     'Double helping of {who}, and the kitchen is not closing. Magnificent!',
     'We went back to the well for {who}, because the well keeps paying out. Pure poetry!',
-    '{who} twice on the card, and once in the net will do nicely. Mamma mia!',
+    'Both units on {who}, and once in the net will do nicely. Mamma mia!',
 ]
+
+# BRACENAME-2026-10-15: the Brace slip's title, rotated by date like every other pool. None of these
+# collide with a Top Bin, Opener or bench title, so a slip's name never says which pool it is wrong.
+BRACE_NAMES = ['The Banker', 'Nailed On', 'Both Barrels', 'Double Up', 'The Talisman', 'Heavy Boot',
+               'Go-To Man', 'Full Stake', 'Main Man', 'Big Game Player', 'Danger Man', 'Leading Man']
 
 FGS_NAMES = ['Breaks the Deadlock', 'First Blood', 'Opening Account', 'Early Doors', 'Off the Mark',
              'First to the Net', 'The Opener', 'Sets the Tone', 'Draws First Blood', 'Ice Breaker',
