@@ -366,7 +366,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
     # 1u ANYTIME unit on the best-value Top Bin leg -- instead of the first-goalscorer Opener. A slate
     # whose cache was written by the Opener (no `kind`) keeps its placed first-goal bet untouched.
     import soccer_fgs as _sf
-    if ftd_cache and not (os.path.exists(ftd_cache) and not _sf.is_brace_cache(ftd_cache)):
+    if ftd_cache:
         from datetime import datetime as _dt, timezone as _tz
         _pm = {x['name']: x['match'] for x in P}
         _view = {n: dict(v, match=_pm.get(n)) for n, v in players.items()}
@@ -382,39 +382,15 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                     'wf': 1.0, 'gmatch': _p['gmatch'], 'gtime': _p['gtime'], 'game': _p['game'],
                     'late': False, 'odds': _o, 'status': _p['status']}
             ftd_t = {'name': 'The Brace', 'kind': 'brace', 'badge': '👟',
-                     'note': (f"{_row['name']} to score in {_p['gmatch']}. Already on the Top Bin, and the one the model "
-                              f"likes most at the price, so he gets a second unit. "
+                     # BRACE2U-2026-10-15 (owner): "say that its a 2u pick of the day in a way that flows with the rest of the page"
+                     'note': (f"{_row['name']} to score in {_p['gmatch']}. Pick of the day, and he goes 2u: his Top Bin single "
+                              f"plus the Brace, because nobody on the board sits further above his price. "
                               + _pick(BRACE_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
                      'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
                      'has_late': False, 'final': False, 'locked': False, 'rr': None,
                      'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
                      'confleg': 1 if _p['status'] == 'confirmed' else 0, 'unres': 0, 'priced': 1,
                      'parlay_am': _o, 'payout10': round(10 * _dec, 1)}
-    elif fgs_path:
-        import soccer_fgs
-        from datetime import datetime as _dt, timezone as _tz
-        _pm = {x['name']: x['match'] for x in P}
-        _view = {n: dict(v, match=_pm.get(n)) for n, v in players.items()}
-        _d0 = _dt.fromisoformat(date).replace(tzinfo=_tz.utc)
-        _now = (_dt.now(_tz.utc) - _d0).total_seconds() / 60.0
-        _started = lambda n: (n in _pm) and _now >= ko_of(_pm[n])
-        _row = soccer_fgs.choose(_view, soccer_fgs.load_fgs(fgs_path), ftd_cache, _started)
-        if _row and _row.get('name') in players:
-            _p = players[_row['name']]
-            _leg = {'name': _row['name'], 'team': _p['team'], 'total': _p['TOTAL'], 'aT': 100,
-                    'wf': 1.0, 'gmatch': _p['gmatch'], 'gtime': _p['gtime'], 'game': _p['game'],
-                    'late': False, 'odds': int(_row['odds']), 'status': _p['status'], 'ftd': True}
-            _doy = _dt.fromisoformat(date).timetuple().tm_yday
-            _o = int(_row['odds']); _dec = 1 + (_o / 100 if _o > 0 else 100 / -_o)
-            ftd_t = {'name': FGS_NAMES[_doy % len(FGS_NAMES)], 'kind': 'ftd', 'badge': '⚡',
-                     # HUDSON-2026-09-29: no percentage in the prose -- the colour man sells it.
-                     'note': (f"{_row['name']} to score the first goal of {_p['gmatch']}. "
-                              + _pick(OPENER_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
-                     'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
-                     'has_late': False, 'final': False, 'locked': False, 'rr': None,
-                     'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
-                     'confleg': 1 if _p['status'] == 'confirmed' else 0, 'unres': 0, 'priced': 1,
-                     'parlay_am': _o, 'payout10': round(10 * _dec, 1), 'ftd': True}
 
     D = {
         'players': players,
@@ -454,7 +430,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'nosheet': {str(gnum[m]): True for m in matches
                         if lg_of.get(m) in _NOSHEET_LEAGUES},
             'build': _build_stamp,
-            'ftd': ftd_t,          # FGS-2026-09-29: the first-goalscorer pick, or None
+            'ftd': ftd_t,          # the special slot: the Brace (BRACE-2026-10-15), or None
             'face': 'soccer',
             'maxAT': 100,
             'date': date,

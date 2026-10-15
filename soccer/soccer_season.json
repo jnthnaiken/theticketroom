@@ -111,7 +111,7 @@
  "restated": {
   "date": "2026-10-10",
   "system": "SCOREPROB (2026-10-10)",
-  "what": "Every archived night re-run with the current system. P(score) = mean(book implied, layered scorer model) -- the book alone where the model cannot rate a player (MLS, internationals, unmatched). Top Bin = confirmed starters with P >= 0.45, ranked by P, at most 2 per match, no nightly ceiling, as 1u singles; no price floor. Prices are the ones held on that night's board; model numbers are soccer/shadow/<date>.json, built only from data before each date. The Opener was removed 2026-10-15 and the Brace backtested in its place (see `brace`). Lunch Special and Nightcap no longer exist and are not in the record.",
+  "what": "Every archived night re-run with the current system. P(score) = mean(book implied, layered scorer model) -- the book alone where the model cannot rate a player (MLS, internationals, unmatched). Top Bin = confirmed starters with P >= 0.45, ranked by P, at most 2 per match, no nightly ceiling, as 1u singles; no price floor. Prices are the ones held on that night's board; model numbers are soccer/shadow/<date>.json, built only from data before each date. The Brace is backtested on every night (see `brace`). Lunch Special and Nightcap no longer exist and are not in the record.",
   "nights": {
    "2026-08-27": [
     {
@@ -1509,7 +1509,7 @@
  ],
  "merged": {
   "date": "2026-09-30",
-  "what": "Owner: \"merge the lunch record into the top bin record. we just have first goal now\". The retired Lunch Special record (27 graded, 15 won, +10.02u on 27u) was folded into cats.builder (Top Bin). Totals and the equity history are unchanged; only the split by row moved.",
+  "what": "Owner: \"merge the lunch record into the top bin record\". The retired Lunch Special record (27 graded, 15 won, +10.02u on 27u) was folded into cats.builder (Top Bin). Totals and the equity history are unchanged; only the split by row moved.",
   "lunch": {
    "graded": 27,
    "won": 15,
@@ -1538,113 +1538,7 @@
  },
  "brace": {
   "date": "2026-10-15",
-  "what": "Owner: \"get rid of the opener in the ledger. backtest brace over previous slates and update ledger\". The Opener (first goalscorer, 11 graded, 1 won, -6.25u on 11u, 2026-09-30..10-14) is BACKED OUT of cats, history and the restated nights -- the same treatment as the chef/family/salami removals. In its place THE BRACE is backtested on every graded night since 2026-08-27 by its live rule (soccer_fgs.brace_pick): among that night's Top Bin legs (confirmed starters), priced +250 or shorter, the highest npxG/90 x decimal anytime price, 1u anytime at the leg's held price. Nights with no qualifying leg have no Brace. Each night's Opener net was subtracted and its Brace net added from that night forward, so history and cats reconcile. Nights 2026-08-27..10-09 carry the Brace inside restated.nights; 10-10..10-14 are listed below.",
-  "opener_removed": {
-   "graded": 12,
-   "won": 1,
-   "units": -7.25,
-   "staked": 12.0,
-   "nights": {
-    "2026-09-30": [
-     {
-      "kind": "ftd",
-      "name": "Lautaro Martinez",
-      "odds": 375,
-      "won": true,
-      "net": 3.75
-     }
-    ],
-    "2026-10-01": [
-     {
-      "kind": "ftd",
-      "name": "Matias Goncalo Ramos",
-      "odds": 550,
-      "won": false,
-      "net": -1.0
-     }
-    ],
-    "2026-10-02": [
-     {
-      "kind": "ftd",
-      "name": "Mika Godts",
-      "odds": 800,
-      "won": false,
-      "net": -1.0
-     }
-    ],
-    "2026-10-05": [
-     {
-      "kind": "ftd",
-      "name": "Bradley Barcola",
-      "odds": 700,
-      "won": false,
-      "net": -1.0
-     }
-    ],
-    "2026-10-06": [
-     {
-      "kind": "ftd",
-      "name": "Lautaro Martinez",
-      "odds": 333,
-      "won": false,
-      "net": -1.0
-     }
-    ],
-    "2026-10-09": [
-     {
-      "kind": "ftd",
-      "name": "Serhou Guirassy",
-      "odds": 300,
-      "won": false,
-      "net": -1.0
-     }
-    ],
-    "2026-10-10": [
-     {
-      "kind": "ftd",
-      "net": -1.0,
-      "live": true
-     }
-    ],
-    "2026-10-11": [
-     {
-      "kind": "ftd",
-      "net": -1.0,
-      "live": true
-     }
-    ],
-    "2026-10-12": [
-     {
-      "kind": "ftd",
-      "net": -1.0,
-      "live": true
-     }
-    ],
-    "2026-10-13": [
-     {
-      "kind": "ftd",
-      "net": -1.0,
-      "live": true
-     }
-    ],
-    "2026-10-14": [
-     {
-      "kind": "ftd",
-      "net": -1.0,
-      "live": true
-     }
-    ],
-    "2026-10-15": [
-     {
-      "kind": "ftd",
-      "name": "Anssumane Fati",
-      "odds": 550,
-      "net": -1.0,
-      "live": true
-     }
-    ]
-   }
-  },
+  "what": "The Brace, our 2u pick of the day: a second 1u anytime unit on one Top Bin player, on top of his single. Backtested on every graded night since 2026-08-27 by its live rule (soccer_fgs.brace_pick): among that night's Top Bin legs (confirmed starters), priced +250 or shorter, the highest npxG/90 x decimal anytime price, at the leg's held price. Nights with no qualifying leg have no Brace. 2026-08-27..10-09 carry it inside restated.nights; later nights are listed below.",
   "nights": {
    "2026-10-10": {
     "kind": "brace",
@@ -1692,8 +1586,7 @@
     "odds": -110,
     "npxg90": 0.429,
     "won": true,
-    "net": 0.9091,
-    "note": "live night: soccer-settle folded the Opener (Fati, first goal, lost -1.00u) because the board had not been re-baked with the Brace before the fold; corrected by hand -- Opener backed out, Brace booked"
+    "net": 0.9091
    }
   }
  }
