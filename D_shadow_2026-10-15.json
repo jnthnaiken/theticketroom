@@ -1,0 +1,129 @@
+{
+ "v": 1,
+ "date": "2026-10-15",
+ "built_at": "2026-10-15T16:46:05Z",
+ "teams": {
+  "CLE": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0233,
+   "hr_bf_avail": 0.0233,
+   "hr_bf_L": 0.0211,
+   "hr_bf_R": 0.0252,
+   "hr_bf_avail_L": 0.0211,
+   "hr_bf_avail_R": 0.0252,
+   "share_L": 0.295,
+   "air_share": 0.598,
+   "d1_pitches": 0
+  },
+  "LAD": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0203,
+   "hr_bf_avail": 0.0203,
+   "hr_bf_L": 0.019,
+   "hr_bf_R": 0.0237,
+   "hr_bf_avail_L": 0.019,
+   "hr_bf_avail_R": 0.0237,
+   "share_L": 0.481,
+   "air_share": 0.569,
+   "d1_pitches": 56
+  },
+  "MIL": {
+   "n_rel": 7,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0198,
+   "hr_bf_avail": 0.0198,
+   "hr_bf_L": 0.0234,
+   "hr_bf_R": 0.0183,
+   "hr_bf_avail_L": 0.0234,
+   "hr_bf_avail_R": 0.0183,
+   "share_L": 0.416,
+   "air_share": 0.499,
+   "d1_pitches": 66
+  },
+  "TB": {
+   "n_rel": 8,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0336,
+   "hr_bf_avail": 0.0336,
+   "hr_bf_L": 0.0414,
+   "hr_bf_R": 0.0249,
+   "hr_bf_avail_L": 0.0414,
+   "hr_bf_avail_R": 0.0249,
+   "share_L": 0.513,
+   "air_share": 0.566,
+   "d1_pitches": 0
+  }
+ },
+ "sps": {
+  "gavin williams": {
+   "id": 668909,
+   "bf_exp": 23.31,
+   "kind": "sp",
+   "hr_bf": 0.0363
+  },
+  "griffin jax": {
+   "id": 643377,
+   "bf_exp": 17.09,
+   "kind": "sp",
+   "hr_bf": 0.032
+  },
+  "tyler glasnow": {
+   "id": 607192,
+   "bf_exp": 22.15,
+   "kind": "sp",
+   "hr_bf": 0.0263
+  },
+  "dustin may": {
+   "id": null,
+   "bf_exp": 22.0,
+   "kind": "unknown",
+   "hr_bf": null
+  }
+ },
+ "games": {
+  "1": {
+   "home": "CLE",
+   "hour": 13,
+   "dome": false,
+   "temp": 62.6,
+   "rh": 73,
+   "pres": 994.5,
+   "wind": 5.5,
+   "wind_out": 3.68,
+   "rho": 1.1876
+  },
+  "2": {
+   "home": "LAD",
+   "hour": 20,
+   "dome": false,
+   "temp": 84.9,
+   "rh": 19,
+   "pres": 996.5,
+   "wind": 7.6,
+   "wind_out": 7.43,
+   "rho": 1.144
+  }
+ },
+ "coverage": {
+  "box_final_games": 2,
+  "box_loaded": 2,
+  "rosters": 4,
+  "pitcher_stats": 51,
+  "sps_matched": 3,
+  "sps_named": 4,
+  "pens": 4,
+  "games": 2,
+  "games_wx": 2
+ },
+ "errors": [],
+ "partial": false,
+ "attempts": 1,
+ "last_attempt": 1792082765,
+ "pregame": true
+}
