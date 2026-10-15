@@ -819,7 +819,12 @@ body::after{
    Both of the owner's complaints were the same mistake. The chips join that one row as a second
    line rather than becoming a second sticky bar. */
 .rsbar{margin:0}
-.rsbar #bgames{flex:1 0 100%;margin:0}
+/* GAMESELECT-2026-10-15 -- owner: "theres not enough room for the data box. can we change the ... drop down to
+   just the games. that would free up all of that space where the games currently are". The chips were a
+   second (and on a 15-game card, third) line of this sticky bar: 133px of chrome on a 632px laptop
+   viewport, which left the table 120px tall. One Game select in the same row as Show/Find instead. */
+.rsbar .fld:has(#bgames){min-width:0;max-width:100%}
+.rsbar #bgames{width:min(340px,calc(100vw - 64px));max-width:100%;text-overflow:ellipsis}
 /* ⚠️ THE PANEL PINS UNDER THE NAV, AND IS SIZED TO FIT UNDER IT.
    `thead th` is sticky to .rswrap's own scrollport, NOT to the viewport -- so when the page
    scrolled far enough for the panel's top to pass beneath the sticky .nav, the column headers
@@ -994,11 +999,11 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
 </section>
 <section id="v-b" role="tabpanel" aria-labelledby="tab-b" hidden>
  <div class="bar rsbar">
+  <label class="fld">Game<select id="bgames"></select></label>
   <label class="fld">Show<select id="rspreset"></select></label>
   <label class="fld">Find<input type="search" id="bsearch" placeholder="Search"></label>
   <button class="rbtn" id="btn-clear">Clear slip</button>
   <span class="count" id="bcount"></span>
-  <div class="bgames" id="bgames"></div>
  </div>
  <div class="rswrap"><table class="rst" id="rstab"></table></div>
  <p class="adminhint">Sort by any column · click a name for the full breakdown · <b>+</b> puts it on your slip, which follows you to every tab.</p>
@@ -1446,8 +1451,18 @@ function buildPicker(){rsDraw();}   /* RESEARCH-2026-10-12: every caller (select
 const bSel=()=>Array.from(selNames).filter(function(n){return D.players[n];});   /* the slip IS the selection now -- there are no checkboxes to read, and a name whose bat left the board is dropped rather than crashing the grader */
 let gameSel=new Set(Object.values(D.players).map(p=>p.game));const selNames=new Set();
 function gameInfo(){const g={};Object.values(D.players).forEach(p=>{if(!g[p.game])g[p.game]={gmatch:p.gmatch,gtime:p.gtime,status:'confirmed'};if(p.status!=='confirmed'&&!p.out)g[p.game].status='projected';});return g;}
-function renderGameChips(){const gi=gameInfo(),nums=Object.keys(gi).map(Number).sort((a,b)=>a-b);$('#bgames').innerHTML=nums.map(n=>{const i=gi[n],on=gameSel.has(n),c=i.status==='confirmed';return `<button class="gchip${on?' on':''}${c?' c':''}" data-g="${n}">${c?'\u2713':'\u23f3'} ${i.gmatch} <em>${i.gtime.split(' ')[0]}</em></button>`;}).join('');}
-$('#bgames').addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;const n=+b.dataset.g;gameSel.has(n)?gameSel.delete(n):gameSel.add(n);renderGameChips();buildPicker();});
+/* GAMESELECT-2026-10-15: the game chips became one <select> (see the .rsbar CSS note). gameSel stays a Set so
+   autopick, rsRows and confirmedOnly/allGames are untouched; the select shows All / Confirmed only / one game,
+   and any other subset (nothing produces one now) is normalised back to All rather than shown wrongly. */
+function renderGameChips(){const el=$('#bgames');if(!el)return;const gi=gameInfo(),nums=Object.keys(gi).map(Number).sort((a,b)=>a-b);
+ const conf=nums.filter(n=>gi[n].status==='confirmed'),sel=nums.filter(n=>gameSel.has(n)),h=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+ let v='all';if(sel.length===1&&nums.length>1)v=String(sel[0]);else if(sel.length<nums.length&&conf.length&&sel.length===conf.length&&conf.every(n=>gameSel.has(n)))v='c';
+ if(v==='all'&&sel.length!==nums.length)gameSel=new Set(nums);
+ el.innerHTML='<option value="all">All games ('+nums.length+')</option>'+(conf.length&&conf.length<nums.length?'<option value="c">\u2713 Confirmed lineups only ('+conf.length+')</option>':'')
+  +(nums.length>1?nums.map(n=>{const i=gi[n],c=i.status==='confirmed';return '<option value="'+n+'">'+(c?'\u2713':'\u23f3')+' '+h(i.gmatch)+' \u00b7 '+h(String(i.gtime).split(' ')[0])+'</option>';}).join(''):'');
+ el.value=v;}
+$('#bgames').addEventListener('change',e=>{const v=e.target.value,gi=gameInfo(),nums=Object.keys(gi).map(Number);
+ gameSel=v==='all'?new Set(nums):v==='c'?new Set(nums.filter(n=>gi[n].status==='confirmed')):new Set([+v]);renderGameChips();buildPicker();});
 /* the #bpick checkbox listener retired with the checkboxes -- RESEARCH-2026-10-12 routes every add through one delegated [data-add] listener, so a button drawn on ANY tab works. */
 function confirmedOnly(){const gi=gameInfo();gameSel=new Set(Object.keys(gi).map(Number).filter(n=>gi[n].status==='confirmed'));renderGameChips();buildPicker();}
 function allGames(){gameSel=new Set(Object.values(D.players).map(p=>p.game));renderGameChips();buildPicker();}
