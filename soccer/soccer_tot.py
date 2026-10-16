@@ -33,7 +33,8 @@ from datetime import datetime, timezone
 C, B_OWN, B_OPP = 0.00528, -0.03318, -0.03971     # frozen fit, all 2019-2026 top-five seasons
 HALF_LIFE, MIN_PERIODS = 4.0, 3
 RHO = -0.08
-MIN_LEG = 1.40
+MIN_LEG = 1.40          # on the market-fair price less MARGIN, as tested (STALEPRICE-2026-10-16)
+MARGIN = 1.06
 N_LEGS = 2
 KMAX = 11
 
@@ -258,9 +259,17 @@ def match_view(mkey, fx, prices, luck):
     for mkt, lines in (('TG', GAME_LINES), ('TH', TEAM_LINES), ('TA', TEAM_LINES)):
         for line in lines:
             for side in ('O', 'U'):
-                price = pr.get((mkt, side, line))
-                legs.append({'match': mkey, 'mkt': mkt, 'side': side, 'line': line, 'price': price,
-                             'p': leg_prob(M, mkt, side, line), 'pm': leg_prob(M0, mkt, side, line),
+                best = pr.get((mkt, side, line))
+                pm = leg_prob(M0, mkt, side, line)
+                # STALEPRICE-2026-10-16. The research rule judged a leg at the MARKET-FAIR price less a normal
+                # margin (1/(pm*MARGIN)), never at the best quote, and the audit showed best quotes carry stale
+                # outliers (10-16: Deportivo to score at 10/11 as 116/100 home favourites; Le Mans o1.5 longer
+                # than o2.5). So: qualify on `est`, and post the scraped best price CAPPED at fair (1/pm).
+                fair = 1 / pm if pm > 0 else None
+                price = min(best, fair) if (best and fair) else None
+                legs.append({'match': mkey, 'mkt': mkt, 'side': side, 'line': line, 'price': price, 'best': best,
+                             'est': (1 / (pm * MARGIN)) if pm > 0 else None,
+                             'p': leg_prob(M, mkt, side, line), 'pm': pm,
                              'label': leg_label(mkt, side, line, fx['home'], fx['away'])})
     return {'match': mkey, 'mlh': mlh, 'mla': mla, 'lh': lh, 'la': la, 'legs': legs,
             'luck': {'home': [th, own_h, conc_h], 'away': [ta, own_a, conc_a]}}
@@ -269,7 +278,7 @@ def match_view(mkey, fx, prices, luck):
 def pick(views, started=lambda m: False):
     """The rule: top N_LEGS legs by model P, one per match, priced >= MIN_LEG, match not started."""
     cand = [l for v in views for l in v['legs']
-            if l['price'] and l['price'] >= MIN_LEG and not started(l['match'])]
+            if l['price'] and l['est'] and l['est'] >= MIN_LEG and not started(l['match'])]
     cand.sort(key=lambda l: -l['p'])
     out, used = [], set()
     for l in cand:
@@ -329,6 +338,7 @@ def ticket(legs, fixtures, gnum, gtime, date, stamp):
                     'game': gnum.get(l['match'], 0), 'gtime': gtime.get(l['match'], ''),
                     'mkt': l['mkt'], 'side': l['side'], 'line': l['line'], 'label': l['label'],
                     'price': round(l['price'], 3), 'odds': american(l['price']), 'p': round(l['p'], 4),
+                    'best': l.get('best'),
                     'pm': round(l['pm'], 4)})
     name = GOALLINE_NAMES[_h('goalline' + date) % len(GOALLINE_NAMES)]
     return {'name': name, 'kind': 'goalline', 'badge': '🧤', 'units': 1, 'tlegs': out, 'players': [],
