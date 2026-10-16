@@ -1,0 +1,39 @@
+name: Soccer Team Log
+
+# GOALLINE-2026-10-15. Refreshes soccer/tm.psv (understat team match log, current + previous season,
+# top five leagues) for the Goal Line's luck layer (soccer/soccer_tot.py). Twice a day, before the
+# European and the American cards. Commits only when the file changed.
+
+on:
+  schedule:
+    - cron: '47 7 * * *'
+    - cron: '47 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-tm
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch
+        run: python3 soccer/tm_fetch.py soccer/tm.psv
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add soccer/tm.psv
+          git diff --staged --quiet && { echo "no change"; exit 0; }
+          git commit -m "Soccer team log $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0; sleep 5; done
+          exit 1

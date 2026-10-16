@@ -259,6 +259,10 @@ jobs:
           cp slates/${{ steps.slate.outputs.date }}/squads.psv .work/ 2>/dev/null || true
           # FGS-2026-09-29: first-goalscorer prices, optional -- without them no Opener pick this slate.
           cp slates/${{ steps.slate.outputs.date }}/fgs.psv .work/ 2>/dev/null || true
+          # GOALLINE-2026-10-15: totals prices (tot.psv, browser-scraped with ags.psv) and the understat team
+          # match log (tm.psv, refreshed daily by soccer-tm.yml). Both optional: no tot.psv -> no Goal Line.
+          cp slates/${{ steps.slate.outputs.date }}/tot.psv .work/ 2>/dev/null || true
+          cp tm.psv .work/ 2>/dev/null || true
           cp soccer_*.py soccer_*.js .work/
           cp soccer_season.json .work/
           # 🚨 NOSHEETSTAGE-2026-09-25. coverage.json WAS NOT STAGED, AND THE FIRST INTERNATIONAL
@@ -408,7 +412,10 @@ jobs:
                   $([ -f teamnews.json ] && echo "--teamnews teamnews.json") \
                   $([ -f squads.psv ] && echo "--squads squads.psv") \
                   $([ -f fgs.psv ] && echo "--fgs fgs.psv") \
-                  --ftd-cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json
+                  --ftd-cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json \
+                  $([ -f tot.psv ] && echo "--tot-psv tot.psv") \
+                  $([ -f tm.psv ] && echo "--tm-psv tm.psv") \
+                  --tot-cache ../slates/${{ steps.slate.outputs.date }}/tot_pick.json
           # BRACE-2026-10-15: the cache path is passed on EVERY slate now. The ✌️ Brace is picked from the
           # Top Bin and needs no first-goalscorer prices; fgs.psv only matters to a slate still holding an
           # Opener bet (an ftd_pick.json written before the switch, which carries no `kind`).
@@ -503,7 +510,9 @@ jobs:
               # soccer_season.json, every build ran green, the gate said commit=false, and the live
               # tracker kept showing last night's rows. A ledger change is a thing a reader notices.
               led = json.dumps(d.get('meta', {}).get('season'), sort_keys=True)
-              return t, pl, prose, ftd, led
+              # GOALLINE-2026-10-15: the goals parlay is on the page; a new pick must publish.
+              tot = json.dumps(d.get('meta', {}).get('tot'), sort_keys=True)
+              return t, pl, prose, ftd, led, tot
           def shell(p):
               """The page minus its payload: template + every injected module."""
               h = open(p, encoding='utf-8', errors='replace').read()
@@ -556,6 +565,7 @@ jobs:
                   "soccer/slates/$D/prices.json"
           [ -f "soccer/slates/$D/squads.psv" ] && git add "soccer/slates/$D/squads.psv" || true
           [ -f "soccer/slates/$D/ftd_pick.json" ] && git add "soccer/slates/$D/ftd_pick.json" || true
+          [ -f "soccer/slates/$D/tot_pick.json" ] && git add "soccer/slates/$D/tot_pick.json" || true   # GOALLINE-2026-10-15
           if git diff --staged --quiet; then
             echo "nothing changed"
           else
