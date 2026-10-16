@@ -1,0 +1,46 @@
+{
+ "_note": "FRI-2026-10-16. slate_scan_browser (gate 96 clubs): 4 core-league fixtures on the ET date, all admitted -- Frankfurt v Cologne (Bundesliga 18:30Z), Frosinone v Sassuolo (Serie A 18:45Z), Le Mans v Toulouse (Ligue 1 18:45Z), Deportivo v Levante (La Liga 19:00Z). Anytime 15/15 each, 0 unparsed. GOALLINE first slate: tot.psv carries Win Market + Total Goals + Total Home/Away Goals best prices for all 4 (264 rows). xG: the 10-15 understat pull (sha fce36cf99ae9fbfd) -- no league match since 10-12 per soccer/tm.psv -- pruned to 85 rows for the 60 priced names (lookup identical to the full feed; exact 55 | token 1 | missing 4). Mikey Moore's EPL 2026 Tottenham row (2 apps, 90') dropped by hand so his club resolves to FC Cologne, his real club since the window.",
+ "date": "2026-10-16",
+ "matches": {
+  "eintracht-frankfurt-v-fc-cologne": {
+   "home": "Eintracht Frankfurt",
+   "away": "FC Cologne",
+   "kickoff": 1110,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884770"
+   ]
+  },
+  "frosinone-v-sassuolo": {
+   "home": "Frosinone",
+   "away": "Sassuolo",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874959"
+   ]
+  },
+  "le-mans-v-toulouse": {
+   "home": "Le Mans",
+   "away": "Toulouse",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876437"
+   ]
+  },
+  "deportivo-v-levante": {
+   "home": "Deportivo",
+   "away": "Levante",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882844"
+   ]
+  }
+ }
+}
