@@ -1,1 +1,109 @@
-{"kind": "goalline", "date": "2026-10-16", "reset": "STALEPRICE-2026-10-16: the first pick (03:00Z) was made by code without the stale-price rule and took Deportivo to score at an outlier 10/11. No legs here, so the next build re-picks under the fixed rule."}
+{
+ "kind": "goalline",
+ "date": "2026-10-16",
+ "picked_at": "2026-10-16T03:03Z",
+ "legs": [
+  {
+   "match": "frosinone-v-sassuolo",
+   "mkt": "TG",
+   "side": "O",
+   "line": 2.5,
+   "price": 1.5,
+   "best": 1.5,
+   "est": 1.4502300934842385,
+   "p": 0.6689475337554065,
+   "pm": 0.6505148601271578,
+   "label": "Match over 2.5 goals"
+  },
+  {
+   "match": "eintracht-frankfurt-v-fc-cologne",
+   "mkt": "TH",
+   "side": "U",
+   "line": 2.5,
+   "price": 1.5,
+   "best": 1.5,
+   "est": 1.4521835739545812,
+   "p": 0.6519686910470794,
+   "pm": 0.6496397861367079,
+   "label": "Eintracht Frankfurt under 2.5 goals"
+  }
+ ],
+ "views": [
+  {
+   "match": "eintracht-frankfurt-v-fc-cologne",
+   "mlh": 2.1,
+   "mla": 1.55,
+   "lh": 2.091375632205478,
+   "la": 1.55044465059493,
+   "luck": {
+    "home": [
+     "Eintracht Frankfurt",
+     -0.17746745988866233,
+     0.3622587971589907
+    ],
+    "away": [
+     "FC Cologne",
+     -0.28306591461823044,
+     0.3848821042824286
+    ]
+   }
+  },
+  {
+   "match": "frosinone-v-sassuolo",
+   "mlh": 1.7,
+   "mla": 1.6500000000000001,
+   "lh": 1.7167542301713947,
+   "la": 1.7287150001421014,
+   "luck": {
+    "home": [
+     "Frosinone",
+     -0.1089234908426102,
+     -0.8849207631736672
+    ],
+    "away": [
+     "Sassuolo",
+     -0.18634317702213327,
+     -0.022994210153155215
+    ]
+   }
+  },
+  {
+   "match": "le-mans-v-toulouse",
+   "mlh": 1.4000000000000001,
+   "mla": 1.6,
+   "lh": 1.392147405658098,
+   "la": 1.6062947190790435,
+   "luck": {
+    "home": [
+     "Le Mans",
+     -0.00802105779230212,
+     -0.007485905910384575
+    ],
+    "away": [
+     "Toulouse",
+     0.04975239975317278,
+     0.28131262008754265
+    ]
+   }
+  },
+  {
+   "match": "deportivo-v-levante",
+   "mlh": 1.55,
+   "mla": 1.1500000000000001,
+   "lh": 1.5512875867682672,
+   "la": 1.1477349384190705,
+   "luck": {
+    "home": [
+     "Deportivo La Coruna",
+     0.12991636469662926,
+     0.19289327648873827
+    ],
+    "away": [
+     "Levante",
+     -0.012303526026322195,
+     0.0035008491508668645
+    ]
+   }
+  }
+ ]
+}
