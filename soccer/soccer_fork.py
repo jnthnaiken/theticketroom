@@ -25,6 +25,7 @@ import json, sys, io
 
 from soccer_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW, REFETCH_NEW
 
+GLCARD = '\n/* GOALLINE-2026-10-15 (soccer_tot.py): the daily goals parlay rides in D.meta.tot, outside D.tickets, so the\n   draft engine never touches it. Rendered here from final/live scores in D.meta.results; graded by soccer_grade.py. */\nfunction glLegState(l){var R=D.meta.results||{},sc=R[String(l.game)],fin=(typeof isFinal===\'function\')&&isFinal(l.game);if(!sc)return fin?\'dead\':\'pending\';var h=+sc[0],a=+sc[1],x=l.mkt===\'TG\'?h+a:(l.mkt===\'TH\'?h:a);if(l.side===\'O\'){if(x>l.line)return \'hit\';return fin?\'dead\':\'live\';}if(x>=l.line)return \'dead\';return fin?\'hit\':\'live\';}\nfunction glCard(t){var st=(t.tlegs||[]).map(glLegState),lost=st.indexOf(\'dead\')>=0,won=st.length&&st.every(function(s){return s===\'hit\';});var pay=\'$10 → $\'+((typeof comma===\'function\')?comma(Math.round(t.payout10)):Math.round(t.payout10));var od=(typeof oddsStr===\'function\')?oddsStr(t.parlay_am):t.parlay_am;\n var legs=(t.tlegs||[]).map(function(l,i){var s=st[i],ic=s===\'hit\'?\'✅\':s===\'dead\'?\'❌\':s===\'live\'?\'🚧\':\'⏳\',sc=(D.meta.results||{})[String(l.game)];return \'<div class="leg t-a gl-leg"><span class="dot"></span><span class="nm"><span class="lst \'+(s===\'hit\'?\'hit\':s===\'dead\'?\'dead\':s===\'live\'?\'susp\':\'p\')+\'">\'+ic+\'</span>\'+l.label+\'</span><span class="od">\'+((typeof oddsStr===\'function\')?oddsStr(l.odds):l.odds)+\'</span><span class="lmeta gl-meta"><span class="wbadge">🎯 \'+Math.round(l.p*100)+\'%</span><span class="lbrk"></span><span class="lwhere">\'+l.gmatch+\' · \'+(sc?sc[0]+\'–\'+sc[1]:String(l.gtime||\'\').split(\' \')[0])+\'</span></span></div>\';}).join(\'\');\n return \'<div class="slip lunchwide\'+(won?\' cashed\':\'\')+(lost?\' lost\':\'\')+\'"><div class="top"><div class="toprow"><div class="ttitle"><span class="tbadge">🧤</span><div class="tname">\'+t.name+\'</div></div><div class="parlay"><div class="od">\'+od+\'</div><div class="pay">\'+pay+\'</div></div></div><div class="lockline">\'+(won?\'<span class="cashpill">💸 CASHED</span>\':(lost?\'<span class="losspill">🚩 SOLD</span>\':\'\'))+\'<span>Lock \'+(t.lock||\'\')+(t.lock?\' ET\':\'\')+\'</span></div>\'+(t.note?\'<div class="tnote">\'+t.note+\'</div>\':\'\')+\'</div><div class="legs">\'+legs+\'</div></div>\';}\nfunction glSection(){try{var t=D.meta&&D.meta.tot;return \'<div class="tsec lunch"><span class="tsech">The Goal Line</span><span class="tline"></span></div>\'+(t&&t.tlegs&&t.tlegs.length?glCard(t):\'<div class="closed">🧤 No Goal Line on this slate yet. It is picked once the totals are priced.</div>\');}catch(e){return \'\';}}\n'
 EXPECT_SEAMS = 106 + LIVE_SEAM_COUNT         # SPECIALS-2026-09-24: +8 (kc-kinds, tracker-specials,  # SPORTEMOJI-2026-10-15 +1 (kemo)
                                              # specials-live, sec-lunch, sec-nightcap, pool-late,
                                              # card-wide, kind-nightcap -- baseball retired
@@ -327,7 +328,8 @@ def seams(payload_js):
     # to orphan in exchange for nothing. If soccer is ever wired to draft client-side, seam
     # retiredKind FIRST -- it would eat both specials on the first redraft.
     # SPORTEMOJI-2026-10-15: soccer's own emoji table for the ticket card (index.html KEMO).
-    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={builder:'🥅',brace:'👟'};")
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={builder:'🥅',brace:'👟',goalline:'🧤'};"
+        + GLCARD)   # GOALLINE-2026-10-15: the goals parlay's card + section ride in on the KEMO line (engine script top)
     add('kc-kinds',
         "var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};",
         "var kc={lunch:0,late:0,builder:0,moon:0,family:0};")
@@ -335,7 +337,7 @@ def seams(payload_js):
     # kc.lunch and kc.late are undefined and the TONIGHT counter prints "undefined 🍱".
     add('tracker-specials',
         "var defs=[['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot'],",
-        "var defs=[['brace','👟','The Brace'],")   # SPORTEMOJI/BRACELEDGER-2026-10-15: the Opener is backed out of the ledger; one special row   # BRACE-2026-10-15: the Brace leads; the retired Opener keeps its own row and record   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
+        "var defs=[['brace','👟','The Brace'],['goalline','🧤','Goal Line'],")   # GOALLINE-2026-10-15   # SPORTEMOJI/BRACELEDGER-2026-10-15: the Opener is backed out of the ledger; one special row   # BRACE-2026-10-15: the Brace leads; the retired Opener keeps its own row and record   # FGS-2026-09-29: the Opener leads. LUNCHMERGE-2026-09-30: Lunch folded into Top Bin; Nightcap removed from the ledger (soccer_season.json `merged`). Two rows: Opener + Top Bin
     add('specials-live',
         " const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final).filter(match).filter(singleAlive);",
         " const dingerLive=((D.meta.ftd&&D.meta.ftd.players)?[D.meta.ftd]:[]).filter(t=>t.kind==='brace').filter(match).filter(singleAlive);")   # BRACE-2026-10-15: either special rides in meta.ftd   # FGS-2026-09-29: the section shows the one first-goalscorer pick, from meta
@@ -351,7 +353,7 @@ def seams(payload_js):
         '<div class="tsec lunch"><span class="tsech">The Brace</span>')   # BRACE-2026-10-15: a slate still carrying an Opener bet keeps its title
     # FGS-2026-09-29: the Nightcap drop-down is gone -- one special a slate, the first-goalscorer pick.
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';',
-        "html+='';")
+        "html+=(ty==='all'&&!q&&typeof glSection==='function')?glSection():'';")   # GOALLINE-2026-10-15: the retired Nightcap slot now holds The Goal Line
     add('pool-late',
         "var L=D.tickets.filter(t=>t.kind==='jackpot'&&!t.final).filter(singleAlive);el.innerHTML="
         "L.length?L.map(ticketCard).join(''):'<div class=\"closed\">\\ud83c\\udfdf\\ufe0f No jackpot pick "
@@ -388,7 +390,7 @@ def seams(payload_js):
     # SPECIALS-2026-09-24: the baseball line now names its two new specials (see the block above).
     add('howto-order',
         'Read it top to bottom: ⚾ Daily Dinger, 🏟️ Long Ball Jackpot, 🧢 Anchors, 🥎 Moonshots.',
-        'Read it top to bottom: 👟 The Brace, 🥅 Top Bin.')
+        'Read it top to bottom: 👟 The Brace, 🧤 The Goal Line, 🥅 Top Bin.')   # GOALLINE-2026-10-15
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
         """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
@@ -603,7 +605,9 @@ def seams(payload_js):
         '<div class="kind"><span class="ke">🏟️</span><div><b>Long Ball Jackpot</b><span>Free play. '
         'Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer '
         'that day — we rank park carry plus model score. Not a bet we place.</span></div></div>',
-        '')   # FGS-2026-09-29: the Nightcap is retired
+        '<div class="kind"><span class="ke">🧤</span><div><b>The Goal Line</b><span>One parlay a day on goals, '
+        'not scorers: game totals and team totals. Two legs from different matches, the two lines our goals model rates '
+        'most likely to land that still pay -250 or better.</span></div></div>')   # GOALLINE-2026-10-15 (was the retired Nightcap)
     add('kind-anchors',
         '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>',
         '<span class="ke">🥅</span><div><b>Top Bin</b><span>Every confirmed starter we rate 45% or better to score (two a match at most), each a straight 1u single.</span>')

@@ -190,6 +190,21 @@ def fold(dpath, spath):
     if _ft and _ft.get('players') and not _ft.get('alts') and not any(t.get('kind') == _ft.get('kind', 'ftd') for t in D['tickets']):   # BRACE-2026-10-15: the slot also carries kind 'brace'
         D['tickets'].append(_ft)
     night, rows = 0.0, []
+    # GOALLINE-2026-10-15: the daily goals parlay rides in meta.tot and grades off the final scores
+    # (meta.results), not off player rows. Folded once, into its own `goalline` category.
+    _tot = D['meta'].get('tot')
+    if _tot and _tot.get('tlegs'):
+        import soccer_tot as _st
+        g = _st.grade(_tot, D['meta'].get('results') or {}, finals)
+        if g:
+            c = season['cats'].setdefault(g['kind'], dict(ZERO))
+            c['graded'] += 1; c['won'] += 1 if g['won'] else 0
+            c['units'] = c['units'] + g['net']; c['staked'] = c['staked'] + g['stake']
+            night += g['net']
+            _stamp(_tot, g)
+            rows.append((_tot['kind'], _tot['name'], 'WON ' if g['won'] else 'lost', g['net']))
+        else:
+            rows.append((_tot['kind'], _tot['name'], 'not settled / void', 0.0))
     for t in D['tickets']:
         g = grade_ticket(t, players, finals)
         if not g:

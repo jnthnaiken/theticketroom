@@ -64,7 +64,8 @@ def hook_read(avg_min, games):
 
 
 def build(scored_path, tickets_path, xg_path, out_path, date,
-          season_path=None, teamnews_path=None, squads_path=None, fgs_path=None, ftd_cache=None):
+          season_path=None, teamnews_path=None, squads_path=None, fgs_path=None, ftd_cache=None,
+          tot_psv=None, tm_psv=None, tot_cache=None):
     P = json.load(io.open(scored_path, encoding='utf-8'))
     T = json.load(io.open(tickets_path, encoding='utf-8'))
     TN = (json.load(io.open(teamnews_path, encoding='utf-8'))
@@ -402,6 +403,29 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                      'confleg': 1 if _p['status'] == 'confirmed' else 0, 'unres': 0, 'priced': 1,
                      'parlay_am': _o, 'payout10': round(10 * _dec, 1)}
 
+    # GOALLINE-2026-10-15 (soccer_tot.py): the daily goals parlay -- game + team totals, market layer + xG-luck
+    # layer, two legs from different board matches. Sticky in slates/<d>/tot_pick.json. Rides in meta.tot.
+    tot_t = None
+    if tot_psv or tot_cache:
+        try:
+            import soccer_tot as _st
+            from datetime import datetime as _dt2, timezone as _tz2
+            _now2 = (_dt2.now(_tz2.utc) - _dt2.fromisoformat(date).replace(tzinfo=_tz2.utc)).total_seconds() / 60.0
+            _fxs = {m: {'home': MATCH_LABEL[m][0], 'away': MATCH_LABEL[m][1]}
+                    for m in matches if m in MATCH_LABEL and m in ESPN_EVENT}
+            tot_t, _views = _st.build(_fxs, tot_psv, tm_psv, date, cache_path=tot_cache,
+                                     started=lambda m: _now2 >= ko_of(m), gnum=gnum,
+                                     gtime={m: gtime(ko_of(m)) for m in matches})
+            if tot_t:
+                tot_t['note'] = _pick(GOALLINE_LINES, 'gl' + date)
+                print(f"    goal line: {tot_t['name']} " + ' + '.join(f"{l['label']} {l['odds']:+d} (p {l['p']:.2f})" for l in tot_t['tlegs'])
+                      + f"  -> {tot_t['parlay_am']:+d}")
+            else:
+                print(f"    goal line: none ({len(_views or [])} priced matches)")
+        except Exception as _e:   # the goals parlay must never take the scorer board down with it
+            print(f"  ::warning::goal line skipped: {_e}")
+            tot_t = None
+
     D = {
         'players': players,
         'tickets': T,
@@ -441,6 +465,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                         if lg_of.get(m) in _NOSHEET_LEAGUES},
             'build': _build_stamp,
             'ftd': ftd_t,          # the special slot: the Brace (BRACE-2026-10-15), or None
+            'tot': tot_t,          # GOALLINE-2026-10-15: the daily goals parlay, or None
             'face': 'soccer',
             'maxAT': 100,
             'date': date,
@@ -501,6 +526,14 @@ BRACE_LINES = [
 # collide with a Top Bin, Opener or bench title, so a slip's name never says which pool it is wrong.
 BRACE_NAMES = ['The Banker', 'Nailed On', 'Both Barrels', 'Double Up', 'The Talisman', 'Heavy Boot',
                'Go-To Man', 'Full Stake', 'Main Man', 'Big Game Player', 'Danger Man', 'Leading Man']
+
+# GOALLINE-2026-10-15: the Goal Line's one-liner. No digits (the card prints the probabilities), no promise.
+GOALLINE_LINES = [
+    'Two goal lines, two different matches, and the numbers like both of them. Lovely stuff!',
+    'Forget who scores, this one is about how many. Pure arithmetic with a bit of swagger!',
+    'The goals model has spoken, and it fancies these two lines more than anything else on the card. Glorious!',
+    'Two matches, two lines, one slip. Let the net do the counting. Magnificent!',
+]
 
 FGS_NAMES = ['Breaks the Deadlock', 'First Blood', 'Opening Account', 'Early Doors', 'Off the Mark',
              'First to the Net', 'The Opener', 'Sets the Tone', 'Draws First Blood', 'Ice Breaker',
@@ -1116,8 +1149,13 @@ def _depersonalise(clause, name):
 
 if __name__ == '__main__':
     raw, argv, sp, tn, sq, fg, fc = sys.argv[1:], [], None, None, None, None, None
+    GL = {}
     i = 0
     while i < len(raw):
+        if raw[i] in ('--tot-psv', '--tm-psv', '--tot-cache'):   # GOALLINE-2026-10-15
+            GL[raw[i]] = raw[i + 1]
+            i += 2
+            continue
         if raw[i] in ('--season', '--teamnews', '--squads', '--fgs', '--ftd-cache'):
             if raw[i] == '--season':
                 sp = raw[i + 1]
@@ -1136,4 +1174,5 @@ if __name__ == '__main__':
     if len(argv) != 5:
         sys.exit('usage: soccer_payload.py <scored.json> <tickets.json> <xg.psv> <out.json> '
                  '<date> [--season S.json] [--teamnews T.json]')
-    build(*argv, season_path=sp, teamnews_path=tn, squads_path=sq, fgs_path=fg, ftd_cache=fc)
+    build(*argv, season_path=sp, teamnews_path=tn, squads_path=sq, fgs_path=fg, ftd_cache=fc,
+          tot_psv=GL.get('--tot-psv'), tm_psv=GL.get('--tm-psv'), tot_cache=GL.get('--tot-cache'))
