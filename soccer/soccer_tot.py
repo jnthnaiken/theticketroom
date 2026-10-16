@@ -352,6 +352,46 @@ def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
 
 
 # ---------------------------------------------------------------------------------------------
+# research (GLRESEARCH-2026-10-16, owner: "add any of the new data for total goals to the research tab")
+# One row per priced board match, from the CURRENT prices (independent of the sticky pick): both
+# sides' expected goals (market and model), the luck reads, and the model probability + best price
+# (capped at fair, as the Goal Line posts it) for the lines a reader actually bets.
+# ---------------------------------------------------------------------------------------------
+RS_LINES = [('o15', 'TG', 'O', 1.5), ('o25', 'TG', 'O', 2.5), ('u25', 'TG', 'U', 2.5), ('o35', 'TG', 'O', 3.5),
+            ('hs', 'TH', 'O', 0.5), ('as', 'TA', 'O', 0.5), ('h15', 'TH', 'O', 1.5), ('a15', 'TA', 'O', 1.5)]
+
+
+def research(fixtures, prices_path, tm_path, date, gnum=None, gtime=None, picked=None):
+    gnum, gtime = gnum or {}, gtime or {}
+    prices = load_prices(prices_path)
+    luck = Luck(load_tm(tm_path), date)
+    pk = {(l['match'], l['mkt'], l['side'], l['line']) for l in (picked or [])}
+    rows = []
+    for k, fx in fixtures.items():
+        v = match_view(k, fx, prices, luck)
+        if not v:
+            continue
+        M = matrix(v['lh'], v['la'])
+        by = {(l['mkt'], l['side'], l['line']): l for l in v['legs']}
+        r = {'match': k, 'home': fx['home'], 'away': fx['away'], 'game': gnum.get(k, 0), 'gtime': gtime.get(k, ''),
+             'mlh': round(v['mlh'], 2), 'mla': round(v['mla'], 2), 'lh': round(v['lh'], 2), 'la': round(v['la'], 2),
+             'hfin': None if v['luck']['home'][1] is None else round(v['luck']['home'][1], 2),
+             'hconc': None if v['luck']['home'][2] is None else round(v['luck']['home'][2], 2),
+             'afin': None if v['luck']['away'][1] is None else round(v['luck']['away'][1], 2),
+             'aconc': None if v['luck']['away'][2] is None else round(v['luck']['away'][2], 2),
+             'btts': round(sum(M[i][j] for i in range(1, KMAX) for j in range(1, KMAX)), 4)}
+        for key_, mkt, side, line in RS_LINES:
+            l = by.get((mkt, side, line))
+            r[key_] = round(l['p'], 4) if l else None
+            r[key_ + '_o'] = american(l['price']) if (l and l['price']) else None
+            if (k, mkt, side, line) in pk:
+                r[key_ + '_gl'] = 1
+        rows.append(r)
+    rows.sort(key=lambda r: (r['game'] or 99, r['match']))
+    return rows
+
+
+# ---------------------------------------------------------------------------------------------
 # write-up (GLWRITE-2026-10-16, owner: "need more of a write up too")
 # One sentence per leg, from what the model actually saw: how many goals the market expects (the
 # lambdas) and whose finishing has been running hot or cold (the luck layer). House voice, NO DIGITS

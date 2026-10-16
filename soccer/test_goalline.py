@@ -88,5 +88,12 @@ chk('write-ups recite no digits', not any(_re.search(r'\d', w or '') for w in _w
 _v = {'match': 'x', 'lh': 1.5, 'la': 1.1, 'luck': {'home': ['H', 0.4, 0.0], 'away': ['A', 0.0, 0.4]}}
 _w = T.writeup({'match': 'x', 'mkt': 'TH', 'side': 'U', 'line': 1.5}, _v, {'home': 'Hosts', 'away': 'Guests'}, 'd')
 chk('team under cites the hot finishing that should cool', 'above their chances' in _w, _w)
+# GLRESEARCH-2026-10-16: the research rows
+open(tp, 'w').write('\n'.join(lines) + '\n')
+_rows = T.research(FX, tp, tm, '2026-10-16', gnum={k: i + 1 for i, k in enumerate(FX)}, picked=t1['tlegs'])
+chk('research: one row per priced match', len(_rows) == 3, len(_rows))
+chk('research: probabilities for every bettable line', all(r[k] is not None for r in _rows for k in ('o15', 'o25', 'u25', 'hs', 'as')))
+chk('research: o2.5 + u2.5 = 1', all(abs(r['o25'] + r['u25'] - 1) < 1e-3 for r in _rows))
+chk('research: the Goal Line legs are marked', sum(1 for r in _rows for k in r if k.endswith('_gl')) >= 1)
 print(f"\n{'ALL GREEN' if not fail else str(fail) + ' FAILURE(S)'} -- the Goal Line")
 sys.exit(1 if fail else 0)

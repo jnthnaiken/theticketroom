@@ -427,6 +427,27 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
         except Exception as _e:   # the goals parlay must never take the scorer board down with it
             print(f"  ::warning::goal line skipped: {_e}")
             tot_t = None
+    # GLRESEARCH-2026-10-16: the totals data on the research tab -- one row per priced match (meta.gl), and
+    # each player's side gets its expected goals tonight (tgx) and recent finishing vs xG (tfin).
+    gl_rows = []
+    if tot_psv:
+        try:
+            import soccer_tot as _st
+            gl_rows = _st.research({m: {'home': MATCH_LABEL[m][0], 'away': MATCH_LABEL[m][1]}
+                                    for m in matches if m in MATCH_LABEL},
+                                   tot_psv, tm_psv, date, gnum=gnum, gtime={m: gtime(ko_of(m)) for m in matches},
+                                   picked=(tot_t or {}).get('tlegs'))
+            _byg = {r['game']: r for r in gl_rows}
+            for _n, _p in players.items():
+                _r = _byg.get(_p.get('game'))
+                if not _r:
+                    continue
+                _home = '(H)' in str((_p.get('opp') or ['', ''])[1])
+                _p['tgx'] = _r['lh'] if _home else _r['la']
+                _p['tfin'] = _r['hfin'] if _home else _r['afin']
+        except Exception as _e:
+            print(f"  ::warning::goal research skipped: {_e}")
+            gl_rows = []
 
     D = {
         'players': players,
@@ -468,6 +489,7 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'build': _build_stamp,
             'ftd': ftd_t,          # the special slot: the Brace (BRACE-2026-10-15), or None
             'tot': tot_t,          # GOALLINE-2026-10-15: the daily goals parlay, or None
+            'gl': gl_rows,         # GLRESEARCH-2026-10-16: per-match goals research rows
             'face': 'soccer',
             'maxAT': 100,
             'date': date,
