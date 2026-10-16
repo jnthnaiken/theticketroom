@@ -384,16 +384,18 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             # BRACE2U-2026-10-15 (owner): "we are not posting two single tickets when we can post one with 2u on it".
             # His Top Bin single stays in the draft (so the rebuild keeps the same card) but is flagged `braced`:
             # the page does not show it and the grader skips it. Both units ride on this one ticket.
+            _wu = None
             for _t in T:
                 if _t.get('kind') == 'builder' and len(_t.get('players') or []) == 1 and _t['players'][0]['name'] == _row['name']:
                     _t['braced'] = True
+                    _wu = _t.get('note')
             # BRACENAME-2026-10-15 (owner): "dont call the ticket under the title the brace too. it should have
             # rotating ticket names like all the rest". The section is The Brace; the slip wears a date-rotated title.
             ftd_t = {'name': _pick(BRACE_NAMES, 'brace' + date), 'kind': 'brace', 'badge': '👟', 'units': 2,
                      # BRACE2U-2026-10-15 (owner): "say that its a 2u pick of the day in a way that flows with the rest of the page"
-                     'note': (f"{_row['name']} to score in {_p['gmatch']}. Pick of the day, and he goes 2u, one ticket "
-                              f"with both units on it, because nobody on the board sits further above his price. "
-                              + _pick(BRACE_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
+                     # BRACESHORT-2026-10-15 (owner): "just say our pick of the day at 2u is... and then do a normal
+                     # write up". The normal write-up is his own Top Bin note (the slip he was braced off).
+                     'note': f"Our pick of the day at 2u is {_row['name']}. " + (_wu or _pick(BRACE_LINES, _row['name'] + date).format(who=_surname(_row['name']))),
                      'players': [_leg], 'nlegs': 1, 'anchor': _row['name'], 'lock': _p['gtime'],
                      'has_late': False, 'final': False, 'locked': False, 'rr': None,
                      'wxsum': {'boost': 0, 'supp': 0, 'dome': 0, 'neu': 0},
