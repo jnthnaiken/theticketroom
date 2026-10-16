@@ -1,0 +1,41 @@
+name: Soccer FD Raw Pull
+
+# TOTALS-2026-10-15. One-off research pull: football-data.co.uk full match CSVs (every column,
+# including Max/MaxC best-price over-under 2.5 and Asian handicap) for the top five leagues plus
+# Championship, Eredivisie, Primeira, Jupiler, Scottish Prem. Commits to `soccer-data` under
+# history/fd_raw/. Never touches main, never runs on a schedule. The Claude session cannot reach
+# football-data.co.uk, so the pull runs here.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: soccer-data
+      - name: Fetch
+        run: |
+          mkdir -p history/fd_raw
+          for code in E0 E1 SP1 I1 D1 F1 N1 P1 B1 SC0; do
+            for s in 1415 1516 1617 1718 1819 1920 2021 2122 2223 2324 2425 2526 2627; do
+              u="https://www.football-data.co.uk/mmz4281/$s/$code.csv"
+              curl -sSfL --retry 3 -A "Mozilla/5.0" -o "history/fd_raw/${code}_${s}.csv" "$u" || { echo "miss $u"; rm -f "history/fd_raw/${code}_${s}.csv"; }
+              sleep 0.3
+            done
+          done
+          ls -la history/fd_raw | head -200
+          wc -l history/fd_raw/*.csv | tail -1
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add history/fd_raw
+          git commit -m "FD raw pull $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "no change"; exit 0; }
+          git push origin HEAD:soccer-data
