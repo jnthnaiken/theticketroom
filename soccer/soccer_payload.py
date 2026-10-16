@@ -6,8 +6,8 @@ READ SET (pCard / legRow / ticketCard / drawStats / avail / sortedNames):
   + soccer additions consumed by the forked seams:
     oppxga npxg90 xgshot minutes xgmatch sub{emoji,park,cond,rain,lean}
 
-TWO CHIPS HAVE NO DATA and are written as None on purpose so they render "—":
-  * oppxga   -- opponent xGA/90, needs understat teamsData
+ONE CHIP HAS NO DATA and is written as None on purpose so it renders "—"
+  (oppxga had none until DEFXGA-2026-10-16; it now comes from soccer/tm.psv, opponents without understat history stay "—"):
   * sub.park -- the successor's NAME, needs a squad-wide pull
 """
 import json, io, sys, math, itertools, os, re, unicodedata
@@ -427,6 +427,19 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
         except Exception as _e:   # the goals parlay must never take the scorer board down with it
             print(f"  ::warning::goal line skipped: {_e}")
             tot_t = None
+    # DEFXGA-2026-10-16 (owner: "why is the defense column just dashes?"): oppxga was written as None since
+    # 08-25 for want of understat teamsData. soccer/tm.psv (soccer-tm.yml) is exactly that, so the opponent's
+    # npxG conceded per match over his last ten league games now fills it (and the Defense chip on the card).
+    if tm_psv:
+        try:
+            import soccer_tot as _st
+            _lk = _st.Luck(_st.load_tm(tm_psv), date)
+            for _p in players.values():
+                _o = (_p.get('opp') or [None])[0]
+                if _o:
+                    _p['oppxga'] = _lk.xga(_o)
+        except Exception as _e:
+            print(f"  ::warning::oppxga skipped: {_e}")
     # GLRESEARCH-2026-10-16: the totals data on the research tab -- one row per priced match (meta.gl), and
     # each player's side gets its expected goals tonight (tgx) and recent finishing vs xG (tfin).
     gl_rows = []

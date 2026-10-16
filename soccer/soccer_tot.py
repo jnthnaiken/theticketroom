@@ -206,6 +206,15 @@ class Luck:
         cands = [v for kk, v in self.by_key.items() if kk and (kk in k or k in kk)]
         return cands[0] if len(cands) == 1 else (None, [])
 
+    def xga(self, name, n=10):
+        """DEFXGA-2026-10-16: the side's non-penalty xG conceded per match over its last `n` league games
+        before the slate (None with no understat history). Fills the research table's long-empty Def column."""
+        team, past = self.find(name)
+        if not past:
+            return None
+        last = past[-n:]
+        return round(sum(r[2] for r in last) / len(last), 2)
+
     def own_opp(self, name):
         team, past = self.find(name)
         if not past:

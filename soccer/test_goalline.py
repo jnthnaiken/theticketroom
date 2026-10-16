@@ -110,5 +110,8 @@ lines.append('a-v-b|BT|Y|-|10/11'); lines.append('a-v-b|BT|N|-|10/11')
 open(tp, 'w').write('\n'.join(lines) + '\n')
 _vb = T.match_view('a-v-b', FX['a-v-b'], T.load_prices(tp), L)
 chk('BTTS legs priced from tot.psv', any(l['mkt'] == 'BT' and l['price'] for l in _vb['legs']))
+# DEFXGA-2026-10-16
+chk('opponent xGA: mean npxGA of the last ten before the slate', L.xga('RB Leipzig') == 1.0 and L.xga('Cologne') == 1.0, (L.xga('RB Leipzig'), L.xga('Cologne')))
+chk('opponent xGA: no history -> None (renders as a dash)', L.xga('Sturm Graz') is None)
 print(f"\n{'ALL GREEN' if not fail else str(fail) + ' FAILURE(S)'} -- the Goal Line")
 sys.exit(1 if fail else 0)
