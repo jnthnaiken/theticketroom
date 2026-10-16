@@ -296,7 +296,7 @@ def build(fixtures, prices_path, tm_path, date, cache_path=None, started=lambda 
         try:
             c = json.load(open(cache_path, encoding='utf-8'))
             if c.get('legs'):
-                return ticket(c['legs'], fixtures, gnum, gtime, date, c.get('picked_at')), None
+                return ticket(c['legs'], fixtures, gnum, gtime, date, c.get('picked_at'), c.get('views')), None
         except Exception:
             pass
     prices = load_prices(prices_path)
@@ -311,7 +311,8 @@ def build(fixtures, prices_path, tm_path, date, cache_path=None, started=lambda 
         json.dump({'kind': 'goalline', 'date': date, 'picked_at': stamp, 'legs': legs,
                    'views': [{k: v[k] for k in ('match', 'mlh', 'mla', 'lh', 'la', 'luck')} for v in views]},
                   open(cache_path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-    return ticket(legs, fixtures, gnum, gtime, date, stamp), views
+    vv = [{k: v[k] for k in ('match', 'mlh', 'mla', 'lh', 'la', 'luck')} for v in views]
+    return ticket(legs, fixtures, gnum, gtime, date, stamp, vv), views
 
 
 GOALLINE_NAMES = ['The Net Count', 'Final Tally', 'Scoreline Special', 'The Ninety',
@@ -326,7 +327,7 @@ def _h(s):
     return h
 
 
-def ticket(legs, fixtures, gnum, gtime, date, stamp):
+def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
     gnum = gnum or {}
     gtime = gtime or {}
     pj = 1.0; dj = 1.0
@@ -341,10 +342,81 @@ def ticket(legs, fixtures, gnum, gtime, date, stamp):
                     'best': l.get('best'),
                     'pm': round(l['pm'], 4)})
     name = GOALLINE_NAMES[_h('goalline' + date) % len(GOALLINE_NAMES)]
+    vmap = {v['match']: v for v in (views or [])}
+    for o_, l in zip(out, legs):
+        o_['why'] = writeup(l, vmap.get(l['match']), fixtures.get(l['match'], {}), date)
     return {'name': name, 'kind': 'goalline', 'badge': '🧤', 'units': 1, 'tlegs': out, 'players': [],
             'nlegs': len(out), 'pj': round(pj, 4), 'parlay_am': american(dj), 'payout10': round(10 * dj, 1),
             'lock': min((o['gtime'] for o in out if o['gtime']), default=''), 'picked_at': stamp,
             'final': False, 'rr': None, 'priced': len(out)}
+
+
+# ---------------------------------------------------------------------------------------------
+# write-up (GLWRITE-2026-10-16, owner: "need more of a write up too")
+# One sentence per leg, from what the model actually saw: how many goals the market expects (the
+# lambdas) and whose finishing has been running hot or cold (the luck layer). House voice, NO DIGITS
+# (the card already prints price and probability), no promise. Deterministic: same inputs, same words.
+# ---------------------------------------------------------------------------------------------
+def _pk(opts, key):
+    return opts[_h(key) % len(opts)]
+
+
+def writeup(l, v, fx, date):
+    home, away = fx.get('home', 'the hosts'), fx.get('away', 'the visitors')
+    key = l['match'] + l['mkt'] + l['side'] + str(l['line']) + date
+    if not v:
+        return ''
+    lh, la = v['lh'], v['la']
+    tot = lh + la
+    lk = v.get('luck') or {}
+    h_own, h_conc = (lk.get('home') or [None, None, None])[1:]
+    a_own, a_conc = (lk.get('away') or [None, None, None])[1:]
+    HOT, COLD = 0.15, -0.15
+    if l['mkt'] == 'TG':
+        if l['side'] == 'O':
+            base = _pk([f'{home} and {away} is priced as an open game, and both back lines have been giving up proper chances.',
+                        f'Plenty of traffic expected at both ends of {home} v {away}.',
+                        f'{home} v {away} has goals written all over it, two sides happier attacking than defending.'], key)
+            extra = ''
+            if (h_own or 0) < COLD or (a_own or 0) < COLD:
+                who = home if (h_own or 0) < (a_own or 0) else away
+                extra = f' {who} have been finishing below their chances lately, and that usually turns.'
+            return base + extra
+        base = _pk([f'{home} v {away} shapes up as a cagey one, and the model sees a long way to a goal-fest.',
+                    f'Not much between {home} and {away}, and tight games rarely run away from anyone.',
+                    f'Expect {home} v {away} to be more chess than fireworks.'], key)
+        extra = ''
+        if max(h_own or 0, a_own or 0) > HOT:
+            who = home if (h_own or 0) >= (a_own or 0) else away
+            extra = f' {who} have been scoring above their chances, and that tends to cool off.'
+        return base + extra
+    side_home = l['mkt'] == 'TH'
+    team, opp = (home, away) if side_home else (away, home)
+    lam = lh if side_home else la
+    own = h_own if side_home else a_own
+    opp_conc = a_conc if side_home else h_conc
+    if l['side'] == 'O':
+        base = (_pk([f'{team} carry the bigger threat in this one and should find the net.',
+                     f'{team} get chances in bunches, and {opp} have been letting them come.',
+                     f'Back {team} to get on the scoresheet; the attack has been creating enough to deserve it.'], key)
+                if lam >= 1.2 else
+                _pk([f'{team} only need one, and they have been creating enough to get it.',
+                     f'{team} are not the favourites here, but one goal from them is the likeliest thing on the card.'], key))
+        extra = ''
+        if (own or 0) < COLD:
+            extra = f' Their finishing has been running behind their chances, which is exactly when the goals come.'
+        elif (opp_conc or 0) < COLD:
+            extra = f' {opp} have been getting away with more than their chances allow, and that rarely lasts.'
+        return base + extra
+    base = _pk([f'{team} have a hard afternoon ahead against {opp}, and a quiet one in front of goal suits this line.',
+                f'{opp} should keep {team} to scraps.',
+                f'We do not see {team} running riot here.'], key)
+    extra = ''
+    if (own or 0) > HOT:
+        extra = f' {team} have been scoring above their chances lately, and that tends to come back to earth.'
+    elif (opp_conc or 0) > HOT:
+        extra = f' {opp} have been conceding more than the chances they allow, and that kind of run corrects itself.'
+    return base + extra
 
 
 # ---------------------------------------------------------------------------------------------

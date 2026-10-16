@@ -81,5 +81,12 @@ g = T.grade(t, {'1': [0, 1], '2': [0, 0]}, {1}); chk('a final losing leg decides
 g = T.grade(t, {'1': [1, 1], '2': [0, 2]}, {1, 2}); chk('team under busted -> lost', g and not g['won'])
 chk('home/away legs read the right side', T.leg_won({'mkt': 'TH', 'side': 'O', 'line': 0.5}, (1, 0)) and not T.leg_won({'mkt': 'TA', 'side': 'O', 'line': 0.5}, (1, 0)))
 
+import re as _re
+_whys = [l.get('why') for l in t1['tlegs']]
+chk('every leg carries a write-up', all(_whys), _whys)
+chk('write-ups recite no digits', not any(_re.search(r'\d', w or '') for w in _whys), _whys)
+_v = {'match': 'x', 'lh': 1.5, 'la': 1.1, 'luck': {'home': ['H', 0.4, 0.0], 'away': ['A', 0.0, 0.4]}}
+_w = T.writeup({'match': 'x', 'mkt': 'TH', 'side': 'U', 'line': 1.5}, _v, {'home': 'Hosts', 'away': 'Guests'}, 'd')
+chk('team under cites the hot finishing that should cool', 'above their chances' in _w, _w)
 print(f"\n{'ALL GREEN' if not fail else str(fail) + ' FAILURE(S)'} -- the Goal Line")
 sys.exit(1 if fail else 0)

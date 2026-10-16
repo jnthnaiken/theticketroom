@@ -417,7 +417,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                                      started=lambda m: _now2 >= ko_of(m), gnum=gnum,
                                      gtime={m: gtime(ko_of(m)) for m in matches})
             if tot_t:
-                tot_t['note'] = _pick(GOALLINE_LINES, 'gl' + date)
+                # GLWRITE-2026-10-16: a real write-up -- one line per leg from soccer_tot.writeup, then the sign-off.
+                _w = ' '.join(l.get('why') for l in tot_t['tlegs'] if l.get('why'))
+                tot_t['note'] = _w or _pick(GOALLINE_LINES, 'gl' + date)   # the sign-off only when there is no write-up
                 print(f"    goal line: {tot_t['name']} " + ' + '.join(f"{l['label']} {l['odds']:+d} (p {l['p']:.2f})" for l in tot_t['tlegs'])
                       + f"  -> {tot_t['parlay_am']:+d}")
             else:
