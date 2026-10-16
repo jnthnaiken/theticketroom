@@ -18,6 +18,7 @@
  * Appends "match|market|side|line|odds" to localStorage.TOT_ROWS and returns a summary.
  *   market WIN  side H/D/A  line -
  *   market TG/TH/TA (game / home team / away team goals)  side O/U  line 0.5 ...
+ *   market BT (both teams to score)  side Y/N  line -   (GLBTTS-2026-10-16)
  */
 (function () {
   'use strict';
@@ -115,6 +116,16 @@
       out = out.concat(r.rows);
       notes[M[i][1]] = e + ' n=' + r.rows.length + (r.bad.length ? ' bad=' + JSON.stringify(r.bad.slice(0, 3)) : '');
     }
+    /* GLBTTS-2026-10-16: Both Teams To Score -- collapsed like the totals; two wrappers named Yes / No. */
+    var be = await expand('Both Teams To Score'), bs = section('Both Teams To Score');
+    if (bs && wrappers(bs).length) {
+      var bn = 0;
+      wrappers(bs).forEach(function (w) {
+        var t = tokens(w), side = /^yes$/i.test(t[0] || '') ? 'Y' : (/^no$/i.test(t[0] || '') ? 'N' : null), o = odds(t[t.length - 1]);
+        if (side && o) { out.push([mkey, 'BT', side, '-', o].join('|')); bn++; }
+      });
+      notes.BT = be + ' n=' + bn;
+    } else notes.BT = be;
     var need = ['WIN|H', 'WIN|D', 'WIN|A', 'TG|O|2.5', 'TG|U|2.5'];
     var have = out.map(function (r) { var p = r.split('|'); return p[1] === 'WIN' ? p[1] + '|' + p[2] : p[1] + '|' + p[2] + '|' + p[3]; });
     var ok = need.every(function (n) { return have.indexOf(n) >= 0; });

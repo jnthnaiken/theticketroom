@@ -35,7 +35,11 @@ HALF_LIFE, MIN_PERIODS = 4.0, 3
 RHO = -0.08
 MIN_LEG = 1.40          # on the market-fair price less MARGIN, as tested (STALEPRICE-2026-10-16)
 MARGIN = 1.06
-N_LEGS = 2
+def n_legs(n_matches):
+    """GLSIZE-2026-10-16 (owner: "it doesnt have to be just 2 picks. it can change based on the size of the slate").
+    Pre-registered on 2020-22, run once on 2023-26 (with BTTS legs): 1 match -> 1 leg (63.6% hit, pred 63.9%),
+    2-5 -> 2 (42.1%, pred 42.4%), 6-11 -> 3 (31.7%, pred 29.1%), 12+ -> 4 (19.8%, pred 20.0%)."""
+    return 1 if n_matches <= 1 else (2 if n_matches <= 5 else (3 if n_matches <= 11 else 4))
 KMAX = 11
 
 GAME_LINES = (1.5, 2.5, 3.5)
@@ -87,8 +91,11 @@ def matrix(lh, la, rho=RHO):
 
 
 def leg_prob(M, mkt, side, line):
-    """mkt: TG (game) | TH (home team) | TA (away team); side: O | U."""
+    """mkt: TG (game) | TH (home team) | TA (away team) | BT (both teams to score, side Y/N); side: O | U."""
     p = 0.0
+    if mkt == 'BT':   # GLBTTS-2026-10-16
+        yes = sum(M[i][j] for i in range(1, KMAX) for j in range(1, KMAX))
+        return yes if side == 'Y' else 1 - yes
     for i in range(KMAX):
         for j in range(KMAX):
             v = i + j if mkt == 'TG' else (i if mkt == 'TH' else j)
@@ -232,6 +239,8 @@ LEG_NAMES = {'TG': 'Match', 'TH': '{home}', 'TA': '{away}'}
 
 
 def leg_label(mkt, side, line, home, away):
+    if mkt == 'BT':
+        return 'Both teams to score' if side == 'Y' else 'Both teams to score: No'
     who = 'Match' if mkt == 'TG' else (home if mkt == 'TH' else away)
     goals = 'goals' if mkt == 'TG' else ('goal' if line == 0.5 and side == 'O' else 'goals')
     if mkt != 'TG' and line == 0.5:
@@ -256,27 +265,30 @@ def match_view(mkey, fx, prices, luck):
     lh, la = mlh * math.exp(eh), mla * math.exp(ea)
     M, M0 = matrix(lh, la), matrix(mlh, mla)
     legs = []
-    for mkt, lines in (('TG', GAME_LINES), ('TH', TEAM_LINES), ('TA', TEAM_LINES)):
-        for line in lines:
-            for side in ('O', 'U'):
-                best = pr.get((mkt, side, line))
-                pm = leg_prob(M0, mkt, side, line)
-                # STALEPRICE-2026-10-16. The research rule judged a leg at the MARKET-FAIR price less a normal
-                # margin (1/(pm*MARGIN)), never at the best quote, and the audit showed best quotes carry stale
-                # outliers (10-16: Deportivo to score at 10/11 as 116/100 home favourites; Le Mans o1.5 longer
-                # than o2.5). So: qualify on `est`, and post the scraped best price CAPPED at fair (1/pm).
-                fair = 1 / pm if pm > 0 else None
-                price = min(best, fair) if (best and fair) else None
-                legs.append({'match': mkey, 'mkt': mkt, 'side': side, 'line': line, 'price': price, 'best': best,
-                             'est': (1 / (pm * MARGIN)) if pm > 0 else None,
-                             'p': leg_prob(M, mkt, side, line), 'pm': pm,
-                             'label': leg_label(mkt, side, line, fx['home'], fx['away'])})
+    # GLBTTS-2026-10-16 (owner: "can we scrap btts too. throw that in the parlay too"): BTTS Yes/No join the menu.
+    _menu = [(m, ln, sd) for m, lines in (('TG', GAME_LINES), ('TH', TEAM_LINES), ('TA', TEAM_LINES))
+             for ln in lines for sd in ('O', 'U')] + [('BT', None, 'Y'), ('BT', None, 'N')]
+    for mkt, line, side in _menu:
+        best = pr.get((mkt, side, line))
+        pm = leg_prob(M0, mkt, side, line)
+        # STALEPRICE-2026-10-16. The research rule judged a leg at the MARKET-FAIR price less a normal
+        # margin (1/(pm*MARGIN)), never at the best quote, and the audit showed best quotes carry stale
+        # outliers (10-16: Deportivo to score at 10/11 as 116/100 home favourites; Le Mans o1.5 longer
+        # than o2.5). So: qualify on `est`, and post the scraped best price CAPPED at fair (1/pm).
+        fair = 1 / pm if pm > 0 else None
+        price = min(best, fair) if (best and fair) else None
+        legs.append({'match': mkey, 'mkt': mkt, 'side': side, 'line': line, 'price': price, 'best': best,
+                     'est': (1 / (pm * MARGIN)) if pm > 0 else None,
+                     'p': leg_prob(M, mkt, side, line), 'pm': pm,
+                     'label': leg_label(mkt, side, line, fx['home'], fx['away'])})
     return {'match': mkey, 'mlh': mlh, 'mla': mla, 'lh': lh, 'la': la, 'legs': legs,
             'luck': {'home': [th, own_h, conc_h], 'away': [ta, own_a, conc_a]}}
 
 
 def pick(views, started=lambda m: False):
-    """The rule: top N_LEGS legs by model P, one per match, priced >= MIN_LEG, match not started."""
+    """The rule: top n_legs(slate size) legs by model P, one per match, qualifying at >= MIN_LEG on the market-fair
+    price, match not started. Slate size = priced board matches."""
+    N_LEGS = n_legs(len(views))
     cand = [l for v in views for l in v['legs']
             if l['price'] and l['est'] and l['est'] >= MIN_LEG and not started(l['match'])]
     cand.sort(key=lambda l: -l['p'])
@@ -358,7 +370,8 @@ def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
 # (capped at fair, as the Goal Line posts it) for the lines a reader actually bets.
 # ---------------------------------------------------------------------------------------------
 RS_LINES = [('o15', 'TG', 'O', 1.5), ('o25', 'TG', 'O', 2.5), ('u25', 'TG', 'U', 2.5), ('o35', 'TG', 'O', 3.5),
-            ('hs', 'TH', 'O', 0.5), ('as', 'TA', 'O', 0.5), ('h15', 'TH', 'O', 1.5), ('a15', 'TA', 'O', 1.5)]
+            ('hs', 'TH', 'O', 0.5), ('as', 'TA', 'O', 0.5), ('h15', 'TH', 'O', 1.5), ('a15', 'TA', 'O', 1.5),
+            ('btts', 'BT', 'Y', None), ('bttsn', 'BT', 'N', None)]
 
 
 def research(fixtures, prices_path, tm_path, date, gnum=None, gtime=None, picked=None):
@@ -378,8 +391,7 @@ def research(fixtures, prices_path, tm_path, date, gnum=None, gtime=None, picked
              'hfin': None if v['luck']['home'][1] is None else round(v['luck']['home'][1], 2),
              'hconc': None if v['luck']['home'][2] is None else round(v['luck']['home'][2], 2),
              'afin': None if v['luck']['away'][1] is None else round(v['luck']['away'][1], 2),
-             'aconc': None if v['luck']['away'][2] is None else round(v['luck']['away'][2], 2),
-             'btts': round(sum(M[i][j] for i in range(1, KMAX) for j in range(1, KMAX)), 4)}
+             'aconc': None if v['luck']['away'][2] is None else round(v['luck']['away'][2], 2)}
         for key_, mkt, side, line in RS_LINES:
             l = by.get((mkt, side, line))
             r[key_] = round(l['p'], 4) if l else None
@@ -430,6 +442,22 @@ def writeup(l, v, fx, date):
             who = home if (h_own or 0) >= (a_own or 0) else away
             extra = f' {who} have been scoring above their chances, and that tends to cool off.'
         return base + extra
+    if l['mkt'] == 'BT':
+        if l['side'] == 'Y':
+            base = _pk([f'Both {home} and {away} carry enough threat to get on the board.',
+                        f'Neither back line at {home} v {away} looks like keeping a clean sheet.',
+                        f'Goals at both ends of {home} v {away}; each side should find a way through.'], key)
+            extra = ''
+            if min(h_conc or 0, a_conc or 0) < COLD:
+                extra = ' One of these defences has been getting away with it lately, and that rarely lasts.'
+            return base + extra
+        base = _pk([f'One of {home} or {away} should struggle to find the net.',
+                    f'We expect a clean sheet somewhere in {home} v {away}.',
+                    f'{home} v {away} looks like one side doing the scoring.'], key)
+        extra = ''
+        if max(h_own or 0, a_own or 0) > HOT:
+            extra = ' There is a finishing streak in this fixture that the chances do not back up.'
+        return base + extra
     side_home = l['mkt'] == 'TH'
     team, opp = (home, away) if side_home else (away, home)
     lam = lh if side_home else la
@@ -464,6 +492,9 @@ def writeup(l, v, fx, date):
 # ---------------------------------------------------------------------------------------------
 def leg_won(leg, score):
     hg, ag = score
+    if leg['mkt'] == 'BT':
+        both = hg > 0 and ag > 0
+        return both if leg['side'] == 'Y' else not both
     v = hg + ag if leg['mkt'] == 'TG' else (hg if leg['mkt'] == 'TH' else ag)
     return v > leg['line'] if leg['side'] == 'O' else v < leg['line']
 
