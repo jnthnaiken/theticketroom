@@ -113,5 +113,10 @@ chk('BTTS legs priced from tot.psv', any(l['mkt'] == 'BT' and l['price'] for l i
 # DEFXGA-2026-10-16
 chk('opponent xGA: mean npxGA of the last ten before the slate', L.xga('RB Leipzig') == 1.0 and L.xga('Cologne') == 1.0, (L.xga('RB Leipzig'), L.xga('Cologne')))
 chk('opponent xGA: no history -> None (renders as a dash)', L.xga('Sturm Graz') is None)
+# GLLOCK-2026-10-17
+chk('lock is the earliest kickoff by the clock, not by the string', T._clock('9:30 AM') < T._clock('7:30 PM') < T._clock('10:30 PM') and T._clock('12:00 PM') == 720)
+_tk = T.ticket([dict(l, match=m) for l, m in zip(t1['tlegs'][:2], ['x', 'y'])], {'x': {'home': 'A', 'away': 'B'}, 'y': {'home': 'C', 'away': 'D'}}, {}, {'x': '7:30 PM', 'y': '9:30 AM'}, '2026-10-17', 's')
+chk('ticket lock = 9:30 AM when legs kick at 7:30 PM and 9:30 AM', _tk['lock'] == '9:30 AM', _tk['lock'])
+chk('ticket keeps its picked_at stamp', _tk.get('picked_at') == 's', _tk.get('picked_at'))
 print(f"\n{'ALL GREEN' if not fail else str(fail) + ' FAILURE(S)'} -- the Goal Line")
 sys.exit(1 if fail else 0)

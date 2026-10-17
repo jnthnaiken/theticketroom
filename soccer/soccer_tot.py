@@ -348,6 +348,16 @@ def _h(s):
     return h
 
 
+def _clock(t):
+    """GLLOCK-2026-10-17: '9:30 AM' -> 570. The lock is the EARLIEST kickoff, and a string min() put
+    '7:30 PM' ahead of '9:30 AM' (10-17: the slip read Lock 7:30 PM with a 9:30 AM leg on it)."""
+    m = re.match(r'\s*(\d{1,2}):(\d{2})\s*([AP]M)', str(t or ''), re.I)
+    if not m:
+        return 99999
+    h, mi, ap = int(m.group(1)) % 12, int(m.group(2)), m.group(3).upper()
+    return (h + (12 if ap == 'PM' else 0)) * 60 + mi
+
+
 def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
     gnum = gnum or {}
     gtime = gtime or {}
@@ -368,7 +378,7 @@ def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
         o_['why'] = writeup(l, vmap.get(l['match']), fixtures.get(l['match'], {}), date)
     return {'name': name, 'kind': 'goalline', 'badge': '🧤', 'units': 1, 'tlegs': out, 'players': [],
             'nlegs': len(out), 'pj': round(pj, 4), 'parlay_am': american(dj), 'payout10': round(10 * dj, 1),
-            'lock': min((o['gtime'] for o in out if o['gtime']), default=''), 'picked_at': stamp,
+            'lock': min((o['gtime'] for o in out if o['gtime']), key=_clock, default=''), 'picked_at': stamp,   # GLLOCK-2026-10-17
             'final': False, 'rr': None, 'priced': len(out)}
 
 
