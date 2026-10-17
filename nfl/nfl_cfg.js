@@ -89,7 +89,9 @@ const CFG = {
      09-13); on the six one-game nights the cap is what held the card to 2 bets instead of 7-8 from
      one game (-2.2u vs -12.2u). Owner's call with that on the table. Was 2. */
   TOP_PER_MATCH: Infinity,
-  LUNCH_LATE: true,
+  /* LUNCHDUP-2026-10-17: a second `LUNCH_LATE: true` sat here and, being the later key, silently
+     overrode FIRSTTD-2026-09-29's `false` above -- 10-18 drafted a 🍱 Early Window single (Brian Thomas
+     Jr.) the owner had retired. One key now, false. */
   /* KICKLOCK-2026-09-20 -- football runs the `started` half of index.html's pinnedP().
      Soccer leaves this off (STANDASIS-2026-08-29: a published XI is the better signal there).
      Football has no team sheet, so `status` is 'projected' on every build and CONFLOCK can
