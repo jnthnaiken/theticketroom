@@ -1,0 +1,80 @@
+{
+ "v": 1,
+ "date": "2026-10-17",
+ "built_at": "2026-10-17T16:26:02Z",
+ "teams": {
+  "CLE": {
+   "n_rel": 6,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.023,
+   "hr_bf_avail": 0.023,
+   "hr_bf_L": 0.0211,
+   "hr_bf_R": 0.0251,
+   "hr_bf_avail_L": 0.0211,
+   "hr_bf_avail_R": 0.0251,
+   "share_L": 0.328,
+   "air_share": 0.599,
+   "d1_pitches": 0
+  },
+  "TB": {
+   "n_rel": 8,
+   "n_unavail": 0,
+   "top_out": 0,
+   "hr_bf": 0.0336,
+   "hr_bf_avail": 0.0336,
+   "hr_bf_L": 0.0414,
+   "hr_bf_R": 0.0249,
+   "hr_bf_avail_L": 0.0414,
+   "hr_bf_avail_R": 0.0249,
+   "share_L": 0.513,
+   "air_share": 0.566,
+   "d1_pitches": 0
+  }
+ },
+ "sps": {
+  "shawn armstrong": {
+   "id": 542888,
+   "bf_exp": 9.0,
+   "kind": "opener",
+   "hr_bf": 0.028
+  },
+  "nick martinez": {
+   "id": 607259,
+   "bf_exp": 23.29,
+   "kind": "sp",
+   "hr_bf": 0.0304
+  }
+ },
+ "games": {
+  "1": {
+   "home": "CLE",
+   "hour": 20,
+   "dome": false,
+   "temp": null,
+   "rh": null,
+   "pres": null,
+   "wind": null,
+   "wind_out": null,
+   "rho": null
+  }
+ },
+ "coverage": {
+  "box_final_games": 3,
+  "box_loaded": 3,
+  "rosters": 2,
+  "pitcher_stats": 25,
+  "sps_matched": 2,
+  "sps_named": 2,
+  "pens": 2,
+  "games": 1,
+  "games_wx": 0
+ },
+ "errors": [
+  "https://api.open-meteo.com/v1/forecast?latitude=41.4962&longitude=-81.6852&hourl: <urlopen error _ssl.c:993: The handshake operation timed out"
+ ],
+ "partial": true,
+ "attempts": 1,
+ "last_attempt": 1792254362,
+ "pregame": true
+}
