@@ -1,0 +1,169 @@
+name: Build NBA Board
+
+# FIRSTBASKET-2026-10-17. Rebuilds the basketball room (nba/index.html): first-basket picks.
+#
+#   1. SETTLE  nba_settle.py grades every archived board nba/boards/<date>.json whose games are all final
+#              on ESPN (first FIELD GOAL -> ftd1, did-not-play -> void) into nba_season.json with the shared
+#              grader (soccer_grade.fold), then rolls the model's state (nba_state.json) forward one whole
+#              finished day at a time through the same update() the 2014-26 replay used.
+#   2. SLATE   fb_fetch.js scrapes today's BettingPros first-basket prices + projected fives into
+#              nba/slates/<date>/fb.psv on every pass; the board is the newest slate on or before today
+#              (ET, 6am cutover so a late West Coast game finishes on its own board). fb_scrape.js does the
+#              same from the browser if the runner is ever refused.
+#   3. BUILD   nba_payload.py (model + market blend, picks sticky in slates/<date>/picks.json) ->
+#              nba_fork.py (the baseball page with basketball seams) -> gate -> publish + archive.
+#
+# PRICE-ONCE: picks.json is written the first time and reused, so a posted pick never moves. A cached man
+# who drops out of his starting five before tip is replaced (nba_payload.py STICKY).
+
+on:
+  repository_dispatch:
+    types: [tick, build-tick, build-board, build-nba]
+  push:
+    branches: [main]
+    paths: ['nba/nba_fork.py', 'nba/nba_payload.py', 'nba/nba_fb.py', 'nba/nba_live.js', '.github/workflows/nba-build.yml']
+  schedule:
+    - cron: '*/15 22-23 * * *'
+    - cron: '*/15 0-6 * * *'
+    - cron: '17 7-21 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and report, but commit nothing."
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nba-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # DEPLOYTOKEN-2026-08-31: a push with the default token never triggers deploy-pages.yml.
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: Settle finished boards and learn the finished days
+        id: settle
+        continue-on-error: true
+        run: |
+          cd nba
+          [ -f nba_season.json ] || echo '{"since": null, "history": [0], "graded_nights": [], "cats": {"fb": {"graded": 0, "won": 0, "units": 0.0, "staked": 0.0}}, "stake": 1}' > nba_season.json
+          mkdir -p boards
+          python3 nba_settle.py --season nba_season.json --boards boards --state nba_state.json
+          if git diff --quiet -- nba_season.json boards/ nba_state.json; then
+            echo "settled=false" >> $GITHUB_OUTPUT
+          else
+            echo "settled=true" >> $GITHUB_OUTPUT
+            cd ..
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add nba/nba_season.json nba/boards/ nba/nba_state.json
+            git commit -m "NBA settle ($(date -u +%H:%MZ))"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed settle"; break; }
+              sleep $((i*5))
+            done
+          fi
+
+      # FBFETCH-2026-10-17: the runner reads BettingPros itself (probe 2026-10-17: 15 games / 234 prices /
+      # 534 lineup rows for 2026-04-10 from a GitHub runner). Today's file is refreshed on every pass --
+      # prices and projected lineups move all day; the PICKS do not (slates/<date>/picks.json). A failed
+      # fetch leaves whatever fb.psv is already committed (fb_scrape.js from the browser is the fallback).
+      - name: Fetch today's first-basket prices and lineups
+        run: |
+          DAY=$(python3 -c "import datetime;n=datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=10);print(n.date().isoformat())")
+          node nba/fb_fetch.js "$DAY" "nba/slates/$DAY/fb.psv" || true
+
+      - name: Resolve the slate
+        id: slate
+        run: |
+          python3 - <<'PY' >> $GITHUB_OUTPUT
+          import datetime, glob, os
+          now = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)
+          day = (now - datetime.timedelta(hours=6)).date().isoformat()     # 6am ET cutover
+          ds = sorted(os.path.basename(os.path.dirname(p)) for p in glob.glob('nba/slates/*/fb.psv'))
+          ds = [d for d in ds if d <= day]
+          if ds:
+              print(f'date={ds[-1]}'); print('go=true')
+          else:
+              print('go=false')
+          PY
+          cat $GITHUB_OUTPUT
+
+      - name: Build
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nba
+          D=${{ steps.slate.outputs.date }}
+          python3 nba_payload.py slates/$D/fb.psv nba_state.json .nba_D.json --date $D \
+              --cache slates/$D/picks.json --season nba_season.json --build "$(date -u +%Y-%m-%dT%H:%MZ)"
+          python3 nba_fork.py ../index.html .nba_D.json .index.html
+
+      - name: Did anything a reader would notice change?
+        id: gate
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nba
+          CH=$(python3 - <<'PY'
+          import json, os
+          def sig(p):
+              try:
+                  D = json.load(open(p, encoding='utf-8'))
+              except Exception:
+                  return None
+              D.get('meta', {}).pop('build', None)
+              return json.dumps(D, sort_keys=True)
+          def shell(p):
+              h = open(p, encoding='utf-8', errors='replace').read()
+              i = h.find('const D=')
+              if i < 0: return h
+              j = i + len('const D=')
+              _, end = json.JSONDecoder().raw_decode(h[j:])
+              return h[:i] + '<<PAYLOAD>>' + h[j + end:]
+          try:
+              changed = sig('.nba_D.json') != sig('nba_D.json') or not os.path.exists('index.html') or shell('index.html') != shell('.index.html')
+          except Exception:
+              changed = True
+          print('true' if changed else 'false')
+          PY
+          )
+          echo "changed=$CH" >> $GITHUB_OUTPUT
+          echo "changed=$CH"
+
+      - name: Publish
+        if: steps.slate.outputs.go == 'true' && (steps.gate.outputs.changed == 'true' || steps.settle.outputs.settled == 'true') && github.event.inputs.dry_run != 'true'
+        run: |
+          cd nba
+          D=${{ steps.slate.outputs.date }}
+          cp .index.html index.html
+          cp .nba_D.json nba_D.json
+          mkdir -p boards
+          # KEEPGRADED (nfl-build.yml 2026-09-15): never archive over a graded board.
+          if python3 -c "import json,sys;sys.exit(0 if sys.argv[1] in json.load(open('nba_season.json')).get('graded_nights',[]) else 1)" "$D"; then
+            echo "boards/$D.json is graded -- archive left alone"
+          else
+            cp .nba_D.json "boards/$D.json"
+          fi
+          cd ..
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nba/index.html nba/nba_D.json nba/nba_season.json nba/boards/ nba/slates/$D/fb.psv $(ls nba/slates/$D/picks.json 2>/dev/null)
+          git diff --cached --quiet && { echo "nothing staged"; exit 0; }
+          git commit -m "NBA board $D ($(date -u +%H:%MZ))"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+            sleep $((i*5))
+          done
+          echo "::error::could not push after 3 attempts"; exit 1

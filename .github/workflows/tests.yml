@@ -39,6 +39,9 @@ on:
     paths:
       - 'soccer/**'
       - 'nfl/**'
+      - 'nba/*.py'                # FIRSTBASKET-2026-10-17 -- the basketball room's code (its data dirs stay out)
+      - 'nba/*.js'
+      - 'nba/test_fixtures/**'
       - 'build15.py'
       - 'board_config.json'
       - 'boardcfg.py'

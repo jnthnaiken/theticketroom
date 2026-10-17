@@ -36,7 +36,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html']
+    paths: ['index.html', 'CNAME', 'cover.html', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html', 'nba/index.html']
   workflow_dispatch:
 
 permissions:
@@ -92,6 +92,7 @@ jobs:
             soccer/soccer_D.json
             soccer/soccer_season.json
             nfl/index.html
+            nba/index.html
       - name: Stage the site files (board + custom domain + boards the client adopts)
         run: |
           # PATHS-2026-08-26 -- THE SWAP. The site root is the COVER; the baseball board moved
@@ -136,6 +137,9 @@ jobs:
           # season.json has nothing to derive from. Add the ledger line WITH its sparse entry when
           # the first Sunday settles.
           if [ -f nfl/index.html ]; then mkdir -p _site/nfl && cp nfl/index.html _site/nfl/; fi
+          # FIRSTBASKET-2026-10-17 -- the fourth room, built by nba/nba_fork.py exactly like the football one.
+          # Three places, one commit (paths above, sparse list above, this line).
+          if [ -f nba/index.html ]; then mkdir -p _site/nba && cp nba/index.html _site/nba/; fi
           # The cover page: two doors, one to each room. It IS the front door now.
           # Also kept at /cover.html, its original URL, so nothing that already points there
           # breaks -- same file, two paths, no redirect to maintain.
