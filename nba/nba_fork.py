@@ -165,6 +165,13 @@ def build(index_path, d_path, out_path):
         sys.exit(f'!! seam count {len(S)} != EXPECT_SEAMS {EXPECT_SEAMS} -- a seam was added or '
                  f'dropped without bumping the constant')
 
+    # HOWTOROOMS-2026-10-17: the How To tab body and its callout table become this room's (nba_howto.py);
+    # the narrower seams that edited pieces of them drop out. Done after the count check on purpose:
+    # EXPECT_SEAMS still counts the seams this file declares.
+    from nba_howto import howto_seams
+    S, _dropped = howto_seams(S, src)
+    print(f'  how-to: replaced; superseded seams: {", ".join(_dropped) or "none"}')
+
     fails = []
     for label, old, new, n in S:
         c = src.count(old)
