@@ -1,11 +1,11 @@
 {
   "date": "2026-10-17",
   "season": "2026",
-  "pulled_at": "2026-10-17T19:56:28Z",
+  "pulled_at": "2026-10-17T20:00:27Z",
   "games": [
     {
       "gamePk": 849816,
-      "status": "Scheduled",
+      "status": "Pre-Game",
       "gameTime": "2026-10-18T00:08:00Z",
       "venue": "Progressive Field",
       "matchup": "TB@CLE",
@@ -28,22 +28,68 @@
           "hr9": 1.02,
           "hand": "RHP"
         },
-        "lineup": [],
-        "confirmed": false
+        "lineup": [
+          {
+            "id": 680757,
+            "name": "Steven Kwan",
+            "iso": 0.067
+          },
+          {
+            "id": 608070,
+            "name": "Jos\u00e9 Ram\u00edrez",
+            "iso": 0.133
+          },
+          {
+            "id": 800050,
+            "name": "Chase DeLauter",
+            "iso": 0.17
+          },
+          {
+            "id": 666176,
+            "name": "Jo Adell",
+            "iso": 0.161
+          },
+          {
+            "id": 663993,
+            "name": "Nathaniel Lowe",
+            "iso": 0.192
+          },
+          {
+            "id": 683953,
+            "name": "Travis Bazzana",
+            "iso": 0.163
+          },
+          {
+            "id": 672275,
+            "name": "Patrick Bailey",
+            "iso": 0.129
+          },
+          {
+            "id": 690984,
+            "name": "Petey Halpin",
+            "iso": 0.101
+          },
+          {
+            "id": 677587,
+            "name": "Brayan Rocchio",
+            "iso": 0.138
+          }
+        ],
+        "confirmed": true
       },
-      "lineups_posted": false,
+      "lineups_posted": true,
       "weather": {
         "dome": false,
         "emoji": "\u26c5",
-        "cond": "wind out 4mph, 45\u00b0",
+        "cond": "wind out 4mph, 44\u00b0",
         "lean": "Suppress",
-        "temp": 45.1,
+        "temp": 44.3,
         "wind_mph": 4.6,
-        "wind_dir": 203,
-        "tail_mph": 4.2,
+        "wind_dir": 213,
+        "tail_mph": 3.9,
         "precip": 0
       },
-      "wf": 0.977
+      "wf": 0.975
     }
   ]
 }
