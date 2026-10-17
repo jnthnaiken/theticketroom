@@ -21,7 +21,7 @@ import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 80 + LIVE_SEAM_COUNT  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 79 + LIVE_SEAM_COUNT  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -128,8 +128,8 @@ def seams(payload_js):
     # had a hole (its emptied row was the last one). Drop holes before the loop.
     add('tracker-holes', "var tg=0,tw=0,tu=0,ts=0,rows='';for(var i=0;i<defs.length;i++)",
         "defs=defs.filter(Boolean);var tg=0,tw=0,tu=0,ts=0,rows='';for(var i=0;i<defs.length;i++)")
-    add('record-line', 'Record reflects the current model, backtested over past slates.',
-        'Graded live from opening night. The 2021-26 backtest is in the How To tab, not in this record.')
+    # RECORDLINE-2026-10-17, owner: "the disclaimer on the ledger should be the same as the other boards" -- the
+    # 'record-line' seam is gone; the ledger keeps index.html's own line, as football and soccer do.
     # FBDECIDED-2026-10-17: a first-basket leg is LOST the moment someone else makes a field goal
     # (nba_live.js writes ftd1=false on every other man in the game), not at the final buzzer.
     # gradeTicket() kept such a leg "not final" until isFinal(game), so a dead pick sat pending for
