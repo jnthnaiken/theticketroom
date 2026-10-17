@@ -1,8 +1,8 @@
 name: NBA probe
 
 # NBAPROBE-2026-10-16 -- one-off reachability check for the basketball room's data sources from a
-# GitHub runner: the NBA CDN (schedule, scoreboard, box score, play-by-play) and BettingPros.
-# Writes nothing to main; the result lands on soccer-data:nba/probe.txt. Delete once the room ships.
+# GitHub runner. v2 (2026-10-17): can the runner read BettingPros first-basket prices itself
+# (nba/fb_fetch.js)? Result lands on soccer-data:nba/probe.txt. Delete once the room ships.
 on:
   workflow_dispatch:
   push:
@@ -14,21 +14,17 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
       - name: Probe
         run: |
           set +e
-          UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'
-          for u in \
-            https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json \
-            https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json \
-            https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_0022500001.json \
-            https://cdn.nba.com/static/json/liveData/boxscore/boxscore_0022500001.json \
-            "https://api.bettingpros.com/v3/events?sport=NBA&date=2026-10-21" \
-            "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261021" \
-            "https://stats.nba.com/stats/scoreboardv2?GameDate=2026-10-21&LeagueID=00&DayOffset=0" ; do
-            code=$(curl -sS -m 25 -A "$UA" -H 'Referer: https://www.nba.com/' -o /tmp/b -w '%{http_code}' "$u"); echo "$code $(wc -c </tmp/b) $u" | tee -a probe.txt
-          done
-          head -c 300 /tmp/b >> probe.txt
+          node nba/fb_fetch.js 2026-04-10 /tmp/fb0410.psv > probe.txt 2>&1
+          node nba/fb_fetch.js 2026-10-20 /tmp/fb1020.psv >> probe.txt 2>&1
+          wc -l /tmp/fb0410.psv /tmp/fb1020.psv >> probe.txt 2>&1
+          head -3 /tmp/fb0410.psv >> probe.txt 2>&1
+          cat probe.txt
       - name: Save
         run: |
           git config --global user.email "actions@github.com"; git config --global user.name "nba-probe"
