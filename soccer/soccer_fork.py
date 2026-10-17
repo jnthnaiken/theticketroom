@@ -792,6 +792,13 @@ def build(index_path, payload_path, out_path):
     S = seams(payload_js)
     assert len(S) == EXPECT_SEAMS, f'seam count changed: {len(S)} != {EXPECT_SEAMS} (bump EXPECT_SEAMS deliberately)'
 
+    # HOWTOROOMS-2026-10-17: the How To tab body and its callout table become this room's (soccer_howto.py);
+    # the narrower seams that edited pieces of them drop out. Done after the count check on purpose:
+    # EXPECT_SEAMS still counts the seams this file declares.
+    from soccer_howto import howto_seams
+    S, _dropped = howto_seams(S, src)
+    print(f'  how-to: replaced; superseded seams: {", ".join(_dropped) or "none"}')
+
     # the payload seam is positional, not a string match: replace everything between
     # `const D=` and the `,WX=D.meta.wx;` tail that binds it.
     a = src.index('const D=') + len('const D=')
