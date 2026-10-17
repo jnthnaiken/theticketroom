@@ -263,7 +263,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         o = int(x['odds'])
         leg = dict(name=n, team=p['team'], total=p['TOTAL'], aT=100, wf=1.0, gmatch=p['gmatch'], gtime=p['gtime'],
                    game=p['game'], late=False, odds=o, status=p['status'], ftd=True)
-        T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⛹️',
+        T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⚡',
                       note=note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date),
                       players=[leg], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
                       has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=False, priced=True,
@@ -274,7 +274,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         try: sn = json.load(open(season, encoding='utf-8'))
         except Exception: sn = {}
     return dict(players=P, pool=list(P.keys()), tickets=T,
-                meta=dict(wx={str(k): dict(emoji='⛹️', lean='Neutral', factor=1.0, park=v['gm'], cond='indoors', rain='', precip=0)
+                meta=dict(wx={str(k): dict(emoji='⚡', lean='Neutral', factor=1.0, park=v['gm'], cond='indoors', rain='', precip=0)
                               for k, v in games.items()}, build=stamp, face={}, maxAT=100, season=sn, date=date, gs={}, chalkever={},
                           chalkstate={}, chalk=[], pool=len(P), gate=len(T), tickets=len(T), sport='nba',
                           ko=meta_ko, finals=[], games={str(k): v['gm'] for k, v in games.items()},

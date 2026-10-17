@@ -9,7 +9,7 @@ Read nfl_fork.py's docstring -- the rules there are the rules here. This file ne
     python3 nba_fork.py <index.html> <nba_D.json> <out.html>
 
 WHAT IS DIFFERENT FROM FOOTBALL
-  * One product: ⛹️ Tip-Off, first-basket singles (kind 'fb', nba_payload.py). They render in the special
+  * One product: ⚡ Tip-Off, first-basket singles (kind 'fb', nba_payload.py). They render in the special
     slot (where football shows 🏁 Opening Drive), horizontal, from D.tickets. No Red Zone / builder slips.
   * A first-basket leg is decided the moment anyone makes a field goal, not at the final buzzer. The
     'fb-decided' seam lets gradeTicket() settle a leg whose ftd1 is already FALSE, so a lost pick reads lost
@@ -37,7 +37,7 @@ def seams(payload_js):
     add('payload', '__PAYLOAD__', payload_js)
     # Every seam below carries nfl_fork.py's label and source string; only the replacement is basketball.
     # Comments on WHY each seam exists live in nfl_fork.py under the same label.
-    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'fb\')?\'⛹️ Tonight’s first baskets are in the books. New picks tomorrow.\':\'⛹️ No first-basket pick yet — it posts once the first-basket prices and the starting fives are up. Check back before tip.\')+\'</div>\';')
+    add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'fb\')?\'⚡ Tonight’s first baskets are in the books. New picks tomorrow.\':\'⚡ No first-basket pick yet — it posts once the first-basket prices and the starting fives are up. Check back before tip.\')+\'</div>\';')
     add('title', '<title>HR Prop Ticket Room</title>', '<title>The Basketball Room</title>')
     add('eyebrow', 'eyebrow">Home-Run Props · ', 'eyebrow">First Basket · ')
     add('eyebrow-tail', ' · Kasper blend + matchup</div>', ' · tip-off model + market</div>')
@@ -53,8 +53,8 @@ def seams(payload_js):
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
     add('tonight-count', "+kc.moon+' 🥎'", '')
     add('tracker-moon', "['moon','🥎','Moonshots']", '')
-    add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'⛹️'", 2)
-    add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','⛹️'")
+    add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'⚡'", 2)
+    add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','⚡'")
     add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Parlays',moon)")
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
@@ -63,7 +63,7 @@ def seams(payload_js):
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='fb'?' lunchwide':''}")
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}", "${t.kind==='late'?' lunchwide nightcap':''}")
     add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0};')
-    add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=kc.fb+' ⛹️'")
+    add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=kc.fb+' ⚡'")
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏀':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Starters',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced starters'):")
@@ -71,12 +71,12 @@ def seams(payload_js):
     add('legend-brick', '<span>🧱 base score</span>', '<span>🎯 model chance</span>')
     add('bbadge', '<span class="bbadge">🧱 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>', '<span class="bbadge">🎯 ${p.khr!=null?p.khr.toFixed(1)+\'%\':\'—\'} ${lift}</span>')
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> starter not confirmed · ')
-    add('howto-order', 'Read it top to bottom: ⚾ Daily Dinger, 🏟️ Long Ball Jackpot, 🧢 Anchors, 🥎 Moonshots.', 'Read it top to bottom: ⛹️ Tip-Off.')
+    add('howto-order', 'Read it top to bottom: ⚾ Daily Dinger, 🏟️ Long Ball Jackpot, 🧢 Anchors, 🥎 Moonshots.', 'Read it top to bottom: ⚡ Tip-Off.')
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All starters</option>')
     add('odds-hint', 'Type a number per bat —', 'Type a number per starter —')
-    add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>', '<span class="ke">⛹️</span><div><b>Tip-Off</b><span>First basket: the first made field goal of the game (free throws do not count). Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays.</span>')
-    add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⛹️</span>')
-    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⛹️',builder:'⛹️'};")
+    add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket: the first made field goal of the game (free throws do not count). Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays.</span>')
+    add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⚡</span>')
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡'};")
     add('tracker-builder', "['builder','🧢','Anchors']", '')
     add('sec-anchors', "sec('sug','Anchors',builder)", "''")
     add('tonight-builder', "+kc.builder+' 🧢 \\u00b7 '", '')
@@ -101,14 +101,14 @@ def seams(payload_js):
     add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>', '<div class="tsec lunch"><span class="tsech">Tip-Off</span>')
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';', "html+='';")
     add('tracker-restated', "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'", "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
-    add('tracker-lunch', "['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot']", "['fb','⛹️','Tip-Off']")
-    add('kind-lunch', '<span class="ke">⚾</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day and you pick one — this is the best model score on their list. Not a bet we place.</span>', '<span class="ke">⛹️</span><div><b>Tip-Off</b><span>First basket. Our chance each starter makes his game’s first field goal: who wins the opening tip (a jump-ball rating on each team’s center), how often his team scores first, and his share of the early shots, the first shot and the makes, with the books’ prices as one more layer. We post the starters the price undersells, 1u each.</span>')
+    add('tracker-lunch', "['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot']", "['fb','⚡','Tip-Off']")
+    add('kind-lunch', '<span class="ke">⚾</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day and you pick one — this is the best model score on their list. Not a bet we place.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket. Our chance each starter makes his game’s first field goal: who wins the opening tip (a jump-ball rating on each team’s center), how often his team scores first, and his share of the early shots, the first shot and the makes, with the books’ prices as one more layer. We post the starters the price undersells, 1u each.</span>')
     add('kind-nightcap', '<div class="kind"><span class="ke">🏟️</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer that day — we rank park carry plus model score. Not a bet we place.</span></div></div>', '')
     add('research-cols', 'var RS_ROOM=null;', RESEARCH)
     add('slip-key', "SLIP_KEY='hr_slip'", "SLIP_KEY='nba_slip'")
 
     # TIPEMOJI-2026-10-17, owner: "lets do a different emoji than a basketball for the ticket emojis. keep it for
-    # when they score first". ⛹️ marks the Tip-Off slips (badge, tracker row, tile, idle line, How To); 🏀 now means
+    # when they score first". ⚡ marks the Tip-Off slips (⛹️ first, owner: "thats too kiddish" -- ⚡, his pick) (badge, tracker row, tile, idle line, How To); 🏀 now means
     # only one thing on this board: he scored the first basket (homered / leg-hr-icon / odds-homered).
     # ---- NBA ONLY ------------------------------------------------------------------------
     # NBACHROME-2026-10-17, found by rendering the first build: the leg card's two badges were weather

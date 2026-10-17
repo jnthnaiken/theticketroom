@@ -11,9 +11,9 @@ straight single. Example names are retired legends, never a live pick.
 import json, sys
 
 HOWTO = {
- "sub": "Every pick on the board is a ⛹️ Tip-Off single, laid out like this one. Hover a label to trace its line; on a phone, tap a number.",
+ "sub": "Every pick on the board is a ⚡ Tip-Off single, laid out like this one. Hover a label to trace its line; on a phone, tap a number.",
  "slip": {
-  "badge": "⛹️",
+  "badge": "⚡",
   "name": "Jump Ball",
   "odds": "+950",
   "pay": "$10 → $105",
@@ -78,7 +78,7 @@ HOWTO = {
  },
  "steps": [
   [
-   "Start on Tickets — tonight’s ⛹️ Tip-Off picks.",
+   "Start on Tickets — tonight’s ⚡ Tip-Off picks.",
    "Each is a 1u straight bet on one starter to make his game’s first field goal. The card at the top is the season ledger, graded live."
   ],
   [
@@ -100,7 +100,7 @@ HOWTO = {
  ],
  "kinds": [
   [
-   "⛹️",
+   "⚡",
    "Tip-Off",
    "First basket: the first made field goal of the game. Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays."
   ],
