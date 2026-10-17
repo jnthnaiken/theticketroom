@@ -61,8 +61,8 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
    squeezing the pill, which is how this first shipped as a two-row bar.
 
    Names and accents are the COVER's, not new ones: Baseball/Soccer/Football and cyan/lime/amber
-   are what cover.html's .card.mlb/.soc/.nfl already use. Basketball is absent on purpose -- it has
-   no room to link to, and the cover carries the under-construction sign.
+   are what cover.html's .card.mlb/.soc/.nfl already use. Basketball (/nba/, violet) joined on
+   2026-10-17 (FIRSTBASKET) -- see ROOMS4 on the .rlong breakpoint below for what a fourth chip costs.
    URLs are ABSOLUTE (/mlb/, /soccer/, /nfl/): the rooms are siblings under the domain root, since
    deploy-pages.yml stages index.html -> _site/mlb/. A relative "soccer/" resolves to /mlb/soccer/. */
 .rooms{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:4px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:4px}
@@ -76,7 +76,7 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
    cyan pill with a glow, and three of them in three different accents made the bar shout over the
    board. The room accent is carried by the TEXT on a raised chip instead -- same shell as .tabs,
    a quieter state inside it, so "which sport" and "which view" read as one family. */
-.r-mlb{--rc:var(--cyan)}.r-soc{--rc:var(--lime)}.r-nfl{--rc:var(--amber)}
+.r-mlb{--rc:var(--cyan)}.r-soc{--rc:var(--lime)}.r-nfl{--rc:var(--amber)}.r-nba{--rc:var(--violet)}
 /* The ring carries the accent at low strength so the lit chip still reads as the room's colour on a
    phone, where the label is an emoji and `color` cannot touch it. */
 .room[aria-current="page"]{color:var(--rc);background:var(--raise);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--rc) 45%,var(--line2))}
@@ -93,7 +93,9 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
    decoration and is aria-hidden. */
 .rlong{display:none}
 .rico{font-size:15px;line-height:1}
-@media(min-width:1240px){.rlong{display:inline}.rico{display:none}}
+/* ROOMS4-2026-10-17: the words are retired. With a fourth room the four word chips measure ~453px, and
+   tabs 482 + Find 230 + 453 + gaps 28 = 1193px against a content column capped at 1084 -- they never fit, at
+   any viewport. The glyph chips (each carries title= and aria-label= with the room name) are the bar now. */
 /* Phone: all three controls stay on the row, so the two elastic ones have to actually be elastic.
    ⚠️ `.nav .navfind`, not `.navfind` -- the base rule 700 lines down sets `flex:none` and carries
    the same specificity, so it wins on source order and the field refuses to give up a pixel. That
@@ -988,7 +990,7 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Research</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label><nav class="rooms" aria-label="Rooms"><a class="room r-mlb" href="/mlb/" title="Baseball" aria-label="Baseball room"><span class="rlong">Baseball</span><span class="rico" aria-hidden="true">⚾</span></a><a class="room r-soc" href="/soccer/" title="Soccer" aria-label="Soccer room"><span class="rlong">Soccer</span><span class="rico" aria-hidden="true">⚽</span></a><a class="room r-nfl" href="/nfl/" title="Football" aria-label="Football room"><span class="rlong">Football</span><span class="rico" aria-hidden="true">🏈</span></a></nav></div>
+</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label><nav class="rooms" aria-label="Rooms"><a class="room r-mlb" href="/mlb/" title="Baseball" aria-label="Baseball room"><span class="rlong">Baseball</span><span class="rico" aria-hidden="true">⚾</span></a><a class="room r-soc" href="/soccer/" title="Soccer" aria-label="Soccer room"><span class="rlong">Soccer</span><span class="rico" aria-hidden="true">⚽</span></a><a class="room r-nfl" href="/nfl/" title="Football" aria-label="Football room"><span class="rlong">Football</span><span class="rico" aria-hidden="true">🏈</span></a><a class="room r-nba" href="/nba/" title="Basketball" aria-label="Basketball room"><span class="rlong">Basketball</span><span class="rico" aria-hidden="true">🏀</span></a></nav></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  
@@ -1018,8 +1020,7 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
   <div class="htead">
     <div class="htkick">How to read the board</div>
     <h1 class="hth1">Anatomy of a ticket</h1>
-    <p class="htsub">Every slip on the board is laid out the same way. This is a moonshot — the
-      three-leg parlay that carries most of the season. Hover a label to trace its line; on a phone, tap a number.</p>
+    <p class="htsub">Every 🏈 Red Zone pick is a straight single, laid out like this one. Hover a label to trace its line; on a phone, tap a number.</p>
     <div class="expill">● Example only — not a live pick</div>
   </div>
 
@@ -1036,59 +1037,33 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
             <div class="toprow">
               <div class="ttitle">
                 <span class="tbadge">🏈</span>
-                <div class="tname">Escape Velocity</div>
+                <div class="tname">The Workhorse</div>
               </div>
               <div class="parlay">
-                <div class="od" data-cal="3">max +136u</div>
-                <div class="pay" data-cal="4">2u round robin</div>
+                <div class="od" data-cal="3">+188</div>
+                <div class="pay" data-cal="4">$10 → $28.80</div>
               </div>
             </div>
             <div class="lockline">
               <span class="badge" data-cal="1">projected</span>
-              <span>Lock 6:35 PM ET</span>
-              <span class="wxsum" data-cal="2">🔥1 🏟 2</span>
+              <span>Lock 1:00 PM ET</span>
+              <span class="wxsum" data-cal="2">💨1</span>
             </div>
-            <div class="tnote">Ruth is launching rockets (65% hard-hit), Jackson stays in the launch
-              zone (23°), and Griffey packs elite raw power, a 100/100 grade.</div>
+            <div class="tnote">Payton gets his work down in the red zone, where it’s tight, and it’s nasty, and I love it. He’s got grass stains on his grass stains.</div>
           </div>
           <div class="legs">
             <div class="leg t-premium">
               <span class="dot" data-cal="7"></span>
-              <span class="nm" data-cal="8"><span class="lst p">⏳</span>Jerry Rice</span>
-              <span class="od" data-cal="5">+277</span>
+              <span class="nm" data-cal="8"><span class="lst p">⏳</span>Walter Payton</span>
+              <span class="od" data-cal="5">+188</span>
               <span class="lmeta">
-                <span class="wbadge">☀️ 174.6</span>
-                <span class="bbadge">🧱 68</span>
+                <span class="wbadge" data-cal="10">💨 133.8</span>
+                <span class="bbadge" data-cal="11">🎯 34.7%</span>
                 <span class="lbrk"></span>
-                <span class="fbadge f-cool" data-cal="9">43%<span class="tr-fl">→</span></span>
-                <span class="sbadge">⚠</span>
-                <span class="lwhere" data-cal="6">Yankees · NYY@BAL · 6:35</span>
+                <span class="sbadge" data-cal="9">⚠</span>
+                <span class="lwhere" data-cal="6">Bears · GB@CHI · 1:00</span>
               </span>
-              <span class="meter"><i style="width:82%"></i></span>
-            </div>
-            <div class="leg t-strong">
-              <span class="dot"></span>
-              <span class="nm"><span class="lst p">⏳</span>Reggie Jackson</span>
-              <span class="od">+350</span>
-              <span class="lmeta">
-                <span class="wbadge">🏟 152.2</span><span class="bbadge">🧱 73</span>
-                <span class="lbrk"></span>
-                <span class="fbadge f-warm">59%<span class="tr-fl">→</span></span>
-                <span class="lwhere">Angels · LAA@HOU · 8:10</span>
-              </span>
-              <span class="meter"><i style="width:72%"></i></span>
-            </div>
-            <div class="leg t-strong">
-              <span class="dot"></span>
-              <span class="nm"><span class="lst p">⏳</span>Ken Griffey Jr.</span>
-              <span class="od">+379</span>
-              <span class="lmeta">
-                <span class="wbadge" data-cal="10">🏟 148.3</span><span class="bbadge" data-cal="11">🧱 49</span>
-                <span class="lbrk"></span>
-                <span class="fbadge f-cool">46%<span class="tr-fl">→</span></span>
-                <span class="lwhere">Mariners · SEA@MIL · 7:40</span>
-              </span>
-              <span class="meter" data-cal="12"><i style="width:70%"></i></span>
+              <span class="meter" data-cal="12"><i style="width:74%"></i></span>
             </div>
           </div>
         </div>
@@ -1106,47 +1081,32 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
     <h2 class="steph">Using the board</h2>
     <ol class="steplist">
       <li>
-        <b>Start on Tickets — tonight&rsquo;s board, already drafted.</b>
-        Read it top to bottom: 🏁 Opening Drive, 🏈 Red Zone.
-        The card at the top is the running season ledger. The View chips filter to one kind at a time.
+        <b>Start on Tickets — tonight’s board, already drafted.</b>
+        Read it top to bottom: 🏁 Opening Drive, then 🏈 Red Zone (and 👑 King of the End Zone on one-game nights). The card at the top is the running season ledger.
       </li>
       <li>
         <b>Check the lock line before you act on anything.</b>
-        A slip marked 🔒 is frozen and is what the ledger grades. Anything still
-        <code>projected</code> can change as lineups post — the board re-fetches itself every few minutes
-        and adopts the newer draft.
+        Prices are set once. What moves after that is weather and the inactives list, which posts 90 minutes before kickoff; the ✓ arrives then, and the slip locks at kickoff.
       </li>
       <li>
         <b>Open Players to see the field the board drafted from.</b>
-        Every player who cleared the pool gate, one card each. Sort by model score, shortest price,
-        confirmed first, team or name, jump straight to a player, or search. The four chalk favourites
-        show up here but are barred from every ticket, so you will not find them on a slip.
+        Every player who cleared the pool gate, one card each. Sort by model score, shortest price, confirmed first, team or name, or search.
       </li>
       <li>
-        <b>Use Research to read the card, then build a slip of your own.</b>
-        Every scored player is one row: sort by any column, narrow with the game chips, and click a name for the
-        full breakdown — what the bat is doing, what the arm gives up, the park, and our own fair price
-        against the book’s. Hit <b>+</b> on anything you like and it lands on the slip tray, which follows you
-        to every tab. Grade it from there. It comes back as a kitchen
-        inspection: a letter grade, a build score out of 100 on an F-to-A meter, and a curve showing where
-        your slip lands against comparable slips drawn from tonight&rsquo;s live bats — same shape, same
-        price range — with your marker sitting somewhere between weaker and stronger.
+        <b>Use Research to see why.</b>
+        One row per player: our chance against the book’s price (Edge), touches per game, his share of the work inside the 10, goal-line share, his team’s implied total and the weather. Click a name for the breakdown; <b>+</b> puts him on the slip tray, which follows you to every tab.
       </li>
       <li>
-        <b>Read the notes, then take the grade for what it is.</b>
-        Inspector&rsquo;s notes say in plain English what works about the slip and what doesn&rsquo;t, and the
-        line-up panel breaks out every bat with its price, a conviction bar and its own chance of going deep.
-        In the board&rsquo;s own words: a high grade means a well-built slip, not an edge on the book.
+        <b>Know how a pick settles.</b>
+        Anytime touchdown means any touchdown he scores himself; a passing touchdown does not count. A player ruled inactive is refunded. Opening Drive wins only on the game’s first touchdown.
       </li>
     </ol>
   </div>
 
   <div class="kinds">
     <div class="kind"><span class="ke">🏁</span><div><b>Opening Drive</b><span>First touchdown. One pick a slate, placed before kickoff: the player most likely to score his game’s <i>first</i> touchdown, from the football alone — his share of the touches, his share near the goal line, how often he scores, and his offence against their defence. The odds do not pick him. 1u.</span></div></div>
-    
     <div class="kind"><span class="ke">🏈</span><div><b>Red Zone</b><span>Every player the value rule backs at his price, one straight 1u bet each. No parlays.</span></div></div>
-    
-    
+    <div class="kind"><span class="ke">👑</span><div><b>King of the End Zone</b><span>One-game nights only, and a free play: the contest pays whoever picks the scorer of the game’s longest touchdown. Not staked and not on the ledger.</span></div></div>
   </div>
 
 
@@ -1168,7 +1128,7 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
   <div class="entry"><span class="d">Jun 12 · lineup-timing rule</span>Adopted the <b>&gt;180-min lineup-timing flag</b> after the Jun 11 <b>Four Corners</b> salami. It bridged a 2:10 PM anchor (Jung) to 7:05–7:40 PM legs whose lineups weren't posted at lock. <b>Wisdom</b> (7:05) was scratched after lock and voided; the 7:40 ATL@CWS game was cancelled, voiding <b>Vargas</b>. The 4-leg ticket collapsed to two live legs (Jung, Muncy) — both cold — so only the lone all-live combo graded as a loss; the rest was refunded. Takeaway: don't bridge afternoon → night on one parlay. Any leg more than 180 min after the earliest leg now carries the flag.</div>
  </div>
 </section>
-<div class="foot">Published <span id="pubDate">June 15, 2026</span>. Sources: nflverse (play-by-play, weekly rosters, depth charts), the closing spread and total for each game’s implied team total, Open-Meteo (stadium weather), and oddschecker best-available anytime-touchdown prices — best of book, not a consensus median. A player with no 2026 snaps is scored from last season blended with his depth slot, and the card says so. Not betting advice — always verify odds, inactives, and wind before you wager. 21+. <b>Gambling problem? Call or text 1-800-GAMBLER.</b></div>
+<div class="foot">Published <span id="pubDate">June 15, 2026</span>. Sources: nflverse (play-by-play, weekly rosters, depth charts), the closing spread and total for each game’s implied team total, Open-Meteo (stadium weather), and oddschecker best-available anytime-touchdown prices — best of book, not a consensus median. A player with no 2026 snaps is scored from last season blended with his depth slot, and the card says so. Not betting advice — always verify odds, inactives, and wind before you wager. For entertainment and information only: nothing here is betting, financial or legal advice, no pick is a sure thing, and past results do not guarantee future ones. The Ticket Room is not a sportsbook, takes no wagers and is not affiliated with, or endorsed by, any league, team, player or sportsbook; their names and marks belong to their owners. Sports betting is legal only where it is licensed — you must be 21 or older (or the legal age where you are) and physically in a jurisdiction where it is allowed. Bet only what you can afford to lose. <b>Gambling problem? Call or text 1-800-GAMBLER.</b></div>
 </div>
 <script>
 /* SPORTEMOJI-2026-10-15 -- owner: "the emojis on each page should be related to the sport". One table per room, read by the ticket card, so live AND archived tickets wear the room's emoji whatever badge the engine stamped. The forks replace this exact line with their own table. */
@@ -4940,18 +4900,18 @@ function liveUpdate(){
 (function(){
 
 var CAL = [
- {n:1, side:'T', t:'Lock', d:'projected → N/M confirmed → 🔒. Once locked the slip is frozen and never re-drafted.'},
- {n:2, side:'T', t:'Park & weather', d:'Legs getting help: 🔥 hot park, 🏟 dome, 🌧️ rain, 💨 wind. Updates live.'},
- {n:3, side:'T', t:'Max payout', d:'Best case if all three legs hit, in units. A ceiling, not an expectation.'},
- {n:4, side:'R', t:'Round robin', d:'Every 2-leg combo of the three is its own bet, so 2 of 3 still pays.'},
- {n:5, side:'R', t:'Price', d:'Consensus American odds, median of five books. Frozen at that bat’s own first pitch.'},
- {n:6, side:'R', t:'Team · game · time', d:'No slip carries two bats from one game, and every leg fits a 120-minute window.'},
- {n:7, side:'L', t:'Tier', d:'Rank on tonight’s slate: green premium, orange strong, pink value.'},
- {n:8, side:'L', t:'The anchor', d:'Top leg. The slip is built around him; he’s also sold alone as a 🧢 single.'},
- {n:9, side:'L', t:'Form & flags', d:'Form and trend: ↑ rising → steady ↓ cooling. ⚠ = unranked opposing starter.'},
- {n:10, side:'B', t:'Model score', d:'What everything ranks on — half the market’s implied probability, half a house-brewed edge basket.'},
- {n:11, side:'B', t:'Model chance', d:'The model’s own probability that he finds the end zone, before the price.'},
- {n:12, side:'B', ax:'right', t:'Strength', d:'The model score normalised across tonight’s pool.'}
+ {n:1, side:'T', t:'Lock', d:"projected → ✓ when the inactives list posts, 90 minutes before kickoff → 🔒 at kickoff."},
+ {n:2, side:'T', t:'Weather', d:"Wind, rain and cold at the stadium. Weather is the only thing that moves a model total once prices are set."},
+ {n:3, side:'T', t:'Price', d:"Best consensus anytime-touchdown price, frozen the first time the board prices him."},
+ {n:4, side:'R', t:'Payout', d:"What $10 (one unit) returns if he scores."},
+ {n:5, side:'R', t:'Anytime TD', d:"Any touchdown he scores himself — rushing, receiving or a return. A touchdown he throws does not count."},
+ {n:6, side:'R', t:'Team · game · kickoff', d:"Who he plays for, the game, and when it kicks off."},
+ {n:7, side:'L', t:'Tier', d:"Rank on tonight’s slate: green premium, orange strong, pink value."},
+ {n:8, side:'L', t:'The pick', d:"A player the value rule backs at his price: our chance beats the book’s."},
+ {n:9, side:'L', t:'⚠ Flag', d:"Inactive risk — his status was still open when the board was built."},
+ {n:10, side:'B', t:'Weather & score', d:"The weather lean and his model score; about 100 is slate-average."},
+ {n:11, side:'B', t:'Model chance', d:"Our chance he finds the end zone, before the price."},
+ {n:12, side:'B', ax:'right', t:'Strength', d:"His score against the rest of tonight’s pool."}
 ];
 
 var stage=document.getElementById('stage'), svg=document.getElementById('leaders'),
@@ -5153,7 +5113,7 @@ window.htDraw=schedule;
 (function(){
   var nav=document.querySelector('.nav'); if(!nav) return;
   var p=(location.pathname||'').toLowerCase();
-  var cls=/(^|\/)nfl(\/|$)/.test(p)?'r-nfl':/(^|\/)soccer(\/|$)/.test(p)?'r-soc':/(^|\/)mlb(\/|$)/.test(p)?'r-mlb':'';
+  var cls=/(^|\/)nba(\/|$)/.test(p)?'r-nba':/(^|\/)nfl(\/|$)/.test(p)?'r-nfl':/(^|\/)soccer(\/|$)/.test(p)?'r-soc':/(^|\/)mlb(\/|$)/.test(p)?'r-mlb':'';
   if(cls){var a=nav.querySelector('.'+cls);if(a)a.setAttribute('aria-current','page');}
   function navh(){document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px');}
   navh();
