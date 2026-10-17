@@ -61,8 +61,8 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
    squeezing the pill, which is how this first shipped as a two-row bar.
 
    Names and accents are the COVER's, not new ones: Baseball/Soccer/Football and cyan/lime/amber
-   are what cover.html's .card.mlb/.soc/.nfl already use. Basketball is absent on purpose -- it has
-   no room to link to, and the cover carries the under-construction sign.
+   are what cover.html's .card.mlb/.soc/.nfl already use. Basketball (/nba/, violet) joined on
+   2026-10-17 (FIRSTBASKET) -- see ROOMS4 on the .rlong breakpoint below for what a fourth chip costs.
    URLs are ABSOLUTE (/mlb/, /soccer/, /nfl/): the rooms are siblings under the domain root, since
    deploy-pages.yml stages index.html -> _site/mlb/. A relative "soccer/" resolves to /mlb/soccer/. */
 .rooms{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:4px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:4px}
@@ -76,7 +76,7 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
    cyan pill with a glow, and three of them in three different accents made the bar shout over the
    board. The room accent is carried by the TEXT on a raised chip instead -- same shell as .tabs,
    a quieter state inside it, so "which sport" and "which view" read as one family. */
-.r-mlb{--rc:var(--cyan)}.r-soc{--rc:var(--lime)}.r-nfl{--rc:var(--amber)}
+.r-mlb{--rc:var(--cyan)}.r-soc{--rc:var(--lime)}.r-nfl{--rc:var(--amber)}.r-nba{--rc:var(--violet)}
 /* The ring carries the accent at low strength so the lit chip still reads as the room's colour on a
    phone, where the label is an emoji and `color` cannot touch it. */
 .room[aria-current="page"]{color:var(--rc);background:var(--raise);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--rc) 45%,var(--line2))}
@@ -93,7 +93,9 @@ background:linear-gradient(96deg,#eef3fc 14%,var(--cyan) 54%,var(--violet) 92%);
    decoration and is aria-hidden. */
 .rlong{display:none}
 .rico{font-size:15px;line-height:1}
-@media(min-width:1240px){.rlong{display:inline}.rico{display:none}}
+/* ROOMS4-2026-10-17: the words are retired. With a fourth room the four word chips measure ~453px, and
+   tabs 482 + Find 230 + 453 + gaps 28 = 1193px against a content column capped at 1084 -- they never fit, at
+   any viewport. The glyph chips (each carries title= and aria-label= with the room name) are the bar now. */
 /* Phone: all three controls stay on the row, so the two elastic ones have to actually be elastic.
    ⚠️ `.nav .navfind`, not `.navfind` -- the base rule 700 lines down sets `flex:none` and carries
    the same specificity, so it wins on source order and the field refuses to give up a pixel. That
@@ -988,7 +990,7 @@ body:has(.tray.up) #livectl{bottom:calc(var(--sliph,76px) + 12px)!important}
  <button class="tab" role="tab" id="tab-p" aria-selected="false" aria-controls="v-p">Players</button>
  <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="v-b">Research</button>
  <button class="tab" role="tab" id="tab-h" aria-selected="false" aria-controls="v-h">How To</button> <button class="tab" role="tab" id="tab-o" aria-selected="false" aria-controls="v-o" style="display:none">Odds ⚙</button>
-</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label><nav class="rooms" aria-label="Rooms"><a class="room r-mlb" href="/mlb/" title="Baseball" aria-label="Baseball room"><span class="rlong">Baseball</span><span class="rico" aria-hidden="true">⚾</span></a><a class="room r-soc" href="/soccer/" title="Soccer" aria-label="Soccer room"><span class="rlong">Soccer</span><span class="rico" aria-hidden="true">⚽</span></a><a class="room r-nfl" href="/nfl/" title="Football" aria-label="Football room"><span class="rlong">Football</span><span class="rico" aria-hidden="true">🏈</span></a></nav></div>
+</div><label class="fld navfind"><span class="navcap">Find</span><input type="search" id="tsearch" placeholder="Search"></label><nav class="rooms" aria-label="Rooms"><a class="room r-mlb" href="/mlb/" title="Baseball" aria-label="Baseball room"><span class="rlong">Baseball</span><span class="rico" aria-hidden="true">⚾</span></a><a class="room r-soc" href="/soccer/" title="Soccer" aria-label="Soccer room"><span class="rlong">Soccer</span><span class="rico" aria-hidden="true">⚽</span></a><a class="room r-nfl" href="/nfl/" title="Football" aria-label="Football room"><span class="rlong">Football</span><span class="rico" aria-hidden="true">🏈</span></a><a class="room r-nba" href="/nba/" title="Basketball" aria-label="Basketball room"><span class="rlong">Basketball</span><span class="rico" aria-hidden="true">🏀</span></a></nav></div>
 <section id="v-t" role="tabpanel" aria-labelledby="tab-t">
  
  
@@ -4557,7 +4559,7 @@ window.htDraw=schedule;
 (function(){
   var nav=document.querySelector('.nav'); if(!nav) return;
   var p=(location.pathname||'').toLowerCase();
-  var cls=/(^|\/)nfl(\/|$)/.test(p)?'r-nfl':/(^|\/)soccer(\/|$)/.test(p)?'r-soc':/(^|\/)mlb(\/|$)/.test(p)?'r-mlb':'';
+  var cls=/(^|\/)nba(\/|$)/.test(p)?'r-nba':/(^|\/)nfl(\/|$)/.test(p)?'r-nfl':/(^|\/)soccer(\/|$)/.test(p)?'r-soc':/(^|\/)mlb(\/|$)/.test(p)?'r-mlb':'';
   if(cls){var a=nav.querySelector('.'+cls);if(a)a.setAttribute('aria-current','page');}
   function navh(){document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px');}
   navh();

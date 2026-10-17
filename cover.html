@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Ticket Room</title>
-<meta name="description" content="Daily prop handicapping boards — MLB home runs, soccer anytime goalscorer, NFL anytime touchdown. NBA first basket coming soon.">
+<meta name="description" content="Daily prop handicapping boards — MLB home runs, soccer anytime goalscorer, NFL anytime touchdown. NBA first basket.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://a.espncdn.com">
@@ -240,23 +240,10 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
        under construction sign over it". Fourth room. Every pair of existing accents is taken, so
        basketball gets violet/pink; the only primary it shares is violet, which baseball uses as a
        SECOND colour. No new colour was invented for it.
-       The card is a placeholder: no slate feed, no link. The .wip panel stands where the slate and
-       ticket will go and swallows clicks. Kept deliberately quiet: the owner said the first
-       version, full hazard tape, "stands out wayyy too much". When the room ships, delete
-       the .wip block and give the card a slate and a real <a class="tkt" href="nba/"> like the others. */
+       FIRSTBASKET-2026-10-17: the room shipped. The .wip sign, the dimming and the dead disc are gone;
+       the card has a slate strip (ESPN basketball/nba) and a ticket like the other three. */
     .nba{--accent:var(--violet);--accent2:var(--pink);--glow:#b69dff2b}
     .nba .hole svg{width:28px;height:28px}
-    .nba .body{position:relative;min-height:96px;margin-top:4px}
-    .nba{opacity:.62}
-    .nba .hole .disc{animation:none;opacity:.5}
-    .wip{position:absolute;inset:0;z-index:5;display:grid;place-items:center;border-radius:10px;
-      background:repeating-linear-gradient(135deg,#ffc24d0f 0 10px,transparent 10px 20px),#0e121999;
-      border:1px dashed #ffc24d38;cursor:not-allowed}
-    .wip-sign{text-align:center}
-    .wip-sign b{display:block;font-family:'Roboto Mono',monospace;font-weight:500;font-size:10.5px;
-      letter-spacing:.2em;text-transform:uppercase;color:#ffc24db3;white-space:nowrap}
-    .wip-sign span{display:block;margin-top:3px;font-family:'Roboto Mono',monospace;font-size:9px;
-      letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 
 .chead{display:flex;align-items:center;gap:14px}
 .hole{position:relative;width:64px;height:64px;flex:none;display:grid;place-items:center}
@@ -583,7 +570,7 @@ footer b{color:var(--mut);font-weight:600}
           <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">&rarr;</span></span>
         </a></div>
     </div>
-    <div class="card nba" aria-disabled="true">
+    <div class="card nba">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <!-- HOOPICON-2026-09-15. A hoop, not a ball, for the reason BOXICON-2026-08-26 records:
@@ -602,13 +589,14 @@ footer b{color:var(--mut);font-weight:600}
             </g>
           </svg></span>
         <div><h2 class="cname">Basketball</h2><p class="ktag">First basket</p></div>
-        <span class="cnt"></span>
+        <span class="cnt" id="c-nba"></span>
       </div>
-      <div class="body">
-        <div class="wip" role="note" aria-label="Basketball room under construction">
-          <div class="wip-sign"><b>Under construction</b><span>Coming soon</span></div>
-        </div>
-      </div>
+      <div class="slate" id="s-nba"><span class="empty">acquiring slate…</span></div>
+      <div class="foot">
+        <a class="tkt" href="nba/" aria-label="Enter the basketball room">
+          <span class="tkt-stub">Admit<br>One</span>
+          <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">&rarr;</span></span>
+        </a></div>
     </div>
     </main>
 </div>
@@ -755,6 +743,8 @@ footer b{color:var(--mut);font-weight:600}
   /* Same ESPN shape as the other two -- football/nfl carries logos and the identical
      event envelope, so no new tile code. Fails soft and silent like its siblings. */
   load(['football/nfl'],'s-nfl','c-nfl',' games','no games today','Final',16);
+  /* FIRSTBASKET-2026-10-17: the fourth room, same ESPN envelope (basketball/nba). */
+  load(['basketball/nba'],'s-nba','c-nba',' games','no games today','Final',16);
 
   /* LEDGERPILLS-2026-08-26, owner: "lets get rid of the ledger tracker on the cover page.
      itll look cleaner wihtout it." Removed outright rather than hidden: the pills, the
