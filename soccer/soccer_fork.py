@@ -87,7 +87,7 @@ def seams(payload_js):
 
     # ---- 2. IDENTITY / COPY ---------------------------------------------------------
     add('title',
-        '<title>HR Prop Ticket Room</title>',
+        '<title>The Baseball Room</title>',
         '<title>The Soccer Room</title>')
     add('eyebrow',
         'eyebrow">Home-Run Props · ',

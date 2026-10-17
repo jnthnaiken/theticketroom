@@ -38,7 +38,7 @@ def seams(payload_js):
     # Every seam below carries nfl_fork.py's label and source string; only the replacement is basketball.
     # Comments on WHY each seam exists live in nfl_fork.py under the same label.
     add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'fb\')?\'⚡ Tonight’s first baskets are in the books. New picks tomorrow.\':\'⚡ No first-basket pick yet — it posts once the first-basket prices and the starting fives are up. Check back before tip.\')+\'</div>\';')
-    add('title', '<title>HR Prop Ticket Room</title>', '<title>The Basketball Room</title>')
+    add('title', '<title>The Baseball Room</title>', '<title>The Basketball Room</title>')
     add('eyebrow', 'eyebrow">Home-Run Props · ', 'eyebrow">First Basket · ')
     add('eyebrow-tail', ' · Kasper blend + matchup</div>', ' · tip-off model + market</div>')
     add('tagline', '“Every strike brings me closer to the next home run.”<span class="cite">— Babe Ruth</span>', '“The strength of the team is each individual member. The strength of each member is the team.”<span class="cite">— Phil Jackson</span>')

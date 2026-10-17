@@ -47,7 +47,7 @@ def seams(payload_js):
     # "it has nothing to do with lunch anymore").
     add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
         ' const closed=\'<div class="closed">🏈 Still in the huddle — no first-touchdown call on this slate yet. It comes in once the first-TD prices post. Check back before kickoff.</div>\';')
-    add('title', '<title>HR Prop Ticket Room</title>', '<title>The Football Room</title>')
+    add('title', '<title>The Baseball Room</title>', '<title>The Football Room</title>')
     add('eyebrow', 'eyebrow">Home-Run Props · ', 'eyebrow">Anytime Touchdown · ')
     add('eyebrow-tail', ' · Kasper blend + matchup</div>', ' · usage blend + game total</div>')
     add('tagline',
