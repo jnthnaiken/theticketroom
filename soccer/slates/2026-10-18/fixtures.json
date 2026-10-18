@@ -1,0 +1,206 @@
+{
+ "_note": "SUN-2026-10-18. slate_scan_browser (gate 96 clubs): 20 fixtures on the ET date, all admitted -- 19 top-five league (EPL 4, La Liga 4, Serie A 4, Bundesliga 2, Ligue 1 5) + 1 MLS (FC Cincinnati v Columbus Crew, 21:00Z). Anytime 15/15 on all 20, 0 unparsed (300 rows). tot.psv: Win Market + Total Goals + Total Home/Away + BTTS for all 20 (1,351 rows). xG: understat 2025 rows carried from the 10-17 pull (no 2025 change) + fresh understat 2026 playersData 5 leagues (2,188 rows; 1,526 byte-identical to the 10-16 pull, the rest moved by Saturday's round) + ASA MLS 2025 (carried) / 2026 (fresh, 865 rows) via soccer_asa.js. Raw carry on soccer-data scratch/soccer-2026-10-18. Pruned to 486 rows, lookup identical to the full feed for all 300 names (exact 249, token 15, missing 36). Removed by hand: MLS 'Igor Jesus' (LAFC DM) rows (impostor for Forest's Igor Jesus) and MLS 'Antony' rows.",
+ "date": "2026-10-18",
+ "matches": {
+  "udinese-v-lecce": {
+   "home": "Udinese",
+   "away": "Lecce",
+   "kickoff": 630,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874771"
+   ]
+  },
+  "osasuna-v-racing-santander": {
+   "home": "Osasuna",
+   "away": "Racing Santander",
+   "kickoff": 720,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882840"
+   ]
+  },
+  "afc-bournemouth-v-sunderland": {
+   "home": "AFC Bournemouth",
+   "away": "Sunderland",
+   "kickoff": 780,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879263"
+   ]
+  },
+  "brighton-hove-albion-v-crystal-palace": {
+   "home": "Brighton & Hove Albion",
+   "away": "Crystal Palace",
+   "kickoff": 780,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879261"
+   ]
+  },
+  "leeds-united-v-manchester-united": {
+   "home": "Leeds United",
+   "away": "Manchester United",
+   "kickoff": 780,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879260"
+   ]
+  },
+  "fiorentina-v-como": {
+   "home": "Fiorentina",
+   "away": "Como",
+   "kickoff": 780,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874774"
+   ]
+  },
+  "angers-v-marseille": {
+   "home": "Angers",
+   "away": "Marseille",
+   "kickoff": 780,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876439"
+   ]
+  },
+  "bayer-leverkusen-v-sc-freiburg": {
+   "home": "Bayer Leverkusen",
+   "away": "SC Freiburg",
+   "kickoff": 810,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884771"
+   ]
+  },
+  "celta-vigo-v-alaves": {
+   "home": "Celta Vigo",
+   "away": "Alavés",
+   "kickoff": 855,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882845"
+   ]
+  },
+  "le-havre-ac-v-aj-auxerre": {
+   "home": "Le Havre AC",
+   "away": "AJ Auxerre",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876438"
+   ]
+  },
+  "lorient-v-as-monaco": {
+   "home": "Lorient",
+   "away": "AS Monaco",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876435"
+   ]
+  },
+  "paris-fc-v-stade-rennais": {
+   "home": "Paris FC",
+   "away": "Stade Rennais",
+   "kickoff": 915,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876433"
+   ]
+  },
+  "nottingham-forest-v-arsenal": {
+   "home": "Nottingham Forest",
+   "away": "Arsenal",
+   "kickoff": 930,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401878769"
+   ]
+  },
+  "borussia-monchengladbach-v-tsg-hoffenheim": {
+   "home": "Borussia Mönchengladbach",
+   "away": "TSG Hoffenheim",
+   "kickoff": 930,
+   "league": "Bundesliga",
+   "espn": [
+    "ger.1",
+    "401884768"
+   ]
+  },
+  "ac-milan-v-atalanta": {
+   "home": "AC Milan",
+   "away": "Atalanta",
+   "kickoff": 960,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874978"
+   ]
+  },
+  "malaga-v-real-sociedad": {
+   "home": "Málaga",
+   "away": "Real Sociedad",
+   "kickoff": 990,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882841"
+   ]
+  },
+  "juventus-v-lazio": {
+   "home": "Juventus",
+   "away": "Lazio",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874765"
+   ]
+  },
+  "lyon-v-nice": {
+   "home": "Lyon",
+   "away": "Nice",
+   "kickoff": 1125,
+   "league": "Ligue_1",
+   "espn": [
+    "fra.1",
+    "401876434"
+   ]
+  },
+  "real-madrid-v-sevilla": {
+   "home": "Real Madrid",
+   "away": "Sevilla",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882839"
+   ]
+  },
+  "fc-cincinnati-v-columbus-crew": {
+   "home": "FC Cincinnati",
+   "away": "Columbus Crew",
+   "kickoff": 1260,
+   "league": "MLS",
+   "espn": [
+    "usa.1",
+    "761889"
+   ]
+  }
+ }
+}
