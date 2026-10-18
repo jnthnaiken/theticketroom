@@ -531,8 +531,18 @@ NAMES = {
     'moon':    ['Top Corner', 'From Distance', 'Upper Ninety', 'Postage Stamp', 'Off the Underside',
                 'Outside the Box', 'Dipping Effort', 'Curled Home', 'Half Volley', 'Thirty Yards',
                 'Into the Roof', 'No Backlift'],
+    # TITLENUM-2026-10-17: the fresh draft (soccer_draft_cli.js) ships tickets WITHOUT names, so this list
+    # names every single on a new board. It held only the first 10 of soccer_draft.js's NAMES.builder, and
+    # once a deep card ran past 10 the pool walk ran dry and fell through to 'Target Man 11', 'Six-Yard Box 13'.
+    # Keep it identical to soccer_draft.js (soccer/test_titlenum.py checks).
     'builder': ['Target Man', 'The Poacher', 'Six-Yard Box', 'Back Post', 'Near Post', 'The Nine',
-                'First Time', 'Gets Across', 'Runs the Channel', 'Shoulder of the Last Man'],
+                'First Time', 'Gets Across', 'Runs the Channel', 'Shoulder of the Last Man', 'Far Post',
+                'Tap-In', 'Header Home', 'Rebound', 'Cutback', 'Low and Hard', 'Bottom Corner',
+                'Through on Goal', 'Ghosts In', 'Gets a Toe', 'Penalty Spot', 'Arrives Late',
+                'Stoops to Conquer', 'Smashed Home', 'One-Two', 'Side Netting', 'Back of the Net',
+                'In Behind', 'Rounds the Keeper', 'Finds the Gap', 'Glancing Header', 'Bundled In',
+                'Poked Home', 'Volleyed In', 'Slots It', 'Chips the Keeper', 'Sidefoot', 'Near-Post Flick',
+                'Six-Yard Scramble', 'Pounces'],
     'family':  ['Off the Bench', 'Fresh Legs', 'Late Doors', 'Stoppage Time', 'Ninety Plus'],
     'lunch':   ['Early Doors', 'Lunchtime Kickoff', 'The Twelve Thirty', 'First Match On'],
     'late':    ['Under Lights', 'Last One On', 'The Late Kickoff', 'Sunday Night'],
