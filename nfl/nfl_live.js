@@ -288,13 +288,30 @@
   function statusOf(inj) {
     return String((inj && inj.status) || (inj && inj.type && inj.type.description) || '');
   }
+  /* IRLIST-2026-10-18 -- an inactives list can carry a ROSTER designation beside it. 2026-10-18 DAL@GB,
+     23:49Z (89 min after the 90-minute deadline): GB's block was four flat "Out" (Banks, St-Juste,
+     Jennings, Burton -- the gameday inactives) plus "Jonathan Ford: Injured Reserve". The old test
+     treated IR as unresolved and refused the whole list, so every Packer -- Tucker Kraft on a live
+     single -- sat at `projected` while every Cowboy ticked ✓ off an identical-looking list.
+     IR / PUP / NFI / suspended are not open questions: those men are off the gameday roster either
+     way (OUT_STATUS still scratches them). Only a GAMETIME question -- Questionable, Doubtful,
+     Probable, day-to-day -- means the list is still the injury report. So: no pending entry, and at
+     least MIN_INACTIVE flat Out/Inactive entries (a real list names 3-7 men; the deadline gate above
+     already rules out the mid-week report). */
+  var PENDING = /^(questionable|doubtful|probable|day.to.day)/i;
+  var ROSTER_DESIG = /^(injured reserve|physically unable|non football|suspension|suspended|reserve)/i;
+  var MIN_INACTIVE = 3;
   function looksLikeInactives(list) {
     if (!list || !list.length) return false;
+    var flat = 0;
     for (var i = 0; i < list.length; i++) {
-      if (UNRESOLVED.test(statusOf(list[i]))) return false;
-      if (!OUT_STATUS.test(statusOf(list[i]))) return false;
+      var st = statusOf(list[i]);
+      if (PENDING.test(st)) return false;
+      if (ROSTER_DESIG.test(st)) continue;
+      if (!OUT_STATUS.test(st)) return false;
+      flat++;
     }
-    return true;
+    return flat >= MIN_INACTIVE;
   }
 
   function makeLive(opt) {
@@ -532,7 +549,7 @@
   }
 
   var api = { makeLive: makeLive, matchOne: matchOne, tdsOf: tdsOf, norm: norm, normDel: normDel,
-              tcode: tcode, pairOf: pairOf, POLL_MS: POLL_MS };
+              tcode: tcode, pairOf: pairOf, POLL_MS: POLL_MS, looksLikeInactives: looksLikeInactives };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.NflLive = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
