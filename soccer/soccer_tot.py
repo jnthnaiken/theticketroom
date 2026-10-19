@@ -465,7 +465,7 @@ def writeup(l, v, fx, date, mem=None):
             if (h_own or 0) < COLD or (a_own or 0) < COLD:
                 who = home if (h_own or 0) < (a_own or 0) else away
                 extra = ' ' + P([f'{who} have been finishing below their chances lately, and that usually turns.',
-                                 f'{who} have been leaving goals out there lately, and the chances keep coming.',
+                                 f'{who} have been leaving goals out there lately, and the chances have not dried up.',
                                  f'{who} are due a kinder night in front of goal; the chances have been there.'], key + 'x')
             return base + extra
         base = P([f'{home} v {away} shapes up as a cagey one, and the model sees a long way to a goal-fest.',
@@ -528,7 +528,7 @@ def writeup(l, v, fx, date, mem=None):
         if (own or 0) < COLD:
             extra = ' ' + P([f'Their finishing has been running behind their chances, which is exactly when the goals come.',
                              f'Their chances have been better than their finishing lately, and that gap tends to close.',
-                             f'They have been unlucky in front of goal lately, and the chances keep coming.'], key + 'x')
+                             f'They have been unlucky in front of goal lately, and that kind of luck turns.'], key + 'x')
         elif (opp_conc or 0) < COLD:
             extra = ' ' + P([f'{opp} have been getting away with more than their chances allow, and that rarely lasts.',
                              f'{opp} have conceded less than their chances deserve lately, and that evens out.',
