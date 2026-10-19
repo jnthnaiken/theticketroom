@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Oswald;src:url(file:///home/claude/jnthnaiken/theticketroom/brand/Oswald.ttf)}
+@font-face{font-family:Inter;src:url(file:///home/claude/jnthnaiken/theticketroom/brand/Inter.ttf)}
+@font-face{font-family:RM;src:url(file:///home/claude/jnthnaiken/theticketroom/brand/RobotoMono.ttf)}
+:root{--bg:#05070c;--line:#1e2637;--txt:#eef3fc;--mut:#9aa7bd;--dim:#5c6982;--cyan:#26d4f0;--violet:#b69dff}
+*{box-sizing:border-box;margin:0}
+body{width:1600px;height:900px;overflow:hidden;color:var(--txt);font-family:Inter;
+ background:radial-gradient(1200px 600px at 50% -20%,#1b2b4a66,transparent 68%),radial-gradient(700px 500px at 6% 100%,#26d4f018,transparent 62%),radial-gradient(700px 500px at 94% 100%,#b69dff14,transparent 62%),var(--bg);position:relative}
+.stars{position:absolute;inset:0;background-image:STARS}
+.frame{position:absolute;inset:28px;border:1px solid #26d4f02e;border-radius:28px}
+.wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.eyebrow{font-family:RM;font-size:22px;letter-spacing:.32em;color:var(--dim);text-transform:uppercase}
+.ball{width:120px;height:120px;border-radius:50%;margin:34px 0 26px;display:grid;place-items:center;
+ border:2px solid #26d4f055;background:radial-gradient(circle at 50% 40%,#26d4f022,#0e1219);box-shadow:0 0 80px -10px #26d4f055;color:var(--cyan)}
+.ball svg{width:64px;height:64px}
+h1{font-family:Oswald;font-weight:700;font-size:118px;line-height:1;letter-spacing:.01em;text-transform:uppercase;
+ background:linear-gradient(90deg,#9beefb,#26d4f0 45%,#b69dff);-webkit-background-clip:text;color:transparent}
+.sign{margin-top:40px;padding:26px 64px;border:2px dashed #26d4f040;border-radius:18px;background:#0e1219b3}
+.sign b{display:block;font-family:RM;font-weight:500;font-size:34px;letter-spacing:.22em;color:#26d4f0e6;text-transform:uppercase}
+.sign span{display:block;margin-top:10px;font-family:RM;font-size:22px;letter-spacing:.2em;color:var(--mut);text-transform:uppercase}
+.stats{margin-top:42px;display:flex;gap:56px;font-family:RM;font-size:22px;letter-spacing:.08em;color:var(--mut)}
+.stats i{font-style:normal;color:var(--txt);font-family:Oswald;font-size:40px;letter-spacing:.02em;display:block;margin-bottom:2px}
+.foot{position:absolute;bottom:56px;left:0;right:0;text-align:center;font-family:RM;font-size:20px;letter-spacing:.2em;color:var(--dim)}
+</style></head><body><div class="stars"></div><div class="frame"></div>
+<div class="wrap">
+ <div class="eyebrow">The Ticket Room · Baseball</div>
+ <div class="ball"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><circle cx="50" cy="50" r="38"/><path d="M24 21c11 13 11 45 0 58"/><path d="M76 21c-11 13-11 45 0 58"/></svg></div>
+ <h1>That's a wrap</h1>
+ <div class="sign"><b>Enjoy the World Series</b><span>See you next season</span></div>
+ STATS
+</div>
+<div class="foot">THETICKETROOM.LIVE</div>
+</body></html>
