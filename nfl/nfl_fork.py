@@ -109,7 +109,9 @@ def seams(payload_js):
         "var r=(D.meta.recv||{})[String(f.players[0].game)];return r?f.alts.filter(t=>t.recv===r):f.alts;})()"
         ".filter(t=>t.kind==='ftd')")   # 🪙 TOSS-2026-09-29: both if-they-receive picks until the live feed sees the opening drive, then only the one in play   # FIRSTTD-2026-09-29: the section shows the one first-TD pick, from meta (it is not in D.tickets)
     # KINGEZ-2026-10-05: drawPool() renders the 👑 King of the End Zone list from D.meta.longtd (nfl_longtd.py)
-    # instead of jackpot tickets. A free contest pick: no stake, no grade, no ticketCard.
+    # instead of jackpot tickets. KINGPRICE-2026-10-19 (owner): "king of the end zone is not a free bet, its a promo, the odds
+    # should read -118 for mike evans currently, not n/a". parlay_am used to keep only PLUS prices (o>0), so every
+    # favourite read n/a in the card header; it now carries his anytime price either way. Still not on the ledger.
     # KINGEZ3-2026-10-05: drawPool() renders the 👑 pick as a normal ticket card (ticketCard), built from D.meta.longtd.
     # It is NOT in D.tickets, so liveCats/liveHist never count it -- not on the ledger. The price shown is his anytime TD.
     add('special-sec-late',
@@ -117,7 +119,7 @@ def seams(payload_js):
         "var K=(D.meta.longtd||[]).map(function(g){var pk=g.picks||[],c=pk.filter(function(p){return p.crown;})[0]||pk[0];if(!c)return null;"
         "var P=D.players[c.name]||{},o=c.odds,oth=pk.filter(function(p){return p!==c;}).slice(0,3).map(function(p){return p.name+' '+(p.p*100).toFixed(1)+'%';}).join(', ');"
         "return {name:'The Long Haul',kind:'kingez',badge:'\\ud83c\\udfc6',nlegs:1,anchor:c.name,lock:(P.gtime||'').replace(' ET',''),has_late:false,final:false,rr:null,wxsum:{},confleg:0,"
-        "parlay_am:(o>0?o:null),payout10:10*_dec(o),"
+        "parlay_am:(o!=null?o:null),payout10:10*_dec(o),"
         "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'.',"
         "players:[{name:c.name,team:P.team,total:P.TOTAL,aT:P.aT,wf:P.wf,gmatch:P.gmatch,gtime:P.gtime,game:P.game,late:false,odds:o,status:P.status}]};}).filter(Boolean);"
         "el.innerHTML=K.map(ticketCard).join('');")

@@ -112,7 +112,7 @@ HOWTO = {
   [
    "👑",
    "King of the End Zone",
-   "One-game nights only, and a free play: the contest pays whoever picks the scorer of the game’s longest touchdown. Not staked and not on the ledger."
+   "One-game nights only. A DraftKings promo, not a free bet: place a qualifying bet on the game and pick who scores its longest touchdown, and the right pickers split the bonus-bet pot. The price shown is his anytime touchdown. Not on our ledger."
   ]
  ]
 }
