@@ -311,13 +311,14 @@ def pick(views, started=lambda m: False):
     return out if len(out) == N_LEGS else None
 
 
-def build(fixtures, prices_path, tm_path, date, cache_path=None, started=lambda m: False, gnum=None, gtime=None):
+def build(fixtures, prices_path, tm_path, date, cache_path=None, started=lambda m: False, gnum=None, gtime=None,
+          recent=None):
     """Returns (ticket or None, views). Sticky: a cache with legs is returned as-is."""
     if cache_path and os.path.exists(cache_path):
         try:
             c = json.load(open(cache_path, encoding='utf-8'))
             if c.get('legs'):
-                return ticket(c['legs'], fixtures, gnum, gtime, date, c.get('picked_at'), c.get('views')), None
+                return ticket(c['legs'], fixtures, gnum, gtime, date, c.get('picked_at'), c.get('views'), recent=recent), None
         except Exception:
             pass
     prices = load_prices(prices_path)
@@ -333,7 +334,7 @@ def build(fixtures, prices_path, tm_path, date, cache_path=None, started=lambda 
                    'views': [{k: v[k] for k in ('match', 'mlh', 'mla', 'lh', 'la', 'luck')} for v in views]},
                   open(cache_path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     vv = [{k: v[k] for k in ('match', 'mlh', 'mla', 'lh', 'la', 'luck')} for v in views]
-    return ticket(legs, fixtures, gnum, gtime, date, stamp, vv), views
+    return ticket(legs, fixtures, gnum, gtime, date, stamp, vv, recent=recent), views
 
 
 GOALLINE_NAMES = ['The Net Count', 'Final Tally', 'Scoreline Special', 'The Ninety',
@@ -358,7 +359,7 @@ def _clock(t):
     return (h + (12 if ap == 'PM' else 0)) * 60 + mi
 
 
-def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
+def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None, recent=None):
     gnum = gnum or {}
     gtime = gtime or {}
     pj = 1.0; dj = 1.0
@@ -374,8 +375,15 @@ def ticket(legs, fixtures, gnum, gtime, date, stamp, views=None):
                     'pm': round(l['pm'], 4)})
     name = GOALLINE_NAMES[_h('goalline' + date) % len(GOALLINE_NAMES)]
     vmap = {v['match']: v for v in (views or [])}
+    # VOICEMEM-2026-10-19: dated, nothing twice on the slip, nothing from the last few boards (`recent`).
+    _mem = None
+    if recent is not None:
+        from soccer_voicemem import Mem
+        _mem = Mem(day=date, recent=recent)
     for o_, l in zip(out, legs):
-        o_['why'] = writeup(l, vmap.get(l['match']), fixtures.get(l['match'], {}), date)
+        o_['why'] = writeup(l, vmap.get(l['match']), fixtures.get(l['match'], {}), date, mem=_mem)
+        if _mem:
+            _mem.commit(o_['why'])
     return {'name': name, 'kind': 'goalline', 'badge': '🧤', 'units': 1, 'tlegs': out, 'players': [],
             'nlegs': len(out), 'pj': round(pj, 4), 'parlay_am': american(dj), 'payout10': round(10 * dj, 1),
             'lock': min((o['gtime'] for o in out if o['gtime']), key=_clock, default=''), 'picked_at': stamp,   # GLLOCK-2026-10-17
@@ -432,50 +440,70 @@ def _pk(opts, key):
     return opts[_h(key) % len(opts)]
 
 
-def writeup(l, v, fx, date):
+def writeup(l, v, fx, date, mem=None):
+    """VOICEMEM-2026-10-19: every sentence is drawn through `mem` when one is given -- dated, and not a
+    phrase already on this slip or on the last few boards. Without `mem` it is the old dated hash."""
     home, away = fx.get('home', 'the hosts'), fx.get('away', 'the visitors')
     key = l['match'] + l['mkt'] + l['side'] + str(l['line']) + date
     if not v:
         return ''
+    P = (lambda opts, k: mem.pick(opts, k, names=(home, away))) if mem else (lambda opts, k: _pk(opts, k))
     lh, la = v['lh'], v['la']
-    tot = lh + la
     lk = v.get('luck') or {}
     h_own, h_conc = (lk.get('home') or [None, None, None])[1:]
     a_own, a_conc = (lk.get('away') or [None, None, None])[1:]
     HOT, COLD = 0.15, -0.15
     if l['mkt'] == 'TG':
         if l['side'] == 'O':
-            base = _pk([f'{home} and {away} is priced as an open game, and both back lines have been giving up proper chances.',
-                        f'Plenty of traffic expected at both ends of {home} v {away}.',
-                        f'{home} v {away} has goals written all over it, two sides happier attacking than defending.'], key)
+            base = P([f'{home} and {away} is priced as an open game, and both back lines have been giving up proper chances.',
+                      f'Plenty of traffic expected at both ends of {home} v {away}.',
+                      f'{home} v {away} has goals written all over it, two sides happier attacking than defending.',
+                      f'{home} v {away} looks like end-to-end stuff, with the defending optional.',
+                      f'Neither {home} nor {away} is built to sit back, and the market agrees.',
+                      f'Leave the tin hat at home for {home} v {away}; this one is set up for goals.'], key)
             extra = ''
             if (h_own or 0) < COLD or (a_own or 0) < COLD:
                 who = home if (h_own or 0) < (a_own or 0) else away
-                extra = f' {who} have been finishing below their chances lately, and that usually turns.'
+                extra = ' ' + P([f'{who} have been finishing below their chances lately, and that usually turns.',
+                                 f'{who} have been leaving goals out there lately, and the chances keep coming.',
+                                 f'{who} are due a kinder night in front of goal; the chances have been there.'], key + 'x')
             return base + extra
-        base = _pk([f'{home} v {away} shapes up as a cagey one, and the model sees a long way to a goal-fest.',
-                    f'Not much between {home} and {away}, and tight games rarely run away from anyone.',
-                    f'Expect {home} v {away} to be more chess than fireworks.'], key)
+        base = P([f'{home} v {away} shapes up as a cagey one, and the model sees a long way to a goal-fest.',
+                  f'Not much between {home} and {away}, and tight games rarely run away from anyone.',
+                  f'Expect {home} v {away} to be more chess than fireworks.',
+                  f'{home} v {away} has the look of a long, careful evening.',
+                  f'Two sides at {home} v {away} who like the ball more than the risk.',
+                  f'This one at {home} v {away} reads tight, tense and low on traffic.'], key)
         extra = ''
         if max(h_own or 0, a_own or 0) > HOT:
             who = home if (h_own or 0) >= (a_own or 0) else away
-            extra = f' {who} have been scoring above their chances, and that tends to cool off.'
+            extra = ' ' + P([f'{who} have been scoring above their chances, and that tends to cool off.',
+                             f'{who} have been finishing above their chances, and hot streaks cool.',
+                             f'{who} have been running above their chances in front of goal, and that rarely holds.'], key + 'x')
         return base + extra
     if l['mkt'] == 'BT':
         if l['side'] == 'Y':
-            base = _pk([f'Both {home} and {away} carry enough threat to get on the board.',
-                        f'Neither back line at {home} v {away} looks like keeping a clean sheet.',
-                        f'Goals at both ends of {home} v {away}; each side should find a way through.'], key)
+            base = P([f'Both {home} and {away} carry enough threat to get on the board.',
+                      f'Neither back line at {home} v {away} looks like keeping a clean sheet.',
+                      f'Goals at both ends of {home} v {away}; each side should find a way through.',
+                      f'{home} and {away} both have the tools to make the other side pay.',
+                      f'There is a goal in both of these sides at {home} v {away}.',
+                      f'Clean sheets look a long shot at both ends of {home} v {away}.'], key)
             extra = ''
             if min(h_conc or 0, a_conc or 0) < COLD:
-                extra = ' One of these defences has been getting away with it lately, and that rarely lasts.'
+                extra = ' ' + P(['One of these defences has been getting away with it lately, and that rarely lasts.',
+                                 'One of these back lines has been living on luck, and luck runs out.',
+                                 'One defence here has conceded less than its chances deserve, and that evens out.'], key + 'x')
             return base + extra
-        base = _pk([f'One of {home} or {away} should struggle to find the net.',
-                    f'We expect a clean sheet somewhere in {home} v {away}.',
-                    f'{home} v {away} looks like one side doing the scoring.'], key)
+        base = P([f'One of {home} or {away} should struggle to find the net.',
+                  f'We expect a clean sheet somewhere in {home} v {away}.',
+                  f'{home} v {away} looks like one side doing the scoring.',
+                  f'One of {home} or {away} looks set for a frustrating night up front.',
+                  f'{home} v {away} has a shutout written in somewhere.'], key)
         extra = ''
         if max(h_own or 0, a_own or 0) > HOT:
-            extra = ' There is a finishing streak in this fixture that the chances do not back up.'
+            extra = ' ' + P(['There is a finishing streak in this fixture that the chances do not back up.',
+                             'Somebody here has been finishing above the chances, and that tends to settle.'], key + 'x')
         return base + extra
     side_home = l['mkt'] == 'TH'
     team, opp = (home, away) if side_home else (away, home)
@@ -483,26 +511,44 @@ def writeup(l, v, fx, date):
     own = h_own if side_home else a_own
     opp_conc = a_conc if side_home else h_conc
     if l['side'] == 'O':
-        base = (_pk([f'{team} carry the bigger threat in this one and should find the net.',
-                     f'{team} get chances in bunches, and {opp} have been letting them come.',
-                     f'Back {team} to get on the scoresheet; the attack has been creating enough to deserve it.'], key)
+        base = (P([f'{team} carry the bigger threat in this one and should find the net.',
+                   f'{team} get chances in bunches, and {opp} have been letting them come.',
+                   f'Back {team} to get on the scoresheet; the attack has been creating enough to deserve it.',
+                   f'{team} have the firepower to find a way past {opp}.',
+                   f'{team} bring plenty of attacking menace to this one.',
+                   f'Expect {team} to make {opp} work for every minute.'], key)
                 if lam >= 1.2 else
-                _pk([f'{team} only need one, and they have been creating enough to get it.',
-                     f'{team} are not the favourites here, but one goal from them is the likeliest thing on the card.'], key))
+                P([f'{team} only need one, and they have been creating enough to get it.',
+                   f'{team} are not the favourites here, but one goal from them is the likeliest thing on the card.',
+                   f'One goal is all this asks of {team}, and they carry enough of a threat to find it.',
+                   f'{team} do not need a classic here, just the one, and they have the attackers for it.',
+                   f'A single {team} goal cashes this leg, and that is a modest ask.',
+                   f'{team} only have to get on the board once, and they have been knocking on the door.'], key))
         extra = ''
         if (own or 0) < COLD:
-            extra = f' Their finishing has been running behind their chances, which is exactly when the goals come.'
+            extra = ' ' + P([f'Their finishing has been running behind their chances, which is exactly when the goals come.',
+                             f'Their chances have been better than their finishing lately, and that gap tends to close.',
+                             f'They have been unlucky in front of goal lately, and the chances keep coming.'], key + 'x')
         elif (opp_conc or 0) < COLD:
-            extra = f' {opp} have been getting away with more than their chances allow, and that rarely lasts.'
+            extra = ' ' + P([f'{opp} have been getting away with more than their chances allow, and that rarely lasts.',
+                             f'{opp} have conceded less than their chances deserve lately, and that evens out.',
+                             f'{opp} have been living a charmed life at the back, and charms wear off.'], key + 'x')
         return base + extra
-    base = _pk([f'{team} have a hard afternoon ahead against {opp}, and a quiet one in front of goal suits this line.',
-                f'{opp} should keep {team} to scraps.',
-                f'We do not see {team} running riot here.'], key)
+    base = P([f'{team} have a hard afternoon ahead against {opp}, and a quiet one in front of goal suits this line.',
+              f'{opp} should keep {team} to scraps.',
+              f'We do not see {team} running riot here.',
+              f'{opp} have the structure to keep {team} quiet.',
+              f'{team} look set for a lean night in front of goal against {opp}.',
+              f'{opp} should keep a lid on {team} in this one.'], key)
     extra = ''
     if (own or 0) > HOT:
-        extra = f' {team} have been scoring above their chances lately, and that tends to come back to earth.'
+        extra = ' ' + P([f'{team} have been scoring above their chances lately, and that tends to come back to earth.',
+                         f'{team} have been finishing above their chances, and hot streaks cool.',
+                         f'{team} have been running above their chances in front of goal, and that rarely holds.'], key + 'x')
     elif (opp_conc or 0) > HOT:
-        extra = f' {opp} have been conceding more than the chances they allow, and that kind of run corrects itself.'
+        extra = ' ' + P([f'{opp} have been conceding more than the chances they allow, and that kind of run corrects itself.',
+                         f'{opp} have been unlucky at the back lately, and the chances they allow are fewer than the goals.',
+                         f'{opp} have shipped more than their chances deserve, and that tends to even out.'], key + 'x')
     return base + extra
 
 

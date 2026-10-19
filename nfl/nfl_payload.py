@@ -143,7 +143,11 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
     # VOICEDAY-2026-09-14: the prose names the slate's OWN weekday. fixtures.json has carried
     # `weekday` since the format was set; the voice just never read it, so the Monday-night
     # 2026-09-14 board shipped "steps into the spotlight this Sunday".
-    voice = Voice(scored, weekday=fx.get('weekday'))
+    # VOICEMEM-2026-10-19: date-salted picks, and nothing the last few boards already printed.
+    from nfl_voicemem import recent_notes, boards_dir_near
+    voice = Voice(scored, weekday=fx.get('weekday'), date=fx.get('date') or '',
+                  recent=recent_notes(boards_dir_near(os.getcwd(), os.path.dirname(os.path.abspath(__file__))),
+                                      fx.get('date') or ''))
     # The prose reads the MODEL's own row (i10pg / tchpg / i10_share / pos / basis), not the
     # payload dict below, which renames those to the baseball field names the page renders
     # (la / hh / zonev / bhand). Same numbers, and the voice should not have to know the fork.

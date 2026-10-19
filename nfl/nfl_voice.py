@@ -31,6 +31,7 @@ a WR who is the first read; five is a tight end who only eats near the stripe. T
 means three different things and the old note said "is on N touches a game" to all of them.
 """
 import re
+from nfl_voicemem import core as _vcore   # VOICEMEM-2026-10-19
 
 
 def _h(s):
@@ -153,7 +154,14 @@ class Voice:
     Same angle, same number, different length -- never a different claim.
     """
 
-    def __init__(self, scored, weekday=None):
+    def __init__(self, scored, weekday=None, date='', recent=''):
+        # VOICEMEM-2026-10-19 (owner: "soccer and football tickets are way too repetitive ... the write
+        # ups"). The board already never repeats itself within a night (BROADCAST-2026-09-11); it
+        # repeated ACROSS nights, because no pick key carried the date. `date` salts every pick and
+        # `recent` (the last few boards' notes, nfl_voicemem.recent_notes) is avoided while another
+        # phrasing of the same angle is left. Both default off: a Voice built the old way is unchanged.
+        self.ds = ('|' + str(date)) if date else ''
+        self.recent = (recent or '').lower()
         rows = [s for s in (scored or []) if s.get('odds') is not None]
         self.n = len(rows)
 
@@ -223,7 +231,7 @@ class Voice:
 
     def _fresh(self, p, who, salt, key, idx, said):
         """Another phrasing of angle `key` (idx 1 = lead, 2 = fragment) not yet said on this board."""
-        first = None
+        first, spare = None, None
         for j in range(48):   # enough re-salts to walk every phrasing of a 3-6 option bank
             for a in self.angles(p, who, salt=salt if j == 0 else '%s#%d' % (salt, j)):
                 if a[0] != key:
@@ -232,9 +240,21 @@ class Voice:
                 sig = txt.replace(str(who), '{}').lower()
                 if first is None:
                     first = (txt, sig)
-                if sig not in said:
-                    said.add(sig)
-                    return txt
+                if sig in said:
+                    continue
+                # VOICEMEM-2026-10-19: printed on a recent board -> keep looking; if every phrasing is
+                # spent, take the one whose last appearance is oldest (recent text is oldest-first).
+                c = _vcore(txt, (str(who),)) if self.recent else None
+                if c and c in self.recent:
+                    at = self.recent.rfind(c)
+                    if spare is None or at < spare[2]:
+                        spare = (txt, sig, at)
+                    continue
+                said.add(sig)
+                return txt
+        if spare:
+            said.add(spare[1])
+            return spare[0]
         if first:
             said.add(first[1])
             return first[0]
@@ -253,12 +273,21 @@ class Voice:
         return out or [o for o in options if '{day}' not in o] or list(options)
 
     def _open(self, bank, key):
-        start = _h(key) % len(bank)
+        start = _h(key + self.ds) % len(bank)
+        spare = None
         for j in range(len(bank)):
             o = bank[(start + j) % len(bank)]
-            if o not in self._said_open:
-                self._said_open.add(o)
-                return o
+            if o in self._said_open:
+                continue
+            c = _vcore(o, (), 6) if self.recent else None     # VOICEMEM-2026-10-19
+            if c and c in self.recent:
+                spare = spare or o
+                continue
+            self._said_open.add(o)
+            return o
+        if spare:
+            self._said_open.add(spare)
+            return spare
         return bank[start]
 
     def _band(self, pos, key):
@@ -481,47 +510,80 @@ class Voice:
                 pick(by([f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
                          f'{who} gets his work down in the red zone, where it\'s tight, and it\'s nasty, and I love it',
                          f'{who} is always at the bottom of the pile at the goal line, and he comes up with grass in his face mask',
-                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in'],
+                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in',
+                         f'{who} is a red-zone guy, and the red zone is where they keep the touchdowns',
+                         f'when it gets short, they hand it to {who}, and he falls forward every time, bang',
+                         f'{who} doesn\'t mind the traffic down by the goal line, he likes the traffic',
+                         f'here\'s {who}, and inside the twenty he\'s like a bowling ball looking for pins'],
                         [f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
                          f'{who} gets his looks down in the red zone, where the field gets small, and you need a guy who can go up and get it',
                          f'{who} is a red-zone target, and when they throw it up in the corner, he\'s the one coming down with it',
-                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in'],
+                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in',
+                         f'when the field gets short, the quarterback starts looking for {who}, and he finds him',
+                         f'{who} wins on the back line of the end zone, and that\'s the line you wanna win on',
+                         f'here\'s {who} in the red zone, a little hesitation, whoosh, and he\'s open',
+                         f'{who} knows where the chalk is, and he keeps his feet in, and that\'s six'],
                         [f'{who} is right there when they get to goal-to-go, and goal-to-go is where touchdowns happen',
                          f'{who} gets his work down in the red zone, where a big body is worth his weight in gold',
                          f'{who} is a big ol\' target in the red zone, and the quarterback throws it right at his numbers',
-                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in']), k + 'k1'),
+                         f'{who} lives in the red zone, and I\'ll tell ya, that\'s a good neighborhood to live in',
+                         f'{who} leaks out off the line down close, and nobody picks him up, boom',
+                         f'inside the twenty, {who} is the biggest thing out there, and you throw it to the biggest thing',
+                         f'here\'s {who}, he chips the end, slips out, and he\'s wide open in the end zone',
+                         f'{who} catches everything down close, and down close is where it counts']), k + 'k1'),
                 pick(by(['down in the red zone it\'s tight and it\'s nasty, and that\'s where he lives',
                          'he comes up out of that pile with grass in his face mask',
                          'goal-to-go is his neighborhood',
                          'he\'s right there when they smell the end zone',
-                         'he\'s down in the mud inside the twenty, where football gets played'],
+                         'he\'s down in the mud inside the twenty, where football gets played',
+                         'he falls forward every single time, and falling forward is how you score',
+                         'he likes the traffic down there, he really does',
+                         'inside the ten he\'s a bowling ball, and he\'s looking for pins'],
                         ['down in the red zone the field gets small, and he goes up and gets it',
                          'he\'s the one coming down with it in the corner of the end zone',
                          'goal-to-go is his neighborhood',
                          'he\'s right there when they smell the end zone',
-                         'he gets two feet down in the back of the end zone, and that\'s six'],
+                         'he gets two feet down in the back of the end zone, and that\'s six',
+                         'he keeps his feet in, and that\'s the whole trick',
+                         'a little hesitation, whoosh, he\'s open',
+                         'the quarterback finds him when the field gets short'],
                         ['down in the red zone a big body is worth his weight in gold',
                          'he sits down in the end zone and the quarterback finds him',
                          'goal-to-go is his neighborhood',
                          'he\'s right there when they smell the end zone',
-                         'he posts up like a power forward inside the twenty']), k + 'k2')))
+                         'he posts up like a power forward inside the twenty',
+                         'he leaks out down close and nobody picks him up',
+                         'he\'s the biggest thing out there inside the twenty',
+                         'he chips, slips out, and he\'s wide open']), k + 'k2')))
         elif lo_i10 and not lo_tch:
             out.append(('kind',
                 pick([f'{who} is a big-play guy, he makes one guy miss and whoosh, he\'s gone',
                       f'{who} doesn\'t need a short field, he brings his own',
-                      f'{who} can take it the distance, and when a guy can take it the distance, you gotta know where he is every play'], k + 'k3'),
+                      f'{who} can take it the distance, and when a guy can take it the distance, you gotta know where he is every play',
+                      f'{who} is a home-run hitter, and you don\'t need a short field when you hit home runs',
+                      f'give {who} a little crease and, whoosh, see ya later',
+                      f'here\'s {who}, and he\'s the kind of guy who scores from the parking lot'], k + 'k3'),
                 pick(['one guy misses, whoosh, he\'s gone',
                       'he can take it the distance from anywhere on the field',
-                      'he gets a crease and it\'s a footrace, and he wins footraces'], k + 'k4')))
+                      'he gets a crease and it\'s a footrace, and he wins footraces',
+                      'he\'s a home-run hitter',
+                      'a little crease, whoosh, see ya later',
+                      'he scores from the parking lot'], k + 'k4')))
         elif lo_tch:
             out.append(('kind',
                 pick([f'now here\'s {who}, and I\'ll bet ya the coordinator\'s got a play drawn up just for him',
                       f'one play, that\'s all it takes, one play and {who} is standing in the end zone',
-                      f'{who} is the surprise, and the thing about a surprise is nobody sees it coming, boom'], k + 'k5'),
+                      f'{who} is the surprise, and the thing about a surprise is nobody sees it coming, boom',
+                      f'they\'ve been saving {who} for something, and I think I know what for',
+                      f'watch {who} on the trick stuff, because the trick stuff is where you steal six',
+                      f'{who} is the wrinkle in the game plan, and wrinkles score touchdowns'], k + 'k5'),
                 pick(['the coordinator\'s got a play drawn up just for him',
                       'one play and he\'s standing in the end zone',
                       'nobody sees him coming, and then boom',
-                      'that\'s the play they drew up on a napkin at dinner'], k + 'k6')))
+                      'that\'s the play they drew up on a napkin at dinner',
+                      'they\'ve been saving him for something',
+                      'he\'s the wrinkle in the game plan',
+                      'the trick stuff is where you steal six'], k + 'k6')))
 
         # ---- ROLE, when the share says something the raw count does not. ----------------------
         if hi(shr, shr_hi) and is_max(shr, 'i10_share') and not (top_i10 and lo_tch):
@@ -539,10 +601,16 @@ class Voice:
                 out.append(('game',
                     pick([f'{who} plays for the offense that\'s supposed to score the most points, and the team that scores the most points usually wins',
                           f'{who} is in the highest-scoring spot on the board, and when you\'re scoring points, somebody\'s scoring touchdowns',
-                          f'{who}\'s offense carries the biggest team total on the board, so pass the turkey'], k + 'g1'),
+                          f'{who}\'s offense carries the biggest team total on the board, so pass the turkey',
+                          f'{who} is in the game everybody expects to light up the scoreboard, and I love a scoreboard',
+                          f'{who}\'s offense is supposed to put up a bunch, and a bunch of points means a bunch of touchdowns',
+                          f'everybody thinks {who}\'s team is gonna score, and when a team scores, somebody\'s gotta carry it in'], k + 'g1'),
                     pick(['his team\'s supposed to score the most points, and the team that scores the most points usually wins',
                           'points on the menu, so pass the turkey',
-                          'his offense has the biggest team total on the board'], k + 'g2')))
+                          'his offense has the biggest team total on the board',
+                          'his team is supposed to light up the scoreboard',
+                          'a bunch of points means a bunch of touchdowns',
+                          'when a team scores, somebody\'s gotta carry it in'], k + 'g2')))
 
         # ---- OUR PICK, only when it is a vote FOR him. -----------------------------------------
         if isinstance(pm, (int, float)) and pm * 100 >= 25:
@@ -572,35 +640,53 @@ class Voice:
                     f'{who} puts his head down, whap, and somebody\'s going backwards',
                     f'{who} runs downhill, and a guy who runs downhill goes through you, not around you',
                     f'give {who} the rock and get outta the way',
-                    f'{who} is the kind of back who gets his uniform dirty, and I love a dirty uniform'],
+                    f'{who} is the kind of back who gets his uniform dirty, and I love a dirty uniform',
+                    f'{who} falls forward, every single time, and that\'s how you get in from the one',
+                    f'here\'s {who}, he gets behind his pads, bang, and he\'s in there',
+                    f'{who} runs like he\'s late for supper, and you don\'t get in the way of a guy who\'s late for supper'],
                    ['he puts his head down, whap, somebody\'s going backwards',
                     'he goes through you, not around you',
                     'he\'s got grass stains on his grass stains',
                     'you give him the rock and get outta the way',
                     'he\'s a big ol\' back and he runs like one',
-                    'he gets his uniform dirty, and I love a dirty uniform',
-                    'he\'s got a nose for the end zone like a bloodhound']),
+                    'mud on the pants, grass on the helmet, my kind of guy',
+                    'he\'s got a nose for the end zone like a bloodhound',
+                    'he gets behind his pads, bang',
+                    'he falls forward every time',
+                    'he runs like he\'s late for supper']),
             'WR': ([f'{who} goes up and takes the football away from you, that\'s what great receivers do',
                     f'throw it up to {who} and let him go get it, that\'s football',
                     f'{who} catches the ball, and when you catch the ball in the end zone, that\'s a touchdown',
                     f'{who} is one catch away from six, and I\'ll tell ya, he\'s got the hands',
-                    f'watch {who} right here, he turns a little slant into six, whoosh'],
+                    f'watch {who} right here, he turns a little slant into six, whoosh',
+                    f'{who} has those sticky hands, and sticky hands catch touchdowns',
+                    f'here\'s {who}, he sells the in, breaks it out, and he\'s all alone, boom',
+                    f'{who} high-points the football, and when you high-point it, it\'s yours'],
                    ['he goes up and takes it away from you',
                     'you throw it up and let him go get it',
                     'when you catch the ball in the end zone, that\'s a touchdown, and he catches the ball',
                     'he turns a little slant into six, whoosh',
                     'he\'s got hands like a couple of buckets',
                     'he gets open when it counts',
-                    'he\'s a threat every single snap, and you gotta know where he is']),
+                    'he\'s a threat every single snap, and you gotta know where he is',
+                    'he\'s got sticky hands',
+                    'he high-points it, and then it\'s his',
+                    'he sells the in, breaks it out, all alone']),
             'TE': ([f'{who} is a big ol\' tight end, and down by the goal line, you throw it to the big ol\' tight end',
                     f'nobody wants to tackle {who} down by the goal line, and I don\'t blame \'em',
                     f'{who} is the quarterback\'s best friend when it gets tight',
-                    f'{who} boxes out like a power forward, boom, six'],
+                    f'{who} boxes out like a power forward, boom, six',
+                    f'here\'s {who}, he rumbles down the seam like a mail truck, and you sign for the package',
+                    f'{who} drags a couple of guys with him, and that\'s a fun thing to watch',
+                    f'{who} catches it like he\'s got glue on his gloves, and glue catches touchdowns'],
                    ['nobody wants to tackle him down by the goal line, and I don\'t blame \'em',
                     'he boxes out like a power forward, boom, six',
                     'he rumbles in like a truck with no brakes',
                     'he\'s a big ol\' target, and you throw it to the big ol\' target',
-                    'he\'s the quarterback\'s best friend when it gets tight']),
+                    'he\'s the quarterback\'s best friend when it gets tight',
+                    'he drags a couple of guys with him',
+                    'he\'s got glue on his gloves, that big fella',
+                    'he rumbles down the seam like a mail truck']),
             'QB': ([f'{who} will tuck it and go, and I love a quarterback who sticks his nose in there',
                     f'{who} can take it in himself, and when a quarterback runs it in, the whole bench goes nuts'],
                    ['he\'ll tuck it and go', 'he sticks his nose right in there like a fullback']),
@@ -643,16 +729,16 @@ class Voice:
         Length is deliberately uneven -- some men get one line, some get three -- because a board
         where every card is the same length reads like a form even when the words differ."""
         n = p.get('name') or p.get('nm')
-        seq = _rot(self.angles(p, n, lead=True), str(n) + 'card', pin_first=('story',))
+        seq = _rot(self.angles(p, n, lead=True, salt=self.ds), str(n) + 'card' + self.ds, pin_first=('story',))
         if not seq:
             return ''
-        bits = [self._fresh(p, n, '', seq[0][0], 1, self._said_card)]
+        bits = [self._fresh(p, n, self.ds, seq[0][0], 1, self._said_card)]
         want = 2 + (_h(str(n) + 'len') % 2)        # 2 or 3 (MADDEN-2026-09-30: a lone lead read flat)
         for key, _l, frag in seq[1:]:
             if len(bits) >= want:
                 break
             if frag:
-                bits.append(self._fresh(p, n, '', key, 2, self._said_card))
+                bits.append(self._fresh(p, n, self.ds, key, 2, self._said_card))
         # MADDEN-2026-09-30: the lead is SHOUTED when more follows, like the soccer cards.
         body = bits[0][0].upper() + bits[0][1:]
         for i, f in enumerate(bits[1:]):
@@ -675,6 +761,7 @@ class Voice:
         used, bits = set(), []
         three = len(legs) >= 3
         beats = 2 if len(legs) == 1 else 1
+        tname = str(tname) + self.ds          # VOICEMEM-2026-10-19: a new night, a new read
 
         # 🚨 THE SALT IS THE SLIP AND ITS MEN, NOT THE SLIP NAME ALONE. The opener and the frame
         # are picked from a hash of this key so that two slips on one board read with a different

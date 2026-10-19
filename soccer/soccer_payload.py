@@ -11,6 +11,7 @@ ONE CHIP HAS NO DATA and is written as None on purpose so it renders "—"
   * sub.park -- the successor's NAME, needs a squad-wide pull
 """
 import json, io, sys, math, itertools, os, re, unicodedata
+from soccer_voicemem import Mem, recent_notes, boards_dir_near   # VOICEMEM-2026-10-19
 
 # The squad-roster club join reuses the team sheet's matcher rather than growing a second one.
 # soccer_teamnews.py has no module-level side effects and imports nothing from here.
@@ -178,7 +179,9 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
         return d.hour * 60 + d.minute + off * 1440
 
     players = {}
-    VOICE = Voice(P)
+    # VOICEMEM-2026-10-19: date-salted picks, and ticket notes that remember the last few boards.
+    VOICE = Voice(P, date=date, recent=recent_notes(
+        boards_dir_near(os.path.dirname(os.path.abspath(out_path)), os.path.dirname(os.path.abspath(__file__))), date))
     avg_min = {}
 
     for p in P:
@@ -415,7 +418,8 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
                     for m in matches if m in MATCH_LABEL and m in ESPN_EVENT}
             tot_t, _views = _st.build(_fxs, tot_psv, tm_psv, date, cache_path=tot_cache,
                                      started=lambda m: _now2 >= ko_of(m), gnum=gnum,
-                                     gtime={m: gtime(ko_of(m)) for m in matches})
+                                     gtime={m: gtime(ko_of(m)) for m in matches},
+                                     recent=VOICE.mem.recent)   # VOICEMEM-2026-10-19
             if tot_t:
                 # GLWRITE-2026-10-16: a real write-up -- one line per leg from soccer_tot.writeup, then the sign-off.
                 _w = ' '.join(l.get('why') for l in tot_t['tlegs'] if l.get('why'))
@@ -773,9 +777,12 @@ def _rot(seq, key, pin_last=('price', 'flair')):
 
 OPENERS_3 = ['Oh, this is delicious', 'Three magicians, one afternoon', 'Get the smelling salts',
              'Pure poetry', 'Sheer theatre', 'Three artists, one canvas', 'Mamma mia',
-             'Bring the brass band', 'Oh my word', 'What a trio', 'Hold on to your hats']
+             'Bring the brass band', 'Oh my word', 'What a trio', 'Hold on to your hats',
+             'Stop the press', 'Lovely stuff', 'Three for the road', 'Sensational', 'What a cast']
 OPENERS_1 = ['Oh my word', 'Magisterial', 'Pure poetry', 'Mamma mia',
-             'Sheer theatre', 'Oh, delicious', 'Get the smelling salts', 'Glorious']
+             'Sheer theatre', 'Oh, delicious', 'Get the smelling salts', 'Glorious',
+             'Lovely stuff', 'Hold the front page', 'What a talent', 'Sensational', 'Oh, you beauty',
+             'Stop the press', 'Bellissimo']
 
 FRAMES_3 = ['{a}, {b}, and {c}.', '{o}! {a}, {b}, {c}.', '{a}. {b}, and {c}.',
             '{o} — {a}, {b}, and {c}.', '{a} and {b}. {c}.', '{a}; {b}; {c}.']
@@ -799,7 +806,12 @@ class Voice:
     selection, same numbers, different length -- not a different claim.
     """
 
-    def __init__(self, P):
+    def __init__(self, P, date='', recent=''):
+        # VOICEMEM-2026-10-19: the slate date salts every pick, and ticket notes remember what this
+        # board and the last few boards already said. Both default off, so a Voice built the old way
+        # (the tests) reads exactly as before. See soccer_voicemem.py.
+        self.mem = Mem(day=date, recent=recent)
+        self._fresh = False
         self.q = {}
         for k in ('npxg90', 'xgpershot', 'shots90'):
             v = sorted(x[k] for x in P if x.get(k) is not None)
@@ -864,8 +876,10 @@ class Voice:
             if lead:
                 subj = [o for o in opts if o.startswith(who + ' ')]
                 if subj:
-                    return _pick(subj, kk)
-            return _pick(opts, kk)
+                    opts = subj
+            if self._fresh:                      # VOICEMEM-2026-10-19: a ticket note
+                return self.mem.pick(opts, kk, names=(who,))
+            return _pick(opts, kk + ('|' + self.mem.day if self.mem.day else ''))
 
         # ⚽ HUDSON-2026-09-29. Owner: "soccer seems to have gotten away from the roy hudson language,
         # what happened? the write ups are supposed to be fun, they can see the data". What happened
@@ -886,13 +900,23 @@ class Voice:
                              f'{who} runs on instinct and mischief',
                              f'{who} is beyond the spreadsheets',
                              f'no computer on earth can explain {who}',
-                             f'{who} is street football in a kit'], k + 'n'),
+                             f'{who} is street football in a kit',
+                              f'{who} is all instinct and sleight of hand',
+                              f'{who} writes his own script',
+                              f'{who} plays like nobody is watching',
+                              f'{who} is a puzzle with a wicked grin',
+                              f'{who} is a law unto himself'], k + 'n'),
                         say([f'{who} plays pure jazz, no sheet music, just instinct and a wicked grin',
                              f'{who} is a mystery wrapped in an enigma wrapped in a gorgeous pair of boots',
                              f'{who} runs on instinct and mischief, and the spreadsheets can go and whistle',
                              f'{who} is beyond the reach of every model ever built, pure street football',
                              f'no computer on this earth can explain {who}, and thank heavens for that',
-                             f'{who} is a riddle the analysts gave up on, all swagger and sorcery'], k + 'N')))
+                             f'{who} is a riddle the analysts gave up on, all swagger and sorcery',
+                              f'{who} is all instinct and sleight of hand, a magician the scouts never found',
+                              f'{who} writes his own script and tears it up halfway through, gloriously',
+                              f'{who} plays like nobody is watching, and everybody should be',
+                              f'{who} is a puzzle with a wicked grin, and nobody has the lid of the box',
+                              f'{who} is a law unto himself, and the law is pure entertainment'], k + 'N')))
         else:
             if self._hi('npxg90', npx):
                 out.append(('rate',
@@ -901,13 +925,23 @@ class Voice:
                                  f'{who} is a fox in the henhouse',
                                  f'{who} smells blood in the box',
                                  f'{who} is a pickpocket in the penalty area',
-                                 f'the box belongs to {who}'], k + 'r'),
+                                 f'the box belongs to {who}',
+                              f'{who} is a burglar in the penalty box',
+                              f'{who} prowls the box like a panther',
+                              f'{who} is always where the ball drops',
+                              f'{who} treats the box like his living room',
+                              f'{who} has a sixth sense for the box'], k + 'r'),
                             say([f'{who} haunts that penalty box like a ghost with a grudge and a key to the front door',
                                  f'{who} lives in the six-yard box, pays no rent and eats all the biscuits',
                                  f'{who} is a fox in the henhouse with his napkin already tucked in',
                                  f'{who} sniffs out chances like a truffle pig in a Tuscan forest',
                                  f'{who} gets on the end of everything, as if the ball is on a string',
-                                 f'the penalty box is a cathedral, with {who} lighting every candle'], k + 'R')))
+                                 f'the penalty box is a cathedral, with {who} lighting every candle',
+                              f'{who} is a burglar in the penalty box, in and out before the alarm goes',
+                              f'{who} prowls the box like a panther in the long grass',
+                              f'{who} is always where the ball drops, as if he wrote the script',
+                              f'{who} treats the penalty box like his own living room, slippers on',
+                              f'{who} has a sixth sense for the box, a divining rod in his boots'], k + 'R')))
             if self._hi('xgpershot', xps):
                 out.append(('quality',
                             say([f'{who} shoots like a surgeon',
@@ -915,13 +949,21 @@ class Voice:
                                  f'{who} picks his spots like a jeweller',
                                  f'{who} waits for the perfect moment',
                                  f'{who} is all precision, no panic',
-                                 f'every shot from {who} is a love letter'], k + 'q'),
+                                 f'every shot from {who} is a love letter',
+                              f'{who} shoots like a sniper',
+                              f'{who} makes every shot count',
+                              f'{who} chooses his moments like a poet',
+                              f'{who} only pulls the trigger when it matters'], k + 'q'),
                             say([f'{who} only shoots from where the angels live',
                                  f'{who} is a surgeon with a scalpel dipped in honey',
                                  f'{who} waits for the moment like a heron over a still pond',
                                  f'{who} picks his spots like a jeweller choosing diamonds',
                                  f'{who} never wastes a bullet, every shot a love letter to the net',
-                                 f'every shot off the boot of {who} is a little work of art'], k + 'Q')))
+                                 f'every shot off the boot of {who} is a little work of art',
+                              f'{who} shoots like a sniper on a rooftop, patient and deadly',
+                              f'{who} makes every shot count, not a single one thrown away',
+                              f'{who} chooses his moments like a poet chooses his words',
+                              f'{who} only pulls the trigger when the net is begging for it'], k + 'Q')))
             if self._hi('shots90', sh):
                 out.append(('volume',
                             say([f'{who} shoots on sight',
@@ -929,37 +971,57 @@ class Voice:
                                  f'{who} is trigger-happy and fearless',
                                  f'{who} will have a pop from the car park',
                                  f'{who} never stops shooting',
-                                 f'nobody talks {who} out of a shot'], k + 'v'),
+                                 f'nobody talks {who} out of a shot',
+                              f'{who} shoots first, asks later',
+                              f'{who} keeps the keeper busy',
+                              f'{who} has a cannon and loves using it',
+                              f'{who} lives with his finger on the trigger'], k + 'v'),
                             say([f'{who} shoots on sight, like a man with a personal grudge against goalkeepers',
                                  f'{who} fires away like a pirate ship with a hold full of cannonballs',
                                  f'{who} will have a dig from the car park, the corner flag, the tunnel',
                                  f'{who} is trigger-happy and fearless, the keeper\'s gloves are smoking',
                                  f'{who} never stops shooting, bless his thunderous boots',
-                                 f'nobody on this earth can talk {who} out of a shot'], k + 'V')))
+                                 f'nobody on this earth can talk {who} out of a shot',
+                              f'{who} shoots first and asks questions later, gloriously greedy',
+                              f'{who} keeps the goalkeeper busier than a one-armed juggler',
+                              f'{who} has a cannon for a right foot and loves to fire it',
+                              f'{who} lives with his finger on the trigger and a grin on his face'], k + 'V')))
             if fin is not None and fin >= 0.05:
                 out.append(('finish',
                             say([f'{who} is finishing like a god',
                                  f'{who} buries everything',
                                  f'{who} has ice in his veins',
                                  f'{who} is ruthless in front of goal',
-                                 f'the net adores {who}'], k + 'f'),
+                                 f'the net adores {who}',
+                              f'{who} is clinical, utterly clinical',
+                              f'{who} is on a scoring tear',
+                              f'{who} turns half-chances into gold'], k + 'f'),
                             say([f'{who} is burying chances like a pirate burying treasure',
                                  f'{who} is finishing with the cold blood of an assassin',
                                  f'{who} has ice in his veins and dynamite in his boots',
                                  f'{who} is ruthless in front of goal, lethal and utterly delicious',
-                                 f'the net just throws its arms wide open for {who}'], k + 'F')))
+                                 f'the net just throws its arms wide open for {who}',
+                              f'{who} is clinical, utterly clinical, a man in a scoring dream',
+                              f'{who} turns half-chances into gold like an alchemist in boots',
+                              f'{who} is on a tear, and the nets are trembling'], k + 'F')))
             elif fin is not None and fin <= -0.08:
                 out.append(('finish',
                             say([f'{who} is owed a goal or three',
                                  f'{who} is due, oh so due',
                                  f'{who} has been robbed by keepers',
                                  f'{who} keeps knocking on the door',
-                                 f'the football gods owe {who}'], k + 'f'),
+                                 f'the football gods owe {who}',
+                              f'{who} is knocking, knocking, knocking',
+                              f'{who} has a goal in the post',
+                              f'{who} is owed by the woodwork'], k + 'f'),
                             say([f'{who} keeps arriving in all the right places and the goals are overdue',
                                  f'{who} is owed, the chances keep coming and the dam is creaking',
                                  f'{who} has been robbed blind by goalkeepers and the debt is piling up',
                                  f'{who} keeps knocking on that door, and doors do not stay shut forever',
-                                 f'the football gods owe {who} a big, fat, gorgeous one'], k + 'F')))
+                                 f'the football gods owe {who} a big, fat, gorgeous one',
+                              f'{who} keeps knocking, and sooner or later somebody opens the door',
+                              f'{who} has goals in the post and the postman is on his bike',
+                              f'{who} has been owed by the woodwork, the keepers and the fates alike'], k + 'F')))
             if avg:
                 if avg >= 75:
                     out.append(('mins',
@@ -967,24 +1029,38 @@ class Voice:
                                      f'{who} never comes off',
                                      f'{who} is there at the death',
                                      f'{who} runs till the lights go out',
-                                     f'the hook never comes for {who}'], k + 'm'),
+                                     f'the hook never comes for {who}',
+                              f'{who} goes the distance',
+                              f'{who} is a ninety-minute man',
+                              f'{who} never leaves the stage'], k + 'm'),
                                 say([f'{who} plays the full ninety like a marathon man with a grin on his face',
                                      f'{who} never comes off, the manager would sooner substitute himself',
                                      f'{who} is out there at the death, bless his iron lungs',
                                      f'{who} runs and runs until the floodlights go out',
-                                     f'the manager would never dream of hooking {who}'], k + 'M')))
+                                     f'the manager would never dream of hooking {who}',
+                              f'{who} goes the full distance, a ninety-minute man through and through',
+                              f'{who} never leaves the stage, the manager would not dare',
+                              f'{who} is still sprinting when everybody else is cramping'], k + 'M')))
                 else:
                     out.append(('mins',
                                 say([f'{who} is a firecracker, not a candle',
                                      f'{who} packs his minutes with mischief',
                                      f'{who} is pure chaos in short bursts',
                                      f'{who} needs no ninety to cause a riot',
-                                     f'every minute of {who} is box office'], k + 'm'),
+                                     f'every minute of {who} is box office',
+                              f'{who} is lightning in a bottle',
+                              f'{who} makes every minute matter',
+                              f'{who} arrives like a thunderclap',
+                              f'{who} is a spark looking for a fuse'], k + 'm'),
                                 say([f'{who} is a firecracker, not a candle, every minute a fireworks show',
                                      f'{who} packs his minutes with mischief and menace',
                                      f'{who} is pure chaos in short bursts, a cat among the pigeons',
                                      f'{who} does not need the full ninety to start a riot',
-                                     f'every single minute of {who} on the pitch is box office'], k + 'M')))
+                                     f'every single minute of {who} on the pitch is box office',
+                              f'{who} is lightning in a bottle, every minute a jolt',
+                              f'{who} makes every minute matter, not a second wasted on the grass',
+                              f'{who} arrives like a thunderclap and leaves the defence ringing',
+                              f'{who} is a spark looking for a fuse, and the box is full of them'], k + 'M')))
         # THE FLOOR. Every man gets a beat even when no band fires, the way price used to fill in.
         out.append(('flair',
                     say([f'{who} is box office',
@@ -992,13 +1068,23 @@ class Voice:
                          f'{who} could light up a wet Tuesday',
                          f'{who} brings the fireworks',
                          f'{who} plays with a twinkle in his eye',
-                         f'{who} is a poet with a football'], k + 'x'),
+                         f'{who} is a poet with a football',
+                              f'{who} is a showman to his bootlaces',
+                              f'{who} plays with pure joy',
+                              f'{who} is the main event',
+                              f'{who} has magic in his boots',
+                              f'{who} makes the crowd lean forward'], k + 'x'),
                     say([f'{who} is box office, the kind of player who makes you spill your tea',
                          f'{who} is pure theatre in a pair of boots, a matinee idol',
                          f'{who} could light up a wet Tuesday in a car park',
                          f'{who} brings the fireworks, the confetti and the brass band',
                          f'{who} plays with a twinkle in his eye and mischief in his feet',
-                         f'{who} is a poet with a football and a smile like a sunrise'], k + 'X')))
+                         f'{who} is a poet with a football and a smile like a sunrise',
+                              f'{who} is a showman down to his bootlaces, a headline act',
+                              f'{who} plays with pure joy, a kid in the park in a grown man\'s kit',
+                              f'{who} is the main event, and everyone else is the warm-up',
+                              f'{who} has magic in his boots and mischief in his eyes',
+                              f'{who} makes forty thousand people lean forward in their seats'], k + 'X')))
         return out
 
     def ticket_note(self, legs, players, apps, tname=''):
@@ -1016,16 +1102,23 @@ class Voice:
         step -- only the wording shrinks. This is CLMPTIER's lesson applied before the fact
         instead of after it: shorten the sentence you want, do not lose the end of it.
         """
-        for step in (0, 1, 2, 3, 4):
-            body = self._compose(legs, players, apps, tname, step)
-            if len(body) <= TNOTE_B:
-                return body
+        self._fresh = True
+        try:
+            for step in (0, 1, 2, 3, 4):
+                body = self._compose(legs, players, apps, tname, step)
+                if len(body) <= TNOTE_B:
+                    self.mem.commit(body)
+                    return body
+        finally:
+            self._fresh = False
         # TNOTECUT-2026-09-23. Three steps down and still long: three legs, three long
         # surnames, nothing left to shorten. Cut at a clause boundary rather than hand the
         # browser a sentence it will cut mid-word. This is CLMPTIER's judgement, verbatim --
         # whole clauses that fit beat a ragged tail -- and the clause we lose belongs to a leg
         # the card is already printing by name above the note.
-        return _clmp(body, TNOTE_B) or body
+        body = _clmp(body, TNOTE_B) or body
+        self.mem.commit(body)
+        return body
 
     def _compose(self, legs, players, apps, tname, step=0):
         # a three-leg slip gets one clause per leg or the note overruns the two-line clamp;
@@ -1046,7 +1139,7 @@ class Voice:
             # rotation depends only on the keys), so index-free key lookup is safe.
             lead_of = {a[0]: a for a in self.angles(p, apps.get(l['name']), sur,
                                                     salt=tname, lead=True)}
-            cands = _rot(self.angles(p, apps.get(l['name']), sur, salt=tname), tname + sur)
+            cands = _rot(self.angles(p, apps.get(l['name']), sur, salt=tname), tname + sur + self.mem.day)
             took = 0
             for key, brief, full in cands:
                 if key in used:
@@ -1068,12 +1161,13 @@ class Voice:
         if not bits:
             return ''
         _noop = (lambda fr: [f for f in fr if '{o}' not in f]) if step in (1, 3, 4) else (lambda fr: fr)
+        ds = self.mem.day
         if len(bits) >= 3:
-            body = _pick(_noop(FRAMES_3), tname + 'f3').format(
-                a=bits[0], b=bits[1], c=', '.join(bits[2:]), o=_pick(OPENERS_3, tname + 'o3'))
+            body = _pick(_noop(FRAMES_3), tname + 'f3' + ds).format(
+                a=bits[0], b=bits[1], c=', '.join(bits[2:]), o=self.mem.pick(OPENERS_3, tname + 'o3', min_len=6))
         elif len(bits) == 2:
-            body = _pick(_noop(FRAMES_2), tname + 'f2').format(
-                a=bits[0], b=bits[1], o=_pick(OPENERS_1, tname + 'o1'))
+            body = _pick(_noop(FRAMES_2), tname + 'f2' + ds).format(
+                a=bits[0], b=bits[1], o=self.mem.pick(OPENERS_1, tname + 'o1', min_len=6))
         else:
             body = bits[0] + '.'
         body = re.sub(r'(?<=[.!] )([a-z])', lambda m: m.group(1).upper(), body)
@@ -1101,7 +1195,7 @@ class Voice:
         n = p['name']
         chosen, used = [], set()
         lead_of = {a[0]: a for a in self.angles(p, avg, n, lead=True)}
-        for key, _brief, full in _rot(self.angles(p, avg, n), n + 'card'):
+        for key, _brief, full in _rot(self.angles(p, avg, n), n + 'card' + self.mem.day):
             if key in used:
                 continue
             used.add(key)
