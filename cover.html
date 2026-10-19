@@ -230,6 +230,24 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
   box-shadow:0 18px 44px -24px var(--accent)}
 .card:hover::before,.card:has(.tkt:focus-visible)::before{opacity:1}
 .mlb{--accent:var(--cyan);--accent2:var(--violet);--glow:#26d4f030}
+    /* OFFSEASON-2026-10-19. Owner: "lock the baseball room. do like an enjoy the world series, see you next
+       season! message like we did the under construction one for basketball". Same quiet treatment the
+       NBA-2026-09-15 .wip sign had (the owner had already toned that one down from full hazard tape): card
+       dimmed, disc still, a dashed panel where the slate and ticket were, no link, no slate fetch. Cyan instead
+       of the construction amber -- it is closed for the winter, not unfinished.
+       NEXT SEASON: delete this block and the .off panel, put back the slate strip, the <a class="tkt" href="mlb/">
+       foot and the load(['baseball/mlb'],...) line, and point deploy-pages.yml back at index.html for /mlb/. */
+    .mlb.closed{opacity:.62}
+    .mlb.closed .hole .disc{animation:none;opacity:.5}
+    .mlb .body{position:relative;min-height:96px;margin-top:4px}
+    .off{position:absolute;inset:0;z-index:5;display:grid;place-items:center;border-radius:10px;
+      background:repeating-linear-gradient(135deg,#26d4f00d 0 10px,transparent 10px 20px),#0e121999;
+      border:1px dashed #26d4f033;cursor:not-allowed;padding:0 10px}
+    .off-sign{text-align:center}
+    .off-sign b{display:block;font-family:'Roboto Mono',monospace;font-weight:500;font-size:10.5px;
+      letter-spacing:.2em;text-transform:uppercase;color:#26d4f0b3}
+    .off-sign span{display:block;margin-top:3px;font-family:'Roboto Mono',monospace;font-size:9px;
+      letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 .soc{--accent:var(--lime);--accent2:var(--amber);--glow:#4ef08a2b}
     /* NFL-2026-09-03. Third room, third accent pair. cyan/violet and lime/amber were
        taken, so football gets amber/pink -- the only remaining pair in :root that does
@@ -472,22 +490,21 @@ footer b{color:var(--mut);font-weight:600}
          board is staged to /mlb/ by deploy-pages.yml (NOT moved in the repo -- pull-slate
          rebuilds repo index.html every few minutes and would overwrite anything parked
          there). This page is also still served at /cover.html, its original URL. -->
-    <div class="card mlb">
+    <div class="card mlb closed" aria-disabled="true">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
             <circle cx="50" cy="50" r="38"/><path d="M24 21c11 13 11 45 0 58"/><path d="M76 21c-11 13-11 45 0 58"/>
           </svg></span>
         <div><h2 class="cname">Baseball</h2><p class="ktag">Home-run props</p></div>
-        <span class="cnt" id="c-mlb"></span>
+        <span class="cnt"></span>
       </div>
-      <div class="slate" id="s-mlb"><span class="empty">acquiring slate…</span></div>
-      <!-- board reading order, left to right: Lunch -> Nightcap -> Anchors -> Moonshots -->
-      <div class="foot">
-        <a class="tkt" href="mlb/" aria-label="Enter the baseball room">
-          <span class="tkt-stub">Admit<br>One</span>
-          <span class="tkt-main"><span class="tkt-word">Enter</span><span class="tkt-arw" aria-hidden="true">→</span></span>
-        </a></div>
+      <!-- OFFSEASON-2026-10-19: the slate strip and the Enter ticket come back next season. -->
+      <div class="body">
+        <div class="off" role="note" aria-label="Baseball room closed for the season. Enjoy the World Series, see you next season.">
+          <div class="off-sign"><b>Enjoy the World Series</b><span>See you next season</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="card soc">
@@ -699,7 +716,8 @@ footer b{color:var(--mut);font-weight:600}
     }).catch(function(){ fill(elId,[],'feed unavailable'); });
   }
 
-  load(['baseball/mlb'],'s-mlb','c-mlb',' games','no games today','Final',18);
+  /* OFFSEASON-2026-10-19: baseball is closed for the winter -- no slate strip to fill. Restore next season:
+     load(['baseball/mlb'],'s-mlb','c-mlb',' games','no games today','Final',18); */
 
   /* CUPSTRIP-2026-09-15. Owner: "soccer cover page is only showing league games". The strip
      fetched the five leagues plus the Champions League, so a cup night showed three La Liga games

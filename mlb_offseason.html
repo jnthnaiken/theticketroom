@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Baseball Room</title>
+<meta name="description" content="The baseball room is closed for the season. Enjoy the World Series, see you next season.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- OFFSEASON-2026-10-19. Owner: "lets go ahead and lock the baseball room. do like an enjoy the world
+     series, see you next season! message like we did the under construction one for basketball".
+     deploy-pages.yml stages THIS file as /mlb/index.html for the winter; repo index.html keeps building
+     (the three other rooms are forked from it) but is no longer published at /mlb/.
+     NEXT SEASON: point deploy-pages.yml back at `cp index.html _site/mlb/` and delete this file. -->
+<style>
+:root{--bg:#05070c;--surf:#0e1219;--line:#1e2637;--line2:#2f3b52;--txt:#eef3fc;--mut:#9aa7bd;--dim:#5c6982;
+  --cyan:#26d4f0;--lime:#4ef08a;--amber:#ffc24d;--violet:#b69dff;--r:14px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{color:var(--txt);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.5;min-height:100vh;
+  display:grid;place-items:center;padding:24px 16px;
+  background:radial-gradient(1100px 520px at 50% -18%,#1b2b4a4d,transparent 68%),
+    radial-gradient(620px 420px at 8% 92%,#26d4f012,transparent 62%),var(--bg);background-attachment:fixed}
+main{width:100%;max-width:440px;text-align:center}
+.kick{font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;text-transform:uppercase;
+  font-size:clamp(30px,8vw,40px);line-height:1.05;margin:8px 0 22px}
+.card{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:22px 18px 20px;
+  background:linear-gradient(180deg,#131926,#0e1219);overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(340px 180px at 84% -16%,#26d4f030,transparent 66%)}
+.ball{width:56px;height:56px;margin:0 auto 14px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid #26d4f04d;color:var(--cyan);background:#26d4f00f}
+.ball svg{width:30px;height:30px}
+.off{border-radius:10px;padding:18px 12px;border:1px dashed #26d4f033;
+  background:repeating-linear-gradient(135deg,#26d4f00d 0 10px,transparent 10px 20px),#0e121999}
+.off b{display:block;font-family:'Roboto Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:#26d4f0d9}
+.off span{display:block;margin-top:5px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--mut)}
+.note{margin:16px 2px 0;color:var(--mut);font-size:13px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
+nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border:1px solid var(--line2);border-radius:999px;
+  color:var(--txt);text-decoration:none;font-size:13px;font-weight:500;background:#0e1219}
+nav a:hover,nav a:focus-visible{border-color:var(--cyan);outline:none}
+</style>
+</head>
+<body>
+<main>
+  <div class="kick">The Ticket Room</div>
+  <h1>The Baseball Room</h1>
+  <div class="card">
+    <div class="ball" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
+        <circle cx="50" cy="50" r="38"/><path d="M24 21c11 13 11 45 0 58"/><path d="M76 21c-11 13-11 45 0 58"/></svg>
+    </div>
+    <div class="off" role="note"><b>Enjoy the World Series</b><span>See you next season</span></div>
+    <p class="note">The home-run board is closed for the winter. The other rooms are open.</p>
+  </div>
+  <nav aria-label="Rooms">
+    <a href="/soccer/">⚽ Soccer</a><a href="/nfl/">🏈 Football</a><a href="/nba/">🏀 Basketball</a><a href="/">Home</a>
+  </nav>
+</main>
+</body>
+</html>
