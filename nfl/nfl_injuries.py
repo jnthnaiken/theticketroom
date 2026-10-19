@@ -69,12 +69,58 @@ def apply(scored, outs):
     return hits
 
 
+# 🚨 STICKYOUT-2026-10-19. Owner: "croskey merritt is out tonight. you had already removed him from the board.
+# why is he back?" Because an `out` lived only as long as ESPN kept printing it. Every build re-reads the
+# summary's `injuries` block, and ~90 minutes before kickoff ESPN REPLACES the week's injury report there with
+# the game-day inactives list. Croskey-Merritt (groin, ruled out on the Saturday) was Out on the report and
+# off the board 20:16Z-22:40Z, then simply absent from the inactives list (reserve-list moves are not
+# "inactives"), so at 23:00Z nothing said out, and the 23:02Z build drafted him straight back onto
+# "Red Zone Target". "NEVER CLEARS" above held within one run and nowhere else.
+#
+# So an out is now INSERT-ONLY FOR THE SLATE, the same shape as PRICELEDGER: anyone the slate's archived
+# board (boards/<date>.json, the prior build) already carries as `out` stays out. ESPN can add names; it can
+# never take one back. Runs before the network call, so it holds even when ESPN is unreachable.
+def carry_prior_outs(scored, date, board_paths=None, seed_paths=None):
+    paths = board_paths or ['../boards/%s.json' % date, 'boards/%s.json' % date]
+    prior = None
+    for pth in paths:
+        try:
+            prior = json.load(open(pth, encoding='utf-8'))
+            break
+        except Exception:
+            continue
+    pp = (prior or {}).get('players') or {}
+    # the payload keeps the nflverse code in `code` (`team` is the display name, e.g. "Commanders")
+    was = {(norm(n), ALIAS.get(p.get('code'), p.get('code'))): (p.get('out_why') or 'out on an earlier build')
+           for n, p in (pp.items() if isinstance(pp, dict) else []) if p.get('out')}
+    # Hand-seeded outs for the slate: slates/<date>/outs.json = {"outs": [{"name": ..., "team": <nflverse code>,
+    # "why": ...}]}. For a man the feeds never list (or the night the chain already broke, as on 10-19).
+    for pth in (seed_paths or ['../slates/%s/outs.json' % date, 'slates/%s/outs.json' % date]):
+        try:
+            for o in json.load(open(pth, encoding='utf-8')).get('outs') or []:
+                was[(norm(o['name']), ALIAS.get(o.get('team'), o.get('team')))] = o.get('why') or 'ruled out'
+            break
+        except Exception:
+            continue
+    hits = []
+    for r in scored:
+        k = (norm(r.get('name')), ALIAS.get(r.get('team'), r.get('team')))
+        if k in was and not r.get('out'):
+            r['out'] = True
+            r['out_why'] = was[k]
+            hits.append(r['name'])
+    return hits
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print('usage: nfl_injuries.py scored.json fixtures.json'); sys.exit(2)
     sp, fp = sys.argv[1], sys.argv[2]
     scored = json.load(open(sp, encoding='utf-8'))
     date = json.load(open(fp, encoding='utf-8')).get('date')
+    kept = carry_prior_outs(scored, date)
+    json.dump(scored, open(sp, 'w', encoding='utf-8'), indent=1)
+    print(f'nfl_injuries {date}: STICKYOUT carried {len(kept)} prior out(s): {", ".join(kept) or "-"}')
     try:
         outs = out_by_team(date)
     except Exception as e:
