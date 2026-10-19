@@ -117,40 +117,105 @@ def starters_for(ev, lineup, st, sel=None):
 def pct(x, d=0): return None if x is None else round(100 * x, d)
 
 
-def why(n, r, st, gm):
-    """One plain sentence about the man, for his card. No percentages in the prose."""
+# COLLINS-2026-10-19. Owner: "for the basketball write ups, use the voice of eric collins for the charlotte
+# hornets". The register, not the man: relentless joy, stretched-out vowels, sing-song rhymes and made-up
+# words, homespun comparisons, and drama dialled to eleven. ORIGINAL lines only -- none of his own trademark
+# calls are quoted, same rule as the Madden and soccer booths. What does NOT change: every line still fires
+# only when the model's number earns it (jumper, tip record, early-shot share, finishing, value), no digits
+# after the opening sentence, and nothing promises the bucket.
+def _fnv(key):
+    h = 2166136261
+    for ch in key:
+        h = ((h ^ ord(ch)) * 16777619) & 0xFFFFFFFF
+    return h
+
+
+def _pk(opts, key):
+    return opts[_fnv(key) % len(opts)]
+
+
+def why(n, r, st, gm, salt=''):
+    """One sentence for his card, in the Collins register. No percentages in the prose."""
     k = st.key(n, team=r['team']); p = st.P.get(k) or {}
+    K = n + '|' + str(salt)
     bits = []
     if r['jumper']:
-        bits.append('jumps center for his side' + (' and should win the tip' if r['ptip'] >= .55 else ''))
-    if (p.get('ef') or 0) >= .26: bits.append('takes more of the early shots than anyone on his team')
-    elif (p.get('ef') or 0) >= .2: bits.append('gets his share of the early looks')
-    if (p.get('tf') or 0) >= .28: bits.append('is often the one who takes the first shot')
+        if r['ptip'] >= .55:
+            bits.append(_pk(['handles the opening tip, and he has been WINNING them',
+                             'goes up for the tip, and he owns that center circle',
+                             'jumps center, and he gets up there first more often than not'], K + 'j1'))
+        else:
+            bits.append(_pk(['handles the opening tip for his side',
+                             'goes up for the jump ball to start it all',
+                             'is the big fella in the center circle'], K + 'j0'))
+    if (p.get('ef') or 0) >= .26:
+        bits.append(_pk(['hunts the early shots like nobody else on his team',
+                         'fires away early more than anybody on that roster',
+                         'wants the ball first, and gets it first'], K + 'e2'))
+    elif (p.get('ef') or 0) >= .2:
+        bits.append(_pk(['gets his fair share of the early cracks at it',
+                         'is right in the mix when the first shots go up',
+                         'gets plenty of early looks'], K + 'e1'))
+    if (p.get('tf') or 0) >= .28:
+        bits.append(_pk(['loves to let fly with the very first shot',
+                         'is often the one pulling the trigger first',
+                         'takes the first swing of the night more than most'], K + 't1'))
     fgp = (p['fgm'] / p['fga']) if p.get('fga') else None
-    if fgp and fgp >= .55: bits.append('finishes most of what he shoots')
-    if not bits: bits.append('is one of the five on the floor at the tip')
-    return f"{n} {', '.join(bits[:-1]) + (' and ' if len(bits) > 1 else '') + bits[-1]}."
+    if fgp and fgp >= .55:
+        bits.append(_pk(['and oh baby, does he finish',
+                         'and he buries what he shoots',
+                         'and his shots find the bottom of the net'], K + 'f1'))
+    if not bits:
+        bits.append(_pk(['is out there for the opening tip, ready to rumble',
+                         'is one of the five on the floor when the ball goes up',
+                         'starts the night on the floor, and anything can happen'], K + 'z'))
+    tail = [b for b in bits if not b.startswith('and ')]
+    fin = [b for b in bits if b.startswith('and ')]
+    body = ', '.join(tail[:-1]) + (' and ' if len(tail) > 1 else '') + (tail[-1] if tail else '')
+    if fin:
+        body += (', ' if tail else '') + fin[0]
+    return f"{n} {body}!"
 
 
 def note(n, r, st, gm, salt):
-    """The slip write-up: what the pick is, then why, in a basketball voice. No digits."""
+    """The slip write-up: what the pick is, then why, in the Collins register. No digits after sentence one."""
     k = st.key(n, team=r['team']); p = st.P.get(k) or {}
     team = TEAM_NAME.get(r['team'], r['team'])
+    sur = n.split()[-1] if n.split() else n
     s = [f"{n} to score the first basket of {gm.replace('@', ' at ')}."]
-    h = sum(ord(c) for c in salt + n)
+    K = str(salt) + '|' + n
     if r['jumper']:
-        s.append(['He jumps center, and the team that wins the tip scores first close to two times in three.',
-                  'He is the one at center court for the tip, and the tip decides more first baskets than anything else.',
-                  'He takes the opening tip for the ' + team + ', and the side that wins it usually scores first.'][h % 3])
-        if r['ptip'] >= .56: s.append('His record in the circle says he should win this one.')
+        s.append(_pk([f"{sur} goes up for the opening tip, and WHOOOA, the side that controls the tip usually strikes first!",
+                      f"He's the big fella at center court for the {team}, and the tip is where first baskets are born, baby!",
+                      f"{sur} takes the jump ball, and win the tip, take the first swing, that's how this game gets going!",
+                      f"Center circle, bright lights, and {sur} in the middle of it all. The tip decides more of these than anything else!",
+                      f"He's jumping center for the {team}, and you know what that means: first crack at the bucket!"], K + 'j'))
+        if r['ptip'] >= .56:
+            s.append(_pk(["And he's been winning these tips all season long. Look out below!",
+                          "His history in the circle says he gets up there first. Oh my goodness!",
+                          "He's been owning that jump ball, and that's a big, big deal!"], K + 'jt'))
     if (p.get('ef') or 0) >= .24 or (p.get('tf') or 0) >= .26:
-        s.append(['The ' + team + ' look for him early -- he takes as many of the first shots as anyone on the roster.',
-                  'When the ' + team + ' run their first set, it tends to end with the ball in his hands.',
-                  'Early in games the offense runs through him.'][h % 3])
+        s.append(_pk([f"The {team} go to him early and often, and he is NOT shy about it!",
+                      f"When the {team} run that first set, the ball has a funny way of finding {sur}!",
+                      "He takes more early swings than a batting cage at sunrise!",
+                      "The opening possessions are his playground, and he came to play!",
+                      "Early in the game he's got the green light shining bright, and he floors it!"], K + 'e'))
+    if len(s) == 1:   # neither the tip nor the early-shot angle fired: an opener that claims nothing new
+        s.append(_pk([f"Here comes {sur}, and buddy, this one's got some sizzle!",
+                      f"Don't sleep on {sur}. Ohhh, don't you dare sleep on {sur}!",
+                      f"{sur} with the sneaky one, and sneaky is our favorite flavor!",
+                      f"Grab the popcorn, because {sur} is a fun little ride tonight!"], K + 'o'))
     fgp = (p['fgm'] / p['fga']) if p.get('fga') else None
-    if fgp and fgp >= .54: s.append('And he makes his shots, which is the whole bet.')
-    s.append(['The book prices him like a role player. We have him a lot closer to the top of this list.',
-              'The price is longer than the man.', 'The market is paying the star names; we are taking the value.'][h % 3])
+    if fgp and fgp >= .54:
+        s.append(_pk(["And when he lets it fly, it goes in. Splash city!",
+                      "He makes his shots, and making shots is the whole ballgame!",
+                      "Buckets, buckets, buckets! The man finishes what he starts!",
+                      "Soft touch, sweet stroke, and the net says thank you!"], K + 'f'))
+    s.append(_pk(["The book has him priced like a bench guy. Pinch me, we'll take that all night long!",
+                  "That price is longer than a summer afternoon, and we are HERE for it!",
+                  "Everybody's lining up for the marquee names; we're taking the fella hiding in plain sight!",
+                  "The market's snoozing on him. Wakey wakey, eggs and bakey!",
+                  "Long price, big upside, and a whole lotta fun. Let's go!"], K + 'v'))
     return ' '.join(s)
 
 
@@ -197,7 +262,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 out=False, void=False, status=('confirmed' if src.get(T) == 'confirmed' else 'projected'),
                 opp=[TEAM_NAME.get(opp, opp), ''], oppERA=None, opp_code=opp, ftrend=None,
                 odds=(int(round(fd)) if fd is not None else None), soft=(src.get(T) == 'priced'),
-                why=why(n, r, st, gm), p_value=round(r['pb'], 4), p_model=round(r['p'], 4),
+                why=why(n, r, st, gm, date), p_value=round(r['pb'], 4), p_model=round(r['p'], 4),
                 p_mkt=(round(r['pm'], 4) if r.get('pm') is not None else None),
                 odds_cons=(dec_to_am(mk[n]) if n in mk else None),
                 ev=(round(ev_, 3) if ev_ is not None else None), jumper=r['jumper'], ptip=round(r['ptip'], 3),
