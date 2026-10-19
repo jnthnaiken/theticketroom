@@ -285,6 +285,47 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             'why': VOICE.why(p, avg),
         }
 
+    # 🧠 TNAMNESIA-2026-10-19 (owner: "yes", after STICKYOUT closed the football twin). Logged 08-28 and open
+    # since: status / out / goals above come from THIS pass's teamnews.json alone, so a pass with no usable
+    # team news (ESPN rc 30, an empty XI, a side not yet trusted) republished every man as projected and
+    # not out, and wiped goals already scored -- seen twice live on 08-28, and able to turn a void into a
+    # loss. Carry them from the slate's archived board (the prior build), exactly as STICKYOUT does for
+    # football:
+    #   * out          -- insert-only for the slate. A fresh sheet may add an out; nothing removes one.
+    #   * confirmed / benched -- carried ONLY when this pass has no trusted sheet for the man's side.
+    #     A trusted fresh sheet still wins (a late swap must be able to move him).
+    #   * hr / goalmins -- a goal once seen is not unseen.
+    _prior = {}
+    for _pth in (os.path.join(os.path.dirname(os.path.abspath(out_path)), '..', 'boards', f'{date}.json'),
+                 os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'boards', f'{date}.json'),
+                 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'boards', f'{date}.json')):
+        try:
+            _prior = (json.load(io.open(_pth, encoding='utf-8')).get('players') or {})
+            break
+        except Exception:
+            continue
+    _carried = {'out': [], 'status': [], 'hr': []}
+    for n, pl in players.items():
+        q = _prior.get(n) or {}
+        if not q or q.get('gmatch') != pl.get('gmatch'):        # same man, same fixture
+            continue
+        fresh = bool(TN) and (SIDE is None or n in SIDE)
+        if q.get('out') and not pl['out']:
+            pl['out'] = True
+            _carried['out'].append(n)
+        if not fresh and pl['status'] == 'projected' and q.get('status') in ('confirmed', 'benched'):
+            pl['status'] = q['status']
+            if q.get('sub'):
+                pl['sub'] = q['sub']
+            _carried['status'].append(n)
+        if q.get('hr') and not pl['hr']:
+            pl['hr'] = True
+            pl['goalmins'] = q.get('goalmins') or pl['goalmins']
+            _carried['hr'].append(n)
+    if any(_carried.values()):
+        print('    TNAMNESIA carried from the prior board: ' + '; '.join(
+            f'{k} {len(v)} ({", ".join(v[:6])}{"..." if len(v) > 6 else ""})' for k, v in _carried.items() if v))
+
     # TITLEDUP-2026-08-29. shape_ticket() named a slip `pool[i % len(pool)]` off its GLOBAL
     # index, so two slips of the same kind whose indices are congruent mod the pool length get
     # the SAME title. builder's pool is 10 long, so builders at index 1 and 11 both came back
