@@ -1,0 +1,46 @@
+{
+ "_note": "MON-2026-10-19. slate_scan_browser (gate 96 clubs): 4 fixtures on the ET date, all admitted -- Serie A 2 (Monza v Cagliari, Parma v Torino), EPL 1 (Tottenham v Coventry), La Liga 1 (Getafe v Rayo Vallecano). Anytime 15/15 on all 4, 0 unparsed (60 rows). No tot.psv: oddschecker had not posted the totals/BTTS markets yet at build time (Sun 8pm ET, 'No odds available at the moment'), so no Goal Line unless tot.psv is added later. xG: the 10-18 pull (understat 2025 carried + 2026 fresh 10-18 06:30Z, after Saturday's round; Monday's sides have not played since). Pruned to 90 rows, lookup identical to the full feed for all 60 names (exact 47, token 3, missing 10).",
+ "date": "2026-10-19",
+ "matches": {
+  "monza-v-cagliari": {
+   "home": "Monza",
+   "away": "Cagliari",
+   "kickoff": 990,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874762"
+   ]
+  },
+  "parma-v-torino": {
+   "home": "Parma",
+   "away": "Torino",
+   "kickoff": 1125,
+   "league": "Serie_A",
+   "espn": [
+    "ita.1",
+    "401874784"
+   ]
+  },
+  "tottenham-hotspur-v-coventry-city": {
+   "home": "Tottenham Hotspur",
+   "away": "Coventry City",
+   "kickoff": 1140,
+   "league": "EPL",
+   "espn": [
+    "eng.1",
+    "401879257"
+   ]
+  },
+  "getafe-v-rayo-vallecano": {
+   "home": "Getafe",
+   "away": "Rayo Vallecano",
+   "kickoff": 1140,
+   "league": "La_liga",
+   "espn": [
+    "esp.1",
+    "401882842"
+   ]
+  }
+ }
+}
