@@ -70,10 +70,46 @@ def parse_books(s):
     return d
 
 
+RWALIAS = {'NY': 'NYK', 'SA': 'SAS', 'GS': 'GSW', 'NO': 'NOP', 'PHO': 'PHX', 'UTAH': 'UTA', 'WSH': 'WAS', 'BKN': 'BKN'}
+RW = {}
+
+
+def _nk(n):
+    import unicodedata
+    n = ''.join(c for c in unicodedata.normalize('NFKD', str(n)) if not unicodedata.combining(c)).lower()
+    n = re.sub(r'\b(jr|sr|ii|iii|iv)\b\.?', '', n)
+    return re.sub(r'[^a-z ]', '', n).split()
+
+
+def rw_confirm(T, priced_names):
+    """RWLINEUP: RotoWire's CONFIRMED five for team T, joined to that team's priced names; None unless all five join."""
+    r = RW.get(T)
+    if not r or r['status'] != 'confirmed' or len(r['five']) != 5:
+        return None
+    keyed = {' '.join(_nk(n)): n for n in priced_names}
+    out = []
+    for n in r['five']:
+        k = ' '.join(_nk(n))
+        hit = keyed.get(k)
+        if not hit:   # initial + surname, unique
+            t = _nk(n)
+            c = [v for kk, v in keyed.items() if t and kk.split() and kk.split()[-1] == t[-1] and kk[0] == t[0][0]]
+            hit = c[0] if len(c) == 1 else None
+        if not hit:
+            print(f'  ::warning::RWLINEUP {T}: confirmed starter "{n}" has no first-basket price -- not confirming {T}')
+            return None
+        out.append(hit)
+    return out
+
+
 def read_slate(path, date):
     E, L, S = {}, {}, {}
+    RW.clear()
     for line in open(path, encoding='utf-8'):
         r = line.rstrip('\n').split('|')
+        if r and r[0] == 'R' and len(r) > 5 and r[1] == date:   # RWLINEUP-2026-10-20 (fb_fetch.js rotowire())
+            RW.setdefault(code(RWALIAS.get(r[2], r[2])), {'status': r[4], 'five': []})['five'].append(r[5])
+            continue
         if not r or r[0] not in ('E', 'L', 'S') or (len(r) > 1 and r[1] != date):
             continue
         if r[0] == 'E':
@@ -231,6 +267,12 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         games[gi] = dict(ev, gm=gm, time=hhmm(t0), ko=t0.hour * 60 + t0.minute, ko_utc=t0.astimezone(datetime.timezone.utc).isoformat())
         meta_ko[str(gi)] = t0.hour * 60 + t0.minute
         starters, src = starters_for(ev, L.get(ev['eid'], []), st, S.get(ev['eid'], {}))
+        for T in (ev['H'], ev['V']):
+            five = rw_confirm(T, [n for n, r in (S.get(ev['eid'], {}) or {}).items() if r.get('team') == T])
+            if five:
+                if set(five) != set(starters.get(T) or []):
+                    print(f'  RWLINEUP {T}: confirmed five differs from the priced guess -> {five}')
+                starters[T] = five; src[T] = 'confirmed'
         if len(starters.get(ev['H'], [])) != 5 or len(starters.get(ev['V'], [])) != 5:
             continue
         probs = F.game_probs(st, ev['H'], ev['V'], starters, params)

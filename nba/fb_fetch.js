@@ -81,12 +81,42 @@ async function scrape(date, k) {
   return { rows, games: evs.length, prices: nsel, lineups: rows.filter(r => r[0] === 'L').length };
 }
 
+/* RWLINEUP-2026-10-20. Owner, 10-20 2:46 PM: "rosters are out for the boston detroit game. why isnt it green
+   check?" BettingPros' events feed carried NO lineup rows all day (lineup_type 'projected', empty arrays), and
+   the page only ticks a man from ESPN's box score, which exists from tip-off. RotoWire's lineups page flips each
+   side to "Confirmed Lineup" ~30 min before tip and is server-rendered, so it is read here as a second source:
+       R|date|TEAM|visit/home|confirmed/expected|Full Name      (the five, in order)
+   nba_payload.py only uses it to CONFIRM: a confirmed five whose names all join that team's priced men. */
+async function rotowire(date) {
+  const html = await text('https://www.rotowire.com/basketball/nba-lineups.php');
+  const out = [];
+  const blocks = html.split(/<div class="lineup is-nba/).slice(1);
+  for (const b of blocks) {
+    const ab = [...b.matchAll(/class="lineup__abbr">\s*([A-Z]{2,4})\s*</g)].map(m => m[1]);
+    if (ab.length < 2) continue;
+    for (const [side, i] of [['visit', 0], ['home', 1]]) {
+      const m = b.match(new RegExp('<ul class="lineup__list is-' + side + '"([\\s\\S]*?)</ul>'));
+      if (!m) continue;
+      const body = m[1].split(/lineup__title/)[0];
+      const st = /lineup__status is-confirmed/.test(body) ? 'confirmed' : (/lineup__status is-expected/.test(body) ? 'expected' : 'unknown');
+      const five = [...body.matchAll(/<li class="lineup__player[^"]*"[\s\S]*?<a [^>]*title="([^"]+)"/g)].map(x => x[1]).slice(0, 5);
+      if (five.length === 5) five.forEach(n => out.push(['R', date, ab[i], side, st, n.replace(/&#039;|&apos;/g, "'").replace(/&amp;/g, '&')].join('|')));
+    }
+  }
+  return out;
+}
+
 (async () => {
   const [date, out] = process.argv.slice(2);
   if (!date || !out) { console.error('usage: fb_fetch.js <date> <out.psv>'); process.exit(2); }
   try {
     const k = await key();
     const r = await scrape(date, k);
+    try {
+      const rw = await rotowire(date);
+      r.rows.push(...rw);
+      console.log(`fb_fetch ${date}: rotowire ${rw.length / 5} lineup(s), ${rw.filter(x => x.includes('|confirmed|')).length / 5} confirmed`);
+    } catch (e) { console.log(`::warning::rotowire lineups: ${String(e).slice(0, 150)}`); }
     console.log(`fb_fetch ${date}: ${r.games} games, ${r.prices} prices, ${r.lineups} lineup rows`);
     if (!r.games) return;
     fs.mkdirSync(path.dirname(out), { recursive: true });
