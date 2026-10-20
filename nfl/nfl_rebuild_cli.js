@@ -185,7 +185,7 @@ const round1 = v => Math.round((v || 0) * 10) / 10;
 /* SCORECROSS-2026-09-21. `odds` is deliberately absent from this list and must stay absent. */
 const MODEL_FIELDS = ['TOTAL', 'blend', 'gate_z', 'wf'];
 
-let newlyOut = [], held = 0, wouldMove = 0, frozenPrice = 0, rescored = 0, biggest = 0;
+let confirmedNow = [], newlyOut = [], held = 0, wouldMove = 0, frozenPrice = 0, rescored = 0, biggest = 0;
 Object.keys(D.players).forEach(n => {
   const p = D.players[n], s = byName[n];
   if (!s) return;
@@ -198,18 +198,24 @@ Object.keys(D.players).forEach(n => {
   const was = round1(p.TOTAL);
   MODEL_FIELDS.forEach(k => { if (s[k] != null) p[k] = s[k]; });
   if (s.void != null) p.void = !!s.void;
+  /* CONFLOCK-NFL-2026-10-19: `confirmed` crosses, one way only. nfl_injuries.py sets it when the team's posted
+     inactives list does not name him -- the football team sheet -- and CONFLOCK freezes a slip whose legs are all
+     confirmed. Never cleared here: a later build that cannot see the list must not unpin a placed bet. */
+  if (s.status === 'confirmed' && !p.out && !p.void) { if (p.status !== 'confirmed') confirmedNow.push(n); p.status = 'confirmed'; }
   /* VALUESINGLES-2026-09-27: the value mark is re-read every build, like the model fields. */
   if (Object.prototype.hasOwnProperty.call(s, 'novalue')) { p.novalue = !!s.novalue; p.p_value = s.p_value; p.p_hist = s.p_hist; p.value_kind = s.value_kind; }
   const moved = Math.abs(round1(p.TOTAL) - was);
   if (moved > 0.05) { rescored++; if (moved > biggest) biggest = moved; }
 });
+if (confirmedNow.length) console.log(`  inactives: ${confirmedNow.length} newly confirmed active -> ${confirmedNow.join(', ')}  -- CONFLOCK-NFL`);
 if (newlyOut.length) console.log(`  injury report: ${newlyOut.length} newly out -> ${newlyOut.join(', ')}`);
 
 const before = (D.tickets || []).map(t => t.kind + ':' + t.players.map(l => l.name).join('+')).sort();
 
-/* No xi / xiMatches: football has no team sheet. That is the whole reason LOCK_ON_KICKOFF
-   exists (KICKLOCK-2026-09-20) -- `status` is 'projected' for every player on every build, so
-   CONFLOCK alone can never freeze anything on this board. */
+/* No xi / xiMatches: football has no team sheet. Its sheet is the inactives list, applied upstream:
+   CONFLOCK-NFL-2026-10-19 sets `status: 'confirmed'` from it (nfl_injuries.py), so CONFLOCK freezes a
+   slip once every leg is active, ~90 minutes out. LOCK_ON_KICKOFF (KICKLOCK-2026-09-20) stays as the
+   backstop for a team ESPN never posts a list for. */
 const r = SD.redraft(D, { nowUTCmin: now, cfg: CFG, xi: null, xiMatches: null });
 
 console.log(`  price: ${held} held by PRICEONCE [${wouldMove} would have moved], ${frozenPrice} frozen (underway)`);

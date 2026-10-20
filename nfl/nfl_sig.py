@@ -66,7 +66,7 @@ def sig(path):
     # fix would have reached the repo and not the page -- the same ending as 09-03, 09-04, 09-08,
     # 09-20 and the ledger one above.
     p = sorted((k, v.get('TOTAL'), v.get('odds'), v.get('wf'), v.get('why'),
-                bool(v.get('out')), bool(v.get('void')))
+                bool(v.get('out')), bool(v.get('void')), v.get('status') == 'confirmed')   # CONFLOCK-NFL: the ✓ is rendered
                for k, v in d['players'].items())
     # LEDGERSIG-2026-09-04. The season panel is baked into the page and is the biggest number on
     # it; a ledger that changed without republishing left the site showing the old one.

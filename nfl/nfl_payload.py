@@ -169,7 +169,7 @@ def build(scored, tickets, fx, wx_src, season_path=None, build_stamp='', wk=None
             game=gidx[k], gmatch=f"{mm['away']}@{mm['home']}", gtime=hhmm(mm['kickoff']),
             late=(mm['kickoff'] == last_wave and multi_wave),
             lunch=(mm['kickoff'] == first_wave and multi_wave), rain=meta_wx[str(gidx[k])]['precip'] >= 40,
-            out=bool(s.get('out')), status='projected', void=bool(s.get('void')),
+            out=bool(s.get('out')), status=('confirmed' if s.get('status') == 'confirmed' and not s.get('out') else 'projected'), void=bool(s.get('void')),
             opp=[TEAM_NAME.get(s['opp'], s['opp']), ''], oppERA=None, opp_code=s['opp'],
             ftrend=None, odds=s['odds'], soft=False, why=voice.why(s),
             basis=s.get('basis'), basis_games=s.get('basis_games'),

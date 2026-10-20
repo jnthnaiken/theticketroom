@@ -28,6 +28,8 @@ loudly); a player is only ever ADDED to out here. The draft simply runs on what 
 """
 import json, re, sys, unicodedata
 import nfl_espn
+import datetime
+import time
 
 ALIAS = {'LA': 'LAR', 'WAS': 'WSH', 'JAC': 'JAX', 'ARI': 'ARI'}   # nflverse -> ESPN
 OUT_STATUS = re.compile(r'^(out|injured reserve|suspension|suspended|inactive|physically unable|non football)', re.I)
@@ -41,20 +43,77 @@ def norm(s):
     return re.sub(r'[^a-z]', '', s)
 
 
-def out_by_team(date, getj=nfl_espn.getj):
-    """-> {ESPN team abbr: {norm(name): (displayName, status)}} for every game on `date`."""
+# CONFLOCK-NFL-2026-10-19 -- the same three tests nfl_live.js's looksLikeInactives() uses (IRLIST-2026-10-18),
+# kept byte-for-byte in step: no GAMETIME question left on the list, roster designations ignored, and at least
+# MIN_INACTIVE flat Out/Inactive entries, read only once the 90-minute deadline has passed.
+PENDING = re.compile(r'^(questionable|doubtful|probable|day.to.day)', re.I)
+ROSTER_DESIG = re.compile(r'^(injured reserve|physically unable|non football|suspension|suspended|reserve)', re.I)
+MIN_INACTIVE = 3
+INACTIVE_DEADLINE_S = 90 * 60
+
+
+def _status(inj):
+    return str(inj.get('status') or ((inj.get('type') or {}).get('description')) or '')
+
+
+def looks_like_inactives(lst):
+    if not lst:
+        return False
+    flat = 0
+    for inj in lst:
+        st = _status(inj)
+        if PENDING.search(st):
+            return False
+        if ROSTER_DESIG.search(st):
+            continue
+        if not OUT_STATUS.search(st):
+            return False
+        flat += 1
+    return flat >= MIN_INACTIVE
+
+
+def _epoch(iso):
+    try:
+        return datetime.datetime.strptime(str(iso).replace('Z', '')[:16], '%Y-%m-%dT%H:%M') \
+            .replace(tzinfo=datetime.timezone.utc).timestamp()
+    except Exception:
+        return None
+
+
+def out_by_team(date, getj=nfl_espn.getj, now=None, published=None):
+    """-> {ESPN team abbr: {norm(name): (displayName, status)}} for every game on `date`.
+    If `published` is a dict, it is filled with {abbr: True} for every team whose block is the posted
+    game-day inactives list (deadline passed + looks_like_inactives), i.e. everyone else is ACTIVE."""
     sb = getj(nfl_espn.ESPN + 'scoreboard?dates=' + date.replace('-', ''))
+    now = time.time() if now is None else now
     res = {}
     for ev in sb.get('events') or []:
         s = getj(nfl_espn.ESPN + 'summary?event=' + str(ev.get('id')))
+        ko = _epoch(ev.get('date'))
+        due = ko is not None and now >= ko - INACTIVE_DEADLINE_S
         for team in s.get('injuries') or []:
             ab = (team.get('team') or {}).get('abbreviation')
-            for inj in team.get('injuries') or []:
-                st = str(inj.get('status') or ((inj.get('type') or {}).get('description')) or '')
+            lst = team.get('injuries') or []
+            for inj in lst:
+                st = _status(inj)
                 nm = (inj.get('athlete') or {}).get('displayName')
                 if ab and nm and OUT_STATUS.search(st):
                     res.setdefault(ab, {})[norm(nm)] = (nm, st)
+            if published is not None and ab and due and looks_like_inactives(lst):
+                published[ab] = True
     return res
+
+
+def confirm(scored, published):
+    """CONFLOCK-NFL: every priced man on a team whose inactives list is posted, and who is not on it, is ACTIVE --
+    the football analogue of a name on a published XI. status -> 'confirmed', which is what CONFLOCK locks on."""
+    hits = []
+    for p in scored:
+        ab = ALIAS.get(p.get('team'), p.get('team'))
+        if published.get(ab) and not p.get('out') and not p.get('void') and p.get('status') != 'confirmed':
+            p['status'] = 'confirmed'
+            hits.append(p['name'])
+    return hits
 
 
 def apply(scored, outs):
@@ -102,9 +161,16 @@ def carry_prior_outs(scored, date, board_paths=None, seed_paths=None):
             break
         except Exception:
             continue
+    # CONFLOCK-NFL-2026-10-19: `confirmed` is insert-only for the slate too. Once a posted inactives list has
+    # named a man active, a later build that cannot see the list (ESPN down, block reshuffled) must not hand him
+    # back `projected` and unpin his slip. An out (above) still beats it.
+    conf = {(norm(n), ALIAS.get(p.get('code'), p.get('code')))
+            for n, p in (pp.items() if isinstance(pp, dict) else []) if p.get('status') == 'confirmed' and not p.get('out')}
     hits = []
     for r in scored:
         k = (norm(r.get('name')), ALIAS.get(r.get('team'), r.get('team')))
+        if k in conf and k not in was and not r.get('void'):
+            r['status'] = 'confirmed'
         if k in was and not r.get('out'):
             r['out'] = True
             r['out_why'] = was[k]
@@ -121,15 +187,18 @@ if __name__ == '__main__':
     kept = carry_prior_outs(scored, date)
     json.dump(scored, open(sp, 'w', encoding='utf-8'), indent=1)
     print(f'nfl_injuries {date}: STICKYOUT carried {len(kept)} prior out(s): {", ".join(kept) or "-"}')
+    pub = {}
     try:
-        outs = out_by_team(date)
+        outs = out_by_team(date, published=pub)
     except Exception as e:
         print(f'::warning::nfl_injuries: ESPN injury report unreachable ({str(e)[:120]}) -- drafting without it')
         sys.exit(0)
     hits = apply(scored, outs)
+    conf = confirm(scored, pub)
     json.dump(scored, open(sp, 'w', encoding='utf-8'), indent=1)
     n = sum(len(v) for v in outs.values())
     print(f'nfl_injuries {date}: {n} definite-out listings across {len(outs)} teams; '
-          f'{len(hits)} priced player(s) scratched')
+          f'{len(hits)} priced player(s) scratched; inactives posted for {sorted(pub) or "-"} '
+          f'-> {len(conf)} confirmed active (CONFLOCK-NFL)')
     for nm, tm, st, od in hits:
         print(f'  OUT  {nm} ({tm}) {st}  {od:+d}' if isinstance(od, int) else f'  OUT  {nm} ({tm}) {st}')
