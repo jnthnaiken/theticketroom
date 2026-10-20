@@ -1205,16 +1205,16 @@
     "match": "WAS-at-SF",
     "game": 1,
     "gmatch": "WAS@SF",
-    "median_yards": 22.0,
+    "median_yards": 29.0,
     "picks": [
      {
-      "name": "George Kittle",
+      "name": "Mike Evans",
       "team": "SF",
-      "pos": "TE",
-      "odds": 115,
-      "p": 0.1917,
-      "pop": 0.4307,
-      "value": 0.4451,
+      "pos": "WR",
+      "odds": -118,
+      "p": 0.1763,
+      "pop": 0.5012,
+      "value": 0.3518,
       "crown": true
      },
      {
@@ -1222,9 +1222,29 @@
       "team": "SF",
       "pos": "RB",
       "odds": -250,
-      "p": 0.2147,
+      "p": 0.1494,
       "pop": 0.6614,
-      "value": 0.3246,
+      "value": 0.2259,
+      "crown": false
+     },
+     {
+      "name": "George Kittle",
+      "team": "SF",
+      "pos": "TE",
+      "odds": 115,
+      "p": 0.1491,
+      "pop": 0.4307,
+      "value": 0.3462,
+      "crown": false
+     },
+     {
+      "name": "Terry McLaurin",
+      "team": "WAS",
+      "pos": "WR",
+      "odds": 225,
+      "p": 0.0964,
+      "pop": 0.2849,
+      "value": 0.3384,
       "crown": false
      },
      {
@@ -1232,29 +1252,9 @@
       "team": "WAS",
       "pos": "RB",
       "odds": 145,
-      "p": 0.1024,
+      "p": 0.0744,
       "pop": 0.3779,
-      "value": 0.271,
-      "crown": false
-     },
-     {
-      "name": "Stefon Diggs",
-      "team": "WAS",
-      "pos": "WR",
-      "odds": 250,
-      "p": 0.0965,
-      "pop": 0.2646,
-      "value": 0.3647,
-      "crown": false
-     },
-     {
-      "name": "Brandin Cooks",
-      "team": "SF",
-      "pos": "WR",
-      "odds": 300,
-      "p": 0.0798,
-      "pop": 0.2315,
-      "value": 0.3447,
+      "value": 0.1969,
       "crown": false
      }
     ]

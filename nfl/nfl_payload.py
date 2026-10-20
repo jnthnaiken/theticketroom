@@ -305,6 +305,45 @@ def _longtd_meta(longtd, gidx, matches):
                         median_yards=v.get('median_yards'), picks=v['picks']))
     return sorted(out, key=lambda r: r['game']) or None
 
+# 🚨 KINGFREEZE-2026-10-20. Owner, on Mike Evans losing the 👑 to George Kittle at 10:01 PM on 10-19 after his
+# second-quarter Achilles exit: "yea it shouldve just voided". King of the End Zone is a DraftKings pick made BEFORE
+# kickoff; re-running nfl_longtd.py every build and dropping `out` men re-crowned the runner-up at halftime, which
+# rewrote a pick nobody could have made. So, like LOCK_ON_KICKOFF for the slips: once a game has kicked off, its
+# King entry is the one the board already carried, verbatim. A crowned man who is then ruled out stays crowned --
+# the page reads his `out` and renders the card VOID. Before kickoff nothing changes (a pre-game scratch still
+# hands the crown on, which is a pick you could still make).
+def _et_now(now=None):
+    import datetime as _dt
+    from zoneinfo import ZoneInfo
+    return (now or _dt.datetime.now(_dt.timezone.utc)).astimezone(ZoneInfo('America/New_York'))
+
+
+def freeze_longtd(cur, prior_board, date, matches, now=None):
+    """-> the longtd list to publish. Games already kicked off keep `prior_board`'s entry."""
+    pl = {r.get('match'): r for r in (((prior_board or {}).get('meta') or {}).get('longtd') or [])
+          if ((prior_board or {}).get('meta') or {}).get('date') == date}
+    if not pl:
+        return cur
+    t = _et_now(now)
+    d, m = t.strftime('%Y-%m-%d'), t.hour * 60 + t.minute
+    out, held = [], []
+    for r in (cur or []):
+        k = matches.get(r.get('match')) or {}
+        ko = k.get('kickoff')
+        started = d > date or (d == date and ko is not None and m >= ko)
+        if started and r.get('match') in pl:
+            out.append(pl[r['match']]); held.append(r['match'])
+        else:
+            out.append(r)
+    for slug, r in pl.items():   # a game whose King no longer computes at all (every pick out) keeps the old one
+        k = matches.get(slug) or {}
+        started = d > date or (d == date and k.get('kickoff') is not None and m >= k['kickoff'])
+        if started and not any(x.get('match') == slug for x in out):
+            out.append(r); held.append(slug)
+    if held:
+        print(f'  KINGFREEZE: kicked off -> King of the End Zone held from the prior board for {", ".join(held)}')
+    return sorted(out, key=lambda r: r.get('game') or 0) or None
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('scored'); ap.add_argument('tickets'); ap.add_argument('fixtures')
@@ -331,6 +370,17 @@ if __name__ == '__main__':
               wx, A.season, A.build,
               ftd_pick=(json.load(open(A.ftd, encoding='utf-8')) if A.ftd and os.path.exists(A.ftd) else None),
               longtd=_lt)
+    _fx = json.load(open(A.fixtures, encoding='utf-8'))
+    _prior = None
+    for _pp in ('../boards/%s.json' % _fx['date'], 'boards/%s.json' % _fx['date']):
+        try:
+            _prior = json.load(open(_pp, encoding='utf-8')); break
+        except Exception:
+            continue
+    try:
+        D['meta']['longtd'] = freeze_longtd(D['meta'].get('longtd'), _prior, _fx['date'], _fx['matches'])
+    except Exception as e:
+        print(f'::warning::KINGFREEZE skipped ({e.__class__.__name__}: {e})')
     json.dump(D, open(A.out, 'w'), ensure_ascii=False, separators=(', ', ': '))
     print(f'{A.out}: {len(D["players"])} players, {len(D["tickets"])} tickets, '
           f'{len(D["meta"]["wx"])} games')
