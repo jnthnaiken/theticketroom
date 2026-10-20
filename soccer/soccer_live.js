@@ -221,12 +221,23 @@
    * double-barrel. Holding a man who really is out keeps a dead leg draftable, which is the
    * failure the redraft exists to prevent -- so the guard is narrow: last token against last
    * token, tried under both normalisations, which is exactly what "same surname" means. */
+  /* CAMARA-2026-10-20 (soccer_teamnews.py _given_ok, kept in step): a shared surname only counts when the
+     given names could be the same man -- Roma's Mandjou Camara was not "on the sheet" because Slovan
+     Bratislava had a Suleiman and a Sahmkou Camara. Mononym on either side, same initial, or one given
+     name inside the other (Toni / Antonio) still counts. */
+  function givenOk(a, b) {
+    var ga = a.length > 1 ? a[0] : '', gb = b.length > 1 ? b[0] : '';
+    if (!ga || !gb) return true;
+    return ga[0] === gb[0] || ga.indexOf(gb) >= 0 || gb.indexOf(ga) >= 0;
+  }
   function surnameHits(name, candidates) {
-    var nLast = formsOf(name).map(function (t) { return t.length ? t[t.length - 1] : null; });
+    var nF = formsOf(name);
     return candidates.some(function (c) {
-      var cLast = formsOf(c).map(function (t) { return t.length ? t[t.length - 1] : null; });
-      return nLast.some(function (a) {
-        return a && cLast.indexOf(a) >= 0;
+      var cF = formsOf(c);
+      return nF.some(function (a) {
+        return a.length && cF.some(function (b) {
+          return b.length && a[a.length - 1] === b[b.length - 1] && givenOk(a, b);
+        });
       });
     });
   }
