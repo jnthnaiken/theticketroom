@@ -136,6 +136,19 @@ def _contain_one(name, squad):
     return hits[0] if len(hits) == 1 else None
 
 
+def _given_ok(a, b):
+    """CAMARA-2026-10-20. A shared surname only counts when the GIVEN names could be the same man.
+    2026-10-20 Roma v Slovan Bratislava, both sheets published 11+11: Roma's "Mandjou Camara" (priced
+    8/13, Target Man single) was in neither Roma's XI nor its bench, but Slovan's Suleiman Camara (XI) and
+    Sahmkou Camara (bench) gave the surname a hit, so absence was never asserted and he rode the board to
+    kickoff. Different men, OTHER CLUB. Compatible = either side has no given name (mononym / surname only),
+    or the first tokens share an initial, or one contains the other (Toni / Antonio, UNMATCHED-2026-08-28)."""
+    ga, gb = a[0] if len(a) > 1 else '', b[0] if len(b) > 1 else ''
+    if not ga or not gb:
+        return True
+    return ga[0] == gb[0] or ga in gb or gb in ga
+
+
 def surname_hits(name, squad):
     """How many squad members share this player's SURNAME token.
 
@@ -215,7 +228,7 @@ def surname_hits(name, squad):
                     continue
                 if os_ <= cs or cs <= os_:          # containment either direction
                     hit = True
-                elif ot[-1] in cs or ct[-1] in os_:  # shared surname token
+                elif (ot[-1] in cs or ct[-1] in os_) and _given_ok(ot, ct):  # shared surname token
                     hit = True
                 if hit:
                     break
