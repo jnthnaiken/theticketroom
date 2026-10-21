@@ -170,7 +170,14 @@
     return false;
   }
 
+  /* SHEETALIAS-2026-10-21 (kept in step with soccer_teamnews.py SHEET_ALIAS): odds name -> sheet name. */
+  var SHEET_ALIAS = { 'ahoueke denkey': 'kevin denkey' };
   function matchOne(feedName, candidates) {
+    var _al = SHEET_ALIAS[norm(feedName)];
+    if (_al) {
+      var _ah = candidates.filter(function (c) { return norm(c) === _al; });
+      if (_ah.length === 1) return _ah[0];
+    }
     var fNorms = [norm(feedName), normDel(feedName)];
     var fForms = formsOf(feedName);
 

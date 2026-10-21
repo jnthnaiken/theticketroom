@@ -60,7 +60,20 @@ def forms(s):
     return [tuple(x for x in f.split() if len(x) > 2) for f in (nrm(s), nrm_sp(s))]
 
 
+# SHEETALIAS-2026-10-21. Odds-feed name -> team-sheet name, for one man the two feeds name with DIFFERENT
+# given names, where no token rule can tell him from a different same-surname player (LAUTARO). Owner,
+# 10-21: "if denkey isnt playing, he shouldnt be on the board. why is he still projected" -- he WAS starting
+# (ESPN "Kevin Denkey"); the odds feed's "Ahoueke Denkey" just never joined. Keys and values are nrm() forms.
+# Kept in step with SHEET_ALIAS in soccer_live.js.
+SHEET_ALIAS = {'ahoueke denkey': 'kevin denkey'}
+
+
 def match_one(name, squad):
+    _al = SHEET_ALIAS.get(nrm(name))
+    if _al:
+        _hit = [x for x in squad if nrm(x[0]) == _al]
+        if len(_hit) == 1:
+            return _hit[0]
     """squad: [(espn_name, state)]. Returns (espn_name, state) or None.
 
     Surname-anchored, same guard as the xG puller: the LAST token of the odds name must appear
