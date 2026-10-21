@@ -192,6 +192,21 @@ def build(scored_path, tickets_path, xg_path, out_path, date,
             segs = [CLUB[n]] + segs
         elif SQUADS.get(p['match']):
             _hit = _match_one(n, SQUADS[p['match']])
+            if not _hit:
+                # DENKEYCLUB-2026-10-21. Owner: "denkey's team is showing as a -". LAUTARO made the join refuse
+                # a surname-only match across different given names (Ahoueke vs Kevin Denkey), which is right
+                # for a STATUS but leaves the club label empty. For the label alone: a lone namesake on the
+                # match's squads names his club -- and even when the two are different men, a lone namesake
+                # in a priced man's fixture is overwhelmingly his teammate. Display only; status untouched.
+                try:
+                    from soccer_teamnews import forms as _forms
+                    _sur = {f[-1] for f in _forms(n) if f}
+                    _same = {(c, club) for c, club in SQUADS[p['match']] if any(f and f[-1] in _sur for f in _forms(c))}
+                    _clubs = {club for _, club in _same}
+                    if len(_same) == 1 or len(_clubs) == 1:
+                        _hit = (None, _clubs.pop())
+                except Exception:
+                    _hit = None
             if _hit:
                 segs = [_hit[1]] + segs
 
