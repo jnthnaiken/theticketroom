@@ -76,6 +76,11 @@ def match_one(name, squad):
                 if last not in ct:
                     continue
                 shared = len(set(ot) & set(ct))
+                # LAUTARO-2026-10-21: a join on the SURNAME ALONE must not cross two different given names.
+                # Inter v Shakhtar: priced "Lautaro Martinez" (not in the squad) joined Inter's keeper "Josep
+                # Martinez" (XI), ticked confirmed and LATCHED The Poacher. Toni/Antonio still pass (_given_ok).
+                if shared == 1 and not _given_ok(ot, ct):
+                    continue
                 if shared > bestn:
                     best, bestn, ties = (cand, state), shared, 1
                 elif shared == bestn and shared and (cand, state) != best:
