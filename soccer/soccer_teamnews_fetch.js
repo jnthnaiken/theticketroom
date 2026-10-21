@@ -178,7 +178,10 @@ function squadsAlreadyCover(pathname, slugs) {
     /* THE SHARED PARSER. squadOf() decides `complete` -- both sides, non-empty -- and that is
        the same standard soccer_teamnews.py uses to decide whether ABSENT may be asserted. */
     const sq = L.squadOf(sum);
-    const rosters = (sum && sum.rosters) || [];
+    /* EARLYSHEET-2026-10-20: a roster more than SHEET_LEAD_MIN before kickoff is a projection, not a sheet. */
+    const early = L.earlySheet(sum);
+    if (early) console.log(`  ${slug}: ESPN roster ignored -- more than ${L.SHEET_LEAD_MIN} min before kickoff (EARLYSHEET)`);
+    const rosters = early ? [] : ((sum && sum.rosters) || []);
     let xiH = 0, xiA = 0;
     rosters.forEach((r, i) => {
       const n = ((r.roster) || []).filter(p => p.starter).length;

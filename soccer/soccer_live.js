@@ -231,15 +231,21 @@
     return ga[0] === gb[0] || ga.indexOf(gb) >= 0 || gb.indexOf(ga) >= 0;
   }
   function surnameHits(name, candidates) {
-    var nF = formsOf(name);
-    return candidates.some(function (c) {
-      var cF = formsOf(c);
-      return nF.some(function (a) {
+    var nF = formsOf(name), loose = 0;
+    var strict = candidates.some(function (c) {
+      var cF = formsOf(c), same = false;
+      var ok = nF.some(function (a) {
         return a.length && cF.some(function (b) {
-          return b.length && a[a.length - 1] === b[b.length - 1] && givenOk(a, b);
+          if (!b.length || a[a.length - 1] !== b[b.length - 1]) return false;
+          same = true;
+          return givenOk(a, b);
         });
       });
+      if (!ok && same) loose++;
+      return ok;
     });
+    /* DENKEY: a lone namesake is him under another given name; only an ambiguous surname needs givenOk. */
+    return strict || loose === 1;
   }
 
   /* ---- ESPN shapes ----------------------------------------------------------------
@@ -303,8 +309,22 @@
    *
    * Failing this bar skips the whole squad block, so status stays `projected`: it can never
    * newly kill a leg, only decline to. */
-  function squadOf(summary) {
-    var rs = (summary && summary.rosters) || [];
+  /* EARLYSHEET-2026-10-20. Owner, 11:32 PM the night before: "how is there a green check for a 7pm game
+     already?" ESPN's MLS feed (Cincinnati v D.C. United, event 761773) carried an eleven-a-side `starter`
+     roster ~22 hours before kickoff -- a projection, with nothing on it to say so -- and every build read
+     it as the published team sheet: Evander ticked ✓ and "Shoulder of the Last Man" LATCHED. Clubs
+     publish ~60-75 minutes out (UEFA: 75). So a sheet is only a sheet inside SHEET_LEAD_MIN of kickoff;
+     earlier than that the rosters are ignored -- here, so the page and the runner (which shares this
+     parser) agree. Kickoff comes from the summary's own header; no date there -> unchanged behaviour. */
+  var SHEET_LEAD_MIN = 80;
+  function earlySheet(summary, nowMs) {
+    var c = summary && summary.header && (summary.header.competitions || [])[0];
+    var ko = c && Date.parse(c.date);
+    if (!ko) return false;
+    return (nowMs == null ? Date.now() : nowMs) < ko - SHEET_LEAD_MIN * 60000;
+  }
+  function squadOf(summary, nowMs) {
+    var rs = earlySheet(summary, nowMs) ? [] : ((summary && summary.rosters) || []);
     var complete = rs.length >= 2 && rs.every(function (r) {
       var st = 0;
       ((r.roster) || []).forEach(function (pl) { if (pl.starter) st++; });
@@ -583,7 +603,7 @@
   }
 
   var api = { makeLive: makeLive, matchOne: matchOne, goalsOf: goalsOf, surnameHits: surnameHits,
-              squadOf: squadOf, isScoringGoal: isScoringGoal, norm: norm, POLL_MS: POLL_MS };
+              squadOf: squadOf, earlySheet: earlySheet, SHEET_LEAD_MIN: SHEET_LEAD_MIN, isScoringGoal: isScoringGoal, norm: norm, POLL_MS: POLL_MS };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.SoccerLive = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

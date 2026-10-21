@@ -215,9 +215,13 @@ def surname_hits(name, squad):
     neither equals nor is a subset involving `jackson`, and the gate keeps catching Nicolas
     Jackson, which is the one player it was built for.
     """
-    n = 0
+    # CAMARA-2026-10-20, refined EARLYSHEET night (DENKEY): the given-name check only applies when the surname
+    # is AMBIGUOUS. One namesake on the sheet is him under another given name ("Ahoueke Denkey" priced, ESPN
+    # "Kévin Denkey" -- same man; the unconditional check marked Cincinnati's striker out of the squad).
+    # Two or more (Slovan's Suleiman AND Sahmkou Camara for Roma's Mandjou) need a compatible given name.
+    n, loose = 0, []
     for cand, _ in squad:
-        hit = False
+        hit = sur = False
         for ot in forms(name):
             if not ot:
                 continue
@@ -228,14 +232,21 @@ def surname_hits(name, squad):
                     continue
                 if os_ <= cs or cs <= os_:          # containment either direction
                     hit = True
-                elif (ot[-1] in cs or ct[-1] in os_) and _given_ok(ot, ct):  # shared surname token
-                    hit = True
+                elif ot[-1] in cs or ct[-1] in os_:  # shared surname token
+                    if _given_ok(ot, ct):
+                        hit = True
+                    else:
+                        sur = True
                 if hit:
                     break
             if hit:
                 break
         if hit:
             n += 1
+        elif sur:
+            loose.append(cand)
+    if not n and len(loose) == 1:
+        n = 1
     return n
 
 
