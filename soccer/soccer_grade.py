@@ -228,7 +228,9 @@ def fold(dpath, spath):
         rows.append((t['kind'], t['name'], 'WON ' if g['won'] else 'lost', g['net']))
     season['history'].append((season['history'][-1] if season['history'] else 0) + night)
     season.setdefault('graded_nights', []).append(date)
-    season['since'] = min(season.get('since', date), date)
+    # NBASINCE-2026-10-21: a fresh ledger can carry `since: null` (nba-build.yml seeds it that way), and
+    # min(None, date) raised on every pass -- basketball's opening night never reached graded_nights.
+    season['since'] = min(season.get('since') or date, date)
     json.dump(season, io.open(spath, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     # STAMPBOARD-2026-09-04. The board records its own result, not just the ledger's copy of it.
     json.dump(D, io.open(dpath, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
