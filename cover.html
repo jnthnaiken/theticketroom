@@ -237,12 +237,15 @@ h1{font-family:Oswald,sans-serif;font-weight:700;letter-spacing:.02em;
        of the construction amber -- it is closed for the winter, not unfinished.
        NEXT SEASON: delete this block and the .off panel, put back the slate strip, the <a class="tkt" href="mlb/">
        foot and the load(['baseball/mlb'],...) line, and point deploy-pages.yml back at index.html for /mlb/. */
-    .mlb.closed{opacity:.62}
+    /* SHOWCASE-2026-10-22: still translucent, but a door again -- it brightens on hover and the ticket
+       leads to last season's replay. Owner: "make the cover page clickable again. but make it all translucent". */
+    .mlb.closed{opacity:.62;transition:opacity .2s ease}
+    .mlb.closed:hover,.mlb.closed:has(.tkt:focus-visible){opacity:.9}
     .mlb.closed .hole .disc{animation:none;opacity:.5}
     .mlb .body{position:relative;min-height:96px;margin-top:4px}
     .off{position:absolute;inset:0;z-index:5;display:grid;place-items:center;border-radius:10px;
       background:#0e121999;
-      border:1px dashed #26d4f033;cursor:not-allowed;padding:0 10px}
+      border:1px dashed #26d4f033;padding:0 10px}
     .off-sign{text-align:center}
     .off-sign b{display:block;font-family:'Roboto Mono',monospace;font-weight:500;font-size:10.5px;
       letter-spacing:.2em;text-transform:uppercase;color:#26d4f0b3}
@@ -490,7 +493,7 @@ footer b{color:var(--mut);font-weight:600}
          board is staged to /mlb/ by deploy-pages.yml (NOT moved in the repo -- pull-slate
          rebuilds repo index.html every few minutes and would overwrite anything parked
          there). This page is also still served at /cover.html, its original URL. -->
-    <div class="card mlb closed" aria-disabled="true">
+    <div class="card mlb closed">
       <div class="chead">
         <span class="hole" aria-hidden="true"><span class="halo"></span><span class="disc"></span>
           <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
@@ -505,6 +508,12 @@ footer b{color:var(--mut);font-weight:600}
           <div class="off-sign"><b>Enjoy the World Series</b><span>See you next season</span></div>
         </div>
       </div>
+      <!-- SHOWCASE-2026-10-22: the card links again -- /mlb/ is a replay of a real night from last season. -->
+      <div class="foot">
+        <a class="tkt" href="mlb/" aria-label="See last season in the baseball room">
+          <span class="tkt-stub">Last<br>Season</span>
+          <span class="tkt-main"><span class="tkt-word">Look back</span><span class="tkt-arw" aria-hidden="true">→</span></span>
+        </a></div>
     </div>
 
     <div class="card soc">

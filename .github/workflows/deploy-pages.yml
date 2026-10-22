@@ -36,7 +36,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME', 'cover.html', 'mlb_offseason.html', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html', 'nba/index.html']
+    paths: ['index.html', 'CNAME', 'cover.html', 'mlb_offseason.html', 'mlb_showcase.py', 'mlb_showcase_D.json', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html', 'nba/index.html']
   workflow_dispatch:
 
 permissions:
@@ -88,6 +88,8 @@ jobs:
             CNAME
             cover.html
             mlb_offseason.html
+            mlb_showcase.py
+            mlb_showcase_D.json
             season.json
             soccer/index.html
             soccer/soccer_D.json
@@ -105,7 +107,11 @@ jobs:
           mkdir -p _site _site/mlb
           # OFFSEASON-2026-10-19: baseball is closed for the winter -- /mlb/ serves the "Enjoy the World Series,
           # see you next season" page instead of the board. NEXT SEASON: drop the if and keep the plain cp.
-          if [ -f mlb_offseason.html ]; then cp mlb_offseason.html _site/mlb/index.html; else cp index.html _site/mlb/; fi
+          # SHOWCASE-2026-10-22: the winter page is now a replay of a real night under the closed banner
+          # (mlb_showcase.py). The plain offseason card stays as the fallback if the render fails.
+          if [ -f mlb_offseason.html ]; then
+            python3 mlb_showcase.py index.html mlb_showcase_D.json _site/mlb/index.html || cp mlb_offseason.html _site/mlb/index.html
+          else cp index.html _site/mlb/; fi
           [ -f CNAME ] && cp CNAME _site/ || true
           # SOCCER-2026-08-26 -- the second room. soccer/index.html is built by
           # soccer_fork.py from THIS index.html by named seam replacement, so it is a
