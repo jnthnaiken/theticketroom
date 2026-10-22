@@ -347,6 +347,29 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     if cache and (fresh or not os.path.exists(cache)):
         os.makedirs(os.path.dirname(cache) or '.', exist_ok=True)
         json.dump({'date': date, 'picks': picks, 'picked_at': stamp}, open(cache, 'w', encoding='utf-8'), indent=1)
+    # PRICEHOLD-2026-10-22. Owner, 7:25 PM: "why is the peyton watson price n/a now? and tbd". FanDuel pulls its
+    # first-basket market at tip-off, so every build after 7:00 read Watson's FanDuel price as missing and posted
+    # odds=None -- the card header said "n/a" and his chip "FB TBD" while the ticket held +1200. A price, once posted,
+    # is kept for the slate (PRICEONCE, as in soccer and football): a man with no FanDuel price now carries the
+    # last one this slate's archived board showed, and a pick falls back to the price it was picked at.
+    _prior = {}
+    if cache:
+        _bp = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(cache)))), 'boards', f'{date}.json')
+        try:
+            _prior = (json.load(open(_bp, encoding='utf-8')).get('players') or {})
+        except Exception:
+            _prior = {}
+    _held = []
+    for n, p in P.items():
+        if p.get('odds') is None:
+            o = (_prior.get(n) or {}).get('odds')
+            if o is None:
+                o = next((x['odds'] for x in picks if x['name'] == n), None)
+            if o is not None:
+                p['odds'] = int(o); _held.append(n)
+    if _held:
+        print(f'  PRICEHOLD: FanDuel price gone (market closed at tip?) -- holding the posted price for {len(_held)}: '
+              + ', '.join(_held[:8]))
     for x in picks:                      # a started pick who is not in tonight's five still renders and grades
         if x['name'] not in P and x.get('code'):
             T0 = x['code']
