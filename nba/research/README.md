@@ -9,3 +9,9 @@ Owner: "all possibilities shouldve been tested". Rebuilds the 2014-26 walk-forwa
 4. `python3 join.py` -> bets.json (BettingPros join; market blend refit per season on earlier priced seasons)
 5. `python3 grid.py`, `grid2.py`, `split.py` (rules; split = choose on 2021-23, test on 2024-25)
 Findings: claude/nba-rulesearch-2026-10-23.md
+
+## PREDSEARCH-2026-10-23 -- who scores first (feature search)
+6. `python3 build_games2.py` -> games2.json (adds first-8-minute shots: time, team, shooter, distance, made, value, assister)
+7. `python3 feat.py` -> X.npy / meta.json (24 pre-game features per starter)
+8. `python3 fit.py` -> walk-forward conditional logit over the 10 starters, one-at-a-time adds + forward selection
+Findings: claude/nba-predsearch-2026-10-23.md
