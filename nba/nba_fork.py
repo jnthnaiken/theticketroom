@@ -51,7 +51,7 @@ def seams(payload_js):
     add('sort-power', '<option value="power">Power · highest first</option>', '<option value="power">Team scores first · most likely</option>')
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
-    add('tonight-count', "+kc.moon+' 🥎'", "+' \\u00b7 '+kc.moon+' 🚀'")   # BBDRAFT-2026-10-23
+    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
     add('tracker-moon', "['moon','🥎','Moonshots']", "['moon','🚀','Moonshots']")
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
@@ -63,7 +63,7 @@ def seams(payload_js):
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='nolunch'?' lunchwide':''}")   # ANCHORCARDS-2026-10-24: anchors are regular cards, not the wide strip
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}", "${t.kind==='late'?' lunchwide nightcap':''}")
     add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0};')
-    add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=kc.fb+' ⚡'")
+    add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=''")   # FAVANCHOR: no anchor singles to count
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏀':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Starters',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced starters'):")
@@ -106,7 +106,9 @@ def seams(payload_js):
     add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>', '<div class="tsec lunch"><span class="tsech">Anchors</span>')
     add('sec-nightcap', 'html+=\'<details class="pool"><summary><span class="tag">Free play</span> Long Ball Jackpot<span class="chev">&#9662;</span></summary><div class="poolbody" id="pool"></div></details>\';', "html+='';")
     add('tracker-restated', "'u risked \\u00b7 since '+esc(sn.since||'\\u2014')+'", "'u risked \\u00b7 '+(sn.restated?'restated ':'')+'since '+esc(sn.since||'\\u2014')+'")
-    add('tracker-lunch', "['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot']", "['fb','⚡','Anchors']")
+    # LEDGERNOANCHOR-2026-10-24, owner: "remove anchors from ledger" -- anchors are no longer bets (FAVANCHOR); the
+    # season box shows Moonshots only. The empty slot is a hole that tracker-holes filters out.
+    add('tracker-lunch', "['dinger','⚾','Daily Dinger'],['jackpot','🏟️','Jackpot']", "")
     add('kind-lunch', '<span class="ke">⚾</span><div><b>Daily Dinger</b><span>Free play. FanDuel publishes a short list of bats each day and you pick one — this is the best model score on their list. Not a bet we place.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket. Our chance each starter makes his game’s first field goal: who wins the opening tip (a jump-ball rating on each team’s center), how often his team scores first, and his share of the early shots, the first shot and the makes, with the books’ prices as one more layer. We post the starters the price undersells, 1u each.</span>')
     add('kind-nightcap', '<div class="kind"><span class="ke">🏟️</span><div><b>Long Ball Jackpot</b><span>Free play. Fanatics splits a pot among everyone who picks the man who hits the <i>longest</i> homer that day — we rank park carry plus model score. Not a bet we place.</span></div></div>', '')
     add('research-cols', 'var RS_ROOM=null;', RESEARCH)
