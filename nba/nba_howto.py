@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "One unit on every anchor. Moonshots are 2.75u round robins (11 bets at 0.25u)."
+   "One unit on every anchor. Moonshots are 1.10u round robins (11 bets at 0.10u)."
   ],
   "3": [
    "Price",
@@ -107,7 +107,7 @@ HOWTO = {
   [
    "🚀",
    "Moonshots",
-   "Up to two per anchor: the anchor plus three more value picks from three other games, every two-, three- and four-way combination at 0.25u (11 bets, 2.75u). Any two of the four cashing pays. They only post on nights deep enough to fill them."
+   "Two per anchor: the anchor plus three more value picks from three other games, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs. Any two of the four cashing pays. They only post on nights deep enough to fill them."
   ],
   [
    "⭕",

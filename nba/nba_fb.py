@@ -243,7 +243,8 @@ def pick(cands, ev_min=EV_MIN, cap=MAX_PICKS):
 # 2,964 / 11.1% / +1,055u (+35.6%, every season up); moons 461 / 20 cashed / +140u; board +1,194u (+28.2%).
 # The same draft with strength = likelihood (baseball's literal rule) lost -528u: the books price first-basket
 # favourites ~5% short and a round robin multiplies it.
-Z_GATE, GAME_CAP, N_ANCHORS, MOONS_PER, MOON_LEGS, RR_UNIT = 0.75, 4, 4, 2, 4, 0.25
+Z_GATE, GAME_CAP, N_ANCHORS, MOONS_PER, MOON_LEGS, RR_UNIT = 0.75, 4, 4, 2, 4, 0.10
+MOON_DIFF = 2
 WIN = None  # baseball's 120-min leg window does NOT apply: owner 10-23 "basketball lineups dont get confirmed until 15 min
             # before tip" -- no window makes a later leg confirmable at bet time anyway
 # MOONFILL-2026-10-23: owner "should be 2 per anchor". Only ~15 of ~70 priced starters carry positive value a night
@@ -270,23 +271,30 @@ def draft_pool(cands):
     return out
 
 
+# MOONDIFF-2026-10-24. Owner: "only throw a moon out if its an exact duplicate" -> "yea this works for me" (at .10u).
+# Per anchor, the partner sets are walked in strength order (combinations over the ranked pool, every leg a
+# different game): moon 1 = the first valid set; moon 2 = the next valid set that differs from moon 1 by at least
+# MOON_DIFF partners. Partners may repeat across anchors and once inside an anchor. RR_UNIT 0.25 -> 0.10 (11 x 0.10
+# = 1.10u a moon). Backtest 2021-26 (nba/research/bball_fill4.py): 6.4 moons/night, 4,843 moons, +7,016u at 0.25u
+# = +2,806u at 0.10u (+52.7%), seasons +2507/+548/+3340/+933/-313 at 0.25u; board with 1u anchors +3,861u on
+# 8,291u (+46.6%). Supersedes MOONFILL's sibling-disjoint snake (+2,425u, +19.5%).
 def draft_board(cands):
     """-> {'anchors': [cand...], 'moons': [[cand x MOON_LEGS]...]} (only fully filled moons ship)."""
+    import itertools
     pool = draft_pool(cands)
     anchors = pool[:N_ANCHORS]
     rest = pool[N_ANCHORS:]
-    moons = [[a] for a in anchors for _ in range(MOONS_PER)]
-    for r in range(MOON_LEGS - 1):
-        order = list(range(len(moons))) if r % 2 == 0 else list(reversed(range(len(moons))))
-        for i in order:
-            games = {x['game'] for x in moons[i]}
-            sib = {x['name'] for x in moons[i ^ 1][1:]} if MOONS_PER == 2 and (i ^ 1) < len(moons) else set()
-            kos = [x['ko'] for x in moons[i] if x.get('ko') is not None]
-            for c in rest:
-                if c['game'] in games or c['name'] in sib: continue
-                if WIN and kos and c.get('ko') is not None and max(kos + [c['ko']]) - min(kos + [c['ko']]) > WIN: continue
-                moons[i].append(c); break
-    return {'anchors': anchors, 'moons': [m for m in moons if len(m) == MOON_LEGS]}
+    moons = []
+    for a in anchors:
+        ok = [c for c in rest if c['game'] != a['game']]
+        got = []
+        for cb in itertools.combinations(ok, MOON_LEGS - 1):
+            if len({a['game']} | {x['game'] for x in cb}) != MOON_LEGS: continue
+            if got and len({x['name'] for x in got[0]} - {x['name'] for x in cb}) < MOON_DIFF: continue
+            got.append(cb)
+            if len(got) == MOONS_PER: break
+        moons += [[a, *cb] for cb in got]
+    return {'anchors': anchors, 'moons': moons}
 
 
 def rr_combos(k):

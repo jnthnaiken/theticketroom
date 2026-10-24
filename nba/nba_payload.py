@@ -497,7 +497,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     return dict(players=P, pool=list(P.keys()), tickets=T,
                 meta=dict(wx={str(k): dict(emoji='⚡', lean='Neutral', factor=1.0, park=v['gm'], cond='indoors', rain='', precip=0)
                               for k, v in games.items()}, build=stamp, face={}, maxAT=100, season=sn, date=date, gs={}, chalkever={},
-                          chalkstate={}, chalk=[], pool=len(P), gate=len(T), tickets=len(T), sport='nba',
+                          chalkstate={}, chalk=[], cfg={'RR_UNIT': {'4': F.RR_UNIT}}, pool=len(P), gate=len(T), tickets=len(T), sport='nba',
                           ko=meta_ko, finals=[], games={str(k): v['gm'] for k, v in games.items()},
                           events={str(k): v['eid'] for k, v in games.items()}))
 
