@@ -462,12 +462,20 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     if started(dict(ko_utc=(games.get(c['game']) or {}).get('ko_utc'))): continue
                     return dict(c, picked_at=stamp)
                 return None
+            # CONFLOCK-NBA-2026-10-24. Owner: "lock the basketball tickets from redrafting as soon as a leg is confirmed
+            # green check starting. thats when people will start putting in the tickets. dont wait for tip off". A moon
+            # latches the first time any of its legs is a confirmed starter (or its game has started) and never re-picks
+            # again; the latch is stored in picks.json (board['locked']) so a later build cannot unlock it.
+            _conf = lambda x: (P.get(x['name']) or {}).get('status') == 'confirmed'
+            LOCK = set(board.get('locked') or [])
+            for k_, m_ in enumerate(board['moons']):
+                if any(_st(x) or _conf(x) for x in m_): LOCK.add(k_)
             for i, a in enumerate(list(board['anchors'])):
                 dup = any(b['game'] == a['game'] for b in board['anchors'][:i])   # ANCHOR1G: a second anchor from one game
                 if ((a['name'] in P and not blocked(P[a['name']]['code'], a['name'])) and not dup) or _st(a): continue
                 mine = [m for m in board['moons'] if m and m[0]['name'] == a['name']]
-                if any(_st(x) for m in mine for x in m[1:]):
-                    continue                         # one of his slips is already live: the slip stands as placed
+                if any(_st(x) for m in mine for x in m[1:]) or any(k_ in LOCK for k_, m_ in enumerate(board['moons']) if m_ and m_[0]['name'] == a['name']):
+                    continue                         # one of his slips is live or locked (CONFLOCK-NBA): it stands as placed
                 avoid = {x['game'] for m in mine for x in m[1:]} | {b['game'] for k, b in enumerate(board['anchors']) if k != i}   # ANCHOR1G
                 r = _next(avoid, fav=date >= FAV_FROM)
                 if r:
@@ -475,8 +483,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     board['anchors'][i] = r
                     for m in mine: m[0] = r
                     fresh = True
-            for m in board['moons']:
-                if any(_st(x) for x in m): continue  # a slip with a leg underway is placed: it stands
+            for k_, m in enumerate(board['moons']):
+                if k_ in LOCK or any(_st(x) for x in m): continue  # locked (a confirmed leg) or a leg underway: it stands
                 for j in range(1, len(m)):
                     if m[j]['name'] in P and not blocked(P[m[j]['name']]['code'], m[j]['name']): continue
                     r = _next({x['game'] for k, x in enumerate(m) if k != j})
@@ -495,6 +503,14 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             g = games.get(x['game']) or {}
             x.setdefault('ko_utc', g.get('ko_utc')); x.setdefault('gm', g.get('gm')); x.setdefault('gtime', g.get('time'))
             x.setdefault('code', (P.get(x['name']) or {}).get('code'))
+    MOONLOCK = set()
+    if board:                                   # CONFLOCK-NBA: latch any moon with a confirmed / started leg (fresh drafts too)
+        MOONLOCK = set(board.get('locked') or [])
+        for k_, m_ in enumerate(board['moons']):
+            if any((P.get(x['name']) or {}).get('status') == 'confirmed' or started(x) for x in m_): MOONLOCK.add(k_)
+        if sorted(MOONLOCK) != list(board.get('locked') or []):
+            board['locked'] = sorted(MOONLOCK); fresh = True
+            print(f"  CONFLOCK-NBA: locked moons {board['locked']}")
     if cache and (fresh or not os.path.exists(cache)):
         os.makedirs(os.path.dirname(cache) or '.', exist_ok=True)
         out = {'date': date, 'picked_at': stamp}
@@ -556,6 +572,9 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                       has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=False, priced=True,
                       parlay_am=o, payout10=round(10 * am_to_dec(o), 1), ftd=True, units=1,
                       ev=round(x['ev'], 3), p=round(x['p'], 4)))
+    # CONFLOCK-NBA: a locked moon stays on the board even if a leg later leaves the five (owner: "if the other legs end
+    # up voiding, its fine") -- the posted-pick stub above keeps him rendered; a man who never plays is voided by the
+    # grader and the round robin settles on what is left (soccer_grade REDUCTION).
     for i, m in enumerate((board or {}).get('moons') or []):
         if not all(x['name'] in P for x in m):
             continue
@@ -565,7 +584,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         T.append(dict(name=MOON_NAMES[(doy + i) % len(MOON_NAMES)], kind='moon', badge='🚀',
                       note=moon_note([x['name'] for x in m], date + str(i), info=lambda n: (TEAM_NAME.get(P[n]['code'], P[n]['code']), bool(P[n]['jumper']), P[n]['ptip'] or .5, st.P.get(st.key(n, team=P[n]['code'])) or {})),
                       players=legs, nlegs=len(legs), anchor=m[0]['name'], lock=re.sub(r'\s*ET\s*$', '', first['gtime']),
-                      has_late=False, final=False, wxsum={}, confleg=0, locked=False, priced=True,
+                      has_late=False, final=False, wxsum={}, confleg=0, locked=(i in MOONLOCK), priced=True,
                       rr=dict(struct='by 2s, 3s & 4', risk=risk, maxprofit=round(F.rr_maxprofit([l['odds'] for l in legs]), 2),
                               bytwos=False),
                       parlay_am=None, payout10=None, ftd=True,
