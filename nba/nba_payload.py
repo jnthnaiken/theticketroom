@@ -219,8 +219,14 @@ MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick a
               'Heat Check', 'Buzzer Beater', 'Showtime']
 
 
+def _sur(n):
+    """Surname for the write-ups, skipping a suffix: 'P.J. Washington Jr.' -> 'Washington' (was 'Jr.')."""
+    w = [x for x in str(n).split() if x.rstrip('.').lower() not in ('jr', 'sr', 'ii', 'iii', 'iv')]
+    return w[-1] if w else str(n)
+
+
 def moon_note(names, salt):
-    s = [n.split()[-1] for n in names]
+    s = [_sur(n) for n in names]
     a, rest = s[0], s[1:]
     opener = _pk([f"{a} leads this one, with {rest[0]}, {rest[1]} and {rest[2]} riding shotgun!",
                   f"Four games, four first baskets, and {a} is driving the bus!",
@@ -241,7 +247,7 @@ def note(n, r, st, gm, salt):
     """The slip write-up: what the pick is, then why, in the Collins register. No digits after sentence one."""
     k = st.key(n, team=r['team']); p = st.P.get(k) or {}
     team = TEAM_NAME.get(r['team'], r['team'])
-    sur = n.split()[-1] if n.split() else n
+    sur = _sur(n)
     s = [f"{n} to score the first basket of {gm.replace('@', ' at ')}."]
     K = str(salt) + '|' + n
     if r['jumper']:
