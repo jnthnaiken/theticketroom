@@ -226,10 +226,14 @@ def moon_note(names, salt):
                   f"Four games, four first baskets, and {a} is driving the bus!",
                   f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes. Here we go!",
                   f"It's {a}, {rest[0]}, {rest[1]} and {rest[2]}, four tips and four chances to light it up!"], salt + 'o')
-    tail = _pk(["Any two of them hitting cashes it, and all four is a fireworks show!",
-                "Every two-, three- and four-way combo is live. Two out of four and we are dancing!",
-                "Eleven little bets, one big dream. Two hits and we're in business!",
-                "Two of the four and the lights come on. All four and they hear it in the next county!"], salt + 't')
+    # MOONVOICE-2026-10-24, owner: "dont need to talk about 2 of 4 and we hit in the ticket write ups for basketball.
+    # just the hornets announcer language" -- the tail is pure call, no payout mechanics.
+    tail = _pk(["Buckle up, buddy, this one's got some juice!",
+                "Oh my goodness, put the kids to bed, we're going big tonight!",
+                "Hold onto your hats, folks!",
+                "If this one lands, they'll hear it all the way up I-85!",
+                "Get your popcorn ready, baby, it's showtime!",
+                "WHOOOA, now THAT is a ticket with some sizzle!"], salt + 't')
     return opener + ' ' + tail
 
 
