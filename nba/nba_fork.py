@@ -21,7 +21,7 @@ import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 79 + LIVE_SEAM_COUNT  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 81 + LIVE_SEAM_COUNT  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -60,7 +60,7 @@ def seams(payload_js):
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
     add('special-sec-late', 'var L=D.tickets.filter(t=>t.kind===\'jackpot\'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(\'\'):\'<div class="closed">\\ud83c\\udfdf\\ufe0f No jackpot pick posted right now.</div>\';', "var L=[];el.innerHTML='';")
-    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='fb'?' lunchwide':''}")
+    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='nolunch'?' lunchwide':''}")   # ANCHORCARDS-2026-10-24: anchors are regular cards, not the wide strip
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}", "${t.kind==='late'?' lunchwide nightcap':''}")
     add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0};')
     add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=kc.fb+' ⚡'")
@@ -78,7 +78,12 @@ def seams(payload_js):
     add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⚡</span>')
     add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀'};")
     add('tracker-builder', "['builder','🧢','Anchors']", '')
-    add('sec-anchors', "sec('sug','Anchors',builder)", "''")
+    add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Anchors',builder)")
+    # ANCHORCARDS-2026-10-24. Owner: "can we do the anchors as smaller tickets like we do on baseball" -> "the size of
+    # it. not horizontal". The ⚡ anchors leave the full-width Daily Dinger strip and render as ordinary slips in
+    # baseball's own Anchors section (sec 'sug'), one card per anchor in the ticket grid. Display only: kind stays 'fb'.
+    add('anchors-as-builder', "const builder=D.tickets.filter(t=>t.kind==='builder'&&!t.braced)", "const builder=D.tickets.filter(t=>t.kind==='fb'&&!t.braced)")
+    add('lunch-section-off', "if(ty==='all'&&(dingerLive.length||!q)){html+=", "if(false&&ty==='all'&&(dingerLive.length||!q)){html+=")
     add('tonight-builder', "+kc.builder+' 🧢 \\u00b7 '", '')
     add('step-builder', 'Every scored bat is one row:', 'Every starter is one row:')
     add('step-players', 'Every bat that cleared the pool gate, one card each.', 'Every starter on the slate, one card each.')
