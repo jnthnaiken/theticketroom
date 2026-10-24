@@ -1,5 +1,494 @@
 {
  "date": "2026-10-24",
- "picked_at": "2026-10-24T20:35Z",
- "redrafted": "FAVANCHOR-2026-10-24: owner switched tonight to favourite anchors before the 6:00 PM tip; was value anchors P.J. Washington Jr. / Jalen Smith / Brandon Williams / Onyeka Okongwu as 1u singles."
+ "picked_at": "2026-10-24T21:08Z",
+ "board": {
+  "anchors": [
+   {
+    "game": 4,
+    "name": "Victor Wembanyama",
+    "ev": -0.19728430344480408,
+    "odds": 270,
+    "p": 0.21695018825816104,
+    "ko": 1200,
+    "picked_at": "2026-10-24T21:08Z",
+    "ko_utc": "2026-10-25T00:00:00+00:00",
+    "gm": "SAS@DAL",
+    "gtime": "8:00 PM ET",
+    "code": "SAS"
+   },
+   {
+    "game": 2,
+    "name": "Joel Embiid",
+    "ev": -0.11387852442779656,
+    "odds": 400,
+    "p": 0.17722429511444068,
+    "ko": 1170,
+    "picked_at": "2026-10-24T21:08Z",
+    "ko_utc": "2026-10-24T23:30:00+00:00",
+    "gm": "MIL@PHI",
+    "gtime": "7:30 PM ET",
+    "code": "PHI"
+   },
+   {
+    "game": 1,
+    "name": "Bam Adebayo",
+    "ev": -0.004422467894816817,
+    "odds": 500,
+    "p": 0.1659295886841972,
+    "ko": 1080,
+    "picked_at": "2026-10-24T21:08Z",
+    "ko_utc": "2026-10-24T22:00:00+00:00",
+    "gm": "MIA@CHA",
+    "gtime": "6:00 PM ET",
+    "code": "MIA"
+   },
+   {
+    "game": 3,
+    "name": "Jarrett Allen",
+    "ev": -0.07298362448309592,
+    "odds": 470,
+    "p": 0.1626344518450709,
+    "ko": 1170,
+    "picked_at": "2026-10-24T21:08Z",
+    "ko_utc": "2026-10-24T23:30:00+00:00",
+    "gm": "BKN@CLE",
+    "gtime": "7:30 PM ET",
+    "code": "CLE"
+   }
+  ],
+  "moons": [
+   [
+    {
+     "game": 4,
+     "name": "Victor Wembanyama",
+     "ev": -0.19728430344480408,
+     "odds": 270,
+     "p": 0.21695018825816104,
+     "ko": 1200,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:00:00+00:00",
+     "gm": "SAS@DAL",
+     "gtime": "8:00 PM ET",
+     "code": "SAS"
+    },
+    {
+     "game": 2,
+     "name": "Kyle Kuzma",
+     "ev": 0.15529429945062279,
+     "odds": 1300,
+     "p": 0.08252102138933019,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "MIL"
+    },
+    {
+     "game": 1,
+     "name": "Naz Reid",
+     "ev": 0.14429827385469052,
+     "odds": 1000,
+     "p": 0.10402711580497186,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "CHA"
+    },
+    {
+     "game": 6,
+     "name": "Onyeka Okongwu",
+     "ev": 0.1158039369450754,
+     "odds": 750,
+     "p": 0.13127105140530299,
+     "ko": 1230,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:30:00+00:00",
+     "gm": "HOU@ATL",
+     "gtime": "8:30 PM ET",
+     "code": "ATL"
+    }
+   ],
+   [
+    {
+     "game": 4,
+     "name": "Victor Wembanyama",
+     "ev": -0.19728430344480408,
+     "odds": 270,
+     "p": 0.21695018825816104,
+     "ko": 1200,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:00:00+00:00",
+     "gm": "SAS@DAL",
+     "gtime": "8:00 PM ET",
+     "code": "SAS"
+    },
+    {
+     "game": 2,
+     "name": "Kyle Kuzma",
+     "ev": 0.15529429945062279,
+     "odds": 1300,
+     "p": 0.08252102138933019,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "MIL"
+    },
+    {
+     "game": 3,
+     "name": "Peyton Watson",
+     "ev": 0.07375260249898519,
+     "odds": 950,
+     "p": 0.10226215261895097,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "BKN@CLE",
+     "gtime": "7:30 PM ET",
+     "code": "CLE"
+    },
+    {
+     "game": 1,
+     "name": "Klay Thompson",
+     "ev": 0.021136329366936435,
+     "odds": 950,
+     "p": 0.09725107898732728,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "MIA"
+    }
+   ],
+   [
+    {
+     "game": 2,
+     "name": "Joel Embiid",
+     "ev": -0.11387852442779656,
+     "odds": 400,
+     "p": 0.17722429511444068,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "PHI"
+    },
+    {
+     "game": 1,
+     "name": "Naz Reid",
+     "ev": 0.14429827385469052,
+     "odds": 1000,
+     "p": 0.10402711580497186,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "CHA"
+    },
+    {
+     "game": 6,
+     "name": "Onyeka Okongwu",
+     "ev": 0.1158039369450754,
+     "odds": 750,
+     "p": 0.13127105140530299,
+     "ko": 1230,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:30:00+00:00",
+     "gm": "HOU@ATL",
+     "gtime": "8:30 PM ET",
+     "code": "ATL"
+    },
+    {
+     "game": 3,
+     "name": "Peyton Watson",
+     "ev": 0.07375260249898519,
+     "odds": 950,
+     "p": 0.10226215261895097,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "BKN@CLE",
+     "gtime": "7:30 PM ET",
+     "code": "CLE"
+    }
+   ],
+   [
+    {
+     "game": 2,
+     "name": "Joel Embiid",
+     "ev": -0.11387852442779656,
+     "odds": 400,
+     "p": 0.17722429511444068,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "PHI"
+    },
+    {
+     "game": 1,
+     "name": "Naz Reid",
+     "ev": 0.14429827385469052,
+     "odds": 1000,
+     "p": 0.10402711580497186,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "CHA"
+    },
+    {
+     "game": 4,
+     "name": "P.J. Washington Jr.",
+     "ev": 0.07130013183265516,
+     "odds": 1300,
+     "p": 0.0765214379880468,
+     "ko": 1200,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:00:00+00:00",
+     "gm": "SAS@DAL",
+     "gtime": "8:00 PM ET",
+     "code": "DAL"
+    },
+    {
+     "game": 6,
+     "name": "Dyson Daniels",
+     "ev": 0.00446921823146984,
+     "odds": 1200,
+     "p": 0.0772668629408823,
+     "ko": 1230,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:30:00+00:00",
+     "gm": "HOU@ATL",
+     "gtime": "8:30 PM ET",
+     "code": "ATL"
+    }
+   ],
+   [
+    {
+     "game": 1,
+     "name": "Bam Adebayo",
+     "ev": -0.004422467894816817,
+     "odds": 500,
+     "p": 0.1659295886841972,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "MIA"
+    },
+    {
+     "game": 2,
+     "name": "Kyle Kuzma",
+     "ev": 0.15529429945062279,
+     "odds": 1300,
+     "p": 0.08252102138933019,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "MIL"
+    },
+    {
+     "game": 6,
+     "name": "Onyeka Okongwu",
+     "ev": 0.1158039369450754,
+     "odds": 750,
+     "p": 0.13127105140530299,
+     "ko": 1230,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:30:00+00:00",
+     "gm": "HOU@ATL",
+     "gtime": "8:30 PM ET",
+     "code": "ATL"
+    },
+    {
+     "game": 3,
+     "name": "Peyton Watson",
+     "ev": 0.07375260249898519,
+     "odds": 950,
+     "p": 0.10226215261895097,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "BKN@CLE",
+     "gtime": "7:30 PM ET",
+     "code": "CLE"
+    }
+   ],
+   [
+    {
+     "game": 1,
+     "name": "Bam Adebayo",
+     "ev": -0.004422467894816817,
+     "odds": 500,
+     "p": 0.1659295886841972,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "MIA"
+    },
+    {
+     "game": 2,
+     "name": "Kyle Kuzma",
+     "ev": 0.15529429945062279,
+     "odds": 1300,
+     "p": 0.08252102138933019,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "MIL"
+    },
+    {
+     "game": 4,
+     "name": "P.J. Washington Jr.",
+     "ev": 0.07130013183265516,
+     "odds": 1300,
+     "p": 0.0765214379880468,
+     "ko": 1200,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:00:00+00:00",
+     "gm": "SAS@DAL",
+     "gtime": "8:00 PM ET",
+     "code": "DAL"
+    },
+    {
+     "game": 6,
+     "name": "Dyson Daniels",
+     "ev": 0.00446921823146984,
+     "odds": 1200,
+     "p": 0.0772668629408823,
+     "ko": 1230,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:30:00+00:00",
+     "gm": "HOU@ATL",
+     "gtime": "8:30 PM ET",
+     "code": "ATL"
+    }
+   ],
+   [
+    {
+     "game": 3,
+     "name": "Jarrett Allen",
+     "ev": -0.07298362448309592,
+     "odds": 470,
+     "p": 0.1626344518450709,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "BKN@CLE",
+     "gtime": "7:30 PM ET",
+     "code": "CLE"
+    },
+    {
+     "game": 2,
+     "name": "Kyle Kuzma",
+     "ev": 0.15529429945062279,
+     "odds": 1300,
+     "p": 0.08252102138933019,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "MIL"
+    },
+    {
+     "game": 1,
+     "name": "Naz Reid",
+     "ev": 0.14429827385469052,
+     "odds": 1000,
+     "p": 0.10402711580497186,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "CHA"
+    },
+    {
+     "game": 6,
+     "name": "Onyeka Okongwu",
+     "ev": 0.1158039369450754,
+     "odds": 750,
+     "p": 0.13127105140530299,
+     "ko": 1230,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:30:00+00:00",
+     "gm": "HOU@ATL",
+     "gtime": "8:30 PM ET",
+     "code": "ATL"
+    }
+   ],
+   [
+    {
+     "game": 3,
+     "name": "Jarrett Allen",
+     "ev": -0.07298362448309592,
+     "odds": 470,
+     "p": 0.1626344518450709,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "BKN@CLE",
+     "gtime": "7:30 PM ET",
+     "code": "CLE"
+    },
+    {
+     "game": 2,
+     "name": "Kyle Kuzma",
+     "ev": 0.15529429945062279,
+     "odds": 1300,
+     "p": 0.08252102138933019,
+     "ko": 1170,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T23:30:00+00:00",
+     "gm": "MIL@PHI",
+     "gtime": "7:30 PM ET",
+     "code": "MIL"
+    },
+    {
+     "game": 4,
+     "name": "P.J. Washington Jr.",
+     "ev": 0.07130013183265516,
+     "odds": 1300,
+     "p": 0.0765214379880468,
+     "ko": 1200,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-25T00:00:00+00:00",
+     "gm": "SAS@DAL",
+     "gtime": "8:00 PM ET",
+     "code": "DAL"
+    },
+    {
+     "game": 1,
+     "name": "Klay Thompson",
+     "ev": 0.021136329366936435,
+     "odds": 950,
+     "p": 0.09725107898732728,
+     "ko": 1080,
+     "picked_at": "2026-10-24T21:08Z",
+     "ko_utc": "2026-10-24T22:00:00+00:00",
+     "gm": "MIA@CHA",
+     "gtime": "6:00 PM ET",
+     "code": "MIA"
+    }
+   ]
+  ]
+ }
 }
