@@ -136,9 +136,10 @@ check(len(_b['anchors']) == 4, 'bbdraft: four anchors')
 _val = sorted(_c, key=lambda c: -F.value(c))
 check([a['name'] for a in _b['anchors']] == [c['name'] for c in F.draft_pool(_c)[:4]], 'bbdraft: anchors are the four best values')
 check(all(len(m) == 4 and len({x['game'] for x in m}) == 4 for m in _b['moons']), 'bbdraft: moons are 4 legs from 4 games')
-_legs = [x['name'] for m in _b['moons'] for x in m[1:]]
-check(len(_legs) == len(set(_legs)), 'bbdraft: every partner used once')
-check(all(max(x['ko'] for x in m) - min(x['ko'] for x in m) <= F.WIN for m in _b['moons']), 'bbdraft: legs inside the window')
+check(len(_b['moons']) == 8, 'bbdraft: two moons per anchor on a deep slate')
+check(all(not ({x['name'] for x in _b['moons'][i][1:]} & {x['name'] for x in _b['moons'][i + 1][1:]})
+          for i in range(0, len(_b['moons']) - 1, 2)), "bbdraft: an anchor's two moons share no partner")
+check(len({tuple(sorted(x['name'] for x in m)) for m in _b['moons']}) == len(_b['moons']), 'bbdraft: no duplicate moons')
 check(F.rr_combos(4) == 11 and abs(F.RR_UNIT * F.rr_combos(4) - 2.75) < 1e-9, 'bbdraft: 11 bets x 0.25u')
 check(F.draft_board(_c[:5])['anchors'] == [], 'bbdraft: thin slate drafts nothing')
 

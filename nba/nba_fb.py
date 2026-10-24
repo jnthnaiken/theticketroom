@@ -244,7 +244,12 @@ def pick(cands, ev_min=EV_MIN, cap=MAX_PICKS):
 # The same draft with strength = likelihood (baseball's literal rule) lost -528u: the books price first-basket
 # favourites ~5% short and a round robin multiplies it.
 Z_GATE, GAME_CAP, N_ANCHORS, MOONS_PER, MOON_LEGS, RR_UNIT = 0.75, 4, 4, 2, 4, 0.25
-WIN = 120   # baseball's leg window: every leg of a moon tips within 120 minutes of the others (cand['ko'], ET minutes)
+WIN = None  # baseball's 120-min leg window does NOT apply: owner 10-23 "basketball lineups dont get confirmed until 15 min
+            # before tip" -- no window makes a later leg confirmable at bet time anyway
+# MOONFILL-2026-10-23: owner "should be 2 per anchor". Only ~15 of ~70 priced starters carry positive value a night
+# (baseball: ~44 of ~260), so partners may sit in moons of DIFFERENT anchors; an anchor's two moons never share a
+# partner (no duplicate slips). Backtest 2021-26: 6.0 moons/night, all 8 on 66% of nights, 4,511 moons, +2,425u
+# (+19.5%), seasons +2543/+227/-53/-529/+237. (nba/research/bball_fill2.py)
 
 
 def value(c):
@@ -271,16 +276,16 @@ def draft_board(cands):
     anchors = pool[:N_ANCHORS]
     rest = pool[N_ANCHORS:]
     moons = [[a] for a in anchors for _ in range(MOONS_PER)]
-    used = set()
     for r in range(MOON_LEGS - 1):
         order = list(range(len(moons))) if r % 2 == 0 else list(reversed(range(len(moons))))
         for i in order:
             games = {x['game'] for x in moons[i]}
+            sib = {x['name'] for x in moons[i ^ 1][1:]} if MOONS_PER == 2 and (i ^ 1) < len(moons) else set()
             kos = [x['ko'] for x in moons[i] if x.get('ko') is not None]
             for c in rest:
-                if c['name'] in used or c['game'] in games: continue
+                if c['game'] in games or c['name'] in sib: continue
                 if WIN and kos and c.get('ko') is not None and max(kos + [c['ko']]) - min(kos + [c['ko']]) > WIN: continue
-                moons[i].append(c); used.add(c['name']); break
+                moons[i].append(c); break
     return {'anchors': anchors, 'moons': [m for m in moons if len(m) == MOON_LEGS]}
 
 

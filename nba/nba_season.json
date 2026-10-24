@@ -3,8 +3,8 @@
  "history": [
   0,
   9.0,
-  2.25,
-  11.25
+  -17.0,
+  -8.0
  ],
  "graded_nights": [
   "2026-10-20",
@@ -19,13 +19,13 @@
    "staked": 12.0
   },
   "moon": {
-   "graded": 1,
+   "graded": 8,
    "won": 0,
-   "units": -2.75,
-   "staked": 2.75
+   "units": -22.0,
+   "staked": 22.0
   }
  },
  "stake": 1,
  "restated": true,
- "restate_note": "RESTATED-2026-10-23: owner \"backtest for the season and update the ledger accordingly\". Nights 10-20..10-22 re-drafted under BBDRAFT (4 value anchors + moons, nba_fb.draft_board) from each morning's committed slate and model state (fb.psv/nba_state.json at the 10:00Z build commit) and graded against the real first baskets. Was: single EV>=30% picks, 0-3 -3.00u."
+ "restate_note": "RESTATED-2026-10-23: owner \"backtest for the season and update the ledger accordingly\". Nights 10-20..10-22 re-drafted under BBDRAFT + MOONFILL (4 value anchors, 2 moons per anchor, partners may repeat across anchors, no leg window) from each morning's committed slate and model state (fb.psv/nba_state.json at the 10:00Z build commit) and graded against the real first baskets. Was: single EV>=30% picks, 0-3 -3.00u."
 }
