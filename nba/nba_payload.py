@@ -349,7 +349,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             cached = None
     # BBDRAFT-2026-10-23: a slate first drafted under the old single-pick rule keeps it (a posted board never
     # changes shape mid-slate); every slate from BOARD_FROM drafts baseball's anchors + moons.
-    legacy = bool(cached and cached.get('picks') is not None and cached.get('board') is None) or date < BOARD_FROM
+    legacy = (not (cached and cached.get('board') is not None)) and (bool(cached and cached.get('picks') is not None) or date < BOARD_FROM)
     if legacy:
         picks = cached.get('picks') if cached else None
         if picks is None:
