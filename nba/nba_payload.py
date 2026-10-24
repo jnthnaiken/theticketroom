@@ -232,7 +232,7 @@ def why(n, r, st, gm, salt=''):
 
 
 BOARD_FROM = '2026-10-24'
-FAV_FROM = '2026-10-25'      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
+FAV_FROM = '2026-10-24'      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
               'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
               'Heat Check', 'Buzzer Beater', 'Showtime']
