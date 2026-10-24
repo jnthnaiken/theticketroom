@@ -229,3 +229,71 @@ def pick(cands, ev_min=EV_MIN, cap=MAX_PICKS):
     if not out and c and c[0]['ev'] > 0:
         out = [c[0]]
     return out
+
+
+# ======================================================================================================
+# BBDRAFT-2026-10-23. Owner: "build the ticket draft process the exact same as baseball with the anchors and
+# shit and test it" -> "yes". Baseball's board, ported, with STRENGTH = VALUE (chance x FanDuel decimal):
+#   * pool    = priced starters whose value z-score is >= Z_GATE above the slate mean, at most GAME_CAP a game
+#   * anchors = the N_ANCHORS strongest -- each a 1u single
+#   * moons   = MOONS_PER per anchor: the anchor + (MOON_LEGS-1) partners, every leg a different game, partners
+#               snake-drafted from the rest of the pool by strength, each starter used once; full round robin
+#               (6 doubles + 4 trebles + 1 four-fold = 11 bets x RR_UNIT = 2.75u)
+# Backtest 2021-26 at FanDuel (claude/nba-baseballdraft-2026-10-23.md, nba/research/bball_draft.py): anchors
+# 2,964 / 11.1% / +1,055u (+35.6%, every season up); moons 461 / 20 cashed / +140u; board +1,194u (+28.2%).
+# The same draft with strength = likelihood (baseball's literal rule) lost -528u: the books price first-basket
+# favourites ~5% short and a round robin multiplies it.
+Z_GATE, GAME_CAP, N_ANCHORS, MOONS_PER, MOON_LEGS, RR_UNIT = 0.75, 4, 4, 2, 4, 0.25
+WIN = 120   # baseball's leg window: every leg of a moon tips within 120 minutes of the others (cand['ko'], ET minutes)
+
+
+def value(c):
+    return c['p'] * dec(c['odds'])
+
+
+def draft_pool(cands):
+    """cands: [{'game','name','p','odds',...}] -> the gated pool, strongest first."""
+    el = [c for c in cands if c.get('odds') and c.get('p') is not None]
+    if len(el) < 8:
+        return []
+    v = [value(c) for c in el]; m = sum(v) / len(v); sd = (sum((x - m) ** 2 for x in v) / len(v)) ** .5 or 1e-9
+    out, per = [], {}
+    for c in sorted(el, key=lambda c: -value(c)):
+        if (value(c) - m) / sd < Z_GATE: continue
+        if per.get(c['game'], 0) >= GAME_CAP: continue
+        out.append(c); per[c['game']] = per.get(c['game'], 0) + 1
+    return out
+
+
+def draft_board(cands):
+    """-> {'anchors': [cand...], 'moons': [[cand x MOON_LEGS]...]} (only fully filled moons ship)."""
+    pool = draft_pool(cands)
+    anchors = pool[:N_ANCHORS]
+    rest = pool[N_ANCHORS:]
+    moons = [[a] for a in anchors for _ in range(MOONS_PER)]
+    used = set()
+    for r in range(MOON_LEGS - 1):
+        order = list(range(len(moons))) if r % 2 == 0 else list(reversed(range(len(moons))))
+        for i in order:
+            games = {x['game'] for x in moons[i]}
+            kos = [x['ko'] for x in moons[i] if x.get('ko') is not None]
+            for c in rest:
+                if c['name'] in used or c['game'] in games: continue
+                if WIN and kos and c.get('ko') is not None and max(kos + [c['ko']]) - min(kos + [c['ko']]) > WIN: continue
+                moons[i].append(c); used.add(c['name']); break
+    return {'anchors': anchors, 'moons': [m for m in moons if len(m) == MOON_LEGS]}
+
+
+def rr_combos(k):
+    return sum(math.comb(k, z) for z in range(2, k + 1))
+
+
+def rr_maxprofit(odds_list, unit=RR_UNIT):
+    import itertools
+    d = [dec(o) for o in odds_list]; tot = 0.0
+    for z in range(2, len(d) + 1):
+        for cb in itertools.combinations(d, z):
+            m = 1.0
+            for x in cb: m *= x
+            tot += unit * m
+    return tot - unit * rr_combos(len(d))

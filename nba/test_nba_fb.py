@@ -125,6 +125,23 @@ process.stdout.write(JSON.stringify([D.players['Kelly Oubre Jr.'].ftd1,D.players
                      os.path.join(HERE, 'nba_live.js'), FX], capture_output=True, text=True)
 check(rc.stdout.strip() == '[true,false,"confirmed"]', 'live: first basket stamped while the game is in progress ' + rc.stdout + rc.stderr[-200:])
 
+# ---- BBDRAFT-2026-10-23: baseball-style board (anchors + moons) ----
+_c = []
+for g in range(1, 13):
+    for k in range(10):
+        _c.append(dict(game=g, name=f'P{g}_{k}', p=0.05 + 0.01 * ((g * 7 + k * 3) % 11), odds=600 + 100 * ((g + k) % 12),
+                       ev=0.0, ko=1140 + 30 * (g % 3)))
+_b = F.draft_board(_c)
+check(len(_b['anchors']) == 4, 'bbdraft: four anchors')
+_val = sorted(_c, key=lambda c: -F.value(c))
+check([a['name'] for a in _b['anchors']] == [c['name'] for c in F.draft_pool(_c)[:4]], 'bbdraft: anchors are the four best values')
+check(all(len(m) == 4 and len({x['game'] for x in m}) == 4 for m in _b['moons']), 'bbdraft: moons are 4 legs from 4 games')
+_legs = [x['name'] for m in _b['moons'] for x in m[1:]]
+check(len(_legs) == len(set(_legs)), 'bbdraft: every partner used once')
+check(all(max(x['ko'] for x in m) - min(x['ko'] for x in m) <= F.WIN for m in _b['moons']), 'bbdraft: legs inside the window')
+check(F.rr_combos(4) == 11 and abs(F.RR_UNIT * F.rr_combos(4) - 2.75) < 1e-9, 'bbdraft: 11 bets x 0.25u')
+check(F.draft_board(_c[:5])['anchors'] == [], 'bbdraft: thin slate drafts nothing')
+
 shutil.rmtree(tmp, ignore_errors=True)
 print(f'\n{len(fails)} failure(s)')
 sys.exit(1 if fails else 0)

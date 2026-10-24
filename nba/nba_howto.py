@@ -11,7 +11,7 @@ straight single. Example names are retired legends, never a live pick.
 import json, sys
 
 HOWTO = {
- "sub": "Every pick on the board is a ⚡ Tip-Off single, laid out like this one. Hover a label to trace its line; on a phone, tap a number.",
+ "sub": "Every ⚡ anchor on the board is a single, laid out like this one. Hover a label to trace its line; on a phone, tap a number.",
  "slip": {
   "badge": "⚡",
   "name": "Jump Ball",
@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "One unit on every pick, flat. Straight bets only — no parlays."
+   "One unit on every anchor. Moonshots are 2.75u round robins (11 bets at 0.25u)."
   ],
   "3": [
    "Price",
@@ -49,7 +49,7 @@ HOWTO = {
   ],
   "6": [
    "Team · game · tip",
-   "One pick per game at most, up to three a night."
+   "Four anchors a night, the best values on the slate."
   ],
   "7": [
    "Status",
@@ -57,7 +57,7 @@ HOWTO = {
   ],
   "8": [
    "The pick",
-   "A starter whose chance beats his price by 30% or more — or, if nobody clears that, the night’s best edge."
+   "One of the night’s four best values: our chance against his FanDuel price."
   ],
   "9": [
    "⚠ Flag",
@@ -78,8 +78,8 @@ HOWTO = {
  },
  "steps": [
   [
-   "Start on Tickets — tonight’s ⚡ Tip-Off picks.",
-   "Each is a 1u straight bet on one starter to make his game’s first field goal. The card at the top is the season ledger, graded live."
+   "Start on Tickets — tonight’s ⚡ Anchors and 🚀 Moonshots.",
+   "An anchor is a 1u straight bet on one starter to make his game’s first field goal; a Moonshot round-robins four of them. The card at the top is the season ledger, graded live."
   ],
   [
    "Check the lock line before you act on anything.",
@@ -101,8 +101,13 @@ HOWTO = {
  "kinds": [
   [
    "⚡",
-   "Tip-Off",
-   "First basket: the first made field goal of the game. Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays."
+   "Anchors",
+   "The four best values on the slate: our chance times FanDuel’s price, the starters the price undersells most. Each is a 1u straight bet on him making his game’s first field goal."
+  ],
+  [
+   "🚀",
+   "Moonshots",
+   "Up to two per anchor: the anchor plus three more value picks from three other games, every two-, three- and four-way combination at 0.25u (11 bets, 2.75u). Any two of the four cashing pays. They only post on nights deep enough to fill them."
   ],
   [
    "⭕",

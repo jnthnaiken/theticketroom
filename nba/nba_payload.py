@@ -213,6 +213,26 @@ def why(n, r, st, gm, salt=''):
     return f"{n} {body}!"
 
 
+BOARD_FROM = '2026-10-24'   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
+MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
+              'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
+              'Heat Check', 'Buzzer Beater', 'Showtime']
+
+
+def moon_note(names, salt):
+    s = [n.split()[-1] for n in names]
+    a, rest = s[0], s[1:]
+    opener = _pk([f"{a} leads this one, with {rest[0]}, {rest[1]} and {rest[2]} riding shotgun!",
+                  f"Four games, four first baskets, and {a} is driving the bus!",
+                  f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes. Here we go!",
+                  f"It's {a}, {rest[0]}, {rest[1]} and {rest[2]}, four tips and four chances to light it up!"], salt + 'o')
+    tail = _pk(["Any two of them hitting cashes it, and all four is a fireworks show!",
+                "Every two-, three- and four-way combo is live. Two out of four and we are dancing!",
+                "Eleven little bets, one big dream. Two hits and we're in business!",
+                "Two of the four and the lights come on. All four and they hear it in the next county!"], salt + 't')
+    return opener + ' ' + tail
+
+
 def note(n, r, st, gm, salt):
     """The slip write-up: what the pick is, then why, in the Collins register. No digits after sentence one."""
     k = st.key(n, team=r['team']); p = st.P.get(k) or {}
@@ -311,7 +331,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 pteam=round(r['pteam'], 3), share=round(r['share'], 3), fgp=(round(fgp, 3) if fgp else None),
                 ftd1=None, mkt_z=None, edge_z=None, blend=None, basis=src.get(T), basis_games=sp.get('nst'))
             if ev_ is not None:
-                cands.append(dict(game=gi, name=n, ev=ev_, odds=int(round(fd)), p=r['pb']))
+                cands.append(dict(game=gi, name=n, ev=ev_, odds=int(round(fd)), p=r['pb'], ko=games[gi]['ko']))
     # ---- picks, sticky ----
     # ---- picks, sticky (PICKSTICKY-2026-10-17) ----
     # A posted pick never moves. Two exceptions, both before HIS game tips: he drops out of his team's five
@@ -320,33 +340,87 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     # live (losing) bet while a man who never plays is refunded by the grader.
     now = datetime.datetime.now(datetime.timezone.utc) if now is None else now
     started = lambda x: bool(x.get('ko_utc')) and now >= datetime.datetime.fromisoformat(x['ko_utc'])
-    picks, fresh = None, False
+    picks, fresh, board, cached = None, False, None, None
     if cache and os.path.exists(cache):
         try:
             c = json.load(open(cache, encoding='utf-8'))
-            if c.get('date') == date and c.get('picks') is not None:
-                picks = c['picks']
+            if c.get('date') == date: cached = c
         except Exception:
-            picks = None
-    if picks is None:
-        picks = [dict(x, picked_at=stamp) for x in F.pick(cands)]; fresh = True
+            cached = None
+    # BBDRAFT-2026-10-23: a slate first drafted under the old single-pick rule keeps it (a posted board never
+    # changes shape mid-slate); every slate from BOARD_FROM drafts baseball's anchors + moons.
+    legacy = bool(cached and cached.get('picks') is not None and cached.get('board') is None) or date < BOARD_FROM
+    if legacy:
+        picks = cached.get('picks') if cached else None
+        if picks is None:
+            picks = [dict(x, picked_at=stamp) for x in F.pick(cands)]; fresh = True
+        else:
+            keep = [x for x in picks if x['name'] in P or started(x)]
+            gone = [x for x in picks if x not in keep]
+            if gone:
+                print(f"  re-pick: {[x['name'] for x in gone]} no longer in a starting five")
+                used = {x['game'] for x in keep}
+                more = F.pick([c for c in cands if c['game'] not in used and c['name'] not in {g['name'] for g in gone}
+                               and not started(dict(ko_utc=games[c['game']]['ko_utc']))], cap=F.MAX_PICKS - len(keep))
+                if keep: more = [m for m in more if m['ev'] >= F.EV_MIN]     # the fallback single is for an empty slate only
+                picks = keep + [dict(x, picked_at=stamp) for x in more]; fresh = True
     else:
-        keep = [x for x in picks if x['name'] in P or started(x)]
-        gone = [x for x in picks if x not in keep]
-        if gone:
-            print(f"  re-pick: {[x['name'] for x in gone]} no longer in a starting five")
-            used = {x['game'] for x in keep}
-            more = F.pick([c for c in cands if c['game'] not in used and c['name'] not in {g['name'] for g in gone}
-                           and not started(dict(ko_utc=games[c['game']]['ko_utc']))], cap=F.MAX_PICKS - len(keep))
-            if keep: more = [m for m in more if m['ev'] >= F.EV_MIN]     # the fallback single is for an empty slate only
-            picks = keep + [dict(x, picked_at=stamp) for x in more]; fresh = True
+        board = cached.get('board') if cached else None
+        if board is None:
+            board = F.draft_board(cands); fresh = True
+            board = {'anchors': [dict(x, picked_at=stamp) for x in board['anchors']],
+                     'moons': [[dict(x, picked_at=stamp) for x in m] for m in board['moons']]}
+            print(f"  BBDRAFT: drafted {len(board['anchors'])} anchor(s) + {len(board['moons'])} moon(s)")
+        else:
+            # A posted leg never moves, except a man who drops out of his team's five before HIS game tips: he is
+            # replaced by the strongest pool starter not already on the board, from a game the slip does not hold.
+            pool = F.draft_pool(cands) or sorted(cands, key=lambda c: -F.value(c))
+            def _st(x): g = games.get(x['game']) or {}; return started(dict(ko_utc=x.get('ko_utc') or g.get('ko_utc')))
+            names = lambda: {x['name'] for x in board['anchors']} | {x['name'] for m in board['moons'] for x in m}
+            def _next(avoid_games):
+                for c in pool:
+                    if c['name'] in names() or c['game'] in avoid_games: continue
+                    if started(dict(ko_utc=(games.get(c['game']) or {}).get('ko_utc'))): continue
+                    return dict(c, picked_at=stamp)
+                return None
+            for i, a in enumerate(list(board['anchors'])):
+                if a['name'] in P or _st(a): continue
+                mine = [m for m in board['moons'] if m and m[0]['name'] == a['name']]
+                if any(_st(x) for m in mine for x in m[1:]):
+                    continue                         # one of his slips is already live: the slip stands as placed
+                avoid = {x['game'] for m in mine for x in m[1:]}
+                r = _next(avoid)
+                if r:
+                    print(f"  re-pick: anchor {a['name']} out of the five -> {r['name']}")
+                    board['anchors'][i] = r
+                    for m in mine: m[0] = r
+                    fresh = True
+            for m in board['moons']:
+                if any(_st(x) for x in m): continue  # a slip with a leg underway is placed: it stands
+                for j in range(1, len(m)):
+                    if m[j]['name'] in P: continue
+                    r = _next({x['game'] for k, x in enumerate(m) if k != j})
+                    if r:
+                        print(f"  re-pick: moon leg {m[j]['name']} out of the five -> {r['name']}")
+                        m[j] = r; fresh = True
+        seen = set(); picks = []
+        for x in board['anchors'] + [x for m in board['moons'] for x in m]:
+            if x['name'] not in seen: seen.add(x['name']); picks.append(x)
     for x in picks:
         g = games.get(x['game']) or {}
         x.setdefault('ko_utc', g.get('ko_utc')); x.setdefault('gm', g.get('gm')); x.setdefault('gtime', g.get('time'))
         x.setdefault('code', (P.get(x['name']) or {}).get('code'))
+    if board:
+        for x in board['anchors'] + [x for m in board['moons'] for x in m]:
+            g = games.get(x['game']) or {}
+            x.setdefault('ko_utc', g.get('ko_utc')); x.setdefault('gm', g.get('gm')); x.setdefault('gtime', g.get('time'))
+            x.setdefault('code', (P.get(x['name']) or {}).get('code'))
     if cache and (fresh or not os.path.exists(cache)):
         os.makedirs(os.path.dirname(cache) or '.', exist_ok=True)
-        json.dump({'date': date, 'picks': picks, 'picked_at': stamp}, open(cache, 'w', encoding='utf-8'), indent=1)
+        out = {'date': date, 'picked_at': stamp}
+        if board is not None: out['board'] = board
+        else: out['picks'] = picks
+        json.dump(out, open(cache, 'w', encoding='utf-8'), indent=1)
     # PRICEHOLD-2026-10-22. Owner, 7:25 PM: "why is the peyton watson price n/a now? and tbd". FanDuel pulls its
     # first-basket market at tip-off, so every build after 7:00 read Watson's FanDuel price as missing and posted
     # odds=None -- the card header said "n/a" and his chip "FB TBD" while the ticket held +1200. A price, once posted,
@@ -386,19 +460,36 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     # ---- tickets ----
     doy = datetime.date.fromisoformat(date).timetuple().tm_yday
     T = []
-    for i, x in enumerate(picks):
+    def _leg(n, o):
+        p = P[n]
+        return dict(name=n, team=p['team'], total=p['TOTAL'], aT=100, wf=1.0, gmatch=p['gmatch'], gtime=p['gtime'],
+                    game=p['game'], late=False, odds=int(o), status=p['status'], ftd=True)
+    singles = board['anchors'] if board is not None else picks
+    for i, x in enumerate(singles):
         n = x['name']; p = P.get(n)
         if not p:
             continue
         o = int(x['odds'])
-        leg = dict(name=n, team=p['team'], total=p['TOTAL'], aT=100, wf=1.0, gmatch=p['gmatch'], gtime=p['gtime'],
-                   game=p['game'], late=False, odds=o, status=p['status'], ftd=True)
         T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⚡',
                       note=note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date),
-                      players=[leg], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
+                      players=[_leg(n, o)], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
                       has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=False, priced=True,
                       parlay_am=o, payout10=round(10 * am_to_dec(o), 1), ftd=True, units=1,
                       ev=round(x['ev'], 3), p=round(x['p'], 4)))
+    for i, m in enumerate((board or {}).get('moons') or []):
+        if not all(x['name'] in P for x in m):
+            continue
+        legs = [_leg(x['name'], x['odds']) for x in m]
+        risk = round(F.RR_UNIT * F.rr_combos(len(legs)), 2)
+        first = min(legs, key=lambda l: (games.get(l['game']) or {}).get('ko', 0))
+        T.append(dict(name=MOON_NAMES[(doy + i) % len(MOON_NAMES)], kind='moon', badge='🚀',
+                      note=moon_note([x['name'] for x in m], date + str(i)),
+                      players=legs, nlegs=len(legs), anchor=m[0]['name'], lock=re.sub(r'\s*ET\s*$', '', first['gtime']),
+                      has_late=False, final=False, wxsum={}, confleg=0, locked=False, priced=True,
+                      rr=dict(struct='by 2s, 3s & 4', risk=risk, maxprofit=round(F.rr_maxprofit([l['odds'] for l in legs]), 2),
+                              bytwos=False),
+                      parlay_am=None, payout10=None, ftd=True,
+                      ev=round(sum(x['ev'] for x in m) / len(m), 3), p=None))
     sn = {}
     if season and os.path.exists(season):
         try: sn = json.load(open(season, encoding='utf-8'))
@@ -420,4 +511,6 @@ if __name__ == '__main__':
     D = build(A.slate, A.state, A.date, A.cache, A.season, A.build)
     json.dump(D, open(A.out, 'w', encoding='utf-8'), ensure_ascii=False, separators=(', ', ': '))
     print(f"{A.out}: {len(D['players'])} starters, {len(D['tickets'])} pick(s): "
-          + '; '.join(f"{t['anchor']} {t['parlay_am']:+d} (ev {t['ev']:+.2f})" for t in D['tickets']))
+          + '; '.join((f"{t['anchor']} {t['parlay_am']:+d} (ev {t['ev']:+.2f})" if t['kind'] != 'moon'
+                       else f"moon {'/'.join(l['name'].split()[-1] for l in t['players'])} {t['rr']['risk']}u")
+                      for t in D['tickets']))
