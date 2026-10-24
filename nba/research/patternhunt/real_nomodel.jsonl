@@ -1,0 +1,6 @@
+{"mode": "real", "k": 0, "rule": "fd_vs_cons in q3-q4 AND rk_team in q4-q5 AND opp_pos_allow in q4-q5 AND jumper in q3-q3", "train": [4.4, 1053, 0.519], "val": [0.68, 942, 0.0706], "test": [0.14, 579, 0.0181]}
+{"mode": "real", "k": 1, "rule": "fd_vs_cons in q3-q4 AND rk_team in q4-q5 AND opp_pos_allow in q4-q5 AND jumper in q3-q3", "train": [4.4, 1053, 0.519], "val": [0.68, 942, 0.0706], "test": [0.14, 579, 0.0181]}
+{"mode": "real", "k": 2, "rule": "am in q3-q5 AND fd_vs_cons in q3-q4 AND jumper in q3-q3 AND home in q3-q3", "train": [4.28, 1102, 0.4841], "val": [1.91, 775, 0.2271], "test": [-0.18, 492, -0.0244]}
+{"mode": "real", "k": 3, "rule": "imp_fd in q1-q3 AND opp_pos_allow in q4-q5 AND jumper in q3-q3 AND o_t_opp_allow in q3-q5", "train": [4.65, 894, 0.5945], "val": [0.23, 691, 0.0268], "test": [-1.06, 418, -0.1483]}
+{"mode": "real", "k": 4, "rule": "fd_vs_cons in q2-q4 AND opp_pos_allow in q4-q5 AND jumper in q3-q3 AND o_x_fg in q1-q4", "train": [4.58, 675, 0.6357], "val": [0.44, 546, 0.0507], "test": [0.4, 421, 0.0544]}
+{"mode": "real", "k": 5, "rule": "imp_fd in q1-q3 AND jumper in q3-q3 AND home in q3-q3 AND o_t_opp_allow in q2-q5", "train": [4.47, 1036, 0.5309], "val": [1.66, 646, 0.219], "test": [-0.3, 441, -0.0442]}
