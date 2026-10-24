@@ -225,13 +225,44 @@ def _sur(n):
     return w[-1] if w else str(n)
 
 
-def moon_note(names, salt):
+def moon_note(names, salt, info=None):
+    """MOONVOICE: an opener, one announcer line per leg (his angle: the tip, the early shots, the finish, or just
+    sizzle), then a closing call. Owner: 'they need to be longer, something for each player'. No payout mechanics."""
     s = [_sur(n) for n in names]
     a, rest = s[0], s[1:]
     opener = _pk([f"{a} leads this one, with {rest[0]}, {rest[1]} and {rest[2]} riding shotgun!",
                   f"Four games, four first baskets, and {a} is driving the bus!",
-                  f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes. Here we go!",
+                  f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes!",
                   f"It's {a}, {rest[0]}, {rest[1]} and {rest[2]}, four tips and four chances to light it up!"], salt + 'o')
+    lines, used = [], set()
+    for n in names:
+        sur = _sur(n); K = salt + '|' + n
+        team, jumper, ptip, pp = info(n) if info else ('', False, .5, {})
+        fgp = (pp['fgm'] / pp['fga']) if pp.get('fga') else None
+        if jumper and ptip >= .56:
+            pool = [f"{sur} owns the center circle for the {team}, and he's been winning that tip all year long!",
+                    f"{sur} goes up for the jump, and when he controls the tip, the {team} strike first!",
+                    f"Big fella {sur} in the middle, and that opening tip is his house!"]
+        elif jumper:
+            pool = [f"{sur} jumps center for the {team}, and the first crack at the rim starts with him!",
+                    f"{sur} at the opening tip, first touch, first look, first chance!",
+                    f"It all starts in the circle, and {sur} is standing right in it!"]
+        elif (pp.get('ef') or 0) >= .24 or (pp.get('tf') or 0) >= .26:
+            pool = [f"{sur} gets the ball early for the {team}, and he does not hesitate!",
+                    f"The {team} run their first set through {sur}, and he lets it fly!",
+                    f"{sur} has the green light from the opening whistle!",
+                    f"First possession, first look, and {sur} is ready to fire!"]
+        elif fgp and fgp >= .54:
+            pool = [f"{sur} doesn't miss much, and when he gets a look, it's splash city!",
+                    f"{sur} finishes everything around the rim. Buckets!",
+                    f"Soft touch, sweet stroke, that's {sur} for the {team}!"]
+        else:
+            pool = [f"{sur} is the sneaky one in the bunch, and sneaky is our favorite flavor!",
+                    f"Don't sleep on {sur}. Ohhh, don't you dare sleep on {sur}!",
+                    f"{sur} at a big number, and buddy, that one's got sizzle!",
+                    f"Here comes {sur} for the {team}, flying under the radar!"]
+        pool = [x for x in pool if x not in used] or pool
+        ln = _pk(pool, K); used.add(ln); lines.append(ln)
     # MOONVOICE-2026-10-24, owner: "dont need to talk about 2 of 4 and we hit in the ticket write ups for basketball.
     # just the hornets announcer language" -- the tail is pure call, no payout mechanics.
     tail = _pk(["Buckle up, buddy, this one's got some juice!",
@@ -240,7 +271,7 @@ def moon_note(names, salt):
                 "If this one lands, they'll hear it all the way up I-85!",
                 "Get your popcorn ready, baby, it's showtime!",
                 "WHOOOA, now THAT is a ticket with some sizzle!"], salt + 't')
-    return opener + ' ' + tail
+    return ' '.join([opener] + lines + [tail])
 
 
 def note(n, r, st, gm, salt):
@@ -493,7 +524,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         risk = round(F.RR_UNIT * F.rr_combos(len(legs)), 2)
         first = min(legs, key=lambda l: (games.get(l['game']) or {}).get('ko', 0))
         T.append(dict(name=MOON_NAMES[(doy + i) % len(MOON_NAMES)], kind='moon', badge='🚀',
-                      note=moon_note([x['name'] for x in m], date + str(i)),
+                      note=moon_note([x['name'] for x in m], date + str(i), info=lambda n: (TEAM_NAME.get(P[n]['code'], P[n]['code']), bool(P[n]['jumper']), P[n]['ptip'] or .5, st.P.get(st.key(n, team=P[n]['code'])) or {})),
                       players=legs, nlegs=len(legs), anchor=m[0]['name'], lock=re.sub(r'\s*ET\s*$', '', first['gtime']),
                       has_late=False, final=False, wxsum={}, confleg=0, locked=False, priced=True,
                       rr=dict(struct='by 2s, 3s & 4', risk=risk, maxprofit=round(F.rr_maxprofit([l['odds'] for l in legs]), 2),
