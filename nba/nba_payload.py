@@ -462,14 +462,15 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     return dict(c, picked_at=stamp)
                 return None
             for i, a in enumerate(list(board['anchors'])):
-                if (a['name'] in P and not blocked(P[a['name']]['code'], a['name'])) or _st(a): continue
+                dup = any(b['game'] == a['game'] for b in board['anchors'][:i])   # ANCHOR1G: a second anchor from one game
+                if ((a['name'] in P and not blocked(P[a['name']]['code'], a['name'])) and not dup) or _st(a): continue
                 mine = [m for m in board['moons'] if m and m[0]['name'] == a['name']]
                 if any(_st(x) for m in mine for x in m[1:]):
                     continue                         # one of his slips is already live: the slip stands as placed
-                avoid = {x['game'] for m in mine for x in m[1:]}
+                avoid = {x['game'] for m in mine for x in m[1:]} | {b['game'] for k, b in enumerate(board['anchors']) if k != i}   # ANCHOR1G
                 r = _next(avoid)
                 if r:
-                    print(f"  re-pick: anchor {a['name']} out of the five -> {r['name']}")
+                    print(f"  re-pick: anchor {a['name']} {'shares a game with another anchor' if dup else 'out of the five'} -> {r['name']}")
                     board['anchors'][i] = r
                     for m in mine: m[0] = r
                     fresh = True

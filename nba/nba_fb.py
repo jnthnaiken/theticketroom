@@ -282,8 +282,17 @@ def draft_board(cands):
     """-> {'anchors': [cand...], 'moons': [[cand x MOON_LEGS]...]} (only fully filled moons ship)."""
     import itertools
     pool = draft_pool(cands)
-    anchors = pool[:N_ANCHORS]
-    rest = pool[N_ANCHORS:]
+    # ANCHOR1G-2026-10-24. Owner, on P.J. Washington Jr. and Naji Marshall (both DAL, SAS@DAL) anchoring together:
+    # "two anchors from not only the same game, but the same team ... we really think thats smart? cause i dont".
+    # Only one man can score a game's first basket, so two anchors from one game can never both win. Anchors are now
+    # the best value from each of N_ANCHORS different games. Backtest 2021-26: anchors +1,055u either way (36.9% ROI vs
+    # 35.6%, 2,862 bets vs 2,964); board +3,549u vs +3,861u, the gap all moon noise in 2023 (better in the other 4).
+    anchors, ag = [], set()
+    for c in pool:
+        if c['game'] in ag: continue
+        anchors.append(c); ag.add(c['game'])
+        if len(anchors) == N_ANCHORS: break
+    rest = [c for c in pool if c not in anchors]
     moons = []
     for a in anchors:
         ok = [c for c in rest if c['game'] != a['game']]

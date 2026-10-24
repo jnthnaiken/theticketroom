@@ -134,7 +134,11 @@ for g in range(1, 13):
 _b = F.draft_board(_c)
 check(len(_b['anchors']) == 4, 'bbdraft: four anchors')
 _val = sorted(_c, key=lambda c: -F.value(c))
-check([a['name'] for a in _b['anchors']] == [c['name'] for c in F.draft_pool(_c)[:4]], 'bbdraft: anchors are the four best values')
+_ag = []
+for c in F.draft_pool(_c):
+    if c['game'] not in {x['game'] for x in _ag}: _ag.append(c)
+check([a['name'] for a in _b['anchors']] == [c['name'] for c in _ag[:4]], 'bbdraft: anchors are the best value from four different games')
+check(len({a['game'] for a in _b['anchors']}) == len(_b['anchors']), 'bbdraft: one anchor per game (ANCHOR1G)')
 check(all(len(m) == 4 and len({x['game'] for x in m}) == 4 for m in _b['moons']), 'bbdraft: moons are 4 legs from 4 games')
 check(len(_b['moons']) == 8, 'bbdraft: two moons per anchor on a deep slate')
 check(all(_b['moons'][i][0] is _b['moons'][i + 1][0] and len({x['name'] for x in _b['moons'][i][1:]} - {x['name'] for x in _b['moons'][i + 1][1:]}) >= F.MOON_DIFF
