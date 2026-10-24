@@ -1,0 +1,684 @@
+{
+ "kind": "goalline",
+ "date": "2026-10-24",
+ "picked_at": "2026-10-24T08:50Z",
+ "legs": [
+  {
+   "match": "cagliari-v-bologna",
+   "mkt": "TH",
+   "side": "O",
+   "line": 0.5,
+   "price": 1.4,
+   "best": 1.4,
+   "est": 1.4141138476877897,
+   "p": 0.67619664010357,
+   "pm": 0.6671289075894679,
+   "label": "Cagliari to score"
+  },
+  {
+   "match": "columbus-crew-v-toronto-fc",
+   "mkt": "TG",
+   "side": "O",
+   "line": 2.5,
+   "price": 1.4761904761904763,
+   "best": 1.4761904761904763,
+   "est": 1.4084763295360914,
+   "p": 0.6732362256852362,
+   "pm": 0.6697991344489402,
+   "label": "Match over 2.5 goals"
+  },
+  {
+   "match": "rb-leipzig-v-sv-elversberg",
+   "mkt": "BT",
+   "side": "Y",
+   "line": null,
+   "price": 1.4444444444444444,
+   "best": 1.4444444444444444,
+   "est": 1.4065048060841814,
+   "p": 0.6702874943080744,
+   "pm": 0.6707380041178691,
+   "label": "Both teams to score"
+  },
+  {
+   "match": "lazio-v-parma",
+   "mkt": "TH",
+   "side": "U",
+   "line": 2.5,
+   "price": 1.4444444444444444,
+   "best": 1.4444444444444444,
+   "est": 1.4225930080184177,
+   "p": 0.6691163781268226,
+   "pm": 0.6631525820088106,
+   "label": "Lazio under 2.5 goals"
+  }
+ ],
+ "views": [
+  {
+   "match": "aston-villa-v-manchester-city",
+   "mlh": 1.2,
+   "mla": 2.1500000000000004,
+   "lh": 1.2230217003692472,
+   "la": 2.159997552764019,
+   "luck": {
+    "home": [
+     "Aston Villa",
+     -0.1756066563926172,
+     -0.1382258525573965
+    ],
+    "away": [
+     "Manchester City",
+     0.1847408688612079,
+     -0.19885203854874392
+    ]
+   }
+  },
+  {
+   "match": "rayo-vallecano-v-elche",
+   "mlh": 1.75,
+   "mla": 1.0,
+   "lh": 1.791631824187206,
+   "la": 0.9858578591457954,
+   "luck": {
+    "home": [
+     "Rayo Vallecano",
+     -0.10806076075830397,
+     0.33896356554426366
+    ],
+    "away": [
+     "Elche",
+     0.1827260598252382,
+     -0.3688137550707253
+    ]
+   }
+  },
+  {
+   "match": "cagliari-v-bologna",
+   "mlh": 1.1,
+   "mla": 1.2,
+   "lh": 1.1276188948654176,
+   "la": 1.2390327374298409,
+   "luck": {
+    "home": [
+     "Cagliari",
+     -0.4747310791906854,
+     -0.43605339362782447
+    ],
+    "away": [
+     "Bologna",
+     -0.28371873732842195,
+     -0.09484965537311021
+    ]
+   }
+  },
+  {
+   "match": "como-v-sassuolo",
+   "mlh": 2.45,
+   "mla": 1.2,
+   "lh": 2.477052499043144,
+   "la": 1.2394294943781123,
+   "luck": {
+    "home": [
+     "Como",
+     -0.3497764089507572,
+     -0.5741075090834721
+    ],
+    "away": [
+     "Sassuolo",
+     -0.1281441406474993,
+     0.14868448540301338
+    ]
+   }
+  },
+  {
+   "match": "fc-augsburg-v-1-fc-union-berlin",
+   "mlh": 2.0,
+   "mla": 1.3,
+   "lh": 1.9684431746946451,
+   "la": 1.3268397193214108,
+   "luck": {
+    "home": [
+     "Augsburg",
+     0.34545371424495175,
+     -0.2173805761082287
+    ],
+    "away": [
+     "Union Berlin",
+     -0.1966099058548794,
+     0.2448265587803171
+    ]
+   }
+  },
+  {
+   "match": "fc-cologne-v-schalke-04",
+   "mlh": 1.7,
+   "mla": 1.3,
+   "lh": 1.7906626510935857,
+   "la": 1.3116058677925728,
+   "luck": {
+    "home": [
+     "FC Cologne",
+     -0.4009230853301821,
+     0.28055431057691366
+    ],
+    "away": [
+     "Schalke 04",
+     -0.44450834691669217,
+     -0.8404650832339627
+    ]
+   }
+  },
+  {
+   "match": "mainz-v-werder-bremen",
+   "mlh": 2.0,
+   "mla": 1.2,
+   "lh": 2.0129691932377227,
+   "la": 1.1833952875165972,
+   "luck": {
+    "home": [
+     "Mainz 05",
+     -0.17744651785530915,
+     0.18819179077473727
+    ],
+    "away": [
+     "Werder Bremen",
+     0.3538514673223464,
+     0.11845916362597073
+    ]
+   }
+  },
+  {
+   "match": "rb-leipzig-v-sv-elversberg",
+   "mlh": 2.7,
+   "mla": 1.25,
+   "lh": 2.733654790441965,
+   "la": 1.2428030563437487,
+   "luck": {
+    "home": [
+     "RasenBallsport Leipzig",
+     0.12486095094486514,
+     -0.1370211945652362
+    ],
+    "away": [
+     "Elversberg",
+     0.4971460270175215,
+     -0.2833185164529413
+    ]
+   }
+  },
+  {
+   "match": "sc-paderborn-07-v-hamburg-sv",
+   "mlh": 1.6500000000000001,
+   "mla": 1.45,
+   "lh": 1.6695823437138477,
+   "la": 1.4821398769393017,
+   "luck": {
+    "home": [
+     "Paderborn",
+     -0.1964500799589023,
+     -0.41912238446728295
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "arsenal-v-everton",
+   "mlh": 2.1,
+   "mla": 0.75,
+   "lh": 2.1443920102837857,
+   "la": 0.7739895891208763,
+   "luck": {
+    "home": [
+     "Arsenal",
+     -0.2945036766441984,
+     -0.2844620025473418
+    ],
+    "away": [
+     "Everton",
+     -0.4493438848563071,
+     -0.14774843596707446
+    ]
+   }
+  },
+  {
+   "match": "coventry-city-v-fulham",
+   "mlh": 1.3,
+   "mla": 1.6,
+   "lh": 1.3184601353891332,
+   "la": 1.616724365492688,
+   "luck": {
+    "home": [
+     "Coventry",
+     0.138708281143874,
+     0.4278543820280296
+    ],
+    "away": [
+     "Fulham",
+     -0.6663222997131968,
+     -0.3380148031845165
+    ]
+   }
+  },
+  {
+   "match": "racing-santander-v-espanyol",
+   "mlh": 1.6,
+   "mla": 1.45,
+   "lh": 1.5990911136858497,
+   "la": 1.4160686212902744,
+   "luck": {
+    "home": [
+     "Racing Santander",
+     0.2516232077411931,
+     0.8389575555056472
+    ],
+    "away": [
+     "Espanyol",
+     -0.13128099931128834,
+     -0.06297261855298075
+    ]
+   }
+  },
+  {
+   "match": "napoli-v-as-roma",
+   "mlh": 1.35,
+   "mla": 1.4000000000000001,
+   "lh": 1.4062393305185448,
+   "la": 1.4208849809360902,
+   "luck": {
+    "home": [
+     "Napoli",
+     -0.4127172535239381,
+     -0.11768203145567231
+    ],
+    "away": [
+     "Roma",
+     -0.1463084210218066,
+     -0.5499987114765891
+    ]
+   }
+  },
+  {
+   "match": "borussia-dortmund-v-eintracht-frankfurt",
+   "mlh": 2.45,
+   "mla": 1.2,
+   "lh": 2.473501129623608,
+   "la": 1.2252544561256073,
+   "luck": {
+    "home": [
+     "Borussia Dortmund",
+     -0.2980899101019112,
+     -0.23088883670327928
+    ],
+    "away": [
+     "Eintracht Frankfurt",
+     -0.19223596180816063,
+     0.14162778639974852
+    ]
+   }
+  },
+  {
+   "match": "chelsea-v-tottenham-hotspur",
+   "mlh": 2.0,
+   "mla": 1.3,
+   "lh": 1.9721766601231312,
+   "la": 1.3156568535292021,
+   "luck": {
+    "home": [
+     "Chelsea",
+     0.5466915264335926,
+     -0.011641407168323837
+    ],
+    "away": [
+     "Tottenham",
+     -0.1877487811338903,
+     0.02896296408775649
+    ]
+   }
+  },
+  {
+   "match": "valencia-v-villarreal",
+   "mlh": 1.2,
+   "mla": 1.6,
+   "lh": 1.221053317827858,
+   "la": 1.6373882849450603,
+   "luck": {
+    "home": [
+     "Valencia",
+     -0.3044122747676927,
+     0.11007209080910554
+    ],
+    "away": [
+     "Villarreal",
+     -0.6687702455081191,
+     -0.050664957167293266
+    ]
+   }
+  },
+  {
+   "match": "cf-montreal-v-nashville-sc",
+   "mlh": 1.0,
+   "mla": 2.1,
+   "lh": 1.0052939637654097,
+   "la": 2.1111173239073606,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "lazio-v-parma",
+   "mlh": 2.0500000000000003,
+   "mla": 0.65,
+   "lh": 2.0279559106966807,
+   "la": 0.6676395502797847,
+   "luck": {
+    "home": [
+     "Lazio",
+     0.4961797846278793,
+     -0.34829622391478404
+    ],
+    "away": [
+     "Parma Calcio 1913",
+     -0.231019486792631,
+     -0.009362813110463953
+    ]
+   }
+  },
+  {
+   "match": "lens-v-paris-fc",
+   "mlh": 1.55,
+   "mla": 1.5,
+   "lh": 1.5294713708277425,
+   "la": 1.493626455042266,
+   "luck": {
+    "home": [
+     "Lens",
+     0.09187323465779856,
+     0.05130240218798052
+    ],
+    "away": [
+     "Paris FC",
+     0.2260658336823493,
+     0.39195191553402814
+    ]
+   }
+  },
+  {
+   "match": "atletico-madrid-v-deportivo",
+   "mlh": 2.45,
+   "mla": 0.7,
+   "lh": 2.4395350484867366,
+   "la": 0.7018715665239115,
+   "luck": {
+    "home": [
+     "Atletico Madrid",
+     -0.0014715369324455093,
+     0.05583034076144288
+    ],
+    "away": [
+     "Deportivo La Coruna",
+     0.011840825607670528,
+     0.2419889927857747
+    ]
+   }
+  },
+  {
+   "match": "columbus-crew-v-toronto-fc",
+   "mlh": 2.2,
+   "mla": 1.25,
+   "lh": 2.2116467202839014,
+   "la": 1.2566174547067621,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "red-bull-new-york-v-inter-miami-cf",
+   "mlh": 1.6,
+   "mla": 2.35,
+   "lh": 1.6120776787906654,
+   "la": 2.355130737606522,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     "Inter",
+     0.09340227008300268,
+     -0.0564140396148295
+    ]
+   }
+  },
+  {
+   "match": "atlanta-united-fc-v-chicago-fire-fc",
+   "mlh": 1.6500000000000001,
+   "mla": 1.75,
+   "lh": 1.6587350402129262,
+   "la": 1.759264436589467,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "d-c-united-v-fc-cincinnati",
+   "mlh": 1.75,
+   "mla": 1.95,
+   "lh": 1.759264436589467,
+   "la": 1.9603232293425488,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "orlando-city-sc-v-new-york-city-fc",
+   "mlh": 1.9000000000000001,
+   "mla": 1.6,
+   "lh": 1.9100585311542786,
+   "la": 1.6084703420246556,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "philadelphia-union-v-new-england-revolution",
+   "mlh": 2.35,
+   "mla": 1.1500000000000001,
+   "lh": 2.362440814848713,
+   "la": 1.1560880583302213,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "fc-dallas-v-san-jose-earthquakes",
+   "mlh": 2.0500000000000003,
+   "mla": 1.3,
+   "lh": 2.06085262571909,
+   "la": 1.3068821528950327,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "houston-dynamo-fc-v-minnesota-united-fc",
+   "mlh": 1.6500000000000001,
+   "mla": 1.3,
+   "lh": 1.6587350402129262,
+   "la": 1.3068821528950327,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "sporting-kansas-city-v-austin-fc",
+   "mlh": 1.8,
+   "mla": 1.55,
+   "lh": 1.8095291347777376,
+   "la": 1.5582056438363852,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "colorado-rapids-v-vancouver-whitecaps",
+   "mlh": 1.35,
+   "mla": 1.7,
+   "lh": 1.3571468510833031,
+   "la": 1.7089997384011963,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "real-salt-lake-v-st-louis-city-sc",
+   "mlh": 1.75,
+   "mla": 1.55,
+   "lh": 1.759264436589467,
+   "la": 1.5582056438363852,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "portland-timbers-v-charlotte-fc",
+   "mlh": 2.0500000000000003,
+   "mla": 1.6,
+   "lh": 2.06085262571909,
+   "la": 1.6084703420246556,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "match": "san-diego-fc-v-seattle-sounders-fc",
+   "mlh": 1.85,
+   "mla": 1.6500000000000001,
+   "lh": 1.859793832966008,
+   "la": 1.6587350402129262,
+   "luck": {
+    "home": [
+     null,
+     null,
+     null
+    ],
+    "away": [
+     null,
+     null,
+     null
+    ]
+   }
+  }
+ ]
+}
