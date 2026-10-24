@@ -278,20 +278,36 @@ def draft_pool(cands):
 # = 1.10u a moon). Backtest 2021-26 (nba/research/bball_fill4.py): 6.4 moons/night, 4,843 moons, +7,016u at 0.25u
 # = +2,806u at 0.10u (+52.7%), seasons +2507/+548/+3340/+933/-313 at 0.25u; board with 1u anchors +3,861u on
 # 8,291u (+46.6%). Supersedes MOONFILL's sibling-disjoint snake (+2,425u, +19.5%).
-def draft_board(cands):
-    """-> {'anchors': [cand...], 'moons': [[cand x MOON_LEGS]...]} (only fully filled moons ship)."""
+def draft_board(cands, fav=False):
+    """-> {'anchors': [cand...], 'moons': [[cand x MOON_LEGS]...]} (only fully filled moons ship).
+    FAVANCHOR-2026-10-24 (fav=True): anchors are the MOST LIKELY first scorer from each of N_ANCHORS different games
+    (all eligible priced starters), the partners still come from the value pool."""
     import itertools
     pool = draft_pool(cands)
+    if fav and pool:
+        # Owner: "i still feel like the anchors should be favorites and then the rest should be picked like we are
+        # now" -> option 2, "i think 2" (favourites lead the moons, no anchor singles). Backtest 2021-26 at FanDuel:
+        # moons cash 7.7% (5.8% with value anchors), anchor leg hits 17.3% (11.6%), board +9,847u on 5,694u staked
+        # (+172.9%) vs +3,549u on 8,131u, max drawdown 371u vs 573u, all 5 seasons up; +1,714u without the 10
+        # biggest cashes (value anchors: -221u). Favourite singles alone lose -3.6%, so they are not bet.
+        anchors, ag = [], set()
+        for c in sorted(cands, key=lambda c: -c['p']):
+            if c['game'] in ag: continue
+            anchors.append(c); ag.add(c['game'])
+            if len(anchors) == N_ANCHORS: break
+        names_a = {c['name'] for c in anchors}
+        pool = anchors + [c for c in pool if c['name'] not in names_a]
     # ANCHOR1G-2026-10-24. Owner, on P.J. Washington Jr. and Naji Marshall (both DAL, SAS@DAL) anchoring together:
     # "two anchors from not only the same game, but the same team ... we really think thats smart? cause i dont".
     # Only one man can score a game's first basket, so two anchors from one game can never both win. Anchors are now
     # the best value from each of N_ANCHORS different games. Backtest 2021-26: anchors +1,055u either way (36.9% ROI vs
     # 35.6%, 2,862 bets vs 2,964); board +3,549u vs +3,861u, the gap all moon noise in 2023 (better in the other 4).
-    anchors, ag = [], set()
-    for c in pool:
-        if c['game'] in ag: continue
-        anchors.append(c); ag.add(c['game'])
-        if len(anchors) == N_ANCHORS: break
+    if not (fav and pool):
+        anchors, ag = [], set()
+        for c in pool:
+            if c['game'] in ag: continue
+            anchors.append(c); ag.add(c['game'])
+            if len(anchors) == N_ANCHORS: break
     rest = [c for c in pool if c not in anchors]
     moons = []
     for a in anchors:

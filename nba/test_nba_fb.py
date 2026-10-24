@@ -146,6 +146,16 @@ check(all(_b['moons'][i][0] is _b['moons'][i + 1][0] and len({x['name'] for x in
 check(len({tuple(sorted(x['name'] for x in m)) for m in _b['moons']}) == len(_b['moons']), 'bbdraft: no duplicate moons')
 check(F.rr_combos(4) == 11 and abs(F.RR_UNIT * F.rr_combos(4) - 1.10) < 1e-9, 'bbdraft: 11 bets x 0.10u')
 check(F.draft_board(_c[:5])['anchors'] == [], 'bbdraft: thin slate drafts nothing')
+# ---- FAVANCHOR-2026-10-24: favourites lead the moons, value partners ----
+_f = F.draft_board(_c, fav=True)
+_fav = []
+for c in sorted(_c, key=lambda c: -c['p']):
+    if c['game'] not in {x['game'] for x in _fav}: _fav.append(c)
+check([a['name'] for a in _f['anchors']] == [c['name'] for c in _fav[:4]], 'favanchor: anchors are the most likely from four different games')
+_vp = {c['name'] for c in F.draft_pool(_c)}
+check(all(x['name'] in _vp for m in _f['moons'] for x in m[1:]), 'favanchor: moon partners come from the value pool')
+check(all(m[0] is _f['anchors'][i // 2] for i, m in enumerate(_f['moons'])) and len(_f['moons']) == 8, 'favanchor: two moons per favourite anchor')
+check(F.draft_board(_c[:5], fav=True)['anchors'] == [], 'favanchor: thin slate drafts nothing')
 
 shutil.rmtree(tmp, ignore_errors=True)
 print(f'\n{len(fails)} failure(s)')

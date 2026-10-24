@@ -11,7 +11,7 @@ straight single. Example names are retired legends, never a live pick.
 import json, sys
 
 HOWTO = {
- "sub": "Every ⚡ anchor on the board is a single, laid out like this one. Hover a label to trace its line; on a phone, tap a number.",
+ "sub": "Every leg on the board reads like this card. Hover a label to trace its line; on a phone, tap a number.",
  "slip": {
   "badge": "⚡",
   "name": "Jump Ball",
@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "One unit on every anchor. Moonshots are 1.10u round robins (11 bets at 0.10u)."
+   "Moonshots are 1.10u round robins (11 bets at 0.10u). The ⚡ anchor leads two of them and is not bet on his own."
   ],
   "3": [
    "Price",
@@ -41,7 +41,7 @@ HOWTO = {
   ],
   "4": [
    "Payout",
-   "What $10 (one unit) returns if he makes the first field goal."
+   "What $10 on him alone would return if he makes the first field goal."
   ],
   "5": [
    "First basket",
@@ -49,7 +49,7 @@ HOWTO = {
   ],
   "6": [
    "Team · game · tip",
-   "Four anchors a night, the best values on the slate."
+   "Four anchors a night, one from each of four different games."
   ],
   "7": [
    "Status",
@@ -57,7 +57,7 @@ HOWTO = {
   ],
   "8": [
    "The pick",
-   "One of the night’s four best values: our chance against his FanDuel price."
+   "An anchor is the most likely first scorer in his game, by our model with the books blended in."
   ],
   "9": [
    "⚠ Flag",
@@ -79,7 +79,7 @@ HOWTO = {
  "steps": [
   [
    "Start on Tickets — tonight’s ⚡ Anchors and 🚀 Moonshots.",
-   "An anchor is a 1u straight bet on one starter to make his game’s first field goal; a Moonshot round-robins four of them. The card at the top is the season ledger, graded live."
+   "An anchor is the most likely first scorer in his game; he leads two Moonshots, each a round robin of four first-basket picks. The card at the top is the season ledger, graded live."
   ],
   [
    "Check the lock line before you act on anything.",
@@ -102,12 +102,12 @@ HOWTO = {
   [
    "⚡",
    "Anchors",
-   "The four best values on the slate: our chance times FanDuel’s price, the starters the price undersells most. Each is a 1u straight bet on him making his game’s first field goal."
+   "The most likely first scorer from each of four different games, by our model with the books blended in. Each one leads two Moonshots; they are not bet on their own."
   ],
   [
    "🚀",
    "Moonshots",
-   "Two per anchor: the anchor plus three more value picks from three other games, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs. Any two of the four cashing pays. They only post on nights deep enough to fill them."
+   "Two per anchor: the anchor plus three value picks from three other games, the starters FanDuel's price undersells most, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs."
   ],
   [
    "⭕",

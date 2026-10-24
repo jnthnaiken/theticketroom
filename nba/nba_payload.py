@@ -231,7 +231,8 @@ def why(n, r, st, gm, salt=''):
     return f"{n} {body}!"
 
 
-BOARD_FROM = '2026-10-24'   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
+BOARD_FROM = '2026-10-24'
+FAV_FROM = '2026-10-25'      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
               'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
               'Heat Check', 'Buzzer Beater', 'Showtime']
@@ -445,7 +446,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     else:
         board = cached.get('board') if cached else None
         if board is None:
-            board = F.draft_board(cands); fresh = True
+            board = F.draft_board(cands, fav=date >= FAV_FROM); fresh = True
             board = {'anchors': [dict(x, picked_at=stamp) for x in board['anchors']],
                      'moons': [[dict(x, picked_at=stamp) for x in m] for m in board['moons']]}
             print(f"  BBDRAFT: drafted {len(board['anchors'])} anchor(s) + {len(board['moons'])} moon(s)")
@@ -455,8 +456,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             pool = F.draft_pool(cands) or sorted(cands, key=lambda c: -F.value(c))
             def _st(x): g = games.get(x['game']) or {}; return started(dict(ko_utc=x.get('ko_utc') or g.get('ko_utc')))
             names = lambda: {x['name'] for x in board['anchors']} | {x['name'] for m in board['moons'] for x in m}
-            def _next(avoid_games):
-                for c in pool:
+            def _next(avoid_games, fav=False):
+                for c in (sorted(cands, key=lambda c: -c['p']) if fav else pool):   # FAVANCHOR: a favourite replaces a favourite
                     if c['name'] in names() or c['game'] in avoid_games: continue
                     if started(dict(ko_utc=(games.get(c['game']) or {}).get('ko_utc'))): continue
                     return dict(c, picked_at=stamp)
@@ -468,7 +469,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 if any(_st(x) for m in mine for x in m[1:]):
                     continue                         # one of his slips is already live: the slip stands as placed
                 avoid = {x['game'] for m in mine for x in m[1:]} | {b['game'] for k, b in enumerate(board['anchors']) if k != i}   # ANCHOR1G
-                r = _next(avoid)
+                r = _next(avoid, fav=date >= FAV_FROM)
                 if r:
                     print(f"  re-pick: anchor {a['name']} {'shares a game with another anchor' if dup else 'out of the five'} -> {r['name']}")
                     board['anchors'][i] = r
@@ -543,7 +544,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         p = P[n]
         return dict(name=n, team=p['team'], total=p['TOTAL'], aT=100, wf=1.0, gmatch=p['gmatch'], gtime=p['gtime'],
                     game=p['game'], late=False, odds=int(o), status=p['status'], ftd=True)
-    singles = board['anchors'] if board is not None else picks
+    singles = ([] if date >= FAV_FROM else board['anchors']) if board is not None else picks   # FAVANCHOR: anchors lead moons only
     for i, x in enumerate(singles):
         n = x['name']; p = P.get(n)
         if not p:
