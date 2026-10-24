@@ -234,35 +234,42 @@ def moon_note(names, salt, info=None):
                   f"Four games, four first baskets, and {a} is driving the bus!",
                   f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes!",
                   f"It's {a}, {rest[0]}, {rest[1]} and {rest[2]}, four tips and four chances to light it up!"], salt + 'o')
+    TIPW = ["{s} owns the center circle for the {t}, and he's been winning that tip all year long!",
+            "{s} goes up for the jump, and when he controls the tip, the {t} strike first!",
+            "Big fella {s} in the middle, and that opening tip is his house!",
+            "{s} has been winning jump balls like it's his job, and tonight it is!"]
+    TIP = ["{s} jumps center for the {t}, and the first crack at the rim starts with him!",
+           "{s} at the opening tip: first touch, first look, first chance!",
+           "It all starts in the circle, and {s} is standing right in it!",
+           "{s} rises for the {t} at center court. Win it and the ball comes right back to him!"]
+    EARLY = ["{s} gets the ball early for the {t}, and he does not hesitate!",
+             "The {t} run their first set through {s}, and he lets it fly!",
+             "{s} has the green light from the opening whistle!",
+             "First possession, first look, and {s} is ready to fire!",
+             "{s} hunts that first shot like it owes him money!",
+             "Opening minute, ball in {s}'s hands, and he is HUNGRY!"]
+    FIN = ["{s} doesn't miss much, and when he gets a look, it's splash city!",
+           "{s} finishes everything around the rim. Buckets!",
+           "Soft touch, sweet stroke, that's {s} for the {t}!",
+           "{s} makes his shots, and making shots is the whole ballgame!"]
+    SNEAK = ["{s} is the sneaky one in the bunch, and sneaky is our favorite flavor!",
+             "Don't sleep on {s}. Ohhh, don't you dare sleep on {s}!",
+             "{s} at a big number, and buddy, that one's got sizzle!",
+             "Here comes {s} for the {t}, flying under the radar!",
+             "{s} is the wild card, and wild cards win pots!",
+             "Nobody's talking about {s}, and that's exactly how we like it!"]
     lines, used = [], set()
     for n in names:
         sur = _sur(n); K = salt + '|' + n
         team, jumper, ptip, pp = info(n) if info else ('', False, .5, {})
         fgp = (pp['fgm'] / pp['fga']) if pp.get('fga') else None
-        if jumper and ptip >= .56:
-            pool = [f"{sur} owns the center circle for the {team}, and he's been winning that tip all year long!",
-                    f"{sur} goes up for the jump, and when he controls the tip, the {team} strike first!",
-                    f"Big fella {sur} in the middle, and that opening tip is his house!"]
-        elif jumper:
-            pool = [f"{sur} jumps center for the {team}, and the first crack at the rim starts with him!",
-                    f"{sur} at the opening tip, first touch, first look, first chance!",
-                    f"It all starts in the circle, and {sur} is standing right in it!"]
-        elif (pp.get('ef') or 0) >= .24 or (pp.get('tf') or 0) >= .26:
-            pool = [f"{sur} gets the ball early for the {team}, and he does not hesitate!",
-                    f"The {team} run their first set through {sur}, and he lets it fly!",
-                    f"{sur} has the green light from the opening whistle!",
-                    f"First possession, first look, and {sur} is ready to fire!"]
-        elif fgp and fgp >= .54:
-            pool = [f"{sur} doesn't miss much, and when he gets a look, it's splash city!",
-                    f"{sur} finishes everything around the rim. Buckets!",
-                    f"Soft touch, sweet stroke, that's {sur} for the {team}!"]
-        else:
-            pool = [f"{sur} is the sneaky one in the bunch, and sneaky is our favorite flavor!",
-                    f"Don't sleep on {sur}. Ohhh, don't you dare sleep on {sur}!",
-                    f"{sur} at a big number, and buddy, that one's got sizzle!",
-                    f"Here comes {sur} for the {team}, flying under the radar!"]
-        pool = [x for x in pool if x not in used] or pool
-        ln = _pk(pool, K); used.add(ln); lines.append(ln)
+        if jumper and ptip >= .56: pool = TIPW + TIP
+        elif jumper: pool = TIP
+        elif (pp.get('ef') or 0) >= .24 or (pp.get('tf') or 0) >= .26: pool = EARLY
+        elif fgp and fgp >= .54: pool = FIN
+        else: pool = SNEAK
+        free = [x for x in pool if x not in used] or [x for x in SNEAK + EARLY + FIN if x not in used] or pool
+        tpl = _pk(free, K); used.add(tpl); lines.append(tpl.format(s=sur, t=team or 'squad'))
     # MOONVOICE-2026-10-24, owner: "dont need to talk about 2 of 4 and we hit in the ticket write ups for basketball.
     # just the hornets announcer language" -- the tail is pure call, no payout mechanics.
     tail = _pk(["Buckle up, buddy, this one's got some juice!",
