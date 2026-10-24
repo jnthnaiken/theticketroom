@@ -72,6 +72,8 @@ def parse_books(s):
 
 RWALIAS = {'NY': 'NYK', 'SA': 'SAS', 'GS': 'GSW', 'NO': 'NOP', 'PHO': 'PHX', 'UTAH': 'UTA', 'WSH': 'WAS', 'BKN': 'BKN'}
 RW = {}
+INJ = {}          # RWINJ-2026-10-24: (team, name key) -> RotoWire tag; Ques / Doubt / Out / GTD never anchor or leg
+BLOCK_TAGS = ('ques', 'doubt', 'out', 'gtd', 'susp')
 
 
 def _nk(n):
@@ -81,10 +83,21 @@ def _nk(n):
     return re.sub(r'[^a-z ]', '', n).split()
 
 
-def rw_confirm(T, priced_names):
-    """RWLINEUP: RotoWire's CONFIRMED five for team T, joined to that team's priced names; None unless all five join."""
+def blocked(T, n):
+    """RWINJ: RotoWire tags him questionable / doubtful / out / game-time -- he never anchors or legs a slip."""
+    tag = INJ.get((T, ' '.join(_nk(n))))
+    if tag is None:   # RotoWire abbreviates the MAY NOT PLAY list ("A. Diallo"): initial + surname, unique
+        t = _nk(n)
+        c = [v for (tt, kk), v in INJ.items() if tt == T and t and kk.split() and kk.split()[-1] == t[-1] and kk[0] == t[0][0]]
+        tag = c[0] if len(c) == 1 else None
+    return bool(tag) and str(tag).strip().lower().startswith(BLOCK_TAGS)
+
+
+def rw_confirm(T, priced_names, want=('confirmed',)):
+    """RWLINEUP: RotoWire's five for team T (CONFIRMED by default; RWEXPECTED-2026-10-24 also takes 'expected'),
+    joined to that team's priced names; None unless all five join."""
     r = RW.get(T)
-    if not r or r['status'] != 'confirmed' or len(r['five']) != 5:
+    if not r or r['status'] not in want or len(r['five']) != 5:
         return None
     keyed = {' '.join(_nk(n)): n for n in priced_names}
     out = []
@@ -104,11 +117,16 @@ def rw_confirm(T, priced_names):
 
 def read_slate(path, date):
     E, L, S = {}, {}, {}
-    RW.clear()
+    RW.clear(); INJ.clear()
     for line in open(path, encoding='utf-8'):
         r = line.rstrip('\n').split('|')
         if r and r[0] == 'R' and len(r) > 5 and r[1] == date:   # RWLINEUP-2026-10-20 (fb_fetch.js rotowire())
-            RW.setdefault(code(RWALIAS.get(r[2], r[2])), {'status': r[4], 'five': []})['five'].append(r[5])
+            T_ = code(RWALIAS.get(r[2], r[2]))
+            RW.setdefault(T_, {'status': r[4], 'five': []})['five'].append(r[5])
+            if len(r) > 6 and r[6]: INJ[(T_, ' '.join(_nk(r[5])))] = r[6]
+            continue
+        if r and r[0] == 'I' and len(r) > 4 and r[1] == date:      # RWINJ-2026-10-24: MAY NOT PLAY list
+            INJ[(code(RWALIAS.get(r[2], r[2])), ' '.join(_nk(r[3])))] = r[4]
             continue
         if not r or r[0] not in ('E', 'L', 'S') or (len(r) > 1 and r[1] != date):
             continue
@@ -336,11 +354,21 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         meta_ko[str(gi)] = t0.hour * 60 + t0.minute
         starters, src = starters_for(ev, L.get(ev['eid'], []), st, S.get(ev['eid'], {}))
         for T in (ev['H'], ev['V']):
-            five = rw_confirm(T, [n for n, r in (S.get(ev['eid'], {}) or {}).items() if r.get('team') == T])
+            priced_T = [n for n, r in (S.get(ev['eid'], {}) or {}).items() if r.get('team') == T]
+            five = rw_confirm(T, priced_T)
             if five:
                 if set(five) != set(starters.get(T) or []):
                     print(f'  RWLINEUP {T}: confirmed five differs from the priced guess -> {five}')
                 starters[T] = five; src[T] = 'confirmed'
+            elif src.get(T) in ('priced', 'none'):
+                # RWEXPECTED-2026-10-24. Owner, on Alpha Diallo (DEN, questionable, not in anyone's five) anchoring:
+                # "why on gods green earth is diallo on the board". With no BettingPros lineup the five was the five
+                # shortest prices -- a bench man at +1100 squeezed in. RotoWire's EXPECTED five beats a price guess.
+                five = rw_confirm(T, priced_T, want=('expected',))
+                if five:
+                    if set(five) != set(starters.get(T) or []):
+                        print(f'  RWEXPECTED {T}: expected five replaces the priced guess -> {five}')
+                    starters[T] = five; src[T] = 'expected'
         if len(starters.get(ev['H'], [])) != 5 or len(starters.get(ev['V'], [])) != 5:
             continue
         probs = F.game_probs(st, ev['H'], ev['V'], starters, params)
@@ -378,8 +406,10 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 ev=(round(ev_, 3) if ev_ is not None else None), jumper=r['jumper'], ptip=round(r['ptip'], 3),
                 pteam=round(r['pteam'], 3), share=round(r['share'], 3), fgp=(round(fgp, 3) if fgp else None),
                 ftd1=None, mkt_z=None, edge_z=None, blend=None, basis=src.get(T), basis_games=sp.get('nst'))
-            if ev_ is not None:
+            if ev_ is not None and not blocked(T, n):
                 cands.append(dict(game=gi, name=n, ev=ev_, odds=int(round(fd)), p=r['pb'], ko=games[gi]['ko']))
+            elif blocked(T, n):
+                print(f'  RWINJ: {n} ({T}) tagged {INJ.get((T, " ".join(_nk(n))))!r} -- not draftable')
     # ---- picks, sticky ----
     # ---- picks, sticky (PICKSTICKY-2026-10-17) ----
     # A posted pick never moves. Two exceptions, both before HIS game tips: he drops out of his team's five
@@ -432,7 +462,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     return dict(c, picked_at=stamp)
                 return None
             for i, a in enumerate(list(board['anchors'])):
-                if a['name'] in P or _st(a): continue
+                if (a['name'] in P and not blocked(P[a['name']]['code'], a['name'])) or _st(a): continue
                 mine = [m for m in board['moons'] if m and m[0]['name'] == a['name']]
                 if any(_st(x) for m in mine for x in m[1:]):
                     continue                         # one of his slips is already live: the slip stands as placed
@@ -446,7 +476,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             for m in board['moons']:
                 if any(_st(x) for x in m): continue  # a slip with a leg underway is placed: it stands
                 for j in range(1, len(m)):
-                    if m[j]['name'] in P: continue
+                    if m[j]['name'] in P and not blocked(P[m[j]['name']]['code'], m[j]['name']): continue
                     r = _next({x['game'] for k, x in enumerate(m) if k != j})
                     if r:
                         print(f"  re-pick: moon leg {m[j]['name']} out of the five -> {r['name']}")

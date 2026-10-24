@@ -97,10 +97,16 @@ async function rotowire(date) {
     for (const [side, i] of [['visit', 0], ['home', 1]]) {
       const m = b.match(new RegExp('<ul class="lineup__list is-' + side + '"([\\s\\S]*?)</ul>'));
       if (!m) continue;
-      const body = m[1].split(/lineup__title/)[0];
+      const parts = m[1].split(/lineup__title/); const body = parts[0];
       const st = /lineup__status is-confirmed/.test(body) ? 'confirmed' : (/lineup__status is-expected/.test(body) ? 'expected' : 'unknown');
-      const five = [...body.matchAll(/<li class="lineup__player[^"]*"[\s\S]*?<a [^>]*title="([^"]+)"/g)].map(x => x[1]).slice(0, 5);
-      if (five.length === 5) five.forEach(n => out.push(['R', date, ab[i], side, st, n.replace(/&#039;|&apos;/g, "'").replace(/&amp;/g, '&')].join('|')));
+      // RWINJ-2026-10-24: each <li> may carry <span class="lineup__inj">Prob|Ques|Doubt|Out|GTD</span>; the list after
+      // the title is MAY NOT PLAY. The tag rides as a 7th field on R rows and as I rows for the may-not-play list.
+      const clean = n => n.replace(/&#039;|&apos;/g, "'").replace(/&amp;/g, '&');
+      const lis = h => [...h.matchAll(/<li class="lineup__player[^"]*"[\s\S]*?<a [^>]*title="([^"]+)"[\s\S]*?<\/li>/g)]
+        .map(x => [clean(x[1]), ((x[0].match(/lineup__inj[^>]*>\s*([^<\s][^<]*?)\s*</) || [])[1] || '')]);
+      const five = lis(body).slice(0, 5);
+      if (five.length === 5) five.forEach(([n, tag]) => out.push(['R', date, ab[i], side, st, n, tag].join('|')));
+      for (const rest of parts.slice(1)) for (const [n, tag] of lis(rest)) if (tag) out.push(['I', date, ab[i], n, tag].join('|'));
     }
   }
   return out;
@@ -115,7 +121,7 @@ async function rotowire(date) {
     try {
       const rw = await rotowire(date);
       r.rows.push(...rw);
-      console.log(`fb_fetch ${date}: rotowire ${rw.length / 5} lineup(s), ${rw.filter(x => x.includes('|confirmed|')).length / 5} confirmed`);
+      console.log(`fb_fetch ${date}: rotowire ${rw.filter(x => x[0] === 'R').length / 5} lineup(s), ${rw.filter(x => x.includes('|confirmed|')).length / 5} confirmed, ${rw.filter(x => x[0] === 'I').length} injury tag(s)`);
     } catch (e) { console.log(`::warning::rotowire lineups: ${String(e).slice(0, 150)}`); }
     console.log(`fb_fetch ${date}: ${r.games} games, ${r.prices} prices, ${r.lineups} lineup rows`);
     if (!r.games) return;
