@@ -73,6 +73,7 @@ def parse_books(s):
 
 RWALIAS = {'NY': 'NYK', 'SA': 'SAS', 'GS': 'GSW', 'NO': 'NOP', 'PHO': 'PHX', 'UTAH': 'UTA', 'WSH': 'WAS', 'BKN': 'BKN'}
 RW = {}
+BBM = {}          # BBMLINEUP-2026-10-25: basketballmonster five per team, merged into RW at the end of read_slate
 INJ = {}          # RWINJ-2026-10-24: (team, name key) -> RotoWire tag; Ques / Doubt / Out / GTD never anchor or leg
 BLOCK_TAGS = ('ques', 'doubt', 'out', 'gtd', 'susp')
 
@@ -118,13 +119,18 @@ def rw_confirm(T, priced_names, want=('confirmed',)):
 
 def read_slate(path, date):
     E, L, S = {}, {}, {}
-    RW.clear(); INJ.clear()
+    RW.clear(); INJ.clear(); BBM.clear()
     for line in open(path, encoding='utf-8'):
         r = line.rstrip('\n').split('|')
         if r and r[0] == 'R' and len(r) > 5 and r[1] == date:   # RWLINEUP-2026-10-20 (fb_fetch.js rotowire())
             T_ = code(RWALIAS.get(r[2], r[2]))
             RW.setdefault(T_, {'status': r[4], 'five': []})['five'].append(r[5])
             if len(r) > 6 and r[6]: INJ[(T_, ' '.join(_nk(r[5])))] = r[6]
+        if r and r[0] == 'B' and len(r) > 5 and r[1] == date:   # BBMLINEUP-2026-10-25 (fb_fetch.js bbm())
+            T_ = code(RWALIAS.get(r[2], r[2]))
+            BBM.setdefault(T_, {'status': r[4], 'five': []})['five'].append(r[5])
+            tg = {'Q': 'Ques', 'D': 'Doubt', 'O': 'Out', 'Out': 'Out', 'GTD': 'GTD'}.get(r[6] if len(r) > 6 else '')
+            if tg: INJ.setdefault((T_, ' '.join(_nk(r[5]))), tg)
             continue
         if r and r[0] == 'I' and len(r) > 4 and r[1] == date:      # RWINJ-2026-10-24: MAY NOT PLAY list
             INJ[(code(RWALIAS.get(r[2], r[2])), ' '.join(_nk(r[3])))] = r[4]
@@ -140,6 +146,14 @@ def read_slate(path, date):
         else:
             S.setdefault(r[2], {})[r[4]] = dict(bpid=r[3], name=r[4], pos=r[5], team=code(r[6]),
                                                 open=r[7], books=parse_books(r[9] if len(r) > 9 else ''))
+    # BBMLINEUP-2026-10-25: a VERIFIED Basketball Monster five confirms the team (it beats RotoWire to it); a projected
+    # one stands in for RotoWire's expected five. A RotoWire-confirmed team stays as it is unless BBM is verified too.
+    for T_, b in BBM.items():
+        if len(b['five']) != 5: continue
+        if b['status'] == 'verified':
+            RW[T_] = {'status': 'confirmed', 'five': b['five'], 'src': 'bbm'}
+        elif (RW.get(T_) or {}).get('status') != 'confirmed':
+            RW[T_] = {'status': 'expected', 'five': b['five'], 'src': 'bbm'}
     return E, L, S
 
 

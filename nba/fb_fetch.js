@@ -112,6 +112,39 @@ async function rotowire(date) {
   return out;
 }
 
+/* BBMLINEUP-2026-10-25. Owner, 4:47 PM: "https://basketballmonster.com/nbalineups.aspx ... use this for lineups. im
+   getting fed up ... the 5pm game is confirmed already". RotoWire flipped LAL@UTA to confirmed at 4:41 PM; Basketball
+   Monster had it verified first. Server-rendered: one table per game, header "AWY @ HOM", rows PG..C with the away
+   man in the first cell and the home man in the second; a cell is class="verified" once that starter is confirmed.
+       B|date|TEAM|visit/home|verified/projected|Full Name|tag      (tag: Q / O / D / GTD after the name, or '')
+   nba_payload.py takes a VERIFIED five over RotoWire, and a projected five over RotoWire's expected one. */
+async function bbm(date) {
+  const html = await text('https://basketballmonster.com/nbalineups.aspx');
+  const out = [];
+  const clean = n => n.replace(/&#039;|&apos;/g, "'").replace(/&amp;/g, '&').trim();
+  for (const blk of html.split(/<table class="datatable">/).slice(1)) {
+    const hm = blk.match(/<th[^>]*>\s*([A-Z]{2,4}) @ ([A-Z]{2,4})/);
+    if (!hm) continue;
+    const sides = [[], []];
+    for (const row of blk.split(/<tr>/).slice(1)) {
+      const cells = [...row.matchAll(/<td class="([^"]*)">([\s\S]*?)<\/td>/g)].filter(c => c[1] !== 'tdc');
+      if (cells.length < 2) continue;
+      cells.slice(0, 2).forEach((c, i) => {
+        const a = c[2].match(/<a [^>]*>([^<]+)<\/a>/); if (!a) return;
+        const rest = c[2].slice(c[2].indexOf('</a>')).replace(/<[^>]+>/g, ' ').replace(/&#160;?/g, ' ');
+        const tag = (rest.match(/\b(GTD|Q|O|D|Out)\b/) || [])[1] || '';
+        sides[i].push([clean(a[1]), c[1] === 'verified', tag]);
+      });
+    }
+    sides.forEach((five, i) => {
+      if (five.length !== 5) return;
+      const st = five.every(x => x[1]) ? 'verified' : 'projected';
+      five.forEach(([n, , tag]) => out.push(['B', date, hm[i + 1], i ? 'home' : 'visit', st, n, tag].join('|')));
+    });
+  }
+  return out;
+}
+
 (async () => {
   const [date, out] = process.argv.slice(2);
   if (!date || !out) { console.error('usage: fb_fetch.js <date> <out.psv>'); process.exit(2); }
@@ -123,6 +156,11 @@ async function rotowire(date) {
       r.rows.push(...rw);
       console.log(`fb_fetch ${date}: rotowire ${rw.filter(x => x[0] === 'R').length / 5} lineup(s), ${rw.filter(x => x.includes('|confirmed|')).length / 5} confirmed, ${rw.filter(x => x[0] === 'I').length} injury tag(s)`);
     } catch (e) { console.log(`::warning::rotowire lineups: ${String(e).slice(0, 150)}`); }
+    try {
+      const bm = await bbm(date);
+      r.rows.push(...bm);
+      console.log(`fb_fetch ${date}: basketballmonster ${bm.length / 5} five(s), ${bm.filter(x => x.includes('|verified|')).length / 5} verified`);
+    } catch (e) { console.log(`::warning::basketballmonster lineups: ${String(e).slice(0, 150)}`); }
     console.log(`fb_fetch ${date}: ${r.games} games, ${r.prices} prices, ${r.lineups} lineup rows`);
     if (!r.games) return;
     fs.mkdirSync(path.dirname(out), { recursive: true });
