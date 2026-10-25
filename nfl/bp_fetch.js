@@ -6,8 +6,7 @@
  * Owner, 10-24, away 10-28..11-10 with his only computer: "in theory i want this to run itself anyways".
  * oddschecker (the Chrome source) is 403 from the runner; BettingPros is not. Markets: 78 anytime TD,
  * 66 first TD. Rows are match|player|american, the same shape nfl_mock.load_prices already reads, so
- * nothing downstream changes. The price written is the BEST across books (oddschecker's column was a
- * best-price column too). D/ST and "No Touchdown" style selections are dropped at the source.
+ * nothing downstream changes. The price written is the MEDIAN across books (see med() below). D/ST and "No Touchdown" style selections are dropped at the source.
  * Exit 0 writing nothing on failure, so a committed browser slate is never overwritten by an empty one.
  */
 'use strict';
@@ -45,7 +44,11 @@ async function key() {
   throw new Error(`no key (${seen.size} scripts, ${cands.size} candidates)`);
 }
 const am = c => (c > 0 ? '+' : '') + c;
-const better = (a, b) => (a == null ? b : (b > a ? b : a));   // american: larger is a better price for the bettor
+// Median across books (in implied probability). Best-of-books picked up fringe exchange lines on the first run
+// (McCaffrey anytime +223); the median is what a reader can actually get at a mainstream book.
+const ip = c => (c > 0 ? 100 / (c + 100) : -c / (-c + 100));
+const toAm = p => Math.round(p >= 0.5 ? -100 * p / (1 - p) : 100 * (1 - p) / p);
+const med = xs => { const a = xs.slice().sort((x, y) => x - y), n = a.length; return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; };
 
 (async () => {
   const [fxPath, outDir] = process.argv.slice(2);
@@ -85,14 +88,14 @@ const better = (a, b) => (a == null ? b : (b > a ? b : a));   // american: large
             if (sample < 3) { console.log('  sample', name, slug, nm, lab, JSON.stringify((s.books || [])[0] || {}).slice(0, 160)); sample++; }
             for (const b of (s.books || [])) {
               const l = (b.lines || []).find(x => x.main) || (b.lines || [])[0];
-              if (l && !l.is_off && typeof l.cost === 'number') best[slug + '|' + nm] = better(best[slug + '|' + nm], l.cost);
+              if (l && !l.is_off && typeof l.cost === 'number' && l.cost !== 0) (best[slug + '|' + nm] = best[slug + '|' + nm] || []).push(ip(l.cost));
             }
           }
         }
         const pg = o._pagination || {};
         if (!pg.total_pages || page >= pg.total_pages) break;
       }
-      const rows = Object.entries(best).map(([k2, c]) => k2 + '|' + am(c));
+      const rows = Object.entries(best).filter(([, ps]) => ps.length).map(([k2, ps]) => k2 + '|' + am(toAm(med(ps))));
       const games = new Set(rows.map(r => r.split('|')[0])).size;
       console.log(`bp_fetch ${fx.date} ${name}: ${rows.length} prices across ${games} games`);
       if (rows.length) { fs.mkdirSync(outDir, { recursive: true }); fs.writeFileSync(path.join(outDir, name + '.psv'), rows.join('\n') + '\n'); }
