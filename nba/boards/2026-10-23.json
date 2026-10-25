@@ -6832,13 +6832,13 @@
    "pteam": 0.476,
    "share": 0.166,
    "fgp": 0.439,
-   "ftd1": true,
+   "ftd1": false,
    "mkt_z": null,
    "edge_z": null,
    "blend": null,
    "basis": "confirmed",
    "basis_games": 254,
-   "hr": true
+   "hr": false
   },
   "Domantas Sabonis": {
    "nm": "Domantas Sabonis",
@@ -6892,13 +6892,13 @@
    "pteam": 0.476,
    "share": 0.303,
    "fgp": 0.582,
-   "ftd1": false,
+   "ftd1": true,
    "mkt_z": null,
    "edge_z": null,
    "blend": null,
    "basis": "confirmed",
    "basis_games": 522,
-   "hr": false
+   "hr": true
   },
   "Damian Lillard": {
    "nm": "Damian Lillard",
@@ -8248,8 +8248,9 @@
    "9": "Ace Bailey",
    "10": "Austin Reaves",
    "11": "Zach Edey",
-   "12": "Keegan Murray"
+   "12": "Domantas Sabonis"
   },
-  "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets."
+  "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets.",
+  "fdrules": "FDRULES-2026-10-24: POR@SAC regraded by FanDuel rules (first score, free throws count): Sabonis, not Keegan Murray. No ticket held either man; ledger unchanged."
  }
 }
