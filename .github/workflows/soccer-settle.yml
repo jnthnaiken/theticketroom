@@ -48,6 +48,11 @@ name: Settle Soccer Night
 # once live. The next day's build picks the new figure up on its own. Same contract as baseball.
 
 on:
+  # SETTLEPING-2026-10-25: the hourly schedule below skipped 01:00-05:00Z on 10-25, so 10-24 sat ungraded and the
+  # board could not flip to 10-25 until it was dispatched by hand at 05:21Z. Owner is away 10-28..11-10: ride the
+  # external build-board ping (every :00/:30, demonstrably reliable) as well. Repeats are free (the guards above).
+  repository_dispatch:
+    types: [build-board]
   schedule:
     # Hourly across the window a European slate can finish in, and then some. UCL qualifiers kick
     # at 19:00Z and can run to ~22:00Z with extra time and penalties; a late La Liga game finishes
