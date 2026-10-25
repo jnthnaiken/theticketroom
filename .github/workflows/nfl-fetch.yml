@@ -10,6 +10,7 @@ on:
   schedule:
     # Owner 10-24: "i would do earlier for football. dont forget there are 9 am games overseas sometimes".
     - cron: '35 23 * * *'    # 7:35 PM EDT / 6:35 PM EST: the night before
+    - cron: '*/5 3-4 * * *'   # TEMP-SCHEDTEST-2026-10-25: does this repo's scheduler fire? remove after
     - cron: '5 10 * * *'     # 6:05 AM EDT / 5:05 AM EST: anything missed, well ahead of a 9:30 AM London/Germany kickoff
   workflow_dispatch:
     inputs:
