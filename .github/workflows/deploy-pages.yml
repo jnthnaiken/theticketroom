@@ -36,7 +36,7 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'CNAME', 'cover.html', 'mlb_offseason.html', 'mlb_showcase.py', 'mlb_showcase_D.json', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html', 'nba/index.html']
+    paths: ['index.html', 'CNAME', 'cover.html', 'mlb_offseason.html', 'mlb_showcase.py', 'mlb_showcase_D.json', 'soccer/index.html', 'soccer/soccer_D.json', 'nfl/index.html', 'nba/index.html', 'nba/nba_D.json']
   workflow_dispatch:
 
 permissions:
@@ -149,6 +149,7 @@ jobs:
           # FIRSTBASKET-2026-10-17 -- the fourth room, built by nba/nba_fork.py exactly like the football one.
           # Three places, one commit (paths above, sparse list above, this line).
           if [ -f nba/index.html ]; then mkdir -p _site/nba && cp nba/index.html _site/nba/; fi
+          [ -f nba/nba_D.json ] && cp nba/nba_D.json _site/nba/ || true   # NONESPN-2026-10-25: the live loop pulls it
           # The cover page: two doors, one to each room. It IS the front door now.
           # Also kept at /cover.html, its original URL, so nothing that already points there
           # breaks -- same file, two paths, no redirect to maintain.

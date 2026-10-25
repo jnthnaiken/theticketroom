@@ -19,7 +19,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 for _p in (HERE, os.path.join(HERE, '..', 'soccer'), os.path.join(HERE, '..', 'nfl')):
     if _p not in sys.path:
         sys.path.insert(0, _p)
-import nba_espn as E
+import nba_espn as _ESPN
+import nba_src as E   # NONESPN-2026-10-25: nba.com first, ESPN only as the last resort (same scoreboard/summary/parse)
 import nba_fb as F
 
 ZERO = {'graded': 0, 'won': 0, 'units': 0.0, 'staked': 0.0}

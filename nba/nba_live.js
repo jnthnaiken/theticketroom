@@ -223,7 +223,26 @@
       });
       if (!Object.keys(g2i).length) { stamp('no games on this board'); return Promise.resolve('unwired'); }
       var ymd = String(date).replace(/-/g, '');
-      return fetchJSON(ESPN + 'scoreboard?dates=' + ymd).then(function (sb) {
+      /* NONESPN-2026-10-25 (owner: "fuck espn dude. only use them for a last resort"). The build bakes nba.com's live
+         state (nba_livebake.py) into nba_D.json every pass; pull that first and take every game it covers. ESPN is
+         read only for a game nba.com did not cover (D.meta.nbacom.games), or when the board file can't be fetched. */
+      var covered = {};
+      function pullBoard() {
+        return fetchJSON('nba_D.json?t=' + Date.now()).then(function (F) {
+          if (!F || !F.meta || F.meta.date !== D.meta.date) return;
+          ((F.meta.nbacom && F.meta.nbacom.games) || []).forEach(function (g) { covered[Number(g)] = 1; });
+          ['gs', 'fb', 'finals', 'live', 'nbacom'].forEach(function (k) { if (F.meta[k] != null) D.meta[k] = F.meta[k]; });
+          Object.keys(F.players || {}).forEach(function (n) {
+            var p = D.players[n], q = F.players[n];
+            if (!p || !q || !covered[Number(q.game)]) return;
+            ['status', 'void', 'out', 'ftd1', 'hr'].forEach(function (k) { if (k in q) p[k] = q[k]; });
+          });
+        }).catch(function () {});
+      }
+      return pullBoard().then(function () {
+        if (Object.keys(g2i).every(function (k) { return covered[g2i[k]]; })) return null;
+        return fetchJSON(ESPN + 'scoreboard?dates=' + ymd);
+      }).then(function (sb) {
         var jobs = [];
         ((sb && sb.events) || []).forEach(function (e) {
           var c = e.competitions && e.competitions[0];
@@ -234,7 +253,7 @@
             if (t.homeAway === 'home') home = ab; else away = ab;
           });
           var gi = g2i[pairOf(away, home)];
-          if (gi == null) return;
+          if (gi == null || covered[gi]) return;   /* NONESPN: nba.com has this game */
           var state = c.status && c.status.type && c.status.type.state;
           if (state === 'pre') { applyGame(gi, e, null); return; }
           jobs.push(fetchJSON(ESPN + 'summary?event=' + e.id)
