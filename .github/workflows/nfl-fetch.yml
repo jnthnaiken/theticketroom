@@ -7,10 +7,14 @@ name: Fetch NFL slate (no browser)
 # is still written by the build on its first pass, so a later refetch can only ADD names.
 
 on:
+  # SCHEDTEST-2026-10-25: a */5 schedule on this workflow fired ZERO times in 30 minutes (03:23-03:53Z),
+  # the same failure soccer-build.yml records. The external build-board ping lands every :00/:30 all day,
+  # so that is the real trigger; the gate step below lets it through only in the fetch windows.
+  repository_dispatch:
+    types: [build-board]
   schedule:
     # Owner 10-24: "i would do earlier for football. dont forget there are 9 am games overseas sometimes".
     - cron: '35 23 * * *'    # 7:35 PM EDT / 6:35 PM EST: the night before
-    - cron: '*/5 3-4 * * *'   # TEMP-SCHEDTEST-2026-10-25: does this repo's scheduler fire? remove after
     - cron: '5 10 * * *'     # 6:05 AM EDT / 5:05 AM EST: anything missed, well ahead of a 9:30 AM London/Germany kickoff
   workflow_dispatch:
     inputs:
@@ -27,16 +31,28 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
+      - name: Gate (build-board ping only in the fetch windows)
+        id: gate
+        run: |
+          H=$(TZ=America/New_York date +%-H)
+          if [ "${{ github.event_name }}" != "repository_dispatch" ] || [ "$H" = 19 ] || [ "$H" = 6 ] || [ "$H" = 0 ]; then   # hour 0 = TEMP test window 10-25, remove
+            echo "go=true" >> $GITHUB_OUTPUT; echo "fetch window (ET hour $H, ${{ github.event_name }})"
+          else echo "go=false" >> $GITHUB_OUTPUT; echo "outside fetch window (ET hour $H)"; fi
       - uses: actions/checkout@v4
+        if: steps.gate.outputs.go == 'true'
         with:
           token: ${{ secrets.GH_PAT || github.token }}
       - uses: actions/setup-node@v4
+        if: steps.gate.outputs.go == 'true'
         with: { node-version: '20' }
       - uses: actions/setup-python@v5
+        if: steps.gate.outputs.go == 'true'
         with: { python-version: '3.12' }
-      - run: pip install --quiet pandas numpy pyarrow
+      - if: steps.gate.outputs.go == 'true'
+        run: pip install --quiet pandas numpy pyarrow
       - name: Fixtures
         id: fx
+        if: steps.gate.outputs.go == 'true'
         run: |
           cd nfl
           python3 auto_slate.py ${{ inputs.date && format('--date {0}', inputs.date) || '' }} >> $GITHUB_OUTPUT
