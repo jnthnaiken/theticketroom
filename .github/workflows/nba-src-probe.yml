@@ -1,21 +1,14 @@
 name: NBA source probe
-# NONESPN-2026-10-25 one-off: can the runner read NBA's own live data? Report -> soccer-data:trip/nbasrc.txt
+# NONESPN-2026-10-25 one-off: map nba.com __NEXT_DATA__ for live box/pbp. Report -> soccer-data:trip/nbasrc.txt
 on: { workflow_dispatch: {} }
 permissions: { contents: write }
 jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: |
-          set +e; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
-          {
-          for u in https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json https://www.nba.com/games; do
-            echo "== $u"; curl -s -A "$UA" -H "Referer: https://www.nba.com/" -H "Origin: https://www.nba.com" -o out.bin -w "HTTP %{http_code} %{size_download}\n" "$u"; head -c 300 out.bin | tr -d '\n'; echo
-          done
-          G=$(curl -s -A "$UA" -H "Referer: https://www.nba.com/" https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json | python3 -c "import json,sys;g=json.load(sys.stdin)['scoreboard']['games'];print(g[0]['gameId'])" 2>/dev/null)
-          echo "gid $G"
-          for k in boxscore playbyplay; do echo "== $k"; curl -s -A "$UA" -H "Referer: https://www.nba.com/" -o o.json -w "HTTP %{http_code} %{size_download}\n" "https://cdn.nba.com/static/json/liveData/$k/${k}_$G.json"; head -c 200 o.json; echo; done
-          } > nbasrc.txt 2>&1; cat nbasrc.txt
+          set +e; python3 tools/nbacom_probe.py > nbasrc.txt 2>&1; tail -5 nbasrc.txt
           git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
           git config --global user.email a@b.c; git config --global user.name probe
           mkdir -p d/trip && cp nbasrc.txt d/trip/nbasrc.txt && cd d && git add trip/nbasrc.txt && git commit -qm probe && git push -q
