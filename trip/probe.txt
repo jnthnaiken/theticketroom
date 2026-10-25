@@ -1,25 +1,163 @@
-oddschecker winner page            403    len=5848 no-content
-oddschecker EPL index              403    len=5848 no-content
-oddschecker NFL                    403    len=5848 no-content
-understat EPL 2026                 200    len=18698 no-content
-understat league API               404    len=461 no-content
-ESPN soccer scoreboard             200    len=49824 CONTENT-OK
-ESPN NFL scoreboard                200    len=253980 CONTENT-OK
-ASA MLS xgoals                     200    len=337062 CONTENT-OK
-DraftKings sportsbook API          403    len=447 no-content
-FanDuel sbapi NFL                  200    len=1357414 CONTENT-OK
 BettingPros key: found
-BP events NFL                      200    len=15805 events=12
-BP events EPL                      200    len=429 events=0
-BP events SOCCER                   200    len=16612 events=17
-BP events MLS                      200    len=429 events=0
-BP events LALIGA                   200    len=432 events=0
-BP events SERIEA                   200    len=432 events=0
-BP events BUNDESLIGA               200    len=436 events=0
-BP events LIGUE1                   200    len=432 events=0
-BP events UCL                      200    len=429 events=0
-BP markets NFL                     200    len=121340 
-BP markets EPL                     200    len=328 
-BP markets SOCCER                  200    len=19054 
+BP SOCCER 2026-10-25: 17 events; keys id,sr_id,sport,scheduled,season,season_type,event_name,status,home,visitor,link,series_summary,popularity,comp_id,comp_name,season_name,stage_type,venue,participants,broadcasts
+    1150866  166 v 545 2026-10-25 11:30:00
+    1159193  200 v 201 2026-10-25 13:00:00
+    1155543  360 v 369 2026-10-25 14:00:00
+    1155544  392 v 388 2026-10-25 14:00:00
+    1155546  116 v 368 2026-10-25 14:00:00
+    1155547  121 v 367 2026-10-25 14:00:00
+    1150862  191 v 556 2026-10-25 14:00:00
+    1150865  551 v 1032 2026-10-25 14:00:00
+    1159881  115 v 192 2026-10-25 14:30:00
+    1159195  196 v 202 2026-10-25 15:15:00
+    1155548  377 v 394 2026-10-25 16:30:00
+    1159882  797 v 123 2026-10-25 16:30:00
+    1150868  558 v 130 2026-10-25 17:00:00
+    1159199  197 v 204 2026-10-25 17:30:00
+    1150871  552 v 544 2026-10-25 19:45:00
+    1159196  129 v 139 2026-10-25 20:00:00
+    1065782  8277 v 8282 2026-10-26 01:00:00
+BP SOCCER 2026-10-24: 32 events; keys id,sr_id,sport,scheduled,season,season_type,event_name,status,home,visitor,link,series_summary,popularity,comp_id,comp_name,season_name,stage_type,venue,participants,broadcasts,results
+    1155540  376 v 133 2026-10-24 11:30:00
+    1159198  210 v 1062 2026-10-24 12:00:00
+    1150863  539 v 541 2026-10-24 13:00:00
+    1150864  6407 v 550 2026-10-24 13:00:00
+    1159886  803 v 790 2026-10-24 13:30:00
+    1159885  800 v 167 2026-10-24 13:30:00
+    1159884  792 v 789 2026-10-24 13:30:00
+    1159883  791 v 804 2026-10-24 13:30:00
+    1159879  135 v 5976 2026-10-24 13:30:00
+    1155539  356 v 362 2026-10-24 14:00:00
+    1155542  462 v 372 2026-10-24 14:00:00
+    1159197  1065 v 199 2026-10-24 14:15:00
+    1150869  119 v 127 2026-10-24 16:00:00
+    1155541  126 v 140 2026-10-24 16:30:00
+    1159201  171 v 205 2026-10-24 16:30:00
+    1159878  141 v 798 2026-10-24 16:30:00
+    1065769  8279 v 13369 2026-10-24 17:30:00
+    1150867  546 v 555 2026-10-24 18:45:00
+    1159194  128 v 203 2026-10-24 19:00:00
+    1065768  6666 v 8268 2026-10-24 19:30:00
+    1065770  8286 v 13370 2026-10-24 21:30:00
+    1065772  8273 v 2614 2026-10-24 23:30:00
+    1065774  8270 v 8271 2026-10-24 23:30:00
+    1065773  8272 v 8281 2026-10-24 23:30:00
+    1065771  6665 v 8285 2026-10-24 23:30:00
+    1065775  8274 v 8276 2026-10-25 00:30:00
+    1065776  8269 v 2258 2026-10-25 00:30:00
+    1065777  8280 v 14942 2026-10-25 00:30:00
+    1065778  8284 v 8278 2026-10-25 01:30:00
+    1065779  8275 v 16534 2026-10-25 01:30:00
+    1065780  8283 v 16416 2026-10-25 02:30:00
+    1065781  22568 v 6667 2026-10-25 02:30:00
+BP NFL 2026-10-25: 12 events; keys id,sr_id,sport,scheduled,season,season_type,event_name,status,home,visitor,link,series_summary,week,popularity,venue,participants,weather,broadcasts,is_free
+    21915  NO v PIT 2026-10-25 13:30:00
+    22068  MIN v IND 2026-10-25 17:00:00
+    22069  NYJ v MIA 2026-10-25 17:00:00
+    22070  BAL v CIN 2026-10-25 17:00:00
+    22071  TEN v CLE 2026-10-25 17:00:00
+    22072  CAR v TB 2026-10-25 17:00:00
+    22073  ATL v SF 2026-10-25 17:00:00
+    22074  HOU v NYG 2026-10-25 17:00:00
+    22075  ARI v DEN 2026-10-25 20:05:00
+    22076  LV v LAR 2026-10-25 20:25:00
+    22077  DET v GB 2026-10-25 20:25:00
+    22078  SEA v KC 2026-10-26 00:20:00
+BP markets SOCCER: 30; keys id,sport_id,sport,category,slug,period,stat,active,updated,sort,is_live_activity,in_prop_analyzer,validation,meta
+    {"id":413,"sport_id":11,"sport":"SOCCER","category":"player-futures","slug":"golden-boot","period":"season","stat":"goals","active":true,"updated":"2026-04-21 14:32:11","sort":3,"is_live_activity":false,"in_prop_analyzer
+    {"id":410,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"both-teams-to-score","period":"game","stat":"","active":true,"updated":"2026-03-21 16:13:37","sort":210,"is_live_activity":false,"in_prop_analyzer"
+    {"id":243,"sport_id":11,"sport":"SOCCER","category":"game-odds","slug":"total","period":"game","stat":"","active":true,"updated":"2020-06-17 01:01:51","sort":212,"is_live_activity":false,"in_prop_analyzer":false,"validat
+    {"id":245,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"first-score","period":"game","stat":"","active":true,"updated":"2020-06-17 01:01:54","sort":213,"is_live_activity":false,"in_prop_analyzer":false,"
+    {"id":244,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"first-half-result","period":"1h","stat":"","active":true,"updated":"2020-06-17 01:01:53","sort":214,"is_live_activity":false,"in_prop_analyzer":fal
+    {"id":412,"sport_id":11,"sport":"SOCCER","category":"player-props","slug":"anytime-goalscorer","period":"game","stat":"goals","active":true,"updated":"2026-03-24 20:18:02","sort":220,"is_live_activity":false,"in_prop_ana
+    {"id":422,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"total-corners","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:44","sort":230,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":467,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"total-shots","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":231,"is_live_activity":false,"in_prop_analyzer":false,"
+    {"id":468,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"total-shots-on-target","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":232,"is_live_activity":false,"in_prop_analyze
+    {"id":426,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"team-total-goals","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:44","sort":233,"is_live_activity":false,"in_prop_analyzer":fa
+    {"id":427,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"team-total-corners","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":234,"is_live_activity":false,"in_prop_analyzer":
+    {"id":469,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"team-total-shots","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":235,"is_live_activity":false,"in_prop_analyzer":fa
+    {"id":470,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"team-total-shots-on-target","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":236,"is_live_activity":false,"in_prop_an
+    {"id":471,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"team-total-tackles","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":237,"is_live_activity":false,"in_prop_analyzer":
+    {"id":472,"sport_id":11,"sport":"SOCCER","category":"game-props","slug":"team-total-fouls-committed","period":"game","stat":"","active":true,"updated":"2026-10-14 19:28:45","sort":238,"is_live_activity":false,"in_prop_an
+    {"id":417,"sport_id":11,"sport":"SOCCER","category":"player-props","slug":"first-goalscorer","period":"game","stat":"goals","active":true,"updated":"2026-10-14 19:28:44","sort":240,"is_live_activity":false,"in_prop_analy
+    {"id":461,"sport_id":11,"sport":"SOCCER","category":"player-props","slug":"goals-assists","period":"game","stat":"goals-assists","active":true,"updated":"2026-10-14 19:28:45","sort":244,"is_live_activity":false,"in_prop_
+    {"id":466,"sport_id":11,"sport":"SOCCER","category":"player-props","slug":"player-goals-allowed","period":"game","stat":"goals-allowed","active":true,"updated":"2026-10-14 19:28:45","sort":249,"is_live_activity":false,"i
+BP markets NFL: 131; keys id,sport_id,sport,category,slug,period,stat,active,updated,sort,is_live_activity,in_prop_analyzer,validation,meta
+    {"id":2,"sport_id":1,"sport":"NFL","category":"game-odds","slug":"total","period":"game","stat":"","active":true,"updated":"2020-06-17 01:03:09","sort":2,"is_live_activity":true,"in_prop_analyzer":false,"validation":{"ha
+    {"id":123,"sport_id":1,"sport":"NFL","category":"team-futures","slug":"over-under-wins","period":"season","stat":"","active":true,"updated":"2020-06-17 00:56:10","sort":7,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":49,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"most-passing-touchdowns","period":"season","stat":"pass_tds","active":true,"updated":"2020-06-17 01:04:38","sort":16,"is_live_activity":false,"in_pr
+    {"id":300,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-passing-yards","period":"season","stat":"total-passing-yards","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_activity":fals
+    {"id":301,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-rushing-yards","period":"season","stat":"total-rushing-yards","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_activity":fals
+    {"id":302,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-receiving-yards","period":"season","stat":"total-receiving-yards","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_activity":
+    {"id":303,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-interceptions","period":"season","stat":"total-interceptions","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_activity":fals
+    {"id":304,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-passing-touchdowns","period":"season","stat":"total-passing-touchdowns","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_acti
+    {"id":305,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-rushing-touchdowns","period":"season","stat":"total-rushing-touchdowns","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_acti
+    {"id":306,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-rec-touchdowns","period":"season","stat":"total-rec-touchdowns","active":true,"updated":"2020-06-17 01:04:39","sort":17,"is_live_activity":fa
+    {"id":51,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"most-receiving-touchdowns","period":"season","stat":"rec-tds","active":true,"updated":"2020-06-17 01:05:22","sort":18,"is_live_activity":false,"in_p
+    {"id":330,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"total-receptions","period":"season","stat":"total-rec-touchdowns","active":true,"updated":"2020-06-17 01:04:39","sort":18,"is_live_activity":false,
+    {"id":54,"sport_id":1,"sport":"NFL","category":"player-futures","slug":"most-rushing-touchdowns","period":"season","stat":"rush-tds","active":true,"updated":"2020-06-17 01:05:27","sort":21,"is_live_activity":false,"in_pr
+    {"id":37,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-overall-pick","period":"draft","stat":"","active":true,"updated":"2024-03-14 19:35:08","sort":30,"is_live_activity":false,"in_prop_analyzer":false,"
+    {"id":32,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-qb-drafted","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:04:09","sort":42,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":33,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-rb-drafted","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:04:11","sort":43,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":36,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-wr-drafted","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:04:16","sort":44,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":35,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-te-drafted","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:04:14","sort":45,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":26,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-cb-drafted","period":"draft","stat":"","active":true,"updated":"2024-04-02 20:37:27","sort":46,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":30,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-lb-drafted","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:04:04","sort":48,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":31,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-ol-drafted","period":"draft","stat":"","active":true,"updated":"2024-03-14 18:58:54","sort":49,"is_live_activity":false,"in_prop_analyzer":false,"va
+    {"id":27,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-def-drafted","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:54","sort":52,"is_live_activity":false,"in_prop_analyzer":false,"v
+    {"id":307,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-to-10-points","period":"game","stat":"","active":true,"updated":"2020-06-17 00:56:55","sort":81,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":308,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-to-15-points","period":"game","stat":"","active":true,"updated":"2020-06-17 00:56:55","sort":82,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":309,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-to-20-points","period":"game","stat":"","active":true,"updated":"2020-06-17 00:56:55","sort":82,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":310,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-to-25-points","period":"game","stat":"","active":true,"updated":"2023-11-06 14:22:55","sort":82,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":17,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-qb-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:39","sort":216,"is_live_activity":false,"in_prop_analyze
+    {"id":18,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-rb-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:41","sort":217,"is_live_activity":false,"in_prop_analyze
+    {"id":21,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-wr-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:45","sort":218,"is_live_activity":false,"in_prop_analyze
+    {"id":20,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-te-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:44","sort":219,"is_live_activity":false,"in_prop_analyze
+    {"id":10,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-db-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:28","sort":220,"is_live_activity":false,"in_prop_analyze
+    {"id":12,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-dl-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2024-04-02 15:27:52","sort":221,"is_live_activity":false,"in_prop_analyze
+    {"id":16,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-ol-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2020-06-17 01:03:37","sort":223,"is_live_activity":false,"in_prop_analyze
+    {"id":19,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-s-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2024-04-01 19:59:54","sort":224,"is_live_activity":false,"in_prop_analyzer
+    {"id":9,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-cb-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2024-04-02 15:27:35","sort":225,"is_live_activity":false,"in_prop_analyzer
+    {"id":15,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-off-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2024-04-02 15:27:21","sort":226,"is_live_activity":false,"in_prop_analyz
+    {"id":11,"sport_id":1,"sport":"NFL","category":"specials","slug":"total-def-drafted-in-round-1","period":"draft","stat":"","active":true,"updated":"2024-04-02 15:27:21","sort":227,"is_live_activity":false,"in_prop_analyz
+    {"id":24,"sport_id":1,"sport":"NFL","category":"specials","slug":"player-draft-round","period":"draft","stat":"","active":true,"updated":"2024-04-02 15:25:39","sort":232,"is_live_activity":false,"in_prop_analyzer":false,
+    {"id":73,"sport_id":1,"sport":"NFL","category":"player-props","slug":"most-passing-touchdowns","period":"game","stat":"pass-tds","active":true,"updated":"2020-06-17 00:54:19","sort":238,"is_live_activity":false,"in_prop_
+    {"id":368,"sport_id":1,"sport":"NFL","category":"specials","slug":"first-drafted-position-by-team","period":"draft","stat":null,"active":true,"updated":"2024-04-10 13:31:55","sort":240,"is_live_activity":false,"in_prop_a
+    {"id":102,"sport_id":1,"sport":"NFL","category":"player-props","slug":"passing-touchdowns","period":"game","stat":"pass-tds","active":true,"updated":"2020-06-17 00:54:54","sort":246,"is_live_activity":true,"in_prop_analy
+    {"id":66,"sport_id":1,"sport":"NFL","category":"player-props","slug":"first-touchdown-scored","period":"game","stat":"total_tds","active":true,"updated":"2020-06-17 00:54:07","sort":250,"is_live_activity":false,"in_prop_
+    {"id":78,"sport_id":1,"sport":"NFL","category":"player-props","slug":"touchdown-scored","period":"game","stat":"total_tds","active":true,"updated":"2020-06-17 00:54:28","sort":251,"is_live_activity":false,"in_prop_analyz
+    {"id":71,"sport_id":1,"sport":"NFL","category":"player-props","slug":"last-touchdown-scored","period":"game","stat":"total_tds","active":true,"updated":"2020-06-17 00:54:16","sort":252,"is_live_activity":false,"in_prop_a
+    {"id":334,"sport_id":1,"sport":"NFL","category":"player-props","slug":"touchdowns","period":"game","stat":"total_tds","active":true,"updated":"2026-09-17 10:02:18","sort":252,"is_live_activity":true,"in_prop_analyzer":fa
+    {"id":253,"sport_id":1,"sport":"NFL","category":"player-props","slug":"weekly-fantasy-points","period":"game","stat":"fpts","active":true,"updated":"2026-09-09 17:46:02","sort":253,"is_live_activity":false,"in_prop_analy
+    {"id":113,"sport_id":1,"sport":"NFL","category":"game-props","slug":"q1-spread","period":"1q","stat":"","active":true,"updated":"2020-06-17 00:55:13","sort":261,"is_live_activity":false,"in_prop_analyzer":false,"validati
+    {"id":98,"sport_id":1,"sport":"NFL","category":"game-props","slug":"q1-over-under","period":"1q","stat":"","active":true,"updated":"2020-06-17 00:54:48","sort":266,"is_live_activity":false,"in_prop_analyzer":false,"valid
+    {"id":64,"sport_id":1,"sport":"NFL","category":"game-props","slug":"result-after-q1","period":"1q","stat":"","active":true,"updated":"2020-06-17 00:54:03","sort":271,"is_live_activity":false,"in_prop_analyzer":false,"val
+    {"id":68,"sport_id":1,"sport":"NFL","category":"game-props","slug":"result-after-q4","period":"4q","stat":"","active":true,"updated":"2020-06-17 00:54:11","sort":274,"is_live_activity":false,"in_prop_analyzer":false,"val
+    {"id":62,"sport_id":1,"sport":"NFL","category":"game-props","slug":"result-after-h1","period":"1h","stat":"","active":true,"updated":"2020-06-17 00:53:59","sort":275,"is_live_activity":false,"in_prop_analyzer":false,"val
+    {"id":112,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-half-spread","period":"1h","stat":"","active":true,"updated":"2020-06-17 00:55:10","sort":276,"is_live_activity":false,"in_prop_analyzer":false,"
+    {"id":97,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-half-over-under","period":"1h","stat":"","active":true,"updated":"2020-06-17 00:54:46","sort":278,"is_live_activity":false,"in_prop_analyzer":fals
+    {"id":111,"sport_id":1,"sport":"NFL","category":"game-props","slug":"total-points","period":"game","stat":"","active":true,"updated":"2020-06-17 00:55:09","sort":279,"is_live_activity":false,"in_prop_analyzer":false,"val
+    {"id":108,"sport_id":1,"sport":"NFL","category":"game-props","slug":"second-half-over-under","period":"2h","stat":"","active":true,"updated":"2020-06-17 00:55:04","sort":280,"is_live_activity":false,"in_prop_analyzer":fa
+    {"id":94,"sport_id":1,"sport":"NFL","category":"game-props","slug":"safety","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:41","sort":282,"is_live_activity":false,"in_prop_analyzer":false,"validation
+    {"id":96,"sport_id":1,"sport":"NFL","category":"game-props","slug":"special-teams-touchdown","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:45","sort":284,"is_live_activity":false,"in_prop_analyzer":
+    {"id":91,"sport_id":1,"sport":"NFL","category":"game-props","slug":"team-last-touchdown","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:35","sort":285,"is_live_activity":false,"in_prop_analyzer":fals
+    {"id":90,"sport_id":1,"sport":"NFL","category":"game-props","slug":"team-first-touchdown","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:34","sort":286,"is_live_activity":false,"in_prop_analyzer":fal
+    {"id":72,"sport_id":1,"sport":"NFL","category":"game-props","slug":"longest-field-goal","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:17","sort":288,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":70,"sport_id":1,"sport":"NFL","category":"game-props","slug":"last-score-first-half","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:14","sort":289,"is_live_activity":false,"in_prop_analyzer":fa
+    {"id":69,"sport_id":1,"sport":"NFL","category":"game-props","slug":"last-score","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:12","sort":290,"is_live_activity":false,"in_prop_analyzer":false,"valida
+    {"id":67,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-timeout","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:09","sort":291,"is_live_activity":false,"in_prop_analyzer":false,"val
+    {"id":65,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-score","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:05","sort":292,"is_live_activity":false,"in_prop_analyzer":false,"valid
+    {"id":61,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-field-goal","period":"game","stat":"","active":true,"updated":"2025-02-18 12:13:14","sort":293,"is_live_activity":false,"in_prop_analyzer":false,"
+    {"id":63,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-team-penalty","period":"game","stat":"","active":true,"updated":"2020-06-17 00:54:01","sort":295,"is_live_activity":false,"in_prop_analyzer":false
+    {"id":60,"sport_id":1,"sport":"NFL","category":"game-props","slug":"first-challenge","period":"game","stat":"","active":true,"updated":"2020-06-17 00:53:56","sort":298,"is_live_activity":false,"in_prop_analyzer":false,"v
+FD EPL: 404 events=0 markets=0 types={}
+   sample events: 
+FD soccer: 200 events=145 markets=145 types={"WIN-DRAW-WIN":143,"TOP_GOALSCORER":1,"OUTRIGHT_BETTING":1}
+   sample events: 78601 UEFA Champions League 228 | 2022802 English Premier League 10932509 | 36124425 Sydney FC v Adelaide United 12117172 | 36124456 Wellington Phoenix v Central Coast Mariners 12117172 | 36177333 Crystal Palace v Newcastle 10932509 | 36177340 Hull v Brentford 10932509
+   event-page UEFA Champions League: 200 markets=1 :: 
+FD NFL: 200 events=31 markets=159 types={"REGULAR_SEASON_WINS_SGP":32,"BEST_RECORD_SGP":1,"NUMBER_X_OVERALL_PICK":1,"MAKE_PLAYOFFS_AFC_SGP":1,"MAKE_PLAYOFFS_NFC_SGP":1,"TOTAL_POINTS_(OVER/UNDER)":27,"MONEY_LINE":27,"MATCH_HANDICAP_(2-WAY)":27,"MATCH_SPECIALS_2":1,"MOST_RECEIVING_YARDS_-_SUNDAY_ONLY":2,"MATCH_SPECIALS_1":1,"MOST_PASSING_YARDS_-_SUNDAY_ONLY":1,"FIRST_TOUCHDOWN_-_SUNDAY_ONLY":1,"HIGHEST_SCORING_GAME":1,"LOWEST_SCORING_GAME
+   sample events: 28041972 NFL 12282733 | 28201235 NFL Draft 11212658 | 28297422 NFL Specials 11379418 | 34100802 NFL Futures 12721217 | 35605985 Pittsburgh Steelers @ New Orleans Saints 12282733 | 36188995 Tampa Bay Buccaneers @ Carolina Panthers 12282733
+   event-page NFL: 200 markets=3 :: MATCH_SPECIALS_2|NFL Red Zone Specials - Touchdowns
+understat getLeagueData + XHR header: 200 players=450
 curl oddschecker winner: 403
 curl understat: 200
