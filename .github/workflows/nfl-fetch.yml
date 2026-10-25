@@ -1,0 +1,67 @@
+name: Fetch NFL slate (no browser)
+
+# AUTONFL-2026-10-24. Owner is away 10-28..11-10 with his only computer, and wants the site to run
+# itself regardless. This replaces the Chrome/oddschecker step: fixtures from the nflverse schedule
+# (mkfixtures.py), anytime-TD and first-TD prices from BettingPros (bp_fetch.js). Commits
+# nfl/slates/<date>/{fixtures.json,atd.psv,ftd.psv}, then pokes nfl-build. prices.json (PRICEONCE)
+# is still written by the build on its first pass, so a later refetch can only ADD names.
+
+on:
+  schedule:
+    - cron: '35 1 * * *'     # 9:35 PM ET: the night before
+    - cron: '35 13 * * *'    # 9:35 AM ET: anything missed, before the 09:30/13:00 waves
+  workflow_dispatch:
+    inputs:
+      date: { description: "Slate date (blank = next one due)", required: false, default: "" }
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfl-fetch
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy pyarrow
+      - name: Fixtures
+        id: fx
+        run: |
+          cd nfl
+          python3 auto_slate.py ${{ inputs.date && format('--date {0}', inputs.date) || '' }} >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
+      - name: Prices
+        if: steps.fx.outputs.date != ''
+        run: |
+          cd nfl
+          D=${{ steps.fx.outputs.date }}
+          node bp_fetch.js slates/$D/fixtures.json slates/$D
+          N=$(python3 -c "import json;print(len(json.load(open('slates/$D/fixtures.json'))['matches']))")
+          G=$(cut -d'|' -f1 slates/$D/atd.psv 2>/dev/null | sort -u | wc -l)
+          echo "priced games: $G of $N"
+          if [ "$G" -lt $(( (N+1)/2 )) ]; then
+            echo "::error::only $G of $N games priced -- not committing a thin slate"; exit 1
+          fi
+      - name: Commit and build
+        if: steps.fx.outputs.date != ''
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+        run: |
+          D=${{ steps.fx.outputs.date }}
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nfl/slates/$D/fixtures.json nfl/slates/$D/atd.psv
+          [ -f nfl/slates/$D/ftd.psv ] && git add nfl/slates/$D/ftd.psv
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -m "NFL slate $D (auto fetch)"
+          for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep $((i*5)); done
+          gh api repos/${{ github.repository }}/dispatches -f event_type=build-nfl || true
