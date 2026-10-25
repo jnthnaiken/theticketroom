@@ -1,0 +1,52 @@
+name: Fetch soccer inputs (no browser)
+
+# AUTOSOCCER-2026-10-25. Owner away 10-28..11-10 with his only computer. Step 1: the Goal Line's totals
+# (tot.psv) from BettingPros (soccer/bp_tot.js). mode=dump writes nothing to the slate, it saves the raw report
+# to soccer-data:trip/bp_tot.txt for inspection. mode=commit writes slates/<date>/tot.psv and pokes soccer-build.
+on:
+  workflow_dispatch:
+    inputs:
+      date: { description: "Slate date", required: true }
+      mode: { description: "dump | commit", required: false, default: "dump" }
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-fetch
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Totals
+        run: |
+          cd soccer
+          D=${{ inputs.date }}
+          if [ "${{ inputs.mode }}" = "commit" ]; then node bp_tot.js slates/$D/fixtures.json slates/$D/tot.psv | tee ../bp_tot.txt
+          else node bp_tot.js slates/$D/fixtures.json /dev/null --dump > ../bp_tot.txt 2>&1; tail -40 ../bp_tot.txt; fi
+      - name: Save report
+        run: |
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+          git config --global user.email "actions@github.com"; git config --global user.name "soccer-fetch"
+          mkdir -p d/trip && cp bp_tot.txt d/trip/bp_tot.txt && cd d && git add trip/bp_tot.txt && git commit -qm "bp_tot report $(date -u +%FT%TZ)" && git push -q
+      - name: Commit and build
+        if: inputs.mode == 'commit'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+        run: |
+          D=${{ inputs.date }}
+          [ -s soccer/slates/$D/tot.psv ] || { echo "::error::no tot.psv written"; exit 1; }
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add soccer/slates/$D/tot.psv
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -m "Soccer totals $D (auto fetch)"
+          for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep $((i*5)); done
+          gh api repos/${{ github.repository }}/dispatches -f event_type=build-soccer || true
