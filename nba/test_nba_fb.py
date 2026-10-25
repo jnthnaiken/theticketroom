@@ -173,6 +173,16 @@ _g3 = E.parse(_fx3); _ftname = _ath[str(_other['participants'][0]['athlete']['id
 check(_g3['fs'] == _ftname and _g3['fs'] != _g3['fb'], f'fdrules: a free throw before the first field goal wins first basket ({_ftname})')
 check(_g3['fb'] == _g0['fb'], 'fdrules: the free throw does not change the first field goal')
 
+# ---- TEMPLE-2026-10-24: the build's summary line must not crash on a round-robin ticket that is not a moon ----
+import io as _io, contextlib as _cl
+_tt = [dict(kind='temple', anchor='A', parlay_am=None, ev=0.1, rr=dict(risk=1.1), players=[dict(name='Victor Wembanyama')])]
+try:
+    _s = '; '.join((f"{t['anchor']} {t['parlay_am']:+d} (ev {t['ev']:+.2f})" if not t.get('rr') else f"{t['kind']} x {t['rr']['risk']}u") for t in _tt)
+    check('temple' in _s, 'temple: summary line formats a non-moon round robin')
+except Exception as _e:
+    check(False, f'temple: summary line crashed {_e}')
+check("if not t.get('rr')" in open(os.path.join(HERE, 'nba_payload.py')).read(), 'temple: nba_payload summary keys round robins on rr, not kind')
+
 shutil.rmtree(tmp, ignore_errors=True)
 print(f'\n{len(fails)} failure(s)')
 sys.exit(1 if fails else 0)

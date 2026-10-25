@@ -633,6 +633,6 @@ if __name__ == '__main__':
     D = build(A.slate, A.state, A.date, A.cache, A.season, A.build)
     json.dump(D, open(A.out, 'w', encoding='utf-8'), ensure_ascii=False, separators=(', ', ': '))
     print(f"{A.out}: {len(D['players'])} starters, {len(D['tickets'])} pick(s): "
-          + '; '.join((f"{t['anchor']} {t['parlay_am']:+d} (ev {t['ev']:+.2f})" if t['kind'] != 'moon'
-                       else f"moon {'/'.join(l['name'].split()[-1] for l in t['players'])} {t['rr']['risk']}u")
+          + '; '.join((f"{t['anchor']} {t['parlay_am']:+d} (ev {t['ev']:+.2f})" if not t.get('rr')
+                       else f"{t['kind']} {'/'.join(_sur(l['name']) for l in t['players'])} {t['rr']['risk']}u")
                       for t in D['tickets']))
