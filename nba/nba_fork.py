@@ -60,7 +60,7 @@ def seams(payload_js):
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
     add('special-sec-late', 'var L=D.tickets.filter(t=>t.kind===\'jackpot\'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(\'\'):\'<div class="closed">\\ud83c\\udfdf\\ufe0f No jackpot pick posted right now.</div>\';', "var L=[];el.innerHTML='';")
-    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='nolunch'?' lunchwide':''}")   # ANCHORCARDS-2026-10-24: anchors are regular cards, not the wide strip
+    add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='temple'?' lunchwide':''}")   # TEMPLE-2026-10-24: owner "needs to be horizontal"   # ANCHORCARDS-2026-10-24: anchors are regular cards, not the wide strip
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}", "${t.kind==='late'?' lunchwide nightcap':''}")
     add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0,temple:0};')
     add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=''")   # FAVANCHOR: no anchor singles to count
