@@ -70,6 +70,10 @@ def grade_board(path, season_path, getsum=E.summary, getsb=E.scoreboard):
             g = E.parse(getsum(eid))
         except Exception as e:
             print(f'  {date}: summary {eid} unreachable ({str(e)[:80]})'); return 'network'
+        # VOIDGUARD-2026-10-25: ESPN's box score can come back without its starter flags (10-25: every man didNotPlay,
+        # nobody starter, mid-game). Grading that would void every leg on the game -- wait and retry instead.
+        if sum(len(v) for v in g['starters'].values()) < 10:
+            print(f'  {date}: game {gi} box score has no starting fives yet -- retrying later'); return 'network'
         for n, p in D['players'].items():
             if p.get('game') != gi: continue
             cands = [c for c, t in g['team_of'].items() if t == p.get('code')]

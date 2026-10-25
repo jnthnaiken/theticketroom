@@ -187,8 +187,12 @@
         if (!who) { if (unmatched.indexOf(n) < 0) unmatched.push(n); return; }
         if (starters[who]) { p.status = 'confirmed'; p.out = false; }
         /* FDRULES-2026-10-24: FanDuel refunds a listed player who does not START (bench minutes included) */
+        /* VOIDGUARD-2026-10-25 (owner: "whats with all of the voids on the basketball page?"). ESPN's live box score can sit
+           half-built mid-game -- every man didNotPlay, nobody flagged starter -- and the old `!played` branch voided
+           Holmgren, Isaiah Jackson and Wendell Carter Jr., who had all jumped center (Jackson scored LAC@OKC's first
+           basket). A void now needs ESPN's two starting fives listed; until then nobody is voided. */
         if (Object.keys(starters).length >= 10 && !starters[who]) { p.void = true; p.ftd1 = false; p.hr = false; }
-        else if (!played[who] && !p.ftd1) p.void = true; else p.void = false;
+        else p.void = false;
       });
 
       /* the game's first FIELD GOAL */
