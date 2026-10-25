@@ -168,7 +168,7 @@ def seams(payload_js):
                         'Every player who cleared the pool gate, one card each.')
     add('footer-wind', 'always verify odds, lineups, and wind before you wager.',
                        'always verify odds, inactives, and wind before you wager.')
-    add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update from ESPN')
+    add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update')   # NOESPN-2026-10-25 (owner): the button shouldn't name a source
 
     # ---- 5. THINGS THAT ARE MLB-FITTED AND MUST NOT SILENTLY CARRY OVER ---------------
     # GCAL maps a TOTAL to a hit rate and was fitted on baseball nights (mu 98.4, sd 32.2).

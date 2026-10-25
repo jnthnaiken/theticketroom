@@ -92,7 +92,7 @@ def seams(payload_js):
     add('step-builder', 'Every scored bat is one row:', 'Every starter is one row:')
     add('step-players', 'Every bat that cleared the pool gate, one card each.', 'Every starter on the slate, one card each.')
     add('footer-wind', 'always verify odds, lineups, and wind before you wager.', 'always verify odds and starting lineups before you wager.')
-    add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update from ESPN')
+    add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update')   # NOESPN-2026-10-25 (owner): the button shouldn't name a source
     add('gcal', 'var GCAL={mu:98.398,sd:32.179,a:-2.16143,b:0.34215};', 'var GCAL=null; /* NBA: MLB-fitted calibration does not transfer. */')
     add('likely-ended', 'return g!=null&&nowETMin()>=g+240;}', 'return g!=null&&nowETMin()>=g+165;}')
     add('odds-sign', "oddsStr=o=>o?'+'+comma(o):'TBD'", "oddsStr=o=>o?((o>0?'+':'')+comma(o)):'TBD'")

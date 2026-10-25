@@ -384,7 +384,7 @@ def seams(payload_js):
         "{n:8, side:'L', t:'Top leg', d:'The strongest player on the slip. The card itself is now the 🥅 Top Bin, each sold as a straight single.'}")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     # NB: index.html carries the JS escape ↻ literally (six characters), not the glyph.
-    add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update from ESPN')
+    add('live-btn', '\\u21bb Update from MLB', '\\u21bb Update')   # NOESPN-2026-10-25 (owner): the button shouldn't name a source
     add('legend-park', '<span>🔥 hot park · ❄️ suppressed park</span>', '')
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> rotation risk · ')
     # SPECIALS-2026-09-24: the baseball line now names its two new specials (see the block above).
