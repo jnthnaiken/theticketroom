@@ -21,7 +21,7 @@ import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 81 + LIVE_SEAM_COUNT  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 82 + LIVE_SEAM_COUNT  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -55,6 +55,10 @@ def seams(payload_js):
     add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['moon','🚀','Moonshots']")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
+    # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
+    # write-up to two lines; the basketball calls run a line per player, so every write-up shows in full here.
+    add('tnote-unclamp', "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}",
+        "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}\n.tnote{-webkit-line-clamp:none;line-clamp:none;overflow:visible;display:block}")
     add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Moonshots',moon)")   # TEMPLE-2026-10-24
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")

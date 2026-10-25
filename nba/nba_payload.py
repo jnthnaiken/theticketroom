@@ -245,12 +245,12 @@ def _sur(n):
     return w[-1] if w else str(n)
 
 
-def moon_note(names, salt, info=None):
+def moon_note(names, salt, info=None, openers=None):
     """MOONVOICE: an opener, one announcer line per leg (his angle: the tip, the early shots, the finish, or just
     sizzle), then a closing call. Owner: 'they need to be longer, something for each player'. No payout mechanics."""
     s = [_sur(n) for n in names]
     a, rest = s[0], s[1:]
-    opener = _pk([f"{a} leads this one, with {rest[0]}, {rest[1]} and {rest[2]} riding shotgun!",
+    opener = _pk(openers, salt + 'o') if openers else _pk([f"{a} leads this one, with {rest[0]}, {rest[1]} and {rest[2]} riding shotgun!",
                   f"Four games, four first baskets, and {a} is driving the bus!",
                   f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes!",
                   f"It's {a}, {rest[0]}, {rest[1]} and {rest[2]}, four tips and four chances to light it up!"], salt + 'o')
@@ -602,9 +602,12 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             first = min(legs, key=lambda l: (games.get(l['game']) or {}).get('ko', 0))
             tlock = any((P.get(a['name']) or {}).get('status') == 'confirmed' or started(a) for a in A) or bool(MOONLOCK)
             sa = [_sur(a['name']) for a in A]
-            tnote = _pk([f"Garrett's Temple, the four most likely first scorers on the board: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}. The chalk, stacked up and built to cash!",
-                         f"{sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}, the four best bets to score first, all on one ticket. Welcome to the Temple, baby!",
-                         f"Garrett lays the foundation: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}. Four favourites, one Temple, let's build it!"], date + 'temple')
+            tnote = moon_note([a['name'] for a in A], date + 'temple',
+                              info=lambda n: (TEAM_NAME.get(P[n]['code'], P[n]['code']), bool(P[n].get('jumper')), P[n].get('ptip') or .5,
+                                              st.P.get(st.key(n, team=P[n]['code'])) or {}),
+                              openers=[f"Welcome to Garrett's Temple, baby! The four best bets on the board to score first: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}!",
+                                       f"Garrett lays the foundation and it's built out of chalk: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}, the favourites in four different games!",
+                                       f"Four pillars hold up the Temple tonight: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}, the most likely first scorers on the slate!"])
             T.append(dict(name="Garrett's Temple", kind='temple', badge='🏛️', note=tnote,
                           players=legs, nlegs=4, anchor=A[0]['name'], lock=re.sub(r'\s*ET\s*$', '', first['gtime']),
                           has_late=False, final=False, wxsum={}, confleg=0, locked=tlock, priced=True,
