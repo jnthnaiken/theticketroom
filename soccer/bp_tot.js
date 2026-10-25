@@ -45,7 +45,7 @@ const med = xs => { const a = xs.slice().sort((x, y) => x - y), n = a.length; re
 const norm = s => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
   .replace(/\b(fc|cf|afc|sc|ac|as|ss|ssc|us|rc|cd|ud|sd|rcd|ca|vfl|vfb|tsg|sv|1\.|fsv|bsc|hsc|ogc|stade|olympique|de|club|calcio|real|athletic)\b/g, ' ')
   .replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
-const toks = s => new Set(norm(s).split(' ').filter(w => w.length > 2));
+const toks = s => { let t = norm(s).split(' ').filter(w => w.length > 2); if (!t.length) t = String(s || '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2); return new Set(t); };
 const sim = (a, b) => { const A = toks(a), B = toks(b); if (!A.size || !B.size) return 0; let n = 0; for (const x of A) if (B.has(x) || [...B].some(y => y.startsWith(x) || x.startsWith(y))) n++; return n / Math.min(A.size, B.size); };
 
 (async () => {
@@ -102,7 +102,7 @@ const sim = (a, b) => { const A = toks(a), B = toks(b); if (!A.size || !B.size) 
                 const side = /over|^o$/.test(lab) ? 'O' : (/under|^u$/.test(lab) ? 'U' : null);
                 if (!side || line == null) continue;
                 let mkt = 'TG';
-                if (tag === 'TT') { const who = pn || s.label || ''; mkt = sim(J0.m.home, who) >= .5 ? 'TH' : (sim(J0.m.away, who) >= .5 ? 'TA' : null); }
+                if (tag === 'TT') { const who = (P[off.team_id] || {}).name || pn || ''; mkt = sim(J0.m.home, who) >= .5 ? 'TH' : (sim(J0.m.away, who) >= .5 ? 'TA' : null); }
                 if (mkt) add(`${J0.slug}|${mkt}|${side}|${+line}`, l.cost);
               }
             }

@@ -276,6 +276,14 @@ jobs:
           cp slates/${{ steps.slate.outputs.date }}/fgs.psv .work/ 2>/dev/null || true
           # GOALLINE-2026-10-15: totals prices (tot.psv, browser-scraped with ags.psv) and the understat team
           # match log (tm.psv, refreshed daily by soccer-tm.yml). Both optional: no tot.psv -> no Goal Line.
+          # AUTOSOCCER-2026-10-25. Owner: "totals should be priced too ... just do it as the same time you do the board
+          # change". Until the Goal Line is picked (tot_pick.json, sticky), fetch the totals from BettingPros on every
+          # build, so they land with the board flip and need no browser. A browser-scraped tot.psv (no tot.src marker)
+          # is never overwritten. bp_tot.js writes nothing on failure.
+          TD=slates/${{ steps.slate.outputs.date }}
+          if [ ! -f $TD/tot_pick.json ] && { [ ! -f $TD/tot.psv ] || [ -f $TD/tot.src ]; }; then
+            node bp_tot.js $TD/fixtures.json $TD/tot.psv && [ -s $TD/tot.psv ] && echo bettingpros > $TD/tot.src || true
+          fi
           cp slates/${{ steps.slate.outputs.date }}/tot.psv .work/ 2>/dev/null || true
           cp tm.psv .work/ 2>/dev/null || true
           cp soccer_*.py soccer_*.js .work/
@@ -582,6 +590,7 @@ jobs:
           [ -f "soccer/slates/$D/squads.psv" ] && git add "soccer/slates/$D/squads.psv" || true
           [ -f "soccer/slates/$D/ftd_pick.json" ] && git add "soccer/slates/$D/ftd_pick.json" || true
           [ -f "soccer/slates/$D/tot_pick.json" ] && git add "soccer/slates/$D/tot_pick.json" || true   # GOALLINE-2026-10-15
+          [ -f "soccer/slates/$D/tot.src" ] && git add "soccer/slates/$D/tot.psv" "soccer/slates/$D/tot.src" || true   # AUTOSOCCER-2026-10-25
           if git diff --staged --quiet; then
             echo "nothing changed"
           else

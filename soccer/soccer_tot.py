@@ -107,9 +107,14 @@ def leg_prob(M, mkt, side, line):
 _GRID = None
 
 
-def implied(ph, pd_, pa, pover):
+_OVL = (1.5, 2.5, 3.5)
+
+
+def implied(ph, pd_, pa, pover, line=2.5):
     """Market lambdas: the (lh, la) on a 0.05 grid whose DC matrix best reproduces the devigged
-    home/away win and over-2.5 probabilities (exactly the research's market layer)."""
+    home/away win and over-2.5 probabilities (exactly the research's market layer).
+    AUTOSOCCER-2026-10-25: `line` -- US books often post only the 3.5 main total (BettingPros feed), so the
+    over probability may come from 1.5/2.5/3.5. With line=2.5 this is byte-for-byte the old fit."""
     global _GRID
     if _GRID is None:
         g = [0.2 + 0.05 * i for i in range(81)]
@@ -119,9 +124,10 @@ def implied(ph, pd_, pa, pover):
                 M = matrix(lh, la)
                 hw = sum(M[i][j] for i in range(KMAX) for j in range(KMAX) if i > j)
                 aw = sum(M[i][j] for i in range(KMAX) for j in range(KMAX) if i < j)
-                ov = leg_prob(M, 'TG', 'O', 2.5)
+                ov = tuple(leg_prob(M, 'TG', 'O', L) for L in _OVL)
                 _GRID.append((lh, la, hw, aw, ov))
-    best = min(_GRID, key=lambda r: (r[2] - ph) ** 2 + (r[3] - pa) ** 2 + (r[4] - pover) ** 2)
+    k = _OVL.index(line)
+    best = min(_GRID, key=lambda r: (r[2] - ph) ** 2 + (r[3] - pa) ** 2 + (r[4][k] - pover) ** 2)
     return best[0], best[1]
 
 
@@ -261,12 +267,13 @@ def match_view(mkey, fx, prices, luck):
     """Every priced leg on one match with its model and market probability."""
     pr = prices.get(mkey) or {}
     h, d_, a = pr.get(('WIN', 'H', None)), pr.get(('WIN', 'D', None)), pr.get(('WIN', 'A', None))
-    o25, u25 = pr.get(('TG', 'O', 2.5)), pr.get(('TG', 'U', 2.5))
-    if not all((h, d_, a, o25, u25)):
+    tl = next((L for L in (2.5, 3.5, 1.5) if pr.get(('TG', 'O', L)) and pr.get(('TG', 'U', L))), None)
+    if not all((h, d_, a)) or tl is None:
         return None
+    o25, u25 = pr[('TG', 'O', tl)], pr[('TG', 'U', tl)]
     s = 1 / h + 1 / d_ + 1 / a
     pover = (1 / o25) / (1 / o25 + 1 / u25)
-    mlh, mla = implied(1 / h / s, 1 / d_ / s, 1 / a / s, pover)
+    mlh, mla = implied(1 / h / s, 1 / d_ / s, 1 / a / s, pover, line=tl)
     th, own_h, conc_h = luck.own_opp(fx['home'])
     ta, own_a, conc_a = luck.own_opp(fx['away'])
     eh = C + B_OWN * (own_h or 0) + B_OPP * (conc_a or 0)
