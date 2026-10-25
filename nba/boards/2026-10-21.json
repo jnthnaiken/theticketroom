@@ -7409,6 +7409,93 @@
    "won": false,
    "net": -1.1,
    "stake": 1.1
+  },
+  {
+   "name": "Garrett's Temple",
+   "kind": "temple",
+   "badge": "🏛️",
+   "note": "Restated: the four favourite anchors, round-robined.",
+   "players": [
+    {
+     "name": "Luka Doncic",
+     "team": "Lakers",
+     "total": 182.9,
+     "aT": 100,
+     "wf": 1.0,
+     "gmatch": "GSW@LAL",
+     "gtime": "10:00 PM ET",
+     "game": 9,
+     "late": false,
+     "odds": 430,
+     "status": "projected",
+     "ftd": true
+    },
+    {
+     "name": "Bam Adebayo",
+     "team": "Heat",
+     "total": 162.2,
+     "aT": 100,
+     "wf": 1.0,
+     "gmatch": "MIN@MIA",
+     "gtime": "7:30 PM ET",
+     "game": 3,
+     "late": false,
+     "odds": 650,
+     "status": "projected",
+     "ftd": true
+    },
+    {
+     "name": "Alperen Sengun",
+     "team": "Rockets",
+     "total": 160.0,
+     "aT": 100,
+     "wf": 1.0,
+     "gmatch": "DAL@HOU",
+     "gtime": "8:30 PM ET",
+     "game": 8,
+     "late": false,
+     "odds": 500,
+     "status": "projected",
+     "ftd": true
+    },
+    {
+     "name": "Brandon Miller",
+     "team": "Hornets",
+     "total": 144.4,
+     "aT": 100,
+     "wf": 1.0,
+     "gmatch": "CHA@BKN",
+     "gtime": "7:30 PM ET",
+     "game": 5,
+     "late": false,
+     "odds": 600,
+     "status": "projected",
+     "ftd": true
+    }
+   ],
+   "nlegs": 4,
+   "anchor": "Luka Doncic",
+   "lock": "10:00 PM ET",
+   "has_late": false,
+   "final": true,
+   "wxsum": {},
+   "confleg": 0,
+   "locked": true,
+   "priced": true,
+   "rr": {
+    "struct": "by 2s, 3s & 4",
+    "risk": 1.1,
+    "maxprofit": 296.1,
+    "bytwos": false
+   },
+   "parlay_am": null,
+   "payout10": null,
+   "ftd": true,
+   "ev": null,
+   "p": null,
+   "won": false,
+   "net": -1.1,
+   "stake": 1.1
   }
  ],
  "meta": {
@@ -7652,6 +7739,6 @@
     "stake": 1.0
    }
   ],
-  "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets."
+  "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets. TEMPLE-2026-10-24: Garrett's Temple (the 4 favourite anchors, 11 x 0.10u round robin) restated in on every night with 4 anchors from 4 games (10-21, 10-23)."
  }
 }
