@@ -107,7 +107,22 @@ jobs:
         id: slate
         run: |
           cd soccer
-          DATE=$(ls -1d slates/*/ 2>/dev/null | sed 's#slates/##;s#/##' | sort | tail -1)
+          # NEXTDAYHOLD-2026-10-24. Owner, after the 10-25 slate was committed at 10:30 PM ET and flipped the page
+          # while 10-24's late MLS games were still live: "go back to todays board. there are still games going".
+          # Show the EARLIEST slate not yet folded into the ledger among the newest two days, so tomorrow's slate can
+          # be committed early and waits its turn; once tonight settles, tomorrow's board takes over by itself.
+          DATE=$(python3 - <<'PYX'
+          import json, os, datetime
+          ds = sorted(d for d in os.listdir('slates') if os.path.isdir(os.path.join('slates', d)))
+          if not ds: raise SystemExit
+          try: done = set(json.load(open('soccer_season.json')).get('graded_nights', []))
+          except Exception: done = set()
+          newest = datetime.date.fromisoformat(ds[-1])
+          recent = [d for d in ds if datetime.date.fromisoformat(d) >= newest - datetime.timedelta(days=1)]
+          open_ = [d for d in recent if d not in done]
+          print(open_[0] if open_ else ds[-1])
+          PYX
+          )
           if [ -z "$DATE" ]; then echo "no slate directories"; echo "go=false" >> $GITHUB_OUTPUT; exit 0; fi
           for f in ags.psv xg.psv fixtures.json; do
             [ -f "slates/$DATE/$f" ] || { echo "::error::slates/$DATE/$f missing"; exit 1; }
