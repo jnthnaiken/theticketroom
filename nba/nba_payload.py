@@ -211,12 +211,12 @@ FAV_FROM = '2026-10-24'
 TEMPLE_FROM = '2026-10-24'   # TEMPLE-2026-10-24: Garrett's Temple, the four anchors round-robined      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 # TEMPLENAMES-2026-10-25. Owner: "garretts temple tickets should have their own names. garrett temple inspired".
 # The section stays Garrett's Temple; the slip wears a date-rotated name, the way moons rotate.
-# Owner, 10-25: "no the retire player garrett temple" -- the names come from Garrett Temple's career: Baton Rouge
-# and LSU, the ten-day contracts that started it, the NBPA vice presidency, the defence-first journeyman years.
-TEMPLE_NAMES = ['The Journeyman', 'Ten-Day Contract', 'Baton Rouge', 'Geaux Tigers', 'The Vice President',
-                'Union Card', 'Lockdown', 'The Glue Guy', 'Passport Stamps', 'Veteran Minimum', 'Locker Room Leader',
-                'Bayou Bucket', 'Red Stick', 'Purple and Gold', 'The Long Haul', 'Defensive Stopper', 'The Grinder',
-                'Second Contract', 'Suitcase Packed', 'Pro\'s Pro']
+# Owner, 10-25: "no the retire player garrett temple" -> "just make them about the journeyman aspect. consistent
+# reliable role player. like how the picks are the safest reliable ones". The Temple is the chalk: the names say steady.
+TEMPLE_NAMES = ['The Journeyman', 'Role Player', 'Steady Hand', 'Glue Guy', 'Old Reliable', 'Punch the Clock',
+                'Lunch Pail', 'Hard Hat', 'Every Night', 'No Days Off', 'The Professional', 'Do Your Job',
+                'Bread and Butter', 'Workmanlike', 'Dependable', 'Rock Solid', 'Clock In', 'The Grinder',
+                'Ten-Day Contract', 'Steady Eddie']
 MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
               'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
               'Heat Check', 'Buzzer Beater', 'Showtime']
