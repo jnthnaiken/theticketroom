@@ -354,6 +354,52 @@ TEMPLE_TAIL = [
 ]
 
 
+# COLLINS3-2026-10-25. Owner: "a quick google search will do it" -- his real calls, sparingly. These are his own
+# (si.com/nba/hornets "best Eric Collins quotes"; buzzbeat.substack.com "Eric Collins best quotes 2021-2025"): at most
+# SIG_MAX a board, each once, and not one printed on the last two boards.
+SIGNATURE = ["Hum diddly dee!", "Hotter than fish grease!", "Tougher than woodpecker lips!",
+             "With the guts of a cat burglar!", "Tougher than a two-dollar steak!", "On like a pot of neckbones!",
+             "Quicker than a hiccup!", "Stronger than a brand new rope!", "Quicker than a small-town rumor!",
+             "With the touch of a masseuse!", "Gravel in his guts!"]
+SIG_MAX = 2
+# His FORMULA, our words: the homespun "-er than" comparison, matched to the angle the model earned.
+COMPARE = {
+    'tip': ["Tougher than a two-day-old biscuit!", "Taller than a church steeple on Easter morning!",
+            "Tougher than a boiled boot!", "Sturdier than a front-porch rocker!", "Bigger than a Thanksgiving ham!",
+            "Stronger than truck-stop coffee!", "Tougher than a county-fair blue-ribbon hog!", "Higher than a kite in March!",
+            "Steadier than a grandfather clock!", "Taller than a tobacco barn!", "Tougher than a hickory stump!",
+            "Stronger than a mule with a grudge!"],
+    'early': ["Hotter than a skillet in July!", "Hotter than a pepper-eating contest!", "Hotter than a tin roof in August!",
+              "Hotter than a two-dollar pistol!", "Hotter than the asphalt at a summer cookout!",
+              "Hotter than a fresh-fried hush puppy!", "Quicker on the trigger than a spring-loaded mousetrap!",
+              "Hotter than a jalapeño in a sauna!", "Hotter than a stolen tamale!", "Hotter than Granny's woodstove!",
+              "Hotter than a tailgate grill!", "Hotter than Charlotte pavement at noon!"],
+    'fin': ["Smoother than a fresh jar of honey!", "Softer than a kitten's whisper!", "Smoother than Sunday gravy!",
+            "Softer than a feather pillow!", "Smoother than a church-pew bench!", "Cleaner than a Sunday shirt!",
+            "Smoother than a buttered biscuit!", "Softer than a peach in June!"],
+    'sneak': ["Quicker than a jackrabbit in a thunderstorm!", "Sneakier than a raccoon at the trash can!",
+              "Quieter than a mouse in socks!", "Quicker than gossip at the beauty shop!",
+              "Sneakier than a fox in the henhouse!", "Quicker than a cat on a hot stovetop!",
+              "Slipperier than a greased pig at the fair!", "Quicker than a preacher's amen!",
+              "Sneakier than a possum playing dead!", "Quicker than a squirrel crossing the highway!",
+              "Sneakier than a kid in the cookie jar!", "Quicker than a hummingbird's wings!"],
+}
+
+
+def _flourish(angle, key, mem):
+    """A signature call (rare), else his comparison formula in our words, else a riff."""
+    sig = mem.__dict__.setdefault('sigs', 0)
+    r = _fnv(mem.date + 'fl' + key) % 6
+    if r == 0 and sig < SIG_MAX:
+        x = mem.pick(SIGNATURE, 'sig|' + key)
+        if x and core(x) and core(x) not in mem.recent:
+            mem.sigs = sig + 1
+            return x
+    if r <= 3:
+        return mem.pick(COMPARE.get(angle, COMPARE['sneak']), 'cmp|' + key)
+    return mem.pick(RIFF, 'riff|' + key)
+
+
 def _nick(sur, key, mem):
     """One nickname per man per board, and no nickname word twice on a board. None when spent."""
     nk = mem.__dict__.setdefault('nicked', set()); words = mem.__dict__.setdefault('nickwords', set())
@@ -374,9 +420,9 @@ def player_line(sur, team, angle, key, mem, strong_tip=False):
     if r == 0:
         nk = _nick(sur, key, mem)
         if nk: return nk + ' ' + call
-        return call + ' ' + mem.pick(RIFF, 'riff|' + key)
+        return call + ' ' + _flourish(angle, key, mem)
     if r == 1:
-        return call + ' ' + mem.pick(RIFF, 'riff|' + key)
+        return call + ' ' + _flourish(angle, key, mem)
     return call
 
 
