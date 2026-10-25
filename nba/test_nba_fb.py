@@ -185,4 +185,27 @@ check("if not t.get('rr')" in open(os.path.join(HERE, 'nba_payload.py')).read(),
 
 shutil.rmtree(tmp, ignore_errors=True)
 print(f'\n{len(fails)} failure(s)')
+import re
+# COLLINS2-2026-10-25: no phrasing twice on a board, none carried from the last night, across a week of
+# boards where the same men fill every ticket (the worst case: an anchor rides on three slips a night).
+import nba_voice as _V
+_names = [('Wembanyama', 'Spurs', 'tip'), ('Kuzma', 'Bucks', 'early'), ('Reid', 'Hornets', 'early'), ('Okongwu', 'Hawks', 'tip'),
+          ('Watson', 'Nuggets', 'sneak'), ('Embiid', '76ers', 'tip'), ('Daniels', 'Hawks', 'sneak'), ('Allen', 'Cavaliers', 'tip')]
+_hist, _bad = [], 0
+for _night in range(5):
+    _m = _V.Mem('2026-12-%02d' % (_night + 1), ' '.join(_hist[-2:]).lower())
+    _out = []
+    for _i in range(9):
+        _legs = [_names[(_i + j * 2) % len(_names)] for j in range(4)]
+        _ls = [_V.player_line(s, t, a, '%d|%s' % (_i, s), _m, strong_tip=(a == 'tip')) for s, t, a in _legs]
+        _out.append(_V.ticket_note([s for s, _, _ in _legs], _ls, str(_i), _m, temple=(_i == 8)))
+    _txt = ' '.join(_out)
+    _ss = [x for x in re.split(r'(?<=[.!?])\s+(?=[A-Z])', _txt) if len(x.split()) > 5]
+    _bad += len(_ss) - len(set(_ss))
+    if _hist:
+        _prev = set(re.split(r'(?<=[.!?])\s+(?=[A-Z])', _hist[-1]))
+        _bad += len([x for x in set(_ss) & _prev])
+    _hist.append(_txt)
+check(_bad == 0, 'collins2: no repeated write-up line on a board or from the night before (%d found)' % _bad)
+
 sys.exit(1 if fails else 0)

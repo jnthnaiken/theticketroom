@@ -21,6 +21,7 @@ them, so a placed bet never moves. One exception: a cached man whose game has no
 longer in his team's five is dropped and the slate is re-picked without him.
 """
 import argparse, datetime, json, math, os, re, sys
+import nba_voice as V
 from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -188,47 +189,21 @@ def _pk(opts, key):
     return opts[_fnv(key) % len(opts)]
 
 
-def why(n, r, st, gm, salt=''):
-    """One sentence for his card, in the Collins register. No percentages in the prose."""
-    k = st.key(n, team=r['team']); p = st.P.get(k) or {}
-    K = n + '|' + str(salt)
-    bits = []
-    if r['jumper']:
-        if r['ptip'] >= .55:
-            bits.append(_pk(['handles the opening tip, and he has been WINNING them',
-                             'goes up for the tip, and he owns that center circle',
-                             'jumps center, and he gets up there first more often than not'], K + 'j1'))
-        else:
-            bits.append(_pk(['handles the opening tip for his side',
-                             'goes up for the jump ball to start it all',
-                             'is the big fella in the center circle'], K + 'j0'))
-    if (p.get('ef') or 0) >= .26:
-        bits.append(_pk(['hunts the early shots like nobody else on his team',
-                         'fires away early more than anybody on that roster',
-                         'wants the ball first, and gets it first'], K + 'e2'))
-    elif (p.get('ef') or 0) >= .2:
-        bits.append(_pk(['gets his fair share of the early cracks at it',
-                         'is right in the mix when the first shots go up',
-                         'gets plenty of early looks'], K + 'e1'))
-    if (p.get('tf') or 0) >= .28:
-        bits.append(_pk(['loves to let fly with the very first shot',
-                         'is often the one pulling the trigger first',
-                         'takes the first swing of the night more than most'], K + 't1'))
+_MEM = {'card': V.Mem(), 'note': V.Mem()}   # COLLINS2-2026-10-25: reset per build() with the date and the recent boards
+
+
+def _angle(jumper, ptip, p):
     fgp = (p['fgm'] / p['fga']) if p.get('fga') else None
-    if fgp and fgp >= .55:
-        bits.append(_pk(['and oh baby, does he finish',
-                         'and he buries what he shoots',
-                         'and his shots find the bottom of the net'], K + 'f1'))
-    if not bits:
-        bits.append(_pk(['is out there for the opening tip, ready to rumble',
-                         'is one of the five on the floor when the ball goes up',
-                         'starts the night on the floor, and anything can happen'], K + 'z'))
-    tail = [b for b in bits if not b.startswith('and ')]
-    fin = [b for b in bits if b.startswith('and ')]
-    body = ', '.join(tail[:-1]) + (' and ' if len(tail) > 1 else '') + (tail[-1] if tail else '')
-    if fin:
-        body += (', ' if tail else '') + fin[0]
-    return f"{n} {body}!"
+    if jumper: return 'tipw' if ptip >= .56 else 'tip'
+    if (p.get('ef') or 0) >= .24 or (p.get('tf') or 0) >= .26: return 'early'
+    if fgp and fgp >= .54: return 'fin'
+    return 'z'
+
+
+def why(n, r, st, gm, salt=''):
+    """One sentence for his card (COLLINS2: nba_voice.card, board memory). No percentages in the prose."""
+    k = st.key(n, team=r['team']); p = st.P.get(k) or {}
+    return V.card(n, _angle(r['jumper'], r['ptip'], p), n + '|' + str(salt), _MEM['card'])
 
 
 BOARD_FROM = '2026-10-24'
@@ -245,60 +220,19 @@ def _sur(n):
     return w[-1] if w else str(n)
 
 
-def moon_note(names, salt, info=None, openers=None):
-    """MOONVOICE: an opener, one announcer line per leg (his angle: the tip, the early shots, the finish, or just
-    sizzle), then a closing call. Owner: 'they need to be longer, something for each player'. No payout mechanics."""
-    s = [_sur(n) for n in names]
-    a, rest = s[0], s[1:]
-    opener = _pk(openers, salt + 'o') if openers else _pk([f"{a} leads this one, with {rest[0]}, {rest[1]} and {rest[2]} riding shotgun!",
-                  f"Four games, four first baskets, and {a} is driving the bus!",
-                  f"{a} at the point, {', '.join(rest[:-1])} and {rest[-1]} filling the lanes!",
-                  f"It's {a}, {rest[0]}, {rest[1]} and {rest[2]}, four tips and four chances to light it up!"], salt + 'o')
-    TIPW = ["{s} owns the center circle for the {t}, and he's been winning that tip all year long!",
-            "{s} goes up for the jump, and when he controls the tip, the {t} strike first!",
-            "Big fella {s} in the middle, and that opening tip is his house!",
-            "{s} has been winning jump balls like it's his job, and tonight it is!"]
-    TIP = ["{s} jumps center for the {t}, and the first crack at the rim starts with him!",
-           "{s} at the opening tip: first touch, first look, first chance!",
-           "It all starts in the circle, and {s} is standing right in it!",
-           "{s} rises for the {t} at center court. Win it and the ball comes right back to him!"]
-    EARLY = ["{s} gets the ball early for the {t}, and he does not hesitate!",
-             "The {t} run their first set through {s}, and he lets it fly!",
-             "{s} has the green light from the opening whistle!",
-             "First possession, first look, and {s} is ready to fire!",
-             "{s} hunts that first shot like it owes him money!",
-             "Opening minute, ball in {s}'s hands, and he is HUNGRY!"]
-    FIN = ["{s} doesn't miss much, and when he gets a look, it's splash city!",
-           "{s} finishes everything around the rim. Buckets!",
-           "Soft touch, sweet stroke, that's {s} for the {t}!",
-           "{s} makes his shots, and making shots is the whole ballgame!"]
-    SNEAK = ["{s} is the sneaky one in the bunch, and sneaky is our favorite flavor!",
-             "Don't sleep on {s}. Ohhh, don't you dare sleep on {s}!",
-             "{s} at a big number, and buddy, that one's got sizzle!",
-             "Here comes {s} for the {t}, flying under the radar!",
-             "{s} is the wild card, and wild cards win pots!",
-             "Nobody's talking about {s}, and that's exactly how we like it!"]
-    lines, used = [], set()
-    for n in names:
-        sur = _sur(n); K = salt + '|' + n
+def moon_note(names, salt, info=None, openers=None, temple=False):
+    """COLLINS2-2026-10-25: an opener, one called play per leg from the angle the model earned (tip, early shots,
+    finishing, sleeper), then a closing call -- every phrasing drawn through the board memory (nba_voice.Mem), so
+    nothing repeats on the board or from the last few nights. `openers` is ignored (kept for old callers)."""
+    mem = _MEM['note']
+    surs = [_sur(n) for n in names]
+    lines = []
+    for n, sur in zip(names, surs):
         team, jumper, ptip, pp = info(n) if info else ('', False, .5, {})
-        fgp = (pp['fgm'] / pp['fga']) if pp.get('fga') else None
-        if jumper and ptip >= .56: pool = TIPW + TIP
-        elif jumper: pool = TIP
-        elif (pp.get('ef') or 0) >= .24 or (pp.get('tf') or 0) >= .26: pool = EARLY
-        elif fgp and fgp >= .54: pool = FIN
-        else: pool = SNEAK
-        free = [x for x in pool if x not in used] or [x for x in SNEAK + EARLY + FIN if x not in used] or pool
-        tpl = _pk(free, K); used.add(tpl); lines.append(tpl.format(s=sur, t=team or 'squad'))
-    # MOONVOICE-2026-10-24, owner: "dont need to talk about 2 of 4 and we hit in the ticket write ups for basketball.
-    # just the hornets announcer language" -- the tail is pure call, no payout mechanics.
-    tail = _pk(["Buckle up, buddy, this one's got some juice!",
-                "Oh my goodness, put the kids to bed, we're going big tonight!",
-                "Hold onto your hats, folks!",
-                "If this one lands, they'll hear it all the way up I-85!",
-                "Get your popcorn ready, baby, it's showtime!",
-                "WHOOOA, now THAT is a ticket with some sizzle!"], salt + 't')
-    return ' '.join([opener] + lines + [tail])
+        a = _angle(jumper, ptip, pp)
+        lines.append(V.player_line(sur, team, {'tipw': 'tip', 'tip': 'tip', 'early': 'early', 'fin': 'fin'}.get(a, 'sneak'),
+                                   salt + '|' + n, mem, strong_tip=(a == 'tipw')))
+    return V.ticket_note(surs, lines, salt, mem, temple=temple)
 
 
 def note(n, r, st, gm, salt):
@@ -344,6 +278,8 @@ def note(n, r, st, gm, salt):
 
 
 def build(slate, state, date, cache=None, season=None, stamp='', now=None):
+    _rec = V.recent_text(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'boards'), date)
+    _MEM['card'], _MEM['note'] = V.Mem(date, _rec), V.Mem(date, _rec)
     st = F.State(json.load(open(state, encoding='utf-8')))
     params = st.params
     E, L, S = read_slate(slate, date)
@@ -605,7 +541,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             tnote = moon_note([a['name'] for a in A], date + 'temple',
                               info=lambda n: (TEAM_NAME.get(P[n]['code'], P[n]['code']), bool(P[n].get('jumper')), P[n].get('ptip') or .5,
                                               st.P.get(st.key(n, team=P[n]['code'])) or {}),
-                              openers=[f"Welcome to Garrett's Temple, baby! The four best bets on the board to score first: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}!",
+                              temple=True, openers=[f"Welcome to Garrett's Temple, baby! The four best bets on the board to score first: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}!",
                                        f"Garrett lays the foundation and it's built out of chalk: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}, the favourites in four different games!",
                                        f"Four pillars hold up the Temple tonight: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}, the most likely first scorers on the slate!"])
             T.append(dict(name="Garrett's Temple", kind='temple', badge='🏛️', note=tnote,

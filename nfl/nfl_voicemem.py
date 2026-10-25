@@ -37,7 +37,7 @@ import os
 import re
 
 RECENT_NIGHTS = 3
-MIN_CORE = 14
+MIN_CORE = 10   # VOICEMEM2-2026-10-25: "is box office" (13) printed twice on the 10-24 card; police the short tags too
 _STRIP = ' ,.;:!?—-–\'"'
 
 
