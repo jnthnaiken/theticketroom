@@ -110,6 +110,11 @@ HOWTO = {
    "Two per anchor: the anchor plus three value picks from three other games, the starters FanDuel's price undersells most, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs."
   ],
   [
+   "🏛️",
+   "Garrett’s Temple",
+   "Named for Garrett, who built it first. One ticket a night: the four anchors together, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). Shorter prices, so it cashes more often than a Moonshot."
+  ],
+  [
    "⭕",
    "Why the tip",
    "The team that wins the opening tip makes the first field goal close to two times in three. Every center’s jump-ball record is rated, so the tip is called before the game, not guessed — and the books price the stars, not the man in the circle."

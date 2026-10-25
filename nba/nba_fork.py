@@ -51,18 +51,18 @@ def seams(payload_js):
     add('sort-power', '<option value="power">Power · highest first</option>', '<option value="power">Team scores first · most likely</option>')
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
-    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
-    add('tracker-moon', "['moon','🥎','Moonshots']", "['moon','🚀','Moonshots']")
+    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'+(kc.temple?' \\u00b7 '+kc.temple+' 🏛️':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
+    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['moon','🚀','Moonshots']")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Moonshots',moon)")
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Moonshots',moon)")   # TEMPLE-2026-10-24
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
     add('special-sec-late', 'var L=D.tickets.filter(t=>t.kind===\'jackpot\'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(\'\'):\'<div class="closed">\\ud83c\\udfdf\\ufe0f No jackpot pick posted right now.</div>\';', "var L=[];el.innerHTML='';")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='nolunch'?' lunchwide':''}")   # ANCHORCARDS-2026-10-24: anchors are regular cards, not the wide strip
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}", "${t.kind==='late'?' lunchwide nightcap':''}")
-    add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0};')
+    add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0,temple:0};')
     add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=''")   # FAVANCHOR: no anchor singles to count
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏀':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Starters',D.meta.pool]")
@@ -76,7 +76,7 @@ def seams(payload_js):
     add('odds-hint', 'Type a number per bat —', 'Type a number per starter —')
     add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket: the first made field goal of the game (free throws do not count). Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays.</span>')
     add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⚡</span>')
-    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀'};")
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',temple:'🏛️'};")
     add('tracker-builder', "['builder','🧢','Anchors']", '')
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Anchors',builder)")
     # ANCHORCARDS-2026-10-24. Owner: "can we do the anchors as smaller tickets like we do on baseball" -> "the size of

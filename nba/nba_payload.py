@@ -232,7 +232,8 @@ def why(n, r, st, gm, salt=''):
 
 
 BOARD_FROM = '2026-10-24'
-FAV_FROM = '2026-10-24'      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
+FAV_FROM = '2026-10-24'
+TEMPLE_FROM = '2026-10-24'   # TEMPLE-2026-10-24: Garrett's Temple, the four anchors round-robined      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
               'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
               'Heat Check', 'Buzzer Beater', 'Showtime']
@@ -589,6 +590,28 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                               bytwos=False),
                       parlay_am=None, payout10=None, ftd=True,
                       ev=round(sum(x['ev'] for x in m) / len(m), 3), p=None))
+    # TEMPLE-2026-10-24. Owner: "i kind of want to do the anchors rr too" / "+ anything in this business is good" /
+    # "the guy who put that ticket together tonight using the site was garrett. we should name the section after him"
+    # -> "what about garrett's temple?". One ticket a night: the four favourite anchors (four different games), full
+    # round robin 11 x 0.10u. Backtest 2021-26 under FanDuel rules: +172u on 747u (+23.0%), cashes 16.6% of nights,
+    # max drawdown 72u; with the 8 moons the board goes +5,962u -> +6,134u. Its own ledger row (kind 'temple').
+    if board is not None and date >= TEMPLE_FROM:
+        A = [a for a in board['anchors'] if a['name'] in P]
+        if len(A) == 4 and len({a['game'] for a in A}) == 4:
+            legs = [_leg(a['name'], a['odds']) for a in A]
+            first = min(legs, key=lambda l: (games.get(l['game']) or {}).get('ko', 0))
+            tlock = any((P.get(a['name']) or {}).get('status') == 'confirmed' or started(a) for a in A) or bool(MOONLOCK)
+            sa = [_sur(a['name']) for a in A]
+            tnote = _pk([f"Garrett's Temple, the four most likely first scorers on the board: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}. The chalk, stacked up and built to cash!",
+                         f"{sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}, the four best bets to score first, all on one ticket. Welcome to the Temple, baby!",
+                         f"Garrett lays the foundation: {sa[0]}, {sa[1]}, {sa[2]} and {sa[3]}. Four favourites, one Temple, let's build it!"], date + 'temple')
+            T.append(dict(name="Garrett's Temple", kind='temple', badge='🏛️', note=tnote,
+                          players=legs, nlegs=4, anchor=A[0]['name'], lock=re.sub(r'\s*ET\s*$', '', first['gtime']),
+                          has_late=False, final=False, wxsum={}, confleg=0, locked=tlock, priced=True,
+                          rr=dict(struct='by 2s, 3s & 4', risk=round(F.RR_UNIT * F.rr_combos(4), 2),
+                                  maxprofit=round(F.rr_maxprofit([l['odds'] for l in legs]), 2), bytwos=False),
+                          parlay_am=None, payout10=None, ftd=True,
+                          ev=round(sum(a['ev'] for a in A) / 4, 3), p=None))
     sn = {}
     if season and os.path.exists(season):
         try: sn = json.load(open(season, encoding='utf-8'))
