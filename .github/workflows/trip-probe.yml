@@ -1,0 +1,31 @@
+name: Trip probe
+
+# TRIPPROBE-2026-10-24 -- one-off: which soccer / football input sources can a GitHub runner reach without a
+# browser? (owner away 10-28..11-10 with his only computer; wants the site to run itself). Result lands on
+# soccer-data:trip/probe.txt. Delete once the automation ships.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/trip-probe.yml', 'tools/trip_probe.js']
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Probe
+        run: |
+          set +e
+          node tools/trip_probe.js > probe.txt 2>&1
+          curl -s -o /dev/null -w "curl oddschecker winner: %{http_code}\n" -A "Mozilla/5.0" https://www.oddschecker.com/football/english/premier-league/liverpool-v-brighton/winner >> probe.txt
+          curl -s -o /dev/null -w "curl understat: %{http_code}\n" -A "Mozilla/5.0" https://understat.com/league/EPL/2026 >> probe.txt
+          cat probe.txt
+      - name: Save
+        run: |
+          git config --global user.email "actions@github.com"; git config --global user.name "trip-probe"
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+          mkdir -p d/trip && cp probe.txt d/trip/probe.txt && cd d && git add trip/probe.txt && git commit -qm "Trip probe $(date -u +%FT%TZ)" && git push -q
