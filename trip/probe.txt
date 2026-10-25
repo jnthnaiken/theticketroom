@@ -1,0 +1,25 @@
+oddschecker winner page            403    len=5848 no-content
+oddschecker EPL index              403    len=5848 no-content
+oddschecker NFL                    403    len=5848 no-content
+understat EPL 2026                 200    len=18698 no-content
+understat league API               404    len=461 no-content
+ESPN soccer scoreboard             200    len=49824 CONTENT-OK
+ESPN NFL scoreboard                200    len=253980 CONTENT-OK
+ASA MLS xgoals                     200    len=337062 CONTENT-OK
+DraftKings sportsbook API          403    len=447 no-content
+FanDuel sbapi NFL                  200    len=1357414 CONTENT-OK
+BettingPros key: found
+BP events NFL                      200    len=15805 events=12
+BP events EPL                      200    len=429 events=0
+BP events SOCCER                   200    len=16612 events=17
+BP events MLS                      200    len=429 events=0
+BP events LALIGA                   200    len=432 events=0
+BP events SERIEA                   200    len=432 events=0
+BP events BUNDESLIGA               200    len=436 events=0
+BP events LIGUE1                   200    len=432 events=0
+BP events UCL                      200    len=429 events=0
+BP markets NFL                     200    len=121340 
+BP markets EPL                     200    len=328 
+BP markets SOCCER                  200    len=19054 
+curl oddschecker winner: 403
+curl understat: 200
