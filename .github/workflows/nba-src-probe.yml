@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
+          set +e; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
           {
           for u in https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json https://www.nba.com/games; do
             echo "== $u"; curl -s -A "$UA" -H "Referer: https://www.nba.com/" -H "Origin: https://www.nba.com" -o out.bin -w "HTTP %{http_code} %{size_download}\n" "$u"; head -c 300 out.bin | tr -d '\n'; echo
