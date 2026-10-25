@@ -1,0 +1,13 @@
+name: BBM probe
+# BBMLINEUP-2026-10-25: save basketballmonster.com/nbalineups.aspx raw HTML to soccer-data:trip/bbm.html (one-off).
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36" -w "\nHTTP %{http_code}\n" https://basketballmonster.com/nbalineups.aspx > bbm.html; tail -1 bbm.html; wc -c bbm.html
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+          git config --global user.email a@b.c; git config --global user.name probe
+          mkdir -p d/trip && cp bbm.html d/trip/bbm.html && cd d && git add trip/bbm.html && git commit -qm "bbm probe" && git push -q
