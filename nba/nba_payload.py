@@ -210,11 +210,13 @@ BOARD_FROM = '2026-10-24'
 FAV_FROM = '2026-10-24'
 TEMPLE_FROM = '2026-10-24'   # TEMPLE-2026-10-24: Garrett's Temple, the four anchors round-robined      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 # TEMPLENAMES-2026-10-25. Owner: "garretts temple tickets should have their own names. garrett temple inspired".
-# The section stays Garrett's Temple; the slip wears a date-rotated name from the temple, the way moons rotate.
-TEMPLE_NAMES = ['The Sanctuary', 'Holy Ground', 'The Altar', 'Stained Glass', 'The Pillars', 'Sunday Service',
-                'The Pulpit', 'Hallelujah', 'The Choir Loft', 'Amen Corner', 'The Steeple', 'The Cathedral',
-                'The Chapel', 'The Offering', 'The Revival', 'The Bell Tower', 'The Collection Plate', 'The Hymnal',
-                'The Cornerstone', 'Holy Water', 'The Vestibule', 'The Tabernacle', 'High Mass', 'The Congregation']
+# The section stays Garrett's Temple; the slip wears a date-rotated name, the way moons rotate.
+# Owner, 10-25: "no the retire player garrett temple" -- the names come from Garrett Temple's career: Baton Rouge
+# and LSU, the ten-day contracts that started it, the NBPA vice presidency, the defence-first journeyman years.
+TEMPLE_NAMES = ['The Journeyman', 'Ten-Day Contract', 'Baton Rouge', 'Geaux Tigers', 'The Vice President',
+                'Union Card', 'Lockdown', 'The Glue Guy', 'Passport Stamps', 'Veteran Minimum', 'Locker Room Leader',
+                'Bayou Bucket', 'Red Stick', 'Purple and Gold', 'The Long Haul', 'Defensive Stopper', 'The Grinder',
+                'Second Contract', 'Suitcase Packed', 'Pro\'s Pro']
 MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
               'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
               'Heat Check', 'Buzzer Beater', 'Showtime']
