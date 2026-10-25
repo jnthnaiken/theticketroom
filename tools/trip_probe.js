@@ -35,30 +35,36 @@ async function key_() {
 
 
 (async () => {
-  for (const [k, u, test] of [
-    ['oddschecker winner page', 'https://www.oddschecker.com/football/english/premier-league/liverpool-v-brighton/winner', t => /Anytime Goalscorer/i.test(t)],
-    ['oddschecker EPL index', 'https://www.oddschecker.com/football/english/premier-league', t => /-v-/.test(t)],
-    ['oddschecker NFL', 'https://www.oddschecker.com/us/american-football/nfl', t => /-v-|-at-/.test(t)],
-    ['understat EPL 2026', 'https://understat.com/league/EPL/2026', t => /playersData/.test(t)],
-    ['understat league API', 'https://understat.com/getLeagueData/EPL/2026', t => /players/.test(t)],
-    ['ESPN soccer scoreboard', 'https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard', t => /events/.test(t)],
-    ['ESPN NFL scoreboard', 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard', t => /events/.test(t)],
-    ['ASA MLS xgoals', 'https://app.americansocceranalysis.com/api/v1/mls/players/xgoals?season_name=2026', t => /player_id/.test(t)],
-    ['DraftKings sportsbook API', 'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/88808', t => /events/i.test(t)],
-    ['FanDuel sbapi NFL', 'https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=nfl&_ak=FhMFpcPWXMeyZxOx', t => /attachments/.test(t)],
-  ]) { const [s, t] = await get(u); line(k, s, t, test(t) ? 'CONTENT-OK' : 'no-content'); }
-  // BettingPros: the key the NBA room already uses, then NFL + soccer coverage
-  let key = null; try { key = await key_(); console.log('BettingPros key: found'); } catch (e) { console.log('BettingPros key: ' + String(e).slice(0, 120)); }
-  if (!key) { console.log('BettingPros key: none (probe uses fb_fetch.js path below)'); }
-  const H = key ? { 'x-api-key': key } : {};
-  for (const sp of ['NFL', 'EPL', 'SOCCER', 'MLS', 'LALIGA', 'SERIEA', 'BUNDESLIGA', 'LIGUE1', 'UCL']) {
-    const [s, t] = await get(API + 'events?sport=' + sp + '&date=2026-10-25', H);
-    let n = '-'; try { n = (JSON.parse(t).events || []).length; } catch (e) {}
-    line('BP events ' + sp, s, t, 'events=' + n);
+  let key = null; try { key = await key_(); console.log('BettingPros key: found'); } catch (e) { console.log('key ' + e); }
+  const H = { 'x-api-key': key };
+  // ---- BettingPros soccer: which leagues, which markets
+  for (const [sp, d] of [['SOCCER', '2026-10-25'], ['SOCCER', '2026-10-24'], ['NFL', '2026-10-25']]) {
+    const [s, t] = await get(API + 'events?sport=' + sp + '&date=' + d, H);
+    try { const j = JSON.parse(t); console.log(`BP ${sp} ${d}: ${j.events.length} events; keys ${Object.keys(j.events[0] || {}).join(',')}`);
+      for (const e of j.events.slice(0, 40)) console.log('   ', e.id, e.league || e.league_id || e.competition || '', e.home, 'v', e.visitor, e.scheduled);
+    } catch (e) { console.log('BP', sp, s, t.slice(0, 200)); }
   }
-  for (const sp of ['NFL', 'EPL', 'SOCCER']) {
-    const [s, t] = await get(API + 'markets?sport=' + sp + '&limit=200', H);
-    let names = ''; try { names = (JSON.parse(t).markets || []).map(m => m.id + ':' + (m.name || m.title || m.label || '')).filter(x => /touch|td|goal|scor/i.test(x)).slice(0, 25).join(' ; '); } catch (e) {}
-    line('BP markets ' + sp, s, t, names);
+  for (const sp of ['SOCCER', 'NFL']) {
+    const [s, t] = await get(API + 'markets?sport=' + sp + '&limit=500', H);
+    try { const j = JSON.parse(t); const ms = j.markets || j; console.log(`BP markets ${sp}: ${ms.length}; keys ${Object.keys(ms[0] || {}).join(',')}`);
+      for (const m of ms) { const s_ = JSON.stringify(m); if (/goal|scor|touchdown|anytime|first|total/i.test(s_)) console.log('   ', s_.slice(0, 220)); }
+    } catch (e) { console.log('BP markets', sp, s, t.slice(0, 300)); }
   }
+  // ---- FanDuel sbapi: soccer + NFL pages, what market types
+  for (const [k, u] of [['FD EPL', 'https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=epl&_ak=FhMFpcPWXMeyZxOx'],
+                         ['FD soccer', 'https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=SPORT&eventTypeId=1&_ak=FhMFpcPWXMeyZxOx'],
+                         ['FD NFL', 'https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=nfl&_ak=FhMFpcPWXMeyZxOx']]) {
+    const [s, t] = await get(u);
+    try { const j = JSON.parse(t); const ev = Object.values((j.attachments || {}).events || {}); const mk = Object.values((j.attachments || {}).markets || {});
+      const types = {}; mk.forEach(m => types[m.marketType] = (types[m.marketType] || 0) + 1);
+      console.log(`${k}: ${s} events=${ev.length} markets=${mk.length} types=${JSON.stringify(types).slice(0, 400)}`);
+      console.log('   sample events:', ev.slice(0, 6).map(e => e.eventId + ' ' + e.name + ' ' + (e.competitionId || '')).join(' | '));
+      if (ev[0]) { const [s2, t2] = await get(`https://sbapi.nj.sportsbook.fanduel.com/api/event-page?_ak=FhMFpcPWXMeyZxOx&eventId=${ev[0].eventId}&tab=all`);
+        try { const j2 = JSON.parse(t2); const mk2 = Object.values((j2.attachments || {}).markets || {}); const ty2 = {}; mk2.forEach(m => ty2[m.marketType + '|' + m.marketName] = 1);
+          console.log(`   event-page ${ev[0].name}: ${s2} markets=${mk2.length} :: ${Object.keys(ty2).filter(x => /GOAL|SCOR|TOUCHDOWN|TD|TOTAL|BOTH/i.test(x)).slice(0, 30).join(' ; ')}`); } catch (e) { console.log('   event-page', s2, t2.slice(0, 200)); } }
+    } catch (e) { console.log(k, s, t.slice(0, 200)); }
+  }
+  const [us, ut] = await get('https://understat.com/getLeagueData/EPL/2026', { 'X-Requested-With': 'XMLHttpRequest', referer: 'https://understat.com/league/EPL/2026' });
+  let n = '-'; try { n = JSON.parse(ut).players.length; } catch (e) {}
+  console.log('understat getLeagueData + XHR header:', us, 'players=' + n);
 })();
