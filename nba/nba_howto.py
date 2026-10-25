@@ -21,7 +21,7 @@ HOWTO = {
   "sum": "1u",
   "note": "Hakeem Olajuwon to score the first basket of HOU at LAL. He takes the opening tip for the Rockets, and the side that wins it usually scores first. Early in games the offense runs through him. The market is paying the star names; we are taking the value.",
   "player": "Hakeem Olajuwon",
-  "b1": "⭕ tip 64%",
+  "b1": "🏀 tip 64%",
   "b2": "🎯 14.8%",
   "where": "Rockets · HOU@LAL · 10:30",
   "meter": 78
@@ -115,7 +115,7 @@ HOWTO = {
    "Named for Garrett, who built it first. One ticket a night: the four anchors together, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). Shorter prices, so it cashes more often than a Moonshot."
   ],
   [
-   "⭕",
+   "🏀",
    "Why the tip",
    "The team that wins the opening tip makes the first field goal close to two times in three. Every center’s jump-ball record is rated, so the tip is called before the game, not guessed — and the books price the stars, not the man in the circle."
   ]
