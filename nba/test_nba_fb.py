@@ -157,6 +157,22 @@ check(all(x['name'] in _vp for m in _f['moons'] for x in m[1:]), 'favanchor: moo
 check(all(m[0] is _f['anchors'][i // 2] for i, m in enumerate(_f['moons'])) and len(_f['moons']) == 8, 'favanchor: two moons per favourite anchor')
 check(F.draft_board(_c[:5], fav=True)['anchors'] == [], 'favanchor: thin slate drafts nothing')
 
+# ---- FDRULES-2026-10-24: FanDuel grades the first SCORE -- free throws count ----
+_fx = json.load(open(FX)); _pl = _fx.get('plays') or []
+_i = next(i for i, p in enumerate(_pl) if p.get('scoringPlay') and (p.get('scoreValue') or 0) >= 2)
+_ft = dict(_pl[_i]); _ft.update(scoreValue=1, type={'text': 'Free Throw - 1 of 2'}, text='free throw 1 of 2', shootingPlay=True)
+_g0 = E.parse(_fx); _fx2 = dict(_fx); _fx2['plays'] = _pl[:_i] + [_ft] + _pl[_i:]
+_g2 = E.parse(_fx2)
+check(_g0['fs'] == _g0['fb'], 'fdrules: no free throw first -> first score is the first field goal')
+_ath = {str(a_['athlete']['id']): a_['athlete']['displayName'] for tb in _fx['boxscore']['players'] for sg in tb['statistics'] for a_ in sg['athletes'] if a_.get('athlete')}
+_ftp = dict(_pl[_i]); _ftp.update(scoreValue=1, type={'text': 'Free Throw - 1 of 2'})
+_other = next(p for p in _pl if p.get('participants') and _ath.get(str(p['participants'][0]['athlete']['id'])) not in (None, _g0['fb']))
+_ftp['participants'] = [_other['participants'][0]]
+_fx3 = dict(_fx); _fx3['plays'] = _pl[:_i] + [_ftp] + _pl[_i:]
+_g3 = E.parse(_fx3); _ftname = _ath[str(_other['participants'][0]['athlete']['id'])]
+check(_g3['fs'] == _ftname and _g3['fs'] != _g3['fb'], f'fdrules: a free throw before the first field goal wins first basket ({_ftname})')
+check(_g3['fb'] == _g0['fb'], 'fdrules: the free throw does not change the first field goal')
+
 shutil.rmtree(tmp, ignore_errors=True)
 print(f'\n{len(fails)} failure(s)')
 sys.exit(1 if fails else 0)

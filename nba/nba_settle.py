@@ -3,7 +3,7 @@
 
 TWO JOBS, ONE ESPN READ (nba_espn.parse):
   1. GRADE. Every archived board nba/boards/<date>.json not yet in nba_season.json graded_nights whose games
-     are all FINAL: stamp each priced man's `ftd1` (he made his game's first FIELD GOAL), void a man who did
+     are all FINAL: stamp each priced man's `ftd1` (he scored his game's first points, FREE THROWS COUNT -- FanDuel, FDRULES), void a man who did
      not play, write meta.finals, and fold with soccer_grade.fold() -- the same grader and ledger shape every
      room uses. A first-basket leg reads `ftd1`, never `hr` (soccer_grade.grade_ticket: l['ftd']).
   2. LEARN. Every regular-season game after state.meta.through, oldest first, goes through
@@ -74,12 +74,17 @@ def grade_board(path, season_path, getsum=E.summary, getsb=E.scoreboard):
             if p.get('game') != gi: continue
             cands = [c for c, t in g['team_of'].items() if t == p.get('code')]
             who = _match(n, cands)
-            p['ftd1'] = bool(g['fb']) and who == g['fb']
+            # FDRULES-2026-10-24: FanDuel grades the first SCORE (free throws count) and refunds a listed player who
+            # does not start -- even if he comes off the bench and scores first.
+            starters = set(sum((g['starters'].get(T, []) for T in g['starters']), []))
+            if who is None or who not in starters:
+                p['ftd1'] = False; p['hr'] = False; p['void'] = True; nvoid += 1
+                continue
+            p['void'] = False
+            p['ftd1'] = bool(g['fs']) and who == g['fs']
             p['hr'] = p['ftd1']
             if p['ftd1']: nfb += 1
-            if who is None or who not in g['played']:
-                if not p['ftd1']: p['void'] = True; nvoid += 1
-        D['meta'].setdefault('fb', {})[str(gi)] = g['fb']
+        D['meta'].setdefault('fb', {})[str(gi)] = g['fs']
         finals.append(gi)
     D['meta']['finals'] = finals
     json.dump(D, io.open(path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)

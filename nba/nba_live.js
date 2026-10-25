@@ -3,7 +3,7 @@
  *
  *   DOES     read ESPN, and write only what the render layer already understands:
  *              D.meta.finals / D.meta.gs / D.meta.live
- *              p.ftd1  -- TRUE on the man who made his game's first FIELD GOAL, FALSE on everyone else in
+ *              p.ftd1  -- TRUE on the man who scored his game's FIRST POINTS (free throws count -- FanDuel, FDRULES), FALSE on everyone else in
  *                         that game, and only once a field goal exists (before that nobody has lost).
  *                         Free throws are not a basket (ESPN marks them shooting plays worth 1).
  *              p.hr    -- mirrors ftd1, so the player card says who scored first
@@ -186,21 +186,23 @@
         var who = matchOne(n, names);
         if (!who) { if (unmatched.indexOf(n) < 0) unmatched.push(n); return; }
         if (starters[who]) { p.status = 'confirmed'; p.out = false; }
-        if (!played[who] && !p.ftd1) p.void = true; else p.void = false;
+        /* FDRULES-2026-10-24: FanDuel refunds a listed player who does not START (bench minutes included) */
+        if (Object.keys(starters).length >= 10 && !starters[who]) { p.void = true; p.ftd1 = false; p.hr = false; }
+        else if (!played[who] && !p.ftd1) p.void = true; else p.void = false;
       });
 
       /* the game's first FIELD GOAL */
       var plays = sum.plays || [];
       for (var i = 0; i < plays.length; i++) {
         var pl = plays[i];
-        if (!pl.scoringPlay || !isFG(pl)) continue;
+        if (!pl.scoringPlay || !((pl.scoreValue || 0) >= 1)) continue;   /* FDRULES: first SCORE, free throws count (FanDuel) */
         var sid = pl.participants && pl.participants[0] && pl.participants[0].athlete && pl.participants[0].athlete.id;
         var sname = ath[String(sid)] || '';
         var fwho = sname ? matchOne(sname, candidatesFor(gi, teamOf[sname])) : null;
         D.meta.fb = D.meta.fb || {}; D.meta.fb[String(gi)] = sname;
         candidatesFor(gi).forEach(function (n) {
-          D.players[n].ftd1 = (n === fwho);
-          D.players[n].hr = (n === fwho);
+          D.players[n].ftd1 = (n === fwho) && !D.players[n].void;   /* a refunded non-starter cannot win (FanDuel) */
+          D.players[n].hr = D.players[n].ftd1;
         });
         break;
       }

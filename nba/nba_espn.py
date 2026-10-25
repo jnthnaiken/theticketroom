@@ -7,9 +7,10 @@ Two consumers, one parser, so the settle and the model can never disagree about 
   * feeds nba_fb.State.update() the same record shape the 2014-26 replay was built from.
 
 THE RULES (read before changing):
-  * FIRST BASKET = the first made field goal of the game. Free throws are shooting plays on ESPN with
-    scoreValue 1 and type "Free Throw - 1 of 2"; they are NOT a basket. That is how FanDuel ("First
-    Basket") and DraftKings ("First Field Goal") settle, and how the research graded 14,439 games.
+  * FDRULES-2026-10-24 -- WE GRADE BY FANDUEL. FanDuel "First Basket" is "resulted on the first score of the game":
+    FREE THROWS COUNT (owner, 10-24, after Jarrett Allen's two free throws beat Peyton Watson's three: "we're going
+    by fanduel rules"). `fs` = the first scorer, any points. `fb` (first made FIELD GOAL) is kept for the model's
+    features only. FanDuel also refunds a listed player who does not START (settled in nba_settle / nba_live).
   * The jump ball is ESPN's first period-1 "Jumpball" play: participants [jumper, jumper, gainer].
     The tip goes to the gainer's team.
   * A starter is ESPN's box-score `starter` flag. A man who did not play voids his leg.
@@ -79,7 +80,7 @@ def parse(summary):
                 if a.get('starter'): starters.setdefault(T, []).append(nm)
                 if not a.get('didNotPlay') and (a.get('stats') or []): played.add(nm)
     fga, fgm, efga, tfirst = {}, {}, {}, {}
-    jumpers = tip = fb = fbT = None
+    jumpers = tip = fb = fbT = fs = fsT = None
     for p in summary.get('plays') or []:
         per = ((p.get('period') or {}).get('number'))
         ty = str((p.get('type') or {}).get('text') or '')
@@ -95,6 +96,8 @@ def parse(summary):
             elif tid.get(str((p.get('team') or {}).get('id'))) in (H, V):
                 tip = tid[str((p.get('team') or {}).get('id'))]
             continue
+        if fs is None and p.get('scoringPlay') and (p.get('scoreValue') or 0) >= 1 and parts and ath.get(parts[0]):
+            fs = ath[parts[0]]; fsT = team_of.get(fs)          # FDRULES: first score of the game, free throws count
         if not _is_fg(p) or not parts: continue
         who = ath.get(parts[0])
         if not who: continue
@@ -108,7 +111,7 @@ def parse(summary):
         if T and T not in tfirst: tfirst[T] = who
         if made and fb is None: fb, fbT = who, T
     return dict(H=H, V=V, starters=starters, team_of=team_of, played=played, jumpers=jumpers, tip=tip,
-                fb=fb, fbT=fbT, fga=fga, fgm=fgm, efga=efga, tfirst=tfirst,
+                fb=fb, fbT=fbT, fs=fs, fsT=fsT, fga=fga, fgm=fgm, efga=efga, tfirst=tfirst,
                 final=bool(st.get('completed')), state=st.get('state'),
                 season_type=((hdr.get('season') or {}).get('type')))
 
