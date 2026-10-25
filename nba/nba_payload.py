@@ -215,11 +215,11 @@ TEMPLE_FROM = '2026-10-24'   # TEMPLE-2026-10-24: Garrett's Temple, the four anc
 # reliable role player. like how the picks are the safest reliable ones". The Temple is the chalk: the names say steady.
 # "those ticket names arent clever enough either" / "no 10 day contract. should be positive": two jokes, both his -- the journeyman's suitcase, and the role
 # player you can bank on (the Temple is the chalk, so the safe-money puns land).
-TEMPLE_NAMES = ['Have Jersey, Will Travel', 'Frequent Flyer Miles', 'Change of Address', 'Velcro Nameplate',
-                'Suitcase Full of Jerseys', 'Moving Boxes', 'Money in the Bank', 'Index Fund', 'The 401(k)', 'Savings Bond',
-                'Steady Paycheck', 'Set Your Watch By It', 'Old Faithful', 'Duct Tape and WD-40', 'Swiss Army Knife',
-                'Max Effort', 'The Insurance Policy', 'Sure as Sunrise', 'Rain or Shine',
-                'Blue-Chip Role Player']
+# Owner: "reliable category is what im lookimg for" -- the role player you can count on, every name.
+TEMPLE_NAMES = ['Set Your Watch By It', 'Old Faithful', 'Sure as Sunrise', 'Rain or Shine', 'Like Clockwork',
+                'Tried and True', 'Built to Last', 'Duct Tape and WD-40', 'Swiss Army Knife', 'Bread and Butter',
+                'Rock Solid', 'Iron Man', 'Mr. Dependable', 'Steady as She Goes', 'You Can Bank On It',
+                'Never Misses a Shift', 'Always On Time', 'Every Single Night', 'Count On Me', 'Max Effort']
 MOON_NAMES = ['Alley-Oop', 'Full Court', 'Fast Break', 'Coast to Coast', 'Pick and Roll', 'Backdoor Cut',
               'Splash Zone', 'Tomahawk', 'Euro Step', 'Skyhook', 'Lob City', 'Transition', 'Run and Gun',
               'Heat Check', 'Buzzer Beater', 'Showtime']
