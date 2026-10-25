@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AUTONFL-2026-10-24. Pick the next NFL slate that has no committed atd.psv and write its fixtures.json.
+"""AUTONFL-2026-10-24. Pick the next NFL slate whose prices are not frozen yet (no prices.json) and write its fixtures.json.
 
     python3 auto_slate.py [--date YYYY-MM-DD]      # prints date=... season=... week=... (GITHUB_OUTPUT lines)
 
@@ -20,7 +20,9 @@ if a.date:
     want = [a.date]
 else:
     want = [d for d in days if today <= datetime.date.fromisoformat(d) <= today + datetime.timedelta(days=1)
-            and not os.path.exists(f'slates/{d}/atd.psv')]
+            and not os.path.exists(f'slates/{d}/prices.json')]
+    # A slate is refetched until its first build freezes prices.json (PRICEONCE), so a Monday slate queued
+    # on Saturday night still gets Monday-morning prices.
 if not want:
     print('nothing to fetch', file=sys.stderr); sys.exit(0)
 d = want[0]

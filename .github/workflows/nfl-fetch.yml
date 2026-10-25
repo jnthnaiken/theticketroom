@@ -35,7 +35,7 @@ jobs:
         id: gate
         run: |
           H=$(TZ=America/New_York date +%-H)
-          if [ "${{ github.event_name }}" != "repository_dispatch" ] || [ "$H" = 19 ] || [ "$H" = 6 ] || [ "$H" = 0 ]; then   # hour 0 = TEMP test window 10-25, remove
+          if [ "${{ github.event_name }}" != "repository_dispatch" ] || [ "$H" = 19 ] || [ "$H" = 6 ]; then
             echo "go=true" >> $GITHUB_OUTPUT; echo "fetch window (ET hour $H, ${{ github.event_name }})"
           else echo "go=false" >> $GITHUB_OUTPUT; echo "outside fetch window (ET hour $H)"; fi
       - uses: actions/checkout@v4
