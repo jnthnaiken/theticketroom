@@ -4,15 +4,18 @@ def nd(u):
     h = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30).read().decode('utf-8', 'replace')
     m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', h, re.S)
     return json.loads(m.group(1)) if m else None
-def walk(o, path='', depth=0, out=None):
-    if out is None: out = []
-    if depth > 6: return out
-    if isinstance(o, dict):
-        for k, v in o.items():
-            out.append(f"{path}/{k}:{type(v).__name__}{'['+str(len(v))+']' if isinstance(v,(list,dict)) else '='+str(v)[:40]}")
-            walk(v, path + '/' + k, depth + 1, out)
-    elif isinstance(o, list) and o:
-        walk(o[0], path + '[0]', depth + 1, out)
-    return out
-g = nd('https://www.nba.com/games')
-print('\n'.join(walk(g['props']['pageProps'])[:120]))
+g = nd('https://www.nba.com/games')['props']['pageProps']
+g.pop('layout', None); g.pop('events', None)
+s = json.dumps(g)
+ids = sorted(set(re.findall(r'"gameId": "(00\d{8})"', s)))
+print('TOPKEYS', list(g.keys())); print('IDS', ids)
+open('games.json', 'w').write(s)
+gid = ids[0] if ids else None
+for sfx in ('box-score', 'play-by-play'):
+    try:
+        d = nd(f'https://www.nba.com/game/{gid}/{sfx}')
+        pp = d['props']['pageProps']; pp.pop('layout', None)
+        open(f'{sfx}.json', 'w').write(json.dumps(pp))
+        print(sfx, 'keys', list(pp.keys()), len(json.dumps(pp)))
+    except Exception as e:
+        print(sfx, 'ERR', e)
