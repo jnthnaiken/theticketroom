@@ -96,6 +96,7 @@ jobs:
             soccer/soccer_season.json
             nfl/index.html
             nba/index.html
+            nba/nba_D.json
       - name: Stage the site files (board + custom domain + boards the client adopts)
         run: |
           # PATHS-2026-08-26 -- THE SWAP. The site root is the COVER; the baseball board moved
