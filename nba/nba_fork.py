@@ -21,7 +21,7 @@ import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 82 + LIVE_SEAM_COUNT  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 83 + LIVE_SEAM_COUNT  # LINEUPNOTE-2026-10-25 +1 (twarn-off)  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -59,6 +59,10 @@ def seams(payload_js):
     # write-up to two lines; the basketball calls run a line per player, so every write-up shows in full here.
     add('tnote-unclamp', "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}",
         "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}\n.tnote{-webkit-line-clamp:none;line-clamp:none;overflow:visible;display:block}")
+    # LINEUPNOTE-2026-10-25. Owner: "lets just make the lineup disclaimer at the top about the green check, the disclaimer
+    # we are putting on each ticket individually. take those off and just put it once at the top. its impossible for any
+    # of these tickets to pass that test" -- every slip spans games hours apart, so the per-slip warning fired on all.
+    add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
     add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Moonshots',moon)")   # TEMPLE-2026-10-24
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
@@ -133,7 +137,10 @@ def seams(payload_js):
     add('legend-wx', '<span>🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild</span>', '')
     add('legend-park', '<span>🔥 hot park · ❄️ suppressed park</span>', '')
     add('legend-form', '<span>FORM ↑ rising · → steady · ↓ cooling</span>', '')
-    add('banner-weather', 'Vegas odds move and the weather updates', 'the prices move')
+    # LINEUPNOTE-2026-10-25: the one lineup disclaimer lives in the top banner (it replaces baseball's re-drafting PSA,
+    # which basketball never did -- a ticket locks at its first confirmed leg).
+    add('banner-weather', '<b>Wait for the <span class="psa-k">\u2713</span> before you place.</b> A ticket is only final once every player on it is confirmed in a posted lineup. This board keeps re-drafting: as lineups drop, Vegas odds move and the weather updates, legs get swapped and slips can leave the card entirely. What you see until then is a projection, not the final ticket.',
+        '<b>About the <span class="psa-k">\u2713</span>.</b> Starting fives are confirmed about 30 minutes before each tip, so a ticket\u2019s later legs can\u2019t all show the \u2713 when its first game starts. Each ticket locks the moment its first leg is confirmed and never changes after that. A player who doesn\u2019t start is voided, and the ticket plays on without him.')
     # TRACKERHOLES-2026-10-17: 'tracker-builder' empties the Anchors row, which leaves a HOLE in the defs
     # array, and drawTracker indexes defs[i][0] -- one hole threw and blanked the season box. Football never
     # had a hole (its emptied row was the last one). Drop holes before the loop.
