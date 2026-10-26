@@ -452,5 +452,10 @@ say('\n================ VARIANT HEAD-TO-HEAD (same rule, none vs team vs pos) ==
 for rule in ('A|{}|ev>=0.1|cap3', 'A|{}|ev>=0.2|cap5', 'A|{}|ev>=0.1|cap0', 'C|{}|value|ev>=0.1', 'C|{}|chalk|ev>=-1.0'):
     for v in fits:
         k = rule.format(v); say(f'{k:34s}', json.dumps(results.get(k)))
+# DRAWDOWN-2026-10-26 (owner: "do for downtown too please"): the shipped rule's picks, one row each, for drawdown
+_s = pick(main, 'p_role', 0.2, 5)
+_s = _s.assign(units=np.where(_s.win, _s.dec - 1, -1.0))[['season', 'date', 'gameId', 'pid', 'line', 'cost', 'made', 'win', 'units']]
+_s.sort_values(['date', 'gameId']).to_csv(os.path.join(OUT, 'downtown_picks.csv'), index=False)
+say('downtown picks written', len(_s))
 json.dump(rep, open(os.path.join(OUT, 'threes_report.json'), 'w'), indent=1, default=str)
 say('\nwrote', os.path.join(OUT, 'threes_report.json'))
