@@ -21,7 +21,8 @@ def scoreboard(ymd):
 def summary(eid):
     if str(eid).startswith('nba:'):
         s = N.summary(eid)
-        if N.complete(s):
+        # STARTERFLAG-2026-10-26: a complete play-by-play is not enough -- the grader also needs both starting fives.
+        if N.complete(s) and sum(len(v) for v in N.parse(s)['starters'].values()) >= 10:
             return s
         # FIRSTLOCK-2026-10-25: nba.com's page has only the late play-by-play (a finished game) -- the first score and
         # the tip are not on it. ESPN for this one game, the last resort the owner allowed.
@@ -31,7 +32,7 @@ def summary(eid):
         try:
             for row in E.scoreboard(ymd):
                 if (row[1], row[2]) == pair:
-                    print(f'  nba.com play-by-play incomplete for {pair[0]}@{pair[1]} -- ESPN for this game')
+                    print(f'  nba.com play-by-play or starting fives incomplete for {pair[0]}@{pair[1]} -- ESPN for this game')
                     return E.summary(row[0])
         except Exception as e:
             print(f'  ::warning::ESPN fallback {pair}: {str(e)[:100]}')

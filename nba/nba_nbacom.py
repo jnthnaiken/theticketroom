@@ -95,12 +95,17 @@ def parse(s):
             nm = p.get('name') or (str(p.get('firstName', '')) + ' ' + str(p.get('familyName', ''))).strip()
             if not nm: continue
             pid[p.get('personId')] = nm; team_of[nm] = T
-            if str(p.get('starter')) == '1': starters[T].append(nm)
+            # STARTERFLAG-2026-10-26: a FINISHED game's page carries no `starter` flag at all (10-25: 0 starters on
+            # all seven games, so the ledger never graded). There nba.com's box lists a position (G/F/C) only for
+            # the starting five -- read that when no player on the side carries the flag.
+            if str(p.get('starter')) == '1' or (not any(str(q.get('starter')) == '1' for q in t.get('players') or [])
+                                               and str(p.get('position') or '').strip()):
+                starters[T].append(nm)
             if str(p.get('played')) == '1': played.add(nm)
             st_ = p.get('statistics') or {}
             box.append(dict(pid=str(p.get('personId')), name=nm, team=T, tpa=int(st_.get('threePointersAttempted') or 0),
                             tpm=int(st_.get('threePointersMade') or 0), mins=(_secs(st_.get('minutes')) or 0) / 60.0,
-                            started=str(p.get('starter')) == '1', played=str(p.get('played')) == '1'))
+                            started=nm in starters[T], played=str(p.get('played')) == '1'))
     fga, fgm, efga, tfirst = {}, {}, {}, {}
     jumpers = tip = fb = fbT = fs = fsT = None
     for a in s['actions']:
