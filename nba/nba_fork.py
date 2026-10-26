@@ -53,7 +53,7 @@ def seams(payload_js):
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
     add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'+(kc.temple?' \\u00b7 '+kc.temple+' 🏛️':'')+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
-    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['downtown','🎯','Downtown'],['moon','🚀','Full-Court Heaves']")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
+    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['moon','🚀','Full-Court Heaves'],['downtown','🎯','Downtown']")   # LEDGERORDER-2026-10-26 (owner: "lets put downtown under the half court heaves on the ledger. same order as on the board")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
     # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
