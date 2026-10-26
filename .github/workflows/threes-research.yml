@@ -6,7 +6,7 @@ name: Threes research
 on:
   workflow_dispatch:
     inputs:
-      step: { description: "pull | analyze | both | seed", required: false, default: "both" }
+      step: { description: "pull | analyze | both | seed | season", required: false, default: "both" }
 permissions: { contents: write }
 jobs:
   pull:
@@ -92,3 +92,30 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
           git add nba/threes_state.json && git commit -m "Downtown: seed threes model state" && for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep 5; done
+  season:
+    # DOWNTOWN-2026-10-26: restate Downtown for this season's nights (owner: "backtest for this season and update the ledger")
+    if: inputs.step == 'season'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy
+      - name: Data
+        run: |
+          mkdir -p pbp sd
+          for y in 2022 2023 2024 2025; do
+            curl -sL -o pbp/v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && (cd pbp && tar -xf v3_$y.tar.xz)
+            curl -sL -o sd/sd_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_$y.tar.xz && (cd sd && tar -xf sd_$y.tar.xz)
+          done
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+      - name: Backtest
+        run: |
+          set +e
+          cd nba/research/threes && python3 season_backtest.py ../../../pbp ../../../sd ../../../d/nba/threes/odds_2026-10-20.psv.gz 2026-10-20 2026-10-25 ../../../season_bt.json > ../../../season_bt.log 2>&1; echo "exit $?" >> ../../../season_bt.log
+          tail -12 ../../../season_bt.log
+      - name: Save
+        run: |
+          cd d && cp ../season_bt.log nba/threes/ && cp ../season_bt.json nba/threes/ 2>/dev/null
+          git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "Downtown season backtest" && git push -q
