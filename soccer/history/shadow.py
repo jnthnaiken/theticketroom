@@ -56,7 +56,14 @@ def dec(o):
 
 
 def frac_to_am(f):
-    a, b = str(f).split('/')
+    # AUTOSOCCER-2026-10-26: the cloud-built slates (auto_slate.js, BettingPros) write american odds ("+400");
+    # this read only fractional, so the 10-26 slate shadowed 0 players and the board's publish was held.
+    f = str(f).strip()
+    if '/' not in f:
+        v = int(f)
+        if abs(v) < 100: raise ValueError(f)
+        return v
+    a, b = f.split('/')
     x = float(a) / float(b)
     return round(x * 100) if x >= 1 else round(-100 / x)
 
