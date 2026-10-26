@@ -1,7 +1,15 @@
 == loading play-by-play
+     substitution rows 57341 subType {}
+     minutes: median 48.0 | starters per game 17.3
    nbastatsv3_2022.csv 25505 player-games
+     substitution rows 57675 subType {}
+     minutes: median 48.0 | starters per game 17.15
    nbastatsv3_2023.csv 25853 player-games
+     substitution rows 59783 subType {}
+     minutes: median 48.0 | starters per game 17.34
    nbastatsv3_2024.csv 25821 player-games
+     substitution rows 64706 subType {}
+     minutes: median 48.0 | starters per game 17.79
    nbastatsv3_2025.csv 26259 player-games
 player-games 103438 games 4920 dates 2022-10-18 -> 2026-04-12
 == loading prices
@@ -9,13 +17,15 @@ price rows 884502 dates 494 books {0: 103432, 19: 92894, 27: 92626, 12: 84352, 1
 priced player-nights joined 48614 unjoined 3192 | positions known for 563 players
 threes made by position bucket (known = BettingPros listed him at some point): {'C': 7980, 'F': 47958, 'G': 68769, 'U': 3252}
 == features
+role features: median recent minutes 44.5 | games with a regular missing 0.955 | start flips 0.133
 feature rows 100858
 == fit on 2023 (players with >= 1.0 3PA a game, the prop-eligible pool)
   none  train loglik/game -1.48765  beta 0.0  r 8
   team  train loglik/game -1.48591  beta 0.75  r 8
   pos   train loglik/game -1.48696  beta 0.25  r 8
-  test 2024: {'none': -1.53236, 'team': -1.53142, 'pos': -1.53164}
-  test 2025: {'none': -1.49801, 'team': -1.49715, 'pos': -1.49733}
+  role  train loglik/game -1.47389  beta 0.67  minutes-trend 0.69  start-flip 0.52  missing-teammates 0.09  r 9.5
+  test 2024: {'none': -1.53236, 'team': -1.53142, 'pos': -1.53164, 'role': -1.52054}
+  test 2025: {'none': -1.49801, 'team': -1.49715, 'pos': -1.49733, 'role': -1.4832}
 == opponent threes allowed by position
    {'season': 2022, 'pos': 'G', 'league_per_game': 6.444, 'spread_sd': 0.095, 'best': 'CLE', 'best_x': 0.8, 'worst': 'HOU', 'worst_x': 1.29, 'split_half_r': 0.43}
    {'season': 2022, 'pos': 'F', 'league_per_game': 4.502, 'spread_sd': 0.083, 'best': 'PHX', 'best_x': 0.8, 'worst': 'ORL', 'worst_x': 1.15, 'split_half_r': 0.03}
@@ -41,12 +51,12 @@ priced over-rows 32324 | FanDuel rows 32324
 == C. round robin of shooters (top 4 overs, 4 different games, 2s/3s/4 at 0.10u)
 
 ================ BEST RULES (chosen on 2023-24 units, then shown on 2024-25 and 2025-26) ================
+A|role|ev>=0.2|cap0                {"2023": {"n": 128, "hit": 0.453, "avg_price": 2.31, "units": 4.1, "roi": 0.032}, "2024": {"n": 262, "hit": 0.439, "avg_price": 2.3, "units": -6.8, "roi": -0.026}, "2025": {"n": 355, "hit": 0.448, "avg_price": 2.4, "units": 21.5, "roi": 0.061}}
+A|role|ev>=0.2|cap3                {"2023": {"n": 119, "hit": 0.445, "avg_price": 2.33, "units": 3.3, "roi": 0.028}, "2024": {"n": 237, "hit": 0.451, "avg_price": 2.3, "units": 1.5, "roi": 0.006}, "2025": {"n": 294, "hit": 0.446, "avg_price": 2.41, "units": 16.1, "roi": 0.055}}
+A|role|ev>=0.2|cap5                {"2023": {"n": 125, "hit": 0.448, "avg_price": 2.32, "units": 3.1, "roi": 0.025}, "2024": {"n": 258, "hit": 0.438, "avg_price": 2.3, "units": -6.6, "roi": -0.026}, "2025": {"n": 346, "hit": 0.451, "avg_price": 2.41, "units": 24.6, "roi": 0.071}}
 A|pos|ev>=0.2|cap5                 {"2023": {"n": 73, "hit": 0.438, "avg_price": 2.34, "units": 1.9, "roi": 0.026}, "2024": {"n": 142, "hit": 0.43, "avg_price": 2.35, "units": -3.2, "roi": -0.023}, "2025": {"n": 251, "hit": 0.462, "avg_price": 2.43, "units": 23.6, "roi": 0.094}}
 A|pos|ev>=0.2|cap0                 {"2023": {"n": 73, "hit": 0.438, "avg_price": 2.34, "units": 1.9, "roi": 0.026}, "2024": {"n": 142, "hit": 0.43, "avg_price": 2.35, "units": -3.2, "roi": -0.023}, "2025": {"n": 253, "hit": 0.462, "avg_price": 2.43, "units": 23.9, "roi": 0.094}}
 A|pos|ev>=0.2|cap3                 {"2023": {"n": 71, "hit": 0.437, "avg_price": 2.34, "units": 1.8, "roi": 0.025}, "2024": {"n": 135, "hit": 0.437, "avg_price": 2.36, "units": 0.3, "roi": 0.002}, "2025": {"n": 228, "hit": 0.461, "avg_price": 2.43, "units": 21.3, "roi": 0.093}}
-A|none|ev>=0.3|cap3                {"2023": {"n": 19, "hit": 0.368, "avg_price": 2.49, "units": -1.7, "roi": -0.088}, "2024": {"n": 33, "hit": 0.455, "avg_price": 2.44, "units": 2.2, "roi": 0.066}, "2025": {"n": 80, "hit": 0.45, "avg_price": 2.5, "units": 6.9, "roi": 0.086}}
-A|none|ev>=0.3|cap5                {"2023": {"n": 19, "hit": 0.368, "avg_price": 2.49, "units": -1.7, "roi": -0.088}, "2024": {"n": 33, "hit": 0.455, "avg_price": 2.44, "units": 2.2, "roi": 0.066}, "2025": {"n": 80, "hit": 0.45, "avg_price": 2.5, "units": 6.9, "roi": 0.086}}
-A|none|ev>=0.3|cap0                {"2023": {"n": 19, "hit": 0.368, "avg_price": 2.49, "units": -1.7, "roi": -0.088}, "2024": {"n": 33, "hit": 0.455, "avg_price": 2.44, "units": 2.2, "roi": 0.066}, "2025": {"n": 80, "hit": 0.45, "avg_price": 2.5, "units": 6.9, "roi": 0.086}}
 B|none|ev>=0.2|cap3                {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.58, "units": -1.0, "roi": -1.0}, "2024": {"n": 4, "hit": 0.25, "avg_price": 2.58, "units": -1.4, "roi": -0.355}, "2025": {"n": 11, "hit": 0.455, "avg_price": 2.56, "units": 1.8, "roi": 0.167}}
 B|none|ev>=0.2|cap5                {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.58, "units": -1.0, "roi": -1.0}, "2024": {"n": 4, "hit": 0.25, "avg_price": 2.58, "units": -1.4, "roi": -0.355}, "2025": {"n": 11, "hit": 0.455, "avg_price": 2.56, "units": 1.8, "roi": 0.167}}
 B|none|ev>=0.2|cap0                {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.58, "units": -1.0, "roi": -1.0}, "2024": {"n": 4, "hit": 0.25, "avg_price": 2.58, "units": -1.4, "roi": -0.355}, "2025": {"n": 11, "hit": 0.455, "avg_price": 2.56, "units": 1.8, "roi": 0.167}}
@@ -55,27 +65,32 @@ B|team|ev>=0.3|cap5                {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.
 B|team|ev>=0.3|cap0                {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.58, "units": -1.0, "roi": -1.0}, "2024": {"n": 2, "hit": 0.5, "avg_price": 2.58, "units": 0.6, "roi": 0.29}, "2025": {"n": 3, "hit": 0.333, "avg_price": 2.56, "units": -0.5, "roi": -0.153}}
 C|none|value|ev>=0.1               {"2023": {"nights": 11, "staked": 12.1, "units": 11.2, "cashed": 0.455}, "2024": {"nights": 23, "staked": 25.3, "units": -0.6, "cashed": 0.174}, "2025": {"nights": 57, "staked": 62.7, "units": 2.5, "cashed": 0.246}}
 C|pos|value|ev>=0.1                {"2023": {"nights": 14, "staked": 15.4, "units": 9.4, "cashed": 0.286}, "2024": {"nights": 34, "staked": 37.4, "units": 4.1, "cashed": 0.294}, "2025": {"nights": 73, "staked": 80.3, "units": -3.6, "cashed": 0.274}}
+C|role|value|ev>=0.2               {"2023": {"nights": 5, "staked": 5.5, "units": 6.3, "cashed": 0.4}, "2024": {"nights": 12, "staked": 13.2, "units": -8.6, "cashed": 0.083}, "2025": {"nights": 35, "staked": 38.5, "units": 1.1, "cashed": 0.229}}
+C|role|value|ev>=0.0               {"2023": {"nights": 122, "staked": 134.2, "units": 2.9, "cashed": 0.246}, "2024": {"nights": 140, "staked": 154.0, "units": -14.5, "cashed": 0.243}, "2025": {"nights": 139, "staked": 152.9, "units": 40.7, "cashed": 0.338}}
 C|team|value|ev>=0.2               {"2023": {"nights": 1, "staked": 1.1, "units": 2.1, "cashed": 1.0}, "2024": {"nights": 4, "staked": 4.4, "units": -3.0, "cashed": 0.0}, "2025": {"nights": 19, "staked": 20.9, "units": -3.4, "cashed": 0.263}}
 C|pos|value|ev>=0.2                {"2023": {"nights": 1, "staked": 1.1, "units": 1.7, "cashed": 1.0}, "2024": {"nights": 4, "staked": 4.4, "units": -3.5, "cashed": 0.0}, "2025": {"nights": 18, "staked": 19.8, "units": 6.0, "cashed": 0.278}}
-C|team|value|ev>=0.1               {"2023": {"nights": 14, "staked": 15.4, "units": 0.8, "cashed": 0.214}, "2024": {"nights": 43, "staked": 47.3, "units": -2.7, "cashed": 0.256}, "2025": {"nights": 74, "staked": 81.4, "units": -13.1, "cashed": 0.27}}
-C|none|value|ev>=0.2               {"2023": {"nights": 1, "staked": 1.1, "units": -1.1, "cashed": 0.0}, "2024": {"nights": 4, "staked": 4.4, "units": -4.0, "cashed": 0.0}, "2025": {"nights": 12, "staked": 13.2, "units": -4.3, "cashed": 0.167}}
 
 ================ VARIANT HEAD-TO-HEAD (same rule, none vs team vs pos) ================
 A|none|ev>=0.1|cap3                {"2023": {"n": 190, "hit": 0.432, "avg_price": 2.24, "units": -10.7, "roi": -0.056}, "2024": {"n": 278, "hit": 0.41, "avg_price": 2.28, "units": -26.9, "roi": -0.097}, "2025": {"n": 373, "hit": 0.448, "avg_price": 2.36, "units": 10.9, "roi": 0.029}}
 A|team|ev>=0.1|cap3                {"2023": {"n": 226, "hit": 0.429, "avg_price": 2.2, "units": -17.0, "roi": -0.075}, "2024": {"n": 337, "hit": 0.442, "avg_price": 2.27, "units": -10.5, "roi": -0.031}, "2025": {"n": 397, "hit": 0.448, "avg_price": 2.35, "units": 12.3, "roi": 0.031}}
 A|pos|ev>=0.1|cap3                 {"2023": {"n": 216, "hit": 0.431, "avg_price": 2.23, "units": -14.3, "roi": -0.066}, "2024": {"n": 309, "hit": 0.443, "avg_price": 2.27, "units": -9.3, "roi": -0.03}, "2025": {"n": 390, "hit": 0.462, "avg_price": 2.36, "units": 23.9, "roi": 0.061}}
+A|role|ev>=0.1|cap3                {"2023": {"n": 315, "hit": 0.432, "avg_price": 2.21, "units": -19.0, "roi": -0.06}, "2024": {"n": 405, "hit": 0.432, "avg_price": 2.25, "units": -23.8, "roi": -0.059}, "2025": {"n": 433, "hit": 0.469, "avg_price": 2.35, "units": 37.1, "roi": 0.086}}
+A|none|ev>=0.2|cap5                {"2023": {"n": 67, "hit": 0.343, "avg_price": 2.29, "units": -14.8, "roi": -0.221}, "2024": {"n": 113, "hit": 0.407, "avg_price": 2.37, "units": -7.4, "roi": -0.066}, "2025": {"n": 226, "hit": 0.451, "avg_price": 2.43, "units": 16.1, "roi": 0.071}}
+A|team|ev>=0.2|cap5                {"2023": {"n": 83, "hit": 0.41, "avg_price": 2.29, "units": -5.3, "roi": -0.063}, "2024": {"n": 159, "hit": 0.459, "avg_price": 2.34, "units": 5.2, "roi": 0.033}, "2025": {"n": 261, "hit": 0.467, "avg_price": 2.41, "units": 28.2, "roi": 0.108}}
+A|pos|ev>=0.2|cap5                 {"2023": {"n": 73, "hit": 0.438, "avg_price": 2.34, "units": 1.9, "roi": 0.026}, "2024": {"n": 142, "hit": 0.43, "avg_price": 2.35, "units": -3.2, "roi": -0.023}, "2025": {"n": 251, "hit": 0.462, "avg_price": 2.43, "units": 23.6, "roi": 0.094}}
+A|role|ev>=0.2|cap5                {"2023": {"n": 125, "hit": 0.448, "avg_price": 2.32, "units": 3.1, "roi": 0.025}, "2024": {"n": 258, "hit": 0.438, "avg_price": 2.3, "units": -6.6, "roi": -0.026}, "2025": {"n": 346, "hit": 0.451, "avg_price": 2.41, "units": 24.6, "roi": 0.071}}
 A|none|ev>=0.1|cap0                {"2023": {"n": 212, "hit": 0.439, "avg_price": 2.23, "units": -9.1, "roi": -0.043}, "2024": {"n": 324, "hit": 0.426, "avg_price": 2.26, "units": -23.3, "roi": -0.072}, "2025": {"n": 494, "hit": 0.435, "avg_price": 2.34, "units": -0.3, "roi": -0.001}}
 A|team|ev>=0.1|cap0                {"2023": {"n": 253, "hit": 0.439, "avg_price": 2.2, "units": -15.4, "roi": -0.061}, "2024": {"n": 423, "hit": 0.444, "avg_price": 2.25, "units": -18.2, "roi": -0.043}, "2025": {"n": 572, "hit": 0.441, "avg_price": 2.33, "units": 6.5, "roi": 0.011}}
 A|pos|ev>=0.1|cap0                 {"2023": {"n": 242, "hit": 0.446, "avg_price": 2.22, "units": -9.2, "roi": -0.038}, "2024": {"n": 373, "hit": 0.44, "avg_price": 2.23, "units": -21.3, "roi": -0.057}, "2025": {"n": 548, "hit": 0.451, "avg_price": 2.33, "units": 18.1, "roi": 0.033}}
-B|none|ev>=0.2|cap3                {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.58, "units": -1.0, "roi": -1.0}, "2024": {"n": 4, "hit": 0.25, "avg_price": 2.58, "units": -1.4, "roi": -0.355}, "2025": {"n": 11, "hit": 0.455, "avg_price": 2.56, "units": 1.8, "roi": 0.167}}
-B|team|ev>=0.2|cap3                {"2023": {"n": 2, "hit": 0.0, "avg_price": 2.6, "units": -2.0, "roi": -1.0}, "2024": {"n": 7, "hit": 0.571, "avg_price": 2.57, "units": 3.3, "roi": 0.469}, "2025": {"n": 9, "hit": 0.333, "avg_price": 2.55, "units": -1.3, "roi": -0.14}}
-B|pos|ev>=0.2|cap3                 {"2023": {"n": 1, "hit": 0.0, "avg_price": 2.58, "units": -1.0, "roi": -1.0}, "2024": {"n": 6, "hit": 0.5, "avg_price": 2.58, "units": 1.7, "roi": 0.29}, "2025": {"n": 9, "hit": 0.444, "avg_price": 2.58, "units": 1.3, "roi": 0.147}}
+A|role|ev>=0.1|cap0                {"2023": {"n": 375, "hit": 0.451, "avg_price": 2.19, "units": -14.3, "roi": -0.038}, "2024": {"n": 586, "hit": 0.442, "avg_price": 2.23, "units": -30.3, "roi": -0.052}, "2025": {"n": 734, "hit": 0.465, "avg_price": 2.32, "units": 42.4, "roi": 0.058}}
 C|none|value|ev>=0.1               {"2023": {"nights": 11, "staked": 12.1, "units": 11.2, "cashed": 0.455}, "2024": {"nights": 23, "staked": 25.3, "units": -0.6, "cashed": 0.174}, "2025": {"nights": 57, "staked": 62.7, "units": 2.5, "cashed": 0.246}}
 C|team|value|ev>=0.1               {"2023": {"nights": 14, "staked": 15.4, "units": 0.8, "cashed": 0.214}, "2024": {"nights": 43, "staked": 47.3, "units": -2.7, "cashed": 0.256}, "2025": {"nights": 74, "staked": 81.4, "units": -13.1, "cashed": 0.27}}
 C|pos|value|ev>=0.1                {"2023": {"nights": 14, "staked": 15.4, "units": 9.4, "cashed": 0.286}, "2024": {"nights": 34, "staked": 37.4, "units": 4.1, "cashed": 0.294}, "2025": {"nights": 73, "staked": 80.3, "units": -3.6, "cashed": 0.274}}
+C|role|value|ev>=0.1               {"2023": {"nights": 27, "staked": 29.7, "units": -3.0, "cashed": 0.148}, "2024": {"nights": 77, "staked": 84.7, "units": 5.3, "cashed": 0.247}, "2025": {"nights": 112, "staked": 123.2, "units": 21.9, "cashed": 0.304}}
 C|none|chalk|ev>=-1.0              {"2023": {"nights": 145, "staked": 159.5, "units": -21.9, "cashed": 0.303}, "2024": {"nights": 147, "staked": 161.7, "units": -5.1, "cashed": 0.476}, "2025": {"nights": 149, "staked": 163.9, "units": -40.3, "cashed": 0.309}}
 C|team|chalk|ev>=-1.0              {"2023": {"nights": 145, "staked": 159.5, "units": -23.5, "cashed": 0.303}, "2024": {"nights": 147, "staked": 161.7, "units": 15.2, "cashed": 0.524}, "2025": {"nights": 149, "staked": 163.9, "units": -29.5, "cashed": 0.322}}
 C|pos|chalk|ev>=-1.0               {"2023": {"nights": 145, "staked": 159.5, "units": -18.4, "cashed": 0.317}, "2024": {"nights": 147, "staked": 161.7, "units": -10.3, "cashed": 0.429}, "2025": {"nights": 149, "staked": 163.9, "units": -34.1, "cashed": 0.329}}
+C|role|chalk|ev>=-1.0              {"2023": {"nights": 145, "staked": 159.5, "units": -21.7, "cashed": 0.31}, "2024": {"nights": 147, "staked": 161.7, "units": 22.3, "cashed": 0.517}, "2025": {"nights": 149, "staked": 163.9, "units": -27.2, "cashed": 0.309}}
 
 wrote out/threes_report.json
 exit 0
