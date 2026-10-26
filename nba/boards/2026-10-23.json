@@ -8338,6 +8338,31 @@
    "12": "Domantas Sabonis"
   },
   "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets. TEMPLE-2026-10-24: Garrett's Temple (the 4 favourite anchors, 11 x 0.10u round robin) restated in on every night with 4 anchors from 4 games (10-21, 10-23).",
-  "fdrules": "FDRULES-2026-10-24: POR@SAC regraded by FanDuel rules (first score, free throws count): Sabonis, not Keegan Murray. No ticket held either man; ledger unchanged."
+  "fdrules": "FDRULES-2026-10-24: POR@SAC regraded by FanDuel rules (first score, free throws count): Sabonis, not Keegan Murray. No ticket held either man; ledger unchanged.",
+  "dt": {
+   "picks": [
+    {
+     "name": "Jrue Holiday",
+     "code": "POR",
+     "gmatch": "POR@SAC",
+     "line": 1.5,
+     "kmin": 2,
+     "odds": -115,
+     "p": 0.6892,
+     "mu": 2.57,
+     "ev": 0.289,
+     "started": false,
+     "status": "confirmed",
+     "locked": true,
+     "final": true,
+     "dnp": false,
+     "made": 3,
+     "res": "win",
+     "tname": "Lava Lamp Lefty",
+     "restated": true
+    }
+   ],
+   "restated": true
+  }
  }
 }
