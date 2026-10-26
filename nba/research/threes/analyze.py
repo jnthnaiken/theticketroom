@@ -64,9 +64,12 @@ for f in sorted(glob.glob(os.path.join(SD, '**', 'shotdetail_*.csv'), recursive=
         names[int(pid)] = nm
 box = []   # gid, pid, team, att, made
 for f in sorted(glob.glob(os.path.join(PBP, '**', 'nbastatsv3_*.csv'), recursive=True)):
-    d = pd.read_csv(f, usecols=['gameId', 'personId', 'teamTricode', 'isFieldGoal', 'shotValue', 'shotResult'], low_memory=False)
+    cols = pd.read_csv(f, nrows=0).columns
+    want = [c for c in ('gameId', 'personId', 'teamTricode', 'isFieldGoal', 'shotValue', 'shotResult', 'description') if c in cols]
+    d = pd.read_csv(f, usecols=want, low_memory=False)
     d = d[(d.personId > 0) & d.teamTricode.notna() & (d.teamTricode != '')]
-    d['a3'] = ((d.isFieldGoal == 1) & (d.shotValue == 3)).astype(int)
+    three = (d.shotValue == 3) if 'shotValue' in d else d.description.astype(str).str.contains('3PT')   # older files: no shotValue
+    d['a3'] = ((d.isFieldGoal == 1) & three).astype(int)
     d['m3'] = (d.a3 == 1) & (d.shotResult == 'Made')
     agg = d.groupby(['gameId', 'personId']).agg(team=('teamTricode', 'first'), att=('a3', 'sum'), made=('m3', 'sum')).reset_index()
     box.append(agg)
