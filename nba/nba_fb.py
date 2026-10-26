@@ -243,7 +243,13 @@ def pick(cands, ev_min=EV_MIN, cap=MAX_PICKS):
 # 2,964 / 11.1% / +1,055u (+35.6%, every season up); moons 461 / 20 cashed / +140u; board +1,194u (+28.2%).
 # The same draft with strength = likelihood (baseball's literal rule) lost -528u: the books price first-basket
 # favourites ~5% short and a round robin multiplies it.
-Z_GATE, GAME_CAP, N_ANCHORS, MOONS_PER, MOON_LEGS, RR_UNIT = 0.75, 4, 4, 2, 4, 0.10
+Z_GATE, GAME_CAP, N_ANCHORS, MOONS_PER, MOON_LEGS, RR_UNIT = 0.75, 4, 4, 2, 4, 0.01
+# STAKES-2026-10-26. Owner on risk of ruin: "see if you can find a way to get heaves under 100" -> run the 4-leg Heaves
+# at 0.10x (RR_UNIT 0.10 -> 0.01, 11 x 0.01 = 0.11u a slip) side by side with the new 3-leg doubles below ("yup").
+# Backtest 2021-26, FanDuel grading: +1,712u, worst slump 77u (was 338u), every season up, +379u without the 10 best nights.
+# HALFCOURT-2026-10-26: 3-leg slips (favourite anchor + 2 value partners from two other games), DOUBLES ONLY, 2 per
+# anchor, partners differ by MOON_DIFF. 3 x 0.10u = 0.30u a slip. Alone: +1,116u, worst slump 55u, 5/5 seasons up.
+DUO_LEGS, DUOS_PER, DUO_UNIT = 3, 2, 0.10
 MOON_DIFF = 2
 WIN = None  # baseball's 120-min leg window does NOT apply: owner 10-23 "basketball lineups dont get confirmed until 15 min
             # before tip" -- no window makes a later leg confirmable at bet time anyway
@@ -309,17 +315,31 @@ def draft_board(cands, fav=False):
             anchors.append(c); ag.add(c['game'])
             if len(anchors) == N_ANCHORS: break
     rest = [c for c in pool if c not in anchors]
-    moons = []
+    return {'anchors': anchors, 'moons': slips(anchors, rest, MOON_LEGS, MOONS_PER),
+            'duos': slips(anchors, rest, DUO_LEGS, DUOS_PER)}
+
+
+def slips(anchors, rest, legs, per):
+    """Each anchor + (legs-1) partners from `rest`, every leg a different game; an anchor's slips differ by MOON_DIFF."""
+    import itertools
+    out = []
     for a in anchors:
         ok = [c for c in rest if c['game'] != a['game']]
         got = []
-        for cb in itertools.combinations(ok, MOON_LEGS - 1):
-            if len({a['game']} | {x['game'] for x in cb}) != MOON_LEGS: continue
+        for cb in itertools.combinations(ok, legs - 1):
+            if len({a['game']} | {x['game'] for x in cb}) != legs: continue
             if got and len({x['name'] for x in got[0]} - {x['name'] for x in cb}) < MOON_DIFF: continue
             got.append(cb)
-            if len(got) == MOONS_PER: break
-        moons += [[a, *cb] for cb in got]
-    return {'anchors': anchors, 'moons': moons}
+            if len(got) == per: break
+        out += [[a, *cb] for cb in got]
+    return out
+
+
+def duo_maxprofit(odds_list, unit=DUO_UNIT):
+    import itertools
+    d = [dec(o) for o in odds_list]
+    pairs = list(itertools.combinations(d, 2))
+    return sum(unit * x * y for x, y in pairs) - unit * len(pairs)
 
 
 def rr_combos(k):

@@ -144,7 +144,7 @@ check(len(_b['moons']) == 8, 'bbdraft: two moons per anchor on a deep slate')
 check(all(_b['moons'][i][0] is _b['moons'][i + 1][0] and len({x['name'] for x in _b['moons'][i][1:]} - {x['name'] for x in _b['moons'][i + 1][1:]}) >= F.MOON_DIFF
           for i in range(0, len(_b['moons']) - 1, 2)), "bbdraft: an anchor's two moons differ by >= 2 partners")
 check(len({tuple(sorted(x['name'] for x in m)) for m in _b['moons']}) == len(_b['moons']), 'bbdraft: no duplicate moons')
-check(F.rr_combos(4) == 11 and abs(F.RR_UNIT * F.rr_combos(4) - 1.10) < 1e-9, 'bbdraft: 11 bets x 0.10u')
+check(F.rr_combos(4) == 11 and abs(F.RR_UNIT * F.rr_combos(4) - 0.11) < 1e-9, 'bbdraft: 11 bets x 0.01u (STAKES-2026-10-26)')
 check(F.draft_board(_c[:5])['anchors'] == [], 'bbdraft: thin slate drafts nothing')
 # ---- FAVANCHOR-2026-10-24: favourites lead the moons, value partners ----
 _f = F.draft_board(_c, fav=True)
@@ -184,6 +184,18 @@ except Exception as _e:
 check("if not t.get('rr')" in open(os.path.join(HERE, 'nba_payload.py')).read(), 'temple: nba_payload summary keys round robins on rr, not kind')
 
 shutil.rmtree(tmp, ignore_errors=True)
+# ---- HALFCOURT-2026-10-26: 3-leg doubles slips, 2 per anchor, three different games, an anchor's two share no partner ----
+_c = [dict(name=f'P{g}{j}', game=g, p=0.2 - 0.01 * j, odds=500 + 50 * j, ev=0.5, value=1, z=2) for g in range(6) for j in range(2)]
+try:
+    _A = _c[:1] + [_c[2], _c[4], _c[6]]
+    _D = F.slips(_A, [c for c in _c if c not in _A], F.DUO_LEGS, F.DUOS_PER)
+    check(all(len(m) == 3 and len({x['game'] for x in m}) == 3 for m in _D), 'halfcourt: 3 legs from 3 games')
+    check(all(len([m for m in _D if m[0] is a]) <= 2 for a in _A), 'halfcourt: at most 2 per anchor')
+    _p = [m for m in _D if m[0] is _A[0]]
+    check(len(_p) < 2 or not ({x['name'] for x in _p[0][1:]} & {x['name'] for x in _p[1][1:]}), "halfcourt: an anchor's two slips share no partner")
+    check(abs(F.duo_maxprofit([100, 100, 100]) - (0.1 * 4 * 3 - 0.3)) < 1e-9, 'halfcourt: max profit is the three doubles')
+except Exception as _e:
+    check(False, f'halfcourt: {_e}')
 print(f'\n{len(fails)} failure(s)')
 import re
 # COLLINS2-2026-10-25: no phrasing twice on a board, none carried from the last night, across a week of

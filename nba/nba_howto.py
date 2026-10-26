@@ -105,9 +105,14 @@ HOWTO = {
    "The most likely first scorer from each of four different games, by our model with the books blended in. Each one leads two Full-Court Heaves; they are not bet on their own."
   ],
   [
+   "🔥",
+   "Half-Court Heaves",
+   "Two per anchor: the anchor plus two value picks from two other games, the starters FanDuel's price undersells most, bet as the three doubles at 0.10u (0.30u a ticket). Any two of the three scoring first cashes. An anchor's two tickets share no value pick."
+  ],
+  [
    "🚀",
    "Full-Court Heaves",
-   "Two per anchor: the anchor plus three value picks from three other games, the starters FanDuel's price undersells most, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs."
+   "Two per anchor: the anchor plus three value picks from three other games, every two-, three- and four-way combination at 0.01u (11 bets, 0.11u). Small stakes on the long shot: a four-way hit pays thousands to one. An anchor's two moons differ by at least two legs."
   ],
   [
    "🎯",

@@ -52,8 +52,8 @@ def seams(payload_js):
     add('sort-power', '<option value="power">Power · highest first</option>', '<option value="power">Team scores first · most likely</option>')
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
-    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
-    add('tracker-moon', "['moon','🥎','Moonshots']", "['moon','🚀','Full-Court Heaves'],['downtown','🎯','Downtown']")   # NOTEMPLE-2026-10-26: Temple row removed   # LEDGERORDER-2026-10-26 (owner: "lets put downtown under the half court heaves on the ledger. same order as on the board")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
+    add('tonight-count', "+kc.moon+' 🥎'", "+kc.duo+' 🔥 \\u00b7 '+kc.moon+' 🚀'+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
+    add('tracker-moon', "['moon','🥎','Moonshots']", "['duo','🔥','Half-Court Heaves'],['moon','🚀','Full-Court Heaves'],['downtown','🎯','Downtown']")   # HALFCOURT-2026-10-26: Half-Court Heaves row   # NOTEMPLE-2026-10-26: Temple row removed   # LEDGERORDER-2026-10-26 (owner: "lets put downtown under the half court heaves on the ledger. same order as on the board")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
     # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
@@ -64,14 +64,14 @@ def seams(payload_js):
     # we are putting on each ticket individually. take those off and just put it once at the top. its impossible for any
     # of these tickets to pass that test" -- every slip spans games hours apart, so the per-slip warning fired on all.
     add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Full-Court Heaves',moon)+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','Half-Court Heaves',D.tickets.filter(t=>t.kind==='duo').filter(match))+sec('lot','Full-Court Heaves',moon)+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
     add('special-sec-late', 'var L=D.tickets.filter(t=>t.kind===\'jackpot\'&&!t.final).filter(singleAlive);el.innerHTML=L.length?L.map(ticketCard).join(\'\'):\'<div class="closed">\\ud83c\\udfdf\\ufe0f No jackpot pick posted right now.</div>\';', "var L=[];el.innerHTML='';")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${t.kind==='temple'?' lunchwide bigtop':''}")   # TEMPLE-2026-10-24: owner "needs to be horizontal"   # ANCHORCARDS-2026-10-24: anchors are regular cards, not the wide strip
     add('special-css-late', "${t.kind==='jackpot'?' lunchwide nightcap':''}", "${t.kind==='late'?' lunchwide nightcap':''}")
-    add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0,temple:0};')
+    add('special-tile-kc', 'var kc={dinger:0,jackpot:0,builder:0,moon:0,family:0};', 'var kc={fb:0,late:0,builder:0,moon:0,family:0,temple:0,duo:0};')
     add('special-tile-cnt', "var cnt=kc.dinger+' ⚾ \\u00b7 '+kc.jackpot+' 🏟️ \\u00b7 '", "var cnt=''")   # FAVANCHOR: no anchor singles to count
     add('leg-hr-icon', "${fp.hr?'⚾':fp.void?", "${fp.hr?'🏀':fp.void?")
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Starters',D.meta.pool]")
@@ -85,7 +85,7 @@ def seams(payload_js):
     add('odds-hint', 'Type a number per bat —', 'Type a number per starter —')
     add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket: the first made field goal of the game (free throws do not count). Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays.</span>')
     add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⚡</span>')
-    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',temple:'🏛️',downtown:'🎯'};" + DTJS)   # DOWNTOWN-2026-10-26: section JS rides on the KEMO line
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',duo:'🔥',temple:'🏛️',downtown:'🎯'};" + DTJS)   # DOWNTOWN-2026-10-26: section JS rides on the KEMO line
     add('tracker-builder', "['builder','🧢','Anchors']", '')
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Anchors',builder)")
     # ANCHORCARDS-2026-10-24. Owner: "can we do the anchors as smaller tickets like we do on baseball" -> "the size of

@@ -8,7 +8,7 @@ def _dec(am):
     return 1 + am / 100.0 if am > 0 else 1 + 100.0 / abs(am)
 
 
-def _combos(L):
+def _combos(L, twos=False):
     """Every parlay a 'by 2s & 3' round robin places over L legs (plus the 4-fold when the slip is
     that wide). Enumerated over the ORIGINAL leg count, because that is what the stake was split
     across at placement -- a leg voiding hours later cannot change the denominator."""
@@ -16,11 +16,11 @@ def _combos(L):
     # RRUNIT-2026-09-13: doubles up to the FULL parlay. The old list stopped at four, so a
     # five-leg slip was split across 25 bets instead of 26 and its five-fold paid nothing.
     # Identical at L<=4, so no archived soccer night re-grades differently.
-    sizes = list(range(2, L + 1))
+    sizes = [2] if twos else list(range(2, L + 1))   # HALFCOURT-2026-10-26: rr.bytwos = doubles only
     return [c for z in sizes if L >= z for c in itertools.combinations(range(L), z)]
 
 
-def _rrnet(dec, state, mask, risk):
+def _rrnet(dec, state, mask, risk, twos=False):
     """RRVOID-2026-09-01 -- A VOID LEG REDUCES ITS PARLAYS. IT DOES NOT MOVE MONEY ONTO THE SURVIVORS.
 
     What this replaced took only the SURVIVING legs and re-derived the whole round robin over them,
@@ -40,7 +40,7 @@ def _rrnet(dec, state, mask, risk):
     A slip with no void leg is arithmetically identical to the RRSTAKE-2026-08-28 loop this replaces.
     Keep in lockstep with grade_night.py grade_ticket() and rrnet() in index.html."""
     L = len(state)
-    cs = _combos(L)
+    cs = _combos(L, twos)
     if not cs:
         return 0.0
     unit = risk / len(cs)
@@ -104,12 +104,13 @@ def grade_ticket(t, players, finals, stake_base=1.0):
         # A dead slip settles at what it actually returns, NOT at a flat -risk: under reduction it
         # can still owe the refund from its all-void combinations. The flat -risk was also what made
         # this file disagree with a partially-cashing round robin on the board.
-        if _rrnet(decs, state, still, risk) <= 0:
-            net = _rrnet(decs, state, hit, risk)
+        tw = bool(rr.get('bytwos'))
+        if _rrnet(decs, state, still, risk, tw) <= 0:
+            net = _rrnet(decs, state, hit, risk, tw)
             return {'kind': t['kind'], 'stake': risk, 'net': net, 'won': False}
         if not fin:
             return None
-        net = _rrnet(decs, state, hit, risk)
+        net = _rrnet(decs, state, hit, risk, tw)
         return {'kind': t['kind'], 'stake': risk, 'net': net, 'won': net > 0}
     if not cashed and not fin:
         return None

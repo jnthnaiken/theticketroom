@@ -227,6 +227,10 @@ def why(n, r, st, gm, salt=''):
 
 BOARD_FROM = '2026-10-24'
 FAV_FROM = '2026-10-24'
+# HALFCOURT-2026-10-26: the 3-leg doubles slips wear basketball eras and nicknames (the Heaves have the famous moments).
+DUO_NAMES = ['Showtime', 'Bad Boys', 'Seven Seconds or Less', 'Grit and Grind', 'Splash Brothers', 'Run TMC', 'Twin Towers',
+             'The Process', 'Heat Culture', 'Big Three', 'Pistol Pete', 'The Mailman', 'The Glove', 'The Answer',
+             'Black Mamba', 'Big Ticket', 'The Admiral', 'Sir Charles', 'The Worm', 'Mr. Big Shot']
 TEMPLE_UNTIL = '2026-10-26'   # NOTEMPLE-2026-10-26 (owner: "lets get rid of the temple completely, sorry garrett"): last Temple 10-25
 TEMPLE_FROM = '2026-10-24'   # TEMPLE-2026-10-24: Garrett's Temple, the four anchors round-robined      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 # TEMPLENAMES-2026-10-25. Owner: "garretts temple tickets should have their own names. garrett temple inspired".
@@ -502,14 +506,20 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         if board is None:
             board = F.draft_board(cands, fav=date >= FAV_FROM); fresh = True
             board = {'anchors': [dict(x, picked_at=stamp) for x in board['anchors']],
-                     'moons': [[dict(x, picked_at=stamp) for x in m] for m in board['moons']]}
-            print(f"  BBDRAFT: drafted {len(board['anchors'])} anchor(s) + {len(board['moons'])} moon(s)")
+                     'moons': [[dict(x, picked_at=stamp) for x in m] for m in board['moons']],
+                     'duos': [[dict(x, picked_at=stamp) for x in m] for m in board['duos']]}
+            print(f"  BBDRAFT: drafted {len(board['anchors'])} anchor(s) + {len(board['moons'])} moon(s) + {len(board['duos'])} half-court slip(s)")
         else:
             # A posted leg never moves, except a man who drops out of his team's five before HIS game tips: he is
             # replaced by the strongest pool starter not already on the board, from a game the slip does not hold.
             pool = F.draft_pool(cands) or sorted(cands, key=lambda c: -F.value(c))
+            if 'duos' not in board:   # HALFCOURT-2026-10-26: a board drafted before the half-court slips existed gets them now
+                _an = {a['name'] for a in board['anchors']}
+                board['duos'] = [[dict(x, picked_at=stamp) for x in m] for m in
+                                 F.slips(board['anchors'], [c for c in pool if c['name'] not in _an], F.DUO_LEGS, F.DUOS_PER)]
+                fresh = True; print(f"  HALFCOURT: drafted {len(board['duos'])} half-court slip(s) onto the posted board")
             def _st(x): g = games.get(x['game']) or {}; return started(dict(ko_utc=x.get('ko_utc') or g.get('ko_utc')))
-            names = lambda: {x['name'] for x in board['anchors']} | {x['name'] for m in board['moons'] for x in m}
+            names = lambda: {x['name'] for x in board['anchors']} | {x['name'] for m in board['moons'] + board['duos'] for x in m}
             def _next(avoid_games, fav=False):
                 for c in (sorted(cands, key=lambda c: -c['p']) if fav else pool):   # FAVANCHOR: a favourite replaces a favourite
                     if c['name'] in names() or c['game'] in avoid_games: continue
@@ -524,11 +534,15 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
             LOCK = set(board.get('locked') or [])
             for k_, m_ in enumerate(board['moons']):
                 if any(_st(x) or _conf(x) for x in m_): LOCK.add(k_)
+            DLOCK = set(board.get('dlocked') or [])
+            for k_, m_ in enumerate(board['duos']):
+                if any(_st(x) or _conf(x) for x in m_): DLOCK.add(k_)
             for i, a in enumerate(list(board['anchors'])):
                 dup = any(b['game'] == a['game'] for b in board['anchors'][:i])   # ANCHOR1G: a second anchor from one game
                 if ((a['name'] in P and not blocked(P[a['name']]['code'], a['name'])) and not dup) or _st(a): continue
-                mine = [m for m in board['moons'] if m and m[0]['name'] == a['name']]
-                if any(_st(x) for m in mine for x in m[1:]) or any(k_ in LOCK for k_, m_ in enumerate(board['moons']) if m_ and m_[0]['name'] == a['name']):
+                mine = [m for m in board['moons'] + board['duos'] if m and m[0]['name'] == a['name']]
+                if any(_st(x) for m in mine for x in m[1:]) or any(k_ in LOCK for k_, m_ in enumerate(board['moons']) if m_ and m_[0]['name'] == a['name']) \
+                        or any(k_ in DLOCK for k_, m_ in enumerate(board['duos']) if m_ and m_[0]['name'] == a['name']):
                     continue                         # one of his slips is live or locked (CONFLOCK-NBA): it stands as placed
                 avoid = {x['game'] for m in mine for x in m[1:]} | {b['game'] for k, b in enumerate(board['anchors']) if k != i}   # ANCHOR1G
                 r = _next(avoid, fav=date >= FAV_FROM)
@@ -537,8 +551,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     board['anchors'][i] = r
                     for m in mine: m[0] = r
                     fresh = True
-            for k_, m in enumerate(board['moons']):
-                if k_ in LOCK or any(_st(x) for x in m): continue  # locked (a confirmed leg) or a leg underway: it stands
+            for k_, m in [(k, m) for k, m in enumerate(board['moons']) if k not in LOCK] + [(None, m) for k, m in enumerate(board['duos']) if k not in DLOCK]:
+                if any(_st(x) for x in m): continue  # locked (a confirmed leg) or a leg underway: it stands
                 for j in range(1, len(m)):
                     if m[j]['name'] in P and not blocked(P[m[j]['name']]['code'], m[j]['name']): continue
                     r = _next({x['game'] for k, x in enumerate(m) if k != j})
@@ -546,18 +560,18 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                         print(f"  re-pick: moon leg {m[j]['name']} out of the five -> {r['name']}")
                         m[j] = r; fresh = True
         seen = set(); picks = []
-        for x in board['anchors'] + [x for m in board['moons'] for x in m]:
+        for x in board['anchors'] + [x for m in board['moons'] + board.get('duos', []) for x in m]:
             if x['name'] not in seen: seen.add(x['name']); picks.append(x)
     for x in picks:
         g = games.get(x['game']) or {}
         x.setdefault('ko_utc', g.get('ko_utc')); x.setdefault('gm', g.get('gm')); x.setdefault('gtime', g.get('time'))
         x.setdefault('code', (P.get(x['name']) or {}).get('code'))
     if board:
-        for x in board['anchors'] + [x for m in board['moons'] for x in m]:
+        for x in board['anchors'] + [x for m in board['moons'] + board.get('duos', []) for x in m]:
             g = games.get(x['game']) or {}
             x.setdefault('ko_utc', g.get('ko_utc')); x.setdefault('gm', g.get('gm')); x.setdefault('gtime', g.get('time'))
             x.setdefault('code', (P.get(x['name']) or {}).get('code'))
-    MOONLOCK = set()
+    MOONLOCK = set(); DUOLOCK = set()
     if board:                                   # CONFLOCK-NBA: latch any moon with a confirmed / started leg (fresh drafts too)
         MOONLOCK = set(board.get('locked') or [])
         for k_, m_ in enumerate(board['moons']):
@@ -565,6 +579,12 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         if sorted(MOONLOCK) != list(board.get('locked') or []):
             board['locked'] = sorted(MOONLOCK); fresh = True
             print(f"  CONFLOCK-NBA: locked moons {board['locked']}")
+        DUOLOCK = set(board.get('dlocked') or [])
+        for k_, m_ in enumerate(board.get('duos') or []):
+            if any((P.get(x['name']) or {}).get('status') == 'confirmed' or started(x) for x in m_): DUOLOCK.add(k_)
+        if sorted(DUOLOCK) != list(board.get('dlocked') or []):
+            board['dlocked'] = sorted(DUOLOCK); fresh = True
+            print(f"  CONFLOCK-NBA: locked half-court slips {board['dlocked']}")
     if cache and (fresh or not os.path.exists(cache)):
         os.makedirs(os.path.dirname(cache) or '.', exist_ok=True)
         out = {'date': date, 'picked_at': stamp}
@@ -641,6 +661,20 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                       has_late=False, final=False, wxsum={}, confleg=0, locked=(i in MOONLOCK), priced=True,
                       rr=dict(struct='by 2s, 3s & 4', risk=risk, maxprofit=round(F.rr_maxprofit([l['odds'] for l in legs]), 2),
                               bytwos=False),
+                      parlay_am=None, payout10=None, ftd=True,
+                      ev=round(sum(x['ev'] for x in m) / len(m), 3), p=None))
+    # HALFCOURT-2026-10-26: 3-leg doubles-only slips, 3 x DUO_UNIT. rr.bytwos tells the grader and the page doubles only.
+    for i, m in enumerate((board or {}).get('duos') or []):
+        if not all(x['name'] in P for x in m):
+            continue
+        legs = [_leg(x['name'], x['odds']) for x in m]
+        first = min(legs, key=lambda l: (games.get(l['game']) or {}).get('ko', 0))
+        T.append(dict(name=DUO_NAMES[(doy + i) % len(DUO_NAMES)], kind='duo', badge='🔥',
+                      note=moon_note([x['name'] for x in m], date + 'duo' + str(i), info=lambda n: (TEAM_NAME.get(P[n]['code'], P[n]['code']), bool(P[n]['jumper']), P[n]['ptip'] or .5, st.P.get(st.key(n, team=P[n]['code'])) or {})),
+                      players=legs, nlegs=len(legs), anchor=m[0]['name'], lock=re.sub(r'\s*ET\s*$', '', first['gtime']),
+                      has_late=False, final=False, wxsum={}, confleg=0, locked=(i in DUOLOCK), priced=True,
+                      rr=dict(struct='by 2s', risk=round(F.DUO_UNIT * 3, 2), maxprofit=round(F.duo_maxprofit([l['odds'] for l in legs]), 2),
+                              bytwos=True),
                       parlay_am=None, payout10=None, ftd=True,
                       ev=round(sum(x['ev'] for x in m) / len(m), 3), p=None))
     # TEMPLE-2026-10-24. Owner: "i kind of want to do the anchors rr too" / "+ anything in this business is good" /
