@@ -85,10 +85,10 @@ TIP = [
     "{s} controls the toss, the {t} swing it inside, and here comes {s} again.",
     "It's {s} at center court, all elbows and knees and ambition.",
     "{s} springs off that hardwood like somebody swapped it for a trampoline.",
-    "The toss goes up and {s} meets it at the top like they had a lunch date.",
-    "{s} gets a paw on the tip, rolls to the rim, and the {t} feed the big fella.",
+    "Toss goes up, and {s} meets it like they had a lunch date.",
+    "{s} paws the tip, rolls to the rim, and the {t} feed him.",
     "Opening tip: {s} up, {s} early, {s} everywhere.",
-    "{s} taps it back, sprints the floor, and posts up before the defense has tied its shoes.",
+    "{s} taps it back and posts up before the defense ties its shoes.",
     "Center jump, {s} against the world, and the world is losing.",
     "{s} gets up so high on the tip he could change a light bulb.",
     "The ref flips it, {s} flicks it, and the {t} are off to the races.",
@@ -96,25 +96,25 @@ TIP = [
     "{s} plants his feet in the circle like a porch post in red clay.",
     "{s} wins the jump, trails the play, and the {t} find him all alone.",
     "Here's {s} at the opening toss, long arms, big hands, bigger plans.",
-    "{s} gets the first touch of the night with his fingertips and the second with both hands.",
-    "{s} up top on the tip, and the {t} run their very first set right back through him.",
+    "{s} gets the first touch with his fingertips, the second with both hands.",
+    "{s} wins the tip, and the {t} run the first set right back through him.",
     "{s} squares up in the circle, the whistle blows, and he's already in the air.",
     "Tip goes to the {t}, and {s} is rumbling down the lane right behind it.",
-    "{s} gets his fingertips on it first and flicks it to the wing like he's dealing cards.",
+    "{s} flicks the tip to the wing like he's dealing cards.",
     "The ball barely leaves the ref's hand before {s} slaps it to the {t}.",
     "{s} times the toss like a man catching the last bus home.",
     "Here we go: {s} versus the other big, and {s} gets there a hair early.",
     "{s} rises, taps, and runs. The {t} have the ball and he wants it back.",
     "Opening toss, {s} skies for it, and the {t} start on offense.",
     "{s} wins it clean, then camps out on the block waiting for the entry pass.",
-    "{s} tips it forward, and he's the first one to the rim on the other end too.",
+    "{s} tips it forward and beats everybody to the rim.",
     "Big man, big jump, big chance. That's {s} at the start of the night.",
     "{s} goes up like he's reaching for the top shelf at the grocery store.",
-    "Jump ball. {s} wins it, and the {t} run the first play right back to the paint.",
+    "Jump ball. {s} wins it, and the {t} go right back to the paint.",
     "{s} gets the tip, the {t} get the ball, and the big fella gets position.",
-    "The ref throws it up and {s} sends it back down to the {t} with a smile.",
+    "Ref throws it up, {s} sends it to the {t} with a smile.",
     "{s} at the opening jump, and he's got springs in those sneakers tonight.",
-    "{s} rakes the tip to a guard and trots to the block like he owns the place.",
+    "{s} rakes the tip and trots to the block like he owns the place.",
     "The {t} send {s} to the circle, and the circle sends the ball to the {t}.",
     "Here's {s}, crouched and coiled at center court. Up he goes.",
     "{s} gets a fingernail on the toss, and a fingernail is all he needs.",
@@ -123,7 +123,7 @@ TIP = [
     "{s} gets the jump on the jump ball, and the {t} are in business.",
     "{s} meets that toss at its peak and steers it straight to the {t} point guard.",
     "Up it goes at center court, and {s} snatches the first possession for the {t}.",
-    "{s} tips it, the {t} push it, and he's rolling to the basket for the first look.",
+    "{s} tips it, the {t} push it, and he rolls for the first look.",
     "There's {s} in the circle, long as a summer day, and twice as hot.",
     "Win the tip, then dive to the rim: that's how {s} likes to start the evening.",
 ]
@@ -150,24 +150,24 @@ TIPWIN = [
     "The tip is where he does his best work, and he does it often.",
 ]
 EARLY = [
-    "The {t} come down, swing it to {s}, and he's letting it go without a second thought.",
+    "The {t} swing it to {s}, and he lets it go without a second thought.",
     "First trip down, {s} curls off the screen and lets it rip.",
-    "{s} catches it on the wing in the opening minute, and that trigger finger is already itchy.",
-    "The {t} call his number on the very first set, and {s} doesn't need to be asked twice.",
+    "{s} catches it on the wing, and that trigger finger is itchy.",
+    "The {t} call {s}'s number first, and he doesn't need asking twice.",
     "{s} gets the first touch, gives his man a little shimmy, and fires.",
     "Here's {s}, first possession, pulling up like the shot clock owes him rent.",
     "{s} comes off the pin-down, catches, rises, and the {t} bench is already standing.",
     "The ball's in {s}'s hands before the crowd has found its seats.",
     "{s} jab-steps, steps back, and lets the first shot of the night fly.",
-    "The {t} draw it up for {s} right out of the gate, and he is happy to oblige.",
+    "The {t} draw it up for {s} out of the gate, and he obliges.",
     "{s} hunts that first look like a kid hunting Easter eggs.",
     "Opening set, {s} on the move, and he's shooting it before you can say tip-off.",
     "{s} gets downhill on the first possession, and nobody's stepping in front of that freight train.",
     "{s} brings it up, sizes it up, and puts it up.",
     "Early clock, {s} on the elbow, and you can see the wheels turning: he's shooting this.",
-    "{s} doesn't wait for the game to come to him. He goes and gets it on the first trip.",
+    "{s} doesn't wait for the game. He goes and gets it.",
     "The {t} love to start with {s}, and {s} loves to start with a shot.",
-    "{s} with the hesitation dribble on the opening possession, and the defender's still looking for his shoe.",
+    "{s} hits the hesitation, and his man is still looking for his shoe.",
     "First action of the night: high screen for {s}, and he's pulling from the logo.",
     "{s} gets it in the corner, one dribble, two feet, let it go.",
     "{s} takes the opening swing for the {t} more nights than not.",
@@ -194,7 +194,7 @@ EARLY = [
     "{s} waves off the screen, goes one-on-one, and lets it go.",
     "Watch {s} on the opening set: one fake, one dribble, one shot.",
     "{s} is first off the screen and first to fire.",
-    "The {t} swing it twice and it ends up where it always seems to end up: {s}.",
+    "The {t} swing it twice, and it ends up where it always does: {s}.",
     "{s} hits the gas on the opening possession and doesn't tap the brakes.",
     "{s} gets a clean look on the first trip and takes it before anybody can blink.",
     "The {t} offense opens with a {s} isolation, and he's licking his chops.",
@@ -284,44 +284,44 @@ NICK = {
 }
 NICKLINE = ["{k} {s}!", "Here's {k} {s}.", "They call him {k} {s}, and I just did too.", "{k} {s}, y'all."]
 OPEN = [
-    "Pull up a chair, we've got {a}, {b}, {c} and {d} on the marquee!",
-    "Four games, four tips, and {a} leading the parade.",
-    "Ladies and gentlemen, the starting lineup for this one: {a}, {b}, {c} and {d}!",
-    "{a} brings the band; {b}, {c} and {d} bring the noise.",
-    "Saddle up, partner. {a} is out front with {b}, {c} and {d} riding in the wagon.",
-    "It's a four-course meal: {a} for the appetizer, then {b}, {c} and {d}.",
-    "Tonight's lineup card reads {a}, {b}, {c}, {d}, and it reads beautifully.",
-    "Gather 'round, folks: {a} leads the conga line with {b}, {c} and {d} right behind.",
-    "{a} at the top of the ticket, and the undercard of {b}, {c} and {d} is no slouch.",
-    "Four names, four arenas, one big night: {a}, {b}, {c} and {d}.",
-    "We're spinning the wheel with {a}, {b}, {c} and {d}, so hang on.",
-    "{a} is the headliner, and {b}, {c} and {d} are the encore.",
-    "Here's the crew: {a}, {b}, {c} and {d}, and every one of 'em came hungry.",
-    "Let's take a road trip. First stop {a}, then {b}, {c} and {d}.",
-    "Four first baskets on one slip, with {a} riding up front.",
-    "Oh, this one's a stew: {a}, {b}, {c} and {d} all in one pot.",
-    "{a}, {b}, {c}, {d}. Say it fast and it sounds like a fight song.",
-    "Roll call! {a}, {b}, {c} and {d}, everybody present and accounted for.",
-    "Grab a plate. {a}, {b}, {c} and {d} are on the menu tonight.",
-    "{a} drives, {b} rides shotgun, and {c} and {d} fight over the radio.",
-    "Knock knock. Who's there? {a}, {b}, {c} and {d}, that's who.",
-    "Four tips go up tonight, and we've got {a}, {b}, {c} and {d} waiting underneath.",
-    "Fresh out the oven: {a}, {b}, {c} and {d}, hot and ready.",
-    "{a} and {b} on the front porch, {c} and {d} out in the yard. The whole family's here.",
-    "Here comes the parade! {a} with the baton, {b}, {c} and {d} marching behind.",
-    "It's a barn dance, and {a}, {b}, {c} and {d} all brought their boots.",
-    "Four horses in this race: {a}, {b}, {c} and {d}. They're off!",
-    "Line 'em up: {a}, {b}, {c}, {d}. Knock 'em down.",
+    'Pull up a chair!',
+    'Four games, four tips, one parade.',
+    'Ladies and gentlemen, your starting lineup!',
+    'Saddle up, partner.',
+    "It's a four-course meal.",
+    "Gather 'round, folks.",
+    '{a} leads the conga line.',
+    'Four arenas, one big night.',
+    'Spin the wheel!',
+    '{a} is the headliner.',
+    'Everybody came hungry.',
+    'Road trip! First stop, {a}.',
+    "Oh, this one's a stew.",
+    'Roll call!',
+    'Grab a plate.',
+    '{a} drives, the rest ride along.',
+    "Knock knock. Who's there? Buckets.",
+    'Four tips go up tonight.',
+    'Fresh out the oven!',
+    "The whole family's here.",
+    'Here comes the parade!',
+    "It's a barn dance, y'all.",
+    "Four horses in this race. They're off!",
+    "Line 'em up!",
+    'Tip it off, baby!',
+    'Strike up the band!',
+    'Hold onto the porch railing.',
+    'The doors are open!',
 ]
 TEMPLE_OPEN = [
-    "Welcome to Garrett's Temple! The four likeliest first scorers on the board: {a}, {b}, {c} and {d}.",
-    "Garrett lays the foundation, and it's poured from chalk: {a}, {b}, {c} and {d}.",
-    "Four pillars hold up the Temple tonight: {a}, {b}, {c} and {d}.",
-    "Take your shoes off at the door, this is Garrett's Temple: {a}, {b}, {c} and {d}.",
-    "The Temple doors swing open, and inside it's {a}, {b}, {c} and {d}, the favorites in four different games.",
-    "Sunday best, folks. Garrett's Temple stands on {a}, {b}, {c} and {d}.",
-    "Garrett built this one brick by brick: {a}, {b}, {c} and {d}.",
-    "Light a candle in the Temple for {a}, {b}, {c} and {d}, the chalk of the night.",
+    "Welcome to Garrett's Temple: the four likeliest first scorers on the board.",
+    'Garrett lays the foundation, poured from chalk.',
+    'Four pillars hold up the Temple tonight.',
+    "Shoes off at the door, this is Garrett's Temple.",
+    'The Temple doors swing open.',
+    "Sunday best, folks. It's Garrett's Temple.",
+    'Garrett built this one brick by brick.',
+    'Light a candle in the Temple for the chalk of the night.',
 ]
 TAIL = [
     "Somebody tell the neighbors, this ticket's got a pulse!", "Strap in. Bumpy ride, beautiful view.",
@@ -411,17 +411,34 @@ def _nick(sur, key, mem):
     return mem.pick(NICKLINE, 'nl|' + key).format(k=k, s=sur)
 
 
-def player_line(sur, team, angle, key, mem, strong_tip=False):
+def _nickname(sur, key, mem):
+    """COLLINS4: the nickname rides inline ("Kilowatt Kuzma takes ...") instead of as its own sentence."""
+    nk = mem.__dict__.setdefault('nicked', set()); words = mem.__dict__.setdefault('nickwords', set())
+    if sur in nk: return None
+    ks = [x for x in (NICK.get((sur[:1] or 'x').lower()) or NICK['x']) if x not in words]
+    if not ks: return None
+    k = sorted(ks, key=lambda x: _fnv(mem.date + key + x))[0]
+    nk.add(sur); words.add(k)
+    return k + ' ' + sur
+
+
+def player_line(sur, team, angle, key, mem, strong_tip=False, extra=None):
+    """COLLINS4-2026-10-25 (owner: "shorten the writeups ... just a tad. theyre just a bit too wordy. keep all the eric
+    collinsisms though"): one call per player; the nickname goes inline; an add-on line (his comparison, a signature
+    call, or the tip record) on about one leg in three instead of two in three."""
     bank = {'tip': TIP, 'early': EARLY, 'fin': FIN}.get(angle, SNEAK)
-    call = mem.pick(bank, angle + '|' + key).format(s=sur, t=team or 'squad')
+    tpl = mem.pick(bank, angle + '|' + key)
     r = _fnv(mem.date + key) % 3
-    if strong_tip and r == 1:
-        return call + ' ' + mem.pick(TIPWIN, 'tw|' + key).format(t=team or 'squad')
+    if extra is not None:   # the caller decides which ONE leg of a ticket gets the add-on line
+        r = 1 if extra else (0 if r == 0 else 2)
+    who = sur
     if r == 0:
-        nk = _nick(sur, key, mem)
-        if nk: return nk + ' ' + call
-        return call + ' ' + _flourish(angle, key, mem)
+        who = _nickname(sur, key, mem) or sur
+    call = tpl.replace('{s}', who, 1).format(s=sur, t=team or 'squad')
+    if call[:1].islower(): call = call[:1].upper() + call[1:]
     if r == 1:
+        if strong_tip:
+            return call + ' ' + mem.pick(TIPWIN, 'tw|' + key).format(t=team or 'squad')
         return call + ' ' + _flourish(angle, key, mem)
     return call
 

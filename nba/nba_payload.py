@@ -256,7 +256,8 @@ def moon_note(names, salt, info=None, openers=None, temple=False):
         team, jumper, ptip, pp = info(n) if info else ('', False, .5, {})
         a = _angle(jumper, ptip, pp)
         lines.append(V.player_line(sur, team, {'tipw': 'tip', 'tip': 'tip', 'early': 'early', 'fin': 'fin'}.get(a, 'sneak'),
-                                   salt + '|' + n, mem, strong_tip=(a == 'tipw')))
+                                   salt + '|' + n, mem, strong_tip=(a == 'tipw'),
+                                   extra=(names.index(n) == V._fnv(salt) % len(names))))   # COLLINS4: one add-on a ticket
     return V.ticket_note(surs, lines, salt, mem, temple=temple)
 
 
