@@ -227,6 +227,7 @@ def why(n, r, st, gm, salt=''):
 
 BOARD_FROM = '2026-10-24'
 FAV_FROM = '2026-10-24'
+TEMPLE_UNTIL = '2026-10-26'   # NOTEMPLE-2026-10-26 (owner: "lets get rid of the temple completely, sorry garrett"): last Temple 10-25
 TEMPLE_FROM = '2026-10-24'   # TEMPLE-2026-10-24: Garrett's Temple, the four anchors round-robined      # FAVANCHOR-2026-10-24: favourite anchors lead the moons, no anchor singles   # BBDRAFT-2026-10-23: first slate drafted as anchors + moons
 # TEMPLENAMES-2026-10-25. Owner: "garretts temple tickets should have their own names. garrett temple inspired".
 # The section stays Garrett's Temple; the slip wears a date-rotated name, the way moons rotate.
@@ -647,7 +648,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     # -> "what about garrett's temple?". One ticket a night: the four favourite anchors (four different games), full
     # round robin 11 x 0.10u. Backtest 2021-26 under FanDuel rules: +172u on 747u (+23.0%), cashes 16.6% of nights,
     # max drawdown 72u; with the 8 moons the board goes +5,962u -> +6,134u. Its own ledger row (kind 'temple').
-    if board is not None and date >= TEMPLE_FROM:
+    if board is not None and TEMPLE_FROM <= date < TEMPLE_UNTIL:
         A = [a for a in board['anchors'] if a['name'] in P]
         if len(A) == 4 and len({a['game'] for a in A}) == 4:
             legs = [_leg(a['name'], a['odds']) for a in A]

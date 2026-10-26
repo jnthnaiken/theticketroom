@@ -110,11 +110,6 @@ HOWTO = {
    "Two per anchor: the anchor plus three value picks from three other games, the starters FanDuel's price undersells most, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs."
   ],
   [
-   "🏛️",
-   "Garrett’s Temple",
-   "Named for Garrett, who built it first. One ticket a night: the four anchors together, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). Shorter prices, so it cashes more often than a Full-Court Heave."
-  ],
-  [
    "🎯",
    "Downtown",
    "Threes made. A player's over on FanDuel's line when our model gives him at least a 20% edge: his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out. One per game, five a night at most, 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
