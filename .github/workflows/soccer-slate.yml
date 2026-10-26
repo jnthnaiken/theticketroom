@@ -45,8 +45,10 @@ jobs:
         if: steps.d.outputs.date != ''
         run: |
           S=soccer/slates/${{ steps.d.outputs.date }}
-          if [ -f $S/prices.json ]; then echo "frozen (prices.json) -- nothing to do"; exit 0; fi
           if [ -f $S/ags.psv ] && [ ! -f $S/auto.src ]; then echo "hand-built slate -- never overwritten"; exit 0; fi
+          # FDSOCCER-2026-10-26: a built (frozen) auto slate is not rebuilt, but a match that had no goalscorer
+          # prices then may be ADDED (its own rows only, kickoff still 30+ min away). Sevilla's prices stay put.
+          if [ -f $S/prices.json ]; then echo "add=true" >> $GITHUB_OUTPUT; echo "frozen -- add-only (new matches)"; fi
           echo "go=true" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v4
         if: steps.g.outputs.go == 'true'
@@ -62,7 +64,10 @@ jobs:
           M=$(cut -d'|' -f1 .auto/ags.psv 2>/dev/null | sort -u | wc -l)
           X=$(wc -l < .auto/xg.psv 2>/dev/null || echo 0)
           echo "fixtures $N, matches with goalscorer prices $M, xg rows $X" | tee -a auto.log
-          if [ "$N" -gt 0 ] && [ "$M" -ge $(( (N+1)/2 )) ] && [ "$X" -gt 100 ]; then echo "ok=true" >> $GITHUB_OUTPUT
+          if [ "${{ steps.g.outputs.add }}" = true ]; then
+            python3 soccer/auto_add.py soccer/slates/$D .auto | tee -a auto.log
+            [ -f .auto/ADDED ] && echo "ok=true" >> $GITHUB_OUTPUT
+          elif [ "$N" -gt 0 ] && [ "$M" -ge $(( (N+1)/2 )) ] && [ "$X" -gt 100 ]; then echo "ok=true" >> $GITHUB_OUTPUT
           else echo "::warning::not enough to post a board (fixtures $N, priced $M, xg $X)"; fi
       - name: Save the log
         if: steps.g.outputs.go == 'true'
@@ -76,7 +81,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
         run: |
           D=${{ steps.d.outputs.date }}; S=soccer/slates/$D
-          mkdir -p $S && cp .auto/fixtures.json .auto/ags.psv .auto/xg.psv $S/ && cp .auto/fgs.psv $S/ 2>/dev/null || true
+          if [ "${{ steps.g.outputs.add }}" = true ]; then cp .auto/ags.psv $S/; [ -f .auto/fgs.psv ] && cp .auto/fgs.psv $S/
+          else mkdir -p $S && cp .auto/fixtures.json .auto/ags.psv .auto/xg.psv $S/ && cp .auto/fgs.psv $S/ 2>/dev/null || true; fi
           echo "auto_slate.js $(date -u +%FT%TZ)" > $S/auto.src
           git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
           git add $S/fixtures.json $S/ags.psv $S/xg.psv $S/auto.src $( [ -f $S/fgs.psv ] && echo $S/fgs.psv )

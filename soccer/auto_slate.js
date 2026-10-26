@@ -111,6 +111,49 @@ async function scorers(fx, key) {
   return out;
 }
 
+// FDSOCCER-2026-10-26. Owner: "yes do that" -- BettingPros carries no goalscorer prices for some leagues (Ligue 1:
+// PSG v Lyon on 10-26 cost the board its tickets). For any slate match BettingPros left unpriced, FanDuel's own
+// sportsbook API (one book, not a median): event list from the soccer SPORT page, then event-page tab=goal-scorer,
+// markets TO_SCORE (anytime) and FIRST_GOAL_SCORER. Reachable from a GitHub runner (probe 10-26).
+const FD_AK = 'FhMFpcPWXMeyZxOx';
+async function fanduel(fx, missing) {
+  const out = { ags: [], fgs: [] };
+  if (!missing.length) return out;
+  const q = `&_ak=${FD_AK}&timezone=America%2FNew_York`;
+  let base = null, evs = [];
+  for (const st of ['nj', 'ny', 'pa']) {
+    try { const j = await getJSON(`https://sbapi.${st}.sportsbook.fanduel.com/api/content-managed-page?page=SPORT&eventTypeId=1${q}`);
+      evs = Object.values((j.attachments || {}).events || {}).filter(e => / v /.test(e.name)); base = `https://sbapi.${st}.sportsbook.fanduel.com/api/`; break; }
+    catch (e) { console.log(`  FanDuel ${st}: ${String(e).slice(0, 100)}`); }
+  }
+  if (!base) return out;
+  for (const slug of missing) {
+    const m = fx.matches[slug], ko = Date.parse(fx.date + 'T00:00:00Z') + m.kickoff * 60000;
+    let best = null, bs = 0;
+    for (const e of evs) {
+      if (Math.abs(Date.parse(e.openDate) - ko) > 6 * 3600e3) continue;
+      const [h, a] = e.name.split(' v '); const s = Math.min(sim(m.home, h), sim(m.away, a));
+      if (s > bs) { bs = s; best = e; }
+    }
+    if (!best || bs < 0.5) { console.log(`  FanDuel: no event for ${slug}`); continue; }
+    try {
+      const j = await getJSON(`${base}event-page?eventId=${best.eventId}&tab=goal-scorer${q}`);
+      const n0 = out.ags.length;
+      for (const mk of Object.values((j.attachments || {}).markets || {})) {
+        const tag = mk.marketType === 'TO_SCORE' ? 'ags' : mk.marketType === 'FIRST_GOAL_SCORER' ? 'fgs' : null;
+        if (!tag) continue;
+        for (const r of (mk.runners || [])) {
+          const a = (((r.winRunnerOdds || {}).americanDisplayOdds) || {}).americanOddsInt;
+          if (r.runnerStatus !== 'ACTIVE' || typeof a !== 'number' || !a || /no goal ?scorer/i.test(r.runnerName)) continue;
+          out[tag].push(`${slug}|${r.runnerName.trim()}|${a > 0 ? '+' : ''}${a}`);
+        }
+      }
+      console.log(`  FanDuel ${slug} (${best.name}): ${out.ags.length - n0} anytime prices`);
+    } catch (e) { console.log(`  ::warning::FanDuel ${slug}: ${String(e).slice(0, 120)}`); }
+  }
+  return out;
+}
+
 async function xg(fx) {
   const lgs = [...new Set(Object.values(fx.matches).map(m => m.league))];
   const y = +fx.date.slice(0, 4), mo = +fx.date.slice(5, 7), cur = mo >= 7 ? y : y - 1;
@@ -148,8 +191,14 @@ async function xg(fx) {
   console.log(`auto_slate ${date}: ${n} fixtures`);
   if (!n) return;
   fs.writeFileSync(path.join(dir, 'fixtures.json'), JSON.stringify(fx, null, 1) + '\n');
+  let sc = { ags: [], fgs: [] };
+  try { sc = await scorers(fx, await bpKey()); } catch (e) { console.log('::warning::BettingPros scorers: ' + String(e).slice(0, 200)); }
   try {
-    const sc = await scorers(fx, await bpKey());
+    const priced = new Set(sc.ags.map(r => r.split('|')[0]));
+    const fd = await fanduel(fx, Object.keys(fx.matches).filter(s => !priced.has(s)));
+    sc.ags.push(...fd.ags);
+    const fpriced = new Set(sc.fgs.map(r => r.split('|')[0]));
+    sc.fgs.push(...fd.fgs.filter(r => !fpriced.has(r.split('|')[0])));
     if (sc.ags.length) fs.writeFileSync(path.join(dir, 'ags.psv'), sc.ags.join('\n') + '\n');
     if (sc.fgs.length) fs.writeFileSync(path.join(dir, 'fgs.psv'), sc.fgs.join('\n') + '\n');
   } catch (e) { console.log('::warning::scorers: ' + String(e).slice(0, 200)); }
