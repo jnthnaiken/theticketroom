@@ -23,11 +23,11 @@ jobs:
       - name: Probe
         run: |
           set +e
-          cd nba && cp nba_season.json /tmp/s.json && cp nba_state.json /tmp/st.json
+          python3 tools/nba_box_probe.py 2026-10-25 > probe0.txt 2>&1; cd nba && cp nba_season.json /tmp/s.json && cp nba_state.json /tmp/st.json
           python3 nba_settle.py --season /tmp/s.json --boards boards --state /tmp/st.json > ../probe.txt 2>&1
           echo "rc=$?" >> ../probe.txt
           python3 -c "import json;print(json.load(open('/tmp/s.json'))['graded_nights'])" >> ../probe.txt 2>&1
-          cat ../probe.txt
+          cat ../probe0.txt ../probe.txt > ../p2.txt; mv ../p2.txt ../probe.txt; cat ../probe.txt
       - name: Save
         run: |
           git config --global user.email "actions@github.com"; git config --global user.name "nba-probe"
