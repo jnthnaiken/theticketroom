@@ -1,0 +1,46 @@
+name: Threes research
+# THREES-2026-10-25. Owner: "lets look into adding 3pt made to basketball" -> "lets look at all 3 possibilites. also go
+# deeper into the 3s given up by opp team by looking at per position too". Pulls BettingPros market 162 history and the
+# shufinskiy/nba_data play-by-play, runs nba/research/threes/*.py, saves everything to soccer-data:nba/threes/.
+on:
+  workflow_dispatch:
+    inputs:
+      step: { description: "pull | analyze | both", required: false, default: "both" }
+permissions: { contents: write }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy scipy
+      - name: Data branch
+        run: |
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+          mkdir -p d/nba/threes
+      - name: Pull prices
+        if: inputs.step != 'analyze'
+        run: |
+          node nba/research/threes/pull_bp162.js 2023-10-24 $(date -u +%F) threes_odds.psv
+          gzip -c threes_odds.psv > d/nba/threes/threes_odds.psv.gz
+          cd d && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes odds" && git push -q
+      - name: Play-by-play
+        if: inputs.step != 'pull'
+        run: |
+          mkdir -p pbp sd && cd pbp
+          for y in 2022 2023 2024 2025; do
+            curl -sL -o v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && tar -xf v3_$y.tar.xz || echo "no v3 $y"
+            curl -sL -o ../sd/sd_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_$y.tar.xz && (cd ../sd && tar -xf sd_$y.tar.xz) || echo "no sd $y"
+          done
+          ls -la . ../sd | head -30
+      - name: Analyze
+        if: inputs.step != 'pull'
+        run: |
+          [ -f threes_odds.psv ] || gunzip -c d/nba/threes/threes_odds.psv.gz > threes_odds.psv
+          python3 nba/research/threes/analyze.py threes_odds.psv pbp sd out | tee report.txt
+          mkdir -p d/nba/threes && cp report.txt d/nba/threes/ && cp -r out/* d/nba/threes/ 2>/dev/null || true
+          cd d && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes analysis" && git push -q
