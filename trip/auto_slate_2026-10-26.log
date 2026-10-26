@@ -2,9 +2,13 @@ auto_slate 2026-10-26: 2 fixtures
   scorers: no BettingPros event for paris-saint-germain-v-lyon
   ags: 45 prices across 1 matches
   fgs: 39 prices across 1 matches
+  FanDuel paris-saint-germain-v-lyon (Paris St-G v Lyon): 35 anytime prices
   understat Ligue_1 2025: ok
   understat Ligue_1 2026: ok
   understat La_liga 2025: ok
   understat La_liga 2026: ok
   xg rows: 2059
-fixtures 2, matches with goalscorer prices 1, xg rows 2059
+fixtures 2, matches with goalscorer prices 2, xg rows 2059
+auto_add ags.psv: 45 kept, 35 added
+auto_add fgs.psv: 39 kept, 35 added
+added matches: paris-saint-germain-v-lyon
