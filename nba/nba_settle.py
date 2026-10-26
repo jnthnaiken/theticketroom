@@ -75,7 +75,8 @@ def grade_board(path, season_path, getsum=E.summary, getsb=E.scoreboard):
         # nobody starter, mid-game). Grading that would void every leg on the game -- wait and retry instead.
         if sum(len(v) for v in g['starters'].values()) < 10:
             print(f'  {date}: game {gi} box score has no starting fives yet -- retrying later'); return 'network'
-        if g.get('pbp_complete') is False:   # FIRSTLOCK-2026-10-25: truncated nba.com play-by-play and no ESPN either
+        # STARTERFLAG-2026-10-26: also when the page read gives no first score at all (finished nba.com pages, 10-25)
+        if g.get('pbp_complete') is False or not g.get('fs'):   # FIRSTLOCK-2026-10-25
             fs0 = (D['meta'].get('fb') or {}).get(str(gi))
             if not fs0:
                 print(f'  {date}: game {gi} first score unknown (play-by-play incomplete) -- retrying later'); return 'network'

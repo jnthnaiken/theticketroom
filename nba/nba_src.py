@@ -22,7 +22,8 @@ def summary(eid):
     if str(eid).startswith('nba:'):
         s = N.summary(eid)
         # STARTERFLAG-2026-10-26: a complete play-by-play is not enough -- the grader also needs both starting fives.
-        if N.complete(s) and sum(len(v) for v in N.parse(s)['starters'].values()) >= 10:
+        g0 = N.parse(s) if N.complete(s) else None
+        if g0 and sum(len(v) for v in g0['starters'].values()) >= 10 and (g0['fs'] or g0['state'] != 'post'):
             return s
         # FIRSTLOCK-2026-10-25: nba.com's page has only the late play-by-play (a finished game) -- the first score and
         # the tip are not on it. ESPN for this one game, the last resort the owner allowed.

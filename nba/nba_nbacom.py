@@ -101,11 +101,14 @@ def parse(s):
             if str(p.get('starter')) == '1' or (not any(str(q.get('starter')) == '1' for q in t.get('players') or [])
                                                and str(p.get('position') or '').strip()):
                 starters[T].append(nm)
-            if str(p.get('played')) == '1': played.add(nm)
             st_ = p.get('statistics') or {}
+            # STARTERFLAG-2026-10-26: no `played` flag on a finished game's page either -- minutes on the floor say it
+            pl = (str(p.get('played')) == '1') if 'played' in p else ((_secs(st_.get('minutes')) or 0) > 0 or
+                                                                       bool(str(st_.get('minutes') or '').strip('0:. ')))
+            if pl: played.add(nm)
             box.append(dict(pid=str(p.get('personId')), name=nm, team=T, tpa=int(st_.get('threePointersAttempted') or 0),
                             tpm=int(st_.get('threePointersMade') or 0), mins=(_secs(st_.get('minutes')) or 0) / 60.0,
-                            started=nm in starters[T], played=str(p.get('played')) == '1'))
+                            started=nm in starters[T], played=pl))
     fga, fgm, efga, tfirst = {}, {}, {}, {}
     jumpers = tip = fb = fbT = fs = fsT = None
     for a in s['actions']:
