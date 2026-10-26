@@ -1,0 +1,45 @@
+{
+ "model": "ev_nfl_v1",
+ "proposed": null,
+ "inputs": [
+  "logit_implied",
+  "logit_implied_sq",
+  "logit_p_model"
+ ],
+ "coef": {
+  "b0": -0.131649,
+  "b_lim": 0.623215,
+  "b_lim2": -0.071663,
+  "b_m": 0.244129
+ },
+ "fit": {
+  "rows": 1787,
+  "tds": 325,
+  "nights": 20,
+  "first": "2026-09-09",
+  "last": "2026-10-25",
+  "lambda": 1.0,
+  "l_clip": [
+   -4.0,
+   1.5
+  ],
+  "m_clip": [
+   -6.0,
+   1.5
+  ],
+  "leave_one_night_out_top8_flat": {
+   "cal_ev": {
+    "bets": 160,
+    "roi": -0.020946847507331383
+   },
+   "raw_ev": {
+    "bets": 160,
+    "roi": -0.39590247521295907
+   },
+   "price": {
+    "bets": 160,
+    "roi": -0.014630729987310747
+   }
+  }
+ }
+}
