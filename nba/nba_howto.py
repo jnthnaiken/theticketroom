@@ -2,7 +2,7 @@
 """nba_howto.py -- HOWTOROOMS-2026-10-17. This room's How To tab.
 
 Owner, 2026-10-17: "update the how to pages, they should be sport appropriate". The How To tab is index.html's
-baseball page -- a three-leg Moonshot round robin, bats, parks, Kasper -- and each fork had patched words into it
+baseball page -- a three-leg Full-Court Heave round robin, bats, parks, Kasper -- and each fork had patched words into it
 one seam at a time, so the football and basketball rooms still diagrammed a baseball parlay. Now the whole tab body
 (anatomy slip, steps, kinds) and its callout table are replaced from HOWTO below, and the narrower seams that used
 to edit pieces of it are dropped automatically (howto_seams). The sample slip is this room's real product, a
@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "Moonshots are 1.10u round robins (11 bets at 0.10u). The ⚡ anchor leads two of them and is not bet on his own."
+   "Full-Court Heaves are 1.10u round robins (11 bets at 0.10u). The ⚡ anchor leads two of them and is not bet on his own."
   ],
   "3": [
    "Price",
@@ -78,8 +78,8 @@ HOWTO = {
  },
  "steps": [
   [
-   "Start on Tickets — tonight’s ⚡ Anchors and 🚀 Moonshots.",
-   "An anchor is the most likely first scorer in his game; he leads two Moonshots, each a round robin of four first-basket picks. The card at the top is the season ledger, graded live."
+   "Start on Tickets — tonight’s ⚡ Anchors and 🚀 Full-Court Heaves.",
+   "An anchor is the most likely first scorer in his game; he leads two Full-Court Heaves, each a round robin of four first-basket picks. The card at the top is the season ledger, graded live."
   ],
   [
    "Check the lock line before you act on anything.",
@@ -102,17 +102,17 @@ HOWTO = {
   [
    "⚡",
    "Anchors",
-   "The most likely first scorer from each of four different games, by our model with the books blended in. Each one leads two Moonshots; they are not bet on their own."
+   "The most likely first scorer from each of four different games, by our model with the books blended in. Each one leads two Full-Court Heaves; they are not bet on their own."
   ],
   [
    "🚀",
-   "Moonshots",
+   "Full-Court Heaves",
    "Two per anchor: the anchor plus three value picks from three other games, the starters FanDuel's price undersells most, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor's two moons differ by at least two legs."
   ],
   [
    "🏛️",
    "Garrett’s Temple",
-   "Named for Garrett, who built it first. One ticket a night: the four anchors together, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). Shorter prices, so it cashes more often than a Moonshot."
+   "Named for Garrett, who built it first. One ticket a night: the four anchors together, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). Shorter prices, so it cashes more often than a Full-Court Heave."
   ],
   [
    "🎯",

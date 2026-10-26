@@ -53,7 +53,7 @@ def seams(payload_js):
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
     add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'+(kc.temple?' \\u00b7 '+kc.temple+' 🏛️':'')+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
-    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['downtown','🎯','Downtown'],['moon','🚀','Moonshots']")   # TEMPLE-2026-10-24
+    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['downtown','🎯','Downtown'],['moon','🚀','Full-Court Heaves']")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
     # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
@@ -64,7 +64,7 @@ def seams(payload_js):
     # we are putting on each ticket individually. take those off and just put it once at the top. its impossible for any
     # of these tickets to pass that test" -- every slip spans games hours apart, so the per-slip warning fired on all.
     add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Moonshots',moon)+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Full-Court Heaves',moon)+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
@@ -109,7 +109,7 @@ def seams(payload_js):
     add('footer-sources', 'Sources: Kasper matchup cards, Baseball Savant (Statcast), MLB StatsAPI (schedules · HR/9 · live results), RotoWire (projected lineups), Open-Meteo (park weather), and multi-book consensus HR odds.', 'Sources: NBA play-by-play 2014-26 (the jump ball, the starters and every first field goal of 14,439 games), ESPN (starters, the opening tip and live results), and BettingPros first-basket prices — FanDuel for the price we post, the multi-book consensus as the market layer.')
     add('lg-hd-homers', '<span>conviction</span><span>homers</span>', '<span>conviction</span><span>first</span>')
     add('odds-homered', 'title="${p.hr?\'homered \\u2014 click to undo\':\'mark homered\'}">${p.hr?\'\\u26be\':\'\'}', 'title="${p.hr?\'scored first \\u2014 click to undo\':\'mark scored first\'}">${p.hr?\'\\ud83c\\udfc0\':\'\'}')
-    add('kind-moonshots', '<div class="kind"><span class="ke">🥎</span><div><b>Moonshots</b><span>Two three-leg round robins per anchor, eight a night. This is the one diagrammed above.</span></div></div>', '<div class="kind"><span class="ke">🚀</span><div><b>Moonshots</b><span>Two per anchor: the anchor plus three more first-basket picks, four different games, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor\'s two moons differ by at least two legs.</span></div></div>')
+    add('kind-moonshots', '<div class="kind"><span class="ke">🥎</span><div><b>Moonshots</b><span>Two three-leg round robins per anchor, eight a night. This is the one diagrammed above.</span></div></div>', '<div class="kind"><span class="ke">🚀</span><div><b>Full-Court Heaves</b><span>Two per anchor: the anchor plus three more first-basket picks, four different games, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). An anchor\'s two heaves differ by at least two legs.</span></div></div>')
     add('cal-11-base', "t:'Base score', d:'Kasper’s khr score, the base of the model.'", "t:'Model chance', d:'Our chance he makes the game’s first field goal, the books blended in.'")
     add('howto-n1', '>Babe Ruth</span>', '>Phil Jackson</span>')
     add('sec-lunch', '<div class="tsec lunch"><span class="tsech">Daily Dinger</span>', '<div class="tsec lunch"><span class="tsech">Anchors</span>')
