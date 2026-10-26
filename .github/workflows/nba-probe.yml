@@ -1,5 +1,6 @@
 name: NBA probe
 
+# NBAPROBE-2026-10-26 v3: why does nba_settle not grade 10-25? (dry run on copies)
 # NBAPROBE-2026-10-16 -- one-off reachability check for the basketball room's data sources from a
 # GitHub runner. v2 (2026-10-17): can the runner read BettingPros first-basket prices itself
 # (nba/fb_fetch.js)? Result lands on soccer-data:nba/probe.txt. Delete once the room ships.
@@ -17,14 +18,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
       - name: Probe
         run: |
           set +e
-          node nba/fb_fetch.js 2026-04-10 /tmp/fb0410.psv > probe.txt 2>&1
-          node nba/fb_fetch.js 2026-10-20 /tmp/fb1020.psv >> probe.txt 2>&1
-          wc -l /tmp/fb0410.psv /tmp/fb1020.psv >> probe.txt 2>&1
-          head -3 /tmp/fb0410.psv >> probe.txt 2>&1
-          cat probe.txt
+          cd nba && cp nba_season.json /tmp/s.json && cp nba_state.json /tmp/st.json
+          python3 nba_settle.py --season /tmp/s.json --boards boards --state /tmp/st.json > ../probe.txt 2>&1
+          echo "rc=$?" >> ../probe.txt
+          python3 -c "import json;print(json.load(open('/tmp/s.json'))['graded_nights'])" >> ../probe.txt 2>&1
+          cat ../probe.txt
       - name: Save
         run: |
           git config --global user.email "actions@github.com"; git config --global user.name "nba-probe"
