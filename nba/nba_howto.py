@@ -117,7 +117,7 @@ HOWTO = {
   [
    "🎯",
    "Downtown",
-   "Threes made. A player's over on FanDuel's line when our model gives him at least a 20% edge: his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out. One per game, five a night at most, 1u each, posted once both starting fives are confirmed. A player who doesn't play is refunded."
+   "Threes made. A player's over on FanDuel's line when our model gives him at least a 20% edge: his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out. One per game, five a night at most, 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
   ],
   [
    "🙌",
