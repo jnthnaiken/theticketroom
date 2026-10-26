@@ -97,6 +97,29 @@ def grade_board(path, season_path, getsum=E.summary, getsb=E.scoreboard):
         D['meta'].setdefault('fb', {})[str(gi)] = g['fs']
         finals.append(gi)
     D['meta']['finals'] = finals
+    # DOWNTOWN-2026-10-26: grade the threes picks off nba.com's final box score (the box is complete even when the
+    # play-by-play on the page is not). Unreadable -> retry later rather than fold a pick as lost.
+    dtp = ((D['meta'].get('dt') or {}).get('picks') or [])
+    if dtp:
+        import nba_nbacom as _N, nba_threes as _TH
+        try:
+            gid = {f'{a}@{h}': g for g, a, h, *_ in _N.scoreboard(date)}
+        except Exception as e:
+            print(f'  {date}: Downtown -- nba.com scoreboard unreachable ({str(e)[:80]})'); return 'network'
+        boxes = {}
+        for pk in dtp:
+            gm = want.get(pk['game'])
+            if gm not in gid:
+                print(f'  {date}: Downtown -- no nba.com game for {gm}'); return 'network'
+            if gm not in boxes:
+                try: boxes[gm] = _N.parse(_N.summary(gid[gm])).get('box') or []
+                except Exception as e:
+                    print(f'  {date}: Downtown box {gm} unreachable ({str(e)[:80]})'); return 'network'
+            b = next((x for x in boxes[gm] if x['team'] == pk.get('code') and _match(pk['name'], [x['name']])), None)
+            pk['final'] = True
+            pk['dnp'] = not (b and (b['played'] or b['tpa']))
+            pk['made'] = b['tpm'] if b else None
+            pk['res'] = _TH.grade(pk)
     json.dump(D, io.open(path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     print(f'  {date}: {len(finals)} final game(s), {nfb} priced first-basket scorer(s), {nvoid} void(s)')
     if not os.path.exists(season_path):

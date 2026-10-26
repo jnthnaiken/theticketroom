@@ -78,7 +78,28 @@ async function scrape(date, k) {
       if (!pg.total_pages || page >= pg.total_pages) break;
     }
   }
-  return { rows, games: evs.length, prices: nsel, lineups: rows.filter(r => r[0] === 'L').length };
+  // DOWNTOWN-2026-10-26: player threes made (BettingPros market 162), every book and line, for the Downtown picks
+  //   T|date|event|bp_pid|name|pos|team|book|line|side(O/U)|cost|main
+  let nthree = 0;
+  for (let i = 0; i < ids.length; i += 25) {
+    for (let page = 1; ; page++) {
+      let o = {};
+      try { o = await (await fetch(API + 'offers?sport=NBA&market_id=162&event_id=' + ids.slice(i, i + 25).join(':') + '&limit=25&page=' + page, H)).json(); } catch (e) { break; }
+      for (const off of (o.offers || [])) {
+        const p = (off.participants || [])[0] || {}, pl = p.player || {};
+        for (const s of (off.selections || [])) {
+          const side = String(s.selection || s.label || '').toLowerCase().startsWith('o') ? 'O' : 'U';
+          for (const b of (s.books || [])) for (const l of (b.lines || [])) {
+            if (l.is_off || typeof l.cost !== 'number' || l.line == null) continue;
+            rows.push(['T', date, off.event_id, p.id, p.name, pl.position || '', pl.team || '', b.id, l.line, side, l.cost, l.main ? 1 : 0].join('|')); nthree++;
+          }
+        }
+      }
+      const pg = o._pagination || {};
+      if (!pg.total_pages || page >= pg.total_pages) break;
+    }
+  }
+  return { rows, games: evs.length, prices: nsel, threes: nthree, lineups: rows.filter(r => r[0] === 'L').length };
 }
 
 /* RWLINEUP-2026-10-20. Owner, 10-20 2:46 PM: "rosters are out for the boston detroit game. why isnt it green
@@ -161,7 +182,7 @@ async function bbm(date) {
       r.rows.push(...bm);
       console.log(`fb_fetch ${date}: basketballmonster ${bm.length / 5} five(s), ${bm.filter(x => x.includes('|verified|')).length / 5} verified`);
     } catch (e) { console.log(`::warning::basketballmonster lineups: ${String(e).slice(0, 150)}`); }
-    console.log(`fb_fetch ${date}: ${r.games} games, ${r.prices} prices, ${r.lineups} lineup rows`);
+    console.log(`fb_fetch ${date}: ${r.games} games, ${r.prices} prices, ${r.threes} threes prices, ${r.lineups} lineup rows`);
     if (!r.games) return;
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, r.rows.join('\n') + '\n');

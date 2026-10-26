@@ -57,6 +57,18 @@ def bake(D, sb=None, getsum=N.summary, firsts=None):
             if fs and str(gi) not in firsts: firsts[str(gi)] = fs
             fs = firsts.get(str(gi)) or fs
         if fs: M['fb'][str(gi)] = fs
+        # DOWNTOWN-2026-10-26: threes made for tonight's Downtown picks, straight off nba.com's box score
+        for pk in ((M.get('dt') or {}).get('picks') or []):
+            if pk.get('game') != gi: continue
+            b = next((x for x in g.get('box') or [] if x['team'] == pk.get('code') and _match(pk['name'], [x['name']])), None)
+            pk['final'] = st == 'post'
+            if b:
+                pk['made'] = b['tpm'] if (b['played'] or b['tpa']) else (0 if st == 'in' else pk.get('made'))
+                pk['dnp'] = bool(st == 'post' and not b['played'])
+            elif st == 'post':
+                pk['dnp'] = True
+            import nba_threes as _TH
+            pk['res'] = _TH.grade(pk)
         for n, p in D['players'].items():
             if p.get('game') != gi: continue
             who = _match(n, [c for c, t in g['team_of'].items() if t == p.get('code')])

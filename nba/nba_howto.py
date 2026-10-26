@@ -115,6 +115,11 @@ HOWTO = {
    "Named for Garrett, who built it first. One ticket a night: the four anchors together, every two-, three- and four-way combination at 0.10u (11 bets, 1.10u). Shorter prices, so it cashes more often than a Moonshot."
   ],
   [
+   "🎯",
+   "Downtown",
+   "Threes made. A player's over on FanDuel's line when our model gives him at least a 20% edge: his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out. One per game, five a night at most, 1u each, posted once both starting fives are confirmed. A player who doesn't play is refunded."
+  ],
+  [
    "🙌",
    "Why the tip",
    "The team that wins the opening tip makes the first field goal close to two times in three. Every center’s jump-ball record is rated, so the tip is called before the game, not guessed — and the books price the stars, not the man in the circle."

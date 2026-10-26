@@ -17,6 +17,7 @@ WHAT IS DIFFERENT FROM FOOTBALL
   * The live loop is nba_live.js (ESPN basketball): first field goal -> ftd1, starters -> confirmed,
     did-not-play -> void.
 """
+DTJS = '\n/* DOWNTOWN-2026-10-26: the threes-made section (nba_threes.py rides in D.meta.dt.picks, graded by nba_settle).\n   A pick posts once both fives are confirmed; made threes update from nba.com every build (nba_livebake.py). */\nfunction dtState(p){if(p.res===\'win\')return[\'hit\',\'✅\'];if(p.res===\'loss\')return[\'dead\',\'❌\'];if(p.res===\'void\')return[\'p\',\'↩\'];if(p.made!=null)return[\'susp\',\'🚧\'];return[\'p\',\'\'];}\nfunction dtCard(p){var s=dtState(p),o=(typeof oddsStr===\'function\')?oddsStr(p.odds):p.odds,dec=p.odds>0?1+p.odds/100:1+100/Math.abs(p.odds);\n var pay=\'$10 → $\'+Math.round(10*dec);var made=p.made!=null?(\' · \'+p.made+\' made\'):\'\';\n return \'<div class="slip\'+(p.res===\'win\'?\' cashed\':\'\')+(p.res===\'loss\'?\' lost\':\'\')+\'"><div class="top"><div class="toprow"><div class="ttitle"><span class="tbadge">🎯</span><div class="tname">\'+(p.tname||\'Downtown\')+\'</div></div><div class="parlay"><div class="od">\'+o+\'</div><div class="pay">\'+pay+\'</div></div></div><div class="lockline">\'+(p.res===\'win\'?\'<span class="cashpill">💸 CASHED</span>\':(p.res===\'loss\'?\'<span class="losspill">🚩 SOLD</span>\':\'\'))+\'<span>Lock \'+String(p.gtime||\'\').replace(/\\s*ET$/,\'\')+\' ET</span></div>\'+(p.note?\'<div class="tnote" style="display:block;-webkit-line-clamp:none;overflow:visible;min-height:0">\'+p.note+\'</div>\':\'\')+\'</div><div class="legs"><div class="leg t-a"><span class="dot"></span><span class="nm"><span class="lst \'+s[0]+\'">\'+s[1]+\'</span>\'+p.name+\' over \'+p.line+\' threes</span><span class="od">\'+o+\'</span><span class="lmeta"><span class="lwhere">🎯 \'+Math.round(p.p*100)+\'% · \'+p.gmatch+\' · \'+String(p.gtime||\'\').replace(/\\s*ET$/,\'\')+made+\'</span></span></div></div></div>\';}\nfunction dtSection(){try{var P=(D.meta&&D.meta.dt&&D.meta.dt.picks)||[];return \'<div class="tsec big"><span class="tsech">Downtown</span><span class="tline"></span></div>\'+(P.length?P.map(dtCard).join(\'\'):\'<div class="closed">🎯 No Downtown picks yet. They post once both starting fives are confirmed.</div>\');}catch(e){return \'\';}}\n'
 import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
@@ -51,8 +52,8 @@ def seams(payload_js):
     add('sort-power', '<option value="power">Power · highest first</option>', '<option value="power">Team scores first · most likely</option>')
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
-    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'+(kc.temple?' \\u00b7 '+kc.temple+' 🏛️':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
-    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['moon','🚀','Moonshots']")   # TEMPLE-2026-10-24
+    add('tonight-count', "+kc.moon+' 🥎'", "+kc.moon+' 🚀'+(kc.temple?' \\u00b7 '+kc.temple+' 🏛️':'')+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
+    add('tracker-moon', "['moon','🥎','Moonshots']", "['temple','🏛️','Garrett\u2019s Temple'],['downtown','🎯','Downtown'],['moon','🚀','Moonshots']")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
     # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
@@ -63,7 +64,7 @@ def seams(payload_js):
     # we are putting on each ticket individually. take those off and just put it once at the top. its impossible for any
     # of these tickets to pass that test" -- every slip spans games hours apart, so the per-slip warning fired on all.
     add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Moonshots',moon)")   # TEMPLE-2026-10-24
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+(typeof dtSection==='function'?dtSection():'')+sec('lot','Moonshots',moon)")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
@@ -84,7 +85,7 @@ def seams(payload_js):
     add('odds-hint', 'Type a number per bat —', 'Type a number per starter —')
     add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket: the first made field goal of the game (free throws do not count). Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays.</span>')
     add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⚡</span>')
-    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',temple:'🏛️'};")
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',temple:'🏛️',downtown:'🎯'};" + DTJS)   # DOWNTOWN-2026-10-26: section JS rides on the KEMO line
     add('tracker-builder', "['builder','🧢','Anchors']", '')
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Anchors',builder)")
     # ANCHORCARDS-2026-10-24. Owner: "can we do the anchors as smaller tickets like we do on baseball" -> "the size of

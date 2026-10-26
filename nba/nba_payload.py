@@ -73,6 +73,8 @@ def parse_books(s):
 
 RWALIAS = {'NY': 'NYK', 'SA': 'SAS', 'GS': 'GSW', 'NO': 'NOP', 'PHO': 'PHX', 'UTAH': 'UTA', 'WSH': 'WAS', 'BKN': 'BKN'}
 RW = {}
+THREES = []        # DOWNTOWN-2026-10-26: fb_fetch.js T rows (BettingPros market 162)
+TSRC, TFIVE = {}, {}   # DOWNTOWN: per team tonight -- lineup source ('confirmed'...) and the five
 BBM = {}          # BBMLINEUP-2026-10-25: basketballmonster five per team, merged into RW at the end of read_slate
 INJ = {}          # RWINJ-2026-10-24: (team, name key) -> RotoWire tag; Ques / Doubt / Out / GTD never anchor or leg
 BLOCK_TAGS = ('ques', 'doubt', 'out', 'gtd', 'susp')
@@ -119,13 +121,16 @@ def rw_confirm(T, priced_names, want=('confirmed',)):
 
 def read_slate(path, date):
     E, L, S = {}, {}, {}
-    RW.clear(); INJ.clear(); BBM.clear()
+    RW.clear(); INJ.clear(); BBM.clear(); THREES.clear(); TSRC.clear(); TFIVE.clear()
     for line in open(path, encoding='utf-8'):
         r = line.rstrip('\n').split('|')
         if r and r[0] == 'R' and len(r) > 5 and r[1] == date:   # RWLINEUP-2026-10-20 (fb_fetch.js rotowire())
             T_ = code(RWALIAS.get(r[2], r[2]))
             RW.setdefault(T_, {'status': r[4], 'five': []})['five'].append(r[5])
             if len(r) > 6 and r[6]: INJ[(T_, ' '.join(_nk(r[5])))] = r[6]
+        if r and r[0] == 'T' and len(r) >= 12 and r[1] == date:   # DOWNTOWN-2026-10-26 (threes prices)
+            THREES.append(dict(event=r[2], name=r[4], pos=r[5], team=code(RWALIAS.get(r[6], r[6])), book=int(r[7]),
+                               line=float(r[8]), side=r[9], cost=float(r[10]), main=r[11] == '1'))
         if r and r[0] == 'B' and len(r) > 5 and r[1] == date:   # BBMLINEUP-2026-10-25 (fb_fetch.js bbm())
             T_ = code(RWALIAS.get(r[2], r[2]))
             BBM.setdefault(T_, {'status': r[4], 'five': []})['five'].append(r[5])
@@ -303,6 +308,84 @@ def note(n, r, st, gm, salt):
     return ' '.join(s)
 
 
+DT_LINES = ["{s} spots up in the corner, and it's hotter than a skillet in July!",
+            "{s} from way out yonder, and the net goes swish like a screen door in a breeze!",
+            "Kick it out to {s}, and buddy, that's money in the bank!",
+            "{s} pulls up from deep like he's got the deed to the three-point line!",
+            "{s} lets it rain from downtown, so bring an umbrella!",
+            "Catch, rise, splash. That's {s}'s whole business plan!",
+            "{s} has the green light from deep, and he's flooring it!",
+            "Give {s} a sliver of daylight and that ball is going up and in!",
+            "{s} from the top of the key, smoother than a jar of honey!",
+            "{s} is cooking from three, and somebody better check the oven!",
+            "Swing it to {s} on the wing. Bang! Bottom of the bucket!",
+            "{s} steps back behind the arc, and that's a long way from home, baby!",
+            "The minutes are there, the looks are there, and {s} is letting it fly!",
+            "{s} gets the extra run tonight, and extra run means extra threes!",
+            "{s} from deep, quicker than a hiccup!",
+            "Downtown, {s}! Somebody call the zoning board!"]
+
+
+def downtown(date, games, cache, stamp, started):
+    """DOWNTOWN-2026-10-26: tonight's threes-made overs. Rule: FanDuel main-line over, EV >= 0.20 on the role model
+    (nba_threes.py), one per game, max 5 a night, posted only once BOTH fives are confirmed. Sticky: a posted pick never
+    moves (slates/<date>/downtown.json)."""
+    try:
+        import nba_threes as TH
+    except Exception as e:
+        print(f'  ::warning::DOWNTOWN: {e}'); return None
+    spath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'threes_state.json')
+    cpath = os.path.join(os.path.dirname(cache), 'downtown.json') if cache else None
+    posted = []
+    if cpath and os.path.exists(cpath):
+        try:
+            c = json.load(open(cpath, encoding='utf-8'))
+            if c.get('date') == date: posted = c.get('picks') or []
+        except Exception:
+            posted = []
+    if not os.path.exists(spath) or not THREES:
+        return {'picks': posted, 'note': 'no threes model state or prices yet' if not os.path.exists(spath) else 'no threes prices yet'}
+    st = TH.State(json.load(open(spath, encoding='utf-8')))
+    have = {p['game'] for p in posted}
+    fresh = []
+    for gi, g in games.items():
+        if gi in have or started(dict(ko_utc=g['ko_utc'])): continue
+        H, Vt = g['H'], g['V']
+        if TSRC.get(H) != 'confirmed' or TSRC.get(Vt) != 'confirmed': continue
+        best = None
+        for row in THREES:
+            if row['book'] != TH.FANDUEL or not row['main'] or row['side'] != 'O' or row['team'] not in (H, Vt): continue
+            T_ = row['team']; opp = Vt if T_ == H else H
+            if blocked(T_, row['name']): continue
+            pid = st.pid_of(row['name'], T_)
+            if not pid: continue
+            five = {' '.join(_nk(x)) for x in TFIVE.get(T_) or []}
+            started_ = ' '.join(_nk(row['name'])) in five
+            regs = st.regulars(T_)
+            tot = sum(st.att(r) for r in regs)
+            out = sum(st.att(r) for r in regs if (INJ.get((T_, ' '.join(_nk(st.names.get(r, ''))))) or '').lower() in ('out', 'doubt'))
+            f = st.features(pid, opp, started_, out / tot if tot > 0 else 0.0)
+            if not f: continue
+            p, mu = TH.p_over(f, row['line'])
+            evv = p * TH.dec(row['cost']) - 1
+            if evv >= TH.EV_MIN and (best is None or evv > best['ev']):
+                best = dict(game=gi, name=row['name'], team=TEAM_NAME.get(T_, T_), code=T_, gmatch=g['gm'], gtime=g['time'],
+                            ko_utc=g['ko_utc'], line=row['line'], kmin=int(row['line'] + 0.5), odds=int(row['cost']),
+                            p=round(p, 4), mu=round(mu, 2), ev=round(evv, 3), started=started_, posted_at=stamp)
+        if best: fresh.append(best)
+    room = TH.MAX_NIGHT - len(posted)
+    fresh = sorted(fresh, key=lambda x: -x['ev'])[:max(room, 0)]
+    for i, x in enumerate(fresh, start=len(posted)):
+        x['tname'] = TH.pick_name(date, i)
+        x['note'] = _MEM['note'].pick(DT_LINES, 'dt|' + date + x['name']).format(s=_sur(x['name']))
+    if fresh:
+        print(f"  DOWNTOWN: posted {[(x['name'], x['line'], x['odds'], x['ev']) for x in fresh]}")
+    picks = posted + fresh
+    if cpath and fresh:
+        json.dump({'date': date, 'picks': picks}, open(cpath, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+    return {'picks': picks}
+
+
 def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     _rec = V.recent_text(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'boards'), date)
     _MEM['card'], _MEM['note'] = V.Mem(date, _rec), V.Mem(date, _rec)
@@ -333,6 +416,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     if set(five) != set(starters.get(T) or []):
                         print(f'  RWEXPECTED {T}: expected five replaces the priced guess -> {five}')
                     starters[T] = five; src[T] = 'expected'
+        for T in (ev['H'], ev['V']):
+            TSRC[T], TFIVE[T] = src.get(T), list(starters.get(T) or [])
         if len(starters.get(ev['H'], [])) != 5 or len(starters.get(ev['V'], [])) != 5:
             continue
         probs = F.game_probs(st, ev['H'], ev['V'], starters, params)
@@ -581,12 +666,13 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     if season and os.path.exists(season):
         try: sn = json.load(open(season, encoding='utf-8'))
         except Exception: sn = {}
+    dt = downtown(date, games, cache, stamp, started)
     return dict(players=P, pool=list(P.keys()), tickets=T,
                 meta=dict(wx={str(k): dict(emoji='⚡', lean='Neutral', factor=1.0, park=v['gm'], cond='indoors', rain='', precip=0)
                               for k, v in games.items()}, build=stamp, face={}, maxAT=100, season=sn, date=date, gs={}, chalkever={},
                           chalkstate={}, chalk=[], cfg={'RR_UNIT': {'4': F.RR_UNIT}}, pool=len(P), gate=len(T), tickets=len(T), sport='nba',
                           ko=meta_ko, finals=[], games={str(k): v['gm'] for k, v in games.items()},
-                          events={str(k): v['eid'] for k, v in games.items()}))
+                          events={str(k): v['eid'] for k, v in games.items()}, dt=dt))
 
 
 if __name__ == '__main__':

@@ -231,7 +231,7 @@
         return fetchJSON('nba_D.json?t=' + Date.now()).then(function (F) {
           if (!F || !F.meta || F.meta.date !== D.meta.date) return;
           ((F.meta.nbacom && F.meta.nbacom.games) || []).forEach(function (g) { covered[Number(g)] = 1; });
-          ['gs', 'fb', 'finals', 'live', 'nbacom'].forEach(function (k) { if (F.meta[k] != null) D.meta[k] = F.meta[k]; });
+          ['gs', 'fb', 'finals', 'live', 'nbacom', 'dt'].forEach(function (k) { if (F.meta[k] != null) D.meta[k] = F.meta[k]; });
           Object.keys(F.players || {}).forEach(function (n) {
             var p = D.players[n], q = F.players[n];
             if (!p || !q || !covered[Number(q.game)]) return;
