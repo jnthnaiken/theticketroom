@@ -86,7 +86,7 @@ def parse(s):
     fga, fgm, efga, tfirst, final, state, season_type)."""
     g = s['game']
     H, V = tcode((g.get('homeTeam') or {}).get('teamTricode')), tcode((g.get('awayTeam') or {}).get('teamTricode'))
-    pid, team_of, starters, played = {}, {}, {H: [], V: []}, set()
+    pid, team_of, starters, played, box = {}, {}, {H: [], V: []}, set(), []   # box: DOWNTOWN-2026-10-26 (threes)
     tid = {}
     for side, T in (('homeTeam', H), ('awayTeam', V)):
         t = g.get(side) or {}
@@ -97,6 +97,10 @@ def parse(s):
             pid[p.get('personId')] = nm; team_of[nm] = T
             if str(p.get('starter')) == '1': starters[T].append(nm)
             if str(p.get('played')) == '1': played.add(nm)
+            st_ = p.get('statistics') or {}
+            box.append(dict(pid=str(p.get('personId')), name=nm, team=T, tpa=int(st_.get('threePointersAttempted') or 0),
+                            tpm=int(st_.get('threePointersMade') or 0), mins=(_secs(st_.get('minutes')) or 0) / 60.0,
+                            started=str(p.get('starter')) == '1', played=str(p.get('played')) == '1'))
     fga, fgm, efga, tfirst = {}, {}, {}, {}
     jumpers = tip = fb = fbT = fs = fsT = None
     for a in s['actions']:
@@ -123,7 +127,7 @@ def parse(s):
     if not complete(s):   # FIRSTLOCK: a truncated play-by-play knows nothing about the start of the game
         jumpers = tip = fb = fbT = fs = fsT = None; fga, fgm, efga, tfirst = {}, {}, {}, {}
     st = int(g.get('gameStatus') or 1)
-    return dict(pbp_complete=complete(s), H=H, V=V, starters=starters, team_of=team_of, played=played, jumpers=jumpers, tip=tip,
+    return dict(box=box, pbp_complete=complete(s), H=H, V=V, starters=starters, team_of=team_of, played=played, jumpers=jumpers, tip=tip,
                 fb=fb, fbT=fbT, fs=fs, fsT=fsT, fga=fga, fgm=fgm, efga=efga, tfirst=tfirst,
                 final=st == 3, state={1: 'pre', 2: 'in', 3: 'post'}.get(st, 'pre'), season_type=2)
 

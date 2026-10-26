@@ -6,11 +6,11 @@ name: Threes research
 on:
   workflow_dispatch:
     inputs:
-      step: { description: "pull | analyze | both", required: false, default: "both" }
+      step: { description: "pull | analyze | both | seed", required: false, default: "both" }
 permissions: { contents: write }
 jobs:
   pull:
-    if: inputs.step != 'analyze'
+    if: inputs.step == 'pull' || inputs.step == 'both'
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -37,7 +37,7 @@ jobs:
           done
   analyze:
     needs: pull
-    if: always() && inputs.step != 'pull'
+    if: always() && (inputs.step == 'analyze' || inputs.step == 'both')
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -66,3 +66,29 @@ jobs:
             (cd d2 && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes analysis" && git push -q) && break
             sleep $((i*7))
           done
+  seed:
+    # DOWNTOWN-2026-10-26: nba/threes_state.json for the live Downtown section (history + this season from nba.com)
+    if: inputs.step == 'seed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy
+      - name: Play-by-play
+        run: |
+          mkdir -p pbp sd
+          for y in 2022 2023 2024 2025; do
+            curl -sL -o pbp/v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && (cd pbp && tar -xf v3_$y.tar.xz)
+            curl -sL -o sd/sd_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_$y.tar.xz && (cd sd && tar -xf sd_$y.tar.xz)
+          done
+      - name: Seed
+        run: |
+          cd nba/research/threes && python3 seed_state.py ../../../pbp ../../../sd ../../threes_state.json 2026-10-20
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nba/threes_state.json && git commit -m "Downtown: seed threes model state" && for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep 5; done
