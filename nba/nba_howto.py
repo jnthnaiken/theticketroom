@@ -106,7 +106,7 @@ HOWTO = {
   ],
   [
    "🔥",
-   "Half-Court Heaves",
+   "From the Logo",
    "Two per anchor: the anchor plus two value picks from two other games, the starters FanDuel's price undersells most, bet as the three doubles at 0.10u (0.30u a ticket). Any two of the three scoring first cashes. An anchor's two tickets share no value pick."
   ],
   [
