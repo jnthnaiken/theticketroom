@@ -1,0 +1,22 @@
+name: Threes peek
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  peek:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          set +e
+          curl -sL -o v3.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_2025.tar.xz; ls -la v3.tar.xz; tar -tf v3.tar.xz | head; tar -xf v3.tar.xz
+          curl -sL -o sd.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_2025.tar.xz; ls -la sd.tar.xz; tar -tf sd.tar.xz | head; tar -xf sd.tar.xz
+          { for f in *.csv; do echo "== $f $(wc -l < $f)"; head -3 $f; done; python3 - <<'PY'
+          import pandas as pd, glob
+          for f in glob.glob('*.csv'):
+              d = pd.read_csv(f, nrows=200000, low_memory=False); print('##', f, list(d.columns))
+              for c in ('actionType','subType','shotValue','SHOT_TYPE','EVENT_TYPE','location','teamTricode'):
+                  if c in d: print(c, d[c].value_counts().head(12).to_dict())
+          PY
+          } > peek.txt 2>&1
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+          git config --global user.email a@b.c; git config --global user.name peek
+          mkdir -p d/trip && cp peek.txt d/trip/ && cd d && git add trip/ && git commit -qm peek && git push -q
