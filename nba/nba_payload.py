@@ -330,30 +330,33 @@ DT_LINES = ["{s} spots up in the corner, and it's hotter than a skillet in July!
 
 def downtown(date, games, cache, stamp, started):
     """DOWNTOWN-2026-10-26: tonight's threes-made overs. Rule: FanDuel main-line over, EV >= 0.20 on the role model
-    (nba_threes.py), one per game, max 5 a night, posted only once BOTH fives are confirmed. Sticky: a posted pick never
-    moves (slates/<date>/downtown.json)."""
+    (nba_threes.py), one per game, max 5 a night, 1u.
+    Owner: "no we dont wait. for those we show the projected emoji just like the other boards". So picks draft from the
+    PROJECTED fives and redraw every build; a game's pick LOCKS once both its fives are confirmed or it tips, and a locked
+    pick never moves (slates/<date>/downtown.json)."""
     try:
         import nba_threes as TH
     except Exception as e:
         print(f'  ::warning::DOWNTOWN: {e}'); return None
     spath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'threes_state.json')
     cpath = os.path.join(os.path.dirname(cache), 'downtown.json') if cache else None
-    posted = []
+    locked = []
     if cpath and os.path.exists(cpath):
         try:
             c = json.load(open(cpath, encoding='utf-8'))
-            if c.get('date') == date: posted = c.get('picks') or []
+            if c.get('date') == date: locked = [x for x in (c.get('picks') or []) if x.get('locked')]
         except Exception:
-            posted = []
+            locked = []
     if not os.path.exists(spath) or not THREES:
-        return {'picks': posted, 'note': 'no threes model state or prices yet' if not os.path.exists(spath) else 'no threes prices yet'}
+        return {'picks': locked}
     st = TH.State(json.load(open(spath, encoding='utf-8')))
-    have = {p['game'] for p in posted}
+    have = {p['game'] for p in locked}
     fresh = []
     for gi, g in games.items():
         if gi in have or started(dict(ko_utc=g['ko_utc'])): continue
         H, Vt = g['H'], g['V']
-        if TSRC.get(H) != 'confirmed' or TSRC.get(Vt) != 'confirmed': continue
+        if len(TFIVE.get(H) or []) != 5 or len(TFIVE.get(Vt) or []) != 5: continue
+        conf = TSRC.get(H) == 'confirmed' and TSRC.get(Vt) == 'confirmed'
         best = None
         for row in THREES:
             if row['book'] != TH.FANDUEL or not row['main'] or row['side'] != 'O' or row['team'] not in (H, Vt): continue
@@ -373,17 +376,17 @@ def downtown(date, games, cache, stamp, started):
             if evv >= TH.EV_MIN and (best is None or evv > best['ev']):
                 best = dict(game=gi, name=row['name'], team=TEAM_NAME.get(T_, T_), code=T_, gmatch=g['gm'], gtime=g['time'],
                             ko_utc=g['ko_utc'], line=row['line'], kmin=int(row['line'] + 0.5), odds=int(row['cost']),
-                            p=round(p, 4), mu=round(mu, 2), ev=round(evv, 3), started=started_, posted_at=stamp)
+                            p=round(p, 4), mu=round(mu, 2), ev=round(evv, 3), started=started_,
+                            status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp)
         if best: fresh.append(best)
-    room = TH.MAX_NIGHT - len(posted)
-    fresh = sorted(fresh, key=lambda x: -x['ev'])[:max(room, 0)]
-    for i, x in enumerate(fresh, start=len(posted)):
-        x['tname'] = TH.pick_name(date, i)
+    fresh = sorted(fresh, key=lambda x: -x['ev'])[:max(TH.MAX_NIGHT - len(locked), 0)]
+    picks = sorted(locked + fresh, key=lambda x: (x.get('ko_utc') or '', x['game']))
+    for i, x in enumerate(picks):
+        x['tname'] = TH.pick_name(date, x['game'])
         x['note'] = _MEM['note'].pick(DT_LINES, 'dt|' + date + x['name']).format(s=_sur(x['name']))
-    if fresh:
-        print(f"  DOWNTOWN: posted {[(x['name'], x['line'], x['odds'], x['ev']) for x in fresh]}")
-    picks = posted + fresh
-    if cpath and fresh:
+    newly = [x for x in fresh if x.get('locked')]
+    if newly: print(f"  DOWNTOWN: locked {[(x['name'], x['line'], x['odds'], x['ev']) for x in newly]}")
+    if cpath:
         json.dump({'date': date, 'picks': picks}, open(cpath, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     return {'picks': picks}
 
