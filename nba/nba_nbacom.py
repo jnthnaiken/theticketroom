@@ -69,6 +69,13 @@ def summary(gid):
     return {'_src': 'nba', 'game': pp.get('game') or {}, 'actions': ((pp.get('playByPlay') or {}).get('actions') or [])}
 
 
+def complete(s):
+    """FIRSTLOCK: does this play-by-play reach back to the opening tip? A finished game's box-score page carries only
+    the late actions, so its 'first score' would be wrong."""
+    acts = s.get('actions') or []
+    return bool(acts) and any(a.get('period') == 1 and a.get('actionType') in ('period', 'jumpball') for a in acts)
+
+
 def _secs(clock):
     m = re.match(r'PT(\d+)M(\d+(?:\.\d+)?)S', str(clock or ''))
     return int(m.group(1)) * 60 + float(m.group(2)) if m else None
@@ -113,8 +120,10 @@ def parse(s):
             if sec is not None and sec >= 420: efga[who] = efga.get(who, 0) + 1
         if T and T not in tfirst: tfirst[T] = who
         if made and fb is None: fb, fbT = who, T
+    if not complete(s):   # FIRSTLOCK: a truncated play-by-play knows nothing about the start of the game
+        jumpers = tip = fb = fbT = fs = fsT = None; fga, fgm, efga, tfirst = {}, {}, {}, {}
     st = int(g.get('gameStatus') or 1)
-    return dict(H=H, V=V, starters=starters, team_of=team_of, played=played, jumpers=jumpers, tip=tip,
+    return dict(pbp_complete=complete(s), H=H, V=V, starters=starters, team_of=team_of, played=played, jumpers=jumpers, tip=tip,
                 fb=fb, fbT=fbT, fs=fs, fsT=fsT, fga=fga, fgm=fgm, efga=efga, tfirst=tfirst,
                 final=st == 3, state={1: 'pre', 2: 'in', 3: 'post'}.get(st, 'pre'), season_type=2)
 

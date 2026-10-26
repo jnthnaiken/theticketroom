@@ -109,7 +109,7 @@ jobs:
           D=${{ steps.slate.outputs.date }}
           python3 nba_payload.py slates/$D/fb.psv nba_state.json .nba_D.json --date $D \
               --cache slates/$D/picks.json --season nba_season.json --build "$(date -u +%Y-%m-%dT%H:%MZ)"
-          python3 nba_livebake.py .nba_D.json || true   # NONESPN-2026-10-25: nba.com live state, ESPN only as last resort
+          python3 nba_livebake.py .nba_D.json slates/$D/firsts.json || true   # NONESPN-2026-10-25: nba.com live state, ESPN only as last resort
           python3 nba_fork.py ../index.html .nba_D.json .index.html
 
       - name: Did anything a reader would notice change?
@@ -160,7 +160,7 @@ jobs:
           cd ..
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add nba/index.html nba/nba_D.json nba/nba_season.json nba/boards/ nba/slates/$D/fb.psv $(ls nba/slates/$D/picks.json 2>/dev/null)
+          git add nba/index.html nba/nba_D.json nba/nba_season.json nba/boards/ nba/slates/$D/fb.psv $(ls nba/slates/$D/picks.json 2>/dev/null) $(ls nba/slates/$D/firsts.json 2>/dev/null)
           git diff --cached --quiet && { echo "nothing staged"; exit 0; }
           git commit -m "NBA board $D ($(date -u +%H:%MZ))"
           for i in 1 2 3; do

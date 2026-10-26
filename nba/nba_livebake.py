@@ -24,7 +24,7 @@ def _match(name, cands):
     return hits[0] if len(hits) == 1 else None
 
 
-def bake(D, sb=None, getsum=N.summary):
+def bake(D, sb=None, getsum=N.summary, firsts=None):
     date = D['meta'].get('date')
     games = {int(k): v for k, v in (D['meta'].get('games') or {}).items()}
     sb = sb if sb is not None else N.scoreboard(date)
@@ -48,7 +48,14 @@ def bake(D, sb=None, getsum=N.summary):
             print(f'  ::warning::livebake {pair}: {str(e)[:120]}'); covered.remove(gi); continue
         full = sum(len(v) for v in g['starters'].values()) >= 10
         starters = set(sum(g['starters'].values(), []))
+        # FIRSTLOCK-2026-10-25 (owner: "why did all of the basketball tickets just go red? we had like 4 of them cash
+        # already"). nba.com's box-score page for a FINISHED game carries only the late play-by-play, so the opening
+        # basket vanished and every leg on games 1-2 read as a loss. A first score never changes: keep it once seen
+        # (firsts cache, committed per slate), and with no first score known, leave ftd1 pending -- never red.
         fs = g['fs']
+        if firsts is not None:
+            if fs and str(gi) not in firsts: firsts[str(gi)] = fs
+            fs = firsts.get(str(gi)) or fs
         if fs: M['fb'][str(gi)] = fs
         for n, p in D['players'].items():
             if p.get('game') != gi: continue
@@ -56,7 +63,7 @@ def bake(D, sb=None, getsum=N.summary):
             if who and who in starters:
                 p['status'] = 'confirmed'; p['out'] = False
             p['void'] = bool(full and who not in starters)
-            p['ftd1'] = bool(fs) and who == fs and not p['void']
+            p['ftd1'] = (who == fs and not p['void']) if fs else None
             p['hr'] = p['ftd1']
     M['nbacom'] = {'games': covered}
     for t in D.get('tickets') or []:
@@ -68,9 +75,15 @@ def bake(D, sb=None, getsum=N.summary):
 
 if __name__ == '__main__':
     path = sys.argv[1]
+    fpath = sys.argv[2] if len(sys.argv) > 2 else None
     try:
         D = json.load(open(path, encoding='utf-8'))
-        cov = bake(D)
+        firsts = {}
+        if fpath:
+            try: firsts = json.load(open(fpath, encoding='utf-8'))
+            except Exception: firsts = {}
+        cov = bake(D, firsts=firsts)
+        if fpath and firsts: json.dump(firsts, open(fpath, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         json.dump(D, open(path, 'w', encoding='utf-8'), ensure_ascii=False)
         print(f'livebake: nba.com covered games {cov}; first scores {D["meta"].get("fb")}')
     except Exception as e:
