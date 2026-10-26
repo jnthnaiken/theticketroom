@@ -239,12 +239,11 @@ TEMPLE_NAMES = ['Set Your Watch By It', 'Old Faithful', 'Sure as Sunrise', 'Rain
                 'Tried and True', 'Built to Last', 'Duct Tape and WD-40', 'Swiss Army Knife', 'Bread and Butter',
                 'Rock Solid', 'Iron Man', 'Mr. Dependable', 'Steady as She Goes', 'You Can Bank On It',
                 'Never Misses a Shift', 'Always On Time', 'Every Single Night', 'Count On Me', 'Max Effort']
-# HEAVES-2026-10-26 (owner: "the ticket names for full court need to be changed too"): the section is Full-Court
-# Heaves, so the slips are named for long, last-second bombs.
-MOON_NAMES = ['Heave Ho', 'From the Logo', 'Midcourt Miracle', 'Hail Mary Heave', 'Prayer at the Horn', 'Bank It From Half',
-              'Rainbow From Midcourt', 'Half-Court Hammer', 'Answered Prayer', 'Beat the Buzzer', 'Shot Clock Special',
-              'Off the Glass From Forty', 'Three-Quarter Court', 'Chuck It Deep', 'The Long Toss', 'Lights Out From Half',
-              'Horn Blower', 'Clock Killer', 'Sixty-Footer', 'Nothing But Net From Half']
+# HEAVES-2026-10-26. Owner: "the ticket names for full court need to be changed too" -> (heave names rejected) ->
+# "Famous NBA moments". Each slip is named for a moment fans know on sight.
+MOON_NAMES = ['The Shot', 'Dame Time', 'The Bank Is Open', 'The Block', 'Sky Hook', 'Dream Shake', 'Flu Game', 'Linsanity',
+              'Iso Joe', 'Clutch City', 'Double Nickel', 'Big Shot Bob', 'Ray Allen Corner', 'Night Night', 'T-Mac 13 in 33',
+              'Kobe 81', 'Wilt 100', 'Larry Legend', 'We Believe', 'Lob City']
 
 
 def _sur(n):
