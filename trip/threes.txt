@@ -1,0 +1,10 @@
+ERR ReferenceError: PAGE is not defined
+    at key (eval at <anonymous> (/home/runner/work/theticketroom/theticketroom/tools/bp3_probe.js:6:1), <anonymous>:5:27)
+    at /home/runner/work/theticketroom/theticketroom/tools/bp3_probe.js:8:19
+    at Object.<anonymous> (/home/runner/work/theticketroom/theticketroom/tools/bp3_probe.js:24:3)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
