@@ -22,7 +22,7 @@ import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 83 + LIVE_SEAM_COUNT  # LINEUPNOTE-2026-10-25 +1 (twarn-off)  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 84 + LIVE_SEAM_COUNT  # HOWBET-2026-10-26 +1 (rr-paytext)  # LINEUPNOTE-2026-10-25 +1 (twarn-off)  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -59,12 +59,16 @@ def seams(payload_js):
     # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
     # write-up to two lines; the basketball calls run a line per player, so every write-up shows in full here.
     add('tnote-unclamp', "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}",
-        "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}\n.tnote{-webkit-line-clamp:none;line-clamp:none;overflow:visible;display:block}")
+        "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}\n.tnote{-webkit-line-clamp:none;line-clamp:none;overflow:visible;display:block}\n.howbet{grid-column:1/-1;font-size:13px;line-height:1.4;padding:8px 12px;margin:-4px 0 10px;border-left:3px solid var(--acc,#f60);background:rgba(127,127,127,.08);border-radius:6px}")
     # LINEUPNOTE-2026-10-25. Owner: "lets just make the lineup disclaimer at the top about the green check, the disclaimer
     # we are putting on each ticket individually. take those off and just put it once at the top. its impossible for any
     # of these tickets to pass that test" -- every slip spans games hours apart, so the per-slip warning fired on all.
+    # HOWBET-2026-10-26. Owner: "we need to make it more clear how people should bet the tickets. its not very intuitive
+    # that the logos are only to bet the 2s x3". Each section opens with how to place it; each card says the bet shape.
+    add('rr-paytext', "(t.rr)?(t.rr.risk+'u round robin')",
+        "(t.rr)?(t.rr.bytwos?('2-leg parlays only \\u00b7 3 \\u00d7 '+(t.rr.risk/3).toFixed(2)+'u'):(t.rr.struct==='by 2s, 3s & 4'?('All 11 parlays \\u00b7 11 \\u00d7 '+(t.rr.risk/11).toFixed(2)+'u'):(t.rr.risk+'u round robin')))")
     add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('lot','From the Logo',D.tickets.filter(t=>t.kind==='duo').filter(match))+sec('lot','Full-Court Heaves',moon)+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "HOWBET('From the Logo',sec('lot','From the Logo',D.tickets.filter(t=>t.kind==='duo').filter(match)),'<b>How to bet:</b> add the 3 players to a FanDuel slip, open <b>Round Robin</b> and pick <b>only the 2-leg parlays</b> (3 bets). 0.10u each, 0.30u a ticket. No 3-leg parlay.')+HOWBET('Full-Court Heaves',sec('lot','Full-Court Heaves',moon),'<b>How to bet:</b> add the 4 players to a FanDuel slip, open <b>Round Robin</b> and pick <b>every</b> option: the 2-leg, 3-leg and 4-leg parlays (11 bets). 0.01u each, 0.11u a ticket.')+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
@@ -85,7 +89,8 @@ def seams(payload_js):
     add('odds-hint', 'Type a number per bat —', 'Type a number per starter —')
     add('kind-anchors', '<span class="ke">🧢</span><div><b>Anchors</b><span>The four bats the moons are built around, each also sold as a straight single.</span>', '<span class="ke">⚡</span><div><b>Tip-Off</b><span>First basket: the first made field goal of the game (free throws do not count). Every starter whose chance beats his FanDuel price by 30% or more, one per game, up to three a night, 1u each. If nobody clears that bar, the single best edge on the slate. No parlays.</span>')
     add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">⚡</span>')
-    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',duo:'🔥',temple:'🏛️',downtown:'🎯'};" + DTJS)   # DOWNTOWN-2026-10-26: section JS rides on the KEMO line
+    add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',duo:'🔥',temple:'🏛️',downtown:'🎯'};"
+        "function HOWBET(l,h,t){return h?h.replace('<span class=\"tline\"></span></div>','<span class=\"tline\"></span></div><div class=\"howbet\">'+t+'</div>'):'';}" + DTJS)   # DOWNTOWN-2026-10-26: section JS rides on the KEMO line
     add('tracker-builder', "['builder','🧢','Anchors']", '')
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Anchors',builder)")
     # ANCHORCARDS-2026-10-24. Owner: "can we do the anchors as smaller tickets like we do on baseball" -> "the size of
