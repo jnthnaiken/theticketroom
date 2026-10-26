@@ -1,46 +1,68 @@
 name: Threes research
 # THREES-2026-10-25. Owner: "lets look into adding 3pt made to basketball" -> "lets look at all 3 possibilites. also go
-# deeper into the 3s given up by opp team by looking at per position too". Pulls BettingPros market 162 history and the
-# shufinskiy/nba_data play-by-play, runs nba/research/threes/*.py, saves everything to soccer-data:nba/threes/.
+# deeper into the 3s given up by opp team by looking at per position too". BettingPros market 162 history (one job per
+# season, each saved on its own) + shufinskiy/nba_data play-by-play -> nba/research/threes/analyze.py.
+# Everything, logs included, lands on soccer-data:nba/threes/.
 on:
   workflow_dispatch:
     inputs:
       step: { description: "pull | analyze | both", required: false, default: "both" }
 permissions: { contents: write }
 jobs:
-  run:
+  pull:
+    if: inputs.step != 'analyze'
     runs-on: ubuntu-latest
-    timeout-minutes: 340
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        season: [ ['2023-10-24', '2024-04-15'], ['2024-10-22', '2025-04-14'], ['2025-10-21', '2026-04-13'], ['2026-10-20', '2026-10-26'] ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
+      - name: Pull
+        run: |
+          set +e
+          node nba/research/threes/pull_bp162.js ${{ matrix.season[0] }} ${{ matrix.season[1] }} odds.psv > pull.log 2>&1; echo "exit $?" >> pull.log
+          tail -5 pull.log; wc -l odds.psv
+          gzip -c odds.psv > odds_${{ matrix.season[0] }}.psv.gz
+      - name: Save
+        run: |
+          for i in 1 2 3 4 5; do
+            rm -rf d; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+            mkdir -p d/nba/threes && cp odds_${{ matrix.season[0] }}.psv.gz d/nba/threes/ && cp pull.log d/nba/threes/pull_${{ matrix.season[0] }}.log
+            (cd d && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes odds ${{ matrix.season[0] }}" && git push -q) && break
+            sleep $((i*7))
+          done
+  analyze:
+    needs: pull
+    if: always() && inputs.step != 'pull'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - run: pip install --quiet pandas numpy scipy
-      - name: Data branch
+      - name: Data
         run: |
+          set +e
           git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
-          mkdir -p d/nba/threes
-      - name: Pull prices
-        if: inputs.step != 'analyze'
-        run: |
-          node nba/research/threes/pull_bp162.js 2023-10-24 $(date -u +%F) threes_odds.psv
-          gzip -c threes_odds.psv > d/nba/threes/threes_odds.psv.gz
-          cd d && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes odds" && git push -q
-      - name: Play-by-play
-        if: inputs.step != 'pull'
-        run: |
-          mkdir -p pbp sd && cd pbp
+          cat d/nba/threes/odds_*.psv.gz | gunzip > threes_odds.psv; wc -l threes_odds.psv
+          mkdir -p pbp sd
           for y in 2022 2023 2024 2025; do
-            curl -sL -o v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && tar -xf v3_$y.tar.xz || echo "no v3 $y"
-            curl -sL -o ../sd/sd_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_$y.tar.xz && (cd ../sd && tar -xf sd_$y.tar.xz) || echo "no sd $y"
+            curl -sL -o pbp/v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && (cd pbp && tar -xf v3_$y.tar.xz)
+            curl -sL -o sd/sd_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_$y.tar.xz && (cd sd && tar -xf sd_$y.tar.xz)
           done
-          ls -la . ../sd | head -30
+          ls -la pbp sd
       - name: Analyze
-        if: inputs.step != 'pull'
         run: |
-          [ -f threes_odds.psv ] || gunzip -c d/nba/threes/threes_odds.psv.gz > threes_odds.psv
-          python3 nba/research/threes/analyze.py threes_odds.psv pbp sd out | tee report.txt
-          mkdir -p d/nba/threes && cp report.txt d/nba/threes/ && cp -r out/* d/nba/threes/ 2>/dev/null || true
-          cd d && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes analysis" && git push -q
+          set +e
+          python3 nba/research/threes/analyze.py threes_odds.psv pbp sd out > report.txt 2>&1; echo "exit $?" >> report.txt; tail -40 report.txt
+          for i in 1 2 3 4 5; do
+            rm -rf d2; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d2
+            mkdir -p d2/nba/threes && cp report.txt d2/nba/threes/ && cp -r out/* d2/nba/threes/ 2>/dev/null
+            (cd d2 && git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "threes analysis" && git push -q) && break
+            sleep $((i*7))
+          done
