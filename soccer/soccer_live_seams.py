@@ -153,10 +153,14 @@ function soccerAdopt(){
         };
         if(_bsig(j)===_bsig(D)) return;                       /* the board has not moved */
         /* live facts this tab has already seen outrank a board that was written before them */
-        var _hr={}; Object.keys(D.players).forEach(function(n){
+        /* NEWDAY-2026-10-26 (owner: "the 2 boards seem to be combined for soccer. it is showing yesterdays top
+           bin and they are all confirmed"). A tab left open across the board flip carried every locked 10-25
+           slip onto the 10-26 board. Locked slips and goals seen only carry WITHIN one slate date. */
+        var _same=(j.meta.date===D.meta.date);
+        var _hr={}; if(_same) Object.keys(D.players).forEach(function(n){
           if(D.players[n].hr){ _hr[n]={hr:true,goalmins:(D.players[n].goalmins||[]).slice()}; }
         });
-        var _locked={}; (D.tickets||[]).forEach(function(t){ if(t.locked) _locked[t.name]=t; });
+        var _locked={}; if(_same) (D.tickets||[]).forEach(function(t){ if(t.locked) _locked[t.name]=t; });
         D.players=j.players; D.pool=j.pool||[]; D.tickets=j.tickets; D.meta=j.meta;
         Object.keys(_hr).forEach(function(n){
           if(D.players[n]){ D.players[n].hr=true; D.players[n].goalmins=_hr[n].goalmins; }
