@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/trip-probe.yml', 'tools/trip_probe.js']
+    paths: ['.github/workflows/trip-probe.yml', 'tools/trip_probe.js', 'tools/fd_probe.js']
 permissions:
   contents: write
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: Probe
         run: |
           set +e
-          node tools/trip_probe.js > probe.txt 2>&1
+          node tools/fd_probe.js lyon > probe.txt 2>&1
           curl -s -o /dev/null -w "curl oddschecker winner: %{http_code}\n" -A "Mozilla/5.0" https://www.oddschecker.com/football/english/premier-league/liverpool-v-brighton/winner >> probe.txt
           curl -s -o /dev/null -w "curl understat: %{http_code}\n" -A "Mozilla/5.0" https://understat.com/league/EPL/2026 >> probe.txt
           cat probe.txt
