@@ -64,7 +64,7 @@ def seams(payload_js):
     # we are putting on each ticket individually. take those off and just put it once at the top. its impossible for any
     # of these tickets to pass that test" -- every slip spans games hours apart, so the per-slip warning fired on all.
     add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+(typeof dtSection==='function'?dtSection():'')+sec('lot','Moonshots',moon)")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "sec('big','Garrett\u2019s Temple',D.tickets.filter(t=>t.kind==='temple').filter(match))+sec('lot','Moonshots',moon)+(typeof dtSection==='function'?dtSection():'')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
