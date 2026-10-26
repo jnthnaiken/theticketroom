@@ -2,6 +2,7 @@
 const fs = require('fs');
 const src = fs.readFileSync('nba/fb_fetch.js', 'utf8');
 const API = 'https://api.bettingpros.com/v3/';
+const PAGE = 'https://www.bettingpros.com/nba/odds/player-props/first-basket/';
 const UA = { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36' };
 eval(src.slice(src.indexOf('async function text'), src.indexOf('async function scrape')));
 (async () => {
