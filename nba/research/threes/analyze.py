@@ -62,16 +62,55 @@ for f in sorted(glob.glob(os.path.join(SD, '**', 'shotdetail_*.csv'), recursive=
         s = str(int(gd)); games[int(gid)] = (f'{s[:4]}-{s[4:6]}-{s[6:]}', h, v)
     for pid, nm in d.drop_duplicates('PLAYER_ID')[['PLAYER_ID', 'PLAYER_NAME']].itertuples(index=False):
         names[int(pid)] = nm
+def _clk(c):
+    m = re.match(r'PT(\d+)M(\d+(?:\.\d+)?)S', str(c or ''))
+    return int(m.group(1)) * 60 + float(m.group(2)) if m else None
+
+
+def minutes_of(d):
+    """ROLE-2026-10-26: minutes and starters from the substitution stream. A man is on the floor at a period's start if
+    his first action of that period is anything but a sub-in; a sub-in/out opens/closes his stint; the period end
+    closes everyone still on."""
+    out = {}
+    order = 'actionId' if 'actionId' in d else 'actionNumber'
+    for (gid, per), g in d.sort_values(['gameId', 'period', order]).groupby(['gameId', 'period'], sort=False):
+        plen = 720.0 if per <= 4 else 300.0
+        first = {}
+        for pid, at, st in zip(g.personId.values, g.actionType.values, g.subType.values):
+            if pid > 0 and pid not in first: first[pid] = (str(at).lower() == 'substitution' and str(st).lower() == 'in')
+        on = {pid: 0.0 for pid, subin in first.items() if not subin}
+        if per == 1:
+            for pid in on: out.setdefault((gid, pid), [0.0, True])[1] = True
+        for pid, at, st, ck in zip(g.personId.values, g.actionType.values, g.subType.values, g.clock.values):
+            if str(at).lower() != 'substitution' or pid <= 0: continue
+            t = _clk(ck); el = plen - t if t is not None else None
+            if el is None: continue
+            if str(st).lower() == 'in': on[pid] = el
+            elif str(st).lower() == 'out' and pid in on:
+                out.setdefault((gid, pid), [0.0, False])[0] += max(0.0, el - on.pop(pid))
+        for pid, t0 in on.items():
+            out.setdefault((gid, pid), [0.0, False])[0] += max(0.0, plen - t0)
+    return pd.DataFrame([(g, p, v[0] / 60.0, v[1]) for (g, p), v in out.items()], columns=['gameId', 'personId', 'mins', 'started'])
+
+
 box = []   # gid, pid, team, att, made
 for f in sorted(glob.glob(os.path.join(PBP, '**', 'nbastatsv3_*.csv'), recursive=True)):
     cols = pd.read_csv(f, nrows=0).columns
-    want = [c for c in ('gameId', 'personId', 'teamTricode', 'isFieldGoal', 'shotValue', 'shotResult', 'description') if c in cols]
+    want = [c for c in ('gameId', 'personId', 'teamTricode', 'isFieldGoal', 'shotValue', 'shotResult', 'description',
+                        'period', 'clock', 'actionType', 'subType', 'actionId', 'actionNumber') if c in cols]
     d = pd.read_csv(f, usecols=want, low_memory=False)
     d = d[(d.personId > 0) & d.teamTricode.notna() & (d.teamTricode != '')]
     three = (d.shotValue == 3) if 'shotValue' in d else d.description.astype(str).str.contains('3PT')   # older files: no shotValue
     d['a3'] = ((d.isFieldGoal == 1) & three).astype(int)
     d['m3'] = (d.a3 == 1) & (d.shotResult == 'Made')
     agg = d.groupby(['gameId', 'personId']).agg(team=('teamTricode', 'first'), att=('a3', 'sum'), made=('m3', 'sum')).reset_index()
+    if 'actionType' in d:
+        sub = d[d.actionType.astype(str).str.lower() == 'substitution']
+        say('     substitution rows', len(sub), 'subType', sub.subType.astype(str).value_counts().head(4).to_dict())
+    mn = minutes_of(d)
+    agg = agg.merge(mn, on=['gameId', 'personId'], how='left')
+    agg['mins'] = agg.mins.fillna(0.0); agg['started'] = agg.started.fillna(False).astype(bool)
+    say('     minutes: median', round(float(agg.mins.median()), 1), '| starters per game', round(float(agg.started.sum() / agg.gameId.nunique()), 2))
     box.append(agg)
     say('  ', os.path.basename(f), len(agg), 'player-games')
 B = pd.concat(box, ignore_index=True)
@@ -126,7 +165,20 @@ league = {'m': 0.0, 'a': 0.0}
 oa = defaultdict(lambda: {'all': 0.0, 'G': 0.0, 'F': 0.0, 'C': 0.0, 'w': 0.0, 'n': 0})
 lg = {'all': 0.0, 'G': 0.0, 'F': 0.0, 'C': 0.0, 'w': 0.0}
 feats = {}
+rl = defaultdict(lambda: {'mS': 0.0, 'wS': 0.0, 'mL': 0.0, 'wL': 0.0, 'am': 0.0, 'mm': 0.0, 'sr': 0.0, 'ws': 0.0, 'team': None, 'tg': -99})
+tgames = defaultdict(int)   # team -> games played so far
+lS, lL, lM, lR = (lambda h: 0.5 ** (1 / h))(5), (lambda h: 0.5 ** (1 / h))(20), (lambda h: 0.5 ** (1 / h))(15), (lambda h: 0.5 ** (1 / h))(10)
 for date, day in B.groupby('date', sort=True):
+    # ROLE: who is missing tonight -- team regulars (>= 12 min a game recently, played in one of the team's last 3)
+    # who are not in tonight's box, and how much of the team's three-point volume they take with them
+    playing = set(zip(day.team, day.personId))
+    miss = defaultdict(float); tot = defaultdict(float)
+    for pid, q in rl.items():
+        if q['team'] is None or q['wS'] == 0: continue
+        if q['mS'] / q['wS'] < 12 or tgames[q['team']] - q['tg'] > 3: continue
+        a = pl[pid]['a'] / pl[pid]['w'] if pl[pid]['w'] else 0.0
+        tot[q['team']] += a
+        if (q['team'], pid) not in playing: miss[q['team']] += a
     # 1) features for every player-game today, from state BEFORE today
     lp3 = (league['m'] / league['a']) if league['a'] > 50 else 0.36
     for r in day.itertuples(index=False):
@@ -144,25 +196,38 @@ for date, day in B.groupby('date', sort=True):
                 fp = 1 + (fp - 1) * t['n'] / (t['n'] + 15)
             else:
                 fp = ft
-        feats[(r.gameId, r.personId)] = (att, pct, ft, fp, s['n'])
+        q = rl[r.personId]
+        mS = q['mS'] / q['wS'] if q['wS'] else 0.0
+        mL = q['mL'] / q['wL'] if q['wL'] else mS
+        srate = q['sr'] / q['ws'] if q['ws'] else 0.0
+        msh = miss[r.team] / tot[r.team] if tot[r.team] > 0 else 0.0
+        feats[(r.gameId, r.personId)] = (att, pct, ft, fp, s['n'], mS, mL, srate, float(r.started), msh)
     # 2) update state with today's results
     for r in day.itertuples(index=False):
         s = pl[r.personId]
         s['a'] = s['a'] * la + r.att; s['w'] = s['w'] * la + 1
         s['pm'] = s['pm'] * lb + r.made; s['pa'] = s['pa'] * lb + r.att; s['n'] += 1
         league['m'] = league['m'] * 0.9995 + r.made; league['a'] = league['a'] * 0.9995 + r.att
+        q = rl[r.personId]
+        q['mS'] = q['mS'] * lS + r.mins; q['wS'] = q['wS'] * lS + 1
+        q['mL'] = q['mL'] * lL + r.mins; q['wL'] = q['wL'] * lL + 1
+        q['sr'] = q['sr'] * lR + float(r.started); q['ws'] = q['ws'] * lR + 1
+        q['team'] = r.team; q['tg'] = tgames[r.team] + 1
     for (gid, opp), grp in day.groupby(['gameId', 'opp']):
         t = oa[opp]
         for k in ('all', 'G', 'F', 'C'): t[k] *= lp
         t['w'] = t['w'] * lp + 1; t['n'] += 1
         t['all'] += grp.made.sum()
         for k in ('G', 'F', 'C'): t[k] += grp.made[grp.pos == k].sum()
+    for t_ in set(day.team): tgames[t_] += 1
     ng = day.gameId.nunique() * 2
     for k in ('all', 'G', 'F', 'C'): lg[k] = lg[k] * 0.999 + day.made[(day.pos == k) if k != 'all' else slice(None)].sum()
     lg['w'] = lg['w'] * 0.999 + ng
 B['f'] = [feats.get(k) for k in zip(B.gameId, B.personId)]
 F = B[B.f.notna()].copy()
-F[['att', 'pct', 'ft', 'fp', 'ng']] = pd.DataFrame(F.f.tolist(), index=F.index)
+F[['att', 'pct', 'ft', 'fp', 'ng', 'mS', 'mL', 'srate', 'started', 'msh']] = pd.DataFrame(F.f.tolist(), index=F.index)
+say('role features: median recent minutes', round(float(F.mS.median()), 1), '| games with a regular missing',
+    round(float((F.msh > 0).mean()), 3), '| start flips', round(float((F.started - F.srate).abs().gt(0.5).mean()), 3))
 F['season'] = F.date.map(SEASON_OF)
 say('feature rows', len(F))
 
@@ -179,9 +244,16 @@ def nb_sf(kmin, mu, r):
     return np.clip(1 - cdf, 1e-6, 1 - 1e-6)
 
 
+ROLE = {'beta': 0.75, 'a1': 0.0, 'a2': 0.0, 'a3': 0.0}
+
+
 def mu_of(df, variant, beta):
     base = df.att.values * df.pct.values
     if variant == 'none': return np.maximum(base, 0.02)
+    if variant == 'role':   # ROLE-2026-10-26: minutes trend, start flip, teammates' missing three-point volume
+        lm = np.log(np.clip((df.mS.values + 1) / (df.mL.values + 1), 0.2, 5))
+        x = ROLE['a1'] * lm + ROLE['a2'] * (df.started.values - df.srate.values) + ROLE['a3'] * df.msh.values
+        return np.maximum(base * np.power(np.clip(df.ft.values, 0.3, 3), ROLE['beta']) * np.exp(np.clip(x, -2, 2)), 0.02)
     f = df.ft.values if variant == 'team' else df.fp.values
     return np.maximum(base * np.power(np.clip(f, 0.3, 3), beta), 0.02)
 
@@ -199,7 +271,17 @@ for variant in ('none', 'team', 'pos'):
             if best is None or ll > best[0]: best = (ll, beta, r)
     fits[variant] = best
     say(f'  {variant:5s} train loglik/game {best[0]:.5f}  beta {best[1]}  r {best[2]}')
-rep = {'fit': {k: dict(ll=v[0], beta=v[1], r=v[2]) for k, v in fits.items()}}
+from scipy.optimize import minimize
+def _nll(x):
+    ROLE.update(beta=x[0], a1=x[1], a2=x[2], a3=x[3])
+    return -nb_logpmf(tr.made.values, mu_of(tr, 'role', 0), x[4]).mean()
+opt = minimize(_nll, [fits['team'][1], 0.3, 0.3, 0.5, fits['team'][2]], method='Nelder-Mead',
+               bounds=None, options={'maxiter': 600, 'xatol': 1e-3, 'fatol': 1e-6})
+ROLE.update(beta=opt.x[0], a1=opt.x[1], a2=opt.x[2], a3=opt.x[3])
+fits['role'] = (-opt.fun, float(opt.x[0]), float(max(opt.x[4], 1.0)))
+say(f'  role  train loglik/game {-opt.fun:.5f}  beta {opt.x[0]:.2f}  minutes-trend {opt.x[1]:.2f}  start-flip {opt.x[2]:.2f}'
+    f'  missing-teammates {opt.x[3]:.2f}  r {opt.x[4]:.1f}')
+rep = {'fit': {k: dict(ll=v[0], beta=v[1], r=v[2]) for k, v in fits.items()}, 'role_coef': dict(ROLE)}
 for ss in TESTS:
     te = pool[pool.season == ss]
     rep.setdefault('test_ll', {})[ss] = {v: float(nb_logpmf(te.made.values, mu_of(te, v, fits[v][1]), fits[v][2]).mean()) for v in fits}
@@ -348,7 +430,7 @@ for style in ('A', 'B', 'C'):
     ks = sorted([k for k in results if k.startswith(style + '|')], key=lambda k: train_units(results[k]), reverse=True)[:6]
     for k in ks: say(f'{k:34s}', json.dumps(results[k]))
 say('\n================ VARIANT HEAD-TO-HEAD (same rule, none vs team vs pos) ================')
-for rule in ('A|{}|ev>=0.1|cap3', 'A|{}|ev>=0.1|cap0', 'B|{}|ev>=0.2|cap3', 'C|{}|value|ev>=0.1', 'C|{}|chalk|ev>=-1.0'):
+for rule in ('A|{}|ev>=0.1|cap3', 'A|{}|ev>=0.2|cap5', 'A|{}|ev>=0.1|cap0', 'C|{}|value|ev>=0.1', 'C|{}|chalk|ev>=-1.0'):
     for v in fits:
         k = rule.format(v); say(f'{k:34s}', json.dumps(results.get(k)))
 json.dump(rep, open(os.path.join(OUT, 'threes_report.json'), 'w'), indent=1, default=str)
