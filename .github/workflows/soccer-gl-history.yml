@@ -1,0 +1,42 @@
+name: Soccer Goal Line price history (one-off)
+
+# GLHIST-2026-10-27. Owner: "every ledger should be accurate to the start of the seasons" -> restate the Goal Line
+# from 2026-08-27. Totals prices were never saved before the Goal Line launched (10-15), so pull them from
+# BettingPros for every past slate that has fixtures.json and no tot.psv. Writes slates/<d>/tot.psv + tot.src
+# ("bettingpros-history"); the restatement itself is done offline from these files.
+on:
+  workflow_dispatch:
+    inputs:
+      from: { description: "first date", required: false, default: "2026-08-27" }
+      to:   { description: "last date",  required: false, default: "2026-10-15" }
+permissions:
+  contents: write
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { token: "${{ secrets.GH_PAT || github.token }}" }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Pull
+        run: |
+          set +e
+          cd soccer
+          for d in $(ls slates); do
+            [ "$d" \< "${{ inputs.from }}" ] && continue; [ "$d" \> "${{ inputs.to }}" ] && continue
+            [ -f slates/$d/fixtures.json ] || continue
+            [ -f slates/$d/tot.psv ] && continue
+            node bp_tot.js slates/$d/fixtures.json slates/$d/tot.psv > /tmp/tot_$d.log 2>&1
+            if [ -s slates/$d/tot.psv ]; then echo bettingpros-history > slates/$d/tot.src; fi
+            echo "$d $(wc -l < slates/$d/tot.psv 2>/dev/null || echo 0) rows $(tail -1 /tmp/tot_$d.log)"
+          done | tee ../glhist.log
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add soccer/slates/*/tot.psv soccer/slates/*/tot.src 2>/dev/null
+          git diff --cached --quiet && { echo nothing; exit 0; }
+          git commit -m "Goal Line price history from BettingPros (GLHIST)"
+          for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep $((i*5)); done
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+          mkdir -p d/trip && cp glhist.log d/trip/glhist.log && cd d && git add trip && git commit -qm "GLHIST log" && git push -q || true
