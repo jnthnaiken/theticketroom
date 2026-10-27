@@ -350,6 +350,7 @@ P = P[P.gm.notna()].copy()           # no game row (DNP / no prior) -> the prop 
 P['gameId'] = P.gm.map(lambda x: x[0]); P['made'] = P.gm.map(lambda x: x[1])
 P['season'] = P.date.map(SEASON_OF)
 P['dec'] = np.where(P.cost > 0, 1 + P.cost / 100, 1 + 100 / P.cost.abs())
+PALL = P.copy()   # DTSEARCH-2026-10-26: every book, both sides, for the rule search
 P = P[(P.side == 'O') & (P.book == 10)]   # FanDuel overs: the price we post and grade at
 P['kmin'] = np.floor(P.line + 0.5).astype(int)          # over 1.5 -> 2+ made
 P['win'] = P.made >= P.kmin
@@ -452,6 +453,20 @@ say('\n================ VARIANT HEAD-TO-HEAD (same rule, none vs team vs pos) ==
 for rule in ('A|{}|ev>=0.1|cap3', 'A|{}|ev>=0.2|cap5', 'A|{}|ev>=0.1|cap0', 'C|{}|value|ev>=0.1', 'C|{}|chalk|ev>=-1.0'):
     for v in fits:
         k = rule.format(v); say(f'{k:34s}', json.dumps(results.get(k)))
+# DTSEARCH-2026-10-26 (owner: "lets do the same thing for downtown. theres no way what we have is the best way"):
+# every priced main line, every book, overs AND unders, with the role model's mean and P(over), for a local rule search.
+_A = PALL.copy()
+_A['kmin'] = np.floor(_A.line + 0.5).astype(int); _A['win'] = np.where(_A.side == 'O', _A.made >= _A.kmin, _A.made < _A.kmin)
+_X = FF.loc[list(zip(_A.gameId, _A.pid))]
+_mu = mu_of(_X, 'role', fits['role'][1]); _po = np.zeros(len(_A))
+for _k in np.unique(_A.kmin.values):
+    _ix = _A.kmin.values == _k; _po[_ix] = nb_sf(_k, _mu[_ix], fits['role'][2])
+_A['mu'] = np.round(_mu, 3); _A['p_over'] = np.round(_po, 4)
+for _c in ('att', 'pct', 'mS', 'mL', 'started', 'srate', 'msh', 'ft'):
+    _A[_c] = np.round(_X[_c].values.astype(float), 4)
+_A[['season', 'date', 'gameId', 'pid', 'name', 'pos', 'team', 'book', 'line', 'side', 'cost', 'dec', 'made', 'kmin', 'win', 'mu', 'p_over',
+    'att', 'pct', 'mS', 'mL', 'started', 'srate', 'msh', 'ft']].to_csv(os.path.join(OUT, 'dt_all.csv.gz'), index=False, compression='gzip')
+say('dt_all rows', len(_A))
 # DRAWDOWN-2026-10-26 (owner: "do for downtown too please"): the shipped rule's picks, one row each, for drawdown
 _s = pick(main, 'p_role', 0.2, 5)
 _s = _s.assign(units=np.where(_s.win, _s.dec - 1, -1.0))[['season', 'date', 'gameId', 'pid', 'line', 'cost', 'made', 'win', 'units']]
