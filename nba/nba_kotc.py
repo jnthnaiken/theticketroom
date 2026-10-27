@@ -13,7 +13,7 @@ rule as King of the End Zone.
 """
 import math, random
 
-SD_A, SD_B = 0.20, 2.5     # v1; KOTCCAL replaces these with a fit on 2025-26 box scores
+SD_A, SD_B = 0.12, 5.0     # KOTCCAL-2026-10-27: fitted on 2025-26 (13,240 player-games; v1 was 0.20, 2.5). Crowned pick led 37% of nights.
 POP_K = 4.0
 N_SIM = 50000
 OPENERS = {'2026-10-21'}   # opening night ran King of the Court on a Wednesday ($5M)
