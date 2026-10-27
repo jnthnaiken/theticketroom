@@ -56,7 +56,7 @@ print('history through', date, flush=True)
 # ---- prices ----
 O = pd.read_csv(ODDS, sep='|', header=None, quoting=3,
                 names=['date', 'event', 'home', 'visitor', 'bp', 'name', 'pos', 'team', 'book', 'line', 'side', 'cost', 'main'])
-O = O[(O.book == T.FANDUEL) & (O.main == 1) & (O.side == 'O')]
+O = O[(O.book == T.FANDUEL) & (O.main == 1) & O.side.isin(['O', 'U'])]   # DTUNDER-2026-10-26: unders too
 O['team'] = O.team.map(lambda t: BPTEAM.get(str(t), str(t)))
 
 out = {}
@@ -67,7 +67,7 @@ while d <= datetime.date.fromisoformat(D1):
     boxes = {}
     for gid, away, home, *_ in sb:
         boxes[(away, home)] = (gid, N.parse(N.summary(gid))['box'])
-    picks = []
+    picks = []; unders = []
     od = O[O.date == ds]
     for (away, home), (gid, box) in boxes.items():
         played = {b['pid'] for b in box if b['played']}
@@ -84,6 +84,15 @@ while d <= datetime.date.fromisoformat(D1):
             f = st.features(pid, opp, started, miss / tot if tot > 0 else 0.0)
             if not f: continue
             p, mu = T.p_over(f, float(r.line))
+            if r.side == 'U':
+                pu = 1 - p; evu = pu * T.dec(r.cost) - 1
+                if float(r.line) >= T.U_LINE_MIN and pu >= T.U_P_MIN and evu >= T.U_EV_MIN:
+                    pk = dict(name=r.name, code=T_, gmatch=f'{away}@{home}', line=float(r.line), kmin=int(float(r.line) + 0.5), side='U',
+                              odds=int(r.cost), p=round(pu, 4), mu=round(mu, 2), ev=round(evu, 3), started=started,
+                              status='confirmed', locked=True, final=True)
+                    pk['dnp'] = not (b and (b['played'] or b['tpa'])); pk['made'] = b['tpm'] if b else None
+                    pk['res'] = T.grade(pk); unders.append(pk)
+                continue
             ev = p * T.dec(r.cost) - 1
             if ev >= T.EV_MIN and (best is None or ev > best['ev']):
                 pk = dict(name=r.name, code=T_, gmatch=f'{away}@{home}', line=float(r.line), kmin=int(float(r.line) + 0.5),
@@ -95,9 +104,11 @@ while d <= datetime.date.fromisoformat(D1):
                 best = pk
         if best: picks.append(best)
     picks = sorted(picks, key=lambda x: -x['ev'])[:T.MAX_NIGHT]
+    on = {(x['gmatch'], x['name']) for x in picks}
+    picks += sorted([u for u in unders if (u['gmatch'], u['name']) not in on], key=lambda x: -x['ev'])[:T.U_MAX_NIGHT]
     units = sum((T.dec(x['odds']) - 1) if x['res'] == 'win' else (-1 if x['res'] == 'loss' else 0) for x in picks)
     out[ds] = dict(picks=picks, units=round(units, 2))
-    print(ds, len(sb), 'games', [(x['name'], x['line'], x['odds'], x['made'], x['res']) for x in picks], f'{units:+.2f}u', flush=True)
+    print(ds, len(sb), 'games', [(x.get('side', 'O'), x['name'], x['line'], x['odds'], x['made'], x['res']) for x in picks], f'{units:+.2f}u', flush=True)
     # learn the night
     day = []
     for (away, home), (gid, box) in boxes.items():
