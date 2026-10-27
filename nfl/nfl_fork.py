@@ -120,7 +120,7 @@ def seams(payload_js):
         "var P=D.players[c.name]||{},o=c.odds,oth=pk.filter(function(p){return p!==c;}).slice(0,3).map(function(p){return p.name+' '+(p.p*100).toFixed(1)+'%';}).join(', ');"
         "return {name:'The Long Haul',kind:'kingez',badge:'\\ud83c\\udfc6',nlegs:1,anchor:c.name,lock:(P.gtime||'').replace(' ET',''),has_late:false,final:false,rr:null,wxsum:{},confleg:0,"
         "parlay_am:(o!=null?o:null),payout10:10*_dec(o),"
-        "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'.',"
+        "note:c.name+' to score the longest touchdown of '+g.gmatch+'. Our sim gives him '+(c.p*100).toFixed(1)+'%, and fewer people will be splitting the pot with him than with the obvious names'+(oth?' (next: '+oth+')':'')+'. 1u on him to score a touchdown is the qualifying bet, and it counts on our ledger.',"
         "players:[{name:c.name,team:P.team,total:P.TOTAL,aT:P.aT,wf:P.wf,gmatch:P.gmatch,gtime:P.gtime,game:P.game,late:false,odds:o,status:P.status}]};}).filter(Boolean);"
         "el.innerHTML=K.map(ticketCard).join('');")
     add('special-css-lunch', "${t.kind==='dinger'?' lunchwide':''}", "${(t.kind==='ftd'||t.kind==='kingez')?' lunchwide':''}")   # KINGEZ4-2026-10-05: owner "do it horizontal like the first td"
@@ -157,7 +157,7 @@ def seams(payload_js):
     # SPORTEMOJI-2026-10-15: football's own emoji table for the ticket card (index.html KEMO).
     add('howto-tbadge', 'class="tbadge">🥎</span>', 'class="tbadge">🏈</span>')   # SPORTEMOJI-2026-10-15: the How To sample ticket
     add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={builder:'🏈',ftd:'🏁',kingez:'🏆'};")
-    add('tracker-builder', "['builder','🧢','Anchors']", "['builder','🏈','Red Zone']")
+    add('tracker-builder', "['builder','🧢','Anchors']", "['builder','🏈','Red Zone'],['kingez','👑','King of the End Zone']")   # KINGEZ-2026-10-27: on the ledger
     add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Red Zone',builder)")
     add('tonight-builder', "+kc.builder+' 🧢 \\u00b7 '", "+kc.builder+' 🏈'")
     # RESEARCH-2026-10-12: the How-To step for the old Builder described ticking bats and hitting a

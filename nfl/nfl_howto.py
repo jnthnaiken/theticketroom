@@ -112,7 +112,7 @@ HOWTO = {
   [
    "👑",
    "King of the End Zone",
-   "One-game nights only. A DraftKings promo, not a free bet: place a qualifying bet on the game and pick who scores its longest touchdown, and the right pickers split the bonus-bet pot. The price shown is his anytime touchdown. Not on our ledger."
+   "One-game nights only. A DraftKings promo, not a free bet: place a qualifying bet on the game and pick who scores its longest touchdown, and the right pickers split the bonus-bet pot. We post 1u on him to score a touchdown at his anytime price, the qualifying bet: it counts on our ledger; the bonus bets do not."
   ]
  ]
 }

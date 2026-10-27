@@ -206,6 +206,20 @@ def fold(dpath, spath):
             rows.append((_tot['kind'], _tot['name'], 'WON ' if g['won'] else 'lost', g['net']))
         else:
             rows.append((_tot['kind'], _tot['name'], 'not settled / void', 0.0))
+    # KINGEZ-2026-10-27 (football): King of the End Zone's qualifying bet -- 1u on the crowned man to score a touchdown at his
+    # anytime price (owner: "both should be counted towards the ledger. you still have to bet on them to activate the promo").
+    # Graded on his anytime-TD result (players[name].hr); out or void after kickoff (KINGFREEZE) refunds.
+    for _lt in (D['meta'].get('longtd') or []):
+        _cr = next((x for x in (_lt.get('picks') or []) if x.get('crown')), None)
+        if not _cr or _lt.get('game') not in finals: continue
+        _pp = players.get(_cr['name']) or {}
+        if _pp.get('void') or _pp.get('out') or not _pp:
+            rows.append(('kingez', _cr['name'], 'void', 0.0)); continue
+        o_ = float(_cr['odds']); won = bool(_pp.get('hr')); net = (o_ / 100 if o_ > 0 else 100 / abs(o_)) if won else -1.0
+        c = season['cats'].setdefault('kingez', dict(ZERO))
+        c['graded'] += 1; c['won'] += 1 if won else 0; c['units'] = c['units'] + net; c['staked'] = c['staked'] + 1.0
+        night += net
+        rows.append(('kingez', _cr['name'], 'WON ' if won else 'lost', net))
     # KOTC-2026-10-27 (basketball): the King of the Court qualifying bet rides in meta.kotc.pick (res set by nba_settle).
     _kp = (D['meta'].get('kotc') or {}).get('pick')
     if _kp:
