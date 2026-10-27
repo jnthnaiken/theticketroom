@@ -2,18 +2,18 @@
  "date": "2026-10-27",
  "games": 4,
  "players": 54,
- "fetched": "2026-10-27T18:31Z",
+ "fetched": "2026-10-27T18:37Z",
  "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
  "all": [
   {
    "name": "Julius Randle",
    "team": "BKN",
    "line": 31,
-   "pover": 0.499,
-   "mean": 30.98,
+   "pover": 0.5047,
+   "mean": 31.1,
    "over_odds": null,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 31.5,
+   "fd_odds": -106
   },
   {
    "name": "Day'Ron Sharpe",
@@ -21,9 +21,9 @@
    "line": 20.5,
    "pover": 0.5,
    "mean": 20.5,
-   "over_odds": -118,
-   "fd_line": null,
-   "fd_odds": null
+   "over_odds": -116,
+   "fd_line": 20.5,
+   "fd_odds": -114
   },
   {
    "name": "Keon Ellis",
@@ -39,21 +39,21 @@
    "name": "Michael Porter Jr.",
    "team": "BKN",
    "line": 29.5,
-   "pover": 0.5115,
-   "mean": 29.74,
+   "pover": 0.5099,
+   "mean": 29.71,
    "over_odds": -125,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 29.5,
+   "fd_odds": -125
   },
   {
    "name": "Egor Demin",
    "team": "BKN",
    "line": 16.5,
-   "pover": 0.4895,
-   "mean": 16.35,
-   "over_odds": -122,
-   "fd_line": null,
-   "fd_odds": null
+   "pover": 0.4989,
+   "mean": 16.48,
+   "over_odds": -118,
+   "fd_line": 16.5,
+   "fd_odds": -114
   },
   {
    "name": "Mikel Brown Jr.",
@@ -69,21 +69,21 @@
    "name": "Jayson Tatum",
    "team": "BOS",
    "line": 42.5,
-   "pover": 0.497,
-   "mean": 42.42,
+   "pover": 0.499,
+   "mean": 42.47,
    "over_odds": -115,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 41.5,
+   "fd_odds": -128
   },
   {
    "name": "Derrick White",
    "team": "BOS",
    "line": 24.5,
-   "pover": 0.5,
-   "mean": 24.5,
-   "over_odds": -113,
-   "fd_line": null,
-   "fd_odds": null
+   "pover": 0.4954,
+   "mean": 24.42,
+   "over_odds": -111,
+   "fd_line": 24.5,
+   "fd_odds": -108
   },
   {
    "name": "Noah Clowney",
@@ -109,8 +109,8 @@
    "name": "Paul George",
    "team": "BOS",
    "line": 25.5,
-   "pover": 0.5086,
-   "mean": 25.66,
+   "pover": 0.501,
+   "mean": 25.52,
    "over_odds": -119,
    "fd_line": null,
    "fd_odds": null
@@ -129,9 +129,9 @@
    "name": "Payton Pritchard",
    "team": "BOS",
    "line": 23.5,
-   "pover": 0.5023,
-   "mean": 23.54,
-   "over_odds": -125,
+   "pover": 0.5048,
+   "mean": 23.59,
+   "over_odds": -122,
    "fd_line": null,
    "fd_odds": null
   },
@@ -149,7 +149,7 @@
    "name": "Darius Acuff Jr.",
    "team": "SAC",
    "line": 27.5,
-   "pover": 0.5101,
+   "pover": 0.5099,
    "mean": 27.7,
    "over_odds": -120,
    "fd_line": null,
@@ -169,11 +169,11 @@
    "name": "De'Aaron Fox",
    "team": "SAS",
    "line": 25.5,
-   "pover": 0.4975,
-   "mean": 25.45,
-   "over_odds": -112,
+   "pover": 0.4941,
+   "mean": 25.39,
+   "over_odds": -113,
    "fd_line": 24.5,
-   "fd_odds": -130
+   "fd_odds": -128
   },
   {
    "name": "Domantas Sabonis",
@@ -229,28 +229,28 @@
    "name": "Victor Wembanyama",
    "team": "SAS",
    "line": 40.5,
-   "pover": 0.5079,
-   "mean": 40.71,
-   "over_odds": -125,
+   "pover": 0.5059,
+   "mean": 40.66,
+   "over_odds": -122,
    "fd_line": 40.5,
-   "fd_odds": -125
+   "fd_odds": -122
   },
   {
    "name": "Dylan Harper",
    "team": "SAS",
    "line": 26.5,
-   "pover": 0.5005,
-   "mean": 26.51,
-   "over_odds": -118,
+   "pover": 0.5,
+   "mean": 26.5,
+   "over_odds": -115,
    "fd_line": 26.5,
-   "fd_odds": -114
+   "fd_odds": -112
   },
   {
    "name": "Stephon Castle",
    "team": "SAS",
    "line": 29.5,
-   "pover": 0.4814,
-   "mean": 29.11,
+   "pover": 0.4805,
+   "mean": 29.09,
    "over_odds": -105,
    "fd_line": 28.5,
    "fd_odds": -125
@@ -259,8 +259,8 @@
    "name": "Zach LaVine",
    "team": "SAC",
    "line": 27.5,
-   "pover": 0.4941,
-   "mean": 27.38,
+   "pover": 0.497,
+   "mean": 27.44,
    "over_odds": -117,
    "fd_line": 27.5,
    "fd_odds": -118
@@ -272,8 +272,8 @@
    "pover": 0.5203,
    "mean": 17.81,
    "over_odds": -125,
-   "fd_line": 18.5,
-   "fd_odds": 100
+   "fd_line": 17.5,
+   "fd_odds": -130
   },
   {
    "name": "Miles McBride",
@@ -299,28 +299,28 @@
    "name": "Jalen Brunson",
    "team": "NYK",
    "line": 34.5,
-   "pover": 0.4985,
-   "mean": 34.47,
-   "over_odds": -116,
-   "fd_line": null,
-   "fd_odds": null
+   "pover": 0.5,
+   "mean": 34.5,
+   "over_odds": -118,
+   "fd_line": 34.5,
+   "fd_odds": -120
   },
   {
    "name": "Josh Hart",
    "team": "NYK",
    "line": 23.5,
-   "pover": 0.4842,
-   "mean": 23.21,
+   "pover": 0.4825,
+   "mean": 23.18,
    "over_odds": -109,
    "fd_line": 23.5,
-   "fd_odds": -108
+   "fd_odds": -106
   },
   {
    "name": "Paul Reed",
    "team": "DET",
    "line": 23.5,
-   "pover": 0.4855,
-   "mean": 23.24,
+   "pover": 0.4881,
+   "mean": 23.28,
    "over_odds": -115,
    "fd_line": null,
    "fd_odds": null
@@ -333,17 +333,17 @@
    "mean": 37.5,
    "over_odds": -116,
    "fd_line": 37.5,
-   "fd_odds": -118
+   "fd_odds": -122
   },
   {
    "name": "Karl-Anthony Towns",
    "team": "NYK",
    "line": 34.5,
-   "pover": 0.5022,
-   "mean": 34.55,
+   "pover": 0.5024,
+   "mean": 34.56,
    "over_odds": -118,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 34.5,
+   "fd_odds": -118
   },
   {
    "name": "OG Anunoby",
@@ -351,7 +351,7 @@
    "line": 23.5,
    "pover": 0.5,
    "mean": 23.5,
-   "over_odds": -116,
+   "over_odds": -117,
    "fd_line": 23.5,
    "fd_odds": -118
   },
@@ -379,8 +379,8 @@
    "name": "Duncan Robinson",
    "team": "DET",
    "line": 16.5,
-   "pover": 0.5055,
-   "mean": 16.58,
+   "pover": 0.505,
+   "mean": 16.57,
    "over_odds": -118,
    "fd_line": null,
    "fd_odds": null
@@ -399,11 +399,11 @@
    "name": "Walker Kessler",
    "team": "LAL",
    "line": 25.5,
-   "pover": 0.4813,
-   "mean": 25.14,
-   "over_odds": -107,
-   "fd_line": 25.5,
-   "fd_odds": -102
+   "pover": 0.4828,
+   "mean": 25.17,
+   "over_odds": -111,
+   "fd_line": null,
+   "fd_odds": null
   },
   {
    "name": "Ziaire Williams",
@@ -439,11 +439,11 @@
    "name": "Damian Lillard",
    "team": "POR",
    "line": 28.5,
-   "pover": 0.5031,
-   "mean": 28.56,
-   "over_odds": -117,
-   "fd_line": 28.5,
-   "fd_odds": -108
+   "pover": 0.5038,
+   "mean": 28.58,
+   "over_odds": -118,
+   "fd_line": null,
+   "fd_odds": null
   },
   {
    "name": "Scoot Henderson",
@@ -469,8 +469,8 @@
    "name": "Ja Morant",
    "team": "POR",
    "line": 25.5,
-   "pover": 0.5,
-   "mean": 25.5,
+   "pover": 0.497,
+   "mean": 25.44,
    "over_odds": -118,
    "fd_line": null,
    "fd_odds": null
@@ -489,11 +489,11 @@
    "name": "Quentin Grimes",
    "team": "LAL",
    "line": 14.5,
-   "pover": 0.4797,
-   "mean": 14.23,
-   "over_odds": -104,
+   "pover": 0.4956,
+   "mean": 14.44,
+   "over_odds": -112,
    "fd_line": 14.5,
-   "fd_odds": -102
+   "fd_odds": -114
   },
   {
    "name": "Matisse Thybulle",
@@ -519,11 +519,11 @@
    "name": "Luka Doncic",
    "team": "LAL",
    "line": 47.5,
-   "pover": 0.5,
-   "mean": 47.5,
-   "over_odds": -119,
-   "fd_line": 48.5,
-   "fd_odds": -106
+   "pover": 0.509,
+   "mean": 47.77,
+   "over_odds": -120,
+   "fd_line": 47.5,
+   "fd_odds": -125
   },
   {
    "name": "Deni Avdija",
@@ -541,9 +541,9 @@
    "line": 33.5,
    "pover": 0.5,
    "mean": 33.5,
-   "over_odds": -115,
+   "over_odds": -116,
    "fd_line": 33.5,
-   "fd_odds": -118
+   "fd_odds": -120
   }
  ],
  "top": [
@@ -551,20 +551,20 @@
    "name": "Luka Doncic",
    "team": "LAL",
    "line": 47.5,
-   "mean": 47.5,
-   "p": 0.372,
-   "pop": 0.1676,
+   "mean": 47.8,
+   "p": 0.3783,
+   "pop": 0.1707,
    "value": 2.22,
    "crown": true,
-   "over_odds": -119
+   "over_odds": -120
   },
   {
    "name": "Jayson Tatum",
    "team": "BOS",
    "line": 42.5,
-   "mean": 42.4,
-   "p": 0.191,
-   "pop": 0.1066,
+   "mean": 42.5,
+   "p": 0.1911,
+   "pop": 0.1067,
    "value": 1.79,
    "crown": false,
    "over_odds": -115
@@ -574,20 +574,20 @@
    "team": "SAS",
    "line": 40.5,
    "mean": 40.7,
-   "p": 0.1394,
-   "pop": 0.0904,
-   "value": 1.54,
+   "p": 0.1353,
+   "pop": 0.0896,
+   "value": 1.51,
    "crown": false,
-   "over_odds": -125
+   "over_odds": -122
   },
   {
    "name": "Cade Cunningham",
    "team": "DET",
    "line": 37.5,
    "mean": 37.5,
-   "p": 0.0737,
-   "pop": 0.0651,
-   "value": 1.13,
+   "p": 0.0727,
+   "pop": 0.0648,
+   "value": 1.12,
    "crown": false,
    "over_odds": -116
   },
@@ -596,9 +596,9 @@
    "team": "SAC",
    "line": 35.5,
    "mean": 35.5,
-   "p": 0.0454,
-   "pop": 0.0523,
-   "value": 0.87,
+   "p": 0.045,
+   "pop": 0.0521,
+   "value": 0.86,
    "crown": false,
    "over_odds": -115
   },
@@ -607,9 +607,9 @@
    "team": "NYK",
    "line": 34.5,
    "mean": 34.6,
-   "p": 0.0376,
-   "pop": 0.0469,
-   "value": 0.8,
+   "p": 0.0378,
+   "pop": 0.0467,
+   "value": 0.81,
    "crown": false,
    "over_odds": -118
   },
@@ -618,20 +618,20 @@
    "team": "NYK",
    "line": 34.5,
    "mean": 34.5,
-   "p": 0.0374,
+   "p": 0.0372,
    "pop": 0.0464,
-   "value": 0.81,
+   "value": 0.8,
    "crown": false,
-   "over_odds": -116
+   "over_odds": -118
   },
   {
    "name": "Deni Avdija",
    "team": "POR",
    "line": 34.5,
    "mean": 34.5,
-   "p": 0.0343,
-   "pop": 0.0466,
-   "value": 0.74,
+   "p": 0.0339,
+   "pop": 0.0464,
+   "value": 0.73,
    "crown": false,
    "over_odds": -113
   },
@@ -640,19 +640,19 @@
    "team": "LAL",
    "line": 33.5,
    "mean": 33.5,
-   "p": 0.0267,
-   "pop": 0.0415,
+   "p": 0.0269,
+   "pop": 0.0413,
    "value": 0.65,
    "crown": false,
-   "over_odds": -115
+   "over_odds": -116
   },
   {
    "name": "Julius Randle",
    "team": "BKN",
    "line": 31,
-   "mean": 31,
-   "p": 0.0124,
-   "pop": 0.0303,
+   "mean": 31.1,
+   "p": 0.0126,
+   "pop": 0.0307,
    "value": 0.41,
    "crown": false,
    "over_odds": null
@@ -662,8 +662,8 @@
    "team": "BKN",
    "line": 29.5,
    "mean": 29.7,
-   "p": 0.0065,
-   "pop": 0.0258,
+   "p": 0.0063,
+   "pop": 0.0255,
    "value": 0.25,
    "crown": false,
    "over_odds": -125
@@ -674,7 +674,7 @@
    "line": 29.5,
    "mean": 29.1,
    "p": 0.006,
-   "pop": 0.0236,
+   "pop": 0.0235,
    "value": 0.25,
    "crown": false,
    "over_odds": -105
