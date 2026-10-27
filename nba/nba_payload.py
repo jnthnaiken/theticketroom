@@ -315,6 +315,17 @@ def note(n, r, st, gm, salt):
     return ' '.join(s)
 
 
+# DTUNDER-2026-10-26: the cold side -- an under is a bet the net stays quiet.
+DT_UNDER_LINES = ["{s} has a lid on the rim tonight, folks, the basket's got a manhole cover on it!",
+                  "Cold-blooded, ice-cold, {s} isn't finding the bottom of the net from deep!",
+                  "Keep the ball inside the arc, {s}! Brick city, population one!",
+                  "The long ball's on vacation for {s} tonight, out of office!",
+                  "{s} keeps it in the paint, nothing but elbow jumpers and floaters!",
+                  "Close out hard on {s} and the threes stay in the freezer!",
+                  "{s} from downtown? Not tonight, the bridge is out!",
+                  "Clang, clang, clang goes the trolley, and {s} keeps riding it!",
+                  "The defense runs {s} off the line all night long!",
+                  "Quiet night from the perimeter for {s}, and we like it that way!"]
 DT_LINES = ["{s} spots up in the corner, and it's hotter than a skillet in July!",
             "{s} from way out yonder, and the net goes swish like a screen door in a breeze!",
             "Kick it out to {s}, and buddy, that's money in the bank!",
@@ -356,15 +367,15 @@ def downtown(date, games, cache, stamp, started):
         return {'picks': locked}
     st = TH.State(json.load(open(spath, encoding='utf-8')))
     have = {p['game'] for p in locked}
-    fresh = []
+    fresh, ufresh = [], []
     for gi, g in games.items():
         if gi in have or started(dict(ko_utc=g['ko_utc'])): continue
         H, Vt = g['H'], g['V']
         if len(TFIVE.get(H) or []) != 5 or len(TFIVE.get(Vt) or []) != 5: continue
         conf = TSRC.get(H) == 'confirmed' and TSRC.get(Vt) == 'confirmed'
-        best = None
+        best = None; unders = []
         for row in THREES:
-            if row['book'] != TH.FANDUEL or not row['main'] or row['side'] != 'O' or row['team'] not in (H, Vt): continue
+            if row['book'] != TH.FANDUEL or not row['main'] or row['side'] not in ('O', 'U') or row['team'] not in (H, Vt): continue
             T_ = row['team']; opp = Vt if T_ == H else H
             if blocked(T_, row['name']): continue
             pid = st.pid_of(row['name'], T_)
@@ -377,18 +388,36 @@ def downtown(date, games, cache, stamp, started):
             f = st.features(pid, opp, started_, out / tot if tot > 0 else 0.0)
             if not f: continue
             p, mu = TH.p_over(f, row['line'])
+            if row['side'] == 'U':               # DTUNDER-2026-10-26
+                pu = 1 - p; evu = pu * TH.dec(row['cost']) - 1
+                if row['line'] >= TH.U_LINE_MIN and pu >= TH.U_P_MIN and evu >= TH.U_EV_MIN:
+                    unders.append(dict(game=gi, name=row['name'], team=TEAM_NAME.get(T_, T_), code=T_, gmatch=g['gm'], gtime=g['time'],
+                                       ko_utc=g['ko_utc'], line=row['line'], kmin=int(row['line'] + 0.5), odds=int(row['cost']), side='U',
+                                       p=round(pu, 4), mu=round(mu, 2), ev=round(evu, 3), started=started_,
+                                       status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp))
+                continue
             evv = p * TH.dec(row['cost']) - 1
             if evv >= TH.EV_MIN and (best is None or evv > best['ev']):
                 best = dict(game=gi, name=row['name'], team=TEAM_NAME.get(T_, T_), code=T_, gmatch=g['gm'], gtime=g['time'],
                             ko_utc=g['ko_utc'], line=row['line'], kmin=int(row['line'] + 0.5), odds=int(row['cost']),
                             p=round(p, 4), mu=round(mu, 2), ev=round(evv, 3), started=started_,
-                            status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp)
+                            status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp, side='O')
         if best: fresh.append(best)
-    fresh = sorted(fresh, key=lambda x: -x['ev'])[:max(TH.MAX_NIGHT - len(locked), 0)]
-    picks = sorted(locked + fresh, key=lambda x: (x.get('ko_utc') or '', x['game']))
+        ufresh += [u for u in unders if not (best and u['name'] == best['name'])]
+    lo = [x for x in locked if x.get('side', 'O') == 'O']; lu = [x for x in locked if x.get('side') == 'U']
+    fresh = sorted(fresh, key=lambda x: -x['ev'])[:max(TH.MAX_NIGHT - len(lo), 0)]
+    onames = {(x['game'], x['name']) for x in lo + fresh}
+    ufresh = sorted([u for u in ufresh if (u['game'], u['name']) not in onames], key=lambda x: -x['ev'])
+    ufresh = list({(u['game'], u['name']): u for u in reversed(ufresh)}.values())   # one line per man
+    ufresh = sorted(ufresh, key=lambda x: -x['ev'])[:max(TH.U_MAX_NIGHT - len(lu), 0)]
+    fresh = fresh + ufresh
+    picks = sorted(locked + fresh, key=lambda x: (x.get('ko_utc') or '', x['game'], x.get('side', 'O')))
+    used = set()
     for i, x in enumerate(picks):
-        x['tname'] = TH.pick_name(date, x['game'])
-        x['note'] = _MEM['note'].pick(DT_LINES, 'dt|' + date + x['name']).format(s=_sur(x['name']))
+        k = x['game'] + (50 if x.get('side') == 'U' else 0)
+        while TH.pick_name(date, k) in used: k += 1
+        x['tname'] = TH.pick_name(date, k); used.add(x['tname'])
+        x['note'] = _MEM['note'].pick(DT_UNDER_LINES if x.get('side') == 'U' else DT_LINES, 'dt|' + date + x['name']).format(s=_sur(x['name']))
     newly = [x for x in fresh if x.get('locked')]
     if newly: print(f"  DOWNTOWN: locked {[(x['name'], x['line'], x['odds'], x['ev']) for x in newly]}")
     if cpath:

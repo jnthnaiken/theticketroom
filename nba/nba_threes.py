@@ -25,6 +25,11 @@ import json, math, re, unicodedata
 HL_ATT, HL_PCT, HL_OPP, K_PCT = 10, 40, 15, 150.0
 BETA, A1, A2, A3, R = 0.67, 0.46, 0.33, 0.13, 9.6          # fitted on 2023-24 (research run 2026-10-26)
 EV_MIN, MAX_NIGHT = 0.20, 5
+# DTUNDER-2026-10-26. Owner: "lets do the same thing for downtown. theres no way what we have is the best way" -> rule
+# search (17,908 rules, chosen on 2023-24, judged on 2024-26): overs stay as they are; ADD unders. FanDuel main-line
+# under, line >= 1.5, P(under) >= 0.50, EV >= 0.10, best 5 a night (any game), 1u, never the same man as an over.
+# Backtest 2023-26: unders +172.4u (+9.1%), with the overs +228.9u vs +56.5u, worst slump 21.1u, every season up.
+U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.10, 0.50, 1.5, 5
 FANDUEL = 10
 _d = lambda h: 0.5 ** (1.0 / h)
 LA, LB, LP = _d(HL_ATT), _d(HL_PCT), _d(HL_OPP)
@@ -141,6 +146,9 @@ def grade(pick):
     if pick.get('dnp'): return 'void'
     m = pick.get('made')
     if m is None: return None
+    if pick.get('side') == 'U':          # DTUNDER: an under dies the moment he reaches the number, cashes at the final
+        if m >= pick['kmin']: return 'loss'
+        return 'win' if pick.get('final') else None
     if m >= pick['kmin']: return 'win'
     return 'loss' if pick.get('final') else None
 
