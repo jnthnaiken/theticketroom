@@ -2,7 +2,7 @@
  "date": "2026-10-27",
  "games": 4,
  "players": 60,
- "fetched": "2026-10-27T23:27Z",
+ "fetched": "2026-10-27T23:30Z",
  "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
  "all": [
   {
@@ -179,18 +179,18 @@
    "name": "Devin Vassell",
    "team": "SAS",
    "line": 18.5,
-   "pover": 0.4906,
-   "mean": 18.35,
-   "over_odds": -108,
-   "fd_line": null,
-   "fd_odds": null
+   "pover": 0.491,
+   "mean": 18.36,
+   "over_odds": -109,
+   "fd_line": 17.5,
+   "fd_odds": -125
   },
   {
    "name": "Darius Acuff Jr.",
    "team": "SAC",
    "line": 27.5,
-   "pover": 0.51,
-   "mean": 27.7,
+   "pover": 0.5096,
+   "mean": 27.69,
    "over_odds": -120,
    "fd_line": null,
    "fd_odds": null
@@ -209,8 +209,8 @@
    "name": "De'Aaron Fox",
    "team": "SAS",
    "line": 25.5,
-   "pover": 0.497,
-   "mean": 25.44,
+   "pover": 0.4923,
+   "mean": 25.35,
    "over_odds": -110,
    "fd_line": null,
    "fd_odds": null
@@ -269,11 +269,11 @@
    "name": "Victor Wembanyama",
    "team": "SAS",
    "line": 40.5,
-   "pover": 0.502,
-   "mean": 40.55,
-   "over_odds": -120,
-   "fd_line": null,
-   "fd_odds": null
+   "pover": 0.5056,
+   "mean": 40.65,
+   "over_odds": -119,
+   "fd_line": 40.5,
+   "fd_odds": -115
   },
   {
    "name": "Dylan Harper",
@@ -281,7 +281,7 @@
    "line": 26.5,
    "pover": 0.5,
    "mean": 26.5,
-   "over_odds": -118,
+   "over_odds": -117,
    "fd_line": null,
    "fd_odds": null
   },
@@ -292,18 +292,18 @@
    "pover": 0.4808,
    "mean": 29.1,
    "over_odds": -106,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 28.5,
+   "fd_odds": -122
   },
   {
    "name": "Zach LaVine",
    "team": "SAC",
    "line": 26.5,
-   "pover": 0.5047,
-   "mean": 26.59,
-   "over_odds": -120,
-   "fd_line": null,
-   "fd_odds": null
+   "pover": 0.5042,
+   "mean": 26.58,
+   "over_odds": -118,
+   "fd_line": 26.5,
+   "fd_odds": -115
   },
   {
    "name": "Mikal Bridges",
@@ -612,9 +612,9 @@
    "team": "LAL",
    "line": 48.5,
    "mean": 48.2,
-   "p": 0.4128,
-   "pop": 0.182,
-   "value": 2.27,
+   "p": 0.4116,
+   "pop": 0.1819,
+   "value": 2.26,
    "crown": true,
    "over_odds": -107
   },
@@ -623,9 +623,9 @@
    "team": "BOS",
    "line": 40.5,
    "mean": 40.7,
-   "p": 0.145,
-   "pop": 0.0926,
-   "value": 1.57,
+   "p": 0.1446,
+   "pop": 0.0925,
+   "value": 1.56,
    "crown": false,
    "over_odds": -120
   },
@@ -634,11 +634,11 @@
    "team": "SAS",
    "line": 40.5,
    "mean": 40.6,
-   "p": 0.1378,
-   "pop": 0.0913,
-   "value": 1.51,
+   "p": 0.14,
+   "pop": 0.0921,
+   "value": 1.52,
    "crown": false,
-   "over_odds": -120
+   "over_odds": -119
   },
   {
    "name": "Cade Cunningham",
@@ -656,9 +656,9 @@
    "team": "NYK",
    "line": 35.5,
    "mean": 35.5,
-   "p": 0.0502,
+   "p": 0.05,
    "pop": 0.0536,
-   "value": 0.94,
+   "value": 0.93,
    "crown": false,
    "over_odds": -109
   },
@@ -667,8 +667,8 @@
    "team": "NYK",
    "line": 34.5,
    "mean": 34.3,
-   "p": 0.0394,
-   "pop": 0.0468,
+   "p": 0.0392,
+   "pop": 0.0467,
    "value": 0.84,
    "crown": false,
    "over_odds": -111
@@ -678,7 +678,7 @@
    "team": "SAC",
    "line": 34.5,
    "mean": 34.7,
-   "p": 0.0392,
+   "p": 0.039,
    "pop": 0.049,
    "value": 0.8,
    "crown": false,
@@ -700,9 +700,9 @@
    "team": "LAL",
    "line": 32.5,
    "mean": 32.5,
-   "p": 0.0247,
+   "p": 0.0245,
    "pop": 0.0376,
-   "value": 0.66,
+   "value": 0.65,
    "crown": false,
    "over_odds": -115
   },
@@ -712,7 +712,7 @@
    "line": 29.5,
    "mean": 29.5,
    "p": 0.0087,
-   "pop": 0.0256,
+   "pop": 0.0255,
    "value": 0.34,
    "crown": false,
    "over_odds": -119
@@ -734,7 +734,7 @@
    "line": 28.5,
    "mean": 28.5,
    "p": 0.0045,
-   "pop": 0.0223,
+   "pop": 0.0222,
    "value": 0.2,
    "crown": false,
    "over_odds": -117
