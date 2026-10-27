@@ -66,7 +66,7 @@ jobs:
           echo "fixtures $N, matches with goalscorer prices $M, xg rows $X" | tee -a auto.log
           if [ "${{ steps.g.outputs.add }}" = true ]; then
             python3 soccer/auto_add.py soccer/slates/$D .auto | tee -a auto.log
-            [ -f .auto/ADDED ] && echo "ok=true" >> $GITHUB_OUTPUT
+            if [ -f .auto/ADDED ] || [ "$(wc -l < .auto/xg.psv 2>/dev/null || echo 0)" -gt "$(wc -l < soccer/slates/$D/xg.psv 2>/dev/null || echo 0)" ]; then echo "ok=true" >> $GITHUB_OUTPUT; fi
           # CUPWEEK-2026-10-27. Owner, 12:46 AM: "why hasnt soccer changed over?" -- 10-27 had 17 fixtures (DFB-Pokal, Copa
           # del Rey, EFL Cup) and only 3 priced the night before; the old "half priced" gate held the whole board back.
           # One priced match is enough: the 6 AM run adds the rest (add-only) as the books post them.
@@ -85,6 +85,8 @@ jobs:
         run: |
           D=${{ steps.d.outputs.date }}; S=soccer/slates/$D
           if [ "${{ steps.g.outputs.add }}" = true ]; then cp .auto/ags.psv $S/; [ -f .auto/fgs.psv ] && cp .auto/fgs.psv $S/
+            # FDCUP-2026-10-27: an added cup tie needs its clubs' xG -- take the fresh xg.psv when it covers more
+            [ -f .auto/xg.psv ] && [ $(wc -l < .auto/xg.psv) -gt $(wc -l < $S/xg.psv 2>/dev/null || echo 0) ] && cp .auto/xg.psv $S/
           else mkdir -p $S && cp .auto/fixtures.json .auto/ags.psv .auto/xg.psv $S/ && cp .auto/fgs.psv $S/ 2>/dev/null || true; fi
           echo "auto_slate.js $(date -u +%FT%TZ)" > $S/auto.src
           git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"

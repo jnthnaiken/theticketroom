@@ -180,7 +180,10 @@ async function fanduel(fx, missing) {
 }
 
 async function xg(fx) {
-  const lgs = [...new Set(Object.values(fx.matches).map(m => m.league))];
+  let lgs = [...new Set(Object.values(fx.matches).map(m => m.league))];
+  // FDCUP-2026-10-27: a cup tie (DFB-Pokal, Copa del Rey, League Cup...) has no understat league of its own -- its clubs
+  // live in the domestic leagues, so a slate with any non-league fixture reads all five big leagues.
+  if (lgs.some(l => !UNDERSTAT[l] && l !== 'MLS')) lgs = [...new Set(lgs.concat(Object.keys(UNDERSTAT)))];
   const y = +fx.date.slice(0, 4), mo = +fx.date.slice(5, 7), cur = mo >= 7 ? y : y - 1;
   const f = (x, n) => Number(x || 0).toFixed(n), rows = [];
   for (const lg of lgs.filter(l => UNDERSTAT[l])) for (const season of [cur - 1, cur]) {
