@@ -1,19 +1,24 @@
-// FDLADDER-2026-10-26 probe: FanDuel NBA threes markets (main + alternate "X+ made threes" ladders)
+// FDCUP-2026-10-27 probe: where does FanDuel list cup ties (DFB-Pokal, Copa del Rey, EFL Cup)?
 'use strict';
 const AK = 'FhMFpcPWXMeyZxOx', UA = { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/129.0 Safari/537.36' };
+const base = 'https://sbapi.nj.sportsbook.fanduel.com/api/', q = `&_ak=${AK}&timezone=America%2FNew_York`;
+const get = async u => { const r = await fetch(base + u + q, { headers: UA }); return r.ok ? r.json() : { status: r.status }; };
+const want = /arsenal|dortmund|frankfurt|leipzig|augsburg|bochum|gladbach|union|darmstadt|elche|espanyol|villarreal|rayo|malaga/i;
 (async () => {
-  const base = 'https://sbapi.nj.sportsbook.fanduel.com/api/', q = `&_ak=${AK}&timezone=America%2FNew_York`;
-  const j = await (await fetch(`${base}content-managed-page?page=CUSTOM&customPageId=nba${q}`, { headers: UA })).json();
-  const evs = Object.values((j.attachments || {}).events || {}).filter(e => / @ /.test(e.name));
-  console.log('events', evs.length, evs.slice(0, 12).map(e => e.eventId + ' ' + e.name + ' ' + e.openDate).join(' | '));
-  const ev = evs.find(e => Date.parse(e.openDate) > Date.now()) || evs[0];
-  for (const tab of ['', 'player-threes', 'player-points', 'threes', 'popular']) {
-    const r = await fetch(`${base}event-page?eventId=${ev.eventId}${tab ? '&tab=' + tab : ''}${q}`, { headers: UA });
-    if (!r.ok) { console.log('tab', tab, r.status); continue; }
-    const k = await r.json(), mk = Object.values((k.attachments || {}).markets || {});
-    if (tab === '') console.log('TABS', JSON.stringify(Object.values((k.layout || {}).tabs || {}).map(t => t.title + '=' + (t.seoIdentifier || t.id))));
-    const th = mk.filter(m => /three/i.test(m.marketName + m.marketType));
-    console.log('tab', tab, 'markets', mk.length, 'threes', th.length, th.slice(0, 40).map(m => m.marketType + '/' + m.marketName + '(' + (m.runners || []).length + ')').join(' ; ').slice(0, 2500));
-    if (th.length) console.log('  SAMPLE', JSON.stringify(th.slice(0, 2).map(m => ({ t: m.marketType, n: m.marketName, r: (m.runners || []).slice(0, 4).map(r => [r.runnerName, r.handicap, ((r.winRunnerOdds || {}).americanDisplayOdds || {}).americanOddsInt]) }))));
+  const sp = await get('content-managed-page?page=SPORT&eventTypeId=1');
+  const comps = Object.values((sp.attachments || {}).competitions || {});
+  console.log('SPORT page events', Object.keys((sp.attachments || {}).events || {}).length, 'comps', comps.length);
+  console.log('cup-like comps', comps.filter(c => /cup|pokal|copa|rey|trophy|coupe|coppa/i.test(c.name)).map(c => c.competitionId + ':' + c.name).join(', '));
+  const hits = Object.values((sp.attachments || {}).events || {}).filter(e => want.test(e.name));
+  console.log('SPORT hits', hits.map(e => e.eventId + ' ' + e.name + ' ' + e.openDate + ' c' + e.competitionId).join(' | '));
+  for (const c of comps.filter(c => /pokal|rey|league cup|efl|carabao|football league cup|german|spanish|copa/i.test(c.name))) {
+    for (const u of [`content-managed-page?page=COMPETITION&competitionId=${c.competitionId}&eventTypeId=1`, `content-managed-page?page=CUSTOM&customPageId=soccer&competitionId=${c.competitionId}`]) {
+      const j = await get(u); const ev = Object.values((j.attachments || {}).events || {});
+      console.log(c.name, u.split('?')[1].slice(0, 40), j.status || '', 'events', ev.length, ev.filter(e => / v /.test(e.name)).slice(0, 10).map(e => e.eventId + ' ' + e.name + ' ' + e.openDate).join(' | '));
+    }
+  }
+  // search endpoint
+  for (const t of ['Arsenal', 'Dortmund', 'Elche']) {
+    const j = await get(`search?searchTerm=${t}`); console.log('search', t, j.status || '', JSON.stringify(j).slice(0, 400));
   }
 })().catch(e => console.log('ERR', e));
