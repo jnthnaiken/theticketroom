@@ -2,13 +2,13 @@
  "since": "2026-10-20",
  "history": [
   0,
-  0.488,
-  -8.531,
-  -8.531,
-  -15.416,
-  -18.416,
-  -3.162,
-  -8.862
+  -1.3121951219512196,
+  -4.810945121951219,
+  -4.810945121951219,
+  -6.176534402782503,
+  -10.6765344027825,
+  6.593920554025395,
+  0.8939205540253976
  ],
  "graded_nights": [
   "2026-10-20",
@@ -23,27 +23,26 @@
   "moon": {
    "graded": 40,
    "won": 4,
-   "units": -6.520000000000012,
-   "staked": 36.08000000000002
+   "units": -1.4440000000000015,
+   "staked": 4.3999999999999995
   },
   "downtown": {
    "graded": 23,
    "won": 13,
-   "units": 0.057,
+   "units": 0.057920554025395976,
    "staked": 23.0
   },
   "duo": {
-   "graded": 8,
-   "won": 0,
-   "units": -2.4,
-   "staked": 2.4
+   "graded": 46,
+   "won": 2,
+   "units": 2.280000000000003,
+   "staked": 13.800000000000011
   }
  },
  "stake": 1,
- "restated": true,
- "restate_note": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets. TEMPLE-2026-10-24: Garrett's Temple (the 4 favourite anchors, 11 x 0.10u round robin) restated in on every night with 4 anchors from 4 games (10-21, 10-23). DOWNTOWN-2026-10-26: Downtown (threes-made overs, role model, EV>=0.20, 1/game, max 5, FanDuel main line) restated for 10-20..10-25 walk-forward at the real FanDuel prices: 10-21 Kawhi Leonard o2.5 +144 (2 made, lost), 10-23 Jrue Holiday o1.5 -115 (3 made, won); no qualifying pick on the other nights.",
  "notes": [
   "NOTEMPLE-2026-10-26: Garrett's Temple retired by the owner (\"lets get rid of the temple completely, sorry garrett\"); its 4 graded tickets (2-2, +19.71u) removed from the ledger and history.",
-  "DTUNDER-2026-10-26 / DTBUDGET-2026-10-27: Downtown unders added (line >= 1.5, P(under) >= .5, EV >= .15, 1u). 10-20..10-25 restated with the unders the rule would have posted at FanDuel prices: 16 graded, 11 won, +2.61u. Overs as posted (Kawhi Leonard 10-21 lost, Jrue Holiday 10-23 won)."
+  "DTUNDER-2026-10-26 / DTBUDGET-2026-10-27: Downtown unders added (line >= 1.5, P(under) >= .5, EV >= .15, 1u). 10-20..10-25 restated with the unders the rule would have posted at FanDuel prices: 16 graded, 11 won, +2.61u. Overs as posted (Kawhi Leonard 10-21 lost, Jrue Holiday 10-23 won).",
+  "LEDGERFULL-2026-10-27 (owner: \"every ledger should be accurate to the start of the seasons\"): season refolded from the boards under the live rules -- From the Logo restated onto 10-20..10-25, Full-Court Heaves at 0.11u a ticket throughout, Temple removed, Downtown overs as posted + restated unders."
  ]
 }
