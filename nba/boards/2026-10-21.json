@@ -8284,6 +8284,93 @@
     }
    ],
    "restated": "DTUNDER-2026-10-27: unders restated in at FanDuel prices (rule: line >= 1.5, P(under) >= .5, EV >= .15, 1u)"
+  },
+  "kotc": {
+   "date": "2026-10-21",
+   "locked": true,
+   "pick": {
+    "name": "Luka Doncic",
+    "code": "LAL",
+    "team": "Lakers",
+    "game": 9,
+    "gmatch": "GSW@LAL",
+    "line": 49.5,
+    "odds": -111,
+    "p": 0.3428,
+    "mean": 49.5,
+    "pop": 0.0838,
+    "value": 4.091,
+    "tname": "The Crown",
+    "status": "confirmed",
+    "final": true,
+    "pra": 43,
+    "dnp": false,
+    "restated": "KOTC-2026-10-27: restated at BettingPros PRA lines",
+    "res": "loss"
+   },
+   "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
+   "top": [
+    {
+     "name": "Luka Doncic",
+     "code": "LAL",
+     "line": 49.5,
+     "mean": 49.5,
+     "p": 0.3428,
+     "pop": 0.0838,
+     "value": 4.091,
+     "crown": true
+    },
+    {
+     "name": "Giannis Antetokounmpo",
+     "code": "MIA",
+     "line": 46.5,
+     "mean": 46.8,
+     "p": 0.244,
+     "pop": 0.067,
+     "value": 3.642,
+     "crown": false
+    },
+    {
+     "name": "Jalen Johnson",
+     "code": "ATL",
+     "line": 38.5,
+     "mean": 38.4,
+     "p": 0.0537,
+     "pop": 0.0304,
+     "value": 1.766,
+     "crown": false
+    },
+    {
+     "name": "Anthony Edwards",
+     "code": "MIN",
+     "line": 36.5,
+     "mean": 36.7,
+     "p": 0.0348,
+     "pop": 0.0253,
+     "value": 1.375,
+     "crown": false
+    },
+    {
+     "name": "Domantas Sabonis",
+     "code": "SAC",
+     "line": 36.5,
+     "mean": 36.6,
+     "p": 0.0337,
+     "pop": 0.0252,
+     "value": 1.337,
+     "crown": false
+    },
+    {
+     "name": "Paolo Banchero",
+     "code": "ORL",
+     "line": 36.5,
+     "mean": 36.5,
+     "p": 0.0323,
+     "pop": 0.0248,
+     "value": 1.302,
+     "crown": false
+    }
+   ]
   }
  }
 }
