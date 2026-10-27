@@ -32,7 +32,12 @@ const med = xs => { const a = xs.slice().sort((x, y) => x - y), n = a.length; re
 const norm = s => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
   .replace(/\b(fc|cf|afc|sc|ac|as|ss|ssc|us|rc|cd|ud|sd|rcd|ca|vfl|vfb|tsg|sv|1\.|fsv|bsc|hsc|ogc|stade|olympique|de|club|calcio|real|athletic)\b/g, ' ')
   .replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
-const toks = s => { let t = norm(s).split(' ').filter(w => w.length > 2); if (!t.length) t = String(s || '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2); return new Set(t); };
+// FDCUP-2026-10-27: the same club spelled two ways (ESPN vs FanDuel)
+const ALIAS = [[/\bcologne\b/g, 'koln'], [/\bmonchengladbach\b/g, 'mgladbach'], [/\bmunich\b/g, 'bayern'],
+  [/\bsporting cp\b/g, 'sporting'], [/\bpsg\b|\bparis saint germain\b|\bparis st g\b/g, 'paris'], [/\binternazionale\b/g, 'inter'],
+  [/\bmanchester\b/g, 'man'], [/\bwolverhampton wanderers\b/g, 'wolves'], [/\btottenham hotspur\b/g, 'tottenham']];
+const alias = s => ALIAS.reduce((x, [re, to]) => x.replace(re, to), s);
+const toks = s => { let t = alias(norm(s)).split(' ').filter(w => w.length > 2); if (!t.length) t = String(s || '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2); return new Set(t); };
 const sim = (a, b) => { const A = toks(a), B = toks(b); if (!A.size || !B.size) return 0; let n = 0; for (const x of A) if (B.has(x) || [...B].some(y => y.startsWith(x) || x.startsWith(y))) n++; return n / Math.min(A.size, B.size); };
 
 async function bpKey() {
