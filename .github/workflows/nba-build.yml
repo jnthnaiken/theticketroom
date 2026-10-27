@@ -84,7 +84,7 @@ jobs:
       # fetch leaves whatever fb.psv is already committed (fb_scrape.js from the browser is the fallback).
       - name: Fetch today's first-basket prices and lineups
         run: |
-          DAY=$(python3 -c "import datetime;n=datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(hours=10);print(n.date().isoformat())")
+          DAY=$(python3 -c "import datetime,zoneinfo;n=datetime.datetime.now(zoneinfo.ZoneInfo('America/New_York'))-datetime.timedelta(hours=6);print(n.date().isoformat())")   # DSTFIX-2026-10-27: 6 AM ET year-round
           node nba/fb_fetch.js "$DAY" "nba/slates/$DAY/fb.psv" || true
           node nba/fd_threes.js "$DAY" "nba/slates/$DAY/fd3.psv" || true   # FDLADDER-2026-10-26: FanDuel threes ladders, archived for backtests
 
@@ -92,8 +92,8 @@ jobs:
         id: slate
         run: |
           python3 - <<'PY' >> $GITHUB_OUTPUT
-          import datetime, glob, os
-          now = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)
+          import datetime, glob, os, zoneinfo
+          now = datetime.datetime.now(zoneinfo.ZoneInfo('America/New_York'))   # DSTFIX-2026-10-27: was UTC-4, i.e. 5 AM once EST starts
           day = (now - datetime.timedelta(hours=6)).date().isoformat()     # 6am ET cutover
           ds = sorted(os.path.basename(os.path.dirname(p)) for p in glob.glob('nba/slates/*/fb.psv'))
           ds = [d for d in ds if d <= day]

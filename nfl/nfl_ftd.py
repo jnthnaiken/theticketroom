@@ -304,7 +304,7 @@ def main():
     by_name = {s['name']: s for s in scored}
     now = A.now_et_min
     if now is None:
-        et = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)
+        import zoneinfo; et = datetime.datetime.now(zoneinfo.ZoneInfo('America/New_York')).replace(tzinfo=None)   # DSTFIX-2026-10-27
         now = (et.hour * 60 + et.minute) if et.strftime('%Y-%m-%d') == A.date else (-1 if et.strftime('%Y-%m-%d') < A.date else 10 ** 6)
     if os.path.exists(A.cache) and json.load(open(A.cache, encoding='utf-8')).get('toss'):
         c = json.load(open(A.cache, encoding='utf-8'))

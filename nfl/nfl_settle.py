@@ -119,7 +119,7 @@ def settle(board_path, season_path, slates_dir, getj=_getj, now_et=None):
     fxp = os.path.join(slates_dir, date, 'fixtures.json')
     fx = json.load(io.open(fxp, encoding='utf-8')) if os.path.exists(fxp) else {'matches': {}}
     kos = [m.get('kickoff') for m in (fx.get('matches') or {}).values() if isinstance(m.get('kickoff'), int)]
-    now_et = now_et or (datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) - datetime.timedelta(hours=4))
+    now_et = now_et or datetime.datetime.now(__import__('zoneinfo').ZoneInfo('America/New_York')).replace(tzinfo=None)   # DSTFIX-2026-10-27
     if kos:
         ready = datetime.datetime.strptime(date, '%Y-%m-%d') + datetime.timedelta(minutes=max(kos) + GRACE_MIN)
         if now_et < ready:

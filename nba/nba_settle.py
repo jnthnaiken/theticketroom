@@ -27,7 +27,7 @@ ZERO = {'graded': 0, 'won': 0, 'units': 0.0, 'staked': 0.0}
 
 
 def today_et():
-    return (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=4)).date()
+    import zoneinfo; return datetime.datetime.now(zoneinfo.ZoneInfo('America/New_York')).date()   # DSTFIX-2026-10-27
 
 
 def _match(name, cands):
