@@ -67,7 +67,10 @@ jobs:
           if [ "${{ steps.g.outputs.add }}" = true ]; then
             python3 soccer/auto_add.py soccer/slates/$D .auto | tee -a auto.log
             [ -f .auto/ADDED ] && echo "ok=true" >> $GITHUB_OUTPUT
-          elif [ "$N" -gt 0 ] && [ "$M" -ge $(( (N+1)/2 )) ] && [ "$X" -gt 100 ]; then echo "ok=true" >> $GITHUB_OUTPUT
+          # CUPWEEK-2026-10-27. Owner, 12:46 AM: "why hasnt soccer changed over?" -- 10-27 had 17 fixtures (DFB-Pokal, Copa
+          # del Rey, EFL Cup) and only 3 priced the night before; the old "half priced" gate held the whole board back.
+          # One priced match is enough: the 6 AM run adds the rest (add-only) as the books post them.
+          elif [ "$N" -gt 0 ] && [ "$M" -ge 1 ] && [ "$X" -gt 100 ]; then echo "ok=true" >> $GITHUB_OUTPUT
           else echo "::warning::not enough to post a board (fixtures $N, priced $M, xg $X)"; fi
       - name: Save the log
         if: steps.g.outputs.go == 'true'
