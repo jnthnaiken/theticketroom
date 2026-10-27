@@ -1,4 +1,130 @@
-NBA player-prop markets: 156:points, 157:rebounds, 151:assists, 162:threes, 147:most-points, 160:steals, 152:blocks, 142:first-basket, 136:double-double, 335:points-assists, 336:points-rebounds, 337:rebounds-assists, 338:points-assists-rebounds
-events tonight 4
+{
+ "date": "2026-10-27",
+ "games": 4,
+ "players": 54,
+ "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
+ "top": [
+  {
+   "name": "Luka Doncic",
+   "team": "LAL",
+   "line": 47.5,
+   "mean": 47.5,
+   "p": 0.3654,
+   "pop": 0.1639,
+   "value": 2.23,
+   "crown": true
+  },
+  {
+   "name": "Jayson Tatum",
+   "team": "BOS",
+   "line": 42.5,
+   "mean": 42.6,
+   "p": 0.1871,
+   "pop": 0.1057,
+   "value": 1.77,
+   "crown": false
+  },
+  {
+   "name": "Victor Wembanyama",
+   "team": "SAS",
+   "line": 41.5,
+   "mean": 41.2,
+   "p": 0.1503,
+   "pop": 0.093,
+   "value": 1.62,
+   "crown": false
+  },
+  {
+   "name": "Cade Cunningham",
+   "team": "DET",
+   "line": 38,
+   "mean": 37.9,
+   "p": 0.0755,
+   "pop": 0.0662,
+   "value": 1.14,
+   "crown": false
+  },
+  {
+   "name": "Domantas Sabonis",
+   "team": "SAC",
+   "line": 35.5,
+   "mean": 35.5,
+   "p": 0.0441,
+   "pop": 0.0511,
+   "value": 0.86,
+   "crown": false
+  },
+  {
+   "name": "Deni Avdija",
+   "team": "POR",
+   "line": 34.5,
+   "mean": 34.6,
+   "p": 0.0348,
+   "pop": 0.0464,
+   "value": 0.75,
+   "crown": false
+  },
+  {
+   "name": "Karl-Anthony Towns",
+   "team": "NYK",
+   "line": 34.5,
+   "mean": 34.6,
+   "p": 0.0329,
+   "pop": 0.0461,
+   "value": 0.71,
+   "crown": false
+  },
+  {
+   "name": "Jalen Brunson",
+   "team": "NYK",
+   "line": 34.5,
+   "mean": 34.5,
+   "p": 0.0316,
+   "pop": 0.0456,
+   "value": 0.69,
+   "crown": false
+  },
+  {
+   "name": "Austin Reaves",
+   "team": "LAL",
+   "line": 33.5,
+   "mean": 33.7,
+   "p": 0.0275,
+   "pop": 0.0415,
+   "value": 0.66,
+   "crown": false
+  },
+  {
+   "name": "Julius Randle",
+   "team": "BKN",
+   "line": 31.5,
+   "mean": 31.3,
+   "p": 0.012,
+   "pop": 0.0309,
+   "value": 0.39,
+   "crown": false
+  },
+  {
+   "name": "Michael Porter Jr.",
+   "team": "BKN",
+   "line": 30.5,
+   "mean": 30.4,
+   "p": 0.0089,
+   "pop": 0.0275,
+   "value": 0.33,
+   "crown": false
+  },
+  {
+   "name": "Stephon Castle",
+   "team": "SAS",
+   "line": 29.5,
+   "mean": 29.1,
+   "p": 0.007,
+   "pop": 0.0232,
+   "value": 0.3,
+   "crown": false
+  }
+ ]
+}
 curl oddschecker winner: 403
 curl understat: 200
