@@ -11,8 +11,7 @@ sd = SD_A x mean + SD_B. 50,000 simulated nights -> P(top PRA). Popularity = mea
 biggest stat lines). value = P(top) / popularity; the crown goes to the best value among the five likeliest -- the same
 rule as King of the End Zone.
 """
-import math
-import numpy as np
+import math, random
 
 SD_A, SD_B = 0.20, 2.5     # v1; KOTCCAL replaces these with a fit on 2025-26 box scores
 POP_K = 4.0
@@ -49,15 +48,17 @@ def crown(rows, seed=20261027):
         sd0 = SD_A * r['line'] + SD_B
         r['mean'] = r['line'] + sd0 * ninv(r['pover'])
         r['sd'] = SD_A * r['mean'] + SD_B
-    m = np.array([r['mean'] for r in L]); s = np.array([r['sd'] for r in L])
-    rng = np.random.default_rng(seed)
-    win = np.zeros(len(L))
-    for _ in range(N_SIM // 10000):
-        x = m + s * rng.standard_normal((10000, len(L)))
-        win += np.bincount(x.argmax(axis=1), minlength=len(L))
-    pw = m ** POP_K
+    rng = random.Random(seed)                     # plain Python: the build runner has no numpy
+    win = [0] * len(L); ms = [r['mean'] for r in L]; ss = [r['sd'] for r in L]; n = len(L)
+    for _ in range(N_SIM):
+        bi, bv = 0, -1e9
+        for i in range(n):
+            v = ms[i] + ss[i] * rng.gauss(0.0, 1.0)
+            if v > bv: bv, bi = v, i
+        win[bi] += 1
+    pw = [x ** POP_K for x in ms]; tot = sum(pw)
     for i, r in enumerate(L):
-        r['p'] = round(float(win[i] / N_SIM), 4); r['pop'] = round(float(pw[i] / pw.sum()), 4)
+        r['p'] = round(win[i] / N_SIM, 4); r['pop'] = round(pw[i] / tot, 4)
         r['value'] = round(r['p'] / r['pop'], 3) if r['pop'] > 0 else 0.0
         r['mean'] = round(r['mean'], 1); r['sd'] = round(r['sd'], 1)
     L.sort(key=lambda r: -r['p'])
