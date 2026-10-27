@@ -1960,6 +1960,34 @@
     "stake": 1.0
    }
   ],
-  "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets. TEMPLE-2026-10-24: Garrett's Temple (the 4 favourite anchors, 11 x 0.10u round robin) restated in on every night with 4 anchors from 4 games (10-21, 10-23)."
+  "restated": "RESTATED-2026-10-24b: owner \"restated\". Nights 10-20..10-23 re-drafted under FAVANCHOR (anchors = most likely first scorer from each of 4 different games, not bet as singles; 2 moons per anchor with value partners differing by >= 2 legs, 11 x 0.10u) from each morning's committed slate and model state (10:00Z build commit), graded against the real first baskets. 10-20 (3 games) and 10-22 (2 games) cannot fill a four-game moon: no bets. TEMPLE-2026-10-24: Garrett's Temple (the 4 favourite anchors, 11 x 0.10u round robin) restated in on every night with 4 anchors from 4 games (10-21, 10-23).",
+  "dt": {
+   "picks": [
+    {
+     "name": "Jalen Williams",
+     "code": "OKC",
+     "gmatch": "OKC@SAS",
+     "line": 1.5,
+     "kmin": 2,
+     "side": "U",
+     "odds": -205,
+     "p": 0.783,
+     "mu": 0.87,
+     "ev": 0.165,
+     "started": true,
+     "status": "confirmed",
+     "locked": true,
+     "final": true,
+     "dnp": false,
+     "made": 1,
+     "res": "win",
+     "game": 3,
+     "tname": "Bell-Bottom Bomb",
+     "restated": true,
+     "note": "Williams has a lid on the rim tonight, folks, the basket's got a manhole cover on it!"
+    }
+   ],
+   "restated": "DTUNDER-2026-10-27: unders restated in at FanDuel prices (rule: line >= 1.5, P(under) >= .5, EV >= .15, 1u)"
+  }
  }
 }
