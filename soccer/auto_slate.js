@@ -127,6 +127,26 @@ async function fanduel(fx, missing) {
     catch (e) { console.log(`  FanDuel ${st}: ${String(e).slice(0, 100)}`); }
   }
   if (!base) return out;
+  // FDCUP-2026-10-27. Owner: "the prices are already up. it should be done at the same time". The SPORT page lists only a
+  // rotating subset of FanDuel's matches (10-27: 3 of 16 DFB-Pokal ties, no Copa del Rey or League Cup). When a match is
+  // missing, read every competition's own listing (competition-page) too, so cup ties price in the same run.
+  const findOk = () => missing.every(slug => { const m = fx.matches[slug]; return evs.some(e => { const [h, a] = e.name.split(' v ');
+    return Math.min(sim(m.home, h), sim(m.away, a)) >= 0.5; }); });
+  if (!findOk()) {
+    let comps = [];
+    try { const j = await getJSON(`${base}content-managed-page?page=SPORT&eventTypeId=1${q}`); comps = Object.values((j.attachments || {}).competitions || {}); } catch (e) {}
+    const seen = new Set(evs.map(e => String(e.eventId)));
+    for (let i = 0; i < comps.length; i += 8) {
+      await Promise.all(comps.slice(i, i + 8).map(async c => {
+        try {
+          const j = await getJSON(`${base}competition-page?competitionId=${c.competitionId}&eventTypeId=1${q}`);
+          for (const e of Object.values((j.attachments || {}).events || {}))
+            if (/ v /.test(e.name) && !/\(/.test(e.name) && !seen.has(String(e.eventId))) { seen.add(String(e.eventId)); evs.push(e); }
+        } catch (e) {}
+      }));
+    }
+    console.log(`  FanDuel: ${evs.length} events after reading ${comps.length} competition listings`);
+  }
   for (const slug of missing) {
     const m = fx.matches[slug], ko = Date.parse(fx.date + 'T00:00:00Z') + m.kickoff * 60000;
     let best = null, bs = 0;
