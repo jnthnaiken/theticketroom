@@ -2,7 +2,7 @@
  "date": "2026-10-27",
  "games": 4,
  "players": 55,
- "fetched": "2026-10-27T21:05Z",
+ "fetched": "2026-10-27T21:11Z",
  "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
  "all": [
   {
@@ -51,7 +51,7 @@
    "line": 29.5,
    "pover": 0.488,
    "mean": 29.25,
-   "over_odds": -110,
+   "over_odds": -109,
    "fd_line": null,
    "fd_odds": null
   },
@@ -79,8 +79,8 @@
    "name": "Jayson Tatum",
    "team": "BOS",
    "line": 41.5,
-   "pover": 0.5,
-   "mean": 41.5,
+   "pover": 0.4975,
+   "mean": 41.43,
    "over_odds": -107,
    "fd_line": 40.5,
    "fd_odds": -122
@@ -149,11 +149,11 @@
    "name": "Devin Vassell",
    "team": "SAS",
    "line": 18.5,
-   "pover": 0.4845,
-   "mean": 18.26,
+   "pover": 0.4854,
+   "mean": 18.27,
    "over_odds": -109,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 18.5,
+   "fd_odds": -106
   },
   {
    "name": "Darius Acuff Jr.",
@@ -179,8 +179,8 @@
    "name": "De'Aaron Fox",
    "team": "SAS",
    "line": 25.5,
-   "pover": 0.4847,
-   "mean": 25.21,
+   "pover": 0.4873,
+   "mean": 25.26,
    "over_odds": -109,
    "fd_line": 25.5,
    "fd_odds": -102
@@ -189,8 +189,8 @@
    "name": "Domantas Sabonis",
    "team": "SAC",
    "line": 34.5,
-   "pover": 0.5065,
-   "mean": 34.65,
+   "pover": 0.513,
+   "mean": 34.81,
    "over_odds": -124,
    "fd_line": null,
    "fd_odds": null
@@ -259,31 +259,31 @@
    "name": "Stephon Castle",
    "team": "SAS",
    "line": 29.5,
-   "pover": 0.4813,
-   "mean": 29.11,
+   "pover": 0.4822,
+   "mean": 29.12,
    "over_odds": -106,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 28.5,
+   "fd_odds": -120
   },
   {
    "name": "Zach LaVine",
    "team": "SAC",
    "line": 27.5,
-   "pover": 0.4929,
-   "mean": 27.36,
+   "pover": 0.4918,
+   "mean": 27.34,
    "over_odds": -115,
-   "fd_line": null,
-   "fd_odds": null
+   "fd_line": 27.5,
+   "fd_odds": -106
   },
   {
    "name": "Mikal Bridges",
    "team": "NYK",
-   "line": 17.5,
-   "pover": 0.5203,
-   "mean": 17.81,
-   "over_odds": -128,
-   "fd_line": 17.5,
-   "fd_odds": -130
+   "line": 17.75,
+   "pover": 0.5102,
+   "mean": 17.9,
+   "over_odds": null,
+   "fd_line": null,
+   "fd_odds": null
   },
   {
    "name": "Miles McBride",
@@ -291,7 +291,7 @@
    "line": 10.5,
    "pover": 0.4847,
    "mean": 10.32,
-   "over_odds": -115,
+   "over_odds": null,
    "fd_line": null,
    "fd_odds": null
   },
@@ -322,8 +322,8 @@
    "pover": 0.4797,
    "mean": 23.13,
    "over_odds": -106,
-   "fd_line": 22.5,
-   "fd_odds": -122
+   "fd_line": null,
+   "fd_odds": null
   },
   {
    "name": "Paul Reed",
@@ -351,9 +351,9 @@
    "line": 34.5,
    "pover": 0.5,
    "mean": 34.5,
-   "over_odds": -116,
-   "fd_line": 35.5,
-   "fd_odds": -102
+   "over_odds": -118,
+   "fd_line": null,
+   "fd_odds": null
   },
   {
    "name": "OG Anunoby",
@@ -361,9 +361,9 @@
    "line": 23.5,
    "pover": 0.5,
    "mean": 23.5,
-   "over_odds": -116,
-   "fd_line": 23.5,
-   "fd_odds": -113
+   "over_odds": -118,
+   "fd_line": null,
+   "fd_odds": null
   },
   {
    "name": "John Collins",
@@ -379,8 +379,8 @@
    "name": "Landry Shamet",
    "team": "NYK",
    "line": 10,
-   "pover": 0.5005,
-   "mean": 10.01,
+   "pover": 0.5,
+   "mean": 10,
    "over_odds": null,
    "fd_line": null,
    "fd_odds": null
@@ -469,8 +469,8 @@
    "name": "Jrue Holiday",
    "team": "POR",
    "line": 17.5,
-   "pover": 0.5094,
-   "mean": 17.64,
+   "pover": 0.5097,
+   "mean": 17.65,
    "over_odds": -122,
    "fd_line": null,
    "fd_odds": null
@@ -529,8 +529,8 @@
    "name": "Luka Doncic",
    "team": "LAL",
    "line": 47.5,
-   "pover": 0.5038,
-   "mean": 47.62,
+   "pover": 0.5,
+   "mean": 47.5,
    "over_odds": -120,
    "fd_line": 48.5,
    "fd_odds": -108
@@ -561,10 +561,10 @@
    "name": "Luka Doncic",
    "team": "LAL",
    "line": 47.5,
-   "mean": 47.6,
-   "p": 0.3878,
-   "pop": 0.1722,
-   "value": 2.25,
+   "mean": 47.5,
+   "p": 0.3851,
+   "pop": 0.1708,
+   "value": 2.26,
    "crown": true,
    "over_odds": -120
   },
@@ -572,9 +572,9 @@
    "name": "Jayson Tatum",
    "team": "BOS",
    "line": 41.5,
-   "mean": 41.5,
-   "p": 0.1689,
-   "pop": 0.0994,
+   "mean": 41.4,
+   "p": 0.1676,
+   "pop": 0.0988,
    "value": 1.7,
    "crown": false,
    "over_odds": -107
@@ -584,8 +584,8 @@
    "team": "SAS",
    "line": 40.5,
    "mean": 40.6,
-   "p": 0.1437,
-   "pop": 0.0909,
+   "p": 0.1439,
+   "pop": 0.091,
    "value": 1.58,
    "crown": false,
    "over_odds": -115
@@ -595,11 +595,22 @@
    "team": "DET",
    "line": 37.5,
    "mean": 37.4,
-   "p": 0.077,
+   "p": 0.0776,
    "pop": 0.0654,
-   "value": 1.18,
+   "value": 1.19,
    "crown": false,
    "over_odds": -109
+  },
+  {
+   "name": "Domantas Sabonis",
+   "team": "SAC",
+   "line": 34.5,
+   "mean": 34.8,
+   "p": 0.0407,
+   "pop": 0.0492,
+   "value": 0.83,
+   "crown": false,
+   "over_odds": -124
   },
   {
    "name": "Karl-Anthony Towns",
@@ -610,7 +621,7 @@
    "pop": 0.0475,
    "value": 0.84,
    "crown": false,
-   "over_odds": -116
+   "over_odds": -118
   },
   {
    "name": "Jalen Brunson",
@@ -624,24 +635,13 @@
    "over_odds": -110
   },
   {
-   "name": "Domantas Sabonis",
-   "team": "SAC",
-   "line": 34.5,
-   "mean": 34.7,
-   "p": 0.0383,
-   "pop": 0.0483,
-   "value": 0.79,
-   "crown": false,
-   "over_odds": -124
-  },
-  {
    "name": "Deni Avdija",
    "team": "POR",
    "line": 34.5,
    "mean": 34.5,
-   "p": 0.0358,
+   "p": 0.0363,
    "pop": 0.0475,
-   "value": 0.75,
+   "value": 0.76,
    "crown": false,
    "over_odds": -116
   },
@@ -661,8 +661,8 @@
    "team": "BKN",
    "line": 30.5,
    "mean": 30.7,
-   "p": 0.0109,
-   "pop": 0.0298,
+   "p": 0.0111,
+   "pop": 0.0299,
    "value": 0.37,
    "crown": false,
    "over_odds": -120
@@ -676,7 +676,7 @@
    "pop": 0.0245,
    "value": 0.26,
    "crown": false,
-   "over_odds": -110
+   "over_odds": -109
   },
   {
    "name": "Stephon Castle",
@@ -684,7 +684,7 @@
    "line": 29.5,
    "mean": 29.1,
    "p": 0.0055,
-   "pop": 0.024,
+   "pop": 0.0241,
    "value": 0.23,
    "crown": false,
    "over_odds": -106
