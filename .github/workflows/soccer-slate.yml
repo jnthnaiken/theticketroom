@@ -34,6 +34,10 @@ jobs:
           if [ -n "${{ inputs.date }}" ]; then D="${{ inputs.date }}"
           elif [ "$H" = 19 ]; then D=$(TZ=America/New_York date -d tomorrow +%F)
           elif [ "$H" = 6 ]; then D=$(TZ=America/New_York date +%F)
+          # SELFHEAL-2026-10-27. Owner, 1 AM, second night running: "thats 2 nights in a row ive had to check in on it".
+          # Overnight (midnight-5 AM ET) every ping builds TODAY's slate if it is still missing, so a failed 7 PM build
+          # retries every 30 minutes instead of leaving last night's board up until 6 AM.
+          elif [ "$H" -le 5 ]; then D=$(TZ=America/New_York date +%F); echo "onlyifmissing=true" >> $GITHUB_OUTPUT
           else echo "outside the fetch windows (ET hour $H)"; exit 0; fi
           echo "date=$D" >> $GITHUB_OUTPUT; echo "slate $D"
       - uses: actions/checkout@v4
@@ -45,6 +49,7 @@ jobs:
         if: steps.d.outputs.date != ''
         run: |
           S=soccer/slates/${{ steps.d.outputs.date }}
+          if [ "${{ steps.d.outputs.onlyifmissing }}" = true ] && [ -f $S/ags.psv ]; then echo "today's slate exists -- nothing to retry"; exit 0; fi
           if [ -f $S/ags.psv ] && [ ! -f $S/auto.src ]; then echo "hand-built slate -- never overwritten"; exit 0; fi
           # FDSOCCER-2026-10-26: a built (frozen) auto slate is not rebuilt, but a match that had no goalscorer
           # prices then may be ADDED (its own rows only, kickoff still 30+ min away). Sevilla's prices stay put.
