@@ -46,6 +46,10 @@ on:
         description: "Build and report, but commit nothing."
         required: false
         default: "false"
+      date:
+        description: "Rebuild this slate even if it is finished (e.g. to refresh the ledger card)."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -134,6 +138,8 @@ jobs:
       # --------------------------------------------------------------------------------------
       - name: Resolve the slate
         id: slate
+        env:
+          FORCE_DATE: ${{ inputs.date }}
         run: |
           cd nfl
           python3 - <<'PY' >> $GITHUB_OUTPUT
@@ -147,6 +153,9 @@ jobs:
 
           log(f'now {now:%Y-%m-%d %H:%M} ET')
           best = None
+          _force = os.environ.get('FORCE_DATE') or ''   # FORCEDATE-2026-10-27: rebuild a finished slate on request
+          if _force and os.path.exists(f'slates/{_force}/fixtures.json'):
+              best = (_force, json.load(open(f'slates/{_force}/fixtures.json', encoding='utf-8')))
           for fx in sorted(glob.glob('slates/*/fixtures.json')):
               d = os.path.basename(os.path.dirname(fx))
               try:
