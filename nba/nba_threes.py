@@ -29,7 +29,9 @@ EV_MIN, MAX_NIGHT = 0.20, 5
 # search (17,908 rules, chosen on 2023-24, judged on 2024-26): overs stay as they are; ADD unders. FanDuel main-line
 # under, line >= 1.5, P(under) >= 0.50, EV >= 0.10, best 5 a night (any game), 1u, never the same man as an over.
 # Backtest 2023-26: unders +172.4u (+9.1%), with the overs +228.9u vs +56.5u, worst slump 21.1u, every season up.
-U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.10, 0.50, 1.5, 5
+# DTUNCAP-2026-10-26. Owner: "is 5 tickets the best? why are we capping ourselves?" -- no: the search's best-on-train
+# under rule was EV >= 0.05 with NO nightly cap (train +107.5u, unseen 2024-26 +161u); with the overs +325u, worst slump 25.7u.
+U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.05, 0.50, 1.5, 99
 FANDUEL = 10
 _d = lambda h: 0.5 ** (1.0 / h)
 LA, LB, LP = _d(HL_ATT), _d(HL_PCT), _d(HL_OPP)
