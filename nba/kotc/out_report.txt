@@ -1,0 +1,12 @@
+player-games priced 20362 nights 164
+matched player-games 13240
+fit sd = 0.12*mean + 5.0  nll 2.5376   (v1 0.20*mean+2.5 nll 2.5766)
+mean residual (bias) 0.29
+FITTED sd all nights: nights 164, log loss 2.189, crowned pick led 60 (36.6%), favourite led 60 (36.6%)
+   calibration (n, predicted, actual): {'0-10%': (1211, 0.042, 0.043), '10-20%': (241, 0.138, 0.145), '20-30%': (75, 0.249, 0.32), '30-40%': (47, 0.348, 0.383), '40-50%': (46, 0.44, 0.435), '50-60%': (17, 0.535, 0.412), '60-70%': (2, 0.67, 0.5), '80-90%': (1, 0.819, 1.0)}
+v1     sd all nights: nights 164, log loss 2.198, crowned pick led 59 (36.0%), favourite led 60 (36.6%)
+   calibration (n, predicted, actual): {'0-10%': (1190, 0.042, 0.042), '10-20%': (257, 0.138, 0.136), '20-30%': (78, 0.249, 0.321), '30-40%': (57, 0.349, 0.421), '40-50%': (42, 0.438, 0.405), '50-60%': (13, 0.529, 0.385), '60-70%': (2, 0.649, 0.5), '80-90%': (1, 0.836, 1.0)}
+FITTED sd Tuesdays: nights 23, log loss 2.143, crowned pick led 7 (30.4%), favourite led 7 (30.4%)
+   calibration (n, predicted, actual): {'0-10%': (167, 0.042, 0.054), '10-20%': (37, 0.134, 0.135), '20-30%': (10, 0.253, 0.0), '30-40%': (6, 0.35, 0.333), '40-50%': (8, 0.449, 0.5), '50-60%': (2, 0.563, 0.5)}
+v1     sd Tuesdays: nights 23, log loss 2.137, crowned pick led 7 (30.4%), favourite led 7 (30.4%)
+   calibration (n, predicted, actual): {'0-10%': (164, 0.042, 0.055), '10-20%': (40, 0.136, 0.125), '20-30%': (9, 0.252, 0.0), '30-40%': (8, 0.346, 0.25), '40-50%': (7, 0.444, 0.571), '50-60%': (2, 0.545, 0.5)}
