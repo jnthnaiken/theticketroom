@@ -24,7 +24,7 @@ import json, math, re, unicodedata
 
 HL_ATT, HL_PCT, HL_OPP, K_PCT = 10, 40, 15, 150.0
 BETA, A1, A2, A3, R = 0.67, 0.46, 0.33, 0.13, 9.6          # fitted on 2023-24 (research run 2026-10-26)
-EV_MIN, MAX_NIGHT = 0.20, 5
+EV_MIN, MAX_NIGHT = 0.20, 99   # DTUNCAP-2026-10-26: the cap of 5 never bound (1 per game, ~2 a night); removed
 # DTUNDER-2026-10-26. Owner: "lets do the same thing for downtown. theres no way what we have is the best way" -> rule
 # search (17,908 rules, chosen on 2023-24, judged on 2024-26): overs stay as they are; ADD unders. FanDuel main-line
 # under, line >= 1.5, P(under) >= 0.50, EV >= 0.10, best 5 a night (any game), 1u, never the same man as an over.
