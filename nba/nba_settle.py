@@ -121,6 +121,19 @@ def grade_board(path, season_path, getsum=E.summary, getsb=E.scoreboard):
             pk['dnp'] = not (b and (b['played'] or b['tpa']))
             pk['made'] = b['tpm'] if b else None
             pk['res'] = _TH.grade(pk)
+    # KOTC-2026-10-27: the King of the Court bet (PRA over), graded off nba.com's final box score
+    kp = (D['meta'].get('kotc') or {}).get('pick')
+    if kp:
+        import nba_nbacom as _N, nba_kotc as _K
+        try:
+            gid = {f'{a}@{h}': g for g, a, h, *_ in _N.scoreboard(date)}
+            gm = want.get(kp['game'])
+            box = _N.parse(_N.summary(gid[gm])).get('box') or []
+        except Exception as e:
+            print(f'  {date}: King of the Court box unreachable ({str(e)[:80]})'); return 'network'
+        b = next((x for x in box if x['team'] == kp.get('code') and _match(kp['name'], [x['name']])), None)
+        kp['final'] = True; kp['dnp'] = not (b and (b['played'] or b.get('pra'))); kp['pra'] = b.get('pra') if b else None
+        kp['res'] = _K.grade(kp)
     json.dump(D, io.open(path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     print(f'  {date}: {len(finals)} final game(s), {nfb} priced first-basket scorer(s), {nvoid} void(s)')
     if not os.path.exists(season_path):

@@ -21,7 +21,7 @@ on:
     types: [tick, build-tick, build-board, build-nba]
   push:
     branches: [main]
-    paths: ['nba/fd_threes.js', 'nba/nba_fork.py', 'nba/nba_payload.py', 'nba/nba_voice.py', 'nba/nba_livebake.py', 'nba/nba_nbacom.py', 'nba/nba_threes.py', 'nba/nba_fb.py', 'nba/nba_live.js', '.github/workflows/nba-build.yml']
+    paths: ['nba/kotc.js', 'nba/nba_kotc.py', 'nba/fd_threes.js', 'nba/nba_fork.py', 'nba/nba_payload.py', 'nba/nba_voice.py', 'nba/nba_livebake.py', 'nba/nba_nbacom.py', 'nba/nba_threes.py', 'nba/nba_fb.py', 'nba/nba_live.js', '.github/workflows/nba-build.yml']
   schedule:
     - cron: '*/15 22-23 * * *'
     - cron: '*/15 0-6 * * *'
@@ -86,7 +86,12 @@ jobs:
         run: |
           DAY=$(python3 -c "import datetime,zoneinfo;n=datetime.datetime.now(zoneinfo.ZoneInfo('America/New_York'))-datetime.timedelta(hours=6);print(n.date().isoformat())")   # DSTFIX-2026-10-27: 6 AM ET year-round
           node nba/fb_fetch.js "$DAY" "nba/slates/$DAY/fb.psv" || true
-          node nba/fd_threes.js "$DAY" "nba/slates/$DAY/fd3.psv" || true   # FDLADDER-2026-10-26: FanDuel threes ladders, archived for backtests
+          node nba/fd_threes.js "$DAY" "nba/slates/$DAY/fd3.psv" || true
+          # KOTC-2026-10-27: King of the Court nights (Tuesdays + opener) -- PRA lines until the pick locks at the first tip
+          if python3 -c "import sys;sys.path.insert(0,'nba');import nba_kotc as K;sys.exit(0 if K.is_night('$DAY') else 1)" && \
+             ! python3 -c "import json,sys;sys.exit(0 if json.load(open('nba/slates/$DAY/kotc.json')).get('locked') else 1)" 2>/dev/null; then
+            node nba/kotc.js "$DAY" "nba/slates/$DAY/kotc_raw.json" > /dev/null || true
+          fi   # FDLADDER-2026-10-26: FanDuel threes ladders, archived for backtests
 
       - name: Resolve the slate
         id: slate
@@ -162,7 +167,7 @@ jobs:
           cd ..
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add nba/index.html nba/nba_D.json nba/nba_season.json nba/boards/ nba/slates/$D/fb.psv $(ls nba/slates/$D/picks.json 2>/dev/null) $(ls nba/slates/$D/firsts.json 2>/dev/null) $(ls nba/slates/$D/downtown.json 2>/dev/null) $(ls nba/slates/$D/fd3.psv 2>/dev/null)
+          git add nba/index.html nba/nba_D.json nba/nba_season.json nba/boards/ nba/slates/$D/fb.psv $(ls nba/slates/$D/picks.json 2>/dev/null) $(ls nba/slates/$D/firsts.json 2>/dev/null) $(ls nba/slates/$D/downtown.json 2>/dev/null) $(ls nba/slates/$D/fd3.psv 2>/dev/null) $(ls nba/slates/$D/kotc.json nba/slates/$D/kotc_raw.json 2>/dev/null)
           git diff --cached --quiet && { echo "nothing staged"; exit 0; }
           git commit -m "NBA board $D ($(date -u +%H:%MZ))"
           for i in 1 2 3; do

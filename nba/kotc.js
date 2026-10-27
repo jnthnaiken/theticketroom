@@ -60,7 +60,12 @@ const gauss = () => { let u = 0, v = 0; while (u === 0) u = rnd(); v = rnd(); re
       const lines = [], povers = [];
       for (const r of Object.values(rows)) if (r.O && r.U && r.O[0] === r.U[0]) { const o_ = ip(r.O[1]), u_ = ip(r.U[1]); lines.push(r.O[0]); povers.push(o_ / (o_ + u_)); }
       if (!lines.length) continue;
-      P[nm] = { name: nm, team, line: med(lines), pover: med(povers), books: lines.length, event: off.event_id };
+      const ml = med(lines), atL = Object.values(rows).filter(r => r.O && r.O[0] === ml).map(r => ip(r.O[1]));
+      const fdr = rows[10] && rows[10].O;   // FanDuel, when it has the line
+      const po = atL.length ? med(atL) : null;
+      P[nm] = { name: nm, team, line: ml, pover: med(povers), books: lines.length, event: off.event_id,
+                over_odds: po ? Math.round(po >= 0.5 ? -100 * po / (1 - po) : 100 * (1 - po) / po) : null,
+                fd_line: fdr ? fdr[0] : null, fd_odds: fdr ? fdr[1] : null };
     }
     const pg = o._pagination || {}; if (!pg.total_pages || page >= pg.total_pages) break;
   }
@@ -73,7 +78,9 @@ const gauss = () => { let u = 0, v = 0; while (u === 0) u = rnd(); v = rnd(); re
   const top = L.slice().sort((a, b) => b.p - a.p);
   const five = top.slice(0, 5); const crown = five.slice().sort((a, b) => b.value - a.value)[0];
   if (crown) crown.crown = true;
-  const res = { date, games: evs.length, players: L.length, model: 'KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4', top: top.slice(0, 12).map(p => ({ name: p.name, team: p.team, line: p.line, mean: +p.mean.toFixed(1), p: +p.p.toFixed(4), pop: +p.pop.toFixed(4), value: +p.value.toFixed(2), crown: !!p.crown })) };
+  const res = { date, games: evs.length, players: L.length, fetched: new Date().toISOString().slice(0, 16) + 'Z', model: 'KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4',
+                all: L.map(p => ({ name: p.name, team: p.team, line: p.line, pover: +p.pover.toFixed(4), mean: +p.mean.toFixed(2), over_odds: p.over_odds, fd_line: p.fd_line, fd_odds: p.fd_odds })),
+                top: top.slice(0, 12).map(p => ({ name: p.name, team: p.team, line: p.line, mean: +p.mean.toFixed(1), p: +p.p.toFixed(4), pop: +p.pop.toFixed(4), value: +p.value.toFixed(2), crown: !!p.crown, over_odds: p.over_odds })) };
   fs.writeFileSync(out, JSON.stringify(res, null, 1));
   console.log(JSON.stringify(res, null, 1));
 })().catch(e => console.log('::warning::kotc: ' + String(e).slice(0, 200)));

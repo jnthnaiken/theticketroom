@@ -206,6 +206,19 @@ def fold(dpath, spath):
             rows.append((_tot['kind'], _tot['name'], 'WON ' if g['won'] else 'lost', g['net']))
         else:
             rows.append((_tot['kind'], _tot['name'], 'not settled / void', 0.0))
+    # KOTC-2026-10-27 (basketball): the King of the Court qualifying bet rides in meta.kotc.pick (res set by nba_settle).
+    _kp = (D['meta'].get('kotc') or {}).get('pick')
+    if _kp:
+        r_ = _kp.get('res')
+        if r_ in ('win', 'loss') and _kp.get('odds'):
+            o_ = float(_kp['odds']); net = (o_ / 100 if o_ > 0 else 100 / abs(o_)) if r_ == 'win' else -1.0
+            c = season['cats'].setdefault('kotc', dict(ZERO))
+            c['graded'] += 1; c['won'] += 1 if r_ == 'win' else 0
+            c['units'] = c['units'] + net; c['staked'] = c['staked'] + 1.0
+            night += net
+            rows.append(('kotc', _kp.get('name'), 'WON ' if r_ == 'win' else 'lost', net))
+        else:
+            rows.append(('kotc', _kp.get('name'), 'void' if r_ == 'void' else 'not settled', 0.0))
     # DOWNTOWN-2026-10-26 (basketball): threes-made singles ride in meta.dt.picks, graded by nba_settle.py (res set).
     for pk in ((D['meta'].get('dt') or {}).get('picks') or []):
         r_ = pk.get('res')

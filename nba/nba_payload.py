@@ -425,6 +425,64 @@ def downtown(date, games, cache, stamp, started):
     return {'picks': picks}
 
 
+
+KOTC_BPTEAM = {'UTH': 'UTA', 'NOR': 'NOP', 'NO': 'NOP', 'PHO': 'PHX', 'BRK': 'BKN', 'GS': 'GSW', 'NY': 'NYK', 'SA': 'SAS',
+               'WSH': 'WAS', 'CHO': 'CHA'}
+KOTC_LINES = ["The crown is up for grabs and {s} is reaching for it! Points, boards, dimes, the whole buffet!",
+              "{s} fills the box score like a Thanksgiving plate, and tonight he wants the throne!",
+              "All hail {s}! Scoring, rebounding, passing, the man does it all and does it loud!",
+              "Long live the King! {s} stuffs every column on the stat sheet tonight!",
+              "{s} is the biggest stat line on the slate, and kings don't share the spotlight!",
+              "Put the crown on {s}, baby! Nobody on tonight's card piles it up like he does!"]
+
+
+def kotc(date, games, cache, stamp, started):
+    """KOTC-2026-10-27: tonight's King of the Court pick (nba_kotc.py) -- one 1u PRA over, the qualifying bet.
+    Recomputed every build from slates/<date>/kotc_raw.json (kotc.js) until the first game of the night tips, dropping
+    anyone tagged Out/Doubt/Ques or not on a board game; then frozen in slates/<date>/kotc.json."""
+    try:
+        import nba_kotc as K
+    except Exception as e:
+        print(f'  ::warning::KOTC: {e}'); return None
+    if not K.is_night(date) or not cache:
+        return None
+    d0 = os.path.dirname(cache); raw = os.path.join(d0, 'kotc_raw.json'); fz = os.path.join(d0, 'kotc.json')
+    if os.path.exists(fz):
+        try:
+            c = json.load(open(fz, encoding='utf-8'))
+            if c.get('date') == date and c.get('locked'): return c
+        except Exception:
+            pass
+    if not os.path.exists(raw):
+        return None
+    R = json.load(open(raw, encoding='utf-8'))
+    if R.get('date') != date: return None
+    team_game = {}
+    for gi, g in games.items():
+        team_game[g['H']] = gi; team_game[g['V']] = gi
+    rows = []
+    for r in R.get('all') or []:
+        T_ = KOTC_BPTEAM.get(r.get('team') or '', r.get('team') or '')
+        if T_ not in team_game or blocked(T_, r['name']): continue
+        rows.append(dict(r, code=T_, game=team_game[T_]))
+    C = K.crown(rows)
+    if not C: return None
+    k = next(r for r in C if r['crown']); g = games[k['game']]
+    first_tip = min((g_['ko_utc'] for g_ in games.values()), default=None)
+    locked = bool(first_tip) and started(dict(ko_utc=first_tip))
+    line, odds = (k['fd_line'], k['fd_odds']) if k.get('fd_line') == k['line'] and k.get('fd_odds') else (k['line'], k.get('over_odds'))
+    pick = dict(name=k['name'], code=k['code'], team=TEAM_NAME.get(k['code'], k['code']), game=k['game'], gmatch=g['gm'],
+                gtime=g['time'], ko_utc=g['ko_utc'], line=line, odds=int(odds) if odds else None, p=k['p'], mean=k['mean'],
+                pop=k['pop'], value=k['value'], tname='The Crown', posted_at=stamp,
+                lock=min(games.values(), key=lambda g_: g_['ko_utc'])['time'],
+                status='confirmed' if (TSRC.get(k['code']) == 'confirmed' and ' '.join(_nk(k['name'])) in {' '.join(_nk(x)) for x in TFIVE.get(k['code']) or []}) else 'projected',
+                note=_MEM['note'].pick(KOTC_LINES, 'kotc|' + date + k['name']).format(s=_sur(k['name'])))
+    out = {'date': date, 'locked': locked, 'pick': pick, 'model': R.get('model'), 'fetched': R.get('fetched'),
+           'top': [{x: r[x] for x in ('name', 'code', 'line', 'mean', 'p', 'pop', 'value', 'crown')} for r in C[:6]]}
+    json.dump(out, open(fz, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+    if locked: print(f"  KOTC: locked {pick['name']} o{pick['line']} PRA ({pick['odds']}), P(top) {pick['p']}")
+    return out
+
 def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     _rec = V.recent_text(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'boards'), date)
     _MEM['card'], _MEM['note'] = V.Mem(date, _rec), V.Mem(date, _rec)
@@ -736,12 +794,13 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         try: sn = json.load(open(season, encoding='utf-8'))
         except Exception: sn = {}
     dt = downtown(date, games, cache, stamp, started)
+    kc = kotc(date, games, cache, stamp, started)   # KOTC-2026-10-27
     return dict(players=P, pool=list(P.keys()), tickets=T,
                 meta=dict(wx={str(k): dict(emoji='⚡', lean='Neutral', factor=1.0, park=v['gm'], cond='indoors', rain='', precip=0)
                               for k, v in games.items()}, build=stamp, face={}, maxAT=100, season=sn, date=date, gs={}, chalkever={},
                           chalkstate={}, chalk=[], cfg={'RR_UNIT': {'4': F.RR_UNIT}}, pool=len(P), gate=len(T), tickets=len(T), sport='nba',
                           ko=meta_ko, finals=[], games={str(k): v['gm'] for k, v in games.items()},
-                          events={str(k): v['eid'] for k, v in games.items()}, dt=dt))
+                          events={str(k): v['eid'] for k, v in games.items()}, dt=dt, kotc=kc))
 
 
 if __name__ == '__main__':

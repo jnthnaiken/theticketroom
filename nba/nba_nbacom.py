@@ -107,7 +107,7 @@ def parse(s):
                                                                        bool(str(st_.get('minutes') or '').strip('0:. ')))
             if pl: played.add(nm)
             box.append(dict(pid=str(p.get('personId')), name=nm, team=T, tpa=int(st_.get('threePointersAttempted') or 0),
-                            tpm=int(st_.get('threePointersMade') or 0), mins=(_secs(st_.get('minutes')) or 0) / 60.0,
+                            tpm=int(st_.get('threePointersMade') or 0), pra=int(st_.get('points') or 0) + int(st_.get('reboundsTotal') or 0) + int(st_.get('assists') or 0), mins=(_secs(st_.get('minutes')) or 0) / 60.0,
                             started=nm in starters[T], played=pl))
     fga, fgm, efga, tfirst = {}, {}, {}, {}
     jumpers = tip = fb = fbT = fs = fsT = None

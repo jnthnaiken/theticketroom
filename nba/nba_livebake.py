@@ -69,6 +69,17 @@ def bake(D, sb=None, getsum=N.summary, firsts=None):
                 pk['dnp'] = True
             import nba_threes as _TH
             pk['res'] = _TH.grade(pk)
+        # KOTC-2026-10-27: the King of the Court pick's points + rebounds + assists, off the same box score
+        kp = (M.get('kotc') or {}).get('pick')
+        if kp and kp.get('game') == gi:
+            b = next((x for x in g.get('box') or [] if x['team'] == kp.get('code') and _match(kp['name'], [x['name']])), None)
+            kp['final'] = st == 'post'
+            if b and (b['played'] or b.get('pra')):
+                kp['pra'] = b.get('pra'); kp['dnp'] = False
+            elif st == 'post':
+                kp['dnp'] = True
+            import nba_kotc as _K
+            kp['res'] = _K.grade(kp)
         for n, p in D['players'].items():
             if p.get('game') != gi: continue
             who = _match(n, [c for c, t in g['team_of'].items() if t == p.get('code')])

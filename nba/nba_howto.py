@@ -120,6 +120,11 @@ HOWTO = {
    "Threes made, both ways. Overs: a player's over on FanDuel's line when our model gives him at least a 20% edge, one per game. Unders: the under on a line of 1.5 or more when our model makes the under more likely than not and gives it at least a 15% edge. The model weighs his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out. 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
   ],
   [
+   "👑",
+   "King of the Court",
+   "DraftKings' NBA Tuesday promo: whoever picks the player with the most points + rebounds + assists of the night splits a bonus-bet pool, and a player prop on him enters you. We crown the player with the best chance once you weigh how many others will pick him, and post 1u on his points + rebounds + assists over: that bet counts on our ledger; the bonus bets do not."
+  ],
+  [
    "🙌",
    "Why the tip",
    "The team that wins the opening tip makes the first field goal close to two times in three. Every center’s jump-ball record is rated, so the tip is called before the game, not guessed — and the books price the stars, not the man in the circle."
