@@ -10,48 +10,48 @@
   "gtime": "11:00 PM ET",
   "ko_utc": "2026-10-28T03:00:00+00:00",
   "line": 48.5,
-  "odds": -106,
-  "p": 0.4238,
-  "mean": 48.5,
-  "pop": 0.1865,
-  "value": 2.272,
+  "odds": -108,
+  "p": 0.4227,
+  "mean": 48.4,
+  "pop": 0.1862,
+  "value": 2.27,
   "tname": "The Crown",
-  "posted_at": "2026-10-27T22:41Z",
+  "posted_at": "2026-10-27T22:46Z",
   "lock": "7:30 PM ET",
   "status": "projected",
   "note": "Put the crown on Doncic, baby! Nobody on tonight's card piles it up like he does!"
  },
  "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
- "fetched": "2026-10-27T22:41Z",
+ "fetched": "2026-10-27T22:46Z",
  "top": [
   {
    "name": "Luka Doncic",
    "code": "LAL",
    "line": 48.5,
-   "mean": 48.5,
-   "p": 0.4238,
-   "pop": 0.1865,
-   "value": 2.272,
+   "mean": 48.4,
+   "p": 0.4227,
+   "pop": 0.1862,
+   "value": 2.27,
    "crown": true
-  },
-  {
-   "name": "Victor Wembanyama",
-   "code": "SAS",
-   "line": 40.5,
-   "mean": 40.7,
-   "p": 0.138,
-   "pop": 0.0929,
-   "value": 1.485,
-   "crown": false
   },
   {
    "name": "Jayson Tatum",
    "code": "BOS",
    "line": 40.5,
    "mean": 40.6,
-   "p": 0.1369,
-   "pop": 0.0917,
-   "value": 1.493,
+   "p": 0.1373,
+   "pop": 0.0921,
+   "value": 1.491,
+   "crown": false
+  },
+  {
+   "name": "Victor Wembanyama",
+   "code": "SAS",
+   "line": 40.5,
+   "mean": 40.6,
+   "p": 0.1371,
+   "pop": 0.0925,
+   "value": 1.482,
    "crown": false
   },
   {
@@ -59,19 +59,9 @@
    "code": "DET",
    "line": 37.5,
    "mean": 37.3,
-   "p": 0.0711,
+   "p": 0.0737,
    "pop": 0.0654,
-   "value": 1.087,
-   "crown": false
-  },
-  {
-   "name": "Karl-Anthony Towns",
-   "code": "NYK",
-   "line": 34.5,
-   "mean": 34.7,
-   "p": 0.0402,
-   "pop": 0.0491,
-   "value": 0.819,
+   "value": 1.127,
    "crown": false
   },
   {
@@ -79,9 +69,19 @@
    "code": "SAC",
    "line": 34.5,
    "mean": 34.7,
-   "p": 0.0382,
-   "pop": 0.0488,
-   "value": 0.783,
+   "p": 0.0405,
+   "pop": 0.0489,
+   "value": 0.828,
+   "crown": false
+  },
+  {
+   "name": "Deni Avdija",
+   "code": "POR",
+   "line": 34.5,
+   "mean": 34.5,
+   "p": 0.0374,
+   "pop": 0.0479,
+   "value": 0.781,
    "crown": false
   }
  ]
