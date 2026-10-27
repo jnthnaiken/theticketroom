@@ -10,28 +10,28 @@
   "gtime": "11:00 PM ET",
   "ko_utc": "2026-10-28T03:00:00+00:00",
   "line": 47.5,
-  "odds": -120,
-  "p": 0.3966,
-  "mean": 47.6,
-  "pop": 0.1759,
-  "value": 2.255,
+  "odds": -122,
+  "p": 0.4008,
+  "mean": 47.7,
+  "pop": 0.1774,
+  "value": 2.259,
   "tname": "The Crown",
-  "posted_at": "2026-10-27T21:45Z",
+  "posted_at": "2026-10-27T21:51Z",
   "lock": "7:30 PM ET",
   "status": "projected",
   "note": "Put the crown on Doncic, baby! Nobody on tonight's card piles it up like he does!"
  },
  "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
- "fetched": "2026-10-27T21:45Z",
+ "fetched": "2026-10-27T21:51Z",
  "top": [
   {
    "name": "Luka Doncic",
    "code": "LAL",
    "line": 47.5,
-   "mean": 47.6,
-   "p": 0.3966,
-   "pop": 0.1759,
-   "value": 2.255,
+   "mean": 47.7,
+   "p": 0.4008,
+   "pop": 0.1774,
+   "value": 2.259,
    "crown": true
   },
   {
@@ -39,19 +39,19 @@
    "code": "SAS",
    "line": 40.5,
    "mean": 40.6,
-   "p": 0.1435,
-   "pop": 0.0936,
-   "value": 1.533,
+   "p": 0.1419,
+   "pop": 0.0932,
+   "value": 1.523,
    "crown": false
   },
   {
    "name": "Jayson Tatum",
    "code": "BOS",
    "line": 40.5,
-   "mean": 40.5,
-   "p": 0.1422,
-   "pop": 0.0925,
-   "value": 1.537,
+   "mean": 40.4,
+   "p": 0.1401,
+   "pop": 0.0919,
+   "value": 1.524,
    "crown": false
   },
   {
@@ -59,19 +59,9 @@
    "code": "DET",
    "line": 37.5,
    "mean": 37.3,
-   "p": 0.0758,
-   "pop": 0.0662,
-   "value": 1.145,
-   "crown": false
-  },
-  {
-   "name": "Domantas Sabonis",
-   "code": "SAC",
-   "line": 34.5,
-   "mean": 34.7,
-   "p": 0.0409,
-   "pop": 0.05,
-   "value": 0.818,
+   "p": 0.0757,
+   "pop": 0.0663,
+   "value": 1.142,
    "crown": false
   },
   {
@@ -82,6 +72,16 @@
    "p": 0.0408,
    "pop": 0.0487,
    "value": 0.838,
+   "crown": false
+  },
+  {
+   "name": "Domantas Sabonis",
+   "code": "SAC",
+   "line": 34.5,
+   "mean": 34.7,
+   "p": 0.0407,
+   "pop": 0.05,
+   "value": 0.814,
    "crown": false
   }
  ]
