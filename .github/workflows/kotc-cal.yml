@@ -1,0 +1,25 @@
+name: King of the Court calibration
+# KOTCCAL-2026-10-27. Owner said yes to "fit the outcome spread on last season's games first". BettingPros PRA history
+# (market 338) for 2025-26 + nba.com box scores -> nba/research/kotc/kotc_cal.py. Output on soccer-data:nba/kotc/.
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  cal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Pull PRA lines
+        run: MARKET=338 node nba/research/threes/pull_bp162.js 2025-10-21 2026-04-12 pra_odds.psv > pull.log 2>&1; tail -3 pull.log; wc -l pra_odds.psv
+      - name: Fit + calibrate
+        run: python3 nba/research/kotc/kotc_cal.py pra_odds.psv out > out_report.txt 2>&1; tail -30 out_report.txt
+      - name: Save
+        if: always()
+        run: |
+          mkdir -p out; cp out_report.txt pull.log out/ 2>/dev/null; gzip -c pra_odds.psv > out/pra_odds_2025.psv.gz 2>/dev/null
+          for i in 1 2 3; do rm -rf d; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+            mkdir -p d/nba/kotc && cp -r out/* d/nba/kotc/ && (cd d && git config user.email a@b.c && git config user.name kotc && git add nba/kotc && git commit -qm "KOTC calibration" && git push -q) && break; sleep 7; done

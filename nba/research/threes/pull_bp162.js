@@ -23,7 +23,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     const ids = ev.map(e => e.id);
     for (let i = 0; i < ids.length; i += 25) {
       for (let page = 1; ; page++) {
-        const o = await J(`offers?sport=NBA&market_id=162&event_id=${ids.slice(i, i + 25).join(':')}&limit=25&page=${page}`);
+        const o = await J(`offers?sport=NBA&market_id=${process.env.MARKET || 162}&event_id=${ids.slice(i, i + 25).join(':')}&limit=25&page=${page}`);
         for (const off of (o.offers || [])) {
           const e = E[off.event_id] || {};
           const p = (off.participants || [])[0] || {}; const pl = p.player || {};
