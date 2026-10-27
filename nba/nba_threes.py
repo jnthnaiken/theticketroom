@@ -31,7 +31,9 @@ EV_MIN, MAX_NIGHT = 0.20, 99   # DTUNCAP-2026-10-26: the cap of 5 never bound (1
 # Backtest 2023-26: unders +172.4u (+9.1%), with the overs +228.9u vs +56.5u, worst slump 21.1u, every season up.
 # DTUNCAP-2026-10-26. Owner: "is 5 tickets the best? why are we capping ourselves?" -- no: the search's best-on-train
 # under rule was EV >= 0.05 with NO nightly cap (train +107.5u, unseen 2024-26 +161u); with the overs +325u, worst slump 25.7u.
-U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.05, 0.50, 1.5, 99
+# DTBUDGET-2026-10-27. Owner: "i feel like 17-18u is way too many" -> "yup go ahead": EV >= 0.15 keeps the card to ~5 picks
+# (~4.7u) a night; with the Heaves the board's worst slump is 56.9u (55.2u at EV .05), every season up (+73 / +40 / +81u).
+U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.15, 0.50, 1.5, 99
 FANDUEL = 10
 _d = lambda h: 0.5 ** (1.0 / h)
 LA, LB, LP = _d(HL_ATT), _d(HL_PCT), _d(HL_OPP)
