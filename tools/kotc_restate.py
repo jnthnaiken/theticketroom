@@ -13,7 +13,7 @@ for gi, gm in games.items():
 rows = [dict(r, code=NP.KOTC_BPTEAM.get(r['team'], r['team'])) for r in R['all']]
 rows = [dict(r, game=team_game[r['code']]) for r in rows if r['code'] in team_game]
 C = K.crown(rows); k = next(r for r in C if r['crown'])
-gid = {f'{a}@{h}': g for g, a, h, *_ in N.scoreboard(d)}[games[k['game']]]
+GIDS = {f'{a}@{h}': g for g, a, h, *_ in N.scoreboard(d)}; gid = GIDS[games[k['game']]]
 box = N.parse(N.summary(gid))['box']
 import nba_fb as F
 b = next((x for x in box if x['team'] == k['code'] and (F.norm(x['name']) == F.norm(k['name']) or F.ikey(x['name']) == F.ikey(k['name']))), None)
@@ -22,7 +22,7 @@ pick = dict(name=k['name'], code=k['code'], team=NP.TEAM_NAME.get(k['code'], k['
             odds=int(odds), p=k['p'], mean=k['mean'], pop=k['pop'], value=k['value'], tname='The Crown', status='confirmed', final=True,
             pra=b['pra'] if b else None, dnp=not (b and b['played']), restated='KOTC-2026-10-27: restated at BettingPros PRA lines')
 pick['res'] = K.grade(pick)
-leader = max((x for g_ in gid.values() for x in N.parse(N.summary(g_))['box']), key=lambda x: x['pra'])
+leader = max((x for g_ in GIDS.values() for x in N.parse(N.summary(g_))['box']), key=lambda x: x['pra'])
 out = {'date': d, 'locked': True, 'pick': pick, 'model': R.get('model'), 'leader': [leader['name'], leader['pra']],
        'top': [{x: r[x] for x in ('name', 'code', 'line', 'mean', 'p', 'pop', 'value', 'crown')} for r in C[:6]]}
 print(json.dumps(out))
