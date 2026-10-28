@@ -582,37 +582,48 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     # changes shape mid-slate); every slate from BOARD_FROM drafts baseball's anchors + moons.
     legacy = (not (cached and cached.get('board') is not None)) and (bool(cached and cached.get('picks') is not None) or date < BOARD_FROM)
     if date >= SINGLES_FROM:
-        # SINGLES-2026-10-28. One straight bet per game (nba_fb.singles), sticky like every posted pick. Before HIS game
-        # tips and before he shows the green check, a man who leaves the five is replaced by the best qualifier left in his
-        # game (or the game loses its bet). Confirmed or started: it stands. A game that had no qualifier yet gets one
-        # when it qualifies, before its tip.
+        # COVER-2026-10-28 (was SINGLES). Per game, our model's three most likely starters with an edge, the game's
+        # GAME_UNIT dutched across them (nba_fb.singles). Sticky like every posted pick: a man confirmed (green check) or
+        # whose game has started stands. Before that, a man who leaves the five is replaced by the next most likely starter
+        # with an edge in his game, and that game's unlocked picks are re-dutched. A game with no qualifier yet gets its
+        # picks when it qualifies, before its tip. Cache key 'cover' (a 'singles' cache from the one-per-game hour is redrafted).
         _ko = lambda gi: (games.get(gi) or {}).get('ko_utc')
         _conf = lambda x: (P.get(x['name']) or {}).get('status') == 'confirmed'
-        picks = (cached or {}).get('singles')
+        picks = (cached or {}).get('cover')
         if picks is None:
             picks = [dict(x, picked_at=stamp, ko_utc=_ko(x['game'])) for x in F.singles(cands)]; fresh = True
-            print(f"  SINGLES: drafted {len(picks)}: " + ', '.join(f"{x['name']} {x['odds']:+d} {x['stake']}u" for x in picks))
+            print(f"  COVER: drafted {len(picks)} over {len({x['game'] for x in picks})} game(s): "
+                  + ', '.join(f"{x['name']} {x['odds']:+d} {x['stake']}u" for x in picks))
         else:
-            keep = []
+            byg = {}
             for x in picks:
-                x.setdefault('ko_utc', _ko(x['game']))
-                ok = x['name'] in P and not blocked(P[x['name']]['code'], x['name'])
-                if ok or x.get('locked') or started(x):
-                    if ok and _conf(x) and not x.get('locked'): x['locked'] = True; fresh = True
-                    keep.append(x); continue
-                r = F.singles([c for c in cands if c['game'] == x['game'] and c['name'] != x['name']])
-                fresh = True
-                if r:
-                    print(f"  re-pick: single {x['name']} out of the five -> {r[0]['name']}")
-                    keep.append(dict(r[0], picked_at=stamp, ko_utc=_ko(x['game'])))
-                else:
-                    print(f"  re-pick: single {x['name']} out of the five -> no qualifier left in his game, bet dropped")
-            have = {x['game'] for x in keep}
+                x.setdefault('ko_utc', _ko(x['game'])); byg.setdefault(x['game'], []).append(x)
+            out = []
+            for gi, L in sorted(byg.items()):
+                keep, changed = [], False
+                for x in L:
+                    ok = x['name'] in P and not blocked(P[x['name']]['code'], x['name'])
+                    if ok or x.get('locked') or started(x): keep.append(x); continue
+                    changed = True
+                    r = F.pick_game([c for c in cands if c['game'] == gi], exclude={y['name'] for y in L})
+                    if r:
+                        print(f"  re-pick: {x['name']} out of the five -> {r[0]['name']}")
+                        keep.append(dict(r[0], picked_at=stamp, ko_utc=_ko(gi)))
+                    else:
+                        print(f"  re-pick: {x['name']} out of the five -> nobody else in his game has an edge, bet dropped")
+                if changed and keep:
+                    fixed = [x for x in keep if x.get('locked') or started(x)]
+                    if not fixed:      # nothing placed yet in this game: re-dutch the whole trio
+                        keep = [dict(x, stake=y['stake']) for x, y in zip(keep, F.cover(keep))]
+                    fresh = True
+                out += keep
+            have = {x['game'] for x in out}
             more = F.singles([c for c in cands if c['game'] not in have and not started(dict(ko_utc=_ko(c['game'])))])
             if more:
-                print(f"  SINGLES: added {[m['name'] for m in more]} (their games now qualify)")
-                keep += [dict(m, picked_at=stamp, ko_utc=_ko(m['game'])) for m in more]; fresh = True
-            picks = sorted(keep, key=lambda x: (x.get('ko_utc') or '', x['game']))
+                print(f"  COVER: added {[m['name'] for m in more]} (their games now qualify)")
+                out += [dict(m, picked_at=stamp, ko_utc=_ko(m['game'])) for m in more]; fresh = True
+            picks = out
+        picks = sorted(picks, key=lambda x: (x.get('ko_utc') or '', x['game'], -x['p']))
         for x in picks:
             if _conf(x) and not x.get('locked'): x['locked'] = True; fresh = True
     elif legacy:
@@ -716,7 +727,7 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     if cache and (fresh or not os.path.exists(cache)):
         os.makedirs(os.path.dirname(cache) or '.', exist_ok=True)
         out = {'date': date, 'picked_at': stamp}
-        if date >= SINGLES_FROM: out['singles'] = picks
+        if date >= SINGLES_FROM: out['cover'] = picks
         elif board is not None: out['board'] = board
         else: out['picks'] = picks
         json.dump(out, open(cache, 'w', encoding='utf-8'), indent=1)
@@ -769,8 +780,11 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         if not p:
             continue
         o = int(x['odds'])
+        _mates = [y for y in singles if y['game'] == x['game']]
+        _cv = '' if (date < SINGLES_FROM or len(_mates) < 2) else (
+            f" One of {len(_mates)} in {p['gmatch']} ({', '.join(_sur(y['name']) for y in _mates)}): stakes are split so whichever scores first covers the game.")
         T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⚡',
-                      note=note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date),
+                      note=note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date) + _cv,
                       players=[_leg(n, o)], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
                       has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=bool(x.get('locked')), priced=True,
                       parlay_am=o, payout10=round(10 * am_to_dec(o), 1), ftd=True, units=(x.get('stake') or 1),

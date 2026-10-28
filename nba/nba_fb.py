@@ -335,30 +335,40 @@ def slips(anchors, rest, legs, per):
     return out
 
 
-# SINGLES-2026-10-28. Owner: "what if we pick our top 3 from each game and put down 3 bets at varying levels on them?
-# instead of this whole round robin system" -> the rule search -> "lets go with the one per game version" -> "go".
-# ONE straight bet per game: that game's starter with the best value (chance x FanDuel decimal) among those whose edge is
-# at least SINGLE_EV; no qualifier, no bet. Stake = SINGLE_K x edge, capped at SINGLE_CAP (a 20% edge is 0.5u).
-# Backtest 2021-26 at FanDuel (picked on 2021-23, judged on 2024-25): +1,051u on 2,247u (+47%; unseen seasons +42%),
-# worst slump 52u (round robins: 77u), every season up, 4.1 bets a night, a cash on 38% of nights.
-# Replaces From the Logo + Full-Court Heaves. claude/nba-singles-2026-10-28.md
-SINGLE_EV, SINGLE_K, SINGLE_CAP = 0.15, 2.5, 2.0
+# SINGLES-2026-10-28 -> COVER-2026-10-28. Owner, after the one-per-game rule went live: "i think wed all like to cash more
+# often than have long droughts and big wins" -> "3 likeliest, any edge, weighted so any hit covers the game. i actually
+# think we should do this one".
+# Per game: OUR MODEL'S three most likely first scorers among the priced starters with any edge (chance x FanDuel decimal
+# >= 1). GAME_UNIT is split across them in proportion to 1/decimal (dutching), so whichever of them scores first returns the
+# same amount -- more than the whole game's stake. No starter with an edge, no bet on that game.
+# Backtest 2021-26 at FanDuel, 0.6u a game: +428u (+13.5%), worst slump 53u, every season up, something hits on 80% of
+# nights, profit on 49%, 5 droughts of 7+ nights (one-per-game: 15). claude/nba-singles-2026-10-28.md
+COVER_N, COVER_EV, GAME_UNIT = 3, 0.0, 0.6
+SINGLE_EV = COVER_EV   # kept for callers
 
 
-def single_stake(ev):
-    return round(min(SINGLE_CAP, SINGLE_K * ev), 2)
+def cover(c):
+    """c: one game's chosen candidates -> the same dicts with 'stake' (dutched over GAME_UNIT)."""
+    inv = [1 / dec(x['odds']) for x in c]; t = sum(inv)
+    return [dict(x, stake=round(GAME_UNIT * i / t, 2)) for x, i in zip(c, inv)]
+
+
+def pick_game(cands, exclude=()):
+    el = [x for x in cands if x.get('ev') is not None and x['ev'] >= COVER_EV and x.get('odds') and x['name'] not in exclude]
+    return sorted(el, key=lambda x: -x['p'])[:COVER_N]
 
 
 def singles(cands, games=None):
-    """cands: [{'game','name','p','odds','ev',...}] -> one pick per game (best value with ev >= SINGLE_EV), each with
-    'stake'. `games` limits the draft to those game ids."""
-    best = {}
+    """cands: [{'game','name','p','odds','ev',...}] -> per game, our three most likely starters with an edge, dutched."""
+    by = {}
     for c in cands:
-        if c.get('ev') is None or c['ev'] < SINGLE_EV or not c.get('odds'): continue
         if games is not None and c['game'] not in games: continue
-        if c['game'] not in best or value(c) > value(best[c['game']]):
-            best[c['game']] = c
-    return [dict(c, stake=single_stake(c['ev'])) for _, c in sorted(best.items(), key=lambda kv: kv[0])]
+        by.setdefault(c['game'], []).append(c)
+    out = []
+    for gi in sorted(by):
+        c = pick_game(by[gi])
+        if c: out += cover(c)
+    return out
 
 
 def duo_maxprofit(odds_list, unit=DUO_UNIT):

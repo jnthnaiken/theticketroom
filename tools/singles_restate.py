@@ -10,11 +10,11 @@ from nba_payload import NAMES, am_to_dec
 SP = 'nba/nba_season.json'
 S0 = json.load(open(SP))
 nights = list(S0['graded_nights'])
-fresh = {'since': S0['since'], 'history': [0], 'graded_nights': [], 'cats': {}, 'stake': 1,
-         'notes': (S0.get('notes') or []) + ['SINGLES-2026-10-28 (owner: "lets go with the one per game version" -> "go"): From the Logo and '
-                   'Full-Court Heaves retired; Tip-Off = one straight first-basket bet per game (best value, edge >= 15%, stake 2.5 x edge, '
-                   'cap 2u). 10-20..10-27 restated from each board\'s priced starters at the FanDuel prices on the board.'],
-         'restated': True}
+NOTE = ('COVER-2026-10-28 (owner: "3 likeliest, any edge, weighted so any hit covers the game"): Tip-Off = per game, our model\'s '
+        '3 most likely starters with any edge, 0.6u a game dutched across them (replaces the one-per-game rule posted earlier the same '
+        'day, and From the Logo / Full-Court Heaves). 10-20..10-27 restated from each board\'s priced starters at the FanDuel prices on the board.')
+notes = [n for n in (S0.get('notes') or []) if not n.startswith(('SINGLES-2026-10-28', 'COVER-2026-10-28'))] + [NOTE]
+fresh = {'since': S0['since'], 'history': [0], 'graded_nights': [], 'cats': {}, 'stake': 1, 'notes': notes, 'restated': True}
 json.dump(fresh, open(SP, 'w'), indent=1)
 for d in nights:
     bp = f'nba/boards/{d}.json'; D = json.load(open(bp))

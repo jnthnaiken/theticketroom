@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "Each Tip-Off ticket is one straight bet, and the card says how much: 2.5 × our edge, up to 2u. A 20% edge is 0.5u, a 40% edge is 1u."
+   "Each Tip-Off ticket is one straight bet and the card says how much. A game gets 0.6u, split across its picks so whichever scores first returns the same — more than the game's whole stake."
   ],
   "3": [
    "Price",
@@ -49,7 +49,7 @@ HOWTO = {
   ],
   "6": [
    "Team · game · tip",
-   "At most one pick per game; a game with no edge gets no bet."
+   "Up to three picks per game; a game where nobody beats his price gets no bet."
   ],
   "7": [
    "Status",
@@ -57,7 +57,7 @@ HOWTO = {
   ],
   "8": [
    "The pick",
-   "The starter in his game whose chance beats his FanDuel price by the most, 15% or more."
+   "One of our model's three most likely first scorers in his game, among the starters whose chance beats their FanDuel price."
   ],
   "9": [
    "⚠ Flag",
@@ -79,7 +79,7 @@ HOWTO = {
  "steps": [
   [
    "Start on Tickets — tonight’s 👑 King of the Court, 🎯 Downtown and ⚡ Tip-Off picks.",
-   "Tip-Off is one straight first-basket bet per game, sized by how big our edge is. The card at the top is the season ledger, graded live."
+   "Tip-Off is up to three straight first-basket bets per game, split so any one of them hitting covers the game. The card at the top is the season ledger, graded live."
   ],
   [
    "Check the lock line before you act on anything.",
@@ -112,7 +112,7 @@ HOWTO = {
   [
    "⚡",
    "Tip-Off",
-   "First basket, one straight bet per game. In each game we take the starter whose chance beats his FanDuel price by the most, as long as the edge is at least 15%; if nobody clears that, the game gets no bet. The stake grows with the edge: 2.5 × the edge, up to 2u, so a 20% edge is 0.5u and a 40% edge is 1u. Our chance comes from who wins the opening tip, how often his team scores first, his share of the early shots, and the books' prices as one more layer."
+   "First basket, up to three straight bets per game. In each game we take our model's three most likely first scorers among the starters whose chance beats their FanDuel price; if nobody does, the game gets no bet. The game's 0.6u is split across them in proportion to their prices, so whichever one scores first returns the same amount, more than the whole game's stake. Something cashes on about 4 nights in 5. Our chance comes from who wins the opening tip, how often his team scores first, his share of the early shots, and the books' prices as one more layer."
   ],
   [
    "🙌",
