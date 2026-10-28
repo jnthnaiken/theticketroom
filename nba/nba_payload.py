@@ -470,9 +470,15 @@ def kotc(date, games, cache, stamp, started):
     k = next(r for r in C if r['crown']); g = games[k['game']]
     first_tip = min((g_['ko_utc'] for g_ in games.values()), default=None)
     locked = bool(first_tip) and started(dict(ko_utc=first_tip))
-    line, odds = (k['fd_line'], k['fd_odds']) if k.get('fd_line') == k['line'] and k.get('fd_odds') else (k['line'], k.get('over_odds'))
+    # KOTCUNDER-2026-10-27: the qualifying prop is his PRA UNDER (break-even, hedges the promo); over only if the under < -200
+    u_odds = k['fd_uodds'] if k.get('fd_uline') == k['line'] and k.get('fd_uodds') else k.get('under_odds')
+    if u_odds is not None and u_odds >= K.MIN_ODDS:
+        side, line, odds = 'U', k['line'], u_odds
+    else:
+        side = 'O'
+        line, odds = (k['fd_line'], k['fd_odds']) if k.get('fd_line') == k['line'] and k.get('fd_odds') else (k['line'], k.get('over_odds'))
     pick = dict(name=k['name'], code=k['code'], team=TEAM_NAME.get(k['code'], k['code']), game=k['game'], gmatch=g['gm'],
-                gtime=g['time'], ko_utc=g['ko_utc'], line=line, odds=int(odds) if odds else None, p=k['p'], mean=k['mean'],
+                gtime=g['time'], ko_utc=g['ko_utc'], line=line, side=side, odds=int(odds) if odds else None, p=k['p'], mean=k['mean'],
                 pop=k['pop'], value=k['value'], tname='The Crown', posted_at=stamp,
                 lock=min(games.values(), key=lambda g_: g_['ko_utc'])['time'],
                 status='confirmed' if (TSRC.get(k['code']) == 'confirmed' and ' '.join(_nk(k['name'])) in {' '.join(_nk(x)) for x in TFIVE.get(k['code']) or []}) else 'projected',

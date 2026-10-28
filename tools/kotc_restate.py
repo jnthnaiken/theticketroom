@@ -17,8 +17,11 @@ GIDS = {f'{a}@{h}': g for g, a, h, *_ in N.scoreboard(d)}; gid = GIDS[games[k['g
 box = N.parse(N.summary(gid))['box']
 import nba_fb as F
 b = next((x for x in box if x['team'] == k['code'] and (F.norm(x['name']) == F.norm(k['name']) or F.ikey(x['name']) == F.ikey(k['name']))), None)
-line, odds = (k['fd_line'], k['fd_odds']) if k.get('fd_line') == k['line'] and k.get('fd_odds') else (k['line'], k.get('over_odds'))
-pick = dict(name=k['name'], code=k['code'], team=NP.TEAM_NAME.get(k['code'], k['code']), game=k['game'], gmatch=games[k['game']], line=line,
+u_odds = k['fd_uodds'] if k.get('fd_uline') == k['line'] and k.get('fd_uodds') else k.get('under_odds')
+if u_odds is not None and u_odds >= K.MIN_ODDS: side, line, odds = 'U', k['line'], u_odds
+else:
+    side = 'O'; line, odds = (k['fd_line'], k['fd_odds']) if k.get('fd_line') == k['line'] and k.get('fd_odds') else (k['line'], k.get('over_odds'))
+pick = dict(name=k['name'], code=k['code'], team=NP.TEAM_NAME.get(k['code'], k['code']), game=k['game'], gmatch=games[k['game']], line=line, side=side,
             odds=int(odds), p=k['p'], mean=k['mean'], pop=k['pop'], value=k['value'], tname='The Crown', status='confirmed', final=True,
             pra=b['pra'] if b else None, dnp=not (b and b['played']), restated='KOTC-2026-10-27: restated at BettingPros PRA lines')
 pick['res'] = K.grade(pick)

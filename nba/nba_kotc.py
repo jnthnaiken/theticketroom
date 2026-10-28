@@ -3,8 +3,12 @@
 player with the most points + rebounds + assists of the night splits a bonus-bet pool. Owner: "we need to look at king
 of the court on dk" -> "both should be counted towards the ledger. you still have to bet on them to activate the promo".
 
-So the board posts ONE 1u bet a King of the Court night: the crowned player's PRA over at the main line (median across
-books; FanDuel's when it has one). It is the qualifying bet, graded like any single; the bonus-bet share is not counted.
+So the board posts ONE 1u bet a King of the Court night on the crowned player. DraftKings' rule: ANY pre-game NBA player
+prop on your chosen player, priced -200 or longer, qualifies; the prop does not have to win. KOTCUNDER-2026-10-27 (owner:
+"you dont have to bet pra to qualify. read it carefully"): 2025-26, 164 nights, 1u on the crowned player -- PRA over
+45.8% / -13.5% ROI, PRA UNDER 54.2% / +0.9%, threes (Downtown model's side) -5.3%. So the bet is his PRA UNDER at the main
+line (FanDuel's price when it has the line, else the median) -- break-even on its own and a hedge: it won 6 of the 54
+nights he was King and pays on most of the rest. Falls back to the over only when the under is shorter than -200.
 
 THE CROWN. Each priced player's PRA ~ Normal(mean, sd): mean backed out of the main line and the de-vigged over chance,
 sd = SD_A x mean + SD_B. 50,000 simulated nights -> P(top PRA). Popularity = mean^POP_K / sum (the public takes the
@@ -67,10 +71,16 @@ def crown(rows, seed=20261027):
     return L
 
 
+MIN_ODDS = -200   # DraftKings: the qualifying prop must be priced -200 or longer
+
+
 def grade(pick):
-    """-> 'win' | 'loss' | 'void' | None. PRA only grows, so the over is won the moment he passes the line."""
+    """-> 'win' | 'loss' | 'void' | None. PRA only grows: an over is won, and an under lost, the moment he passes the line."""
     if pick.get('dnp'): return 'void'
     v = pick.get('pra')
     if v is None: return None
+    if pick.get('side') == 'U':
+        if v > pick['line']: return 'loss'
+        return 'win' if pick.get('final') else None
     if v > pick['line']: return 'win'
     return 'loss' if pick.get('final') else None

@@ -122,7 +122,7 @@ HOWTO = {
   [
    "👑",
    "King of the Court",
-   "DraftKings' NBA Tuesday promo: whoever picks the player with the most points + rebounds + assists of the night splits a bonus-bet pool, and a player prop on him enters you. We crown the player with the best chance once you weigh how many others will pick him, and post 1u on his points + rebounds + assists over: that bet counts on our ledger; the bonus bets do not."
+   "DraftKings' NBA Tuesday promo: whoever picks the player with the most points + rebounds + assists of the night splits a bonus-bet pool, and a player prop on him enters you. We crown the player with the best chance once you weigh how many others will pick him, and post 1u on his points + rebounds + assists under. Any pre-game prop on him at -200 or longer enters, and the prop does not have to win; the under broke even last season and cashes on most of the nights he does not take the crown. That bet counts on our ledger; the bonus bets do not."
   ],
   [
    "🙌",
