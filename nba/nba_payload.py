@@ -226,6 +226,7 @@ def why(n, r, st, gm, salt=''):
 
 
 BOARD_FROM = '2026-10-24'
+SINGLES_FROM = '2026-10-28'   # SINGLES-2026-10-28: one straight bet per game replaces From the Logo + Full-Court (nba_fb.singles)
 FAV_FROM = '2026-10-24'
 # HALFCOURT-2026-10-26: the 3-leg doubles slips wear basketball eras and nicknames (the Heaves have the famous moments).
 DUO_NAMES = ['Showtime', 'Bad Boys', 'Seven Seconds or Less', 'Grit and Grind', 'Splash Brothers', 'Run TMC', 'Twin Towers',
@@ -580,7 +581,41 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     # BBDRAFT-2026-10-23: a slate first drafted under the old single-pick rule keeps it (a posted board never
     # changes shape mid-slate); every slate from BOARD_FROM drafts baseball's anchors + moons.
     legacy = (not (cached and cached.get('board') is not None)) and (bool(cached and cached.get('picks') is not None) or date < BOARD_FROM)
-    if legacy:
+    if date >= SINGLES_FROM:
+        # SINGLES-2026-10-28. One straight bet per game (nba_fb.singles), sticky like every posted pick. Before HIS game
+        # tips and before he shows the green check, a man who leaves the five is replaced by the best qualifier left in his
+        # game (or the game loses its bet). Confirmed or started: it stands. A game that had no qualifier yet gets one
+        # when it qualifies, before its tip.
+        _ko = lambda gi: (games.get(gi) or {}).get('ko_utc')
+        _conf = lambda x: (P.get(x['name']) or {}).get('status') == 'confirmed'
+        picks = (cached or {}).get('singles')
+        if picks is None:
+            picks = [dict(x, picked_at=stamp, ko_utc=_ko(x['game'])) for x in F.singles(cands)]; fresh = True
+            print(f"  SINGLES: drafted {len(picks)}: " + ', '.join(f"{x['name']} {x['odds']:+d} {x['stake']}u" for x in picks))
+        else:
+            keep = []
+            for x in picks:
+                x.setdefault('ko_utc', _ko(x['game']))
+                ok = x['name'] in P and not blocked(P[x['name']]['code'], x['name'])
+                if ok or x.get('locked') or started(x):
+                    if ok and _conf(x) and not x.get('locked'): x['locked'] = True; fresh = True
+                    keep.append(x); continue
+                r = F.singles([c for c in cands if c['game'] == x['game'] and c['name'] != x['name']])
+                fresh = True
+                if r:
+                    print(f"  re-pick: single {x['name']} out of the five -> {r[0]['name']}")
+                    keep.append(dict(r[0], picked_at=stamp, ko_utc=_ko(x['game'])))
+                else:
+                    print(f"  re-pick: single {x['name']} out of the five -> no qualifier left in his game, bet dropped")
+            have = {x['game'] for x in keep}
+            more = F.singles([c for c in cands if c['game'] not in have and not started(dict(ko_utc=_ko(c['game'])))])
+            if more:
+                print(f"  SINGLES: added {[m['name'] for m in more]} (their games now qualify)")
+                keep += [dict(m, picked_at=stamp, ko_utc=_ko(m['game'])) for m in more]; fresh = True
+            picks = sorted(keep, key=lambda x: (x.get('ko_utc') or '', x['game']))
+        for x in picks:
+            if _conf(x) and not x.get('locked'): x['locked'] = True; fresh = True
+    elif legacy:
         picks = cached.get('picks') if cached else None
         if picks is None:
             picks = [dict(x, picked_at=stamp) for x in F.pick(cands)]; fresh = True
@@ -681,7 +716,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
     if cache and (fresh or not os.path.exists(cache)):
         os.makedirs(os.path.dirname(cache) or '.', exist_ok=True)
         out = {'date': date, 'picked_at': stamp}
-        if board is not None: out['board'] = board
+        if date >= SINGLES_FROM: out['singles'] = picks
+        elif board is not None: out['board'] = board
         else: out['picks'] = picks
         json.dump(out, open(cache, 'w', encoding='utf-8'), indent=1)
     # PRICEHOLD-2026-10-22. Owner, 7:25 PM: "why is the peyton watson price n/a now? and tbd". FanDuel pulls its
@@ -736,8 +772,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⚡',
                       note=note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date),
                       players=[_leg(n, o)], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
-                      has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=False, priced=True,
-                      parlay_am=o, payout10=round(10 * am_to_dec(o), 1), ftd=True, units=1,
+                      has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=bool(x.get('locked')), priced=True,
+                      parlay_am=o, payout10=round(10 * am_to_dec(o), 1), ftd=True, units=(x.get('stake') or 1),
                       ev=round(x['ev'], 3), p=round(x['p'], 4)))
     # CONFLOCK-NBA: a locked moon stays on the board even if a leg later leaves the five (owner: "if the other legs end
     # up voiding, its fine") -- the posted-pick stub above keeps him rendered; a man who never plays is voided by the

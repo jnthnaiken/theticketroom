@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "Full-Court Heaves are 1.10u round robins (11 bets at 0.10u). The ⚡ anchor leads two of them and is not bet on his own."
+   "Each Tip-Off ticket is one straight bet, and the card says how much: 2.5 × our edge, up to 2u. A 20% edge is 0.5u, a 40% edge is 1u."
   ],
   "3": [
    "Price",
@@ -41,23 +41,23 @@ HOWTO = {
   ],
   "4": [
    "Payout",
-   "What $10 on him alone would return if he makes the first field goal."
+   "What the stake returns if he scores first, in units."
   ],
   "5": [
    "First basket",
-   "The bet: he makes the game’s first field goal. Free throws do not count."
+   "The bet: he scores his game’s first points. Free throws count, as FanDuel grades it."
   ],
   "6": [
    "Team · game · tip",
-   "Four anchors a night, one from each of four different games."
+   "At most one pick per game; a game with no edge gets no bet."
   ],
   "7": [
    "Status",
-   "Pending until anyone makes a field goal, then it settles on the spot — usually inside two minutes."
+   "Pending until anyone scores, then it settles on the spot — usually inside two minutes."
   ],
   "8": [
    "The pick",
-   "An anchor is the most likely first scorer in his game, by our model with the books blended in."
+   "The starter in his game whose chance beats his FanDuel price by the most, 15% or more."
   ],
   "9": [
    "⚠ Flag",
@@ -78,8 +78,8 @@ HOWTO = {
  },
  "steps": [
   [
-   "Start on Tickets — tonight’s ⚡ Anchors and 🚀 Full-Court Heaves.",
-   "An anchor is the most likely first scorer in his game; he leads two Full-Court Heaves, each a round robin of four first-basket picks. The card at the top is the season ledger, graded live."
+   "Start on Tickets — tonight’s 👑 King of the Court, 🎯 Downtown and ⚡ Tip-Off picks.",
+   "Tip-Off is one straight first-basket bet per game, sized by how big our edge is. The card at the top is the season ledger, graded live."
   ],
   [
    "Check the lock line before you act on anything.",
@@ -95,24 +95,14 @@ HOWTO = {
   ],
   [
    "Know how a pick settles.",
-   "It wins only on the game’s first made field goal — free throws do not count — and is usually decided inside two minutes. A man who does not play is refunded; a man who plays off the bench is still a live bet."
+   "It wins only if he scores the game’s first points — free throws count — and is usually decided inside two minutes. A man who does not start is refunded, as FanDuel does."
   ]
  ],
  "kinds": [
   [
-   "⚡",
-   "Anchors",
-   "The most likely first scorer from each of four different games, by our model with the books blended in. Each one leads two Full-Court Heaves; they are not bet on their own."
-  ],
-  [
-   "🔥",
-   "From the Logo",
-   "Two per anchor: the anchor plus two value picks from two other games, the starters FanDuel's price undersells most, bet as the three doubles at 0.10u (0.30u a ticket). Any two of the three scoring first cashes. An anchor's two tickets share no value pick."
-  ],
-  [
-   "🚀",
-   "Full-Court Heaves",
-   "Two per anchor: the anchor plus three value picks from three other games, every two-, three- and four-way combination at 0.01u (11 bets, 0.11u). Small stakes on the long shot: a four-way hit pays thousands to one. An anchor's two moons differ by at least two legs."
+   "👑",
+   "King of the Court",
+   "DraftKings' NBA Tuesday promo: whoever picks the player with the most points + rebounds + assists of the night splits a bonus-bet pool, and a player prop on him enters you. We crown the player with the best chance once you weigh how many others will pick him, and post 1u on his points + rebounds + assists under. Any pre-game prop on him at -200 or longer enters, and the prop does not have to win; the under broke even last season and cashes on most of the nights he does not take the crown. That bet counts on our ledger; the bonus bets do not."
   ],
   [
    "🎯",
@@ -120,9 +110,9 @@ HOWTO = {
    "Threes made, both ways. Overs: a player's over on FanDuel's line when our model gives him at least a 20% edge, one per game. Unders: the under on a line of 1.5 or more when our model makes the under more likely than not and gives it at least a 15% edge. The model weighs his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out. 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
   ],
   [
-   "👑",
-   "King of the Court",
-   "DraftKings' NBA Tuesday promo: whoever picks the player with the most points + rebounds + assists of the night splits a bonus-bet pool, and a player prop on him enters you. We crown the player with the best chance once you weigh how many others will pick him, and post 1u on his points + rebounds + assists under. Any pre-game prop on him at -200 or longer enters, and the prop does not have to win; the under broke even last season and cashes on most of the nights he does not take the crown. That bet counts on our ledger; the bonus bets do not."
+   "⚡",
+   "Tip-Off",
+   "First basket, one straight bet per game. In each game we take the starter whose chance beats his FanDuel price by the most, as long as the edge is at least 15%; if nobody clears that, the game gets no bet. The stake grows with the edge: 2.5 × the edge, up to 2u, so a 20% edge is 0.5u and a 40% edge is 1u. Our chance comes from who wins the opening tip, how often his team scores first, his share of the early shots, and the books' prices as one more layer."
   ],
   [
    "🙌",

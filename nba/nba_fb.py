@@ -335,6 +335,32 @@ def slips(anchors, rest, legs, per):
     return out
 
 
+# SINGLES-2026-10-28. Owner: "what if we pick our top 3 from each game and put down 3 bets at varying levels on them?
+# instead of this whole round robin system" -> the rule search -> "lets go with the one per game version" -> "go".
+# ONE straight bet per game: that game's starter with the best value (chance x FanDuel decimal) among those whose edge is
+# at least SINGLE_EV; no qualifier, no bet. Stake = SINGLE_K x edge, capped at SINGLE_CAP (a 20% edge is 0.5u).
+# Backtest 2021-26 at FanDuel (picked on 2021-23, judged on 2024-25): +1,051u on 2,247u (+47%; unseen seasons +42%),
+# worst slump 52u (round robins: 77u), every season up, 4.1 bets a night, a cash on 38% of nights.
+# Replaces From the Logo + Full-Court Heaves. claude/nba-singles-2026-10-28.md
+SINGLE_EV, SINGLE_K, SINGLE_CAP = 0.15, 2.5, 2.0
+
+
+def single_stake(ev):
+    return round(min(SINGLE_CAP, SINGLE_K * ev), 2)
+
+
+def singles(cands, games=None):
+    """cands: [{'game','name','p','odds','ev',...}] -> one pick per game (best value with ev >= SINGLE_EV), each with
+    'stake'. `games` limits the draft to those game ids."""
+    best = {}
+    for c in cands:
+        if c.get('ev') is None or c['ev'] < SINGLE_EV or not c.get('odds'): continue
+        if games is not None and c['game'] not in games: continue
+        if c['game'] not in best or value(c) > value(best[c['game']]):
+            best[c['game']] = c
+    return [dict(c, stake=single_stake(c['ev'])) for _, c in sorted(best.items(), key=lambda kv: kv[0])]
+
+
 def duo_maxprofit(odds_list, unit=DUO_UNIT):
     import itertools
     d = [dec(o) for o in odds_list]

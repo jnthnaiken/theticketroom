@@ -23,7 +23,7 @@ import json, sys
 
 from nba_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 84 + LIVE_SEAM_COUNT  # HOWBET-2026-10-26 +1 (rr-paytext)  # LINEUPNOTE-2026-10-25 +1 (twarn-off)  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 85 + LIVE_SEAM_COUNT  # SINGLES-2026-10-28 +1 (single-paytext)  # HOWBET-2026-10-26 +1 (rr-paytext)  # LINEUPNOTE-2026-10-25 +1 (twarn-off)  # ANCHORCARDS-2026-10-24 +2 (anchors-as-builder, lunch-section-off)  # nfl_fork's 70 + fb-decided-push/-fin (FBDECIDED-2026-10-17)   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -53,8 +53,8 @@ def seams(payload_js):
     add('sort-power', '<option value="power">Power · highest first</option>', '<option value="power">Team scores first · most likely</option>')
     add('sort-hr9', '<option value="hr9">Opp SP HR/9 · most homer-prone</option>', '<option value="hr9">Early shots · biggest share</option>')
     add('sort-lift', '<option value="lift">Park/weather lift · biggest</option>', '<option value="lift">Model chance · highest</option>')
-    add('tonight-count', "+kc.moon+' 🥎'", "+kc.duo+' 🔥 \\u00b7 '+kc.moon+' 🚀'+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
-    add('tracker-moon', "['moon','🥎','Moonshots']", "['kotc','👑','King of the Court'],['downtown','🎯','Downtown'],['duo','🔥','From the Logo'],['moon','🚀','Full-Court Heaves']")   # LOGONAME-2026-10-26 (owner: "lets call the half court heaves, from the logo")   # HALFCOURT-2026-10-26   # NOTEMPLE-2026-10-26: Temple row removed   # LEDGERORDER-2026-10-26 (owner: "lets put downtown under the half court heaves on the ledger. same order as on the board")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
+    add('tonight-count', "+kc.moon+' 🥎'", "+kc.fb+' ⚡'+((D.meta.dt&&D.meta.dt.picks&&D.meta.dt.picks.length)?' \\u00b7 '+D.meta.dt.picks.length+' 🎯':'')")   # FAVANCHOR: moons are the only bets   # BBDRAFT-2026-10-23
+    add('tracker-moon', "['moon','🥎','Moonshots']", "['kotc','👑','King of the Court'],['downtown','🎯','Downtown'],['fb','⚡','Tip-Off']")   # SINGLES-2026-10-28: one straight bet per game replaces From the Logo + Full-Court   # LOGONAME-2026-10-26 (owner: "lets call the half court heaves, from the logo")   # HALFCOURT-2026-10-26   # NOTEMPLE-2026-10-26: Temple row removed   # LEDGERORDER-2026-10-26 (owner: "lets put downtown under the half court heaves on the ledger. same order as on the board")   # HEAVES-2026-10-26 (owner: "we need a basketball appropriate name for the moonshots")   # TEMPLE-2026-10-24
     add('client-moon-badge', "kind:'moon',badge:'🚀'", "kind:'moon',badge:'🚀'", 2)
     add('mkparlay-badge', "mkParlay('moon','🚀'", "mkParlay('moon','🚀'")
     # NOTECLAMP-2026-10-24, owner: "writeups are cut off ... this should be standard by now". Baseball clamps a slip's
@@ -69,7 +69,7 @@ def seams(payload_js):
     add('rr-paytext', "(t.rr)?(t.rr.risk+'u round robin')",
         "(t.rr)?(t.rr.bytwos?('2-leg parlays only \\u00b7 3 \\u00d7 '+(t.rr.risk/3).toFixed(2)+'u'):(t.rr.struct==='by 2s, 3s & 4'?('All 11 parlays \\u00b7 11 \\u00d7 '+(t.rr.risk/11).toFixed(2)+'u'):(t.rr.risk+'u round robin')))")
     add('twarn-off', "const twarn=_span>155?", "const twarn=false&&_span>155?")
-    add('sec-moonshots', "sec('lot','Moonshots',moon)", "(typeof kotcSection==='function'?kotcSection():'')+(typeof dtSection==='function'?dtSection():'')+HOWBET('From the Logo',sec('lot','From the Logo',D.tickets.filter(t=>t.kind==='duo').filter(match)),'<b>Round robin by 2s only:</b> 3 bets at 0.10u (0.30u a ticket).')+HOWBET('Full-Court Heaves',sec('lot','Full-Court Heaves',moon),'<b>Round robin by 2s, 3s &amp; 4:</b> 11 bets at 0.01u (0.11u a ticket).')")   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
+    add('sec-moonshots', "sec('lot','Moonshots',moon)", "(typeof kotcSection==='function'?kotcSection():'')+(typeof dtSection==='function'?dtSection():'')+HOWBET('Tip-Off',sec('lot','Tip-Off',D.tickets.filter(t=>t.kind==='fb').filter(match)),'<b>Straight bets, one per game.</b> Each ticket shows its stake: the bigger our edge, the bigger the bet.')")   # SINGLES-2026-10-28   # TEMPLE-2026-10-24  # DOWNTOWN-2026-10-26: owner "put this section at the bottom of the page"
     add('special-count-lunch', "if(k==='dinger')return !t.final&&singleAlive(t);", "if(k==='fb')return !t.final&&singleAlive(t);")
     add('special-count-late', "if(k==='jackpot')return !t.final&&singleAlive(t);", "if(k==='late')return !t.final&&singleAlive(t);")
     add('special-sec-lunch', "const dingerLive=D.tickets.filter(t=>t.kind==='dinger'&&!t.final)", "const dingerLive=D.tickets.filter(t=>t.kind==='fb'&&!t.final)")
@@ -93,7 +93,10 @@ def seams(payload_js):
     add('kemo', "var KEMO={dinger:'⚾',jackpot:'🏟️',builder:'🧢',moon:'🥎'};", "var KEMO={fb:'⚡',builder:'⚡',moon:'🚀',duo:'🔥',temple:'🏛️',downtown:'🎯',kotc:'👑'};"
         "function HOWBET(l,h,t){return h?h.replace('<span class=\"tline\"></span></div>','<span class=\"tline\"></span></div><div class=\"howbet\">'+t+'</div>'):'';}" + DTJS + KOTCJS)   # DOWNTOWN-2026-10-26: section JS rides on the KEMO line
     add('tracker-builder', "['builder','🧢','Anchors']", '')
-    add('sec-anchors', "sec('sug','Anchors',builder)", "sec('sug','Anchors',builder)")
+    add('sec-anchors', "sec('sug','Anchors',builder)", "''")   # SINGLES-2026-10-28: the ⚡ singles render in their own Tip-Off section (sec-moonshots)
+    # SINGLES-2026-10-28: a single's stake varies (2.5 x edge, capped 2u), so its card says how much to bet.
+    add('single-paytext', "(t.payout10?('$'+(10*(t.units||1))+' → $'+comma(Math.round(t.payout10*(t.units||1)))):'add a price')",
+        "(t.payout10?(t.kind==='fb'?('Bet '+(+(t.units||1)).toFixed(2)+'u \\u00b7 returns '+(t.payout10*(t.units||1)/10).toFixed(2)+'u'):('$'+(10*(t.units||1))+' → $'+comma(Math.round(t.payout10*(t.units||1))))):'add a price')")
     # ANCHORCARDS-2026-10-24. Owner: "can we do the anchors as smaller tickets like we do on baseball" -> "the size of
     # it. not horizontal". The ⚡ anchors leave the full-width Daily Dinger strip and render as ordinary slips in
     # baseball's own Anchors section (sec 'sug'), one card per anchor in the ticket grid. Display only: kind stays 'fb'.

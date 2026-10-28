@@ -2,14 +2,14 @@
  "since": "2026-10-20",
  "history": [
   0,
-  -1.3121951219512196,
-  -3.9634874948325756,
-  -3.9634874948325756,
-  -5.329076775663859,
-  -9.829076775663857,
-  7.441378181144039,
-  1.7413781811440412,
-  -2.5952255924408645
+  -0.20219512195121947,
+  -0.38348749483257544,
+  -0.38348749483257544,
+  -1.059076775663858,
+  -5.329076775663857,
+  1.605378181144042,
+  -2.374621818855958,
+  -3.431225592440864
  ],
  "graded_nights": [
   "2026-10-20",
@@ -22,23 +22,17 @@
   "2026-10-27"
  ],
  "cats": {
-  "moon": {
-   "graded": 48,
-   "won": 4,
-   "units": -2.3240000000000016,
-   "staked": 5.280000000000002
-  },
   "downtown": {
    "graded": 25,
    "won": 13,
    "units": -1.942079445974604,
    "staked": 25.0
   },
-  "duo": {
-   "graded": 54,
-   "won": 2,
-   "units": -0.11999999999999728,
-   "staked": 16.200000000000017
+  "fb": {
+   "graded": 18,
+   "won": 1,
+   "units": -3.2800000000000007,
+   "staked": 10.240000000000002
   },
   "kotc": {
    "graded": 2,
@@ -52,6 +46,8 @@
   "NOTEMPLE-2026-10-26: Garrett's Temple retired by the owner (\"lets get rid of the temple completely, sorry garrett\"); its 4 graded tickets (2-2, +19.71u) removed from the ledger and history.",
   "DTUNDER-2026-10-26 / DTBUDGET-2026-10-27: Downtown unders added (line >= 1.5, P(under) >= .5, EV >= .15, 1u). 10-20..10-25 restated with the unders the rule would have posted at FanDuel prices: 16 graded, 11 won, +2.61u. Overs as posted (Kawhi Leonard 10-21 lost, Jrue Holiday 10-23 won).",
   "LEDGERFULL-2026-10-27 (owner: \"every ledger should be accurate to the start of the seasons\"): season refolded from the boards under the live rules -- From the Logo restated onto 10-20..10-25, Full-Court Heaves at 0.11u a ticket throughout, Temple removed, Downtown overs as posted + restated unders.",
-  "KOTC-2026-10-27 / KOTCUNDER: King of the Court qualifying bet = 1u on the crowned player's PRA UNDER (any prop at -200+ qualifies); 10-21 restated: Luka Doncic u49.5 -118, 43 PRA, won."
- ]
+  "KOTC-2026-10-27 / KOTCUNDER: King of the Court qualifying bet = 1u on the crowned player's PRA UNDER (any prop at -200+ qualifies); 10-21 restated: Luka Doncic u49.5 -118, 43 PRA, won.",
+  "SINGLES-2026-10-28 (owner: \"lets go with the one per game version\" -> \"go\"): From the Logo and Full-Court Heaves retired; Tip-Off = one straight first-basket bet per game (best value, edge >= 15%, stake 2.5 x edge, cap 2u). 10-20..10-27 restated from each board's priced starters at the FanDuel prices on the board."
+ ],
+ "restated": true
 }
