@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/runner/work/theticketroom/theticketroom/tools/kotc_restate.py", line 25, in <module>
+    odds=int(odds), p=k['p'], mean=k['mean'], pop=k['pop'], value=k['value'], tname='The Crown', status='confirmed', final=True,
+         ^^^^^^^^^
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
