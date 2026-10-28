@@ -12,9 +12,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
       - name: Pull
-        run: node nba/research/pos/espn_pos.js 2016-10-20 2026-10-27 espn_pos.jsonl 2>&1 | tail -40; wc -l espn_pos.jsonl; head -c 600 espn_pos.jsonl
+        run: node nba/research/pos/br_pos.js 2>&1 | tail -40; wc -l br_pos.psv; head -5 br_pos.psv
       - name: Save
         if: always()
         run: |
           for i in 1 2 3; do rm -rf d; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
-            mkdir -p d/nba/pos && gzip -c espn_pos.jsonl > d/nba/pos/espn_pos.jsonl.gz && (cd d && git config user.email a@b.c && git config user.name pos && git add nba/pos && git commit -qm "ESPN positions" && git push -q) && break; sleep 7; done
+            mkdir -p d/nba/pos && cp br_pos.psv d/nba/pos/br_pos.psv && (cd d && git config user.email a@b.c && git config user.name pos && git add nba/pos && git commit -qm "ESPN positions" && git push -q) && break; sleep 7; done
