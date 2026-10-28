@@ -273,7 +273,12 @@ def seams(payload_js):
                         # KINGEZ3-2026-10-05 -- owner: "it should look just like any other section". A real section header,
                         # same shape as Opening Drive / MLB's JACKSEC, and #pool joins the ticket grid (display:contents).
                         # Only when meta.longtd exists, which nfl_payload.py writes on one-game nights only (KINGEZ1).
-                        'html+=(D.meta.longtd&&D.meta.longtd.length)?\'<div class="tsec big"><span class="tsech">King of the End Zone</span><span class="tline"></span></div><div id="pool" style="display:contents"></div>\':\'\';')
+                        # KINGEZIDLE-2026-10-28 (owner: "but on sundays when there isnt one, we should have a message"): a slate with no
+                        # King of the End Zone keeps the section and says when it returns (DraftKings runs it on one-game nights).
+                        'html+=(D.meta.longtd&&D.meta.longtd.length)?\'<div class="tsec big"><span class="tsech">King of the End Zone</span><span class="tline"></span></div><div id="pool" style="display:contents"></div>\':'
+                        '(function(){var d=new Date(String(D.meta.date||\'\')+\'T12:00:00Z\'),k=d.getUTCDay(),a=((1-k+7)%7)||7,b=((4-k+7)%7)||7,n=new Date(d.getTime()+Math.min(a,b)*864e5),'
+                        'W=[\'Sunday\',\'Monday\',\'Tuesday\',\'Wednesday\',\'Thursday\',\'Friday\',\'Saturday\'],M=[\'Jan\',\'Feb\',\'Mar\',\'Apr\',\'May\',\'Jun\',\'Jul\',\'Aug\',\'Sep\',\'Oct\',\'Nov\',\'Dec\'];'
+                        'return \'<div class="tsec big"><span class="tsech">King of the End Zone</span><span class="tline"></span></div><div class="closed">👑 No crown on the line today. DraftKings only runs King of the End Zone on one-game nights, so the throne sits empty on a full slate. It returns with the next primetime game, \'+W[n.getUTCDay()]+\' \'+M[n.getUTCMonth()]+\' \'+n.getUTCDate()+\'.</div>\';})();')
     # RESTATED-NFL-2026-09-17: the season line says so when nfl_season.json carries `restated`.
     # Week 1 was drafted by the old scorer (raw EV, no cap, usage model alone); nfl_restate.py
     # re-runs every graded night under the current system, so the tracker must not imply the
