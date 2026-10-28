@@ -349,8 +349,10 @@ SINGLE_EV = COVER_EV   # kept for callers
 
 def cover(c):
     """c: one game's chosen candidates -> the same dicts with 'stake' (dutched over GAME_UNIT)."""
+    # TENTHS-2026-10-28 (owner: "we need to keep the units to the tenth place"): stakes round to 0.1u, at least 0.1u.
+    # Backtest: +414u (exact split +428u), slump 54u, and every pick still returns more than its game's whole stake.
     inv = [1 / dec(x['odds']) for x in c]; t = sum(inv)
-    return [dict(x, stake=round(GAME_UNIT * i / t, 2)) for x, i in zip(c, inv)]
+    return [dict(x, stake=max(0.1, round(GAME_UNIT * i / t, 1))) for x, i in zip(c, inv)]
 
 
 def pick_game(cands, exclude=()):

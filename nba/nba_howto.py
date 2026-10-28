@@ -33,7 +33,7 @@ HOWTO = {
   ],
   "2": [
    "Stake",
-   "Each Tip-Off ticket is one straight bet and the card says how much. A game gets 0.6u, split across its picks so whichever scores first returns the same — more than the game's whole stake."
+   "Each Tip-Off ticket is one straight bet and the card says how much. A game gets about 0.6u, split across its picks in tenths of a unit so whichever scores first returns more than the game's whole stake."
   ],
   "3": [
    "Price",

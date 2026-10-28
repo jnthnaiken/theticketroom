@@ -611,6 +611,9 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                         keep.append(dict(r[0], picked_at=stamp, ko_utc=_ko(gi)))
                     else:
                         print(f"  re-pick: {x['name']} out of the five -> nobody else in his game has an edge, bet dropped")
+                if not changed and keep and not any(x.get('locked') or started(x) for x in keep) \
+                        and any(abs(x['stake'] * 10 - round(x['stake'] * 10)) > 1e-9 for x in keep):
+                    changed = True        # TENTHS-2026-10-28: a game drafted before stakes went to tenths is re-split
                 if changed and keep:
                     fixed = [x for x in keep if x.get('locked') or started(x)]
                     if not fixed:      # nothing placed yet in this game: re-dutch the whole trio
