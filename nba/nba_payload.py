@@ -316,43 +316,98 @@ def note(n, r, st, gm, salt):
     return ' '.join(s)
 
 
-def game_note(names, P, st, gm, salt):
+def _pku(opts, key, used):
+    """GAMEVOICE-2026-10-28: pick a line that has not been used yet tonight (owner: "too much repetitiveness. half of them
+    end with long price lets go!"). Order is a stable shuffle by key; falls back to the shuffle when every line is used."""
+    order = sorted(opts, key=lambda o: _fnv(key + '|' + o))
+    for o in order:
+        stem = o[:28]
+        if stem not in used:
+            used.add(stem); return o
+    return order[0]
+
+
+GN = {
+ 'open': ["{A} at {H}, and here's how we see the opening act!", "Pull up a chair for {A} at {H}, because the first minute is where the money is!",
+          "{A} and {H}, and the first bucket of this one has our fingerprints all over it!", "{A} visiting {H}, and we've got the opening possessions mapped out!",
+          "Lights up for {A} at {H}, and we know exactly who we want touching the ball early!", "{A} at {H}. Grab a seat, the first bucket is a story we've already read!",
+          "Here comes {A} at {H}, and the opening tip is where our night begins!", "{A} roll into {H} territory, and the first minute is all we care about!",
+          "It's {A} and {H}, and buddy, we've got a plan for the opening act!", "{A} at {H}, and the race to the first bucket starts at center court!",
+          "Next up, {A} at {H}, and the first trip down the floor is circled in red!"],
+ 'lean': ["{w} and {l} meet in the circle, and {w} has been winning these jumps all season long!",
+          "It starts with {w} against {l} at center court, and our money says {w} gets up there first!",
+          "{w} versus {l} for the tip, and {w} has owned that matchup in the circle!", "The jump ball goes {w} against {l}, and {w} has the springs tonight!",
+          "{l} has to deal with {w} in the circle, and that's a tall order, folks!", "{w} squares up with {l} for the opening tip, and we like {w} to control it!"],
+ 'flip': ["{a} and {b} go up for the tip, and that one's a coin flip, baby!", "{a} versus {b} in the circle, and nobody owns that jump ball!",
+          "{a} and {b} meet at center court, and it's anybody's tip!", "The jump ball pits {a} against {b}, a true fifty-fifty!",
+          "{a} and {b} for the opening tip, and you could flip a quarter on it!", "It's {a} against {b} in the circle, and neither one has the edge!"],
+ 'front': ["That puts the {T} on the front foot to get on the board first.", "So the {T} should get the first crack at it.",
+           "Win that tip and the {T} are first in line to score.", "That hands the {T} the first possession, and that's half the battle!",
+           "Advantage {T} for the opening bucket."],
+ 'both': ["Either side can strike first here, and that's exactly why we've got both ends covered!", "This opening could break either way, so we're ready for both!",
+          "No telling who scores first here, so we've got a man on each side!", "It's up for grabs, and we're holding a ticket on both teams!"],
+ 'one': ["Either side can strike first here, and we like the {T} to make it count!", "This opening could break either way, and we know which way we're leaning!",
+         "Toss-up at the tip, but we trust the {T} to cash the first trip!", "Wide open at the start, and we're riding the {T}!"],
+ 'jlead': ["If {s} wins that tip, he goes right back to work, and he's the first look!", "If {s} controls the tip, he taps it to a guard, rolls to the rim, and boom, he's the first look!",
+           "Give {s} the tip and he's sprinting to the block. Feed the big man!", "If {s} wins the jump, he seals his man, and that's an easy two to start the night!",
+           "Tip it, run it, finish it. If {s} gets that jump, that's the whole plan!", "Should {s} get the tip, the ball comes right back to him. First look, baby!"],
+ 'elead': ["Once the {T} have it, the ball finds {s} early, and he is NOT shy about letting it go!", "{P} first set runs through {s}, and he's got the green light shining bright!",
+           "{s} gets the first touch for the {T}, and he's hunting his shot!", "The {T} love to open with {s}, and he takes that first shot with a smile!",
+           "First play out of the timeout? Nope, first play of the game, and it's {s} with the ball!", "{s} is the first option in that opening set, and he does not pass it up!"],
+ 'plead': ["{s} is the one we want finishing that first trip down the floor!", "Our guy to cash that first possession? {s}, and he's priced like a bench guy!",
+           "{s} is the sneaky finisher on that opening trip!", "When the {T} come down for the first time, {s} is the one we're watching!",
+           "{s} slips free on the opening set, and that's our man!"],
+ 'dog': ["If the {T} steal the tip or get the first stop, {s} is who we want firing first!", "And if the {T} flip the script, {s} is waiting right there to pounce!",
+         "If the {T} get there first, {s} is who we want firing!", "Should the {T} grab the first possession, {s} is our trigger man!",
+         "The {T} get a stop? Then it's {s} running the other way for the first two!", "If the tip goes the {T}' way, {s} is the guy we want letting it fly!"],
+ 'second': ["If that first look rims out, {s} is right there to clean it up!", "And {s} is the second option on that same trip, and the price is a beauty!",
+            "Miss on the first look and {s} is crashing for the putback!", "{s} is lurking on the weak side for the kick-out!",
+            "And {s} is the backup plan on that possession, a fine backup plan at that!", "{s} is right behind him, ready to pounce on any mistake!"],
+ 'third': ["And don't forget {s}, lurking for the putback!", "{s} rounds it out, the sneaky one, and sneaky is our favorite flavor!",
+           "{s} completes the set, a long shot with a real chance!", "And {s} sneaks in as the third man, just in case!"],
+ 'multi': ["Whoever lights it up first, the split covers the game. Let's ride!", "Any one of them hits and the whole game is paid for. That's how we like it!",
+           "One bucket from any of them and we're cashing. Wakey wakey, eggs and bakey!", "Any of them scores first, and we're counting money!",
+           "The stakes are split so any one of them pays for the whole game. Beautiful!", "Hit one, cover the game. Simple as that, folks!",
+           "Every one of our picks is a way to win the opening bucket, and every one of them cashes!", "Pick your poison, because any of them covers it!"],
+ 'single': ["Only one man in this game beats his price, and it's {s}. Let's go!", "{s} is the lone value in this one, and we are HERE for it!",
+            "Just one play in this game, and it's {s} all the way!", "{s} stands alone in this one, and that's plenty!",
+            "One man, one bet: {s}. Let's ride!", "Nobody else here beats his price, so it's {s} or bust!",
+            "{s} is the only play we like here, and we like him a lot!"],
+}
+
+
+def game_note(names, P, st, gm, salt, used=None):
     """GAMENOTE-2026-10-28. Owner: "the write ups should be one cohesive unit. not separate paragraphs. it should make sense
     from start to finish like how we see the opening of the game going for all players we think will be involved".
     One story per game, Collins register, no digits: the jump ball, which side we expect on the board first, then where
-    each of our picks fits into that opening, and why the split covers it."""
+    each of our picks fits into that opening, and why the split covers it. `used` is shared across the night so no line
+    repeats (GAMEVOICE-2026-10-28)."""
+    used = set() if used is None else used
     a, h = gm.split('@'); A, H = TEAM_NAME.get(a, a), TEAM_NAME.get(h, h); K = str(salt) + '|' + gm
+    pk = lambda pool, key, **kw: _pku(GN[pool], K + key, used).format(**kw)
     G = {n: p for n, p in P.items() if p.get('gmatch') == gm}
     jmp = {T: next((n for n, p in G.items() if p.get('code') == T and p.get('jumper')), None) for T in (a, h)}
     side = lambda T: next((p.get('ptip') for p in G.values() if p.get('code') == T and p.get('ptip') is not None), None)
     first = lambda T: next((p.get('pteam') for p in G.values() if p.get('code') == T and p.get('pteam') is not None), None)
     fa, fh = first(a), first(h)
     fav = (a if (fa or 0) > (fh or 0) else h) if (fa is not None and fh is not None) else None
-    dog = (h if fav == a else a) if fav else None
-    s = [_pk([f"{A} at {H}, and here's how we see the opening act!", f"Pull up a chair for {A} at {H}, because the first minute is where the money is!",
-              f"{A} and {H}, and the first bucket of this one has our fingerprints all over it!"], K + 'o')]
+    s = [pk('open', 'o', A=A, H=H)]
     ja, jh = jmp[a], jmp[h]
     if ja and jh:
         ta = side(a)
         if ta is not None and abs(ta - .5) >= .06:
             w, l = (ja, jh) if ta > .5 else (jh, ja)
-            s.append(_pk([f"{_sur(w)} and {_sur(l)} meet in the circle, and {_sur(w)} has been winning these jumps all season long!",
-                          f"It starts with {_sur(w)} against {_sur(l)} at center court, and our money says {_sur(w)} gets up there first!"], K + 't'))
+            s.append(pk('lean', 't', w=_sur(w), l=_sur(l)))
         else:
-            s.append(_pk([f"{_sur(ja)} and {_sur(jh)} go up for the tip, and that one's a coin flip, baby!",
-                          f"{_sur(ja)} versus {_sur(jh)} in the circle, and nobody owns that jump ball!"], K + 't'))
+            s.append(pk('flip', 't', a=_sur(ja), b=_sur(jh)))
     lean = bool(fav and abs((fa or 0) - (fh or 0)) >= .06)
     teams = {P[n].get('code') for n in names}
-    poss = lambda TN: TN + ("'" if TN.endswith('s') else "'s")
     if lean:
-        s.append(_pk([f"That puts the {TEAM_NAME.get(fav, fav)} on the front foot to get on the board first.",
-                      f"So the {TEAM_NAME.get(fav, fav)} should get the first crack at it."], K + 'f'))
+        s.append(pk('front', 'f', T=TEAM_NAME.get(fav, fav)))
     elif len(teams) > 1:
-        s.append(_pk(["Either side can strike first here, and that's exactly why we've got both ends covered!",
-                      "This opening could break either way, so we're ready for both!"], K + 'f'))
-    else:
-        T0 = next(iter(teams)) if teams else h; s.append(_pk([f"Either side can strike first here, and we like the {TEAM_NAME.get(T0, T0)} to make it count!",
-                                              "This opening could break either way, and we know which way we're leaning!"], K + 'f'))
+        s.append(pk('both', 'f'))
+    elif teams:
+        T0 = next(iter(teams)); s.append(pk('one', 'f', T=TEAM_NAME.get(T0, T0)))
     lead = fav if lean else (P[max(names, key=lambda n: P[n].get('p_value') or 0)].get('code') if names else None)
     names = sorted(names, key=lambda n: (0 if P[n].get('code') == lead else 1, -(P[n].get('p_value') or 0)))
     seen = {}
@@ -360,32 +415,17 @@ def game_note(names, P, st, gm, salt):
         p = P[n]; T = p.get('code'); TN = TEAM_NAME.get(T, T); sur = _sur(n); i = seen.get(T, 0); seen[T] = i + 1
         sp = st.P.get(st.key(n, team=T)) or {}
         early = (sp.get('ef') or 0) >= .24 or (sp.get('tf') or 0) >= .26
+        PS = 'The ' + TN + ("'" if TN.endswith('s') else "'s")
         if i == 0 and T == lead:
-            if p.get('jumper'):
-                s.append(_pk([f"If {sur} wins that tip, he goes right back to work, and he's the first look!",
-                              f"{sur} taps it to a guard, rolls to the rim, and boom, he's the first look!"], K + n))
-            elif early:
-                s.append(_pk([f"Once the {TN} have it, the ball finds {sur} early, and he is NOT shy about letting it go!",
-                              f"{poss('The ' + TN)} first set runs through {sur}, and he's got the green light shining bright!"], K + n))
-            else:
-                s.append(_pk([f"{sur} is the one we want finishing that first trip down the floor!",
-                              f"Our guy to cash that first possession? {sur}, and he's priced like a bench guy!"], K + n))
+            pool = 'jlead' if p.get('jumper') else ('elead' if early else 'plead')
+            s.append(pk(pool, n, s=sur, T=TN, P=PS))
         elif i == 0:
-            s.append(_pk([f"If the {TN} get there first, {sur} is who we want firing!" if not lean else f"If the {TN} steal the tip or get the first stop, {sur} is who we want firing first!",
-                          f"And if the {TN} flip the script, {sur} is waiting right there to pounce!"], K + n))
+            s.append(pk('dog', n, s=sur, T=TN))
         elif i == 1:
-            s.append(_pk([f"If that first look rims out, {sur} is right there to clean it up!",
-                          f"And {sur} is the second option on that same trip, long price, big upside!"], K + n))
+            s.append(pk('second', n, s=sur))
         else:
-            s.append(_pk([f"And don't forget {sur}, lurking for the putback!",
-                          f"{sur} rounds it out, the sneaky one, and sneaky is our favorite flavor!"], K + n))
-    if len(names) > 1:
-        s.append(_pk(["Whoever lights it up first, the split covers the game. Let's ride!",
-                      "Any one of them hits and the whole game is paid for. That's how we like it!",
-                      "One bucket from any of them and we're cashing. Wakey wakey, eggs and bakey!"], K + 'c'))
-    else:
-        s.append(_pk([f"Only one man in this game beats his price, and it's {_sur(names[0])}. Long price, big upside, let's go!",
-                      f"{_sur(names[0])} is the lone value in this one, and we are HERE for it!"], K + 'c'))
+            s.append(pk('third', n, s=sur))
+    s.append(pk('multi', 'c') if len(names) > 1 else pk('single', 'c', s=_sur(names[0]) if names else ''))
     return ' '.join(s)
 
 
@@ -851,13 +891,15 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         return dict(name=n, team=p['team'], total=p['TOTAL'], aT=100, wf=1.0, gmatch=p['gmatch'], gtime=p['gtime'],
                     game=p['game'], late=False, odds=int(o), status=p['status'], ftd=True)
     singles = ([] if date >= FAV_FROM else board['anchors']) if board is not None else picks   # FAVANCHOR: anchors lead moons only
+    _GNOTE, _GUSED = {}, set()
     for i, x in enumerate(singles):
         n = x['name']; p = P.get(n)
         if not p:
             continue
         o = int(x['odds'])
-        _mates = [y['name'] for y in singles if y['game'] == x['game'] and y['name'] in P]
-        _gn = game_note(_mates, P, st, p['gmatch'], date) if date >= SINGLES_FROM else None   # GAMENOTE-2026-10-28
+        if date >= SINGLES_FROM and x['game'] not in _GNOTE:   # GAMENOTE-2026-10-28: one story per game, no line repeated tonight
+            _GNOTE[x['game']] = game_note([y['name'] for y in singles if y['game'] == x['game'] and y['name'] in P], P, st, p['gmatch'], date, _GUSED)
+        _gn = _GNOTE.get(x['game'])
         T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⚡',
                       note=(_gn or note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date)),
                       players=[_leg(n, o)], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
