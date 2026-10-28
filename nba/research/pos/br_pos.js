@@ -6,7 +6,7 @@ const fs = require('fs'); const out = []; const sleep = ms => new Promise(r => s
     let html = null;
     for (let t = 0; t < 4 && !html; t++) {
       const r = await fetch(`https://www.basketball-reference.com/leagues/NBA_${y}_totals.html`, { headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/129.0 Safari/537.36' } });
-      console.log(y, r.status); if (r.ok) html = await r.text(); else await sleep(20000);
+      console.log(y, r.status); if (r.ok) { html = await r.text(); console.log('  len', html.length, (html.match(/data-stat="pos"/g) || []).length, 'pos cells'); } else await sleep(20000);
     }
     if (!html) continue; let n = 0;
     for (const tr of html.split('<tr').slice(1)) {
