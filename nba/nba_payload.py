@@ -316,6 +316,79 @@ def note(n, r, st, gm, salt):
     return ' '.join(s)
 
 
+def game_note(names, P, st, gm, salt):
+    """GAMENOTE-2026-10-28. Owner: "the write ups should be one cohesive unit. not separate paragraphs. it should make sense
+    from start to finish like how we see the opening of the game going for all players we think will be involved".
+    One story per game, Collins register, no digits: the jump ball, which side we expect on the board first, then where
+    each of our picks fits into that opening, and why the split covers it."""
+    a, h = gm.split('@'); A, H = TEAM_NAME.get(a, a), TEAM_NAME.get(h, h); K = str(salt) + '|' + gm
+    G = {n: p for n, p in P.items() if p.get('gmatch') == gm}
+    jmp = {T: next((n for n, p in G.items() if p.get('code') == T and p.get('jumper')), None) for T in (a, h)}
+    side = lambda T: next((p.get('ptip') for p in G.values() if p.get('code') == T and p.get('ptip') is not None), None)
+    first = lambda T: next((p.get('pteam') for p in G.values() if p.get('code') == T and p.get('pteam') is not None), None)
+    fa, fh = first(a), first(h)
+    fav = (a if (fa or 0) > (fh or 0) else h) if (fa is not None and fh is not None) else None
+    dog = (h if fav == a else a) if fav else None
+    s = [_pk([f"{A} at {H}, and here's how we see the opening act!", f"Pull up a chair for {A} at {H}, because the first minute is where the money is!",
+              f"{A} and {H}, and the first bucket of this one has our fingerprints all over it!"], K + 'o')]
+    ja, jh = jmp[a], jmp[h]
+    if ja and jh:
+        ta = side(a)
+        if ta is not None and abs(ta - .5) >= .06:
+            w, l = (ja, jh) if ta > .5 else (jh, ja)
+            s.append(_pk([f"{_sur(w)} and {_sur(l)} meet in the circle, and {_sur(w)} has been winning these jumps all season long!",
+                          f"It starts with {_sur(w)} against {_sur(l)} at center court, and our money says {_sur(w)} gets up there first!"], K + 't'))
+        else:
+            s.append(_pk([f"{_sur(ja)} and {_sur(jh)} go up for the tip, and that one's a coin flip, baby!",
+                          f"{_sur(ja)} versus {_sur(jh)} in the circle, and nobody owns that jump ball!"], K + 't'))
+    lean = bool(fav and abs((fa or 0) - (fh or 0)) >= .06)
+    teams = {P[n].get('code') for n in names}
+    poss = lambda TN: TN + ("'" if TN.endswith('s') else "'s")
+    if lean:
+        s.append(_pk([f"That puts the {TEAM_NAME.get(fav, fav)} on the front foot to get on the board first.",
+                      f"So the {TEAM_NAME.get(fav, fav)} should get the first crack at it."], K + 'f'))
+    elif len(teams) > 1:
+        s.append(_pk(["Either side can strike first here, and that's exactly why we've got both ends covered!",
+                      "This opening could break either way, so we're ready for both!"], K + 'f'))
+    else:
+        T0 = next(iter(teams)) if teams else h; s.append(_pk([f"Either side can strike first here, and we like the {TEAM_NAME.get(T0, T0)} to make it count!",
+                                              "This opening could break either way, and we know which way we're leaning!"], K + 'f'))
+    lead = fav if lean else (P[max(names, key=lambda n: P[n].get('p_value') or 0)].get('code') if names else None)
+    names = sorted(names, key=lambda n: (0 if P[n].get('code') == lead else 1, -(P[n].get('p_value') or 0)))
+    seen = {}
+    for n in names:
+        p = P[n]; T = p.get('code'); TN = TEAM_NAME.get(T, T); sur = _sur(n); i = seen.get(T, 0); seen[T] = i + 1
+        sp = st.P.get(st.key(n, team=T)) or {}
+        early = (sp.get('ef') or 0) >= .24 or (sp.get('tf') or 0) >= .26
+        if i == 0 and T == lead:
+            if p.get('jumper'):
+                s.append(_pk([f"If {sur} wins that tip, he goes right back to work, and he's the first look!",
+                              f"{sur} taps it to a guard, rolls to the rim, and boom, he's the first look!"], K + n))
+            elif early:
+                s.append(_pk([f"Once the {TN} have it, the ball finds {sur} early, and he is NOT shy about letting it go!",
+                              f"{poss('The ' + TN)} first set runs through {sur}, and he's got the green light shining bright!"], K + n))
+            else:
+                s.append(_pk([f"{sur} is the one we want finishing that first trip down the floor!",
+                              f"Our guy to cash that first possession? {sur}, and he's priced like a bench guy!"], K + n))
+        elif i == 0:
+            s.append(_pk([f"If the {TN} get there first, {sur} is who we want firing!" if not lean else f"If the {TN} steal the tip or get the first stop, {sur} is who we want firing first!",
+                          f"And if the {TN} flip the script, {sur} is waiting right there to pounce!"], K + n))
+        elif i == 1:
+            s.append(_pk([f"If that first look rims out, {sur} is right there to clean it up!",
+                          f"And {sur} is the second option on that same trip, long price, big upside!"], K + n))
+        else:
+            s.append(_pk([f"And don't forget {sur}, lurking for the putback!",
+                          f"{sur} rounds it out, the sneaky one, and sneaky is our favorite flavor!"], K + n))
+    if len(names) > 1:
+        s.append(_pk(["Whoever lights it up first, the split covers the game. Let's ride!",
+                      "Any one of them hits and the whole game is paid for. That's how we like it!",
+                      "One bucket from any of them and we're cashing. Wakey wakey, eggs and bakey!"], K + 'c'))
+    else:
+        s.append(_pk([f"Only one man in this game beats his price, and it's {_sur(names[0])}. Long price, big upside, let's go!",
+                      f"{_sur(names[0])} is the lone value in this one, and we are HERE for it!"], K + 'c'))
+    return ' '.join(s)
+
+
 # DTUNDER-2026-10-26: the cold side -- an under is a bet the net stays quiet.
 DT_UNDER_LINES = ["{s} has a lid on the rim tonight, folks, the basket's got a manhole cover on it!",
                   "Cold-blooded, ice-cold, {s} isn't finding the bottom of the net from deep!",
@@ -783,11 +856,10 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
         if not p:
             continue
         o = int(x['odds'])
-        _mates = [y for y in singles if y['game'] == x['game']]
-        _cv = '' if (date < SINGLES_FROM or len(_mates) < 2) else (
-            f" One of {len(_mates)} in {p['gmatch']} ({', '.join(_sur(y['name']) for y in _mates)}): stakes are split so whichever scores first covers the game.")
+        _mates = [y['name'] for y in singles if y['game'] == x['game'] and y['name'] in P]
+        _gn = game_note(_mates, P, st, p['gmatch'], date) if date >= SINGLES_FROM else None   # GAMENOTE-2026-10-28
         T.append(dict(name=NAMES[(doy + i) % len(NAMES)], kind='fb', badge='⚡',
-                      note=note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date) + _cv,
+                      note=(_gn or note(n, dict(team=p['code'], jumper=p['jumper'], ptip=p['ptip'] or .5), st, p['gmatch'], date)),
                       players=[_leg(n, o)], nlegs=1, anchor=n, lock=re.sub(r'\s*ET\s*$', '', p['gtime']),
                       has_late=False, final=False, rr=None, wxsum={}, confleg=0, locked=bool(x.get('locked')), priced=True,
                       parlay_am=o, payout10=round(10 * am_to_dec(o), 1), ftd=True, units=(x.get('stake') or 1),
