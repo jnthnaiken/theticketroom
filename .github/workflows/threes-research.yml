@@ -6,7 +6,7 @@ name: Threes research
 on:
   workflow_dispatch:
     inputs:
-      step: { description: "pull | analyze | both | seed | season", required: false, default: "both" }
+      step: { description: "pull | analyze | both | seed | season | restate", required: false, default: "both" }
 permissions: { contents: write }
 jobs:
   pull:
@@ -119,3 +119,45 @@ jobs:
         run: |
           cd d && cp ../season_bt.log nba/threes/ && cp ../season_bt.json nba/threes/ 2>/dev/null
           git config user.email a@b.c && git config user.name threes && git add nba/threes && git commit -qm "Downtown season backtest" && git push -q
+  restate:
+    # RESTATE-2026-10-28. Owner: "downtown's backtest is in the ledger? 13-12 seems light" / "same with king of the court" /
+    # "only 2 all season?". Every night since opening night under the CURRENT rules: Downtown overs + unders from a fresh
+    # BettingPros 162 pull at FanDuel prices (season_backtest.py), and King of the Court for every KOTC night
+    # (tools/kotc_restate.py). Output on soccer-data:nba/restate/.
+    if: inputs.step == 'restate'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy
+      - name: Data
+        run: |
+          set +e
+          node nba/research/threes/pull_bp162.js 2026-10-20 2026-10-27 odds.psv > pull.log 2>&1; tail -3 pull.log; wc -l odds.psv; gzip -c odds.psv > odds_restate.psv.gz
+          mkdir -p pbp sd
+          for y in 2022 2023 2024 2025; do
+            curl -sL -o pbp/v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && (cd pbp && tar -xf v3_$y.tar.xz)
+            curl -sL -o sd/sd_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/shotdetail_$y.tar.xz && (cd sd && tar -xf sd_$y.tar.xz)
+          done
+      - name: Downtown
+        run: |
+          set +e
+          cd nba/research/threes && python3 season_backtest.py ../../../pbp ../../../sd ../../../odds_restate.psv.gz 2026-10-20 2026-10-27 ../../../dt_restate.json > ../../../dt_restate.log 2>&1; echo "exit $?" >> ../../../dt_restate.log
+          tail -14 ../../../dt_restate.log
+      - name: King of the Court
+        run: |
+          set +e
+          for d in 2026-10-20 2026-10-21 2026-10-27; do python3 tools/kotc_restate.py $d > kotc_$d.json 2> kotc_$d.log; echo "$d exit $?"; head -c 400 kotc_$d.json; echo; tail -3 kotc_$d.log; done
+      - name: Save
+        if: always()
+        run: |
+          for i in 1 2 3 4 5; do
+            rm -rf d; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
+            mkdir -p d/nba/restate && cp dt_restate.json dt_restate.log odds_restate.psv.gz pull.log kotc_*.json kotc_*.log d/nba/restate/ 2>/dev/null
+            (cd d && git config user.email a@b.c && git config user.name restate && git add nba/restate && git commit -qm "NBA restate: Downtown + KOTC" && git push -q) && break
+            sleep $((i*7))
+          done
