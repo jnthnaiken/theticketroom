@@ -8189,24 +8189,27 @@
   "dt": {
    "picks": [
     {
-     "name": "Jrue Holiday",
-     "code": "POR",
-     "gmatch": "POR@SAC",
-     "line": 1.5,
-     "kmin": 2,
-     "odds": -115,
-     "p": 0.6892,
-     "mu": 2.57,
-     "ev": 0.289,
-     "started": false,
+     "name": "Klay Thompson",
+     "code": "MIA",
+     "gmatch": "DET@MIA",
+     "line": 2.5,
+     "kmin": 3,
+     "odds": 102,
+     "p": 0.6497,
+     "mu": 3.59,
+     "ev": 0.312,
+     "started": true,
      "status": "confirmed",
      "locked": true,
      "final": true,
      "dnp": false,
-     "made": 3,
-     "res": "win",
-     "tname": "Lava Lamp Lefty",
-     "restated": true
+     "made": 2,
+     "res": "loss",
+     "side": "O",
+     "game": 7,
+     "gtime": "8:00 PM ET",
+     "tname": "Downtown",
+     "restated": "RESTATE-2026-10-28: current Downtown rules at FanDuel closing prices"
     },
     {
      "name": "Rui Hachimura",
@@ -8227,9 +8230,9 @@
      "made": 3,
      "res": "loss",
      "game": 10,
-     "tname": "Shag Carpet Swish",
-     "restated": true,
-     "note": "Hachimura has a lid on the rim tonight, folks, the basket's got a manhole cover on it!"
+     "gtime": "10:00 PM ET",
+     "tname": "Downtown",
+     "restated": "RESTATE-2026-10-28: current Downtown rules at FanDuel closing prices"
     },
     {
      "name": "Desmond Bane",
@@ -8250,9 +8253,9 @@
      "made": 1,
      "res": "win",
      "game": 5,
-     "tname": "Pinball Wizard Pull-Up",
-     "restated": true,
-     "note": "Cold-blooded, ice-cold, Bane isn't finding the bottom of the net from deep!"
+     "gtime": "7:00 PM ET",
+     "tname": "Downtown",
+     "restated": "RESTATE-2026-10-28: current Downtown rules at FanDuel closing prices"
     },
     {
      "name": "Dennis Schroder",
@@ -8273,9 +8276,9 @@
      "made": 0,
      "res": "win",
      "game": 2,
-     "tname": "Gold Chain Gunner",
-     "restated": true,
-     "note": "Keep the ball inside the arc, Schroder! Brick city, population one!"
+     "gtime": "7:00 PM ET",
+     "tname": "Downtown",
+     "restated": "RESTATE-2026-10-28: current Downtown rules at FanDuel closing prices"
     },
     {
      "name": "Immanuel Quickley",
@@ -8296,12 +8299,12 @@
      "made": 0,
      "res": "win",
      "game": 4,
-     "tname": "Smooth Groove Rainmaker",
-     "restated": true,
-     "note": "The long ball's on vacation for Quickley tonight, out of office!"
+     "gtime": "7:00 PM ET",
+     "tname": "Downtown",
+     "restated": "RESTATE-2026-10-28: current Downtown rules at FanDuel closing prices"
     }
    ],
-   "restated": "DTUNDER-2026-10-27: unders restated in at FanDuel prices (rule: line >= 1.5, P(under) >= .5, EV >= .15, 1u)"
+   "restated": "RESTATE-2026-10-28"
   }
  }
 }

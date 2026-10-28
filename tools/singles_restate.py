@@ -13,7 +13,8 @@ nights = list(S0['graded_nights'])
 NOTE = ('COVER-2026-10-28 (owner: "3 likeliest, any edge, weighted so any hit covers the game"): Tip-Off = per game, our model\'s '
         '3 most likely starters with any edge, 0.6u a game dutched across them (replaces the one-per-game rule posted earlier the same '
         'day, and From the Logo / Full-Court Heaves). 10-20..10-27 restated from each board\'s priced starters at the FanDuel prices on the board.')
-notes = [n for n in (S0.get('notes') or []) if not n.startswith(('SINGLES-2026-10-28', 'COVER-2026-10-28'))] + [NOTE]
+NOTE2 = ('RESTATE-2026-10-28 (owner: "13-12 seems light" / "same with king of the court"): Downtown 10-20..10-25 restated under the current rules (overs + unders) at FanDuel closing prices; 10-26/10-27 keep the overs as posted and add the unders; King of the Court 10-20 (opening Tuesday) restated: Jayson Tatum u41.5 -120, 28 PRA, won.')
+notes = [n for n in (S0.get('notes') or []) if not n.startswith(('SINGLES-2026-10-28', 'COVER-2026-10-28', 'RESTATE-2026-10-28'))] + [NOTE, NOTE2]
 fresh = {'since': S0['since'], 'history': [0], 'graded_nights': [], 'cats': {}, 'stake': 1, 'notes': notes, 'restated': True}
 json.dump(fresh, open(SP, 'w'), indent=1)
 for d in nights:
