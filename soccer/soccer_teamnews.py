@@ -66,6 +66,11 @@ def forms(s):
 # (ESPN "Kevin Denkey"); the odds feed's "Ahoueke Denkey" just never joined. Keys and values are nrm() forms.
 # Kept in step with SHEET_ALIAS in soccer_live.js.
 SHEET_ALIAS = {'ahoueke denkey': 'kevin denkey'}
+# NOTSAME-2026-10-28. The other direction: a lone same-surname squad member who is known to be a DIFFERENT man.
+# Owner 1:18 PM: "why does lautaro martinez keep popping up and then going away. they start in 13 min, hes not
+# playing". Inter's sheet was out without him; the lone namesake (keeper Josep Martinez) kept him "unknown" through the
+# Denkey rule in surname_hits(), so every build re-posted him while the page (token containment) dropped him.
+NOT_SAME = {'lautaro martinez': {'josep martinez'}}
 
 
 def match_one(name, squad):
@@ -238,7 +243,10 @@ def surname_hits(name, squad):
     # "Kévin Denkey" -- same man; the unconditional check marked Cincinnati's striker out of the squad).
     # Two or more (Slovan's Suleiman AND Sahmkou Camara for Roma's Mandjou) need a compatible given name.
     n, loose = 0, []
+    _ns = NOT_SAME.get(nrm(name), set())
     for cand, _ in squad:
+        if nrm(cand) in _ns:
+            continue
         hit = sur = False
         for ot in forms(name):
             if not ot:
