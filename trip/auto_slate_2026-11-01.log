@@ -5,9 +5,9 @@ auto_slate 2026-11-01: 22 fixtures
   scorers: no BettingPros event for lyon-v-angers
   scorers: no BettingPros event for paris-fc-v-as-monaco
   scorers: no BettingPros event for marseille-v-toulouse
-  ags: 777 prices across 16 matches
-  fgs: 761 prices across 16 matches
-  FanDuel: 532 events after reading 110 competition listings
+  ags: 785 prices across 16 matches
+  fgs: 765 prices across 16 matches
+  FanDuel: 561 events after reading 113 competition listings
   FanDuel: no event for lafc-v-minnesota-united-fc
   FanDuel: no event for athletic-club-v-real-sociedad
   FanDuel strasbourg-v-aj-auxerre (Strasbourg v Auxerre): 44 anytime prices
@@ -24,9 +24,12 @@ auto_slate 2026-11-01: 22 fixtures
   understat Bundesliga 2026: ok
   understat EPL 2025: ok
   understat EPL 2026: ok
-  ASA 2026: 872 players -> /tmp/mls_2026.psv
-  68 with penalties (subtracted out of npxG), 729 with non-zero npxG
+  ASA 2026: 874 players -> /tmp/mls_2026.psv
+  68 with penalties (subtracted out of npxG), 730 with non-zero npxG
   ASA 2025: 854 players -> /tmp/mls_2025.psv
   67 with penalties (subtracted out of npxG), 698 with non-zero npxG
-  xg rows: 6776
-fixtures 22, matches with goalscorer prices 20, xg rows 6776
+  xg rows: 6778
+fixtures 22, matches with goalscorer prices 20, xg rows 6778
+auto_add ags.psv: 941 kept, 0 added
+auto_add fgs.psv: 925 kept, 0 added
+nothing new to add
