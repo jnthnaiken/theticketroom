@@ -179,6 +179,21 @@ async function fanduel(fx, missing) {
   return out;
 }
 
+// XGCACHE-2026-11-02: newest slate before `date` (within 7 days) whose xg.psv has rows for this understat league+season.
+function cachedXg(date, lg, season) {
+  const root = path.join(__dirname, 'slates');
+  let ds = [];
+  try { ds = fs.readdirSync(root).filter(d => /^\d{4}-\d\d-\d\d$/.test(d) && d < date).sort().reverse(); } catch (e) { return null; }
+  const floor = new Date(Date.parse(date + 'T00:00:00Z') - 7 * 864e5).toISOString().slice(0, 10);
+  for (const d of ds) {
+    if (d < floor) break;
+    let t; try { t = fs.readFileSync(path.join(root, d, 'xg.psv'), 'utf8'); } catch (e) { continue; }
+    const rows = t.split('\n').filter(r => { const a = r.split('|'); return a[0] === lg && a[1] === String(season); });
+    if (rows.length) return { date: d, rows };
+  }
+  return null;
+}
+
 async function xg(fx) {
   let lgs = [...new Set(Object.values(fx.matches).map(m => m.league))];
   // FDCUP-2026-10-27: a cup tie (DFB-Pokal, Copa del Rey, League Cup...) has no understat league of its own -- its clubs
@@ -196,7 +211,14 @@ async function xg(fx) {
           p.shots, f(t ? sh / t * 90 : 0, 2), f(sh ? np / sh : 0, 4), f(p.xA, 2), f(t ? p.xA / t * 90 : 0, 2), p.key_passes, f(p.xGChain, 2)].join('|'));
       }
       console.log(`  understat ${lg} ${season}: ok`);
-    } catch (e) { console.log(`  ::warning::understat ${lg} ${season}: ${String(e).slice(0, 120)}`); }
+    } catch (e) {
+      console.log(`  ::warning::understat ${lg} ${season}: ${String(e).slice(0, 120)}`);
+      // XGCACHE-2026-11-02: understat refused every runner fetch from 7 PM 11-01 on ("fetch failed"), so the 11-02 slate
+      // had 5 priced matches and 0 xG rows and the xG gate held the board. Season-to-date xG moves a day at a time --
+      // fall back to the newest earlier slate's xg.psv rows for this league+season (logged, so it is visible).
+      const c = cachedXg(fx.date, UNDERSTAT[lg], season);
+      if (c) { rows.push(...c.rows); console.log(`  ::warning::understat ${lg} ${season}: using cached xG from slate ${c.date} (${c.rows.length} rows)`); }
+    }
   }
   if (lgs.includes('MLS')) {
     for (const season of [cur, cur - 1].map(String)) {
