@@ -1,0 +1,90 @@
+{
+ "kind": "goalline",
+ "date": "2026-11-03",
+ "picked_at": "2026-11-03T01:22Z",
+ "legs": [
+  {
+   "match": "manchester-united-v-as-roma",
+   "mkt": "BT",
+   "side": "Y",
+   "line": null,
+   "price": 1.5025125628140703,
+   "best": 1.5025125628140703,
+   "est": 1.43185174043911,
+   "p": 0.6650128951865666,
+   "pm": 0.6588644618511833,
+   "label": "Both teams to score"
+  },
+  {
+   "match": "villarreal-v-paris-saint-germain",
+   "mkt": "TH",
+   "side": "U",
+   "line": 1.5,
+   "price": 1.5464480874316942,
+   "best": 1.5464480874316942,
+   "est": 1.5485446669608227,
+   "p": 0.5902349745237367,
+   "pm": 0.6092147333835749,
+   "label": "Villarreal under 1.5 goals"
+  }
+ ],
+ "views": [
+  {
+   "match": "atletico-madrid-v-bayern-munich",
+   "mlh": 1.7,
+   "mla": 1.8,
+   "lh": 1.7026368347465572,
+   "la": 1.8433758915412004,
+   "luck": {
+    "home": [
+     "Atletico Madrid",
+     -0.008795518091828805,
+     -0.488709980242257
+    ],
+    "away": [
+     "Bayern Munich",
+     0.026362989226936483,
+     0.10128324625042813
+    ]
+   }
+  },
+  {
+   "match": "manchester-united-v-as-roma",
+   "mlh": 1.75,
+   "mla": 1.55,
+   "lh": 1.800023858992395,
+   "la": 1.5479495916230441,
+   "luck": {
+    "home": [
+     "Manchester United",
+     -0.4380831819747012,
+     -0.11871560641523504
+    ],
+    "away": [
+     "Roma",
+     0.3411065875701591,
+     -0.2107411709066729
+    ]
+   }
+  },
+  {
+   "match": "villarreal-v-paris-saint-germain",
+   "mlh": 1.35,
+   "mla": 2.35,
+   "lh": 1.4046315357994597,
+   "la": 2.3221824665205273,
+   "luck": {
+    "home": [
+     "Villarreal",
+     -0.5066518445115804,
+     0.11698839603401726
+    ],
+    "away": [
+     "Paris Saint Germain",
+     0.37800654435533404,
+     -0.44270248401794327
+    ]
+   }
+  }
+ ]
+}
