@@ -25,7 +25,7 @@ import json, sys
 
 from nfl_live_seams import live_seams, LIVE_SEAM_COUNT, LIVELOOP_NEW
 
-EXPECT_SEAMS = 70 + LIVE_SEAM_COUNT   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
+EXPECT_SEAMS = 71 + LIVE_SEAM_COUNT  # NOTECLAMP-NFL-2026-11-04 +1   # 60 named + 1 payload + 3 live = 64 (SPECIALKINDS-2026-09-27 +8)  # SPORTEMOJI-2026-10-15 +2 (kemo, howto-tbadge)
                                       # (+2 SNAPSHOTKEY-2026-09-09, +3 NFLLIVE-2026-09-09,
                                       #  +1 INJEXIT-2026-10-11 'out-of-lineup')
 
@@ -47,6 +47,10 @@ def seams(payload_js):
     # "it has nothing to do with lunch anymore").
     add('dinger-idle', ' const closed=\'<div class="closed">\'+(D.tickets.some(t=>t.kind===\'dinger\'&&t.final)?\'⚾ This one’s already rounded the bases. Fresh swing tomorrow.\':\'⚾ The Dinger’s still in the dugout — nobody’s called its name yet. Check back before first pitch.\')+\'</div>\';',
         ' const closed=\'<div class="closed">🏈 Still in the huddle — no first-touchdown call on this slate yet. It comes in once the first-TD prices post. Check back before kickoff.</div>\';')
+    # NOTECLAMP-NFL-2026-11-04. Owner: "write-ups for football are getting cutoff with a ... on mobile". Baseball clamps a slip's
+    # write-up to two lines; basketball already shows them in full (nba_fork NOTECLAMP-2026-10-24), football now does too.
+    add('tnote-unclamp', "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}",
+        "#v-h .tnote{-webkit-line-clamp:none;overflow:visible;min-height:0}\n.tnote{-webkit-line-clamp:none;line-clamp:none;overflow:visible;display:block;min-height:0}")
     add('title', '<title>The Baseball Room</title>', '<title>The Football Room</title>')
     add('eyebrow', 'eyebrow">Home-Run Props · ', 'eyebrow">Anytime Touchdown · ')
     add('eyebrow-tail', ' · Kasper blend + matchup</div>', ' · usage blend + game total</div>')
