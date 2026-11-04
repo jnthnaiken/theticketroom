@@ -1,8 +1,8 @@
 auto_slate 2026-11-04: 8 fixtures
   scorers: no BettingPros event for stade-rennais-v-olympiacos
-  ags: 344 prices across 7 matches
+  ags: 348 prices across 7 matches
   fgs: 336 prices across 7 matches
-  FanDuel: 648 events after reading 93 competition listings
+  FanDuel: 665 events after reading 97 competition listings
   FanDuel: no event for stade-rennais-v-olympiacos
   ::warning::understat EPL 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
   ::warning::understat EPL 2025: using cached xG from slate 2026-11-03 (537 rows)
@@ -26,3 +26,6 @@ auto_slate 2026-11-04: 8 fixtures
   ::warning::understat Ligue_1 2026: using cached xG from slate 2026-11-03 (428 rows)
   xg rows: 5050
 fixtures 8, matches with goalscorer prices 7, xg rows 5050
+auto_add ags.psv: 344 kept, 0 added
+auto_add fgs.psv: 336 kept, 0 added
+nothing new to add
