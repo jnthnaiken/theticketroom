@@ -14,8 +14,8 @@ auto_slate 2026-11-05: 13 fixtures
   scorers: no BettingPros event for cd-tarancon-v-levante
   ags: 0 prices across 0 matches
   fgs: 0 prices across 0 matches
-  FanDuel: 664 events after reading 96 competition listings
-  FanDuel ac-milan-v-ferencvaros (AC Milan v Ferencvaros): 48 anytime prices
+  FanDuel: 661 events after reading 98 competition listings
+  FanDuel ac-milan-v-ferencvaros (AC Milan v Ferencvaros): 47 anytime prices
   FanDuel crystal-palace-v-tsg-hoffenheim (Crystal Palace v Hoffenheim): 41 anytime prices
   FanDuel real-sociedad-v-lyon (Real Sociedad v Lyon): 41 anytime prices
   FanDuel sparta-prague-v-afc-bournemouth (Sparta Prague v Bournemouth): 39 anytime prices
@@ -24,8 +24,8 @@ auto_slate 2026-11-05: 13 fixtures
   FanDuel celta-vigo-v-union-st-gilloise (Celta Vigo v Union St Gilloise): 42 anytime prices
   FanDuel sunderland-v-dinamo-zagreb (Sunderland v Dinamo Zagreb): 43 anytime prices
   FanDuel atalanta-v-kairat-almaty (Atalanta v Kairat Almaty): 39 anytime prices
-  FanDuel trabzonspor-v-sc-freiburg (Trabzonspor v Freiburg): 38 anytime prices
-  FanDuel as-monaco-v-fc-nordsj-lland (Monaco v FC Nordsjaelland): 42 anytime prices
+  FanDuel trabzonspor-v-sc-freiburg (Trabzonspor v Freiburg): 37 anytime prices
+  FanDuel as-monaco-v-fc-nordsj-lland (Monaco v FC Nordsjaelland): 43 anytime prices
   FanDuel getafe-v-brighton-hove-albion (Getafe v Brighton): 42 anytime prices
   FanDuel: no event for cd-tarancon-v-levante
   ::warning::understat EPL 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
@@ -50,3 +50,6 @@ auto_slate 2026-11-05: 13 fixtures
   ::warning::understat Ligue_1 2026: using cached xG from slate 2026-11-04 (428 rows)
   xg rows: 5050
 fixtures 13, matches with goalscorer prices 12, xg rows 5050
+auto_add ags.psv: 494 kept, 0 added
+auto_add fgs.psv: 494 kept, 0 added
+nothing new to add
