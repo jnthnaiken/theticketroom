@@ -1,7 +1,7 @@
 auto_slate 2026-11-06: 5 fixtures
   scorers: no BettingPros event for toulouse-v-strasbourg
-  ags: 184 prices across 4 matches
-  fgs: 180 prices across 4 matches
+  ags: 187 prices across 4 matches
+  fgs: 181 prices across 4 matches
   FanDuel toulouse-v-strasbourg (Toulouse v Strasbourg): 40 anytime prices
   ::warning::understat Bundesliga 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
   ::warning::understat Bundesliga 2025: using cached xG from slate 2026-11-05 (499 rows)
@@ -25,3 +25,6 @@ auto_slate 2026-11-06: 5 fixtures
   ::warning::understat La_liga 2026: using cached xG from slate 2026-11-05 (487 rows)
   xg rows: 5050
 fixtures 5, matches with goalscorer prices 5, xg rows 5050
+auto_add ags.psv: 224 kept, 0 added
+auto_add fgs.psv: 220 kept, 0 added
+nothing new to add
