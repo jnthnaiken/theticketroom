@@ -81,23 +81,52 @@ jobs:
 
       - name: History base + current-season refresh
         if: steps.need.outputs.dates != ''
+        # USDOWN-2026-11-07. Owner: "I'm getting 25+ emails/day about soccer runs failing ... please make it stop".
+        # Since 11-06 ~22:30Z understat answers EVERY url (pages and /getLeagueData alike) with the same 26.7 KB
+        # error page, so fetch_history.py got 0 rows, exited 1, and this job went red on every tick (59 runs).
+        # Now: a refresh that comes back empty is a WARNING, not a failure. The newest good current-season pull is
+        # cached on soccer-data (history/current/) after every success; when understat is out the model runs on that
+        # cache (or on the multi-season base alone if there is no cache yet) and says so in the log.
         run: |
           set -e
-          mkdir -p hist
+          mkdir -p hist cache
           git fetch --depth 1 origin soccer-data
           git show FETCH_HEAD:history/2014-2026-limit0/team_matches.csv.gz   > hist/base_team.csv.gz
           git show FETCH_HEAD:history/2014-2026-limit0/player_matches.csv.gz > hist/base_player.csv.gz
-          python3 soccer/history/fetch_history.py --out fresh --first 2026 --last 2026 --no-odds
+          git show FETCH_HEAD:history/current/team_matches.csv.gz   > cache/team_matches.csv.gz   2>/dev/null || rm -f cache/team_matches.csv.gz
+          git show FETCH_HEAD:history/current/player_matches.csv.gz > cache/player_matches.csv.gz 2>/dev/null || rm -f cache/player_matches.csv.gz
+          python3 soccer/history/fetch_history.py --out fresh --first 2026 --last 2026 --no-odds || echo "::warning::understat refresh failed -- using the cached current season"
           python3 - <<'PY'
-          import pandas as pd
-          bt = pd.read_csv('hist/base_team.csv.gz'); ft = pd.read_csv('fresh/team_matches.csv.gz')
-          bp = pd.read_csv('hist/base_player.csv.gz'); fp = pd.read_csv('fresh/player_matches.csv.gz')
-          t = pd.concat([bt[bt.season < 2026], ft], ignore_index=True)
-          p = pd.concat([bp[bp.season < 2026], fp], ignore_index=True)
+          import os, pandas as pd
+          def rows(p):
+              try: return pd.read_csv(p) if os.path.exists(p) else None
+              except Exception: return None
+          ft, fp = rows('fresh/team_matches.csv.gz'), rows('fresh/player_matches.csv.gz')
+          src = 'fresh'
+          if ft is None or fp is None or len(ft) == 0 or len(fp) == 0:
+              ft, fp = rows('cache/team_matches.csv.gz'), rows('cache/player_matches.csv.gz'); src = 'cache'
+          bt = pd.read_csv('hist/base_team.csv.gz'); bp = pd.read_csv('hist/base_player.csv.gz')
+          if ft is None or fp is None or len(ft) == 0 or len(fp) == 0:
+              t, p = bt, bp; src = 'base only'
+          else:
+              t = pd.concat([bt[bt.season < 2026], ft], ignore_index=True)
+              p = pd.concat([bp[bp.season < 2026], fp], ignore_index=True)
           t.to_csv('hist/team_matches.csv.gz', index=False)
           p.to_csv('hist/player_matches.csv.gz', index=False)
-          print('merged', len(t), 'team rows,', len(p), 'player rows; latest', p.date.max())
+          print(f'current season from: {src}; merged', len(t), 'team rows,', len(p), 'player rows; latest', p.date.max())
+          if src != 'fresh':
+              print(f'::warning::understat unavailable -- shadow model running on the {src} (latest match {p.date.max()})')
+          open('hist/SOURCE', 'w').write(src)
           PY
+          if [ "$(cat hist/SOURCE)" = "fresh" ]; then
+            for i in 1 2 3; do
+              rm -rf sd; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" sd || break
+              mkdir -p sd/history/current && cp fresh/team_matches.csv.gz fresh/player_matches.csv.gz sd/history/current/
+              (cd sd && git config user.email a@b.c && git config user.name shadow-cache && git add history/current \
+                && { git diff --cached --quiet || git commit -qm "understat current-season cache $(date -u +%FT%H:%MZ)"; } && git push -q) && break
+              sleep 5
+            done || true
+          fi
 
       - name: Shadow
         if: steps.need.outputs.dates != ''
