@@ -1,3 +1,44 @@
-{"date": "2026-10-21", "locked": true, "pick": {"name": "Luka Doncic", "code": "LAL", "team": "Lakers", "game": 9, "gmatch": "GSW@LAL", "line": 49.5, "side": "U", "odds": -118, "p": 0.3438, "mean": 49.5, "pop": 0.0839, "value": 4.098, "tname": "The Crown", "status": "confirmed", "final": true, "pra": 43, "dnp": false, "restated": "KOTC-2026-10-27: restated at BettingPros PRA lines", "res": "win"}, "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4", "leader": ["Anthony Edwards", 58], "top": [{"name": "Luka Doncic", "code": "LAL", "line": 49.5, "mean": 49.5, "p": 0.3438, "pop": 0.0839, "value": 4.098, "crown": true}, {"name": "Giannis Antetokounmpo", "code": "MIA", "line": 46.5, "mean": 46.8, "p": 0.2376, "pop": 0.0668, "value": 3.557, "crown": false}, {"name": "Jalen Johnson", "code": "ATL", "line": 38.5, "mean": 38.4, "p": 0.0499, "pop": 0.0305, "value": 1.636, "crown": false}, {"name": "Anthony Edwards", "code": "MIN", "line": 36.5, "mean": 36.7, "p": 0.0328, "pop": 0.0253, "value": 1.296, "crown": false}, {"name": "Domantas Sabonis", "code": "SAC", "line": 36.5, "mean": 36.6, "p": 0.0319, "pop": 0.0252, "value": 1.266, "crown": false}, {"name": "Paolo Banchero", "code": "ORL", "line": 36.5, "mean": 36.5, "p": 0.0307, "pop": 0.0248, "value": 1.238, "crown": false}]}
+league page 200 26719 text/html cookies []
+--- head of page ---
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Understat.com</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,maximum-scale=1.0,initial-scale=1.0">
+        <link href="/css/errors.css" rel="stylesheet" media="screen">
+    </head>
+    <body class="theme-dark">
+      <div id="image-container" class="player-container">
+          <div class="player">
+          <?xml version="1.0" encoding="UTF-8"?>
+            <svg style="background-color: #343436;" id="master-artboard" viewBox="0 0 1400 1400" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="gradient-0" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                            <stop offset="1" style="stop-color: #ffdd33"/>
+                          </radialGradient><radialGradient id="gradient-1" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                            <stop offset="1" style="stop-color: #ffdd33"/>
+                          </radialGradient><radialGradient id="gradient-2" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                            <stop offset="1" style="stop-color: #ffdd33"/>
+                          </radialGradient><radialGradient id="gradient-3" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                            <stop offset="1" style="stop-color: #ffdd33"/>
+                          </radialGradient><radialGradient id="gradient-4" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                            <stop offset="1" style="stop-color: #ffdd33"/>
+                          </radialGradient><radialGradient id="gradient-5" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                            <stop offset="1" style="stop-color: #ffdd33"/>
+                          </radialGradient><radialGradient id="gradient-6" gradientUnits="objectBoundingBox" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" style="stop-color: #ffee99"/>
+                    
+scripts []
+inline vars []
+TRY /getLeagueData/EPL/2026 200 text/html 26719 "<!DOCTYPE html>\n<html>\n    <head>\n\t\t<title>Understat.com</title>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"viewport\" content=\"width=device-width,maxi"
+TRY /getLeagueData/EPL/2025 200 text/html 26719 "<!DOCTYPE html>\n<html>\n    <head>\n\t\t<title>Understat.com</title>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"viewport\" content=\"width=device-width,maxi"
+TRY /api/league/EPL/2026 200 text/html 26719 "<!DOCTYPE html>\n<html>\n    <head>\n\t\t<title>Understat.com</title>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"viewport\" content=\"width=device-width,maxi"
+TRY /getLeagueData?league=EPL&season=2026 200 text/html 26719 "<!DOCTYPE html>\n<html>\n    <head>\n\t\t<title>Understat.com</title>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"viewport\" content=\"width=device-width,maxi"
+player page 200 26719 []
 curl oddschecker winner: 403
 curl understat: 200
