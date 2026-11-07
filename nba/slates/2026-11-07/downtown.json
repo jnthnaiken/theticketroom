@@ -3,6 +3,28 @@
  "picks": [
   {
    "game": 1,
+   "name": "Nikola Jokic",
+   "team": "Nuggets",
+   "code": "DEN",
+   "gmatch": "DEN@IND",
+   "gtime": "5:00 PM ET",
+   "ko_utc": "2026-11-07T22:00:00+00:00",
+   "line": 1.5,
+   "kmin": 2,
+   "odds": -136,
+   "side": "U",
+   "p": 0.6802,
+   "mu": 1.16,
+   "ev": 0.18,
+   "started": true,
+   "status": "projected",
+   "locked": false,
+   "posted_at": "2026-11-07T20:29Z",
+   "tname": "Roller Rink Rainbow",
+   "note": "Cold-blooded, ice-cold, Jokic isn't finding the bottom of the net from deep!"
+  },
+  {
+   "game": 1,
    "name": "Pascal Siakam",
    "team": "Pacers",
    "code": "IND",
@@ -19,8 +41,8 @@
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
-   "tname": "Roller Rink Rainbow",
+   "posted_at": "2026-11-07T20:29Z",
+   "tname": "Groove Tube",
    "note": "Siakam from downtown? Not tonight, the bridge is out!"
   },
   {
@@ -41,31 +63,9 @@
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
-   "tname": "Groove Tube",
-   "note": "Quiet night from the perimeter for Porter, and we like it that way!"
-  },
-  {
-   "game": 3,
-   "name": "Trae Young",
-   "team": "Wizards",
-   "code": "WAS",
-   "gmatch": "WAS@OKC",
-   "gtime": "8:00 PM ET",
-   "ko_utc": "2026-11-08T01:00:00+00:00",
-   "line": 1.5,
-   "kmin": 2,
-   "odds": 144,
-   "side": "U",
-   "p": 0.5476,
-   "mu": 1.57,
-   "ev": 0.336,
-   "started": true,
-   "status": "projected",
-   "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Sugar Shack Shooter",
-   "note": "Young keeps it in the paint, nothing but elbow jumpers and floaters!"
+   "note": "Quiet night from the perimeter for Porter, and we like it that way!"
   },
   {
    "game": 4,
@@ -77,14 +77,14 @@
    "ko_utc": "2026-11-08T01:00:00+00:00",
    "line": 2.5,
    "kmin": 3,
-   "odds": 142,
+   "odds": 146,
    "p": 0.5087,
    "mu": 2.81,
-   "ev": 0.231,
+   "ev": 0.251,
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "side": "O",
    "tname": "Strobe Light Swish",
    "note": "Thomas pulls up from deep like he's got the deed to the three-point line!"
@@ -107,7 +107,7 @@
    "started": false,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Funk Factory",
    "note": "Silva has a lid on the rim tonight, folks, the basket's got a manhole cover on it!"
   },
@@ -129,7 +129,7 @@
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Butterscotch Bomb",
    "note": "Clang, clang, clang goes the trolley, and Richardson keeps riding it!"
   },
@@ -151,9 +151,9 @@
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Boom Box Bucket",
-   "note": "Keep the ball inside the arc, Black! Brick city, population one!"
+   "note": "Black keeps it in the paint, nothing but elbow jumpers and floaters!"
   },
   {
    "game": 5,
@@ -173,9 +173,9 @@
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Afro Pick Pull-Up",
-   "note": "Cold-blooded, ice-cold, Wagner isn't finding the bottom of the net from deep!"
+   "note": "Keep the ball inside the arc, Wagner! Brick city, population one!"
   },
   {
    "game": 6,
@@ -195,7 +195,7 @@
    "started": false,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Saturday Night Splash",
    "note": "The defense runs Eason off the line all night long!"
   },
@@ -217,7 +217,7 @@
    "started": false,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Disco Ball Dagger",
    "note": "The long ball's on vacation for Lillard tonight, out of office!"
   },
@@ -239,7 +239,7 @@
    "started": true,
    "status": "projected",
    "locked": false,
-   "posted_at": "2026-11-07T20:24Z",
+   "posted_at": "2026-11-07T20:29Z",
    "tname": "Wah-Wah Wing Three",
    "note": "Close out hard on Avdija and the threes stay in the freezer!"
   }
