@@ -5,9 +5,9 @@ auto_slate 2026-11-08: 24 fixtures
   scorers: no BettingPros event for le-havre-ac-v-lorient
   scorers: no BettingPros event for le-mans-v-as-monaco
   scorers: no BettingPros event for lens-v-marseille
-  ags: 870 prices across 18 matches
-  fgs: 824 prices across 18 matches
-  FanDuel: 406 events after reading 104 competition listings
+  ags: 866 prices across 18 matches
+  fgs: 822 prices across 18 matches
+  FanDuel: 399 events after reading 98 competition listings
   FanDuel: no event for stade-rennais-v-lille
   FanDuel angers-v-nice (Angers v Nice): 39 anytime prices
   FanDuel brest-v-lyon (Brest v Lyon): 41 anytime prices
@@ -36,3 +36,6 @@ auto_slate 2026-11-08: 24 fixtures
   ::warning::understat Bundesliga 2026: using cached xG from slate 2026-11-07 (413 rows)
   xg rows: 5050
 fixtures 24, matches with goalscorer prices 23, xg rows 5050
+auto_add ags.psv: 1067 kept, 0 added
+auto_add fgs.psv: 1021 kept, 0 added
+nothing new to add
