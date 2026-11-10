@@ -179,12 +179,15 @@ async function fanduel(fx, missing) {
   return out;
 }
 
-// XGCACHE-2026-11-02: newest slate before `date` (within 7 days) whose xg.psv has rows for this understat league+season.
+// XGCACHE-2026-11-02: newest slate before `date` (within XG_CACHE_DAYS) whose xg.psv has rows for this understat league+season.
+// INTLBREAK-2026-11-10: 7 -> 21 days. Understat has been down for runners since 11-06 and the last club slate is 11-08; the
+// November internationals (UNL matchdays 11-12..11-17) gate on the xG join, so a 7-day window would have dropped them all from 11-16.
+const XG_CACHE_DAYS = 21;
 function cachedXg(date, lg, season) {
   const root = path.join(__dirname, 'slates');
   let ds = [];
   try { ds = fs.readdirSync(root).filter(d => /^\d{4}-\d\d-\d\d$/.test(d) && d < date).sort().reverse(); } catch (e) { return null; }
-  const floor = new Date(Date.parse(date + 'T00:00:00Z') - 7 * 864e5).toISOString().slice(0, 10);
+  const floor = new Date(Date.parse(date + 'T00:00:00Z') - XG_CACHE_DAYS * 864e5).toISOString().slice(0, 10);
   for (const d of ds) {
     if (d < floor) break;
     let t; try { t = fs.readFileSync(path.join(root, d, 'xg.psv'), 'utf8'); } catch (e) { continue; }
