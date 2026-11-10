@@ -12,27 +12,27 @@
   "line": 47.5,
   "side": "U",
   "odds": -115,
-  "p": 0.3368,
+  "p": 0.3331,
   "mean": 47.4,
-  "pop": 0.1296,
-  "value": 2.599,
+  "pop": 0.1278,
+  "value": 2.606,
   "tname": "The Crown",
-  "posted_at": "2026-11-10T23:26Z",
+  "posted_at": "2026-11-10T23:32Z",
   "lock": "7:30 PM ET",
   "status": "projected",
   "note": "All hail Antetokounmpo! Scoring, rebounding, passing, the man does it all and does it loud!"
  },
  "model": "KOTC v1: Normal PRA, sd 0.2*mean+2.5, popularity mean^4",
- "fetched": "2026-11-10T23:26Z",
+ "fetched": "2026-11-10T23:32Z",
  "top": [
   {
    "name": "Giannis Antetokounmpo",
    "code": "MIA",
    "line": 47.5,
    "mean": 47.4,
-   "p": 0.3368,
-   "pop": 0.1296,
-   "value": 2.599,
+   "p": 0.3331,
+   "pop": 0.1278,
+   "value": 2.606,
    "crown": true
   },
   {
@@ -40,9 +40,9 @@
    "code": "OKC",
    "line": 42.5,
    "mean": 42.5,
-   "p": 0.1612,
-   "pop": 0.0835,
-   "value": 1.931,
+   "p": 0.1595,
+   "pop": 0.0827,
+   "value": 1.929,
    "crown": false
   },
   {
@@ -50,9 +50,9 @@
    "code": "BOS",
    "line": 40.5,
    "mean": 40.5,
-   "p": 0.1127,
-   "pop": 0.0691,
-   "value": 1.631,
+   "p": 0.116,
+   "pop": 0.0685,
+   "value": 1.693,
    "crown": false
   },
   {
@@ -60,9 +60,19 @@
    "code": "ORL",
    "line": 38.5,
    "mean": 38.7,
-   "p": 0.0802,
-   "pop": 0.0574,
-   "value": 1.397,
+   "p": 0.0766,
+   "pop": 0.0568,
+   "value": 1.349,
+   "crown": false
+  },
+  {
+   "name": "Karl-Anthony Towns",
+   "code": "NYK",
+   "line": 37.5,
+   "mean": 37.5,
+   "p": 0.0609,
+   "pop": 0.0501,
+   "value": 1.216,
    "crown": false
   },
   {
@@ -70,19 +80,9 @@
    "code": "POR",
    "line": 36.5,
    "mean": 36.5,
-   "p": 0.0491,
-   "pop": 0.0454,
-   "value": 1.081,
-   "crown": false
-  },
-  {
-   "name": "Karl-Anthony Towns",
-   "code": "NYK",
-   "line": 36.5,
-   "mean": 36.5,
-   "p": 0.0484,
-   "pop": 0.0457,
-   "value": 1.059,
+   "p": 0.0448,
+   "pop": 0.045,
+   "value": 0.996,
    "crown": false
   }
  ]
