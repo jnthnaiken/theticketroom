@@ -58,6 +58,8 @@ concurrency:
   group: nfl-build
   cancel-in-progress: false
 
+env:
+  NFLVERSE_CACHE: ${{ github.workspace }}/.nflcache   # NFLRETRY-2026-11-10 (nfl_stats._get / nfl_ftd_stats._get)
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -191,6 +193,15 @@ jobs:
           print('go=true')
           PY
 
+      # NFLRETRY-2026-11-10: keep the last good nflverse downloads between runs, so a 504 from nflverse falls back to
+      # them instead of failing the build (nfl_stats._get). One save per hour at most (the key is the hour).
+      - id: hour
+        run: echo "h=$(date -u +%Y%m%d%H)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: .nflcache
+          key: nflverse-${{ steps.hour.outputs.h }}
+          restore-keys: nflverse-
       - name: Stage the work directory
         if: steps.slate.outputs.go == 'true'
         run: |

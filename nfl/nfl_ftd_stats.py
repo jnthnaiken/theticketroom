@@ -40,12 +40,10 @@ def norm(s):
 
 
 def _get(url, dest, cache):
-    import urllib.request
-    os.makedirs(cache, exist_ok=True)
-    p = os.path.join(cache, dest)
-    if not os.path.exists(p) or os.path.getsize(p) < 100:      # a 404 raises; this only catches an empty write
-        urllib.request.urlretrieve(url, p)
-    return p
+    # NFLRETRY-2026-11-10: one downloader for both models -- retries, and the last good copy when nflverse 504s
+    # (a swallowed 504 here used to drop a whole season of play-by-play from the first-TD model without a word).
+    import nfl_stats
+    return nfl_stats._get(url, dest, os.environ.get('NFLVERSE_CACHE') or cache)
 
 
 def load(season, week, cache='.cache'):

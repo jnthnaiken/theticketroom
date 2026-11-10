@@ -34,12 +34,35 @@ PBP_COLS=['game_id','season','season_type','week','posteam','defteam','yardline_
           'play_type','rush_attempt','pass_attempt','touchdown','rush_touchdown',
           'pass_touchdown','fixed_drive','rusher_player_id','receiver_player_id']
 
-def _get(url, dest, cache='.cache'):
+def _get(url, dest, cache=None):
+    """NFLRETRY-2026-11-10. Owner: "Still getting football build failing emails". nflverse's release downloads answered
+    504 Gateway Time-out on and off from 11-08 ~08:45Z to 11-09 ~18:15Z, and one 504 failed the whole build (66 red runs).
+    Now: a copy fetched in the last 20 minutes is reused (several steps of one build read the same file); otherwise up to
+    three tries with backoff; if nflverse is still down, the last good copy (NFLVERSE_CACHE, restored by actions/cache in
+    nfl-build.yml) is used with a warning. A 404 is raised at once -- load_pbp() relies on it for a season with no data."""
+    import time, urllib.error
+    cache = cache or os.environ.get('NFLVERSE_CACHE') or '.cache'
     os.makedirs(cache, exist_ok=True)
     p = os.path.join(cache, dest)
-    if not os.path.exists(p) or os.path.getsize(p) < 1000:
-        urllib.request.urlretrieve(url, p)
-    return p
+    have = os.path.exists(p) and os.path.getsize(p) >= 1000
+    if have and time.time() - os.path.getmtime(p) < 20 * 60:
+        return p
+    err = None
+    for i in range(3):
+        try:
+            urllib.request.urlretrieve(url, p + '.part'); os.replace(p + '.part', p)
+            return p
+        except urllib.error.HTTPError as e:
+            if e.code == 404: raise
+            err = e
+        except Exception as e:
+            err = e
+        time.sleep(5 * (i + 1))
+    if have:
+        print(f'::warning::nflverse unavailable ({err}); using the cached {dest} from '
+              + time.strftime('%Y-%m-%d %H:%MZ', time.gmtime(os.path.getmtime(p))), flush=True)
+        return p
+    raise err
 
 def load_pbp(season, required=True):
     """A season that has not kicked off yet has NO pbp asset -- nflverse 404s rather than
