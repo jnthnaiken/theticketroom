@@ -10,8 +10,9 @@ const get = async u => { const r = await fetch(base + u + q, { headers: UA }); i
   const e = evs[0]; const first = await get(`event-page?eventId=${e.eventId}`);
   const tabs = ((first.layout || {}).tabs) || {}; console.log('tabs', JSON.stringify(Object.values(tabs).map(t => t.title + '=' + (t.seoIdentifier || t.id))).slice(0, 1500));
   const types = new Set();
+  for (const m of Object.values((first.attachments || {}).markets || {})) if (/BASKET|FIRST|SCORE/.test(m.marketType || '')) console.log('default ::', m.marketType, '::', m.marketName);
   for (const t of Object.values(tabs)) {
-    const slug = t.seoIdentifier; if (!slug) continue;
+    const slug = t.seoIdentifier || String(t.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); if (!slug) continue;
     try { const k = await get(`event-page?eventId=${e.eventId}&tab=${slug}`);
       for (const m of Object.values((k.attachments || {}).markets || {})) if (/BASKET|FIRST|SCORE_FIRST|TEAM_TO/.test(m.marketType || '')) { const key = slug + ' :: ' + m.marketType + ' :: ' + m.marketName; if (!types.has(key)) { types.add(key); console.log(key, '|', (m.runners || []).slice(0, 4).map(r => r.runnerName + ' ' + (((r.winRunnerOdds || {}).americanDisplayOdds || {}).americanOddsInt)).join(', ')); } }
     } catch (err) { console.log('tab', slug, String(err).slice(0, 80)); }
