@@ -79,6 +79,13 @@ jobs:
           python-version: '3.12'
       - run: pip install --quiet numpy pandas
 
+      - name: FotMob match cache
+        if: steps.need.outputs.dates != ''
+        uses: actions/cache@v4
+        with:
+          path: fmcache
+          key: fotmob-matches-${{ github.run_id }}
+          restore-keys: fotmob-matches-
       - name: History base + current-season refresh
         if: steps.need.outputs.dates != ''
         # USDOWN-2026-11-07. Owner: "I'm getting 25+ emails/day about soccer runs failing ... please make it stop".
@@ -95,7 +102,15 @@ jobs:
           git show FETCH_HEAD:history/2014-2026-limit0/player_matches.csv.gz > hist/base_player.csv.gz
           git show FETCH_HEAD:history/current/team_matches.csv.gz   > cache/team_matches.csv.gz   2>/dev/null || rm -f cache/team_matches.csv.gz
           git show FETCH_HEAD:history/current/player_matches.csv.gz > cache/player_matches.csv.gz 2>/dev/null || rm -f cache/player_matches.csv.gz
-          python3 soccer/history/fetch_history.py --out fresh --first 2026 --last 2026 --no-odds || echo "::warning::understat refresh failed -- using the cached current season"
+          python3 soccer/history/fetch_history.py --out fresh --first 2026 --last 2026 --no-odds || echo "::warning::understat refresh failed -- trying FotMob"
+          # XGFOTMOB-2026-11-11 (owner: "might as well"): understat has been down for everyone since 11-02. FotMob's match
+          # pages carry the same per-player numbers (minutes, goals, shots, xG, non-penalty xG, xA, chances created);
+          # fetch_history_fotmob.py writes them in fetch_history.py's layout with understat pids and club spellings.
+          if ! python3 -c "import pandas as pd,sys;sys.exit(0 if len(pd.read_csv('fresh/player_matches.csv.gz'))>0 else 1)" 2>/dev/null; then
+            mkdir -p hist_base && cp hist/base_team.csv.gz hist_base/team_matches.csv.gz && cp hist/base_player.csv.gz hist_base/player_matches.csv.gz
+            rm -rf fresh && python3 soccer/history/fetch_history_fotmob.py --base hist_base --out fresh --season 2026 --cache fmcache \
+              || echo "::warning::FotMob history failed too -- using the cached current season"
+          fi
           python3 - <<'PY'
           import os, pandas as pd
           def rows(p):
