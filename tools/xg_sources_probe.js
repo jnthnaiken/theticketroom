@@ -1,23 +1,17 @@
-// XGALT-2026-11-11 step 2: what FotMob's league stats carry (understat down since 11-02 for everyone)
+// XGFOTMOB-2026-11-11 step 3: layout of FotMob matchDetails player stats + the league fixtures list
 'use strict';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
-const get = async (u) => { try { const r = await fetch(u, { headers: { 'user-agent': UA, accept: 'application/json' } }); const t = await r.text(); return { s: r.status, t }; } catch (e) { return { s: 'ERR ' + e.message, t: '' }; } };
+const get = async (u) => JSON.parse(await (await fetch(u, { headers: { 'user-agent': UA, accept: 'application/json' } })).text());
 (async () => {
-  const r = await get('https://www.fotmob.com/api/data/leagues?id=47&ccode3=USA'); const j = JSON.parse(r.t);
-  console.log('top keys', Object.keys(j)); const st = j.stats || {};
-  console.log('stats keys', Object.keys(st));
-  for (const k of Object.keys(st)) { const v = st[k]; console.log(' ', k, Array.isArray(v) ? `array(${v.length}) ` + JSON.stringify(v[0]).slice(0, 400) : JSON.stringify(v).slice(0, 400)); }
-  const pl = st.players || [];
-  console.log('player stat lists:', pl.map(x => x.name || x.header).join(' | '));
-  for (const want of ['expected_goals', 'goals', 'expected_assists', 'mins_played', 'total_scoring_att', 'expected_goals_per_90', 'ontarget_scoring_att']) {
-    const x = pl.find(p => (p.fetchAllUrl || '').includes('/' + want + '.json')); if (!x) { console.log('no list', want); continue; }
-    const q = await get(x.fetchAllUrl); let L; try { L = JSON.parse(q.t); } catch (e) { console.log(want, q.s, 'unparsable'); continue; }
-    const rows = (((L.TopLists || [])[0] || {}).StatList) || []; console.log(`LIST ${want}: ${q.s} ${x.fetchAllUrl} rows=${rows.length}`, JSON.stringify(rows.slice(0, 2)).slice(0, 700));
-  }
-  // seasons list ids for 2025/26
-  console.log('seasons', JSON.stringify((st.seasonStatLinks || []).slice(0, 3)).slice(0, 500));
-  // a finished match: team xG
-  const m = ((j.fixtures || {}).allMatches || []).filter(x => x.status && x.status.finished).slice(-1)[0];
-  if (m) { const d = await get(`https://www.fotmob.com/api/data/matchDetails?matchId=${m.id}`); console.log('matchDetails', d.s, d.t.length);
-    try { const D = JSON.parse(d.t); const ts = (((D.content || {}).stats || {}).Periods || {}).All; console.log(' xG row', JSON.stringify(((ts || {}).stats || []).map(g => (g.stats || []).filter(s => /expected_goals/.test(s.key || ''))).flat().slice(0, 3)).slice(0, 500)); } catch (e) { console.log(' md parse', e.message); } }
+  const L = await get('https://www.fotmob.com/api/data/leagues?id=47&ccode3=USA');
+  const all = (L.fixtures || {}).allMatches || []; console.log('fixtures', all.length, JSON.stringify(all.find(m => m.status && m.status.finished)).slice(0, 600));
+  const m = all.filter(x => x.status && x.status.finished).slice(-1)[0];
+  const D = await get(`https://www.fotmob.com/api/data/matchDetails?matchId=${m.id}`);
+  console.log('top', Object.keys(D), 'content', Object.keys(D.content || {}));
+  console.log('header teams', JSON.stringify((D.header || {}).teams).slice(0, 400));
+  console.log('general', JSON.stringify(D.general).slice(0, 500));
+  const ps = (D.content || {}).playerStats || {}; const ids = Object.keys(ps); console.log('playerStats n', ids.length);
+  const one = ps[ids[0]]; console.log('one player', JSON.stringify(one).slice(0, 2500));
+  const sh = (D.content || {}).shotmap || {}; console.log('shotmap keys', Object.keys(sh), JSON.stringify((sh.shots || [])[0]).slice(0, 600));
+  const lu = (D.content || {}).lineup || {}; console.log('lineup keys', Object.keys(lu), JSON.stringify(lu.homeTeam ? Object.keys(lu.homeTeam) : lu).slice(0, 300));
 })().catch(e => console.log('ERR', e));

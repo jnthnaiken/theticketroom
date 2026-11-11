@@ -20,7 +20,7 @@ jobs:
       - name: Probe
         run: |
           set +e
-          (cd soccer && node auto_slate.js 2026-11-13 ../.p13 > ../probe.txt 2>&1); grep -c . .p13/xg.psv >> probe.txt; python3 tools/xg_compare.py soccer/slates/2026-11-08/xg.psv .p13/xg.psv >> probe.txt 2>&1
+          node tools/xg_sources_probe.js > probe.txt 2>&1
           curl -s -o /dev/null -w "curl oddschecker winner: %{http_code}\n" -A "Mozilla/5.0" https://www.oddschecker.com/football/english/premier-league/liverpool-v-brighton/winner >> probe.txt
           curl -s -o /dev/null -w "curl understat: %{http_code}\n" -A "Mozilla/5.0" https://understat.com/league/EPL/2026 >> probe.txt
           cat probe.txt
