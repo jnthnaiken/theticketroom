@@ -197,6 +197,49 @@ function cachedXg(date, lg, season) {
   return null;
 }
 
+// XGFOTMOB-2026-11-11. Owner: "might as well" (move off understat). understat.com has not loaded for anyone since 11-02
+// (runners got "fetch failed", then an error page for every URL from 11-06). FotMob's public stats lists answer a runner:
+// data.fotmob.com/stats/<league>/season/<tournament>/<stat>.json, per player with MinutesPlayed and MatchesPlayed.
+// Mapped onto understat's xg.psv columns:
+//   games, min   <- mins_played (the full roster of everyone who played)   goals <- goals   xA <- expected_assists
+//   npxG         <- expected_goals.  FotMob does not publish non-penalty xG, so a regular penalty taker reads ~0.1/90 high.
+//   npg          <- goals (no penalty split either)   shots <- total_scoring_att (a per-90 list; scaled back by minutes)
+//   key_passes   <- total_att_assist (chances created)   xGChain <- 0 (no equivalent; soccer_mock reads but does not weigh it)
+//   pos          <- FotMob's first position id: 11 GK, <60 D, <100 M, else F
+//   team         <- FotMob's team name, translated to understat's spelling by majority vote over the players both sources
+//                   share in the newest cached understat xg.psv (so club labels and team joins keep their old spelling).
+const FOTMOB = { EPL: 47, La_liga: 87, Serie_A: 55, Bundesliga: 54, Ligue_1: 53 };
+const _nk = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[øØ]/g, 'o').replace(/ß/g, 'ss').toLowerCase().replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+async function fotmobXg(date, lg, season) {
+  const id = FOTMOB[lg]; if (!id) return null;
+  const L = await getJSON(`https://www.fotmob.com/api/data/leagues?id=${id}&ccode3=USA`);
+  const want = `${season}/${season + 1}`;
+  const link = ((L.stats || {}).seasonStatLinks || []).find(x => x.Name === want);
+  if (!link) throw new Error(`no FotMob season ${want}`);
+  const list = async stat => {
+    const j = await getJSON(`https://data.fotmob.com/stats/${id}/season/${link.TournamentId}/${stat}.json`);
+    const m = new Map(); for (const r of (((j.TopLists || [])[0] || {}).StatList || [])) m.set(r.ParticiantId, r); return m;
+  };
+  const [mins, xgl, gl, xal, shl, kpl] = await Promise.all(['mins_played', 'expected_goals', 'goals', 'expected_assists', 'total_scoring_att', 'total_att_assist'].map(list));
+  if (!mins.size) throw new Error('FotMob mins_played empty');
+  const alias = {}, ref = cachedXg(date, lg, season) || cachedXg(date, lg, season - 1);
+  if (ref) {
+    const byName = new Map(ref.rows.map(r => { const a = r.split('|'); return [_nk(a[2]), a[3]]; })), votes = {};
+    for (const r of mins.values()) { const u = byName.get(_nk(r.ParticipantName)); if (u) { const v = votes[r.TeamName] = votes[r.TeamName] || {}; v[u] = (v[u] || 0) + 1; } }
+    for (const [t, v] of Object.entries(votes)) alias[t] = Object.entries(v).sort((a, b) => b[1] - a[1])[0][0];
+  }
+  const f = (x, n) => Number(x || 0).toFixed(n), rows = [];
+  for (const [pid, r] of mins) {
+    const t = +r.MinutesPlayed || 0; if (!t) continue;
+    const xg = +((xgl.get(pid) || {}).StatValue || 0), g = +((gl.get(pid) || {}).StatValue || 0), xa = +((xal.get(pid) || {}).StatValue || 0);
+    const sh = Math.round(+((shl.get(pid) || {}).StatValue || 0) * t / 90), kp = +((kpl.get(pid) || {}).StatValue || 0);
+    const p0 = ((r.Positions || [])[0]) || 0, pos = p0 === 11 ? 'GK' : p0 < 60 ? 'D' : p0 < 100 ? 'M' : 'F';
+    rows.push([lg, season, r.ParticipantName, alias[r.TeamName] || r.TeamName, pos, r.MatchesPlayed || 0, t, g, g, f(xg, 2), f(xg / t * 90, 2),
+      sh, f(sh / t * 90, 2), f(sh ? xg / sh : 0, 4), f(xa, 2), f(xa / t * 90, 2), Math.round(kp), f(0, 2)].join('|'));
+  }
+  return { rows, teams: Object.keys(alias).length };
+}
+
 async function xg(fx) {
   let lgs = [...new Set(Object.values(fx.matches).map(m => m.league))];
   // FDCUP-2026-10-27: a cup tie (DFB-Pokal, Copa del Rey, League Cup...) has no understat league of its own -- its clubs
@@ -216,6 +259,10 @@ async function xg(fx) {
       console.log(`  understat ${lg} ${season}: ok`);
     } catch (e) {
       console.log(`  ::warning::understat ${lg} ${season}: ${String(e).slice(0, 120)}`);
+      try {                                                 // XGFOTMOB-2026-11-11: FotMob before the stale cache
+        const fm = await fotmobXg(fx.date, UNDERSTAT[lg], season);
+        if (fm && fm.rows.length) { rows.push(...fm.rows); console.log(`  ::warning::understat ${lg} ${season}: using FotMob (${fm.rows.length} rows, ${fm.teams} club names mapped)`); continue; }
+      } catch (e2) { console.log(`  ::warning::FotMob ${lg} ${season}: ${String(e2).slice(0, 120)}`); }
       // XGCACHE-2026-11-02: understat refused every runner fetch from 7 PM 11-01 on ("fetch failed"), so the 11-02 slate
       // had 5 priced matches and 0 xG rows and the xG gate held the board. Season-to-date xG moves a day at a time --
       // fall back to the newest earlier slate's xg.psv rows for this league+season (logged, so it is visible).
