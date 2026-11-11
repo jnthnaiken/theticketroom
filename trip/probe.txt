@@ -1,16 +1,8 @@
-FotMob 2026: 500 finished league matches
-  clubs mapped to understat spelling: 99 | kept FotMob spelling: []
-  wrote 1000 team rows, 15698 player rows (1568 player-matches with no understat pid), 500 matches, latest 2026-11-08
-
-real	0m38.442s
-user	0m5.983s
-sys	0m0.651s
-fotmob team rows 1000 player rows 15698 dates 2026-08-15 .. 2026-11-08
-synthetic pids 0.1  positions {'Sub': 4698, 'MC': 3848, 'DC': 3756, 'FW': 2396, 'GK': 1000}
-team-match rows matched to understat by date+club+side: 398 of 400 understat 2026 rows
-  team xG corr 0.929  npxG corr 0.919  mean xG u/f 1.705 1.705  goals agree 1.0
-player-match rows matched by pid+date: 5741 of 6656 understat rows
-  minutes agree within 5 0.96  goals agree 0.999  npxG corr 0.918  shots corr 0.998
-unmapped club names: []
+events 10 [
+  'Brooklyn Nets @ New Orleans Pelicans 2026-11-12T01:10:00.000Z',
+  'Boston Celtics @ Toronto Raptors 2026-11-12T00:10:00.000Z',
+  'Orlando Magic @ Utah Jazz 2026-11-12T02:10:00.000Z'
+]
+tabs ["1st Quarter=26","2nd Quarter=27","4th Quarter=29","Half=56","Player Points=168","Player Assists=169","Player Rebounds=170","Player Combos=171","Player Threes=172","Player Defense=173","Team Props=182","Race To=200","3rd Quarter=202","Margin=204","Popular=292","Same Game Parlay™=302","Odd/Even=376"]
 curl oddschecker winner: 403
 curl understat: 200
