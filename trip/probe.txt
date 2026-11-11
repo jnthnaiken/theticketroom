@@ -1,29 +1,16 @@
-fixtures 380 {"round":"1","roundName":1,"pageUrl":"/matches/coventry-city-vs-arsenal/2tttz6#5795363","id":"5795363","home":{"name":"Arsenal","shortName":"Arsenal","id":"9825"},"away":{"name":"Coventry City","shortName":"Coventry","id":"8669"},"status":{"utcTime":"2026-08-21T19:00:00Z","timezone":"","finished":true,"started":true,"cancelled":false,"awarded":false,"scoreStr":"3 - 0","reason":{"short":"FT","shortKey":"fulltime_short","long":"Full-Time","longKey":"finished"}}}
-top [
-  'general',
-  'header',
-  'nav',
-  'ongoing',
-  'hasPendingVAR',
-  'content',
-  'seo'
-] content [
-  'matchFacts',       'liveticker',
-  'superlive',        'buzz',
-  'stats',            'playerStats',
-  'shotmap',          'weather',
-  'lineup',           'hasPlayoff',
-  'table',            'h2h',
-  'momentum',         'attackingZones',
-  'highlightStories', 'heatmapUrl'
-]
-header teams [{"name":"Manchester United","id":10260,"score":4,"imageUrl":"https://images.fotmob.com/image_resources/logo/teamlogo/10260_small.png","pageUrl":"/teams/10260/overview/manchester-united"},{"name":"Aston Villa","id":10252,"score":4,"imageUrl":"https://images.fotmob.com/image_resources/logo/teamlogo/10252_small.png","pageUrl":"/teams/10252/overview/aston-villa"}]
-general {"matchId":"5795512","matchName":"Manchester United-vs-Aston Villa_Sun, Nov 8, 2026, 16:30 UTC","matchRound":"10","teamColors":{"darkMode":{"home":"#C70101","away":"#9d2358"},"lightMode":{"home":"#C70101","away":"#7D1142"},"fontDarkMode":{"home":"rgba(255, 255, 255, 1.0)","away":"rgba(255, 255, 255, 1.0)"},"fontLightMode":{"home":"rgba(255, 255, 255, 1.0)","away":"rgba(255, 255, 255, 1.0)"}},"leagueId":47,"leagueName":"Premier League","leagueRoundName":"10","parentLeagueId":47,"countryCode":"ENG
-playerStats n 40
-one player {"name":"Ross Barkley","id":215384,"optaId":"88894","teamId":10252,"teamName":"Aston Villa","isGoalkeeper":false,"stats":[{"title":"Top stats","key":"top_stats","stats":{"FotMob rating":{"key":"rating_title","stat":{"value":6.12,"type":"double"}},"Minutes played":{"key":"minutes_played","stat":{"value":19,"type":"integer"}},"Goals":{"key":"goals","stat":{"value":0,"type":"integer"}},"Assists":{"key":"assists","stat":{"value":0,"type":"integer"}},"Expected goals (xG)":{"key":"expected_goals","stat":{"value":0.09,"type":"double"}},"Expected goals on target (xGOT)":{"key":"expected_goals_on_target_variant","stat":{"value":0.04,"type":"double"}},"Expected assists (xA)":{"key":"expected_assists","stat":{"value":0.01,"type":"double"}},"xG + xA":{"key":"xg_and_xa","stat":{"value":0.09999999999999999,"type":"double"}},"Total shots":{"key":"total_shots","stat":{"value":2,"type":"integer"},"hideInPopupCard":true},"Top speed":{"key":"physical_metrics_topspeed","stat":{"value":26.700000762939453,"type":"speed"}},"Distance covered":{"key":"physical_metrics_distance_covered","stat":{"value":3200,"type":"distance"}},"Accurate passes":{"key":"accurate_passes","stat":{"value":11,"total":14,"type":"fractionWithPercentage"}},"Chances created":{"key":"chances_created","stat":{"value":0,"type":"integer"}},"Shots on target":{"key":"ShotsOnTarget","stat":{"value":1,"type":"integer"}},"Shots off target":{"key":"ShotsOffTarget","stat":{"value":1,"type":"integer"}},"Shot accuracy":{"key":"shot_accuracy","stat":{"value":1,"total":2,"type":"fractionWithPercentage"}},"Shotmap":{"key":null,"stat":{"value":1,"type":"boolean"}},"Fantasy points":{"key":"fantasy_points","stat":{"value":1,"type":"fantasyPoints"}},"Defensive actions":{"key":"defensive_actions","stat":{"value":0,"type":"integer"}}}},{"title":"Attack","key":"attack","stats":{"Touches":{"key":"touches","stat":{"value":19,"type":"integer"}},"Touches in opposition box":{"key":"touches_opp_box","stat":{"value":2,"type":"integer"}},"Successful dribbles":{"key":"dribbles_succeeded","stat":{"value":1,"total":1,"type":"fractionWithPercentage"}},"Passes into final third":{"key":"passes_into_final_third","stat":{"value":3,"type":"integer"}},"Line breaking passes":{"key":"line_breaking_passes","stat":{"value":4,"type":"integer"}},"Dispossessed":{"key":"dispossessed","stat":{"value":2,"type":"integer"}},"xG Non-penalty":{"key":"expected_goals_non_penalty","stat":{"value":0.09,"type":"double"}}}},{"title":"Defense","key":"defense","stats":{"Defensive actions":{"key":"defensive_actions","stat":{"value":0,"type":"integer"}},"Tackles":{"key":"matchstats.headers.tackles","stat":{"value":0,"type":"integer"}},"Blocks":{"key":"shot_blocks","stat":{"value":0,"type":"integer"}},"Clearances":{"key":"clearances","stat":{"value":0,"type":"integer"}},"Interceptions":{"key":"interceptions","stat":{"value":0,"type":"integer"}},"Recoveries":{"key":"recoveries","stat":{"value":0,"type":"integer"}},"Dribbled past":{"key":"dribbled_past","stat":{"value":0,"type":"integer"}}}},{"title":"Duels","key":"duels","stats":{"Ground duels won":{"key":"ground_duels_won","stat":{"value":1,"total":3,"type":"fractionWithPercentage"}},"Aerial duels won":{"key":"aerials_won","stat":{"value":1,"total":1,"type":"fractionWithPercentage"}},"Was fouled":{"key":"was_fouled","stat":{"type":"integer"}},"Fouls committed":{"key":"fouls","stat":{"value":0,"type":"integer"}},"Duels won":{"key":"duel_won","stat":{"value":2,"type":"integer"},"hideInPopupCard":true},"D
-shotmap keys [ 'shots', 'Periods' ] {"id":2995535255,"eventType":"Goal","teamId":10252,"playerId":1656860,"playerName":"Alysson Edward","x":96.2192982446,"y":23.0183439533,"min":1,"minAdded":null,"isBlocked":false,"isOnTarget":true,"blockedX":null,"blockedY":null,"goalCrossedY":32.779999999999994,"goalCrossedZ":0.6934736808,"expectedGoals":0.03962230309844017,"expectedGoalsOnTarget":0.060358189046382904,"shotType":"LeftFoot","situation":"RegularPlay","period":"FirstHalf","isOwnGoal":false,"onGoalShot":{"x":1.3227513227513243,"y":0.18345864571428572,"zoomRatio":1},"isSavedOffLine":false,"isFromInsideBox":true,"keeperId":1178602,"
-starter {"id":255610,"age":33,"name":"Harry Maguire","positionId":36,"usualPlayingPositionId":1,"shirtNumber":"5","countryName":"England","countryCode":"ENG","horizontalLayout":{"x":0.292,"y":0.375,"height":0.25,"width":0.192},"verticalLayout":{"x":0.625,"y":0.292,"height":0.192,"width":0.25},"marketValue":4890506,"performance":{"rating":6.3,"substitutionEvents":[{"time":46,"type":"subOut","reason":"injury"}],"fantasyScore":"0","totalDistanceCovered":4954,"topSpeed":32.20000076293945},"firstName":"Harry","lastName":"Maguire","nationalTeamId":8491,"rankings":{"totalDistanceCovered":{"rank":23,"totalPlayers":32},"topSpeed":{"rank":10,"totalPlayers":32}}}
-sub {"id":1559639,"age":20,"name":"Ayden Heaven","usualPlayingPositionId":1,"shirtNumber":"26","countryName":"England","countryCode":"ENG","marketValue":40176624,"performance":{"rating":7.1,"events":[{"type":"yellowCard"}],"substitutionEvents":[{"time":46,"type":"subIn","reason":"injury"}],"fantasyScore":"-1","totalDistanceCovered":5399,"topSpeed":29.399999618530273},"firstName":"Ayden","lastName":"Heaven","nationalTeamId":8491,"rankings":{"totalDistanceCovered":{"rank":22,"totalPlayers":32},"topSpeed":{"rank":16,"totalPlayers":32}}}
-situations [ 'RegularPlay', 'SetPiece', 'Penalty', 'FromCorner', 'FastBreak' ]
+FotMob 2026: 500 finished league matches
+  clubs mapped to understat spelling: 99 | kept FotMob spelling: []
+  wrote 1000 team rows, 15698 player rows (1568 player-matches with no understat pid), 500 matches, latest 2026-11-08
+
+real	0m22.685s
+user	0m4.594s
+sys	0m0.639s
+fotmob team rows 1000 player rows 15698 dates 2026-08-15 .. 2026-11-08
+synthetic pids 0.1  positions {'Sub': 4698, 'MC': 3848, 'DC': 3756, 'FW': 2396, 'GK': 1000}
+team-match rows matched to understat by date+club+side: 398 of 400 understat 2026 rows
+  team xG corr 0.929  npxG corr 0.919  mean xG u/f 1.705 1.579  goals agree 1.0
+player-match rows matched by pid+date: 5741 of 6656 understat rows
+  minutes agree within 5 0.96  goals agree 0.999  npxG corr 0.918  shots corr 0.998
+unmapped club names: []
 curl oddschecker winner: 403
 curl understat: 200
