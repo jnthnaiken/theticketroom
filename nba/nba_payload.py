@@ -624,7 +624,9 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 if set(five) != set(starters.get(T) or []):
                     print(f'  RWLINEUP {T}: confirmed five differs from the priced guess -> {five}')
                 starters[T] = five; src[T] = 'confirmed'
-            elif src.get(T) in ('priced', 'none'):
+            # BBMFIRST-2026-11-11. Owner: "i thought i told you to use basketballmonster.com for projected and starting
+            # lineups". A projected Basketball Monster five now beats BettingPros' own projected five too, not only a price guess.
+            elif src.get(T) in ('priced', 'none') or ((RW.get(T) or {}).get('src') == 'bbm' and src.get(T) != 'confirmed'):
                 # RWEXPECTED-2026-10-24. Owner, on Alpha Diallo (DEN, questionable, not in anyone's five) anchoring:
                 # "why on gods green earth is diallo on the board". With no BettingPros lineup the five was the five
                 # shortest prices -- a bench man at +1100 squeezed in. RotoWire's EXPECTED five beats a price guess.
