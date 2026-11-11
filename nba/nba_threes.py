@@ -33,7 +33,7 @@ EV_MIN, MAX_NIGHT = 0.20, 99   # DTUNCAP-2026-10-26: the cap of 5 never bound (1
 # under rule was EV >= 0.05 with NO nightly cap (train +107.5u, unseen 2024-26 +161u); with the overs +325u, worst slump 25.7u.
 # DTBUDGET-2026-10-27. Owner: "i feel like 17-18u is way too many" -> "yup go ahead": EV >= 0.15 keeps the card to ~5 picks
 # (~4.7u) a night; with the Heaves the board's worst slump is 56.9u (55.2u at EV .05), every season up (+73 / +40 / +81u).
-U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.10, 0.50, 1.5, 99
+U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.15, 0.50, 1.5, 99   # DTTIGHT-2026-11-11: back to .15
 # DTBLEND-2026-11-11. Owner: "how do we make the downtown section more profitable ... find the correct set of layers" ->
 # "why arent we focusing on this more?" -> "go". The one layer that mattered was the market: the other books' price at
 # FanDuel's line, de-vigged (median over books). Our model picks the right men but is overconfident; the truth lands
@@ -44,7 +44,10 @@ U_EV_MIN, U_P_MIN, U_LINE_MIN, U_MAX_NIGHT = 0.10, 0.50, 1.5, 99
 # Walk-forward (fit 2023 -> 2024, 2023-24 -> 2025): overs +18.4 / +34.1u vs +11.9 / +24.0u live rule;
 # unders +47.1 / +101.0u vs +31.3 / +51.2u. Market alone loses (FanDuel is as sharp as the field); model alone wins less.
 BL_M, BL_K, BL_O, BL_C = 0.374, 0.674, -0.115, 0.058
-BL_O_EV, BL_U_EV = 0.05, 0.03
+# DTTIGHT-2026-11-11. Owner: "tightened". The season restate on identical inputs (10-20..11-10, closing prices, actual
+# starters, nba.com box): old rule -16.2u, DTBLEND (model .10 + blend .03) -28.9u, tightened (model .15 + blend .06) -3.2u,
+# worst slumps 22 / 31 / 12u. 2024-26 backtest favoured DTBLEND (+148u vs +50u unders); the owner took the steadier rule.
+BL_O_EV, BL_U_EV = 0.05, 0.06
 
 
 def blend(p_model, p_market, over):

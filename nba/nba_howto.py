@@ -107,7 +107,7 @@ HOWTO = {
   [
    "🏗️",
    "The Brickyard",
-   "Threes made, both ways, and mostly the misses: we want the bricks. Our chance blends two things: our model, which weighs his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out; and the market, every other sportsbook's price on the same line with its cut taken out. The model finds the spots and the market keeps it honest. Overs: the over on FanDuel's line when the blended chance gives at least a 5% edge, one per game. Unders: the under on a line of 1.5 or more when our model makes the under more likely than not with at least a 10% edge, and the blended chance still shows at least 3%. No other book on the line, no pick. 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
+   "Threes made, both ways, and mostly the misses: we want the bricks. Our chance blends two things: our model, which weighs his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out; and the market, every other sportsbook's price on the same line with its cut taken out. The model finds the spots and the market keeps it honest. Overs: the over on FanDuel's line when the blended chance gives at least a 5% edge, one per game. Unders: the under on a line of 1.5 or more when our model makes the under more likely than not with at least a 15% edge, and the blended chance still shows at least 6%. No other book on the line, no pick. 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
   ],
   [
    "⚡",
