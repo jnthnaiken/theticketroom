@@ -1,17 +1,32 @@
-=== FotMob
-leagues 47: 404 null 0B :: ""
- parse Unexpected end of JSON input
-data/leagues 47: 200 application/json; charset=utf-8 864469B :: "{\"tabs\":[\"overview\",\"table\",\"fixtures\",\"stats\",\"transfers\",\"seasons\"],\"allAvailableSeasons\":[\"2026/2027\",\"2025/2026\",\"2024/2025\",\"2023/2024\",\"2022/2023\",\"2021/2022\",\"2020/2021\",\"2019/2020\",\"2018/2019\""
-=== Sofascore
-seasons: 403 application/json 48B :: "{\"error\": {\"code\": 403, \"reason\": \"Forbidden\" }}"
-www seasons: 403 application/json 48B :: "{\"error\": {\"code\": 403, \"reason\": \"Forbidden\" }}"
- sofa parse Cannot read properties of undefined (reading '0')
-=== FBref
-shooting: 403 text/html; charset=UTF-8 5854B :: "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta nam"
-  xG column present: false  rows: 0
-=== xgstat
-home: 429 text/html; charset=utf-8 20768B :: "<!DOCTYPE html><html lang=\"en\" data-astro-cid-4wdtffzm><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#000\"><link rel=\"icon\" href=\"data:,\"><title>Vercel Security Checkpoint</title><style>.spinner[data-astro-cid-ijmsm3"
-=== understat (still?)
-understat: 200 text/html 26719B :: "<!DOCTYPE html>\n<html>\n    <head>\n\t\t<title>Understat.com</title>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"vi"
+top keys [
+  'tabs',
+  'allAvailableSeasons',
+  'details',
+  'seostr',
+  'QAData',
+  'table',
+  'transfers',
+  'overview',
+  'stats',
+  'fixtures',
+  'playoff',
+  'seasons'
+]
+stats keys [ 'players', 'teams', 'seasonStatLinks', 'seasonsWithLinks' ]
+  players array(46) {"header":"Top scorer","participant":{"id":737066,"name":"Erling Haaland","rank":1,"ccode":"NOR","teamId":8456,"teamName":"Manchester City","value":9,"stat":{"name":"goals","value":9,"format":"number","fractions":0}},"fetchAllUrl":"https://data.fotmob.com/stats/47/season/36781/goals.json","topThree":[{"id":737066,"name":"Erling Haaland","rank":1,"ccode":"NOR","teamId":8456,"teamName":"Manchester C
+  teams array(31) {"header":"FotMob rating","participant":{"id":0,"name":"Manchester City","rank":1,"ccode":"ENG","teamId":8456,"value":7.14,"stat":{"name":"rating_team","value":7.14,"format":"fraction","fractions":2}},"fetchAllUrl":"https://data.fotmob.com/stats/47/season/36781/rating_team.json","topThree":[{"id":0,"name":"Manchester City","rank":1,"ccode":"ENG","teamId":8456,"value":7.14,"stat":{"name":"rating_te
+  seasonStatLinks array(11) {"Name":"2026/2027","CountryCode":"ENG","RelativePath":"stats/47/season/36781/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId":36781}
+  seasonsWithLinks array(17) "2026/2027"
+player stat lists: goals | goal_assist | _goals_and_goal_assist | rating | mins_played | phys_ts | phys_tdc | phys_sprints | phys_tdc_per_90 | phys_sprints_per_90 | goals_per_90 | expected_goals | expected_goals_per_90 | expected_goalsontarget | ontarget_scoring_att | total_scoring_att | accurate_pass | big_chance_created | total_att_assist | accurate_long_balls | lbp_total | expected_assists | expected_assists_per_90 | _expected_goals_and_expected_assists_per_90 | won_contest | big_chance_missed | penalty_won | defensive_contributions | total_tackle | interception | effective_clearance | outfielder_block | ball_recovery | penalty_conceded | poss_won_att_3rd | clean_sheet | _save_percentage | saves | _goals_prevented | goals_conceded | total_high_claim | total_keeper_sweeper | penalty_save | fouls | yellow_card | red_card
+LIST expected_goals: 200 https://data.fotmob.com/stats/47/season/36781/expected_goals.json rows=366 [{"ParticipantName":"Thierno Barry","ParticiantId":1398392,"TeamId":8668,"TeamColor":"#00359C","StatValue":7.3,"SubStatValue":6,"MinutesPlayed":855,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"FRA","TeamName":"Everton","Positions":[115]},{"ParticipantName":"Erling Haaland","ParticiantId":737066,"TeamId":8456,"TeamColor":"#69A8D8","StatValue":7.1,"SubStatValue":9,"MinutesPlayed":890,"MatchesPlayed":10,"StatValueCount":10,"Rank":2,"ParticipantCountryCode":"NOR","TeamName":"Manchester City","Positions":[115]}]
+LIST goals: 200 https://data.fotmob.com/stats/47/season/36781/goals.json rows=147 [{"ParticipantName":"Erling Haaland","ParticiantId":737066,"TeamId":8456,"TeamColor":"#69A8D8","StatValue":9,"SubStatValue":0,"MinutesPlayed":890,"MatchesPlayed":10,"StatValueCount":7,"Rank":1,"ParticipantCountryCode":"NOR","TeamName":"Manchester City","Positions":[115]},{"ParticipantName":"Alexander Isak","ParticiantId":690107,"TeamId":8650,"TeamColor":"#911712","StatValue":7,"SubStatValue":0,"MinutesPlayed":750,"MatchesPlayed":9,"StatValueCount":6,"Rank":2,"ParticipantCountryCode":"SWE","TeamName":"Liverpool","Positions":[115]}]
+LIST expected_assists: 200 https://data.fotmob.com/stats/47/season/36781/expected_assists.json rows=454 [{"ParticipantName":"Alex Iwobi","ParticiantId":604785,"TeamId":9879,"TeamColor":"#000000","StatValue":2.9,"SubStatValue":0,"MinutesPlayed":827,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"NGA","TeamName":"Fulham","Positions":[66,87,85]},{"ParticipantName":"Martin Ødegaard","ParticiantId":534670,"TeamId":9825,"TeamColor":"#bd0510","StatValue":2.5,"SubStatValue":0,"MinutesPlayed":829,"MatchesPlayed":10,"StatValueCount":10,"Rank":2,"ParticipantCountryCode":"NOR","TeamName":"Arsenal","Positions":[73,85]}]
+LIST mins_played: 200 https://data.fotmob.com/stats/47/season/36781/mins_played.json rows=459 [{"ParticipantName":"Alisson Becker","ParticiantId":319784,"TeamId":8650,"TeamColor":"#911712","StatValue":900,"SubStatValue":10,"MinutesPlayed":900,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"BRA","TeamName":"Liverpool","Positions":[11]},{"ParticipantName":"Antonín Kinský","ParticiantId":1341475,"TeamId":8586,"TeamColor":"#132257","StatValue":900,"SubStatValue":10,"MinutesPlayed":900,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"CZE","TeamName":"Tottenham Hotspur","Positions":[11]}]
+LIST total_scoring_att: 200 https://data.fotmob.com/stats/47/season/36781/total_scoring_att.json rows=299 [{"ParticipantName":"Joe Gelhardt","ParticiantId":956161,"TeamId":8667,"TeamColor":"#ED8B00","StatValue":6.3,"SubStatValue":11.1,"MinutesPlayed":128,"MatchesPlayed":6,"StatValueCount":3,"Rank":1,"ParticipantCountryCode":"ENG","TeamName":"Hull City","Positions":[85,83,72]},{"ParticipantName":"Rodrigo Muniz","ParticiantId":1128945,"TeamId":9879,"TeamColor":"#000000","StatValue":5.6,"SubStatValue":16.7,"MinutesPlayed":96,"MatchesPlayed":8,"StatValueCount":4,"Rank":2,"ParticipantCountryCode":"BRA","TeamName":"Fulham","Positions":[115]}]
+LIST expected_goals_per_90: 200 https://data.fotmob.com/stats/47/season/36781/expected_goals_per_90.json rows=299 [{"ParticipantName":"Jack Hinshelwood","ParticiantId":1251334,"TeamId":10204,"TeamColor":"#0850A0","StatValue":1.44,"SubStatValue":1.71,"MinutesPlayed":158,"MatchesPlayed":5,"StatValueCount":4,"Rank":1,"ParticipantCountryCode":"ENG","TeamName":"Brighton and Hove Albion","Positions":[85,66,77]},{"ParticipantName":"Chuba Akpom","ParticiantId":413158,"TeamId":9902,"TeamColor":"#0333A0","StatValue":0.98,"SubStatValue":0.76,"MinutesPlayed":119,"MatchesPlayed":8,"StatValueCount":3,"Rank":2,"ParticipantCountryCode":"ENG","TeamName":"Ipswich Town","Positions":[115,85]}]
+LIST ontarget_scoring_att: 200 https://data.fotmob.com/stats/47/season/36781/ontarget_scoring_att.json rows=240 [{"ParticipantName":"Rodrigo Muniz","ParticiantId":1128945,"TeamId":9879,"TeamColor":"#000000","StatValue":2.8,"SubStatValue":50,"MinutesPlayed":96,"MatchesPlayed":8,"StatValueCount":3,"Rank":1,"ParticipantCountryCode":"BRA","TeamName":"Fulham","Positions":[115]},{"ParticipantName":"Joe Gelhardt","ParticiantId":956161,"TeamId":8667,"TeamColor":"#ED8B00","StatValue":2.8,"SubStatValue":44.4,"MinutesPlayed":128,"MatchesPlayed":6,"StatValueCount":1,"Rank":2,"ParticipantCountryCode":"ENG","TeamName":"Hull City","Positions":[85,83,72]}]
+seasons [{"Name":"2026/2027","CountryCode":"ENG","RelativePath":"stats/47/season/36781/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId":36781},{"Name":"2025/2026","CountryCode":"ENG","RelativePath":"stats/47/season/27110/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId":27110},{"Name":"2024/2025","CountryCode":"ENG","RelativePath":"stats/47/season/23685/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId"
+matchDetails 200 382093
+ xG row [{"title":"Expected goals (xG)","key":"expected_goals","stats":["3.55","2.88"],"rawStats":[{"value":3.55},{"value":2.88}],"format":"double","type":"text","highlighted":"home"},{"title":"Expected goals (xG)","key":"expected_goals","stats":[null,null],"rawStats":[null,null],"type":"title","highlighted":"equal"},{"title":"Expected goals (xG)","key":"expected_goals","stats":["3.55","2.88"],"rawStats":[{"value":3.55},{"value":2.88}],"format":"double","type":"text","highlighted":"home"}]
 curl oddschecker winner: 403
 curl understat: 200
