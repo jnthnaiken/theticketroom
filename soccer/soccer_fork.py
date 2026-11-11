@@ -169,7 +169,7 @@ def seams(payload_js):
     # in THIS match (xG90 scaled by expected minutes). The lift is dropped -- there is no
     # multiplier to report, and printing "+0%" forever is a lie with a decimal point on it.
     add('bbadge',
-        '<span class="bbadge">🧱 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>',
+        '<span class="bbadge">💎 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>',
         '<span class="bbadge">🎯 ${p.xgmatch!=null?p.xgmatch.toFixed(2):\'—\'}</span>')
 
     # ---- 5. SPORT NOUNS -------------------------------------------------------------
@@ -393,7 +393,7 @@ def seams(payload_js):
         'Read it top to bottom: 👟 The Brace, 🧤 The Goal Line, 🥅 Top Bin.')   # GOALLINE-2026-10-15
     # the leg row carries its OWN copy of the brick badge; pCard's seam does not reach it
     add('leg-bbadge',
-        """<span class="bbadge">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
+        """<span class="bbadge">💎 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>""",
         """<span class="bbadge">🎯 ${(D.players[p.name]||{}).xgmatch!=null?(D.players[p.name]||{}).xgmatch.toFixed(2):'—'}</span>""")
     add('legrow-wbadge',
         '<span class="wbadge">${wx.emoji} ${_lt.toFixed(1)}</span>',
@@ -417,7 +417,7 @@ def seams(payload_js):
     # call sites with enough context to exclude the prose. The guard caught this (5 != 2).
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
     add('pcount-bats-b', "+' priced bats · '+pool.size", "+' priced players · '+pool.size")
-    add('legend-brick', '<span>🧱 base score</span>', '<span>🎯 xG this match</span>')
+    add('legend-brick', '<span>💎 base score</span>', '<span>🎯 xG this match</span>')
     # ---- 8. GAME DURATION -----------------------------------------------------------
     # likelyEnded() suppresses the "🚧 in progress" claim once the clock says a game is
     # surely over. +240 is FOUR HOURS PAST FIRST PITCH -- a baseball number. A football match
@@ -550,13 +550,13 @@ def seams(payload_js):
     # cover (see seam group 4), so ☀️/🏟 become 🔄. bbadge = the base score, which this fork
     # re-points to xG in the match (seams 'bbadge' / 'leg-bbadge' / 'legend-brick').
     add('howto-l1-badges',
-        '<span class="wbadge">☀️ 174.6</span>\n                <span class="bbadge">🧱 68</span>',
+        '<span class="wbadge">☀️ 174.6</span>\n                <span class="bbadge">💎 68</span>',
         '<span class="wbadge">📊 174.6</span>\n                <span class="bbadge">🎯 0.68</span>')
     add('howto-l2-badges',
-        '<span class="wbadge">🏟 152.2</span><span class="bbadge">🧱 73</span>',
+        '<span class="wbadge">🏟 152.2</span><span class="bbadge">💎 73</span>',
         '<span class="wbadge">📊 152.2</span><span class="bbadge">🎯 0.73</span>')
     add('howto-l3-badges',
-        '<span class="wbadge" data-cal="10">🏟 148.3</span><span class="bbadge" data-cal="11">🧱 49</span>',
+        '<span class="wbadge" data-cal="10">🏟 148.3</span><span class="bbadge" data-cal="11">💎 49</span>',
         '<span class="wbadge" data-cal="10">📊 148.3</span><span class="bbadge" data-cal="11">🎯 0.49</span>')
     add('howto-w1',
         '<span class="lwhere" data-cal="6">Yankees · NYY@BAL · 6:35</span>',

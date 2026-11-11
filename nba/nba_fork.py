@@ -83,8 +83,8 @@ def seams(payload_js):
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Starters',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced starters'):")
     add('pcount-bats-b', "+' priced bats · '+pool.size", "+' priced starters · '+pool.size")
-    add('legend-brick', '<span>🧱 base score</span>', '<span>🎯 model chance</span>')
-    add('bbadge', '<span class="bbadge">🧱 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>', '<span class="bbadge">🎯 ${p.khr!=null?p.khr.toFixed(1)+\'%\':\'—\'} ${lift}</span>')
+    add('legend-brick', '<span>💎 base score</span>', '<span>🎯 model chance</span>')
+    add('bbadge', '<span class="bbadge">💎 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>', '<span class="bbadge">🎯 ${p.khr!=null?p.khr.toFixed(1)+\'%\':\'—\'} ${lift}</span>')
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> starter not confirmed · ')
     add('howto-order', 'Read it top to bottom: ⚾ Daily Dinger, 🏟️ Long Ball Jackpot, 🧢 Anchors, 🥎 Moonshots.', 'Read it top to bottom: ⚡ Tip-Off.')
     add('odds-allbats', '<option value="all">All bats</option>', '<option value="all">All starters</option>')
@@ -143,7 +143,7 @@ def seams(payload_js):
     # basketball ledger does not have, and the banner promised weather updates.
     add('leg-wbadge', '<span class="wbadge">${wx.emoji} ${_lt.toFixed(1)}</span>',
         "<span class=\"wbadge\">🙌 tip ${(D.players[p.name]||{}).pb!=null?(D.players[p.name]||{}).pb+'%':'—'}</span>")
-    add('leg-bbadge', "<span class=\"bbadge\">🧱 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>",
+    add('leg-bbadge', "<span class=\"bbadge\">💎 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1):'—'}</span>",
         "<span class=\"bbadge\">🎯 ${(D.players[p.name]||{}).khr!=null?(D.players[p.name]||{}).khr.toFixed(1)+'%':'—'}</span>")
     add('legend-wx', '<span>🌧️ rain · ☀️ heat · 💨 wind · 🥶 cold · 🏟 dome · ⛅ mild</span>', '')
     add('legend-park', '<span>🔥 hot park · ❄️ suppressed park</span>', '')
