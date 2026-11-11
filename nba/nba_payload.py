@@ -425,7 +425,7 @@ def game_note(names, P, st, gm, salt, used=None):
             s.append(pk('second', n, s=sur))
         else:
             s.append(pk('third', n, s=sur))
-    s.append(pk('multi', 'c') if len(names) > 1 else pk('single', 'c', s=_sur(names[0]) if names else ''))
+    # NOCLOSER-2026-11-11. Owner: dropped the line about how many picks and what happens if one hits (card + write-up).
     return ' '.join(s)
 
 
