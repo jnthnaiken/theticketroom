@@ -30,6 +30,10 @@ TEAM_COLS = ['league', 'season', 'date', 'team', 'h_a', 'xG', 'xGA', 'npxG', 'np
 PM_COLS = ['pid', 'name', 'league', 'season', 'date', 'match_id', 'h_team', 'a_team', 'h_goals', 'a_goals',
            'position', 'time', 'goals', 'shots', 'xG', 'npg', 'npxG', 'xA', 'key_passes', 'xGChain', 'xGBuildup']
 POS = {0: 'GK', 1: 'DC', 2: 'MC', 3: 'FW'}
+# XGSCALE: FotMob's xG model runs lower than understat's. Measured 11-11 on the 398 team-matches both sources hold for
+# 2026-08-15..09-16: understat 1.705 vs FotMob 1.579 per team per match (corr .93). This season's rows sit beside years
+# of understat history in the model, so FotMob xG / npxG / xA are put on understat's scale.
+XG_SCALE = 1.705 / 1.579
 
 
 def norm(s):
@@ -153,6 +157,7 @@ def main():
         h, aw = M['h'], M['a']; hn, an = tn(h['name']), tn(aw['name'])
         hx, ax = M['xg'].get(str(h['id']), 0.0), M['xg'].get(str(aw['id']), 0.0)
         hnp, anp = M['npxg'].get(str(h['id']), 0.0), M['npxg'].get(str(aw['id']), 0.0)
+        hx, ax, hnp, anp = (round(v * XG_SCALE, 4) for v in (hx, ax, hnp, anp))
         T.append([lg, a.season, d, hn, 'h', hx, ax, hnp, anp, h['score'], aw['score']])
         T.append([lg, a.season, d, an, 'a', ax, hx, anp, hnp, aw['score'], h['score']])
         for p in M['players']:
@@ -163,7 +168,7 @@ def main():
             if pid is None: pid = 10_000_000 + p['fid']; synth += 1
             pos = POS.get(p['usual'], 'MC') if p['started'] else 'Sub'
             P.append([pid, p['name'], lg, a.season, d, mid, hn, an, h['score'], aw['score'], pos, p['time'], p['goals'],
-                      p['shots'], round(p['xG'], 4), p['npg'], round(p['npxG'], 4), round(p['xA'], 4), p['kp'], 0.0, 0.0])
+                      p['shots'], round(p['xG'] * XG_SCALE, 4), p['npg'], round(p['npxG'] * XG_SCALE, 4), round(p['xA'] * XG_SCALE, 4), p['kp'], 0.0, 0.0])
     pd.DataFrame(T, columns=TEAM_COLS).to_csv(os.path.join(a.out, 'team_matches.csv.gz'), index=False)
     pd.DataFrame(P, columns=PM_COLS).to_csv(os.path.join(a.out, 'player_matches.csv.gz'), index=False)
     print(f'  wrote {len(T)} team rows, {len(P)} player rows ({synth} player-matches with no understat pid), '
