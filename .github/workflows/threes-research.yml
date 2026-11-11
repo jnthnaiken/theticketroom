@@ -195,7 +195,7 @@ jobs:
         run: |
           for i in 1 2 3 4 5; do
             rm -rf d; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
-            mkdir -p d/nba/restate && cp dt_blend.json dt_blend_cands.json dt_blend.log odds_blend.psv.gz pull.log d/nba/restate/ 2>/dev/null
+            mkdir -p d/nba/restate && for f in dt_blend.json dt_blend_cands.json dt_blend.log odds_blend.psv.gz pull.log; do [ -f $f ] && cp $f d/nba/restate/; done
             (cd d && git config user.email a@b.c && git config user.name restate && git add nba/restate && git commit -qm "NBA restate: Brickyard blend" && git push -q) && break
             sleep $((i*7))
           done
