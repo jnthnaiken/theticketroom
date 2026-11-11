@@ -177,7 +177,9 @@ jobs:
       - name: Data
         run: |
           set +e
-          node nba/research/threes/pull_bp162.js 2026-10-20 2026-11-10 odds.psv > pull.log 2>&1; tail -3 pull.log; wc -l odds.psv; gzip -c odds.psv > odds_blend.psv.gz
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d0
+          if [ -f d0/nba/restate/odds_blend.psv.gz ]; then cp d0/nba/restate/odds_blend.psv.gz .; echo "reusing odds_blend"; else
+            node nba/research/threes/pull_bp162.js 2026-10-20 2026-11-10 odds.psv > pull.log 2>&1; tail -3 pull.log; wc -l odds.psv; gzip -c odds.psv > odds_blend.psv.gz; fi
           mkdir -p pbp sd
           for y in 2022 2023 2024 2025; do
             curl -sL -o pbp/v3_$y.tar.xz https://github.com/shufinskiy/nba_data/raw/main/datasets/nbastatsv3_$y.tar.xz && (cd pbp && tar -xf v3_$y.tar.xz)
@@ -193,7 +195,7 @@ jobs:
         run: |
           for i in 1 2 3 4 5; do
             rm -rf d; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" d
-            mkdir -p d/nba/restate && cp dt_blend.json dt_blend.log odds_blend.psv.gz pull.log d/nba/restate/ 2>/dev/null
+            mkdir -p d/nba/restate && cp dt_blend.json dt_blend_cands.json dt_blend.log odds_blend.psv.gz pull.log d/nba/restate/ 2>/dev/null
             (cd d && git config user.email a@b.c && git config user.name restate && git add nba/restate && git commit -qm "NBA restate: Brickyard blend" && git push -q) && break
             sleep $((i*7))
           done

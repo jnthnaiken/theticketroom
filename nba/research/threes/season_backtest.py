@@ -65,7 +65,7 @@ MKT = _pv.groupby(level=['date', 'name', 'line']).dv.median().to_dict()
 O = O[(O.book == T.FANDUEL) & (O.main == 1) & O.side.isin(['O', 'U'])]   # DTUNDER-2026-10-26: unders too
 O['team'] = O.team.map(lambda t: BPTEAM.get(str(t), str(t)))
 
-out = {}
+out = {}; CANDS = []
 d = datetime.date.fromisoformat(D0)
 while d <= datetime.date.fromisoformat(D1):
     ds = d.isoformat()
@@ -94,6 +94,9 @@ while d <= datetime.date.fromisoformat(D1):
             if not f: continue
             p, mu = T.p_over(f, float(r.line))
             pmk = MKT.get((ds, r.name, float(r.line)))
+            CANDS.append(dict(d=ds, name=r.name, code=T_, gm=f'{away}@{home}', side=r.side, line=float(r.line), odds=int(r.cost),
+                              p_over=round(p, 4), mu=round(mu, 3), pmk_over=None if pmk is None else round(pmk, 4), started=started,
+                              made=b['tpm'] if b else None, dnp=not (b and (b['played'] or b['tpa']))))
             if pmk is None: continue                       # DTBLEND: no market, no pick
             if r.side == 'U':
                 pu = 1 - p; evu = pu * T.dec(r.cost) - 1
@@ -133,6 +136,7 @@ while d <= datetime.date.fromisoformat(D1):
     if day: st.update_day(day)
     d += datetime.timedelta(days=1)
 json.dump(out, open(OUT, 'w'), indent=1)
+json.dump(CANDS, open(OUT.replace('.json', '_cands.json'), 'w'))
 tot = sum(v['units'] for v in out.values()); n = sum(len(v['picks']) for v in out.values())
 w = sum(1 for v in out.values() for x in v['picks'] if x['res'] == 'win')
 print(f'SEASON: {n} picks, {w} won, {tot:+.2f}u')
