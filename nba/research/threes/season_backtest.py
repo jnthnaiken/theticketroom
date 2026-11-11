@@ -56,6 +56,12 @@ print('history through', date, flush=True)
 # ---- prices ----
 O = pd.read_csv(ODDS, sep='|', header=None, quoting=3,
                 names=['date', 'event', 'home', 'visitor', 'bp', 'name', 'pos', 'team', 'book', 'line', 'side', 'cost', 'main'])
+# DTBLEND-2026-11-11: the market at each (night, man, line) -- every other book's over/under pair de-vigged, median
+_A = O[(O.book != T.FANDUEL) & O.side.isin(['O', 'U'])].copy()
+_A['ip'] = 1 / _A.cost.map(T.dec)
+_pv = _A.pivot_table(index=['date', 'name', 'line', 'book'], columns='side', values='ip', aggfunc='first').dropna()
+_pv['dv'] = _pv['O'] / (_pv['O'] + _pv['U'])
+MKT = _pv.groupby(level=['date', 'name', 'line']).dv.median().to_dict()
 O = O[(O.book == T.FANDUEL) & (O.main == 1) & O.side.isin(['O', 'U'])]   # DTUNDER-2026-10-26: unders too
 O['team'] = O.team.map(lambda t: BPTEAM.get(str(t), str(t)))
 
@@ -63,7 +69,10 @@ out = {}
 d = datetime.date.fromisoformat(D0)
 while d <= datetime.date.fromisoformat(D1):
     ds = d.isoformat()
-    sb = [r for r in N.scoreboard(ds) if r[4]]
+    try:
+        sb = [r for r in N.scoreboard(ds) if r[4]]
+    except Exception as e:
+        print(ds, 'scoreboard', e); d += datetime.timedelta(days=1); continue
     boxes = {}
     for gid, away, home, *_ in sb:
         boxes[(away, home)] = (gid, N.parse(N.summary(gid))['box'])
@@ -84,19 +93,22 @@ while d <= datetime.date.fromisoformat(D1):
             f = st.features(pid, opp, started, miss / tot if tot > 0 else 0.0)
             if not f: continue
             p, mu = T.p_over(f, float(r.line))
+            pmk = MKT.get((ds, r.name, float(r.line)))
+            if pmk is None: continue                       # DTBLEND: no market, no pick
             if r.side == 'U':
                 pu = 1 - p; evu = pu * T.dec(r.cost) - 1
-                if float(r.line) >= T.U_LINE_MIN and pu >= T.U_P_MIN and evu >= T.U_EV_MIN:
+                qu = T.blend(pu, 1 - pmk, False); evb = qu * T.dec(r.cost) - 1
+                if float(r.line) >= T.U_LINE_MIN and pu >= T.U_P_MIN and evu >= T.U_EV_MIN and evb >= T.BL_U_EV:
                     pk = dict(name=r.name, code=T_, gmatch=f'{away}@{home}', line=float(r.line), kmin=int(float(r.line) + 0.5), side='U',
-                              odds=int(r.cost), p=round(pu, 4), mu=round(mu, 2), ev=round(evu, 3), started=started,
+                              odds=int(r.cost), p=round(qu, 4), pm=round(pu, 4), pmk=round(1 - pmk, 4), mu=round(mu, 2), ev=round(evb, 3), started=started,
                               status='confirmed', locked=True, final=True)
                     pk['dnp'] = not (b and (b['played'] or b['tpa'])); pk['made'] = b['tpm'] if b else None
                     pk['res'] = T.grade(pk); unders.append(pk)
                 continue
-            ev = p * T.dec(r.cost) - 1
-            if ev >= T.EV_MIN and (best is None or ev > best['ev']):
+            qo = T.blend(p, pmk, True); ev = qo * T.dec(r.cost) - 1
+            if ev >= T.BL_O_EV and (best is None or ev > best['ev']):
                 pk = dict(name=r.name, code=T_, gmatch=f'{away}@{home}', line=float(r.line), kmin=int(float(r.line) + 0.5),
-                          odds=int(r.cost), p=round(p, 4), mu=round(mu, 2), ev=round(ev, 3), started=started,
+                          odds=int(r.cost), p=round(qo, 4), pm=round(p, 4), pmk=round(pmk, 4), mu=round(mu, 2), ev=round(ev, 3), started=started,
                           status='confirmed', locked=True, final=True)
                 pk['dnp'] = not (b and (b['played'] or b['tpa']))
                 pk['made'] = b['tpm'] if b else None
@@ -105,7 +117,9 @@ while d <= datetime.date.fromisoformat(D1):
         if best: picks.append(best)
     picks = sorted(picks, key=lambda x: -x['ev'])[:T.MAX_NIGHT]
     on = {(x['gmatch'], x['name']) for x in picks}
-    picks += sorted([u for u in unders if (u['gmatch'], u['name']) not in on], key=lambda x: -x['ev'])[:T.U_MAX_NIGHT]
+    _u = sorted([u for u in unders if (u['gmatch'], u['name']) not in on], key=lambda x: -x['ev'])
+    _u = list({(u['gmatch'], u['name']): u for u in reversed(_u)}.values())   # one line per man, as the live board
+    picks += sorted(_u, key=lambda x: -x['ev'])[:T.U_MAX_NIGHT]
     units = sum((T.dec(x['odds']) - 1) if x['res'] == 'win' else (-1 if x['res'] == 'loss' else 0) for x in picks)
     out[ds] = dict(picks=picks, units=round(units, 2))
     print(ds, len(sb), 'games', [(x.get('side', 'O'), x['name'], x['line'], x['odds'], x['made'], x['res']) for x in picks], f'{units:+.2f}u', flush=True)
