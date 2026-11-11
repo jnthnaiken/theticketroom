@@ -78,7 +78,7 @@ HOWTO = {
  },
  "steps": [
   [
-   "Start on Tickets — tonight’s 👑 King of the Court, 🏗️ The Brickyard and ⚡ Tip-Off picks.",
+   "Start on Tickets — tonight’s 👑 King of the Court, 🧱 The Brickyard and ⚡ Tip-Off picks.",
    "Tip-Off is up to three straight first-basket bets per game, split so any one of them hitting covers the game. The card at the top is the season ledger, graded live."
   ],
   [
@@ -105,7 +105,7 @@ HOWTO = {
    "DraftKings' NBA Tuesday promo: whoever picks the player with the most points + rebounds + assists of the night splits a bonus-bet pool, and a player prop on him enters you. We crown the player with the best chance once you weigh how many others will pick him, and post 1u on his points + rebounds + assists under. Any pre-game prop on him at -200 or longer enters, and the prop does not have to win; the under broke even last season and cashes on most of the nights he does not take the crown. That bet counts on our ledger; the bonus bets do not."
   ],
   [
-   "🏗️",
+   "🧱",
    "The Brickyard",
    "Threes made, both ways, and mostly the misses: we want the bricks. Our chance blends two things: our model, which weighs his three-point volume and shooting, his minutes lately, whether he's starting tonight, and the teammates sitting out; and the market, every other sportsbook's price on the same line with its cut taken out. The model finds the spots and the market keeps it honest. Overs: the over on FanDuel's line when the blended chance gives at least a 5% edge, one per game. Unders: the under on a line of 1.5 or more when our model makes the under more likely than not with at least a 10% edge, and the blended chance still shows at least 3%. No other book on the line, no pick. 1u each. Picks show ⏳ off the projected lineups and lock once both lineups are confirmed. A player who doesn't play is refunded."
   ],
