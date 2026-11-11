@@ -481,6 +481,15 @@ def downtown(date, games, cache, stamp, started):
         return {'picks': locked}
     st = TH.State(json.load(open(spath, encoding='utf-8')))
     have = {p['game'] for p in locked}
+    # DTBLEND-2026-11-11: the market at each (man, line) -- every other book's over/under pair, de-vigged, median
+    _pr = {}
+    for row in THREES:
+        if row['book'] == TH.FANDUEL or row['side'] not in ('O', 'U'): continue
+        _pr.setdefault((' '.join(_nk(row['name'])), row['line'], row['book']), {})[row['side']] = 1 / TH.dec(row['cost'])
+    _mk = {}
+    for (n_, l_, b_), v in _pr.items():
+        if 'O' in v and 'U' in v and v['O'] + v['U'] > 0: _mk.setdefault((n_, l_), []).append(v['O'] / (v['O'] + v['U']))
+    MKT = {k: sorted(v)[len(v) // 2] if len(v) % 2 else (sorted(v)[len(v) // 2 - 1] + sorted(v)[len(v) // 2]) / 2 for k, v in _mk.items()}
     fresh, ufresh = [], []
     for gi, g in games.items():
         if gi in have or started(dict(ko_utc=g['ko_utc'])): continue
@@ -502,19 +511,22 @@ def downtown(date, games, cache, stamp, started):
             f = st.features(pid, opp, started_, out / tot if tot > 0 else 0.0)
             if not f: continue
             p, mu = TH.p_over(f, row['line'])
+            pmk = MKT.get((' '.join(_nk(row['name'])), row['line']))
+            if pmk is None: continue             # DTBLEND: no market at FanDuel's line, no pick
             if row['side'] == 'U':               # DTUNDER-2026-10-26
                 pu = 1 - p; evu = pu * TH.dec(row['cost']) - 1
-                if row['line'] >= TH.U_LINE_MIN and pu >= TH.U_P_MIN and evu >= TH.U_EV_MIN:
+                qu = TH.blend(pu, 1 - pmk, False); evb = qu * TH.dec(row['cost']) - 1
+                if row['line'] >= TH.U_LINE_MIN and pu >= TH.U_P_MIN and evu >= TH.U_EV_MIN and evb >= TH.BL_U_EV:
                     unders.append(dict(game=gi, name=row['name'], team=TEAM_NAME.get(T_, T_), code=T_, gmatch=g['gm'], gtime=g['time'],
                                        ko_utc=g['ko_utc'], line=row['line'], kmin=int(row['line'] + 0.5), odds=int(row['cost']), side='U',
-                                       p=round(pu, 4), mu=round(mu, 2), ev=round(evu, 3), started=started_,
+                                       p=round(qu, 4), pm=round(pu, 4), pmk=round(1 - pmk, 4), mu=round(mu, 2), ev=round(evb, 3), started=started_,
                                        status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp))
                 continue
-            evv = p * TH.dec(row['cost']) - 1
-            if evv >= TH.EV_MIN and (best is None or evv > best['ev']):
+            qo = TH.blend(p, pmk, True); evv = qo * TH.dec(row['cost']) - 1
+            if evv >= TH.BL_O_EV and (best is None or evv > best['ev']):
                 best = dict(game=gi, name=row['name'], team=TEAM_NAME.get(T_, T_), code=T_, gmatch=g['gm'], gtime=g['time'],
                             ko_utc=g['ko_utc'], line=row['line'], kmin=int(row['line'] + 0.5), odds=int(row['cost']),
-                            p=round(p, 4), mu=round(mu, 2), ev=round(evv, 3), started=started_,
+                            p=round(qo, 4), pm=round(p, 4), pmk=round(pmk, 4), mu=round(mu, 2), ev=round(evv, 3), started=started_,
                             status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp, side='O')
         if best: fresh.append(best)
         ufresh += [u for u in unders if not (best and u['name'] == best['name'])]
