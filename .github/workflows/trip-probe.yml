@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/trip-probe.yml', 'soccer/auto_slate.js', 'tools/understat_probe.js', 'tools/trip_probe.js', 'tools/fd_probe.js', 'nba/kotc.js', 'tools/kotc_restate.py']
+    paths: ['.github/workflows/trip-probe.yml', 'tools/xg_sources_probe.js', 'soccer/auto_slate.js', 'tools/understat_probe.js', 'tools/trip_probe.js', 'tools/fd_probe.js', 'nba/kotc.js', 'tools/kotc_restate.py']
 permissions:
   contents: write
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: Probe
         run: |
           set +e
-          (cd soccer && for d in 2026-11-12 2026-11-13 2026-11-14; do node auto_slate.js $d ../.probe_$d; done) > probe.txt 2>&1
+          node tools/xg_sources_probe.js > probe.txt 2>&1
           curl -s -o /dev/null -w "curl oddschecker winner: %{http_code}\n" -A "Mozilla/5.0" https://www.oddschecker.com/football/english/premier-league/liverpool-v-brighton/winner >> probe.txt
           curl -s -o /dev/null -w "curl understat: %{http_code}\n" -A "Mozilla/5.0" https://understat.com/league/EPL/2026 >> probe.txt
           cat probe.txt
