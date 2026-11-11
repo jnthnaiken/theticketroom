@@ -176,14 +176,13 @@ def grade(pick):
 
 # Owner: "use like funky jazz names like semi-pro the movie with will ferrell vibes for the ticket names too" (the
 # Flint Tropics' "Downtown" is what put the section name in his head). Original names in that '70s-ABA spirit.
-# BRICKNAMES-2026-11-11. Owner: "ticket headers need to match the brickyard. they are still downtown themed". Same
-# '70s funk spirit, now about the misses: bricks, clanks, back iron, airballs. Original names only.
-DT_NAMES = ['Velvet Brick Layer', 'Eight-Track Clang', 'Lava Lamp Lead Pipe', 'Shag Carpet Clanker', 'Bell-Bottom Brick',
-            'Mirror Ball Masonry', 'Polyester Airball', 'Platform Shoe Front Rim', 'Roller Rink Rim Rattler', 'Groove Tube Grout',
-            'Funk Factory Foundry', 'Butterscotch Back Iron', 'Boom Box Brickwork', 'Cinder Block Boogie', 'Afro Pick Airball',
-            'Saturday Night Shank', 'Disco Ball Doink', 'Wah-Wah Wall Builder', 'Leisure Suit Load-Bearing', 'Mortar Mixer Groove',
-            'Velour Brickworks', 'Strobe Light Stonewall', 'Hot Tub Hard Rim', 'Mood Ring Mortar', 'Gold Chain Clanger',
-            'Sideburn Short Arm', 'Smooth Groove Cement', 'Pinball Rim Out', 'Satin Shorts Clank', 'Brickhouse Boogaloo']
+# BRICKNAMES-2026-11-11. Owner: "ticket headers need to match the brickyard" -> "nah we dont need the 70s funk style,
+# comes off as stereotypical without the downtown aspect". Plain brickyard / masonry / miss names. Original only.
+DT_NAMES = ['Cinder Block', 'Back Iron', 'Load-Bearing Wall', 'Red Clay', 'Mortar Mix', 'Front Rim', 'Brick by Brick',
+            'The Foundation', 'Cornerstone', 'Rebar', 'Wet Cement', 'The Kiln', 'Hard Hat Zone', 'Wheelbarrow',
+            'Trowel Work', 'Brick Oven', 'Stonewall', 'Clay Pit', 'Breeze Block', 'Scaffolding', 'The Masonry',
+            'Rim Rattler', 'Brick Wall', 'Pallet of Bricks', 'Grout Line', 'Iron Out', 'Clank', 'Bricklayer',
+            'Under Construction', 'Building Code']
 
 
 def pick_name(date, i):
