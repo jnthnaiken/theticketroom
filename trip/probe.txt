@@ -1,32 +1,94 @@
-top keys [
-  'tabs',
-  'allAvailableSeasons',
-  'details',
-  'seostr',
-  'QAData',
-  'table',
-  'transfers',
-  'overview',
-  'stats',
-  'fixtures',
-  'playoff',
-  'seasons'
-]
-stats keys [ 'players', 'teams', 'seasonStatLinks', 'seasonsWithLinks' ]
-  players array(46) {"header":"Top scorer","participant":{"id":737066,"name":"Erling Haaland","rank":1,"ccode":"NOR","teamId":8456,"teamName":"Manchester City","value":9,"stat":{"name":"goals","value":9,"format":"number","fractions":0}},"fetchAllUrl":"https://data.fotmob.com/stats/47/season/36781/goals.json","topThree":[{"id":737066,"name":"Erling Haaland","rank":1,"ccode":"NOR","teamId":8456,"teamName":"Manchester C
-  teams array(31) {"header":"FotMob rating","participant":{"id":0,"name":"Manchester City","rank":1,"ccode":"ENG","teamId":8456,"value":7.14,"stat":{"name":"rating_team","value":7.14,"format":"fraction","fractions":2}},"fetchAllUrl":"https://data.fotmob.com/stats/47/season/36781/rating_team.json","topThree":[{"id":0,"name":"Manchester City","rank":1,"ccode":"ENG","teamId":8456,"value":7.14,"stat":{"name":"rating_te
-  seasonStatLinks array(11) {"Name":"2026/2027","CountryCode":"ENG","RelativePath":"stats/47/season/36781/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId":36781}
-  seasonsWithLinks array(17) "2026/2027"
-player stat lists: goals | goal_assist | _goals_and_goal_assist | rating | mins_played | phys_ts | phys_tdc | phys_sprints | phys_tdc_per_90 | phys_sprints_per_90 | goals_per_90 | expected_goals | expected_goals_per_90 | expected_goalsontarget | ontarget_scoring_att | total_scoring_att | accurate_pass | big_chance_created | total_att_assist | accurate_long_balls | lbp_total | expected_assists | expected_assists_per_90 | _expected_goals_and_expected_assists_per_90 | won_contest | big_chance_missed | penalty_won | defensive_contributions | total_tackle | interception | effective_clearance | outfielder_block | ball_recovery | penalty_conceded | poss_won_att_3rd | clean_sheet | _save_percentage | saves | _goals_prevented | goals_conceded | total_high_claim | total_keeper_sweeper | penalty_save | fouls | yellow_card | red_card
-LIST expected_goals: 200 https://data.fotmob.com/stats/47/season/36781/expected_goals.json rows=366 [{"ParticipantName":"Thierno Barry","ParticiantId":1398392,"TeamId":8668,"TeamColor":"#00359C","StatValue":7.3,"SubStatValue":6,"MinutesPlayed":855,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"FRA","TeamName":"Everton","Positions":[115]},{"ParticipantName":"Erling Haaland","ParticiantId":737066,"TeamId":8456,"TeamColor":"#69A8D8","StatValue":7.1,"SubStatValue":9,"MinutesPlayed":890,"MatchesPlayed":10,"StatValueCount":10,"Rank":2,"ParticipantCountryCode":"NOR","TeamName":"Manchester City","Positions":[115]}]
-LIST goals: 200 https://data.fotmob.com/stats/47/season/36781/goals.json rows=147 [{"ParticipantName":"Erling Haaland","ParticiantId":737066,"TeamId":8456,"TeamColor":"#69A8D8","StatValue":9,"SubStatValue":0,"MinutesPlayed":890,"MatchesPlayed":10,"StatValueCount":7,"Rank":1,"ParticipantCountryCode":"NOR","TeamName":"Manchester City","Positions":[115]},{"ParticipantName":"Alexander Isak","ParticiantId":690107,"TeamId":8650,"TeamColor":"#911712","StatValue":7,"SubStatValue":0,"MinutesPlayed":750,"MatchesPlayed":9,"StatValueCount":6,"Rank":2,"ParticipantCountryCode":"SWE","TeamName":"Liverpool","Positions":[115]}]
-LIST expected_assists: 200 https://data.fotmob.com/stats/47/season/36781/expected_assists.json rows=454 [{"ParticipantName":"Alex Iwobi","ParticiantId":604785,"TeamId":9879,"TeamColor":"#000000","StatValue":2.9,"SubStatValue":0,"MinutesPlayed":827,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"NGA","TeamName":"Fulham","Positions":[66,87,85]},{"ParticipantName":"Martin Ødegaard","ParticiantId":534670,"TeamId":9825,"TeamColor":"#bd0510","StatValue":2.5,"SubStatValue":0,"MinutesPlayed":829,"MatchesPlayed":10,"StatValueCount":10,"Rank":2,"ParticipantCountryCode":"NOR","TeamName":"Arsenal","Positions":[73,85]}]
-LIST mins_played: 200 https://data.fotmob.com/stats/47/season/36781/mins_played.json rows=459 [{"ParticipantName":"Alisson Becker","ParticiantId":319784,"TeamId":8650,"TeamColor":"#911712","StatValue":900,"SubStatValue":10,"MinutesPlayed":900,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"BRA","TeamName":"Liverpool","Positions":[11]},{"ParticipantName":"Antonín Kinský","ParticiantId":1341475,"TeamId":8586,"TeamColor":"#132257","StatValue":900,"SubStatValue":10,"MinutesPlayed":900,"MatchesPlayed":10,"StatValueCount":10,"Rank":1,"ParticipantCountryCode":"CZE","TeamName":"Tottenham Hotspur","Positions":[11]}]
-LIST total_scoring_att: 200 https://data.fotmob.com/stats/47/season/36781/total_scoring_att.json rows=299 [{"ParticipantName":"Joe Gelhardt","ParticiantId":956161,"TeamId":8667,"TeamColor":"#ED8B00","StatValue":6.3,"SubStatValue":11.1,"MinutesPlayed":128,"MatchesPlayed":6,"StatValueCount":3,"Rank":1,"ParticipantCountryCode":"ENG","TeamName":"Hull City","Positions":[85,83,72]},{"ParticipantName":"Rodrigo Muniz","ParticiantId":1128945,"TeamId":9879,"TeamColor":"#000000","StatValue":5.6,"SubStatValue":16.7,"MinutesPlayed":96,"MatchesPlayed":8,"StatValueCount":4,"Rank":2,"ParticipantCountryCode":"BRA","TeamName":"Fulham","Positions":[115]}]
-LIST expected_goals_per_90: 200 https://data.fotmob.com/stats/47/season/36781/expected_goals_per_90.json rows=299 [{"ParticipantName":"Jack Hinshelwood","ParticiantId":1251334,"TeamId":10204,"TeamColor":"#0850A0","StatValue":1.44,"SubStatValue":1.71,"MinutesPlayed":158,"MatchesPlayed":5,"StatValueCount":4,"Rank":1,"ParticipantCountryCode":"ENG","TeamName":"Brighton and Hove Albion","Positions":[85,66,77]},{"ParticipantName":"Chuba Akpom","ParticiantId":413158,"TeamId":9902,"TeamColor":"#0333A0","StatValue":0.98,"SubStatValue":0.76,"MinutesPlayed":119,"MatchesPlayed":8,"StatValueCount":3,"Rank":2,"ParticipantCountryCode":"ENG","TeamName":"Ipswich Town","Positions":[115,85]}]
-LIST ontarget_scoring_att: 200 https://data.fotmob.com/stats/47/season/36781/ontarget_scoring_att.json rows=240 [{"ParticipantName":"Rodrigo Muniz","ParticiantId":1128945,"TeamId":9879,"TeamColor":"#000000","StatValue":2.8,"SubStatValue":50,"MinutesPlayed":96,"MatchesPlayed":8,"StatValueCount":3,"Rank":1,"ParticipantCountryCode":"BRA","TeamName":"Fulham","Positions":[115]},{"ParticipantName":"Joe Gelhardt","ParticiantId":956161,"TeamId":8667,"TeamColor":"#ED8B00","StatValue":2.8,"SubStatValue":44.4,"MinutesPlayed":128,"MatchesPlayed":6,"StatValueCount":1,"Rank":2,"ParticipantCountryCode":"ENG","TeamName":"Hull City","Positions":[85,83,72]}]
-seasons [{"Name":"2026/2027","CountryCode":"ENG","RelativePath":"stats/47/season/36781/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId":36781},{"Name":"2025/2026","CountryCode":"ENG","RelativePath":"stats/47/season/27110/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId":27110},{"Name":"2024/2025","CountryCode":"ENG","RelativePath":"stats/47/season/23685/topstats.json","League":"Premier League","StageId":0,"TemplateId":47,"TournamentId"
-matchDetails 200 382093
- xG row [{"title":"Expected goals (xG)","key":"expected_goals","stats":["3.55","2.88"],"rawStats":[{"value":3.55},{"value":2.88}],"format":"double","type":"text","highlighted":"home"},{"title":"Expected goals (xG)","key":"expected_goals","stats":[null,null],"rawStats":[null,null],"type":"title","highlighted":"equal"},{"title":"Expected goals (xG)","key":"expected_goals","stats":["3.55","2.88"],"rawStats":[{"value":3.55},{"value":2.88}],"format":"double","type":"text","highlighted":"home"}]
+auto_slate 2026-11-13: 28 fixtures
+  scorers: no BettingPros event for colombia-v-chile
+  scorers: no BettingPros event for ecuador-v-costa-rica
+  scorers: no BettingPros event for peru-v-bolivia
+  scorers: no BettingPros event for singapore-v-paraguay
+  scorers: no BettingPros event for kuwait-v-syria
+  scorers: no BettingPros event for united-arab-emirates-v-honduras
+  scorers: no BettingPros event for saudi-arabia-v-south-korea
+  scorers: no BettingPros event for qatar-v-australia
+  scorers: no BettingPros event for iraq-v-lebanon
+  scorers: no BettingPros event for jordan-v-indonesia
+  scorers: no BettingPros event for argentina-v-uruguay
+  scorers: no BettingPros event for montserrat-v-nicaragua
+  scorers: no BettingPros event for guatemala-v-canada
+  scorers: no BettingPros event for bermuda-v-st-lucia
+  scorers: no BettingPros event for puerto-rico-v-dominica
+  scorers: no BettingPros event for grenada-v-st-kitts-and-nevis
+  scorers: no BettingPros event for st-martin-v-el-salvador
+  scorers: no BettingPros event for moldova-v-kazakhstan
+  scorers: no BettingPros event for andorra-v-gibraltar
+  scorers: no BettingPros event for bulgaria-v-iceland
+  scorers: no BettingPros event for liechtenstein-v-azerbaijan
+  scorers: no BettingPros event for luxembourg-v-estonia
+  scorers: no BettingPros event for netherlands-v-greece
+  scorers: no BettingPros event for scotland-v-north-macedonia
+  scorers: no BettingPros event for serbia-v-germany
+  scorers: no BettingPros event for slovakia-v-faroe-islands
+  scorers: no BettingPros event for slovenia-v-switzerland
+  scorers: no BettingPros event for salamanca-uds-v-celta-vigo
+  ags: 0 prices across 0 matches
+  fgs: 0 prices across 0 matches
+  FanDuel: 349 events after reading 53 competition listings
+  FanDuel colombia-v-chile (Colombia v Chile): 45 anytime prices
+  FanDuel ecuador-v-costa-rica (Ecuador v Costa Rica): 44 anytime prices
+  FanDuel peru-v-bolivia (Peru v Bolivia): 43 anytime prices
+  FanDuel singapore-v-paraguay (Singapore v Paraguay): 0 anytime prices
+  FanDuel kuwait-v-syria (Kuwait v Syria): 0 anytime prices
+  FanDuel: no event for united-arab-emirates-v-honduras
+  FanDuel saudi-arabia-v-south-korea (Saudi Arabia v South Korea): 50 anytime prices
+  FanDuel qatar-v-australia (Qatar v Australia): 41 anytime prices
+  FanDuel: no event for iraq-v-lebanon
+  FanDuel: no event for jordan-v-indonesia
+  FanDuel argentina-v-uruguay (Argentina v Uruguay): 0 anytime prices
+  FanDuel: no event for montserrat-v-nicaragua
+  FanDuel guatemala-v-canada (Guatemala v Canada): 0 anytime prices
+  FanDuel bermuda-v-st-lucia (Bermuda v St Lucia): 0 anytime prices
+  FanDuel puerto-rico-v-dominica (Puerto Rico v Dominica): 0 anytime prices
+  FanDuel grenada-v-st-kitts-and-nevis (Grenada v St Kitts & Nevis): 0 anytime prices
+  FanDuel: no event for st-martin-v-el-salvador
+  FanDuel moldova-v-kazakhstan (Moldova v Kazakhstan): 46 anytime prices
+  FanDuel andorra-v-gibraltar (Andorra v Gibraltar): 39 anytime prices
+  FanDuel bulgaria-v-iceland (Bulgaria v Iceland): 39 anytime prices
+  FanDuel liechtenstein-v-azerbaijan (Liechtenstein v Azerbaijan): 48 anytime prices
+  FanDuel luxembourg-v-estonia (Luxembourg v Estonia): 42 anytime prices
+  FanDuel netherlands-v-greece (Netherlands v Greece): 43 anytime prices
+  FanDuel scotland-v-north-macedonia (Scotland v North Macedonia): 27 anytime prices
+  FanDuel serbia-v-germany (Serbia v Germany): 41 anytime prices
+  FanDuel slovakia-v-faroe-islands (Slovakia v Faroe Islands): 47 anytime prices
+  FanDuel slovenia-v-switzerland (Slovenia v Switzerland): 45 anytime prices
+  FanDuel: no event for salamanca-uds-v-celta-vigo
+  ::warning::understat EPL 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat EPL 2025: using FotMob (537 rows, 20 club names mapped)
+  ::warning::understat EPL 2026: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat EPL 2026: using FotMob (459 rows, 20 club names mapped)
+  ::warning::understat La_liga 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat La_liga 2025: using FotMob (600 rows, 20 club names mapped)
+  ::warning::understat La_liga 2026: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat La_liga 2026: using FotMob (490 rows, 20 club names mapped)
+  ::warning::understat Serie_A 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat Serie_A 2025: using FotMob (586 rows, 20 club names mapped)
+  ::warning::understat Serie_A 2026: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat Serie_A 2026: using FotMob (500 rows, 20 club names mapped)
+  ::warning::understat Bundesliga 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat Bundesliga 2025: using FotMob (499 rows, 18 club names mapped)
+  ::warning::understat Bundesliga 2026: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat Bundesliga 2026: using FotMob (421 rows, 18 club names mapped)
+  ::warning::understat Ligue_1 2025: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat Ligue_1 2025: using FotMob (551 rows, 18 club names mapped)
+  ::warning::understat Ligue_1 2026: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+  ::warning::understat Ligue_1 2026: using FotMob (435 rows, 18 club names mapped)
+  xg rows: 5078
+5078
+EPL        2025 fotmob  537 understat  537 overlap  493 | npxG corr 0.974 total ratio 0.96 | minutes diff median +0 | team spelled the same 97%
+EPL        2026 fotmob  459 understat  454 overlap  418 | npxG corr 0.928 total ratio 1.07 | minutes diff median +44 | team spelled the same 99%
+La_liga    2025 fotmob  599 understat  599 overlap  525 | npxG corr 0.969 total ratio 0.97 | minutes diff median +0 | team spelled the same 98%
+La_liga    2026 fotmob  490 understat  487 overlap  432 | npxG corr 0.938 total ratio 1.13 | minutes diff median +42 | team spelled the same 100%
+Serie_A    2025 fotmob  586 understat  586 overlap  542 | npxG corr 0.957 total ratio 0.97 | minutes diff median +0 | team spelled the same 96%
+Serie_A    2026 fotmob  500 understat  493 overlap  455 | npxG corr 0.951 total ratio 1.10 | minutes diff median +60 | team spelled the same 99%
+Bundesliga 2025 fotmob  499 understat  499 overlap  457 | npxG corr 0.969 total ratio 1.00 | minutes diff median +0 | team spelled the same 98%
+Bundesliga 2026 fotmob  421 understat  413 overlap  383 | npxG corr 0.960 total ratio 1.13 | minutes diff median +42 | team spelled the same 100%
+Ligue_1    2025 fotmob  551 understat  553 overlap  492 | npxG corr 0.956 total ratio 1.03 | minutes diff median +0 | team spelled the same 98%
+Ligue_1    2026 fotmob  435 understat  428 overlap  385 | npxG corr 0.926 total ratio 1.31 | minutes diff median +60 | team spelled the same 97%
 curl oddschecker winner: 403
 curl understat: 200
