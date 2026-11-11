@@ -11,7 +11,7 @@ const get = async (u) => JSON.parse(await (await fetch(u, { headers: { 'user-age
   console.log('header teams', JSON.stringify((D.header || {}).teams).slice(0, 400));
   console.log('general', JSON.stringify(D.general).slice(0, 500));
   const ps = (D.content || {}).playerStats || {}; const ids = Object.keys(ps); console.log('playerStats n', ids.length);
-  const one = ps[ids[0]]; console.log('one player', JSON.stringify(one).slice(0, 2500));
+  const one = Object.values(ps).find(x => (x.stats || []).length && !x.isGoalkeeper); console.log('one player', JSON.stringify(one).slice(0, 3500));
   const sh = (D.content || {}).shotmap || {}; console.log('shotmap keys', Object.keys(sh), JSON.stringify((sh.shots || [])[0]).slice(0, 600));
-  const lu = (D.content || {}).lineup || {}; console.log('lineup keys', Object.keys(lu), JSON.stringify(lu.homeTeam ? Object.keys(lu.homeTeam) : lu).slice(0, 300));
+  const lu = (D.content || {}).lineup || {}; console.log('starter', JSON.stringify(((lu.homeTeam || {}).starters || [])[3]).slice(0, 900)); console.log('sub', JSON.stringify(((lu.homeTeam || {}).subs || [])[0]).slice(0, 700)); console.log('situations', [...new Set((sh.shots || []).map(x => x.situation))]);
 })().catch(e => console.log('ERR', e));
