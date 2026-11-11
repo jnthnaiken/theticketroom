@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/trip-probe.yml', 'tools/xg_compare.py', 'tools/xg_sources_probe.js', 'soccer/auto_slate.js', 'tools/understat_probe.js', 'tools/trip_probe.js', 'tools/fd_probe.js', 'nba/kotc.js', 'tools/kotc_restate.py']
+    paths: ['.github/workflows/trip-probe.yml', 'tools/fotmob_hist_check.py', 'soccer/history/fetch_history_fotmob.py', 'tools/xg_compare.py', 'tools/xg_sources_probe.js', 'soccer/auto_slate.js', 'tools/understat_probe.js', 'tools/trip_probe.js', 'tools/fd_probe.js', 'nba/kotc.js', 'tools/kotc_restate.py']
 permissions:
   contents: write
 jobs:
@@ -20,7 +20,10 @@ jobs:
       - name: Probe
         run: |
           set +e
-          node tools/xg_sources_probe.js > probe.txt 2>&1
+          pip install --quiet pandas numpy
+          git fetch -q --depth 1 origin soccer-data && mkdir -p hb && git show FETCH_HEAD:history/2014-2026-limit0/team_matches.csv.gz > hb/team_matches.csv.gz && git show FETCH_HEAD:history/2014-2026-limit0/player_matches.csv.gz > hb/player_matches.csv.gz
+          (time python3 soccer/history/fetch_history_fotmob.py --base hb --out fresh --season 2026 --cache fmc) > probe.txt 2>&1
+          python3 tools/fotmob_hist_check.py hb fresh >> probe.txt 2>&1
           curl -s -o /dev/null -w "curl oddschecker winner: %{http_code}\n" -A "Mozilla/5.0" https://www.oddschecker.com/football/english/premier-league/liverpool-v-brighton/winner >> probe.txt
           curl -s -o /dev/null -w "curl understat: %{http_code}\n" -A "Mozilla/5.0" https://understat.com/league/EPL/2026 >> probe.txt
           cat probe.txt
