@@ -4,5 +4,26 @@ events 10 [
   'Orlando Magic @ Utah Jazz 2026-11-12T02:10:00.000Z'
 ]
 tabs ["1st Quarter=26","2nd Quarter=27","4th Quarter=29","Half=56","Player Points=168","Player Assists=169","Player Rebounds=170","Player Combos=171","Player Threes=172","Player Defense=173","Team Props=182","Race To=200","3rd Quarter=202","Margin=204","Popular=292","Same Game Parlay™=302","Odd/Even=376"]
+1st-quarter :: 1ST_QUARTER_HOME_TEAM_TOTAL :: 1st Quarter NOP Pelicans Total Pts | Over -122, Under -104
+1st-quarter :: FIRST_QUARTER_WINNER_/_MATCH_WINNER :: 1st Quarter Winner / Match Winner | Brooklyn Nets / Brooklyn Nets 240, Brooklyn Nets / New Orleans Pelicans 370, Tie / Brooklyn Nets 3000, Tie / New Orleans Pelicans 2500
+1st-quarter :: 1ST_QUARTER_AWAY_TEAM_TOTAL :: 1st Quarter BKN Nets Total Pts | Over 100, Under -128
+1st-quarter :: TEAM_TO_SCORE_FIRST :: Team to Score First | Brooklyn Nets -104, New Orleans Pelicans -122
+2nd-quarter :: 2ND_QUARTER_HOME_TEAM_TOTAL :: 2nd Quarter NOP Pelicans Total Pts | Over -130, Under 102
+2nd-quarter :: 2ND_QUARTER_AWAY_TEAM_TOTAL :: 2nd Quarter BKN Nets Total Pts | Over -104, Under -122
+4th-quarter :: 4TH_QUARTER_HOME_TEAM_TOTAL :: 4th Quarter NOP Pelicans Total Pts | Over -125, Under -130
+4th-quarter :: 4TH_QUARTER_AWAY_TEAM_TOTAL :: 4th Quarter BKN Nets Total Pts | Over -115, Under -140
+half :: 1ST_HALF_HOME_TEAM_TOTAL :: 1st Half NOP Pelicans Total Pts | Over -115, Under -105
+half :: 1ST_HALF_AWAY_TEAM_TOTAL :: 1st Half BKN Nets Total Pts | Over -106, Under -114
+team-props :: AWAY_TEAM_TOTAL_POINTS :: BKN Nets Total Pts | Over -104, Under -118
+team-props :: HOME_TEAM_TOTAL_POINTS :: NOP Pelicans Total Pts | Over -106, Under -114
+team-props :: TEAM_TO_RECORD_X+_POINTS_IN_FIRST_3_QTRS :: Team to Record 100+ Points in First 3 Qtrs | Brooklyn Nets 1040, New Orleans Pelicans 750
+3rd-quarter :: 3RD_QUARTER_HOME_TEAM_TOTAL :: 3rd Quarter NOP Pelicans Total Pts | Over -113, Under -113
+3rd-quarter :: 3RD_QUARTER_AWAY_TEAM_TOTAL :: 3rd Quarter BKN Nets Total Pts | Over -125, Under -102
+3rd-quarter :: TEAM_TO_RECORD_X+_POINTS_IN_FIRST_3_QTRS :: Team to Record 100+ Points in First 3 Qtrs | Brooklyn Nets 1040, New Orleans Pelicans 750
+popular :: FIRST_BASKET_(SAME_GAME_MULTIS) :: First Basket | Michael Porter Jr. 500, Zion Williamson 600, Jeremiah Fears 650, Julius Randle 650
+popular :: PLAYER_TO_SCORE_3+_POINTS_IN_THE_FIRST_3_MINUTES :: Player to Score 3+ Points in the First 3 Minutes | Michael Porter Jr. 170, Herbert Jones 380, Trey Murphy III 230, Julius Randle 250
+popular :: PLAYER_TO_SCORE_5+_POINTS_IN_THE_FIRST_3_MINUTES :: Player to Score 5+ Points in the First 3 Minutes | Michael Porter Jr. 700, Julius Randle 900, Trey Murphy III 1000, Jeremiah Fears 950
+popular :: METHOD_OF_FIRST_BASKET :: Method of First Basket | Day'Ron Sharpe - Dunk 4000, Herbert Jones - Dunk 6500, Day'Ron Sharpe - Free Throw 7500, Herbert Jones - Free Throw 8000
+popular :: PLAYER_TO_SCORE_IN_THE_FIRST_3_MINUTES :: Player to Score in the First 3 Minutes | Michael Porter Jr. -154, Herbert Jones 138, Zion Williamson -140, Julius Randle -152
 curl oddschecker winner: 403
 curl understat: 200
