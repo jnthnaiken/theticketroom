@@ -138,8 +138,8 @@ def seams(payload_js):
     add('stat-poolbats', "['Pool bats',D.meta.pool]", "['Pool players',D.meta.pool]")
     add('pcount-bats-a', "+' priced bats'):", "+' priced players'):")
     add('pcount-bats-b', "+' priced bats · '+pool.size", "+' priced players · '+pool.size")
-    add('legend-brick', '<span>💎 base score</span>', '<span>🎯 model chance</span>')
-    add('bbadge', '<span class="bbadge">💎 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>',
+    add('legend-brick', '<span>🧱 base score</span>', '<span>🎯 model chance</span>')
+    add('bbadge', '<span class="bbadge">🧱 ${p.khr!=null?p.khr.toFixed(1):\'—\'} ${lift}</span>',
                   '<span class="bbadge">🎯 ${p.khr!=null?p.khr.toFixed(1)+\'%\':\'—\'} ${lift}</span>')
     add('legend-soft', '⚠</b> soft starter · ', '⚠</b> inactive risk · ')
     # SPECIALSFORK-2026-09-24: these six seams track baseball's two SPECIALS, which were renamed
