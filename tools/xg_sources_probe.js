@@ -1,17 +1,19 @@
-// XGFOTMOB-2026-11-11 step 3: layout of FotMob matchDetails player stats + the league fixtures list
+// FTBPROBE-2026-11-11: where FanDuel keeps "first team basket" (each team's first scorer) on an NBA event page
 'use strict';
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
-const get = async (u) => JSON.parse(await (await fetch(u, { headers: { 'user-agent': UA, accept: 'application/json' } })).text());
+const AK = 'FhMFpcPWXMeyZxOx', UA = { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130.0 Safari/537.36' };
+const base = 'https://sbapi.nj.sportsbook.fanduel.com/api/', q = `&_ak=${AK}&timezone=America%2FNew_York`;
+const get = async u => { const r = await fetch(base + u + q, { headers: UA }); if (!r.ok) throw new Error(r.status + ' ' + u); return r.json(); };
 (async () => {
-  const L = await get('https://www.fotmob.com/api/data/leagues?id=47&ccode3=USA');
-  const all = (L.fixtures || {}).allMatches || []; console.log('fixtures', all.length, JSON.stringify(all.find(m => m.status && m.status.finished)).slice(0, 600));
-  const m = all.filter(x => x.status && x.status.finished).slice(-1)[0];
-  const D = await get(`https://www.fotmob.com/api/data/matchDetails?matchId=${m.id}`);
-  console.log('top', Object.keys(D), 'content', Object.keys(D.content || {}));
-  console.log('header teams', JSON.stringify((D.header || {}).teams).slice(0, 400));
-  console.log('general', JSON.stringify(D.general).slice(0, 500));
-  const ps = (D.content || {}).playerStats || {}; const ids = Object.keys(ps); console.log('playerStats n', ids.length);
-  const one = Object.values(ps).find(x => (x.stats || []).length && !x.isGoalkeeper); console.log('one player', JSON.stringify(one).slice(0, 3500));
-  const sh = (D.content || {}).shotmap || {}; console.log('shotmap keys', Object.keys(sh), JSON.stringify((sh.shots || [])[0]).slice(0, 600));
-  const lu = (D.content || {}).lineup || {}; console.log('starter', JSON.stringify(((lu.homeTeam || {}).starters || [])[3]).slice(0, 900)); console.log('sub', JSON.stringify(((lu.homeTeam || {}).subs || [])[0]).slice(0, 700)); console.log('situations', [...new Set((sh.shots || []).map(x => x.situation))]);
+  const page = await get('content-managed-page?page=CUSTOM&customPageId=nba');
+  const evs = Object.values((page.attachments || {}).events || {}).filter(e => / @ /.test(e.name) && !/\(/.test(e.name));
+  console.log('events', evs.length, evs.slice(0, 3).map(e => e.name + ' ' + e.openDate));
+  const e = evs[0]; const first = await get(`event-page?eventId=${e.eventId}`);
+  const tabs = ((first.layout || {}).tabs) || {}; console.log('tabs', JSON.stringify(Object.values(tabs).map(t => t.title + '=' + (t.seoIdentifier || t.id))).slice(0, 1500));
+  const types = new Set();
+  for (const t of Object.values(tabs)) {
+    const slug = t.seoIdentifier; if (!slug) continue;
+    try { const k = await get(`event-page?eventId=${e.eventId}&tab=${slug}`);
+      for (const m of Object.values((k.attachments || {}).markets || {})) if (/BASKET|FIRST|SCORE_FIRST|TEAM_TO/.test(m.marketType || '')) { const key = slug + ' :: ' + m.marketType + ' :: ' + m.marketName; if (!types.has(key)) { types.add(key); console.log(key, '|', (m.runners || []).slice(0, 4).map(r => r.runnerName + ' ' + (((r.winRunnerOdds || {}).americanDisplayOdds || {}).americanOddsInt)).join(', ')); } }
+    } catch (err) { console.log('tab', slug, String(err).slice(0, 80)); }
+  }
 })().catch(e => console.log('ERR', e));
