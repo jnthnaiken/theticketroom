@@ -15,10 +15,11 @@ const API = 'https://api.bettingpros.com/v3/', UA = { 'user-agent': 'Mozilla/5.0
   let key; for (const c of cands) { const r = await fetch(API + 'events?sport=NBA&date=2026-01-15', { headers: Object.assign({ 'x-api-key': c }, UA) }); if (r.status === 200) { key = c; break; } }
   const H = { headers: Object.assign({ 'x-api-key': key }, UA) };
   const mk = await (await fetch(API + 'markets?sport=NBA&limit=300', H)).json();
-  const list = (mk.markets || []).filter(m => m.category === 'player-props' && m.period === 'game');
-  console.log('NBA player-prop markets:', list.map(m => m.id + ':' + m.slug).join(', '));
-  const pra = list.find(m => /points-rebounds-assists|pra/.test(m.slug));
-  const ev = await (await fetch(API + 'events?sport=NBA&date=2026-10-27', H)).json();
+  const all = mk.markets || []; console.log('markets', all.length);
+  for (const m of all) if (/first|basket|score-first|team-first/i.test((m.slug || '') + ' ' + (m.name || ''))) console.log(' MKT', m.id, m.slug, '|', m.name, '|', m.category, m.period);
+  const list = all.filter(m => m.category === 'player-props' && m.period === 'game');
+  const pra = all.find(m => /team-first-basket|first-team-basket|first-basket-team/.test(m.slug || ''));
+  const ev = await (await fetch(API + 'events?sport=NBA&date=2026-11-11', H)).json();
   const ids = (ev.events || []).map(e => e.id); console.log('events tonight', ids.length);
   if (pra && ids.length) {
     const o = await (await fetch(API + `offers?sport=NBA&market_id=${pra.id}&event_id=${ids.join(':')}&limit=25&page=1`, H)).json();
