@@ -703,7 +703,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 ftd1=None, mkt_z=None, edge_z=None, blend=None, basis=src.get(T), basis_games=sp.get('nst'),
                 **_best(b, fd))
             if ev_ is not None and not blocked(T, n):
-                cands.append(dict(game=gi, name=n, ev=ev_, odds=int(round(fd)), p=r['pb'], ko=games[gi]['ko']))
+                _q = F.cover_p(r['pb'], r.get('pm'))   # REFINED-2026-11-12: ranked and gated on 80/20 ours/market
+                cands.append(dict(game=gi, name=n, ev=_q * am_to_dec(fd) - 1, odds=int(round(fd)), p=_q, ko=games[gi]['ko']))
             elif blocked(T, n):
                 print(f'  RWINJ: {n} ({T}) tagged {INJ.get((T, " ".join(_nk(n))))!r} -- not draftable')
     # ---- picks, sticky ----

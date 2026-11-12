@@ -347,7 +347,16 @@ def slips(anchors, rest, legs, per):
 # thin-edge longshots tighter, and the 0-5% picks were the weakest. Walk-forward (picked on 2021-23, judged 2024-25):
 # +119u / worst slump 34u vs +115u / 45u at any edge; all five seasons +531u / 38u vs +414u / 54u; nights with a hit
 # 67% vs 80%. Top-3-only pools and price caps were tested too and did worse.
-COVER_N, COVER_EV, GAME_UNIT = 3, 0.05, 0.6
+# REFINED-2026-11-12. Owner, minutes later: "actually i think we still want to go with the refined method. quieter nights
+# at -4.2u with those payouts and a similar worst slump is worth it". Pick chance = COVER_W x our chance + (1 - COVER_W) x the
+# market's (books' de-vigged consensus), ranked and gated on that; edge floor 10%. Walk-forward (picked on 2021-23, judged
+# 2024-25): +177u (+25.9%), worst slump 34u; all five seasons +689u / 39u; 4.2 games and 2.5u a night; a hit on 46% of
+# nights, 9 runs of 7+ nights without a winning night.
+COVER_N, COVER_EV, GAME_UNIT, COVER_W = 3, 0.10, 0.6, 0.8
+
+
+def cover_p(p_ours, p_mkt):
+    return p_ours if p_mkt is None else COVER_W * p_ours + (1 - COVER_W) * p_mkt
 SINGLE_EV = COVER_EV   # kept for callers
 
 
