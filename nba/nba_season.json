@@ -2,28 +2,28 @@
  "since": "2026-10-20",
  "history": [
   0,
-  3.433333333333333,
-  8.482040960451977,
-  15.682040960451976,
-  12.326886462229389,
-  9.72688646222939,
-  18.046886462229388,
-  18.837352580521593,
-  21.247415473603354,
-  25.969742133883038,
-  24.98941426503058,
-  17.65425230257776,
-  15.1920895378063,
-  19.722013943823804,
-  6.961170187198832,
-  3.0145700891300837,
-  6.048876830372357,
-  -0.7788500276161114,
-  -1.8888724180118899,
-  -0.8494975283219088,
-  0.519530895083637,
-  -2.447369282271141,
-  -13.18118241809734
+  0.2333333333333334,
+  0.28204096045197746,
+  -0.3179590395480225,
+  -4.47311353777061,
+  -9.07311353777061,
+  -2.553113537770609,
+  -4.762647419478403,
+  -4.752584526396642,
+  2.419742133883039,
+  2.63941426503058,
+  -3.095747697422243,
+  -8.957910462193702,
+  -9.4779860561762,
+  -17.338829812801173,
+  -15.185429910869921,
+  -12.951123169627648,
+  -5.578850027616116,
+  -4.288872418011895,
+  -4.449497528321913,
+  -5.4804691049163665,
+  -14.047369282271143,
+  -13.081182418097342
  ],
  "graded_nights": [
   "2026-10-20",
@@ -57,10 +57,10 @@
    "staked": 4.0
   },
   "fb": {
-   "graded": 271,
-   "won": 26,
-   "units": -10.500000000000021,
-   "staked": 95.89999999999985
+   "graded": 80,
+   "won": 4,
+   "units": -10.399999999999995,
+   "staked": 42.50000000000004
   },
   "downtown": {
    "graded": 206,
@@ -77,7 +77,8 @@
   "KOTC-2026-10-27 / KOTCUNDER: King of the Court qualifying bet = 1u on the crowned player's PRA UNDER (any prop at -200+ qualifies); 10-21 restated: Luka Doncic u49.5 -118, 43 PRA, won.",
   "COVER-2026-10-28 (owner: \"3 likeliest, any edge, weighted so any hit covers the game\"): Tip-Off = per game, our model's 3 most likely starters with any edge, 0.6u a game dutched across them (replaces the one-per-game rule posted earlier the same day, and From the Logo / Full-Court Heaves). 10-20..10-27 restated from each board's priced starters at the FanDuel prices on the board.",
   "RESTATE-2026-10-28 (owner: \"13-12 seems light\" / \"same with king of the court\"): Downtown 10-20..10-25 restated under the current rules (overs + unders) at FanDuel closing prices; 10-26/10-27 keep the overs as posted and add the unders; King of the Court 10-20 (opening Tuesday) restated: Jayson Tatum u41.5 -120, 28 PRA, won.",
-  "DTTIGHT-2026-11-11 (owner: \"can we update the ledger to reflect the backtested results\" -> \"tightened\"): The Brickyard 10-20..11-10 restated under the live rule -- overs at blended (model + market) EV >= .05, one per game; unders at model EV >= .15, P >= .5, line >= 1.5 and blended EV >= .06 -- walk-forward model, BettingPros closing FanDuel prices, actual starters, nba.com box (DNP void)."
+  "DTTIGHT-2026-11-11 (owner: \"can we update the ledger to reflect the backtested results\" -> \"tightened\"): The Brickyard 10-20..11-10 restated under the live rule -- overs at blended (model + market) EV >= .05, one per game; unders at model EV >= .15, P >= .5, line >= 1.5 and blended EV >= .06 -- walk-forward model, BettingPros closing FanDuel prices, actual starters, nba.com box (DNP void).",
+  "REFINED-2026-11-12 (owner: \"actually i think we still want to go with the refined method\" -> \"10% it is\"): Tip-Off ranks and gates on 0.8 x our chance + 0.2 x the market's, edge >= 10%, our 3 most likely per game, 0.6u a game split so any hit covers it. Every night since 10-20 restated from each board's priced starters at the FanDuel prices on the board."
  ],
  "restated": true
 }
