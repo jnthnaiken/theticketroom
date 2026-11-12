@@ -33,7 +33,6 @@ async function key() {
 
 (async () => {
   const k = await key(); const H = { headers: Object.assign({ 'x-api-key': k }, UA) };
-  for (const ep of ['books', 'books?sport=NBA', 'sportsbooks', 'books/all']) {
-    try { const r = await fetch(API + ep, H); const t = await r.text(); console.log('== ' + ep + ' ' + r.status); console.log(t.slice(0, 6000)); } catch (e) { console.log(ep, e.message); }
-  }
+  const r = await fetch(API + 'books', H); const j = await r.json();
+  for (const b of j.books || []) console.log([b.id, b.display_name, b.name, b.exclude_from_best ? 'exclude' : '', b.is_prediction_market ? 'pm' : '', (b.locations || []).length].join(' | '));
 })();
