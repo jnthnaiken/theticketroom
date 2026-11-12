@@ -100,7 +100,7 @@ def simulate(rows, P, n=N_SIMS, seed=SEED):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument('scored'); ap.add_argument('--pbp-dir', default='.cache'); ap.add_argument('--out', default='longtd.json')
+    ap.add_argument('scored'); ap.add_argument('--pbp-dir', default=os.environ.get('NFLVERSE_CACHE') or '.cache'); ap.add_argument('--out', default='longtd.json')
     A = ap.parse_args(argv)
     try:
         scored = json.load(open(A.scored, encoding='utf-8'))

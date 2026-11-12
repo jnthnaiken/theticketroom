@@ -360,7 +360,7 @@ if __name__ == '__main__':
             _lt = json.load(open(A.longtd, encoding='utf-8'))
         elif len(json.load(open(A.fixtures, encoding='utf-8'))['matches']) == 1:   # KINGEZ1: one-game nights only
             import nfl_longtd
-            if nfl_longtd.main_args([A.scored, '--pbp-dir', '.cache', '--out', 'longtd.json']) == 0 and os.path.exists('longtd.json'):
+            if nfl_longtd.main_args([A.scored, '--pbp-dir', os.environ.get('NFLVERSE_CACHE') or '.cache', '--out', 'longtd.json']) == 0 and os.path.exists('longtd.json'):   # KINGCACHE-2026-11-11: follows NFLVERSE_CACHE
                 _lt = json.load(open('longtd.json', encoding='utf-8'))
     except Exception as e:
         print(f'::warning::KINGEZ: no King of the End Zone ({e.__class__.__name__}: {e})')
