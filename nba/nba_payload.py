@@ -58,6 +58,21 @@ def hhmm(t):
     return t.strftime('%-I:%M %p') + ' ET'
 
 
+# BESTBOOK-2026-11-12. Owner: "is there an easy way to add the best price across books?" -> "yea lets do it" (display only:
+# picks, stakes and the ledger stay at FanDuel's price). Names from BettingPros' own /v3/books list, probed 11-12.
+BOOKN = {10: 'FanDuel', 12: 'DraftKings', 13: 'Caesars', 14: 'Fanatics', 15: 'SugarHouse', 18: 'BetRivers', 19: 'BetMGM',
+         24: 'bet365', 27: 'PartyCasino', 32: 'Borgata', 33: 'theScore Bet', 49: 'Hard Rock'}
+
+
+def _best(books, fd):
+    """The best price on a man across named sportsbooks, when it beats FanDuel's; else nothing."""
+    bb = [(am_to_dec(v), k) for k, v in (books or {}).items() if k in BOOKN and k != 10]
+    if not bb or fd is None: return {}
+    d, k = max(bb)
+    if d <= am_to_dec(fd) + 1e-9: return {}
+    return dict(best_odds=int(round(dec_to_am(d))), best_book=BOOKN[k])
+
+
 def parse_books(s):
     d = {}
     for x in str(s or '').split(','):
@@ -685,7 +700,8 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                 odds_cons=(dec_to_am(mk[n]) if n in mk else None),
                 ev=(round(ev_, 3) if ev_ is not None else None), jumper=r['jumper'], ptip=round(r['ptip'], 3),
                 pteam=round(r['pteam'], 3), share=round(r['share'], 3), fgp=(round(fgp, 3) if fgp else None),
-                ftd1=None, mkt_z=None, edge_z=None, blend=None, basis=src.get(T), basis_games=sp.get('nst'))
+                ftd1=None, mkt_z=None, edge_z=None, blend=None, basis=src.get(T), basis_games=sp.get('nst'),
+                **_best(b, fd))
             if ev_ is not None and not blocked(T, n):
                 cands.append(dict(game=gi, name=n, ev=ev_, odds=int(round(fd)), p=r['pb'], ko=games[gi]['ko']))
             elif blocked(T, n):
