@@ -49,7 +49,7 @@ HOWTO = {
   ],
   "6": [
    "Team · game · tip",
-   "Up to three picks per game; a game where nobody beats his price gets no bet."
+   "Up to three picks per game; a game where nobody beats his price by at least 5% gets no bet."
   ],
   "7": [
    "Status",
@@ -57,7 +57,7 @@ HOWTO = {
   ],
   "8": [
    "The pick",
-   "One of our model's three most likely first scorers in his game, among the starters whose chance beats their FanDuel price."
+   "One of our model's three most likely first scorers in his game, among the starters whose chance beats their FanDuel price by at least 5%."
   ],
   "9": [
    "⚠ Flag",
@@ -112,7 +112,7 @@ HOWTO = {
   [
    "⚡",
    "Tip-Off",
-   "First basket, up to three straight bets per game. In each game we take our model's three most likely first scorers among the starters whose chance beats their FanDuel price; if nobody does, the game gets no bet. The game's 0.6u is split across them in proportion to their prices, so whichever one scores first returns the same amount, more than the whole game's stake. Something cashes on about 4 nights in 5. Our chance comes from who wins the opening tip, how often his team scores first, his share of the early shots, and the books' prices as one more layer."
+   "First basket, up to three straight bets per game. In each game we take our model's three most likely first scorers among the starters whose chance beats their FanDuel price by at least 5%; if nobody does, the game gets no bet. The game's 0.6u is split across them in proportion to their prices, so whichever one scores first returns the same amount, more than the whole game's stake. Something cashes on about 2 nights in 3. Our chance comes from who wins the opening tip, how often his team scores first, his share of the early shots, and the books' prices as one more layer."
   ],
   [
    "🙌",

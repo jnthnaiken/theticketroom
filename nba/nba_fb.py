@@ -343,7 +343,11 @@ def slips(anchors, rest, legs, per):
 # same amount -- more than the whole game's stake. No starter with an edge, no bet on that game.
 # Backtest 2021-26 at FanDuel, 0.6u a game: +428u (+13.5%), worst slump 53u, every season up, something hits on 80% of
 # nights, profit on 49%, 5 droughts of 7+ nights (one-per-game: 15). claude/nba-singles-2026-10-28.md
-COVER_N, COVER_EV, GAME_UNIT = 3, 0.0, 0.6
+# EDGE5-2026-11-12. Owner: "backtest 3" -> "ok go ahead on the change". A 5% edge floor: since 2023 the books price the
+# thin-edge longshots tighter, and the 0-5% picks were the weakest. Walk-forward (picked on 2021-23, judged 2024-25):
+# +119u / worst slump 34u vs +115u / 45u at any edge; all five seasons +531u / 38u vs +414u / 54u; nights with a hit
+# 67% vs 80%. Top-3-only pools and price caps were tested too and did worse.
+COVER_N, COVER_EV, GAME_UNIT = 3, 0.05, 0.6
 SINGLE_EV = COVER_EV   # kept for callers
 
 
