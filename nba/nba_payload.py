@@ -128,7 +128,14 @@ def rw_confirm(T, priced_names, want=('confirmed',)):
             c = [v for kk, v in keyed.items() if t and kk.split() and kk.split()[-1] == t[-1] and kk[0] == t[0][0]]
             hit = c[0] if len(c) == 1 else None
         if not hit:
-            print(f'  ::warning::RWLINEUP {T}: confirmed starter "{n}" has no first-basket price -- not confirming {T}')
+            # UNPRICEDOK-2026-11-13. Owner: "memphis game lineups are confirmed. why are they still showing projected?" ->
+            # "yes and fix it right now for tonight". A CONFIRMED five keeps a starter FanDuel has not priced (DeAndre Jordan,
+            # NOP, 11-13): the model gives him his share of the team's chance and he simply is never a pick. An expected
+            # five still needs every man priced.
+            if 'confirmed' in want and len(r['five']) == 5:
+                print(f'  ::warning::RWLINEUP {T}: confirmed starter "{n}" has no first-basket price -- kept in the five, never a pick')
+                out.append(n); continue
+            print(f'  ::warning::RWLINEUP {T}: starter "{n}" has no first-basket price -- not using this five for {T}')
             return None
         out.append(hit)
     return out
