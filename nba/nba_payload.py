@@ -88,6 +88,7 @@ def parse_books(s):
 
 RWALIAS = {'NY': 'NYK', 'SA': 'SAS', 'GS': 'GSW', 'NO': 'NOP', 'PHO': 'PHX', 'UTAH': 'UTA', 'WSH': 'WAS', 'BKN': 'BKN'}
 RW = {}
+RWRAW = {}       # TWOSRC-2026-11-13: RotoWire's own rows, before Basketball Monster is merged in
 THREES = []        # DOWNTOWN-2026-10-26: fb_fetch.js T rows (BettingPros market 162)
 TSRC, TFIVE = {}, {}   # DOWNTOWN: per team tonight -- lineup source ('confirmed'...) and the five
 BBM = {}          # BBMLINEUP-2026-10-25: basketballmonster five per team, merged into RW at the end of read_slate
@@ -173,6 +174,7 @@ def read_slate(path, date):
         else:
             S.setdefault(r[2], {})[r[4]] = dict(bpid=r[3], name=r[4], pos=r[5], team=code(r[6]),
                                                 open=r[7], books=parse_books(r[9] if len(r) > 9 else ''))
+    RWRAW.clear(); RWRAW.update({k: {'status': v['status'], 'five': list(v['five'])} for k, v in RW.items()})
     # BBMLINEUP-2026-10-25: a VERIFIED Basketball Monster five confirms the team (it beats RotoWire to it); a projected
     # one stands in for RotoWire's expected five. A RotoWire-confirmed team stays as it is unless BBM is verified too.
     for T_, b in BBM.items():
@@ -691,6 +693,31 @@ def build(slate, state, date, cache=None, season=None, stamp='', now=None):
                     if set(five) != set(starters.get(T) or []):
                         print(f'  RWEXPECTED {T}: expected five replaces the priced guess -> {five}')
                     starters[T] = five; src[T] = 'expected'
+        # TWOSRC-2026-11-13. Owner: "we gotta do something about these temporary incorrect starting lineups that are getting
+        # confirmed and then changing 10 min before game time. maybe a 2 source confirmation rule?". A five is CONFIRMED only
+        # when two sources confirm that same five: Basketball Monster verified, RotoWire confirmed, BettingPros confirmed.
+        # One source alone shows it projected (the picks still follow it, and lock at tip). Last week (98 team-nights):
+        # both agreed in 74, half the time in the same build; the one wrong pre-tip confirmation (NOP 11-13, Matkovic) had
+        # only Basketball Monster.
+        def _sk(five): return sorted(' '.join(_nk(n)).split()[-1] for n in five if _nk(n))
+        bp_five = {}
+        for side, T in (('h', ev['H']), ('a', ev['V'])):
+            st_ = ev['lt'] if side == 'h' else ev['at']
+            f_ = [x['name'] for x in L.get(ev['eid'], []) if x['side'] == side and re.search(r'start|confirm', x['status'], re.I)
+                  and not re.search(r'bench|did_not|dnp|out|inactive|injur|question|doubt', x['status'], re.I)]
+            if re.search(r'confirm', st_ or '', re.I) and len(f_) == 5: bp_five[T] = f_
+        for T in (ev['H'], ev['V']):
+            if src.get(T) != 'confirmed': continue
+            mine = _sk(starters.get(T) or [])
+            votes = []
+            b_ = BBM.get(T) or {}
+            if b_.get('status') == 'verified' and len(b_.get('five') or []) == 5 and _sk(b_['five']) == mine: votes.append('Basketball Monster')
+            r_ = RWRAW.get(T) or {}
+            if r_.get('status') == 'confirmed' and len(r_.get('five') or []) == 5 and _sk(r_['five']) == mine: votes.append('RotoWire')
+            if T in bp_five and _sk(bp_five[T]) == mine: votes.append('BettingPros')
+            if len(votes) < 2:
+                src[T] = 'expected'
+                print(f'  TWOSRC {T}: only {votes or ["no source"]} confirm(s) this five -- shown projected until a second source agrees')
         for T in (ev['H'], ev['V']):
             TSRC[T], TFIVE[T] = src.get(T), list(starters.get(T) or [])
         if len(starters.get(ev['H'], [])) != 5 or len(starters.get(ev['V'], [])) != 5:
