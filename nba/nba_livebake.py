@@ -86,7 +86,7 @@ def bake(D, sb=None, getsum=N.summary, firsts=None):
             if who and who in starters:
                 p['status'] = 'confirmed'; p['out'] = False
             p['void'] = bool(full and who not in starters)
-            p['ftd1'] = (who == fs and not p['void']) if fs else None
+            p['ftd1'] = None if p['void'] else ((who == fs) if fs else None)   # VOIDSHOW-2026-11-13: a void man is neither hit nor miss
             p['hr'] = p['ftd1']
     M['nbacom'] = {'games': covered}
     for t in D.get('tickets') or []:
