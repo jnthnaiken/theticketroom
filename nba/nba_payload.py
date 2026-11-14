@@ -492,11 +492,17 @@ def downtown(date, games, cache, stamp, started):
         print(f'  ::warning::DOWNTOWN: {e}'); return None
     spath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'threes_state.json')
     cpath = os.path.join(os.path.dirname(cache), 'downtown.json') if cache else None
-    locked = []
+    locked, prev = [], []
     if cpath and os.path.exists(cpath):
         try:
             c = json.load(open(cpath, encoding='utf-8'))
-            if c.get('date') == date: locked = [x for x in (c.get('picks') or []) if x.get('locked')]
+            if c.get('date') == date:
+                prev = list(c.get('picks') or [])
+                # DTTIPLOCK-2026-11-13. Owner: "why did jerome come off if hes starting?". As the docstring always said, a pick
+                # LOCKS at tip too: whatever was on the card when the game started stands (it used to be dropped).
+                for x in prev:
+                    if not x.get('locked') and started(x): x['locked'] = True
+                locked = [x for x in prev if x.get('locked')]
         except Exception:
             locked = []
     if not os.path.exists(spath) or not THREES:
@@ -552,6 +558,15 @@ def downtown(date, games, cache, stamp, started):
                             status='confirmed' if conf else 'projected', locked=conf, posted_at=stamp, side='O')
         if best: fresh.append(best)
         ufresh += [u for u in unders if not (best and u['name'] == best['name'])]
+    # DTHOLD-2026-11-13: BettingPros sometimes leaves FanDuel's line out of a pull (Ty Jerome u2.5, 11-13, gone every few
+    # builds). An unlocked pick whose FanDuel line is simply missing this pull is held, not dropped.
+    _fdn = {(' '.join(_nk(r['name'])), r['side']) for r in THREES if r['book'] == TH.FANDUEL and r['main']}
+    _now = {(x['game'], x['name']) for x in fresh + ufresh}
+    for x in prev:
+        if x.get('locked') or (x['game'], x['name']) in _now or started(x): continue
+        if (' '.join(_nk(x['name'])), x.get('side', 'O')) not in _fdn:
+            print(f"  DOWNTOWN: holding {x['name']} {x.get('side', 'O')}{x['line']} -- FanDuel's line missing from this pull")
+            (fresh if x.get('side', 'O') == 'O' else ufresh).append(x)
     lo = [x for x in locked if x.get('side', 'O') == 'O']; lu = [x for x in locked if x.get('side') == 'U']
     fresh = sorted(fresh, key=lambda x: -x['ev'])[:max(TH.MAX_NIGHT - len(lo), 0)]
     onames = {(x['game'], x['name']) for x in lo + fresh}
