@@ -509,6 +509,13 @@ def downtown(date, games, cache, stamp, started):
         return {'picks': locked}
     st = TH.State(json.load(open(spath, encoding='utf-8')))
     have = {p['game'] for p in locked}
+    # DTSTATUS-2026-11-13. Owner: "jermoe is back but hes showing projected". A locked pick follows the lineups: once both
+    # fives are confirmed and he is in his, it shows confirmed.
+    for x in locked:
+        g_ = games.get(x['game']) or {}
+        if x.get('status') != 'confirmed' and TSRC.get(g_.get('H')) == 'confirmed' and TSRC.get(g_.get('V')) == 'confirmed' \
+                and ' '.join(_nk(x['name'])) in {' '.join(_nk(n)) for n in TFIVE.get(x.get('code')) or []}:
+            x['status'] = 'confirmed'
     # DTBLEND-2026-11-11: the market at each (man, line) -- every other book's over/under pair, de-vigged, median
     _pr = {}
     for row in THREES:
