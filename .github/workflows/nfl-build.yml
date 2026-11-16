@@ -1,0 +1,251 @@
+name: Build NFL Board
+
+on:
+  repository_dispatch:
+    types: [tick, build-tick, build-board, build-nfl]
+  schedule:
+    - cron: '*/20 12-23 * * 0'
+    - cron: '*/20 22-23 * * 1,3,4,6'
+    - cron: '*/20 0-3 * * 2,4,5,0'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and report, but commit nothing."
+        required: false
+        default: "false"
+      date:
+        description: "Rebuild this slate even if it is finished (e.g. to refresh the ledger card)."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfl-build
+  cancel-in-progress: false
+
+env:
+  NFLVERSE_CACHE: ${{ github.workspace }}/.nflcache
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install --quiet pandas numpy pyarrow scikit-learn==1.8.0
+
+      - name: Settle finished boards
+        id: settle
+        continue-on-error: true
+        run: |
+          cd nfl
+          python3 nfl_settle.py --season nfl_season.json --boards boards --slates slates
+          if git diff --quiet -- nfl_season.json boards/; then
+            echo "settled=false" >> $GITHUB_OUTPUT
+          else
+            echo "settled=true" >> $GITHUB_OUTPUT
+            echo "::notice::a football night was graded into nfl_season.json"
+            python3 nfl_ev_fit.py || echo "::warning::nfl_ev_fit.py failed"
+            cd ..
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add nfl/nfl_season.json nfl/boards/
+            [ -f nfl/ev_weights_nfl_v1.json ] && git add nfl/ev_weights_nfl_v1.json
+            git commit -m "NFL settle ($(date -u +%H:%MZ))"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed settle"; break; }
+              sleep $((i*5))
+            done
+          fi
+
+      - name: Resolve the slate
+        id: slate
+        env:
+          FORCE_DATE: ${{ inputs.date }}
+        run: |
+          cd nfl
+          python3 - <<'PY' >> $GITHUB_OUTPUT
+          import datetime, glob, json, os, sys
+          from zoneinfo import ZoneInfo
+
+          GRACE = 240
+          ET    = ZoneInfo('America/New_York')
+          now   = datetime.datetime.now(ET)
+          log   = lambda m: print(m, file=sys.stderr)
+
+          log(f'now {now:%Y-%m-%d %H:%M} ET')
+          best = None
+          _force = os.environ.get('FORCE_DATE') or ''
+          if _force and os.path.exists(f'slates/{_force}/fixtures.json'):
+              best = (_force, json.load(open(f'slates/{_force}/fixtures.json', encoding='utf-8')))
+          for fx in sorted(glob.glob('slates/*/fixtures.json')):
+              d = os.path.basename(os.path.dirname(fx))
+              try:
+                  j = json.load(open(fx, encoding='utf-8'))
+              except Exception as e:
+                  log(f'::warning::{fx} unreadable ({e}) -- skipped'); continue
+              kos  = [m.get('kickoff') for m in j.get('matches', {}).values()
+                      if m.get('kickoff') is not None]
+              last = max(kos) if kos else 1440
+              y, mo, da = (int(x) for x in d.split('-'))
+              close = (datetime.datetime(y, mo, da, tzinfo=ET)
+                       + datetime.timedelta(minutes=last + GRACE))
+              log(f'  {d}: last kickoff {last // 60:02d}:{last % 60:02d} ET, '
+                  f'live until {close:%m-%d %H:%M} ET'
+                  + ('  <-- CURRENT' if close > now and best is None else ''))
+              if close > now and best is None:
+                  best = (d, j)
+
+          if best is None:
+              log('every committed slate is finished -- nothing to rebuild')
+              print('go=false'); raise SystemExit(0)
+
+          d, j = best
+          for f in ('atd.psv', 'fixtures.json'):
+              if not os.path.exists(f'slates/{d}/{f}'):
+                  log(f'::error::nfl/slates/{d}/{f} missing'); raise SystemExit(1)
+
+          log(f"slate {d} (season {j['season']} week {j['week']}, "
+              f"{len(j.get('matches', {}))} games)")
+          print(f'date={d}')
+          print(f"season={j['season']}")
+          print(f"week={j['week']}")
+          print('go=true')
+          PY
+
+      - id: hour
+        run: echo "h=$(date -u +%Y%m%d%H)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: .nflcache
+          key: nflverse-${{ steps.hour.outputs.h }}
+          restore-keys: nflverse-
+      - name: Stage the work directory
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nfl
+          rm -rf .work && mkdir -p .work
+          cp slates/${{ steps.slate.outputs.date }}/atd.psv .work/
+          cp slates/${{ steps.slate.outputs.date }}/fixtures.json .work/
+          cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
+          cp slates/${{ steps.slate.outputs.date }}/ftd.psv .work/ 2>/dev/null || true
+          cp nfl_*.py .work/
+          cp ev_weights_nfl_v1.json .work/ 2>/dev/null || true
+          cp nfl_draft_cli.js nfl_rebuild_cli.js nfl_cfg.js nfl_live.js depth_prior.csv depth_model.json nfl_model.json .work/
+          cp hist_model.joblib .work/
+          cp ../soccer/soccer_draft.js .work/
+          cp ../index.html .work/index_live.html
+          cp nfl_season.json .work/
+
+      - name: Stadium weather
+        if: steps.slate.outputs.go == 'true'
+        continue-on-error: true
+        run: cd nfl/.work && python3 nfl_wx.py fixtures.json wx.json
+
+      - name: Score, draft, payload, fork
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nfl/.work
+          python3 nfl_mock.py ${{ steps.slate.outputs.season }} ${{ steps.slate.outputs.week }} \
+                  --atd atd.psv --fixtures fixtures.json --prices prices.json --out scored.json
+          python3 nfl_injuries.py scored.json fixtures.json || echo "::warning::nfl_injuries.py failed -- drafting without the injury report"
+          python3 nfl_value.py scored.json fixtures.json --date ${{ steps.slate.outputs.date }} \
+                  --cache ../slates/${{ steps.slate.outputs.date }}/p_hist.json \
+            || echo "::warning::nfl_value.py failed -- drafting on the previous ranking"
+          python3 nfl_ftd.py scored.json fixtures.json ftd.psv --date ${{ steps.slate.outputs.date }} \
+                  --cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json \
+            || echo "::warning::nfl_ftd.py failed -- no first-TD pick this pass"
+
+          PRIOR=../nfl_D.json
+          SAME=$(python3 -c "import json,sys;print('yes' if json.load(open(sys.argv[1]))['meta'].get('date')==sys.argv[2] else 'no')" "$PRIOR" "${{ steps.slate.outputs.date }}" 2>/dev/null || echo no)
+          if [ "$SAME" = "yes" ]; then
+            echo "same-slate rebuild: carrying the prior board (no re-draft)"
+            set +e
+            node nfl_rebuild_cli.js "$PRIOR" scored.json tickets.json
+            rc=$?
+            set -e
+            if [ $rc -ne 0 ] && [ $rc -ne 10 ]; then
+              echo "::error::nfl_rebuild_cli.js failed (rc=$rc) -- refusing to fall back to a fresh draft mid-slate"
+              exit $rc
+            fi
+          else
+            echo "new slate (or no prior board) -- fresh draft"
+            node nfl_draft_cli.js scored.json fixtures.json tickets.json
+          fi
+          python3 nfl_payload.py scored.json tickets.json fixtures.json nfl_D.json \
+                  $([ -f wx.json ] && echo "--wx wx.json") \
+                  --season nfl_season.json \
+                  $([ -f ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json ] && echo "--ftd ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json") \
+                  --build "$(TZ=America/New_York date '+%-m/%-d %-I:%M%P')"
+          python3 ../nfl_injexit.py nfl_D.json || echo "::warning::nfl_injexit.py failed -- board left as drafted"
+          python3 nfl_fork.py index_live.html nfl_D.json nfl_index.html
+
+      - name: Did anything a reader would notice change?
+        id: gate
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd nfl/.work
+          SEASON_SIG='import json,sys,hashlib;print(hashlib.md5(json.dumps(json.load(open(sys.argv[1]))["meta"].get("season"),sort_keys=True).encode()).hexdigest()[:12])'
+          NEW="$(python3 nfl_sig.py nfl_D.json):$(python3 -c "$SEASON_SIG" nfl_D.json)"
+          OLD=$([ -f ../nfl_D.json ] && echo "$(python3 nfl_sig.py ../nfl_D.json):$(python3 -c "$SEASON_SIG" ../nfl_D.json)" || echo "")
+          echo "new=$NEW"
+          echo "old=$OLD"
+          CODE=$(python3 - <<'PY'
+          import json, os
+          def shell(p):
+              h = open(p, encoding='utf-8', errors='replace').read()
+              i = h.find('const D=')
+              if i < 0:
+                  return h
+              j = i + len('const D=')
+              _, end = json.JSONDecoder().raw_decode(h[j:])
+              return h[:i] + '<<PAYLOAD>>' + h[j + end:]
+          try:
+              print('true' if (not os.path.exists('../index.html')) or shell('../index.html') != shell('nfl_index.html') else 'false')
+          except Exception:
+              print('true')
+          PY
+          )
+          echo "page code changed: $CODE"
+          if [ "$NEW" = "$OLD" ] && [ "$CODE" != "true" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "nothing a reader would notice moved"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish
+        if: steps.slate.outputs.go == 'true' && (steps.gate.outputs.changed == 'true' || steps.settle.outputs.settled == 'true') && github.event.inputs.dry_run != 'true'
+        run: |
+          cd nfl
+          cp .work/nfl_index.html index.html
+          cp .work/nfl_D.json    nfl_D.json
+          cp .work/prices.json   slates/${{ steps.slate.outputs.date }}/prices.json
+          mkdir -p boards
+          if python3 -c "import json,sys;sys.exit(0 if sys.argv[1] in json.load(open('nfl_season.json')).get('graded_nights',[]) else 1)" "${{ steps.slate.outputs.date }}"; then
+            echo "boards/${{ steps.slate.outputs.date }}.json is graded -- archive left alone"
+          else
+            cp .work/nfl_D.json "boards/${{ steps.slate.outputs.date }}.json"
+          fi
+          cd ..
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nfl/index.html nfl/nfl_D.json nfl/nfl_season.json nfl/boards/ \
+                  nfl/slates/${{ steps.slate.outputs.date }}/prices.json \
+                  $(ls nfl/slates/${{ steps.slate.outputs.date }}/p_hist.json 2>/dev/null) \
+                  $(ls nfl/slates/${{ steps.slate.outputs.date }}/ftd_pick.json 2>/dev/null)
+          git diff --cached --quiet && { echo "nothing staged"; exit 0; }
+          git commit -m "NFL board ${{ steps.slate.outputs.date }} ($(date -u +%H:%MZ))"
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin main; then git push && { echo "pushed"; exit 0; }; else git rebase --abort 2>/dev/null; git reset -q --hard origin/main; echo "::warning::another build published first -- this build stands down; the next tick rebuilds"; exit 0; fi
+            sleep $((i*5))
+          done
+          echo "::error::could not push after 3 attempts"; exit 1

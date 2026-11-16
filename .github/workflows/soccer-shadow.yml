@@ -1,0 +1,121 @@
+name: Soccer Scorer Shadow
+
+on:
+  repository_dispatch:
+    types: [tick, build-board, build-soccer]
+  schedule:
+    - cron: '10 5-22 * * *'
+  workflow_dispatch:
+    inputs:
+      dates:
+        description: "Space-separated slate dates to (re)shadow, e.g. 2026-09-17. Blank = newest unshadowed."
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-shadow
+  cancel-in-progress: false
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Anything to shadow?
+        id: need
+        run: |
+          cd soccer
+          DATES="${{ inputs.dates }}"
+          if [ -z "$DATES" ]; then
+            LATEST=$(ls -1d slates/*/ | sed 's#slates/##;s#/##' | sort | tail -1)
+            [ -f "shadow/$LATEST.json" ] || DATES="$LATEST"
+          fi
+          echo "dates=$DATES" >> $GITHUB_OUTPUT
+          echo "to shadow: '${DATES}'"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet numpy pandas
+
+      - name: FotMob match cache
+        if: steps.need.outputs.dates != ''
+        uses: actions/cache@v4
+        with:
+          path: fmcache
+          key: fotmob-matches-${{ github.run_id }}
+          restore-keys: fotmob-matches-
+      - name: History base + current-season refresh
+        if: steps.need.outputs.dates != ''
+        run: |
+          set -e
+          mkdir -p hist cache
+          git fetch --depth 1 origin soccer-data
+          git show FETCH_HEAD:history/2014-2026-limit0/team_matches.csv.gz   > hist/base_team.csv.gz
+          git show FETCH_HEAD:history/2014-2026-limit0/player_matches.csv.gz > hist/base_player.csv.gz
+          git show FETCH_HEAD:history/current/team_matches.csv.gz   > cache/team_matches.csv.gz   2>/dev/null || rm -f cache/team_matches.csv.gz
+          git show FETCH_HEAD:history/current/player_matches.csv.gz > cache/player_matches.csv.gz 2>/dev/null || rm -f cache/player_matches.csv.gz
+          python3 soccer/history/fetch_history.py --out fresh --first 2026 --last 2026 --no-odds || echo "::warning::understat refresh failed -- trying FotMob"
+          if ! python3 -c "import pandas as pd,sys;sys.exit(0 if len(pd.read_csv('fresh/player_matches.csv.gz'))>0 else 1)" 2>/dev/null; then
+            mkdir -p hist_base && cp hist/base_team.csv.gz hist_base/team_matches.csv.gz && cp hist/base_player.csv.gz hist_base/player_matches.csv.gz
+            rm -rf fresh && python3 soccer/history/fetch_history_fotmob.py --base hist_base --out fresh --season 2026 --cache fmcache \
+              || echo "::warning::FotMob history failed too -- using the cached current season"
+          fi
+          python3 - <<'PY'
+          import os, pandas as pd
+          def rows(p):
+              try: return pd.read_csv(p) if os.path.exists(p) else None
+              except Exception: return None
+          ft, fp = rows('fresh/team_matches.csv.gz'), rows('fresh/player_matches.csv.gz')
+          src = 'fresh'
+          if ft is None or fp is None or len(ft) == 0 or len(fp) == 0:
+              ft, fp = rows('cache/team_matches.csv.gz'), rows('cache/player_matches.csv.gz'); src = 'cache'
+          bt = pd.read_csv('hist/base_team.csv.gz'); bp = pd.read_csv('hist/base_player.csv.gz')
+          if ft is None or fp is None or len(ft) == 0 or len(fp) == 0:
+              t, p = bt, bp; src = 'base only'
+          else:
+              t = pd.concat([bt[bt.season < 2026], ft], ignore_index=True)
+              p = pd.concat([bp[bp.season < 2026], fp], ignore_index=True)
+          t.to_csv('hist/team_matches.csv.gz', index=False)
+          p.to_csv('hist/player_matches.csv.gz', index=False)
+          print(f'current season from: {src}; merged', len(t), 'team rows,', len(p), 'player rows; latest', p.date.max())
+          if src != 'fresh':
+              print(f'::warning::understat unavailable -- shadow model running on the {src} (latest match {p.date.max()})')
+          open('hist/SOURCE', 'w').write(src)
+          PY
+          if [ "$(cat hist/SOURCE)" = "fresh" ]; then
+            for i in 1 2 3; do
+              rm -rf sd; git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ secrets.GH_PAT }}@github.com/jnthnaiken/theticketroom-engine" sd || break
+              mkdir -p sd/history/current && cp fresh/team_matches.csv.gz fresh/player_matches.csv.gz sd/history/current/
+              (cd sd && git config user.email a@b.c && git config user.name shadow-cache && git add history/current \
+                && { git diff --cached --quiet || git commit -qm "understat current-season cache $(date -u +%FT%H:%MZ)"; } && git push -q) && break
+              sleep 5
+            done || true
+          fi
+
+      - name: Shadow
+        if: steps.need.outputs.dates != ''
+        run: python3 soccer/history/shadow.py --history hist --soccer soccer --dates ${{ steps.need.outputs.dates }}
+
+      - name: Grade settled nights
+        run: python3 soccer/history/shadow.py --history hist --soccer soccer --grade
+
+      - name: Commit
+        run: |
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add soccer/shadow/
+          if git diff --staged --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -m "Soccer shadow ${{ steps.need.outputs.dates }} ($(date -u +%H:%MZ))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+            sleep 7
+          done
+          echo "::error::could not push after 5 attempts"; exit 1

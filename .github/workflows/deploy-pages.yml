@@ -1,0 +1,71 @@
+name: Deploy Pages
+
+on:
+  workflow_run:
+    workflows: ["Build NBA Board", "Build NFL Board", "Build Ticket Room", "Build Soccer Board", "Settle Soccer Night", "Build soccer slate (no browser)", "Fetch NFL slate (no browser)"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            index.html
+            CNAME
+            cover.html
+            mlb_offseason.html
+            mlb_showcase.py
+            mlb_showcase_D.json
+            season.json
+            soccer/index.html
+            soccer/soccer_D.json
+            soccer/soccer_season.json
+            nfl/index.html
+            nba/index.html
+            nba/nba_D.json
+            soccer/coverage.json
+      - name: Stage the site files (board + custom domain + boards the client adopts)
+        run: |
+          mkdir -p _site _site/mlb
+          if [ -f mlb_offseason.html ]; then
+            python3 mlb_showcase.py index.html mlb_showcase_D.json _site/mlb/index.html || cp mlb_offseason.html _site/mlb/index.html
+          else cp index.html _site/mlb/; fi
+          [ -f CNAME ] && cp CNAME _site/ || true
+          if [ -f soccer/index.html ]; then mkdir -p _site/soccer && cp soccer/index.html _site/soccer/; fi
+          if [ -f soccer/soccer_D.json ]; then cp soccer/soccer_D.json _site/soccer/; fi
+          [ -f soccer/coverage.json ] && cp soccer/coverage.json _site/soccer/ || true
+          if [ -f nfl/index.html ]; then mkdir -p _site/nfl && cp nfl/index.html _site/nfl/; fi
+          if [ -f nba/index.html ]; then mkdir -p _site/nba && cp nba/index.html _site/nba/; fi
+          [ -f nba/nba_D.json ] && cp nba/nba_D.json _site/nba/ || true
+          if [ -f cover.html ]; then cp cover.html _site/index.html && cp cover.html _site/; fi
+          mkledger() { [ -f "$1" ] && [ -d "$(dirname "$2")" ] && python3 -c 'import json,sys; j=json.load(open(sys.argv[1])); json.dump({"since":j.get("since"),"cats":j.get("cats",{})},open(sys.argv[2],"w"))' "$1" "$2" && echo "ledger $2" || echo "skip $1"; }
+          mkledger season.json _site/ledger.json
+          mkledger soccer/soccer_season.json _site/soccer/ledger.json
+          echo "staged:"; ls -laR _site/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000

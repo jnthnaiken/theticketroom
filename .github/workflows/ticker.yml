@@ -1,0 +1,42 @@
+
+name: Ticker
+
+on:
+  repository_dispatch:
+    types: [tick]
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 16-23,0-5 * * *"
+
+concurrency:
+  group: ticket-room-ticker
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Dispatch a build every 5 minutes for ~25 minutes
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::warning::GH_PAT is empty -- cannot dispatch. Board stays on the 30-minute cadence."
+            exit 0
+          fi
+          for i in 1 2 3 4 5; do
+            sleep 300
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_PAT" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/repos/${{ github.repository }}/dispatches" \
+              -d '{"event_type":"build-tick"}' || echo "000")
+            echo "tick $i/5 -> HTTP $code"
+            if [ "$code" != "204" ]; then
+              echo "::warning::dispatch returned $code -- stopping this ticker; the next build-board will start a fresh one"
+              exit 0
+            fi
+          done
+          echo "ticker done -- next external build-board starts the following one"

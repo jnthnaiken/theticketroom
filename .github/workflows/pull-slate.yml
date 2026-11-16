@@ -1,0 +1,180 @@
+
+name: Build Ticket Room
+
+on:
+  repository_dispatch:
+    types: [build-board, build-tick]
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Slate date YYYY-MM-DD (blank = latest committed cards)"
+        required: false
+        default: ""
+      force:
+        description: "Force a rebuild even if the slate is final (data fix). Drafts from scratch."
+        required: false
+        default: "false"
+  schedule:
+    - cron: "*/5 16-23,0-5 * * *"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: ticket-room
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Unstick a hung Pages deploy
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          now=$(date -u +%s)
+          gh api "repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/runs?status=waiting&per_page=20" \
+            --jq '.workflow_runs[] | "\(.id) \(.created_at)"' 2>/dev/null | while read -r id created; do
+              age=$(( now - $(date -u -d "$created" +%s) ))
+              if [ "$age" -gt 900 ]; then
+                echo "::warning::Pages deploy $id stuck in waiting for ${age}s -- cancelling so the queue can drain"
+                gh api -X POST "repos/${{ github.repository }}/actions/runs/$id/cancel" >/dev/null 2>&1 || true
+              fi
+            done
+
+      - name: Resolve slate date
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            D="${{ github.event.inputs.date }}"
+          else
+            D="$(ls cards_*.json 2>/dev/null | sed -E 's/.*cards_([0-9]{4}-[0-9]{2}-[0-9]{2})\.json/\1/' | sort | tail -n1)"
+            [ -z "$D" ] && D="$(TZ=America/New_York date +%F)"
+          fi
+          echo "SLATE_DATE=$D" >> "$GITHUB_ENV"
+          echo "Building slate for $D"
+
+      - name: Grade finished nights
+        run: python3 grade_night.py
+
+      - name: Log calibration (idempotent, self-healing)
+        run: python3 calibrate.py --backfill
+
+      - name: Pull slate (StatsAPI + Open-Meteo)
+        run: python3 fetch_mlb.py "$SLATE_DATE"
+
+      - name: Verify the slate was pulled fresh
+        id: verify
+        env:
+          FORCE_REBUILD: ${{ github.event.inputs.force }}
+        run: |
+          python3 - "$SLATE_DATE" <<'PY'
+          import json, os, sys
+          d = sys.argv[1]; f = f"slate_auto_{d}.json"
+          s = json.load(open(f))
+          pa = str(s.get("pulled_at", ""))
+          games = s.get("games", []) or []
+          hr = [((g.get(side) or {}).get("sp") or {}).get("hr9")
+                for g in games for side in ("away", "home")]
+          have = sum(1 for x in hr if x is not None)
+          print(f"{f}: pulled_at={pa!r}  HR/9 {have}/{len(hr)}")
+          nosp = bool(games) and all(not ((g.get(side) or {}).get("sp") or {}).get("id")
+                                     for g in games for side in ("away", "home"))
+          fresh = not (pa.startswith("manual") or "T" not in pa or (have == 0 and not nosp))
+          if have == 0 and nosp and fresh:
+              print("::notice::No starter announced for any game yet -- building with the SP term neutral.")
+          import re as _re
+          allfinal = bool(games) and all(_re.search(r"final|completed|over", str(g.get("status") or ""), _re.I) for g in games)
+          force = os.environ.get("FORCE_REBUILD", "").lower() == "true"
+          if allfinal and force:
+              print("::notice::Slate %s is final, but force=true -- rebuilding it from scratch." % d)
+          elif allfinal:
+              print("::notice::Slate %s is fully final -- board frozen, skipping rebuild." % d)
+              fresh = False
+          elif not fresh:
+              print("::notice::No fresh StatsAPI pull yet (manual/stale or zero HR/9). Skipping "
+                    "score+assemble+commit this run -- harmless; a later run builds it.")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"fresh={'true' if fresh else 'false'}\n")
+          PY
+
+      - name: Refresh odds from VegasInsider
+        id: odds
+        if: success() && steps.verify.outputs.fresh == 'true'
+        continue-on-error: true
+        run: python3 fetch_odds.py "$SLATE_DATE" --auto
+
+      - name: Score the field
+        if: success() && steps.verify.outputs.fresh == 'true'
+        run: python3 build15.py
+
+      - name: Verify the Savant edge signals survived the pull
+        id: signals
+        if: success() && steps.verify.outputs.fresh == 'true'
+        run: |
+          if python3 savant_gate.py "$SLATE_DATE"; then
+            echo "edge signals healthy"
+          else
+            echo "::warning::Savant signals degraded -- discarding this board, keeping the published one."
+            git checkout -- "D_${SLATE_DATE}.json" 2>/dev/null || rm -f "D_${SLATE_DATE}.json"
+          fi
+
+      - name: Assemble + inject the board
+        if: success() && steps.verify.outputs.fresh == 'true' && steps.signals.outputs.signals == 'ok'
+        env:
+          FORCE_REBUILD: ${{ github.event.inputs.force }}
+        run: python3 regen15.py
+
+      - name: Commit the board + ledger + calibration
+        run: |
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add slate_auto_*.json D_*.json season.json index.html calibration.jsonl
+          if [ "${{ steps.odds.outputs.snapshot }}" = "true" ]; then
+            git add "odds_${SLATE_DATE}.json" "markets_${SLATE_DATE}.json" 2>/dev/null || true
+            echo "staged the closing odds snapshot for ${SLATE_DATE}"
+          fi
+          if git diff --staged --quiet; then
+            echo "no changes to commit"
+          elif ! python3 commit_gate.py; then
+            git reset -q
+          else
+            git commit -m "Auto board build ${SLATE_DATE} ($(date -u +%H:%MZ))"
+            ok=0
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; ok=1; break; }
+              echo "push attempt $i failed, retrying"; sleep 4
+            done
+            [ "$ok" = 1 ] || { echo "::error::push failed after 3 attempts -- board NOT updated"; exit 1; }
+          fi
+
+      - name: Start the 5-minute ticker
+        if: always() && github.event_name == 'repository_dispatch' && github.event.action == 'build-board'
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::warning::GH_PAT is empty -- no ticker; board stays on the 30-minute cadence."
+            exit 0
+          fi
+          code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_PAT" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/dispatches" \
+            -d '{"event_type":"tick"}' || echo "000")
+          echo "ticker start -> HTTP $code"
+          [ "$code" = "204" ] || echo "::warning::could not start ticker (HTTP $code) -- 30-minute cadence still applies"

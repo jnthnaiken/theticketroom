@@ -1,0 +1,147 @@
+name: Settle Soccer Night
+
+on:
+  repository_dispatch:
+    types: [build-board]
+  schedule:
+    - cron: '0 19,20,21,22,23,0,1,2,3,4,5,12 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Fold even if a match never went final (abandoned/postponed). A decision, not a retry."
+        required: false
+        default: "false"
+      date:
+        description: "Settle only this date (YYYY-MM-DD). Blank = every unsettled board."
+        required: false
+        default: ""
+      regrade:
+        description: "REGRADE-2026-09-04. Take `date` back OUT of the ledger first, then settle and fold it again under today's rules. Requires an explicit date. For a rule change, not a retry."
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-settle
+  cancel-in-progress: false
+
+jobs:
+  settle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Unfold the night being regraded
+        if: github.event.inputs.regrade == 'true'
+        run: |
+          cd soccer
+          D="${{ github.event.inputs.date }}"
+          if [ -z "$D" ]; then
+            echo "::error::regrade requires an explicit date -- refusing to guess which night to unwind."
+            exit 1
+          fi
+          if [ ! -f "boards/$D.json" ]; then
+            echo "::error::no archived board at soccer/boards/$D.json"
+            exit 1
+          fi
+          python3 soccer_unfold.py "boards/$D.json" --season soccer_season.json \
+            --reason "regrade dispatched by ${{ github.actor }} (run ${{ github.run_id }})"
+
+      - name: Find unsettled boards
+        id: find
+        run: |
+          cd soccer
+          mkdir -p boards
+          if [ -f soccer_D.json ]; then
+            D=$(python3 -c "import json;print(json.load(open('soccer_D.json'))['meta']['date'])")
+            [ -f "boards/$D.json" ] || cp soccer_D.json "boards/$D.json"
+          fi
+          PICK="${{ github.event.inputs.date }}"
+          python3 - "$PICK" <<'PY' >> $GITHUB_OUTPUT
+          import json, os, sys, glob
+          pick = (sys.argv[1] or '').strip()
+          graded = set(json.load(open('soccer_season.json')).get('graded_nights', []))
+          todo = []
+          for f in sorted(glob.glob('boards/*.json')):
+              d = os.path.basename(f)[:-5]
+              if d in graded:      continue
+              if pick and d != pick: continue
+              todo.append(d)
+          print('dates=' + ' '.join(todo))
+          print('n=%d' % len(todo))
+          PY
+          echo "unsettled: $(grep '^dates=' $GITHUB_OUTPUT | cut -d= -f2-)"
+
+      - name: Settle each unsettled night
+        if: steps.find.outputs.n != '0'
+        id: run
+        run: |
+          cd soccer
+          FOLDED=""
+          for D in ${{ steps.find.outputs.dates }}; do
+            B="boards/$D.json"
+            echo "::group::$D"
+            set +e
+            if [ "${{ github.event.inputs.force }}" = "true" ]; then
+              node soccer_settle.js "$B" --force
+            else
+              node soccer_settle.js "$B"
+            fi
+            RC=$?
+            set -e
+            case $RC in
+              0)
+                echo "$D: every match final -- folding"
+                python3 soccer_grade.py "$B" --season soccer_season.json
+                FOLDED="$FOLDED $D"
+                ;;
+              20) echo "::notice::$D not finished yet; will retry on the next pass." ;;
+              30) echo "::warning::$D: no usable results feed this pass; not folding." ;;
+              *)  echo "::error::$D: soccer_settle.js exited $RC" ;;
+            esac
+            echo "::endgroup::"
+          done
+          echo "folded=$FOLDED" >> $GITHUB_OUTPUT
+
+      - name: Stamp settled boards with their own result
+        id: stamp
+        run: |
+          cd soccer
+          if ! ls boards/*.json >/dev/null 2>&1; then
+            echo "no archived boards"; echo "stamped=false" >> $GITHUB_OUTPUT; exit 0
+          fi
+          python3 soccer_grade.py --stamp boards/*.json | tee stamp.txt
+          if git -C .. diff --quiet -- soccer/boards/; then
+            echo "stamped=false" >> $GITHUB_OUTPUT
+          else
+            echo "stamped=true"  >> $GITHUB_OUTPUT
+          fi
+          rm -f stamp.txt
+
+      - name: Commit
+        if: steps.run.outputs.folded != '' || steps.stamp.outputs.stamped == 'true'
+        run: |
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add soccer/soccer_season.json soccer/boards/
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            FOLDED="${{ steps.run.outputs.folded }}"
+            if [ -n "$FOLDED" ]; then MSG="Settle soccer$FOLDED";
+            else MSG="Stamp settled soccer boards with their own result"; fi
+            git commit -m "$MSG"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin main && git push && { echo "pushed"; exit 0; }
+              sleep 5
+            done
+            echo "::error::could not push after 3 attempts"; exit 1
+          fi

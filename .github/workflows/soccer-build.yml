@@ -1,0 +1,304 @@
+name: Build Soccer Board
+
+on:
+  repository_dispatch:
+    types: [tick, build-tick, build-board, build-soccer]
+  schedule:
+    - cron: '*/15 9-23 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and report, but commit nothing."
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Resolve the slate
+        id: slate
+        run: |
+          cd soccer
+          DATE=$(python3 - <<'PYX'
+          import json, os, datetime
+          ds = sorted(d for d in os.listdir('slates') if os.path.isdir(os.path.join('slates', d)))
+          if not ds: raise SystemExit
+          try: done = set(json.load(open('soccer_season.json')).get('graded_nights', []))
+          except Exception: done = set()
+          newest = datetime.date.fromisoformat(ds[-1])
+          recent = [d for d in ds if datetime.date.fromisoformat(d) >= newest - datetime.timedelta(days=1)]
+          open_ = [d for d in recent if d not in done]
+          print(open_[0] if open_ else ds[-1])
+          PYX
+          )
+          if [ -z "$DATE" ]; then echo "no slate directories"; echo "go=false" >> $GITHUB_OUTPUT; exit 0; fi
+          for f in ags.psv xg.psv fixtures.json; do
+            [ -f "slates/$DATE/$f" ] || { echo "::error::slates/$DATE/$f missing"; exit 1; }
+          done
+          if python3 -c "import json,sys;s=json.load(open('soccer_season.json'));sys.exit(0 if '$DATE' in s.get('graded_nights',[]) else 1)"; then
+            echo "$DATE is already folded into the ledger -- board is finished"
+            echo "go=false" >> $GITHUB_OUTPUT
+          else
+            echo "slate $DATE"
+            echo "date=$DATE" >> $GITHUB_OUTPUT
+            echo "go=true"    >> $GITHUB_OUTPUT
+          fi
+
+      - name: Is the scorer model in yet?
+        id: shadowhold
+        if: steps.slate.outputs.go == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          HOLD_MIN: '45'
+        run: |
+          cd soccer
+          D=${{ steps.slate.outputs.date }}
+          python3 - "$D" <<'PY' >> $GITHUB_OUTPUT
+          import calendar, json, os, sys, time, urllib.request
+          D = sys.argv[1]
+          def out(hold, why):
+              print(f'hold={"true" if hold else "false"}')
+              print(f'why={why}')
+              print(('  HOLDING this pass: ' if hold else '  publishing: ') + why, file=sys.stderr)
+              sys.exit(0)
+          try:
+              if D < '2026-10-10':
+                  out(False, 'slate predates SCOREPROB')
+              rated = 0
+              p = f'shadow/{D}.json'
+              if os.path.exists(p):
+                  m = json.load(open(p, encoding='utf-8')).get('players', {})
+                  rated = sum(1 for v in m.values()
+                              if isinstance(v.get('p_model'), (int, float)) and 0 < v['p_model'] < 1)
+              if rated >= 8:
+                  out(False, f'scorer model present ({rated} rated)')
+              if os.path.exists(f'boards/{D}.json'):
+                  out(False, 'a board for this slate is already published -- never hold a rebuild')
+              repo = 'jnthnaiken/theticketroom-engine'
+              req = urllib.request.Request(
+                  f'https://api.github.com/repos/{repo}/commits?path=soccer/slates/{D}&per_page=1',
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                           'Accept': 'application/vnd.github+json'})
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  commits = json.load(r)
+              when = commits[0]['commit']['committer']['date']
+              age = (time.time() - calendar.timegm(time.strptime(when, '%Y-%m-%dT%H:%M:%SZ'))) / 60.0
+              lim = float(os.environ.get('HOLD_MIN', '45'))
+              if age >= lim:
+                  out(False, f'slate is {age:.0f} min old and still has no model -- '
+                             f'past the {lim:.0f} min hold, shipping the degraded board')
+              out(True, f'no scorer model yet and the slate is only {age:.0f} min old '
+                        f'(hold up to {lim:.0f}) -- soccer-shadow.yml is still running')
+          except SystemExit:
+              raise
+          except Exception as e:
+              out(False, f'hold check failed ({str(e)[:70]}) -- failing open')
+          PY
+
+      - name: What is on today
+        if: steps.slate.outputs.go == 'true'
+        continue-on-error: true
+        run: |
+          cd soccer
+          node slate_scan.js ${{ steps.slate.outputs.date }} --all || exit 0
+          node slate_scan.js ${{ steps.slate.outputs.date }} --json > /tmp/scan.json || exit 0
+          python3 - <<'PY'
+          import json
+          scan = json.load(open('/tmp/scan.json'))
+          fx   = json.load(open('slates/${{ steps.slate.outputs.date }}/fixtures.json'))
+          have = {tuple(m['espn']) for m in fx['matches'].values() if m.get('espn')}
+          admit = [r for r in scan['fixtures'] if r['admit']]
+          missing = [r for r in admit if tuple(r['espn']) not in have]
+          print(f"committed {len(fx['matches'])} of {len(admit)} admissible")
+          for r in missing:
+              print(f"::warning::{r['league']} {r['name']} ({r['kickoffZ']}Z, {r['espn'][0]}:{r['id']}) "
+                    f"is admissible and NOT in the committed slate -- deliberate (no AGS section) or missed?")
+          if not missing:
+              print('every admissible fixture is on the slate')
+          PY
+
+      - name: Stage the work directory
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer
+          rm -rf .work && mkdir -p .work
+          cp slates/${{ steps.slate.outputs.date }}/{ags.psv,xg.psv,fixtures.json} .work/
+          cp slates/${{ steps.slate.outputs.date }}/prices.json .work/ 2>/dev/null || true
+          cp slates/${{ steps.slate.outputs.date }}/squads.psv .work/ 2>/dev/null || true
+          cp slates/${{ steps.slate.outputs.date }}/fgs.psv .work/ 2>/dev/null || true
+          TD=slates/${{ steps.slate.outputs.date }}
+          if [ ! -f $TD/tot_pick.json ] && { [ ! -f $TD/tot.psv ] || [ -f $TD/tot.src ]; }; then
+            node bp_tot.js $TD/fixtures.json $TD/tot.psv && [ -s $TD/tot.psv ] && echo bettingpros > $TD/tot.src || true
+          fi
+          cp slates/${{ steps.slate.outputs.date }}/tot.psv .work/ 2>/dev/null || true
+          cp tm.psv .work/ 2>/dev/null || true
+          cp soccer_*.py soccer_*.js .work/
+          cp soccer_season.json .work/
+          cp coverage.json .work/
+          cp ../index.html .work/index_live.html
+          [ -f boards/${{ steps.slate.outputs.date }}.json ] && cp boards/${{ steps.slate.outputs.date }}.json .work/prior.json || true
+
+      - name: Pull ESPN team sheets
+        id: tn
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          set +e
+          node soccer_teamnews_fetch.js fixtures.json teamnews.psv squads.psv
+          RC=$?
+          set -e
+          echo "rc=$RC" >> $GITHUB_OUTPUT
+          case $RC in
+            0)  echo "every sheet published -- joining to the priced field"
+                python3 soccer_teamnews.py ags.psv teamnews.psv teamnews.json ;;
+            20) echo "::notice::Some sheets not published yet; joining the ones that ARE (per-match trust)."
+                python3 soccer_teamnews.py ags.psv teamnews.psv teamnews.json
+                if ! python3 -c "import json,sys;sys.exit(0 if json.load(open('teamnews.json')).get('xi') else 1)"; then
+                  echo "::notice::No sheet has published yet -- dropping the empty join."
+                  rm -f teamnews.json
+                fi ;;
+            30) echo "::warning::ESPN unreachable this pass; drafting without team news." ;;
+            *)  echo "::error::soccer_teamnews_fetch.js exited $RC"; exit $RC ;;
+          esac
+
+      - name: Score and draft
+        id: draft
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          python3 soccer_mock.py
+          if [ -f prior.json ]; then
+            set +e
+            node soccer_rebuild_cli.js prior.json scored.json tickets.json \
+                 $([ -f teamnews.json ] && echo "--teamnews teamnews.json")
+            RC=$?
+            set -e
+            echo "rebuild_rc=$RC" >> $GITHUB_OUTPUT
+            if [ $RC -ne 0 ] && [ $RC -ne 10 ]; then echo "::error::rebuild exited $RC"; exit $RC; fi
+            if [ $RC -eq 10 ]; then echo "draft unchanged"; fi
+          else
+            echo "first build of this slate -- the fresh draft stands"
+            echo "rebuild_rc=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Payload and fork
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          python3 soccer_payload.py scored.json tickets.json xg.psv soccer_D.json \
+                  ${{ steps.slate.outputs.date }} --season soccer_season.json \
+                  $([ -f teamnews.json ] && echo "--teamnews teamnews.json") \
+                  $([ -f squads.psv ] && echo "--squads squads.psv") \
+                  $([ -f fgs.psv ] && echo "--fgs fgs.psv") \
+                  --ftd-cache ../slates/${{ steps.slate.outputs.date }}/ftd_pick.json \
+                  $([ -f tot.psv ] && echo "--tot-psv tot.psv") \
+                  $([ -f tm.psv ] && echo "--tm-psv tm.psv") \
+                  --tot-cache ../slates/${{ steps.slate.outputs.date }}/tot_pick.json
+          python3 soccer_fork.py index_live.html soccer_D.json soccer_index.html
+
+      - name: Did anything a reader would notice change?
+        id: gate
+        if: steps.slate.outputs.go == 'true'
+        run: |
+          cd soccer/.work
+          if [ ! -f prior.json ]; then echo "first build"; echo "commit=true" >> $GITHUB_OUTPUT; exit 0; fi
+          python3 - <<'PY' > gate.txt
+          import json, os
+          def sig(p):
+              d = json.load(open(p))
+              t = sorted(x['kind'] + ':' + '+'.join(l['name'] for l in x['players']) for x in d['tickets'])
+              pl = {n: (v.get('odds'), v.get('status'), bool(v.get('out')), bool(v.get('hr')),
+                        v.get('team'), v.get('pscore'),
+                        v.get('oppxga'), v.get('tgx'))
+                    for n, v in d['players'].items()}
+              prose = (sorted((x.get('kind', '') + ':' + '+'.join(l['name'] for l in x['players']),
+                               x.get('note') or '') for x in d['tickets']),
+                       {n: (v.get('why') or '') for n, v in d['players'].items()})
+              ftd = (lambda f: (f.get('anchor'), f.get('note')) if f else None)(d.get('meta', {}).get('ftd'))
+              led = json.dumps(d.get('meta', {}).get('season'), sort_keys=True)
+              tot = json.dumps(d.get('meta', {}).get('tot'), sort_keys=True)
+              return t, pl, prose, ftd, led, tot
+          def shell(p):
+              """The page minus its payload: template + every injected module."""
+              h = open(p, encoding='utf-8', errors='replace').read()
+              i = h.find('const D={')
+              if i < 0:
+                  return h
+              j = i + len('const D=')
+              _, end = json.JSONDecoder().raw_decode(h[j:])
+              return h[:i] + '<<PAYLOAD>>' + h[j + end:]
+          a, b = sig('prior.json'), sig('soccer_D.json')
+          moved = a != b
+          code = False
+          if os.path.exists('../index.html'):
+              try:
+                  code = shell('../index.html') != shell('soccer_index.html')
+              except Exception:
+                  code = True
+          print('commit=' + ('true' if (moved or code) else 'false'))
+          if a[0] != b[0]: print('::notice::the draft moved')
+          if a[:2] == b[:2] and a[2] != b[2]: print('::notice::same board, new write-ups -- publishing')
+          if code and not moved: print('::notice::board data unchanged, page code changed -- publishing')
+          PY
+          grep '^commit=' gate.txt >> "$GITHUB_OUTPUT"
+          grep '^::' gate.txt || true
+          echo "gate: $(grep '^commit=' gate.txt | tail -1)"
+
+      - name: Publish
+        if: steps.slate.outputs.go == 'true' && steps.gate.outputs.commit == 'true' && github.event.inputs.dry_run != 'true' && steps.shadowhold.outputs.hold != 'true'
+        run: |
+          cd soccer
+          D=${{ steps.slate.outputs.date }}
+          cp .work/soccer_index.html index.html
+          cp .work/soccer_D.json     soccer_D.json
+          mkdir -p boards && cp .work/soccer_D.json "boards/$D.json"
+          mkdir -p "slates/$D" && cp .work/prices.json "slates/$D/prices.json"
+          [ -f .work/squads.psv ] && cp .work/squads.psv "slates/$D/squads.psv" || true
+          cd ..
+          git config user.name  "kasper-bot"
+          git config user.email "kasper-bot@users.noreply.github.com"
+          git add soccer/index.html soccer/soccer_D.json soccer/boards/ \
+                  "soccer/slates/$D/prices.json"
+          [ -f "soccer/slates/$D/squads.psv" ] && git add "soccer/slates/$D/squads.psv" || true
+          [ -f "soccer/slates/$D/ftd_pick.json" ] && git add "soccer/slates/$D/ftd_pick.json" || true
+          [ -f "soccer/slates/$D/tot_pick.json" ] && git add "soccer/slates/$D/tot_pick.json" || true
+          [ -f "soccer/slates/$D/tot.src" ] && git add "soccer/slates/$D/tot.psv" "soccer/slates/$D/tot.src" || true
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            git commit -m "Soccer board $D ($(date -u +%H:%MZ))"
+            for i in 1 2 3; do
+              if git pull --rebase --autostash origin main; then git push && { echo "pushed"; exit 0; }; else git rebase --abort 2>/dev/null; git reset -q --hard origin/main; echo "::warning::another build published first -- this build stands down; the next tick rebuilds"; exit 0; fi
+              sleep 5
+            done
+            echo "::error::could not push after 3 attempts"; exit 1
+          fi
+
+      - name: Report
+        if: always() && steps.slate.outputs.go == 'true'
+        run: |
+          echo "slate    ${{ steps.slate.outputs.date }}"
+          echo "teamnews rc=${{ steps.tn.outputs.rc }}  (0 complete / 20 not yet / 30 no feed)"
+          echo "rebuild  rc=${{ steps.draft.outputs.rebuild_rc }}  (10 = draft unchanged)"
+          echo "commit   ${{ steps.gate.outputs.commit }}${{ github.event.inputs.dry_run == 'true' && '  (DRY RUN -- nothing published)' || '' }}"
+          echo "model    ${{ steps.shadowhold.outputs.why }}${{ steps.shadowhold.outputs.hold == 'true' && '  -> PUBLISH HELD' || '' }}"

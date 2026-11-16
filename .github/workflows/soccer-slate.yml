@@ -1,0 +1,85 @@
+name: Build soccer slate (no browser)
+
+on:
+  repository_dispatch:
+    types: [build-board]
+  workflow_dispatch:
+    inputs:
+      date: { description: "Slate date (blank = by the clock)", required: false, default: "" }
+
+permissions:
+  contents: write
+
+concurrency:
+  group: soccer-slate
+  cancel-in-progress: false
+
+jobs:
+  slate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Which slate?
+        id: d
+        run: |
+          H=$(TZ=America/New_York date +%-H)
+          if [ -n "${{ inputs.date }}" ]; then D="${{ inputs.date }}"
+          elif [ "$H" = 19 ]; then D=$(TZ=America/New_York date -d tomorrow +%F)
+          elif [ "$H" = 6 ]; then D=$(TZ=America/New_York date +%F)
+          elif [ "$H" -le 5 ]; then D=$(TZ=America/New_York date +%F); echo "onlyifmissing=true" >> $GITHUB_OUTPUT
+          else echo "outside the fetch windows (ET hour $H)"; exit 0; fi
+          echo "date=$D" >> $GITHUB_OUTPUT; echo "slate $D"
+      - uses: actions/checkout@v4
+        if: steps.d.outputs.date != ''
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+      - name: Leave it alone?
+        id: g
+        if: steps.d.outputs.date != ''
+        run: |
+          S=soccer/slates/${{ steps.d.outputs.date }}
+          if [ "${{ steps.d.outputs.onlyifmissing }}" = true ] && [ -f $S/ags.psv ]; then echo "today's slate exists -- nothing to retry"; exit 0; fi
+          if [ -f $S/ags.psv ] && [ ! -f $S/auto.src ]; then echo "hand-built slate -- never overwritten"; exit 0; fi
+          if [ -f $S/prices.json ]; then echo "add=true" >> $GITHUB_OUTPUT; echo "frozen -- add-only (new matches)"; fi
+          echo "go=true" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v4
+        if: steps.g.outputs.go == 'true'
+        with: { node-version: '20' }
+      - name: Build
+        id: b
+        if: steps.g.outputs.go == 'true'
+        run: |
+          set +e
+          D=${{ steps.d.outputs.date }}
+          (cd soccer && node auto_slate.js $D ../.auto) > auto.log 2>&1; cat auto.log
+          N=$(python3 -c "import json;print(len(json.load(open('.auto/fixtures.json'))['matches']))" 2>/dev/null || echo 0)
+          M=$(cut -d'|' -f1 .auto/ags.psv 2>/dev/null | sort -u | wc -l)
+          X=$(wc -l < .auto/xg.psv 2>/dev/null || echo 0)
+          echo "fixtures $N, matches with goalscorer prices $M, xg rows $X" | tee -a auto.log
+          if [ "${{ steps.g.outputs.add }}" = true ]; then
+            python3 soccer/auto_add.py soccer/slates/$D .auto | tee -a auto.log
+            if [ -f .auto/ADDED ] || [ "$(wc -l < .auto/xg.psv 2>/dev/null || echo 0)" -gt "$(wc -l < soccer/slates/$D/xg.psv 2>/dev/null || echo 0)" ]; then echo "ok=true" >> $GITHUB_OUTPUT; fi
+          elif [ "$N" -gt 0 ] && [ "$M" -ge 1 ] && [ "$X" -gt 100 ]; then echo "ok=true" >> $GITHUB_OUTPUT
+          else echo "::warning::not enough to post a board (fixtures $N, priced $M, xg $X)"; fi
+      - name: Save the log
+        if: steps.g.outputs.go == 'true'
+        run: |
+          git clone -q --depth 1 -b soccer-data "https://x-access-token:${{ secrets.GH_PAT }}@github.com/jnthnaiken/theticketroom-engine" logd
+          mkdir -p logd/trip && cp auto.log logd/trip/auto_slate_${{ steps.d.outputs.date }}.log
+          cd logd && git config user.email a@b.c && git config user.name auto-slate && git add trip && git commit -qm "auto_slate log" && git push -q || true
+      - name: Commit and build
+        if: steps.b.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          D=${{ steps.d.outputs.date }}; S=soccer/slates/$D
+          if [ "${{ steps.g.outputs.add }}" = true ]; then cp .auto/ags.psv $S/; [ -f .auto/fgs.psv ] && cp .auto/fgs.psv $S/
+            [ -f .auto/xg.psv ] && [ $(wc -l < .auto/xg.psv) -gt $(wc -l < $S/xg.psv 2>/dev/null || echo 0) ] && cp .auto/xg.psv $S/
+          else mkdir -p $S && cp .auto/fixtures.json .auto/ags.psv .auto/xg.psv $S/ && cp .auto/fgs.psv $S/ 2>/dev/null || true; fi
+          echo "auto_slate.js $(date -u +%FT%TZ)" > $S/auto.src
+          git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add $S/fixtures.json $S/ags.psv $S/xg.psv $S/auto.src $( [ -f $S/fgs.psv ] && echo $S/fgs.psv )
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -m "Soccer slate $D (auto, no browser)"
+          for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep $((i*5)); done
+          gh api repos/${{ github.repository }}/dispatches -f event_type=build-soccer || true

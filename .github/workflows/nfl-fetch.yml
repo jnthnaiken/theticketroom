@@ -1,0 +1,76 @@
+name: Fetch NFL slate (no browser)
+
+on:
+  repository_dispatch:
+    types: [build-board]
+  schedule:
+    - cron: '35 23 * * *'
+    - cron: '5 10 * * *'
+  workflow_dispatch:
+    inputs:
+      date: { description: "Slate date (blank = next one due)", required: false, default: "" }
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfl-fetch
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate (build-board ping only in the fetch windows)
+        id: gate
+        run: |
+          H=$(TZ=America/New_York date +%-H)
+          if [ "${{ github.event_name }}" != "repository_dispatch" ] || [ "$H" = 19 ] || [ "$H" = 6 ]; then
+            echo "go=true" >> $GITHUB_OUTPUT; echo "fetch window (ET hour $H, ${{ github.event_name }})"
+          else echo "go=false" >> $GITHUB_OUTPUT; echo "outside fetch window (ET hour $H)"; fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.go == 'true'
+        with:
+          repository: jnthnaiken/theticketroom-engine
+          token: ${{ secrets.GH_PAT }}
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.go == 'true'
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.go == 'true'
+        with: { python-version: '3.12' }
+      - if: steps.gate.outputs.go == 'true'
+        run: pip install --quiet pandas numpy pyarrow
+      - name: Fixtures
+        id: fx
+        if: steps.gate.outputs.go == 'true'
+        run: |
+          cd nfl
+          python3 auto_slate.py ${{ inputs.date && format('--date {0}', inputs.date) || '' }} >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
+      - name: Prices
+        if: steps.fx.outputs.date != ''
+        run: |
+          cd nfl
+          D=${{ steps.fx.outputs.date }}
+          node bp_fetch.js slates/$D/fixtures.json slates/$D
+          N=$(python3 -c "import json;print(len(json.load(open('slates/$D/fixtures.json'))['matches']))")
+          G=$(cut -d'|' -f1 slates/$D/atd.psv 2>/dev/null | sort -u | wc -l)
+          echo "priced games: $G of $N"
+          if [ "$G" -lt $(( (N+1)/2 )) ]; then
+            echo "::error::only $G of $N games priced -- not committing a thin slate"; exit 1
+          fi
+      - name: Commit and build
+        if: steps.fx.outputs.date != ''
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          D=${{ steps.fx.outputs.date }}
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nfl/slates/$D/fixtures.json nfl/slates/$D/atd.psv
+          [ -f nfl/slates/$D/ftd.psv ] && git add nfl/slates/$D/ftd.psv
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -m "NFL slate $D (auto fetch)"
+          for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep $((i*5)); done
+          gh api repos/${{ github.repository }}/dispatches -f event_type=build-nfl || true
