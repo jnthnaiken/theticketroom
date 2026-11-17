@@ -62,14 +62,30 @@ jobs:
           mkledger soccer/soccer_season.json _site/soccer/ledger.json
           echo "staged:"; ls -laR _site/
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - id: artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-      - id: enginesha
-        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - id: deployment
-        uses: actions/deploy-pages@v4
         env:
-          GITHUB_SHA: ${{ steps.enginesha.outputs.sha }}
-        with:
-          timeout: 1800000
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ARTIFACT_ID: ${{ steps.artifact.outputs.artifact_id }}
+        run: |
+          set -euo pipefail
+          VER="$(git rev-parse HEAD)-${GITHUB_RUN_ID}"
+          OIDC=$(curl -sSf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
+          API="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/deployments"
+          H=(-H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28")
+          R=$(jq -n --arg a "$ARTIFACT_ID" --arg v "$VER" --arg o "$OIDC" '{artifact_id:($a|tonumber),pages_build_version:$v,oidc_token:$o}' \
+              | curl -sS "${H[@]}" -X POST "$API" -d @-)
+          echo "$R" | jq -c '{id,page_url,status_url}' || { echo "$R"; exit 1; }
+          ID=$(echo "$R" | jq -r .id); URL=$(echo "$R" | jq -r .page_url)
+          [ "$ID" != null ] || { echo "::error::Pages deployment not created: $R"; exit 1; }
+          echo "page_url=$URL" >> "$GITHUB_OUTPUT"
+          for i in $(seq 1 120); do
+            st=$(curl -sS "${H[@]}" "$API/$ID" | jq -r .status)
+            echo "status: $st"
+            case "$st" in succeed) echo "deployed $VER"; exit 0;; deployment_failed|deployment_lost|deployment_cancelled|deployment_content_failed|syncing_files_failed) echo "::error::Pages: $st"; exit 1;; esac
+            sleep 5
+          done
+          echo "::warning::still not live after 10 min (last status $st)"
