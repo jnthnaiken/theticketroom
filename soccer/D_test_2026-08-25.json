@@ -1,0 +1,329 @@
+{
+ "players": {
+  "Andreas Helmersen": {
+   "nm": "Andreas Helmersen",
+   "game": 2,
+   "odds": 110,
+   "hr": false,
+   "goalmins": [],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Joy-Lance Mickels": {
+   "nm": "Joy-Lance Mickels",
+   "game": 1,
+   "odds": 150,
+   "hr": true,
+   "goalmins": [
+    "115"
+   ],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Moses Usor": {
+   "nm": "Moses Usor",
+   "game": 3,
+   "odds": 160,
+   "hr": true,
+   "goalmins": [
+    "32"
+   ],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Cucho Hernandez": {
+   "nm": "Cucho Hernandez",
+   "game": 4,
+   "odds": 230,
+   "hr": false,
+   "goalmins": [],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Kasper Hogh": {
+   "nm": "Kasper Hogh",
+   "game": 3,
+   "odds": 180,
+   "hr": false,
+   "goalmins": [],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Hugo Duro": {
+   "nm": "Hugo Duro",
+   "game": 4,
+   "odds": 225,
+   "hr": false,
+   "goalmins": [],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Samuel Adeniran": {
+   "nm": "Samuel Adeniran",
+   "game": 3,
+   "odds": 145,
+   "hr": true,
+   "goalmins": [
+    "58",
+    "109"
+   ],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Ole Didrik Blomberg": {
+   "nm": "Ole Didrik Blomberg",
+   "game": 2,
+   "odds": 150,
+   "hr": false,
+   "goalmins": [],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  },
+  "Deveron Fonville": {
+   "nm": "Deveron Fonville",
+   "game": 2,
+   "odds": 900,
+   "hr": false,
+   "goalmins": [],
+   "out": false,
+   "void": false,
+   "status": "projected",
+   "unres": "",
+   "ftd1": false
+  }
+ },
+ "tickets": [
+  {
+   "kind": "moon",
+   "name": "Top Corner",
+   "players": [
+    {
+     "name": "Andreas Helmersen",
+     "odds": 110,
+     "game": 2
+    },
+    {
+     "name": "Joy-Lance Mickels",
+     "odds": 150,
+     "game": 1
+    },
+    {
+     "name": "Moses Usor",
+     "odds": 160,
+     "game": 3
+    }
+   ],
+   "nlegs": 3,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2
+   }
+  },
+  {
+   "kind": "moon",
+   "name": "From Distance",
+   "players": [
+    {
+     "name": "Andreas Helmersen",
+     "odds": 110,
+     "game": 2
+    },
+    {
+     "name": "Cucho Hernandez",
+     "odds": 230,
+     "game": 4
+    },
+    {
+     "name": "Kasper Hogh",
+     "odds": 180,
+     "game": 3
+    }
+   ],
+   "nlegs": 3,
+   "rr": {
+    "struct": "by 2s & 3",
+    "risk": 2
+   }
+  },
+  {
+   "kind": "builder",
+   "name": "Six-Yard Box",
+   "players": [
+    {
+     "name": "Andreas Helmersen",
+     "odds": 110,
+     "game": 2
+    }
+   ],
+   "nlegs": 1,
+   "rr": null
+  },
+  {
+   "kind": "family",
+   "name": "Off the Bench",
+   "players": [
+    {
+     "name": "Hugo Duro",
+     "odds": 225,
+     "game": 4
+    }
+   ],
+   "nlegs": 1,
+   "rr": null
+  },
+  {
+   "kind": "family",
+   "name": "Fresh Legs",
+   "players": [
+    {
+     "name": "Samuel Adeniran",
+     "odds": 145,
+     "game": 3
+    }
+   ],
+   "nlegs": 1,
+   "rr": null
+  },
+  {
+   "kind": "family",
+   "name": "Late Doors",
+   "players": [
+    {
+     "name": "Ole Didrik Blomberg",
+     "odds": 150,
+     "game": 2
+    }
+   ],
+   "nlegs": 1,
+   "rr": null
+  }
+ ],
+ "pool": [
+  "Andreas Helmersen",
+  "Joy-Lance Mickels",
+  "Moses Usor",
+  "Cucho Hernandez",
+  "Kasper Hogh",
+  "Hugo Duro",
+  "Samuel Adeniran",
+  "Ole Didrik Blomberg",
+  "Deveron Fonville"
+ ],
+ "familyFloor": 0,
+ "meta": {
+  "date": "2026-08-25",
+  "build": "2026-08-25 test",
+  "face": "soccer",
+  "wx": {},
+  "gs": {},
+  "finals": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "results": {
+   "1": [
+    5,
+    2
+   ],
+   "2": [
+    3,
+    0
+   ],
+   "3": [
+    5,
+    1
+   ],
+   "4": [
+    0,
+    1
+   ]
+  },
+  "pool": 9,
+  "gate": 9,
+  "tickets": 6,
+  "espn": {
+   "1": {
+    "lg": "uefa.champions_qual",
+    "ev": "401909192"
+   },
+   "2": {
+    "lg": "uefa.champions_qual",
+    "ev": "401909196"
+   },
+   "3": {
+    "lg": "uefa.champions_qual",
+    "ev": "401903707"
+   },
+   "4": {
+    "lg": "esp.1",
+    "ev": "401882917"
+   }
+  },
+  "season": {
+   "since": "2026-08-25",
+   "history": [
+    0
+   ],
+   "graded_nights": [],
+   "stake": 1,
+   "cats": {
+    "lunch": {
+     "graded": 0,
+     "won": 0,
+     "units": 0,
+     "staked": 0
+    },
+    "late": {
+     "graded": 0,
+     "won": 0,
+     "units": 0,
+     "staked": 0
+    },
+    "builder": {
+     "graded": 0,
+     "won": 0,
+     "units": 0,
+     "staked": 0
+    },
+    "moon": {
+     "graded": 0,
+     "won": 0,
+     "units": 0,
+     "staked": 0
+    },
+    "family": {
+     "graded": 0,
+     "won": 0,
+     "units": 0,
+     "staked": 0
+    }
+   }
+  }
+ }
+}
