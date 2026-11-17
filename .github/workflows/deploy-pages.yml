@@ -65,7 +65,11 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+      - id: enginesha
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - id: deployment
         uses: actions/deploy-pages@v4
+        env:
+          GITHUB_SHA: ${{ steps.enginesha.outputs.sha }}
         with:
           timeout: 1800000
