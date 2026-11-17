@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -72,7 +72,15 @@ jobs:
           ARTIFACT_ID: ${{ steps.artifact.outputs.artifact_id }}
         run: |
           set -euo pipefail
-          VER="$(git rev-parse HEAD)"
+          ENG="$(git rev-parse HEAD)"
+          RAPI="https://api.github.com/repos/${GITHUB_REPOSITORY}"
+          HA=(-H "Authorization: Bearer $PAGES_TOKEN" -H "Accept: application/vnd.github+json")
+          TREE=$(curl -sSf "${HA[@]}" "$RAPI/git/commits/$GITHUB_SHA" | jq -r .tree.sha)
+          VER=$(jq -n --arg t "$TREE" --arg p "$GITHUB_SHA" --arg m "deploy engine $ENG" '{message:$m,tree:$t,parents:[$p]}' \
+                | curl -sSf "${HA[@]}" -X POST "$RAPI/git/commits" -d @- | jq -r .sha)
+          jq -n --arg s "$VER" '{sha:$s,force:true}' | curl -sS -o /dev/null "${HA[@]}" -X PATCH "$RAPI/git/refs/heads/pages-deploys" -d @- -w "%{http_code}" | grep -q 200 \
+            || jq -n --arg s "$VER" '{ref:"refs/heads/pages-deploys",sha:$s}' | curl -sSf -o /dev/null "${HA[@]}" -X POST "$RAPI/git/refs" -d @-
+          echo "engine $ENG -> pages version $VER"
           OIDC=$(curl -sSf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
           API="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/deployments"
           H=(-H "Authorization: Bearer $PAGES_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28")
