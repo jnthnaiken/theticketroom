@@ -92,6 +92,8 @@ jobs:
                               if isinstance(v.get('p_model'), (int, float)) and 0 < v['p_model'] < 1)
               if rated >= 8:
                   out(False, f'scorer model present ({rated} rated)')
+              if os.path.exists(p):
+                  out(False, f'shadow ran and rated {rated} -- nothing more to wait for')
               if os.path.exists(f'boards/{D}.json'):
                   out(False, 'a board for this slate is already published -- never hold a rebuild')
               repo = 'jnthnaiken/theticketroom-engine'
